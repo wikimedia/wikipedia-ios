@@ -29,14 +29,13 @@ public class  WKImageRecommendationBottomSheetViewModel {
         update()
     }
 
-    func update() {
+    private func update() {
         if let description = imageDescription {
             imageDescription = getCleanDescription(from: description)
         }
     }
 
-    
-    public func getCleanDescription(from input: String) -> String? {
+    private func getCleanDescription(from input: String) -> String? {
         return try? HtmlUtils.stringFromHTML(input)
     }
 

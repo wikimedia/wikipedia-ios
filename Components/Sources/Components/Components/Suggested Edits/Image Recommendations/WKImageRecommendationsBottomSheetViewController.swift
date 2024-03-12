@@ -51,6 +51,10 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
 }
 extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendationsToolbarViewDelegate {
+    func goToImageCommonsPage() {
+
+    }
+    
     func didTapYesButton() {
 
     }
