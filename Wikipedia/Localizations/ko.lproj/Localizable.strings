@@ -6,6 +6,7 @@
 // Author: CYAN
 // Author: Codenstory
 // Author: Doyoon1995
+// Author: Dr1t jg
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
 // Author: Ellif
@@ -114,8 +115,10 @@
 "action-add-to-reading-list" = "읽기 목록에 추가";
 "action-add-to-reading-list-short" = "목록에 추가";
 "action-cancel" = "취소";
+"action-discard-edit" = "편집 버리기";
 "action-discard-edits" = "편집 버리기";
 "action-find-in-page" = "문서에서 찾기";
+"action-keep-editing" = "계속 편집해";
 "action-language-accessibility" = "언어 변경";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
@@ -270,6 +273,7 @@
 "diff-thanks-sent" = "$1님에게 감사를 표했습니다";
 "diff-thanks-sent-already" = "이 편집에 이미 감사를 표했습니다";
 "diff-thanks-sent-cannot-unsend" = "감사 표현은 취소할 수 없습니다";
+"diff-undo-message" = "여기에 보인 기사의 개정에 의한 바뀜을 되돌릴 거야. 이어갈 거면, 편집을 되돌리는 이유를 줘봐.";
 "diff-undo-success" = "이 판의 편집이 취소되었습니다.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|편집되지 않은 줄 $1개}}";
 "diff-user-button-accessibility-text" = "메뉴를 열려면 두 번 탭하세요";
@@ -282,6 +286,7 @@
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
+"donate-apple-fine-print" = "애플이 이 목적으로 후원을 모으는 것이 아님.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
 "donate-help-frequently-asked-questions" = "자주 묻는 질문";
 "donate-help-other-ways-to-give" = "다른 기부 방법";
@@ -298,6 +303,7 @@
 "donate-success-subtitle" = "당신의 너그러움은 우리에게 너무나 소중합니다.";
 "donate-success-title" = "고맙습니다!";
 "donate-title" = "금액 선택";
+"donate-transaction-fee-opt-in-text" = "네가 후원을 100%% 가질 수 있도록 내가 아낌없이 $1를 추가해서 거래 수수료를 낼게.";
 "edit-bold-accessibility-label" = "굵은 서식 추가";
 "edit-bold-remove-accessibility-label" = "굵은 서식 제거";
 "edit-clear-formatting-accessibility-label" = "서식 제거";
@@ -328,10 +334,12 @@
 "edit-notices-please-read" = "편집하기 전에 읽어 주십시오";
 "edit-ordered-list-accessibility-label" = "현재 줄을 순서 리스트로 만들기";
 "edit-ordered-list-remove-accessibility-label" = "현재 줄에서 순서 리스트 제거";
+"edit-preview-simplified-format-message" = "모든 내용은 단순한 형식으로 보임.";
 "edit-published" = "편집이 게시됐습니다";
 "edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-reference-accessibility-label" = "각주 문법 추가";
 "edit-reference-remove-accessibility-label" = "각주 문법 제거";
+"edit-show-web-preview" = "웹 미리보기 보기";
 "edit-signature-accessibility-label" = "서명 문법 추가";
 "edit-signature-remove-accessibility-label" = "서명 문법 제거";
 "edit-strikethrough-accessibility-label" = "취소선 추가";
@@ -368,8 +376,68 @@
 "editing-welcome-impartial-tone-title" = "공정한 어조로 쓰기";
 "editing-welcome-set-knowledge-free-subtitle" = "모든 사람이 세상의 지식에 접근할 수 있게 하려면 당신에게 가장 관련이 있는 주제에 대해 읽고 편집하고 기여함으로써 그 지식을 만들어나가는 일에 참여하는 것이 필요합니다.";
 "editing-welcome-set-knowledge-free-title" = "지식을 자유롭게";
+"editor-edit-published" = "네 편집이 게시되었어.";
+"editor-edit-source" = "원본 편집";
 "editor-exit-confirmation-body" = "정말 게시하지 않고 편집을 그만 두겠습니까?";
+"editor-exit-confirmation-message" = "이 편집을 버리는 걸 확신해?";
 "editor-exit-confirmation-title" = "편집 모드를 숨기시겠습니까?";
+"editor-find-clear-button-accessibility" = "검색 지우기";
+"editor-find-close-button-accessibility" = "찾기 닫기";
+"editor-find-current-match-info-accessibility" = "$1의 일치 찾음. 강조된 일치 번호 $2";
+"editor-find-current-match-info-zero-results-accessibility" = "일치 못 찾음";
+"editor-find-next-button-accessibility" = "다음 찾기 결과";
+"editor-find-previous-button-accessibility" = "이전 찾기 결과";
+"editor-find-textfield-accessibility" = "찾기";
+"editor-keyboard-bold-accessibility" = "굵음";
+"editor-keyboard-close-text-format-menu-accessibility" = "텍스트 포맷 메뉴 닫기";
+"editor-keyboard-comment-accessibility" = "댓글";
+"editor-keyboard-heading-button" = "머리글";
+"editor-keyboard-indent-decrease-accessibility" = "들여쓰기 줄이기";
+"editor-keyboard-indent-increase-accessibility" = "들여쓰기 더하기";
+"editor-keyboard-italics-accessibility" = "기울인 글씨";
+"editor-keyboard-link-accessibility" = "링크";
+"editor-keyboard-list-ordered-accessibility" = "순서 있는 목록";
+"editor-keyboard-list-unordered-accessibility" = "순서 없는 목록";
+"editor-keyboard-paragraph-button" = "문단";
+"editor-keyboard-reference-accessibility" = "참고";
+"editor-keyboard-strikethrough-accessibility" = "취소선";
+"editor-keyboard-subheading1-button" = "하위 문단 제목 1";
+"editor-keyboard-subheading2-button" = "하위 문단 제목 2";
+"editor-keyboard-subheading3-button" = "하위 문단 제목 3";
+"editor-keyboard-subheading4-button" = "하위 문단 제목 4";
+"editor-keyboard-subscript-accessibility" = "아래 첨자";
+"editor-keyboard-superscript-accessibility" = "위 첨자";
+"editor-keyboard-template-accessibility" = "틀";
+"editor-keyboard-text-formatting-title" = "글자 서식 조정";
+"editor-keyboard-underline-accessibility" = "밑줄";
+"editor-replace-button-format-accessibility" = "바꾸기 작업을 수행해. $1로 바꾸기 유형이 설정되었어.";
+"editor-replace-clear-button-accessibility" = "바꾸기 지우기";
+"editor-replace-textfield-accessibility" = "바꾸기";
+"editor-replace-textfield-placeholder" = "다음으로 바꾸기...";
+"editor-replace-type-all" = "모두 바꾸기";
+"editor-replace-type-all-accessibility" = "모든 시례를 바꿔";
+"editor-replace-type-button-accessibility" = "바꾸기 유형을 전환해. 지금 $1로 되어 있어. 바꾸기 위해 선택해.";
+"editor-replace-type-single" = "바꾸기";
+"editor-replace-type-single-accessibility" = "한 사례를 바꾸기";
+"editor-toolbar-bold-accessibility" = "굵은 글씨 포맷";
+"editor-toolbar-cursor-down-accessibility" = "커서를 다음 줄로 내리기.";
+"editor-toolbar-cursor-next-accessibility" = "커서를 다음 글자로 움직이기.";
+"editor-toolbar-cursor-previous-accessibility" = "커서를 이전 글자로 움직이기.";
+"editor-toolbar-cursor-up-accessibility" = "커서를 이전 줄로 올리기.";
+"editor-toolbar-find-accessibility" = "페이지에서 찾기";
+"editor-toolbar-image-accessibility" = "사진 글 형식";
+"editor-toolbar-indent-decrease-accessibility" = "들여쓰기 글 서식 줄이기";
+"editor-toolbar-indent-increase-accessibility" = "들여쓰기 글 서식 늘리기";
+"editor-toolbar-italics-accessibility" = "기울임꼴 글 형식";
+"editor-toolbar-link-accessibility" = "글 서식 연결하기";
+"editor-toolbar-list-ordered-accessibility" = "순서 목록 글 형식";
+"editor-toolbar-list-unordered-accessibility" = "순서 없는 목록 글 형식";
+"editor-toolbar-open-text-format-menu-accessibility" = "글 형식 메뉴 열기";
+"editor-toolbar-reference-accessibility" = "참고 글 형식";
+"editor-toolbar-show-more-accessibility" = "글 형식 선택을 더 보이기";
+"editor-toolbar-template-accessibility" = "틀 글 형식";
+"editor-wikitext-loading-accessibility" = "편집기 글 로드 중";
+"editor-wikitext-textview-accessibility" = "위키 텍스트 편집기";
 "empty-diff-compare-title" = "판 사이에 차이가 없음";
 "empty-diff-single-title" = "볼 수 있는 변경 사항 없음";
 "empty-insert-media-title" = "위키미디어 공용의 파일 선택";
@@ -548,6 +616,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
 "import-shared-reading-list-survey-prompt-footer" = "저희의 $1개인정보 정책$2을 확인하세요. 설문조사는 제3자가 제공합니다. 제3자의 $3개인정보 정책$4을 확인하세요.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"읽기 목록 공유\"는 시험 기능이고 더 좋게 만들거나 없애기 위해선 네 피드백이 필요해.";
 "import-shared-reading-list-survey-prompt-title" = "\"읽기 목록 공유\" 개선에 도움을 주시겠습니까?";
 "import-shared-reading-list-title" = "공유된 읽기 목록 가져오기";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
@@ -654,6 +723,7 @@
 "notifications-center-filters-read-status-item-title-unread" = "읽지 않음";
 "notifications-center-filters-read-status-section-title" = "읽음 상태";
 "notifications-center-filters-title" = "필터";
+"notifications-center-filters-types-footer" = "알림 종류를 바꿔 알림 보기함에 걸러내. 꺼진 종류는 못 보지만, 그 내용이랑 새로운 알림은 다시 켜면 볼 수 있어.";
 "notifications-center-filters-types-item-title-all" = "모든 유형";
 "notifications-center-filters-types-section-title" = "알림 유형";
 "notifications-center-go-to-article" = "문서";
@@ -703,6 +773,7 @@
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1개 프로젝트|$1개 프로젝트}}";
 "notifications-center-status-in-types" = "{{PLURAL:$1|1=1개 유형|$1개 유형}}";
 "notifications-center-status-read" = "읽음";
+"notifications-center-status-triple-concatenation" = "$3에 있는 $1랑 $2";
 "notifications-center-status-unread" = "읽지 않음";
 "notifications-center-subheader-edit-milestone" = "편집 마일스톤";
 "notifications-center-subheader-edit-reverted" = "내 편집이 되돌려졌습니다";
@@ -789,6 +860,7 @@
 "panel-compare-revisions-text" = "판 비교는 시간이 지남에 따라 문서가 어떻게 바뀌었는지 보여줍니다. 문서의 두 판을 비교하는 경우 변경된 내용을 강조함으로써 해당 판들 사이의 차이를 보여줍니다.";
 "panel-compare-revisions-title" = "판 비교";
 "panel-not-logged-in-continue-edit-action-title" = "로그인 없이 편집";
+"panel-not-logged-in-subtitle" = "편집을 하면 네 아이피 주소가 공개적으로 보일거야. $1로그인$2이나 $3계정을 만들면$4 다른 혜택과 함께 편집은 네 사용자 이름으로 표시될 거야.";
 "panel-not-logged-in-title" = "로그인하고 있지 않습니다";
 "pictured" = "사진";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
@@ -825,9 +897,11 @@
 "places-unknown-distance" = "알 수 없는 거리";
 "potd-description-prefix" = "$1의 그림";
 "potd-empty-error-description" = "$1의 사진 가져오기 실패";
+"potd-sample-entry-description" = "조케이가 붙잡고 있는 동안 두 황소들이 달리는 빠쭈자위 (마인바그에서 \" 황소 경주\"에서), 인도네시아 서구 수마트라 타나다타르의 전통 황소 경주. 2015년, 결승 45";
 "potd-widget-description" = "우리 공동체가 선정한 하루하루의 아름다운 사진을 즐기세요.";
 "potd-widget-title" = "오늘의 사진";
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
+"privacy-policy-title" = "개인정보 보호정책";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";
@@ -984,7 +1058,9 @@
 "settings-my-languages" = "내 언어";
 "settings-notifications" = "푸시 알림";
 "settings-notifications-echo-failure-message" = "계정과 관련된 알림 구독을 확인하는 동안 오류가 발생했습니다.";
+"settings-notifications-echo-failure-title" = "에코 알림 구독을 확인 할 수 없음";
 "settings-notifications-echo-failure-try-again" = "다시 시도";
+"settings-notifications-header" = "동료 기여자의 메시지, 알림, 참고와 같은 네 개정과 관련된 활동에 대한 알림을 받아봐. 모두 개인정보 보호와 매분 속도의 최신 데이터로 제공돼.";
 "settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인정보와 시간 데이터까지 모두 제공됩니다.";
 "settings-notifications-learn-more" = "알림에 대해 더 알아보기";
 "settings-notifications-push-notifications" = "푸시 알림";
@@ -1040,6 +1116,7 @@
 "talk-page-collapse-thread-button" = "스레드 접기";
 "talk-page-discussion-read-accessibility-label" = "읽음";
 "talk-page-discussion-unread-accessibility-label" = "읽지 않음";
+"talk-page-error-alert-subtitle" = "앱이 예상치 못한 답변을 서버로부터 받았어. 나중에 다시 해봐.";
 "talk-page-error-alert-title" = "예기치 못한 오류";
 "talk-page-error-loading-subtitle" = "무언가가 잘못되었습니다.";
 "talk-page-error-loading-title" = "토론 문서를 불러올 수 없습니다";
@@ -1064,6 +1141,7 @@
 "talk-page-reply-button-accessibility-label" = "$1님에게 답변하기";
 "talk-page-reply-depth-accessibility-label" = "답변 깊이: $1";
 "talk-page-reply-placeholder-format" = "$1님에게 답변하기";
+"talk-page-reply-terms-and-licenses" = "답변이 자동으로 네 사용자 이름에 표시되는 걸 참고해. 바뀜을 저장해서, 너는 $1이용 약관$2에 동의하고 $3CC BY-SA 3.0$4이랑 $5GFDL$6 라이선스에 따라 네 기여를 내는 것을 동의하는 거야.";
 "talk-page-revision-history" = "편집 역사";
 "talk-page-rply-close-button-accessibility-hint" = "답변 뷰 닫기";
 "talk-page-share-button" = "토론 문서 공유";
@@ -1074,6 +1152,7 @@
 "talk-page-title-article-talk" = "문서 토론";
 "talk-page-title-user-talk" = "사용자토론";
 "talk-page-topic-close-button-hint" = "새 주제 닫기";
+"talk-page-topic-compose-terms-and-licenses" = "변경 사항을 게시함으로써, 너는 $1이용 약관$2에 동의하며, 불가역적으로 너의 기여를 $3CC BY-SA 3.0 라이선스$4와 $5GFDL$6에 따라 공개하는 것에 동의해.";
 "talk-page-unsubscribe-to-topic" = "구독 해지";
 "talk-page-unsubscribed-alert-subtitle" = "이 주제의 새 댓글에 관한 알림을 더 이상 받지 않게 됩니다.";
 "talk-page-unsubscribed-alert-title" = "구독을 해지했습니다.";
@@ -1085,6 +1164,9 @@
 "talk-pages-coffee-roll-read-more" = "더 읽어보기";
 "talk-pages-comment-added-alert-title" = "댓글이 추가되었습니다";
 "talk-pages-compose-close-confirmation-keep" = "편집 계속";
+"talk-pages-edit-source" = "소스 편집";
+"talk-pages-empty-view-body-article" = "토론 페이지는 사람들이 위키백과의 내용을 최고로 만드는 방법에 대해 토론하는 곳이야. **새로운 토론 주제를 추가하여** 위키피디아 사용자 커뮤니티와 연결하고 협업해.";
+"talk-pages-empty-view-body-user" = "토론 페이지는 사람들이 위키백과의 콘텐츠를 최고로 만드는 방법에 대해 토론하는 곳이야. 새로운 토론을 시작하여 $1과 연결하고 협업해. 여기서 말하는 것은 다른 사람들이 볼 수 있게 공개돼.";
 "talk-pages-empty-view-button-article-add-topic" = "새 주제 추가";
 "talk-pages-empty-view-button-user-start-discussion" = "토론 시작하기";
 "talk-pages-empty-view-header-article" = "대화는 여기서 시작됩니다";
@@ -1097,11 +1179,14 @@
 "talk-pages-topic-compose-close-confirmation-title" = "이 새 주제를 취소하시겠습니까?";
 "talk-pages-topic-compose-navbar-title" = "주제";
 "talk-pages-topic-compose-title-placeholder" = "주제 제목";
+"talk-pages-topic-reply-onboarding-body" = "토론 페이지는 사람들이 위키백과의 콘텐츠를 최고로 만드는 방법에 대해 토론하는 곳이야. 새로운 토론 주제를 추가하여 위키피디아 사용자 커뮤니티와 연결하고 협업해.\n\n친절하게 대해 줘, 우리 모두 여기에 있는 사람들이야.";
+"talk-pages-topic-reply-onboarding-body-ios15" = "토크 페이지는 위키백과의 내용을 최고로 만들기 위해 $1people이 토론하는 곳이야. 위키피디아 사용자 커뮤니티와 연결하고 협업하기 위해 새로운 토론 주제를 $1추가해.";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "친절하게 대해주세요. 여기 있는 우리는 모두 인간입니다.";
 "talk-pages-topic-reply-onboarding-title" = "토론 문서";
 "talk-pages-user-groups" = "사용자 그룹";
 "talk-pages-user-logs" = "기록";
 "talk-pages-view-title" = "토론";
+"terms-of-use-title" = "이용 약관";
 "theme-black-display-name" = "블랙";
 "theme-dark-display-name" = "어두움";
 "theme-default-display-name" = "기본값";
@@ -1126,11 +1211,24 @@
 "vanish-account-additional-information-placeholder" = "선택 사항";
 "vanish-account-back-confirm-discard" = "요청 취소";
 "vanish-account-back-confirm-keep-editing" = "편집 계속";
+"vanish-account-back-confirm-title" = "이 사라짐 요청을 삭제할거야?";
+"vanish-account-bottom-text" = "위키백과에서 계정 삭제는 계정 이름을 변경하여 다른 사람들이 당신의 기여를 인식하지 못하게 하는 과정인 '계정 소멸'을 통해 이루어져. 아래의 양식을 사용하여 친절한 소멸을 요청할 수 있어. 소멸은 완전한 익명성을 보장하지 않으며 프로젝트에 대한 기여를 제거하지 않아.";
+"vanish-account-bottom-text-with-link" = "위키백과에서 계정 삭제는 계정 이름을 변경하여 다른 사람들이 너의 기여를 인식하지 못하게 하는 과정인 계정 소멸을 통해 이루어져. 아래의 양식을 사용하여 $1친절한 소멸$2$3을 요청할 수 있어. 소멸은 완전한 익명성을 보장하지 않으며 프로젝트에 대한 기여를 제거하지 않아.";
 "vanish-account-button-text" = "요청 보내기";
 "vanish-account-continue-button-title" = "계속";
+"vanish-account-description" = "사라지기 과정을 시작하려면 다음을 제공해 줘:";
+"vanish-account-email-text" = "안녕,\n이것은 내 위키백과 계정을 삭제하고 싶다는 요청이야.";
 "vanish-account-learn-more-text" = "더 알아보기";
+"vanish-account-title" = "소멸 과정";
 "vanish-account-username-field" = "사용자 이름 및 사용자 문서";
+"vanish-account-warning-body" = "바니싱(Vanishing)은 **마지막 수단**이며, **영원히 편집을 중단하고자 하며** 가능한 한 과거의 연관성을 숨기고 싶을 때 **만 사용해야 해**.\n\n위키백과에서의 계정 삭제는 계정 이름을 변경하여 다른 사람들이 너의 기여를 인식하지 못하게 하는 과정인 '계정 바니싱'을 통해 이루어져. **바니싱은 완전한 익명성을 보장하지 않으며 프로젝트에 대한 기여를 제거하지 않아**.";
 "vanish-account-warning-title" = "경고";
+"vanish-modal-item" = "만약 네가 계정 삭제 요청을 완료했다면, 관리자가 요청을 처리하는 데 며칠이 걸릴 수 있어.";
+"vanish-modal-item-2" = "너의 요청이 제대로 처리되었는지 확실하지 않다면, 메일 앱을 확인해 줘";
+"vanish-modal-item-3" = "만약 네가 사라짐에 대해 더 궁금한 점이 있다면, 메타:사라질_권리를 방문해 줘.";
+"vanish-modal-item-3-ios15" = "사라지는 것에 대해 더 궁금한 점이 있다면 $1Meta:Right_to_vanish$2$3를 방문해 줘.";
+"vanish-modal-title" = "사라지는 요청";
+"vanishing-request-email-title" = "예의에 따른 사라짐 요청";
 "variants-alert-dismiss-button" = "괜찮습니다";
 "variants-alert-preferences-button" = "내 환경 설정 검토하기";
 "watch" = "주시";
@@ -1151,6 +1249,7 @@
 "watchlist-change-expiry-option-three-months" = "3개월";
 "watchlist-change-expiry-subtitle" = "주시문서 목록 기간 선택";
 "watchlist-change-expiry-title" = "주시문서 목록 만기일";
+"watchlist-diff-action-button-title" = "diff로 이동해";
 "watchlist-edit-summary-accessibility" = "편집 요약";
 "watchlist-empty-view-button-title" = "문서 검색";
 "watchlist-empty-view-filter-title" = "주시문서 항목이 없습니다.";
@@ -1180,6 +1279,7 @@
 "watchlist-filter-user-registration-header" = "사용자 등록 및 경험";
 "watchlist-filter-user-registration-options-registered" = "등록";
 "watchlist-filter-user-registration-options-unregistered" = "미등록";
+"watchlist-filters-add-language" = "언어 추가...";
 "watchlist-number-filters" = "[ {{PLURAL:$1|$1개 필터}}](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기";
 "watchlist-onboarding-button-title" = "주시문서 목록에 대해 더 알아보기";
 "watchlist-onboarding-title" = "주시문서 목록 소개";
@@ -1195,6 +1295,7 @@
 "watchlist-user-button-user-talk-page" = "사용자 토론 문서";
 "watchlist-watch-subtitle" = "문서 하단의 도구 모음에 있는 별표 또는 '주시' 버튼을 터치하면 해당 페이지를 주시목록에 추가할 수 있습니다.";
 "watchlist-watch-title" = "문서 주시";
+"welcome-data-privacy-title" = "데이터 및 개인정보 보호";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
 "welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";
@@ -1216,6 +1317,8 @@
 "welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-notifications-tell-me-more-storage" = "알림 환경 설정은 장치에 저장되며 개인정보나 활동에 기반을 두지 않습니다.";
 "welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
+"welcome-privacy-subtitle" = "우리는 네가 자유 지식 운동에 참여하기 위해 개인 정보를 제공할 필요가 없다고 믿어. 이 앱에서 수집하는 사용 데이터는 익명이야.";
+"welcome-privacy-terms-button-text" = "우리의 개인정보 보호정책과 이용 약관에 대해 더 알아보기";
 "widget-onthisday-description" = "역사 속에서 오늘 무슨 일이 있었는지 살펴보세요.";
 "widget-onthisday-placeholder-article-snippet" = "누구나 편집할 수 있는 자유로운 온라인 백과사전";
 "widget-onthisday-placeholder-event-snippet" = "자유로운 위키 콘텐츠 백과사전 위키백과가 온라인에 있습니다.";

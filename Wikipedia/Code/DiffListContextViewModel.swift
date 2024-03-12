@@ -1,7 +1,8 @@
 import Foundation
 
 final class DiffListContextItemViewModel {
-    private let text: String
+    private let text: String    
+    let accessibilityLabelText: String
     private let semanticContentAttribute: UISemanticContentAttribute
     var theme: Theme {
         didSet {
@@ -23,8 +24,12 @@ final class DiffListContextItemViewModel {
         self.contextFont = contextFont
         
         self.textAttributedString = DiffListContextItemViewModel.calculateAttributedString(with: text, semanticContentAttribute: semanticContentAttribute, theme: theme, contextFont: contextFont)
+
+        let diffContextualLine = WMFLocalizedString("diff-unchanged-contextual-line", value: "Contextual line, unchanged: %1$@", comment: "Text read by VoiceOver in diffs that indicates information about the forthcoming content. %1$@ will be replaced with that content.")
+        self.accessibilityLabelText = String.localizedStringWithFormat(diffContextualLine, text) 
     }
-    
+
+
     private static func calculateAttributedString(with text: String, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, contextFont: UIFont) -> NSAttributedString {
         
         let paragraphStyle = NSMutableParagraphStyle()

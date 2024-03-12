@@ -1,4 +1,5 @@
 import Foundation
+import Components
 
 extension WMFContentGroup {
 	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
@@ -20,7 +21,7 @@ extension WMFContentGroup {
             }
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
-            return detailViewControllerWithDataStore(dataStore, theme: theme)
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
         default:
             return nil
         }
@@ -28,6 +29,10 @@ extension WMFContentGroup {
     
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+    }
+    
+    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?) -> UIViewController? {
         var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
@@ -58,6 +63,20 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
+        case .imageRecommendations:
+            
+            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                  let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+                  let imageRecDelegate = imageRecDelegate else {
+                return nil
+            }
+            
+            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
+            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
+            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
+            return imageRecommendationsViewController
         default:
             break
         }

@@ -534,7 +534,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // When a random article title is tapped, show the previewed article, not another random article
         let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self) {
+            
             push(vc, animated: true)
             return
         }
@@ -1019,6 +1020,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
+        let hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
+        
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
@@ -1029,16 +1032,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             themeableNavigationController.modalPresentationStyle = .formSheet
             self.present(themeableNavigationController, animated: true)
         }
-        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
+        
+        let hideThisCardHandler: ((UIAlertAction) -> Void) = { (_) in
             group.undoType = .contentGroup
             self.wantsDeleteInsertOnNextItemUpdate = true
             self.save()
         }
-        guard let title = group.headerTitle else {
-            assertionFailure("Expected header title for group \(group.contentGroupKind)")
-            return nil
-        }
-        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
+        
+        let hideAllHandler: ((UIAlertAction) -> Void) = { (_) in
             let feedContentController = self.dataStore.feedContentController
             // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
             if feedContentController.countOfVisibleContentGroupKinds > 1 {
@@ -1047,9 +1048,19 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             }
             feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false)
         }
+        
+        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default, handler: hideThisCardHidesAll ? hideAllHandler : hideThisCardHandler)
+        
+        guard let title = group.headerTitle else {
+            assertionFailure("Expected header title for group \(group.contentGroupKind)")
+            return nil
+        }
+        
+        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all “%@” cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default, handler: hideAllHandler)
+        
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)
-        if !(group.contentGroupKind == WMFContentGroupKind.notification) {
+        if group.contentGroupKind != WMFContentGroupKind.notification && (!hideThisCardHidesAll) {
             sheet.addAction(hideAllCards)
         }
         sheet.addAction(customizeExploreFeed)
@@ -1087,14 +1098,8 @@ extension ExploreViewController {
                   let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
                 return
             }
-            
-            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
-            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
-            let bottomSheetTitle =  WMFLocalizedString("image-rec-add-image-title", value: "Add this image?", comment: "title for the add image suggestion view")
-            let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
-            let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
-            let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle, bottomSheetTitle: bottomSheetTitle, yesButtonTitle: yesButtonTitle, noButtonTitle: noButtonTitle, notSureButtonTitle: notSureButtonTitle)
+
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
             let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
             navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
