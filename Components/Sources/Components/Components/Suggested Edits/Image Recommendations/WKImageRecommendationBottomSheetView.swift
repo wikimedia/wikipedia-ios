@@ -1,7 +1,6 @@
 import UIKit
 
 protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
-
     func didTapYesButton()
     func didTapNoButton()
     func didTapSkipButton()
