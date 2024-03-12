@@ -13,8 +13,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     // MARK: Properties
 
     private var viewModel: WKImageRecommendationBottomSheetViewModel
-
-
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
     private lazy var container: UIView = {
@@ -257,8 +255,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         container.addSubview(imageLinkButton)
         container.addSubview(textView)
         container.addSubview(imageView)
-        textView.backgroundColor = .green
-        imageLinkButton.backgroundColor = .red
 
         headerStackView.addArrangedSubview(iconImageView)
         headerStackView.addArrangedSubview(titleLabel)
