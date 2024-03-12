@@ -30,6 +30,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     @ObservedObject private var viewModel: WKImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
+    private var regularSizeClass: Bool {
+        return traitCollection.horizontalSizeClass == .regular &&
+        traitCollection.horizontalSizeClass == .regular ? true : false
+    }
 
     // MARK: Lifecycle
 
@@ -73,13 +77,33 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     // MARK: Private methods
 
+    private func presentModalView() {
+        if regularSizeClass {
+            presentImageRecommendationPopover()
+        } else {
+            presentImageRecommendationBottomSheet()
+        }
+    }
+
     private func presentImageRecommendationBottomSheet() {
         imageRecommendationBottomSheetController.isModalInPresentation = true
-        if let bottomViewController = imageRecommendationBottomSheetController.sheetPresentationController {
-            bottomViewController.detents = [.medium(), .large()]
-            bottomViewController.largestUndimmedDetentIdentifier = .medium
-            bottomViewController.prefersGrabberVisible = true
+        if let bottomSheet = imageRecommendationBottomSheetController.sheetPresentationController {
+            bottomSheet.detents = [.medium(), .large()]
+            bottomSheet.largestUndimmedDetentIdentifier = .medium
+            bottomSheet.prefersGrabberVisible = true
+            bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
 
+        }
+        navigationController?.present(imageRecommendationBottomSheetController, animated: true)
+    }
+
+    private func presentImageRecommendationPopover() {
+        imageRecommendationBottomSheetController.isModalInPresentation = true
+        if let popover = imageRecommendationBottomSheetController.popoverPresentationController {
+            let sheet = popover.adaptiveSheetPresentationController
+            sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersGrabberVisible = true
         }
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)
     }
@@ -89,7 +113,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             .receive(on: RunLoop.main)
             .sink { [weak self] showVC in
                 if !showVC {
-                    self?.presentImageRecommendationBottomSheet()
+                    self?.presentModalView()
                 }
             }
             .store(in: &cancellables)
