@@ -88,6 +88,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(ArticleLocationExploreCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationExploreCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleLocationAuthorizationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationAuthorizationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(SuggestedEditsExploreCell.self, forCellWithReuseIdentifier: SuggestedEditsExploreCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
     }
@@ -197,6 +198,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return ArticleRightAlignedImageExploreCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
             return AnnouncementCollectionViewCell.identifier
+        case .suggestedEdits:
+            return SuggestedEditsExploreCell.identifier
         default:
             return ArticleFullWidthImageExploreCollectionViewCell.identifier
         }
@@ -369,10 +372,21 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             configureOnThisDayCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
+        case .suggestedEdits:
+            configureSuggestedEditsCell(cell, layoutOnly: layoutOnly)
         default:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         }
         cell.layoutMargins = layout.itemLayoutMargins
+    }
+    
+    private func configureSuggestedEditsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
+        guard let cell = cell as? SuggestedEditsExploreCell else {
+            return
+        }
+        
+        // TODO: Temporary UI
+        cell.caption = "Testing!"
     }
 
     func updateLocationCells() {

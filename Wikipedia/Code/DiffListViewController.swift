@@ -232,6 +232,10 @@ private extension DiffListViewController {
            let midPointTarget = collectionView.frame.height / 2
            let delta = midPointTarget - offsetToView
            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y - delta), animated: true)
+           
+           if let focusView = cell.arrangedSubview(at: itemIndex) {
+                UIAccessibility.post(notification: .layoutChanged, argument: focusView)
+           }
        }
     }
 }
@@ -353,6 +357,8 @@ extension DiffListViewController: DiffListChangeCellDelegate {
                 scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
                 collectionView.scrollToItem(at: indexPathToScrollTo, at: UICollectionView.ScrollPosition.top, animated: true)
             }
+            
+            
         }
     }
     
