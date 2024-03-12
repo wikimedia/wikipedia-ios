@@ -210,15 +210,19 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         return regularSizeClass ? 32 : 16
     }
 
-    private var imageWidth: CGFloat {
+    private var imageViewWidth: CGFloat {
         return self.frame.width/2-padding
     }
 
-    private var cutoutWidth: CGFloat {
-        return imageWidth+padding
+    private var imageViewHeight: CGFloat {
+        return UIScreen.main.bounds.height/4
     }
 
-    private var buttonWidth: CGFloat {
+    private var cutoutWidth: CGFloat {
+        return imageViewWidth+padding
+    }
+
+    private var linkButtonWidth: CGFloat {
         return (self.frame.width-cutoutWidth)-padding*2
     }
 
@@ -226,14 +230,13 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let title = viewModel.imageTitle
         // The "1 1" here is a hack to help calculating the size of the NSAttributedString with attachment, since it can't be  used to calculate the text size here due to not being convertible to NSStrring
         let imageTitleTextSize = (title + "1  1" as NSString).boundingRect(
-            with: CGSize(width: buttonWidth, height: .greatestFiniteMagnitude),
+            with: CGSize(width: linkButtonWidth, height: .greatestFiniteMagnitude),
             options: .usesLineFragmentOrigin,
             attributes: [.font: buttonFont],
             context: nil).size
         return imageTitleTextSize.height
     }
 
-    private let imageViewHeight = UIScreen.main.bounds.height/4
 
     // MARK: Lifecycle
 
@@ -274,7 +277,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             imageLinkButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: padding),
             imageLinkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: buttonHeight),
-            imageLinkButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            imageLinkButton.widthAnchor.constraint(equalToConstant: linkButtonWidth),
             textView.topAnchor.constraint(equalTo: imageLinkButton.bottomAnchor),
             textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
@@ -288,7 +291,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         let linkButtonTopConstarint = imageLinkButton.topAnchor.constraint(equalTo: imageView.topAnchor)
         linkButtonTopConstarint.priority = .required
-        let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageWidth)
+        let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
         imageWidthConstraint.priority = .required
         let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
         imageHeightConstraint.priority = .required
@@ -325,6 +328,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         titleLabel.textColor = theme.text
         imageLinkButton.setTitleColor(theme.link, for: .normal)
         iconImageView.tintColor = theme.link
+        toolbar.barTintColor = theme.paperBackground
     }
 
     private func configure() {
