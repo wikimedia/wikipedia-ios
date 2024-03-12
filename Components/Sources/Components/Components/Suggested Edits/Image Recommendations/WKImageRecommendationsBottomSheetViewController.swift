@@ -31,17 +31,15 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
 
-        let icon = WKIcon.bot
-        icon?.withTintColor(theme.link)
         if let image {
             let viewModel = WKImageRecommendationBottomSheetViewModel(
                 pageId: image.pageId,
                 headerTitle: viewModel.localizedStrings.bottomSheetTitle,
-                headerIcon: icon,
+                imageThumbnail: UIImage(),
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
                 imageTitle: image.filename,
-                imageDescription: image.description, 
+                imageDescription: image.description,
                 yesButtonTitle: viewModel.localizedStrings.yesButtonTitle,
                 noButtonTitle: viewModel.localizedStrings.noButtonTitle,
                 notSureButtonTitle: viewModel.localizedStrings.notSureButtonTitle
@@ -50,8 +48,8 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
         }
         return nil
     }
-}
 
+}
 extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendationsToolbarViewDelegate {
     func didTapYesButton() {
 

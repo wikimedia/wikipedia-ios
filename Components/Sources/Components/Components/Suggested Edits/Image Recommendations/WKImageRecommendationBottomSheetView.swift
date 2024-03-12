@@ -12,7 +12,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private var viewModel: WKImageRecommendationBottomSheetViewModel
     private let padding: CGFloat
     private let viewGridFraction: CGFloat
-    private var cutoutSize: CGFloat
+    private var cutoutWidth: CGFloat
     private var buttonHeight: CGFloat
     private let imageViewHeight: CGFloat
 
@@ -68,7 +68,9 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
 
     private lazy var iconImageView: UIImageView = {
-        let imageView = UIImageView()
+        let icon = WKIcon.bot
+        icon?.withTintColor(theme.link)
+        let imageView = UIImageView(image: icon)
         return imageView
     }()
 
@@ -205,7 +207,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     public init(frame: CGRect, viewModel: WKImageRecommendationBottomSheetViewModel) {
         padding = 16
         viewGridFraction = (UIScreen.main.bounds.width-padding*2)/9
-        cutoutSize = viewGridFraction*5
+        cutoutWidth = viewGridFraction*5
         buttonHeight = CGFloat()
         imageViewHeight = 168 // get better ratio
         self.viewModel = viewModel
@@ -235,7 +237,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         addSubview(stackView)
         addSubview(toolbar)
 
-        let buttonWidth = (UIScreen.main.bounds.width-cutoutSize)-padding*2
+        let buttonWidth = (UIScreen.main.bounds.width-cutoutWidth)-padding*2.6
 
         let imageTitleTextSize = (viewModel.imageTitle as NSString).boundingRect(
             with: CGSize(width: buttonWidth, height: .greatestFiniteMagnitude),
@@ -301,17 +303,17 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         backgroundColor = theme.paperBackground
         textView.textColor = theme.secondaryText
         titleLabel.textColor = theme.text
-        iconImageView.tintColor = theme.link
+//        iconImageView.tintColor = theme.link
         imageLinkButton.setTitleColor(theme.link, for: .normal)
         imageLinkButton.tintColor = theme.link
     }
 
     private func configure() {
-        imageView.image = viewModel.populateImage()
+        imageView.image = viewModel.imageThumbnail
         textView.text = viewModel.imageDescription
         titleLabel.text = viewModel.headerTitle
         imageLinkButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
-        iconImageView.image = viewModel.headerIcon
+    
     }
 
     private func getImageLinkButtonTitle() -> NSMutableAttributedString {

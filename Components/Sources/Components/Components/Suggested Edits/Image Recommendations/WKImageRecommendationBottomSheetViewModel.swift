@@ -5,7 +5,7 @@ public class  WKImageRecommendationBottomSheetViewModel {
 
     let pageId: Int
     let headerTitle: String
-    let headerIcon: UIImage?
+    let imageThumbnail: UIImage?
     let imageLink: String
     let thumbLink: String
     let imageTitle: String
@@ -14,10 +14,10 @@ public class  WKImageRecommendationBottomSheetViewModel {
     let noButtonTitle: String
     let notSureButtonTitle: String
 
-    public init(pageId: Int, headerTitle: String, headerIcon: UIImage?, imageLink: String, thumbLink: String, imageTitle: String, imageDescription: String?, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+    public init(pageId: Int, headerTitle: String, imageThumbnail: UIImage?, imageLink: String, thumbLink: String, imageTitle: String, imageDescription: String?, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
         self.pageId = pageId
         self.headerTitle = headerTitle
-        self.headerIcon = headerIcon
+        self.imageThumbnail = imageThumbnail
         self.imageLink = imageLink
         self.thumbLink = thumbLink
         self.imageTitle = imageTitle
@@ -35,9 +35,6 @@ public class  WKImageRecommendationBottomSheetViewModel {
         }
     }
 
-    public func populateImage() -> UIImage {
-        UIImage()
-    }
     
     public func getCleanDescription(from input: String) -> String? {
         return try? HtmlUtils.stringFromHTML(input)
