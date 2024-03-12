@@ -111,8 +111,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func bindViewModel() {
         viewModel.$loading
             .receive(on: RunLoop.main)
-            .sink { [weak self] showVC in
-                if !showVC {
+            .sink { [weak self] presentBottomSheet in
+                if !presentBottomSheet {
                     self?.presentModalView()
                 }
             }

@@ -86,7 +86,7 @@ public final class WKGrowthTasksDataController {
         return suggestions
     }
 
-    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
+    internal func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
         var images: [WKImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {

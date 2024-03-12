@@ -124,7 +124,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 20),
             imageView.heightAnchor.constraint(equalToConstant: 20),
-
             label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
             label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
