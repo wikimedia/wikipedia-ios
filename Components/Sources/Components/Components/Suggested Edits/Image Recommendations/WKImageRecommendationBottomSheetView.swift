@@ -42,7 +42,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray
+//        imageView.backgroundColor = .gray
         return imageView
     }()
 
@@ -86,7 +86,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         button.titleLabel?.lineBreakMode = .byWordWrapping
         button.configuration?.contentInsets = .zero
         button.configuration?.titlePadding = .zero
-        button.contentHorizontalAlignment = .left
+        button.contentHorizontalAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         button.sizeToFit()
         button.addTarget(self, action: #selector(goToImageCommonsPage), for: .touchUpInside)
         return button
@@ -227,7 +227,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private var buttonHeight: CGFloat {
         let title = viewModel.imageTitle
-        // The "1 1" here is a hack to help calculating the size of the NSAttributedString with attachment, since it can't be  used to calculate the text size here due to not being convertible to NSStrring
+        // The "1 1" here is a hack to help calculating the size of the NSAttributedString with attachment, since it can't be  used to calculate the text size here due to not being convertible to NSString
         let imageTitleTextSize = (title + "1  1" as NSString).boundingRect(
             with: CGSize(width: linkButtonWidth, height: .greatestFiniteMagnitude),
             options: .usesLineFragmentOrigin,
@@ -307,15 +307,24 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private func setupTextViewExclusionPath() {
+        let height = regularSizeClass ? imageViewHeight - buttonHeight : (imageViewHeight - padding) - buttonHeight
         let rectangleWidth: CGFloat = cutoutWidth
-        let rectangleHeight: CGFloat = (imageViewHeight - padding) - buttonHeight
-        let rectangleOriginX: CGFloat = 0
-        let rectangleOriginY: CGFloat = 0
+        let rectangleHeight: CGFloat = height
 
-        let adjustedRectangleX = rectangleOriginX + textView.textContainerInset.left
-        let adjustedRectangleY = rectangleOriginY + textView.textContainerInset.top
+        let layoutDirection = textView.effectiveUserInterfaceLayoutDirection
+        let isRTL = layoutDirection == .rightToLeft
 
-        let rectangleFrame = CGRect(x: adjustedRectangleX, y: adjustedRectangleY, width: rectangleWidth, height: rectangleHeight)
+        let rectangleOriginX: CGFloat
+        if isRTL {
+            let width = self.frame.width
+            rectangleOriginX = width - rectangleWidth - textView.textContainerInset.right - padding * 2.5
+        } else {
+            rectangleOriginX = textView.textContainerInset.left
+        }
+
+        let rectangleOriginY: CGFloat = textView.textContainerInset.top
+
+        let rectangleFrame = CGRect(x: rectangleOriginX, y: rectangleOriginY, width: rectangleWidth, height: rectangleHeight)
         let rectanglePath = UIBezierPath(rect: rectangleFrame)
 
         textView.textContainer.exclusionPaths = [rectanglePath]
