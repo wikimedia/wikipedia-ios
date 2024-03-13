@@ -63,6 +63,15 @@ class DiffListChangeCell: UICollectionViewCell {
         apply(theme: viewModel.theme)
     }
     
+    func arrangedSubview(at index: Int) -> UIView? {
+        
+        guard textStackView.arrangedSubviews.count > index else {
+            return nil
+        }
+        
+        return textStackView.arrangedSubviews[index]
+    }
+    
     func yLocationOfItem(index: Int, convertView: UIView) -> CGFloat? {
         
         guard let item = textStackView.arrangedSubviews[safeIndex: index] else {
@@ -105,12 +114,14 @@ private extension DiffListChangeCell {
             label.tag = index
             label.translatesAutoresizingMaskIntoConstraints = false
 
-            if label.gestureRecognizers == nil {
-                addTapGestureRecognizer(to: label)
-            } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
-                addTapGestureRecognizer(to: label)
+            if item.diffItemType.isMoveBased {
+                if label.gestureRecognizers == nil {
+                    addTapGestureRecognizer(to: label)
+                } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
+                    addTapGestureRecognizer(to: label)
+                }
             }
-            
+
             // add surrounding view
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -176,6 +187,8 @@ private extension DiffListChangeCell {
         for (index, label) in textLabels.enumerated() {
             if let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
+                label.accessibilityLabel = item.accessibilityLabelText
+                label.accessibilityTextualContext = .sourceCode
             }
         }
     }

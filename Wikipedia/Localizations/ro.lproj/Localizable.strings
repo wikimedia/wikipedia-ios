@@ -12,6 +12,7 @@
 // Author: Minisarm
 // Author: NGC 54
 // Author: Nemo bis
+// Author: Rapiteanu
 // Author: Strainu
 // Author: WebSourceContentRO
 
@@ -206,11 +207,9 @@
 "description-welcome-descriptions-title" = "Descrierea articolelor";
 "description-welcome-promise-title" = "Începând, promit să nu folosesc greșit această caracteristică";
 "description-welcome-start-editing-button" = "Începeți să modificați";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "De la:";
+"diff-compare-header-from-info-heading" = "Modificarea anterioară";
 "diff-compare-header-heading" = "Comparați Versiunile";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "La:";
+"diff-compare-header-to-info-heading" = "Modificarea afișată";
 "diff-compare-title" = "Comparați Versiunile";
 "diff-context-lines-collapsed-button-title" = "Afișare";
 "diff-context-lines-expanded-button-title" = "Ascunde";
@@ -244,6 +243,9 @@
 "diff-undo-message" = "Acest lucru va anula modificările făcute de revizuirile articolului afișat aici. Pentru a continua, furnizați un motiv pentru anularea acestei modificări.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linie nemodificată|$1 linii nemodificate}}";
 "dim-images" = "Întunecarea imaginilor";
+"donate-payment-method-prompt-apple-pay-button-title" = "Donează cu Apple Pay";
+"donate-payment-method-prompt-title" = "Donați cu Apple Pay?";
+"donate-success-title" = "Mulțumim!";
 "edit-bold-accessibility-label" = "Adăugați formatare aldin";
 "edit-bold-remove-accessibility-label" = "Scoate formatare aldin";
 "edit-clear-formatting-accessibility-label" = "Scoate formatarea";
@@ -313,6 +315,10 @@
 "editing-welcome-set-knowledge-free-title" = "Eliberează cunoașterea";
 "editor-exit-confirmation-body" = "Sigur doriți să părăsiți modul de editare fără a publica mai întâi?";
 "editor-exit-confirmation-title" = "Închideți modul de editare?";
+"editor-replace-textfield-accessibility" = "Înlocuiește";
+"editor-replace-textfield-placeholder" = "Înlocuiește cu...";
+"editor-replace-type-all" = "Înlocuiește peste tot";
+"editor-replace-type-single" = "Înlocuiește";
 "empty-diff-compare-title" = "Nu există diferență între versiuni";
 "empty-diff-single-title" = "Nu s-au făcut modificări vizibile";
 "empty-insert-media-title" = "Selectați un fișier din Wikimedia Commons";
@@ -482,6 +488,7 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Nu acum";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -965,13 +972,19 @@
 "tajik-variants-alert-title" = "Actualizări pentru sprijin varianta tadjică";
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
+"talk-page-find-in-page-button" = "Găsește în pagină";
 "talk-page-new-banner-subtitle" = "Amintiți-vă, suntem toți oameni aici";
 "talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
 "talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
 "talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
-// Fuzzy
-"talk-page-title-article-talk" = "discuție articol";
+"talk-page-subscribed-alert-subtitle" = "Veți primi notificări despre noi comentarii din acest subiect.";
+"talk-page-title-article-talk" = "Discuție articol";
 "talk-page-title-user-talk" = "Discuție Utilizator";
+"talk-page-unsubscribed-alert-subtitle" = "Nu veți mai primi notificări despre noi comentarii din acest subiect.";
+"talk-page-user-contributions" = "Contribuții";
+"talk-pages-coffee-roll-read-more" = "Citiți mai multe";
+"talk-pages-empty-view-button-user-start-discussion" = "Începeți o discuție";
+"talk-pages-topic-compose-body-placeholder" = "Descriere";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";
@@ -993,6 +1006,12 @@
 "variants-alert-dismiss-button" = "Nu mulțumesc";
 "variants-alert-preferences-button" = "Examinați-vă preferințele";
 "watchlist" = "Lista de urmrire";
+"watchlist-change-expiry-option-one-month" = "1 lună";
+"watchlist-change-expiry-option-one-week" = "1 săptămână";
+"watchlist-change-expiry-option-one-year" = "1 an";
+"watchlist-change-expiry-option-permanent" = "Permanent";
+"watchlist-change-expiry-option-six-months" = "6 luni";
+"watchlist-change-expiry-option-three-months" = "3 luni";
 "watchlist-expiration-subtitle" = "Paginile rămân în mod implicit, dar există opțiuni pentru vizionarea temporară, de la o săptămână la un an.";
 "watchlist-expiration-title" = "Setează expirarea";
 "watchlist-filter-activity-header" = "Activitate în paginile urmărite";
@@ -1024,6 +1043,7 @@
 "watchlist-updates-title" = "Vezi actualizările";
 "watchlist-watch-subtitle" = "Dacă apăsați pe stea sau pe acțiunea \"Urmărește\" din toolbarul din partea de jos a articolului, puteți adăuga acea pagină în lista de pagini urmărite.";
 "watchlist-watch-title" = "Urmărește articole";
+"welcome-data-privacy-title" = "Confidențialitatea datelor";
 "welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
 "welcome-exploration-explore-feed-title" = "Fluxul Explore";
 "welcome-exploration-on-this-day-description" = "Călătoriți înapoi în timp pentru a afla ce s-a întâmplat astăzi în istorie";

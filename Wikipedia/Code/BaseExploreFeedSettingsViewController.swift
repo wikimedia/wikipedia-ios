@@ -59,6 +59,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-continue-reading-title", value: "Show Continue reading card", comment: "Text for the setting that allows users to toggle the visibility of the Continue reading card")
         case .relatedPages:
             return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visibility of the Because you read card")
+        case .suggestedEdits:
+            return WMFLocalizedString("explore-feed-preferences-suggested-edits-title", value: "Show Suggested edits card", comment: "Text for the setting that allows users to toggle the visibility of the Suggested edits card")
         default:
             assertionFailure("\(self) is not customizable")
             return ""

@@ -28,6 +28,10 @@ enum DiffItemType: Int, Codable {
     case change
     case moveSource
     case moveDestination
+
+    var isMoveBased: Bool {
+        return self == .moveSource || self == .moveDestination
+    }
 }
 
 enum DiffHighlightRangeType: Int, Codable {

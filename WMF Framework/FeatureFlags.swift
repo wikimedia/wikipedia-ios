@@ -23,3 +23,10 @@ public struct FeatureFlags {
     #endif
     }
 }
+
+@objc public class WMFFeatureFlags: NSObject {
+    
+    @objc public static var needsImageRecommendations: Bool {
+        return FeatureFlags.needsImageRecommendations
+    }
+}

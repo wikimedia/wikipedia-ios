@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNotification:
             return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
             ;
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFCommonStrings.suggestedEditsTitle;
         default:
             break;
     }
@@ -47,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSString *result = nil;
 
-    //crash protection if language is nil
+    // crash protection if language is nil
     if (language) {
         result = [NSString localizedStringWithFormat:string, language];
     } else {
@@ -170,6 +172,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeTheme;
         case WMFContentGroupKindReadingList:
             return WMFFeedDisplayTypeReadingList;
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFFeedDisplayTypeSuggestedEdits;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
@@ -229,6 +233,8 @@ NS_ASSUME_NONNULL_BEGIN
             return YES;
         case WMFContentGroupKindReadingList:
             return YES;
+        case WMFContentGroupKindSuggestedEdits:
+            return YES;
         case WMFContentGroupKindAnnouncement:
             return YES;
         case WMFContentGroupKindUnknown:
@@ -253,6 +259,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTheme:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindReadingList:
+            return WMFFeedDetailTypeNone;
+        case WMFContentGroupKindSuggestedEdits:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
@@ -286,6 +294,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
         case WMFContentGroupKindOnThisDay:
             return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-edits-footer", nil, nil, @"Add", @"Footer for presenting user option to see list of suggested edits.");
         case WMFContentGroupKindUnknown:
         default:
             break;
@@ -309,6 +319,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedMoreTypeNews;
         case WMFContentGroupKindOnThisDay:
             return WMFFeedMoreTypeOnThisDay;
+        case WMFContentGroupKindSuggestedEdits:
+            return WMFFeedMoreTypeImageRecommendations;
         default:
             break;
     }
@@ -361,6 +373,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTheme:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindReadingList:
+            return WMFFeedHeaderTypeNone;
+        case WMFContentGroupKindSuggestedEdits:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedHeaderTypeNone;
