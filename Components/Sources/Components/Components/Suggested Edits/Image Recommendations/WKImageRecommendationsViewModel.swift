@@ -7,12 +7,39 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Nested Types
     
     public struct LocalizedStrings {
+		
+		public struct OnboardingStrings {
+			let title: String
+			let firstItemTitle: String
+			let firstItemBody: String
+			let secondItemTitle: String
+			let secondItemBody: String
+			let thirdItemTitle: String
+			let thirdItemBody: String
+			let continueButton: String
+			let learnMoreButton: String
+
+			public init(title: String, firstItemTitle: String, firstItemBody: String, secondItemTitle: String, secondItemBody: String, thirdItemTitle: String, thirdItemBody: String, continueButton: String, learnMoreButton: String) {
+				self.title = title
+				self.firstItemTitle = firstItemTitle
+				self.firstItemBody = firstItemBody
+				self.secondItemTitle = secondItemTitle
+				self.secondItemBody = secondItemBody
+				self.thirdItemTitle = thirdItemTitle
+				self.thirdItemBody = thirdItemBody
+				self.continueButton = continueButton
+				self.learnMoreButton = learnMoreButton
+			}
+		}
+
         let title: String
         let viewArticle: String
-        
-        public init(title: String, viewArticle: String) {
+		let onboardingStrings: OnboardingStrings
+
+		public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings) {
             self.title = title
             self.viewArticle = viewArticle
+			self.onboardingStrings = onboardingStrings
         }
     }
     

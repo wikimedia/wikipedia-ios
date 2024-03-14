@@ -588,6 +588,14 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
+"image-rec-onboarding-item-1-body" = "Decide if a suggested image should be placed in a Wikipedia article.";
+"image-rec-onboarding-item-1-title" = "View a suggestion";
+"image-rec-onboarding-item-2-body" = "Suggestions are machine generated and you will use your judgment to decide whether to accept or reject them.";
+"image-rec-onboarding-item-2-title" = "Accept or reject an image";
+"image-rec-onboarding-item-3-body" = "Images are from Wikimedia Commons, a collection of freely licensed images used by Wikipedia.";
+"image-rec-onboarding-item-3-title" = "Licensed images";
+"image-rec-onboarding-learn-more-button" = "Learn about add an image";
+"image-rec-onboarding-title" = "Add an image to an article";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
 "import-shared-reading-list-default-title" = "My Reading List";
