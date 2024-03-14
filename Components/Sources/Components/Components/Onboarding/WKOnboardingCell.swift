@@ -14,11 +14,19 @@ struct WKOnboardingCell: View {
         HStack {
             VStack {
                 if let icon = viewModel.icon {
-                    Image(uiImage: icon)
-                        .foregroundColor(Color(appEnvironment.theme.link))
-                        .accessibilityHidden(true)
-                        .padding([.trailing], 12)
-                        .accessibilityHidden(true)
+                    if viewModel.fillIconBackground {
+						Image(uiImage: icon)
+						    .foregroundColor(Color(appEnvironment.theme.link))
+						    .padding(5)
+						    .accessibilityHidden(true)
+							.background(Color(appEnvironment.theme.link.withAlphaComponent(0.25)))
+						    .clipShape(Circle())
+                    } else {
+					    Image(uiImage: icon)
+						    .foregroundColor(Color(appEnvironment.theme.link))
+						    .padding([.trailing], 12)
+						    .accessibilityHidden(true)
+                    }
                 }
                 Spacer()
             }
