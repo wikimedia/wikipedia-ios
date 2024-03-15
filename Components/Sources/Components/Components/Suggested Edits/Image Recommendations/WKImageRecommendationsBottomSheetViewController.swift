@@ -21,7 +21,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let bottomViewModel = populateImageSheetRecommendationViewModel(for: viewModel.currentRecommendation?.imageData) {
-            let bottomSheetView = WKImageRecommendationBottomSheetView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: bottomViewModel)
+            let bottomSheetView = WKImageRecommendationBottomSheetView(frame: UIScreen.main.bounds, viewModel: bottomViewModel)
             bottomSheetView.delegate = self
             addComponent(bottomSheetView, pinToEdges: true)
         }

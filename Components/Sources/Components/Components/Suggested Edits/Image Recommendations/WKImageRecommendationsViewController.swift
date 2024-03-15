@@ -92,7 +92,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             bottomSheet.largestUndimmedDetentIdentifier = .medium
             bottomSheet.prefersGrabberVisible = true
             bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-
         }
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)
     }

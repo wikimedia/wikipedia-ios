@@ -32,7 +32,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
-        stackView.alignment = .center
+        stackView.alignment = .top
         stackView.axis = .horizontal
         return stackView
     }()
@@ -42,7 +42,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-//        imageView.backgroundColor = .gray
+        imageView.backgroundColor = .gray
         return imageView
     }()
 
@@ -60,19 +60,21 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.textContainer.lineFragmentPadding = 0
         textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
-        textView.font = WKFont.for(.body)
+        textView.font = WKFont.for(.callout)
         return textView
     }()
 
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
+//        imageView.backgroundColor = .yellow
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = WKFont.for(.boldTitle1)
+//        label.backgroundColor = .red
+        label.font = WKFont.for(.boldTitle3)
         return label
     }()
 
@@ -210,11 +212,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private var imageViewWidth: CGFloat {
-        return self.frame.width/2-padding
+        return regularSizeClass ? self.frame.width/2-padding : 150
     }
 
     private var imageViewHeight: CGFloat {
-        return UIScreen.main.bounds.height/4
+        return regularSizeClass ? UIScreen.main.bounds.height/4 : 150
     }
 
     private var cutoutWidth: CGFloat {
@@ -336,7 +338,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         titleLabel.textColor = theme.text
         imageLinkButton.setTitleColor(theme.link, for: .normal)
         iconImageView.tintColor = theme.link
-        toolbar.barTintColor = theme.paperBackground
+        toolbar.barTintColor = theme.midBackground
     }
 
     private func configure() {
