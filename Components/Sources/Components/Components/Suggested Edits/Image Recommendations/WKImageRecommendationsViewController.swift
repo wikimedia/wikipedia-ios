@@ -92,7 +92,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 	}
 	
 	public func didClickSecondaryButton() {
-		guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits_project#Add_an_image") else {
+		guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image") else {
 			return
 		}
 
