@@ -130,7 +130,6 @@
 "action-update" = "Ажурирај";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "add-citation-title" = "Додавање референце";
-"additional-information-email-title" = "Додатне информације";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
@@ -224,6 +223,10 @@
 "diff-compare-header-heading" = "Упореди измене";
 "diff-compare-header-to-info-heading" = "Приказана измена";
 "diff-compare-title" = "Упореди измене";
+"diff-content-added" = "Садржај додат, $1";
+"diff-content-removed" = "Садржај уклоњен, $1";
+"diff-context-cell-collapse-section" = "Скупи $1";
+"diff-context-cell-expand-section" = "Развији $1";
 "diff-context-lines-collapsed-button-title" = "Прикажи";
 "diff-context-lines-expanded-button-title" = "Сакриј";
 "diff-header-revision-accessibility-text" = "Измена начињена";
@@ -455,6 +458,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Прикажи картицу „На основу прочитаног”";
 "explore-feed-preferences-show-top-read-footer-text" = "Искључивање картице „Најчитанији” ће бити примењено на све доступне језике.";
 "explore-feed-preferences-show-top-read-title" = "Прикажи картицу „Најчитанији”";
+"explore-feed-preferences-suggested-edits-description" = "Предлози за додавање садржаја на Википедију";
 "explore-feed-preferences-top-read-description" = "Најчитанији чланци за данас";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Искључи фид „Истражи”";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Скривање свих картица ће искључити функцију „Истражи” и заменити је са „Подешавања”";
@@ -487,6 +491,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Језик Википедије: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
+"explore-suggested-edits-footer" = "Додај";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -555,6 +560,8 @@
 "icon-shortcut-random-title" = "Случајни чланак";
 "icon-shortcut-search-title" = "Претражи Википедију";
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
+"image-rec-title" = "Додај слику";
+"image-rec-view-article" = "Види чланак";
 "import-shared-reading-list-default-title" = "Моја листа за читање";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сада";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Попуни анкету";
@@ -1033,6 +1040,7 @@
 "share-social-mention-format" = "„$1” преко Википедије: $2";
 "sort-by-recently-added-action" = "Недавно додато";
 "sort-by-title-action" = "Наслов";
+"suggested-edits-title" = "Предложене измене";
 "table-of-contents-button-label" = "Садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
@@ -1136,25 +1144,11 @@
 "unknown-generic-text" = "Непознато";
 "unwatch" = "Прекини надгледање";
 "user-title" = "Корисник";
-"vanish-account-additional-information-field" = "Додатне информације";
-"vanish-account-additional-information-placeholder" = "Необавезно";
-"vanish-account-back-confirm-discard" = "Одбаци захтев";
-"vanish-account-back-confirm-keep-editing" = "Настави уређивање";
-"vanish-account-back-confirm-title" = "Одбаци захтев за нестанак?";
-"vanish-account-bottom-text" = "Брисање налога на Википедији се врши променом назива налога тако да други не могу да препознају Ваше доприносе у процесу који се зове учтиви нестанак. Молимо попуните доњи формулар за учтив нестанак. Нестајање не гарантује потпуну анонимност и не уклања доприносе на пројектима.";
-"vanish-account-bottom-text-with-link" = "Брисање налога на Википедији се врши променом назива налога тако да други не могу да препознају Ваше доприносе у процесу који се зове $1учтиви нестанак$2$3. Молимо попуните доњи формулар за учтив нестанак. Нестајање не гарантује потпуну анонимност и не уклања доприносе на пројектима.";
-"vanish-account-button-text" = "Пошаљи захтев";
 "vanish-account-continue-button-title" = "Настави";
-"vanish-account-description" = "Да покренете процес гашења молимо наведите следеће:";
-"vanish-account-email-text" = "Здраво.\nОво је мој захтев за нестанак са Википедије.";
 "vanish-account-learn-more-text" = "Сазнајте више";
-"vanish-account-title" = "Процес нестајања";
 "vanish-account-username-field" = "Корисничко име и корисничка страница";
 "vanish-account-warning-body" = "Нестајање је **последња опција** и треба је користити **само када желите да заувек престанете са уређивањем**, као и да сакријете што више својих прошлих асоцијација.\n\nБрисање налога на Википедији се врши променом назива налога тако да други не могу да препознају Ваше доприносе у процесу који се зове учтиви нестанак. **Нестајање не гарантује потпуну анонимност и не уклања доприносе на пројектима**.";
 "vanish-account-warning-title" = "Упозорење";
-"vanish-modal-item-2" = "Уколико нисте сигурни да ли је ваш захтев примљен, проверите вашу апликацију за електронску пошту";
-"vanish-modal-title" = "Учтиви нестанак";
-"vanishing-request-email-title" = "Захтев за учтив нестанак";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
 "watch" = "Надгледај";
