@@ -153,6 +153,7 @@
 		0067E51D2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
 		0067E51E2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
 		0067E51F2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
+		0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
 		006ABEE82901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
 		006ABEE92901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
 		006ABEEA2901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
@@ -8649,9 +8650,9 @@
 		D8BA1F1F1DF1E19700502877 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */,
 				D8D92B481DF22E1700B95311 /* Third Party */,
 				B0EFCD711EBF13B2008F36E5 /* LibrariesUsed.plist */,
-				0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -9944,6 +9945,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */,
+				0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
