@@ -1136,9 +1136,21 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigationController?.pushViewController(articleViewController, animated: true)
     }
 
-    func imageRecommendationsUserDidTapInsertImage() {
+    func imageRecommendationsUserDidTapInsertImage(with imageData: WKData.WKImageRecommendationData) {
 
-    }
+        let image = UIImage()
+
+        let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: URL(string: imageData.thumbUrl)!, imageDescription: imageData.description,  imageFullUrl: URL(string: imageData.fullUrl))// force-unwrap
+        let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult)
+
+        if let presentedViewController = navigationController?.presentedViewController {
+            presentedViewController.dismiss(animated: true) {
+                }
+
+                self.push(insertMediaViewController)
+            }
+        }
+
 
 }
 
