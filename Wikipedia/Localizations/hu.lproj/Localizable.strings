@@ -111,7 +111,6 @@
 "action-update" = "Frissítés";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "add-citation-title" = "Forráshivatkozás hozzáadása";
-"additional-information-email-title" = "További információ";
 "announcements-dismiss" = "Kihagyás";
 "app-store-keywords" = "Wikipédia, hivatkozás, wiki, enciklopédia, infó, tudás, kutatás, információ, felfedezés, tanulás";
 "app-store-release-notes" = "Teljesen testreszabható és könnyebben olvasható Felfedezés hírfolyam. Fordítási és teljesítményjavítások, hibajavítások.";
@@ -735,11 +734,6 @@
 "unknown-generic-text" = "Ismeretlen";
 "user-title" = "Felhasználó";
 "uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
-"vanish-account-additional-information-field" = "További információ";
-"vanish-account-additional-information-placeholder" = "Opcionális";
-"vanish-account-back-confirm-discard" = "Kérelem elvetése";
-"vanish-account-back-confirm-keep-editing" = "Szerkesztés folytatása";
-"vanish-account-button-text" = "Kérelem küldése";
 "vanish-account-username-field" = "Felhasználónév és felhasználói oldal";
 "variants-alert-dismiss-button" = "Nem, köszönöm";
 "variants-alert-preferences-button" = "Beállításaid áttekintése";

@@ -241,10 +241,21 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+"diff-change-added" = "Adición, $1, final de adición.";
+"diff-change-paragraph-lines-moved-down" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
+"diff-change-paragraph-lines-moved-up" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
+"diff-change-paragraph-moved" = "Párrafo movido. Ir a la ubicación anterior.";
+"diff-change-paragraph-sections-moved-down" = "Párrafo movido hacia abajo {{PLURAL:$1|0=0 secciones| $1 sección| $1 secciones}}. Ir a nueva ubicación.";
+"diff-change-paragraph-sections-moved-up" = "Párrafo movido hacia abajo {{PLURAL:$1|0=0 secciones| $1 sección| $1 secciones}}. Ir a nueva ubicación.";
+"diff-change-removal" = "Eliminación, $1 , fin de eliminación.";
 "diff-compare-header-from-info-heading" = "Edición anterior";
 "diff-compare-header-heading" = "Comparar revisiones";
 "diff-compare-header-to-info-heading" = "Edición mostrada";
 "diff-compare-title" = "Comparar revisiones";
+"diff-content-added" = "Contenido añadido, $1";
+"diff-content-removed" = "Contenido eliminado, $1";
+"diff-context-cell-collapse-section" = "Contraer $1";
+"diff-context-cell-expand-section" = "Ampliar $1";
 "diff-context-lines-collapsed-button-title" = "Mostrar";
 "diff-context-lines-expanded-button-title" = "Ocultar";
 "diff-multi-line-format" = "Renglones $1-$2";
@@ -272,6 +283,7 @@
 "diff-thanks-sent" = "Tu agradecimiento se envió a $1";
 "diff-thanks-sent-already" = "Ya has enviado un agradecimiento por esta edición";
 "diff-thanks-sent-cannot-unsend" = "No se puede deshacer el envío de agradecimientos";
+"diff-unchanged-contextual-line" = "Línea contextual, sin cambios: $1";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
 "donate-apple-fine-print" = "Apple no se encarga de recaudar dinero para este fin.";
@@ -417,6 +429,8 @@
 "explore-feed-preferences-show-related-pages-title" = "\nMostrar tarjeta Porque leíste";
 "explore-feed-preferences-show-top-read-footer-text" = "Desactivar la tarjeta Más leídos la desactivará de todos los idiomas disponibles.";
 "explore-feed-preferences-show-top-read-title" = "Mostrar tarjeta Más leídos";
+"explore-feed-preferences-suggested-edits-description" = "Sugerencias para añadir contenido a Wikipedia";
+"explore-feed-preferences-suggested-edits-title" = "Mostrar tarjeta de ediciones sugeridas";
 "explore-feed-preferences-top-read-description" = "Artículos más leídos del día";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "\nDesactivar Explorar";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todas las tarjetas del canal Explorar desactivará la pestaña Explorar y la reemplazará por la pestaña Ajustes";
@@ -449,6 +463,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
+"explore-suggested-edits-footer" = "Añadir";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
@@ -871,6 +886,7 @@
 "share-social-mention-format" = "«$1» vía Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
+"suggested-edits-title" = "Ediciones sugeridas";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
