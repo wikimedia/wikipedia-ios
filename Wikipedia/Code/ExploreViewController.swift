@@ -1135,6 +1135,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         navigationController?.pushViewController(articleViewController, animated: true)
     }
-    
-    
+
+    func imageRecommendationsUserDidTapInsertImage() {
+
+    }
+
 }
+

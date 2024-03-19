@@ -6,16 +6,23 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     // MARK: Properties
 
     public var viewModel: WKImageRecommendationsViewModel
+    weak var delegate: WKImageRecommendationsDelegate?
 
     // MARK: Lifecycle
 
-    public init(viewModel: WKImageRecommendationsViewModel) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +63,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func didTapYesButton() {
-
+        delegate?.imageRecommendationsUserDidTapInsertImage()
     }
 
     func didTapNoButton() {
