@@ -150,6 +150,10 @@
 		00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */; };
 		00669507265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */; };
 		0066BE30265EC4A900512BE8 /* WidgetFeaturedContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */; };
+		0067E51D2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
+		0067E51E2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
+		0067E51F2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
+		0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */; };
 		006ABEE82901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
 		006ABEE92901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
 		006ABEEA2901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */; };
@@ -3174,6 +3178,7 @@
 		00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedArticleWidget.swift; sourceTree = "<group>"; };
 		00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeaturedArticleWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFeaturedContent.swift; sourceTree = "<group>"; };
+		0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountWarningView.swift; sourceTree = "<group>"; };
 		006ABEEC2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountWarningViewHostingViewController.swift; sourceTree = "<group>"; };
 		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
@@ -8648,6 +8653,7 @@
 		D8BA1F1F1DF1E19700502877 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0067E51C2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy */,
 				D8D92B481DF22E1700B95311 /* Third Party */,
 				B0EFCD711EBF13B2008F36E5 /* LibrariesUsed.plist */,
 			);
@@ -9569,6 +9575,7 @@
 			files = (
 				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
 				7A9524DC22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
+				0067E51D2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				BA4524291F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8E27BB41F82B5DB00F9D2B3 /* RMessageView.xib in Resources */,
 				B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */,
@@ -9750,6 +9757,7 @@
 				83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
+				0067E51F2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9871,6 +9879,7 @@
 				83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
+				0067E51E2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9940,6 +9949,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */,
+				0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
