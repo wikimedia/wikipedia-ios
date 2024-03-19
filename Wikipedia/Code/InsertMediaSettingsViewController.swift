@@ -127,7 +127,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
-        imageView.heading = WMFLocalizedString("insert-media-uploaded-image-title", value: "Uploaded image", comment: "Title that appears next to an image in media settings")
+        imageView.imageDescription = searchResult.imageDescription
         imageView.title = searchResult.displayTitle
         imageView.titleURL = searchResult.imageInfo?.filePageURL
         imageView.titleAction = { [weak self] url in

@@ -630,7 +630,6 @@
 "insert-media-image-type-settings-title" = "Display ritle for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
-"insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
 "inuktitut-variants-alert-body" = "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).";
 "inuktitut-variants-alert-title" = "Title of alert used to inform users about Inuktitut variant support.";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
