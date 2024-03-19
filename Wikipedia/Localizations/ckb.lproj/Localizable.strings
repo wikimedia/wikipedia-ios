@@ -106,7 +106,6 @@
 "action-update" = "نوێکردنەوە";
 "add-articles-to-reading-list" = "زیادکردنی {{PLURAL:$1|$1 وتار|$1 وتار}} بۆ پێڕستی خوێندنەوە";
 "add-citation-title" = "زیادکردنی شرۆڤە";
-"additional-information-email-title" = "زانیاریی زیاتر";
 "announcements-dismiss" = "لێگەڕان";
 "app-store-keywords" = "ویکیپیدیا، سەرچاوە، ویکی، ئینسایکڵۆپیدیا، زانیاری، زانین، توێژینەوە، گەڕان، فێربوون، زانستنامە";
 "app-store-subtitle" = "ئینسایکڵۆپیدیای ئازاد";
@@ -555,11 +554,6 @@
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
 "unknown-generic-text" = "نەزانراو";
 "unwatch" = "لابردنی چاودێری";
-"vanish-account-additional-information-field" = "زانیاریی زیاتر";
-"vanish-account-additional-information-placeholder" = "ئارەزوومەندانە";
-"vanish-account-back-confirm-discard" = "پێشێلکردنەوەی داخوازی";
-"vanish-account-back-confirm-keep-editing" = "بەردەوامبە لە دەستکاریکردن";
-"vanish-account-button-text" = "ناردنی داخوازی";
 "vanish-account-username-field" = "ناوی بەکارھێنەر و پەڕەی بەکارھێنەر";
 "vanish-account-warning-title" = "ئاگاداری";
 "variants-alert-dismiss-button" = "نا سپاس";

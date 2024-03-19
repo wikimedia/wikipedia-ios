@@ -86,6 +86,7 @@
 "explore-potd-sub-heading" = "Վիքիպահեստից";
 "explore-random-article-heading" = "Պատահական հոդված";
 "explore-random-article-sub-heading-from-wikipedia" = "Վիքիպեդիայից";
+"explore-suggested-edits-footer" = "Ավելացնել";
 "field-email-title" = "Էլ. փոստ";
 "field-email-title-optional" = "Էլ. փոստ (ոչ պարտադիր)";
 "field-password-title" = "Գաղտնաբառ";
@@ -103,6 +104,8 @@
 "icon-shortcut-random-title" = "Պատահական հոդված";
 "icon-shortcut-search-title" = "Որոնել Վիքիպեդիայում";
 "image-gallery-unknown-owner" = "Հեղինակը անհայտ է։";
+"image-rec-title" = "Ավելացնել պատկեր";
+"image-rec-view-article" = "Դիտել հոդվածը";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Հիմա չէ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Վիքիպեդիայից";
 "in-the-news-sub-title-from-wikipedia" = "Վիքիպեդիայից";
