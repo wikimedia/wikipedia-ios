@@ -1140,7 +1140,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
         let image = UIImage()
 
-        let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: URL(string: imageData.thumbUrl)!, imageDescription: imageData.description,  imageFullUrl: URL(string: imageData.fullUrl))// force-unwrap
+        let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: URL(string: imageData.thumbUrl)!, imageDescription: imageData.description,  imageFullUrl: URL(string: imageData.descriptionURL))// force-unwrap
         let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult)
 
         if let presentedViewController = navigationController?.presentedViewController {

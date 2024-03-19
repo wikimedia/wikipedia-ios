@@ -124,14 +124,22 @@ final class InsertMediaSettingsViewController: ViewController {
         return Settings(caption: caption, alternativeText: alternativeText, advanced: insertMediaAdvancedSettingsViewController.advancedSettings)
     }
 
+    var imageTitle: URL? {
+        if let imageURL = searchResult.imageFullURL {
+            return imageURL
+        } else {
+            return searchResult.imageInfo?.filePageURL
+        }
+    }
+
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
         imageView.imageDescription = searchResult.imageDescription
         imageView.title = searchResult.displayTitle
-        imageView.titleURL = searchResult.imageInfo?.filePageURL
+        imageView.titleURL = imageTitle
         imageView.titleAction = { [weak self] url in
-            self?.navigate(to: url, useSafari: true)
+            self?.navigate(to: url, useSafari: false)
         }
         imageView.autoresizingMask = []
         return imageView
