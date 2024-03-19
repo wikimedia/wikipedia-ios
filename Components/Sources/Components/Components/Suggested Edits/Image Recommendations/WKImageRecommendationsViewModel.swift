@@ -1,6 +1,7 @@
 import Foundation
 import WKData
 import Combine
+import UIKit
 
 public final class WKImageRecommendationsViewModel: ObservableObject {
     
@@ -32,6 +33,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Properties
     
     let project: WKProject
+    let semanticContentAttribute: UISemanticContentAttribute
     let localizedStrings: LocalizedStrings
     
     private(set) var recommendations: [ImageRecommendation] = []
@@ -45,8 +47,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init(project: WKProject, localizedStrings: LocalizedStrings) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings) {
         self.project = project
+        self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
@@ -70,7 +73,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         loading = true
         
-        growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
+        growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
             
             guard let self else {
                 completion()

@@ -72,16 +72,19 @@ extension WMFContentGroup {
             vc = firstRandom
         case .imageRecommendations:
             
-            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                  let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+            guard let appLanguage = dataStore.languageLinkController.appLanguage,
+                  let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wkProject,
                   let imageRecDelegate = imageRecDelegate else {
                 return nil
             }
             
+            let contentLanguageCode = appLanguage.contentLanguageCode
+            let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
+            
             let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
             let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
             let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle)
-            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
+            let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
             return imageRecommendationsViewController
         default:

@@ -6,12 +6,17 @@ struct WKImageRecommendationsView: View {
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
     let viewArticleAction: (String) -> Void
     
+    var isRTL: Bool {
+        return viewModel.semanticContentAttribute == .forceRightToLeft
+    }
+    
     var body: some View {
         Group {
             if let articleSummary = viewModel.currentRecommendation?.articleSummary,
                !viewModel.debouncedLoading {
                 VStack {
                     WKArticleSummaryView(articleSummary: articleSummary)
+                        .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
                     Spacer()
                         .frame(height: 19)
                     HStack {
