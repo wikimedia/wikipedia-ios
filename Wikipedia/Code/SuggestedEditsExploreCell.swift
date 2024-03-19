@@ -60,7 +60,7 @@ class SuggestedEditsExploreCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        titleLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
         bodyLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
     }
     
