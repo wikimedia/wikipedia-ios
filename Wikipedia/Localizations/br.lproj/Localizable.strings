@@ -96,7 +96,6 @@
 "action-update" = "Hizivaat";
 "add-articles-to-reading-list" = "Ouzhpennañ {{PLURAL:$1|$1 pennad|$1 pennad}} d'ar roll lenn";
 "add-citation-title" = "Ouzhpennañ ur meneg";
-"additional-information-email-title" = "Titouroù ouzhpenn";
 "announcements-dismiss" = "Disteurel";
 "app-store-subtitle" = "An Holloueziadur digor";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
@@ -273,6 +272,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Eus $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Eus Wikipedia";
 "explore-randomizer" = "Dre zegouezh";
+"explore-suggested-edits-footer" = "Ouzhpennañ";
 "featured-widget-from-language-wikipedia" = "Eus $1 Wikipedia";
 "featured-widget-from-wikipedia" = "Eus Wikipedia";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
@@ -321,6 +321,8 @@
 "icon-shortcut-random-title" = "Ur pennad dre zegouezh";
 "icon-shortcut-search-title" = "Klask e Wikipedia";
 "image-gallery-unknown-owner" = "Aozer dianav.";
+"image-rec-title" = "Ouzhpennañ ur skeudenn";
+"image-rec-view-article" = "Gwelet ar pennad";
 "import-shared-reading-list-default-title" = "Ma roll lenn";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ket bremañ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Kemer perzh er sontadeg";
@@ -664,10 +666,6 @@
 "unknown-generic-text" = "Dianav";
 "unwatch" = "Paouez da evezhiañ";
 "user-title" = "Implijer/ez";
-"vanish-account-additional-information-field" = "Titouroù ouzhpenn";
-"vanish-account-additional-information-placeholder" = "Diret";
-"vanish-account-back-confirm-keep-editing" = "Kenderc'hel da aozañ";
-"vanish-account-button-text" = "Kas ar goulenn";
 "vanish-account-continue-button-title" = "Kenderc'hel";
 "vanish-account-learn-more-text" = "Gouzout hiroc'h";
 "vanish-account-username-field" = "Anv-implijer ha pajenn an implijer";

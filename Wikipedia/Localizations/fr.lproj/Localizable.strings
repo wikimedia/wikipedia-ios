@@ -16,6 +16,7 @@
 // Author: John Trololo
 // Author: Lhanars
 // Author: Lulucmy
+// Author: MacOS Weed
 // Author: Macofe
 // Author: McDutchie
 // Author: Melimeli
@@ -148,7 +149,6 @@
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "add-citation-title" = "Ajouter une référence";
-"additional-information-email-title" = "Informations supplémentaires";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
 "app-store-release-notes" = "Flux d’exploration complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections d’anomalies.";
@@ -616,6 +616,7 @@
 "icon-shortcut-random-title" = "Article au hasard";
 "icon-shortcut-search-title" = "Rechercher dans Wikipédia";
 "image-gallery-unknown-owner" = "Auteur inconnu.";
+"image-rec-title" = "Ajouter une image";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
@@ -1211,28 +1212,11 @@
 "user-title" = "Utilisateur";
 "uzbek-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’ouzbek comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin – ouzbek latin (uz-latin)\nўзбекча кирилл – ouzbek cyrillique (uz-cyrl)";
 "uzbek-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’ouzbek";
-"vanish-account-additional-information-field" = "Informations supplémentaires";
-"vanish-account-additional-information-placeholder" = "Facultatif";
-"vanish-account-back-confirm-discard" = "Abandonner la demande";
-"vanish-account-back-confirm-keep-editing" = "Continuer à modifier";
-"vanish-account-back-confirm-title" = "Êtes-vous sûr{{GENDER:||e}} de vouloir abandonner cette demande de disparition ?";
-"vanish-account-bottom-text" = "La suppression de compte sur Wikipédia est effectuée en changeant le nom de votre compte pour faire en sorte que les autres ne puisse pas reconnaître vos contributions, dans un processus appelé disparition de compte. Vous pouvez utiliser le formulaire ci-dessous pour demander une disparition par courtoisie. La disparition ne garantit pas un anonymat complet, ni ne supprime les contributions aux projets.";
-"vanish-account-bottom-text-with-link" = "La suppression de compte sur Wikipédia est effectuée en changeant le nom de votre compte pour faire en sorte que les autres ne puisse pas reconnaître vos contributions, dans un processus appelé disparition de compte. Vous pouvez utiliser le formulaire ci-dessous pour demander une $1disparition par courtoisie$2$3. La disparition ne garantit pas un anonymat complet, ni ne supprime les contributions aux projets.";
-"vanish-account-button-text" = "Envoyer la demande";
 "vanish-account-continue-button-title" = "Continuer";
-"vanish-account-description" = "Pour lancer le processus de disparition, veuillez fournir ce qui suit :";
-"vanish-account-email-text" = "Bonjour,\nCeci est une demande pour faire disparaître mon compte Wikipédia.";
 "vanish-account-learn-more-text" = "En savoir plus";
-"vanish-account-title" = "Processus du droit de disparaître";
 "vanish-account-username-field" = "Nom d’utilisateur et page utilisateur";
 "vanish-account-warning-body" = "La disparition est à utiliser en **dernier recours** et ne doit **uniquement lorsque vous souhaitez arrêter les modifications pour toujours** et également pour masquer autant de vos associations passées que possible.\n\nLa suppression du compte sur Wikipédia est réalisée en changeant le nom de votre compte pour que les autres ne puissent pas reconnaître vos contributions dans un processus appelé disparition de compte. **La disparition ne garantit pas l’anonymat complet et ne supprime pas les contributions aux projets**.";
 "vanish-account-warning-title" = "Avertissement";
-"vanish-modal-item" = "Si vous avez complété votre demande de disparition, veuillez accorder quelques jours pour qu’elle soit traitée par un administrateur.";
-"vanish-modal-item-2" = "Si vous n’êtes pas sûr{{GENDER:||e}} que votre demande a abouti, veuillez vérifier dans votre application de courriel.";
-"vanish-modal-item-3" = "Si vous avez d’autres questions sur le droit de disparaître, veuillez visiter Meta:Right_to_vanish/fr";
-"vanish-modal-item-3-ios15" = "Si vous avez d'autres questions sur le droit de disparaître, veuillez visiter $1Meta:Right_to_vanish/fr$2$3";
-"vanish-modal-title" = "Faire valoir son droit de disparaître";
-"vanishing-request-email-title" = "Demande de droit de disparaître";
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
 "watch" = "Suivre";
@@ -1283,6 +1267,7 @@
 "watchlist-filter-user-registration-header" = "Inscription et expérience utilisateur";
 "watchlist-filter-user-registration-options-registered" = "Inscrit";
 "watchlist-filter-user-registration-options-unregistered" = "Non inscrit";
+"watchlist-filters-add-language" = "Ajouter une langue...";
 "watchlist-number-filters" = "Modifier [{{PLURAL:$1|$1 filtre|$1 filtres}}](wikipedia://watchlist/filter) pour voir plus d’éléments de la liste de suivi";
 "watchlist-onboarding-button-title" = "En savoir plus sur la liste de suivi";
 "watchlist-onboarding-title" = "Présentation de votre liste de suivi";
