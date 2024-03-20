@@ -69,20 +69,6 @@ class WikipediaLanguageCommandLineUtilityAPI {
         }.eraseToAnyPublisher()
     }
     
-    func getCodeMirrorConfigJSON(for wikiLanguage: String) -> AnyPublisher<String, Error> {
-        let codeMirrorConfigURL = URL(string: "http://\(wikiLanguage).wikipedia.org/w/load.php?debug=false&lang=en&modules=ext.CodeMirror.data")!
-        return URLSession.shared.dataTaskPublisher(for: codeMirrorConfigURL)
-            .tryMap { (result) -> String in
-                guard
-                    let responseString = String(data: result.data, encoding: .utf8),
-                    let soughtSubstring = self.extractJSONString(from: responseString)
-                    else {
-                        throw WikipediaLanguageUtilityAPIError.generic
-                }
-                return soughtSubstring.replacingOccurrences(of: "!0", with: "true")
-        }.eraseToAnyPublisher()
-    }
-    
     private let jsonExtractionRegex = try! NSRegularExpression(pattern: #"(?:mw\.config\.set\()(.*?)(?:\)\n*;\n*\}\);)"#, options: [.dotMatchesLineSeparators])
     
     private func extractJSONString(from responseString: String) -> String? {
