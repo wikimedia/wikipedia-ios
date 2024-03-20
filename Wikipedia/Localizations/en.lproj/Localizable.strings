@@ -1120,7 +1120,7 @@
 "talk-page-reply-button-accessibility-label" = "Reply to $1";
 "talk-page-reply-depth-accessibility-label" = "Reply depth: $1";
 "talk-page-reply-placeholder-format" = "Reply to $1";
-"talk-page-reply-terms-and-licenses" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 4.0$4 and the $5GFDL$6 licenses.";
 "talk-page-revision-history" = "Revision history";
 "talk-page-rply-close-button-accessibility-hint" = "Close reply view";
 "talk-page-share-button" = "Share talk page";
@@ -1131,7 +1131,7 @@
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
 "talk-page-topic-close-button-hint" = "Close new topic";
-"talk-page-topic-compose-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0 License$4 and the $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0 License$4 and the $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-page-unsubscribed-alert-subtitle" = "You will no longer receive notifications about new comments in this topic.";
 "talk-page-unsubscribed-alert-title" = "You have unsubscribed.";
@@ -1301,5 +1301,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Edits will be attributed to the IP address of your device. If you $1Log in$2 you will have more privacy.";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "Log in";
-"wikitext-upload-save-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
