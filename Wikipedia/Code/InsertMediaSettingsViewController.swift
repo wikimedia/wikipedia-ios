@@ -150,9 +150,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
         let isRTL = UIApplication.shared.wmf_isRTL
-        let buttonTitleWithoutChevron = InsertMediaAdvancedSettingsViewController.title
-        let buttonTitleWithChevron = isRTL ? "< \(buttonTitleWithoutChevron)" : "\(buttonTitleWithoutChevron) >"
-        buttonView.buttonTitle = buttonTitleWithChevron
+        buttonView.buttonTitle = InsertMediaAdvancedSettingsViewController.title
         buttonView.buttonAction = { [weak self] _ in
             guard let self = self else {
                 return
@@ -169,6 +167,7 @@ final class InsertMediaSettingsViewController: ViewController {
         let headerText: String
         let placeholder: String
         let footerText: String
+        let url: String
 
         init(type: TextViewType) {
             self.type = type
@@ -177,10 +176,12 @@ final class InsertMediaSettingsViewController: ViewController {
                 headerText = WMFLocalizedString("insert-media-caption-title", value: "Caption", comment: "Title for setting that allows users to add image captions")
                 placeholder = WMFLocalizedString("insert-media-caption-caption-placeholder", value: "How does this image relate to the article?", comment: "Placeholder text for setting that allows users to add image captions")
                 footerText = WMFLocalizedString("insert-media-caption-description", value: "Label that shows next to the item for all readers", comment: "Description for setting that allows users to add image captions")
+                url = "https://en.wikipedia.org" // get URL
             case .alternativeText:
                 headerText = WMFLocalizedString("insert-media-alternative-text-title", value: "Alternative text", comment: "Title for setting that allows users to add image alternative text")
                 placeholder = WMFLocalizedString("insert-media-alternative-text-placeholder", value: "Describe this image", comment: "Placeholder text for setting that allows users to add image alternative text")
                 footerText = WMFLocalizedString("insert-media-alternative-text-description", value: "Text description for readers who cannot see the image", comment: "Description for setting that allows users to add image alternative text")
+                url = "https://es.wikipedia.org" // get URL
             }
         }
     }
@@ -285,6 +286,13 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
         cell.footerText = viewModel.footerText
         cell.selectionStyle = .none
         cell.apply(theme: theme)
+        cell.learnMoreURL = URL(string: viewModel.url)
+        cell.learnMoreAction = { [weak self] url in
+            guard let self = self else {
+                return
+            }
+            self.navigate(to: url, useSafari: false)
+        }
         return cell
     }
 

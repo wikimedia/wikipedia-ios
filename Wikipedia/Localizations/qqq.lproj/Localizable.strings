@@ -106,6 +106,7 @@
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "add-citation-title" = "Title for add citation action";
+"add-image-learn-more-text" = "Text for button on add image details for going to links with more information on topics related to images on Wikipedia";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";

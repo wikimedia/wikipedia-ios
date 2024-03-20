@@ -106,6 +106,7 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "add-citation-title" = "Add citation";
+"add-image-learn-more-text" = "Learn more";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
