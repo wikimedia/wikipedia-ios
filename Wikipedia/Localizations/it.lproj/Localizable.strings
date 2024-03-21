@@ -152,7 +152,6 @@
 "action-update" = "Aggiorna";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "add-citation-title" = "Aggiungi fonte";
-"additional-information-email-title" = "Ulteriori informazioni";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
@@ -225,10 +224,18 @@
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
 "diff-article-revision-history" = "Cronologia versioni voce";
+"diff-change-paragraph-lines-moved-down" = "Il paragrafo è stato spostato in basso di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
+"diff-change-paragraph-lines-moved-up" = "Il paragrafo è stato spostato in alto di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
+"diff-change-paragraph-moved" = "Paragrafo spostato. Vai alla posizione precedente.";
+"diff-change-paragraph-sections-moved-down" = "Il paragrafo è stato spostato in basso di {{PLURAL:$1|0=0 sezioni|$1 sezione|$1 sezioni}}. Vai alla nuova posizione.";
+"diff-change-paragraph-sections-moved-up" = "Il paragrafo è stato spostato in alto di {{PLURAL:$1|0=0 sezioni|$1 sezione|$1 sezioni}}. Vai alla nuova posizione.";
 "diff-compare-header-from-info-heading" = "Modifica precedente";
 "diff-compare-header-heading" = "Confronta versioni";
 "diff-compare-header-to-info-heading" = "Modifica visualizzata";
 "diff-compare-title" = "Confronta versioni";
+"diff-content-added" = "Contenuto aggiunto, $1";
+"diff-content-removed" = "Contenuto rimosso, $1";
+"diff-context-cell-expand-section" = "Espandi $1";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
 "diff-header-revision-accessibility-text" = "Versione del";
@@ -385,6 +392,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Attivo";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Su $1";
 "explore-feed-preferences-hide-card-action-title" = "Nascondi questa scheda";
+"explore-feed-preferences-suggested-edits-description" = "Suggerimenti per aggiungere contenuti a Wikipedia";
 "explore-hide-card-prompt" = "Nascondi questa scheda";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
@@ -404,6 +412,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Una pagina a caso";
+"explore-suggested-edits-footer" = "Aggiungi";
 "featured-widget-content-failure-for-date" = "Nessun articolo in evidenza disponibile per questa data.";
 "featured-widget-description" = "Scopri i migliori articoli su Wikipedia, selezionati quotidianamente dalla nostra community.";
 "featured-widget-from-wikipedia" = "Da Wikipedia";
@@ -455,6 +464,8 @@
 "icon-shortcut-random-title" = "Voce a caso";
 "icon-shortcut-search-title" = "Cerca su Wikipedia";
 "image-gallery-unknown-owner" = "Autore sconosciuto.";
+"image-rec-title" = "Aggiungi immagine";
+"image-rec-view-article" = "Visualizza voce";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
 "in-the-news-title" = "Novità";
@@ -764,6 +775,7 @@
 "share-social-mention-format" = "“$1” tramite Wikipedia: $2";
 "sort-by-recently-added-action" = "Aggiunti di recente";
 "sort-by-title-action" = "Titolo";
+"suggested-edits-title" = "Modifiche suggerite";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
@@ -825,8 +837,6 @@
 "unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
 "user-title" = "Utente";
-"vanish-account-additional-information-field" = "Ulteriori informazioni";
-"vanish-account-button-text" = "Invia richiesta";
 "vanish-account-learn-more-text" = "Ulteriori informazioni";
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "variants-alert-dismiss-button" = "No, grazie";

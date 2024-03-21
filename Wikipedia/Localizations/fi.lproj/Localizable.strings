@@ -140,7 +140,6 @@
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "add-citation-title" = "Lisää viittaus";
-"additional-information-email-title" = "Lisätiedot";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -236,6 +235,8 @@
 "diff-compare-header-heading" = "Versioiden vertailu";
 "diff-compare-header-to-info-heading" = "Näkyvä muokkaus";
 "diff-compare-title" = "Versioiden vertailu";
+"diff-context-cell-collapse-section" = "Tiivistä $1";
+"diff-context-cell-expand-section" = "Laajenna $1";
 "diff-context-lines-collapsed-button-title" = "Näytä";
 "diff-context-lines-expanded-button-title" = "Piilota";
 "diff-header-revision-accessibility-text" = "Versio, joka on tehty";
@@ -551,6 +552,8 @@
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
+"image-rec-title" = "Lisää kuva";
+"image-rec-view-article" = "Näytä artikkeli";
 "import-shared-reading-list-default-title" = "Oma lukulista";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Vastaa kyselyyn";
@@ -1108,11 +1111,6 @@
 "unknown-generic-text" = "Tuntematon";
 "unwatch" = "Lopeta tarkkailu";
 "user-title" = "Käyttäjä";
-"vanish-account-additional-information-field" = "Lisätiedot";
-"vanish-account-additional-information-placeholder" = "Valinnainen";
-"vanish-account-back-confirm-discard" = "Hylkää pyyntö";
-"vanish-account-back-confirm-keep-editing" = "Jatka muokkaamista";
-"vanish-account-button-text" = "Lähetä pyyntö";
 "vanish-account-continue-button-title" = "Jatka";
 "vanish-account-learn-more-text" = "Lue lisää";
 "vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
