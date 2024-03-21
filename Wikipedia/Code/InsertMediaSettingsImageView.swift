@@ -5,6 +5,8 @@ final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageDescriptionLabel: UILabel!
     @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet weak var buttonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
 
     var image: UIImage? {
         didSet {
@@ -31,6 +33,7 @@ final class InsertMediaSettingsImageView: UIView {
         super.awakeFromNib()
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
+        configTitleButton()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -46,7 +49,10 @@ final class InsertMediaSettingsImageView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        imageDescriptionLabel.numberOfLines = 2
         imageDescriptionLabel.preferredMaxLayoutWidth = imageDescriptionLabel.bounds.width
+        buttonHeightConstraint.constant = imageHeightConstraint.constant/2
+        titleButton.titleLabel?.numberOfLines = 3
     }
 
     @IBAction private func performTitleAction(_ sender: UIButton) {
@@ -66,6 +72,13 @@ final class InsertMediaSettingsImageView: UIView {
             attributedString.append(NSAttributedString(attachment: attachment))
         }
         return attributedString
+    }
+
+    private func configTitleButton() {
+        titleButton.titleLabel?.lineBreakMode = .byTruncatingMiddle
+        titleButton.configuration?.contentInsets = .zero
+        titleButton.configuration?.titlePadding = .zero
+        titleButton.sizeToFit()
     }
 }
 

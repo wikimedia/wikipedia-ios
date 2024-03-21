@@ -21,12 +21,6 @@
                         <constraint firstAttribute="width" constant="100" id="jMa-Do-67b"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bz6-Hh-8a4" userLabel="Description">
-                    <rect key="frame" x="124" y="57.999999999999993" width="238" height="15.666666666666664"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                    <color key="textColor" systemColor="lightTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14T-il-gWI" userLabel="Separator View">
                     <rect key="frame" x="0.0" y="141.66666666666666" width="374" height="0.33333333333334281"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -34,42 +28,84 @@
                         <constraint firstAttribute="height" constant="0.5" id="1CP-0j-waf"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKk-Mb-Kll" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                    <rect key="frame" x="124" y="12" width="238" height="34"/>
-                    <state key="normal" title="Button"/>
-                    <connections>
-                        <action selector="performTitleAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ell-Pj-XBu"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="top" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Q1m-he-2EB">
+                    <rect key="frame" x="124" y="12" width="238" height="100"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aaz-Pw-HiZ">
+                            <rect key="frame" x="0.0" y="0.0" width="238" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="yQU-JI-kkx"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="performTitleAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="QoY-3m-agf"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyS-Fq-o5b">
+                            <rect key="frame" x="0.0" y="56" width="238" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="iyS-Fq-o5b" firstAttribute="top" secondItem="Aaz-Pw-HiZ" secondAttribute="bottom" constant="12" id="6sb-nD-jBX"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="xPE-QP-X0o"/>
             <constraints>
+                <constraint firstItem="Q1m-he-2EB" firstAttribute="bottom" secondItem="Kx7-Dd-yct" secondAttribute="bottom" id="1LG-nV-g9I"/>
                 <constraint firstItem="14T-il-gWI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4dc-iX-jus"/>
-                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="7MM-yp-vKF"/>
                 <constraint firstItem="Kx7-Dd-yct" firstAttribute="leading" secondItem="xPE-QP-X0o" secondAttribute="leading" constant="12" id="8cj-Uq-Xvk"/>
+                <constraint firstItem="Aaz-Pw-HiZ" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="9Qv-3J-4Wa"/>
+                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Q1m-he-2EB" secondAttribute="trailing" constant="12" id="ACv-k0-ziY"/>
                 <constraint firstItem="14T-il-gWI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kx7-Dd-yct" secondAttribute="bottom" constant="12" id="BOu-3q-fSE"/>
                 <constraint firstItem="Kx7-Dd-yct" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="EkL-ic-CTI"/>
-                <constraint firstItem="fKk-Mb-Kll" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="FE1-yK-qVY"/>
-                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="Bz6-Hh-8a4" secondAttribute="trailing" constant="12" id="Fot-mO-4n1"/>
+                <constraint firstItem="Aaz-Pw-HiZ" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="KHU-NM-1ss"/>
                 <constraint firstAttribute="trailing" secondItem="14T-il-gWI" secondAttribute="trailing" id="Lsg-ci-8dH"/>
-                <constraint firstItem="fKk-Mb-Kll" firstAttribute="leading" secondItem="Bz6-Hh-8a4" secondAttribute="leading" id="UZt-fQ-Gl0"/>
-                <constraint firstItem="xPE-QP-X0o" firstAttribute="trailing" secondItem="fKk-Mb-Kll" secondAttribute="trailing" constant="12" id="YZ0-yB-dM6"/>
-                <constraint firstItem="Bz6-Hh-8a4" firstAttribute="top" secondItem="fKk-Mb-Kll" secondAttribute="bottom" constant="12" id="ein-dk-M0d"/>
+                <constraint firstItem="Q1m-he-2EB" firstAttribute="leading" secondItem="Kx7-Dd-yct" secondAttribute="trailing" constant="12" id="Xem-tn-Jgl"/>
+                <constraint firstItem="Q1m-he-2EB" firstAttribute="top" secondItem="Kx7-Dd-yct" secondAttribute="top" id="bk4-3Q-6kB"/>
+                <constraint firstItem="Aaz-Pw-HiZ" firstAttribute="leading" secondItem="xPE-QP-X0o" secondAttribute="leading" constant="124" id="eGB-KB-RXo"/>
+                <constraint firstItem="iyS-Fq-o5b" firstAttribute="bottom" secondItem="Kx7-Dd-yct" secondAttribute="bottom" id="g14-Ta-NMy"/>
                 <constraint firstAttribute="bottom" secondItem="14T-il-gWI" secondAttribute="bottom" id="shL-y3-cFw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="imageDescriptionLabel" destination="Bz6-Hh-8a4" id="zVk-ms-J6K"/>
+                <outlet property="buttonHeightConstraint" destination="yQU-JI-kkx" id="WYw-jC-MmG"/>
+                <outlet property="imageDescriptionLabel" destination="iyS-Fq-o5b" id="6H7-r1-sLG"/>
+                <outlet property="imageHeightConstraint" destination="jMa-Do-67b" id="3yL-Ll-2Gv"/>
                 <outlet property="imageView" destination="Kx7-Dd-yct" id="C6V-vh-zp9"/>
                 <outlet property="separatorView" destination="14T-il-gWI" id="Ldk-i0-sP1"/>
-                <outlet property="titleButton" destination="fKk-Mb-Kll" id="niv-e5-7r6"/>
+                <outlet property="titleButton" destination="Aaz-Pw-HiZ" id="4sf-aS-ChB"/>
             </connections>
             <point key="canvasLocation" x="31.884057971014496" y="-210.26785714285714"/>
         </view>
+        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" id="dLb-iY-5dk">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <viewLayoutGuide key="safeArea" id="2c6-er-8qc"/>
+            <point key="canvasLocation" x="456" y="-281"/>
+        </stackView>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fKk-Mb-Kll" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="238" height="21.666666666666668"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+            <point key="canvasLocation" x="228" y="-343"/>
+        </button>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bz6-Hh-8a4" userLabel="Description">
+            <rect key="frame" x="0.0" y="0.0" width="238" height="15.666666666666666"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+            <color key="textColor" systemColor="lightTextColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="533" y="-308"/>
+        </label>
     </objects>
     <designables>
         <designable name="fKk-Mb-Kll">
-            <size key="intrinsicContentSize" width="54" height="34"/>
+            <size key="intrinsicContentSize" width="53.666666666666664" height="21.666666666666668"/>
         </designable>
     </designables>
     <resources>
