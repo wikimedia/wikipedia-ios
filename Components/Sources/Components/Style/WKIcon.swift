@@ -18,6 +18,8 @@ public enum WKIcon {
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
+    static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
+    static let bot = UIImage(named: "bot", in: .module, with: nil)
 
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -69,6 +71,7 @@ public enum WKSFSymbolIcon {
     case textFormat
 	case plusForwardSlashMinus
 	case photoOnRectangleAngled
+    case xMark
 
     public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
@@ -162,6 +165,8 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "plus.forwardslash.minus", withConfiguration: configuration)
         case .photoOnRectangleAngled:
             image = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: configuration)
+        case .xMark:
+            image = UIImage(systemName: "xmark", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

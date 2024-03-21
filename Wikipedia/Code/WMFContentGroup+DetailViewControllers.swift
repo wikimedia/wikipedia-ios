@@ -86,7 +86,8 @@ extension WMFContentGroup {
                 learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn about add an image", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
             )
 
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle, onboardingStrings: onboardingStrings)
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
+
             let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
             return imageRecommendationsViewController
@@ -104,3 +105,4 @@ extension WMFContentGroup {
         return vc
     }
 }
+

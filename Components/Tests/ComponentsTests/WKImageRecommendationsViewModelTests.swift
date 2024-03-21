@@ -6,7 +6,7 @@ import XCTest
 final class WKImageRecommendationsViewModelTests: XCTestCase {
     
     private let csProject = WKProject.wikipedia(WKLanguage(languageCode: "cs", languageVariantCode: nil))
-    private let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View article", onboardingStrings: WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(title: "Onboarding title", firstItemTitle: "First item title", firstItemBody: "First item body", secondItemTitle: "Second item title", secondItemBody: "Second item body", thirdItemTitle: "Third item title", thirdItemBody: "Third item body", continueButton: "Continue", learnMoreButton: "Learn more"))
+    private let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View Article", onboardingStrings: WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(title: "Onboarding title", firstItemTitle: "First item title", firstItemBody: "First item body", secondItemTitle: "Second item title", secondItemBody: "Second item body", thirdItemTitle: "Third item title", thirdItemBody: "Third item body", continueButton: "Continue", learnMoreButton: "Learn more"), bottomSheetTitle: "Add this image?", yesButtonTitle: "yes", noButtonTitle: "no", notSureButtonTitle: "not sure")
 
     override func setUpWithError() throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
@@ -24,7 +24,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
         
         wait(for: [expectation], timeout: 3.0)
         
-        XCTAssertEqual(viewModel.recommendations.count, 10, "Unexpected image recommendations count.")
+        XCTAssertEqual(viewModel.imageRecommendations.count, 9, "Unexpected image recommendations count.")
         XCTAssertNotNil(viewModel.currentRecommendation, "currentRecommendation should not be nil after fetching recommendations")
         XCTAssertNotNil(viewModel.currentRecommendation?.articleSummary, "currentRecommendation.articleSummary should not be nil after fetching recommendations")
     }
@@ -47,8 +47,8 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
         
         wait(for: [expectation2], timeout: 3.0)
         
-        XCTAssertEqual(viewModel.recommendations.count, 9, "Unexpected image recommendations count.")
-        
+        XCTAssertEqual(viewModel.imageRecommendations.count, 8, "Unexpected image recommendations count.")
+
         XCTAssertNotNil(viewModel.currentRecommendation, "currentRecommendation should not be nil after next()")
         XCTAssertNotNil(viewModel.currentRecommendation?.articleSummary, "currentRecommendation.articleSummary should not be nil after next()")
     }
