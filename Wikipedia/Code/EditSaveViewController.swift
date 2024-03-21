@@ -36,6 +36,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var pageURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
+    var source: PageEditorViewController.Source?
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -229,7 +230,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let rootView = WKSmallButton(configuration: .quiet, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+        let configuration = WKSmallButton.Configuration(style: .quiet)
+        let rootView = WKSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
         }
          let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
@@ -287,6 +289,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             assertionFailure("Could not get url of section to be edited")
             return
         }
+        
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            let summaryAdded = !summaryText.isEmpty
+            let minorEdit = minorEditToggle.isOn
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
+            }
+            
+        }
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
         let section: String?
@@ -322,9 +339,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             notifyDelegate(.failure(RequestError.unexpectedResponse))
             return
         }
-        if let pageURL {
+        
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePublishSuccess(revisionID: Int(newRevID), project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(newRevID), project: project)
+            }
+            
             EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
         }
+        
         notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
     }
     
@@ -332,9 +361,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
-        if let pageURL {
-            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
-        }
+        var problemSource: EditInteractionFunnel.ProblemSource?
         
         switch errorType {
         case .needsCaptcha:
@@ -347,6 +374,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
+            problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
@@ -362,6 +390,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
                 wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false)
                 
+                problemSource = .abuseFilterBlocked
             } else {
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
@@ -373,10 +402,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                     }
                     
                 })
+                
+                problemSource = .abuseFilterWarned
             }
             
-        case .server, .unknown:
+        case .server:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            problemSource = .serverError
         case .blocked:
             
             WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
@@ -386,10 +418,54 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 return
             }
             
-            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme)
+            wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                if let source,
+                   let pageURL,
+                let project = WikimediaProject(siteURL: pageURL) {
+                    
+                    switch source {
+                    case .article:
+                        EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
+                    case .talk:
+                        EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
+                    }
+                    
+                    EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+                }
+            })
             
+            problemSource = .blockedMessage
+            
+        case .protectedPage:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            problemSource = .protectedPage
+        case .unknown:
+            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            // leaving problemSource blank
         default:
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            if nsError.wmf_isNetworkConnectionError() {
+                problemSource = .connectionError
+            }
+        }
+        
+        if let source,
+           let pageURL,
+        let project = WikimediaProject(siteURL: pageURL) {
+            
+            switch source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePublishFail(problemSource: problemSource, project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
+            }
+            
+            EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
     }
     

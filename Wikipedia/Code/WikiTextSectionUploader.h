@@ -9,6 +9,7 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
     WikiTextSectionUploaderErrorTypeAbuseFilterWarning = 4,
     WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5,
     WikiTextSectionUploaderErrorTypeBlocked = 6,
+    WikiTextSectionUploaderErrorTypeProtectedPage = 7,
 };
 
 NS_ASSUME_NONNULL_BEGIN

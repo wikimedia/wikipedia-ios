@@ -3,6 +3,7 @@ import SwiftUI
 
 protocol WKWatchlistFilterDelegate: AnyObject {
     func watchlistFilterDidChange(_ hostingController: WKWatchlistFilterHostingController)
+	func watchlistFilterDidTapAddLanguage(_ hostingController: WKWatchlistFilterHostingController, viewModel: WKWatchlistFilterViewModel)
 }
 
 class WKWatchlistFilterHostingController: WKComponentHostingController<WKWatchlistFilterView> {
@@ -15,6 +16,11 @@ class WKWatchlistFilterHostingController: WKComponentHostingController<WKWatchli
         self.delegate = delegate
         super.init(rootView: filterView)
         self.overrideUserInterfaceStyle = viewModel.overrideUserInterfaceStyle
+
+		filterView.viewModel.addLanguageAction = { [weak self, weak viewModel] in
+			guard let self = self, let viewModel = viewModel else { return }
+			self.delegate?.watchlistFilterDidTapAddLanguage(self, viewModel: viewModel)
+		}
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -31,4 +37,5 @@ class WKWatchlistFilterHostingController: WKComponentHostingController<WKWatchli
         dismiss(animated: true)
         return true
     }
+	
 }

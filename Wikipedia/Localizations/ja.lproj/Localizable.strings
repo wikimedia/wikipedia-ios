@@ -4,6 +4,7 @@
 // Author: Aefgh39622
 // Author: Afaz
 // Author: Barrel0116
+// Author: Chqaz
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: GAMEZONE628
@@ -157,7 +158,6 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
 "add-citation-title" = "引用を追加";
-"additional-information-email-title" = "追加情報";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "探索フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -1091,28 +1091,11 @@
 "user-title" = "利用者";
 "uzbek-variants-alert-body" = "ウィキペディアのアプリでは以下のウズベク諸語の変種を第1もしくは第2言語として表示できるようになり、個人設定で指定した言語変種の閲覧、検索、編集がしやすくなりました。\n\nウズベク語ラテン表記（oʻzbekcha lotin Uzbek）、Latin（uz-cyrl）\nウズベク語キリル表記（ўзбекча кирилл）、Uzbek, Cyrillic（uz-cyrl）";
 "uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
-"vanish-account-additional-information-field" = "追加情報";
-"vanish-account-additional-information-placeholder" = "省略可能";
-"vanish-account-back-confirm-discard" = "リクエストを破棄";
-"vanish-account-back-confirm-keep-editing" = "編集を続行";
-"vanish-account-back-confirm-title" = "本当にこの削除リクエストを破棄してもよろしいですか？";
-"vanish-account-bottom-text" = "ウィキペディアでのアカウントの削除は、アカウントの消滅と呼ばれるプロセスで、他の人があなたの投稿を認識できないようアカウント名を変更することによって行われます。以下のフォームを使用して、アカウント削除をリクエストできます。 アカウントの削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-bottom-text-with-link" = "ウィキペディアでのアカウントの削除は、アカウント削除と呼ばれるプロセスにより、他の人があなたの投稿を認識できないようにアカウント名を変更することによって行われます。以下のフォームを使用して、 $1アカウントの削除$2 $3をリクエストできます。 削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-button-text" = "リクエストを送信";
 "vanish-account-continue-button-title" = "続行";
-"vanish-account-description" = "秘匿化の手順を始めるには、次の情報を提供してください。";
-"vanish-account-email-text" = "こんにちは、\n これは、私の Wikipedia アカウントを削除するためのリクエストです。";
 "vanish-account-learn-more-text" = "もっと詳しく";
-"vanish-account-title" = "アカウント削除プロセス";
 "vanish-account-username-field" = "利用者名と利用者ページ";
 "vanish-account-warning-body" = "アカウントの削除は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nWikipedia のアカウント削除が完了しました。アカウント名を変更して、アカウント削除と呼ばれるプロセスで他の人があなたの貢献を認識できないようにします。 **削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
 "vanish-account-warning-title" = "警告";
-"vanish-modal-item" = "削除依頼を出してから、管理者によって処理されるまで数日かかります。";
-"vanish-modal-item-2" = "リクエストが完了したかどうか不明な場合は、メール アプリを確認してください";
-"vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
-"vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
-"vanish-modal-title" = "アカウント削除リクエスト";
-"vanishing-request-email-title" = "秘匿化を申請する";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "watch" = "ウォッチ";
@@ -1163,6 +1146,7 @@
 "watchlist-filter-user-registration-header" = "利用者の登録と経験";
 "watchlist-filter-user-registration-options-registered" = "登録済み";
 "watchlist-filter-user-registration-options-unregistered" = "未登録";
+"watchlist-filters-add-language" = "言語を追加...";
 "watchlist-number-filters" = "項目をさらに表示するには [{{PLURAL:$1|$1件のフィルター}}](wikipedia://watchlist/filter) を修正してください";
 "watchlist-onboarding-button-title" = "ウォッチリストに関してもっと知る";
 "watchlist-onboarding-title" = "ウォッチリストの紹介";

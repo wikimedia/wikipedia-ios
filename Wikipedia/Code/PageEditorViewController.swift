@@ -18,6 +18,11 @@ final class PageEditorViewController: UIViewController {
         case editorSavePreview
     }
     
+    enum Source {
+        case article
+        case talk
+    }
+    
     private struct WikitextFetchResponse {
         let wikitext: String
         let onloadSelectRange: NSRange?
@@ -32,6 +37,7 @@ final class PageEditorViewController: UIViewController {
     private let pageURL: URL
     private let sectionID: Int?
     private let editFlow: EditFlow
+    private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
     private let editSummaryTag: WKEditSummaryTag
@@ -42,10 +48,11 @@ final class PageEditorViewController: UIViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var sourceEditor: WKSourceEditorViewController!
-    private var editorTopConstraint: NSLayoutConstraint!
+    private var sourceEditor: WKSourceEditorViewController?
+    private var editorTopConstraint: NSLayoutConstraint?
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
+    private var editCloseProblemSource: EditInteractionFunnel.ProblemSource?
     
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
@@ -70,7 +77,8 @@ final class PageEditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: PageEditorViewControllerDelegate, theme: Theme) {
+
         self.pageURL = pageURL
         self.sectionID = sectionID
         self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
@@ -81,6 +89,7 @@ final class PageEditorViewController: UIViewController {
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
+        self.source = source
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -128,6 +137,7 @@ final class PageEditorViewController: UIViewController {
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.undoButton.isEnabled = false
         navigationItemController.redoButton.isEnabled = false
+        navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func setupSpinner() {
@@ -225,6 +235,12 @@ final class PageEditorViewController: UIViewController {
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
             
+            if wikitextFetchResponse.blockedError != nil {
+                editCloseProblemSource = .blockedMessage
+            } else if wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit {
+                editCloseProblemSource = .protectedPage
+            }
+            
             if let onloadSelectRange = wikitextFetchResponse.onloadSelectRange,
                onloadSelectRange.location == NSNotFound {
                 presentFailToFindSelectedRangeAlert()
@@ -281,6 +297,7 @@ final class PageEditorViewController: UIViewController {
         let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
+        editCloseProblemSource = .articleSelectFail
     }
     
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
@@ -334,6 +351,8 @@ final class PageEditorViewController: UIViewController {
                 UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
             }
             
+            editCloseProblemSource = .connectionError
+            
         } else {
             
             let alert = UIAlertController(title: CommonStrings.unexpectedErrorAlertTitle, message: nsError.alertMessage(), preferredStyle: .alert)
@@ -341,6 +360,7 @@ final class PageEditorViewController: UIViewController {
             alert.addAction(action)
             alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
             present(alert, animated: true)
+            editCloseProblemSource = .serverError
         }
     }
     
@@ -373,15 +393,49 @@ final class PageEditorViewController: UIViewController {
             return
         }
         
-        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme)
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .blockedMessageLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .blockedMessageLink, project: project)
+                }
+            }
+            
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+        })
     }
     
     private func presentProtectedPageWarning(error: MediaWikiAPIDisplayError) {
+        
         guard let currentTitle = pageURL.wmf_title else {
             return
         }
 
-        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"))
+        wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"), linkLoggingAction: { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .protectedPageLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .protectedPageLink, project: project)
+                }
+            }
+            
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            
+        })
     }
     
     private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
@@ -472,18 +526,19 @@ final class PageEditorViewController: UIViewController {
         sourceEditor.didMove(toParent: self)
         self.sourceEditor = sourceEditor
         self.editorTopConstraint = top
+        self.navigationItemController.readingThemesControlsToolbarItem.isEnabled = true
     }
     
     private func showFocusNavigationView() {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        editorTopConstraint.constant = -focusNavigationView.frame.height
+        editorTopConstraint?.constant = -focusNavigationView.frame.height
         focusNavigationView.isHidden = false
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
     }
     
     private func hideFocusNavigationView() {
-        editorTopConstraint.constant = 0
+        editorTopConstraint?.constant = 0
         focusNavigationView.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItemController.progressButton.isEnabled = true
@@ -499,11 +554,41 @@ final class PageEditorViewController: UIViewController {
     private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
         let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
         alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
-        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { _ in
+        let confirmClose = UIAlertAction(title: CommonStrings.discardEditActionTitle, style: .destructive) { [weak self] _ in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                }
+            }
+            
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            
             confirmCompletion()
         }
         alert.addAction(confirmClose)
-        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel)
+        let keepEditing = UIAlertAction(title: CommonStrings.keepEditingActionTitle, style: .cancel) { [weak self] _ in
+            
+            guard let self else {
+                return
+            }
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorConfirmDidTapKeepEditing(project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorConfirmDidTapKeepEditing(project: project)
+                }
+            }
+        }
         alert.addAction(keepEditing)
         if let popoverController = alert.popoverPresentationController {
             popoverController.barButtonItem = sender
@@ -512,6 +597,11 @@ final class PageEditorViewController: UIViewController {
     }
 
     private func showEditPreview(editFlow: EditFlow) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         let previewVC = EditPreviewViewController(pageURL: pageURL)
         previewVC.theme = theme
         previewVC.sectionID = sectionID
@@ -530,7 +620,8 @@ final class PageEditorViewController: UIViewController {
     }
     
     private func showEditSave(editFlow: EditFlow) {
-        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard(),
+        let sourceEditor else {
             return
         }
 
@@ -540,7 +631,9 @@ final class PageEditorViewController: UIViewController {
         saveVC.sectionID = sectionID
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
+        saveVC.source = source
         saveVC.editSummaryTag = editSummaryTag
+
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
         }
@@ -620,6 +713,11 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     }
     
     func sourceEditorViewControllerDidTapImage() {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.removeFocus()
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
         insertMediaViewController.delegate = self
@@ -634,8 +732,21 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
 
 extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+        
+        guard let sourceEditor else {
+            return
+        }
 
         sourceEditor.removeFocus()
+        
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .article:
+                EditInteractionFunnel.shared.logArticleEditorDidTapNext(project: project)
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditorDidTapNext(project: project)
+            }
+        }
         
         switch editFlow {
         case .editorSavePreview:
@@ -656,24 +767,39 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
                 guard let self else {
                     return
                 }
-                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
             }
         } else {
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                }
+            }
+            
             EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: nil)
         }
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
-        sourceEditor.undo()
+        sourceEditor?.undo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
-        sourceEditor.redo()
+        sourceEditor?.redo()
     }
     
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.removeFocus()
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
@@ -687,6 +813,11 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
 
 extension PageEditorViewController: FocusNavigationViewDelegate {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.closeFind()
         hideFocusNavigationView()
     }
@@ -700,6 +831,11 @@ extension PageEditorViewController: ReadingThemesControlsResponding {
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
+        
+        guard let sourceEditor else {
+            return
+        }
+        
         sourceEditor.toggleSyntaxHighlighting()
     }
 }
@@ -745,7 +881,7 @@ extension PageEditorViewController: EditLinkViewControllerDelegate {
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
         dismiss(animated: true)
-        sourceEditor.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
+        sourceEditor?.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
@@ -755,7 +891,7 @@ extension PageEditorViewController: EditLinkViewControllerDelegate {
     
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
         dismiss(animated: true)
-        sourceEditor.removeLink()
+        sourceEditor?.removeLink()
     }
 }
 
@@ -767,7 +903,7 @@ extension PageEditorViewController: InsertLinkViewControllerDelegate {
     }
     
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
-        sourceEditor.insertLink(pageTitle: page)
+        sourceEditor?.insertLink(pageTitle: page)
         dismiss(animated: true)
     }
 }
@@ -780,7 +916,7 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
     }
     
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
-        sourceEditor.insertImage(wikitext: wikitext)
+        sourceEditor?.insertImage(wikitext: wikitext)
         dismiss(animated: true)
     }
 }
@@ -793,6 +929,15 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
         guard case .editorPreviewSave = editFlow else {
             assertionFailure("Edit preview should not have a Next button when using editorSavePreview flow.")
             return
+        }
+        
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .article:
+                EditInteractionFunnel.shared.logArticlePreviewDidTapNext(project: project)
+            default:
+                assertionFailure("Edit preview with Next button should have article set as source.")
+            }
         }
         
         showEditSave(editFlow: editFlow)
@@ -816,6 +961,15 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
             return
         }
         
+        if let project = WikimediaProject(siteURL: self.pageURL) {
+            switch self.source {
+            case .talk:
+                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPreview(project: project)
+            default:
+                assertionFailure("Article sources should not have show web preview button on edit save.")
+            }
+        }
+        
         showEditPreview(editFlow: editFlow)
     }
 }
@@ -824,18 +978,31 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
 
 extension PageEditorViewController: EditNoticesViewControllerDelegate {
     func editNoticesControllerUserTapped(url: URL) {
+        
         let progressButton = navigationItemController.progressButton
         let closeButton = navigationItemController.closeButton
         if progressButton.isEnabled {
+            editCloseProblemSource = .editNoticeLink
             showDestructiveDismissAlert(sender: closeButton) { [weak self] in
                 guard let self else {
                     return
                 }
-                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+
                 self.delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
             }
         } else {
-            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            
+            if let project = WikimediaProject(siteURL: self.pageURL) {
+                switch self.source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapPanelLink(problemSource: .editNoticeLink, project: project)
+                }
+                
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+            }
+
             delegate?.pageEditorDidCancelEditing(self, navigateToURL: url)
         }
     }

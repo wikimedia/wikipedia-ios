@@ -140,7 +140,16 @@ class TalkPageViewController: ViewController {
         })
         
         let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
-            self?.pushToPageEditor()
+            
+            guard let self else {
+                return
+            }
+            
+            self.pushToPageEditor()
+            
+            if let project = WikimediaProject(siteURL: self.viewModel.siteURL) {
+                EditInteractionFunnel.shared.logTalkDidTapEditSourceButton(project: project)
+            }
         })
         
         let openInWebAction = UIAction(title: TalkPageLocalizedStrings.readInWeb, image: UIImage(systemName: "display"), handler: { [weak self] _ in
@@ -469,7 +478,8 @@ class TalkPageViewController: ViewController {
         }
         
         let dataStore = MWKDataStore.shared()
-        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
+
+        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext

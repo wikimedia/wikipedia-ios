@@ -1,4 +1,5 @@
 import Foundation
+import Components
 
 extension WMFContentGroup {
 	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
@@ -20,7 +21,7 @@ extension WMFContentGroup {
             }
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
-            return detailViewControllerWithDataStore(dataStore, theme: theme)
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
         default:
             return nil
         }
@@ -28,6 +29,10 @@ extension WMFContentGroup {
     
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+    }
+    
+    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?) -> UIViewController? {
         var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
@@ -58,6 +63,34 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
+        case .imageRecommendations:
+            
+            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                  let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+                  let imageRecDelegate = imageRecDelegate else {
+                return nil
+            }
+            
+            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+
+            let onboardingStrings = WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(
+                title: WMFLocalizedString("image-rec-onboarding-title", value: "Add an image to an article", comment: "Title of onboarding view displayed when user first visits image recommendations feature view."),
+                firstItemTitle: WMFLocalizedString("image-rec-onboarding-item-1-title", value: "View a suggestion", comment: "Title of first item in onboarding view displayed when user first visits image recommendations feature view."),
+                firstItemBody: WMFLocalizedString("image-rec-onboarding-item-1-body", value: "Decide if a suggested image should be placed in a Wikipedia article.", comment: "Body of first item in onboarding view displayed when user first visits image recommendations feature view."),
+                secondItemTitle: WMFLocalizedString("image-rec-onboarding-item-2-title", value: "Accept or reject an image", comment: "Title of second item in onboarding view displayed when user first visits image recommendations feature view."),
+                secondItemBody: WMFLocalizedString("image-rec-onboarding-item-2-body", value: "Suggestions are machine generated and you will use your judgment to decide whether to accept or reject them.", comment: "Body of second item in onboarding view displayed when user first visits image recommendations feature view."),
+                thirdItemTitle: WMFLocalizedString("image-rec-onboarding-item-3-title", value: "Licensed images", comment: "Title of third item in onboarding view displayed when user first visits image recommendations feature view."),
+                thirdItemBody: WMFLocalizedString("image-rec-onboarding-item-3-body", value: "Images are from Wikimedia Commons, a collection of freely licensed images used by Wikipedia.", comment: "Body of third item in onboarding view displayed when user first visits image recommendations feature view."),
+                continueButton: CommonStrings.continueButton,
+                learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn about add an image", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
+            )
+
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
+
+            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
+            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
+            return imageRecommendationsViewController
         default:
             break
         }
@@ -72,3 +105,4 @@ extension WMFContentGroup {
         return vc
     }
 }
+

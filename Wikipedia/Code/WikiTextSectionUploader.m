@@ -196,6 +196,8 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterDisallowed;
             } else if ([displayError.code hasPrefix:@"abusefilter"]) {
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterOther;
+            } else if ([displayError.code containsString:@"protectedpage"]) {
+                errorType = WikiTextSectionUploaderErrorTypeProtectedPage;
             }
                 
             if (errorType == WikiTextSectionUploaderErrorTypeUnknown) {

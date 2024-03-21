@@ -76,7 +76,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateUserAgent()
+                urlRequest.populateCommonHeaders(request: request)
             case .json:
                 
                 do {
@@ -90,7 +90,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateUserAgent()
+                urlRequest.populateCommonHeaders(request: request)
             }
         }
         
@@ -153,7 +153,7 @@ public final class WKBasicService: WKService {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        urlRequest.populateUserAgent()
+        urlRequest.populateCommonHeaders(request: request)
         
         let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
             
@@ -232,9 +232,18 @@ public final class WKBasicService: WKService {
 }
 
 private extension URLRequest {
-    mutating func populateUserAgent() {
+    mutating func populateCommonHeaders(request: WKServiceRequest) {
         if let userAgent = WKDataEnvironment.current.userAgentUtility?() {
             setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        }
+        
+        if let appInstallID = WKDataEnvironment.current.appInstallIDUtility?() {
+            setValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
+        }
+        
+        let acceptLanguage = request.languageVariantCode ?? WKDataEnvironment.current.acceptLanguageUtility?()
+        if let acceptLanguage {
+            setValue(acceptLanguage, forHTTPHeaderField: "Accept-Language")
         }
     }
 }
