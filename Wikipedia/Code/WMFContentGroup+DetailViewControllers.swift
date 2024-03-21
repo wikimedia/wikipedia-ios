@@ -70,10 +70,8 @@ extension WMFContentGroup {
                   let imageRecDelegate = imageRecDelegate else {
                 return nil
             }
-            
-            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
-            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle)
+
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
             let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
             return imageRecommendationsViewController
@@ -91,3 +89,4 @@ extension WMFContentGroup {
         return vc
     }
 }
+

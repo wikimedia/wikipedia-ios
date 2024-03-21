@@ -9,10 +9,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     public struct LocalizedStrings {
         let title: String
         let viewArticle: String
-        
-        public init(title: String, viewArticle: String) {
+        let bottomSheetTitle: String
+        let yesButtonTitle: String
+        let noButtonTitle: String
+        let notSureButtonTitle: String
+
+        public init(title: String, viewArticle: String, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
+            self.bottomSheetTitle = bottomSheetTitle
+            self.yesButtonTitle = yesButtonTitle
+            self.noButtonTitle = noButtonTitle
+            self.notSureButtonTitle = notSureButtonTitle
         }
     }
     
@@ -21,11 +29,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let pageId: Int
         let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        
-        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil) {
+        let imageData: WKImageRecommendationData
+
+        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
             self.title = title
             self.articleSummary = articleSummary
+            self.imageData = imageData
         }
     }
     
@@ -34,9 +44,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let project: WKProject
     let localizedStrings: LocalizedStrings
     
-    private(set) var recommendations: [ImageRecommendation] = []
+    private(set) var imageRecommendations: [ImageRecommendation] = []
+    private var recommendationData: [WKImageRecommendation.Page] = []
     @Published var currentRecommendation: ImageRecommendation?
-    @Published private var loading: Bool = true
+    @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
     
@@ -63,15 +74,15 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
         
-        guard recommendations.isEmpty else {
+        guard imageRecommendations.isEmpty else {
             completion()
             return
         }
         
         loading = true
-        
-        growthTasksDataController.getGrowthAPITask(task: .imageRecommendation) { [weak self] result in
-            
+
+        growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
+
             guard let self else {
                 completion()
                 return
@@ -80,9 +91,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
-                    self.recommendations = pages.map { ImageRecommendation(pageId: $0.pageid, title: $0.title) }
-                    if let firstRecommendation = self.recommendations.first {
-                        self.populateCurrentRecommendation(for: firstRecommendation, completion: {
+                    self.recommendationData = pages
+                    let imageDataArray = self.getFirstImageData(for: pages)
+
+                    for page in pages {
+                        if let imageData = imageDataArray.first(where: { $0.pageId == page.pageid}) {
+                            let combinedImageRecommendation = ImageRecommendation(pageId: page.pageid, title: page.title, imageData: imageData)
+                            self.imageRecommendations.append(combinedImageRecommendation)
+                        }
+                    }
+
+                    if let firstRecommendation = self.imageRecommendations.first {
+                        self.populateCurrentArticleSummary(for: firstRecommendation, completion: {
                             DispatchQueue.main.async {
                                 self.loading = false
                                 completion()
@@ -100,14 +120,14 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     func next(completion: @escaping () -> Void) {
-        guard !recommendations.isEmpty else {
+        guard !imageRecommendations.isEmpty else {
             self.currentRecommendation = nil
             completion()
             return
         }
         
-        recommendations.removeFirst()
-        guard let nextRecommendation = recommendations.first else {
+        imageRecommendations.removeFirst()
+        guard let nextRecommendation = imageRecommendations.first else {
             self.currentRecommendation = nil
             completion()
             return
@@ -115,13 +135,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         loading = true
         
-        populateCurrentRecommendation(for: nextRecommendation, completion: { [weak self] in
+        populateCurrentArticleSummary(for: nextRecommendation, completion: { [weak self] in
             completion()
             self?.loading = false
         })
     }
-    
-    func populateCurrentRecommendation(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+
+    func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
         
         articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { [weak self] result in
             
@@ -147,5 +167,26 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    fileprivate func getFirstImageData(for pages: [WKImageRecommendation.Page]) -> [WKImageRecommendationData] {
+
+        var imageData: [WKImageRecommendationData] = []
+        for page in pages {
+            if let firstPageSuggestion = page.growthimagesuggestiondata?.first,
+               let firstImage = firstPageSuggestion.images.first {
+                let metadata = firstImage.metadata
+                let imageRecommendation = WKImageRecommendationData(
+                    pageId: page.pageid,
+                    image: firstImage.image,
+                    filename: firstImage.displayFilename,
+                    thumbUrl: metadata.thumbUrl,
+                    fullUrl: metadata.fullUrl,
+                    description: metadata.description
+                )
+                imageData.append(imageRecommendation)
+            }
+        }
+        return imageData
     }
 }
