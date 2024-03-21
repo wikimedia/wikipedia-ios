@@ -326,6 +326,8 @@
 "edit-summary-choice-linked-words" = "Added links";
 "edit-summary-learn-more-text" = "Learn more";
 "edit-summary-placeholder-text" = "How did you improve the article?";
+"edit-summary-short-description-added" = "Added short description";
+"edit-summary-short-description-updated" = "Updated short description";
 "edit-superscript-accessibility-label" = "Add superscript formatting";
 "edit-superscript-remove-accessibility-label" = "Remove superscript formatting";
 "edit-template-accessibility-label" = "Add template syntax";

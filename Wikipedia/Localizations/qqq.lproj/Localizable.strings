@@ -326,6 +326,8 @@
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-learn-more-text" = "Text for learn more button";
 "edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
+"edit-summary-short-description-added" = "Edit summary message when adding a short description for an article";
+"edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-superscript-accessibility-label" = "Accessibility label for add superscript formatting button";
 "edit-superscript-remove-accessibility-label" = "Accessibility label for remove superscript formatting button";
 "edit-template-accessibility-label" = "Accessibility label for add template syntax button";
