@@ -217,8 +217,51 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.separatorStyle = .none
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
+
+        if FeatureFlags.needsImageRecommendations {
+            title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
+
+            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia))
+            insertButton.tintColor = theme.colors.link
+            navigationItem.rightBarButtonItem = insertButton
+            navigationController?.navigationBar.topItem?.title = String()
+            self.apply(theme: theme)
+        }
     }
-    
+
+    @objc private func insertMedia(_ sender: UIBarButtonItem) {
+        guard let mediaSettingsTableViewController = navigationController?.topViewController as? InsertMediaSettingsViewController else {
+            assertionFailure()
+            return
+        }
+        let searchResult = mediaSettingsTableViewController.searchResult
+        let wikitext: String
+        switch mediaSettingsTableViewController.settings {
+        case nil:
+            wikitext = "[[\(searchResult.fileTitle)]]"
+        case let mediaSettings?:
+            switch (mediaSettings.caption, mediaSettings.alternativeText) {
+            case (let caption?, let alternativeText?):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
+                """
+            case (let caption?, nil):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
+                """
+            case (nil, let alternativeText?):
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
+                """
+            default:
+                wikitext = """
+                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
+                """
+            }
+        }
+        // delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: wikitext) TODO: will be handled in T359225
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

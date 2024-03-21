@@ -64,7 +64,10 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     
     func didTapYesButton() {
         if let imageData = viewModel.currentRecommendation?.imageData {
-            delegate?.imageRecommendationsUserDidTapInsertImage(with: imageData)
+            self.dismiss(animated: true) {
+                
+                self.delegate?.imageRecommendationsUserDidTapInsertImage(with: imageData)
+            }
         }
     }
 
