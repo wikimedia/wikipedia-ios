@@ -1091,21 +1091,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-        // TODO: Temp Code until we get Explore Feed card in
-        if FeatureFlags.needsImageRecommendations {
-            
-            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                  let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
-                return
-            }
-
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
-            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
-            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
-            navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
-        } else {
-            notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-        }
+        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
     }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {

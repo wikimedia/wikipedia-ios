@@ -22,11 +22,13 @@ public struct WKOnboardingViewModel {
         var icon: UIImage?
         var title: String
         var subtitle: String?
+		var fillIconBackground: Bool
 
-        public init(icon: UIImage?, title: String, subtitle: String?) {
+		public init(icon: UIImage?, title: String, subtitle: String?, fillIconBackground: Bool = false) {
             self.icon = icon
             self.title = title
             self.subtitle = subtitle
+			self.fillIconBackground = fillIconBackground
         }
     }
 }

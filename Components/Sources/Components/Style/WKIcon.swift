@@ -69,6 +69,8 @@ public enum WKSFSymbolIcon {
     case redo
     case textFormatSize
     case textFormat
+	case plusForwardSlashMinus
+	case photoOnRectangleAngled
     case xMark
 
     public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
@@ -159,6 +161,10 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "textformat.size", withConfiguration: configuration)
         case .textFormat:
             image = UIImage(systemName: "textformat", withConfiguration: configuration)
+        case .plusForwardSlashMinus:
+            image = UIImage(systemName: "plus.forwardslash.minus", withConfiguration: configuration)
+        case .photoOnRectangleAngled:
+            image = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: configuration)
         case .xMark:
             image = UIImage(systemName: "xmark", withConfiguration: configuration)
         }
