@@ -1154,7 +1154,7 @@
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Accessibility label for the placeholder element of the topic body text view on the topic compose screen.";
-"talk-pages-topic-compose-close-confirmation-discard-reply" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the reply view after entering reply text.";
 "talk-pages-topic-compose-close-confirmation-discard-topic" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
