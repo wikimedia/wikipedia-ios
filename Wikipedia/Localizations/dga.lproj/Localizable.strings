@@ -109,7 +109,6 @@
 "action-update" = "Yɛlɛ naŋ ta o bebiri";
 "add-articles-to-reading-list" = "Eŋ {{PLURAL:$1|$1 article|$1 articles}} a kanne a gama";
 "add-citation-title" = "Eŋ sommo";
-"additional-information-email-title" = "Yɛlɛ yaga";
 "announcements-dismiss" = "Iri bare";
 "app-store-keywords" = "Wikipiideɛ, sommo yizie,wiki, duoro mɔlɔ be zie, duoro, yɛŋ, leɛ boɔbu, duoro yɛlɛ, ŋmɛ yaare, zanne";
 "app-store-release-notes" = "Neɛ zaa naŋ baŋ kpeɛ la a tõɔ kanne yɛlɛ. Bezie,toma, baara la.";
@@ -985,7 +984,6 @@
 "top-read-widget-readers-count" = "$1 kanneba";
 "top-read-widget-title" = "Bone baŋ kanne yaga";
 "user-title" = "Tontona";
-"vanish-account-additional-information-placeholder" = "A ba e ferebo";
 "watch" = "Kaa";
 "watchlist" = "Kaa gama";
 "watchlist-added-toast-one-month" = "Eŋ fo boŋ kaare gama a kyu boyeni poɔ.";

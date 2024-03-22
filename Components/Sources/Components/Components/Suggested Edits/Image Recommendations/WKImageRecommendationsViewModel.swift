@@ -7,16 +7,43 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Nested Types
     
     public struct LocalizedStrings {
+		
+		public struct OnboardingStrings {
+			let title: String
+			let firstItemTitle: String
+			let firstItemBody: String
+			let secondItemTitle: String
+			let secondItemBody: String
+			let thirdItemTitle: String
+			let thirdItemBody: String
+			let continueButton: String
+			let learnMoreButton: String
+
+			public init(title: String, firstItemTitle: String, firstItemBody: String, secondItemTitle: String, secondItemBody: String, thirdItemTitle: String, thirdItemBody: String, continueButton: String, learnMoreButton: String) {
+				self.title = title
+				self.firstItemTitle = firstItemTitle
+				self.firstItemBody = firstItemBody
+				self.secondItemTitle = secondItemTitle
+				self.secondItemBody = secondItemBody
+				self.thirdItemTitle = thirdItemTitle
+				self.thirdItemBody = thirdItemBody
+				self.continueButton = continueButton
+				self.learnMoreButton = learnMoreButton
+			}
+		}
+
         let title: String
         let viewArticle: String
+		let onboardingStrings: OnboardingStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
 
-        public init(title: String, viewArticle: String, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
+            self.onboardingStrings = onboardingStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle

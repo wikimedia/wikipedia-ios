@@ -220,8 +220,7 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.tableFooterView = buttonView
 
         if FeatureFlags.needsImageRecommendations {
-            title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
-
+            title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
             nextButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
             nextButton?.tintColor = theme.colors.secondaryText
             navigationItem.rightBarButtonItem = nextButton

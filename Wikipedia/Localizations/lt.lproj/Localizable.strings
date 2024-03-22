@@ -113,7 +113,6 @@
 "action-unsaved-accessibility-notification" = "Straipsnis nebesaugomas";
 "action-update" = "Atnaujinti";
 "add-citation-title" = "Pridėti citatą";
-"additional-information-email-title" = "Papildoma informacija";
 "announcements-dismiss" = "Paslėpti";
 "app-store-keywords" = "Vikipedija, nuoroda, viki, enciklopedija, informacija, žinios, mokslas, tyrinėjimas, mokymasis";
 "app-store-release-notes" = "Pilnai tinkintinas ir lengvas skaityti Tyrinėjimo srautas. Lokalizacija, našumo patobulinimai ir klaidų ištaisymai.";
@@ -1031,16 +1030,10 @@
 "unwatch" = "Nebestebėti";
 "uzbek-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos uzbekų kalbos variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uzbekų k. varianto palaikymo atnaujinimai";
-"vanish-account-additional-information-field" = "Papildoma informacija";
-"vanish-account-additional-information-placeholder" = "Neprivaloma";
-"vanish-account-back-confirm-discard" = "Atsisakyti prašymo";
-"vanish-account-back-confirm-keep-editing" = "Tęskite redagavimą";
-"vanish-account-button-text" = "Siųsti prašymą";
 "vanish-account-continue-button-title" = "Tęsti";
 "vanish-account-learn-more-text" = "Sužinokite daugiau";
 "vanish-account-username-field" = "Naudotojo vardas ir naudotojo puslapis";
 "vanish-account-warning-title" = "Įspėjimas";
-"vanish-modal-item-2" = "Jei nežinote ar jūsų prašymas pateiktas, patikrinkite savo pašto programėlę";
 "variants-alert-dismiss-button" = "Ne, ačiū";
 "variants-alert-preferences-button" = "Peržiūrėkite savo nustatymus";
 "watch" = "Stebėti";

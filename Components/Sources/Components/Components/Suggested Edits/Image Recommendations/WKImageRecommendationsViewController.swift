@@ -38,6 +38,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     // MARK: Lifecycle
 
+	private let dataController = WKImageRecommendationsDataController()
+
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
         self.delegate = delegate
@@ -56,6 +58,28 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
        
     }
 
+	private func presentOnboardingIfNecessary() {
+		guard !dataController.hasPresentedOnboardingModal else {
+			return
+		}
+
+		let firstItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
+
+		let secondItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
+
+		let thirdItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
+
+		let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
+
+		let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
+		onboardingController.hostingController.delegate = self
+		present(onboardingController, animated: true, completion: {
+			UIAccessibility.post(notification: .layoutChanged, argument: nil)
+		})
+
+		dataController.hasPresentedOnboardingModal = true
+	}
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
@@ -65,6 +89,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
+        presentOnboardingIfNecessary()
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -120,3 +145,18 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 }
 
+extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
+
+	public func didClickPrimaryButton() {
+		presentedViewController?.dismiss(animated: true)
+	}
+	
+	public func didClickSecondaryButton() {
+		guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image") else {
+			return
+		}
+
+		UIApplication.shared.open(url)
+	}
+
+}

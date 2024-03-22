@@ -590,6 +590,14 @@
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "image-rec-add-image-title" = "title for the add image suggestion view";
+"image-rec-onboarding-item-1-body" = "Body of first item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-1-title" = "Title of first item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-2-body" = "Body of second item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-2-title" = "Title of second item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-3-body" = "Body of third item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-3-title" = "Title of third item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-learn-more-button" = "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-title" = "Title of onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
 "image-recs-no-title" = "Button title for discarding an image suggestion";
@@ -607,6 +615,7 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "insert-action-title" = "Title for insert action";
 "insert-link-title" = "Title for the Insert link screen";
+"insert-media-add-image-details-title" = "Title for add image details view";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
 "insert-media-alternative-text-title" = "Title for setting that allows users to add image alternative text";

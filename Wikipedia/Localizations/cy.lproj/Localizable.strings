@@ -112,7 +112,6 @@
 "action-update" = "Diweddaru";
 "add-articles-to-reading-list" = "Ychwanegu {{PLURAL:$1|$1 erthygl}} at restr ddarllen";
 "add-citation-title" = "Ychwanegu cyfeiriad";
-"additional-information-email-title" = "Gwybodaeth ychwanegol";
 "announcements-dismiss" = "Cau";
 "app-store-keywords" = "Wicipedia, cyfeirio, wici, gwyddoniadur, gwybodaeth, ymchwil, archwilio, dysgu";
 "app-store-short-description" = "Lawrlwythwch ap Wicipedia i archwilio lleoedd yn agos atoch chi, cysoni erthyglau i'w darllen all-lein ac addasu eich profiad darllen.";
@@ -775,19 +774,10 @@
 "unable-to-load-talk-page-title" = "Ni ellir llwytho tudalen sgwrs";
 "unknown-generic-text" = "Anhysbys";
 "unwatch" = "Dad-wylio";
-"vanish-account-additional-information-field" = "Gwybodaeth pellach";
-"vanish-account-additional-information-placeholder" = "Dewisol";
-"vanish-account-back-confirm-discard" = "Tynnu Cais";
-"vanish-account-back-confirm-keep-editing" = "Parhau i olygu";
-"vanish-account-button-text" = "Gwneud cais";
 "vanish-account-continue-button-title" = "Parhau";
-"vanish-account-description" = "Er mwyn cychwyn y broses gorchuddio, rhowch y canlynol:";
-"vanish-account-email-text" = "Helo,\nRwy'n gwneud cais i atal fy nghyfrif Wicipedia.";
 "vanish-account-learn-more-text" = "Dysgu mwy";
-"vanish-account-title" = "Proses diflannu";
 "vanish-account-username-field" = "Enw defnyddiwr a thudalen defnyddiwr";
 "vanish-account-warning-title" = "Rhybudd";
-"vanish-modal-title" = "Cais gorchuddio";
 "variants-alert-dismiss-button" = "Dim diolch";
 "variants-alert-preferences-button" = "Adolygu eich dewisiadau";
 "watch" = "Gwylio";
