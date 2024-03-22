@@ -6,6 +6,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
     let searchResult: InsertMediaSearchResult
+    var insertButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -221,8 +222,9 @@ final class InsertMediaSettingsViewController: ViewController {
         if FeatureFlags.needsImageRecommendations {
             title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
 
-            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia))
-            insertButton.tintColor = theme.colors.link
+            insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia))
+            insertButton?.tintColor = theme.colors.link
+            insertButton?.isEnabled = false
             navigationItem.rightBarButtonItem = insertButton
             navigationController?.navigationBar.topItem?.title = String()
             self.apply(theme: theme)
@@ -355,6 +357,11 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
 extension InsertMediaSettingsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         updateTextViewHeight(textView)
+
+        let point = textView.convert(CGPoint.zero, to: tableView)
+        if let indexPath = tableView.indexPathForRow(at: point), indexPath.row == 0 {
+            insertButton?.isEnabled = textView.text.isEmpty ? false : true 
+        }
     }
 
     private func updateTextViewHeight(_ textView: UITextView) {
