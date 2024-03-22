@@ -5,7 +5,7 @@
 	<key>urls</key>
 	<dict>
 		<key>sharealike</key>
-		<string>https://creativecommons.org/licenses/by-sa/3.0/</string>
+		<string>https://creativecommons.org/licenses/by-sa/4.0/</string>
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/main/LICENSE.txt</string>
 		<key>tsg</key>

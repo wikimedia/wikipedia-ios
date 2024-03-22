@@ -1134,7 +1134,7 @@
 "talk-page-reply-button-accessibility-label" = "Accessibility text for reply button. The $1 will be replaced with the name of the user whose comment is being responded";
 "talk-page-reply-depth-accessibility-label" = "Accessibility label for the reply depth indicator. This indicator suggests which reply the text is replying to. $1 is replaced with the depth number.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
-"talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-revision-history" = "Title for menu option that leads to page revision history.";
 "talk-page-rply-close-button-accessibility-hint" = "Accessibility hint for the reply screen close button";
 "talk-page-share-button" = "Title for share talk page button";
@@ -1145,7 +1145,7 @@
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
-"talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribed-alert-title" = "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.";
@@ -1315,5 +1315,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
-"wikitext-upload-save-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
