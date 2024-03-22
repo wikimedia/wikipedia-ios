@@ -19,6 +19,8 @@ struct WKArticleSummaryView: View {
     }
 
     var body: some View {
+
+
         VStack(alignment: .leading, spacing: 8) {
             Spacer()
                 .frame(height: 12)
@@ -43,5 +45,8 @@ struct WKArticleSummaryView: View {
                 .frame(height: 2)
             WKHtmlText(html: articleSummary.extractHtml, styles: summaryStyles)
         }
+
     }
+
+
 }

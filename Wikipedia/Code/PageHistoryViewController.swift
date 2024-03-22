@@ -242,8 +242,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     return
                 }
                 switch result {
-                case .failure(let error):
-                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                case .failure:
                     self.countsViewController.timeseriesOfEditsCounts = []
                 case .success(let timeseriesOfEditCounts):
                     self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
