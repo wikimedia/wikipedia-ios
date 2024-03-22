@@ -136,7 +136,6 @@
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "add-citation-title" = "Přidat citaci";
-"additional-information-email-title" = "Doplňující informace";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";

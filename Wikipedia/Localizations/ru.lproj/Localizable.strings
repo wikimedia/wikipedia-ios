@@ -170,7 +170,6 @@
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "add-citation-title" = "Добавить ссылку на источник";
-"additional-information-email-title" = "Дополнительная информация";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -1171,16 +1170,10 @@
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие Узбекские варианты в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Обновление поддержки вариантов Узбекского";
-"vanish-account-additional-information-field" = "Дополнительная информация";
-"vanish-account-additional-information-placeholder" = "Необязательно";
-"vanish-account-back-confirm-discard" = "Отменить запрос";
-"vanish-account-back-confirm-keep-editing" = "Продолжить редактирование";
-"vanish-account-button-text" = "Послать запрос";
 "vanish-account-continue-button-title" = "Продолжить";
 "vanish-account-learn-more-text" = "Узнать подробности";
 "vanish-account-username-field" = "Имя участника и его страница";
 "vanish-account-warning-title" = "Предупреждение";
-"vanish-modal-title" = "Запрос на исчезновение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
 "watchlist" = "Список наблюдения";
