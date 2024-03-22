@@ -638,7 +638,7 @@
 			<key>one</key>
 			<string>1 Byte</string>
 			<key>other</key>
-			<string>%1$d Byte</string>
+			<string>%1$d Byten</string>
 		</dict>
 	</dict>
 </dict>

@@ -115,7 +115,6 @@
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
 "add-citation-title" = "Dodaj referencu";
-"additional-information-email-title" = "Dodatne informacije";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedia, reference, wiki, enciklopedija, info, znanje, istraživanje, informacije, učenje";
 "app-store-release-notes" = "Poptuno prilagodljiva i lakša za čitanje stranica Istraži. Lokalizacija, poboljšanja performansi i ispravke programskih greški.";
