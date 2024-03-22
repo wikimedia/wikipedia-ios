@@ -1101,24 +1101,24 @@ extension ExploreViewController {
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
-    func imageRecommendationsUserDidTapImage(data: WKData.WKImageRecommendationData) {
-        // TODO: present gallery
+    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKData.WKImageRecommendationData, presentingVC: UIViewController) {
+
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
+            return
+        }
+        
+        let item = MediaListItem(title: "File:\(data.filename)", sectionID: 0, type: "image", showInGallery: true, isLeadImage: false, sources: nil)
+        let mediaList = MediaList(items: [item])
+        
+        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
+        presentingVC.present(gallery, animated: true)
     }
     
     func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
         
-        var components = URLComponents()
-        components.scheme = "https"
-        
-        switch project {
-        case .wikipedia(let language):
-            components.host = "\(language.languageCode).wikipedia.org"
-        default:
-            assertionFailure("Unexpected project for image recommendations")
-        }
-        
-        guard let url = components.url,
-              let articleURL = url.wmf_URL(withTitle: title),
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title),
               let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
             return
         }

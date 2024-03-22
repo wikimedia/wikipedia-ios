@@ -58,7 +58,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
             return
         }
         
-        delegate?.imageRecommendationsUserDidTapImage(data: currentRecommendation.imageData)
+        delegate?.imageRecommendationsUserDidTapImage(project: viewModel.project, data: currentRecommendation.imageData, presentingVC: self)
     }
     
     func goToImageCommonsPage() {
