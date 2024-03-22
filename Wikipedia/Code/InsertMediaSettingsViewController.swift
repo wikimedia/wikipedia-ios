@@ -6,7 +6,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
     let searchResult: InsertMediaSearchResult
-    var insertButton: UIBarButtonItem?
+    var nextButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -222,9 +222,9 @@ final class InsertMediaSettingsViewController: ViewController {
         if FeatureFlags.needsImageRecommendations {
             title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
 
-            insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia))
-            insertButton?.tintColor = theme.colors.secondaryText
-            navigationItem.rightBarButtonItem = insertButton
+            nextButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
+            nextButton?.tintColor = theme.colors.secondaryText
+            navigationItem.rightBarButtonItem = nextButton
             navigationController?.navigationBar.topItem?.title = String()
             self.apply(theme: theme)
         }
@@ -361,7 +361,7 @@ extension InsertMediaSettingsViewController: UITextViewDelegate {
         if let indexPath = tableView.indexPathForRow(at: point), indexPath.row == 0 {
 
             let isTextViewEmpty = textView.text.isEmpty
-            insertButton?.tintColor = isTextViewEmpty ? theme.colors.secondaryText : theme.colors.link
+            nextButton?.tintColor = isTextViewEmpty ? theme.colors.secondaryText : theme.colors.link
         }
     }
 
