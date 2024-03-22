@@ -84,13 +84,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private let wikiTextSectionUploader = WikiTextSectionUploader()
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses", languageCode: languageCode, value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
+        let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses-ccsa4", languageCode: languageCode, value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 4.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
 
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
             "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
             "</a>",
-            "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
+            "<a href=\"\(Licenses.CCBYSA4URL?.absoluteString ?? "")\">",
             "</a>" ,
             "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
             "</a>"
