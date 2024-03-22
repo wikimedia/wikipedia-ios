@@ -205,6 +205,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 let metadata = firstImage.metadata
                 let imageRecommendation = WKImageRecommendationData(
                     pageId: page.pageid,
+                    pageTitle: firstPageSuggestion.titleText,
                     image: firstImage.image,
                     filename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
