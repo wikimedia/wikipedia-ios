@@ -1101,6 +1101,10 @@ extension ExploreViewController {
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
+    func imageRecommendationsUserDidTapImage(data: WKData.WKImageRecommendationData) {
+        // TODO: present gallery
+    }
+    
     func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
         
         var components = URLComponents()
