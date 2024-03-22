@@ -518,6 +518,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
+"explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
+"explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";

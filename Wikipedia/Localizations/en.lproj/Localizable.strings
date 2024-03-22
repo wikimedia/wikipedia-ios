@@ -518,6 +518,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
 "explore-suggested-edits-footer" = "Add";
+"explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
+"explore-suggested-edits-image-recs-title" = "Add an image";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
