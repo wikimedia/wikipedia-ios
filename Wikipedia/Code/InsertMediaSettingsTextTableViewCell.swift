@@ -6,7 +6,6 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var textView: ThemeableTextView!
     @IBOutlet weak var learnMoreButton: UIButton!
 
-
     var headerText: String? {
         didSet {
             headerLabel.text = headerText

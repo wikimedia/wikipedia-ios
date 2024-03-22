@@ -223,8 +223,7 @@ final class InsertMediaSettingsViewController: ViewController {
             title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
 
             insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia))
-            insertButton?.tintColor = theme.colors.link
-            insertButton?.isEnabled = false
+            insertButton?.tintColor = theme.colors.secondaryText
             navigationItem.rightBarButtonItem = insertButton
             navigationController?.navigationBar.topItem?.title = String()
             self.apply(theme: theme)
@@ -360,7 +359,9 @@ extension InsertMediaSettingsViewController: UITextViewDelegate {
 
         let point = textView.convert(CGPoint.zero, to: tableView)
         if let indexPath = tableView.indexPathForRow(at: point), indexPath.row == 0 {
-            insertButton?.isEnabled = textView.text.isEmpty ? false : true 
+
+            let isTextViewEmpty = textView.text.isEmpty
+            insertButton?.tintColor = isTextViewEmpty ? theme.colors.secondaryText : theme.colors.link
         }
     }
 

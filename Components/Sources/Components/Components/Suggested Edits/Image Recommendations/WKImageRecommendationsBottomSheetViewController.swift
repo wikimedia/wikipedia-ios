@@ -20,11 +20,6 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let bottomViewModel = populateImageSheetRecommendationViewModel(for: viewModel.currentRecommendation?.imageData) {
@@ -65,7 +60,6 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     func didTapYesButton() {
         if let imageData = viewModel.currentRecommendation?.imageData {
             self.dismiss(animated: true) {
-                
                 self.delegate?.imageRecommendationsUserDidTapInsertImage(with: imageData)
             }
         }
