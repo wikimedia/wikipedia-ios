@@ -7,12 +7,16 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Nested Types
     
     public struct LocalizedStrings {
+		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
+
         let title: String
         let viewArticle: String
-        
-        public init(title: String, viewArticle: String) {
+		let surveyLocalizedStrings: SurveyLocalizedStrings
+
+		public init(title: String, viewArticle: String, surveyLocalizedStrings: SurveyLocalizedStrings) {
             self.title = title
             self.viewArticle = viewArticle
+			self.surveyLocalizedStrings = surveyLocalizedStrings
         }
     }
     

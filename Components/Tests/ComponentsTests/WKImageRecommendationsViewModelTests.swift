@@ -6,7 +6,7 @@ import XCTest
 final class WKImageRecommendationsViewModelTests: XCTestCase {
     
     private let csProject = WKProject.wikipedia(WKLanguage(languageCode: "cs", languageVariantCode: nil))
-    private let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View article")
+	private let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View article", surveyLocalizedStrings: WKImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(reason: "Reason", cancel: "Cancel", submit: "Submit", improveSuggestions: "Improve", selectOptions: "Options", imageNotRelevant: "Image not Relevant", notEnoughInformation: "Not enough info", imageIsOffensive: "Image is offensive", imageIsLowQuality: "Image is low quality", dontKnowSubject: "Don't know subject", other: "Other"))
 
     override func setUpWithError() throws {
         WKDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()

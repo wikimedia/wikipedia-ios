@@ -588,6 +588,16 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"image-rec-survey-instructions-1" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-instructions-2" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-option-1" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-2" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-3" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-4" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-5" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-6" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-submit-button" = "Title of the image recommendations survey view submit button.";
+"image-rec-survey-title" = "Title of the image recommendations survey view. Displayed in the navigation bar as title of view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
