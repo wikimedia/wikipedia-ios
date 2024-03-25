@@ -212,7 +212,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
 
         buttonSave = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(self.goForward))
-        buttonSave?.tintColor = theme.colors.link
+        buttonSave?.tintColor = theme.colors.secondaryText
 
         minorEditLabel.text = WMFLocalizedString("edit-minor-text", languageCode: languageCode, value: "This is a minor edit", comment: "Text for minor edit label")
         minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", languageCode: languageCode, value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
@@ -541,6 +541,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     func summaryChanged(newSummary: String) {
         summaryText = newSummary
+        buttonSave?.tintColor = newSummary.isEmpty ? theme.colors.secondaryText : theme.colors.link
     }
     
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.
