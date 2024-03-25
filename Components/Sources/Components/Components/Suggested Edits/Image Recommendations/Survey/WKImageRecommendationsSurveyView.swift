@@ -95,6 +95,10 @@ struct WKImageRecommendationsSurveyView: View {
 
 				ToolbarItem(placement: .topBarTrailing) {
 					Button(viewModel.localizedStrings.submit) {
+						if !otherReasonText.isEmpty {
+							let otherReason = WKImageRecommendationsSurveyViewModel.Reason.other(reason: otherReasonText)
+							selectedReasons.insert(otherReason)
+						}
 						submitAction?(Array(selectedReasons))
 					}
 					.disabled(!userHasSelectedReasons)
