@@ -54,13 +54,13 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.adjustsFontForContentSizeCategory = true
         textView.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         textView.isScrollEnabled = false
+        textView.isUserInteractionEnabled = true
         textView.isEditable = false
         textView.isSelectable = false
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -10)
         textView.textContainer.lineFragmentPadding = 0
         textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
-
         return textView
     }()
 
@@ -202,9 +202,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private var cutoutWidth: CGFloat {
-        return imageViewWidth+padding
+        return imageViewWidth + padding
     }
-
 
     // MARK: Lifecycle
 
@@ -220,7 +219,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
-        updateColors()
+        configure()
     }
 
     // MARK: Private Methods
@@ -271,12 +270,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         ])
 
         setupTextViewExclusionPath()
-        updateColors()
         setupToolbar()
     }
 
     private func setupTextViewExclusionPath() {
-        let height = regularSizeClass ? imageViewHeight : (imageViewHeight - padding)
+        let height = regularSizeClass ? imageViewHeight + padding : (imageViewHeight - padding)
         let rectangleWidth: CGFloat = cutoutWidth
         let rectangleHeight: CGFloat = height
 
@@ -304,37 +302,40 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         titleLabel.textColor = theme.text
         iconImageView.tintColor = theme.link
         toolbar.barTintColor = theme.midBackground
+        textView.linkTextAttributes = [.foregroundColor: theme.link,
+                                       .font: WKFont.for(.boldCallout)
+        ]
+        textView.attributedText = getTextViewAttributedString()
     }
 
     private func configure() {
         imageView.image = viewModel.imageThumbnail
         titleLabel.text = viewModel.headerTitle
+        textView.delegate = self
         textView.attributedText = getTextViewAttributedString()
+        updateColors()
     }
 
     private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
 
-        let linkAttributes = [NSAttributedString.Key.font: WKFont.for(.boldCallout),
-                              NSAttributedString.Key.foregroundColor: theme.link]
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
 
         let attachment = NSTextAttachment()
         if let image = WKIcon.externalLink {
             let tintedImage = image.withTintColor(theme.link)
             attachment.image = tintedImage
         }
-
-        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
-            linkAttributedString.append(NSAttributedString(string: "  "))
-            linkAttributedString.append(NSAttributedString(attachment: attachment))
-
-        linkAttributedString.addAttributes(linkAttributes, range: NSRange(location: 0, length: linkAttributedString.length))
+        let attachmentAttributedString = NSMutableAttributedString(string: " ")
+        attachmentAttributedString.append(NSAttributedString(attachment: attachment))
+        attachmentAttributedString.addAttributes([.foregroundColor: theme.link], range: NSRange(location: 0, length: attachmentAttributedString.length))
 
         let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
-                                     NSAttributedString.Key.foregroundColor: theme.text]
+                                NSAttributedString.Key.foregroundColor: theme.text]
         let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
 
         attributedString.append(linkAttributedString)
+        attributedString.append(attachmentAttributedString)
         attributedString.append(NSAttributedString(string: "\n\n"))
         attributedString.append(reasonAttributedString)
         attributedString.append(NSAttributedString(string: "\n\n"))
@@ -346,16 +347,16 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             attributedString.append(descriptionAttributedString)
         }
 
+        if let url = URL(string: viewModel.imageLink) {
+            attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
+        }
+
         return attributedString
     }
 
     private func setupToolbar() {
         let spacer = UIBarButtonItem(systemItem: .flexibleSpace)
         toolbar.setItems([yesToolbarButton, spacer, noToolbarButton, spacer, notSureToolbarButton], animated: true)
-    }
-
-    @objc private func goToImageCommonsPage() {
-        delegate?.goToImageCommonsPage()
     }
 
     @objc private func didPressYesButton() {
@@ -371,3 +372,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
 }
+
+extension WKImageRecommendationBottomSheetView: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        delegate?.goToImageCommonsPage()
+        return false
+    }
+}
+
