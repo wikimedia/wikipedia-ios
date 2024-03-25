@@ -5,6 +5,7 @@ import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
+    func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -43,7 +44,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate)
         self.delegate = delegate
         self.viewModel = viewModel
-        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel)
+        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate)
         super.init()
     }
 

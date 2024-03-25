@@ -25,7 +25,7 @@ public struct WKImageRecommendation {
     }
 
     public struct ImageMetadata: Codable {
-        let descriptionUrl: String
+        public let descriptionUrl: String
         public let thumbUrl: String
         public let fullUrl: String
         let originalWidth: Int
