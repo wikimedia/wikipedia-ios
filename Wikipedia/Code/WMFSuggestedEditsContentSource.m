@@ -1,9 +1,11 @@
 #import "WMFSuggestedEditsContentSource.h"
 #import <WMF/WMF-Swift.h>
+@import WKData;
 
 @interface WMFSuggestedEditsContentSource ()
 
 @property (readwrite, nonatomic) MWKDataStore *dataStore;
+@property (readwrite, nonatomic, strong) WKGrowthTasksDataController *growthTasksDataController;
 
 @end
 
@@ -14,27 +16,59 @@
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
+        NSString *languageCode = dataStore.languageLinkController.appLanguage.languageCode;
+        self.growthTasksDataController = [[WKGrowthTasksDataController alloc] initWithLanguageCode:languageCode];
     }
     return self;
 }
 
 - (void)loadNewContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     
-    // TODO: Fetch user edit count, image recommendations, user login state, blocked state.
+    // First delete old card
+    [self removeAllContentInManagedObjectContext:moc];
     
-    // TODO: if edit count > 50, wiki has image recommendations to review, user is logged in, and user is not blocked (do we need to worry about page protection?)
-    NSURL *URL = [WMFContentGroup suggestedEditsURL];
-    [moc fetchOrCreateGroupForURL:URL
-                                                    ofKind:WMFContentGroupKindSuggestedEdits
-                                                   forDate:[NSDate date]
-                                               withSiteURL:self.appLanguageSiteURL
-                                         associatedContent:nil
-                                        customizationBlock:nil];
+    NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
     
-    completion();
-    // else
-    //[self removeAllContentInManagedObjectContext:moc];
-    // end if
+    if (!appLanguageSiteURL) {
+        completion();
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        WMFTaskGroup *group = [WMFTaskGroup new];
+        
+        __block WMFCurrentlyLoggedInUser *currentUser = nil;
+        __block BOOL hasImageRecommendations = NO;
+        
+        [group enter];
+        [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL completion:^(WMFCurrentlyLoggedInUser *user) {
+            currentUser = user;
+            [group leave];
+        }];
+        
+        [group enter];
+        [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+            hasImageRecommendations = hasRecommendations;
+            [group leave];
+        }];
+        
+        [group waitInBackgroundWithCompletion:^{
+            if (currentUser) {
+                if (currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations) {
+
+                    NSURL *URL = [WMFContentGroup suggestedEditsURL];
+
+                    [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+
+                }
+            }
+            
+            completion();
+        }];
+        
+    });
+    
 }
 
 - (void)removeAllContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc { 
