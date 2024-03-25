@@ -83,6 +83,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
+        navigationItem.backButtonDisplayMode = .generic
         addComponent(hostingViewController, pinToEdges: true)
     }
 
