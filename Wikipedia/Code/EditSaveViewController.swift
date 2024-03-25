@@ -96,7 +96,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
 
         return attributedString
     }
@@ -110,7 +110,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
 
         return attributedString
     }
@@ -217,7 +217,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", languageCode: languageCode, value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
 
         addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
-        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about watch lists", comment: "Text for watch lists learn more button"), for: .normal)
+        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
         
         setupWebPreviewButton()
     }
