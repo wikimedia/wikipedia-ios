@@ -166,9 +166,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
-        
-        // TODO: show this once we figure out how to handle watchlists (T214749)
-        addToWatchlistStackView.isHidden = true
 
         updateTextViews()
         apply(theme: theme)
