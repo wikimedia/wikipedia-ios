@@ -613,7 +613,7 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Subtext beneath the 'In the news' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "in-the-news-sub-title-from-wikipedia" = "Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"insert-action-title" = "Title for insert action";
+"insert-action-title" = "Title for insert action indicating the user can go to the next step";
 "insert-link-title" = "Title for the Insert link screen";
 "insert-media-add-image-details-title" = "Title for add image details view";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
@@ -683,6 +683,7 @@
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
+"next-action-title" = "Title for insert action";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";

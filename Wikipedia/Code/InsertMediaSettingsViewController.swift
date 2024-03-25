@@ -5,6 +5,7 @@ typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 final class InsertMediaSettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
+    private let fromImageRecommendations: Bool
     let searchResult: InsertMediaSearchResult
     var nextButton: UIBarButtonItem?
 
@@ -126,11 +127,7 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     var imageTitle: URL? {
-        if let imageURL = searchResult.imageFullURL {
-            return imageURL
-        } else {
-            return searchResult.imageInfo?.filePageURL
-        }
+        return searchResult.filePageURL ?? searchResult.imageInfo?.filePageURL
     }
 
     private lazy var imageView: InsertMediaSettingsImageView = {
@@ -168,7 +165,7 @@ final class InsertMediaSettingsViewController: ViewController {
         let headerText: String
         let placeholder: String
         let footerText: String
-        let url: String
+        let learnMoreUrl: String
 
         init(type: TextViewType) {
             self.type = type
@@ -177,12 +174,12 @@ final class InsertMediaSettingsViewController: ViewController {
                 headerText = WMFLocalizedString("insert-media-caption-title", value: "Caption", comment: "Title for setting that allows users to add image captions")
                 placeholder = WMFLocalizedString("insert-media-caption-caption-placeholder", value: "How does this image relate to the article?", comment: "Placeholder text for setting that allows users to add image captions")
                 footerText = WMFLocalizedString("insert-media-caption-description", value: "Label that shows next to the item for all readers", comment: "Description for setting that allows users to add image captions")
-                url = "https://en.wikipedia.org" // get URL
+                learnMoreUrl = "https://en.wikipedia.org" // get URL
             case .alternativeText:
                 headerText = WMFLocalizedString("insert-media-alternative-text-title", value: "Alternative text", comment: "Title for setting that allows users to add image alternative text")
                 placeholder = WMFLocalizedString("insert-media-alternative-text-placeholder", value: "Describe this image", comment: "Placeholder text for setting that allows users to add image alternative text")
                 footerText = WMFLocalizedString("insert-media-alternative-text-description", value: "Text description for readers who cannot see the image", comment: "Description for setting that allows users to add image alternative text")
-                url = "https://es.wikipedia.org" // get URL
+                learnMoreUrl = "https://es.wikipedia.org" // get URL
             }
         }
     }
@@ -198,9 +195,10 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false) {
         self.image = image
         self.searchResult = searchResult
+        self.fromImageRecommendations = fromImageRecommendations
         super.init()
     }
 
@@ -219,7 +217,7 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
 
-        if FeatureFlags.needsImageRecommendations {
+        if fromImageRecommendations {
             title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
             nextButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
             nextButton?.tintColor = theme.colors.secondaryText
@@ -230,13 +228,9 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        guard let mediaSettingsTableViewController = navigationController?.topViewController as? InsertMediaSettingsViewController else {
-            assertionFailure()
-            return
-        }
-        let searchResult = mediaSettingsTableViewController.searchResult
+        let searchResult = searchResult
         let wikitext: String
-        switch mediaSettingsTableViewController.settings {
+        switch settings {
         case nil:
             wikitext = "[[\(searchResult.fileTitle)]]"
         case let mediaSettings?:
@@ -329,7 +323,7 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
         cell.footerText = viewModel.footerText
         cell.selectionStyle = .none
         cell.apply(theme: theme)
-        cell.learnMoreURL = URL(string: viewModel.url)
+        cell.learnMoreURL = URL(string: viewModel.learnMoreUrl)
         cell.learnMoreAction = { [weak self] url in
             guard let self = self else {
                 return

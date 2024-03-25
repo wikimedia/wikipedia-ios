@@ -54,16 +54,16 @@ final class InsertMediaSearchResult {
     let fileTitle: String
     let displayTitle: String
     let thumbnailURL: URL
-    var imageFullURL: URL?
+    var filePageURL: URL?
     var imageDescription: String?
     var imageInfo: MWKImageInfo?
 
-    init(fileTitle: String, displayTitle: String, thumbnailURL: URL, imageDescription: String? = nil,  imageFullUrl: URL? = nil) {
+    init(fileTitle: String, displayTitle: String, thumbnailURL: URL, imageDescription: String? = nil,  filePageURL: URL? = nil) {
         self.fileTitle = fileTitle
         self.displayTitle = displayTitle
         self.thumbnailURL = thumbnailURL
         self.imageDescription = imageDescription
-        self.imageFullURL = imageFullUrl
+        self.filePageURL = filePageURL
     }
 
     func imageURL(for width: CGFloat) -> URL? {
@@ -74,9 +74,6 @@ final class InsertMediaSearchResult {
         return URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(width))) ?? imageInfo?.canonicalFileURL
     }
 
-    func imageURL() -> URL? {
-        return imageFullURL
-    }
 }
 
 class InsertMediaSearchResultsCollectionViewController: UICollectionViewController {

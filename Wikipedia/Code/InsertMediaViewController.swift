@@ -107,13 +107,12 @@ final class InsertMediaViewController: ViewController {
             return
         }
         let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult)
-        if !FeatureFlags.needsImageRecommendations {
             settingsViewController.title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
-            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
+            let insertButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
             insertButton.tintColor = theme.colors.link
             settingsViewController.navigationItem.rightBarButtonItem = insertButton
             settingsViewController.apply(theme: theme)
-        }
+
         navigationController.pushViewController(settingsViewController, animated: true)
     }
 

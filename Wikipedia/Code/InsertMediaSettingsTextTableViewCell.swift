@@ -58,7 +58,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
 
     @IBAction private func performLearnMoreAction(_ sender: UIButton) {
         guard let url = learnMoreURL else {
-            assertionFailure("titleURL should be set by now")
+            assertionFailure("learnMoreURL should be set by now")
             return
         }
         learnMoreAction?(url)
