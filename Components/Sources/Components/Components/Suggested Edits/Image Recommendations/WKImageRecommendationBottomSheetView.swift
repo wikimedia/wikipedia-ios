@@ -14,12 +14,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
-    private lazy var container: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +54,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.textContainer.lineFragmentPadding = 0
         textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
-        textView.font = WKFont.for(.callout)
+
         return textView
     }()
 
@@ -77,20 +71,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
 
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
-
-    private lazy var imageLinkButton: WKButton = {
-        let button = WKButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = buttonFont
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.lineBreakMode = .byWordWrapping
-        button.configuration?.contentInsets = .zero
-        button.configuration?.titlePadding = .zero
-        button.contentHorizontalAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(goToImageCommonsPage), for: .touchUpInside)
-        return button
-    }()
 
     private lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar()
@@ -219,21 +199,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         return imageViewWidth+padding
     }
 
-    private var linkButtonWidth: CGFloat {
-        return (self.frame.width-cutoutWidth)-padding*2
-    }
-
-    private var buttonHeight: CGFloat {
-        let title = viewModel.imageTitle
-        // The "1 1" here is a hack to help calculating the size of the NSAttributedString with attachment, since it can't be  used to calculate the text size here due to not being convertible to NSString
-        let imageTitleTextSize = (title + "1  1" as NSString).boundingRect(
-            with: CGSize(width: linkButtonWidth, height: .greatestFiniteMagnitude),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: buttonFont],
-            context: nil).size
-        return imageTitleTextSize.height
-    }
-
 
     // MARK: Lifecycle
 
@@ -256,17 +221,16 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private func setup() {
         configure()
-        container.addSubview(imageLinkButton)
-        container.addSubview(textView)
-        container.addSubview(imageView)
 
         headerStackView.addArrangedSubview(iconImageView)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.spacing = 10
 
         stackView.addArrangedSubview(headerStackView)
-        stackView.addArrangedSubview(container)
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(textView)
         stackView.spacing = padding
+
         addSubview(stackView)
         addSubview(toolbar)
 
@@ -275,14 +239,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageLinkButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: padding),
-            imageLinkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: buttonHeight),
-            imageLinkButton.widthAnchor.constraint(equalToConstant: linkButtonWidth),
-            textView.topAnchor.constraint(equalTo: imageLinkButton.bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: stackView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            textView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             iconImageView.heightAnchor.constraint(equalToConstant: 20),
             iconImageView.widthAnchor.constraint(equalToConstant: 20),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -291,15 +251,12 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             toolbar.heightAnchor.constraint(equalToConstant: 44)
         ])
 
-        let linkButtonTopConstraint = imageLinkButton.topAnchor.constraint(equalTo: imageView.topAnchor)
-        linkButtonTopConstraint.priority = .required
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
         imageWidthConstraint.priority = .required
         let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
         imageHeightConstraint.priority = .required
 
         NSLayoutConstraint.activate([
-            linkButtonTopConstraint,
             imageWidthConstraint,
             imageHeightConstraint
         ])
@@ -310,7 +267,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private func setupTextViewExclusionPath() {
-        let height = regularSizeClass ? imageViewHeight - buttonHeight : (imageViewHeight - padding) - buttonHeight
+        let height = regularSizeClass ? imageViewHeight : (imageViewHeight - padding)
         let rectangleWidth: CGFloat = cutoutWidth
         let rectangleHeight: CGFloat = height
 
@@ -335,28 +292,51 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private func updateColors() {
         backgroundColor = theme.paperBackground
-        textView.textColor = theme.secondaryText
         titleLabel.textColor = theme.text
-        imageLinkButton.setTitleColor(theme.link, for: .normal)
         iconImageView.tintColor = theme.link
         toolbar.barTintColor = theme.midBackground
     }
 
     private func configure() {
         imageView.image = viewModel.imageThumbnail
-        textView.text = viewModel.imageDescription
         titleLabel.text = viewModel.headerTitle
-        imageLinkButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
+        textView.attributedText = getTextViewAttributedString()
     }
 
-    private func getImageLinkButtonTitle() -> NSMutableAttributedString {
+    private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
-        if let imageAttachment = WKIcon.externalLink {
-            let attachment = NSTextAttachment(image: imageAttachment)
-            attributedString.append(NSAttributedString(string: viewModel.imageTitle))
-            attributedString.append(NSAttributedString(string: "  "))
-            attributedString.append(NSAttributedString(attachment: attachment))
+
+        let linkAttributes = [NSAttributedString.Key.font: WKFont.for(.boldCallout),
+                              NSAttributedString.Key.foregroundColor: theme.link]
+
+        let attachment = NSTextAttachment()
+        if let image = WKIcon.externalLink {
+            let tintedImage = image.withTintColor(theme.link)
+            attachment.image = tintedImage
         }
+
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
+            linkAttributedString.append(NSAttributedString(string: "  "))
+            linkAttributedString.append(NSAttributedString(attachment: attachment))
+
+        linkAttributedString.addAttributes(linkAttributes, range: NSRange(location: 0, length: linkAttributedString.length))
+
+        let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+                                     NSAttributedString.Key.foregroundColor: theme.text]
+        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
+
+        attributedString.append(linkAttributedString)
+        attributedString.append(NSAttributedString(string: "\n\n"))
+        attributedString.append(reasonAttributedString)
+        attributedString.append(NSAttributedString(string: "\n\n"))
+
+        if let description = viewModel.imageDescription {
+            let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+                                         NSAttributedString.Key.foregroundColor: theme.secondaryText]
+            let descriptionAttributedString = NSMutableAttributedString(string: description, attributes: descriptionAttributes)
+            attributedString.append(descriptionAttributedString)
+        }
+
         return attributedString
     }
 

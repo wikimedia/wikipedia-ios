@@ -59,14 +59,16 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let thumbUrl: String
         public let fullUrl: String
         public let description: String?
+        public let reason: String
 
-        public init(pageId: Int, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?) {
+        public init(pageId: Int, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?, reason: String) {
             self.pageId = pageId
             self.image = image
             self.filename = filename
             self.thumbUrl = thumbUrl
             self.fullUrl = fullUrl
             self.description = description
+            self.reason = reason
         }
     }
 
@@ -228,7 +230,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     filename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
-                    description: metadata.description
+                    description: metadata.description, 
+                    reason: metadata.reason
                 )
                 imageData.append(imageRecommendation)
             }

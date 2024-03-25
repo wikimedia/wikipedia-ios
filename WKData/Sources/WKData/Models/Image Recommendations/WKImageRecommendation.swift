@@ -37,7 +37,7 @@ public struct WKImageRecommendation {
         let date: String
         let caption: String?
         let categories: [String]
-        let reason: String
+        public let reason: String
         let contentLanguageName: String
     }
 
