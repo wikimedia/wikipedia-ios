@@ -9,7 +9,11 @@ struct WKImageRecommendationsSurveyView: View {
 	private var theme: WKTheme {
 		return appEnvironment.theme
 	}
-	
+
+	private var userHasSelectedReasons: Bool {
+		return !selectedReasons.isEmpty || !otherReasonText.isEmpty
+	}
+
 	@State var otherReasonText = ""
 	@State var selectedReasons: Set<WKImageRecommendationsSurveyViewModel.Reason> = []
 
@@ -93,7 +97,8 @@ struct WKImageRecommendationsSurveyView: View {
 					Button(viewModel.localizedStrings.submit) {
 						submitAction?(Array(selectedReasons))
 					}
-					.foregroundStyle(Color(theme.link))
+					.disabled(!userHasSelectedReasons)
+					.foregroundStyle(Color(userHasSelectedReasons ? theme.link : theme.secondaryText))
 				}
 			}
 		}
