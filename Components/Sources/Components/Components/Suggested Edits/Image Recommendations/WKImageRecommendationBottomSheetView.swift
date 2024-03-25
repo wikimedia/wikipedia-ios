@@ -14,6 +14,12 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
+    private lazy var container: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -222,13 +228,15 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private func setup() {
         configure()
 
+        container.addSubview(textView)
+        container.addSubview(imageView)
+
         headerStackView.addArrangedSubview(iconImageView)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.spacing = 10
 
         stackView.addArrangedSubview(headerStackView)
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(textView)
+        stackView.addArrangedSubview(container)
         stackView.spacing = padding
 
         addSubview(stackView)
@@ -239,10 +247,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            imageView.topAnchor.constraint(equalTo: stackView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            textView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: container.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            textView.topAnchor.constraint(equalTo: container.topAnchor),
+            textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
             iconImageView.heightAnchor.constraint(equalToConstant: 20),
             iconImageView.widthAnchor.constraint(equalToConstant: 20),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
