@@ -29,7 +29,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     // MARK: Methods
 
-    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
+    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationsViewModel.WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
 
         if let image {
             let viewModel = WKImageRecommendationBottomSheetViewModel(
