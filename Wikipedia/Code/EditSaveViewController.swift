@@ -189,6 +189,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             minorEditToggle.isOn = savedData.isMinorEdit
             addToWatchlistToggle.isOn = savedData.shouldAddToWatchList
         }
+        
+        fetchWatchlistStatusAndUpdateToggle()
     }
 
 
@@ -244,6 +246,26 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             showWebPreviewContainerView.bottomAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
             showWebPreviewContainerView.trailingAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.trailingAnchor)
         ])
+    }
+    
+    private func fetchWatchlistStatusAndUpdateToggle() {
+        guard let siteURL = pageURL?.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+            let title = pageURL?.wmf_title else {
+            return
+        }
+        
+        let dataController = WKWatchlistDataController()
+        dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let status):
+                    self?.addToWatchlistToggle.isOn = status.watched
+                case .failure:
+                    break
+                }
+            }
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
