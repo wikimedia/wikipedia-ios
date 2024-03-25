@@ -174,12 +174,12 @@ final class InsertMediaSettingsViewController: ViewController {
                 headerText = WMFLocalizedString("insert-media-caption-title", value: "Caption", comment: "Title for setting that allows users to add image captions")
                 placeholder = WMFLocalizedString("insert-media-caption-caption-placeholder", value: "How does this image relate to the article?", comment: "Placeholder text for setting that allows users to add image captions")
                 footerText = WMFLocalizedString("insert-media-caption-description", value: "Label that shows next to the item for all readers", comment: "Description for setting that allows users to add image captions")
-                learnMoreUrl = "https://en.wikipedia.org" // get URL
+                learnMoreUrl = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Image_captions"
             case .alternativeText:
                 headerText = WMFLocalizedString("insert-media-alternative-text-title", value: "Alternative text", comment: "Title for setting that allows users to add image alternative text")
                 placeholder = WMFLocalizedString("insert-media-alternative-text-placeholder", value: "Describe this image", comment: "Placeholder text for setting that allows users to add image alternative text")
                 footerText = WMFLocalizedString("insert-media-alternative-text-description", value: "Text description for readers who cannot see the image", comment: "Description for setting that allows users to add image alternative text")
-                learnMoreUrl = "https://es.wikipedia.org" // get URL
+                learnMoreUrl = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Tips_for_creating_alt-text"
             }
         }
     }
