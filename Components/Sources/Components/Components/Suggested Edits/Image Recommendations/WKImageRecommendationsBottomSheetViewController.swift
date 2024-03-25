@@ -5,7 +5,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     // MARK: Properties
 
-    public var viewModel: WKImageRecommendationsViewModel
+    public let viewModel: WKImageRecommendationsViewModel
 
     // MARK: Lifecycle
 

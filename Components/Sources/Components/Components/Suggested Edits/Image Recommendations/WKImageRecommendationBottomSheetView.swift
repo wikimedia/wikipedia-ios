@@ -11,7 +11,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     // MARK: Properties
 
-    private var viewModel: WKImageRecommendationBottomSheetViewModel
+    private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
     private lazy var container: UIView = {
@@ -67,13 +67,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
-//        imageView.backgroundColor = .yellow
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .red
         label.font = WKFont.for(.boldTitle3)
         return label
     }()
@@ -124,8 +122,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 20),
-            imageView.heightAnchor.constraint(equalToConstant: 20),
             label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
             label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
@@ -251,6 +247,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
+        updateColors()
+    }
+
     // MARK: Private Methods
 
     private func setup() {
@@ -290,15 +291,15 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             toolbar.heightAnchor.constraint(equalToConstant: 44)
         ])
 
-        let linkButtonTopConstarint = imageLinkButton.topAnchor.constraint(equalTo: imageView.topAnchor)
-        linkButtonTopConstarint.priority = .required
+        let linkButtonTopConstraint = imageLinkButton.topAnchor.constraint(equalTo: imageView.topAnchor)
+        linkButtonTopConstraint.priority = .required
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
         imageWidthConstraint.priority = .required
         let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
         imageHeightConstraint.priority = .required
 
         NSLayoutConstraint.activate([
-            linkButtonTopConstarint,
+            linkButtonTopConstraint,
             imageWidthConstraint,
             imageHeightConstraint
         ])

@@ -94,9 +94,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if imageRecommendationBottomSheetController.sheetPresentationController != nil {
-            imageRecommendationBottomSheetController.isModalInPresentation = false
-        }
         imageRecommendationBottomSheetController.dismiss(animated: true)
     }
 
@@ -135,8 +132,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func bindViewModel() {
         viewModel.$loading
             .receive(on: RunLoop.main)
-            .sink { [weak self] presentBottomSheet in
-                if !presentBottomSheet {
+            .sink { [weak self] isLoading in
+                if !isLoading {
                     self?.presentModalView()
                 }
             }
