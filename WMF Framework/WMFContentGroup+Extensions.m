@@ -175,35 +175,32 @@
         case WMFContentGroupKindFeaturedArticle:
             updatedDailySortPriority = contentLanguageSortOrder + 4;
             break;
-        case WMFContentGroupKindSuggestedEdits:
+        case WMFContentGroupKindTopRead:
             updatedDailySortPriority = contentLanguageSortOrder + 5;
             break;
-        case WMFContentGroupKindTopRead:
-            updatedDailySortPriority = contentLanguageSortOrder + 6;
-            break;
         case WMFContentGroupKindNews:
-            updatedDailySortPriority = contentLanguageSortOrder + 7;
+            updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNotification:
             updatedDailySortPriority = -1;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            updatedDailySortPriority = 9;
+            updatedDailySortPriority = 8;
             break;
         case WMFContentGroupKindOnThisDay:
-            updatedDailySortPriority = contentLanguageSortOrder + 10;
+            updatedDailySortPriority = contentLanguageSortOrder + 9;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            updatedDailySortPriority = contentLanguageSortOrder + 11;
+            updatedDailySortPriority = contentLanguageSortOrder + 10;
             break;
         case WMFContentGroupKindLocation:
-            updatedDailySortPriority = contentLanguageSortOrder + 12;
+            updatedDailySortPriority = contentLanguageSortOrder + 11;
             break;
         case WMFContentGroupKindRandom:
-            updatedDailySortPriority = contentLanguageSortOrder + 13;
+            updatedDailySortPriority = contentLanguageSortOrder + 12;
             break;
         case WMFContentGroupKindMainPage:
-            updatedDailySortPriority = contentLanguageSortOrder + 14;
+            updatedDailySortPriority = contentLanguageSortOrder + 13;
             break;
         default:
             break;

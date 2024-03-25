@@ -7,6 +7,10 @@ struct WKImageRecommendationsView: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
     let viewArticleAction: (String) -> Void
+    
+    var isRTL: Bool {
+        return viewModel.semanticContentAttribute == .forceRightToLeft
+    }
 
     var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 16
@@ -23,6 +27,7 @@ struct WKImageRecommendationsView: View {
                             VStack {
                                 HStack {
                                     WKArticleSummaryView(articleSummary: articleSummary)
+                                        .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
                                 }
                                 Spacer()
                                     .frame(height: 19)

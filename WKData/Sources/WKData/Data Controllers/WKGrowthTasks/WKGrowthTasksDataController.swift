@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WKGrowthTasksDataController {
+@objc public final class WKGrowthTasksDataController: NSObject {
 
     private var service = WKDataEnvironment.current.mediaWikiService
     let project: WKProject
@@ -72,6 +72,7 @@ public final class WKGrowthTasksDataController {
     }
 
    fileprivate func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
+       
         var suggestions: [WKImageRecommendation.GrowthImageSuggestionData] = []
 
         for item in page.growthimagesuggestiondata ?? [] {
@@ -114,4 +115,26 @@ public final class WKGrowthTasksDataController {
 
 public enum WKGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
+}
+
+// MARK: Objective-C Helpers
+
+public extension WKGrowthTasksDataController {
+    
+    @objc convenience init(languageCode: String) {
+        let language = WKLanguage(languageCode: languageCode, languageVariantCode: nil)
+        self.init(project: WKProject.wikipedia(language))
+    }
+    
+    @objc func hasImageRecommendations(completion: @escaping (Bool) -> Void) {
+        getImageRecommendationsCombined { result in
+            switch result {
+            case .success(let pages):
+                let pagesWithSuggestions = pages.filter { !($0.growthimagesuggestiondata ?? []).isEmpty }
+                completion(!pagesWithSuggestions.isEmpty)
+            case .failure:
+                completion(false)
+            }
+        }
+    }
 }
