@@ -261,7 +261,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindReadingList:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindSuggestedEdits:
-            return WMFFeedDetailTypeNone;
+            return WMFFeedDetailTypeSuggestedEdits;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindUnknown:
