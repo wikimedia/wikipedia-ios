@@ -295,7 +295,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let rectangleOriginX: CGFloat
         if isRTL {
             let width = self.frame.width
-            rectangleOriginX = width - rectangleWidth - textView.textContainerInset.right - padding * 2.5
+            rectangleOriginX = width - rectangleWidth - textView.textContainerInset.right - (padding * 2)
         } else {
             rectangleOriginX = textView.textContainerInset.left
         }
