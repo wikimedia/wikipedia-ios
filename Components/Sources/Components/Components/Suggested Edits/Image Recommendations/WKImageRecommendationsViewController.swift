@@ -88,8 +88,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         super.viewDidAppear(animated)
         bindViewModel()
         presentOnboardingIfNecessary()
-//		let hostedView = WKComponentHostingController(rootView: WKImageRecommendationsSurveyView(viewModel: .init(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings)))
-//		present(hostedView, animated: true)
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
