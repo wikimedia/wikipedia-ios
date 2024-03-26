@@ -153,7 +153,7 @@ import CocoaLumberjackSwift
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
         case login = "/analytics/mobile_apps/ios_login_action/1.0.2"
         case navigation = "/analytics/mobile_apps/ios_navigation_events/1.0.0"
-        case editAttempt = "/analytics/legacy/editattemptstep/1.4.0"
+        case editAttempt = "/analytics/legacy/editattemptstep/2.0.3"
         case watchlist = "/analytics/mobile_apps/ios_watchlists/4.0.0"
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.0.0"
     }
