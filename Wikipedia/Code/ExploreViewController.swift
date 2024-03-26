@@ -1122,7 +1122,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigationController?.pushViewController(articleViewController, animated: true)
     }
 
-    func imageRecommendationsUserDidTapInsertImage(with imageData: WKData.WKImageRecommendationData) {
+    func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
         let image = UIImage() // TODO: fetch image properly
         if let imageURL = URL(string: imageData.descriptionURL),
