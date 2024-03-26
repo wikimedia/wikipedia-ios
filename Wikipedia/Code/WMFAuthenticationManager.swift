@@ -63,6 +63,16 @@ import CocoaLumberjackSwift
     private var isAnonCache: [String: Bool] = [:]
     private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
     
+    @objc func getLoggedInUser(for siteURL: URL, completion: @escaping (WMFCurrentlyLoggedInUser?) -> Void) {
+        getLoggedInUser(for: siteURL) { result in
+            switch result {
+            case .success(let user):
+                completion(user)
+            default:
+                completion(nil)
+            }
+        }
+    }
     /// Returns the currently logged in user for a given site. Useful to determine the user's groups for a given wiki
     public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser?, Error>) -> Void ) {
         assert(Thread.isMainThread)

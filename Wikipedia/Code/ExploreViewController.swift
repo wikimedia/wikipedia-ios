@@ -329,7 +329,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let today = NSDate().wmf_midnightUTCDateFromLocal as Date
         let oldestDate = Calendar.current.date(byAdding: .day, value: -WMFExploreFeedMaximumNumberOfDays, to: today) ?? today
         fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.sortDescriptors = dataStore.feedContentController.exploreFeedSortDescriptors()
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
         fetchedResultsController = frc
         let updater = CollectionViewUpdater(fetchedResultsController: frc, collectionView: collectionView)
@@ -667,7 +667,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
             let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, imageRecDelegate: self) else {
             return
         }
         
@@ -1121,6 +1121,16 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         navigationController?.pushViewController(articleViewController, animated: true)
     }
-    
-    
+
+    func imageRecommendationsUserDidTapInsertImage(with imageData: WKData.WKImageRecommendationData) {
+
+        let image = UIImage() // TODO: fetch image properly
+        if let imageURL = URL(string: imageData.descriptionURL),
+           let thumbURL = URL(string: imageData.thumbUrl) {
+            let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true)
+            navigationController?.pushViewController(insertMediaViewController, animated: true)
+        }
+    }
 }
+

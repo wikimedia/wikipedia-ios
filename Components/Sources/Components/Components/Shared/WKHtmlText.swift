@@ -19,5 +19,6 @@ struct WKHtmlText: View {
         Text(attributedString)
             .lineLimit(nil)
             .lineSpacing(styles.lineSpacing)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
