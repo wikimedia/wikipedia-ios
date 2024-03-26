@@ -57,8 +57,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
         textView.isSelectable = false
-        textView.layer.masksToBounds = true
-        textView.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -10)
+        textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
         textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
@@ -275,9 +274,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private func setupTextViewExclusionPath() {
-        let height = regularSizeClass ? imageViewHeight + padding : (imageViewHeight - padding)
+        let rectangleHeight = imageViewHeight + padding
         let rectangleWidth: CGFloat = cutoutWidth
-        let rectangleHeight: CGFloat = height
 
         let layoutDirection = textView.effectiveUserInterfaceLayoutDirection
         let isRTL = layoutDirection == .rightToLeft
@@ -306,7 +304,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.linkTextAttributes = [.foregroundColor: theme.link,
                                        .font: WKFont.for(.boldCallout)
         ]
-        textView.attributedText = getTextViewAttributedString()
     }
 
     private func configure() {
