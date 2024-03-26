@@ -72,6 +72,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let imageView = UIImageView(image: icon)
         imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.contentMode = .center
         return imageView
     }()
 
@@ -242,7 +243,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         headerStackView.addArrangedSubview(iconImageView)
         headerStackView.addArrangedSubview(titleLabel)
-        headerStackView.spacing = 10
+        headerStackView.spacing = 5
 
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(container)
