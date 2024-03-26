@@ -615,7 +615,7 @@
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";
-"insert-action-title" = "Next";
+"insert-action-title" = "Insert";
 "insert-link-title" = "Insert link";
 "insert-media-add-image-details-title" = "Add image details";
 "insert-media-alternative-text-description" = "Text description for readers who cannot see the image";
@@ -685,7 +685,7 @@
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
-"next-action-title" = "Insert";
+"next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
