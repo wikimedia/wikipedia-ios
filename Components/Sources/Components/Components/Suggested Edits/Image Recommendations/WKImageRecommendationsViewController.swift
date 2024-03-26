@@ -95,6 +95,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         imageRecommendationBottomSheetController.dismiss(animated: true)
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
     }
 
     // MARK: Private methods
