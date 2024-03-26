@@ -413,6 +413,7 @@
 "editor-wikitext-textview-accessibility" = "Wiki text editor";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
+"empty-edit-summary" = "Empty edit summary";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
