@@ -17,6 +17,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var container: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         return view
     }()
 
@@ -32,8 +34,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
-        stackView.alignment = .top
+        stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         return stackView
     }()
 
@@ -50,28 +54,34 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.setContentCompressionResistancePriority(.required, for: .vertical)
-        textView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
         textView.adjustsFontForContentSizeCategory = true
         textView.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
-        textView.isSelectable = false
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
+        textView.delegate = self
         return textView
     }()
 
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
+        imageView.setContentHuggingPriority(.required, for: .vertical)
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
         label.font = WKFont.for(.boldTitle3)
         return label
     }()
@@ -251,8 +261,9 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             textView.topAnchor.constraint(equalTo: container.topAnchor),
             textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            iconImageView.heightAnchor.constraint(equalToConstant: 20),
-            iconImageView.widthAnchor.constraint(equalToConstant: 20),
+            textView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0),
+            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor, multiplier: 1.0),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
@@ -344,7 +355,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
                                 NSAttributedString.Key.foregroundColor: theme.secondaryText]
         let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
         attributedString.append(reasonAttributedString)
-        attributedString.append(NSAttributedString(string: "\n\n"))
 
         if let url = URL(string: viewModel.imageLink) {
             attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
