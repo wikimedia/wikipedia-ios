@@ -106,6 +106,7 @@
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "add-citation-title" = "Title for add citation action";
+"add-image-learn-more-text" = "Text for button on add image details for going to links with more information on topics related to images on Wikipedia";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -616,6 +617,7 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "insert-action-title" = "Title for insert action";
 "insert-link-title" = "Title for the Insert link screen";
+"insert-media-add-image-details-title" = "Title for add image details view";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
 "insert-media-alternative-text-title" = "Title for setting that allows users to add image alternative text";
@@ -640,7 +642,6 @@
 "insert-media-image-type-settings-title" = "Display ritle for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
-"insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
 "inuktitut-variants-alert-body" = "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).";
 "inuktitut-variants-alert-title" = "Title of alert used to inform users about Inuktitut variant support.";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
@@ -684,6 +685,7 @@
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
+"next-action-title" = "Title for insert action indicating the user can go to the next step";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
@@ -1168,7 +1170,7 @@
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Accessibility label for the placeholder element of the topic body text view on the topic compose screen.";
-"talk-pages-topic-compose-close-confirmation-discard-reply" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the reply view after entering reply text.";
 "talk-pages-topic-compose-close-confirmation-discard-topic" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.";

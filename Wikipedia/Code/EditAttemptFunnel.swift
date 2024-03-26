@@ -13,6 +13,7 @@ public final class EditAttemptFunnel {
     private struct Event: Codable {
         let action: EditAction
         let editing_session_id: String
+        let app_install_id: String?
         let editor_interface: String
         let integration: String
         let mw_version: String
@@ -43,8 +44,10 @@ public final class EditAttemptFunnel {
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
 
         let userId = getUserID(pageURL: pageURL)
+        
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
 
-        let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId)
+        let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId)
         
         let container = EventContainer(event: event)
         EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)

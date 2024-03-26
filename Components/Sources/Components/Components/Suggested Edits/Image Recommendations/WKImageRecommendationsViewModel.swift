@@ -230,7 +230,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     filename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
-                    description: metadata.description, 
+                    description: metadata.description,
+                    descriptionURL: metadata.descriptionUrl,
                     reason: metadata.reason
                 )
                 imageData.append(imageRecommendation)

@@ -5,12 +5,15 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     // MARK: Properties
 
-    public let viewModel: WKImageRecommendationsViewModel
+    public var viewModel: WKImageRecommendationsViewModel
+    weak var delegate: WKImageRecommendationsDelegate?
+
 
     // MARK: Lifecycle
 
-    public init(viewModel: WKImageRecommendationsViewModel) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init()
     }
 
@@ -57,7 +60,11 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func didTapYesButton() {
-
+        if let imageData = viewModel.currentRecommendation?.imageData {
+            self.dismiss(animated: true) {
+                self.delegate?.imageRecommendationsUserDidTapInsertImage(with: imageData)
+            }
+        }
     }
 
     func didTapNoButton() {
