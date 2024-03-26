@@ -14,6 +14,8 @@ struct WKImageRecommendationsSurveyView: View {
 		return !selectedReasons.isEmpty || !otherReasonText.isEmpty
 	}
 
+	@FocusState var otherReasonTextFieldSelected: Bool
+
 	@State var otherReasonText = ""
 	@State var selectedReasons: Set<WKImageRecommendationsSurveyViewModel.Reason> = []
 
@@ -60,6 +62,7 @@ struct WKImageRecommendationsSurveyView: View {
 						}
 						.contentShape(Rectangle())
 						.onTapGesture {
+							otherReasonTextFieldSelected = false
 							if selectedReasons.contains(reason) {
 								selectedReasons.remove(reason)
 							} else {
@@ -68,11 +71,14 @@ struct WKImageRecommendationsSurveyView: View {
 						}
 					}
 					.listRowBackground(Color(theme.paperBackground))
+					.listRowSeparatorTint(Color(theme.newBorder))
 				}
+				.listSectionSeparator(.hidden)
 
 				Section {
 					HStack {
 						TextField(viewModel.localizedStrings.other, text: $otherReasonText)
+							.focused($otherReasonTextFieldSelected)
 							.foregroundStyle(Color(theme.text))
 						Spacer()
 						WKCheckmarkView(isSelected: !otherReasonText.isEmpty, configuration: WKCheckmarkView.Configuration(style: .default))
@@ -80,6 +86,7 @@ struct WKImageRecommendationsSurveyView: View {
 					.listRowBackground(Color(theme.paperBackground))
 				}
 				.listCustomSectionSpacing(16)
+				.listRowSeparator(.hidden)
 			}
 			.listBackgroundColor(Color(theme.midBackground))
 			.listStyle(.plain)
