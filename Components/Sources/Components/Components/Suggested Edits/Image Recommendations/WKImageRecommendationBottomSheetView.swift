@@ -57,6 +57,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.isUserInteractionEnabled = true
         textView.isEditable = false
         textView.isSelectable = false
+        textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -10)
         textView.textContainer.lineFragmentPadding = 0
         textView.isUserInteractionEnabled = false
@@ -330,22 +331,23 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         attachmentAttributedString.append(NSAttributedString(attachment: attachment))
         attachmentAttributedString.addAttributes([.foregroundColor: theme.link], range: NSRange(location: 0, length: attachmentAttributedString.length))
 
-        let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
-                                NSAttributedString.Key.foregroundColor: theme.text]
-        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
-
         attributedString.append(linkAttributedString)
         attributedString.append(attachmentAttributedString)
-        attributedString.append(NSAttributedString(string: "\n\n"))
-        attributedString.append(reasonAttributedString)
         attributedString.append(NSAttributedString(string: "\n\n"))
 
         if let description = viewModel.imageDescription {
             let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
-                                         NSAttributedString.Key.foregroundColor: theme.secondaryText]
+                                         NSAttributedString.Key.foregroundColor: theme.text]
             let descriptionAttributedString = NSMutableAttributedString(string: description, attributes: descriptionAttributes)
             attributedString.append(descriptionAttributedString)
+            attributedString.append(NSAttributedString(string: "\n\n"))
         }
+
+        let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+                                NSAttributedString.Key.foregroundColor: theme.secondaryText]
+        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
+        attributedString.append(reasonAttributedString)
+        attributedString.append(NSAttributedString(string: "\n\n"))
 
         if let url = URL(string: viewModel.imageLink) {
             attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
