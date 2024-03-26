@@ -1,0 +1,24 @@
+name: Post to Phabricator
+
+on:
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  post_to_phab:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Post to Phabricator when pull request is opened or closed
+      if: ${{ github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'closed') }}
+      env:
+        PR_BODY: ${{ github.event.pull_request.body }}
+      run: |
+        message="${{ github.actor }} ${{ github.event.action }} ${{ github.event.pull_request._links.html.href }}"
+        echo -e "${PR_BODY}" | grep -oEi "(^Bug:\s*T[0-9]+)|(^([*]*phabricator[*]*:[*]*\s*)?https:\/\/phabricator\.wikimedia\.org\/T[0-9]+)" | grep -oEi "T[0-9]+" | while IFS= read -r line; do
+          echo "Processing: $line"
+          curl https://phabricator.wikimedia.org/api/maniphest.edit \
+              -d api.token=${{ secrets.PHAB_BOT_API_KEY }} \
+              -d transactions[0][type]=comment \
+              -d transactions[0][value]="${message}" \
+              -d objectIdentifier=${line}
+        done
