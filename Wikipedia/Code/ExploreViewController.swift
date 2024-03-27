@@ -1101,7 +1101,7 @@ extension ExploreViewController {
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
-    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKData.WKImageRecommendationData, presentingVC: UIViewController) {
+    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
