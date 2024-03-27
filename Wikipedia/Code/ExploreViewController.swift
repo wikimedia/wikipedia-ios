@@ -1101,6 +1101,7 @@ extension ExploreViewController {
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
+    
     func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
         
         var components = URLComponents()
@@ -1120,6 +1121,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         }
         
         navigationController?.pushViewController(articleViewController, animated: true)
+    }
+    
+    func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
+        navigate(to: commonsURL, useSafari: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
