@@ -232,7 +232,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 let metadata = firstImage.metadata
                 let imageRecommendation = WKImageRecommendationData(
                     pageId: page.pageid,
-                    pageTitle: page.title,
+                    pageTitle: firstPageSuggestion.titleText,
                     image: firstImage.image,
                     filename: firstImage.image,
                     displayFilename: firstImage.displayFilename,

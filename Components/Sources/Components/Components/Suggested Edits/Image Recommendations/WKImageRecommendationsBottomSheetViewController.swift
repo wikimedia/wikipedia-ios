@@ -8,7 +8,6 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     public var viewModel: WKImageRecommendationsViewModel
     weak var delegate: WKImageRecommendationsDelegate?
 
-
     // MARK: Lifecycle
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
@@ -55,6 +54,14 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
 }
 extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendationsToolbarViewDelegate {
+    func goToGallery() {
+        guard let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        delegate?.imageRecommendationsUserDidTapImage(project: viewModel.project, data: currentRecommendation.imageData, presentingVC: self)
+    }
+    
     func goToImageCommonsPage() {
 
     }
