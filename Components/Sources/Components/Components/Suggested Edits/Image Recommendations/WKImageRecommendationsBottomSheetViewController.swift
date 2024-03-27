@@ -57,8 +57,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     func goToImageCommonsPage() {
 
         guard let currentRecommendation = viewModel.currentRecommendation,
-        let urlString = currentRecommendation.imageData.descriptionUrl,
-        let url = URL(string: urlString) else {
+        let url = URL(string: currentRecommendation.imageData.descriptionURL) else {
             return
         }
         
