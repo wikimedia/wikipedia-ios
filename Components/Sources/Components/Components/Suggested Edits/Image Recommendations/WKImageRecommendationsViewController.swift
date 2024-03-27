@@ -6,6 +6,7 @@ import Combine
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
     func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationData, presentingVC: UIViewController)
+    func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -95,10 +96,11 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if imageRecommendationBottomSheetController.sheetPresentationController != nil {
-            imageRecommendationBottomSheetController.isModalInPresentation = false
-        }
         imageRecommendationBottomSheetController.dismiss(animated: true)
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
     }
 
     // MARK: Private methods
@@ -136,8 +138,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func bindViewModel() {
         viewModel.$loading
             .receive(on: RunLoop.main)
-            .sink { [weak self] presentBottomSheet in
-                if !presentBottomSheet {
+            .sink { [weak self] isLoading in
+                if !isLoading {
                     self?.presentModalView()
                 }
             }

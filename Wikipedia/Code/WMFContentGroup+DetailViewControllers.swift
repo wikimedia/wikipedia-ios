@@ -2,8 +2,13 @@ import Foundation
 import Components
 
 extension WMFContentGroup {
-	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
+    
+    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil)
+    }
+	
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?) -> UIViewController? {
         switch detailType {
         case .page:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
@@ -22,6 +27,8 @@ extension WMFContentGroup {
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
             return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+        case .suggestedEdits:
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: imageRecDelegate)
         default:
             return nil
         }
@@ -65,11 +72,14 @@ extension WMFContentGroup {
             vc = firstRandom
         case .imageRecommendations:
             
-            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                  let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+            guard let appLanguage = dataStore.languageLinkController.appLanguage,
+                  let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wkProject,
                   let imageRecDelegate = imageRecDelegate else {
                 return nil
             }
+            
+            let contentLanguageCode = appLanguage.contentLanguageCode
+            let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
             
             let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
             let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
@@ -83,12 +93,12 @@ extension WMFContentGroup {
                 thirdItemTitle: WMFLocalizedString("image-rec-onboarding-item-3-title", value: "Licensed images", comment: "Title of third item in onboarding view displayed when user first visits image recommendations feature view."),
                 thirdItemBody: WMFLocalizedString("image-rec-onboarding-item-3-body", value: "Images are from Wikimedia Commons, a collection of freely licensed images used by Wikipedia.", comment: "Body of third item in onboarding view displayed when user first visits image recommendations feature view."),
                 continueButton: CommonStrings.continueButton,
-                learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn about add an image", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
+                learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn more about suggested edits", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
             )
 
             let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
 
-            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
+            let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
             return imageRecommendationsViewController
         default:
