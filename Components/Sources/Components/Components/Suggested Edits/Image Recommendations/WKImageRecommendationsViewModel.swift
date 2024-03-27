@@ -58,6 +58,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     public struct WKImageRecommendationData {
         public let pageId: Int
+        public let pageTitle: String
         public let image: String
         public let filename: String
         public let thumbUrl: String
@@ -66,8 +67,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let descriptionURL: String
         public let reason: String
 
-        public init(pageId: Int, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String) {
+        public init(pageId: Int, pageTitle: String, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String) {
             self.pageId = pageId
+            self.pageTitle = pageTitle
             self.image = image
             self.filename = filename
             self.thumbUrl = thumbUrl
@@ -232,6 +234,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                 let metadata = firstImage.metadata
                 let imageRecommendation = WKImageRecommendationData(
                     pageId: page.pageid,
+                    pageTitle: firstPageSuggestion.titleText,
                     image: firstImage.image,
                     filename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
