@@ -26,16 +26,6 @@ struct WKImageRecommendationsSurveyView: View {
 
 	// MARK: - View
 
-	var checkmarkImage: some View {
-		guard let checkmark = WKSFSymbolIcon.for(symbol: .checkmark) else {
-			fatalError()
-		}
-
-		return Image(uiImage: checkmark)
-			.renderingMode(.template)
-			.foregroundStyle(Color(theme.link))
-	}
-
 	var body: some View {
 		NavigationView {
 			List {
@@ -116,29 +106,6 @@ struct WKImageRecommendationsSurveyView: View {
 		.environment(\.colorScheme, theme.preferredColorScheme)
 	}
 	
-}
-
-private struct WKImageRecommendationsSurveyViewCell: View {
-
-	let reason: WKImageRecommendationsSurveyViewModel.Reason
-	let localizedStrings: WKImageRecommendationsSurveyViewModel.LocalizedStrings
-
-	var checkmarkImage: Image {
-		guard let checkmark = WKSFSymbolIcon.for(symbol: .checkmark) else {
-			fatalError()
-		}
-
-		return Image(uiImage: checkmark)
-	}
-
-	var body: some View {
-		HStack {
-			Text(reason.localizedPlaceholder(from: localizedStrings))
-			Spacer()
-			checkmarkImage
-		}
-	}
-
 }
 
 #Preview {
