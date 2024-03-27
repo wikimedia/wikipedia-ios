@@ -645,6 +645,9 @@ public class CommonStrings: NSObject {
     public static let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
     public static let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
     public static let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
+   public static let learnMoreText = WMFLocalizedString("add-image-learn-more-text", value: "Learn more", comment: "Text for button on add image details for going to links with more information on topics related to images on Wikipedia")
+
+
 }
 // Language variant strings
 public extension CommonStrings {

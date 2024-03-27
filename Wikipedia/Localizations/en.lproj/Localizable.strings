@@ -106,6 +106,7 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "add-citation-title" = "Add citation";
+"add-image-learn-more-text" = "Learn more";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -617,6 +618,7 @@
 "in-the-news-title" = "In the news";
 "insert-action-title" = "Insert";
 "insert-link-title" = "Insert link";
+"insert-media-add-image-details-title" = "Add image details";
 "insert-media-alternative-text-description" = "Text description for readers who cannot see the image";
 "insert-media-alternative-text-placeholder" = "Describe this image";
 "insert-media-alternative-text-title" = "Alternative text";
@@ -641,7 +643,6 @@
 "insert-media-image-type-settings-title" = "Image type";
 "insert-media-media-settings-title" = "Media settings";
 "insert-media-title" = "Insert media";
-"insert-media-uploaded-image-title" = "Uploaded image";
 "inuktitut-variants-alert-body" = "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Updates to Inuktitut variant support";
 "kazakh-variants-alert-body" = "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -685,6 +686,7 @@
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
+"next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
@@ -1169,7 +1171,8 @@
 "talk-pages-topic-added-alert-title" = "Your topic was added";
 "talk-pages-topic-compose-body-placeholder" = "Description";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Topic description";
-"talk-pages-topic-compose-close-confirmation-discard" = "Discard Reply";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Discard Reply";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Discard Topic";
 "talk-pages-topic-compose-close-confirmation-title" = "Are you sure you want to discard this new topic?";
 "talk-pages-topic-compose-navbar-title" = "Topic";
 "talk-pages-topic-compose-title-placeholder" = "Topic title";

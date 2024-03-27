@@ -6,11 +6,14 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     // MARK: Properties
 
     public var viewModel: WKImageRecommendationsViewModel
+    weak var delegate: WKImageRecommendationsDelegate?
+
 
     // MARK: Lifecycle
 
-    public init(viewModel: WKImageRecommendationsViewModel) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init()
     }
 
@@ -29,7 +32,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     // MARK: Methods
 
-    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
+    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationsViewModel.WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
 
         if let image {
             let viewModel = WKImageRecommendationBottomSheetViewModel(
@@ -39,7 +42,8 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
                 imageTitle: image.filename,
-                imageDescription: image.description,
+                imageDescription: image.description, 
+                reason: image.reason,
                 yesButtonTitle: viewModel.localizedStrings.yesButtonTitle,
                 noButtonTitle: viewModel.localizedStrings.noButtonTitle,
                 notSureButtonTitle: viewModel.localizedStrings.notSureButtonTitle
@@ -56,7 +60,11 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func didTapYesButton() {
-
+        if let imageData = viewModel.currentRecommendation?.imageData {
+            self.dismiss(animated: true) {
+                self.delegate?.imageRecommendationsUserDidTapInsertImage(with: imageData)
+            }
+        }
     }
 
     func didTapNoButton() {

@@ -51,7 +51,29 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             self.notSureButtonTitle = notSureButtonTitle
         }
     }
-    
+
+    public struct WKImageRecommendationData {
+        public let pageId: Int
+        public let image: String
+        public let filename: String
+        public let thumbUrl: String
+        public let fullUrl: String
+        public let description: String?
+        public let descriptionURL: String
+        public let reason: String
+
+        public init(pageId: Int, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String) {
+            self.pageId = pageId
+            self.image = image
+            self.filename = filename
+            self.thumbUrl = thumbUrl
+            self.fullUrl = fullUrl
+            self.description = description
+            self.descriptionURL = descriptionURL
+            self.reason = reason
+        }
+    }
+
     final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
@@ -210,7 +232,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     filename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
-                    description: metadata.description
+                    description: metadata.description,
+                    descriptionURL: metadata.descriptionUrl,
+                    reason: metadata.reason
                 )
                 imageData.append(imageRecommendation)
             }

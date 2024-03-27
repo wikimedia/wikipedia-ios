@@ -11,12 +11,14 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     // MARK: Properties
 
-    private var viewModel: WKImageRecommendationBottomSheetViewModel
+    private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
 
     private lazy var container: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         return view
     }()
 
@@ -32,8 +34,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
-        stackView.alignment = .top
+        stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         return stackView
     }()
 
@@ -50,49 +54,40 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.setContentCompressionResistancePriority(.required, for: .vertical)
-        textView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        textView.setContentHuggingPriority(.required, for: .vertical)
         textView.adjustsFontForContentSizeCategory = true
         textView.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         textView.isScrollEnabled = false
+        textView.isUserInteractionEnabled = true
         textView.isEditable = false
-        textView.isSelectable = false
-        textView.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -10)
+        textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
-        textView.font = WKFont.for(.callout)
+        textView.delegate = self
         return textView
     }()
 
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
-//        imageView.backgroundColor = .yellow
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.contentMode = .center
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .red
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
         label.font = WKFont.for(.boldTitle3)
         return label
     }()
 
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
-
-    private lazy var imageLinkButton: WKButton = {
-        let button = WKButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = buttonFont
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.lineBreakMode = .byWordWrapping
-        button.configuration?.contentInsets = .zero
-        button.configuration?.titlePadding = .zero
-        button.contentHorizontalAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(goToImageCommonsPage), for: .touchUpInside)
-        return button
-    }()
 
     private lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar()
@@ -124,8 +119,6 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 20),
-            imageView.heightAnchor.constraint(equalToConstant: 20),
             label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
             label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
@@ -220,24 +213,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     private var cutoutWidth: CGFloat {
-        return imageViewWidth+padding
+        return imageViewWidth + padding
     }
-
-    private var linkButtonWidth: CGFloat {
-        return (self.frame.width-cutoutWidth)-padding*2
-    }
-
-    private var buttonHeight: CGFloat {
-        let title = viewModel.imageTitle
-        // The "1 1" here is a hack to help calculating the size of the NSAttributedString with attachment, since it can't be  used to calculate the text size here due to not being convertible to NSString
-        let imageTitleTextSize = (title + "1  1" as NSString).boundingRect(
-            with: CGSize(width: linkButtonWidth, height: .greatestFiniteMagnitude),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: buttonFont],
-            context: nil).size
-        return imageTitleTextSize.height
-    }
-
 
     // MARK: Lifecycle
 
@@ -251,21 +228,27 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
+        configure()
+    }
+
     // MARK: Private Methods
 
     private func setup() {
         configure()
-        container.addSubview(imageLinkButton)
+
         container.addSubview(textView)
         container.addSubview(imageView)
 
         headerStackView.addArrangedSubview(iconImageView)
         headerStackView.addArrangedSubview(titleLabel)
-        headerStackView.spacing = 10
+        headerStackView.spacing = 5
 
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(container)
         stackView.spacing = padding
+
         addSubview(stackView)
         addSubview(toolbar)
 
@@ -276,42 +259,35 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageLinkButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: padding),
-            imageLinkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: buttonHeight),
-            imageLinkButton.widthAnchor.constraint(equalToConstant: linkButtonWidth),
-            textView.topAnchor.constraint(equalTo: imageLinkButton.bottomAnchor),
+            textView.topAnchor.constraint(equalTo: container.topAnchor),
             textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-            iconImageView.heightAnchor.constraint(equalToConstant: 20),
-            iconImageView.widthAnchor.constraint(equalToConstant: 20),
+            textView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0),
+            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor, multiplier: 1.0),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             toolbar.heightAnchor.constraint(equalToConstant: 44)
         ])
 
-        let linkButtonTopConstarint = imageLinkButton.topAnchor.constraint(equalTo: imageView.topAnchor)
-        linkButtonTopConstarint.priority = .required
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
         imageWidthConstraint.priority = .required
         let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
         imageHeightConstraint.priority = .required
 
         NSLayoutConstraint.activate([
-            linkButtonTopConstarint,
             imageWidthConstraint,
             imageHeightConstraint
         ])
 
         setupTextViewExclusionPath()
-        updateColors()
         setupToolbar()
     }
 
     private func setupTextViewExclusionPath() {
-        let height = regularSizeClass ? imageViewHeight - buttonHeight : (imageViewHeight - padding) - buttonHeight
+        let rectangleHeight = imageViewHeight + padding
         let rectangleWidth: CGFloat = cutoutWidth
-        let rectangleHeight: CGFloat = height
 
         let layoutDirection = textView.effectiveUserInterfaceLayoutDirection
         let isRTL = layoutDirection == .rightToLeft
@@ -319,7 +295,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         let rectangleOriginX: CGFloat
         if isRTL {
             let width = self.frame.width
-            rectangleOriginX = width - rectangleWidth - textView.textContainerInset.right - padding * 2.5
+            rectangleOriginX = width - rectangleWidth - textView.textContainerInset.right - (padding * 2)
         } else {
             rectangleOriginX = textView.textContainerInset.left
         }
@@ -334,38 +310,63 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private func updateColors() {
         backgroundColor = theme.paperBackground
-        textView.textColor = theme.secondaryText
         titleLabel.textColor = theme.text
-        imageLinkButton.setTitleColor(theme.link, for: .normal)
         iconImageView.tintColor = theme.link
         toolbar.barTintColor = theme.midBackground
+        textView.linkTextAttributes = [.foregroundColor: theme.link,
+                                       .font: WKFont.for(.boldCallout)
+        ]
     }
 
     private func configure() {
         imageView.image = viewModel.imageThumbnail
-        textView.text = viewModel.imageDescription
         titleLabel.text = viewModel.headerTitle
-        imageLinkButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
+        textView.delegate = self
+        textView.attributedText = getTextViewAttributedString()
+        updateColors()
     }
 
-    private func getImageLinkButtonTitle() -> NSMutableAttributedString {
+    private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
-        if let imageAttachment = WKIcon.externalLink {
-            let attachment = NSTextAttachment(image: imageAttachment)
-            attributedString.append(NSAttributedString(string: viewModel.imageTitle))
-            attributedString.append(NSAttributedString(string: "  "))
-            attributedString.append(NSAttributedString(attachment: attachment))
+
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
+
+        let attachment = NSTextAttachment()
+        if let image = WKIcon.externalLink {
+            let tintedImage = image.withTintColor(theme.link)
+            attachment.image = tintedImage
         }
+        let attachmentAttributedString = NSMutableAttributedString(string: " ")
+        attachmentAttributedString.append(NSAttributedString(attachment: attachment))
+        attachmentAttributedString.addAttributes([.foregroundColor: theme.link], range: NSRange(location: 0, length: attachmentAttributedString.length))
+
+        attributedString.append(linkAttributedString)
+        attributedString.append(attachmentAttributedString)
+        attributedString.append(NSAttributedString(string: "\n\n"))
+
+        if let description = viewModel.imageDescription {
+            let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+                                         NSAttributedString.Key.foregroundColor: theme.text]
+            let descriptionAttributedString = NSMutableAttributedString(string: description, attributes: descriptionAttributes)
+            attributedString.append(descriptionAttributedString)
+            attributedString.append(NSAttributedString(string: "\n\n"))
+        }
+
+        let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+                                NSAttributedString.Key.foregroundColor: theme.secondaryText]
+        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
+        attributedString.append(reasonAttributedString)
+
+        if let url = URL(string: viewModel.imageLink) {
+            attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
+        }
+
         return attributedString
     }
 
     private func setupToolbar() {
         let spacer = UIBarButtonItem(systemItem: .flexibleSpace)
         toolbar.setItems([yesToolbarButton, spacer, noToolbarButton, spacer, notSureToolbarButton], animated: true)
-    }
-
-    @objc private func goToImageCommonsPage() {
-        delegate?.goToImageCommonsPage()
     }
 
     @objc private func didPressYesButton() {
@@ -381,3 +382,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
 }
+
+extension WKImageRecommendationBottomSheetView: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        delegate?.goToImageCommonsPage()
+        return false
+    }
+}
+
