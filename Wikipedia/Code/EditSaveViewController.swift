@@ -96,7 +96,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
 
         return attributedString
     }
@@ -110,7 +110,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption2, matching: traitCollection)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
 
         return attributedString
     }
@@ -167,8 +167,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
         
-        // TODO: show this once we figure out how to handle watchlists (T214749)
-        addToWatchlistStackView.isHidden = true
+        if !(dataStore?.authenticationManager.isLoggedIn ?? false) {
+            addToWatchlistStackView.isHidden = true
+        }
 
         updateTextViews()
         apply(theme: theme)
@@ -192,6 +193,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             minorEditToggle.isOn = savedData.isMinorEdit
             addToWatchlistToggle.isOn = savedData.shouldAddToWatchList
         }
+        
+        fetchWatchlistStatusAndUpdateToggle()
     }
 
 
@@ -212,13 +215,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
 
         buttonSave = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(self.goForward))
-        buttonSave?.tintColor = theme.colors.link
+        buttonSave?.tintColor = theme.colors.secondaryText
 
         minorEditLabel.text = WMFLocalizedString("edit-minor-text", languageCode: languageCode, value: "This is a minor edit", comment: "Text for minor edit label")
         minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", languageCode: languageCode, value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
 
         addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
-        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about watch lists", comment: "Text for watch lists learn more button"), for: .normal)
+        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
         
         setupWebPreviewButton()
     }
@@ -247,6 +250,26 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             showWebPreviewContainerView.bottomAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
             showWebPreviewContainerView.trailingAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.trailingAnchor)
         ])
+    }
+    
+    private func fetchWatchlistStatusAndUpdateToggle() {
+        guard let siteURL = pageURL?.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+            let title = pageURL?.wmf_title else {
+            return
+        }
+        
+        let dataController = WKWatchlistDataController()
+        dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let status):
+                    self?.addToWatchlistToggle.isOn = status.watched
+                case .failure:
+                    break
+                }
+            }
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -541,6 +564,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     func summaryChanged(newSummary: String) {
         summaryText = newSummary
+        buttonSave?.tintColor = newSummary.isEmpty ? theme.colors.secondaryText : theme.colors.link
     }
     
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.

@@ -118,6 +118,14 @@ fileprivate struct WKWatchlistViewCell: View {
 	}
 
 	weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
+    
+    var editSummaryComment: String {
+        return itemViewModel.comment.isEmpty ? localizedStrings.emptyEditSummary : itemViewModel.comment
+    }
+    
+    var editSummaryCommentFont: UIFont {
+        return itemViewModel.comment.isEmpty ? WKFont.for(.smallItalicsBody) : WKFont.for(.smallBody)
+    }
 
 	var body: some View {
 				ZStack {
@@ -158,13 +166,11 @@ fileprivate struct WKWatchlistViewCell: View {
                                     .accessibilityHidden(true)
 							}
 
-							if !itemViewModel.comment.isEmpty {
-								Text(itemViewModel.comment)
-									.font(Font(WKFont.for(.smallBody)))
-									.foregroundColor(Color(appEnvironment.theme.secondaryText))
-									.frame(maxWidth: .infinity, alignment: .topLeading)
-                                    .accessibilityHidden(true)
-							}
+                            Text(editSummaryComment)
+                                .font(Font(editSummaryCommentFont))
+                                .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                                .accessibilityHidden(true)
 
 							HStack {
 								WKSmallSwiftUIMenuButton(configuration: WKSmallMenuButton.Configuration(

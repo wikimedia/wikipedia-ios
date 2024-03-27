@@ -40,9 +40,6 @@ class EditSummaryViewController: UIViewController, Themeable {
     @IBOutlet private weak var addedLinksButton: UIButton!
     @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
 
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var labelStackView: UIStackView!
-
     private(set) var semanticContentAttribute: UISemanticContentAttribute?
     
     override func viewDidLoad() {
@@ -70,10 +67,9 @@ class EditSummaryViewController: UIViewController, Themeable {
 
     func setupSemanticContentAttibute() {
         let semanticContentAttibute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: languageCode)
-
-        for subview in stackView.subviews {
-            subview.semanticContentAttribute = semanticContentAttibute
-        }
+        
+        addSummaryLabel.semanticContentAttribute = semanticContentAttibute
+        learnMoreButton.semanticContentAttribute = semanticContentAttibute
 
         summaryTextField.semanticContentAttribute = semanticContentAttibute
         summaryTextField.textAlignment = semanticContentAttibute == .forceRightToLeft ? .right : .left

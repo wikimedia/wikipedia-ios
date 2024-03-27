@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,9 +14,7 @@
                 <outlet property="addedLinksButton" destination="XFh-HH-sUX" id="47D-UM-Q6q"/>
                 <outlet property="fixedGrammarButton" destination="WbA-2G-gXe" id="I20-AY-f9b"/>
                 <outlet property="fixedTypoButton" destination="mqy-lh-5zo" id="ElI-7T-dib"/>
-                <outlet property="labelStackView" destination="OaO-gp-C2I" id="bPx-5K-p9b"/>
                 <outlet property="learnMoreButton" destination="zHK-us-xbV" id="uR5-Cg-E3z"/>
-                <outlet property="stackView" destination="OaO-gp-C2I" id="hgX-7S-oev"/>
                 <outlet property="summaryTextField" destination="fTI-kM-ZnK" id="nqe-lW-bvZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="cannedEditSummaryButtons" destination="mqy-lh-5zo" collectionClass="NSMutableArray" id="FmM-3v-SXq"/>
@@ -32,29 +30,15 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-Rj-Pqa">
                     <rect key="frame" x="0.0" y="0.0" width="379" height="161"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-gp-C2I">
-                            <rect key="frame" x="0.0" y="0.0" width="379" height="69"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zty-gx-vvg">
-                                    <rect key="frame" x="0.0" y="0.0" width="379" height="50"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHK-us-xbV" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="51" width="379" height="18"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="learnMoreButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="RAT-nl-v3C"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zty-gx-vvg">
+                            <rect key="frame" x="0.0" y="0.0" width="379" height="38"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fTI-kM-ZnK" customClass="WMFThemeableTextField">
-                            <rect key="frame" x="0.0" y="74" width="379" height="30"/>
+                            <rect key="frame" x="0.0" y="43" width="379" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="F5s-Eu-1Te"/>
@@ -63,23 +47,23 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJc-5L-7Pr">
-                            <rect key="frame" x="0.0" y="109" width="379" height="2"/>
+                            <rect key="frame" x="0.0" y="78" width="379" height="2"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="4nR-rW-dTw"/>
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrs-Gz-05R" customClass="SummaryButtonScrollView" customModule="Wikipedia" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="116" width="379" height="45"/>
+                            <rect key="frame" x="0.0" y="85" width="379" height="45"/>
                             <subviews>
                                 <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="SlK-YP-NSk" userLabel="Container view">
-                                    <rect key="frame" x="0.0" y="0.0" width="124" height="38.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="127" height="38.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9k-al-4Mv">
-                                            <rect key="frame" x="0.0" y="0.0" width="124" height="38.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="127" height="38.5"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="38.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -95,7 +79,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="44" y="0.0" width="36" height="38.5"/>
+                                                    <rect key="frame" x="45" y="0.0" width="37" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -111,7 +95,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="88" y="0.0" width="36" height="38.5"/>
+                                                    <rect key="frame" x="90" y="0.0" width="37" height="38.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -153,6 +137,16 @@
                                 <outletCollection property="cannedEditSummaryButtons" destination="XFh-HH-sUX" collectionClass="NSMutableArray" id="AyT-me-cjH"/>
                             </connections>
                         </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHK-us-xbV" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="135" width="379" height="26"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="learnMoreButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="RAT-nl-v3C"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
@@ -173,16 +167,16 @@
     </objects>
     <designables>
         <designable name="WbA-2G-gXe">
-            <size key="intrinsicContentSize" width="36" height="38.5"/>
+            <size key="intrinsicContentSize" width="37" height="38.5"/>
         </designable>
         <designable name="XFh-HH-sUX">
-            <size key="intrinsicContentSize" width="36" height="38.5"/>
+            <size key="intrinsicContentSize" width="37" height="38.5"/>
         </designable>
         <designable name="mqy-lh-5zo">
-            <size key="intrinsicContentSize" width="36" height="38.5"/>
+            <size key="intrinsicContentSize" width="37" height="38.5"/>
         </designable>
         <designable name="zHK-us-xbV">
-            <size key="intrinsicContentSize" width="46" height="18"/>
+            <size key="intrinsicContentSize" width="46" height="26"/>
         </designable>
     </designables>
 </document>

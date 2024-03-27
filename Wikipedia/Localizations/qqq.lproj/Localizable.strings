@@ -414,6 +414,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
+"empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
