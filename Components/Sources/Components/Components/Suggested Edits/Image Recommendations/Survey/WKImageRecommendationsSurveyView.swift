@@ -103,6 +103,7 @@ struct WKImageRecommendationsSurveyView: View {
 				}
 			}
 		}
+		.navigationViewStyle(.stack)
 		.environment(\.colorScheme, theme.preferredColorScheme)
 	}
 	
