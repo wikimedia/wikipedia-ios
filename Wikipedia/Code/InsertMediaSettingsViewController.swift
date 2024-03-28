@@ -308,6 +308,7 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     func goToEditPreview(with wikitext: String) {
+        print(wikitext)
 
     }
 
