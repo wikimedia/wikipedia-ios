@@ -37,7 +37,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
             let viewModel = WKImageRecommendationBottomSheetViewModel(
                 pageId: image.pageId,
                 headerTitle: viewModel.localizedStrings.bottomSheetTitle,
-                imageThumbnail: UIImage(),
+                imageThumbnail: image.uiImage,
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
                 imageTitle: image.filename,
