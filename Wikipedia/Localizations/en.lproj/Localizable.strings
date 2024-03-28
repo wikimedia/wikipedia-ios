@@ -340,7 +340,7 @@
 "edit-underline-remove-accessibility-label" = "Remove underline";
 "edit-unordered-list-accessibility-label" = "Make current line unordered list";
 "edit-unordered-list-remove-accessibility-label" = "Remove unordered list from current line";
-"edit-watch-list-learn-more-text" = "Learn more about watch lists";
+"edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
 "editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";
 "editing-welcome-be-bold-title" = "Your voice is important";
@@ -414,6 +414,7 @@
 "editor-wikitext-textview-accessibility" = "Wiki text editor";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
+"empty-edit-summary" = "Empty edit summary";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
