@@ -130,6 +130,7 @@
 "action-update" = "Ажурирај";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "add-citation-title" = "Додавање референце";
+"add-image-learn-more-text" = "Сазнајте више";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
@@ -362,6 +363,7 @@
 "editor-exit-confirmation-message" = "Желите ли заиста да одбаците измене?";
 "editor-exit-confirmation-title" = "Одбаци режим уређивања?";
 "editor-find-clear-button-accessibility" = "Очисти поље";
+"editor-find-close-button-accessibility" = "Затвори претрагу";
 "editor-find-current-match-info-zero-results-accessibility" = "Нема подударања";
 "editor-find-next-button-accessibility" = "Следећи резултат претраге";
 "editor-find-textfield-accessibility" = "Пронађи";
@@ -492,6 +494,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
 "explore-suggested-edits-footer" = "Додај";
+"explore-suggested-edits-image-recs-title" = "Додај слику";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -560,8 +563,19 @@
 "icon-shortcut-random-title" = "Случајни чланак";
 "icon-shortcut-search-title" = "Претражи Википедију";
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
+"image-rec-add-image-title" = "Додај ову слику?";
+"image-rec-onboarding-item-1-body" = "Одлучите да ли предложена слика треба да буде постављена у чланак на Википедији.";
+"image-rec-onboarding-item-1-title" = "Види предлог";
+"image-rec-onboarding-item-2-body" = "Предлози су машински генерисани и Ви ћете на основу своје процене одлучити да ли ћете их прихватити или одбити.";
+"image-rec-onboarding-item-2-title" = "Прихватите или одбаците слику";
+"image-rec-onboarding-item-3-body" = "Слике су са Викимедијине оставе, колекције слободно лиценцираних слика које се користе на Википедији.";
+"image-rec-onboarding-learn-more-button" = "Научите Више о предложеним изменама";
+"image-rec-onboarding-title" = "Додај слику у чланка";
 "image-rec-title" = "Додај слику";
 "image-rec-view-article" = "Види чланак";
+"image-recs-no-title" = "Не";
+"image-recs-not-sure-title" = "Нисам сигуран";
+"image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Моја листа за читање";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сада";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Попуни анкету";
@@ -574,6 +588,7 @@
 "in-the-news-title" = "Вести";
 "insert-action-title" = "Уметни";
 "insert-link-title" = "Уметни везу";
+"insert-media-add-image-details-title" = "Додај детаље о слици";
 "insert-media-alternative-text-description" = "Опис текста за читаоце који не могу видети слику";
 "insert-media-alternative-text-placeholder" = "Опишите ову слику";
 "insert-media-alternative-text-title" = "Алтернативни текст";
@@ -598,7 +613,6 @@
 "insert-media-image-type-settings-title" = "Тип слике";
 "insert-media-media-settings-title" = "Подешавање медија";
 "insert-media-title" = "Убаци медиј";
-"insert-media-uploaded-image-title" = "Отпремљене слике";
 "languages-settings-title" = "Језици";
 "languages-title" = "Промена језика";
 "languages-wikipedia" = "Језици Википедије";
@@ -636,6 +650,7 @@
 "nearby-distance-label-miles" = "$1 миља";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
+"next-action-title" = "Следеће";
 "no-email-account-alert" = "Подесите налог за имејл на вашем уређају па покушајте поново.";
 "no-internet-connection" = "Нема интернет везе";
 "no-internet-connection-article-reload" = "Новија верзија овог чланка је можда доступна, али не може бити учитана без интернет конекције.";
@@ -1080,7 +1095,6 @@
 "talk-page-reply-button-accessibility-label" = "Одговор $1";
 "talk-page-reply-depth-accessibility-label" = "Дубина одговора: $1";
 "talk-page-reply-placeholder-format" = "Одговор $1";
-"talk-page-reply-terms-and-licenses" = "Ваш одговор ће аутоматски бити потписан са Вашим корисничким именом. Чувањем измена, прихватате $1услове коришћења$2 и слажете се са објављивањем Вашег доприноса под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-revision-history" = "Историја измена";
 "talk-page-rply-close-button-accessibility-hint" = "Затворите преглед одговора";
 "talk-page-share-button" = "Дели страницу за разговор";
@@ -1091,7 +1105,7 @@
 "talk-page-title-article-talk" = "Страница за разговор чланка";
 "talk-page-title-user-talk" = "Корисничка страница за разговор";
 "talk-page-topic-close-button-hint" = "Затвори нову тему";
-"talk-page-topic-compose-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво се слажете да свој допринос објавите под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво се слажете да свој допринос објавите под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Прекини праћење";
 "talk-page-unsubscribed-alert-subtitle" = "Више нећете добијати обавештења о новим коментарима.";
 "talk-page-unsubscribed-alert-title" = "Више не пратите.";
@@ -1114,7 +1128,8 @@
 "talk-pages-topic-added-alert-title" = "Ваша тема је додата";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Опис теме";
-"talk-pages-topic-compose-close-confirmation-discard" = "Одбаци одговор";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Одбаци одговор";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Одбаци тему";
 "talk-pages-topic-compose-close-confirmation-title" = "Желите ли заиста да одбаците тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Наслов теме";
@@ -1255,5 +1270,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се $1пријавите$2, имаћете више приватности.";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
-"wikitext-upload-save-terms-and-licenses" = "Чувањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 3.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";

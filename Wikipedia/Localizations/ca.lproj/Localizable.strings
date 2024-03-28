@@ -560,7 +560,6 @@
 "insert-media-image-type-settings-title" = "Tipus d’imatge";
 "insert-media-media-settings-title" = "Configuració multimèdia";
 "insert-media-title" = "Insereix fitxer multimèdia";
-"insert-media-uploaded-image-title" = "Imatge carregada";
 "inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a llengües principals o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
 "inuktitut-variants-alert-title" = "Actualitzacions del suport a les variants Inuktitut";
 "kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
@@ -1052,7 +1051,6 @@
 "talk-page-reply-button-accessibility-label" = "Respon a $1";
 "talk-page-reply-depth-accessibility-label" = "Profunditat de resposta: $1";
 "talk-page-reply-placeholder-format" = "Resposta a $1";
-"talk-page-reply-terms-and-licenses" = "Tingueu en compte que la vostra resposta se signarà automàticament amb el vostre nom d'usuari. En desar els canvis accepteu les $1Condicions d'ús$2, i accepteu alliberar les contribucions sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-revision-history" = "Historial de revisions";
 "talk-page-rply-close-button-accessibility-hint" = "Tanca la vista de resposta";
 "talk-page-share-button" = "Comparteix la pàgina de discussió";
@@ -1063,7 +1061,6 @@
 "talk-page-title-article-talk" = "Discussió de l'article";
 "talk-page-title-user-talk" = "Discussió de l'usuari";
 "talk-page-topic-close-button-hint" = "Tanca el tema nou";
-"talk-page-topic-compose-terms-and-licenses" = "En publicar els canvis, esteu d'acord amb els $1Termes d'ús$2, i accepteu alliberar irrevocablement la vostra contribució sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Cancel·la la subscripció";
 "talk-page-unsubscribed-alert-subtitle" = "No rebreu cap més notificació de nous comentaris en aquest tema.";
 "talk-page-unsubscribed-alert-title" = "Heu cancel·lat la subscripció.";
@@ -1085,7 +1082,7 @@
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descripció del tema";
-"talk-pages-topic-compose-close-confirmation-discard" = "Descarta la resposta";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Descarta la resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";
@@ -1228,5 +1225,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Les edicions s'atribuiran a la adreça IP del vostre dispositiu. Si $1inicieu una sessió$2, tindreu més privadesa.";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
-"wikitext-upload-save-terms-and-licenses" = "En publicar els canvis, esteu d'acord amb els $1Termes d'ús$2, i esteu d'acord en alliberar irrevocablement les vostres contribucions sota la llicència $3CC BY-SA 3.0$4 i la $5GFDL$6. Esteu d'acord en què un hiperenllaç o un URL és atribució suficicient sota la llicència Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";

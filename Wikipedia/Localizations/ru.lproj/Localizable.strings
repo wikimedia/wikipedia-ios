@@ -12,6 +12,7 @@
 // Author: Deltaspace
 // Author: Dicto23456
 // Author: Diralik
+// Author: Dirruw'o
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
 // Author: Happy13241
@@ -170,6 +171,7 @@
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "add-citation-title" = "Добавить ссылку на источник";
+"add-image-learn-more-text" = "Узнать больше";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -267,6 +269,8 @@
 "diff-compare-header-heading" = "Сравнить версии";
 "diff-compare-header-to-info-heading" = "Отображаемая правка";
 "diff-compare-title" = "Сравнить версии";
+"diff-context-cell-collapse-section" = "Свернуть $1";
+"diff-context-cell-expand-section" = "Развернуть $1";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
 "diff-header-revision-accessibility-text" = "Изменения внесены";
@@ -400,19 +404,32 @@
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
 "editing-welcome-set-knowledge-free-subtitle" = "Чтобы дать каждому доступ к знаниям всего мира, нам нужно, чтобы Вы участвовали в их создании, вычитывая, редактируя и внося вклад в самые значимые для Вас темы.";
 "editing-welcome-set-knowledge-free-title" = "Сделайте знания свободными";
+"editor-edit-published" = "Ваша правка была опубликована.";
+"editor-edit-source" = "Править код";
 "editor-exit-confirmation-body" = "Вы уверены, что хотите выйти из режима редактирования, не опубликовав изменения?";
 "editor-exit-confirmation-message" = "Вы уверены, что хотите отменить внесённые изменения?";
 "editor-exit-confirmation-title" = "Покинуть режим редактирования?";
 "editor-find-clear-button-accessibility" = "Очистить поиск";
 "editor-find-close-button-accessibility" = "Закрыть поиск";
+"editor-find-current-match-info-zero-results-accessibility" = "Совпадений не найдено";
 "editor-find-textfield-accessibility" = "Найти";
+"editor-keyboard-comment-accessibility" = "Комментарий";
 "editor-keyboard-heading-button" = "Заголовок";
+"editor-keyboard-link-accessibility" = "Ссылка";
+"editor-keyboard-list-ordered-accessibility" = "Упорядоченный список";
+"editor-keyboard-list-unordered-accessibility" = "Неупорядоченный список";
 "editor-keyboard-paragraph-button" = "Абзац";
+"editor-keyboard-reference-accessibility" = "Сноска";
+"editor-keyboard-strikethrough-accessibility" = "Зачёркнутый";
 "editor-keyboard-subheading1-button" = "Подзаголовок 1";
 "editor-keyboard-subheading2-button" = "Подзаголовок 2";
 "editor-keyboard-subheading3-button" = "Подзаголовок 3";
 "editor-keyboard-subheading4-button" = "Подзаголовок 4";
+"editor-keyboard-subscript-accessibility" = "Подстрочный";
+"editor-keyboard-superscript-accessibility" = "Надстрочный";
+"editor-keyboard-template-accessibility" = "Шаблон";
 "editor-keyboard-text-formatting-title" = "Форматирование текста";
+"editor-keyboard-underline-accessibility" = "Подчёркнутый";
 "editor-replace-textfield-accessibility" = "Заменить";
 "editor-replace-type-all" = "Заменить все";
 "editor-toolbar-find-accessibility" = "Найти на странице";
@@ -520,6 +537,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
+"explore-suggested-edits-footer" = "Добавить";
 "export-user-data-confirmation-message" = "Общий доступ к библиотеке приложений включает данные о списках чтения и истории, предпочтениях и содержании раздела «Лента». Этот файл данных должен передаваться только доверенному получателю для использования в целях технической диагностики.";
 "export-user-data-confirmation-title" = "Поделиться библиотекой приложения?";
 "export-user-data-generic-error" = "При экспорте данных произошла ошибка. Пожалуйста, повторите попытку позднее.";
@@ -590,6 +608,20 @@
 "icon-shortcut-random-title" = "Случайная статья";
 "icon-shortcut-search-title" = "Поиск по Википедии";
 "image-gallery-unknown-owner" = "Автор неизвестен.";
+"image-rec-add-image-title" = "Добавить это изображение?";
+"image-rec-onboarding-item-1-body" = "Вы сами решаете, следует ли размещать предлагаемое изображение в статье Википедии.";
+"image-rec-onboarding-item-1-title" = "Посмотреть предложение";
+"image-rec-onboarding-item-2-body" = "Предложения генерируются машиной, и вы сами решаете, принять их или отклонить.";
+"image-rec-onboarding-item-2-title" = "Принять или отклонить изображение";
+"image-rec-onboarding-item-3-body" = "Изображения взяты из Викисклада, коллекции свободно лицензированных изображений, используемых Википедией.";
+"image-rec-onboarding-item-3-title" = "Лицензированные изображения";
+"image-rec-onboarding-learn-more-button" = "Подробнее о предлагаемых правках";
+"image-rec-onboarding-title" = "Добавьте изображение в раздел статьи";
+"image-rec-title" = "Добавить изображение";
+"image-rec-view-article" = "Посмотреть статью";
+"image-recs-no-title" = "Нет";
+"image-recs-not-sure-title" = "Точно сказать нельзя";
+"image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мой список для чтения";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сейчас";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Участие в опросе";
@@ -602,6 +634,7 @@
 "in-the-news-title" = "В новостях";
 "insert-action-title" = "Вставить";
 "insert-link-title" = "Вставить ссылку";
+"insert-media-add-image-details-title" = "Добавить подробности об изображении";
 "insert-media-alternative-text-description" = "Текстовое описание для читателей, которые не могут увидеть изображения";
 "insert-media-alternative-text-placeholder" = "Опишите это изображение";
 "insert-media-alternative-text-title" = "Альтернативный текст";
@@ -626,7 +659,6 @@
 "insert-media-image-type-settings-title" = "Тип изображения";
 "insert-media-media-settings-title" = "Параметры медиафайла";
 "insert-media-title" = "Вставить медиа-файл";
-"insert-media-uploaded-image-title" = "Загруженное изображение";
 "inuktitut-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Инуктитут в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Обновления поддержки вариантов Инуктитут";
 "kazakh-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты казахского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nҚазақша Kazakh (kk)\nҚазақша Kazakh, Cyrillic (kk-cyrl)\nqazaqşa Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -670,6 +702,7 @@
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-title" = "Установите пароль";
+"next-action-title" = "Далее";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учётную запись электронной почты и попробуйте ещё раз.";
 "no-internet-connection" = "Нет подключения к интернету";
 "no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
@@ -879,6 +912,7 @@
 "potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
 "potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
+"privacy-policy-title" = "Политика конфиденциальности";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
@@ -1075,6 +1109,7 @@
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "sort-by-recently-added-action" = "Недавно добавленный";
 "sort-by-title-action" = "Заголовок";
+"suggested-edits-title" = "Предложенные правки";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
@@ -1125,7 +1160,6 @@
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
 "talk-page-topic-close-button-hint" = "Закрыть новую тему";
-"talk-page-topic-compose-terms-and-licenses" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и безвозвратно соглашаетесь опубликовать свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Отписаться";
 "talk-page-unsubscribed-alert-subtitle" = "Вы больше не будете получать уведомления о новых сообщениях в этой теме.";
 "talk-page-unsubscribed-alert-title" = "Вы отписались.";
@@ -1143,7 +1177,7 @@
 "talk-pages-topic-added-alert-title" = "Ваша тема была добавлена";
 "talk-pages-topic-compose-body-placeholder" = "Описание";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Описание темы";
-"talk-pages-topic-compose-close-confirmation-discard" = "Отменить ответ";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Отменить ответ";
 "talk-pages-topic-compose-close-confirmation-title" = "Вы уверены, что хотите удалить эту новую тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Название темы";
@@ -1244,5 +1278,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1авторизуетесь$2, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-sign-in" = "Войти";
-"wikitext-upload-save-terms-and-licenses" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";

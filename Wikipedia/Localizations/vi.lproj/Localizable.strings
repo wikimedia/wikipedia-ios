@@ -544,7 +544,6 @@
 "insert-media-image-type-settings-title" = "Kiểu hình";
 "insert-media-media-settings-title" = "Tùy chọn phương tiện";
 "insert-media-title" = "Chèn phương tiện";
-"insert-media-uploaded-image-title" = "Hình đã tải lên";
 "inuktitut-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Inuktitut là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut chữ tượng thanh âm tiết (ike-cans)\nInuktitut ilisautik, Inuktitut chữ Latinh (ike-latn)";
 "inuktitut-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Inuktitut";
 "kazakh-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Kazakh là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh chữ Kirin (kk-cyrl)\nqazaqşa latin Kazakh chữ Latinh (kk-latn)\nتوتە قازاقشا Kazakh chữ Ả Rập (kk-arab)";
@@ -1006,7 +1005,6 @@
 "talk-page-reply-button-accessibility-label" = "Trả lời $1";
 "talk-page-reply-depth-accessibility-label" = "Độ sâu phản hồi: $1";
 "talk-page-reply-placeholder-format" = "Trả lời $1";
-"talk-page-reply-terms-and-licenses" = "Lưu ý thư trả lời của bạn sẽ được tự động ký bằng tên người dùng của bạn. Bằng cách lưu các thay đổi, bạn đồng ý với $1Điều khoản sử dụng$2 và đồng ý giải phóng khoản đóng góp của mình theo giấy phép $3CC BY-SA 3.0$4 và $5GFDL$6 .";
 "talk-page-revision-history" = "Lịch sử thay đổi";
 "talk-page-rply-close-button-accessibility-hint" = "Đóng chế độ xem trả lời";
 "talk-page-share-button" = "Chia sẻ trang thảo luận";
@@ -1079,5 +1077,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1Đăng nhập$2 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
-"wikitext-upload-save-terms-and-licenses" = "Với việc đăng các thay đổi, bạn chấp nhận các $1Điều khoản sử dụng$2 và đồng ý phát hành đóng góp của bạn theo các giấy phép $3CC BY-SA 3.0$4 và $5GFDL$6 một cách không thể hủy bỏ. Bạn đồng ý rằng một siêu liên kết hoặc URL thỏa mãn điều kiện ghi công trong giấy phép Creative Commons.";
 "wikitext-upload-save-terms-name" = "Điều khoản sử dụng";

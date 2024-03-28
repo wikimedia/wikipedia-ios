@@ -6,6 +6,7 @@
 // Author: A2B4C
 // Author: Amire80
 // Author: Angrydog001
+// Author: Anterdc99
 // Author: Chixvv
 // Author: Cookai1205
 // Author: Crowley666
@@ -122,7 +123,7 @@
 "about-translators-details" = "由$1的志愿者翻译";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "about-wikipedia" = "维基百科";
-"account-creation-captcha-cannot-see-image" = "看不到图像？$1";
+"account-creation-captcha-cannot-see-image" = "看不到图片？$1";
 "account-creation-captcha-obtaining" = "正在获取新验证码...";
 "account-creation-captcha-request-account" = "请申请账号。";
 "account-creation-captcha-title" = "验证码安全检查";
@@ -305,7 +306,7 @@
 "diff-undo-success" = "已撤销此修订版本。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行未被编辑|$1行未被编辑}}";
 "diff-user-button-accessibility-text" = "双击打开菜单";
-"dim-images" = "调暗图像";
+"dim-images" = "调暗图片";
 "donate-accessibility-amount-button-hint" = "双击以选择捐款金额。";
 "donate-accessibility-donate-hint-format" = "双击以捐赠$1给维基媒体基金会。";
 "donate-accessibility-email-opt-in-hint" = "双击以授予维基媒体基金会向您发送电子邮件的权限。";
@@ -638,8 +639,20 @@
 "icon-shortcut-random-title" = "随机条目";
 "icon-shortcut-search-title" = "搜索维基百科";
 "image-gallery-unknown-owner" = "作者不明。";
+"image-rec-add-image-title" = "添加此图片？";
+"image-rec-onboarding-item-1-body" = "决定是否应该将建议的图片添加至维基百科条目中。";
+"image-rec-onboarding-item-1-title" = "查看建议";
+"image-rec-onboarding-item-2-body" = "这些建议由机器生成，您需要自行判断接受还是拒绝这些建议。";
+"image-rec-onboarding-item-2-title" = "接受或拒绝图片";
+"image-rec-onboarding-item-3-body" = "图片来自维基共享资源——维基百科所使用的自由版权图片库。";
+"image-rec-onboarding-item-3-title" = "图片经过授权";
+"image-rec-onboarding-learn-more-button" = "了解有关编辑建议的更多信息";
+"image-rec-onboarding-title" = "将图片添加到条目中";
 "image-rec-title" = "添加图片";
 "image-rec-view-article" = "查看条目";
+"image-recs-no-title" = "否";
+"image-recs-not-sure-title" = "不确定";
+"image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
 "import-shared-reading-list-survey-prompt-button-cancel" = "现在不要";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "参加调查";
@@ -673,10 +686,9 @@
 "insert-media-image-type-setting-frame" = "有框";
 "insert-media-image-type-setting-frameless" = "无框";
 "insert-media-image-type-setting-thumbnail" = "缩略图";
-"insert-media-image-type-settings-title" = "图像类型";
+"insert-media-image-type-settings-title" = "图片类型";
 "insert-media-media-settings-title" = "媒体设定";
 "insert-media-title" = "插入媒体";
-"insert-media-uploaded-image-title" = "上传图像";
 "inuktitut-variants-alert-body" = "维基百科应用现在支持以下因纽特语变体作为应用程序内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "更新因纽特语变体支持";
 "kazakh-variants-alert-body" = "维基百科应用现在支持以下哈萨克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -1039,7 +1051,7 @@
 "reverted-edit-title" = "编辑被退回";
 "saved-all-articles-title" = "所有条目";
 "saved-default-reading-list-tag" = "此列表不可删除";
-"saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
+"saved-pages-image-download-error" = "下载本已保存页面的图片时失败。";
 "saved-pages-progress-syncing" = "条目下载正在进行...";
 "saved-reading-lists-title" = "阅读列表";
 "saved-search-default-text" = "在已保存的文章中检索";
@@ -1157,7 +1169,8 @@
 "talk-page-reply-button-accessibility-label" = "回复$1";
 "talk-page-reply-depth-accessibility-label" = "回复深度：$1";
 "talk-page-reply-placeholder-format" = "回复$1";
-"talk-page-reply-terms-and-licenses" = "请注意，您的回复会自动以您的用户名签名。保存更改即表明您同意$1使用条款$2，并且同意通过$3CC BY-SA 3.0$4和$5GFDL$6协议发布您的贡献。";
+// Fuzzy
+"talk-page-reply-terms-and-licenses-ccsa4" = "请注意，您的回复会自动以您的用户名签名。保存更改即表明您同意$1使用条款$2，并且同意通过$3CC BY-SA 4.0$4和$5GFDL$6协议发布您的贡献。";
 "talk-page-revision-history" = "版本历史";
 "talk-page-rply-close-button-accessibility-hint" = "关闭回复视图";
 "talk-page-share-button" = "分享讨论页";
@@ -1168,7 +1181,8 @@
 "talk-page-title-article-talk" = "条目讨论";
 "talk-page-title-user-talk" = "用户讨论";
 "talk-page-topic-close-button-hint" = "关闭新话题";
-"talk-page-topic-compose-terms-and-licenses" = "发布更改即表明您同意$1使用条款$2，并且不可撤回地同意通过$3CC BY-SA 3.0$4和$5GFDL$6协议发布您的贡献。";
+// Fuzzy
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "发布更改即表明您同意$1使用条款$2，并且不可撤回地同意通过$3CC BY-SA 4.0$4和$5GFDL$6协议发布您的贡献。";
 "talk-page-unsubscribe-to-topic" = "取消订阅";
 "talk-page-unsubscribed-alert-subtitle" = "您将不再收到对于此话题的新留言的通知。";
 "talk-page-unsubscribed-alert-title" = "您已取消订阅。";
@@ -1191,7 +1205,7 @@
 "talk-pages-topic-added-alert-title" = "已添加您的话题";
 "talk-pages-topic-compose-body-placeholder" = "描述";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "话题描述";
-"talk-pages-topic-compose-close-confirmation-discard" = "丢弃回复";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "丢弃回复";
 "talk-pages-topic-compose-close-confirmation-title" = "您确定要丢弃这个新话题吗？";
 "talk-pages-topic-compose-navbar-title" = "话题";
 "talk-pages-topic-compose-title-placeholder" = "话题标题";
@@ -1324,5 +1338,4 @@
 "wikitext-upload-save-anonymously-or-login" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1登录$2。";
 "wikitext-upload-save-anonymously-warning" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1。";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-and-licenses" = "发布更改即代表您同意$1使用条款$2及以$3CC BY-SA 3.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";

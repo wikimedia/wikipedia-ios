@@ -454,7 +454,6 @@
 "insert-media-image-type-settings-title" = "Math y ddelwedd";
 "insert-media-media-settings-title" = "Gosodiadau cyfryngau";
 "insert-media-title" = "Mewnosod cyfryngau";
-"insert-media-uploaded-image-title" = "Delwedd wedi'i huwchlwytho";
 "inuktitut-variants-alert-title" = "Diweddariadau i gymorth Inuktitut";
 "kazakh-variants-alert-title" = "Diweddariadau i gymorth Casacheg";
 "kurdish-variants-alert-title" = "Diweddariadau i gymorth Cwrdeg";
@@ -750,7 +749,7 @@
 "talk-pages-empty-view-header-user" = "Dechrau sgwrs gyda $1";
 "talk-pages-topic-compose-body-placeholder" = "Disgrifiad";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Disgrifiad y pwnc";
-"talk-pages-topic-compose-close-confirmation-discard" = "Tynnu ateb";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Tynnu ateb";
 "talk-pages-topic-compose-navbar-title" = "Pwnc";
 "talk-pages-topic-compose-title-placeholder" = "Teitl y pwnc";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Byddwch yn gyfeillgar, rydyn ni gyd yn bobl go iawn.";
