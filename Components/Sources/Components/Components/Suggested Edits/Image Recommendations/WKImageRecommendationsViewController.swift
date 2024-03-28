@@ -5,7 +5,7 @@ import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
-    func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
+    func imageRecommendationsUserDidTapInsertImage(project: WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {

@@ -1122,13 +1122,28 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigationController?.pushViewController(articleViewController, animated: true)
     }
 
-    func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
+    func imageRecommendationsUserDidTapInsertImage(project: WKData.WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
+
+        var components = URLComponents()
+        components.scheme = "https"
+
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        default:
+            assertionFailure("Unexpected project for image recommendations")
+        }
+
+        guard let url = components.url,
+              let articleURL = url.wmf_URL(withTitle: title) else {
+            return
+        }
 
         let image = UIImage() // TODO: fetch image properly
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, dataStore: dataStore, articleURL: articleURL)
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
     }
