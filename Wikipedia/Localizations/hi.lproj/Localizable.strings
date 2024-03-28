@@ -370,6 +370,7 @@
 "nearby-distance-label-miles" = "$1 माइल्स";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
+"next-action-title" = "अगला";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
 "notifications-center-alert" = "चेतावनी";
 "notifications-center-change-password" = "पासवर्ड बदलें";

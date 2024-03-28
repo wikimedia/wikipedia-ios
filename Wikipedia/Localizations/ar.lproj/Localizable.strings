@@ -561,7 +561,6 @@
 "insert-media-image-type-settings-title" = "نوع الصورة";
 "insert-media-media-settings-title" = "إعدادات الوسائط";
 "insert-media-title" = "إدراج وسائط";
-"insert-media-uploaded-image-title" = "تم رفع الصورة";
 // Fuzzy
 "inuktitut-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Inuktitut التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut ، Syllabics (ike-cans)! N! Inuktitut ilisautik ، Inuktitut ، اللاتينية (ike-latn)";
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
@@ -1049,7 +1048,8 @@
 "talk-page-reply-button-accessibility-label" = "رد على $1";
 "talk-page-reply-depth-accessibility-label" = "عمق الرد: $1";
 "talk-page-reply-placeholder-format" = "رد على $1";
-"talk-page-reply-terms-and-licenses" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 3.0$4 و $5GFDL$6.";
+// Fuzzy
+"talk-page-reply-terms-and-licenses-ccsa4" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 4.0$4 و $5GFDL$6.";
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-rply-close-button-accessibility-hint" = "إغلاق عرض الرد";
 "talk-page-share-button" = "شارك صفحة النقاش";
@@ -1060,7 +1060,8 @@
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-close-button-hint" = "إغلاق موضوع جديد";
-"talk-page-topic-compose-terms-and-licenses" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 3.0$4 و $5GFDL$6.";
+// Fuzzy
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 4.0$4 و $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "إلغاء الاشتراك";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
@@ -1083,7 +1084,7 @@
 "talk-pages-topic-added-alert-title" = "تمت إضافة موضوعك";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "وصف الموضوع";
-"talk-pages-topic-compose-close-confirmation-discard" = "تجاهل الرد";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "تجاهل الرد";
 "talk-pages-topic-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الموضوع الجديد؟";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
@@ -1166,5 +1167,4 @@
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-and-licenses" = "بنشر التغييرات، فإنك توافق على $شروط الاستخدام$2، وتوافق بشكل لا رجعة فيه على إطلاق مساهمتك تحت $3رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل3.0$4 و$5رخصة جنو للوثائق الحرة$6، أنت توافق على أن الرابط التشعبي أو المسار يمثل إسنادا كافيا بموجب ترخيص  المشاع الإبداعي.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";

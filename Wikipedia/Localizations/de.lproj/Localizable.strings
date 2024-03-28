@@ -563,7 +563,6 @@
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Medieneinstellungen";
 "insert-media-title" = "Medium einfügen";
-"insert-media-uploaded-image-title" = "Hochgeladenes Bild";
 "languages-settings-title" = "Sprachen";
 "languages-title" = "Sprache ändern";
 "languages-wikipedia" = "Wikipedia-Sprachen";
@@ -993,7 +992,8 @@
 "talk-page-reply-button-accessibility-label" = "$1 antworten";
 "talk-page-reply-depth-accessibility-label" = "Antworttiefe: $1";
 "talk-page-reply-placeholder-format" = "$1 antworten";
-"talk-page-reply-terms-and-licenses" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 3.0$4 und $5GFDL$6 zu veröffentlichen.";
+// Fuzzy
+"talk-page-reply-terms-and-licenses-ccsa4" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 4.0$4 und $5GFDL$6 zu veröffentlichen.";
 "talk-page-revision-history" = "Versionsgeschichte";
 "talk-page-rply-close-button-accessibility-hint" = "Antwortansicht schließen";
 "talk-page-share-button" = "Diskussionsseite teilen";
@@ -1004,7 +1004,8 @@
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
 "talk-page-topic-close-button-hint" = "Neues Thema schließen";
-"talk-page-topic-compose-terms-and-licenses" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 3.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
+// Fuzzy
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 4.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
 "talk-page-unsubscribe-to-topic" = "Abbestellen";
 "talk-page-unsubscribed-alert-subtitle" = "Du wirst keine Benachrichtigungen mehr über neue Kommentare in diesem Thema erhalten.";
 "talk-page-unsubscribed-alert-title" = "Du hast dich ausgetragen";
@@ -1023,7 +1024,7 @@
 "talk-pages-topic-added-alert-title" = "Dein Thema wurde hinzugefügt";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Themenbeschreibung";
-"talk-pages-topic-compose-close-confirmation-discard" = "Antwort verwerfen";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Antwort verwerfen";
 "talk-pages-topic-compose-close-confirmation-title" = "Möchtest du dieses neue Thema wirklich verwerfen?";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
@@ -1103,5 +1104,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du dich $1anmeldest$2, wirst du über mehr Datenschutz verfügen.";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
 "wikitext-upload-save-sign-in" = "Anmelden";
-"wikitext-upload-save-terms-and-licenses" = "Durch die Veröffentlichung der Änderungen stimmst du den $1Nutzungsbedingungen$2 und der unwiderruflichen Veröffentlichung deines Beitrags unter den Lizenzen $3CC BY-SA 3.0$4 und $5GFDL$6 zu. Du bist auch damit einverstanden, dass ein Hyperlink oder eine URL eine angemessene Namensnennung unter der Creative-Commons-Lizenz darstellt.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
