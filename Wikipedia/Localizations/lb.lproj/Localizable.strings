@@ -349,8 +349,16 @@
 "icon-shortcut-random-title" = "Zoufällegen Artikel";
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "image-gallery-unknown-owner" = "Auteur onbekannt.";
+"image-rec-add-image-title" = "Dëst Bild derbäisetzen?";
+"image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipedia-Artikel derbäigesat soll ginn.";
+"image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
+"image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
+"image-rec-onboarding-title" = "E Bild an een Artikel derbäisetzen";
 "image-rec-title" = "Bild derbäisetzen";
 "image-rec-view-article" = "Artikel weisen";
+"image-recs-no-title" = "Neen";
+"image-recs-not-sure-title" = "Net sécher";
+"image-recs-yes-title" = "Jo";
 "import-shared-reading-list-default-title" = "Meng Lieslëscht";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Net elo";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Bei der Ëmfro matmaachen";
@@ -385,7 +393,6 @@
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Medienastellungen";
 "insert-media-title" = "Medien drasetzen";
-"insert-media-uploaded-image-title" = "Eropgeluedent Bild";
 "languages-settings-title" = "Sproochen";
 "languages-title" = "Sprooch änneren";
 "languages-wikipedia" = "Wikipedia-Sproochen";
@@ -750,7 +757,7 @@
 "talk-pages-topic-added-alert-title" = "Äert Theema gouf derbäigesat";
 "talk-pages-topic-compose-body-placeholder" = "Beschreiwung";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Beschreiwung vum Theema";
-"talk-pages-topic-compose-close-confirmation-discard" = "Äntwert verwerfen";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Äntwert verwerfen";
 "talk-pages-topic-compose-close-confirmation-title" = "Sidd Dir sécher, datt Dir dëst neit Theema verwerfe wëllt?";
 "talk-pages-topic-compose-navbar-title" = "Theema";
 "talk-pages-topic-compose-title-placeholder" = "Titel vum Theema";
