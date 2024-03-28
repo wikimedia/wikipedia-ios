@@ -11,7 +11,7 @@ final class InsertMediaSettingsViewController: ViewController {
 
     private let dataStore: MWKDataStore?
     private let articleURL: URL?
-
+    private let sectionNumber: Int?
     private var wikitext: String?
 
     let searchResult: InsertMediaSearchResult
@@ -203,12 +203,13 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, dataStore: MWKDataStore? = nil, articleURL: URL? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, dataStore: MWKDataStore? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
         self.dataStore = dataStore
         self.articleURL = articleURL
+        self.sectionNumber = sectionNumber
         super.init()
     }
 
@@ -281,7 +282,7 @@ final class InsertMediaSettingsViewController: ViewController {
             return
         }
         let wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        wikitextFetcher.fetchSection(with: Int(), articleURL: articleURL) {  result in
+        wikitextFetcher.fetchSection(with: sectionNumber, articleURL: articleURL) {  result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):

@@ -39,6 +39,7 @@ public struct WKImageRecommendation {
         let categories: [String]
         public let reason: String
         let contentLanguageName: String
+        public let sectionNumber: String?
     }
 
 }
