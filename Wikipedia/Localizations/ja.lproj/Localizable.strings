@@ -583,7 +583,6 @@
 "insert-media-image-type-settings-title" = "画像の種類";
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
-"insert-media-uploaded-image-title" = "アップロード済み画像";
 "kurdish-variants-alert-title" = "クルド語言語変種サポートの更新";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
@@ -1040,7 +1039,6 @@
 "talk-page-reply-button-accessibility-label" = "$1に返信";
 "talk-page-reply-depth-accessibility-label" = "返信のインデントの深さ：$1";
 "talk-page-reply-placeholder-format" = "「$1」への返信";
-"talk-page-reply-terms-and-licenses" = "留意点として、返信は自動で利用者名を付け加えます。変更点の保存は、利用規約$1Terms of Use$2を承認し、また投稿はライセンス条件 $3CC BY-SA 3.0$4 ならびに $5GFDL$6 の元で公開することに同意したことになります。";
 "talk-page-revision-history" = "変更履歴";
 "talk-page-rply-close-button-accessibility-hint" = "返信の表示を閉じる";
 "talk-page-share-button" = "トークページを共有";
@@ -1063,7 +1061,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "この新しい返信を破棄してもよろしいですか?";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
-"talk-pages-topic-compose-close-confirmation-discard" = "返信を破棄";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "返信を破棄";
 "talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
 "talk-pages-topic-compose-navbar-title" = "トピック";
 "talk-pages-topic-compose-title-placeholder" = "トピック名";
@@ -1203,5 +1201,4 @@
 "wikitext-upload-save-anonymously-or-login" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1ログイン$2すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
-"wikitext-upload-save-terms-and-licenses" = "変更を公開することにより、あなたは$1使用規約$2に同意し、かつあなたの貢献を非可逆的に$3CC BY-SA 3.0$4ライセンスと$5GFDL$6のもとで公開することに同意したことになります。あなたはCreative Commonsライセンスに基づき、ハイパーリンクまたはURLを十分な継承とすることに同意します。";
 "wikitext-upload-save-terms-name" = "利用規約";

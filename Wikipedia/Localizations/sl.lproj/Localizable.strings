@@ -620,7 +620,6 @@
 "insert-media-image-type-settings-title" = "Vrsta slike";
 "insert-media-media-settings-title" = "Nastavitve predstavnosti";
 "insert-media-title" = "Vstavi predstavnost";
-"insert-media-uploaded-image-title" = "Naložite sliko";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednji različici inuktituta kot osnovni ali sekundarno jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut, zlogovno (ike-cans)\nInuktitut ilisautik – inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Posodobitve podpore za inuktitutske različice";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice kazaščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nҚазақша – kazaščina (kk)\nҚазақша Кирил – kazaščina, cirilica (kk-cyrl)\nqazaqşa latinica — kazaščina, latinica (kk-latn)\nتوتە قازاقشا – kazaščina, arabska pisava (kk-arab)";
@@ -1113,7 +1112,6 @@
 "talk-page-reply-button-accessibility-label" = "Odgovori uporabniku_ci $1";
 "talk-page-reply-depth-accessibility-label" = "Globina odgovora: $1";
 "talk-page-reply-placeholder-format" = "Odgovori uporabniku_ci $1";
-"talk-page-reply-terms-and-licenses" = "Upoštevajte, da bo vaš odgovor samodejno podpisan z vašim uporabniškim imenom. S shranitvijo sprememb izražate strinjanje s $1Pogoji uporabe$2 in privoljujete v objavo vašega prispevka pod licencama $3CC BY-SA 3.0$4 in $5GFDL$6.";
 "talk-page-revision-history" = "Zgodovina redakcij";
 "talk-page-rply-close-button-accessibility-hint" = "Zapri pogled odgovora";
 "talk-page-share-button" = "Deli pogovorno stran";
@@ -1124,7 +1122,6 @@
 "talk-page-title-article-talk" = "Pogovor o članku";
 "talk-page-title-user-talk" = "Uporabniški pogovor";
 "talk-page-topic-close-button-hint" = "Zapri novo temo";
-"talk-page-topic-compose-terms-and-licenses" = "Z objavo sprememb se strinjate s pogoji uporabe $1Terms of use$2 in se nepreklicno strinjate, da je vaš prispevek prosto na voljo pod licenco $3CC BY-SA 3.0 License$4 in $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Odnaroči";
 "talk-page-unsubscribed-alert-subtitle" = "O novih komentarjih pri tej temi ne boste več prejemali obvestil.";
 "talk-page-unsubscribed-alert-title" = "Odnaročeni ste.";
@@ -1147,7 +1144,7 @@
 "talk-pages-topic-added-alert-title" = "Vaša tema je dodana";
 "talk-pages-topic-compose-body-placeholder" = "Opis";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Opis teme";
-"talk-pages-topic-compose-close-confirmation-discard" = "Zavrzi odgovor";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Zavrzi odgovor";
 "talk-pages-topic-compose-close-confirmation-title" = "Ali res želite zavreči to novo temo?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Naslov teme";
@@ -1294,5 +1291,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Urejanja bodo pripisana IP-naslovu vaše naprave. Več zasebnosti boste imeli, če se boste $1prijavili$2.";
 "wikitext-upload-save-anonymously-warning" = "Urejanja bodo pripisana naslovu IP-naslovu vaše naprave. Če boste izbrali $1, boste imeli več zasebnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
