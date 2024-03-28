@@ -39,6 +39,11 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         }
     }
     
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) where R : WKData.WKServiceRequest {
+        assertionFailure("Not implemented")
+        completion(.failure(MediaWikiFetcherError.invalidRequest))
+    }
+    
     public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         guard let mediaWikiRequest = request as? WKMediaWikiServiceRequest,
               let url = request.url,
