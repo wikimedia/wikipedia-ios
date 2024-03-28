@@ -646,7 +646,6 @@
 "insert-media-image-type-settings-title" = "Jenis gambar";
 "insert-media-media-settings-title" = "Pengaturan media";
 "insert-media-title" = "Sisipkan media";
-"insert-media-uploaded-image-title" = "Gambar yang diunggah";
 "inuktitut-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Inuktitut berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Silabis (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Inuktitut";
 "kazakh-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kazakh berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Sirilik (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arab (kk-arab)";
@@ -1139,7 +1138,6 @@
 "talk-page-reply-button-accessibility-label" = "Balas ke $1";
 "talk-page-reply-depth-accessibility-label" = "Kedalaman balasan: $1";
 "talk-page-reply-placeholder-format" = "Balas ke $1";
-"talk-page-reply-terms-and-licenses" = "Perhatikan bahwa balasan Anda akan ditandatangani secara otomatis dengan nama pengguna Anda. Dengan menyimpan perubahan, Anda menyetujui $1Persyaratan Penggunaan$2 , dan setuju untuk melepaskan kontribusi Anda di bawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6.";
 "talk-page-revision-history" = "Riwayat revisi";
 "talk-page-rply-close-button-accessibility-hint" = "Tutup tampilan balasan";
 "talk-page-share-button" = "Bagikan halaman pembicaraan";
@@ -1150,7 +1148,6 @@
 "talk-page-title-article-talk" = "Pembicaraan Artikel";
 "talk-page-title-user-talk" = "Pembicaraan pengguna";
 "talk-page-topic-close-button-hint" = "Tutup topik baru";
-"talk-page-topic-compose-terms-and-licenses" = "Dengan menyimpan perubahan, anda menyetujui $1Syarat Penggunaan$2, dan setuju untuk menerbitkan kontribusi anda dibawah lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Berhenti berlangganan";
 "talk-page-unsubscribed-alert-subtitle" = "Anda tidak akan menerima lagi pemberitahuan tentang komentar baru di topik ini.";
 "talk-page-unsubscribed-alert-title" = "Anda telah berhenti berlangganan";
@@ -1173,7 +1170,7 @@
 "talk-pages-topic-added-alert-title" = "Topik Anda telah ditambahkan";
 "talk-pages-topic-compose-body-placeholder" = "Deskripsi";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Deskripsi Topik";
-"talk-pages-topic-compose-close-confirmation-discard" = "Buang balasan";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Buang balasan";
 "talk-pages-topic-compose-close-confirmation-title" = "Apakah Anda yakin ingin membuang topik baru ini?";
 "talk-pages-topic-compose-navbar-title" = "Topik";
 "talk-pages-topic-compose-title-placeholder" = "Judul topik";
@@ -1311,5 +1308,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP perangkat Anda. Jika Anda $1Masuk log$2, Anda akan memiliki lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
-"wikitext-upload-save-terms-and-licenses" = "Dengan menerbitkan perubahan, Anda menyatakan setuju pada $1Ketentuan Penggunaan$2 dan Anda secara tetap setuju untuk melepas kontribusi Anda di bawah Lisensi $3CC BY-SA 3.0$4 dan $5GFDL$6. Anda setuju bahwa pemberian pranala atau URL sudah dirasa cukup untuk atribusi di bawah Lisensi Creative Commons.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";

@@ -555,7 +555,6 @@
 "insert-media-image-type-settings-title" = "Tegund myndar";
 "insert-media-media-settings-title" = "Stillingar margmiðlunargagna";
 "insert-media-title" = "Settu inn margmiðlunargögn";
-"insert-media-uploaded-image-title" = "Innsend mynd";
 "inuktitut-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Inuktitut";
 "kazakh-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kasakísku";
 "kurdish-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kúrdísku";
@@ -1026,7 +1025,6 @@
 "talk-page-reply-button-accessibility-label" = "Svara $1";
 "talk-page-reply-depth-accessibility-label" = "Dýpt svars: $1";
 "talk-page-reply-placeholder-format" = "Svara $1";
-"talk-page-reply-terms-and-licenses" = "Athugaðu að svarið þitt verður sjálfkrafa undirritað með noteandanafninu þínu. Með því að vista breytingar samþykkir þú $1notkunarskilmálana$2 og samþykkir að gefa út framlag þitt með $3CC BY-SA 3.0$4 og $5GFDL$6 notkunarleyfum.";
 "talk-page-revision-history" = "Breytingaskrá";
 "talk-page-rply-close-button-accessibility-hint" = "Loka svarsýn";
 "talk-page-share-button" = "Deila spjallsíðu";
@@ -1037,7 +1035,6 @@
 "talk-page-title-article-talk" = "Spjall greinar";
 "talk-page-title-user-talk" = "Spjall notanda";
 "talk-page-topic-close-button-hint" = "Loka nýju umræðuefni";
-"talk-page-topic-compose-terms-and-licenses" = "Með því að vista breytingar samþykkir þú $1notkunarskilmálana$2 og óafturkræft að framlag þitt verði gefið út með $3CC BY-SA 3.0$4 og $5GFDL$6 notkunarleyfunum.";
 "talk-page-unsubscribe-to-topic" = "Segja upp áskrift";
 "talk-page-unsubscribed-alert-subtitle" = "Þú munt ekki lengur fá tilkynningar um nýjar athugasemdir í þessu efni.";
 "talk-page-unsubscribed-alert-title" = "Þú hefur sagt upp áskrift.";
@@ -1059,7 +1056,7 @@
 "talk-pages-topic-added-alert-title" = "Umræðuefninu þínu var bætt við";
 "talk-pages-topic-compose-body-placeholder" = "Lýsing";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Lýsing á umræðuefni";
-"talk-pages-topic-compose-close-confirmation-discard" = "Henda svari";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Henda svari";
 "talk-pages-topic-compose-close-confirmation-title" = "Ertu viss um að þú viljir henda þessu nýja umræðuefni?";
 "talk-pages-topic-compose-navbar-title" = "Umræðuefni";
 "talk-pages-topic-compose-title-placeholder" = "Titill umfjöllunarefnis";
@@ -1167,5 +1164,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi sitt er best að $1skrá sig inn$2.";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
 "wikitext-upload-save-sign-in" = "Innskrá";
-"wikitext-upload-save-terms-and-licenses" = "Með því að birta breytingar, samþykkir þú $1notkunarskilmálana$2 og þú samþykkir einnig óafturkræft að framlag þitt verði gefið út með $3CC BY-SA 3.0$4 og $5GFDL$6 notkunarleyfum. Þú fellst líka á að veftengill sé næg tilvísun í höfundarréttindi undir Creative Commons notkunarleyfi.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";

@@ -549,7 +549,6 @@
 "insert-media-image-type-settings-title" = "Enfuomo bõõsoba";
 "insert-media-media-settings-title" = "Mediá maaloo";
 "insert-media-title" = "Eŋ mediá";
-"insert-media-uploaded-image-title" = "Eŋ enfuomo";
 "inuktitut-variants-alert-body" = "A Wikipiideɛ app pampana sage la a Inuktitut aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Eŋ a Inuktitut sommo";
 "kazakh-variants-alert-body" = "A wikipiideɛ app pampana ŋa sage la ka a Kazakh aŋa paramere bee sakondere Kɔkɔɛ a app poɔ, lɛ na vɛŋ la ka kannoo e mɔlɔ, be ane a fo meŋɛ maaloo:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -1073,5 +1072,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 kpɔ$2 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-anonymously-warning" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-sign-in" = "Kpɛ";
-"wikitext-upload-save-terms-and-licenses" = "Anaŋ wa e leɛroo, fo sage la ka $1de la$2, kyɛ ka fo vɛŋ kyɛ de Fo boma yineŋ a $3CC BY-SA3.0$4 sori terebu a $5GFDL$6. Fo sage la ka a hyperlink bee URL taaɛ la a boma maaloo poɔ.";
 "wikitext-upload-save-terms-name" = "Yɛlɛ na fo naŋ ba de";

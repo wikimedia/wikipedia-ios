@@ -471,7 +471,6 @@
 "insert-media-image-type-setting-frame" = "ఫ్రేము";
 "insert-media-image-type-settings-title" = "బొమ్మ రకం";
 "insert-media-media-settings-title" = "మీడియా అమరికలు";
-"insert-media-uploaded-image-title" = "బొమ్మను ఎక్కించు";
 "languages-settings-title" = "భాషలు";
 "languages-title" = "భాష మార్పు";
 "languages-wikipedia" = "వికీపీడియా భాషలు";
@@ -882,5 +881,4 @@
 "wikitext-upload-save-anonymously-or-login" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1లాగినైతే$2, మీకు మరింత గోప్యత ఉంటుంది.";
 "wikitext-upload-save-anonymously-warning" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1, మీకు మరింత గోప్యత ఉంటుంది.";
 "wikitext-upload-save-sign-in" = "ప్రవేశించండి";
-"wikitext-upload-save-terms-and-licenses" = "మార్పులను భద్రపరిస్తే మీరు, $1వాడుకరి నియమాలను$2 అంగీకరిస్తున్నట్లు. మీ రచనను $3CC BY-SA 3.0$4 లైసెన్సు, $5GFDL$6 లైసెన్సు కింద వెనక్కి తీసుకోలేని విధంగా విడుదల చేసేందుకు అంగీకరిస్తున్నట్లు. క్రియేటివ్ కామన్సు లైసెన్సు కింద శ్రేయస్సునూఅపాదించేందుకు ఒక హైపర్‌లింకు గాని, URL గానీ సరిపోతుందని కూడా మీరు అంగీకరిస్తున్నట్లు.";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";

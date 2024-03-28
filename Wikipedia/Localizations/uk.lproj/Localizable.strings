@@ -575,7 +575,6 @@
 "insert-media-image-type-settings-title" = "Тип зображення";
 "insert-media-media-settings-title" = "Параметри медіафайлу";
 "insert-media-title" = "Вставити медіафайл";
-"insert-media-uploaded-image-title" = "Завантажене зображення";
 "inuktitut-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови інуктитут як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ інуктитут, складове письмо (ike-cans)\nInuktitut ilisautik, інуктитут, латинка (ike-latn)";
 "inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
 "kazakh-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти казахської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nҚазақша казахська (kk)\nҚазақша Кирил казахська, кирилиця (kk-cyrl)\nqazaqşa latin казахська, латинка (kk-latn)\nتوتە قازاقشا казахська, арабиця (kk-arab)";
@@ -1068,7 +1067,6 @@
 "talk-page-reply-button-accessibility-label" = "Відповісти $1";
 "talk-page-reply-depth-accessibility-label" = "Глибина відповіді: $1";
 "talk-page-reply-placeholder-format" = "Відповісти $1";
-"talk-page-reply-terms-and-licenses" = "Ваша відповідь буде автоматично підписана вашим іменем користувача. Зберігаючи зміни, ви погоджуєтеся з $1Умовами використання$2 і видаєте свій внесок згідно з ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
 "talk-page-revision-history" = "Історія редагувань";
 "talk-page-rply-close-button-accessibility-hint" = "Закрити вікно відповіді";
 "talk-page-share-button" = "Поділитися сторінкою обговорення";
@@ -1079,7 +1077,6 @@
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-close-button-hint" = "Закрити нову тему";
-"talk-page-topic-compose-terms-and-licenses" = "Публікуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та невідклично оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-subtitle" = "Ви більше не будете отримувати сповіщення про нові коментарі в цій темі.";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
@@ -1101,7 +1098,7 @@
 "talk-pages-topic-added-alert-title" = "Вашу тему додано";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Опис теми";
-"talk-pages-topic-compose-close-confirmation-discard" = "Скасувати відповідь";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Скасувати відповідь";
 "talk-pages-topic-compose-close-confirmation-title" = "Ви впевнені, що хочете скасувати цю нову тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Назва теми";
@@ -1243,5 +1240,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Редагування будуть приписані ІР-адресі вашого пристрою. Якщо ви $1авторизуєтеся$2, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі вашого пристрою. Якщо ви $1, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-sign-in" = "Увійти";
-"wikitext-upload-save-terms-and-licenses" = "Оприлюднюючи зміни, ви погоджуєтеся з $1Умовами використання$2 і з тим, що розміщуєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6. Ви також погоджуєтеся, що зазначене гіперпосилання чи URL задовольняє ліцензію Creative Commons.";
 "wikitext-upload-save-terms-name" = "Умови використання";
