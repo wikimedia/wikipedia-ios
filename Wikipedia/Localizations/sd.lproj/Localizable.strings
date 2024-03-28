@@ -483,7 +483,6 @@
 "insert-media-image-type-settings-title" = "عڪس قسم";
 "insert-media-media-settings-title" = "ميڊيا ترتيبون";
 "insert-media-title" = "ميڊيا وجھو";
-"insert-media-uploaded-image-title" = "عڪس چاڙھيو";
 "languages-settings-title" = "ٻوليون";
 "languages-title" = "ٻولي بدلايو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";
@@ -888,7 +887,6 @@
 "talk-page-reply-button-accessibility-label" = "$1 کي ورندي ڏيو";
 "talk-page-reply-depth-accessibility-label" = "ورنديءَ جي گَھِرائي: $1";
 "talk-page-reply-placeholder-format" = "$1 کي ورندي";
-"talk-page-reply-terms-and-licenses" = "ياد رھي تہ توھان جي ورنديءَ تي پاڻمرادو توھان جي واپرائيندڙنانءَ سان سھي ٿي ويندي. تبديليون سانڍڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ $3ڪڪ بو-سا 3.0$4 ۽ $5جي.ايفڊي.ايل$6 اجازتنامن ھيٺ پنھنجي ڀاڱيداري جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-revision-history" = "ورجاءَ سوانح";
 "talk-page-rply-close-button-accessibility-hint" = "ورنديءَ جو ڏيک بند ڪريو";
 "talk-page-share-button" = "بحث صفحو ونڊيو";
@@ -899,7 +897,6 @@
 "talk-page-title-article-talk" = "مضمون بحث";
 "talk-page-title-user-talk" = "واپرائيندڙ بحث";
 "talk-page-topic-close-button-hint" = "نئون موضوع بند ڪريو";
-"talk-page-topic-compose-terms-and-licenses" = "تبديليون ڇاپڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ بغير واپس ڪئي پنھنجي ڀاڱيداري $3سيسي بي.واءِ-ايس.اي 3.0$4 ۽ $5جي.ايفڊي.ايل$6 اجازتنامن ھيٺ جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-unsubscribe-to-topic" = "اڻسبسڪرائب ڪريو";
 "talk-page-unsubscribed-alert-subtitle" = "توھان کي ھن موضوع بابت نون تبصرن جا اطلاع نہ ڏنا ويندا.";
 "talk-page-unsubscribed-alert-title" = "توھان اڻسبسڪرائب ڪري ڇڏيو.";
@@ -919,7 +916,7 @@
 "talk-pages-topic-added-alert-title" = "توھان جو موضوع وڌو ويو";
 "talk-pages-topic-compose-body-placeholder" = "تشريح";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "موضوع جي تشريح";
-"talk-pages-topic-compose-close-confirmation-discard" = "ورندي رد ڪريو";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "ورندي رد ڪريو";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "موضوع جو عنوان";
 "talk-pages-topic-reply-onboarding-body" = "بحث صفحن تي ماڻھو ڳالھائيندا آهن تہ ڪيئن وڪيپيڊيا مواد کي بھترين طريقي سان ٺاهيو وڃي. وڪيپيڊينس جي برادريءَ سان ڳنڍجڻ ۽ تعاون ڪرڻ لاءِ هڪ نئون بحث موضوع شامل ڪري شروعات ڪريو.\n\nرحمدل رھو، ھتي پاڻ سڀ انسان آھيون.";
@@ -992,5 +989,4 @@
 "wikitext-upload-save-anonymously-or-login" = "سنوارون توھان جي ڊوائيس جي آئِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1داخل ٿيو$2 ٿا تہ توھان کي وڌيڪ نويڪلائي ھوندي.";
 "wikitext-upload-save-anonymously-warning" = "سنوارون توھان جي ڊوائيس جي آئپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-sign-in" = "داخل ٿيو";
-"wikitext-upload-save-terms-and-licenses" = "تبديليون ڇاپڻ سان توھان $1استعمال جي شرطن$2، ۽ بغير رد ڪئي پنھنجون ڀاڱيداريون $3سيسي بي.واءِ-ايس.اي$4 اجازتنامي ۽ $5جي.ايفڊي.ايل$6 ھيٺ جاري ڪرڻ لاءِ راضي آھيو. توھان راضي آھيو تہ ڪو ھائپرڳنڍڻو يا يوآرايل ڪريئيٽو ڪامنز اجازتنامي ھيٺ ڪافي انتساب آھي.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";

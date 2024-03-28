@@ -634,7 +634,6 @@
 "insert-media-image-type-settings-title" = "Bildetype";
 "insert-media-media-settings-title" = "Medieinnstillinger";
 "insert-media-title" = "Sett inn media";
-"insert-media-uploaded-image-title" = "Opplastet bilde";
 "inuktitut-variants-alert-body" = "Wikipedia-appen støtter nå følgende inuktitut-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut med stavelsesskrift (ike-cans)\nInuktitut ilisautik, inuktitut med latinsk skrift (ike-latn)";
 "inuktitut-variants-alert-title" = "Oppdateringer i støtte for inkutitut-varianter";
 "kazakh-variants-alert-body" = "Wikipedia-appen støtter nå følgende kasakhiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nҚазақша kasakhisk (kk)\nҚазақша Кирил kyrillisk kasakhisk (kk-cyrl)\nqazaqşa latin latinsk kasakhisk (kk-latn)\nتوتە قازاقشا arabisk kasakhisk (kk-arab)";
@@ -1127,7 +1126,6 @@
 "talk-page-reply-button-accessibility-label" = "Svar til $1";
 "talk-page-reply-depth-accessibility-label" = "Svardybde: $1";
 "talk-page-reply-placeholder-format" = "Gi et svar til $1";
-"talk-page-reply-terms-and-licenses" = "Merk at svaret ditt automatisk signeres med brukernavnet ditt. Ved å lagre endringene samtykker du i $1bruksvilkårene$2, og samtykker til å utgi bidraget ditt under lisensene $3CC-by-SA 3.0$4 og $5GFDL$6.";
 "talk-page-revision-history" = "Versjonshistorikk";
 "talk-page-rply-close-button-accessibility-hint" = "Lukk svarvisning";
 "talk-page-share-button" = "Del diskusjonsside";
@@ -1138,7 +1136,6 @@
 "talk-page-title-article-talk" = "Artikkeldiskusjon";
 "talk-page-title-user-talk" = "Brukerdiskusjon";
 "talk-page-topic-close-button-hint" = "Lukk nytt emne";
-"talk-page-topic-compose-terms-and-licenses" = "Ved å publisere endringene samtykker du til $1bruksvilkårene$2, og samtykker i å ugjenkallelig utgi bidraget ditt under lisensene $3CC-by-SA 3.0$4 og $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Avslutt abonnement";
 "talk-page-unsubscribed-alert-subtitle" = "Du vil ikke lenger motta varsler om nye kommentarer på dette emnet.";
 "talk-page-unsubscribed-alert-title" = "Du har avsluttet abonnementet.";
@@ -1161,7 +1158,7 @@
 "talk-pages-topic-added-alert-title" = "Emnet ditt ble lagt til";
 "talk-pages-topic-compose-body-placeholder" = "Beskrivelse";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Emnebeskrivelse";
-"talk-pages-topic-compose-close-confirmation-discard" = "Forkast svar";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Forkast svar";
 "talk-pages-topic-compose-close-confirmation-title" = "Er du sikker på at du vil forkaste dette nye emnet?";
 "talk-pages-topic-compose-navbar-title" = "Emne";
 "talk-pages-topic-compose-title-placeholder" = "Emnetittel";
@@ -1308,5 +1305,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 logger inn$2 vil du få bedre personvern.";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
 "wikitext-upload-save-sign-in" = "Logg inn";
-"wikitext-upload-save-terms-and-licenses" = "Ved å publisere enringer samtykker du ti $1brukeravtalen$2, og du går ugjenkallelig med på å legge ut ditt bidrag under lisensen $3CC BY-SA 3.0$4 og $5GFDL$6. Du samtykker til at en hyperlenke eller en URL er tilstrekkelig tilskrivende under lisensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";

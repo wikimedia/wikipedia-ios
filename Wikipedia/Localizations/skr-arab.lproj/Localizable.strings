@@ -224,12 +224,15 @@
 "icon-shortcut-random-title" = "پوکھواں مضمون";
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";
 "image-gallery-unknown-owner" = "نامعلوم مصنف";
+"image-recs-no-title" = "کو";
+"image-recs-yes-title" = "جیا";
 "import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وکیپیڈیا کنوں";
 "in-the-news-sub-title-from-wikipedia" = "وکیپیڈیا کنوں";
 "in-the-news-title" = "خبراں وچ";
 "insert-action-title" = "درج کرو";
 "insert-link-title" = "لنک پاؤ";
+"insert-media-add-image-details-title" = "تصویر تفصیلاں شامل کرو";
 "insert-media-caption-title" = "عنوان";
 "insert-media-image-position-setting-center" = "مرکز";
 "insert-media-image-position-setting-left" = "کھٻے";
@@ -248,7 +251,6 @@
 "insert-media-image-type-settings-title" = "تصویر قسم";
 "insert-media-media-settings-title" = "میڈیا ترتیباں";
 "insert-media-title" = "میڈیا پاؤ";
-"insert-media-uploaded-image-title" = "تصویر اپ لوڈ کرو";
 "languages-settings-title" = "زباناں";
 "languages-title" = "زبان وٹاؤ";
 "languages-wikipedia" = "وکی پیڈیا دی زباناں";
@@ -274,6 +276,7 @@
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-title" = "پاس ورڈ درج کرو";
+"next-action-title" = "اڳلا";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاعہ نامہ";
@@ -452,7 +455,7 @@
 "talk-pages-topic-added-alert-title" = "تہاݙا موضوع شامل تھیا ہائی";
 "talk-pages-topic-compose-body-placeholder" = "تفصیل";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "موضوع تفصیل";
-"talk-pages-topic-compose-close-confirmation-discard" = "جواب منسوخ کرو";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "جواب منسوخ کرو";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "موضوع عنوان";
 "talk-pages-topic-reply-onboarding-body" = "ڳالھ مہاڑ ورقے تے بھُوم ڳوجھی تے مواد کوں ممکن حد تائیں بہتر بݨاوݨ کیتے لوک بحث کریندے ہن۔ وکی پیڈیا برادری نال رل تے کم کرݨ تے رابطے کیتے  نواں بحث دا موضوع شامل کرݨ نال شروع کرو۔\nسوہݨا، مہربانی کرو، اتھ اساں سارے انسان ہیں۔";
