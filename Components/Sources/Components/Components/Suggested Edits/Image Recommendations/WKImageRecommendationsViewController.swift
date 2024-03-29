@@ -56,7 +56,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-       
     }
 
 	private func presentOnboardingIfNecessary() {

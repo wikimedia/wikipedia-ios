@@ -601,6 +601,16 @@
 "image-rec-onboarding-item-3-title" = "Licensed images";
 "image-rec-onboarding-learn-more-button" = "Learn more about suggested edits";
 "image-rec-onboarding-title" = "Add an image to an article";
+"image-rec-survey-instructions-1" = "Your answers improve future suggestions.";
+"image-rec-survey-instructions-2" = "Select one or more options";
+"image-rec-survey-option-1" = "Image is not relevant";
+"image-rec-survey-option-2" = "Not enough information to decide";
+"image-rec-survey-option-3" = "Image is offensive";
+"image-rec-survey-option-4" = "Image is low quality";
+"image-rec-survey-option-5" = "I don’t know this subject";
+"image-rec-survey-option-6" = "Other";
+"image-rec-survey-submit-button" = "Submit";
+"image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
 "image-recs-no-title" = "No";
