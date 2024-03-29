@@ -70,14 +70,27 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
-        case .imageRecommendations:
-            
+        case .imageRecommendations:            
             guard let appLanguage = dataStore.languageLinkController.appLanguage,
                   let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wkProject,
                   let imageRecDelegate = imageRecDelegate else {
                 return nil
             }
-            
+
+            let surveyLocalizedStrings = WKImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(
+                reason: WMFLocalizedString("image-rec-survey-title", value: "Reason", comment: "Title of the image recommendations survey view. Displayed in the navigation bar as title of view."),
+                cancel: CommonStrings.cancelActionTitle,
+                submit: WMFLocalizedString("image-rec-survey-submit-button", value: "Submit", comment: "Title of the image recommendations survey view submit button."),
+                improveSuggestions: WMFLocalizedString("image-rec-survey-instructions-1", value: "Your answers improve future suggestions.", comment: "Instructions displayed on the image recommendations survey view."),
+                selectOptions: WMFLocalizedString("image-rec-survey-instructions-2", value: "Select one or more options", comment: "Instructions displayed on the image recommendations survey view."),
+                imageNotRelevant: WMFLocalizedString("image-rec-survey-option-1", value: "Image is not relevant", comment: "Title of available option displayed on the image recommendations survey view."),
+                notEnoughInformation: WMFLocalizedString("image-rec-survey-option-2", value: "Not enough information to decide", comment: "Title of available option displayed on the image recommendations survey view."),
+                imageIsOffensive: WMFLocalizedString("image-rec-survey-option-3", value: "Image is offensive", comment: "Title of available option displayed on the image recommendations survey view."),
+                imageIsLowQuality: WMFLocalizedString("image-rec-survey-option-4", value: "Image is low quality", comment: "Title of available option displayed on the image recommendations survey view."),
+                dontKnowSubject: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."),
+                other: WMFLocalizedString("image-rec-survey-option-6", value: "Other", comment: "Title of available option displayed on the image recommendations survey view.")
+            )
+
             let contentLanguageCode = appLanguage.contentLanguageCode
             let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
             
@@ -96,7 +109,7 @@ extension WMFContentGroup {
                 learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn more about suggested edits", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
             )
 
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
 
             let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)

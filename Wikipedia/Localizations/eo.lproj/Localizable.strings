@@ -419,7 +419,6 @@
 "insert-media-image-type-settings-title" = "Tipo de bildo";
 "insert-media-media-settings-title" = "Agordoj pri aŭdvidaĵoj";
 "insert-media-title" = "Enigi aŭdvidaĵon";
-"insert-media-uploaded-image-title" = "Alŝutita bildo";
 "languages-settings-title" = "Lingvoj";
 "languages-title" = "Ŝanĝi lingvon";
 "languages-wikipedia" = "Vikipediaj lingvoj";
@@ -751,5 +750,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1Ensalutas$2, vi havos pli da privateco.";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
-"wikitext-upload-save-terms-and-licenses" = "Per publikigo de ŝanĝoj, vi konsentas al la $1Kondiĉoj de Uzo$2 kaj vi nemalfareble konsentas disponebligi vian kontribuaĵon sub la permesiloj $3CC BY-SA 3.0$4 (Permesilo de la Krea Komunaĵo Atribuite–Samkondiĉe 3.0) kaj $5GFDL$6 (Permesilo de GNU por Liberaj Dokumentoj). Vi konsentas ke hiperligilo aŭ URL estas sufiĉa atribuo laŭ la permesilo de Krea Komunaĵo.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";
