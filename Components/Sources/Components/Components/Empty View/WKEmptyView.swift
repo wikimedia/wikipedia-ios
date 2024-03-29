@@ -22,25 +22,29 @@ public struct WKEmptyView: View {
                 ScrollView {
                     VStack {
                         Spacer()
-                        Image(uiImage: viewModel.image)
-                            .frame(width: 132, height: 118)
+                        if let image = viewModel.image {
+                            Image(uiImage: image)
+                                .frame(width: 132, height: 118)
+                        }
                         Text(viewModel.localizedStrings.title)
                             .font(Font(WKFont.for(.boldBody)))
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.top], 12)
                             .padding([.bottom], 8)
                             .multilineTextAlignment(.center)
-                        if type == .filter {
-                            WKEmptyViewFilterView(delegate: delegate, viewModel: viewModel)
+                        if let attributedString = viewModel.filterString(localizedStrings: viewModel.localizedStrings),
+                           type == .filter {
+                            WKEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
                         } else {
                             Text(viewModel.localizedStrings.subtitle)
                                 .font(Font(WKFont.for(.footnote)))
                                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                                 .multilineTextAlignment(.center)
                         }
-                        if type == .noItems {
+                        if let buttonTitle = viewModel.localizedStrings.buttonTitle,
+                           type == .noItems {
                             let configuration = WKSmallButton.Configuration(style: .neutral)
-                            WKSmallButton(configuration: configuration, title: viewModel.localizedStrings.buttonTitle, action: delegate?.emptyViewDidTapSearch)
+                            WKSmallButton(configuration: configuration, title: buttonTitle, action: delegate?.emptyViewDidTapSearch)
                                 .padding([.leading, .trailing], 32)
                         }
                         Spacer()
@@ -61,13 +65,9 @@ struct WKEmptyViewFilterView: View {
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     weak var delegate: WKEmptyViewDelegate?
-    @ObservedObject var viewModel: WKEmptyViewModel
+    let attributedString: AttributedString
 
     var body: some View {
-
-        var attributedString: AttributedString {
-            return viewModel.filterString(localizedStrings: viewModel.localizedStrings)
-        }
         
         Text(attributedString)
             .font(Font(WKFont.for(.footnote)))
