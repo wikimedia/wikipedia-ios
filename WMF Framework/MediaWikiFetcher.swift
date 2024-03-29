@@ -18,6 +18,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
 
     public enum MediaWikiFetcherError: LocalizedError {
         case invalidRequest
+        case missingSelf
         case mediaWikiAPIResponseError(MediaWikiAPIDisplayError)
         
         public var errorDescription: String? {
@@ -86,13 +87,19 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         case (.PUT, .mediaWikiREST):
             if let tokenType = mediaWikiRequest.tokenType {
                 requestMediaWikiAPIAuthToken(for: url, type: tokenType.wmfTokenType) { [weak self] result in
+                    
+                    guard let self else {
+                        completion(.failure(MediaWikiFetcherError.missingSelf))
+                        return
+                    }
+                    
                     switch result {
                     case .success(let token):
                         
                         var tokenizedParams = request.parameters ?? [:]
                         tokenizedParams["token"] = token.value
                         
-                        self?.performPut(url: url, parameters: tokenizedParams, completion: completion)
+                        self.performPut(url: url, parameters: tokenizedParams, completion: completion)
 
                     case .failure(let error):
                         completion(.failure(error))
