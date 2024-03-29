@@ -537,6 +537,8 @@ public class CommonStrings: NSObject {
     public static let talkPageCloseConfirmationKeepEditing = WMFLocalizedString("talk-pages-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.")
     
     public static let findReplaceHeader = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
+    public static let emptyEditSummary = WMFLocalizedString("empty-edit-summary", value: "Empty edit summary", comment: "Label when looking at a particular article revision. Indicates that the user did not add a summary.")
 
     // Native page editor
 
@@ -634,8 +636,19 @@ public class CommonStrings: NSObject {
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
     
     @objc public static let suggestedEditsTitle = WMFLocalizedString("suggested-edits-title", value: "Suggested Edits", comment: "Title for the 'Suggested Edits' explore feed card")
-}
 
+    // Image recommendations
+
+    public static let addImageTitle = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+    public static let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+    public static let bottomSheetTitle =  WMFLocalizedString("image-rec-add-image-title", value: "Add this image?", comment: "title for the add image suggestion view")
+    public static let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
+    public static let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
+    public static let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
+   public static let learnMoreText = WMFLocalizedString("add-image-learn-more-text", value: "Learn more", comment: "Text for button on add image details for going to links with more information on topics related to images on Wikipedia")
+
+
+}
 // Language variant strings
 public extension CommonStrings {
 

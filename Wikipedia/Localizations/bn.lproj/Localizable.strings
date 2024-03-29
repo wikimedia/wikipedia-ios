@@ -167,6 +167,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
+"explore-suggested-edits-footer" = "যোগ করুন";
 "featured-widget-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
@@ -215,6 +216,7 @@
 "icon-shortcut-random-title" = "অজানা নিবন্ধ";
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";
 "image-gallery-unknown-owner" = "লেখক অজানা।";
+"image-rec-view-article" = "নিবন্ধ দেখুন";
 "import-shared-reading-list-survey-prompt-button-cancel" = "এখন না";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "জরিপে অংশ নিন";
 "import-shared-reading-list-survey-prompt-footer" = "আমাদের $1গোপনীয়তা বিবৃতি$2 দেখুন। সমীক্ষাটি তৃতীয় পক্ষ দ্বারা চালিত। তাদের $3গোপনীয়তা নীতি$4 দেখুন।";

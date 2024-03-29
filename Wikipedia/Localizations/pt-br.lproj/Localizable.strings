@@ -146,7 +146,6 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "add-citation-title" = "Adicionar citação";
-"additional-information-email-title" = "Informação adicional";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -548,7 +547,6 @@
 "insert-media-image-type-settings-title" = "Tipo de imagem";
 "insert-media-media-settings-title" = "Configurações de mídia";
 "insert-media-title" = "Inserir mídia";
-"insert-media-uploaded-image-title" = "Imagem carregada";
 "inuktitut-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes do Inuctitute como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuctitute silábico (ike-cans)\nInuktitut ilisautik, inuctitute latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
 "kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";
@@ -1036,7 +1034,6 @@
 "talk-page-reply-button-accessibility-label" = "Responder a $1";
 "talk-page-reply-depth-accessibility-label" = "Profundidade da resposta: $1";
 "talk-page-reply-placeholder-format" = "Responder a $1";
-"talk-page-reply-terms-and-licenses" = "Note que a sua resposta será assinada automaticamente com o seu nome de usuário. Ao salvar as mudanças, concorda com os $1termos de uso$2 e aceita publicar a sua contribuição nos termos das licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-revision-history" = "Histórico de revisão";
 "talk-page-rply-close-button-accessibility-hint" = "Fechar visualização de resposta";
 "talk-page-share-button" = "Compartilhar página de discussão";
@@ -1047,7 +1044,6 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
 "talk-page-topic-close-button-hint" = "Fechar novo tópico";
-"talk-page-topic-compose-terms-and-licenses" = "Ao salvar as mudanças você concorda com os $1termos de uso$2 e aceita de forma irrevogável publicar a sua contribuição nos termos das licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Cancelar inscrição";
 "talk-page-unsubscribed-alert-subtitle" = "Você não receberá mais notificações sobre novos comentários neste tópico";
 "talk-page-unsubscribed-alert-title" = "Cancelar inscrição.";
@@ -1069,7 +1065,7 @@
 "talk-pages-topic-added-alert-title" = "O seu tópico foi adicionado";
 "talk-pages-topic-compose-body-placeholder" = "Descrição";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descrição do tópico";
-"talk-pages-topic-compose-close-confirmation-discard" = "Descartar resposta";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Descartar resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Tem a certeza de que deseja descartar este tópico novo?";
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";
@@ -1098,28 +1094,11 @@
 "unknown-generic-text" = "Desconhecido";
 "uzbek-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes uzbeque como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\noʻzbekcha lotin Uzbek, Latino (uz-latin)\nўзбекча кирилл Uzbek, Cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações para o suporte da variante de usbeque";
-"vanish-account-additional-information-field" = "Informação adicional";
-"vanish-account-additional-information-placeholder" = "Opcional";
-"vanish-account-back-confirm-discard" = "Descartar pedido";
-"vanish-account-back-confirm-keep-editing" = "Continuar editando";
-"vanish-account-back-confirm-title" = "Tem a certeza de que deseja descartar este pedido de desaparecimento?";
-"vanish-account-bottom-text" = "A eliminação da conta na Wikipédia é feita mudando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, em um processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um desaparecimento de cortesia. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
-"vanish-account-bottom-text-with-link" = "A eliminação da conta na Wikipédia é feita alterando o nome da sua conta para que as outras pessoas não possam reconhecer as suas contribuições, num processo chamado desaparecimento da conta. Pode usar o formulário abaixo para pedir um $1desaparecimento de cortesia$2$3. O desaparecimento não garante o anonimato completo nem remove as contribuições para os projetos.";
-"vanish-account-button-text" = "Enviar pedido";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-description" = "Para iniciar o processo de desaparecimento, forneça o seguinte:";
-"vanish-account-email-text" = "Olá,\nEste pedido é para fazer desaparecer a minha conta da Wikipédia.";
 "vanish-account-learn-more-text" = "Saiba mais";
-"vanish-account-title" = "Processo de desaparecimento";
 "vanish-account-username-field" = "Nome de usuário e página de usuário";
 "vanish-account-warning-body" = "Desaparecer é um **último recurso** e deve **ser usado apenas quando você deseja parar de editar para sempre** e também para ocultar o máximo possível de suas associações anteriores.\n\nA exclusão da conta na Wikipédia é feita alterando o nome da sua conta para que outras pessoas não possam reconhecer suas contribuições em um processo chamado desaparecimento de conta. **O desaparecimento não garante o anonimato completo nem remove as contribuições aos projetos**.";
 "vanish-account-warning-title" = "Aviso";
-"vanish-modal-item" = "Se preencheu o seu pedido de desaparecimento, aguarde alguns dias para que o pedido seja processado por um administrador.";
-"vanish-modal-item-2" = "Se não tem a certeza se o seu pedido foi aprovado, verifique o seu aplicativo de e-mail.";
-"vanish-modal-item-3" = "Se você tiver mais perguntas sobre desaparecimento, visite Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Se tem dúvidas acerca do desaparecimento, por favor visite $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Pedido de desaparecimento";
-"vanishing-request-email-title" = "Pedido de desaparecimento de cortesia";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
 "watchlist-filter" = "Filtro";
@@ -1167,5 +1146,4 @@
 "wikitext-upload-save-anonymously-or-login" = "As edições serão atribuídas ao endereço IP do seu dispositivo. Se você $1entrar em$2, você terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-and-licenses" = "Ao publicar alterações, você concorda com os $1termos de uso$2 e concorda irrevogavelmente em liberar sua contribuição sob a Licença $3CC BY-SA 3.0$4 e a licença $5GFDL$6. Você concorda que um hiperlink ou URL é uma atribuição suficiente sob a licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termo de uso";

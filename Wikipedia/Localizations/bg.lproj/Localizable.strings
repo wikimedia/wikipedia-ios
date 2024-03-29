@@ -95,7 +95,6 @@
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
 "add-citation-title" = "Добавяне на цитат";
-"additional-information-email-title" = "Допълнителна информация";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -340,7 +339,6 @@
 "insert-media-image-type-settings-title" = "Тип на изображението";
 "insert-media-media-settings-title" = "Мултимедийни настройки";
 "insert-media-title" = "Вмъкване на медиен файл";
-"insert-media-uploaded-image-title" = "Качено изображение";
 "languages-settings-title" = "Езици";
 "languages-title" = "Промяна на езика";
 "languages-wikipedia" = "Езици на Уикипедия";
@@ -608,11 +606,6 @@
 "unable-to-load-talk-page-title" = "Страницата на беседата не може да бъде заредена";
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
-"vanish-account-additional-information-field" = "Допълнителна информация";
-"vanish-account-additional-information-placeholder" = "Незадължително";
-"vanish-account-back-confirm-discard" = "Отхвърляне на заявката";
-"vanish-account-back-confirm-keep-editing" = "Продължаване на редактирането";
-"vanish-account-button-text" = "Изпращане на заявка";
 "vanish-account-continue-button-title" = "Продължаване";
 "vanish-account-learn-more-text" = "Научете повече";
 "vanish-account-warning-title" = "Предупреждение";

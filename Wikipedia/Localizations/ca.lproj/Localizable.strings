@@ -132,7 +132,6 @@
 "action-update" = "Actualitza";
 "add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "add-citation-title" = "Afegeix una referència";
-"additional-information-email-title" = "Informació adicional";
 "announcements-dismiss" = "Descarta";
 "app-store-keywords" = "Wikipedia, Viquipèdia, referència, wiki, enciclopèdia, informació, coneixement, recerca, exploració, aprenentatge";
 "app-store-release-notes" = "Canal d'exploració plenament configurable i fàcil de llegir. Localització, millores de rendiment i correccions d'errades.";
@@ -561,7 +560,6 @@
 "insert-media-image-type-settings-title" = "Tipus d’imatge";
 "insert-media-media-settings-title" = "Configuració multimèdia";
 "insert-media-title" = "Insereix fitxer multimèdia";
-"insert-media-uploaded-image-title" = "Imatge carregada";
 "inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a llengües principals o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
 "inuktitut-variants-alert-title" = "Actualitzacions del suport a les variants Inuktitut";
 "kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
@@ -1053,7 +1051,6 @@
 "talk-page-reply-button-accessibility-label" = "Respon a $1";
 "talk-page-reply-depth-accessibility-label" = "Profunditat de resposta: $1";
 "talk-page-reply-placeholder-format" = "Resposta a $1";
-"talk-page-reply-terms-and-licenses" = "Tingueu en compte que la vostra resposta se signarà automàticament amb el vostre nom d'usuari. En desar els canvis accepteu les $1Condicions d'ús$2, i accepteu alliberar les contribucions sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-revision-history" = "Historial de revisions";
 "talk-page-rply-close-button-accessibility-hint" = "Tanca la vista de resposta";
 "talk-page-share-button" = "Comparteix la pàgina de discussió";
@@ -1064,7 +1061,6 @@
 "talk-page-title-article-talk" = "Discussió de l'article";
 "talk-page-title-user-talk" = "Discussió de l'usuari";
 "talk-page-topic-close-button-hint" = "Tanca el tema nou";
-"talk-page-topic-compose-terms-and-licenses" = "En publicar els canvis, esteu d'acord amb els $1Termes d'ús$2, i accepteu alliberar irrevocablement la vostra contribució sota les llicències $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Cancel·la la subscripció";
 "talk-page-unsubscribed-alert-subtitle" = "No rebreu cap més notificació de nous comentaris en aquest tema.";
 "talk-page-unsubscribed-alert-title" = "Heu cancel·lat la subscripció.";
@@ -1086,7 +1082,7 @@
 "talk-pages-topic-added-alert-title" = "S'ha afegit el vostre tema";
 "talk-pages-topic-compose-body-placeholder" = "Descripció";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descripció del tema";
-"talk-pages-topic-compose-close-confirmation-discard" = "Descarta la resposta";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Descarta la resposta";
 "talk-pages-topic-compose-close-confirmation-title" = "Esteu segur que voleu descartar aquest nou tema?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Títol del tema";
@@ -1117,28 +1113,11 @@
 "user-title" = "Usuari";
 "uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
-"vanish-account-additional-information-field" = "Informació adicional";
-"vanish-account-additional-information-placeholder" = "Opcional";
-"vanish-account-back-confirm-discard" = "Descarta la sol·licitud";
-"vanish-account-back-confirm-keep-editing" = "Continua l'edició";
-"vanish-account-back-confirm-title" = "Esteu segur que voleu descartar aquesta sol·licitud de desaparició?";
-"vanish-account-bottom-text" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una desaparició de cortesia. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
-"vanish-account-bottom-text-with-link" = "La supressió del compte de la Viquipèdia es fa canviant el nom del vostre compte per tal que altres no puguin reconèixer les vostres contribucions mitjançant un procés anomenat «desaparició del compte». Podeu utilitzar el formulari de sota per a sol·licitar una $1desaparició de cortesia$2$3. La desaparició no garanteix el complet anonimat ni tampoc suprimir les contribucions dels projectes.";
-"vanish-account-button-text" = "Envia la sol·licitud";
 "vanish-account-continue-button-title" = "Continua";
-"vanish-account-description" = "Per a iniciar el procés de desaparició, proporcioneu el següent:";
-"vanish-account-email-text" = "Hola,\naquesta és una sol·licitud per a fer desaparèixer el meu compte de Viquipèdia.";
 "vanish-account-learn-more-text" = "Més informació";
-"vanish-account-title" = "Procés de desaparició";
 "vanish-account-username-field" = "Nom d'usuari i pàgina d'usuari";
 "vanish-account-warning-body" = "La desaparició és un **darrer recurs** i s'hauria **d'emprar només quan voleu deixar d'editar per sempre més** i amagar el màxim d'associacions passades que sigui possible.\n\nLa supressió de comptes de la Viquipèdia es fa canviant el nom del compte per tal que altres no puguin reconèixer-ne les contribucions en un procés que s'anomena «desaparició del compte». **La desaparició no garanteix un anonimat complet ni eliminar les contribucions fetes als projectes**.";
 "vanish-account-warning-title" = "Avís";
-"vanish-modal-item" = "Si heu completat la vostra sol·licitud de desaparició, espereu un parell de dies perquè un administrador la pugui processar.";
-"vanish-modal-item-2" = "Si no esteu segur de si la vostra sol·licitud ha anat endavant, comproveu-ho des de la vostra aplicació de correu";
-"vanish-modal-item-3" = "Si teniu cap més pregunta sobre el procés de desaparició, visiteu Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Si teniu cap més pregunta sobre el procés de desaparició, visiteu $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Sol·licitud de desaparició";
-"vanishing-request-email-title" = "Sol·licitud de desaparició de cortesia";
 "variants-alert-dismiss-button" = "No, gràcies";
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
 "watch" = "Vigila";
@@ -1246,5 +1225,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Les edicions s'atribuiran a la adreça IP del vostre dispositiu. Si $1inicieu una sessió$2, tindreu més privadesa.";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
-"wikitext-upload-save-terms-and-licenses" = "En publicar els canvis, esteu d'acord amb els $1Termes d'ús$2, i esteu d'acord en alliberar irrevocablement les vostres contribucions sota la llicència $3CC BY-SA 3.0$4 i la $5GFDL$6. Esteu d'acord en què un hiperenllaç o un URL és atribució suficicient sota la llicència Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";

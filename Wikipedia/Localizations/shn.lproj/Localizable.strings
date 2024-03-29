@@ -420,7 +420,6 @@
 "insert-media-image-type-settings-title" = "မဵဝ်းၶႅပ်းႁၢင်ႈ";
 "insert-media-media-settings-title" = "ၵၢၼ်တင်ႈသိုဝ်ႇ";
 "insert-media-title" = "ၸိမ်သႂ်ႇသိုဝ်ႇ";
-"insert-media-uploaded-image-title" = "ၶႅပ်းႁၢင်ႇဢၼ်လူတ်ႇၶိုၼ်ႈဝႆႉ";
 "languages-settings-title" = "ၽႃႇသႃႇၵႂၢမ်း";
 "languages-title" = "လႅၵ်ႈလၢႆႈ ၽႃႇသႃႇၵႂၢမ်း";
 "languages-wikipedia" = "ၽႃႇသႃႇၵႂၢမ်း ဝီႇၶီႇၽီးတီးယႃး";
@@ -742,5 +741,4 @@
 "wikitext-upload-save-anonymously-or-login" = "လွင်ႈမႄးထတ်းၼႆႉ တေမၢႆဢဝ် ႁဵင်းၵွင်ႉဢၢႆႇၽီႇၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႈၸဝ်ႈၵဝ်ႇ  ၶဝ်ႈ $1လွၵ်ႉဢိၼ်ႇ$2 ၼႆ ၸဝ်ႈၵဝ်ႇတေတိူဝ်းမီးလွင်ႈႁူမ်ႈလူမ်ႈသုၼ်တူဝ်။";
 "wikitext-upload-save-anonymously-warning" = "လွင်ႈမႄးထတ်း တေမၢႆဢဝ် ႁဵင်းလိၵ်ႈဢၢႆႇၽီႇ ၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႉဝႃႈ ၸဝ်ႈၵဝ်ႇ $1 ၸဝ်ႈၵဝ်ႇ တေမီးပၢႆးႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လိူဝ်။";
 "wikitext-upload-save-sign-in" = "လွၵ်ႉဢိၼ်ႇ";
-"wikitext-upload-save-terms-and-licenses" = "ယွၼ်ႉပိုၼ်ဢွၵ်ႇ ၸိူဝ်းလႅၵ်ႈလၢႆႈသေ ၸဝ်ႈၵဝ်ႇ ၽွမ်ႉၸႂ်ၸွမ်း $1Terms of Use$2 သေ ၽွမ်ႉၸႂ်ႉတႃႇပိုၼ်ဢွၵ်ႇ လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵဝ်ႇ ၽၢႆႇတႂ်ႈ ဝႂ်ၶႂၢင်း  $3CC BY-SA 3.0$4  လႄႈ $5GFDL$6။ ၸဝ်ႈၵဝ်ႇၽွမ်ႉၸႂ်ဝႃႈ hyperlink ဢမ်ႇၼၼ် URL ၼၼ်ႉ လွင်ႈၶဝ်ႈႁူမ်ႈမၼ်း ၵုမ်ႇထူၼ်ႈၸွမ်းၼင်ႇ ၽၢႆႇတႂ်ႈ ဝႂ်ၶႂၢင်း လွင်ႈၵေႃႇသၢင်ႈၽုင်ႇ။";
 "wikitext-upload-save-terms-name" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";

@@ -140,7 +140,6 @@
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "add-citation-title" = "Lisää viittaus";
-"additional-information-email-title" = "Lisätiedot";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -236,6 +235,8 @@
 "diff-compare-header-heading" = "Versioiden vertailu";
 "diff-compare-header-to-info-heading" = "Näkyvä muokkaus";
 "diff-compare-title" = "Versioiden vertailu";
+"diff-context-cell-collapse-section" = "Tiivistä $1";
+"diff-context-cell-expand-section" = "Laajenna $1";
 "diff-context-lines-collapsed-button-title" = "Näytä";
 "diff-context-lines-expanded-button-title" = "Piilota";
 "diff-header-revision-accessibility-text" = "Versio, joka on tehty";
@@ -277,6 +278,7 @@
 "donate-help-other-ways-to-give" = "Muut tavat antaa";
 "donate-help-problems-donating" = "Ongelmia lahjoittamisessa?";
 "donate-help-tax-deductibility-information" = "Verovähennystiedot";
+"donate-later-title" = "Muistutamme sinua jälleen huomenna.";
 "donate-minimum-error-text" = "Valitse summa (vähintään $1 $2).";
 "donate-monthly-recurring-text" = "Tee tästä kuukausittainen toistuva lahjoitus.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Lahjoita Apple Paylla";
@@ -551,6 +553,10 @@
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
+"image-rec-title" = "Lisää kuva";
+"image-rec-view-article" = "Näytä artikkeli";
+"image-recs-no-title" = "Ei";
+"image-recs-yes-title" = "Kyllä";
 "import-shared-reading-list-default-title" = "Oma lukulista";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Vastaa kyselyyn";
@@ -587,7 +593,6 @@
 "insert-media-image-type-settings-title" = "Kuvan tyyppi";
 "insert-media-media-settings-title" = "Media-asetukset";
 "insert-media-title" = "Lisää media";
-"insert-media-uploaded-image-title" = "Tallennettu kuva";
 "inuktitut-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia inuktitut-muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, tavumerkistö (ike-cans)\nInuktitut ilisautik, Inuktitut, latinalaiset aakkoset (ike-latn)";
 "inuktitut-variants-alert-title" = "Päivitykset Inuktitut-varianttien tukeen";
 "kazakh-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kazakin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, kyrillinen kirjaimisto (kk-cyrl)\nqazaqşa latina kazakstani, latinalainen kirjaimisto (kk-latn)\nتوتە قازاقشا Kazakh, arabialainen kirjaimisto (kk-arab)";
@@ -1046,7 +1051,6 @@
 "talk-page-reply-button" = "Vastaa";
 "talk-page-reply-button-accessibility-label" = "Vastaa käyttäjälle $1";
 "talk-page-reply-placeholder-format" = "Vastaa käyttäjälle $1";
-"talk-page-reply-terms-and-licenses" = "Huomaa, että vastauksesi allekirjoitetaan automaattisesti käyttäjänimelläsi. Tallentamalla muutokset hyväksyt $1käyttöehdot$2 ja suostut julkaisemaan muutoksesi $3CC BY-SA 3.0$4- ja $5GFDL$6-lisensseillä.";
 "talk-page-revision-history" = "Muutoshistoria";
 "talk-page-rply-close-button-accessibility-hint" = "Sulje vastausnäkymä";
 "talk-page-share-button" = "Jaa keskustelusivu";
@@ -1057,7 +1061,6 @@
 "talk-page-title-article-talk" = "Artikkelikeskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "talk-page-topic-close-button-hint" = "Sulje uusi aihe";
-"talk-page-topic-compose-terms-and-licenses" = "Julkaisemalla hyväksyt $1Käyttöehdot$2 sekä kirjoituksen julkaisemisen $3CC BY-SA 3.0$4 ja $5GFDL$6 -lisensseillä.";
 "talk-page-unsubscribe-to-topic" = "Peruuta tilaus";
 "talk-page-unsubscribed-alert-subtitle" = "Et saa enää ilmoituksia uusista tämän aiheen kommenteista.";
 "talk-page-unsubscribed-alert-title" = "Olet peruuttanut tilauksen.";
@@ -1080,7 +1083,7 @@
 "talk-pages-topic-added-alert-title" = "Aiheesi lisättiin";
 "talk-pages-topic-compose-body-placeholder" = "Kuvaus";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Aiheen kuvaus";
-"talk-pages-topic-compose-close-confirmation-discard" = "Hylkää vastaus";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Hylkää vastaus";
 "talk-pages-topic-compose-close-confirmation-title" = "Haluatko varmasti hylätä tämän uuden aiheen?";
 "talk-pages-topic-compose-navbar-title" = "Aihe";
 "talk-pages-topic-compose-title-placeholder" = "Otsikko";
@@ -1108,11 +1111,6 @@
 "unknown-generic-text" = "Tuntematon";
 "unwatch" = "Lopeta tarkkailu";
 "user-title" = "Käyttäjä";
-"vanish-account-additional-information-field" = "Lisätiedot";
-"vanish-account-additional-information-placeholder" = "Valinnainen";
-"vanish-account-back-confirm-discard" = "Hylkää pyyntö";
-"vanish-account-back-confirm-keep-editing" = "Jatka muokkaamista";
-"vanish-account-button-text" = "Lähetä pyyntö";
 "vanish-account-continue-button-title" = "Jatka";
 "vanish-account-learn-more-text" = "Lue lisää";
 "vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
@@ -1204,5 +1202,4 @@
 "wikitext-upload-save-anonymously-or-login" = "IP-osoitteesi tallentuu muutoshistoriaan. $1Kirjautumalla sisään$2 parannat yksityisyyttäsi.";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-"wikitext-upload-save-terms-and-licenses" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 3.0$4 -lisenssillä sekä $5GFDL$6-ehdot. Hyväksyt, että linkki on riittävä lisenssiehtojen esittämistapa.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";

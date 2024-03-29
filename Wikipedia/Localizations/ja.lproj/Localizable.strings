@@ -158,7 +158,6 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
 "add-citation-title" = "引用を追加";
-"additional-information-email-title" = "追加情報";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "探索フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -584,7 +583,6 @@
 "insert-media-image-type-settings-title" = "画像の種類";
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
-"insert-media-uploaded-image-title" = "アップロード済み画像";
 "kurdish-variants-alert-title" = "クルド語言語変種サポートの更新";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
@@ -1041,7 +1039,6 @@
 "talk-page-reply-button-accessibility-label" = "$1に返信";
 "talk-page-reply-depth-accessibility-label" = "返信のインデントの深さ：$1";
 "talk-page-reply-placeholder-format" = "「$1」への返信";
-"talk-page-reply-terms-and-licenses" = "留意点として、返信は自動で利用者名を付け加えます。変更点の保存は、利用規約$1Terms of Use$2を承認し、また投稿はライセンス条件 $3CC BY-SA 3.0$4 ならびに $5GFDL$6 の元で公開することに同意したことになります。";
 "talk-page-revision-history" = "変更履歴";
 "talk-page-rply-close-button-accessibility-hint" = "返信の表示を閉じる";
 "talk-page-share-button" = "トークページを共有";
@@ -1064,7 +1061,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "この新しい返信を破棄してもよろしいですか?";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
-"talk-pages-topic-compose-close-confirmation-discard" = "返信を破棄";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "返信を破棄";
 "talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
 "talk-pages-topic-compose-navbar-title" = "トピック";
 "talk-pages-topic-compose-title-placeholder" = "トピック名";
@@ -1092,28 +1089,11 @@
 "user-title" = "利用者";
 "uzbek-variants-alert-body" = "ウィキペディアのアプリでは以下のウズベク諸語の変種を第1もしくは第2言語として表示できるようになり、個人設定で指定した言語変種の閲覧、検索、編集がしやすくなりました。\n\nウズベク語ラテン表記（oʻzbekcha lotin Uzbek）、Latin（uz-cyrl）\nウズベク語キリル表記（ўзбекча кирилл）、Uzbek, Cyrillic（uz-cyrl）";
 "uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
-"vanish-account-additional-information-field" = "追加情報";
-"vanish-account-additional-information-placeholder" = "省略可能";
-"vanish-account-back-confirm-discard" = "リクエストを破棄";
-"vanish-account-back-confirm-keep-editing" = "編集を続行";
-"vanish-account-back-confirm-title" = "本当にこの削除リクエストを破棄してもよろしいですか？";
-"vanish-account-bottom-text" = "ウィキペディアでのアカウントの削除は、アカウントの消滅と呼ばれるプロセスで、他の人があなたの投稿を認識できないようアカウント名を変更することによって行われます。以下のフォームを使用して、アカウント削除をリクエストできます。 アカウントの削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-bottom-text-with-link" = "ウィキペディアでのアカウントの削除は、アカウント削除と呼ばれるプロセスにより、他の人があなたの投稿を認識できないようにアカウント名を変更することによって行われます。以下のフォームを使用して、 $1アカウントの削除$2 $3をリクエストできます。 削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-button-text" = "リクエストを送信";
 "vanish-account-continue-button-title" = "続行";
-"vanish-account-description" = "秘匿化の手順を始めるには、次の情報を提供してください。";
-"vanish-account-email-text" = "こんにちは、\n これは、私の Wikipedia アカウントを削除するためのリクエストです。";
 "vanish-account-learn-more-text" = "もっと詳しく";
-"vanish-account-title" = "アカウント削除プロセス";
 "vanish-account-username-field" = "利用者名と利用者ページ";
 "vanish-account-warning-body" = "アカウントの削除は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nWikipedia のアカウント削除が完了しました。アカウント名を変更して、アカウント削除と呼ばれるプロセスで他の人があなたの貢献を認識できないようにします。 **削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
 "vanish-account-warning-title" = "警告";
-"vanish-modal-item" = "削除依頼を出してから、管理者によって処理されるまで数日かかります。";
-"vanish-modal-item-2" = "リクエストが完了したかどうか不明な場合は、メール アプリを確認してください";
-"vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
-"vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
-"vanish-modal-title" = "アカウント削除リクエスト";
-"vanishing-request-email-title" = "秘匿化を申請する";
 "variants-alert-dismiss-button" = "いいえ";
 "variants-alert-preferences-button" = "設定を確認する";
 "watch" = "ウォッチ";
@@ -1221,5 +1201,4 @@
 "wikitext-upload-save-anonymously-or-login" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1ログイン$2すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
-"wikitext-upload-save-terms-and-licenses" = "変更を公開することにより、あなたは$1使用規約$2に同意し、かつあなたの貢献を非可逆的に$3CC BY-SA 3.0$4ライセンスと$5GFDL$6のもとで公開することに同意したことになります。あなたはCreative Commonsライセンスに基づき、ハイパーリンクまたはURLを十分な継承とすることに同意します。";
 "wikitext-upload-save-terms-name" = "利用規約";

@@ -115,7 +115,6 @@
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
 "add-citation-title" = "Dodaj referencu";
-"additional-information-email-title" = "Dodatne informacije";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedia, reference, wiki, enciklopedija, info, znanje, istraživanje, informacije, učenje";
 "app-store-release-notes" = "Poptuno prilagodljiva i lakša za čitanje stranica Istraži. Lokalizacija, poboljšanja performansi i ispravke programskih greški.";
@@ -511,7 +510,6 @@
 "insert-media-image-type-settings-title" = "Vrsta slike";
 "insert-media-media-settings-title" = "Postavke medija";
 "insert-media-title" = "Umetnite medij";
-"insert-media-uploaded-image-title" = "Postavljena slika";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante inuktitut jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, slogovi (ike-cans)\nInuktitut ilisautik, inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Ažuriranja podrške za varijantu inuktitut jezika";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante kazaškog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nҚазақша kazaški (kk)\nҚазақша Кирил kazaški, ćirilica (kk-cyrl)\nqazaqşa latin kazaški, latinica (kk-latn)\nتوتە قازاقشا kazaški, arapski (kk-arab)";
@@ -1013,5 +1011,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako se $1Prijavite$2, imat ćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Objavljivanjem izmjena prihvatate $1uslove korištenja$2 i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $3CC BY-SA 3.0$4 i $5GFDL$6. Slažete se da je hyperlink ili URL dovoljna atribucija pod Creative Commons licencom.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";

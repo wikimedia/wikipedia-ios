@@ -12,6 +12,7 @@ public enum WKFont {
     case italicsBody
     case boldItalicsBody
     case smallBody
+    case smallItalicsBody
     case callout
     case boldCallout
     case italicsCallout
@@ -32,7 +33,7 @@ public enum WKFont {
     case italicsGeorgiaHeadline
     case boldItalicsGeorgiaHeadline
 
-    static func `for`(_ font: WKFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIFont {
+    public static func `for`(_ font: WKFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIFont {
         switch font {
         case .headline:
             return UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
@@ -67,6 +68,13 @@ public enum WKFont {
             return UIFont(descriptor: descriptor, size: 0)
         case .smallBody:
             return UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .regular))
+        case .smallItalicsBody:
+            let baseFont = WKFont.for(.smallBody)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            
+            return baseFont
         case .callout:
             return UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
         case .boldCallout:

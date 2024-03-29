@@ -115,7 +115,6 @@
 "action-update" = "Posodobi";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članek|$1 članka|$1 članke|$1 člankov}} na bralni seznam";
 "add-citation-title" = "Dodaj citiranje";
-"additional-information-email-title" = "Dodatne informacije";
 "announcements-dismiss" = "Opusti";
 "app-store-keywords" = "Wikipedija, referenca, viki, enciklopedija, info, znanje, raziskovanje, informacije, odkrivanje, učenje";
 "app-store-release-notes" = "Popolnoma prilagodljiv in za branje preprostejši vir Razišči. Lokalizacija, izboljšave delovanja in popravki napak.";
@@ -583,6 +582,8 @@
 "icon-shortcut-random-title" = "Naključni članek";
 "icon-shortcut-search-title" = "Išči v Wikipediji";
 "image-gallery-unknown-owner" = "Neznan avtor.";
+"image-rec-title" = "Dodaj sliko";
+"image-rec-view-article" = "Ogled članka";
 "import-shared-reading-list-default-title" = "Moj bralni seznam";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ne zdaj";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
@@ -619,7 +620,6 @@
 "insert-media-image-type-settings-title" = "Vrsta slike";
 "insert-media-media-settings-title" = "Nastavitve predstavnosti";
 "insert-media-title" = "Vstavi predstavnost";
-"insert-media-uploaded-image-title" = "Naložite sliko";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednji različici inuktituta kot osnovni ali sekundarno jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut, zlogovno (ike-cans)\nInuktitut ilisautik – inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Posodobitve podpore za inuktitutske različice";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice kazaščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nҚазақша – kazaščina (kk)\nҚазақша Кирил – kazaščina, cirilica (kk-cyrl)\nqazaqşa latinica — kazaščina, latinica (kk-latn)\nتوتە قازاقشا – kazaščina, arabska pisava (kk-arab)";
@@ -1112,7 +1112,6 @@
 "talk-page-reply-button-accessibility-label" = "Odgovori uporabniku_ci $1";
 "talk-page-reply-depth-accessibility-label" = "Globina odgovora: $1";
 "talk-page-reply-placeholder-format" = "Odgovori uporabniku_ci $1";
-"talk-page-reply-terms-and-licenses" = "Upoštevajte, da bo vaš odgovor samodejno podpisan z vašim uporabniškim imenom. S shranitvijo sprememb izražate strinjanje s $1Pogoji uporabe$2 in privoljujete v objavo vašega prispevka pod licencama $3CC BY-SA 3.0$4 in $5GFDL$6.";
 "talk-page-revision-history" = "Zgodovina redakcij";
 "talk-page-rply-close-button-accessibility-hint" = "Zapri pogled odgovora";
 "talk-page-share-button" = "Deli pogovorno stran";
@@ -1123,7 +1122,6 @@
 "talk-page-title-article-talk" = "Pogovor o članku";
 "talk-page-title-user-talk" = "Uporabniški pogovor";
 "talk-page-topic-close-button-hint" = "Zapri novo temo";
-"talk-page-topic-compose-terms-and-licenses" = "Z objavo sprememb se strinjate s pogoji uporabe $1Terms of use$2 in se nepreklicno strinjate, da je vaš prispevek prosto na voljo pod licenco $3CC BY-SA 3.0 License$4 in $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Odnaroči";
 "talk-page-unsubscribed-alert-subtitle" = "O novih komentarjih pri tej temi ne boste več prejemali obvestil.";
 "talk-page-unsubscribed-alert-title" = "Odnaročeni ste.";
@@ -1146,7 +1144,7 @@
 "talk-pages-topic-added-alert-title" = "Vaša tema je dodana";
 "talk-pages-topic-compose-body-placeholder" = "Opis";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Opis teme";
-"talk-pages-topic-compose-close-confirmation-discard" = "Zavrzi odgovor";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Zavrzi odgovor";
 "talk-pages-topic-compose-close-confirmation-title" = "Ali res želite zavreči to novo temo?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Naslov teme";
@@ -1178,28 +1176,11 @@
 "user-title" = "Uporabnik";
 "uzbek-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednji različici uzbeščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\noʻzbekcha lotin – uzbeščina, latinica (uz-latin)\nўзбекча кирилл – uzbeščina, cirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Posodobitve podpore za uzbeške različice";
-"vanish-account-additional-information-field" = "Dodatne informacije";
-"vanish-account-additional-information-placeholder" = "Izbirno";
-"vanish-account-back-confirm-discard" = "Zavrzi zahtevek";
-"vanish-account-back-confirm-keep-editing" = "Nadaljnje urejanje";
-"vanish-account-back-confirm-title" = "Ali res želite zavreči to zahtevo za izginotje?";
-"vanish-account-bottom-text" = "Izbris računa v Wikipediji se izvede s spremembo imena vašega računa, da drugi ne morejo prepoznati vaših prispevkov, v postopku, imenovanem izginotje računa. S spodnjim obrazcem lahko zaprosite za uslugo izgnotja. Izginotje ne zagotavlja popolne anonimnosti in ne odstrani prispevkov k projektom.";
-"vanish-account-bottom-text-with-link" = "Izbris računa v Wikipediji se izvede tako, da se spremeni ime vašega računa, tako da drugi ne morejo prepoznati vaših prispevkov, v postopku, imenovanem izginotje računa. S spodnjim obrazcem lahko zaprosite za $1uslugo izginotja$2$3. Izginotje ne zagotavlja popolne anonimnosti in ne odstrani prispevkov k projektom.";
-"vanish-account-button-text" = "Pošlji zahtevek";
 "vanish-account-continue-button-title" = "Nadaljuj";
-"vanish-account-description" = "Za začetek postopka izginotja navedite naslednje:";
-"vanish-account-email-text" = "Pozdravljeni,\n\nto je prošnja za izbris mojega računa v Wikipediji.";
 "vanish-account-learn-more-text" = "Več o tem";
-"vanish-account-title" = "Postopek izginotja";
 "vanish-account-username-field" = "Uporabniško ime in uporabniška stran";
 "vanish-account-warning-body" = "Izginotje je **skrajni ukrep** in ga **uporabite le, če želite za vedno prenehati z urejanjem** in tudi, da skrijete čim več svojih preteklih povezav.\n\nIzbris računa v Wikipediji se v postopku, imenovanem izginotje računa, opravi tako, da spremenite ime svojega računa, da drugi ne morejo prepoznati vaših prispevkov. **Izginotje ne zagotavlja popolne anonimnosti ali odstranitve prispevkov k projektom**.";
 "vanish-account-warning-title" = "Opozorilo";
-"vanish-modal-item" = "Če ste svoj zahtevek za izginotje izpolnili, počakajte nekaj dni, da ga obdela administrator.";
-"vanish-modal-item-2" = "Če niste prepričani, ali je vaša prošnja uspela, preverite svojo e-poštno aplikacijo.";
-"vanish-modal-item-3" = "Če imate o izginotju še kakšno vprašanje, obiščite stran Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Če imate o izginotju še kakšno vprašanje, obiščite stran $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Zahtevek za izginotje";
-"vanishing-request-email-title" = "Prošnja za uslugo izginotja";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Preglejte svoje nastavitve";
 "watch" = "Opazuj";
@@ -1310,5 +1291,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Urejanja bodo pripisana IP-naslovu vaše naprave. Več zasebnosti boste imeli, če se boste $1prijavili$2.";
 "wikitext-upload-save-anonymously-warning" = "Urejanja bodo pripisana naslovu IP-naslovu vaše naprave. Če boste izbrali $1, boste imeli več zasebnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";

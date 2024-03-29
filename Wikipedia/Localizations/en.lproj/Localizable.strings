@@ -106,6 +106,7 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "add-citation-title" = "Add citation";
+"add-image-learn-more-text" = "Learn more";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -339,7 +340,7 @@
 "edit-underline-remove-accessibility-label" = "Remove underline";
 "edit-unordered-list-accessibility-label" = "Make current line unordered list";
 "edit-unordered-list-remove-accessibility-label" = "Remove unordered list from current line";
-"edit-watch-list-learn-more-text" = "Learn more about watch lists";
+"edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
 "editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";
 "editing-welcome-be-bold-title" = "Your voice is important";
@@ -413,6 +414,7 @@
 "editor-wikitext-textview-accessibility" = "Wiki text editor";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
+"empty-edit-summary" = "Empty edit summary";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-feed-action-message" = "You can still read saved pages";
@@ -518,6 +520,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
 "explore-suggested-edits-footer" = "Add";
+"explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
+"explore-suggested-edits-image-recs-title" = "Add an image";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
@@ -588,8 +592,30 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
+"image-rec-add-image-title" = "Add this image?";
+"image-rec-onboarding-item-1-body" = "Decide if a suggested image should be placed in a Wikipedia article.";
+"image-rec-onboarding-item-1-title" = "View a suggestion";
+"image-rec-onboarding-item-2-body" = "Suggestions are machine generated and you will use your judgment to decide whether to accept or reject them.";
+"image-rec-onboarding-item-2-title" = "Accept or reject an image";
+"image-rec-onboarding-item-3-body" = "Images are from Wikimedia Commons, a collection of freely licensed images used by Wikipedia.";
+"image-rec-onboarding-item-3-title" = "Licensed images";
+"image-rec-onboarding-learn-more-button" = "Learn more about suggested edits";
+"image-rec-onboarding-title" = "Add an image to an article";
+"image-rec-survey-instructions-1" = "Your answers improve future suggestions.";
+"image-rec-survey-instructions-2" = "Select one or more options";
+"image-rec-survey-option-1" = "Image is not relevant";
+"image-rec-survey-option-2" = "Not enough information to decide";
+"image-rec-survey-option-3" = "Image is offensive";
+"image-rec-survey-option-4" = "Image is low quality";
+"image-rec-survey-option-5" = "I don’t know this subject";
+"image-rec-survey-option-6" = "Other";
+"image-rec-survey-submit-button" = "Submit";
+"image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
+"image-recs-no-title" = "No";
+"image-recs-not-sure-title" = "Not sure";
+"image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
@@ -602,6 +628,7 @@
 "in-the-news-title" = "In the news";
 "insert-action-title" = "Insert";
 "insert-link-title" = "Insert link";
+"insert-media-add-image-details-title" = "Add image details";
 "insert-media-alternative-text-description" = "Text description for readers who cannot see the image";
 "insert-media-alternative-text-placeholder" = "Describe this image";
 "insert-media-alternative-text-title" = "Alternative text";
@@ -626,7 +653,6 @@
 "insert-media-image-type-settings-title" = "Image type";
 "insert-media-media-settings-title" = "Media settings";
 "insert-media-title" = "Insert media";
-"insert-media-uploaded-image-title" = "Uploaded image";
 "inuktitut-variants-alert-body" = "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Updates to Inuktitut variant support";
 "kazakh-variants-alert-body" = "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -670,6 +696,7 @@
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
+"next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
@@ -1120,7 +1147,7 @@
 "talk-page-reply-button-accessibility-label" = "Reply to $1";
 "talk-page-reply-depth-accessibility-label" = "Reply depth: $1";
 "talk-page-reply-placeholder-format" = "Reply to $1";
-"talk-page-reply-terms-and-licenses" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 3.0$4 and the $5GFDL$6 licenses.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Note your reply will be automatically signed with your username. By saving changes, you agree to the $1Terms of Use$2, and agree to release your contribution under the $3CC BY-SA 4.0$4 and the $5GFDL$6 licenses.";
 "talk-page-revision-history" = "Revision history";
 "talk-page-rply-close-button-accessibility-hint" = "Close reply view";
 "talk-page-share-button" = "Share talk page";
@@ -1131,7 +1158,7 @@
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
 "talk-page-topic-close-button-hint" = "Close new topic";
-"talk-page-topic-compose-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0 License$4 and the $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0 License$4 and the $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-page-unsubscribed-alert-subtitle" = "You will no longer receive notifications about new comments in this topic.";
 "talk-page-unsubscribed-alert-title" = "You have unsubscribed.";
@@ -1154,7 +1181,8 @@
 "talk-pages-topic-added-alert-title" = "Your topic was added";
 "talk-pages-topic-compose-body-placeholder" = "Description";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Topic description";
-"talk-pages-topic-compose-close-confirmation-discard" = "Discard Reply";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Discard Reply";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Discard Topic";
 "talk-pages-topic-compose-close-confirmation-title" = "Are you sure you want to discard this new topic?";
 "talk-pages-topic-compose-navbar-title" = "Topic";
 "talk-pages-topic-compose-title-placeholder" = "Topic title";
@@ -1301,5 +1329,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Edits will be attributed to the IP address of your device. If you $1Log in$2 you will have more privacy.";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "Log in";
-"wikitext-upload-save-terms-and-licenses" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 3.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";

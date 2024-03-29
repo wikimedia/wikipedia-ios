@@ -153,10 +153,10 @@
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
+"description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Fir";
+"diff-compare-header-to-info-heading" = "Gewisen Ännerung";
 "diff-compare-title" = "Versioune vergläichen";
 "diff-context-lines-collapsed-button-title" = "Weisen";
 "diff-context-lines-expanded-button-title" = "Verstoppen";
@@ -209,7 +209,7 @@
 "edit-summary-add-summary-text" = "E Resumé vun der Ännerung derbäisetzen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
-"edit-summary-choice-linked-words" = "Derbäigesat Linken";
+"edit-summary-choice-linked-words" = "Linken derbäigesat";
 "edit-summary-learn-more-text" = "Fir méi ze wëssen";
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
 "edit-text-formatting-accessibility-label" = "Textformatéierungsmenü weisen";
@@ -276,6 +276,7 @@
 "explore-feed-preferences-in-the-news-description" = "Artikelen iwwer aktuell Evenementer";
 "explore-feed-preferences-on-this-day-description" = "Evenementer an der Vergaangenheet op dësem Dag";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
+"explore-feed-preferences-suggested-edits-description" = "Virschléi fir Inhalter op Wikipedia derbäizesetzen";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -295,6 +296,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
+"explore-suggested-edits-footer" = "Derbäisetzen";
 "export-user-data-title" = "Benotzerdaten exportéieren";
 "featured-widget-from-language-wikipedia" = "Vun der Wikipedia op $1";
 "featured-widget-from-wikipedia" = "Vun der Wikipedia";
@@ -347,6 +349,16 @@
 "icon-shortcut-random-title" = "Zoufällegen Artikel";
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "image-gallery-unknown-owner" = "Auteur onbekannt.";
+"image-rec-add-image-title" = "Dëst Bild derbäisetzen?";
+"image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipedia-Artikel derbäigesat soll ginn.";
+"image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
+"image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
+"image-rec-onboarding-title" = "E Bild an een Artikel derbäisetzen";
+"image-rec-title" = "Bild derbäisetzen";
+"image-rec-view-article" = "Artikel weisen";
+"image-recs-no-title" = "Neen";
+"image-recs-not-sure-title" = "Net sécher";
+"image-recs-yes-title" = "Jo";
 "import-shared-reading-list-default-title" = "Meng Lieslëscht";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Net elo";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Bei der Ëmfro matmaachen";
@@ -381,7 +393,6 @@
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Medienastellungen";
 "insert-media-title" = "Medien drasetzen";
-"insert-media-uploaded-image-title" = "Eropgeluedent Bild";
 "languages-settings-title" = "Sproochen";
 "languages-title" = "Sprooch änneren";
 "languages-wikipedia" = "Wikipedia-Sproochen";
@@ -468,7 +479,6 @@
 "notifications-center-status-unread" = "Net gelies";
 "notifications-center-subheader-edit-reverted" = "Är Ännerung gouf zréckgesat";
 "notifications-center-subheader-email-from-other-user" = "Nei E-Mail";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Alogge vun engem onbekannten Apparat";
 "notifications-center-subheader-page-reviewed" = "Säit nogekuckt";
 "notifications-center-subheader-thanks" = "Merci";
@@ -747,7 +757,7 @@
 "talk-pages-topic-added-alert-title" = "Äert Theema gouf derbäigesat";
 "talk-pages-topic-compose-body-placeholder" = "Beschreiwung";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Beschreiwung vum Theema";
-"talk-pages-topic-compose-close-confirmation-discard" = "Äntwert verwerfen";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Äntwert verwerfen";
 "talk-pages-topic-compose-close-confirmation-title" = "Sidd Dir sécher, datt Dir dëst neit Theema verwerfe wëllt?";
 "talk-pages-topic-compose-navbar-title" = "Theema";
 "talk-pages-topic-compose-title-placeholder" = "Titel vum Theema";
@@ -773,11 +783,6 @@
 "unknown-generic-text" = "Onbekannt";
 "unwatch" = "Net méi iwwerwaachen";
 "user-title" = "Benotzer";
-"vanish-account-additional-information-field" = "Zousätzlech Informatiounen";
-"vanish-account-additional-information-placeholder" = "Fakultativ";
-"vanish-account-back-confirm-discard" = "Ufro verwerfen";
-"vanish-account-back-confirm-keep-editing" = "Virufuere mat Änneren";
-"vanish-account-button-text" = "Ufro schécken";
 "vanish-account-continue-button-title" = "Virufueren";
 "vanish-account-learn-more-text" = "Fir méi ze wëssen";
 "vanish-account-username-field" = "Benotzernumm a Benotzersäit";
@@ -793,7 +798,7 @@
 "watchlist-added-toast-six-months" = "Fir 6 Méint op Är Iwwerwaachungslëscht gesat.";
 "watchlist-added-toast-three-months" = "Fir 3 Méint op Är Iwwerwaachungslëscht gesat.";
 "watchlist-added-toast-view-watchlist" = "Iwwerwaachungslëscht weisen";
-"watchlist-byte-change" = "({{PLURAL:$1|1 Byte|$1 Byte}})";
+"watchlist-byte-change" = "({{PLURAL:$1|1 Byte|$1 Byten}})";
 "watchlist-change-expiry-option-one-month" = "1 Mount";
 "watchlist-change-expiry-option-one-week" = "1 Woch";
 "watchlist-change-expiry-option-one-year" = "1 Joer";

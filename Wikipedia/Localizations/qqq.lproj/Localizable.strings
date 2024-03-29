@@ -106,6 +106,7 @@
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "add-citation-title" = "Title for add citation action";
+"add-image-learn-more-text" = "Text for button on add image details for going to links with more information on topics related to images on Wikipedia";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -413,6 +414,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
+"empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
@@ -518,6 +520,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
+"explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
+"explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -588,8 +592,30 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"image-rec-add-image-title" = "title for the add image suggestion view";
+"image-rec-onboarding-item-1-body" = "Body of first item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-1-title" = "Title of first item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-2-body" = "Body of second item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-2-title" = "Title of second item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-3-body" = "Body of third item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-item-3-title" = "Title of third item in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-learn-more-button" = "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-onboarding-title" = "Title of onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-survey-instructions-1" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-instructions-2" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-option-1" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-2" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-3" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-4" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-5" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-6" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-submit-button" = "Title of the image recommendations survey view submit button.";
+"image-rec-survey-title" = "Title of the image recommendations survey view. Displayed in the navigation bar as title of view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
+"image-recs-no-title" = "Button title for discarding an image suggestion";
+"image-recs-not-sure-title" = "Button title for skipping an image suggestion";
+"image-recs-yes-title" = "Button title for accepting an image suggestion";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
@@ -602,6 +628,7 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "insert-action-title" = "Title for insert action";
 "insert-link-title" = "Title for the Insert link screen";
+"insert-media-add-image-details-title" = "Title for add image details view";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
 "insert-media-alternative-text-title" = "Title for setting that allows users to add image alternative text";
@@ -626,7 +653,6 @@
 "insert-media-image-type-settings-title" = "Display ritle for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
-"insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
 "inuktitut-variants-alert-body" = "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).";
 "inuktitut-variants-alert-title" = "Title of alert used to inform users about Inuktitut variant support.";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
@@ -670,6 +696,7 @@
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
+"next-action-title" = "Title for insert action indicating the user can go to the next step";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
@@ -1120,7 +1147,7 @@
 "talk-page-reply-button-accessibility-label" = "Accessibility text for reply button. The $1 will be replaced with the name of the user whose comment is being responded";
 "talk-page-reply-depth-accessibility-label" = "Accessibility label for the reply depth indicator. This indicator suggests which reply the text is replying to. $1 is replaced with the depth number.";
 "talk-page-reply-placeholder-format" = "Placeholder text that displays in the talk page reply text view. Parameters:\n* $1 - the username of the comment the user is replying to. Please prioritize for de, ar and zh wikis.";
-"talk-page-reply-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-revision-history" = "Title for menu option that leads to page revision history.";
 "talk-page-rply-close-button-accessibility-hint" = "Accessibility hint for the reply screen close button";
 "talk-page-share-button" = "Title for share talk page button";
@@ -1131,7 +1158,7 @@
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
-"talk-page-topic-compose-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribed-alert-title" = "Title for alert informing that the user unsubscribed to a topic. Please prioritize for de, ar and zh wikis.";
@@ -1154,7 +1181,8 @@
 "talk-pages-topic-added-alert-title" = "Title for alert informing that the user's new topic was successfully published. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder" = "Placeholder text in topic body field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Accessibility label for the placeholder element of the topic body text view on the topic compose screen.";
-"talk-pages-topic-compose-close-confirmation-discard" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the reply view after entering reply text.";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-close-confirmation-title" = "Title of confirmation alert displayed to user when they attempt to close the new topic view after entering title or body text.";
 "talk-pages-topic-compose-navbar-title" = "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
 "talk-pages-topic-compose-title-placeholder" = "Placeholder text in topic title field of the talk page topic compose screen. Please prioritize for de, ar and zh wikis.";
@@ -1301,5 +1329,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
-"wikitext-upload-save-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";

@@ -122,7 +122,6 @@
 "action-update" = "Яңыртырға";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 мәҡәләне|$1 мәҡәләләрҙе}} уҡыу исемлегенә өҫтәргә";
 "add-citation-title" = "Өҙөмтә өҫтәргә";
-"additional-information-email-title" = "Өҫтәмә мәғлүмәт";
 "announcements-dismiss" = "Кире ҡағыу";
 "app-store-keywords" = "Википедия, белешмә, вики, энциклопедия, мәғлүмәт, белем, тикшеренеүҙәр, белем, тикшереү, өйрәнеү";
 "app-store-release-notes" = "Explore ҡушымтаһы тулыһынса көйләнелә һәм уҡыу өсөн уңайлы. Локалләштерелде, етештереүсәнлеге һәм  хаталарҙы төҙәтеү яҡшырҙы.";
@@ -534,7 +533,6 @@
 "insert-media-image-type-settings-title" = "Рәсем төрө";
 "insert-media-media-settings-title" = "Медиа көйләүҙәре";
 "insert-media-title" = "Медиа-файл ҡуйырға";
-"insert-media-uploaded-image-title" = "Тәйәлгән рәсем";
 "inuktitut-variants-alert-title" = "Инуктитут теле варианттарына ярҙамды яңыртыу";
 "kazakh-variants-alert-title" = "Ҡаҙаҡ теле варианттарына ярҙамды яңыртыу";
 "kurdish-variants-alert-title" = "Ҡурд теле варианттарына ярҙамды яңыртыу";

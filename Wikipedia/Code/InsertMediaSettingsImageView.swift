@@ -2,9 +2,11 @@ import UIKit
 
 final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var headingLabel: UILabel!
+    @IBOutlet private weak var imageDescriptionLabel: UILabel!
     @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet weak var buttonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
 
     var image: UIImage? {
         didSet {
@@ -12,15 +14,15 @@ final class InsertMediaSettingsImageView: UIView {
         }
     }
 
-    var heading: String? {
+    var imageDescription: String? {
         didSet {
-            headingLabel.text = heading
+            imageDescriptionLabel.text = imageDescription
         }
     }
 
     var title: String? {
         didSet {
-            titleButton.setTitle(title, for: .normal)
+            titleButton.setAttributedTitle(getImageLinkButtonTitle(), for: .normal)
         }
     }
 
@@ -31,6 +33,7 @@ final class InsertMediaSettingsImageView: UIView {
         super.awakeFromNib()
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
+        configTitleButton()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -39,13 +42,17 @@ final class InsertMediaSettingsImageView: UIView {
     }
 
     private func updateFonts() {
-        headingLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        titleButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        imageDescriptionLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        titleButton.titleLabel?.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
+        
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        headingLabel.preferredMaxLayoutWidth = headingLabel.bounds.width
+        imageDescriptionLabel.numberOfLines = 2
+        imageDescriptionLabel.preferredMaxLayoutWidth = imageDescriptionLabel.bounds.width
+        buttonHeightConstraint.constant = imageHeightConstraint.constant/2
+        titleButton.titleLabel?.numberOfLines = 3
     }
 
     @IBAction private func performTitleAction(_ sender: UIButton) {
@@ -55,12 +62,30 @@ final class InsertMediaSettingsImageView: UIView {
         }
         titleAction?(url)
     }
+
+    private func getImageLinkButtonTitle() -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString()
+        if let imageAttachment = UIImage(named: "mini-external") {
+            let attachment = NSTextAttachment(image: imageAttachment)
+            attributedString.append(NSAttributedString(string: title ?? String()))
+            attributedString.append(NSAttributedString(string: "  "))
+            attributedString.append(NSAttributedString(attachment: attachment))
+        }
+        return attributedString
+    }
+
+    private func configTitleButton() {
+        titleButton.titleLabel?.lineBreakMode = .byTruncatingMiddle
+        titleButton.configuration?.contentInsets = .zero
+        titleButton.configuration?.titlePadding = .zero
+        titleButton.sizeToFit()
+    }
 }
 
 extension InsertMediaSettingsImageView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        headingLabel.textColor = theme.colors.secondaryText
+        imageDescriptionLabel.textColor = theme.colors.secondaryText
         titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
     }

@@ -111,7 +111,6 @@
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na listu za čitanje";
 "add-citation-title" = "Dodavanje reference";
-"additional-information-email-title" = "Dodatne informacije";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Vikipedija, reference, viki, enciklopedija, info, znanje, istraživanje, informacije, istraži, nauči";
 "app-store-release-notes" = "Potpuno prilagodljiv i čitljiviji fid „Istraži“. Poboljšanja lokalizacije, performansi i ispravke grešaka.";
@@ -544,7 +543,6 @@
 "insert-media-image-type-settings-title" = "Tip slike";
 "insert-media-media-settings-title" = "Podešavanje medija";
 "insert-media-title" = "Ubaci medij";
-"insert-media-uploaded-image-title" = "Otpremljene slike";
 "languages-settings-title" = "Jezici";
 "languages-title" = "Promena jezika";
 "languages-wikipedia" = "Jezici Vikipedije";
@@ -1024,7 +1022,6 @@
 "talk-page-reply-button-accessibility-label" = "Odgovor $1";
 "talk-page-reply-depth-accessibility-label" = "Dubina odgovora: $1";
 "talk-page-reply-placeholder-format" = "Odgovor $1";
-"talk-page-reply-terms-and-licenses" = "Imate u vidu da će vaš odgovor biti automatski potpisan sa vašim korisničkim imenom. Čuvanjem izmena, slažete se sa $1Politikom privatnosti$2, i slažete se sa objavljivanjem vašeg doprinosa pod licencama $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-revision-history" = "Istorija izmena";
 "talk-page-rply-close-button-accessibility-hint" = "Zatvorite pregled odgovora";
 "talk-page-share-button" = "Podeli stranicu za razgovor";
@@ -1035,7 +1032,6 @@
 "talk-page-title-article-talk" = "Stranica za razgovor članka";
 "talk-page-title-user-talk" = "Korisnička stranica za razgovor";
 "talk-page-topic-close-button-hint" = "Zatvori novu temu";
-"talk-page-topic-compose-terms-and-licenses" = "Čuvanjem izmena prihvatate $1uslove korišćenja$2 i neopozivo se slažete da svoj doprinos objavite pod licencama $3CC BY-SA 3.0$4 i $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Prekini praćenje";
 "talk-page-unsubscribed-alert-subtitle" = "Više nećete dobijati obaveštenja o novim komentarima.";
 "talk-page-unsubscribed-alert-title" = "Više ne pratite.";
@@ -1057,7 +1053,7 @@
 "talk-pages-topic-added-alert-title" = "Vaša tema je dodata";
 "talk-pages-topic-compose-body-placeholder" = "Opis";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Opis teme";
-"talk-pages-topic-compose-close-confirmation-discard" = "Odbaci odgovor";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Odbaci odgovor";
 "talk-pages-topic-compose-close-confirmation-title" = "Želite li zaista da odbacite temu?";
 "talk-pages-topic-compose-navbar-title" = "Tema";
 "talk-pages-topic-compose-title-placeholder" = "Naslov teme";
@@ -1086,25 +1082,11 @@
 "unknown-generic-text" = "Nepoznato";
 "unwatch" = "Prekini nadgledanje";
 "user-title" = "Korisnik";
-"vanish-account-additional-information-field" = "Dodatne informacije";
-"vanish-account-additional-information-placeholder" = "Neobavezno";
-"vanish-account-back-confirm-discard" = "Odbaci zahtev";
-"vanish-account-back-confirm-keep-editing" = "Nastavi uređivanje";
-"vanish-account-back-confirm-title" = "Odbaci zahtev za nestanak?";
-"vanish-account-bottom-text" = "Brisanje naloga na Vikipediji se vrši promenom naziva naloga tako da drugi ne mogu da prepoznaju Vaše doprinose u procesu koji se zove učtivi nestanak. Molimo popunite donji formular za učtiv nestanak. Nestajanje ne garantuje potpunu anonimnost i ne uklanja doprinose na projektima.";
-"vanish-account-bottom-text-with-link" = "Brisanje naloga na Vikipediji se vrši promenom naziva naloga tako da drugi ne mogu da prepoznaju Vaše doprinose u procesu koji se zove $1učtivi nestanak$2$3. Molimo popunite donji formular za učtiv nestanak. Nestajanje ne garantuje potpunu anonimnost i ne uklanja doprinose na projektima.";
-"vanish-account-button-text" = "Pošalji zahtev";
 "vanish-account-continue-button-title" = "Nastavi";
-"vanish-account-description" = "Da pokrenete proces gašenja molimo navedite sledeće:";
-"vanish-account-email-text" = "Zdravo.\nOvo je moj zahtev za nestanak sa Vikipedije.";
 "vanish-account-learn-more-text" = "Saznajte više";
-"vanish-account-title" = "Proces nestajanja";
 "vanish-account-username-field" = "Korisničko ime i korisnička stranica";
 "vanish-account-warning-body" = "Nestajanje je **poslednja opcija** i treba je koristiti **samo kada želite da zauvek prestanete sa uređivanjem**, kao i da sakrijete što više svojih prošlih asocijacija.\n\nBrisanje naloga na Vikipediji se vrši promenom naziva naloga tako da drugi ne mogu da prepoznaju Vaše doprinose u procesu koji se zove učtivi nestanak. **Nestajanje ne garantuje potpunu anonimnost i ne uklanja doprinose na projektima**.";
 "vanish-account-warning-title" = "Upozorenje";
-"vanish-modal-item-2" = "Ukoliko niste sigurni da li je vaš zahtev primljen, proverite vašu aplikaciju za elektronsku poštu";
-"vanish-modal-title" = "Učtivi nestanak";
-"vanishing-request-email-title" = "Zahtev za učtiv nestanak";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Pregledajte svoja podešavanja";
 "watch" = "Nadgledaj";
@@ -1209,5 +1191,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se $1prijavite$2, imaćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se prijavite, imaćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Čuvanjem izmena prihvatate $1uslove korišćenja$2 i neopozivo objavljivanje svog doprinosa pod licencama $3CC BY-SA 3.0$4 i $5GFDL$6. Slažete se da su link ili URL dovoljni za priznavanje autorstva pod licencom Creative Commons.";
 "wikitext-upload-save-terms-name" = "uslove korišćenja";

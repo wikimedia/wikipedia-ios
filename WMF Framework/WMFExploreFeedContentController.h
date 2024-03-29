@@ -37,6 +37,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (void)updateContentSource:(Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
+- (NSArray<NSSortDescriptor *> *)exploreFeedSortDescriptors;
+
 // Preferences
 
 /**

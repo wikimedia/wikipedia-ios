@@ -7,37 +7,37 @@ public struct WKImageRecommendation {
     public struct Page {
         public let pageid: Int
         public let title: String
-        let growthimagesuggestiondata: [GrowthImageSuggestionData]?
+        public let growthimagesuggestiondata: [GrowthImageSuggestionData]?
     }
 
     public struct GrowthImageSuggestionData {
         let titleNamespace: Int
-        let titleText: String
-        let images: [ImageSuggestion]
+        public let titleText: String
+        public let images: [ImageSuggestion]
     }
 
     public struct ImageSuggestion: Codable {
-        let image: String
-        let displayFilename: String
+        public let image: String
+        public let displayFilename: String
         let source: String
         let projects: [String]
-        let metadata: ImageMetadata
+        public let metadata: ImageMetadata
     }
 
     public struct ImageMetadata: Codable {
-        let descriptionUrl: String
-        let thumbUrl: String
-        let fullUrl: String
+        public let descriptionUrl: String
+        public let thumbUrl: String
+        public let fullUrl: String
         let originalWidth: Int
         let originalHeight: Int
         let mediaType: String
-        let description: String?
+        public let description: String?
         let author: String?
         let license: String
         let date: String
         let caption: String?
         let categories: [String]
-        let reason: String
+        public let reason: String
         let contentLanguageName: String
     }
 

@@ -146,6 +146,7 @@
 "article-reference-view-title" = "Referință $1";
 "article-save-error-not-enough-space" = "Nu aveți suficient spațiu pe dispozitiv pentru a salva acest articol";
 "article-share" = "Distribuie";
+"article-talk-page" = "Pagina de discuție a articolului";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlul temelor de citire";
 "back-button-accessibility-label" = "Înapoi";
 "back-button-popover-title" = "Atingeți pentru a vă întoarce";
@@ -315,6 +316,8 @@
 "editing-welcome-set-knowledge-free-title" = "Eliberează cunoașterea";
 "editor-exit-confirmation-body" = "Sigur doriți să părăsiți modul de editare fără a publica mai întâi?";
 "editor-exit-confirmation-title" = "Închideți modul de editare?";
+"editor-keyboard-list-ordered-accessibility" = "Listă ordonată";
+"editor-keyboard-list-unordered-accessibility" = "Lista neordonată";
 "editor-replace-textfield-accessibility" = "Înlocuiește";
 "editor-replace-textfield-placeholder" = "Înlocuiește cu...";
 "editor-replace-type-all" = "Înlocuiește peste tot";
@@ -518,7 +521,6 @@
 "insert-media-image-type-settings-title" = "Tipul imaginii";
 "insert-media-media-settings-title" = "Setări media";
 "insert-media-title" = "Introduceți media";
-"insert-media-uploaded-image-title" = "Imagine încărcată";
 "inuktitut-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante inuktitut ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualizări ale suportului pentru varianta Inuktitut";
 "kazakh-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante kazahe ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -970,6 +972,7 @@
 "tachelhit-variants-alert-title" = "Actualizări ale suportului pentru varianta Tachelhit";
 "tajik-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante tajik ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Actualizări pentru sprijin varianta tadjică";
+"talk-page-article-about" = "Despre paginile de discuție";
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
 "talk-page-find-in-page-button" = "Găsește în pagină";
@@ -977,6 +980,7 @@
 "talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
 "talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
 "talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
+"talk-page-share-button" = "Distribuie pagină de discuție";
 "talk-page-subscribed-alert-subtitle" = "Veți primi notificări despre noi comentarii din acest subiect.";
 "talk-page-title-article-talk" = "Discuție articol";
 "talk-page-title-user-talk" = "Discuție Utilizator";
@@ -984,7 +988,9 @@
 "talk-page-user-contributions" = "Contribuții";
 "talk-pages-coffee-roll-read-more" = "Citiți mai multe";
 "talk-pages-empty-view-button-user-start-discussion" = "Începeți o discuție";
+"talk-pages-empty-view-header-article" = "Conversația începe aici";
 "talk-pages-topic-compose-body-placeholder" = "Descriere";
+"talk-pages-topic-reply-onboarding-title" = "Pagini de discuții";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";
@@ -999,7 +1005,7 @@
 "two-factor-login-title" = "Conectați-vă la contul dvs.";
 "two-factor-login-with-backup-code" = "Utilizați unul dintre codurile de rezervă";
 "two-factor-login-with-regular-code" = "Utilizați codul de verificare";
-"unable-to-load-talk-page-title" = "Nu se poate încărca pagina de discuții";
+"unable-to-load-talk-page-title" = "Pagina de discuție nu putut fi încărcată";
 "unknown-generic-text" = "Necunoscut";
 "uzbek-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante uzbece ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizări ale suportului pentru varianta uzbekă";
@@ -1085,5 +1091,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Modificările vor fi atribuite adresei IP a dispozitivului. Dacă vă autentificați $1Log in$2, veți avea mai multă confidențialitate.";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-sign-in" = "Autentificare";
-"wikitext-upload-save-terms-and-licenses" = "Prin publicarea modificărilor, sunteți de acord cu $1Termenii de utilizare$2, și sunteți de acord irevocabil să vă eliberați contribuția în conformitate cu licența $3CC BY-SA 3.0$4 și $5GFDL$6. Sunteți de acord că un hyperlink sau o adresă URL este o atribuție suficientă sub licența Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
