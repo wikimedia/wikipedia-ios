@@ -135,7 +135,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     private func bindViewModel() {
-        viewModel.$loading
+        viewModel.$debouncedLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
                 if !isLoading {

@@ -120,7 +120,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.articleSummaryDataController = WKArticleSummaryDataController()
         
         $loading
-            .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
                     .sink(receiveValue: { [weak self] t in
                         self?.debouncedLoading = t
                     })
