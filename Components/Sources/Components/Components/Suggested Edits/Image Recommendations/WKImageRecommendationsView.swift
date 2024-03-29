@@ -19,7 +19,7 @@ struct WKImageRecommendationsView: View {
 
                 } else {
                     if !viewModel.debouncedLoading {
-                        WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKSFSymbolIcon.for(symbol: .checkPhoto), numberOfFilters: nil), type: .noItems)
+                        WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
                     } else {
                         ProgressView()
                     }

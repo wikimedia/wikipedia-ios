@@ -20,11 +20,13 @@ public class WKEmptyViewModel: ObservableObject {
 
     var localizedStrings: LocalizedStrings
     var image: UIImage?
+    var imageColor: UIColor?
     @Published var numberOfFilters: Int?
 
-    public init(localizedStrings: LocalizedStrings, image: UIImage?, numberOfFilters: Int?) {
+    public init(localizedStrings: LocalizedStrings, image: UIImage?, imageColor: UIColor?, numberOfFilters: Int?) {
         self.localizedStrings = localizedStrings
         self.image = image
+        self.imageColor = imageColor
         self.numberOfFilters = numberOfFilters
     }
     

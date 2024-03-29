@@ -12,6 +12,14 @@ public struct WKEmptyView: View {
     @ObservedObject var viewModel: WKEmptyViewModel
     weak var delegate: WKEmptyViewDelegate?
     var type: WKEmptyViewStateType
+    
+    var foregroundColor: Color? {
+        if let imageColor = viewModel.imageColor {
+            return Color(uiColor: imageColor)
+        }
+        
+        return nil
+    }
 
     public var body: some View {
         GeometryReader { geometry in
@@ -24,7 +32,10 @@ public struct WKEmptyView: View {
                         Spacer()
                         if let image = viewModel.image {
                             Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                                 .frame(width: 132, height: 118)
+                                .foregroundColor(foregroundColor)
                         }
                         Text(viewModel.localizedStrings.title)
                             .font(Font(WKFont.for(.boldBody)))
