@@ -121,7 +121,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.articleSummaryDataController = WKArticleSummaryDataController()
         
         $loading
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
                     .sink(receiveValue: { [weak self] t in
                         self?.debouncedLoading = t
                     })
@@ -157,14 +157,22 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                         }
                     }
 
-                    if let firstRecommendation = self.imageRecommendations.first {
-                        self.populateCurrentArticleSummary(for: firstRecommendation, completion: {
-                            DispatchQueue.main.async {
-                                self.loading = false
-                                completion()
-                            }
-                        })
+                    guard let firstRecommendation = self.imageRecommendations.first else {
+                        DispatchQueue.main.async {
+                            self.loading = false
+                            completion()
+                        }
+                        return
                     }
+                    
+                    self.populateCurrentArticleSummary(for: firstRecommendation, completion: {
+                        DispatchQueue.main.async {
+                            self.loading = false
+                            completion()
+                        }
+                    })
+                    
+                    
                 }
                 
             case .failure(let error):
@@ -184,8 +192,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         imageRecommendations.removeFirst()
         guard let nextRecommendation = imageRecommendations.first else {
-            self.currentRecommendation = nil
-            completion()
+            growthTasksDataController.reset(for: project)
+            fetchImageRecommendationsIfNeeded {
+                completion()
+            }
+            
             return
         }
         
