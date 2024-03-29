@@ -15,7 +15,7 @@ public final class WKArticleSummaryDataController {
         }
 
         guard !title.isEmpty,
-              let url = URL.wikimediaRestAPIURL(project: project, additionalPathComponents: ["page", "summary", title]) else {
+              let url = URL.wikimediaRestAPIURL(project: project, additionalPathComponents: ["page", "summary", title.spacesToUnderscores]) else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
             return
         }
