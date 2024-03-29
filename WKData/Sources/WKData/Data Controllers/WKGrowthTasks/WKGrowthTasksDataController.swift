@@ -13,6 +13,14 @@ import Foundation
 
     // MARK: GET Methods
     
+    public func remove(pageId: Int, from project: WKProject) {
+        guard let recommendations = Self.currentImageRecommendations[project] else {
+            return
+        }
+        
+        Self.currentImageRecommendations[project] = recommendations.filter { $0.pageid != pageId }
+    }
+    
     public func reset(for project: WKProject) {
         Self.currentImageRecommendations[project] = []
     }

@@ -102,7 +102,6 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     
     private(set) var imageRecommendations: [ImageRecommendation] = []
-    private var recommendationData: [WKImageRecommendation.Page] = []
     @Published var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
@@ -147,7 +146,6 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
-                    self.recommendationData = pages
                     let imageDataArray = self.getFirstImageData(for: pages)
 
                     for page in pages {
@@ -190,7 +188,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        imageRecommendations.removeFirst()
+        let removedPage = imageRecommendations.removeFirst()
+        growthTasksDataController.remove(pageId: removedPage.pageId, from: project)
+        
         guard let nextRecommendation = imageRecommendations.first else {
             growthTasksDataController.reset(for: project)
             fetchImageRecommendationsIfNeeded {
