@@ -414,6 +414,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
+"empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
@@ -600,6 +601,16 @@
 "image-rec-onboarding-item-3-title" = "Title of third item in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-learn-more-button" = "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-title" = "Title of onboarding view displayed when user first visits image recommendations feature view.";
+"image-rec-survey-instructions-1" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-instructions-2" = "Instructions displayed on the image recommendations survey view.";
+"image-rec-survey-option-1" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-2" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-3" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-4" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-5" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-option-6" = "Title of available option displayed on the image recommendations survey view.";
+"image-rec-survey-submit-button" = "Title of the image recommendations survey view submit button.";
+"image-rec-survey-title" = "Title of the image recommendations survey view. Displayed in the navigation bar as title of view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
 "image-recs-no-title" = "Button title for discarding an image suggestion";

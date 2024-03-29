@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import PassKit
 
 public struct WKTheme: Equatable {
@@ -36,6 +37,10 @@ public struct WKTheme: Equatable {
     public let editorReplacedMatchBackground: UIColor
     public let editorButtonSelectedBackground: UIColor
     public let editorKeyboardShadow: UIColor
+
+	public var preferredColorScheme: ColorScheme {
+		return (self == WKTheme.light || self == WKTheme.sepia) ? .light : .dark
+	}
 
 	public static let light = WKTheme(
         name: "Light",

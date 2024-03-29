@@ -64,6 +64,12 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     
     func goToImageCommonsPage() {
 
+        guard let currentRecommendation = viewModel.currentRecommendation,
+        let url = URL(string: currentRecommendation.imageData.descriptionURL) else {
+            return
+        }
+        
+        delegate?.imageRecommendationsUserDidTapImageLink(commonsURL: url)
     }
     
     func didTapYesButton() {
@@ -75,7 +81,17 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
 
     func didTapNoButton() {
+		let surveyView = WKImageRecommendationsSurveyView(
+			viewModel: WKImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
+			cancelAction: { [weak self] in
+				self?.dismiss(animated: true)
+			},
+			submitAction: { [weak self] reasons in
+				self?.dismiss(animated: true)
+		})
 
+		let hostedView = WKComponentHostingController(rootView: surveyView)
+		present(hostedView, animated: true)
     }
 
     func didTapSkipButton() {
