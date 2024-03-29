@@ -139,7 +139,9 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
                 if !isLoading {
-                    self?.presentModalView()
+                    if self?.viewModel.currentRecommendation != nil {
+                        self?.presentModalView()
+                    }
                 }
             }
             .store(in: &cancellables)
