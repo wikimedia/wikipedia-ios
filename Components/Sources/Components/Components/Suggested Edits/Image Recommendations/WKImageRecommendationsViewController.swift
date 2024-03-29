@@ -58,10 +58,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-	private func presentOnboardingIfNecessary() {
-		guard !dataController.hasPresentedOnboardingModal else {
-			return
-		}
+	private func presentOnboarding() {
 
 		let firstItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
 
@@ -72,7 +69,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 		let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
 
 		let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
-		onboardingController.hostingController.delegate = self
+		onboardingController.delegate = self
 		present(onboardingController, animated: true, completion: {
 			UIAccessibility.post(notification: .layoutChanged, argument: nil)
 		})
@@ -89,7 +86,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
-        presentOnboardingIfNecessary()
+        
+        if !dataController.hasPresentedOnboardingModal {
+            presentOnboarding()
+        } else {
+            viewModel.fetchImageRecommendationsIfNeeded {
+                
+            }
+        }
+        
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -151,7 +156,11 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
 	public func didClickPrimaryButton() {
-		presentedViewController?.dismiss(animated: true)
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            self?.viewModel.fetchImageRecommendationsIfNeeded {
+
+            }
+        })
 	}
 	
 	public func didClickSecondaryButton() {
@@ -162,4 +171,9 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 		UIApplication.shared.open(url)
 	}
 
+    public func willSwipeToDismiss() {
+        viewModel.fetchImageRecommendationsIfNeeded {
+
+        }
+    }
 }

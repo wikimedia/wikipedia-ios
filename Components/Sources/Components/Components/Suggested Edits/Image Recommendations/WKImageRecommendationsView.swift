@@ -57,10 +57,5 @@ struct WKImageRecommendationsView: View {
             }
             .ignoresSafeArea()
         }
-        .onAppear {
-            viewModel.fetchImageRecommendationsIfNeeded {
-
-            }
-        }
     }
 }

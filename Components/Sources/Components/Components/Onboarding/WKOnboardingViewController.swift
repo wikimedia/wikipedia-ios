@@ -4,9 +4,16 @@ import SwiftUI
 public protocol WKOnboardingViewDelegate: AnyObject {
     func didClickPrimaryButton()
     func didClickSecondaryButton()
+    func willSwipeToDismiss()
 }
 
 public class WKOnboardingViewController: WKCanvasViewController {
+    
+    public weak var delegate: WKOnboardingViewDelegate? {
+        didSet {
+            hostingController.delegate = delegate
+        }
+    }
     
    // MARK: - Properties
 
@@ -23,11 +30,19 @@ public class WKOnboardingViewController: WKCanvasViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-            addComponent(hostingController, pinToEdges: true)
+        addComponent(hostingController, pinToEdges: true)
+        presentationController?.delegate = self
     }
 }
 
-public final class WKOnboardingHostingViewController: WKComponentHostingController<WKOnboardingView>, UIAdaptivePresentationControllerDelegate {
+extension WKOnboardingViewController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        delegate?.willSwipeToDismiss()
+    }
+}
+
+
+public final class WKOnboardingHostingViewController: WKComponentHostingController<WKOnboardingView> {
 
     // MARK: - Properties
 
@@ -47,11 +62,6 @@ public final class WKOnboardingHostingViewController: WKComponentHostingControll
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presentationController?.delegate = self
     }
 
     func primaryButtonAction() {
