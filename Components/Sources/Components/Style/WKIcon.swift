@@ -42,6 +42,7 @@ public enum WKSFSymbolIcon {
     case curlybraces
     case photo
     case addPhoto
+    case checkPhoto
     case docTextMagnifyingGlass
     case magnifyingGlass
     case listBullet
@@ -108,6 +109,8 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "photo", withConfiguration: configuration)
         case .addPhoto:
             image = UIImage(systemName: "photo.badge.plus", withConfiguration: configuration)
+        case .checkPhoto:
+            image = UIImage(systemName: "photo.badge.checkmark", withConfiguration: configuration)
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
