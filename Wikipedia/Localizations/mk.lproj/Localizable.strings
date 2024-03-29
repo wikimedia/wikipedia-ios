@@ -118,6 +118,7 @@
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "add-citation-title" = "Додај навод";
+"add-image-learn-more-text" = "Дознајте повеќе";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -530,6 +531,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
 "explore-suggested-edits-footer" = "Додај";
+"explore-suggested-edits-image-recs-body" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
+"explore-suggested-edits-image-recs-title" = "Додај слика";
 "export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
 "export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";
 "export-user-data-generic-error" = "Се јави грешка при извозот на вашите податоци. Обидете се подоцна.";
@@ -600,8 +603,20 @@
 "icon-shortcut-random-title" = "Случајна статија";
 "icon-shortcut-search-title" = "Пребарај ја Википедија";
 "image-gallery-unknown-owner" = "Подигачот е непознат.";
+"image-rec-add-image-title" = "Да ја додадам сликава?";
+"image-rec-onboarding-item-1-body" = "Одлучете дали предложена слика треба да се стави во статија на Википедија.";
+"image-rec-onboarding-item-1-title" = "Погл. предлог";
+"image-rec-onboarding-item-2-body" = "Предлозите се машински направени и на вас е да просудите дали да ги прифатите или одбиете.";
+"image-rec-onboarding-item-2-title" = "Прифати или одбиј слика";
+"image-rec-onboarding-item-3-body" = "Сликите се од Ризницата, збирка на слободно лиценцирани слики што се користат на Википедија.";
+"image-rec-onboarding-item-3-title" = "Лиценцирани слики";
+"image-rec-onboarding-learn-more-button" = "Дознајте повеќе за предложените уредувања";
+"image-rec-onboarding-title" = "Додајте слика во статија";
 "image-rec-title" = "Додај слика";
 "image-rec-view-article" = "Погл. статија";
+"image-recs-no-title" = "Не";
+"image-recs-not-sure-title" = "Не знам";
+"image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мој список за читање";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
@@ -614,6 +629,7 @@
 "in-the-news-title" = "Вести";
 "insert-action-title" = "Вметни";
 "insert-link-title" = "Вметни врска";
+"insert-media-add-image-details-title" = "Додајте поединости за сликата";
 "insert-media-alternative-text-description" = "Писмен опис за читателите кои не можат да ја видат сликата";
 "insert-media-alternative-text-placeholder" = "Опишете ја сликава";
 "insert-media-alternative-text-title" = "Алтернативен текст";
@@ -638,7 +654,6 @@
 "insert-media-image-type-settings-title" = "Тип на слика";
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
 "insert-media-title" = "Вметнување на слика или снимка";
-"insert-media-uploaded-image-title" = "Подигни слика";
 "inuktitut-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на инуктитут како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ — инуктитут со слоговница (ike-cans)\nInuktitut ilisautik — инкуктитут на латиница (ike-latn)";
 "inuktitut-variants-alert-title" = "Новост за поддршка на варијанти на инуктитут";
 "kazakh-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на казашкиот како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nҚазақша — казашки(kk)\nҚазақша Кирил — казашки на кирилица (kk-cyrl)\nqazaqşa latin — казашки на латиница (kk-latn)\nتوتە قازاقشا — казашки на арабица (kk-arab)";
@@ -682,6 +697,7 @@
 "nearby-distance-label-miles" = "$1 милји";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
+"next-action-title" = "Следно";
 "no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";
 "no-internet-connection" = "Не сте поврзани со семрежјето";
 "no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
@@ -1132,7 +1148,7 @@
 "talk-page-reply-button-accessibility-label" = "Одговори на $1";
 "talk-page-reply-depth-accessibility-label" = "Продорност на одговорот: $1";
 "talk-page-reply-placeholder-format" = "Одговори на $1";
-"talk-page-reply-terms-and-licenses" = "Имајте предвид дека вашиот одговор ќе биде автоматски потпишан со вашето корисничко име. Зачувувајќи ги промените се согласувате со $1Условите на употреба$2 и дека го објавувате вашиот придонес под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Имајте предвид дека вашиот одговор ќе биде автоматски потпишан со вашето корисничко име. Зачувувајќи ги промените се согласувате со $1Условите на употреба$2 и дека го објавувате вашиот придонес под лиценците $3CC BY-SA 4.0$4 и $5ГЛСД$6.";
 "talk-page-revision-history" = "Историја на измените";
 "talk-page-rply-close-button-accessibility-hint" = "Затвори преглед на одговор";
 "talk-page-share-button" = "Сподели разговорна страница";
@@ -1143,7 +1159,7 @@
 "talk-page-title-article-talk" = "Разговор за статија";
 "talk-page-title-user-talk" = "Кориснички разговор";
 "talk-page-topic-close-button-hint" = "Затвори нова тема";
-"talk-page-topic-compose-terms-and-licenses" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека неотповикливо ги објавувате вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Зачувувајќи ги промените, се согласувате со $1Условите на употреба$2, и дека неотповикливо ги објавувате вашите придонеси под лиценците $3CC BY-SA 4.0$4 и $5ГЛСД$6.";
 "talk-page-unsubscribe-to-topic" = "Отпиши ме";
 "talk-page-unsubscribed-alert-subtitle" = "Повеќе повеќе нема да добивате известувања за нови коментари на оваа тема.";
 "talk-page-unsubscribed-alert-title" = "Отпишани сте.";
@@ -1166,7 +1182,8 @@
 "talk-pages-topic-added-alert-title" = "Вашата тема е додадена";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Опис на темата";
-"talk-pages-topic-compose-close-confirmation-discard" = "Отфрли одговор";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Отфрли одговор";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Отфрли тема";
 "talk-pages-topic-compose-close-confirmation-title" = "Дали сигурно сакате да ја отфрлите оваа нова тема?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Наслов на темата";
@@ -1313,5 +1330,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако $1се најавите$2, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-sign-in" = "Најава";
-"wikitext-upload-save-terms-and-licenses" = "Објавувајќи ги промените, се согласувате со $1Условите на употреба$2 и со објавувањето вашите придонеси под лиценците $3CC BY-SA 3.0$4 и $5ГЛСД$6. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Објавувајќи ги промените, се согласувате со $1Условите на употреба$2 и со објавувањето вашите придонеси под лиценците $3CC BY-SA 4.0$4 и $5ГЛСД$6. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
 "wikitext-upload-save-terms-name" = "Условите на употреба";

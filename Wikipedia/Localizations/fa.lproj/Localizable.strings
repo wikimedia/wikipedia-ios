@@ -87,7 +87,7 @@
 "about-libraries-license" = "اجازه‌نامه";
 "about-libraries-licenses-title" = "ما عاشق نرم‌افزار متن‌باز $1 هستیم";
 "about-places-maps-license" = "مجوز نقشهٔ مکان‌ها";
-"about-places-maps-license-details" = "مکان‌ها از نقشه‌های ارائه‌شده توسط اپل استفاده می کنند. $1.";
+"about-places-maps-license-details" = "مکان‌ها از نقشه‌های ارائه‌شده توسط اپل استفاده می‌کنند. $1.";
 "about-places-maps-license-details-link-text" = "لطفاً برای جزئیات مجوزها اینجا را ببینید";
 "about-product-of" = "سخته‌شده توسط $1 با کمک داوطلبانی همچون شما";
 "about-repositories" = "مخازن";
@@ -98,7 +98,7 @@
 "about-testers-details" = "QA توسط $1 آزموده شد";
 "about-title" = "درباره";
 "about-translators" = "مترجم‌ها";
-"about-translators-details" = "این نرم‌افزار توسط داوطلبان در $1 ترجمه شده‌است";
+"about-translators-details" = "این نرم‌افزار توسط داوطلبان در $1 ترجمه شده است";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "about-wikipedia" = "ویکی‌پدیا";
 "account-creation-captcha-cannot-see-image" = "نمی‌توانید تصویر را ببینید؟ $1";
@@ -470,13 +470,13 @@
 "empty-no-reading-lists-message" = "فهرستی برای مکان‌هایی که می‌خواهید به آن‌ها سفر کنید، موضوعات مورد علاقه و چیزهای بیشتر ایجاد کنید";
 "empty-no-reading-lists-title" = "مرتب‌کردن مقاله‌های ذخیره‌شده با استفاده از فهرست‌های مطالعه";
 "empty-no-saved-pages-in-reading-list-message" = "برای مشاهدهٔ صفحه‌ها در اینجا، آن‌ها را در این فهرست ذخیره کنید";
-"empty-no-saved-pages-in-reading-list-title" = "هیچ صفحه‌ای در این فهرست ذخیره نشده‌است";
+"empty-no-saved-pages-in-reading-list-title" = "هیچ صفحه‌ای در این فهرست ذخیره نشده است";
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
-"empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
+"empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده است";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
 "empty-talk-page-title" = "هنوز هیچ پیامی برای این کاربر ارسال نشده است";
 "error-generic-recovery-suggestion" = "لطفاً بعداً امتحان کنید";
-"error-unknown" = "خطای ناشناخته‌ای رخ داده‌است";
+"error-unknown" = "خطای ناشناخته‌ای رخ داده است";
 "explore-another-random" = "مقالهٔ تصادفی دیگر";
 "explore-because-you-read" = "چون شما مطالعه کرده‌اید";
 "explore-because-you-read-footer" = "مقاله‌های مرتبط بیشتر";
@@ -489,7 +489,7 @@
 "explore-feed-customize-accessibility-title" = "سفارشی‌سازی";
 "explore-feed-language-settings" = "تنظیمات زبان زبانهٔ کاوش";
 "explore-feed-preferences-additional-languages-footer-text" = "از صفحهٔ تنظیمات «زبان‌ها من» می‌توانید زبان‌های بیشتری بیافزایید.";
-"explore-feed-preferences-card-hidden-title" = "کارت مخفی شده‌است";
+"explore-feed-preferences-card-hidden-title" = "کارت مخفی شده است";
 "explore-feed-preferences-continue-reading-description" = "پیوند سریع برای بازگشت به مطالعهٔ یک مقالهٔ باز";
 "explore-feed-preferences-customize-explore-feed" = "شخصی سازی خوراک";
 "explore-feed-preferences-customize-explore-feed-action-title" = "شخصی سازی خوراک";
@@ -575,7 +575,7 @@
 "featured-widget-from-wikipedia" = "از ویکی‌پدیا";
 "featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روزرسانی کنید.";
 "featured-widget-title" = "مقالهٔ برگزیده";
-"fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
+"fetcher-error-generic" = "چیزی اشتباه شده است! لطفاً دوباره تلاش کنید.";
 "fetcher-error-unexpected-response" = "نرم‌افزار یک پاسخ دور از انتظار از سرور دریافت کرد. لطفاً بعداً دوباره تلاش کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
@@ -641,7 +641,7 @@
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
 "import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«فهرست‌های مطالعهٔ اشتراکی» یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
-"import-shared-reading-list-survey-prompt-title" = "آیا می توانید به ما در بهبود «فهرست‌های مطالعهٔ اشتراکی» کمک کنید؟";
+"import-shared-reading-list-survey-prompt-title" = "آیا می‌توانید به ما در بهبود «فهرست‌های مطالعهٔ اشتراکی» کمک کنید؟";
 "import-shared-reading-list-title" = "درون‌ریزی فهرست مطالعهٔ مشترک";
 "in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
@@ -672,7 +672,6 @@
 "insert-media-image-type-settings-title" = "نوع تصویر";
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "درج رسانه";
-"insert-media-uploaded-image-title" = "تصویر بارگذاری‌شده";
 "inuktitut-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان اینوکتیتوت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان اینوکتیتوت";
 "kazakh-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان قزاقی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -879,7 +878,7 @@
 "page-issues" = "مشکلات صفحه";
 "page-location" = "مشاهده بر روی نقشه";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
-"page-protected-can-not-edit-title" = "این صفحه محافظت شده‌است";
+"page-protected-can-not-edit-title" = "این صفحه محافظت شده است";
 "page-similar-titles" = "صفحه‌های مشابه";
 "panel-compare-revisions-text" = "مقایسهٔ نسخه‌ها به نمایش چگونگی تغییر یک مقاله در طول زمان کمک می‌کند. مقایسهٔ دو نسخه از یک مقاله، به‌واسطهٔ مشخص‌کردن محتوای تغییریافته تفاوت میان آن نسخه‌ها را نمایش می‌دهد.";
 "panel-compare-revisions-title" = "مقایسه‌کردن نسخه‌ها";
@@ -906,7 +905,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}}";
 "places-filter-top-read-articles" = "پربازدید‌ترین مقاله‌ها";
 "places-location-enabled" = "مختصات فعال شد";
-"places-no-saved-articles-have-location" = "اطلاعات موقعیت هیچ‌یک از مقالات ذخیره‌شدهٔ شما وارد نشده‌است";
+"places-no-saved-articles-have-location" = "اطلاعات موقعیت هیچ‌یک از مقالات ذخیره‌شدهٔ شما وارد نشده است";
 "places-search-articles-that-match" = "$1 منتطبق با «$2»";
 "places-search-default-text" = "جستجوی مکان‌ها";
 "places-search-did-you-mean" = "منظورتان «$1» بود؟";
@@ -957,12 +956,12 @@
 "reading-list-exists-with-same-name" = "نام فهرست مطالعه از قبل وجود دارد";
 "reading-list-generic-error" = "یک خطای غیرمنتظره در هنگام بارگذاری فهرست‌های مطالعهٔ شما رخ داد.";
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
-"reading-list-keep-subtitle" = "چند مقاله در حساب ویکی‌پدیای شما همگام‌سازی شده‌است. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
+"reading-list-keep-subtitle" = "چند مقاله در حساب ویکی‌پدیای شما همگام‌سازی شده است. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
 "reading-list-keep-sync-disabled-additional-subtitle" = "غیرفعال کردن همگام‌سازی، این مقاله‌ها را از حساب شما حذف خواهد کرد. اگر آن‌ها را از دستگاه خود حذف کنید، با فعال کردن دوبارهٔ همگام‌سازی در آینده، قادر به بازیابی آن‌ها نخواهید بود";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "نه، مقاله‌ها را از دستگاه و حساب ویکی‌پدیای من حذف کن";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
-"reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفا مقالاتتان را در فهرست‌ها مرتب کنید تا امکان ادامهٔ همگام‌سازی مقالات مرتب‌نشده فراهم شود.";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفاً مقالاتتان را در فهرست‌ها مرتب کنید تا امکان ادامهٔ همگام‌سازی مقالات مرتب‌نشده فراهم شود.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "به محدودیت مقالات مرتب‌نشده رسیدید";
 "reading-list-list-limit-exceeded-message" = "این فهرست مطالعه و مقاله‌هایی که در آن ذخیره شده‌اند، همگام‌سازی نخواهند شد. برای ادامهٔ همگام‌سازی این فهرست، لطفاً تعداد فهرست‌های خود را به $1 کاهش دهید.";
 "reading-list-list-limit-exceeded-title" = "شما از محدودیت {{PLURAL:$1|$1 فهرست مطالعه|$1 فهرست مطالعه}} به‌ازای هر حساب عبور کرده‌اید.";
@@ -982,12 +981,12 @@
 "reading-list-sync-enable-title" = "همگام‌سازی فهرست مطالعه فعال شود؟";
 "reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب غیرفعال کنید.";
 "reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب فعال است";
-"reading-list-unable-to-add-entry" = "هنگام افزودن یک ورودی به فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
-"reading-list-unable-to-create" = "هنگام ساخت فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
-"reading-list-unable-to-delete" = "هنگام حذف فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
+"reading-list-unable-to-add-entry" = "هنگام افزودن یک ورودی به فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
+"reading-list-unable-to-create" = "هنگام ساخت فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
+"reading-list-unable-to-delete" = "هنگام حذف فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-remove-entry" = "هنگام حذف یک ورودی از فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-update" = "در هنگام روزآمدسازی فهرست مطالعهٔ شما خطایی غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
-"reading-list-with-provided-name-not-found" = "فهرست مطالعه‌ای با نام «$1» یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
+"reading-list-with-provided-name-not-found" = "فهرست مطالعه‌ای با نام «$1» یافت نشد. لطفاً مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به «$1» افزوده شد.";
 "reading-lists-article-api-failure" = "ناتوان از همگام‌سازی مقاله";
 "reading-lists-article-not-synced" = "همگام‌سازی نشده";
@@ -1166,7 +1165,6 @@
 "talk-page-reply-button-accessibility-label" = "پاسخ به $1";
 "talk-page-reply-depth-accessibility-label" = "عمق پاسخ: $1";
 "talk-page-reply-placeholder-format" = "پاسخ به $1";
-"talk-page-reply-terms-and-licenses" = "دقت کنید که پاسخ شما به‌طور خودکار با نام کاربری شما امضا می‌شود. با انتشار تغییرات، شما با $1شرایط استفاده$2 موافقت می‌کنید و می‌پذیرید که مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید.";
 "talk-page-revision-history" = "تاریخچهٔ نسخه‌ها";
 "talk-page-rply-close-button-accessibility-hint" = "بستن نمای پاسخ";
 "talk-page-share-button" = "اشتراک‌گذاری صفحهٔ بحث";
@@ -1177,7 +1175,6 @@
 "talk-page-title-article-talk" = "بحث مقاله";
 "talk-page-title-user-talk" = "بحث کاربر";
 "talk-page-topic-close-button-hint" = "بستن مبحث تازه";
-"talk-page-topic-compose-terms-and-licenses" = "با انتشار تغییرات، شما $1شرایط استفاده$2 را می‌پذیرید و به‌طور غیرقابل بازگشتی با انتشار مشارکت خود تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 موافقت می‌کنید.";
 "talk-page-unsubscribe-to-topic" = "لغو اشتراک";
 "talk-page-unsubscribed-alert-subtitle" = "در آینده دیگر برای هر نظر ارسال‌شده در این مبحث آگاه‌سازی‌‌هایی دریافت نخواهید کرد.";
 "talk-page-unsubscribed-alert-title" = "اشتراک شما لغو شد.";
@@ -1200,7 +1197,7 @@
 "talk-pages-topic-added-alert-title" = "مبحث شما افزوده شد";
 "talk-pages-topic-compose-body-placeholder" = "توضیحات";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "شرح مبحث";
-"talk-pages-topic-compose-close-confirmation-discard" = "انحلال پاسخ";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "انحلال پاسخ";
 "talk-pages-topic-compose-close-confirmation-title" = "آیا از انحلال این مبحث مطمئن هستید؟";
 "talk-pages-topic-compose-navbar-title" = "مبحث";
 "talk-pages-topic-compose-title-placeholder" = "عنوان مبحث";
@@ -1306,14 +1303,14 @@
 "welcome-data-privacy-title" = "داده‌ها و حریم خصوصی";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اجتماع";
 "welcome-exploration-explore-feed-title" = "خوراک بازدید";
-"welcome-exploration-on-this-day-description" = "سفر به گذشته برای آگاهی از رویدادهایی که در چنین روزی رخ داده‌است";
+"welcome-exploration-on-this-day-description" = "سفر به گذشته برای آگاهی از رویدادهایی که در چنین روزی رخ داده است";
 "welcome-exploration-on-this-day-title" = "در این روز";
 "welcome-exploration-places-description" = "کشف مکان‌های دیدنی در اطرافتان یا جستجو در سرتاسر جهان";
 "welcome-exploration-places-title" = "برگهٔ مکان‌ها";
 "welcome-explore-continue-button" = "شروع کنید";
 "welcome-explore-new-ways-title" = "روش‌های جدید برای کاوش";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
-"welcome-intro-free-encyclopedia-description" = "ویکی‌پدیا توسط کاربران داوطلب به‌طور مشارکتی نوشته‌شده‌است و دربردارندهٔ بیش از ۴۰ میلیون مقاله به بیش از ۳۰۰ زبان است.";
+"welcome-intro-free-encyclopedia-description" = "ویکی‌پدیا توسط کاربران داوطلب به‌طور مشارکتی نوشته‌شده است و دربردارندهٔ بیش از ۴۰ میلیون مقاله به بیش از ۳۰۰ زبان است.";
 "welcome-intro-free-encyclopedia-more" = "اطلاعات بیشتر در مورد ویکی‌پدیا";
 "welcome-intro-free-encyclopedia-more-about" = "دربارهٔ ویکی‌پدیا";
 "welcome-intro-free-encyclopedia-more-description" = "ویکی‌پدیا یک پروژهٔ جهانی برای ایجاد دانشنامه‌های آزاد به همهٔ زبان‌های دنیا است. تقریباً هر فردی که به اینترنت دسترسی دارد، آزاد است که با افزودن اطلاعات بی‌طرف و مستند، در این امر مشارکت کند.";
@@ -1323,7 +1320,7 @@
 "welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
 "welcome-languages-search-title" = "جستجو در بیش از ۳۰۰ زبان";
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این آگاه‌سازی‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
-"welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی‌ها بر روی دستگاه ذخیره شده‌است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
+"welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی‌ها بر روی دستگاه ذخیره شده است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
 "welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ آگاه‌سازی‌ها";
 "welcome-privacy-subtitle" = "باور ما این است که شما نباید برای مشارکت در جنبش دانش آزاد مجبور به ارائهٔ اطلاعات شخصی خود باشید. داده‌های کاربردی جمع‌آوری‌شده برای این اپلیکیشن ناشناس است.";
 "welcome-privacy-terms-button-text" = "در مورد سیاست محرمانگی و شرایط استفادهٔ ما بیشتر بدانید";
@@ -1347,5 +1344,4 @@
 "wikitext-upload-save-anonymously-or-login" = "ویرایش‌ها به‌نام نشانی آی‌پی دستگاه شما ثبت خواهند شد. اگر $1وارد حساب شوید$2 اطلاعات خصوصی‌تان بهتر حفظ خواهد شد.";
 "wikitext-upload-save-anonymously-warning" = "ویرایش‌ها به‌نام نشانی آی‌پی دستگاه شما ثبت خواهند شد. اگر $1، اطلاعات خصوصی‌‌تان بهتر حفظ خواهد شد.";
 "wikitext-upload-save-sign-in" = "ورود";
-"wikitext-upload-save-terms-and-licenses" = "با انتشار تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که به‌طور برگشت‌ناپذیری مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید. همچنین می‌پذیرید که تحت اجازه‌نامهٔ کریتیو کامنز، تنها یک ابرپیوند یا نشانی وب برای انتشاب به مشارکت‌های شما کفایت می‌کند.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";

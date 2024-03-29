@@ -537,6 +537,8 @@ public class CommonStrings: NSObject {
     public static let talkPageCloseConfirmationKeepEditing = WMFLocalizedString("talk-pages-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.")
     
     public static let findReplaceHeader = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
+    public static let emptyEditSummary = WMFLocalizedString("empty-edit-summary", value: "Empty edit summary", comment: "Label when looking at a particular article revision. Indicates that the user did not add a summary.")
 
     // Native page editor
 

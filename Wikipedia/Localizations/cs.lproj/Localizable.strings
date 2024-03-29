@@ -521,7 +521,6 @@
 "insert-media-image-type-settings-title" = "Typ obrázku";
 "insert-media-media-settings-title" = "Nastavení médií";
 "insert-media-title" = "Vložit soubor";
-"insert-media-uploaded-image-title" = "Nahraný obrázek";
 "languages-settings-title" = "Jazyky";
 "languages-title" = "Změnit jazyk";
 "languages-wikipedia" = "Jazyk Wikipedie";
@@ -917,5 +916,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Editace budou přiřazeny IP adrese vašeho zařízení. Pokud se $1přihlásíte$2, budete mít více soukromí.";
 "wikitext-upload-save-anonymously-warning" = "Jako autor editace bude uvedena IP adresa vašeho zařízení. Pokud kliknete na $1, budete mít více možností ochránit své soukromí.";
 "wikitext-upload-save-sign-in" = "Přihlásit se";
-"wikitext-upload-save-terms-and-licenses" = "Zveřejněním změn souhlasíte s $1Podmínkami užití$2 a neodvolatelně souhlasíte s tím, že uvolníte svůj příspěvek pod licencemi $3CC BY-SA 3.0 License$4 a $5GFDL$6. Souhlasíte s tím, že hypertextový odkaz nebo URL je dostatečným uvedením vašeho autorství podle licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Podmínkami užití";

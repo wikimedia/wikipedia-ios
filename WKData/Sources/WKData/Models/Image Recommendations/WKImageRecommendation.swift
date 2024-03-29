@@ -12,7 +12,7 @@ public struct WKImageRecommendation {
 
     public struct GrowthImageSuggestionData {
         let titleNamespace: Int
-        let titleText: String
+        public let titleText: String
         public let images: [ImageSuggestion]
     }
 

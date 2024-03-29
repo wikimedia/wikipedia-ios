@@ -6,6 +6,7 @@ import Combine
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
+    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
     func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
 }
 
@@ -56,7 +57,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-       
     }
 
 	private func presentOnboardingIfNecessary() {

@@ -556,7 +556,6 @@
 "insert-media-image-type-settings-title" = "ชนิดภาพ";
 "insert-media-media-settings-title" = "การตั้งค่าสื่อ";
 "insert-media-title" = "แทรกสื่อ";
-"insert-media-uploaded-image-title" = "ภาพที่อัปโหลด";
 "languages-settings-title" = "ภาษา";
 "languages-title" = "เปลี่ยนภาษา";
 "languages-wikipedia" = "ภาษาของวิกิพีเดีย";
@@ -982,7 +981,6 @@
 "talk-page-reply-button" = "ตอบกลับ";
 "talk-page-reply-button-accessibility-label" = "ตอบกลับ $1";
 "talk-page-reply-placeholder-format" = "ตอบกลับ $1";
-"talk-page-reply-terms-and-licenses" = "โปรดทราบว่าการตอบกลับของคุณจะถูกเซ็นชื่อโดยอัตโนมัติด้วยชื่อผู้ใช้ของคุณ การบันทึกการเปลี่ยนแปลงแสดงว่าคุณยอมรับข้อกำหนดการใช้งาน $1 $2 และตกลงที่จะเผยแพร่การมีส่วนร่วมของคุณภายใต้สัญญาอนุญาต $3 CC BY-SA 3.0 $4 และ $5 GFDL $6 อย่างไม่อาจเพิกถอนได้";
 "talk-page-revision-history" = "ประวัติหน้า";
 "talk-page-rply-close-button-accessibility-hint" = "ปิดมุมมองตอบกลับ";
 "talk-page-share-button" = "แบ่งปันหน้าพูดคุย";
@@ -993,7 +991,6 @@
 "talk-page-title-article-talk" = "พูดคุยบทความ";
 "talk-page-title-user-talk" = "พูดคุยกับผู้ใช้";
 "talk-page-topic-close-button-hint" = "ปิดหัวข้อใหม่";
-"talk-page-topic-compose-terms-and-licenses" = "การเผยแพร่การเปลี่ยนแปลง ถือว่าคุณยอมรับ $1ข้อกำหนดการใช้งาน$2 และคุณตกลงที่จะเผยแพร่การมีส่วนร่วมของคุณภายใต้ สัญญาอนุญาต$4 $3CC BY-SA 3.0 และ $5GFDL$6 อย่างไม่อาจเพิกถอนได้";
 "talk-page-unsubscribe-to-topic" = "เลิกสมัครรับ";
 "talk-page-unsubscribed-alert-subtitle" = "คุณจะไม่ได้รับการแจ้งเตือนเกี่ยวกับความเห็นใหม่ในหัวข้อนี้อีกต่อไป";
 "talk-page-unsubscribed-alert-title" = "คุณได้ยกเลิกการสมัครรับแล้ว";
@@ -1016,7 +1013,7 @@
 "talk-pages-topic-added-alert-title" = "เพิ่มหัวข้อของคุณแล้ว";
 "talk-pages-topic-compose-body-placeholder" = "คำอธิบาย";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "คำอธิบายหัวข้อ";
-"talk-pages-topic-compose-close-confirmation-discard" = "ยกเลิกการตอบกลับ";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "ยกเลิกการตอบกลับ";
 "talk-pages-topic-compose-close-confirmation-title" = "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกหัวข้อใหม่นี้?";
 "talk-pages-topic-compose-navbar-title" = "หัวข้อ";
 "talk-pages-topic-compose-title-placeholder" = "ชื่อหัวข้อ";
@@ -1096,6 +1093,7 @@
 "watchlist-filter-user-registration-header" = "การลงทะเบียนผู้ใช้และประสบการณ์";
 "watchlist-filter-user-registration-options-registered" = "ลงทะเบียน";
 "watchlist-filter-user-registration-options-unregistered" = "ไม่ได้ลงทะเบียน";
+"watchlist-filters-add-language" = "เพิ่มภาษา...";
 "watchlist-onboarding-button-title" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
 "watchlist-onboarding-title" = "แนะนำรายการเฝ้าดูของคุณ";
 "watchlist-removed" = "นำออกจากรายการเฝ้าดูของคุณแล้ว";
@@ -1151,5 +1149,4 @@
 "wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ $1 เข้าสู่ระบบ $2 คุณจะมีความเป็นส่วนตัวมากขึ้น";
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ $1";
 "wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
-"wikitext-upload-save-terms-and-licenses" = "โดยการเผยแพร่การเปลี่ยนแปลง คุณเห็นด้วยกับเงื่อนไข $1 ของการใช้งาน $2 และคุณตกลงที่จะไม่เพิกถอนการบริจาคของคุณภายใต้ $3 สัญญาอนุญาตครีเอทีฟคอมมอนส์ 3.0 $4 และ $5 สัญญาอนุญาตเอกสารเสรีของกนู $6 คุณยอมรับว่าการเชื่อมโยงหลายมิติหรือยูอาร์แอลเป็นการระบุแหล่งที่มาที่เพียงพอภายใต้สัญญาอนุญาตครีเอทีฟคอมมอนส์";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";
