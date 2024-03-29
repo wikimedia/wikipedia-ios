@@ -9,6 +9,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
+        public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -38,16 +39,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let viewArticle: String
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
+        let emptyLocalizedStrings: EmptyLocalizedStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
+            self.emptyLocalizedStrings = emptyLocalizedStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
