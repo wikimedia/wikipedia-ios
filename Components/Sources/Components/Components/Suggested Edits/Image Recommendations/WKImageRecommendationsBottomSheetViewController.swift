@@ -64,6 +64,12 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     
     func goToImageCommonsPage() {
 
+        guard let currentRecommendation = viewModel.currentRecommendation,
+        let url = URL(string: currentRecommendation.imageData.descriptionURL) else {
+            return
+        }
+        
+        delegate?.imageRecommendationsUserDidTapImageLink(commonsURL: url)
     }
     
     func didTapYesButton() {
