@@ -5,6 +5,7 @@ import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
+    func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
     func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
     func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
 }
@@ -83,6 +84,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
+        navigationItem.backButtonDisplayMode = .generic
         addComponent(hostingViewController, pinToEdges: true)
     }
 

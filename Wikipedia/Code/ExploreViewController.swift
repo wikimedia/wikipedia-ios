@@ -1101,20 +1101,21 @@ extension ExploreViewController {
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
+
     func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
             return
         }
-        
+
         let item = MediaListItem(title: "File:\(data.filename)", sectionID: 0, type: .image, showInGallery: true, isLeadImage: false, sources: nil)
         let mediaList = MediaList(items: [item])
-        
+
         let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
         presentingVC.present(gallery, animated: true)
     }
-    
+
     func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
         
         guard let siteURL = project.siteURL,
@@ -1124,6 +1125,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         }
         
         navigationController?.pushViewController(articleViewController, animated: true)
+    }
+    
+    func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
+        navigate(to: commonsURL, useSafari: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
@@ -1136,5 +1141,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
     }
+
 }
 
