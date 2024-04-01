@@ -273,6 +273,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Eus Wikipedia";
 "explore-randomizer" = "Dre zegouezh";
 "explore-suggested-edits-footer" = "Ouzhpennañ";
+"explore-suggested-edits-image-recs-title" = "Ouzhpennañ ur skeudenn";
 "featured-widget-from-language-wikipedia" = "Eus $1 Wikipedia";
 "featured-widget-from-wikipedia" = "Eus Wikipedia";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
@@ -321,8 +322,13 @@
 "icon-shortcut-random-title" = "Ur pennad dre zegouezh";
 "icon-shortcut-search-title" = "Klask e Wikipedia";
 "image-gallery-unknown-owner" = "Aozer dianav.";
+"image-rec-add-image-title" = "Ouzhpennañ ar skeudenn-mañ?";
+"image-rec-onboarding-title" = "Ouzhpennañ ur skeudenn d'ur pennad";
 "image-rec-title" = "Ouzhpennañ ur skeudenn";
 "image-rec-view-article" = "Gwelet ar pennad";
+"image-recs-no-title" = "Ket";
+"image-recs-not-sure-title" = "N'on ket sur";
+"image-recs-yes-title" = "Ya";
 "import-shared-reading-list-default-title" = "Ma roll lenn";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ket bremañ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Kemer perzh er sontadeg";
@@ -385,6 +391,7 @@
 "nearby-distance-label-miles" = "$1 mil saoz";
 "new-password-instructions" = "Kevreet oc'h bet gant ur ger-tremen dibad.\nEvit echuiñ kevreañ e rankit lakaat ur ger-tremen nevez amañ :";
 "new-password-title" = "Dielfennañ ho ker-tremen";
+"next-action-title" = "War-lerc'h";
 "no-email-account-alert" = "Kendalc'hit, mar plij da gefluniañ ur gemennadenn en hoc'h ardivink ha klaskit en-dro.";
 "no-internet-connection" = "Kevreadur ebet ouzh ar Genrouedad";
 "no-internet-connection-article-reload-button" = "Distreiñ d'an doare diwezhañ enrollet";

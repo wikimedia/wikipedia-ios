@@ -216,7 +216,7 @@
 "edit-text-formatting-table-view-title" = "Textformatéierung";
 "edit-text-size-table-view-title" = "Textgréisst";
 "edit-text-style-accessibility-label" = "Textstilmenü weisen";
-"edit-watch-list-learn-more-text" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
+"edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "editor-exit-confirmation-body" = "Sidd Dir sécher, datt Dir den Ännerungsmodus vun dëser Säit verloosse wëllt ouni virdrun ze verëffentlechen?";
@@ -240,6 +240,7 @@
 "editor-replace-type-single-accessibility" = "Eenzel Instanz ersetzen";
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
+"empty-edit-summary" = "Eidele Resumé vun der Ännerung";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
@@ -354,6 +355,14 @@
 "image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
 "image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
 "image-rec-onboarding-title" = "E Bild an een Artikel derbäisetzen";
+"image-rec-survey-instructions-1" = "Är Äntwerte wäerten zukünfteg Virschléi besser maachen.";
+"image-rec-survey-option-1" = "Bild ass net relevant";
+"image-rec-survey-option-2" = "Net genuch Informatioune fir ze decidéieren";
+"image-rec-survey-option-3" = "Bild ass verletzend";
+"image-rec-survey-option-4" = "Bild huet eng niddreg Qualitéit";
+"image-rec-survey-option-6" = "Anerer";
+"image-rec-survey-submit-button" = "Schécken";
+"image-rec-survey-title" = "Grond";
 "image-rec-title" = "Bild derbäisetzen";
 "image-rec-view-article" = "Artikel weisen";
 "image-recs-no-title" = "Neen";
@@ -370,6 +379,7 @@
 "in-the-news-title" = "An den Neiegkeeten";
 "insert-action-title" = "Drasetzen";
 "insert-link-title" = "Link drasetzen";
+"insert-media-add-image-details-title" = "Bilddetailer derbäisetzen";
 "insert-media-alternative-text-description" = "Textbeschreiwung fir Lieser, déi d'Bild net gesi kënnen";
 "insert-media-alternative-text-placeholder" = "Beschreift dëst Bild";
 "insert-media-alternative-text-title" = "Alternativen Text";
@@ -427,6 +437,7 @@
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
+"next-action-title" = "Nächst";
 "no-email-account-alert" = "Configuréiert wgl. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "no-internet-connection" = "Keng Internet Verbindung";
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";

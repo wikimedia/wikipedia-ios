@@ -360,6 +360,7 @@
 "edit-underline-remove-accessibility-label" = "下線の解除";
 "edit-unordered-list-accessibility-label" = "この行を箇条書きにする";
 "edit-unordered-list-remove-accessibility-label" = "この行の箇条書きを解除";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ウォッチリストの詳細";
 "edit-watch-this-page-text" = "このページをウォッチする";
 "editing-welcome-be-bold-subtitle" = "勇気を持って、しかしいい加減な気持ちにはならずに、記事を更新しましょう。間違ったことをしでかさないか悩む必要はありません。各ページの履歴はすべて保存されていますので、誤りがあれば私たちコミュニティが修正できます。";
@@ -621,6 +622,7 @@
 "nearby-distance-label-miles" = "$1 マイル";
 "new-password-instructions" = "一時的なパスワードでログインしています。ログインを完了するには、新しいパスワードをここで設定してください:";
 "new-password-title" = "パスワードを設定する";
+"next-action-title" = "次へ";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "no-internet-connection" = "インターネットに接続されていません";
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
@@ -1069,6 +1071,7 @@
 "talk-pages-user-groups" = "利用者グループ";
 "talk-pages-user-logs" = "ログ";
 "talk-pages-view-title" = "トーク";
+"terms-of-use-title" = "利用規約";
 "theme-black-display-name" = "ブラック";
 "theme-dark-display-name" = "ダーク";
 "theme-default-display-name" = "既定";
@@ -1160,6 +1163,7 @@
 "watchlist-user-button-user-talk-page" = "利用者トークページ";
 "watchlist-watch-subtitle" = "記事の最下部にあるツールバーで星アイコンもしくは「ウォッチする」リンクを押すと、その記事を自分のウォッチリストに追加します。";
 "watchlist-watch-title" = "記事をウォッチ";
+"welcome-data-privacy-title" = "データとプライバシー";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";

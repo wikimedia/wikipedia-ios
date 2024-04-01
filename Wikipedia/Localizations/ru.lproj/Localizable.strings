@@ -435,6 +435,7 @@
 "editor-toolbar-find-accessibility" = "Найти на странице";
 "empty-diff-compare-title" = "Нет различий между версиями";
 "empty-diff-single-title" = "Нет видимых изменений";
+"empty-edit-summary" = "Пустое описание изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
 "empty-no-article-message" = "К сожалению, не удалось скачать статью";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
@@ -538,6 +539,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "explore-suggested-edits-footer" = "Добавить";
+"explore-suggested-edits-image-recs-body" = "Добавляйте рекомендуемые изображения в статьи Википедии, чтобы улучшить их восприятие.";
 "export-user-data-confirmation-message" = "Общий доступ к библиотеке приложений включает данные о списках чтения и истории, предпочтениях и содержании раздела «Лента». Этот файл данных должен передаваться только доверенному получателю для использования в целях технической диагностики.";
 "export-user-data-confirmation-title" = "Поделиться библиотекой приложения?";
 "export-user-data-generic-error" = "При экспорте данных произошла ошибка. Пожалуйста, повторите попытку позднее.";
@@ -617,6 +619,16 @@
 "image-rec-onboarding-item-3-title" = "Лицензированные изображения";
 "image-rec-onboarding-learn-more-button" = "Подробнее о предлагаемых правках";
 "image-rec-onboarding-title" = "Добавьте изображение в раздел статьи";
+"image-rec-survey-instructions-1" = "Ваши ответы улучшают качество будущих подсказок.";
+"image-rec-survey-instructions-2" = "Выберите один или несколько вариантов";
+"image-rec-survey-option-1" = "Не релевантное изображение";
+"image-rec-survey-option-2" = "Мало информации, чтобы решить";
+"image-rec-survey-option-3" = "Изображение оскорбительно";
+"image-rec-survey-option-4" = "Изображение низкого качества";
+"image-rec-survey-option-5" = "Я не знаю данную тему";
+"image-rec-survey-option-6" = "Другое";
+"image-rec-survey-submit-button" = "Отправить";
+"image-rec-survey-title" = "Причина";
 "image-rec-title" = "Добавить изображение";
 "image-rec-view-article" = "Посмотреть статью";
 "image-recs-no-title" = "Нет";
@@ -1178,6 +1190,7 @@
 "talk-pages-topic-compose-body-placeholder" = "Описание";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Описание темы";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "Отменить ответ";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Отменить тему";
 "talk-pages-topic-compose-close-confirmation-title" = "Вы уверены, что хотите удалить эту новую тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Название темы";
@@ -1278,4 +1291,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1авторизуетесь$2, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-sign-in" = "Войти";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";

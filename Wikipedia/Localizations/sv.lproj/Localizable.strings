@@ -357,6 +357,7 @@
 "edit-underline-remove-accessibility-label" = "Ta bort understrykning";
 "edit-unordered-list-accessibility-label" = "Gör nuvarande rad till en oordnad lista";
 "edit-unordered-list-remove-accessibility-label" = "Ta bort oordnad lista från nuvarande rad";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
 "editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Var inte för hård mot dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";

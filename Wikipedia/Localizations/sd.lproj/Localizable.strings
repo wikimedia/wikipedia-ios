@@ -191,11 +191,9 @@
 "description-welcome-descriptions-title" = "مضمونن جون تشريحون";
 "description-welcome-promise-title" = "شروع ڪرڻ سان، آئون واعدو ڪريان ٿو تہ هن خصوصيت جو غلط استعمال نہ ڪندس";
 "description-welcome-start-editing-button" = "سنوارڻ شروع ڪريو";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "طرفان:";
+"diff-compare-header-from-info-heading" = "پوئين سنوار";
 "diff-compare-header-heading" = "ورجاءَ ڀيٽيو";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "ڏانھن:";
+"diff-compare-header-to-info-heading" = "ظاھر ڪيل سنوار";
 "diff-compare-title" = "ورجاءَ ڀيٽيو";
 "diff-context-lines-collapsed-button-title" = "ڏيکاريو";
 "diff-context-lines-expanded-button-title" = "لڪايو";
@@ -283,7 +281,7 @@
 "edit-underline-remove-accessibility-label" = "ھيٺين-ليڪ ھٽايو";
 "edit-unordered-list-accessibility-label" = "ھاڻوڪي سٽ کي اڻ-ترتيبيل فھرست ٺاھيو";
 "edit-unordered-list-remove-accessibility-label" = "اڻ-ترتيبيل فھرست کي ھاڻوڪي سٽ تان ھٽايو";
-"edit-watch-list-learn-more-text" = "نظر ۾ فھرستن بابت وڌيڪ سکو";
+"edit-watch-list-learn-more-text" = "پنھنجي نظر۾فھرست بابت وڌيڪ ڄاڻيو";
 "edit-watch-this-page-text" = "هي صفحو نظر۾رکو";
 "editing-welcome-be-bold-title" = "توھان جو آواز اھم آھي";
 "editing-welcome-citations-title" = "اعتمادجوڳن ذريعن مان حوالا ڏيو";

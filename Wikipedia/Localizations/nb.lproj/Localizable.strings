@@ -131,6 +131,7 @@
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "add-citation-title" = "Legg til referanse";
+"add-image-learn-more-text" = "Lær mer";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
@@ -352,6 +353,7 @@
 "edit-underline-remove-accessibility-label" = "Fjern understrek";
 "edit-unordered-list-accessibility-label" = "Gjør linjen til en punktliste";
 "edit-unordered-list-remove-accessibility-label" = "Fjern punktlisteformatering fra den valgte linja";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Lær mer om overvåkingslister";
 "edit-watch-this-page-text" = "Overvåk denne siden";
 "editing-welcome-be-bold-subtitle" = "Vær modig, men ikke uvøren når du oppdaterer artikler. Ikke vær redd for å gjøre feil: alle tidligere versjoner av en side er lagret, så feil kan enkelt korrigeres av andre.";
@@ -610,6 +612,7 @@
 "in-the-news-title" = "Aktuelt";
 "insert-action-title" = "Sett inn";
 "insert-link-title" = "Sett inn lenke";
+"insert-media-add-image-details-title" = "Legg til bildedetaljer";
 "insert-media-alternative-text-description" = "Tekstbeskrivelse for lesere som ikke kan se bildet";
 "insert-media-alternative-text-placeholder" = "Beskriv bildet";
 "insert-media-alternative-text-title" = "Alternativ tekst";
@@ -677,6 +680,7 @@
 "nearby-distance-label-miles" = "$1 amerikanske miles";
 "new-password-instructions" = "Du ble logget inn med et midlertidig passord. For å fullføre registreringen må du lage deg et nytt passord her.";
 "new-password-title" = "Lag passord";
+"next-action-title" = "Neste";
 "no-email-account-alert" = "Legg til en epostkonto på enheten din og prøv igjen.";
 "no-internet-connection" = "Ingen internettforbindelse";
 "no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";

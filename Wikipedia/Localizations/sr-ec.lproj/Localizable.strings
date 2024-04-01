@@ -347,7 +347,7 @@
 "edit-text-style-accessibility-label" = "Прикажи мени за стил текста";
 "edit-underline-accessibility-label" = "Додај подцртавање";
 "edit-underline-remove-accessibility-label" = "Уклони подцртавање";
-"edit-watch-list-learn-more-text" = "Сазнајте више о листама за надгледање";
+"edit-watch-list-learn-more-text" = "Сазнајте више о списку надгледања";
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-subtitle" = "Будите одважни, али не несмотрени у ажурирању чланака. Немојте се оптерећивати због грешака: свака претходна верзија странице се чува, тако да наша заједница може лако да исправи грешке.";
 "editing-welcome-be-bold-title" = "Ваш глас је важан";
@@ -390,6 +390,7 @@
 "editor-wikitext-textview-accessibility" = "Уређивач викитекста";
 "empty-diff-compare-title" = "Нема разлика између измена";
 "empty-diff-single-title" = "Нема направљених видљивих промена";
+"empty-edit-summary" = "Без описа измене";
 "empty-insert-media-title" = "Изаберите датотеку са Викимедијине оставе";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
@@ -571,6 +572,16 @@
 "image-rec-onboarding-item-3-body" = "Слике су са Викимедијине оставе, колекције слободно лиценцираних слика које се користе на Википедији.";
 "image-rec-onboarding-learn-more-button" = "Научите Више о предложеним изменама";
 "image-rec-onboarding-title" = "Додај слику у чланка";
+"image-rec-survey-instructions-1" = "Ваши одговори унапређују будуће предлоге.";
+"image-rec-survey-instructions-2" = "Изаберите једну или више опција";
+"image-rec-survey-option-1" = "Слика није релевантна";
+"image-rec-survey-option-2" = "Недовољно информација за одлуку";
+"image-rec-survey-option-3" = "Слика је увредљива";
+"image-rec-survey-option-4" = "Слика је слабог квалитета";
+"image-rec-survey-option-5" = "Није ми позната ова тема";
+"image-rec-survey-option-6" = "Друго";
+"image-rec-survey-submit-button" = "Проследи";
+"image-rec-survey-title" = "Разлог";
 "image-rec-title" = "Додај слику";
 "image-rec-view-article" = "Види чланак";
 "image-recs-no-title" = "Не";

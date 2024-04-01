@@ -368,7 +368,7 @@
 "edit-underline-remove-accessibility-label" = "הסרת קו תחתי";
 "edit-unordered-list-accessibility-label" = "הגדרת השורה הנוכחית כרשימת תבליטים";
 "edit-unordered-list-remove-accessibility-label" = "הסרת רשימת תבליטים מהשורה הנוכחית";
-"edit-watch-list-learn-more-text" = "מידע נוסף על רשימות מעקב";
+"edit-watch-list-learn-more-text" = "מידע נוסף על רשימת המעקב שלך";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
 "editing-welcome-be-bold-subtitle" = "היו נועזים, אבל לא פזיזים מדי בעדכון ערכים. אל תפחדו יותר מדי מטעויות: כל הגרסאות הקודמות של הדף נשמרות, ושגיאות יכולות להיות מתוקנות בקלות על־ידי הקהילה שלנו.";
 "editing-welcome-be-bold-title" = "הקול שלך עושה את ההבדל";
@@ -442,6 +442,7 @@
 "editor-wikitext-textview-accessibility" = "עורך קוד ויקי";
 "empty-diff-compare-title" = "אין הבדל בין גרסאות";
 "empty-diff-single-title" = "לא נעשו שינויים שאפשר לראות";
+"empty-edit-summary" = "תקציר עריכה ריק";
 "empty-insert-media-title" = "נא לבחור קובץ מוויקישיתוף";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
@@ -628,6 +629,16 @@
 "image-rec-onboarding-item-3-title" = "תמונות ברישיון";
 "image-rec-onboarding-learn-more-button" = "מידע נוסף על עריכות מוצעות";
 "image-rec-onboarding-title" = "הוספת תמונה לערך";
+"image-rec-survey-instructions-1" = "התשובות שלך משפרות הצעות עתידיות.";
+"image-rec-survey-instructions-2" = "יש לבחור אפשרות אחת או יותר";
+"image-rec-survey-option-1" = "התמונה אינה רלוונטית";
+"image-rec-survey-option-2" = "אין מספיק מידע בשביל להחליט";
+"image-rec-survey-option-3" = "התמונה פוגענית";
+"image-rec-survey-option-4" = "התמונה באיכות נמוכה";
+"image-rec-survey-option-5" = "הנושא לא מוכר לי";
+"image-rec-survey-option-6" = "אחר";
+"image-rec-survey-submit-button" = "שליחה";
+"image-rec-survey-title" = "סיבה";
 "image-rec-title" = "הוספת תמונה";
 "image-rec-view-article" = "הצגת הערך";
 "image-recs-no-title" = "לא";
