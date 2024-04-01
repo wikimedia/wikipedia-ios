@@ -13,7 +13,7 @@ public struct MediaListItemSource: Codable {
     }
 }
 
-public enum MediaListItemType: String {
+public enum MediaListItemType: String, Codable {
     case image
     case audio
     case video
@@ -22,7 +22,7 @@ public enum MediaListItemType: String {
 public struct MediaListItem: Codable {
     public let title: String?
     public let sectionID: Int
-    public let type: String
+    public let type: MediaListItemType
     public let showInGallery: Bool
     public let isLeadImage: Bool
     public let sources: [MediaListItemSource]?
@@ -37,7 +37,7 @@ public struct MediaListItem: Codable {
         case audioType
     }
 
-    public init(title: String?, sectionID: Int, type: String, showInGallery: Bool, isLeadImage: Bool, sources: [MediaListItemSource]?, audioType: String? = nil) {
+    public init(title: String?, sectionID: Int, type: MediaListItemType, showInGallery: Bool, isLeadImage: Bool, sources: [MediaListItemSource]?, audioType: String? = nil) {
         self.title = title
         self.sectionID = sectionID
         self.type = type
@@ -48,11 +48,6 @@ public struct MediaListItem: Codable {
     }
 }
 
-extension MediaListItem {
-    public var itemType: MediaListItemType? {
-        return MediaListItemType(rawValue: type)
-    }
-}
 
 public struct MediaList: Codable {
     public let items: [MediaListItem]
@@ -75,7 +70,7 @@ public struct MediaList: Codable {
             MediaListItemSource(urlString: urlString, scale: "1.5x")
         ]
 
-        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: "image", showInGallery: true, isLeadImage: true, sources: sources, audioType: nil)
+        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: .image, showInGallery: true, isLeadImage: true, sources: sources, audioType: nil)
         self = MediaList(items: [mediaListItem])
     }
 }

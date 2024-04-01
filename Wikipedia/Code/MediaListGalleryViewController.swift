@@ -122,7 +122,7 @@ class MediaListItemNYTPhotoWrapper: NSObject, WMFPhoto {
     var imageInfo: MWKImageInfo?
     
     init?(_ mediaListItem: MediaListItem?) {
-        guard let mediaListItem = mediaListItem, mediaListItem.type == "image" else {
+        guard let mediaListItem = mediaListItem, mediaListItem.type == .image else {
             return nil
         }
         self.mediaListItem = mediaListItem
