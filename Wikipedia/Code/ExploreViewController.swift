@@ -1133,11 +1133,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapInsertImage(project: WKData.WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title) else {
-            return
-        }
-
         let image = UIImage() // TODO: fetch image properly
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
