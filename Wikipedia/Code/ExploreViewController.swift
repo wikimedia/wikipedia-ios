@@ -1092,7 +1092,7 @@ extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
         notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-        }
+    }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
