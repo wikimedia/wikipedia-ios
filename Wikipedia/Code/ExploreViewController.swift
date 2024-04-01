@@ -1133,18 +1133,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapInsertImage(project: WKData.WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        var components = URLComponents()
-        components.scheme = "https"
-
-        switch project {
-        case .wikipedia(let language):
-            components.host = "\(language.languageCode).wikipedia.org"
-        default:
-            assertionFailure("Unexpected project for image recommendations")
-        }
-
-        guard let url = components.url,
-              let articleURL = url.wmf_URL(withTitle: title) else {
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
         }
 
