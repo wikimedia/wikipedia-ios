@@ -62,7 +62,8 @@ import Foundation
             let page = WKImageRecommendation.Page(
                 pageid: page.pageid,
                 title: page.title,
-                growthimagesuggestiondata: getGrowthAPIImageSuggestions(for: page))
+                growthimagesuggestiondata: getGrowthAPIImageSuggestions(for: page),
+                revisions: getImageSuggestionRevisionData(for: page))
 
             recommendationsPerPage.append(page)
         }
@@ -87,7 +88,17 @@ import Foundation
         return suggestions
     }
 
-    internal func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
+    fileprivate func getImageSuggestionRevisionData(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.Revision] {
+        var revisions: [WKImageRecommendation.Revision] = []
+
+        for item in page.revisions {
+            let item = WKImageRecommendation.Revision(revID: item.revid, wikitext: item.wikitext.main.content)
+            revisions.append(item)
+        }
+        return revisions
+    }
+
+    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
         var images: [WKImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {

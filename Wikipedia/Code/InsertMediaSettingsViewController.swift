@@ -9,10 +9,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private let image: UIImage
     private let fromImageRecommendations: Bool
 
-    private let dataStore: MWKDataStore?
-    private let articleURL: URL?
-    private let sectionNumber: Int?
-    private var wikitext: String?
+    private let wikitext: String?
 
     let searchResult: InsertMediaSearchResult
     var nextButton: UIBarButtonItem?
@@ -203,13 +200,11 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, dataStore: MWKDataStore? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
-        self.dataStore = dataStore
-        self.articleURL = articleURL
-        self.sectionNumber = sectionNumber
+        self.wikitext = wikitext
         super.init()
     }
 
@@ -235,15 +230,6 @@ final class InsertMediaSettingsViewController: ViewController {
             navigationItem.rightBarButtonItem = nextButton
             navigationController?.navigationBar.topItem?.title = String()
             self.apply(theme: theme)
-
-            loadWikitext { result in
-                switch result {
-                case let .success(wikitext):
-                    self.wikitext = wikitext
-                case let .failure(error):
-                    print("error \(error)")
-                }
-            }
         }
     }
 
@@ -277,23 +263,6 @@ final class InsertMediaSettingsViewController: ViewController {
          didTapInsertMedia(with: wikitext)
     }
 
-    private func loadWikitext(completion: @escaping (Result<String, Error>) -> Void) {
-        guard let dataStore, let articleURL = articleURL else {
-            return
-        }
-        let wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        wikitextFetcher.fetchSection(with: sectionNumber, articleURL: articleURL) {  result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    completion(.failure(error))
-                case .success(let response):
-                    completion(.success(response.wikitext))
-                }
-            }
-        }
-    }
-
     func didTapInsertMedia(with imageWikitext: String) {
         guard let wikitext else {
             return
@@ -309,7 +278,6 @@ final class InsertMediaSettingsViewController: ViewController {
 
     func goToEditPreview(with wikitext: String) {
         print(wikitext)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

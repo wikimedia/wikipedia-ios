@@ -1091,8 +1091,25 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-    }
+            // TODO: Temp Code until we get Explore Feed card in
+            if FeatureFlags.needsImageRecommendations {
+
+                guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                      let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
+                    return
+                }
+
+                let strrr = WKImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(reason: "", cancel: "", submit: "", improveSuggestions: "", selectOptions: "", imageNotRelevant: "", notEnoughInformation: "", imageIsOffensive: "", imageIsLowQuality: "", dontKnowSubject: "", other: "")
+
+                let onb = WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(title: "", firstItemTitle: "", firstItemBody: "", secondItemTitle: "", secondItemBody: "", thirdItemTitle: "", thirdItemBody: "", continueButton: "", learnMoreButton: "")
+                let locStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "title", viewArticle: "View", onboardingStrings: onb, surveyLocalizedStrings: strrr, bottomSheetTitle: "Title", yesButtonTitle: "yes", noButtonTitle: "nO", notSureButtonTitle: "maybe")
+                let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: .unspecified, localizedStrings: locStrings)
+                let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
+                navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
+            } else {
+                notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+            }
+        }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
@@ -1141,8 +1158,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         let image = UIImage() // TODO: fetch image properly
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
-            let searchResult = InsertMediaSearchResult(fileTitle: imageData.filename, displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, dataStore: dataStore, articleURL: articleURL)
+            let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, wikitext: imageData.wikitext)
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
     }
