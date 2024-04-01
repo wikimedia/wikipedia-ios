@@ -1091,24 +1091,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-            // TODO: Temp Code until we get Explore Feed card in
-            if FeatureFlags.needsImageRecommendations {
-
-                guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                      let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
-                    return
-                }
-
-                let strrr = WKImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(reason: "", cancel: "", submit: "", improveSuggestions: "", selectOptions: "", imageNotRelevant: "", notEnoughInformation: "", imageIsOffensive: "", imageIsLowQuality: "", dontKnowSubject: "", other: "")
-
-                let onb = WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(title: "", firstItemTitle: "", firstItemBody: "", secondItemTitle: "", secondItemBody: "", thirdItemTitle: "", thirdItemBody: "", continueButton: "", learnMoreButton: "")
-                let locStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: "title", viewArticle: "View", onboardingStrings: onb, surveyLocalizedStrings: strrr, bottomSheetTitle: "Title", yesButtonTitle: "yes", noButtonTitle: "nO", notSureButtonTitle: "maybe")
-                let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: .unspecified, localizedStrings: locStrings)
-                let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: self)
-                navigationController?.pushViewController(imageRecommendationsViewController, animated: true)
-            } else {
-                notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-            }
+        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
         }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
