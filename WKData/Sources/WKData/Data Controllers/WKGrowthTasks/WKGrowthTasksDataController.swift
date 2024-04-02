@@ -62,7 +62,8 @@ import Foundation
             let page = WKImageRecommendation.Page(
                 pageid: page.pageid,
                 title: page.title,
-                growthimagesuggestiondata: getGrowthAPIImageSuggestions(for: page))
+                growthimagesuggestiondata: getGrowthAPIImageSuggestions(for: page),
+                revisions: getImageSuggestionRevisionData(for: page))
 
             recommendationsPerPage.append(page)
         }
@@ -87,7 +88,17 @@ import Foundation
         return suggestions
     }
 
-    internal func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
+    fileprivate func getImageSuggestionRevisionData(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.Revision] {
+        var revisions: [WKImageRecommendation.Revision] = []
+
+        for item in page.revisions {
+            let item = WKImageRecommendation.Revision(revID: item.revid, wikitext: item.wikitext.main.content)
+            revisions.append(item)
+        }
+        return revisions
+    }
+
+    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
         var images: [WKImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {
@@ -104,7 +115,7 @@ import Foundation
     }
 
     fileprivate func getMetadataObject(from image: WKImageRecommendationAPIResponse.ImageMetadata) -> WKImageRecommendation.ImageMetadata {
-        let metadata = WKImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName)
+        let metadata = WKImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName, sectionNumber: image.sectionNumber)
 
         return metadata
     }
