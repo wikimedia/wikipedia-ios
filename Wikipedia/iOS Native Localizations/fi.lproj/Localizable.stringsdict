@@ -752,5 +752,21 @@
 			<string>%1$d vastausta</string>
 		</dict>
 	</dict>
+	<key>watchlist-byte-change</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 tavu</string>
+			<key>other</key>
+			<string>%1$d tavua</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

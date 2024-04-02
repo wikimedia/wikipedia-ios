@@ -350,6 +350,7 @@
 "edit-underline-remove-accessibility-label" = "Remover sublinha";
 "edit-unordered-list-accessibility-label" = "Tornar a linha corrente numa lista não ordenada";
 "edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha corrente";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Saiba mais sobre listas de páginas vigiadas";
 "edit-watch-this-page-text" = "Vigiar esta página";
 "editing-welcome-be-bold-subtitle" = "Seja corajoso, mas não descuidado, na atualização de artigos. Não tenha receio de cometer erros: todas as versões anteriores das páginas são gravadas, portanto os erros podem ser facilmente corrigidos pela nossa comunidade.";

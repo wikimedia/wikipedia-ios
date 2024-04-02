@@ -317,6 +317,7 @@
 "edit-underline-remove-accessibility-label" = "เอาขีดเส้นใต้ออก";
 "edit-unordered-list-accessibility-label" = "ทำให้บรรทัดปัจจุบันเป็นรายการที่ไม่เรียงลำดับ";
 "edit-unordered-list-remove-accessibility-label" = "เอารายการที่ไม่เรียงลำดับออกจากบรรทัดปัจจุบัน";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-subtitle" = "จงกล้าหาญแต่อย่าประมาทในการปรับปรุงบทความ อย่าทนทุกข์ทรมานกับการทำผิดพลาด: ทุกรุ่นที่ผ่านมาของหน้าจะถูกบันทึกไว้ ดังนั้นชุมชนของเราจึงสามารถแก้ไขข้อผิดพลาดได้อย่างง่ายดาย";

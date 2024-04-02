@@ -336,6 +336,7 @@
 "edit-underline-remove-accessibility-label" = "إزالة التسطير";
 "edit-unordered-list-accessibility-label" = "جعل الخط الحالي قائمة غير مرتبة";
 "edit-unordered-list-remove-accessibility-label" = "إزالة قائمة غير مرتبة من الخط الحالي";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
 "editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";

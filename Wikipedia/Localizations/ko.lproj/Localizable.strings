@@ -363,6 +363,7 @@
 "edit-underline-remove-accessibility-label" = "밑줄 제거";
 "edit-unordered-list-accessibility-label" = "현재 줄을 순서 없는 리스트로 만들기";
 "edit-unordered-list-remove-accessibility-label" = "현재 줄에서 순서 없는 리스트 제거";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
 "edit-watch-this-page-text" = "이 문서 주시하기";
 "editing-welcome-be-bold-subtitle" = "문서 수정은 과감히 하되, 무모하게는 하지 마십시오. 실수를 두려워하지 마십시오: 과거의 모든 문서 판은 보존되므로 실수는 우리 공동체에 의해 쉽게 수정이 가능합니다.";
