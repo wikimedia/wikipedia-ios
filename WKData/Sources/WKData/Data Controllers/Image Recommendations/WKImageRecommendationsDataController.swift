@@ -68,7 +68,8 @@ public class WKImageRecommendationsDataController {
         }
 
         let request = WKMediaWikiServiceRequest(url: url, method: .PUT, backend: .mediaWikiREST, tokenType: .csrf, parameters: parameters as [String : Any])
-        service.perform(request: request) { result in
+        
+        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success:
                 completion(.success(()))
@@ -76,6 +77,8 @@ public class WKImageRecommendationsDataController {
                 completion(.failure(WKDataControllerError.serviceError(error)))
             }
         }
+        
+        service.perform(request: request, completion: completion)
     }
 
 }
