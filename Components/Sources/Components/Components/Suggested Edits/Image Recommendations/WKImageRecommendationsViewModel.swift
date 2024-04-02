@@ -163,8 +163,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     if let firstRecommendation = self.imageRecommendations.first {
                         self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
                             self?.currentRecommendation = firstRecommendation
-                            completion()
                             self?.loading = false
+                            completion()
                         }
                     }
                 }
@@ -195,8 +195,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         populateImageAndArticleSummary(for: nextRecommendation) { [weak self] in
             self?.currentRecommendation = nextRecommendation
-            completion()
             self?.loading = false
+            completion()
         }
     }
     

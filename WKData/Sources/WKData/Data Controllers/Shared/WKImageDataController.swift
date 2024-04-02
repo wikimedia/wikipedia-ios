@@ -4,19 +4,19 @@ public final class WKImageDataController {
     private var service: WKService?
     private let imageCache = NSCache<NSURL, NSData>()
     
-    public init() {
-        self.service = WKDataEnvironment.current.basicService
+    public init(service: WKService? = WKDataEnvironment.current.basicService) {
+        self.service = service
     }
     
     public func fetchImageData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         
-        guard let service else {
-            completion(.failure(WKDataControllerError.basicServiceUnavailable))
+        if let cachedData = imageCache.object(forKey: url as NSURL) {
+            completion(.success(cachedData as Data))
             return
         }
         
-        if let cachedData = imageCache.object(forKey: url as NSURL) {
-            completion(.success(cachedData as Data))
+        guard let service else {
+            completion(.failure(WKDataControllerError.basicServiceUnavailable))
             return
         }
 
