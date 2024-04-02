@@ -1,4 +1,6 @@
 import UIKit
+import WKData
+
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
@@ -6,6 +8,9 @@ final class InsertMediaSettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
     private let fromImageRecommendations: Bool
+
+    private let wikitext: String?
+
     let searchResult: InsertMediaSearchResult
     var nextButton: UIBarButtonItem?
 
@@ -195,10 +200,11 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
+        self.wikitext = wikitext
         super.init()
     }
 
@@ -228,6 +234,7 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     @objc private func insertMedia(_ sender: UIBarButtonItem) {
+        assert(fromImageRecommendations, "Should only be called from Image Recommendations")
         let searchResult = searchResult
         let wikitext: String
         switch settings {
@@ -253,7 +260,24 @@ final class InsertMediaSettingsViewController: ViewController {
                 """
             }
         }
-        // delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: wikitext) TODO: will be handled in T359225
+         didTapInsertMedia(with: wikitext)
+    }
+
+    func didTapInsertMedia(with imageWikitext: String) {
+        guard let wikitext else {
+            return
+        }
+        do {
+            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: wikitext)
+            goToEditPreview(with: wikitextWithImage)
+        } catch {
+            print("Error preparing wikitext")
+        }
+
+    }
+
+    func goToEditPreview(with wikitext: String) {
+        print(wikitext)
     }
 
     override func viewDidAppear(_ animated: Bool) {
