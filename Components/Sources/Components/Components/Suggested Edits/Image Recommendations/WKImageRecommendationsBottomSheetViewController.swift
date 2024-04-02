@@ -40,7 +40,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
                 imageThumbnail: image.uiImage,
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
-                imageTitle: image.filename,
+                imageTitle: image.displayFilename,
                 imageDescription: image.description, 
                 reason: image.reason,
                 yesButtonTitle: viewModel.localizedStrings.yesButtonTitle,

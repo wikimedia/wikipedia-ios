@@ -593,6 +593,8 @@
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "image-rec-add-image-title" = "title for the add image suggestion view";
+"image-rec-empty-subtitle" = "Subtitle of empty view displayed when there are no more image recommendations.";
+"image-rec-empty-title" = "Title of empty view displayed when there are no more image recommendations.";
 "image-rec-onboarding-item-1-body" = "Body of first item in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-item-1-title" = "Title of first item in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-item-2-body" = "Body of second item in onboarding view displayed when user first visits image recommendations feature view.";

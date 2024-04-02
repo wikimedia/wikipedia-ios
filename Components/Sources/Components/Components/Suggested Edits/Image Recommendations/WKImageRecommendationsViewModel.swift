@@ -9,6 +9,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
+        public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -38,16 +39,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let viewArticle: String
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
+        let emptyLocalizedStrings: EmptyLocalizedStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
+            self.emptyLocalizedStrings = emptyLocalizedStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
@@ -61,6 +64,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let pageTitle: String
         public let image: String
         public let filename: String
+        public let displayFilename: String
         public let thumbUrl: String
         public let fullUrl: String
         public let description: String?
@@ -68,11 +72,12 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let reason: String
         public internal(set) var uiImage: UIImage?
 
-        public init(pageId: Int, pageTitle: String, image: String, filename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String) {
+        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String) {
             self.pageId = pageId
             self.pageTitle = pageTitle
             self.image = image
             self.filename = filename
+            self.displayFilename = displayFilename
             self.thumbUrl = thumbUrl
             self.fullUrl = fullUrl
             self.description = description
@@ -264,7 +269,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     pageId: page.pageid,
                     pageTitle: firstPageSuggestion.titleText,
                     image: firstImage.image,
-                    filename: firstImage.displayFilename,
+                    filename: firstImage.image,
+                    displayFilename: firstImage.displayFilename,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
                     description: metadata.description,
