@@ -1,7 +1,6 @@
 import UIKit
 import WKData
 
-
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
 final class InsertMediaSettingsViewController: ViewController {
@@ -10,9 +9,11 @@ final class InsertMediaSettingsViewController: ViewController {
     private let fromImageRecommendations: Bool
 
     private let wikitext: String?
+    private let articleURL: URL?
+    private let sectionNumber: Int?
 
     let searchResult: InsertMediaSearchResult
-    var nextButton: UIBarButtonItem?
+    private var nextButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -200,11 +201,13 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
         self.wikitext = wikitext
+        self.articleURL = articleURL
+        self.sectionNumber = sectionNumber
         super.init()
     }
 
@@ -270,14 +273,26 @@ final class InsertMediaSettingsViewController: ViewController {
         do {
             let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: wikitext)
             goToEditPreview(with: wikitextWithImage)
-        } catch {
-            print("Error preparing wikitext")
+        } catch let error {
+            print("Error preparing wikitext\(error)")
         }
 
     }
 
     func goToEditPreview(with wikitext: String) {
-        print(wikitext)
+        guard let articleURL else {
+            print("Error")
+            return
+        }
+
+        let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+        editPreviewViewController.theme = theme
+        editPreviewViewController.sectionID = sectionNumber
+        editPreviewViewController.languageCode = articleURL.wmf_languageCode
+        editPreviewViewController.wikitext = wikitext
+        editPreviewViewController.delegate = self
+
+        navigationController?.pushViewController(editPreviewViewController, animated: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -407,4 +422,12 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
+}
+
+
+extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+        print("Go to Edit Save View Controller")
+    }
+
 }

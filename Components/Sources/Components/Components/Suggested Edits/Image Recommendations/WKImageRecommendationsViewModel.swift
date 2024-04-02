@@ -68,8 +68,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let descriptionURL: String
         public let reason: String
         public let wikitext: String?
+        public let sectionNumber: Int?
 
-        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?) {
+        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?, sectionNumber: Int?) {
             self.pageId = pageId
             self.pageTitle = pageTitle
             self.image = image
@@ -81,6 +82,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             self.descriptionURL = descriptionURL
             self.reason = reason
             self.wikitext = wikitext
+            self.sectionNumber = sectionNumber
         }
     }
 
@@ -247,7 +249,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     description: metadata.description,
                     descriptionURL: metadata.descriptionUrl,
                     reason: metadata.reason,
-                    wikitext: page.revisions.first?.wikitext
+                    wikitext: page.revisions.first?.wikitext,
+                    sectionNumber: Int(metadata.sectionNumber ?? String())
                 )
                 imageData.append(imageRecommendation)
             }
