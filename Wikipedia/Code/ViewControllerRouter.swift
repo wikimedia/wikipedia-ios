@@ -351,14 +351,12 @@ class ViewControllerRouter: NSObject {
                 reachabilityNotifier.stop()
             }
         }
+        
+        let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
 
-        if let image = UIImage(named: "watchlist-empty-state") {
-            let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
+        let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
 
-            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
-
-            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
-        }
+        targetNavigationController?.pushViewController(watchlistViewController, animated: true)
     }
 }
 

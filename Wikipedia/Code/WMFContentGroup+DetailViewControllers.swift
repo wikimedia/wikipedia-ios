@@ -108,8 +108,10 @@ extension WMFContentGroup {
                 continueButton: CommonStrings.continueButton,
                 learnMoreButton: WMFLocalizedString("image-rec-onboarding-learn-more-button", value: "Learn more about suggested edits", comment: "Title of learn more button in onboarding view displayed when user first visits image recommendations feature view.")
             )
+            
+            let emptyStrings = WKEmptyViewModel.LocalizedStrings(title: WMFLocalizedString("image-rec-empty-title", value: "You have no more suggested images available at this time.", comment: "Title of empty view displayed when there are no more image recommendations."), subtitle: WMFLocalizedString("image-rec-empty-subtitle", value: "Try coming back later.", comment: "Subtitle of empty view displayed when there are no more image recommendations."), titleFilter: nil, buttonTitle: nil, attributedFilterString: nil)
 
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
+            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle)
 
             let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings)
             let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
