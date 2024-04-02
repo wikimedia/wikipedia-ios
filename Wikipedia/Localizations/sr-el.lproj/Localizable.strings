@@ -323,6 +323,7 @@
 "edit-text-style-accessibility-label" = "Prikaži meni za stil teksta";
 "edit-underline-accessibility-label" = "Dodaj podcrtavanje";
 "edit-underline-remove-accessibility-label" = "Ukloni podcrtavanje";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Saznajte više o listama za nadgledanje";
 "edit-watch-this-page-text" = "Nadgledaj ovu stranicu";
 "editing-welcome-be-bold-subtitle" = "Budite hrabri, ali ne bezobzirni u ažuriranju članaka. Nemojte se opterećivati zbog grešaka: svaka prethodna verzija stranice se čuva, tako da naša zajednica može lako da ispravi greške.";

@@ -209,6 +209,7 @@
 "edit-text-size-table-view-title" = "စာသားအရွယ်အစား";
 "edit-underline-accessibility-label" = "အောက်ခြေမျဉ်း ထည့်ပေါင်းရန်";
 "edit-underline-remove-accessibility-label" = "အောက်ခြေမျဉ်း ဖယ်ရှားရန်";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "စောင့်ကြည့်စာရင်းများအကြောင်း ပိုမိုလေ့လာမည်";
 "edit-watch-this-page-text" = "ဤစာမျက်နှာကို စောင့်ကြည့်ရန်";
 "editing-welcome-be-bold-title" = "သင်၏ အသံက အရေးကြီးပါသည်";

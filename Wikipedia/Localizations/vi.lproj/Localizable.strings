@@ -322,6 +322,7 @@
 "edit-underline-remove-accessibility-label" = "Bỏ gạch chân";
 "edit-unordered-list-accessibility-label" = "Đưa dòng hiện tại vào danh sách không đánh số";
 "edit-unordered-list-remove-accessibility-label" = "Bỏ danh sách không đánh số khỏi dòng hiện tại";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Tìm hiểu thêm về danh sách theo dõi";
 "edit-watch-this-page-text" = "Theo dõi trang này";
 "editing-welcome-be-bold-subtitle" = "Hãy mạnh dạn nhưng không liều lĩnh trong việc cập nhật bài viết. Đừng lo lắng khi mắc lỗi: mọi phiên bản trước đây của trang đều được lưu lại, do đó cộng đồng của chúng tôi có thể dễ dàng sửa lỗi.";

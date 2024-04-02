@@ -367,6 +367,7 @@
 "editor-toolbar-cursor-previous-accessibility" = "Sposta il cursore sul carattere precedente.";
 "editor-toolbar-find-accessibility" = "Trova nella pagina";
 "editor-toolbar-show-more-accessibility" = "Mostra più opzioni di formattazione";
+"empty-edit-summary" = "Oggetto modifica vuoto";
 "empty-insert-media-title" = "Seleziona un file da Wikimedia Commons";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
@@ -471,6 +472,16 @@
 "image-rec-onboarding-item-2-title" = "Accetta o rifiuta un'immagine";
 "image-rec-onboarding-learn-more-button" = "Ulteriori informazioni sulle modifiche suggerite";
 "image-rec-onboarding-title" = "Aggiungi un'immagine a una voce";
+"image-rec-survey-instructions-1" = "Le tue risposte aiuteranno a migliorare i suggerimenti futuri.";
+"image-rec-survey-instructions-2" = "Seleziona una o più opzioni";
+"image-rec-survey-option-1" = "L'immagine non è rilevante";
+"image-rec-survey-option-2" = "Non dispongo di ababstanza informazioni per decidere";
+"image-rec-survey-option-3" = "L'immagine è ofensiva";
+"image-rec-survey-option-4" = "L'immagine è di bassa qualità";
+"image-rec-survey-option-5" = "Non conosco questo argomento";
+"image-rec-survey-option-6" = "Altro";
+"image-rec-survey-submit-button" = "Invia";
+"image-rec-survey-title" = "Motivo";
 "image-rec-title" = "Aggiungi immagine";
 "image-rec-view-article" = "Visualizza voce";
 "image-recs-no-title" = "No";
