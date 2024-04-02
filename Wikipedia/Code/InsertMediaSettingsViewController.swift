@@ -424,7 +424,6 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     }
 }
 
-
 extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
         print("Go to Edit Save View Controller")
