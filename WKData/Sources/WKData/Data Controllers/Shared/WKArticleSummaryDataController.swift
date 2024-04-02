@@ -10,7 +10,7 @@ public final class WKArticleSummaryDataController {
     public func fetchArticleSummary(project: WKProject, title: String, completion: @escaping (Result<WKArticleSummary, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WKDataControllerError.basicServiceUnavailable))
             return
         }
 
@@ -20,7 +20,7 @@ public final class WKArticleSummaryDataController {
             return
         }
 
-        let request = WKBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode)
+        let request = WKBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
         service.performDecodableGET(request: request) { (result: Result<WKArticleSummary, Error>) in
             completion(result)
         }
