@@ -593,6 +593,8 @@
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
 "image-rec-add-image-title" = "Add this image?";
+"image-rec-empty-subtitle" = "Try coming back later.";
+"image-rec-empty-title" = "You have no more suggested images available at this time.";
 "image-rec-onboarding-item-1-body" = "Decide if a suggested image should be placed in a Wikipedia article.";
 "image-rec-onboarding-item-1-title" = "View a suggestion";
 "image-rec-onboarding-item-2-body" = "Suggestions are machine generated and you will use your judgment to decide whether to accept or reject them.";

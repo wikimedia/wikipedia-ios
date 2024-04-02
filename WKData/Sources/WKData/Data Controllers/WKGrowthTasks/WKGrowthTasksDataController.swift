@@ -56,7 +56,7 @@ import Foundation
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
+        let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
         service.performDecodableGET(request: request) { [weak self] (result: Result<WKImageRecommendationAPIResponse, Error>) in
             
             guard let self else {

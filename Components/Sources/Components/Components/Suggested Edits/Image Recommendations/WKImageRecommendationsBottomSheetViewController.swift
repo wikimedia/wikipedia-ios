@@ -40,7 +40,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
                 imageThumbnail: UIImage(),
                 imageLink: image.fullUrl,
                 thumbLink: image.thumbUrl,
-                imageTitle: image.filename,
+                imageTitle: image.displayFilename,
                 imageDescription: image.description, 
                 reason: image.reason,
                 yesButtonTitle: viewModel.localizedStrings.yesButtonTitle,
@@ -64,6 +64,12 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     
     func goToImageCommonsPage() {
 
+        guard let currentRecommendation = viewModel.currentRecommendation,
+        let url = URL(string: currentRecommendation.imageData.descriptionURL) else {
+            return
+        }
+        
+        delegate?.imageRecommendationsUserDidTapImageLink(commonsURL: url)
     }
     
     func didTapYesButton() {
