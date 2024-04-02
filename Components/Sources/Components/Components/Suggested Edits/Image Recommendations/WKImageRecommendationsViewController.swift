@@ -155,7 +155,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
 extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
-	public func didClickPrimaryButton() {
+	public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
             self?.viewModel.fetchImageRecommendationsIfNeeded {
 
@@ -163,7 +163,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
         })
 	}
 	
-	public func didClickSecondaryButton() {
+	public func onboardingViewDidClickSecondaryButton() {
 		guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image") else {
 			return
 		}
@@ -171,7 +171,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 		UIApplication.shared.open(url)
 	}
 
-    public func willSwipeToDismiss() {
+    public func onboardingViewWillSwipeToDismiss() {
         viewModel.fetchImageRecommendationsIfNeeded {
 
         }

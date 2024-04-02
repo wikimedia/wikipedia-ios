@@ -2,9 +2,9 @@ import SwiftUI
 
 
 public protocol WKOnboardingViewDelegate: AnyObject {
-    func didClickPrimaryButton()
-    func didClickSecondaryButton()
-    func willSwipeToDismiss()
+    func onboardingViewDidClickPrimaryButton()
+    func onboardingViewDidClickSecondaryButton()
+    func onboardingViewWillSwipeToDismiss()
 }
 
 public class WKOnboardingViewController: WKCanvasViewController {
@@ -37,7 +37,7 @@ public class WKOnboardingViewController: WKCanvasViewController {
 
 extension WKOnboardingViewController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        delegate?.willSwipeToDismiss()
+        delegate?.onboardingViewWillSwipeToDismiss()
     }
 }
 
@@ -65,11 +65,11 @@ public final class WKOnboardingHostingViewController: WKComponentHostingControll
     }
 
     func primaryButtonAction() {
-        delegate?.didClickPrimaryButton()
+        delegate?.onboardingViewDidClickPrimaryButton()
     }
 
     func secondaryButtonAction() {
-        delegate?.didClickSecondaryButton()
+        delegate?.onboardingViewDidClickSecondaryButton()
     }
 
 }
