@@ -132,6 +132,78 @@
 			<string>הערכים נמחקו</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>פסקה הוזזה %#@v1@ מטה. נא לעבור למיקום חדש.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>שורה אחת</string>
+			<key>other</key>
+			<string>%1$d שורות</string>
+			<key>zero</key>
+			<string>אפס שורות</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>פסקה הוזזה %#@v1@ מעלה. נא לעבור למיקום חדש.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>שורה אחת</string>
+			<key>other</key>
+			<string>%1$d שורות</string>
+			<key>zero</key>
+			<string>אפס שורות</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>פסקה הוזזה %#@v1@ מטה. נא לעבור למיקום חדש.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>פרק אחד</string>
+			<key>other</key>
+			<string>%1$d פרקים</string>
+			<key>zero</key>
+			<string>אפס פרקים</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>פסקה הוזזה %#@v1@ מעלה. נא לעבור למיקום חדש.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>פרק אחד</string>
+			<key>other</key>
+			<string>%1$d פרקים</string>
+			<key>zero</key>
+			<string>אפס פרקים</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

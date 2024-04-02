@@ -18,6 +18,9 @@ public enum WKIcon {
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
+    static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
+    static let bot = UIImage(named: "bot", in: .module, with: nil)
+    static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
 
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -39,6 +42,7 @@ public enum WKSFSymbolIcon {
     case link
     case curlybraces
     case photo
+    case addPhoto
     case docTextMagnifyingGlass
     case magnifyingGlass
     case listBullet
@@ -67,6 +71,9 @@ public enum WKSFSymbolIcon {
     case redo
     case textFormatSize
     case textFormat
+	case plusForwardSlashMinus
+	case photoOnRectangleAngled
+    case xMark
 
     public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WKFont.for(font)
@@ -100,6 +107,8 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "curlybraces", withConfiguration: configuration)
         case .photo:
             image = UIImage(systemName: "photo", withConfiguration: configuration)
+        case .addPhoto:
+            image = UIImage(systemName: "photo.badge.plus", withConfiguration: configuration)
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
@@ -156,6 +165,12 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "textformat.size", withConfiguration: configuration)
         case .textFormat:
             image = UIImage(systemName: "textformat", withConfiguration: configuration)
+        case .plusForwardSlashMinus:
+            image = UIImage(systemName: "plus.forwardslash.minus", withConfiguration: configuration)
+        case .photoOnRectangleAngled:
+            image = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: configuration)
+        case .xMark:
+            image = UIImage(systemName: "xmark", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WKGrowthTasksDataController {
+@objc public final class WKGrowthTasksDataController: NSObject {
 
     private var service = WKDataEnvironment.current.mediaWikiService
     let project: WKProject
@@ -11,60 +11,26 @@ public final class WKGrowthTasksDataController {
 
     // MARK: GET Methods
 
-    // TODO: to get more tasks, send used IDS to `ggtexcludepageids` parameter
-    // TODO: remove debug prints
-    public func getGrowthAPITask(task: WKGrowthTaskType = .imageRecommendation, completion: @escaping (Result<[WKGrowthTask.Page], Error>) -> Void) {
-
+    public func getImageRecommendationsCombined(completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
             return
         }
-        var pages: [WKGrowthTask.Page] = []
-
-        let parameters = [ "action": "query",
-                           "generator": "growthtasks",
-                           "formatversion": "2",
-                           "format": "json",
-                           "ggttasktypes": "\(task.rawValue)",
-                           "ggtlimit": "10"
-        ]
-
-        guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
-            return
-        }
-
-        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
-        service.performDecodableGET(request: request) { (result: Result<WKGrowthTaskAPIResponse, Error>) in
-
-            switch result {
-            case .success(let response):
-                print(response)
-                pages.append(contentsOf: self.getTaskPages(from: response))
-                completion(.success(pages))
-            case .failure(let error):
-                print(error)
-                completion(.failure(error))
-            }
-        }
-    }
-
-    public func getImageSuggestionData(pageIDs: [String], completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
-
-        let pipeEncodedPageIds = pageIDs.joined(separator: "|")
+        
         var recommendationsPerPage: [WKImageRecommendation.Page] = []
 
-        guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
-            return
-        }
-
-        let parameters = [ "action": "query",
+        let parameters: [String: Any] = [ "action": "query",
+                           "generator": "search",
+                           "gsrsearch": "hasrecommendation:image",
+                           "gsrnamespace": 0,
+                           "gsrsort": "random",
+                           "prop": "growthimagesuggestiondata|revisions",
+                           "rvprop": "ids|timestamp|flags|comment|user|content",
+                           "rvslots": "main",
+                           "rvsection": 0,
+                           "gsrlimit": "10",
                            "formatversion": "2",
-                           "format": "json",
-                           "prop":"growthimagesuggestiondata",
-                           "pageids" : pipeEncodedPageIds,
-                           "gisdtasktype": "image-recommendation"
+                           "format": "json"
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
@@ -72,9 +38,8 @@ public final class WKGrowthTasksDataController {
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .GET, parameters: parameters)
+        let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
         service.performDecodableGET(request: request) { (result: Result<WKImageRecommendationAPIResponse, Error>) in
-
             switch result {
             case .success(let response):
                 print(response)
@@ -107,9 +72,10 @@ public final class WKGrowthTasksDataController {
     }
 
    fileprivate func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
+       
         var suggestions: [WKImageRecommendation.GrowthImageSuggestionData] = []
 
-        for item in page.growthimagesuggestiondata {
+        for item in page.growthimagesuggestiondata ?? [] {
             let item = WKImageRecommendation.GrowthImageSuggestionData(
                 titleNamespace: item.titleNamespace,
                 titleText: item.titleText,
@@ -121,7 +87,7 @@ public final class WKGrowthTasksDataController {
         return suggestions
     }
 
-    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
+    internal func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
         var images: [WKImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {
@@ -143,23 +109,32 @@ public final class WKGrowthTasksDataController {
         return metadata
     }
 
-    fileprivate func getTaskPages(from response: WKGrowthTaskAPIResponse) -> [WKGrowthTask.Page] {
-        var pages: [WKGrowthTask.Page] = []
-
-        for page in response.query.pages {
-            let page = WKGrowthTask.Page(
-                pageid: page.pageid,
-                title: page.title,
-                tasktype: page.tasktype,
-                difficulty: page.difficulty)
-            pages.append(page)
-        }
-        return pages
-    }
 }
 
 // MARK: Types
 
 public enum WKGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
+}
+
+// MARK: Objective-C Helpers
+
+public extension WKGrowthTasksDataController {
+    
+    @objc convenience init(languageCode: String) {
+        let language = WKLanguage(languageCode: languageCode, languageVariantCode: nil)
+        self.init(project: WKProject.wikipedia(language))
+    }
+    
+    @objc func hasImageRecommendations(completion: @escaping (Bool) -> Void) {
+        getImageRecommendationsCombined { result in
+            switch result {
+            case .success(let pages):
+                let pagesWithSuggestions = pages.filter { !($0.growthimagesuggestiondata ?? []).isEmpty }
+                completion(!pagesWithSuggestions.isEmpty)
+            case .failure:
+                completion(false)
+            }
+        }
+    }
 }

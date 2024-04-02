@@ -16,6 +16,7 @@ public enum WKServiceRequestBodyContentType {
 public protocol WKServiceRequest {
     var url: URL? { get }
     var method: WKServiceRequestMethod { get }
+    var languageVariantCode: String? { get }
     var parameters: [String: Any]? { get }
     var bodyContentType: WKServiceRequestBodyContentType? { get }
 }

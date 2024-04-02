@@ -468,7 +468,6 @@
 "insert-media-image-type-settings-title" = "Jenis gambar";
 "insert-media-media-settings-title" = "Tetapan media";
 "insert-media-title" = "Sisipkan media";
-"insert-media-uploaded-image-title" = "Imej yang dimuat naik";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Tukar bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
@@ -819,7 +818,9 @@
 "unknown-generic-text" = "Tidak diketahui";
 "variants-alert-dismiss-button" = "Tidak perlu";
 "variants-alert-preferences-button" = "Semak keutamaan anda";
+"watchlist-change-expiry-option-permanent" = "Kekal";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Suntingan Wikidata";
+"watchlist-user-button-user-page" = "Laman pengguna";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disyorkan dan rencana harian dari komuniti kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajah";
 "welcome-exploration-on-this-day-description" = "Perjalanan kembali ke masa untuk mempelajari apa yang berlaku hari ini dalam sejarah";
@@ -857,5 +858,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP peranti anda. Jika anda $1Log masuk$2, anda akan mempunyai lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
-"wikitext-upload-save-terms-and-licenses" = "Dengan menyimpan perubahan, anda setujui kepada $1Syarat-Syarat Penggunaan$2, dan bersetuju, tanpa kebolehan menarik balik, untuk melepaskan sumbangan anda di bawah Lesen $3CC BY-SA 3.0$4 serta $5GFDL$6. Anda bersetuju bahawa sebuah pautan hiper atau URL ialah pengiktirafan yang memadai di bawah lesen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";

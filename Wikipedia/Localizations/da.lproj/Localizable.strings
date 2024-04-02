@@ -25,6 +25,7 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|tegn}}";
 "aaald-deleted-text-description-2" = "$1 slettet";
 "aaald-error-subitle" = "Genindlæs for at prøve igen";
+"aaald-error-title" = "Kunne ikke indlæse inline artikelhistorik";
 "aaald-many-sections-description" = "i $1 sektioner";
 "aaald-multiple-changes-description" = "Flere ændringer er foretaget";
 "aaald-multiple-references-added-description" = "Flere referencer er tilføjet";
@@ -58,6 +59,7 @@
 "about-libraries-license" = "Licens";
 "about-libraries-licenses-title" = "Vi elsker open source software $1";
 "about-places-maps-license" = "Kortlicens for placeringer";
+"about-places-maps-license-details" = "Steder bruger kort leveret af Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Se her for licens detaljer";
 "about-product-of" = "Skabt af $1 med hjælp fra frivillige som dig";
 "about-repositories" = "Arkiver";
@@ -120,7 +122,6 @@
 "action-update" = "Opdater";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "add-citation-title" = "Tilføj reference";
-"additional-information-email-title" = "Yderligere information";
 "announcements-dismiss" = "Nej tak";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyklopædi, info, viden, forskning, information, udforsk, lær";
 "app-store-subtitle" = "Den frie encyklopædi";
@@ -422,7 +423,6 @@
 "insert-media-image-type-settings-title" = "Billedetype";
 "insert-media-media-settings-title" = "Medieindstillinger";
 "insert-media-title" = "Indsæt medie";
-"insert-media-uploaded-image-title" = "Uploaded billede";
 "languages-settings-title" = "Sprog";
 "languages-title" = "Skift sprog";
 "languages-wikipedia" = "Wikipediasprog";
@@ -776,7 +776,6 @@
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
 "unknown-generic-text" = "Ukendt";
-"vanish-account-additional-information-placeholder" = "Valgfri";
 "vanish-account-continue-button-title" = "Fortsæt";
 "vanish-account-learn-more-text" = "Lær mere";
 "vanish-account-warning-title" = "Advarsel";

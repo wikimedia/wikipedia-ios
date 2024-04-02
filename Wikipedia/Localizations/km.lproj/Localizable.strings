@@ -108,7 +108,6 @@
 "action-update" = "បន្ទាន់សម័យ";
 "add-articles-to-reading-list" = "បន្ថែម{{PLURAL:$1|អត្ថបទចំនួន $1|អត្ថបទចំនួន $1}}ទៅបញ្ជីអំណាន";
 "add-citation-title" = "បន្ថែមការដកស្រង់";
-"additional-information-email-title" = "ព័ត៌មានបន្ថែម";
 "announcements-dismiss" = "លាក់";
 "app-store-keywords" = "វិគីភីឌា ឯកសារយោង វិគី សព្វវចនាធិប្បាយ ព័ត៌មាន ចំណេះដឹង ការស្រាវជ្រាវ ព័ត៌មាន ស្វែងយល់ សិក្សា";
 "app-store-subtitle" = "សព្វវចនាធិប្បាយសេរី";
@@ -469,7 +468,6 @@
 "insert-media-image-type-settings-title" = "ប្រភេទ​រូបភាព";
 "insert-media-media-settings-title" = "ការ​កំណត់​មេឌា";
 "insert-media-title" = "បញ្ចូលមេឌា";
-"insert-media-uploaded-image-title" = "ផ្ទុករូបភាពឡើង";
 "languages-settings-title" = "ភាសា";
 "languages-title" = "ប្ដូរភាសា";
 "languages-wikipedia" = "ភាសាវិគីភីឌា";

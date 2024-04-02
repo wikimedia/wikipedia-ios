@@ -94,8 +94,10 @@
 "action-add-to-reading-list" = "เพิ่มลงในรายการอ่าน";
 "action-add-to-reading-list-short" = "เพิ่มลงในรายการ";
 "action-cancel" = "ยกเลิก";
+"action-discard-edit" = "ยกเลิกการแก้ไข";
 "action-discard-edits" = "ยกเลิกการแก้ไข";
 "action-find-in-page" = "ค้นหาในหน้า";
+"action-keep-editing" = "แก้ไขต่อไป";
 "action-language-accessibility" = "เปลี่ยนภาษา";
 "action-move-to" = "ย้ายไป...";
 "action-move-to-reading-list" = "ย้ายไปในรายการอ่าน";
@@ -321,7 +323,10 @@
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
 "editing-welcome-citations-subtitle" = "เนื้อหาทั้งหมดจะต้องสามารถตรวจสอบได้ เมื่อเพิ่มข้อมูลใหม่ลงในบทความ ผู้แก้ไขควรจัดให้มีการอ้างอิงแบบอินไลน์ไปยังแหล่งข้อมูลที่เชื่อถือได้ซึ่งสนับสนุนการมีส่วนร่วมโดยตรง";
 "editing-welcome-citations-title" = "อ้างอิงแหล่งข้อมูลที่น่าเชื่อถือ";
+"editor-edit-published" = "เผยแพร่การแก้ไขของคุณแล้ว";
+"editor-edit-source" = "แก้ไขต้นฉบับ";
 "editor-exit-confirmation-body" = "คุณแน่ใจหรือไม่ว่าต้องการออกจากโหมดแก้ไขโดยไม่เผยแพร่ก่อน?";
+"editor-exit-confirmation-message" = "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการแก้ไขนี้?";
 "editor-exit-confirmation-title" = "ยกเลิกการแก้ไขหรือไม่?";
 "editor-find-clear-button-accessibility" = "ล้างการค้นหา";
 "editor-find-close-button-accessibility" = "ปิดการค้นหา";
@@ -344,6 +349,7 @@
 "editor-replace-type-single" = "แทนที่";
 "editor-replace-type-single-accessibility" = "แทนที่อินสแตนซ์เดียว";
 "editor-toolbar-find-accessibility" = "ค้นหาในหน้า";
+"editor-wikitext-loading-accessibility" = "กำลังโหลดข้อความตัวแก้ไข";
 "empty-diff-compare-title" = "ไม่มีความแตกต่างระหว่างรุ่น";
 "empty-diff-single-title" = "ไม่มีการเปลี่ยนแปลงที่มองเห็นได้";
 "empty-insert-media-title" = "เลือกไฟล์จากวิกิมีเดียคอมมอนส์";
@@ -529,7 +535,7 @@
 "insert-media-alternative-text-description" = "คำอธิบายข้อความสำหรับผู้อ่านที่ไม่สามารถเห็นภาพได้";
 "insert-media-alternative-text-placeholder" = "อธิบายภาพนี้";
 "insert-media-alternative-text-title" = "ข้อความอื่น";
-"insert-media-caption-caption-placeholder" = "ภาพนี้เกี่ยวข้องกับบทความอย่างไร";
+"insert-media-caption-caption-placeholder" = "ภาพนี้เกี่ยวข้องกับบทความอย่างไร?";
 "insert-media-caption-description" = "ป้ายกำกับที่แสดงถัดจากรายการสำหรับผู้อ่านทั้งหมด";
 "insert-media-caption-title" = "คำอธิบาย";
 "insert-media-image-position-setting-center" = "กลาง";
@@ -550,7 +556,6 @@
 "insert-media-image-type-settings-title" = "ชนิดภาพ";
 "insert-media-media-settings-title" = "การตั้งค่าสื่อ";
 "insert-media-title" = "แทรกสื่อ";
-"insert-media-uploaded-image-title" = "ภาพที่อัปโหลด";
 "languages-settings-title" = "ภาษา";
 "languages-title" = "เปลี่ยนภาษา";
 "languages-wikipedia" = "ภาษาของวิกิพีเดีย";
@@ -564,7 +569,7 @@
 "login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "main-menu-about" = "เกี่ยวกับแอป";
 "main-menu-account-login" = "เข้าสู่ระบบ";
-"main-menu-account-logout" = "ลงชื่อออก";
+"main-menu-account-logout" = "ออกจากระบบ";
 "main-menu-account-logout-are-you-sure" = "คุณแน่ใจว่าต้องการออกจากระบบหรือไม่";
 "main-menu-account-logout-are-you-sure-message" = "การออกจากระบบจะลบข้อมูลบัญชีที่เก็บไว้ในเครื่องของคุณ (การแจ้งเตือนและข้อความ) แต่ข้อมูลบัญชีของคุณจะยังคงมีอยู่บนเว็บและจะถูกดาวน์โหลดใหม่หากคุณเข้าสู่ระบบใหม่";
 "main-menu-account-logout-cancel" = "ยกเลิก";
@@ -624,6 +629,7 @@
 "notifications-center-go-to-user-page" = "หน้าผู้ใช้ของ $1";
 "notifications-center-go-to-wikidata-item" = "รายการวิกิสนเทศ";
 "notifications-center-go-to-your-talk-page" = "หน้าพูดคุยของคุณ";
+"notifications-center-header-alert-from-agent" = "การแจ้งเตือนจาก $1";
 "notifications-center-inbox-title" = "โครงการ";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "เฉพาะโครงการที่คุณสร้างบัญชีเท่านั้นที่จะปรากฏที่นี่";
 "notifications-center-inbox-wikimedia-projects-section-title" = "โครงการวิกิมีเดีย";
@@ -723,7 +729,7 @@
 "page-history-revision-size-diff-addition" = "เพิ่ม {{PLURAL:$1|$1 ไบต์}} แล้ว";
 "page-history-revision-size-diff-subtraction" = "เอา {{PLURAL:$1|$1 ไบต์}} ออกแล้ว";
 "page-history-stats-text" = "{{PLURAL:$1|$1 แก้ไข}} ตั้งแต่ $2";
-"page-history-user-edits" = "การแก้ไขของผู้ใช้";
+"page-history-user-edits" = "การแก้ไขผู้ใช้";
 "page-issues" = "ปัญหาในหน้า";
 "page-location" = "ดูบนแผนที่";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
@@ -975,7 +981,6 @@
 "talk-page-reply-button" = "ตอบกลับ";
 "talk-page-reply-button-accessibility-label" = "ตอบกลับ $1";
 "talk-page-reply-placeholder-format" = "ตอบกลับ $1";
-"talk-page-reply-terms-and-licenses" = "โปรดทราบว่าการตอบกลับของคุณจะถูกเซ็นชื่อโดยอัตโนมัติด้วยชื่อผู้ใช้ของคุณ การบันทึกการเปลี่ยนแปลงแสดงว่าคุณยอมรับข้อกำหนดการใช้งาน $1 $2 และตกลงที่จะเผยแพร่การมีส่วนร่วมของคุณภายใต้สัญญาอนุญาต $3 CC BY-SA 3.0 $4 และ $5 GFDL $6 อย่างไม่อาจเพิกถอนได้";
 "talk-page-revision-history" = "ประวัติหน้า";
 "talk-page-rply-close-button-accessibility-hint" = "ปิดมุมมองตอบกลับ";
 "talk-page-share-button" = "แบ่งปันหน้าพูดคุย";
@@ -997,6 +1002,7 @@
 "talk-pages-coffee-roll-read-more" = "อ่านเพิ่มเติม";
 "talk-pages-comment-added-alert-title" = "ความเห็นของคุณถูกเพิ่มแล้ว";
 "talk-pages-compose-close-confirmation-keep" = "แก้ไขต่อไป";
+"talk-pages-edit-source" = "แก้ไขต้นฉบับ";
 "talk-pages-empty-view-body-article" = "หน้าพูดคุยเป็นหน้าที่ที่ผู้คนพูดคุยกันถึงวิธีการสร้างเนื้อหาบนวิกิพีเดียให้ดีที่สุดเท่าที่จะทำได้ **เริ่มต้นด้วยการเพิ่มหัวข้อการอภิปรายใหม่** เพื่อเชื่อมต่อและทำงานร่วมกับชุมชนชาววิกิพีเดีย";
 "talk-pages-empty-view-body-user" = "หน้าพูดคุยเป็นหน้าที่ที่ผู้คนพูดคุยกันถึงวิธีการสร้างเนื้อหาบนวิกิพีเดียให้ดีที่สุดเท่าที่จะทำได้ เริ่มการอภิปรายใหม่เพื่อเชื่อมต่อและทำงานร่วมกับ $1 สิ่งที่คุณพูดที่นี่จะถูกเปิดเผยต่อสาธารณะเพื่อให้ผู้อื่นเห็น";
 "talk-pages-empty-view-button-article-add-topic" = "เพิ่มหัวข้อใหม่";
@@ -1007,7 +1013,7 @@
 "talk-pages-topic-added-alert-title" = "เพิ่มหัวข้อของคุณแล้ว";
 "talk-pages-topic-compose-body-placeholder" = "คำอธิบาย";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "คำอธิบายหัวข้อ";
-"talk-pages-topic-compose-close-confirmation-discard" = "ยกเลิกการตอบกลับ";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "ยกเลิกการตอบกลับ";
 "talk-pages-topic-compose-close-confirmation-title" = "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกหัวข้อใหม่นี้?";
 "talk-pages-topic-compose-navbar-title" = "หัวข้อ";
 "talk-pages-topic-compose-title-placeholder" = "ชื่อหัวข้อ";
@@ -1036,10 +1042,6 @@
 "unknown-generic-text" = "ไม่ทราบ";
 "unwatch" = "เลิกเฝ้าดู";
 "user-title" = "ผู้ใช้";
-"vanish-account-additional-information-placeholder" = "ทางเลือก";
-"vanish-account-back-confirm-discard" = "ยกเลิกคำขอ";
-"vanish-account-back-confirm-keep-editing" = "แก้ไขต่อไป";
-"vanish-account-button-text" = "ส่งคำขอ";
 "vanish-account-continue-button-title" = "ดำเนินการต่อ";
 "vanish-account-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "vanish-account-username-field" = "ชื่อผู้ใช้และหน้าผู้ใช้";
@@ -1069,7 +1071,11 @@
 "watchlist-empty-view-filter-title" = "คุณไม่มีรายการเฝ้าดู";
 "watchlist-empty-view-title" = "บทความที่คุณเพิ่มเข้าในรายการเฝ้าดูจะปรากฏที่นี่";
 "watchlist-expiration-subtitle" = "หน้าจะยังคงอยู่ตามค่าเริ่มต้น แต่มีตัวเลือกสำหรับการรับชมชั่วคราวตั้งแต่หนึ่งสัปดาห์ถึงหนึ่งปี";
+"watchlist-expiration-title" = "กำหนดวัน";
 "watchlist-filter" = "ตัวกรอง";
+"watchlist-filter-activity-header" = "กิจกรรมรายการเฝ้าดู";
+"watchlist-filter-activity-options-seen-changes" = "การเปลี่ยนแปลงที่เห็นแล้ว";
+"watchlist-filter-activity-options-unseen-changes" = "การเปลี่ยนแปลงที่ยังไม่เห็น";
 "watchlist-filter-automated-contributions-header" = "การมีส่วนร่วมอัตโนมัติ";
 "watchlist-filter-automated-contributions-options-bot" = "บอต";
 "watchlist-filter-automated-contributions-options-human" = "มนุษย์ (ไม่ใช่บอต)";
@@ -1077,24 +1083,30 @@
 "watchlist-filter-latest-revisions-options-latest-revision" = "รุ่นล่าสุด";
 "watchlist-filter-latest-revisions-options-not-latest-revision" = "ไม่ใช่รุ่นล่าสุด";
 "watchlist-filter-significance-options-minor-edits" = "การแก้ไขเล็กน้อย";
+"watchlist-filter-significance-options-non-minor-edits" = "ไม่ใช่การแก้ไขเล็กน้อย";
 "watchlist-filter-type-of-change-header" = "ประเภทของการเปลี่ยน";
 "watchlist-filter-type-of-change-options-category-changes" = "การเปลี่ยนแปลงหมวดหมู่";
 "watchlist-filter-type-of-change-options-logged-actions" = "การกระทำที่ลงบันทึก";
 "watchlist-filter-type-of-change-options-page-creations" = "การสร้างหน้า";
 "watchlist-filter-type-of-change-options-page-edits" = "การแก้ไขหน้า";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "การแก้ไขวิกิสนเทศ";
+"watchlist-filter-user-registration-header" = "การลงทะเบียนผู้ใช้และประสบการณ์";
 "watchlist-filter-user-registration-options-registered" = "ลงทะเบียน";
 "watchlist-filter-user-registration-options-unregistered" = "ไม่ได้ลงทะเบียน";
+"watchlist-filters-add-language" = "เพิ่มภาษา...";
 "watchlist-onboarding-button-title" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
 "watchlist-onboarding-title" = "แนะนำรายการเฝ้าดูของคุณ";
 "watchlist-removed" = "นำออกจากรายการเฝ้าดูของคุณแล้ว";
 "watchlist-thanks-success" = "ส่งคำ 'ขอบคุณ' ไปยัง $1 แล้ว";
+"watchlist-track-subtitle" = "รายการเฝ้าดูเป็นเครื่องมือที่ช่วยให้คุณติดตามการเปลี่ยนแปลงที่ทำกับหน้าหรือบทความที่คุณสนใจ";
 "watchlist-track-title" = "ติดตามการเปลี่ยนแปลง";
+"watchlist-updates-subtitle" = "รายการเฝ้าดูของหน้าที่คุณเพิ่ม เช่น การแก้ไขหรือการอภิปราย สามารถเข้าถึงได้ผ่านการตั้งค่า → บัญชี";
 "watchlist-updates-title" = "ดูการปรับปรุง";
 "watchlist-user-button-thank" = "ขอบคุณ";
 "watchlist-user-button-user-contributions" = "เรื่องผู้ใช้ที่มีส่วนร่วม";
 "watchlist-user-button-user-page" = "หน้าผู้ใช้";
 "watchlist-user-button-user-talk-page" = "หน้าพูดคุยของผู้ใช้";
+"watchlist-watch-subtitle" = "เมื่อแตะที่ดาวหรือกระทำ \"ดู\" ในแถบเครื่องมือด้านล่างของบทความ คุณจะสามารถเพิ่มหน้านั้นลงในรายการเฝ้าดูของคุณได้";
 "watchlist-watch-title" = "เฝ้าดูบทความ";
 "welcome-exploration-explore-feed-description" = "บทความแนะนำประจำวันจากชุมชนของเรา";
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
@@ -1137,5 +1149,4 @@
 "wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ $1 เข้าสู่ระบบ $2 คุณจะมีความเป็นส่วนตัวมากขึ้น";
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ $1";
 "wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
-"wikitext-upload-save-terms-and-licenses" = "โดยการเผยแพร่การเปลี่ยนแปลง คุณเห็นด้วยกับเงื่อนไข $1 ของการใช้งาน $2 และคุณตกลงที่จะไม่เพิกถอนการบริจาคของคุณภายใต้ $3 สัญญาอนุญาตครีเอทีฟคอมมอนส์ 3.0 $4 และ $5 สัญญาอนุญาตเอกสารเสรีของกนู $6 คุณยอมรับว่าการเชื่อมโยงหลายมิติหรือยูอาร์แอลเป็นการระบุแหล่งที่มาที่เพียงพอภายใต้สัญญาอนุญาตครีเอทีฟคอมมอนส์";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";

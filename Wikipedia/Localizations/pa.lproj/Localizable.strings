@@ -4,6 +4,7 @@
 // Author: AnupamM
 // Author: Babanwalia
 // Author: Jimidar
+// Author: Kuldeepburjbhalaike
 // Author: Nachhattardhammu
 // Author: Nemo bis
 // Author: Satdeep gill
@@ -97,6 +98,7 @@
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
+"explore-suggested-edits-image-recs-title" = "ਇੱਕ ਤਸਵੀਰ ਜੋੜੋ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";

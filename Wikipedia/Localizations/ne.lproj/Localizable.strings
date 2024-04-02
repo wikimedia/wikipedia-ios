@@ -254,7 +254,6 @@
 "insert-media-image-type-setting-frame" = "ढाँचा";
 "insert-media-image-type-setting-frameless" = "ढाँचा बिहिन";
 "insert-media-image-type-settings-title" = "तस्वीरकाे प्रकार";
-"insert-media-uploaded-image-title" = "उर्ध्वभरण गरिएकाा तस्वीरहरू";
 "languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
@@ -423,7 +422,7 @@
 "talk-pages-topic-added-alert-title" = "तपाईंको विषय थपियो।";
 "talk-pages-topic-compose-body-placeholder" = "वर्णन";
 // Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "विषय खारेज गर्नुहोस्";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "विषय खारेज गर्नुहोस्";
 "talk-pages-topic-compose-close-confirmation-title" = "के तपाइँ यो नयाँ विषयलाई खारेज गर्न निश्चित हुनुहुन्छ?";
 "talk-pages-topic-compose-navbar-title" = "विषय";
 "talk-pages-topic-compose-title-placeholder" = "विषय शीर्षक";
@@ -436,10 +435,6 @@
 "theme-sepia-display-name" = "सेपिया";
 "two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
 "unknown-generic-text" = "अज्ञात";
-"vanish-account-additional-information-field" = "थप जानकारी";
-"vanish-account-additional-information-placeholder" = "वैकल्पिक";
-"vanish-account-back-confirm-discard" = "अनुरोध खारेज गर्नुहोस्";
-"vanish-account-back-confirm-keep-editing" = "सम्पादन जारी राख्नुहोस्";
 "vanish-account-continue-button-title" = "जारी राख्नुहोस्";
 "vanish-account-warning-title" = "चेतावनी";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";

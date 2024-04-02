@@ -5,7 +5,9 @@ protocol DiffListContextCellDelegate: AnyObject {
     func didTapContextExpand(indexPath: IndexPath)
 }
 
+
 class DiffListContextCell: UICollectionViewCell {
+
     static let reuseIdentifier = "DiffListContextCell"
     
     @IBOutlet var innerLeadingConstraint: NSLayoutConstraint!
@@ -25,14 +27,12 @@ class DiffListContextCell: UICollectionViewCell {
     private var indexPath: IndexPath?
     
     weak var delegate: DiffListContextCellDelegate?
-    
+
+    private let expandSection = WMFLocalizedString("diff-context-cell-expand-section", value: "Expand %1$@", comment: "Text read by VoiceOver in diffs that indicates the line numbers that tapping the button will expand to display. %1$@ is replaced with a string the line numbers range (i.e. Lines 3-10).")
+
+    private let collapseSection = WMFLocalizedString("diff-context-cell-collapse-section", value: "Collapse %1$@", comment: "Text read by VoiceOver in diffs that indicates the line numbers that tapping the button will collapse from being displayed. %1$@ is replaced with the line number range (i.e. Lines 3-10).")
+
     func update(_ viewModel: DiffListContextViewModel, indexPath: IndexPath?) {
-        self.isAccessibilityElement = false
-        contentView.isAccessibilityElement = false
-        headingLabel.isAccessibilityElement = false
-        expandButton.isAccessibilityElement = false
-        contextItemStackView.isAccessibilityElement = false
-        
         if let indexPath = indexPath {
             self.indexPath = indexPath
         }
@@ -62,7 +62,7 @@ class DiffListContextCell: UICollectionViewCell {
         }
         
         expandButton.titleLabel?.font = viewModel.contextFont
-        
+
         apply(theme: viewModel.theme)
         
         if needsNewContextViews(newViewModel: viewModel) {
@@ -71,13 +71,31 @@ class DiffListContextCell: UICollectionViewCell {
         }
         
         updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: viewModel.theme)
-        
+
+        if viewModel.isExpanded {
+            accessibilityElements = [headingLabel as Any, expandButton as Any, contextItemStackView as Any]
+            expandButton.accessibilityLabel = String.localizedStringWithFormat(collapseSection, headingLabel.text ?? "")
+        } else {
+            accessibilityElements = [headingLabel as Any, expandButton as Any]
+            expandButton.accessibilityLabel = String.localizedStringWithFormat(expandSection, headingLabel.text ?? "")
+        }
+
         self.viewModel = viewModel
     }
     
     @IBAction func tappedExpandButton(_ sender: UIButton) {
         if let indexPath = indexPath {
             delegate?.didTapContextExpand(indexPath: indexPath)
+
+            if let viewModel = viewModel {
+                if viewModel.isExpanded {
+                    expandButton.accessibilityLabel = String.localizedStringWithFormat(collapseSection, headingLabel.text ?? "")
+                } else {
+                    expandButton.accessibilityLabel = String.localizedStringWithFormat(expandSection, headingLabel.text ?? "")
+                }
+            }
+
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
     }
 }
@@ -139,7 +157,8 @@ private extension DiffListContextCell {
             if let item = newViewModel.items[safeIndex: index] as? DiffListContextItemViewModel,
             let label = subview.subviews.first as? UILabel {
                 label.attributedText = item.textAttributedString
-                label.isAccessibilityElement = false
+                label.accessibilityLabel = item.accessibilityLabelText
+                label.accessibilityTextualContext = .sourceCode
             }
         }
     }

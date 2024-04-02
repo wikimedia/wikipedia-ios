@@ -1,4 +1,47 @@
 import Foundation
+import SwiftUI
+
+struct TextView: UIViewRepresentable {
+    
+    let placeholder: String
+    let theme: Theme
+    @Binding var text: String
+    
+    typealias UIViewType = SwiftUITextView
+    
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIViewType {
+        let textView = UIViewType()
+        textView.setup(placeholder: placeholder, theme: theme)
+        textView.delegate = context.coordinator
+        let font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: textView.traitCollection)
+        textView.font = font
+        textView.placeholderLabel.font = font
+        return textView
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text, placeholder: placeholder)
+    }
+    
+    func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
+        uiView.text = text
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+        
+        @Binding var text: String
+        let placeholder: String
+        
+        init(text: Binding<String>, placeholder: String) {
+            _text = text
+            self.placeholder = placeholder
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            text = textView.text
+        }
+    }
+}
 
 /// A text view with separated placeholder label and keyboad Done input accessory view. Designed to be embedded in SwiftUI.
 class SwiftUITextView: UITextView {

@@ -123,7 +123,6 @@ class DiffContainerViewController: ViewController {
         self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init()
-        self.isAccessibilityElement = false
         self.theme = theme
         
         self.containerViewModel.stateHandler = { [weak self] oldState in
@@ -300,15 +299,36 @@ class DiffContainerViewController: ViewController {
 private extension DiffContainerViewController {
 
     func fetchPageURL() -> URL? {
+        guard let articleTitle = articleTitle, let url = siteURL.wmf_URL(withTitle: articleTitle) else {
+            return nil
+        }
+        
+        return url
+    }
+
+    func fetchEditHistoryURL() -> URL? {
         guard let articleTitle = articleTitle, let languageCode = siteURL.wmf_languageCode else {
             return nil
         }
-        
+
         let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
-        guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
+        let namespace = namespaceAndTitle.namespace
+        let title = namespaceAndTitle.title
+
+        var requestedPageTitle: String
+
+        if namespace.isTalkBased {
+            // Direct user to actual article page instead of talk page
+            let convertedCanonicalName = namespace.convertedPrimaryTalkPageNamespace.canonicalName
+            requestedPageTitle = convertedCanonicalName.isEmpty ? title : "\(convertedCanonicalName):\(title)"
+        } else {
+            requestedPageTitle = articleTitle
+        }
+
+        guard let url = siteURL.wmf_URL(withTitle: requestedPageTitle) else {
             return nil
         }
-        
+
         return url
     }
 
@@ -1217,12 +1237,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedEditHistory() {
-        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
+        guard let editHistoryURL = fetchEditHistoryURL(), let pageTitle = editHistoryURL.wmf_title else {
             return
         }
 
         WatchlistFunnel.shared.logDiffToolbarMoreTapArticleEditHistory(project: wikimediaProject)
-        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: editHistoryURL, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         historyViewController.theme = theme
 
         push(historyViewController, animated: true)

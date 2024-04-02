@@ -2,8 +2,15 @@ import Foundation
 
 extension URL {
     
+    // https://www.mediawiki.org/wiki/API:Main_page
     private static let baseMediaWikiAPIPathComponents = "/w/api.php"
     private static let basePaymentWikiAPIPathComponents = "/api.php"
+    
+    // https://www.mediawiki.org/wiki/Wikimedia_REST_API
+    private static let baseWikimediaRestAPIPathComponents = "/api/rest_v1/"
+    
+    // https://www.mediawiki.org/wiki/API:REST_API
+    private static let baseMediaWikiRestAPIPathComponents = "/w/rest.php/"
     
     static func mediaWikiAPIURL(project: WKProject) -> URL? {
         var components = URLComponents()
@@ -18,6 +25,42 @@ extension URL {
         case .wikidata:
             components.host = "www.wikidata.org"
         }
+        
+        return components.url
+    }
+    
+    static func wikimediaRestAPIURL(project: WKProject, additionalPathComponents: [String]) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        case .commons:
+            components.host = "commons.wikimedia.org"
+        case .wikidata:
+            components.host = "www.wikidata.org"
+        }
+        
+        components.path = baseWikimediaRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
+        
+        return components.url
+    }
+    
+    static func mediaWikiRestAPIURL(project: WKProject, additionalPathComponents: [String]) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        
+        switch project {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        case .commons:
+            components.host = "commons.wikimedia.org"
+        case .wikidata:
+            components.host = "www.wikidata.org"
+        }
+        
+        components.path = baseMediaWikiRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
         
         return components.url
     }

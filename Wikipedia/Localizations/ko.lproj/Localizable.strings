@@ -6,6 +6,7 @@
 // Author: CYAN
 // Author: Codenstory
 // Author: Doyoon1995
+// Author: Dr1t jg
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
 // Author: Ellif
@@ -114,8 +115,10 @@
 "action-add-to-reading-list" = "읽기 목록에 추가";
 "action-add-to-reading-list-short" = "목록에 추가";
 "action-cancel" = "취소";
+"action-discard-edit" = "편집 버리기";
 "action-discard-edits" = "편집 버리기";
 "action-find-in-page" = "문서에서 찾기";
+"action-keep-editing" = "편집 계속";
 "action-language-accessibility" = "언어 변경";
 "action-move-to" = "이동...";
 "action-move-to-reading-list" = "읽기 목록으로 이동";
@@ -141,7 +144,6 @@
 "action-update" = "업데이트";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
 "add-citation-title" = "인용 추가";
-"additional-information-email-title" = "추가 정보";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 각주, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
@@ -239,6 +241,8 @@
 "diff-compare-header-heading" = "판 비교";
 "diff-compare-header-to-info-heading" = "표시되는 편집";
 "diff-compare-title" = "판 비교";
+"diff-context-cell-collapse-section" = "$1 접기";
+"diff-context-cell-expand-section" = "$1 펼치기";
 "diff-context-lines-collapsed-button-title" = "표시";
 "diff-context-lines-expanded-button-title" = "숨기기";
 "diff-header-revision-accessibility-text" = "편집일:";
@@ -332,6 +336,7 @@
 "edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-reference-accessibility-label" = "각주 문법 추가";
 "edit-reference-remove-accessibility-label" = "각주 문법 제거";
+"edit-show-web-preview" = "웹 미리보기 표시";
 "edit-signature-accessibility-label" = "서명 문법 추가";
 "edit-signature-remove-accessibility-label" = "서명 문법 제거";
 "edit-strikethrough-accessibility-label" = "취소선 추가";
@@ -368,8 +373,52 @@
 "editing-welcome-impartial-tone-title" = "공정한 어조로 쓰기";
 "editing-welcome-set-knowledge-free-subtitle" = "모든 사람이 세상의 지식에 접근할 수 있게 하려면 당신에게 가장 관련이 있는 주제에 대해 읽고 편집하고 기여함으로써 그 지식을 만들어나가는 일에 참여하는 것이 필요합니다.";
 "editing-welcome-set-knowledge-free-title" = "지식을 자유롭게";
+"editor-edit-published" = "편집이 게시되었습니다.";
+"editor-edit-source" = "원본 편집";
 "editor-exit-confirmation-body" = "정말 게시하지 않고 편집을 그만 두겠습니까?";
+"editor-exit-confirmation-message" = "이 편집을 취소하시겠습니까?";
 "editor-exit-confirmation-title" = "편집 모드를 숨기시겠습니까?";
+"editor-find-clear-button-accessibility" = "찾기 지우기";
+"editor-find-close-button-accessibility" = "찾기 닫기";
+"editor-find-current-match-info-zero-results-accessibility" = "일치하는 항목이 없습니다";
+"editor-find-next-button-accessibility" = "다음 검색 결과";
+"editor-find-previous-button-accessibility" = "이전 검색 결과";
+"editor-find-textfield-accessibility" = "찾기";
+"editor-keyboard-bold-accessibility" = "굵게";
+"editor-keyboard-close-text-format-menu-accessibility" = "텍스트 서식 메뉴 닫기";
+"editor-keyboard-comment-accessibility" = "의견";
+"editor-keyboard-heading-button" = "문단 제목";
+"editor-keyboard-indent-decrease-accessibility" = "들여쓰기 낮추기";
+"editor-keyboard-indent-increase-accessibility" = "들여쓰기 높이기";
+"editor-keyboard-italics-accessibility" = "기울인 글씨";
+"editor-keyboard-link-accessibility" = "링크";
+"editor-keyboard-list-ordered-accessibility" = "순서 있는 목록";
+"editor-keyboard-list-unordered-accessibility" = "순서 없는 목록";
+"editor-keyboard-paragraph-button" = "문단";
+"editor-keyboard-reference-accessibility" = "각주";
+"editor-keyboard-strikethrough-accessibility" = "취소선";
+"editor-keyboard-subheading1-button" = "1단계 하위 문단 제목";
+"editor-keyboard-subheading2-button" = "2단계 하위 문단 제목";
+"editor-keyboard-subheading3-button" = "3단계 하위 문단 제목";
+"editor-keyboard-subheading4-button" = "4단계 하위 문단 제목";
+"editor-keyboard-subscript-accessibility" = "아래 첨자";
+"editor-keyboard-superscript-accessibility" = "위 첨자";
+"editor-keyboard-template-accessibility" = "틀";
+"editor-keyboard-text-formatting-title" = "텍스트 서식 지정";
+"editor-keyboard-underline-accessibility" = "밑줄";
+"editor-replace-clear-button-accessibility" = "치환 지우기";
+"editor-replace-textfield-accessibility" = "바꾸기";
+"editor-replace-textfield-placeholder" = "다음으로 바꾸기...";
+"editor-replace-type-all" = "모두 바꾸기";
+"editor-replace-type-all-accessibility" = "모든 인스턴스 바꾸기";
+"editor-replace-type-single" = "바꾸기";
+"editor-replace-type-single-accessibility" = "단일 인스턴스 바꾸기";
+"editor-toolbar-bold-accessibility" = "굵은 텍스트 서식 지정";
+"editor-toolbar-find-accessibility" = "문서에서 찾기";
+"editor-toolbar-image-accessibility" = "이미지 텍스트 서식 지정";
+"editor-toolbar-template-accessibility" = "틀 텍스트 서식 지정";
+"editor-wikitext-loading-accessibility" = "편집기 텍스트를 불러오는 중";
+"editor-wikitext-textview-accessibility" = "위키 텍스트 편집기";
 "empty-diff-compare-title" = "판 사이에 차이가 없음";
 "empty-diff-single-title" = "볼 수 있는 변경 사항 없음";
 "empty-insert-media-title" = "위키미디어 공용의 파일 선택";
@@ -442,6 +491,8 @@
 "explore-feed-preferences-show-related-pages-title" = "당신이 읽었기 때문입니다 카드 표시";
 "explore-feed-preferences-show-top-read-footer-text" = "많이 읽은 글 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-top-read-title" = "많이 읽은 글 카드 표시";
+"explore-feed-preferences-suggested-edits-description" = "위키백과에 내용 추가 제안";
+"explore-feed-preferences-suggested-edits-title" = "편집 제안 카드 보이기";
 "explore-feed-preferences-top-read-description" = "하루 중 가장 많이 읽은 글";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "탐색 피드 끄기";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지고 설정 탭으로 바뀝니다";
@@ -474,6 +525,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
+"explore-suggested-edits-footer" = "추가";
 "export-user-data-confirmation-message" = "앱 라이브러리 공유에는 귀하의 읽기 목록 및 기록, 환경설정 및 탐색 피드 내용에 대한 데이터가 포함됩니다. 이 데이터 파일은 기술 진단 목적으로 신뢰할 수 있는 수신자와만 공유해야 합니다.";
 "export-user-data-confirmation-title" = "앱 라이브러리를 공유하시겠습니까?";
 "export-user-data-generic-error" = "데이터를 내보내는 동안 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
@@ -544,6 +596,19 @@
 "icon-shortcut-random-title" = "임의의 문서";
 "icon-shortcut-search-title" = "위키백과 검색";
 "image-gallery-unknown-owner" = "저자 알 수 없음.";
+"image-rec-add-image-title" = "이 이미지를 추가하시겠습니까?";
+"image-rec-onboarding-item-1-body" = "제안된 이미지를 위키백과 문서에 배치할지 여부를 결정하세요.";
+"image-rec-onboarding-item-1-title" = "제안 보기";
+"image-rec-onboarding-item-2-title" = "이미지 수락 또는 거부";
+"image-rec-onboarding-item-3-title" = "라이선스가 부여된 이미지";
+// Fuzzy
+"image-rec-onboarding-learn-more-button" = "이미지 추가에 대해 알아보기";
+"image-rec-onboarding-title" = "문서에 이미지 추가";
+"image-rec-title" = "이미지 추가";
+"image-rec-view-article" = "문서 보기";
+"image-recs-no-title" = "아니요";
+"image-recs-not-sure-title" = "확실치 않음";
+"image-recs-yes-title" = "예";
 "import-shared-reading-list-default-title" = "내 읽기 목록";
 "import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
@@ -579,7 +644,6 @@
 "insert-media-image-type-settings-title" = "이미지 유형";
 "insert-media-media-settings-title" = "미디어 설정";
 "insert-media-title" = "미디어 추가";
-"insert-media-uploaded-image-title" = "업로드한 이미지";
 "inuktitut-variants-alert-body" = "이제 위키백과 앱에서 아래의 이누이트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ 이누이트어 음절문자 (ike-cans)\nInuktitut ilisautik, 이누이트어 라틴 (ike-latn)";
 "inuktitut-variants-alert-title" = "이누이트어 변이형 지원 업데이트";
 "kazakh-variants-alert-body" = "이제 위키백과 앱에서 아래의 카자흐어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nҚазақша 카자흐어 (kk)\nҚазақша Кирил 카자흐어 키릴 (kk-cyrl)\nqazaqşa latin 카자흐어 라틴 (kk-latn)\nتوتە قازاقشا 카자흐어 아랍 (kk-arab)";
@@ -828,6 +892,7 @@
 "potd-widget-description" = "우리 공동체가 선정한 하루하루의 아름다운 사진을 즐기세요.";
 "potd-widget-title" = "오늘의 사진";
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
+"privacy-policy-title" = "개인정보보호정책";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";
@@ -1022,6 +1087,7 @@
 "share-social-mention-format" = "위키백과의 \"$1\" 문서: $2";
 "sort-by-recently-added-action" = "최근 추가됨";
 "sort-by-title-action" = "제목";
+"suggested-edits-title" = "편집 제안";
 "table-of-contents-button-label" = "목차";
 "table-of-contents-close-accessibility-hint" = "닫기";
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
@@ -1085,6 +1151,7 @@
 "talk-pages-coffee-roll-read-more" = "더 읽어보기";
 "talk-pages-comment-added-alert-title" = "댓글이 추가되었습니다";
 "talk-pages-compose-close-confirmation-keep" = "편집 계속";
+"talk-pages-edit-source" = "원본 편집";
 "talk-pages-empty-view-button-article-add-topic" = "새 주제 추가";
 "talk-pages-empty-view-button-user-start-discussion" = "토론 시작하기";
 "talk-pages-empty-view-header-article" = "대화는 여기서 시작됩니다";
@@ -1093,7 +1160,7 @@
 "talk-pages-topic-added-alert-title" = "주제가 추가되었습니다";
 "talk-pages-topic-compose-body-placeholder" = "설명";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "주제 설명";
-"talk-pages-topic-compose-close-confirmation-discard" = "답변 취소";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "답변 취소";
 "talk-pages-topic-compose-close-confirmation-title" = "이 새 주제를 취소하시겠습니까?";
 "talk-pages-topic-compose-navbar-title" = "주제";
 "talk-pages-topic-compose-title-placeholder" = "주제 제목";
@@ -1102,6 +1169,7 @@
 "talk-pages-user-groups" = "사용자 그룹";
 "talk-pages-user-logs" = "기록";
 "talk-pages-view-title" = "토론";
+"terms-of-use-title" = "이용 약관";
 "theme-black-display-name" = "블랙";
 "theme-dark-display-name" = "어두움";
 "theme-default-display-name" = "기본값";
@@ -1122,11 +1190,6 @@
 "user-title" = "사용자";
 "uzbek-variants-alert-body" = "이제 위키백과 앱에서 아래의 우즈베크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\noʻzbekcha lotin 우즈베크어 라틴 (uz-latin)\nўзбекча кирилл 우즈베크어 키릴 (uz-cyrl)";
 "uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
-"vanish-account-additional-information-field" = "추가 정보";
-"vanish-account-additional-information-placeholder" = "선택 사항";
-"vanish-account-back-confirm-discard" = "요청 취소";
-"vanish-account-back-confirm-keep-editing" = "편집 계속";
-"vanish-account-button-text" = "요청 보내기";
 "vanish-account-continue-button-title" = "계속";
 "vanish-account-learn-more-text" = "더 알아보기";
 "vanish-account-username-field" = "사용자 이름 및 사용자 문서";
@@ -1151,6 +1214,7 @@
 "watchlist-change-expiry-option-three-months" = "3개월";
 "watchlist-change-expiry-subtitle" = "주시문서 목록 기간 선택";
 "watchlist-change-expiry-title" = "주시문서 목록 만기일";
+"watchlist-diff-action-button-title" = "차이로 이동";
 "watchlist-edit-summary-accessibility" = "편집 요약";
 "watchlist-empty-view-button-title" = "문서 검색";
 "watchlist-empty-view-filter-title" = "주시문서 항목이 없습니다.";
@@ -1180,6 +1244,7 @@
 "watchlist-filter-user-registration-header" = "사용자 등록 및 경험";
 "watchlist-filter-user-registration-options-registered" = "등록";
 "watchlist-filter-user-registration-options-unregistered" = "미등록";
+"watchlist-filters-add-language" = "언어 추가...";
 "watchlist-number-filters" = "[ {{PLURAL:$1|$1개 필터}}](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기";
 "watchlist-onboarding-button-title" = "주시문서 목록에 대해 더 알아보기";
 "watchlist-onboarding-title" = "주시문서 목록 소개";
@@ -1195,6 +1260,7 @@
 "watchlist-user-button-user-talk-page" = "사용자 토론 문서";
 "watchlist-watch-subtitle" = "문서 하단의 도구 모음에 있는 별표 또는 '주시' 버튼을 터치하면 해당 페이지를 주시목록에 추가할 수 있습니다.";
 "watchlist-watch-title" = "문서 주시";
+"welcome-data-privacy-title" = "데이터 및 개인정보 보호";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
 "welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";
@@ -1236,5 +1302,4 @@
 "wikitext-upload-save-anonymously-or-login" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1로그인$2하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-and-licenses" = "변경사항을 게시하면 당신은 $1이용 규약$2에 동의하며, 기여한 내용을 $3CC BY-SA 3.0$4 라이선스와 $5GFDL$6로 배포하는데 동의하는 것으로 간주합니다. 또한 기여한 문서에 대한 하이퍼링크나 URL을 이용하여 크리에이티브 커먼즈 라이선스로 저작권 표시를 하는 것으로 충분하다는데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";

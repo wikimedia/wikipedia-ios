@@ -20,10 +20,14 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
     @objc public var userID: Int
     @objc public var name: String
     @objc public var groups: [String]
-    init(userID: Int, name: String, groups: [String]) {
+    @objc public var editCount: UInt64
+    @objc public var isBlocked: Bool
+    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool) {
         self.userID = userID
         self.name = name
         self.groups = groups
+        self.editCount = editCount
+        self.isBlocked = isBlocked
     }
 }
 
@@ -32,7 +36,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
         let parameters = [
             "action": "query",
             "meta": "userinfo",
-            "uiprop": "groups",
+            "uiprop": "groups|blockinfo|editcount",
             "format": "json"
         ]
         
@@ -54,8 +58,19 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
                 failure(WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous)
                 return
             }
+            
+            let editCount = userinfo["editcount"] as? UInt64 ?? 0
+            
+            var isBlocked = false
+            if let blockID = userinfo["blockid"] as? UInt64 {
+                let blockPartial = (userinfo["blockpartial"] as? Bool ?? false)
+                if !blockPartial {
+                    isBlocked = true
+                }
+            }
+            
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName, groups: groups))
+            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked))
         }
     }
 }

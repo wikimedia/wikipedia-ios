@@ -88,6 +88,78 @@
 			<string>voci cancellate</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Il paragrafo è stato spostato in basso di %#@v1@. Vai alla nuova posizione.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d riga</string>
+			<key>other</key>
+			<string>%1$d righe</string>
+			<key>zero</key>
+			<string>0 righe</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Il paragrafo è stato spostato in alto di %#@v1@. Vai alla nuova posizione.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d riga</string>
+			<key>other</key>
+			<string>%1$d righe</string>
+			<key>zero</key>
+			<string>0 righe</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Il paragrafo è stato spostato in basso di %#@v1@. Vai alla nuova posizione.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sezione</string>
+			<key>other</key>
+			<string>%1$d sezioni</string>
+			<key>zero</key>
+			<string>0 sezioni</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Il paragrafo è stato spostato in alto di %#@v1@. Vai alla nuova posizione.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sezione</string>
+			<key>other</key>
+			<string>%1$d sezioni</string>
+			<key>zero</key>
+			<string>0 sezioni</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

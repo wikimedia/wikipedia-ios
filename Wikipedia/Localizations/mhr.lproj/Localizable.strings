@@ -106,7 +106,6 @@
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
 "add-citation-title" = "Важыш кылверым ешараш";
-"additional-information-email-title" = "Ешартыш информаций";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-subtitle" = "Эрыкан энциклопедий";
@@ -417,7 +416,6 @@
 "insert-media-image-type-settings-title" = "Сӱрет тӱрлылык";
 "insert-media-media-settings-title" = "Медиафайлын параметрже";
 "insert-media-title" = "Медаиафайлым шындаш";
-"insert-media-uploaded-image-title" = "Вераҥдыме сӱрет";
 "languages-settings-title" = "Йылме-влак";
 "languages-title" = "Йылмым вашталташ";
 "languages-wikipedia" = "Википедийысе йылме-влак";

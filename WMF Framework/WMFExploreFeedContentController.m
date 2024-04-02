@@ -6,6 +6,7 @@
 #import <WMF/WMFRandomContentSource.h>
 #import <WMF/WMFAnnouncementsContentSource.h>
 #import <WMF/WMFOnThisDayContentSource.h>
+#import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
 
@@ -94,6 +95,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return [self.dataStore.languageLinkController.preferredSiteURLs copy];
 }
 
+- (NSArray<NSSortDescriptor *> *)exploreFeedSortDescriptors {
+    NSSortDescriptor *midnightUTCDateSort = [[NSSortDescriptor alloc] initWithKey:@"midnightUTCDate" ascending:NO];
+    NSSortDescriptor *dailySort = [[NSSortDescriptor alloc] initWithKey:@"dailySortPriority" ascending:YES];
+    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    return @[midnightUTCDateSort, dailySort, dateSort];
+}
+
 #pragma mark - Content Sources
 
 - (WMFFeedContentSource *)feedContentSource {
@@ -131,6 +139,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
+        
+        if ([WMFFeatureFlags needsImageRecommendations]) {
+            [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
+        }
+        
         for (NSURL *siteURL in siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
                                                                                       userDataStore:self.dataStore];
@@ -413,9 +426,18 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *globalContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
+        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages), @(WMFContentGroupKindSuggestedEdits)]];
     });
     return globalContentGroupKindNumbers;
+}
+
++ (NSSet<NSNumber *> *)nonDateBasedContentGroupKindNumbers {
+    static NSSet *singularGroupKindNumbers;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits)]];
+    });
+    return singularGroupKindNumbers;
 }
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind {
@@ -684,7 +706,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
 }
 
-- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)applyExploreFeedPreferencesToObjects:(NSArray<WMFContentGroup *>*)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
     for (NSManagedObject *object in objects) {
         if (![object isKindOfClass:[WMFContentGroup class]]) {
@@ -724,6 +746,24 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (isVisible != contentGroup.isVisible) {
             contentGroup.isVisible = isVisible;
         }
+    }
+    
+    // Do a second pass over objects and shuffle ordering around
+    
+    NSArray *nonSuggestedEditsGroups = [[objects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"contentGroupKindInteger != %d && isVisible == true", WMFContentGroupKindSuggestedEdits]] sortedArrayUsingDescriptors:self.exploreFeedSortDescriptors];
+    
+    WMFContentGroup *suggestedEditsGroup = [objects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"contentGroupKindInteger == %d && isVisible == true", WMFContentGroupKindSuggestedEdits]].firstObject;
+    
+    NSMutableArray *finalSorting = [[NSMutableArray alloc] initWithArray:nonSuggestedEditsGroups];
+    if (suggestedEditsGroup && finalSorting.count > 0) {
+        // Suggested Edits should always be 2nd card in the feed.
+        [finalSorting insertObject:suggestedEditsGroup atIndex:1];
+    }
+    
+    int index = 0;
+    for(WMFContentGroup *group in finalSorting) {
+        group.dailySortPriority = index;
+        index++;
     }
 }
 
