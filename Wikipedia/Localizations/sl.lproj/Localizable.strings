@@ -336,6 +336,7 @@
 "edit-underline-remove-accessibility-label" = "Odstranite podčrtanost";
 "edit-unordered-list-accessibility-label" = "Spremeni trenutno vrstico v neoštevilčeni seznam";
 "edit-unordered-list-remove-accessibility-label" = "Iz trenutne vrstice odstranite neoštevilčeni seznam";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Več o spiskih nadzorov";
 "edit-watch-this-page-text" = "Opazuj stran";
 "editing-welcome-be-bold-subtitle" = "Pri posodabljanju člankov bodite pogumni, toda ne nepremišljeni. Ne vznemirjajte se zaradi napak: Shranjena je vsaka pretekla redakcija strani, zato lahko naša skupnost zlahka popravi napake.";
