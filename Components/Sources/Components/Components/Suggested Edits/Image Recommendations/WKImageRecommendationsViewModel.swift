@@ -110,7 +110,6 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     
     private(set) var imageRecommendations: [ImageRecommendation] = []
-    private var recommendationData: [WKImageRecommendation.Page] = []
     @Published var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
@@ -131,7 +130,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.imageDataController = WKImageDataController()
         
         $loading
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
                     .sink(receiveValue: { [weak self] t in
                         self?.debouncedLoading = t
                     })
@@ -157,7 +156,6 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
-                    self.recommendationData = pages
                     let imageDataArray = self.getFirstImageData(for: pages)
 
                     for page in pages {
@@ -166,19 +164,27 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                             self.imageRecommendations.append(combinedImageRecommendation)
                         }
                     }
-
-                    if let firstRecommendation = self.imageRecommendations.first {
-                        self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
-                            self?.currentRecommendation = firstRecommendation
-                            self?.loading = false
+                    
+                    guard let firstRecommendation = self.imageRecommendations.first else {
+                        DispatchQueue.main.async {
+                            self.loading = false
                             completion()
                         }
+                        return
+                    }
+                    
+                    self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
+                        self?.currentRecommendation = firstRecommendation
+                        self?.loading = false
+                        completion()
                     }
                 }
                 
             case .failure(let error):
-                self.loading = false
-                completion()
+                DispatchQueue.main.async {
+                    self.loading = false
+                    completion()
+                }
                 print(error)
             }
         }
@@ -191,10 +197,15 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        imageRecommendations.removeFirst()
+        let removedPage = imageRecommendations.removeFirst()
+        growthTasksDataController.remove(pageId: removedPage.pageId, from: project)
+        
         guard let nextRecommendation = imageRecommendations.first else {
-            self.currentRecommendation = nil
-            completion()
+            growthTasksDataController.reset(for: project)
+            fetchImageRecommendationsIfNeeded {
+                completion()
+            }
+            
             return
         }
         
