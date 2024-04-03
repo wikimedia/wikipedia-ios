@@ -48,7 +48,7 @@ public struct WKEmptyView: View {
                             WKEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
                         } else {
                             Text(viewModel.localizedStrings.subtitle)
-                                .font(Font(WKFont.for(.footnote)))
+                                .font(Font(WKFont.for(.subheadline)))
                                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                                 .multilineTextAlignment(.center)
                         }
@@ -56,7 +56,7 @@ public struct WKEmptyView: View {
                            type == .noItems {
                             let configuration = WKSmallButton.Configuration(style: .neutral)
                             WKSmallButton(configuration: configuration, title: buttonTitle, action: delegate?.emptyViewDidTapSearch)
-                                .padding([.leading, .trailing], 32)
+                                .padding(EdgeInsets(top: 8, leading: 32, bottom: 0, trailing: 32))
                         }
                         Spacer()
                     }
@@ -81,7 +81,7 @@ struct WKEmptyViewFilterView: View {
     var body: some View {
         
         Text(attributedString)
-            .font(Font(WKFont.for(.footnote)))
+            .font(Font(WKFont.for(.subheadline)))
             .padding(2)
             .foregroundColor(Color(appEnvironment.theme.secondaryText))
             .frame(height: 30)
