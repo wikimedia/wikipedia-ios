@@ -385,6 +385,7 @@
 "edit-underline-remove-accessibility-label" = "حذف زیرخط";
 "edit-unordered-list-accessibility-label" = "تبدیل سطر کنونی به فهرست غیرترتیبی";
 "edit-unordered-list-remove-accessibility-label" = "حذف فهرست غیرترتیبی از سطر کنونی";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "اطلاعات بیشتر در بارهٔ فهرست‌های پی‌گیری";
 "edit-watch-this-page-text" = "پیگیری این صفحه";
 "editing-welcome-be-bold-subtitle" = "جسور باشید، اما در روزآمدسازی مقاله‌ها بی‌ملاحظه نباشید. نگران ایجاد اشتباهات نباشید: نسخه‌های قبلی هر صفحه ذخیره می‌شوند؛ بنابراین اشتباهات می‌توانند به‌راحتی توسط جامعهٔ ما اصلاح شوند.";

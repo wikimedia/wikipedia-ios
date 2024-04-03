@@ -251,6 +251,7 @@
 "edit-underline-remove-accessibility-label" = "ပတိတ် ပၞောန်သၟဝ်";
 "edit-unordered-list-accessibility-label" = "ပ ပၞောန်အတိုင်လၟေင်ဟွံသေင်";
 "edit-unordered-list-remove-accessibility-label" = "ပတိတ် ပၞောန်အတိုင်လၟေင်ဟွံသေင်";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ဆက်လ္ၚတ် ပရူ စရင်ပၟင်ပၟဲဂမၠိုင်";
 "edit-watch-this-page-text" = "မင်မဲ မုက်လိက်ဏအ်";
 "editing-welcome-be-bold-subtitle" = "ကာလပခိုဟ်ပတိုန် လိက်ပရေင်မၞိဟ် ချူဂံင်င်ညိ။ ဆဂး လ္ပပကြာန်န်ညိ။ ကၠောန်ဗၠေတ်ဂှ် လ္ပဖေက်၊ မုက်လိက်တြေံတအ်ဂှ် ဂိုင်ဒေပ်လဝ် သီုဖအိုတ်ရ။ ဟိုတ်ဂှ်ရ ယဝ်ရဗၠေတ်စမ္ဂး ကလေင်ကေတ်ဂွံ ဗွဲမလောဲသွာရ။";
@@ -491,6 +492,9 @@
 "no-internet-connection-article-reload-button" = "ကလေင်အာ မူမဂိုင်ဒေပ်လဝ် လက်ကရဴအိုတ်";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
+"notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
+"notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
+"notifications-center-status-read" = "ဗှ်တုဲ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";
