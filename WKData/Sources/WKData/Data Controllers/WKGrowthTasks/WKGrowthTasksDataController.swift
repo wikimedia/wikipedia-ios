@@ -4,12 +4,26 @@ import Foundation
 
     private var service = WKDataEnvironment.current.mediaWikiService
     let project: WKProject
+    
+    private static var currentImageRecommendations: [WKProject: [WKImageRecommendation.Page]] = [:]
 
     public init (project: WKProject) {
         self.project = project
     }
 
     // MARK: GET Methods
+    
+    public func remove(pageId: Int, from project: WKProject) {
+        guard let recommendations = Self.currentImageRecommendations[project] else {
+            return
+        }
+        
+        Self.currentImageRecommendations[project] = recommendations.filter { $0.pageid != pageId }
+    }
+    
+    public func reset(for project: WKProject) {
+        Self.currentImageRecommendations[project] = []
+    }
 
     public func getImageRecommendationsCombined(completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
         guard let service else {
@@ -17,7 +31,11 @@ import Foundation
             return
         }
         
-        var recommendationsPerPage: [WKImageRecommendation.Page] = []
+        if let currentRecommendations = Self.currentImageRecommendations[project],
+           !currentRecommendations.isEmpty {
+            completion(.success(currentRecommendations))
+            return
+        }
 
         let parameters: [String: Any] = [ "action": "query",
                            "generator": "search",
@@ -39,12 +57,16 @@ import Foundation
         }
 
         let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
-        service.performDecodableGET(request: request) { (result: Result<WKImageRecommendationAPIResponse, Error>) in
+        service.performDecodableGET(request: request) { [weak self] (result: Result<WKImageRecommendationAPIResponse, Error>) in
+            
+            guard let self else {
+                return
+            }
+            
             switch result {
             case .success(let response):
-                print(response)
-                recommendationsPerPage.append(contentsOf: self.getImageSuggestions(from: response))
-                completion(.success(recommendationsPerPage))
+                Self.currentImageRecommendations[project, default: []].append(contentsOf: self.getImageSuggestions(from: response))
+                completion(.success(Self.currentImageRecommendations[project] ?? []))
             case .failure(let error):
                 print(error)
                 completion(.failure(error))

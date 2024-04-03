@@ -361,7 +361,8 @@ class ViewControllerRouter: NSObject {
 }
 
 extension ViewControllerRouter: WKOnboardingViewDelegate {
-    func didClickPrimaryButton() {
+    
+    func onboardingViewDidClickPrimaryButton() {
         
         let targetNavigationController = watchlistTargetNavigationController()
         
@@ -374,7 +375,7 @@ extension ViewControllerRouter: WKOnboardingViewDelegate {
         }
     }
 
-    func didClickSecondaryButton() {
+    func onboardingViewDidClickSecondaryButton() {
         
         let targetNavigationController = watchlistTargetNavigationController()
         
@@ -388,5 +389,9 @@ extension ViewControllerRouter: WKOnboardingViewDelegate {
                 self?.appViewController.navigate(to: url)
             }
         }
+    }
+    
+    func onboardingViewWillSwipeToDismiss() {
+        
     }
 }
