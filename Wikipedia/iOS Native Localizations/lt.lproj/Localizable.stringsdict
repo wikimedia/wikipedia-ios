@@ -543,22 +543,6 @@
 			<string>Šiais metais</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d elementas pakeistas</string>
-			<key>other</key>
-			<string>%1$d elementai pakeisti</string>
-		</dict>
-	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
