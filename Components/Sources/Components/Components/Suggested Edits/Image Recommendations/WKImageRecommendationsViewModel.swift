@@ -9,6 +9,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
+        public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -38,16 +39,18 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let viewArticle: String
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
+        let emptyLocalizedStrings: EmptyLocalizedStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
+            self.emptyLocalizedStrings = emptyLocalizedStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
@@ -56,7 +59,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     }
 
-    public struct WKImageRecommendationData {
+    public class WKImageRecommendationData {
         public let pageId: Int
         public let pageTitle: String
         public let image: String
@@ -67,6 +70,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let description: String?
         public let descriptionURL: String
         public let reason: String
+        public internal(set) var uiImage: UIImage?
         public let wikitext: String?
         public let sectionNumber: Int?
 
@@ -116,6 +120,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
+    let imageDataController: WKImageDataController
     
     // MARK: - Lifecycle
     
@@ -125,6 +130,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
+        self.imageDataController = WKImageDataController()
         
         $loading
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
@@ -164,12 +170,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     }
 
                     if let firstRecommendation = self.imageRecommendations.first {
-                        self.populateCurrentArticleSummary(for: firstRecommendation, completion: {
-                            DispatchQueue.main.async {
-                                self.loading = false
-                                completion()
-                            }
-                        })
+                        self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
+                            self?.currentRecommendation = firstRecommendation
+                            self?.loading = false
+                            completion()
+                        }
                     }
                 }
                 
@@ -197,36 +202,62 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         loading = true
         
-        populateCurrentArticleSummary(for: nextRecommendation, completion: { [weak self] in
-            completion()
+        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] in
+            self?.currentRecommendation = nextRecommendation
             self?.loading = false
+            completion()
+        }
+    }
+    
+    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        
+        group.enter()
+        self.populateCurrentArticleSummary(for: imageRecommendation, completion: {
+            group.leave()
         })
+        
+        group.enter()
+        self.populateUIImage(for: imageRecommendation.imageData) {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            completion()
+        }
     }
 
-    func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
         
-        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { [weak self] result in
-            
-            guard let self else {
-                DispatchQueue.main.async {
-                    completion()
-                }
-                return
-            }
+        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { result in
             
             switch result {
             case .success(let summary):
-                DispatchQueue.main.async {
-                    imageRecommendation.articleSummary = summary
-                    self.currentRecommendation = imageRecommendation
-                    completion()
-                }
+                imageRecommendation.articleSummary = summary
+                completion()
                 
             case .failure(let error):
                 print(error)
-                DispatchQueue.main.async {
-                    completion()
-                }
+                completion()
+            }
+        }
+    }
+    
+    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping () -> Void) {
+        
+        guard let url = URL(string: "https:\(imageData.fullUrl)") else {
+            completion()
+            return
+        }
+        
+        imageDataController.fetchImageData(url: url) { result in
+            switch result {
+            case .success(let data):
+                let image = UIImage(data: data)
+                imageData.uiImage = image
+                completion()
+            default:
+                completion()
             }
         }
     }

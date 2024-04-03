@@ -110,7 +110,7 @@ import Foundation
             "action": "raw"
         ]
         
-        let request = WKBasicServiceRequest(url: url, method: .GET, parameters: parameters)
+        let request = WKBasicServiceRequest(url: url, method: .GET, parameters: parameters, acceptType: .json)
         service.performDecodableGET(request: request) { [weak self] (result: Result<WKFundraisingCampaignConfigResponse, Error>) in
             
             guard let self else {

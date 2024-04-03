@@ -17,6 +17,7 @@
 // Author: Fitoschido
 // Author: Fúlvio
 // Author: HenriqueCrang
+// Author: Lc97
 // Author: Luckas
 // Author: Luk3
 // Author: Macofe
@@ -146,6 +147,7 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "add-citation-title" = "Adicionar citação";
+"add-image-learn-more-text" = "Saiba mais";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -326,7 +328,7 @@
 "edit-underline-remove-accessibility-label" = "Remover sublinhado";
 "edit-unordered-list-accessibility-label" = "Tornar a linha atual lista não ordenada";
 "edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha atual";
-"edit-watch-list-learn-more-text" = "Saiba mais sobre listas de vigiados";
+"edit-watch-list-learn-more-text" = "Saiba mais sobre as listas de páginas vigiadas";
 "edit-watch-this-page-text" = "Vigiar esta página";
 "editing-welcome-be-bold-subtitle" = "Seja ousado, mas não imprudente na atualização de artigos. Não se preocupe em cometer erros: todas as versões anteriores de uma página são salvas, portanto os erros podem ser facilmente corrigidos por nossa comunidade.";
 "editing-welcome-be-bold-title" = "Sua voz é importante";
@@ -340,6 +342,7 @@
 "editor-exit-confirmation-title" = "Sair do modo de edição?";
 "empty-diff-compare-title" = "Não há diferenças entre as revisões";
 "empty-diff-single-title" = "Nenhuma alteração visível feita";
+"empty-edit-summary" = "Resumo de edição vazio";
 "empty-insert-media-title" = "Selecionar um arquivo do Wikimedia Commons";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
@@ -511,6 +514,17 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Ator desconhecido";
+"image-rec-onboarding-learn-more-button" = "Saiba mais sobre edições sugeridas";
+"image-rec-survey-instructions-1" = "Suas respostas melhoram sugestões futuras.";
+"image-rec-survey-instructions-2" = "Selecione uma ou mais opções";
+"image-rec-survey-option-1" = "A imagem não é relevante";
+"image-rec-survey-option-2" = "Não há informações suficientes para decidir";
+"image-rec-survey-option-3" = "A imagem é ofensiva";
+"image-rec-survey-option-4" = "A imagem é de baixa qualidade";
+"image-rec-survey-option-5" = "Eu não sei esse assunto";
+"image-rec-survey-option-6" = "Outros";
+"image-rec-survey-submit-button" = "Enviar";
+"image-rec-survey-title" = "Motivo";
 "import-shared-reading-list-default-title" = "Minha lista de leitura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar da pesquisa";
@@ -523,6 +537,7 @@
 "in-the-news-title" = "Eventos recentes";
 "insert-action-title" = "Inserir";
 "insert-link-title" = "Inserir link";
+"insert-media-add-image-details-title" = "Adicionar detalhes da imagem";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
 "insert-media-alternative-text-placeholder" = "Descreva esta imagem";
 "insert-media-alternative-text-title" = "Texto alternativo";
@@ -590,6 +605,7 @@
 "nearby-distance-label-miles" = "$1 milhas";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
 "new-password-title" = "Defina sua senha";
+"next-action-title" = "Próximo";
 "no-email-account-alert" = "Por favor configure uma conta de email em seu dispositivo e tente novamente.";
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
@@ -1066,6 +1082,7 @@
 "talk-pages-topic-compose-body-placeholder" = "Descrição";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descrição do tópico";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "Descartar resposta";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Descartar tópico";
 "talk-pages-topic-compose-close-confirmation-title" = "Tem a certeza de que deseja descartar este tópico novo?";
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";

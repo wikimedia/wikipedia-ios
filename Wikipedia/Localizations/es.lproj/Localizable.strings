@@ -347,7 +347,7 @@
 "edit-underline-remove-accessibility-label" = "Quitar subrayado";
 "edit-unordered-list-accessibility-label" = "Convertir esta línea en una lista desordenada";
 "edit-unordered-list-remove-accessibility-label" = "\nBorrar lista desordenada de esta línea";
-"edit-watch-list-learn-more-text" = "\nAprende más acerca de las listas de seguimiento";
+"edit-watch-list-learn-more-text" = "\nAprende sobre tus listas de seguimiento";
 "edit-watch-this-page-text" = "Vigilar esta página";
 "editing-welcome-be-bold-subtitle" = "Sé valiente, mas no imprudente, al actualizar artículos. No te mortifiques si cometes errores: todas las versiones anteriores de las páginas se guardan, de modo que la comunidad puede corregir fácilmente cualquier equivocación.";
 "editing-welcome-be-bold-title" = "Tu voz es importante";
@@ -362,6 +362,7 @@
 "editor-exit-confirmation-title" = "¿Desactivar el modo de edición?";
 "empty-diff-compare-title" = "No hay diferencias entre revisiones";
 "empty-diff-single-title" = "No se hicieron cambios visibles";
+"empty-edit-summary" = "Resumen de edición vacío";
 "empty-insert-media-title" = "Seleccionar un archivo de Wikimedia Commons";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-feed-action-message" = "Aún puedes leer las páginas guardadas";
@@ -466,6 +467,7 @@
 "explore-randomizer" = "Aleatorio";
 "explore-suggested-edits-footer" = "Añadir";
 "explore-suggested-edits-image-recs-body" = "Agrega las imágenes sugeridas a los artículos de la Wikipedia para mejorar la comprensión";
+"explore-suggested-edits-image-recs-title" = "Añadir una imagen";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
@@ -538,6 +540,16 @@
 "image-rec-onboarding-item-3-title" = "Imágenes con licencia";
 "image-rec-onboarding-learn-more-button" = "Más información sobre las ediciones sugeridas";
 "image-rec-onboarding-title" = "Agregar una imagen a un artículo";
+"image-rec-survey-instructions-1" = "Tu respuesta puede mejorar futuras sugerencias.";
+"image-rec-survey-instructions-2" = "Seleccione una o más opciones";
+"image-rec-survey-option-1" = "La imagen no es relevante";
+"image-rec-survey-option-2" = "No hay suficiente información para decidir";
+"image-rec-survey-option-3" = "La imagen es ofensiva";
+"image-rec-survey-option-4" = "La imagen es de baja calidad";
+"image-rec-survey-option-5" = "No conozco este tema";
+"image-rec-survey-option-6" = "Otra";
+"image-rec-survey-submit-button" = "Enviar";
+"image-rec-survey-title" = "Motivo";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "No estoy seguro";
 "image-recs-yes-title" = "Sí";
@@ -920,10 +932,12 @@
 "talk-page-new-banner-title" = "Sé amable";
 "talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
 "talk-page-new-topic-success-text" = "Tu discusión se publicó correctamente";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Tenga en cuenta que su respuesta se firmará automáticamente con su nombre de usuario. Al guardar los cambios, acepta los Términos de uso $1 $2 y acepta liberar su contribución bajo las licencias de $3CC BY-SA 4.0$4 y $5GFDL$6.";
 "talk-page-revision-history" = "Historial de revisiones";
 "talk-page-share-button" = "Compartir página de discusión";
 "talk-page-title-article-talk" = "discusión";
 "talk-page-title-user-talk" = "Conversaciones";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Al publicar los cambios aceptas los $1términos de uso$2 e igualmente aceptas liberar tus contribuciones bajo los términos de las licencias $3CC BY-SA 3.0$4 y $5GFDL$6.";
 "talk-pages-topic-compose-close-confirmation-discard-topic" = "Descartar Tema";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Por favor sea amable, todos somos humanos aquí.";
 "theme-black-display-name" = "Negro";

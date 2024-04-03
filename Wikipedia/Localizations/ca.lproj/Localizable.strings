@@ -338,6 +338,7 @@
 "edit-underline-remove-accessibility-label" = "Suprimeix subratllat";
 "edit-unordered-list-accessibility-label" = "Fes la línia actual part d'una llista no ordenada";
 "edit-unordered-list-remove-accessibility-label" = "Treu la línia actual de la llista no ordenada";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Més informació sobre les llistes de seguiment";
 "edit-watch-this-page-text" = "Vigila aquesta pàgina";
 "editing-welcome-be-bold-subtitle" = "Llanceu-vos, sense ser imprudent, a l'hora d'actualitzar els articles. No us feu mala sang si feu errades: es desa cada versió antiga d'una pàgina, i les errades poden ser corregides fàcilment per la resta de la comunitat.";

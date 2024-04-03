@@ -9,6 +9,11 @@ public class WKMockServiceNoInternetConnection: WKService {
         
     }
     
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+        let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
+        completion(.failure(error))
+    }
+    
     public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completion(.failure(error))

@@ -5,11 +5,11 @@ public class WKEmptyViewModel: ObservableObject {
     public struct LocalizedStrings {
         public var title: String
         public var subtitle: String
-        public var titleFilter: String
-        public var buttonTitle: String
-        public var attributedFilterString: ((Int) -> AttributedString)
+        public var titleFilter: String?
+        public var buttonTitle: String?
+        public var attributedFilterString: ((Int) -> AttributedString)?
 
-        public init(title: String, subtitle: String, titleFilter: String, buttonTitle: String, attributedFilterString: @escaping ((Int) -> AttributedString)) {
+        public init(title: String, subtitle: String, titleFilter: String?, buttonTitle: String?, attributedFilterString: ((Int) -> AttributedString)?) {
             self.title = title
             self.subtitle = subtitle
             self.titleFilter = titleFilter
@@ -19,17 +19,22 @@ public class WKEmptyViewModel: ObservableObject {
     }
 
     var localizedStrings: LocalizedStrings
-    var image: UIImage
-    @Published var numberOfFilters: Int
+    var image: UIImage?
+    var imageColor: UIColor?
+    @Published var numberOfFilters: Int?
 
-    public init(localizedStrings: LocalizedStrings, image: UIImage, numberOfFilters: Int) {
+    public init(localizedStrings: LocalizedStrings, image: UIImage?, imageColor: UIColor?, numberOfFilters: Int?) {
         self.localizedStrings = localizedStrings
         self.image = image
+        self.imageColor = imageColor
         self.numberOfFilters = numberOfFilters
     }
     
-    func filterString(localizedStrings: LocalizedStrings) -> AttributedString {
-        return localizedStrings.attributedFilterString(numberOfFilters)
+    func filterString(localizedStrings: LocalizedStrings) -> AttributedString? {
+        guard let numberOfFilters else {
+            return nil
+        }
+        return localizedStrings.attributedFilterString?(numberOfFilters)
     }
 }
 

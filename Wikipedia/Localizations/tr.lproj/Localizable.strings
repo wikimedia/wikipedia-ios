@@ -387,7 +387,7 @@
 "edit-underline-remove-accessibility-label" = "Alt çizgiyi kaldır";
 "edit-unordered-list-accessibility-label" = "Geçerli satırı sırasız liste yap";
 "edit-unordered-list-remove-accessibility-label" = "Sırasız listeyi mevcut satırdan kaldır";
-"edit-watch-list-learn-more-text" = "İzleme listeleri hakkında daha fazla bilgi edinin";
+"edit-watch-list-learn-more-text" = "İzleme listeniz hakkında daha fazla bilgi edinin";
 "edit-watch-this-page-text" = "Bu sayfayı izle";
 "editing-welcome-be-bold-subtitle" = "Maddeleri güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin. Sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
 "editing-welcome-be-bold-title" = "Sizin sözünüz önemli";
@@ -461,6 +461,7 @@
 "editor-wikitext-textview-accessibility" = "Viki metin düzenleyicisi";
 "empty-diff-compare-title" = "Revizyonlar arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
+"empty-edit-summary" = "Boş düzenleme özeti";
 "empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
 "empty-no-article-message" = "Üzgünüz, madde yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
@@ -647,6 +648,16 @@
 "image-rec-onboarding-item-3-title" = "Lisanslı görseller";
 "image-rec-onboarding-learn-more-button" = "Önerilen düzenlemeler hakkında daha fazla bilgi edinin";
 "image-rec-onboarding-title" = "Bir maddeye görsel ekle";
+"image-rec-survey-instructions-1" = "Yanıtlarınız gelecek önerileri iyileştirir.";
+"image-rec-survey-instructions-2" = "Bir ya da daha fazla seçeneği seçin";
+"image-rec-survey-option-1" = "Görsel ilgili değil";
+"image-rec-survey-option-2" = "Karar vermek için yeterli bilgi yok";
+"image-rec-survey-option-3" = "Görsel rahatsız edici";
+"image-rec-survey-option-4" = "Düşük nitelikte görsel";
+"image-rec-survey-option-5" = "Bu konuyu bilmiyorum";
+"image-rec-survey-option-6" = "Diğer";
+"image-rec-survey-submit-button" = "Gönder";
+"image-rec-survey-title" = "Gerekçe";
 "image-rec-title" = "Görsel ekle";
 "image-rec-view-article" = "Maddeyi görüntüle";
 "image-recs-no-title" = "Hayır";
