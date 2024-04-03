@@ -110,7 +110,6 @@
 "action-update" = "Actualisar";
 "add-articles-to-reading-list" = "Adder {{PLURAL:$1|$1 articulo|$1 articulos}} al lista de lectura";
 "add-citation-title" = "Adder citation";
-"additional-information-email-title" = "Information additional";
 "announcements-dismiss" = "Clauder";
 "app-store-keywords" = "Wikipedia, referentia, wiki, encyclopedia, info, cognoscentia, recerca, information, explorar, apprender";
 "app-store-release-notes" = "Un canal Explorar completemente personalisabile e plus facile a leger. Localisation, melior prestationes e correction de errores.";
@@ -330,7 +329,7 @@
 "edit-underline-remove-accessibility-label" = "Remover sublineamento";
 "edit-unordered-list-accessibility-label" = "Facer lista non ordinate del linea actual";
 "edit-unordered-list-remove-accessibility-label" = "Remover lista non ordinate del linea actual";
-"edit-watch-list-learn-more-text" = "Apprender plus sur observatorios";
+"edit-watch-list-learn-more-text" = "Apprender plus sur le observatorio";
 "edit-watch-this-page-text" = "Observar iste pagina";
 "editing-welcome-be-bold-subtitle" = "Sia intrepide ma non imprudente in modificar articulos. Non te preoccupa troppo de facer errores: omne version anterior de un pagina se conserva, de maniera que nostre communitate pote facilemente corriger errores.";
 "editing-welcome-be-bold-title" = "Tu voce es importante";
@@ -574,7 +573,6 @@
 "insert-media-image-type-settings-title" = "Typo de imagine";
 "insert-media-media-settings-title" = "Parametros multimedial";
 "insert-media-title" = "Inserer multimedia";
-"insert-media-uploaded-image-title" = "Imagine incargate";
 "inuktitut-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del inuktitut como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut syllabic (ike-cans)\nInuktitut ilisautik: inuktitut latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualisationes del supporto de variantes del inuktitut";
 "kazakh-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del kazako como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nҚазақша: kazako (kk)\nҚазақша Кирил: kazako cyrillic (kk-cyrl)\nqazaqşa latin: kazako latin (kk-latn)\nتوتە قازاقشا: kazako arabe (kk-arab)";
@@ -1066,7 +1064,6 @@
 "talk-page-reply-button-accessibility-label" = "Responder a $1";
 "talk-page-reply-depth-accessibility-label" = "Profunditate de responsas: $1";
 "talk-page-reply-placeholder-format" = "Responder a $1";
-"talk-page-reply-terms-and-licenses" = "Nota que tu responsa essera automaticamente signate con tu nomine de usator. Salveguardante le cambiamentos, tu accepta le $1Conditiones de uso$2 e libera irrevocabilemente tu contribution sub le licentias $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-revision-history" = "Historia de versiones";
 "talk-page-rply-close-button-accessibility-hint" = "Clauder vista de responsas";
 "talk-page-share-button" = "Condivider pagina de discussion";
@@ -1077,7 +1074,6 @@
 "talk-page-title-article-talk" = "Discussion de articulo";
 "talk-page-title-user-talk" = "Discussion de usator";
 "talk-page-topic-close-button-hint" = "Clauder nove topico";
-"talk-page-topic-compose-terms-and-licenses" = "Publicante le cambiamentos, tu accepta le $1Conditiones de uso$2 e libera irrevocabilemente tu contribution sub le licentias $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Disabonar me";
 "talk-page-unsubscribed-alert-subtitle" = "Tu non recipera plus notificationes sur nove commentos in iste topico.";
 "talk-page-unsubscribed-alert-title" = "Tu te ha disabonate.";
@@ -1099,7 +1095,7 @@
 "talk-pages-topic-added-alert-title" = "Tu topico ha essite addite";
 "talk-pages-topic-compose-body-placeholder" = "Description";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Description del topico";
-"talk-pages-topic-compose-close-confirmation-discard" = "Abandonar responsa";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Abandonar responsa";
 "talk-pages-topic-compose-close-confirmation-title" = "Es tu secur de voler abandonar iste nove topico?";
 "talk-pages-topic-compose-navbar-title" = "Topico";
 "talk-pages-topic-compose-title-placeholder" = "Titulo del topico";
@@ -1130,28 +1126,11 @@
 "user-title" = "Usator";
 "uzbek-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del uzbeko como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\noʻzbekcha lotin: uzbeko latin (uz-latin)\nўзбекча кирилл: uzbeko cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualisationes del supporto de variantes del uzbeko";
-"vanish-account-additional-information-field" = "Information additional";
-"vanish-account-additional-information-placeholder" = "Optional";
-"vanish-account-back-confirm-discard" = "Abandonar requesta";
-"vanish-account-back-confirm-keep-editing" = "Continuar a modificar";
-"vanish-account-back-confirm-title" = "Es tu secur de voler abandonar iste requesta de disparition?";
-"vanish-account-bottom-text" = "Le deletion del conto sur Wikipedia se effectua cambiante tu nomine de conto de maniera que alteres non pote recognoscer tu contributiones. Iste processo se appella le disparition del conto. Tu pote usar le formulario hic infra pro requestar un disparition per cortesia. Le disparition non garanti un anonymitate complete ni removera alcun contribution del projectos.";
-"vanish-account-bottom-text-with-link" = "Le deletion del conto sur Wikipedia se effectua cambiante tu nomine de conto de maniera que alteres non pote recognoscer tu contributiones. Iste processo se appella le disparition del conto. Tu pote usar le formulario hic infra pro requestar un $1disparition per cortesia$2$3. Le disparition non garanti un anonymitate complete ni removera alcun contribution del projectos.";
-"vanish-account-button-text" = "Inviar requesta";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-description" = "Pro initiar le processo de disparition, per favor forni lo sequente:";
-"vanish-account-email-text" = "Salute,\nIsto es un requesta pro facer disparer mi conto de Wikipedia.";
 "vanish-account-learn-more-text" = "Leger plus";
-"vanish-account-title" = "Processo de disparition";
 "vanish-account-username-field" = "Nomine de usator e pagina de usator";
 "vanish-account-warning-body" = "Le disparition es un **ultime recurso** e debe **solmente esser usate quando tu vole cessar de modificar pro sempre** e celar le maximo possibile de tu associationes anterior.\n\nLe deletion del conto sur Wikipedia se effectua cambiante tu nomine de conto de maniera que alteres non pote recognoscer tu contributiones. Iste processo se appella le disparition del conto. **Le disparition non garanti le anonymitate complete ni remove contributiones al projectos.**";
 "vanish-account-warning-title" = "Advertimento";
-"vanish-modal-item" = "Post completar tu requesta de disparition, per favor attende qualque dies pro que un administrator tracta tu requesta.";
-"vanish-modal-item-2" = "Si tu non es secur si tu requesta ha essite recipite, per favor verifica lo in le application Mail.";
-"vanish-modal-item-3" = "Si tu ha altere questiones sur le disparition, per favor visita Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Si tu ha altere questiones sur le disparition, per favor visita $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Requesta de disparition";
-"vanishing-request-email-title" = "Requesta de disparition per cortesia";
 "variants-alert-dismiss-button" = "No, gratias";
 "variants-alert-preferences-button" = "Revider tu preferentias";
 "watch" = "Observar";
@@ -1258,5 +1237,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Le modificationes essera attribuite al adresse IP de tu apparato. Si tu $1aperi session$2, tu habera plus de confidentialitate.";
 "wikitext-upload-save-anonymously-warning" = "Le modificationes essera attribuite al adresse IP de tu apparato. Si tu $1, tu habera plus de confidentialitate.";
 "wikitext-upload-save-sign-in" = "Aperir session";
-"wikitext-upload-save-terms-and-licenses" = "Publicante le cambiamentos, tu accepta le $1conditiones de uso$2 e tu libera irrevocabilemente tu contribution sub le licentias $3CC BY-SA 3.0$4 e $5GFDL$6. Tu accepta que un hyperligamine o URL es attribution sufficiente pro le licentia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditiones de uso";

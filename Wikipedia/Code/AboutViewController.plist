@@ -5,7 +5,7 @@
 	<key>urls</key>
 	<dict>
 		<key>sharealike</key>
-		<string>https://creativecommons.org/licenses/by-sa/3.0/</string>
+		<string>https://creativecommons.org/licenses/by-sa/4.0/</string>
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/main/LICENSE.txt</string>
 		<key>tsg</key>
@@ -103,6 +103,7 @@
 		<string>Oliver Keyes</string>
 		<string>Ori Livneh</string>
 		<string>Pedro Vereza</string>
+		<string>Phil Herbert</string>
 		<string>Prayag Verma</string>
 		<string>Rita Ho</string>
 		<string>Robin Schoenbaechler</string>
@@ -116,6 +117,7 @@
 		<string>Seshadri Mahalingam</string>
 		<string>Shay Nowick</string>
 		<string>Sherah Smith</string>
+		<string>Shilan Patel</string>
 		<string>Siebrand Mazeland</string>
 		<string>Spencer Edgecombe</string>
 		<string>Stephen Niedzielski</string>

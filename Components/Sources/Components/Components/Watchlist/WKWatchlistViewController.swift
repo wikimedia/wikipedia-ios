@@ -7,6 +7,7 @@ public protocol WKWatchlistDelegate: AnyObject {
 	func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt)
 	func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction)
     func watchlistEmptyViewUserDidTapSearch()
+	func watchlistUserDidTapAddLanguage(from: UIViewController, viewModel: WKWatchlistFilterViewModel)
 }
 
 public protocol WKWatchlistLoggingDelegate: AnyObject {
@@ -201,7 +202,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
     }
 
     public func showFilterView() {
-        let filterView = WKWatchlistFilterView(viewModel: filterViewModel, doneAction: { [weak self] in
+		let filterView = WKWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
 
@@ -237,9 +238,15 @@ fileprivate final class WKWatchlistHostingViewController: WKComponentHostingCont
 }
 
 extension WKWatchlistViewController: WKWatchlistFilterDelegate {
+
     func watchlistFilterDidChange(_ hostingController: WKWatchlistFilterHostingController) {
         viewModel.fetchWatchlist()
     }
+
+	func watchlistFilterDidTapAddLanguage(_ hostingController: WKWatchlistFilterHostingController, viewModel: WKWatchlistFilterViewModel) {
+		delegate?.watchlistUserDidTapAddLanguage(from: hostingController, viewModel: viewModel)		
+	}
+	
 }
 
 extension WKWatchlistViewController: WKEmptyViewDelegate {

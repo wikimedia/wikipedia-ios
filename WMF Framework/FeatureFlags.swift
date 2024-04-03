@@ -10,7 +10,20 @@ public struct FeatureFlags {
         return true
     }
     
-    public static var needsNativeSourceEditor: Bool {
+    public static var needsImageRecommendations: Bool {
+        
+    #if WMF_STAGING || WMF_EXPERIMENTAL
         return true
+    #else
+        return false
+    #endif
     }
+}
+
+@objc public class WMFFeatureFlags: NSObject {
+    
+    @objc public static var needsImageRecommendations: Bool {
+        return FeatureFlags.needsImageRecommendations
+    }
+
 }

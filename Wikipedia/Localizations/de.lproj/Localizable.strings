@@ -110,6 +110,7 @@
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
 "action-add-to-reading-list-short" = "Zu Liste hinzufügen";
 "action-cancel" = "Abbrechen";
+"action-discard-edit" = "Bearbeitung verwerfen";
 "action-discard-edits" = "Bearbeitungen verwerfen";
 "action-find-in-page" = "In Seite finden";
 "action-language-accessibility" = "Sprache ändern";
@@ -137,7 +138,6 @@
 "action-update" = "Aktualisieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Ein|$1}} Artikel zu einer Leseliste hinzufügen";
 "add-citation-title" = "Zitat hinzufügen";
-"additional-information-email-title" = "Zusätzliche Informationen";
 "announcements-dismiss" = "Ausblenden";
 "app-store-keywords" = "Wikipedia, Referenz, Wiki, Enzyklopädie, Information, Info, Wissen, Forschung, Entdecken, Lernen";
 "app-store-release-notes" = "Vollständig anpassbarer und leichter zu lesender Entdecken-Feed. Lokalisierung, Verbesserungen an der Leistung und Fehlerbehebungen.";
@@ -161,8 +161,10 @@
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
 "article-reference-view-title" = "Einzelnachweis $1";
+"article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
+"article-talk-page" = "Diskussion";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
 "back-button-accessibility-label" = "Zurück";
 "back-button-popover-title" = "Zum Zurückgehen tippen";
@@ -182,6 +184,8 @@
 "chinese-variants-alert-body" = "Die Wikipedia-App unterstützt jetzt die folgenden chinesischen Varianten als Primär- oder Sekundärsprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\n简体 Chinesisch, vereinfacht (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Traditionelles Taiwanesisch (zh-tw)";
 "chinese-variants-alert-title" = "Updates zur Unterstützung chinesischer Varianten";
 "clear-title-accessibility-label" = "Löschen";
+"clearing-cache-complete" = "Cache geleert.";
+"clearing-cache-in-progress" = "Cache wird geleert.";
 "close-button-accessibility-label" = "Schließen";
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
@@ -225,10 +229,13 @@
 "description-welcome-descriptions-title" = "Artikelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
+"diff-article-revision-history" = "Versionsgeschichte";
 "diff-compare-header-from-info-heading" = "Vorherige Bearbeitung";
 "diff-compare-header-heading" = "Versionen vergleichen";
 "diff-compare-header-to-info-heading" = "Angezeigte Bearbeitung";
 "diff-compare-title" = "Versionsvergleich";
+"diff-content-added" = "Inhalt hinzugefügt, $1";
+"diff-content-removed" = "Inhalt entfernt, $1";
 "diff-context-lines-collapsed-button-title" = "Zeigen";
 "diff-context-lines-expanded-button-title" = "Ausblenden";
 "diff-header-revision-accessibility-text" = "Version vorgenommen am";
@@ -265,6 +272,12 @@
 "diff-unedited-lines-format" = "$1 unbearbeitete {{PLURAL:$1|Zeile|Zeilen}}";
 "diff-user-button-accessibility-text" = "Doppeltippen, um das Menü zu öffnen";
 "dim-images" = "Bilder dimmen";
+"donate-accessibility-amount-button-hint" = "Doppeltippen, um den Spendenbetrag auszuwählen.";
+"donate-accessibility-donate-hint-format" = "Doppeltippen, um $1 an die Wikimedia Foundation zu spenden.";
+"donate-accessibility-monthly-recurring-hint" = "Doppeltippen, um automatische monatliche Spenden dieses Betrags zu aktivieren.";
+"donate-accessibility-textfield-hint" = "Geben Sie den gewünschten Spendenbetrag ein.";
+"donate-payment-method-prompt-title" = "Per Apple Pay spenden?";
+"donate-success-title" = "Vielen Dank!";
 "edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";
 "edit-bold-remove-accessibility-label" = "Fett-Formatierung entfernen";
 "edit-clear-formatting-accessibility-label" = "Formatierung entfernen";
@@ -325,6 +338,7 @@
 "edit-underline-remove-accessibility-label" = "Unterstreichen entfernen";
 "edit-unordered-list-accessibility-label" = "Aus der aktuellen Zeile eine unsortierte Liste machen";
 "edit-unordered-list-remove-accessibility-label" = "Unsortierte Liste aus der aktuellen Zeile entfernen";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Mehr über Beobachtungslisten erfahren";
 "edit-watch-this-page-text" = "Diese Seite beobachten";
 "editing-welcome-be-bold-subtitle" = "Sei mutig, aber nicht rücksichtslos bei der Aktualisierung von Artikeln. Quäle dich nicht beim Machen von Fehlern: Es wird jede vergangene Version einer Seite gespeichert, so dass Fehler einfach von unserer Gemeinschaft korrigiert werden können.";
@@ -335,8 +349,17 @@
 "editing-welcome-impartial-tone-title" = "In einem neutralen Ton schreiben";
 "editing-welcome-set-knowledge-free-subtitle" = "Um jedem den Zugang auf das Wissen der Welt zu geben, brauchen wir deine Teilnahme an seiner Erstellung durch Lesen, Bearbeiten und Beitragen an den Themen, die dir am Wichtigsten sind.";
 "editing-welcome-set-knowledge-free-title" = "Wissen frei aufsetzen";
+"editor-edit-published" = "Deine Bearbeitung wurde veröffentlicht.";
+"editor-edit-source" = "Quelltext bearbeiten";
 "editor-exit-confirmation-body" = "Bist du sicher, dass du den Bearbeitungsmodus verlassen möchtest, ohne vorher zu veröffentlichen?";
+"editor-exit-confirmation-message" = "Bist du sicher, dass du diese Bearbeitung verwerfen willst?";
 "editor-exit-confirmation-title" = "Den Bearbeitungsmodus schließen?";
+"editor-find-next-button-accessibility" = "Nächstes Suchergebnis";
+"editor-find-previous-button-accessibility" = "Vorheriges Suchergebnis";
+"editor-find-textfield-accessibility" = "Suchen";
+"editor-replace-textfield-accessibility" = "Ersetzen";
+"editor-replace-textfield-placeholder" = "Ersetzen durch …";
+"editor-replace-type-all" = "Alle ersetzen";
 "empty-diff-compare-title" = "Keine Unterschiede zwischen Versionen";
 "empty-diff-single-title" = "Keine sichtbaren Änderungen gemacht";
 "empty-insert-media-title" = "Eine Datei von Wikimedia Commons auswählen";
@@ -441,6 +464,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Von Wikipedia";
 "explore-randomizer" = "Zufallsgenerator";
+"export-user-data-generic-error" = "Beim Exportieren deiner Daten ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.";
 "export-user-data-title" = "Benutzerdaten exportieren";
 "featured-widget-content-failure-for-date" = "Für dieses Datum ist kein vorgestellter Artikel verfügbar.";
 "featured-widget-description" = "Entdecke die besten Artikel auf Wikipedia, die täglich von unserer Gemeinschaft ausgewählt werden.";
@@ -504,6 +528,7 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
+"image-rec-title" = "Bild hinzufügen";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
 "import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird durch Dritte durchgeführt. Sieh dir deren $3Datenschutzerklärungen$4 an.";
@@ -539,7 +564,6 @@
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Medieneinstellungen";
 "insert-media-title" = "Medium einfügen";
-"insert-media-uploaded-image-title" = "Hochgeladenes Bild";
 "languages-settings-title" = "Sprachen";
 "languages-title" = "Sprache ändern";
 "languages-wikipedia" = "Wikipedia-Sprachen";
@@ -969,7 +993,8 @@
 "talk-page-reply-button-accessibility-label" = "$1 antworten";
 "talk-page-reply-depth-accessibility-label" = "Antworttiefe: $1";
 "talk-page-reply-placeholder-format" = "$1 antworten";
-"talk-page-reply-terms-and-licenses" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 3.0$4 und $5GFDL$6 zu veröffentlichen.";
+// Fuzzy
+"talk-page-reply-terms-and-licenses-ccsa4" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 4.0$4 und $5GFDL$6 zu veröffentlichen.";
 "talk-page-revision-history" = "Versionsgeschichte";
 "talk-page-rply-close-button-accessibility-hint" = "Antwortansicht schließen";
 "talk-page-share-button" = "Diskussionsseite teilen";
@@ -980,7 +1005,8 @@
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
 "talk-page-topic-close-button-hint" = "Neues Thema schließen";
-"talk-page-topic-compose-terms-and-licenses" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 3.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
+// Fuzzy
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 4.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
 "talk-page-unsubscribe-to-topic" = "Abbestellen";
 "talk-page-unsubscribed-alert-subtitle" = "Du wirst keine Benachrichtigungen mehr über neue Kommentare in diesem Thema erhalten.";
 "talk-page-unsubscribed-alert-title" = "Du hast dich ausgetragen";
@@ -999,7 +1025,7 @@
 "talk-pages-topic-added-alert-title" = "Dein Thema wurde hinzugefügt";
 "talk-pages-topic-compose-body-placeholder" = "Beschreibung";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Themenbeschreibung";
-"talk-pages-topic-compose-close-confirmation-discard" = "Antwort verwerfen";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Antwort verwerfen";
 "talk-pages-topic-compose-close-confirmation-title" = "Möchtest du dieses neue Thema wirklich verwerfen?";
 "talk-pages-topic-compose-navbar-title" = "Thema";
 "talk-pages-topic-compose-title-placeholder" = "Thementitel";
@@ -1026,10 +1052,6 @@
 "unable-to-load-talk-page-title" = "Diskussionsseite kann nicht geladen werden";
 "unknown-generic-text" = "Unbekannt";
 "unwatch" = "Nicht mehr beobachten";
-"vanish-account-additional-information-placeholder" = "Optional";
-"vanish-account-back-confirm-discard" = "Anfrage verwerfen";
-"vanish-account-back-confirm-keep-editing" = "Weiter bearbeiten";
-"vanish-account-button-text" = "Anfrage senden";
 "vanish-account-continue-button-title" = "Fortfahren";
 "vanish-account-learn-more-text" = "Mehr erfahren";
 "vanish-account-username-field" = "Benutzername und Benutzerseite";
@@ -1083,5 +1105,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du dich $1anmeldest$2, wirst du über mehr Datenschutz verfügen.";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
 "wikitext-upload-save-sign-in" = "Anmelden";
-"wikitext-upload-save-terms-and-licenses" = "Durch die Veröffentlichung der Änderungen stimmst du den $1Nutzungsbedingungen$2 und der unwiderruflichen Veröffentlichung deines Beitrags unter den Lizenzen $3CC BY-SA 3.0$4 und $5GFDL$6 zu. Du bist auch damit einverstanden, dass ein Hyperlink oder eine URL eine angemessene Namensnennung unter der Creative-Commons-Lizenz darstellt.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";

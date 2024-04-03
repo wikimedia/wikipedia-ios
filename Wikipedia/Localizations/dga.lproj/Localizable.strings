@@ -109,7 +109,6 @@
 "action-update" = "Yɛlɛ naŋ ta o bebiri";
 "add-articles-to-reading-list" = "Eŋ {{PLURAL:$1|$1 article|$1 articles}} a kanne a gama";
 "add-citation-title" = "Eŋ sommo";
-"additional-information-email-title" = "Yɛlɛ yaga";
 "announcements-dismiss" = "Iri bare";
 "app-store-keywords" = "Wikipiideɛ, sommo yizie,wiki, duoro mɔlɔ be zie, duoro, yɛŋ, leɛ boɔbu, duoro yɛlɛ, ŋmɛ yaare, zanne";
 "app-store-release-notes" = "Neɛ zaa naŋ baŋ kpeɛ la a tõɔ kanne yɛlɛ. Bezie,toma, baara la.";
@@ -329,6 +328,7 @@
 "edit-underline-remove-accessibility-label" = " Iri sõͻmaa bare";
 "edit-unordered-list-accessibility-label" = "Vɛŋ ka pampana ŋa ŋmaaroo ta tu";
 "edit-unordered-list-remove-accessibility-label" = "Iri anaŋ na ba tu a ŋmaaroo poɔ";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Zanne yɛlɛ yaga a gama poɔ";
 "edit-watch-this-page-text" = "Kaa a gampɛle ŋa";
 "editing-welcome-be-bold-subtitle" = "Sage ko fo meŋɛ kyɛ ta bonnɔ maala aatekle s lɛ. Tɔɔ ŋmeɛrɛgbɛɛ yagalɛ: gsmpɛle zaa naŋ Kore naŋ biŋ la,a lɛ wuli ka langbuli deme naŋ baŋ maalegbɛ ŋmɛ yɛlɛ na eŋ.";
@@ -550,7 +550,6 @@
 "insert-media-image-type-settings-title" = "Enfuomo bõõsoba";
 "insert-media-media-settings-title" = "Mediá maaloo";
 "insert-media-title" = "Eŋ mediá";
-"insert-media-uploaded-image-title" = "Eŋ enfuomo";
 "inuktitut-variants-alert-body" = "A Wikipiideɛ app pampana sage la a Inuktitut aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Eŋ a Inuktitut sommo";
 "kazakh-variants-alert-body" = "A wikipiideɛ app pampana ŋa sage la ka a Kazakh aŋa paramere bee sakondere Kɔkɔɛ a app poɔ, lɛ na vɛŋ la ka kannoo e mɔlɔ, be ane a fo meŋɛ maaloo:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -985,7 +984,6 @@
 "top-read-widget-readers-count" = "$1 kanneba";
 "top-read-widget-title" = "Bone baŋ kanne yaga";
 "user-title" = "Tontona";
-"vanish-account-additional-information-placeholder" = "A ba e ferebo";
 "watch" = "Kaa";
 "watchlist" = "Kaa gama";
 "watchlist-added-toast-one-month" = "Eŋ fo boŋ kaare gama a kyu boyeni poɔ.";
@@ -1075,5 +1073,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 kpɔ$2 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-anonymously-warning" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-sign-in" = "Kpɛ";
-"wikitext-upload-save-terms-and-licenses" = "Anaŋ wa e leɛroo, fo sage la ka $1de la$2, kyɛ ka fo vɛŋ kyɛ de Fo boma yineŋ a $3CC BY-SA3.0$4 sori terebu a $5GFDL$6. Fo sage la ka a hyperlink bee URL taaɛ la a boma maaloo poɔ.";
 "wikitext-upload-save-terms-name" = "Yɛlɛ na fo naŋ ba de";

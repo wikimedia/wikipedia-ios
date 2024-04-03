@@ -230,11 +230,15 @@ class AccountViewController: SubSettingsViewController {
 extension AccountViewController: VanishAccountWarningViewDelegate {
 
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
-        guard presentVanishView, let username = dataStore.authenticationManager.loggedInUsername else {
+        guard presentVanishView else {
             return
         }
-
-        let viewController = VanishAccountContainerViewController(title: CommonStrings.vanishAccount.localizedCapitalized, theme: theme, username: username)
+        
+        guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:Contact/accountvanishapps") else {
+            return
+        }
+        
+        let viewController = SinglePageWebViewController(url: url, theme: theme)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

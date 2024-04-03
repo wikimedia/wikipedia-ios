@@ -107,7 +107,6 @@
 "action-update" = "ߟߏ߲ߘߐߦߊߟߌ";
 "add-articles-to-reading-list" = "{{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ $1 ߟߎ߬}} ߝߙߊ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߡߊ߬";
 "add-citation-title" = "ߝߍ߬ߛߓߍߟߌ ߝߙߊ߬";
-"additional-information-email-title" = "ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲ ߡߞߊ߬ߝߏ߬ߟߌ߫ ߜߘߍ߫ ߟߎ߫";
 "announcements-dismiss" = "ߓߙߐߕߐ߫";
 "app-store-keywords" = "ߥߞߌߔߋߘߌߦߊ߸ ߦߟߌߡߊߛߙߋ߸ ߥߞߌ߸ ߔߘߋߞߎ߸ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ߸ ߝߊ߰ߡߎ߲߬ߦߊ߸ ߢߌߣߌ߲ߠߌ߲߸ ߞߟߊ߬ߟߐ߲߬ߠߌ߲߸ ߛߏ߲߯ߓߊߟߌ߸ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲";
 "app-store-subtitle" = "ߔߘߋߞߎ ߛߙߊ߬ߓߊߟߌ";
@@ -263,6 +262,7 @@
 "edit-underline-remove-accessibility-label" = "ߞߘߐߞߍߙߍ߲ߘߍ ߛߋ߲߬ߓߐ߫";
 "edit-unordered-list-accessibility-label" = "ߛߋ߲߬ߠߊ߬ ߛߌߕߊߙߌ ߞߍ߫ ߛߙߍߘߍ߫ ߡߊߞߟߌߓߊߟߌ ߘߌ߫";
 "edit-unordered-list-remove-accessibility-label" = "ߛߙߍߘߍ߫ ߡߊߞߟߌߓߊߟߌ ߛߋ߲߬ߓߐ߫ ߛߋ߲߬ߠߊ߫ ߛߌߕߊߙߌ ߘߐ߫";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ߘߏ߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬ ߞߊ߬ ߓߍ߲߬ ߜߋ߬ߟߎ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߡߊ߬";
 "edit-watch-this-page-text" = "ߞߐߜߍ ߣߌ߲߬ ߘߐߜߍ߫";
 "editing-welcome-be-bold-title" = "ߌ ߡߊ߲߬ߞߊ߲ ߢߊ߬ߕߣߐ ߦߴߊ߬ ߟߊ߫";
@@ -413,7 +413,6 @@
 "insert-media-image-type-settings-title" = "ߖߌ߬ߦߊ߬ߓߍ ߛߎ߯ߦߊ";
 "insert-media-media-settings-title" = "ߡߋߘߌߦߊ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߟߎ߬";
 "insert-media-title" = "ߡߋߘߌߦߊ ߟߊߘߏ߲߬";
-"insert-media-uploaded-image-title" = "ߖߌ߬ߦߊ߬ߓߍ߫ ߟߊߦߟߍ߬ߣߍ߲";
 "languages-settings-title" = "ߞߊ߲ ߠߎ߬";
 "languages-title" = "ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "languages-wikipedia" = "ߥߞߌߔߋߘߌߦߊ ߞߊ߲ ߠߎ߬";

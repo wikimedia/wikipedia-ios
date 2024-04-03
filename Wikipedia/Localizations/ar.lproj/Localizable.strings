@@ -151,7 +151,6 @@
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "add-citation-title" = "إضافة استشهاد";
-"additional-information-email-title" = "معلومات إضافية";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -337,6 +336,7 @@
 "edit-underline-remove-accessibility-label" = "إزالة التسطير";
 "edit-unordered-list-accessibility-label" = "جعل الخط الحالي قائمة غير مرتبة";
 "edit-unordered-list-remove-accessibility-label" = "إزالة قائمة غير مرتبة من الخط الحالي";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
 "editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";
@@ -562,7 +562,6 @@
 "insert-media-image-type-settings-title" = "نوع الصورة";
 "insert-media-media-settings-title" = "إعدادات الوسائط";
 "insert-media-title" = "إدراج وسائط";
-"insert-media-uploaded-image-title" = "تم رفع الصورة";
 // Fuzzy
 "inuktitut-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Inuktitut التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut ، Syllabics (ike-cans)! N! Inuktitut ilisautik ، Inuktitut ، اللاتينية (ike-latn)";
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
@@ -1050,7 +1049,8 @@
 "talk-page-reply-button-accessibility-label" = "رد على $1";
 "talk-page-reply-depth-accessibility-label" = "عمق الرد: $1";
 "talk-page-reply-placeholder-format" = "رد على $1";
-"talk-page-reply-terms-and-licenses" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 3.0$4 و $5GFDL$6.";
+// Fuzzy
+"talk-page-reply-terms-and-licenses-ccsa4" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 4.0$4 و $5GFDL$6.";
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-rply-close-button-accessibility-hint" = "إغلاق عرض الرد";
 "talk-page-share-button" = "شارك صفحة النقاش";
@@ -1061,7 +1061,8 @@
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-close-button-hint" = "إغلاق موضوع جديد";
-"talk-page-topic-compose-terms-and-licenses" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 3.0$4 و $5GFDL$6.";
+// Fuzzy
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 4.0$4 و $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "إلغاء الاشتراك";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
@@ -1084,7 +1085,7 @@
 "talk-pages-topic-added-alert-title" = "تمت إضافة موضوعك";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "وصف الموضوع";
-"talk-pages-topic-compose-close-confirmation-discard" = "تجاهل الرد";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "تجاهل الرد";
 "talk-pages-topic-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الموضوع الجديد؟";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
@@ -1114,29 +1115,12 @@
 "unknown-generic-text" = "غير معروف";
 "uzbek-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الأوزبكية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! ! ўзбекча кирилл أوزبكي ، سيريلي (uz-cyrl)";
 "uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
-"vanish-account-additional-information-field" = "معلومات إضافية";
-"vanish-account-additional-information-placeholder" = "اختياري";
-"vanish-account-back-confirm-discard" = "تجاهل الطلب";
-"vanish-account-back-confirm-keep-editing" = "واصل التعديل";
-"vanish-account-back-confirm-title" = "هل أنت متأكد أنك تريد تجاهل هذا الطلب المتلاشي؟";
-"vanish-account-bottom-text" = "يتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. يمكنك استخدام النموذج أدناه لطلب التلاشي من باب المجاملة. لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع.";
-"vanish-account-bottom-text-with-link" = "يتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. يمكنك استخدام النموذج أدناه لطلب $1 اختفاء مجاملة $2 $3 . لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع.";
-"vanish-account-button-text" = "ارسل طلب";
 "vanish-account-continue-button-title" = "استمرار";
-"vanish-account-description" = "لبدء عملية التلاشي ، يرجى تقديم ما يلي:";
-"vanish-account-email-text" = "مرحبًا ، هذا طلب لإلغاء حسابي في ويكيبيديا.";
 "vanish-account-learn-more-text" = "معرفة المزيد";
-"vanish-account-title" = "عملية التلاشي";
 "vanish-account-username-field" = "اسم المستخدم وصفحة المستخدم";
 // Fuzzy
 "vanish-account-warning-body" = "التلاشي هو ** الملاذ الأخير ** ويجب ** استخدامه فقط عندما ترغب في إيقاف التحرير للأبد ** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.! N !! N! تم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. ** لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع **.";
 "vanish-account-warning-title" = "تحذير";
-"vanish-modal-item" = "إذا أكملت طلب التلاشي الخاص بك ، فيرجى السماح ببضعة أيام حتى تتم معالجة الطلب من قبل المسؤول";
-"vanish-modal-item-2" = "إذا لم تكن متأكدًا مما إذا كان قد تم تنفيذ طلبك ، فيرجى التحقق من تطبيق البريد الخاص بك";
-"vanish-modal-item-3" = "إذا كان لديك المزيد من الأسئلة حول التلاشي ، يرجى زيارة Meta: Right_to_vanish";
-"vanish-modal-item-3-ios15" = "إذا كانت لديك أسئلة أخرى حول التلاشي ، فيرجى زيارة $1 Meta: Right_to_vanish $2 $3";
-"vanish-modal-title" = "طلب التلاشي";
-"vanishing-request-email-title" = "طلب اختفاء مجاملة";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "watchlist" = "قائمة المراقبة";
@@ -1184,5 +1168,4 @@
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-and-licenses" = "بنشر التغييرات، فإنك توافق على $شروط الاستخدام$2، وتوافق بشكل لا رجعة فيه على إطلاق مساهمتك تحت $3رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل3.0$4 و$5رخصة جنو للوثائق الحرة$6، أنت توافق على أن الرابط التشعبي أو المسار يمثل إسنادا كافيا بموجب ترخيص  المشاع الإبداعي.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";

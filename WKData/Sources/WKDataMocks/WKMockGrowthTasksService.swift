@@ -31,7 +31,19 @@ fileprivate extension WKData.WKServiceRequest {
 
         return method == .GET && action == "query" && formatversion == "2" && format == "json" && prop == "growthimagesuggestiondata" && pageids == "1" && gisdtasktype == "image-recommendation"
     }
+    
+    var isImageRecommendationCombinedGet: Bool {
+        guard let action = parameters?["action"] as? String,
+              let formatversion = parameters?["formatversion"] as? String,
+              let format = parameters?["format"] as? String,
+              let generator = parameters?["generator"] as? String,
+              let gsrsearch = parameters?["gsrsearch"] as? String,
+              let prop = parameters?["prop"] as? String else {
+            return false
+        }
 
+        return method == .GET && action == "query" && formatversion == "2" && format == "json" && generator == "search" && gsrsearch == "hasrecommendation:image" && prop == "growthimagesuggestiondata|revisions"
+    }
 }
 
 public final class WKMockGrowthTasksService: WKService {
@@ -55,10 +67,26 @@ public final class WKMockGrowthTasksService: WKService {
                 return nil
             }
             return jsonData
-
+        } else if request.isImageRecommendationCombinedGet {
+            let resourceName = "growth-task-image-recs-combined-get"
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            return jsonData
         }
+        
         return nil
 
+    }
+    
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+        guard let jsonData = jsonData(for: request) else {
+            completion(.failure(WKMockError.unableToPullData))
+            return
+        }
+        
+        completion(.success(jsonData))
     }
 
     public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String : Any]?, Error>) -> Void) {
@@ -89,7 +117,7 @@ public final class WKMockGrowthTasksService: WKService {
             completion(.failure(WKMockError.unableToDeserialize))
             return
         }
-
+        
         completion(.success(response))
 
     }

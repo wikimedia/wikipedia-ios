@@ -251,6 +251,7 @@
 "edit-underline-remove-accessibility-label" = "ပတိတ် ပၞောန်သၟဝ်";
 "edit-unordered-list-accessibility-label" = "ပ ပၞောန်အတိုင်လၟေင်ဟွံသေင်";
 "edit-unordered-list-remove-accessibility-label" = "ပတိတ် ပၞောန်အတိုင်လၟေင်ဟွံသေင်";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ဆက်လ္ၚတ် ပရူ စရင်ပၟင်ပၟဲဂမၠိုင်";
 "edit-watch-this-page-text" = "မင်မဲ မုက်လိက်ဏအ်";
 "editing-welcome-be-bold-subtitle" = "ကာလပခိုဟ်ပတိုန် လိက်ပရေင်မၞိဟ် ချူဂံင်င်ညိ။ ဆဂး လ္ပပကြာန်န်ညိ။ ကၠောန်ဗၠေတ်ဂှ် လ္ပဖေက်၊ မုက်လိက်တြေံတအ်ဂှ် ဂိုင်ဒေပ်လဝ် သီုဖအိုတ်ရ။ ဟိုတ်ဂှ်ရ ယဝ်ရဗၠေတ်စမ္ဂး ကလေင်ကေတ်ဂွံ ဗွဲမလောဲသွာရ။";
@@ -449,7 +450,6 @@
 "insert-media-image-type-settings-title" = "ဂကူ ဗီု";
 "insert-media-media-settings-title" = "ဖျေဟ်ဒၞာဲ မဳဒဳယာ";
 "insert-media-title" = "စုတ် မဳဒဳယာ";
-"insert-media-uploaded-image-title" = "ပတိုန်ပၠုပ် ဗီု";
 "languages-settings-title" = "အရေဝ်ဘာသာဂမၠိုင်";
 "languages-title" = "သၠာဲ အရေဝ်ဘာသာ";
 "languages-wikipedia" = "အရေဝ်ဘာသာ ဝဳကဳပဳဒဳယာဂမၠိုင်";
@@ -492,6 +492,9 @@
 "no-internet-connection-article-reload-button" = "ကလေင်အာ မူမဂိုင်ဒေပ်လဝ် လက်ကရဴအိုတ်";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
+"notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
+"notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
+"notifications-center-status-read" = "ဗှ်တုဲ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";
@@ -764,7 +767,6 @@
 "two-factor-login-with-regular-code" = "သုင်စောဲ ကုတ် ဍာံဍာံညိ";
 "unable-to-load-talk-page-title" = "မုက်လိက်ဓရီုကျာဂှ် တံင်ဂြဲကေတ် ဟွံဂွံ";
 "unknown-generic-text" = "ဟွံတီ";
-"vanish-account-additional-information-placeholder" = "မိက်ဂွံစုတ်တှ်ေ";
 "welcome-exploration-explore-feed-description" = "လိက်ပရေင် လၟေင်တ္ၚဲ မကဵုကသပ် နကဵု ဂကောံပိုယ်";
 "welcome-exploration-explore-feed-title" = "ဒၞာဲမထ္ၜး";
 "welcome-exploration-on-this-day-description" = "ပ္ဍဲတ္ၚဲဏအ် ပ္ဍဲ ဝင် မုမကတဵုဒှ်လဝ်ဂှ် ကလေင်အာ ပ္ဍဲအခိင်အတိက်တေအ်၊၊";
@@ -805,5 +807,4 @@
 "wikitext-upload-save-anonymously-or-login" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address မၞး။ ယဝ်ရ မၞး $1Log in$2 မၞး ကြက်ကလိဂွံ အခေါင်ပုဂ္ဂလိကဂၠိုင်ရ။";
 "wikitext-upload-save-anonymously-warning" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address device မၞး. ယဝ်ရ မၞး $1 မ္ဂး မၞး သကလိဂွံ အခေါင်ပုဂ္ဂလိ ဂၠိုင်ရ၊၊";
 "wikitext-upload-save-sign-in" = "လုပ်လံက်အေန်";
-"wikitext-upload-save-terms-and-licenses" = "နကဵု မတြးပ္တိတ် အပြံင်အလှာဲဂှ်၊ မၞးတုပ်စိုတ် ကု$1Terms ဒဒက်တဴ ကုUse$2၊ တုဲပၠန် တုပ်စိုတ်ပေင်င် သွက်ဂွံ တြးပ္တိတ် ကမၠောန်မ္ဂး သၟဝ် လာင်ဇြေန် $3CC BY-SA 3.0$4 ကေုာံ $5GFDL$6 ရ။ မၞးတုပ်စိုတ် ဒဒှ်ရ လေန်ဟူပါ ဟွံသေင်မ္ဂး URL ဂှ် ဒှ်ဒၞာဲမတြးပတိတ် နကဵုလာင်ဇြေန် Creative Commons license ရ။";
 "wikitext-upload-save-terms-name" = "Terms of Use";

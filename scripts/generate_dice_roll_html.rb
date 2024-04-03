@@ -121,11 +121,14 @@ tz = -19
 mxes = [1, 1, -1, -1]
 myes = [1, -1, -1, 1]
 
+# https://phabricator.wikimedia.org/T350601
+rotation_offset = 0.0001 # Fixes a Safari CSS animation bug where the dice disappears
+
 for i in 0..5
   side = i+1
     output << "
         #dice.rolled-#{side} {
-            -webkit-transform: translateZ(#{tz[i]}px) rotateX(#{rx[i]}deg) rotateY(#{ry[i]}deg) rotateZ(#{rz}deg);
+            -webkit-transform: translateZ(#{tz[i]}px) rotateX(#{rx[i] + rotation_offset}deg) rotateY(#{ry[i] + rotation_offset}deg) rotateZ(#{rz}deg);
         }"
   for j in 0..5
     next if i == j
@@ -148,7 +151,7 @@ for i in 0..5
               -webkit-transform: translateZ(-500px) rotateX(#{mx*360 + rx[j]}deg) rotateY(#{my*360 + ry[j]}deg) rotateZ(#{rz}deg);
             }
             100% {
-            	-webkit-transform: translateZ(#{tz}px) rotateX(#{mx*360 + rx[j]}deg) rotateY(#{my*360 + ry[j]}deg) rotateZ(#{rz}deg);
+            	-webkit-transform: translateZ(#{tz}px) rotateX(#{mx*360 + rx[j] + rotation_offset}deg) rotateY(#{my*360 + ry[j] + rotation_offset}deg) rotateZ(#{rz}deg);
             }
         }"
     # 20% {

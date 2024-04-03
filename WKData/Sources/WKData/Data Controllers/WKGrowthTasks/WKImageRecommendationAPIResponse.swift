@@ -13,7 +13,33 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let pageid: Int
         let title: String
         let ns: Int
-        let growthimagesuggestiondata: [GrowthImageSuggestionData]
+        let growthimagesuggestiondata: [GrowthImageSuggestionData]?
+        let revisions: [Revision]
+    }
+
+    struct Revision: Codable {
+        let revid: Int
+        let parentid: Int
+        let minor: Bool
+        let user: String
+        let timestamp: String
+        let comment: String
+        let wikitext: Wikitext
+
+        enum CodingKeys: String, CodingKey {
+            case revid, parentid, minor, user, timestamp, comment
+            case wikitext = "slots"
+        }
+    }
+
+    struct Wikitext: Codable {
+        let main: Content
+    }
+
+    struct Content: Codable {
+        let contentmodel: String
+        let contentformat: String
+        let content: String
     }
 
     struct GrowthImageSuggestionData: Codable {
@@ -42,8 +68,8 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let mustRender: Bool
         let isVectorized: Bool
         let mediaType: String
-        let description: String
-        let author: String
+        let description: String?
+        let author: String?
         let license: String
         let date: String
         let caption:String?

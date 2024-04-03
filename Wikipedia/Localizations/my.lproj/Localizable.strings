@@ -209,6 +209,7 @@
 "edit-text-size-table-view-title" = "စာသားအရွယ်အစား";
 "edit-underline-accessibility-label" = "အောက်ခြေမျဉ်း ထည့်ပေါင်းရန်";
 "edit-underline-remove-accessibility-label" = "အောက်ခြေမျဉ်း ဖယ်ရှားရန်";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "စောင့်ကြည့်စာရင်းများအကြောင်း ပိုမိုလေ့လာမည်";
 "edit-watch-this-page-text" = "ဤစာမျက်နှာကို စောင့်ကြည့်ရန်";
 "editing-welcome-be-bold-title" = "သင်၏ အသံက အရေးကြီးပါသည်";
@@ -363,7 +364,6 @@
 "insert-media-image-type-settings-title" = "ပုံအမျိုးအစား";
 "insert-media-media-settings-title" = "မီဒီယာ အပြင်အဆင်များ";
 "insert-media-title" = "မီဒီယာ ထည့်သွင်းရန်";
-"insert-media-uploaded-image-title" = "အက်ပလုတ်တင်ထားသော ရုပ်ပုံ";
 "languages-settings-title" = "ဘာသာစကားများ";
 "languages-title" = "ဘာသာစကား ပြောင်းလဲရန်";
 "languages-wikipedia" = "ဝီကီပီဒီးယား ဘာသာစကားများ";
@@ -700,9 +700,6 @@
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
-"vanish-account-additional-information-field" = "နောက်ထပ်အချက်အလက်များ";
-"vanish-account-additional-information-placeholder" = "ထည့်လိုပါက";
-"vanish-account-back-confirm-keep-editing" = "တည်းဖြတ်မှု ဆက်လုပ်ရန်";
 "vanish-account-continue-button-title" = "ဆက်လက်";
 "vanish-account-learn-more-text" = "ပိုမို လေ့လာရန်";
 "vanish-account-username-field" = "အသုံးပြုသူအမည်နှင့် အသုံးပြုသူစာမျက်နှာ";

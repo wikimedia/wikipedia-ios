@@ -136,7 +136,6 @@
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "add-citation-title" = "Lägg till källa";
-"additional-information-email-title" = "Ytterligare information";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -358,6 +357,7 @@
 "edit-underline-remove-accessibility-label" = "Ta bort understrykning";
 "edit-unordered-list-accessibility-label" = "Gör nuvarande rad till en oordnad lista";
 "edit-unordered-list-remove-accessibility-label" = "Ta bort oordnad lista från nuvarande rad";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Läs mer om bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
 "editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Var inte för hård mot dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
@@ -428,6 +428,8 @@
 "editor-toolbar-reference-accessibility" = "Textformatering för referenser";
 "editor-toolbar-show-more-accessibility" = "Visa fler formateringsalternativ";
 "editor-toolbar-template-accessibility" = "Textformatering för mallar";
+"editor-wikitext-loading-accessibility" = "Läser in textredigerare";
+"editor-wikitext-textview-accessibility" = "Wikitextredigerare";
 "empty-diff-compare-title" = "Ingen skillnad mellan versionerna";
 "empty-diff-single-title" = "Inga synliga ändringar gjordes";
 "empty-insert-media-title" = "Välj en fil från Wikimedia Commons";
@@ -638,7 +640,6 @@
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Mediainställningar";
 "insert-media-title" = "Infoga media";
-"insert-media-uploaded-image-title" = "Uppladdad bild";
 "inuktitut-variants-alert-body" = "Wikipediaappen stödjer följande inuktitut varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, stavelseskrift (ike-cans)\nInuktitut ilisautik, inuktitut, latinska (ike-latn)";
 "inuktitut-variants-alert-title" = "Uppdaterades till stöd för inuktitut varianter";
 "kazakh-variants-alert-body" = "Wikipediaappen stödjer följande kazakiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nҚазақша kazakiska (kk)\nҚазақша Кирил kazakiska, kyrilliska (kk-cyrl)\nqazaqşa latin kazakiska, latinska (kk-latn)\nتوتە قازاقشا kazakiska, arabiska (kk-arab)";
@@ -1131,7 +1132,6 @@
 "talk-page-reply-button-accessibility-label" = "Svara på $1";
 "talk-page-reply-depth-accessibility-label" = "Svarsdjup: $1";
 "talk-page-reply-placeholder-format" = "Svara på $1";
-"talk-page-reply-terms-and-licenses" = "Observera att ditt svar automatiskt kommer att signeras med ditt användarnamn. Genom att spara ändringarna samtycker du till $1användarvillkoren$2 och att släppa ditt bidrag under licenserna $3CC BY-SA 3.0$4 och $5GFDL$6.";
 "talk-page-revision-history" = "Versionshistorik";
 "talk-page-rply-close-button-accessibility-hint" = "Stäng svarsvy";
 "talk-page-share-button" = "Dela diskussionssida";
@@ -1142,7 +1142,6 @@
 "talk-page-title-article-talk" = "Artikeldiskussion";
 "talk-page-title-user-talk" = "Användardiskussion";
 "talk-page-topic-close-button-hint" = "Stäng nytt ämne";
-"talk-page-topic-compose-terms-and-licenses" = "Genom att publicera ändringar samtycker du till $1användningsvillkoren$2 och att släppa ditt bidrag under licenserna $3CC BY-SA 3.0$4 och $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Avsluta prenumeration";
 "talk-page-unsubscribed-alert-subtitle" = "Du kommer inte längre få aviseringar om nya kommentarer i det här ämnet.";
 "talk-page-unsubscribed-alert-title" = "Du har avslutat prenumerationen.";
@@ -1165,7 +1164,7 @@
 "talk-pages-topic-added-alert-title" = "Ditt ämne lades till";
 "talk-pages-topic-compose-body-placeholder" = "Beskrivning";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Ämnesbeskrivning";
-"talk-pages-topic-compose-close-confirmation-discard" = "Släng svaret";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Släng svaret";
 "talk-pages-topic-compose-close-confirmation-title" = "Är du säker på att du vill slänga detta ämne?";
 "talk-pages-topic-compose-navbar-title" = "Ämne";
 "talk-pages-topic-compose-title-placeholder" = "Ämnestitel";
@@ -1197,28 +1196,11 @@
 "user-title" = "Användare";
 "uzbek-variants-alert-body" = "Wikipediaappen stödjer följande uzbekiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\noʻzbekcha lotin uzbekiska, latinska (uz-latin)\nўзбекча кирилл uzbekiska, kyrilliska (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uppdaterades till stöd för uzbekiska varianter";
-"vanish-account-additional-information-field" = "Ytterligare information";
-"vanish-account-additional-information-placeholder" = "Valfritt";
-"vanish-account-back-confirm-discard" = "Släng begäran";
-"vanish-account-back-confirm-keep-editing" = "Fortsätt redigera";
-"vanish-account-back-confirm-title" = "Är du säker på att du vill slänga denna begäran om försvinnande?";
-"vanish-account-bottom-text" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett försvinnande. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
-"vanish-account-bottom-text-with-link" = "Konton raderas på Wikipedia genom att ändra kontonamnet så att man inte kan känna igen bidragen via en process som kallas kontoförsvinnande. Du kan använda formuläret nedan för att begära ett $1försvinnande$2$3. Detta garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten.";
-"vanish-account-button-text" = "Skicka begäran";
 "vanish-account-continue-button-title" = "Fortsätt";
-"vanish-account-description" = "För att initiera försvinnandeprocessen, ange följande:";
-"vanish-account-email-text" = "Hej.\nDetta är en begäran att få mitt Wikipedia-konto att försvinna.";
 "vanish-account-learn-more-text" = "Läs mer";
-"vanish-account-title" = "Process för att försvinna";
 "vanish-account-username-field" = "Användarnamn och användarsida";
 "vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten**.";
 "vanish-account-warning-title" = "Varning";
-"vanish-modal-item" = "Om du slutförde din begäran om att försvinna, vänta några dagar för begäran att behandlas av en administratör";
-"vanish-modal-item-2" = "Om du är osäker på om din begäran gick igenom, se din e-postapp";
-"vanish-modal-item-3" = "Om du har ytterligare frågor om att försvinna, besök Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Om du har ytterligare frågor om att försvinna, besök $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Begäran om att försvinna";
-"vanishing-request-email-title" = "Begäran om att försvinna";
 "variants-alert-dismiss-button" = "Nej tack";
 "variants-alert-preferences-button" = "Granska dina inställningar";
 "watch" = "Bevaka";
@@ -1269,6 +1251,7 @@
 "watchlist-filter-user-registration-header" = "Användarregistrering och -erfarenhet";
 "watchlist-filter-user-registration-options-registered" = "Registrerade";
 "watchlist-filter-user-registration-options-unregistered" = "Oregistrerade";
+"watchlist-filters-add-language" = "Lägg till språk...";
 "watchlist-number-filters" = "Modifiera [{{PLURAL:$1|$1 filter}}](wikipedia://watchlist/filter) för att se fler poster i bevakningslistan";
 "watchlist-onboarding-button-title" = "Läs mer om bevakningslistan";
 "watchlist-onboarding-title" = "Det här är din bevakningslista";
@@ -1328,5 +1311,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Redigeringar kommer att signeras med din enhets IP-adress. Om du $1loggar in$2 kommer du ha mer integritet.";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "logga in";
-"wikitext-upload-save-terms-and-licenses" = "Genom att publicera ändringar samtycker du till $1användaravtalet$2 och du oåterkalleligen går med på att släppa ditt bidrag under licensen $3CC BY-SA 3.0$4 och $5GFDL$6. Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";

@@ -132,7 +132,6 @@
 "action-update" = "Оновити";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "add-citation-title" = "Додати джерело";
-"additional-information-email-title" = "Додаткова інформація";
 "announcements-dismiss" = "Відхилити";
 "app-store-keywords" = "Вікіпедія, стаття, вікі, енциклопедія, інформація, знання, дослідження, інформація, читання, навчання";
 "app-store-release-notes" = "Тепер стрічка в додатку цілком налаштовувана та легша до використання. Поліпшена локалізація, підвищена продуктивність, деякі помилки виправлені.";
@@ -354,6 +353,7 @@
 "edit-underline-remove-accessibility-label" = "Прибрати підкреслення";
 "edit-unordered-list-accessibility-label" = "Зробити ненумерованим списком";
 "edit-unordered-list-remove-accessibility-label" = "Прибрати ненумерований список";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Дізнатися більше про списки спостереження";
 "edit-watch-this-page-text" = "Спостерігати за цією сторінкою";
 "editing-welcome-be-bold-subtitle" = "Редагуйте сміливо, але обдумано. Не засмучуйтеся через помилки — кожна версія статті зберігається, тому помилки можуть легко бути виправлені нашою спільнотою.";
@@ -576,7 +576,6 @@
 "insert-media-image-type-settings-title" = "Тип зображення";
 "insert-media-media-settings-title" = "Параметри медіафайлу";
 "insert-media-title" = "Вставити медіафайл";
-"insert-media-uploaded-image-title" = "Завантажене зображення";
 "inuktitut-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови інуктитут як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ інуктитут, складове письмо (ike-cans)\nInuktitut ilisautik, інуктитут, латинка (ike-latn)";
 "inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
 "kazakh-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти казахської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nҚазақша казахська (kk)\nҚазақша Кирил казахська, кирилиця (kk-cyrl)\nqazaqşa latin казахська, латинка (kk-latn)\nتوتە قازاقشا казахська, арабиця (kk-arab)";
@@ -1069,7 +1068,6 @@
 "talk-page-reply-button-accessibility-label" = "Відповісти $1";
 "talk-page-reply-depth-accessibility-label" = "Глибина відповіді: $1";
 "talk-page-reply-placeholder-format" = "Відповісти $1";
-"talk-page-reply-terms-and-licenses" = "Ваша відповідь буде автоматично підписана вашим іменем користувача. Зберігаючи зміни, ви погоджуєтеся з $1Умовами використання$2 і видаєте свій внесок згідно з ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
 "talk-page-revision-history" = "Історія редагувань";
 "talk-page-rply-close-button-accessibility-hint" = "Закрити вікно відповіді";
 "talk-page-share-button" = "Поділитися сторінкою обговорення";
@@ -1080,7 +1078,6 @@
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
 "talk-page-topic-close-button-hint" = "Закрити нову тему";
-"talk-page-topic-compose-terms-and-licenses" = "Публікуючи зміни, ви погоджуєтеся з $1Умовами використання$2 та невідклично оприлюднюєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-subtitle" = "Ви більше не будете отримувати сповіщення про нові коментарі в цій темі.";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";
@@ -1102,7 +1099,7 @@
 "talk-pages-topic-added-alert-title" = "Вашу тему додано";
 "talk-pages-topic-compose-body-placeholder" = "Опис";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Опис теми";
-"talk-pages-topic-compose-close-confirmation-discard" = "Скасувати відповідь";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Скасувати відповідь";
 "talk-pages-topic-compose-close-confirmation-title" = "Ви впевнені, що хочете скасувати цю нову тему?";
 "talk-pages-topic-compose-navbar-title" = "Тема";
 "talk-pages-topic-compose-title-placeholder" = "Назва теми";
@@ -1133,28 +1130,11 @@
 "user-title" = "Користувач";
 "uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
-"vanish-account-additional-information-field" = "Додаткова інформація";
-"vanish-account-additional-information-placeholder" = "Необов'язково";
-"vanish-account-back-confirm-discard" = "Скасувати Запит";
-"vanish-account-back-confirm-keep-editing" = "Продовжити Редагування";
-"vanish-account-back-confirm-title" = "Ви впевнені, що бажаєте відхилити цей запит на знищення?";
-"vanish-account-bottom-text" = "Видалення облікового запису у Вікіпедії відбувається шляхом зміни імені вашого облікового запису, щоб інші не могли розпізнати ваш внесок; цей процес називають зникненням облікового запису. Ви можете скористатись формою нижче, щоб подати запит на добровільне зникнення. Зникнення не гарантує повної анонімності і не вилучає внеску у проєкти.";
-"vanish-account-bottom-text-with-link" = "Видалення облікового запису у Вікіпедії відбувається шляхом зміни назви вашого облікового запису, щоб інші не могли розпізнати ваші внески в процесі, який називається зникненням облікового запису. Ви можете скористатись формою нижче, щоб подати запит на $1courtesy vanishing$2$3 . Зникнення не гарантує повної анонімності чи видалення внесків у проекти.";
-"vanish-account-button-text" = "Надіслати запит";
 "vanish-account-continue-button-title" = "Продовжити";
-"vanish-account-description" = "Щоб розпочати процес зникнення, будь ласка, надайте наступне:";
-"vanish-account-email-text" = "Вітаю,\nЦе запит на видалення мого облікового запису Вікіпедії.";
 "vanish-account-learn-more-text" = "Дізнайтесь більше";
-"vanish-account-title" = "Процес зникнення";
 "vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-account-warning-body" = "Зникнення є **останнім заходом**, і його слід використовувати **лише тоді, коли ви хочете назавжди припинити редагування**, а також щоб приховати якомога більше своїх минулих зв'язків.\n\nВилучення облікового запису у Вікіпедії робиться шляхом зміни імені вашого облікового запису, щоб інші не могли розпізнати ваші внески; це називають зникненням облікового запису. **Зникнення не гарантує повної анонімності і не вилучає внесок у проєкти**.";
 "vanish-account-warning-title" = "Попередження";
-"vanish-modal-item" = "Якщо ви виконали ваш запит на зникнення, зачекайте кілька днів, щоб запит обробив адміністратор";
-"vanish-modal-item-2" = "Якщо ви не впевнені, що ваш запит прийнято, перевірте свій додаток Mail";
-"vanish-modal-item-3" = "Якщо у вас є додаткові запитання щодо зникнення, відвідайте сторінку Meta:Right_to_vanish";
-"vanish-modal-item-3-ios15" = "Якщо у вас є додаткові запитання щодо зникнення, відвідайте $1Meta:Right_to_vanish$2$3";
-"vanish-modal-title" = "Запит на зникнення";
-"vanishing-request-email-title" = "Запит на добровільне зникнення";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
 "watch" = "Спостерігати";
@@ -1261,5 +1241,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Редагування будуть приписані ІР-адресі вашого пристрою. Якщо ви $1авторизуєтеся$2, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі вашого пристрою. Якщо ви $1, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-sign-in" = "Увійти";
-"wikitext-upload-save-terms-and-licenses" = "Оприлюднюючи зміни, ви погоджуєтеся з $1Умовами використання$2 і з тим, що розміщуєте свій внесок за ліцензіями $3CC BY-SA 3.0$4 і $5GFDL$6. Ви також погоджуєтеся, що зазначене гіперпосилання чи URL задовольняє ліцензію Creative Commons.";
 "wikitext-upload-save-terms-name" = "Умови використання";

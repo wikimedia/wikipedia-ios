@@ -281,6 +281,49 @@ extension WMFAppViewController: WKWatchlistDelegate {
     public func watchlistEmptyViewUserDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
+
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
+        let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
+        languagesController.title = CommonStrings.wikipediaLanguages
+        languagesController.apply(theme)
+        languagesController.delegate = self
+        languagesController.showAllLanguages = true
+        languagesController.showPreferredLanguages = false
+        languagesController.showNonPreferredLanguages = false
+
+        languagesController.userLanguageSelectionBlock = { [weak self, weak viewModel] in
+            guard let self = self else { return }
+
+            // From `ViewControllerRouter`
+            let dataStore = self.dataStore
+            let appLanguages = dataStore.languageLinkController.preferredLanguages
+            var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
+                    return
+                }
+
+                result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            }
+            localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
+            localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
+
+            viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
+        }
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        viewController.present(navigationController, animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
+
+    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        dataStore.languageLinkController.appendPreferredLanguage(language)
+        controller.userLanguageSelectionBlock?()
+        controller.dismiss(animated: true)
+    }
+
 }
 
 extension WMFAppViewController: WKWatchlistLoggingDelegate {
@@ -530,6 +573,14 @@ extension WMFAppViewController {
         
         WKDataEnvironment.current.userAgentUtility = {
             return WikipediaAppUtils.versionedUserAgent()
+        }
+        
+        WKDataEnvironment.current.appInstallIDUtility = {
+            return UserDefaults.standard.wmf_appInstallId
+        }
+        
+        WKDataEnvironment.current.acceptLanguageUtility = {
+            return Locale.acceptLanguageHeaderForPreferredLanguages
         }
         
         WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()

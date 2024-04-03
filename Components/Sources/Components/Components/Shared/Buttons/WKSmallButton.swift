@@ -2,9 +2,19 @@ import SwiftUI
 
 public struct WKSmallButton: View {
     
-    public enum Configuration {
-        case neutral
-        case quiet
+    public struct Configuration {
+        public enum Style {
+            case neutral
+            case quiet
+        }
+        
+        public let style: Style
+        public let needsDisclosure: Bool
+        
+        public init(style: WKSmallButton.Configuration.Style, needsDisclosure: Bool = false) {
+            self.style = style
+            self.needsDisclosure = needsDisclosure
+        }
     }
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
@@ -23,11 +33,19 @@ public struct WKSmallButton: View {
         Button(action: {
             action?()
         }, label: {
-            Text(title)
-                .font(Font(WKFont.for(.mediumSubheadline)))
-                .foregroundColor(Color(appEnvironment.theme.link))
-                .padding([.top, .bottom], 4)
-                .padding([.leading, .trailing], 8)
+            HStack(spacing: 4) {
+                Text(title)
+                    .font(Font(WKFont.for(.mediumSubheadline)))
+                    .foregroundColor(Color(appEnvironment.theme.link))
+                
+                if configuration.needsDisclosure,
+                let uiImage = WKSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
+                    Image(uiImage: uiImage)
+                }
+            }
+            .padding([.top, .bottom], 4)
+            .padding([.leading, .trailing], 8)
+            
         })
         .backgroundAndRadius(configuration: configuration, theme: appEnvironment.theme)
         
@@ -37,7 +55,7 @@ public struct WKSmallButton: View {
 private extension View {
     @ViewBuilder
     func backgroundAndRadius(configuration: WKSmallButton.Configuration, theme: WKTheme) -> some View {
-        switch configuration {
+        switch configuration.style {
         case .neutral:
             self
                 .background(Color(theme.baseBackground))

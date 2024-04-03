@@ -9,7 +9,7 @@ public final class WKBasicService: WKService {
         self.urlSession = urlSession
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
         
         let completion: ((Data?, URLResponse?, Error?) -> Void) = { data, response, error in
             if let error {
@@ -17,22 +17,13 @@ public final class WKBasicService: WKService {
                 return
             }
             
-            guard let data else {
+            guard let data,
+                  !data.isEmpty else {
                 completion(.failure(WKServiceError.missingData))
                 return
             }
             
-            if data.isEmpty {
-                completion(.failure(WKServiceError.missingData))
-                return
-            }
-            
-            do {
-                let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                completion(.success(dictionary))
-            } catch let error {
-                completion(.failure(error))
-            }
+            completion(.success(data))
         }
         
         switch request.method {
@@ -45,9 +36,30 @@ public final class WKBasicService: WKService {
         }
     }
     
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        
+        let completion: ((Result<Data, any Error>) -> Void) = { result in
+            switch result {
+            case .success(let data):
+                
+                do {
+                    let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    completion(.success(dictionary))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+        perform(request: request, completion: completion)
+    }
+    
     private func performPOST<R: WKServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         
-        guard let url = request.url,
+        guard let basicRequest = request as? WKBasicServiceRequest,
+              let url = request.url,
               request.method == .POST else {
             completion(nil, nil, WKServiceError.invalidRequest)
             return
@@ -57,8 +69,8 @@ public final class WKBasicService: WKService {
         urlRequest.httpMethod = request.method.rawValue
         
         
-        if let bodyContentType = request.bodyContentType {
-            switch bodyContentType {
+        if let contentType = basicRequest.contentType {
+            switch contentType {
             case .form:
                 
                 if let encodedParameters = request.parameters?.encodedForAPI() {
@@ -76,7 +88,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateUserAgent()
+                urlRequest.populateCommonHeaders(request: basicRequest)
             case .json:
                 
                 do {
@@ -90,7 +102,7 @@ public final class WKBasicService: WKService {
                 }
                 
                 urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.populateUserAgent()
+                urlRequest.populateCommonHeaders(request: basicRequest)
             }
         }
         
@@ -123,7 +135,8 @@ public final class WKBasicService: WKService {
     
     private func performGET<R: WKServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
          
-        guard let url = request.url,
+        guard let basicRequest = request as? WKBasicServiceRequest,
+              let url = request.url,
               request.method == .GET else {
             completion(nil, nil, WKServiceError.invalidRequest)
             return
@@ -152,8 +165,7 @@ public final class WKBasicService: WKService {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        urlRequest.populateUserAgent()
+        urlRequest.populateCommonHeaders(request: basicRequest)
         
         let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
             
@@ -232,9 +244,25 @@ public final class WKBasicService: WKService {
 }
 
 private extension URLRequest {
-    mutating func populateUserAgent() {
+    mutating func populateCommonHeaders(request: WKBasicServiceRequest) {
         if let userAgent = WKDataEnvironment.current.userAgentUtility?() {
             setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        }
+        
+        if let appInstallID = WKDataEnvironment.current.appInstallIDUtility?() {
+            setValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
+        }
+        
+        let acceptLanguage = request.languageVariantCode ?? WKDataEnvironment.current.acceptLanguageUtility?()
+        if let acceptLanguage {
+            setValue(acceptLanguage, forHTTPHeaderField: "Accept-Language")
+        }
+        
+        switch request.acceptType {
+        case .json:
+            setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        case .none:
+            setValue("*/*", forHTTPHeaderField: "Accept")
         }
     }
 }

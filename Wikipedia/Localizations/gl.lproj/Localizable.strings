@@ -227,6 +227,7 @@
 "edit-underline-remove-accessibility-label" = "Eliminar subliñado";
 "edit-unordered-list-accessibility-label" = "Converter a liña actual nunha lista non ordenada";
 "edit-unordered-list-remove-accessibility-label" = "Eliminar a lista non ordenada da liña actual";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Máis información sobre as listas de vixiancia";
 "edit-watch-this-page-text" = "Vixiar esta páxina";
 "editing-welcome-be-bold-subtitle" = "Sexa valente, pero non descoidado, na actualización de artigos. Non se preocupe por cometer errosː todas as versións anteriores das páxinas están gardadas, polo tanto a comunidade pode corrixir os erros de forma doada.";
@@ -422,7 +423,6 @@
 "insert-media-image-type-settings-title" = "Tipo de imaxe";
 "insert-media-media-settings-title" = "Configuración multimedia";
 "insert-media-title" = "Inserir multimedia";
-"insert-media-uploaded-image-title" = "Imaxe cargada";
 "languages-settings-title" = "Linguas";
 "languages-title" = "Cambiar lingua";
 "languages-wikipedia" = "Linguas de Wikipedia";
@@ -746,5 +746,4 @@
 "wikitext-upload-save-anonymously-or-login" = "As edicións serán atribuídas ao enderezo IP do seu dispositivo. Se vostede $1inicia a sesión$2, terá máis privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse ao enderezo IP do dispositivo. Se $1 terá máis privacidade.";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
-"wikitext-upload-save-terms-and-licenses" = "Ó publicar os cambios, concorda cos $1Termos de uso$2, e está de acordo en liberar irrevogablemente as súas contribucións baixo a licenza $3CC-BY-SA 3.0$4 e a $5GFDL$6. Concorda en que unha ligazón ou URL é atribución abondo baixo a licenza Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termos de uso";
