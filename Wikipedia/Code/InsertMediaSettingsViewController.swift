@@ -3,14 +3,27 @@ import WKData
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
+
 final class InsertMediaSettingsViewController: ViewController {
+    
+    class ImageRecommendationsConfig {
+        let wikitext: String
+        let articleURL: URL
+        let sectionNumber: Int
+        weak var previewDelegate: EditPreviewViewControllerDelegate?
+        
+        internal init(wikitext: String, articleURL: URL, sectionNumber: Int, previewDelegate: EditPreviewViewControllerDelegate?) {
+            self.wikitext = wikitext
+            self.articleURL = articleURL
+            self.sectionNumber = sectionNumber
+            self.previewDelegate = previewDelegate
+        }
+    }
+    
+    var imageRecommendationsConfig: ImageRecommendationsConfig?
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
-    private let fromImageRecommendations: Bool
-
-    private let wikitext: String?
-    private let articleURL: URL?
-    private let sectionNumber: Int?
 
     let searchResult: InsertMediaSearchResult
     private var nextButton: UIBarButtonItem?
@@ -201,13 +214,10 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, imageRecommendationsConfig: ImageRecommendationsConfig?) {
         self.image = image
         self.searchResult = searchResult
-        self.fromImageRecommendations = fromImageRecommendations
-        self.wikitext = wikitext
-        self.articleURL = articleURL
-        self.sectionNumber = sectionNumber
+        self.imageRecommendationsConfig = imageRecommendationsConfig
         super.init()
     }
 
@@ -226,18 +236,17 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.tableHeaderView = imageView
         tableView.tableFooterView = buttonView
 
-        if fromImageRecommendations {
+        if imageRecommendationsConfig != nil {
             title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
-            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
+            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedNext))
             nextButton?.tintColor = theme.colors.secondaryText
             navigationItem.rightBarButtonItem = nextButton
-            navigationController?.navigationBar.topItem?.title = String()
             self.apply(theme: theme)
         }
     }
 
-    @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        assert(fromImageRecommendations, "Should only be called from Image Recommendations")
+    @objc private func tappedNext(_ sender: UIBarButtonItem) {
+        assert(imageRecommendationsConfig != nil, "Should only be called from Image Recommendations")
         let searchResult = searchResult
         let wikitext: String
         switch settings {
@@ -267,7 +276,7 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     func didTapInsertMedia(with imageWikitext: String) {
-        guard let wikitext else {
+        guard let wikitext = imageRecommendationsConfig?.wikitext else {
             return
         }
         do {
@@ -280,17 +289,17 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     func goToEditPreview(with wikitext: String) {
-        guard let articleURL else {
+        guard let imageRecommendationsConfig else {
             print("Error")
             return
         }
 
-        let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+        let editPreviewViewController = EditPreviewViewController(pageURL: imageRecommendationsConfig.articleURL)
         editPreviewViewController.theme = theme
-        editPreviewViewController.sectionID = sectionNumber
-        editPreviewViewController.languageCode = articleURL.wmf_languageCode
+        editPreviewViewController.sectionID = imageRecommendationsConfig.sectionNumber
+        editPreviewViewController.languageCode = imageRecommendationsConfig.articleURL.wmf_languageCode
         editPreviewViewController.wikitext = wikitext
-        editPreviewViewController.delegate = self
+        editPreviewViewController.delegate = imageRecommendationsConfig.previewDelegate
 
         navigationController?.pushViewController(editPreviewViewController, animated: true)
     }
@@ -422,11 +431,4 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
-}
-
-extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
-        print("Go to Edit Save View Controller")
-    }
-
 }

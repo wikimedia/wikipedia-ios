@@ -18,6 +18,15 @@ public struct FeatureFlags {
         return false
     #endif
     }
+    
+    public static var needsImageRecommendationsSuppressPosting: Bool {
+        
+    #if WMF_EXPERIMENTAL
+        return true
+    #else
+        return false
+    #endif
+    }
 }
 
 @objc public class WMFFeatureFlags: NSObject {

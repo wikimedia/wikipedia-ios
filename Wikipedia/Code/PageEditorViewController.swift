@@ -924,7 +924,7 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
 // MARK: - EditPreviewViewControllerDelegate
 
 extension PageEditorViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController) {
         
         guard case .editorPreviewSave = editFlow else {
             assertionFailure("Edit preview should not have a Next button when using editorSavePreview flow.")

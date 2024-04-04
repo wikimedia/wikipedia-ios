@@ -105,7 +105,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    let project: WKProject
+    public let project: WKProject
     let semanticContentAttribute: UISemanticContentAttribute
     let localizedStrings: LocalizedStrings
     
@@ -190,7 +190,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    func next(completion: @escaping () -> Void) {
+    public func next(completion: @escaping () -> Void) {
         guard !imageRecommendations.isEmpty else {
             self.currentRecommendation = nil
             completion()

@@ -106,7 +106,7 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult)
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, imageRecommendationsConfig: nil)
             settingsViewController.title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
             let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
             insertButton.tintColor = theme.colors.link
