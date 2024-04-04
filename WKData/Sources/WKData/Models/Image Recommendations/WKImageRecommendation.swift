@@ -8,6 +8,12 @@ public struct WKImageRecommendation {
         public let pageid: Int
         public let title: String
         public let growthimagesuggestiondata: [GrowthImageSuggestionData]?
+        public let revisions: [Revision]
+    }
+
+    public struct Revision {
+        public let revID: Int
+        public let wikitext: String
     }
 
     public struct GrowthImageSuggestionData {
@@ -39,6 +45,7 @@ public struct WKImageRecommendation {
         let categories: [String]
         public let reason: String
         let contentLanguageName: String
+        let sectionNumber: String?
     }
 
 }

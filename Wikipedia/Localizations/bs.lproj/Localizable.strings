@@ -296,6 +296,7 @@
 "edit-underline-remove-accessibility-label" = "Ukloni podvlačenje";
 "edit-unordered-list-accessibility-label" = "Napravi neporedani spisak od trenutnog reda";
 "edit-unordered-list-remove-accessibility-label" = "Ukloni neporedani spisak iz trenutne linije";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Saznaj više o spisku praćenja";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-subtitle" = "Budite hrabri, ali ne i nemarni u ažuriranju članaka. Ne brinite se oko pravljenja grešaka: svaka prošla verzija stranice je sačuvana, tako da naša zajednica lako može ispraviti greške.";

@@ -16,6 +16,7 @@ public class WKImageRecommendationsDataController {
 	// MARK: - Properties
 
 	private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
+    private let service = WKDataEnvironment.current.mediaWikiService
 
 	// MARK: - Lifecycle
 
@@ -38,5 +39,46 @@ public class WKImageRecommendationsDataController {
 			try? userDefaultsStore?.save(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
 		}
 	}
+    
+    // MARK: - PUT Send Feedback
+    
+    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: Int?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        guard let service else {
+            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        var parameters: [String: Any?] = [
+            "filename": fileName,
+            "accepted": accepted,
+            "reasons": reasons,
+            "caption": caption ?? fileName,
+            "sectionTitle": nil,
+            "sectionNumber": nil
+        ]
+        
+        if let editRevId {
+            parameters["editRevId"] = editRevId
+        }
+
+        guard let url = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments","v0","suggestions","addimage","feedback", pageTitle]) else {
+            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        let request = WKMediaWikiServiceRequest(url: url, method: .PUT, backend: .mediaWikiREST, tokenType: .csrf, parameters: parameters as [String : Any])
+        
+        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
+            switch result {
+            case .success:
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(WKDataControllerError.serviceError(error)))
+            }
+        }
+        
+        service.perform(request: request, completion: completion)
+    }
 
 }

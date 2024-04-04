@@ -1,6 +1,7 @@
 // Messages for Scots (Scots)
 // Exported from translatewiki.net
 // Author: AmaryllisGardener
+// Author: Amire80
 // Author: CiphriusKane
 // Author: Fitoschido
 // Author: John Reid
@@ -114,7 +115,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Luikower";
 "places-accessibility-show-more" = "Shaw mair airticles";
 "saved-pages-image-download-error" = "Failt tae dounlaid eemages for this sauft page.";
-"search-field-placeholder-text" = "Rake Wikipædia";
+"search-field-placeholder-text" = "Rake Wikipaedia";
 // Fuzzy
 "wikitext-downloading" = "Laidin wiki tex...";
 "wikitext-preview-changes" = "Retreevin luikower o yer chynges...";

@@ -102,7 +102,7 @@
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi käyttäjätunnus";
 "account-group-title" = "Oma käyttäjätunnus";
-"account-request-vanishing" = "Häivytä tunnus";
+"account-request-vanishing" = "Häivytä käyttäjätunnus";
 "account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-auto-sign-discussions" = "Allekirjoita automaattisesti";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Allekirjoita keskusteluviestit asetuksissa määritellyllä allekirjoituksella automaattisesti";
@@ -140,6 +140,7 @@
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "add-citation-title" = "Lisää viittaus";
+"add-image-learn-more-text" = "Lisätietoja";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -347,7 +348,7 @@
 "edit-underline-remove-accessibility-label" = "Poista alleviivaus";
 "edit-unordered-list-accessibility-label" = "Tee valitusta rivistä numeroimaton lista";
 "edit-unordered-list-remove-accessibility-label" = "Poista valittu rivi numeroimattomasta listasta";
-"edit-watch-list-learn-more-text" = "Lue lisää tarkkailulistoista";
+"edit-watch-list-learn-more-text" = "Lue lisää omista tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-subtitle" = "Muokkaa rohkeasti, mutta älä holtittomasti. Älä epäröi virheiden tekemistä, sillä yhteisömme voi tarvittaessa helposti palauttaa edellisen version.";
 "editing-welcome-be-bold-title" = "Äänesi on tärkeä";
@@ -362,6 +363,8 @@
 "editor-exit-confirmation-body" = "Haluatko varmasti poistua muokkaustilasta julkaisematta ensin muutoksiasi?";
 "editor-exit-confirmation-message" = "Haluatko varmasti hylätä tämän muokkauksen?";
 "editor-exit-confirmation-title" = "Piilota muokkaustila?";
+"editor-find-clear-button-accessibility" = "Tyhjennä haku";
+"editor-find-close-button-accessibility" = "Sulje haku";
 "editor-find-current-match-info-zero-results-accessibility" = "Ei hakutuloksia";
 "editor-find-next-button-accessibility" = "Seuraava hakutulos";
 "editor-find-previous-button-accessibility" = "Edellinen hakutulos";
@@ -485,6 +488,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
+"explore-suggested-edits-footer" = "Lisää";
+"explore-suggested-edits-image-recs-title" = "Lisää kuva";
 "export-user-data-confirmation-title" = "Jaetaanko sovelluskirjasto?";
 "export-user-data-generic-error" = "Tietojesi viennissä tapahtui virhe. Yritä uudelleen myöhemmin.";
 "export-user-data-space-error" = "Laitteessasi ei ole tarpeeksi tilaa käyttäjätietojen viemiseen. Yritä myöhemmin uudelleen.";
@@ -553,9 +558,11 @@
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
+"image-rec-survey-title" = "Syy";
 "image-rec-title" = "Lisää kuva";
 "image-rec-view-article" = "Näytä artikkeli";
 "image-recs-no-title" = "Ei";
+"image-recs-not-sure-title" = "Epävarma";
 "image-recs-yes-title" = "Kyllä";
 "import-shared-reading-list-default-title" = "Oma lukulista";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
@@ -603,13 +610,13 @@
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
 "logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
-"logged-out-log-back-in-button-title" = "Kirjaudu takaisin tunnuksellesi";
+"logged-out-log-back-in-button-title" = "Kirjaudu takaisin käyttäjätunnuksellesi";
 "logged-out-subtitle" = "Tunnistauduttaessa tapahtui virhe. Kirjaudu takaisin sisään synkronoidaksesi lukulistasi sekä muokataksesi käyttäjätunnuksellasi.";
 "logged-out-title" = "Olet kirjautunut ulos";
 "login-forgot-password" = "Unohditko salasanasi?";
 "login-join-wikipedia" = "Liity Wikipediaan.";
 "login-no-account" = "Eikö sinulla vielä ole käyttäjätunnusta? $1";
-"login-title" = "Kirjaudu sisään tunnuksellesi";
+"login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
 "main-menu-about" = "Tietoja sovelluksesta";
 "main-menu-account-login" = "Kirjaudu sisään";
 "main-menu-account-logout" = "Kirjaudu ulos";
@@ -636,6 +643,7 @@
 "nearby-distance-label-miles" = "$1 mailia";
 "new-password-instructions" = "Olet kirjautunut sisään väliaikaisella salasanalla. Viimeistelläksi kirjautumisen aseta uusi salasana tässä.";
 "new-password-title" = "Aseta salasanasi";
+"next-action-title" = "Seuraava";
 "no-email-account-alert" = "Asenna sähköpostitili laitteeseesi ja yritä uudelleen.";
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
@@ -736,7 +744,7 @@
 "notifications-center-type-title-edit-summary-mention" = "Muokkausyhteenvetomaininta";
 "notifications-center-type-title-email-from-other-user" = "Sähköposti toiselta käyttäjältä";
 "notifications-center-type-title-login-attempts" = "Kirjautumisyritykset";
-"notifications-center-type-title-login-attempts-subtitle" = "Epäonnistuneet kirjautumisyritykset tilillesi";
+"notifications-center-type-title-login-attempts-subtitle" = "Epäonnistuneet kirjautumisyritykset käyttäjätilillesi";
 "notifications-center-type-title-login-success" = "Kirjautuminen onnistui";
 "notifications-center-type-title-other" = "Muu";
 "notifications-center-type-title-page-link" = "Sivulinkki";
@@ -1119,6 +1127,8 @@
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
 "watch" = "Tarkkaile";
 "watchlist" = "Tarkkailulista";
+"watchlist-added-toast-view-watchlist" = "Näytä tarkkailulista";
+"watchlist-byte-change" = "{{PLURAL:$1|1 tavu|$1 tavua}}";
 "watchlist-change-expiry-option-one-month" = "1 kuukausi";
 "watchlist-change-expiry-option-one-week" = "1 viikko";
 "watchlist-change-expiry-option-one-year" = "1 vuosi";
@@ -1182,6 +1192,7 @@
 "welcome-notifications-tell-me-more-creation" = "Ilmoitukset luodaan ja lähetetään laitteesta, eikä Wikimedian tai muun osapuolen palvelimelta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset tallennetaan laitteeseen, eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintaan.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
+"welcome-privacy-terms-button-text" = "Lue lisää tietosuojakäytännöstämme ja käyttöehdoistamme";
 "widget-onthisday-description" = "Tutki mitä tänä päivänä on tapahtunut historiassa.";
 "widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";

@@ -137,8 +137,6 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             redoButton.isEnabled = false
         case .progress:
             progressButton.isEnabled = false
-        default:
-            break
         }
     }
 }

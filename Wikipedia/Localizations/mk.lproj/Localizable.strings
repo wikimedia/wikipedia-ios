@@ -426,6 +426,7 @@
 "editor-wikitext-textview-accessibility" = "Уредувач на викитекст";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
+"empty-edit-summary" = "Празен опис на измени";
 "empty-insert-media-title" = "Изберете податотека од Ризницата";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-feed-action-message" = "Но сепак, можете да ги читате зачуваните";
@@ -612,6 +613,16 @@
 "image-rec-onboarding-item-3-title" = "Лиценцирани слики";
 "image-rec-onboarding-learn-more-button" = "Дознајте повеќе за предложените уредувања";
 "image-rec-onboarding-title" = "Додајте слика во статија";
+"image-rec-survey-instructions-1" = "Вашите одговори ги подобруваат идните предлози.";
+"image-rec-survey-instructions-2" = "Изберете една или повеќе можности";
+"image-rec-survey-option-1" = "Сликата е нерелевантна";
+"image-rec-survey-option-2" = "Немам доволно информации за да одлучам";
+"image-rec-survey-option-3" = "Сликата е неумесна";
+"image-rec-survey-option-4" = "Сликата е неквалитетна";
+"image-rec-survey-option-5" = "Не ја познавам оваа материја";
+"image-rec-survey-option-6" = "Друго";
+"image-rec-survey-submit-button" = "Поднеси";
+"image-rec-survey-title" = "Причина";
 "image-rec-title" = "Додај слика";
 "image-rec-view-article" = "Погл. статија";
 "image-recs-no-title" = "Не";

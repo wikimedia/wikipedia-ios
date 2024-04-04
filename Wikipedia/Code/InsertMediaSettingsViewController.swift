@@ -1,4 +1,5 @@
 import UIKit
+import WKData
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
@@ -6,8 +7,13 @@ final class InsertMediaSettingsViewController: ViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
     private let fromImageRecommendations: Bool
+
+    private let wikitext: String?
+    private let articleURL: URL?
+    private let sectionNumber: Int?
+
     let searchResult: InsertMediaSearchResult
-    var nextButton: UIBarButtonItem?
+    private var nextButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -195,10 +201,13 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
+        self.wikitext = wikitext
+        self.articleURL = articleURL
+        self.sectionNumber = sectionNumber
         super.init()
     }
 
@@ -228,6 +237,7 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     @objc private func insertMedia(_ sender: UIBarButtonItem) {
+        assert(fromImageRecommendations, "Should only be called from Image Recommendations")
         let searchResult = searchResult
         let wikitext: String
         switch settings {
@@ -253,7 +263,36 @@ final class InsertMediaSettingsViewController: ViewController {
                 """
             }
         }
-        // delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: wikitext) TODO: will be handled in T359225
+         didTapInsertMedia(with: wikitext)
+    }
+
+    func didTapInsertMedia(with imageWikitext: String) {
+        guard let wikitext else {
+            return
+        }
+        do {
+            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: wikitext)
+            goToEditPreview(with: wikitextWithImage)
+        } catch let error {
+            print("Error preparing wikitext\(error)")
+        }
+
+    }
+
+    func goToEditPreview(with wikitext: String) {
+        guard let articleURL else {
+            print("Error")
+            return
+        }
+
+        let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+        editPreviewViewController.theme = theme
+        editPreviewViewController.sectionID = sectionNumber
+        editPreviewViewController.languageCode = articleURL.wmf_languageCode
+        editPreviewViewController.wikitext = wikitext
+        editPreviewViewController.delegate = self
+
+        navigationController?.pushViewController(editPreviewViewController, animated: true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -383,4 +422,11 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
+}
+
+extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+        print("Go to Edit Save View Controller")
+    }
+
 }

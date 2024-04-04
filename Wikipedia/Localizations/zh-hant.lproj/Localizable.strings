@@ -384,7 +384,7 @@
 "edit-underline-remove-accessibility-label" = "移除底線";
 "edit-unordered-list-accessibility-label" = "建立目前行的無排序清單";
 "edit-unordered-list-remove-accessibility-label" = "從目前行來移除無排序清單";
-"edit-watch-list-learn-more-text" = "了解更多關於監視清單";
+"edit-watch-list-learn-more-text" = "了解更多關於您的監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
 "editing-welcome-be-bold-subtitle" = "在更新條目的時候可以大膽但不要魯莽。不要為犯錯而苦惱：頁面過去的所有版本都會儲存下來，所以錯誤會很容易被我們的社群糾正。";
 "editing-welcome-be-bold-title" = "您的想法很重要";
@@ -458,6 +458,7 @@
 "editor-wikitext-textview-accessibility" = "Wikitext 編輯器";
 "empty-diff-compare-title" = "修訂之間無差異";
 "empty-diff-single-title" = "沒有做出可觀察到的變更";
+"empty-edit-summary" = "空白編輯摘要";
 "empty-insert-media-title" = "從維基共享資源中選擇檔案";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-feed-action-message" = "您仍然可以閱讀已儲存的頁面";
@@ -644,6 +645,16 @@
 "image-rec-onboarding-item-3-title" = "版權圖片";
 "image-rec-onboarding-learn-more-button" = "了解更多關於建議編輯";
 "image-rec-onboarding-title" = "新增圖片到條目";
+"image-rec-survey-instructions-1" = "您的回答可以改善往後建議。";
+"image-rec-survey-instructions-2" = "選擇一個或多個選項";
+"image-rec-survey-option-1" = "不相關的圖片";
+"image-rec-survey-option-2" = "沒有足夠資訊來決定";
+"image-rec-survey-option-3" = "圖片令人感到不快";
+"image-rec-survey-option-4" = "為低品質圖片";
+"image-rec-survey-option-5" = "我不清楚圖片的主題";
+"image-rec-survey-option-6" = "其他";
+"image-rec-survey-submit-button" = "提交";
+"image-rec-survey-title" = "原因";
 "image-rec-title" = "新增圖片";
 "image-rec-view-article" = "查看條目";
 "image-recs-no-title" = "否";
