@@ -615,6 +615,11 @@
 "image-rec-survey-title" = "Title of the image recommendations survey view. Displayed in the navigation bar as title of view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
+"image-recommendations-email-first-line" = "Text for Image recommendations pre-filled issue report email";
+"image-recommendations-email-fourth-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution";
+"image-recommendations-email-second-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering";
+"image-recommendations-email-third-line" = "Text for Image recommendations pre-filled issue report email";
+"image-recommendations-email-title" = "Title text for Image recommendations pre-filled issue report email";
 "image-recs-no-title" = "Button title for discarding an image suggestion";
 "image-recs-not-sure-title" = "Button title for skipping an image suggestion";
 "image-recs-yes-title" = "Button title for accepting an image suggestion";

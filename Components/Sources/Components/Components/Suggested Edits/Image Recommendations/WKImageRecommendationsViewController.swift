@@ -8,6 +8,9 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
     func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
     func imageRecommendationsUserDidTapInsertImage(project: WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
+    func imageRecommendationsUserDidTapLearnMore(url: URL?)
+    func imageRecommendationsUserDidTapTutorial()
+    func imageRecommendationsUserDidTapReportIssue()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -38,6 +41,24 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         traitCollection.horizontalSizeClass == .regular ? true : false
     }
 
+    private var overflowMenu: UIMenu {
+
+        let learnMore = UIAction(title: "Learn more", image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.goToFAQ()
+        })
+        let tutorial = UIAction(title: "Learn more", image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+            self?.showTutorial()
+        })
+
+        let reportIssues = UIAction(title: "Problems", image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+            self?.reportIssue()
+        })
+
+        let menuItems: [UIMenuElement] = [learnMore, tutorial, reportIssues]
+
+        return UIMenu(title: String(), children: menuItems)
+    }
+
     // MARK: Lifecycle
 
 	private let dataController = WKImageRecommendationsDataController()
@@ -54,38 +75,18 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-
-	private func presentOnboardingIfNecessary() {
-		guard !dataController.hasPresentedOnboardingModal else {
-			return
-		}
-
-		let firstItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
-
-		let secondItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
-
-		let thirdItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
-
-		let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
-
-		let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
-		onboardingController.hostingController.delegate = self
-		present(onboardingController, animated: true, completion: {
-			UIAccessibility.post(notification: .layoutChanged, argument: nil)
-		})
-
-		dataController.hasPresentedOnboardingModal = true
-	}
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
         navigationItem.backButtonDisplayMode = .generic
+        setupOverflowMenu()
         addComponent(hostingViewController, pinToEdges: true)
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -105,6 +106,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
+
+    private func setupOverflowMenu() {
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButtonItem.tintColor = theme.link
+    }
 
     private func presentModalView() {
         if regularSizeClass {
@@ -136,6 +143,28 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         navigationController?.present(imageRecommendationBottomSheetController, animated: true)
     }
 
+    private func presentOnboardingIfNecessary() {
+        guard !dataController.hasPresentedOnboardingModal else {
+            return
+        }
+
+        let firstItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
+
+        let secondItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
+
+        let thirdItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
+
+        let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
+
+        let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
+        onboardingController.hostingController.delegate = self
+        present(onboardingController, animated: true, completion: {
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        })
+
+        dataController.hasPresentedOnboardingModal = true
+    }
+
     private func bindViewModel() {
         viewModel.$loading
             .receive(on: RunLoop.main)
@@ -146,6 +175,18 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             }
             .store(in: &cancellables)
     }
+
+    private func showTutorial() {
+        delegate?.imageRecommendationsUserDidTapTutorial()
+    }
+
+    private func goToFAQ() {
+        delegate?.imageRecommendationsUserDidTapLearnMore(url: viewModel.learnMoreURL)
+    }
+
+    private func reportIssue() {
+        delegate?.imageRecommendationsUserDidTapReportIssue()
+    }
 }
 
 extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
@@ -155,7 +196,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 	}
 	
 	public func didClickSecondaryButton() {
-		guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image") else {
+        guard let url = viewModel.learnMoreURL else {
 			return
 		}
 

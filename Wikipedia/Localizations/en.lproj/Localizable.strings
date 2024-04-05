@@ -615,6 +615,11 @@
 "image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
+"image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
+"image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
+"image-recommendations-email-second-line" = "- [Describe specific problem]";
+"image-recommendations-email-third-line" = "The behavior I would like to see is:";
+"image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
 "image-recs-yes-title" = "Yes";

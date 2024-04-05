@@ -119,7 +119,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
-    
+
+    let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
+
     // MARK: - Lifecycle
     
     public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings) {
