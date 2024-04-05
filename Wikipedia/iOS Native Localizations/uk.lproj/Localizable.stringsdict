@@ -713,22 +713,6 @@
 			<string>Цього року</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>виконана 1 заміна</string>
-			<key>other</key>
-			<string>виконано %1$d замін</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

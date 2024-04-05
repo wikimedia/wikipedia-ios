@@ -131,8 +131,6 @@ class TalkPageTopicComposeViewController: ViewController {
     
     private weak var authenticationManager: WMFAuthenticationManager?
 
-    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
-
     override var inputAccessoryView: UIView? {
         if bodyTextView.isFirstResponder {
             let toolbar = TalkPageFormattingToolbarView()
