@@ -119,6 +119,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
+    let imageRecommendationsDataController: WKImageRecommendationsDataController
     
     // MARK: - Lifecycle
     
@@ -129,6 +130,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
         self.imageDataController = WKImageDataController()
+        self.imageRecommendationsDataController = WKImageRecommendationsDataController()
         
         $loading
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
@@ -217,6 +219,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             self?.loading = false
             completion()
         }
+    }
+    
+    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: pageTitle, editRevId: editRevId, fileName: fileName, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
     
     private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {

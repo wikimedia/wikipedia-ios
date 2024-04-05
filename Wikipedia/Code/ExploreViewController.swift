@@ -1237,9 +1237,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 
                 // Send Feedback
                 if !FeatureFlags.needsImageRecommendationsSuppressPosting {
-                    let dataController = WKImageRecommendationsDataController()
-                    dataController.sendFeedback(project: imageRecommendationsViewModel.project, pageTitle: currentRecommendation.imageData.pageTitle, editRevId: revID, fileName: currentRecommendation.imageData.filename, accepted: true, caption: currentRecommendation.caption) { result in
-                        
+                    imageRecommendationsViewModel.sendFeedback(project: imageRecommendationsViewModel.project, pageTitle: currentRecommendation.imageData.pageTitle, editRevId: revID, fileName: currentRecommendation.imageData.filename, accepted: true, caption: currentRecommendation.caption) { result in
                     }
                 }
                 
