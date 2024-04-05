@@ -1183,6 +1183,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 }
 
 extension ExploreViewController: EditSaveViewControllerDelegate {
+    
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
         // todo: Make feedback API call
         // tell view model Next
@@ -1224,5 +1225,21 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
     
     func editSaveViewControllerDidTapShowWebPreview() {
         assertionFailure("This should not be called in the Image Recommendations context")
+    }
+    
+    func editSaveViewControllerLogDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject) {
+        
     }
 }

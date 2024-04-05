@@ -947,6 +947,7 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
 // MARK: - EditSaveViewControllerDelegate
 
 extension PageEditorViewController: EditSaveViewControllerDelegate {
+    
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
         delegate?.pageEditorDidFinishEditing(self, result: result)
     }
@@ -971,6 +972,42 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
         }
         
         showEditPreview(editFlow: editFlow)
+    }
+    
+    func editSaveViewControllerLogDidTapPublish(source: Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
+        }
+    }
+    
+    func editSaveViewControllerLogPublishSuccess(source: Source, revisionID: UInt64, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticlePublishSuccess(revisionID: Int(revisionID), project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(revisionID), project: project)
+        }
+    }
+    
+    func editSaveViewControllerLogPublishFailed(source: Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticlePublishFail(problemSource: problemSource, project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
+        }
+    }
+    
+    func editSaveViewControllerLogDidTapBlockedMessageLink(source: Source, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
+        }
     }
 }
 

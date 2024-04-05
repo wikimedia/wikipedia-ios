@@ -12,6 +12,10 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
     func editSaveViewControllerDidTapShowWebPreview()
+    func editSaveViewControllerLogDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject)
+    func editSaveViewControllerLogPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
+    func editSaveViewControllerLogPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
+    func editSaveViewControllerLogDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject)
 }
 
 private enum NavigationMode : Int {
@@ -320,14 +324,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
-            let minorEdit = minorEditToggle.isOn
+            let isMinor = minorEditToggle.isOn
             
-            switch source {
-            case .article:
-                EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
-            case .talk:
-                EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: minorEdit, project: project)
-            }
+            delegate?.editSaveViewControllerLogDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
             
         }
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
@@ -378,12 +377,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             
-            switch source {
-            case .article:
-                EditInteractionFunnel.shared.logArticlePublishSuccess(revisionID: Int(newRevID), project: project)
-            case .talk:
-                EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(newRevID), project: project)
-            }
+            delegate?.editSaveViewControllerLogPublishSuccess(source: source, revisionID: newRevID, project: project)
             
             EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
         }
@@ -462,12 +456,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                    let pageURL,
                 let project = WikimediaProject(siteURL: pageURL) {
                     
-                    switch source {
-                    case .article:
-                        EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
-                    case .talk:
-                        EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
-                    }
+                    delegate?.editSaveViewControllerLogDidTapBlockedMessageLink(source: source, project: project)
                     
                     EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 }
@@ -492,12 +481,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             
-            switch source {
-            case .article:
-                EditInteractionFunnel.shared.logArticlePublishFail(problemSource: problemSource, project: project)
-            case .talk:
-                EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
-            }
+            delegate?.editSaveViewControllerLogPublishFailed(source: source, problemSource: problemSource, project: project)
             
             EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
