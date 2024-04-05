@@ -1236,9 +1236,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
-                if !FeatureFlags.needsImageRecommendationsSuppressPosting {
-                    imageRecommendationsViewModel.sendFeedback(project: imageRecommendationsViewModel.project, pageTitle: currentRecommendation.imageData.pageTitle, editRevId: revID, fileName: currentRecommendation.imageData.filename, accepted: true, caption: currentRecommendation.caption) { result in
-                    }
+                imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
                 
                 // Go to next recommendation and display success alert

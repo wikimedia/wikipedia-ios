@@ -87,7 +87,18 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 				self?.dismiss(animated: true)
 			},
 			submitAction: { [weak self] reasons in
-				self?.dismiss(animated: true)
+                self?.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
+                    
+                })
+                // Dismisses Survey View
+                self?.dismiss(animated: true, completion: { [weak self] in
+                    // Dismisses Bottom Sheet
+                    self?.dismiss(animated: true, completion: { [weak self] in
+                        self?.viewModel.next {
+                            
+                        }
+                    })
+                })
 		})
 
 		let hostedView = WKComponentHostingController(rootView: surveyView)

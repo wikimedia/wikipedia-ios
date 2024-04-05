@@ -7,6 +7,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
     
+    enum ImageRecommendationsError: Error {
+        case cannotFindCurrentRecommendation
+    }
+    
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
@@ -115,6 +119,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
+    private let needsSuppressPosting: Bool
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
@@ -123,10 +128,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
+        self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
         self.imageDataController = WKImageDataController()
@@ -221,8 +227,19 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
-        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: pageTitle, editRevId: editRevId, fileName: fileName, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
+    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard !needsSuppressPosting else {
+            completion(.success(()))
+            return
+        }
+        
+        guard let currentRecommendation else {
+            completion(.failure(ImageRecommendationsError.cannotFindCurrentRecommendation))
+            return
+        }
+        
+        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
     
     private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
