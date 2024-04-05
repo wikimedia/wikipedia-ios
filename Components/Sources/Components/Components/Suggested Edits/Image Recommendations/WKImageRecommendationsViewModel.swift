@@ -88,12 +88,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    final class ImageRecommendation: ObservableObject {
+    public final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
-        let title: String
+        public let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        let imageData: WKImageRecommendationData
+        public let imageData: WKImageRecommendationData
+        public var caption: String?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
@@ -110,7 +111,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     
     private(set) var imageRecommendations: [ImageRecommendation] = []
-    @Published var currentRecommendation: ImageRecommendation?
+    @Published public private(set) var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()

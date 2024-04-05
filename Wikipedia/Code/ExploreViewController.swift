@@ -1150,13 +1150,41 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let imageRecommendationsConfig = InsertMediaSettingsViewController.ImageRecommendationsConfig(wikitext: wikitext, articleURL: articleURL, sectionNumber: 0, previewDelegate: self)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, imageRecommendationsConfig: imageRecommendationsConfig)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, theme: theme)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
     }
+}
 
+extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+        let currentRecommendation = viewModel.currentRecommendation,
+                    let siteURL = viewModel.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: currentRecommendation.title),
+        let articleWikitext = currentRecommendation.imageData.wikitext else {
+            return
+        }
+        
+        currentRecommendation.caption = caption
+        
+        do {
+            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            
+            let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+            editPreviewViewController.theme = theme
+            editPreviewViewController.sectionID = 0
+            editPreviewViewController.languageCode = articleURL.wmf_languageCode
+            editPreviewViewController.wikitext = wikitextWithImage
+            editPreviewViewController.delegate = self
+
+            navigationController?.pushViewController(editPreviewViewController, animated: true)
+        } catch let error {
+            print("Error preparing wikitext\(error)")
+        }
+    }
 }
 
 extension ExploreViewController: EditPreviewViewControllerDelegate {
@@ -1185,13 +1213,21 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 extension ExploreViewController: EditSaveViewControllerDelegate {
     
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
-        // todo: Make feedback API call
-        // tell view model Next
-        // Pop view controllers back to WKImageRecommendationViewController
-        // maybe: set view model property here to nil.
         
+        switch result {
+        case .success(let changes):
+            sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
+        case .failure(let error):
+            print(error)
+        }
+        
+    }
+    
+    private func sendFeedbackAndPopToImageRecommendations(revID: UInt64) {
+
         guard let viewControllers = navigationController?.viewControllers,
-        let imageRecommendationsViewModel else {
+        let imageRecommendationsViewModel,
+        let currentRecommendation = imageRecommendationsViewModel.currentRecommendation else {
             return
         }
         
@@ -1199,6 +1235,15 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
             if viewController is WKImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
+                // Send Feedback
+                if !FeatureFlags.needsImageRecommendationsSuppressPosting {
+                    let dataController = WKImageRecommendationsDataController()
+                    dataController.sendFeedback(project: imageRecommendationsViewModel.project, pageTitle: currentRecommendation.imageData.pageTitle, editRevId: revID, fileName: currentRecommendation.imageData.filename, accepted: true, caption: currentRecommendation.caption) { result in
+                        
+                    }
+                }
+                
+                // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -1213,6 +1258,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                     }
                     
                 }
+                
+                break
             }
         }
         
