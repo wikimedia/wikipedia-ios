@@ -92,7 +92,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
-        presentOnboardingIfNecessary()
+        
+        if !dataController.hasPresentedOnboardingModal {
+            presentOnboardingIfNecessary()
+        } else {
+            viewModel.fetchImageRecommendationsIfNeeded {
+                
+            }
+        }
+        
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -166,11 +174,13 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     private func bindViewModel() {
-        viewModel.$loading
+        viewModel.$debouncedLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
                 if !isLoading {
-                    self?.presentModalView()
+                    if self?.viewModel.currentRecommendation != nil {
+                        self?.presentModalView()
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -191,16 +201,25 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
 extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
-	public func didClickPrimaryButton() {
-		presentedViewController?.dismiss(animated: true)
+	public func onboardingViewDidClickPrimaryButton() {
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            self?.viewModel.fetchImageRecommendationsIfNeeded {
+
+            }
+        })
 	}
-	
-	public func didClickSecondaryButton() {
-        guard let url = viewModel.learnMoreURL else {
+
+	public func onboardingViewDidClickSecondaryButton() {
+		guard let url = viewModel.learnMoreURL else {
 			return
 		}
 
 		UIApplication.shared.open(url)
 	}
 
+    public func onboardingViewWillSwipeToDismiss() {
+        viewModel.fetchImageRecommendationsIfNeeded {
+
+        }
+    }
 }
