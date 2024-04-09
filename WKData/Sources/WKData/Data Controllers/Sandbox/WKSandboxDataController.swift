@@ -4,21 +4,21 @@ public final class WKSandboxDataController {
     
     public struct LintAPIResponse: Codable {
         
-        struct Query: Codable {
+        public struct Query: Codable {
             
-            struct Item: Codable {
+            public struct Item: Codable {
                 let pageid: Int
                 let ns: Int
                 let title: String
                 let lintId: Int
                 let category: String
-                let location: [Int]
+                public let location: [Int]
             }
             
-            let linterrors: [Item]
+            public let linterrors: [Item]
         }
         
-        let query: Query?
+        public let query: Query?
     }
     
     struct WikitextAPIResponse: Codable {

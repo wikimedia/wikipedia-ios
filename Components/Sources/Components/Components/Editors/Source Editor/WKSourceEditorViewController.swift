@@ -169,6 +169,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
                                                selector: #selector(keyboardWillHide(_:)),
                                                name: UIApplication.keyboardWillHideNotification,
                                                object: nil)
+        
+        
     }
     
     public override func viewDidLoad() {

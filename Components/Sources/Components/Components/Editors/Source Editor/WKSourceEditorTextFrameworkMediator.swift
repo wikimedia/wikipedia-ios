@@ -94,6 +94,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     private(set) var superscriptFormatter: WKSourceEditorFormatterSuperscript?
     private(set) var linkFormatter: WKSourceEditorFormatterLink?
     private(set) var commentFormatter: WKSourceEditorFormatterComment?
+    private(set) var errorFormatter: WKSourceEditorFormatterFormattingError?
     private(set) var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace?
 
     var isSyntaxHighlightingEnabled: Bool = true {
@@ -172,6 +173,13 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
         let linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
         let commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
+        let errorFormatter = WKSourceEditorFormatterFormattingError(colors: colors, fonts: fonts)
+        
+        if let errorRangeArray = viewModel.linterResponse?.query?.linterrors.first?.location {
+            let nsRange = NSRange(location: errorRangeArray[0], length: errorRangeArray[1])
+            errorFormatter.errorRange = nsRange
+        }
+        
         let findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
         
         self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
@@ -186,6 +194,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             underlineFormatter,
             linkFormatter,
             commentFormatter,
+                           errorFormatter,
             findAndReplaceFormatter]
 
         self.boldItalicsFormatter = boldItalicsFormatter
@@ -199,6 +208,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         self.underlineFormatter = underlineFormatter
         self.linkFormatter = linkFormatter
         self.commentFormatter = commentFormatter
+        self.errorFormatter = errorFormatter
         self.findAndReplaceFormatter = findAndReplaceFormatter
 
         if needsTextKit2 {

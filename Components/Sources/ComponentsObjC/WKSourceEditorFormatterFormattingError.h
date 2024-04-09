@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKSourceEditorFormatterFormattingError: WKSourceEditorFormatter
 
-- (BOOL) attributedString:(NSMutableAttributedString *)attributedString isFormattingErrorInRange:(NSRange)range;
+@property (nonatomic, assign) NSRange errorRange;
 
 @end
 
