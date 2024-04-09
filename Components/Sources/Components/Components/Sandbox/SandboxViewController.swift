@@ -2,8 +2,9 @@ import UIKit
 import SwiftUI
 
 final class WKSandboxHostingViewController: WKComponentHostingController<SandboxView> {
-    init() {
-        super.init(rootView: SandboxView())
+
+    init(username: String) {
+        super.init(rootView: SandboxView(username: username))
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -13,9 +14,9 @@ final class WKSandboxHostingViewController: WKComponentHostingController<Sandbox
 
 public final class WKSandboxViewController: WKCanvasViewController {
     let hostingViewController: WKSandboxHostingViewController
-
-    public override init() {
-        hostingViewController = WKSandboxHostingViewController()
+    
+    public init(username: String) {
+        hostingViewController = WKSandboxHostingViewController(username: username)
         super.init()
     }
 

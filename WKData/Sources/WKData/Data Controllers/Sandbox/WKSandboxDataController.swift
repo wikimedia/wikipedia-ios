@@ -156,18 +156,20 @@ public final class WKSandboxDataController {
         
         let request = WKMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .csrf, parameters: parameters)
         service?.perform(request: request) { result in
-            switch result {
-            case .success(let response):
-                guard let edit = response?["edit"] as? [String: Any],
-                      let success = edit["result"] as? String,
-                      success == "Success" else {
-                    completion(.failure(WKDataControllerError.unexpectedResponse))
-                    return
-                }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    guard let edit = response?["edit"] as? [String: Any],
+                          let success = edit["result"] as? String,
+                          success == "Success" else {
+                        completion(.failure(WKDataControllerError.unexpectedResponse))
+                        return
+                    }
 
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(WKDataControllerError.serviceError(error)))
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(WKDataControllerError.serviceError(error)))
+                }
             }
         }
     }
@@ -193,14 +195,16 @@ public final class WKSandboxDataController {
         let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
         
         service?.performDecodableGET(request: request, completion: { (result: Result<SandboxesAPIResponse, Error>) in
-        
-            switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let apiResponse):
-                
-                let titles = apiResponse.query?.pages?.compactMap {  $0.title } ?? []
-                completion(.success(titles))
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let apiResponse):
+                    
+                    let titles = apiResponse.query?.pages?.compactMap {  $0.title } ?? []
+                    completion(.success(titles))
+                }
             }
         })
     }

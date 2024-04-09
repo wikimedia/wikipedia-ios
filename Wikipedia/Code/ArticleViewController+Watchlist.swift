@@ -74,8 +74,36 @@ extension ArticleViewController: WatchlistControllerDelegate {
 
 extension ArticleViewController {
     func goToSandbox() {
-        let sandboxVC = WKSandboxViewController()
-        navigationController?.pushViewController(sandboxVC, animated: true)
+        
+        WMFAlertManager().showAlert("Saving!", sticky: false, dismissPreviousAlerts: true)
+        
+        guard let username = dataStore.authenticationManager.loggedInUsername,
+        let articleTitle = articleURL.wmf_title,
+        let languageCode = articleURL.wmf_languageCode else {
+            return
+        }
+
+        let articleWikiLanguage = WKLanguage(languageCode: languageCode, languageVariantCode: nil)
+        let testWikiLanguage = WKLanguage(languageCode: "test", languageVariantCode: nil)
+        let sandboxDataController = WKSandboxDataController()
+        sandboxDataController.getWikitext(project: WKProject.wikipedia(articleWikiLanguage), title: articleTitle) { result in
+            switch result {
+            case .success(let wikitext):
+
+                sandboxDataController.saveWikitextToSandbox(project: WKProject.wikipedia(testWikiLanguage), username: username, sandboxTitle: articleTitle, wikitext: wikitext) { [weak self] result in
+                    switch result {
+                    case .success:
+                        let sandboxVC = WKSandboxViewController(username: username)
+                        self?.navigationController?.pushViewController(sandboxVC, animated: true)
+                    case .failure(let error):
+                        WMFAlertManager().showAlert("Failure!", sticky: false, dismissPreviousAlerts: true)
+                    }
+                }
+
+            case .failure(let error):
+                WMFAlertManager().showAlert("Failure!", sticky: false, dismissPreviousAlerts: true)
+            }
+        }
 
     }
 }
