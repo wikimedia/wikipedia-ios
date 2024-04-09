@@ -1,10 +1,14 @@
 import UIKit
 import SwiftUI
 
+public protocol WKSandboxListDelegate: AnyObject {
+    func didTapSandboxTitle(title: String)
+}
+
 final class WKSandboxHostingViewController: WKComponentHostingController<SandboxView> {
 
-    init(username: String) {
-        super.init(rootView: SandboxView(username: username))
+    init(username: String, delegate: WKSandboxListDelegate) {
+        super.init(rootView: SandboxView(username: username, delegate: delegate))
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -15,8 +19,8 @@ final class WKSandboxHostingViewController: WKComponentHostingController<Sandbox
 public final class WKSandboxViewController: WKCanvasViewController {
     let hostingViewController: WKSandboxHostingViewController
     
-    public init(username: String) {
-        hostingViewController = WKSandboxHostingViewController(username: username)
+    public init(username: String, delegate: WKSandboxListDelegate) {
+        hostingViewController = WKSandboxHostingViewController(username: username, delegate: delegate)
         super.init()
     }
 

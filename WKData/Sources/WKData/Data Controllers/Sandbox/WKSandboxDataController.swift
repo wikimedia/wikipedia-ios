@@ -144,7 +144,7 @@ public final class WKSandboxDataController {
         let parameters: [String: String] = [
             "action": "edit",
             "title": "User:\(username.spacesToUnderscores)/AppsOffsite2024/\(sandboxTitle)",
-            "appendtext": wikitext,
+            "text": wikitext,
             "recreate": "true",
             "format": "json",
             "formatversion": "2"

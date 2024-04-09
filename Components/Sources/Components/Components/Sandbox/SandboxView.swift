@@ -5,11 +5,15 @@ struct SandboxView: View {
     
     @State var titles: [String] = []
     let username: String
+    weak var delegate: WKSandboxListDelegate?
     
     var body: some View {
         
         List(titles, id: \.self) { title in
             SandboxViewCell(sandboxTitle: title)
+                .onTapGesture {
+                    delegate?.didTapSandboxTitle(title: title)
+                }
         }
         .listStyle(.inset)
         .refreshable {
