@@ -88,7 +88,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
-        
+    
         if !dataController.hasPresentedOnboardingModal {
             presentOnboarding()
         } else {

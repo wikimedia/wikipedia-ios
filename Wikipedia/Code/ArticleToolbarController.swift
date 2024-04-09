@@ -16,6 +16,7 @@ protocol ArticleToolbarHandling: AnyObject {
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
     func editArticle(from controller: ArticleToolbarController)
+    func goToSandbox(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -197,7 +198,11 @@ class ArticleToolbarController: Themeable {
     @objc func tappedEditArticle() {
         delegate?.editArticle(from: self)
     }
-    
+
+    @objc func tappedSandbox() {
+
+    }
+
     // MARK: State
     
     func setSavedState(isSaved: Bool) {

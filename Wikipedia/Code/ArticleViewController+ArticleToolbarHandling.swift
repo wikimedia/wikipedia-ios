@@ -1,4 +1,8 @@
 extension ArticleViewController: ArticleToolbarHandling {
+    func goToSandbox(from controller: ArticleToolbarController) {
+        goToSandbox()
+    }
+    
     
     func showTableOfContents(from controller: ArticleToolbarController) {
         showTableOfContents()

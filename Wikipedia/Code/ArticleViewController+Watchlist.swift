@@ -70,3 +70,9 @@ extension ArticleViewController: WatchlistControllerDelegate {
         toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false)
     }
 }
+
+extension ArticleViewController {
+    func goToSandbox() {
+        
+    }
+}
