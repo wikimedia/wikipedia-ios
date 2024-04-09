@@ -1,5 +1,6 @@
 import Foundation
 import WKData
+import Components
 
 extension ArticleViewController {
     func loadWatchStatusAndUpdateToolbar() {
@@ -73,6 +74,8 @@ extension ArticleViewController: WatchlistControllerDelegate {
 
 extension ArticleViewController {
     func goToSandbox() {
-        
+        let sandboxVC = WKSandboxViewController()
+        navigationController?.pushViewController(sandboxVC, animated: true)
+
     }
 }
