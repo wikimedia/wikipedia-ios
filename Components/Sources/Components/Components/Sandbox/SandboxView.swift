@@ -10,7 +10,7 @@ struct SandboxView: View {
     var body: some View {
         
         List(titles, id: \.self) { title in
-            SandboxViewCell(sandboxTitle: title)
+            SandboxViewCell(sandboxTitle: title, commentCount: Int.random(in: 1...13))
         }
         .listStyle(.inset)
         .refreshable {
@@ -39,16 +39,27 @@ struct SandboxView: View {
 struct SandboxViewCell: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     var sandboxTitle: String
-    // var sandboxTopic: String
+    var sandboxTopic = "This will be the topic or category"
+    var commentCount: Int
 
     var body: some View {
-        Text(sandboxTitle)
-            .font(Font(WKFont.for(.boldCallout)))
-            .foregroundColor(Color(appEnvironment.theme.text))
+        HStack {
+            VStack(alignment: .leading) {
+                Text(sandboxTitle)
+                    .font(Font(WKFont.for(.boldCallout)))
+                    .foregroundColor(Color(appEnvironment.theme.text))
+                Text(sandboxTopic)
+                    .font(Font(WKFont.for(.callout)))
+                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
 
-//        Text(sandboxTopic)
-//            .font(Font(WKFont.for(.callout)))
-//            .foregroundColor(Color(appEnvironment.theme.secondaryText))
+            }
 
+            HStack {
+                Image(systemName: "bubble.left.and.text.bubble.right.fill")
+                Text("\(commentCount)")
+                    .font(Font(WKFont.for(.callout)))
+                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
+            }
+        }
     }
 }

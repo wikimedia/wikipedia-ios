@@ -15,6 +15,7 @@ private enum ItemType {
     case talkPageAutoSignDiscussions
     case watchlist
     case vanishAccount
+    case sandbox
 }
 
 private struct Section {
@@ -49,12 +50,13 @@ class AccountViewController: SubSettingsViewController {
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .blue600 , type: .talkPage)
         let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: .yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
+        let sandbox = Item(title: "\(username)/Sandbox", subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: .beige400, type: .sandbox)
 
         let sectionItems: [Item]
         if FeatureFlags.watchlistEnabled {
-            sectionItems = [logout, talkPage, watchlist, vanishAccount]
+            sectionItems = [logout, talkPage, watchlist, vanishAccount, sandbox]
         } else {
-            sectionItems = [logout, talkPage, vanishAccount]
+            sectionItems = [logout, talkPage, vanishAccount, sandbox]
         }
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
@@ -116,6 +118,9 @@ class AccountViewController: SubSettingsViewController {
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
+        case .sandbox:
+            cell.disclosureType = .viewController
+            cell.accessibilityTraits = .button
         }
         
         cell.apply(theme)
@@ -159,6 +164,13 @@ class AccountViewController: SubSettingsViewController {
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
             present(warningViewController, animated: true)
+        case .sandbox:
+
+            guard let username = dataStore.authenticationManager.loggedInUsername else {
+                return
+            }
+            let sbvc = WKSandboxViewController(username: username)
+            present(sbvc, animated: true)
         default:
             break
         }
