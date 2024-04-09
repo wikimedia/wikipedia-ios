@@ -16,6 +16,7 @@ protocol ArticleToolbarHandling: AnyObject {
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
     func editArticle(from controller: ArticleToolbarController)
+    func goToSandbox(from controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -92,6 +93,8 @@ class ArticleToolbarController: Themeable {
         let image = WKIcon.pencil
         actions.append(UIAction(title: CommonStrings.editSource, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
         
+        actions.append(UIAction(title: "Save to Sandbox", image: UIImage(systemName: "pencil.line"), handler: { [weak self] _ in self?.tappedSandbox() }))
+
         actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
         
         actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
@@ -197,7 +200,11 @@ class ArticleToolbarController: Themeable {
     @objc func tappedEditArticle() {
         delegate?.editArticle(from: self)
     }
-    
+
+    @objc func tappedSandbox() {
+        delegate?.goToSandbox(from: self)
+    }
+
     // MARK: State
     
     func setSavedState(isSaved: Bool) {
