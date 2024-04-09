@@ -2,13 +2,13 @@ import Foundation
 
 public final class WKSandboxDataController {
     
-    struct LintAPIResponse: Codable {
+    public struct LintAPIResponse: Codable {
         
         struct Query: Codable {
             
             struct Item: Codable {
                 let pageid: Int
-                let namespace: Int
+                let ns: Int
                 let title: String
                 let lintId: Int
                 let category: String
@@ -79,11 +79,11 @@ public final class WKSandboxDataController {
         
     }
     
-    func getLinterErrors(project: WKProject, title: String, completion: @escaping (Result<LintAPIResponse, Error>) -> Void) {
+    public func getLinterErrors(project: WKProject, title: String, completion: @escaping (Result<LintAPIResponse, Error>) -> Void) {
         var parameters = [
                     "action": "query",
                     "list": "linterrors",
-                    "lnttitle": "lnttitle",
+                    "lnttitle": title,
                     "errorsuselocal": "1",
                     "errorformat": "html",
                     "format": "json",

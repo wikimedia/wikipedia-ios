@@ -168,6 +168,7 @@ final class PageEditorViewController: UIViewController {
         
         var editNoticesViewModel: EditNoticesViewModel?
         var wikitextFetchResponse: WikitextFetchResponse?
+        var lintResponse: WKSandboxDataController.LintAPIResponse?
         var wikitextFetchError: Error?
         let group = DispatchGroup()
         
@@ -196,6 +197,20 @@ final class PageEditorViewController: UIViewController {
                 wikitextFetchResponse = response
             case .failure(let error):
                 wikitextFetchError = error
+            }
+        }
+        
+        group.enter()
+        loadLinterIssues { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let response):
+                lintResponse = response
+            case .failure:
+                break
             }
         }
         
@@ -244,11 +259,29 @@ final class PageEditorViewController: UIViewController {
             if let onloadSelectRange = wikitextFetchResponse.onloadSelectRange,
                onloadSelectRange.location == NSNotFound {
                 presentFailToFindSelectedRangeAlert()
-                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: nil)
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: nil, linterResponse: lintResponse)
             } else {
-                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
+                self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange, linterResponse: lintResponse)
             }
             
+        }
+    }
+    
+    private func loadLinterIssues(completion: @escaping(Result<WKSandboxDataController.LintAPIResponse, Error>) -> Void) {
+        let dataFormatter = WKSandboxDataController()
+        guard let project = WikimediaProject(siteURL: pageURL),
+              let wkProject = project.wkProject,
+        let title = pageURL.wmf_title else {
+            return
+        }
+        
+        dataFormatter.getLinterErrors(project: wkProject, title: title) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     
@@ -438,7 +471,7 @@ final class PageEditorViewController: UIViewController {
         })
     }
     
-    private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
+    private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?, linterResponse: WKSandboxDataController.LintAPIResponse?) {
         let localizedStrings = WKSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
@@ -502,7 +535,7 @@ final class PageEditorViewController: UIViewController {
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
+        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange, linterResponse: linterResponse)
 
         let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
         
