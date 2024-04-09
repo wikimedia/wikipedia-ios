@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import WKData
 
 public class WKSourceEditorViewModel {
     
@@ -18,6 +19,7 @@ public class WKSourceEditorViewModel {
     public var textAlignment: NSTextAlignment
     public let needsReadOnly: Bool
     public let onloadSelectRange: NSRange?
+    public let linterResponse: WKSandboxDataController.LintAPIResponse?
     
     // MARK: - Public
 
@@ -28,7 +30,8 @@ public class WKSourceEditorViewModel {
                 isSyntaxHighlightingEnabled: Bool,
                 textAlignment: NSTextAlignment,
                 needsReadOnly: Bool,
-                onloadSelectRange: NSRange?) {
+                onloadSelectRange: NSRange?,
+                linterResponse: WKSandboxDataController.LintAPIResponse?) {
         self.configuration = configuration
         self.initialText = initialText
         WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
@@ -37,5 +40,6 @@ public class WKSourceEditorViewModel {
         self.textAlignment = textAlignment
         self.needsReadOnly = needsReadOnly
         self.onloadSelectRange = onloadSelectRange
+        self.linterResponse = linterResponse
     }
 }
