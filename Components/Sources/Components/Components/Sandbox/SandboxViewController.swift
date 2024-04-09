@@ -5,22 +5,29 @@ final class WKSandboxHostingViewController: WKComponentHostingController<Sandbox
     init() {
         super.init(rootView: SandboxView())
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 public final class WKSandboxViewController: WKCanvasViewController {
-    let hostingController: WKSandboxHostingViewController
+    let hostingViewController: WKSandboxHostingViewController
 
     public override init() {
-        hostingController = WKSandboxHostingViewController()
+        hostingViewController = WKSandboxHostingViewController()
         super.init()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Sandbox"
+        navigationItem.backButtonDisplayMode = .generic
+        addComponent(hostingViewController, pinToEdges: true)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
