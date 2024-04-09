@@ -101,7 +101,7 @@ public final class WKSandboxDataController {
         service?.performDecodableGET(request: request, completion: completion)
     }
     
-    func getWikitext(project: WKProject, title: String, completion: @escaping(Result<String, Error>) -> Void) {
+    public func getWikitext(project: WKProject, title: String, completion: @escaping(Result<String, Error>) -> Void) {
         
         let parameters: [String: Any] = [
             "action": "query",
@@ -140,14 +140,14 @@ public final class WKSandboxDataController {
         })
     }
     
-    func saveWikitextToSandbox(project: WKProject, sandboxTitle: String, wikitext: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        let parameters: [String: Any] = [
+    public func saveWikitextToSandbox(project: WKProject, username: String, sandboxTitle: String, wikitext: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        let parameters: [String: String] = [
             "action": "edit",
-            "title": sandboxTitle,
+            "title": "User:\(username.spacesToUnderscores)/AppsOffsite2024/\(sandboxTitle)",
             "appendtext": wikitext,
-            "recreate": true,
+            "recreate": "true",
             "format": "json",
-            "formatversion": 2
+            "formatversion": "2"
         ]
         
         guard let url = URL.mediaWikiAPIURL(project: project) else {
