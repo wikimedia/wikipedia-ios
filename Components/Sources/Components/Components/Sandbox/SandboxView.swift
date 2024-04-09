@@ -2,11 +2,11 @@ import SwiftUI
 import WKData
 
 struct SandboxView: View {
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
     
     @State var titles: [String] = []
     let username: String
     weak var delegate: WKSandboxListDelegate?
-    
     var body: some View {
         
         List(titles, id: \.self) { title in
@@ -40,13 +40,18 @@ struct SandboxView: View {
 
 
 struct SandboxViewCell: View {
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
     var sandboxTitle: String
     // var sandboxTopic: String
 
     var body: some View {
         Text(sandboxTitle)
+            .font(Font(WKFont.for(.boldCallout)))
+            .foregroundColor(Color(appEnvironment.theme.text))
 
-        // Text(sandboxTopic)
+//        Text(sandboxTopic)
+//            .font(Font(WKFont.for(.callout)))
+//            .foregroundColor(Color(appEnvironment.theme.secondaryText))
 
     }
 }

@@ -74,7 +74,6 @@ extension ArticleViewController: WatchlistControllerDelegate {
 
 extension ArticleViewController {
     func goToSandbox() {
-        
         WMFAlertManager().showAlert("Saving!", sticky: false, dismissPreviousAlerts: true)
         
         guard let username = dataStore.authenticationManager.loggedInUsername,
