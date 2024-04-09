@@ -74,19 +74,35 @@ extension ArticleViewController: WatchlistControllerDelegate {
 
 extension ArticleViewController {
     func goToSandbox() {
-
-        let cs1 = SandboxViewModel.CategorySandbox(categoryTitle: "Geography", sandboxCount: 354545, followerCount:23498718712)
-        let cs2 = SandboxViewModel.CategorySandbox(categoryTitle: "Biology", sandboxCount: 1549, followerCount:3847834297)
-        let cs3 = SandboxViewModel.CategorySandbox(categoryTitle: "Art", sandboxCount: 917386274527, followerCount:673726382)
-
-        guard let username = dataStore.authenticationManager.loggedInUsername else {
+        WMFAlertManager().showAlert("Saving!", sticky: false, dismissPreviousAlerts: true)
+        
+        guard let username = dataStore.authenticationManager.loggedInUsername,
+        let articleTitle = articleURL.wmf_title,
+        let languageCode = articleURL.wmf_languageCode else {
             return
         }
 
-        let categorySandboxes = [cs1, cs2, cs3]
-        let viewModel = SandboxViewModel(username: username, categorySandboxes: categorySandboxes)
-        let sandboxVC = WKSandboxViewController(viewModel: viewModel)
-        navigationController?.pushViewController(sandboxVC, animated: true)
+        let articleWikiLanguage = WKLanguage(languageCode: languageCode, languageVariantCode: nil)
+        let testWikiLanguage = WKLanguage(languageCode: "test", languageVariantCode: nil)
+        let sandboxDataController = WKSandboxDataController()
+        sandboxDataController.getWikitext(project: WKProject.wikipedia(articleWikiLanguage), title: articleTitle) { result in
+            switch result {
+            case .success(let wikitext):
+
+                sandboxDataController.saveWikitextToSandbox(project: WKProject.wikipedia(testWikiLanguage), username: username, sandboxTitle: articleTitle, wikitext: wikitext) { [weak self] result in
+                    switch result {
+                    case .success:
+                        let sandboxVC = WKSandboxViewController(username: username)
+                        self?.navigationController?.pushViewController(sandboxVC, animated: true)
+                    case .failure(let error):
+                        WMFAlertManager().showAlert("Failure!", sticky: false, dismissPreviousAlerts: true)
+                    }
+                }
+
+            case .failure(let error):
+                WMFAlertManager().showAlert("Failure!", sticky: false, dismissPreviousAlerts: true)
+            }
+        }
 
     }
 }

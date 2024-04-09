@@ -193,6 +193,32 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 //                print(error)
 //            }
 //        }
+        
+        // TEST CREATE SANDBOX PAGE FROM ARTICLE EXAMPLE
+        
+//        guard let username = dataStore.authenticationManager.loggedInUsername else {
+//            return
+//        }
+//        
+//        let testWikiLanguage = WKLanguage(languageCode: "test", languageVariantCode: nil)
+//        let sandboxDataController = WKSandboxDataController()
+//        sandboxDataController.getWikitext(project: WKProject.wikipedia(testWikiLanguage), title: "Kat") { result in
+//            switch result {
+//            case .success(let wikitext):
+//                
+//                sandboxDataController.saveWikitextToSandbox(project: WKProject.wikipedia(testWikiLanguage), username: username, sandboxTitle: "Kat", wikitext: wikitext) { result in
+//                    switch result {
+//                    case .success:
+//                        print("yay")
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+//                
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     // MARK: - Scroll
