@@ -1,7 +1,7 @@
 import Foundation
 import WKData
 
-class SandboxViewModel {
+public class SandboxViewModel {
 
     // MARK: Nested Entities
 
@@ -11,38 +11,51 @@ class SandboxViewModel {
         let commentCount: Int
     }
 
-    struct CategorySandbox{
-        let categoryTitle: String
-        let sandboxCount: Int
-        let followerCount: Int
+    public struct CategorySandbox {
+        public let categoryTitle: String
+        public let sandboxCount: Int
+        public let followerCount: Int
+
+        public init(categoryTitle: String, sandboxCount: Int, followerCount: Int) {
+            self.categoryTitle = categoryTitle
+            self.sandboxCount = sandboxCount
+            self.followerCount = followerCount
+        }
     }
 
     // MARK: Properties
-
-    let userSandboxes: [UserSandbox]
+    let username: String
+    var userSandboxes: [UserSandbox] = []
     let categorySandboxes: [CategorySandbox]
 
-    init(userSandboxes: [UserSandbox], categorySandboxes: [CategorySandbox]) {
-        self.userSandboxes = userSandboxes
+    public init(username: String, categorySandboxes: [CategorySandbox]) {
+        self.username = username
         self.categorySandboxes = categorySandboxes
+        fetchUserSandboxes()
     }
 
     func fetchUserSandboxes() {
-
-        guard let username = dataStore.authenticationManager.loggedInUsername else {
-            return
-        }
         let testWikiLanguage = WKLanguage(languageCode: "test", languageVariantCode: nil)
         let sandboxDataController = WKSandboxDataController()
         sandboxDataController.fetchSandboxArticles(project: WKProject.wikipedia(testWikiLanguage), username: username) { result in
             switch result {
             case .success(let titles):
+                self.userSandboxes = self.populateUserSandboxes(titles: titles)
                 print(titles)
             case .failure(let error):
                 print(error)
             }
         }
 
+    }
+
+    func populateUserSandboxes(titles: [String]) -> [UserSandbox] {
+        var sandboxes = [UserSandbox]()
+        for item in titles {
+            let sandbox = UserSandbox(title: item, category: "category ", commentCount: Int.random(in: 0..<10))
+            sandboxes.append(sandbox)
+        }
+        return sandboxes
     }
 
 }

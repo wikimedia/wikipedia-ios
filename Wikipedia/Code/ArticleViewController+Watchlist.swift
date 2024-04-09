@@ -74,7 +74,18 @@ extension ArticleViewController: WatchlistControllerDelegate {
 
 extension ArticleViewController {
     func goToSandbox() {
-        let sandboxVC = WKSandboxViewController()
+
+        let cs1 = SandboxViewModel.CategorySandbox(categoryTitle: "Geography", sandboxCount: 354545, followerCount:23498718712)
+        let cs2 = SandboxViewModel.CategorySandbox(categoryTitle: "Biology", sandboxCount: 1549, followerCount:3847834297)
+        let cs3 = SandboxViewModel.CategorySandbox(categoryTitle: "Art", sandboxCount: 917386274527, followerCount:673726382)
+
+        guard let username = dataStore.authenticationManager.loggedInUsername else {
+            return
+        }
+
+        let categorySandboxes = [cs1, cs2, cs3]
+        let viewModel = SandboxViewModel(username: username, categorySandboxes: categorySandboxes)
+        let sandboxVC = WKSandboxViewController(viewModel: viewModel)
         navigationController?.pushViewController(sandboxVC, animated: true)
 
     }
