@@ -90,10 +90,13 @@ extension ArticleViewController {
             case .success(let wikitext):
 
                 sandboxDataController.saveWikitextToSandbox(project: WKProject.wikipedia(testWikiLanguage), username: username, sandboxTitle: articleTitle, wikitext: wikitext) { [weak self] result in
+                    
+                    guard let self else { return }
+                    
                     switch result {
                     case .success:
-                        let sandboxVC = WKSandboxViewController(username: username)
-                        self?.navigationController?.pushViewController(sandboxVC, animated: true)
+                        let sandboxVC = WKSandboxViewController(username: username, delegate: self)
+                        self.navigationController?.pushViewController(sandboxVC, animated: true)
                     case .failure(let error):
                         WMFAlertManager().showAlert("Failure!", sticky: false, dismissPreviousAlerts: true)
                     }
@@ -105,4 +108,24 @@ extension ArticleViewController {
         }
 
     }
+}
+
+extension ArticleViewController: WKSandboxListDelegate {
+    func didTapSandboxTitle(title: String) {
+        let testWiki = WKLanguage(languageCode: "test", languageVariantCode: nil)
+        let project = WKProject.wikipedia(testWiki)
+        let siteURL = project.siteURL
+        guard let pageURL = siteURL?.wmf_URL(withTitle: title) else {
+            return
+        }
+        
+        let editor = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkTopic, delegate: self, theme: theme)
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: editor, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        present(navigationController, animated: true)
+    }
+    
+    
 }

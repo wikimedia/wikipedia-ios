@@ -165,12 +165,11 @@ class AccountViewController: SubSettingsViewController {
             warningViewController.delegate = self
             present(warningViewController, animated: true)
         case .sandbox:
-
             guard let username = dataStore.authenticationManager.loggedInUsername else {
                 return
             }
-            let sbvc = WKSandboxViewController(username: username)
-            present(sbvc, animated: true)
+            let sbvc = WKSandboxViewController(username: username, delegate: self)
+            push(sbvc, animated: true)
         default:
             break
         }
@@ -252,5 +251,55 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
         
         let viewController = SinglePageWebViewController(url: url, theme: theme)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AccountViewController: WKSandboxListDelegate {
+    func didTapSandboxTitle(title: String) {
+        let testWiki = WKLanguage(languageCode: "test", languageVariantCode: nil)
+        let project = WKProject.wikipedia(testWiki)
+        let siteURL = project.siteURL
+        guard let pageURL = siteURL?.wmf_URL(withTitle: title) else {
+            return
+        }
+
+        let editor = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkTopic, delegate: self, theme: theme)
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: editor, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+
+        present(navigationController, animated: true)
+    }
+}
+
+extension AccountViewController: PageEditorViewControllerDelegate {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+        dismiss(animated: true) {
+            self.navigate(to: url)
+        }
+    }
+
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true) {
+
+                let title = CommonStrings.editPublishedToastTitle
+                let image = UIImage(systemName: "checkmark.circle.fill")
+
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                }
+
+            }
+
+//            waitForNewContentAndRefresh(changes.newRevisionID)
+        }
     }
 }
