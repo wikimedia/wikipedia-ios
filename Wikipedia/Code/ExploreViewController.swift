@@ -178,6 +178,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
         }
+        
+        // TEST FETCH LIST OF SANDBOX TITLES EXAMPLE
+//        guard let username = dataStore.authenticationManager.loggedInUsername else {
+//            return
+//        }
+//        let testWikiLanguage = WKLanguage(languageCode: "test", languageVariantCode: nil)
+//        let sandboxDataController = WKSandboxDataController()
+//        sandboxDataController.fetchSandboxArticles(project: WKProject.wikipedia(testWikiLanguage), username: username) { result in
+//            switch result {
+//            case .success(let titles):
+//                print(titles)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     // MARK: - Scroll
