@@ -29,7 +29,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView.placeholder = placeholder
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
-        learnMoreButton.setTitle(CommonStrings.learnMoreText, for: .normal)
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(), for: .normal)
         learnMoreButton.configuration?.contentInsets = .zero
         learnMoreButton.configuration?.titlePadding = .zero
         accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]
