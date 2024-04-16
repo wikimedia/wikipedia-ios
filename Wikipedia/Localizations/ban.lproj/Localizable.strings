@@ -88,8 +88,6 @@
 "action-read" = "Wacén";
 "action-redo" = "Ulihang";
 "action-remove" = "Kutang";
-"action-replace" = "Gentos";
-"action-replace-all" = "Gentosin makasami";
 "action-retry" = "Indayang";
 "action-save" = "Raksa";
 "action-saved" = "Karaksa";
@@ -104,7 +102,6 @@
 "action-unsaved-accessibility-notification" = "Suratan durung kasineb";
 "action-update" = "Anyarin";
 "add-articles-to-reading-list" = "Wewehin {{PLURAL:$1|$1 suratan|$1 suratan}} nuju lis wacénan";
-"add-citation-title" = "Wewehin anggit";
 "announcements-dismiss" = "Tutup";
 "app-store-subtitle" = "Énsiklopédia bébas";
 "appearance-settings-reading-themes" = "Téma wacénan";
@@ -180,12 +177,10 @@
 "edit-minor-text" = "Puniki uahan alit";
 "edit-notices" = "Panguningan uahan";
 "edit-published" = "Uahan kawedar";
-"edit-style-table-view-title" = "Gaya";
 "edit-summary-choice-fixed-grammar" = "Becikang tata basa";
 "edit-summary-choice-fixed-typos" = "Becikang iwang tik";
 "edit-summary-choice-linked-words" = "Wewehin pranala";
 "edit-summary-learn-more-text" = "Pelajahin malih";
-"edit-text-size-table-view-title" = "Ukuran aksara";
 "edit-watch-this-page-text" = "Awasin kaca puniki";
 "empty-insert-media-title" = "Pilih berkas saking Wikimédia Commons";
 "empty-no-article-message" = "Ampura, suratan nénten prasida kamuat";

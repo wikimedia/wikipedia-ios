@@ -587,7 +587,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در %#@v1@ ذخیره شده‌باشد، به صورت دخیره‌‌نشده در خواهد آمد.</string>
+		<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در %#@v1@ ذخیره شده باشد، به صورت دخیره‌‌نشده در خواهد آمد.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
