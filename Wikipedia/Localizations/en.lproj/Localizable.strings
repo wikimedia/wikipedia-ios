@@ -103,7 +103,6 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
-"add-image-learn-more-text" = "Learn more";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -162,7 +161,6 @@
 "data-migration-status" = "Updating...";
 "description-add-title" = "Add description";
 "description-edit-for-article" = "Article description for $1";
-"description-edit-learn-more" = "Learn more";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "By changing the article description, I agree to the $1 and to irrevocably release my contributions under the $2 license.";
 "description-edit-pencil-introduction" = "Edit introduction";
@@ -297,7 +295,6 @@
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
-"edit-summary-learn-more-text" = "Learn more";
 "edit-summary-placeholder-text" = "How did you improve the article?";
 "edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
@@ -574,6 +571,11 @@
 "image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
 "image-rec-view-article" = "View article";
+"image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
+"image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
+"image-recommendations-email-second-line" = "- [Describe specific problem]";
+"image-recommendations-email-third-line" = "The behavior I would like to see is:";
+"image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
 "image-recs-yes-title" = "Yes";
@@ -623,6 +625,7 @@
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
+"learn-more-title" = "Learn more";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
 "logged-out-log-back-in-button-title" = "Log back in to your account";
 "logged-out-subtitle" = "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.";
@@ -868,6 +871,7 @@
 "potd-widget-title" = "Picture of the day";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "privacy-policy-title" = "Privacy policy";
+"problem-with-feature-title" = "Problem with feature";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1163,6 +1167,7 @@
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
 "top-read-widget-title" = "Top read";
+"tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continue log in";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-title" = "Log in to your account";
@@ -1175,7 +1180,6 @@
 "uzbek-variants-alert-body" = "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates to Uzbek variant support";
 "vanish-account-continue-button-title" = "Continue";
-"vanish-account-learn-more-text" = "Learn more";
 "vanish-account-username-field" = "Username and user page";
 "vanish-account-warning-body" = "Vanishing is a **last resort** and should **only be used when you wish to stop editing forever** and also to hide as many of your past associations as possible.\n\nAccount deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. **Vanishing does not guarantee complete anonymity or remove contributions to the projects**.";
 "vanish-account-warning-title" = "Warning";

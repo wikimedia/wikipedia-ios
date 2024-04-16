@@ -57,7 +57,7 @@ class EditSummaryViewController: UIViewController, Themeable {
         }
 
         addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", languageCode: languageCode, value: "Add an edit summary", comment: "Text for add summary label")
-        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", languageCode: languageCode, value: "Learn more", comment: "Text for learn more button"), for: .normal)
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(languageCode: languageCode), for: .normal)
         summaryTextField.placeholder = placeholderText
         summaryTextField.delegate = self
         summaryTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)

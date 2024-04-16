@@ -67,9 +67,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" á @Wikipedia:";
 "table-of-contents-close-accessibility-hint" = "Lat aftur";
-"wikitext-downloading" = "Innlesur innihald...";
 "wikitext-preview-changes" = "Heintar undansýning av tínum broytingum...";
-"wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-captcha-error" = "CAPTCHA váttanarfeilur.";
 "wikitext-upload-captcha-needed" = "CAPTCHA váttan krevst.";
 // Fuzzy
