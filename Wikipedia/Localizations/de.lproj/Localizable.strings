@@ -25,6 +25,7 @@
 // Author: Nemo bis
 // Author: Purodha
 // Author: ThisCarthing
+// Author: TomatoCake
 // Author: Tsevener
 // Author: Ubahnverleih
 // Author: Umlaut
@@ -121,8 +122,6 @@
 "action-read" = "Lesen";
 "action-redo" = "Wiederholen";
 "action-remove" = "Entfernen";
-"action-replace" = "Ersetzen";
-"action-replace-all" = "Alle ersetzen";
 "action-retry" = "Erneut versuchen";
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
@@ -137,7 +136,6 @@
 "action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "action-update" = "Aktualisieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Ein|$1}} Artikel zu einer Leseliste hinzufügen";
-"add-citation-title" = "Zitat hinzufügen";
 "announcements-dismiss" = "Ausblenden";
 "app-store-keywords" = "Wikipedia, Referenz, Wiki, Enzyklopädie, Information, Info, Wissen, Forschung, Entdecken, Lernen";
 "app-store-release-notes" = "Vollständig anpassbarer und leichter zu lesender Entdecken-Feed. Lokalisierung, Verbesserungen an der Leistung und Fehlerbehebungen.";
@@ -278,24 +276,8 @@
 "donate-accessibility-textfield-hint" = "Geben Sie den gewünschten Spendenbetrag ein.";
 "donate-payment-method-prompt-title" = "Per Apple Pay spenden?";
 "donate-success-title" = "Vielen Dank!";
-"edit-bold-accessibility-label" = "Fett-Formatierung hinzufügen";
-"edit-bold-remove-accessibility-label" = "Fett-Formatierung entfernen";
-"edit-clear-formatting-accessibility-label" = "Formatierung entfernen";
-"edit-comment-accessibility-label" = "Kommentar-Syntax hinzufügen";
-"edit-comment-remove-accessibility-label" = "Kommentar-Syntax entfernen";
-"edit-decrease-indent-depth-accessibility-label" = "Einrückungstiefe verringern";
-"edit-direction-down-accessibility-label" = "Cursor nach unten bewegen";
-"edit-direction-left-accessibility-label" = "Cursor nach links bewegen";
-"edit-direction-right-accessibility-label" = "Cursor nach rechts bewegen";
-"edit-direction-up-accessibility-label" = "Cursor nach oben bewegen";
-"edit-increase-indent-depth-accessibility-label" = "Einrückungstiefe vergrößern";
-"edit-indent-accessibility-label" = "Aktuelle Zeile einrücken";
-"edit-italic-accessibility-label" = "Kursiv-Formatierung hinzufügen";
-"edit-italic-remove-accessibility-label" = "Kursiv-Formatierung entfernen";
-"edit-link-accessibility-label" = "Link-Syntax hinzufügen";
 "edit-link-display-text-title" = "Angezeigter Text";
 "edit-link-link-target-title" = "Linkziel";
-"edit-link-remove-accessibility-label" = "Link-Syntax entfernen";
 "edit-link-remove-link-title" = "Link entfernen";
 "edit-link-title" = "Link bearbeiten";
 "edit-menu-item" = "Bearbeiten";
@@ -306,38 +288,14 @@
 "edit-notices" = "Bearbeitungshinweise";
 "edit-notices-always-display" = "Bearbeitungshinweise immer anzeigen";
 "edit-notices-please-read" = "Bitte vor der Bearbeitung lesen";
-"edit-ordered-list-accessibility-label" = "Aus der aktuellen Zeile eine sortierte Liste machen";
-"edit-ordered-list-remove-accessibility-label" = "Sortierte Liste aus der aktuellen Zeile entfernen";
 "edit-published" = "Bearbeitung veröffentlicht";
 "edit-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
-"edit-reference-accessibility-label" = "Einzelnachweis-Syntax hinzufügen";
-"edit-reference-remove-accessibility-label" = "Einzelnachweis-Syntax entfernen";
-"edit-signature-accessibility-label" = "Signatur-Syntax hinzufügen";
-"edit-signature-remove-accessibility-label" = "Signatur-Syntax entfernen";
-"edit-strikethrough-accessibility-label" = "Durchstreichen hinzufügen";
-"edit-strikethrough-remove-accessibility-label" = "Durchstreichen entfernen";
-"edit-style-table-view-title" = "Stil";
-"edit-subscript-accessibility-label" = "Tiefstellen-Formatierung hinzufügen";
-"edit-subscript-remove-accessibility-label" = "Tiefstellen-Formatierung entfernen";
 "edit-summary-add-summary-text" = "Eine Bearbeitungszusammenfassung hinzufügen";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
 "edit-summary-learn-more-text" = "Mehr erfahren";
 "edit-summary-placeholder-text" = "Wie hast du den Artikel verbessert?";
-"edit-superscript-accessibility-label" = "Hochstellen-Formatierung hinzufügen";
-"edit-superscript-remove-accessibility-label" = "Hochstellen-Formatierung entfernen";
-"edit-template-accessibility-label" = "Vorlagensyntax hinzufügen";
-"edit-template-remove-accessibility-label" = "Vorlagensyntax entfernen";
-"edit-text-clear-formatting" = "Formatierung löschen";
-"edit-text-formatting-accessibility-label" = "Textformatierungsmenü anzeigen";
-"edit-text-formatting-table-view-title" = "Textformatierung";
-"edit-text-size-table-view-title" = "Textgröße";
-"edit-text-style-accessibility-label" = "Textstilmenü anzeigen";
-"edit-underline-accessibility-label" = "Unterstreichen hinzufügen";
-"edit-underline-remove-accessibility-label" = "Unterstreichen entfernen";
-"edit-unordered-list-accessibility-label" = "Aus der aktuellen Zeile eine unsortierte Liste machen";
-"edit-unordered-list-remove-accessibility-label" = "Unsortierte Liste aus der aktuellen Zeile entfernen";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Mehr über Beobachtungslisten erfahren";
 "edit-watch-this-page-text" = "Diese Seite beobachten";
@@ -890,7 +848,6 @@
 "replace-infolabel-method-replace" = "Ersetzen";
 "replace-infolabel-method-replace-all" = "Alle ersetzen";
 "replace-method-button-accessibility" = "Ersetzungsmethode. Auf $1 festgelegt. Zum Ändern auswählen.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
@@ -993,7 +950,6 @@
 "talk-page-reply-button-accessibility-label" = "$1 antworten";
 "talk-page-reply-depth-accessibility-label" = "Antworttiefe: $1";
 "talk-page-reply-placeholder-format" = "$1 antworten";
-// Fuzzy
 "talk-page-reply-terms-and-licenses-ccsa4" = "Bitte beachte, dass deine Antwort automatisch mit deinem Benutzernamen signiert wird. Indem du die Änderungen speicherst, stimmst du $1den Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 4.0$4 und $5GFDL$6 zu veröffentlichen.";
 "talk-page-revision-history" = "Versionsgeschichte";
 "talk-page-rply-close-button-accessibility-hint" = "Antwortansicht schließen";
@@ -1005,8 +961,7 @@
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
 "talk-page-topic-close-button-hint" = "Neues Thema schließen";
-// Fuzzy
-"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Indem du die Änderungen speicherst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den $3CC BY-SA 4.0$4 und den $5GFDL$6 Lizenzen zu veröffentlichen.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Indem du Änderungen veröffentlichst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 4.0$4 und den $5GFDL$6 zu veröffentlichen.";
 "talk-page-unsubscribe-to-topic" = "Abbestellen";
 "talk-page-unsubscribed-alert-subtitle" = "Du wirst keine Benachrichtigungen mehr über neue Kommentare in diesem Thema erhalten.";
 "talk-page-unsubscribed-alert-title" = "Du hast dich ausgetragen";
@@ -1088,9 +1043,7 @@
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";
 "widget-onthisday-placeholder-article-snippet" = "Freie Online-Enzyklopädie, die jeder bearbeiten kann";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, eine freie Enzyklopädie mit Wiki-Inhalten, geht online.";
-"wikitext-downloading" = "Lade Inhalt …";
 "wikitext-preview-changes" = "Rufe Vorschau deiner Änderungen ab …";
-"wikitext-preview-changes-none" = "Es wurden keine Änderungen zur Anzeige einer Vorschau durchgeführt.";
 "wikitext-preview-link-external-preview-description" = "Dieser Link führt zu einer externen Website: $1";
 "wikitext-preview-link-external-preview-title" = "Externer Link";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia hat keinen Artikel mit genau diesem Namen";
