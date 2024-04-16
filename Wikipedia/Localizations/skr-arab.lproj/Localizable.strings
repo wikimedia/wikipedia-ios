@@ -56,8 +56,6 @@
 "action-read" = "پڑھو";
 "action-redo" = "ولدا کرو";
 "action-remove" = "ہٹاؤ";
-"action-replace" = "بدل گھنو";
-"action-replace-all" = "سارے بدل گھنو";
 "action-retry" = "ولدا کوشش کرو";
 "action-save" = "بچاؤ";
 "action-saved" = "محفوظ";
@@ -69,7 +67,6 @@
 "action-update" = "اپ ݙیٹ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
-"add-citation-title" = "حوالہ شامل کرو";
 "announcements-dismiss" = "مکاؤ";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
 "appearance-settings-expand-tables" = "ٹیبل ودھاؤ";
@@ -136,15 +133,11 @@
 "edit-link-remove-link-title" = "لنک ہٹاؤ";
 "edit-link-title" = "روابط وچ ترمیم کرو";
 "edit-menu-item" = "لکھو";
-"edit-style-table-view-title" = "سٹائل";
 "edit-summary-add-summary-text" = "تبدیلی دا خلاصہ شامل کرو";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
 "edit-summary-learn-more-text" = "ٻیا سِکھو";
-"edit-text-size-table-view-title" = "عبارت سائز";
-"edit-underline-accessibility-label" = "ہیٹھ لکیر شامل کرو";
-"edit-underline-remove-accessibility-label" = "ہیٹھ لکیر ہٹاؤ";
 "edit-watch-this-page-text" = "ایں ورقے تے پارھا ݙیوو";
 "editing-welcome-be-bold-title" = "تہاݙی اواز اہم ہے";
 "editor-find-textfield-accessibility" = "لبھو";
@@ -497,7 +490,6 @@
 "welcome-intro-free-encyclopedia-more" = "وکی پیڈیا بارے ٻیا سکھو";
 "welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
-"wikitext-downloading" = "مواد لوڈ تھیندا پئے۔۔۔";
 "wikitext-preview-link-external-preview-title" = "ٻاہرلا لنک";
 "wikitext-preview-link-not-found-preview-title" = "کوئی اندرلا لنک کائنی لبھا";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
