@@ -24,7 +24,6 @@ fileprivate final class WKImageRecommendationsHostingViewController: WKComponent
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 public final class WKImageRecommendationsViewController: WKCanvasViewController {
