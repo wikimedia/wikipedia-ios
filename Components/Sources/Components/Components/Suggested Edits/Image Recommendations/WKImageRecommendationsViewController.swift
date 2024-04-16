@@ -43,14 +43,14 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     private var overflowMenu: UIMenu {
 
-        let learnMore = UIAction(title: "Learn more", image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+        let learnMore = UIAction(title: viewModel.localizedStrings.learnMoreButtonTitle, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
             self?.goToFAQ()
         })
-        let tutorial = UIAction(title: "Learn more", image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+        let tutorial = UIAction(title: viewModel.localizedStrings.tutorialButtonTitle, image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
             self?.showTutorial()
         })
 
-        let reportIssues = UIAction(title: "Problems", image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+        let reportIssues = UIAction(title: viewModel.localizedStrings.problemWithFeatureButtonTitle, image: UIImage(systemName: "flag"), handler: { [weak self] _ in
             self?.reportIssue()
         })
 

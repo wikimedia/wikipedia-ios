@@ -44,8 +44,11 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
+        let learnMoreButtonTitle: String
+        let tutorialButtonTitle: String
+        let problemWithFeatureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
@@ -55,6 +58,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
             self.notSureButtonTitle = notSureButtonTitle
+            self.learnMoreButtonTitle = learnMoreButtonTitle
+            self.tutorialButtonTitle = tutorialButtonTitle
+            self.problemWithFeatureButtonTitle = problemWithFeatureButtonTitle
         }
 
     }

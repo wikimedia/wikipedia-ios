@@ -103,7 +103,6 @@
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
-"add-image-learn-more-text" = "Text for button on add image details for going to links with more information on topics related to images on Wikipedia";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -162,7 +161,6 @@
 "data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
 "description-edit-for-article" = "String describing which article description is being edited. $1 is replaced with the article title";
-"description-edit-learn-more" = "Title text for description editing learn more button";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
 "description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
 "description-edit-pencil-introduction" = "Title for button used to show article lead section editor";
@@ -295,7 +293,6 @@
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
-"edit-summary-learn-more-text" = "Text for learn more button";
 "edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
@@ -626,6 +623,7 @@
 "languages-settings-title" = "Title for the 'Languages' section in Settings";
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
+"learn-more-title" = "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
 "logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
 "logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";
@@ -871,6 +869,7 @@
 "potd-widget-title" = "Text for title of Picture of the day widget.";
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
+"problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
@@ -1166,6 +1165,7 @@
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
+"tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
 "two-factor-login-title" = "Title for two factor login interface";
@@ -1178,7 +1178,6 @@
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-continue-button-title" = "Title of button presented in the vanish account warning view.";
-"vanish-account-learn-more-text" = "Text for button on vanish account request screen that redirects to the meta page about the process";
 "vanish-account-username-field" = "Title for the username and userpage form field";
 "vanish-account-warning-body" = "Body text of vanish account warning view. Please do not translate or remove the `**` characters as these indicate which region of the text to display in bold.";
 "vanish-account-warning-title" = "Title of vanish account warning view.";
