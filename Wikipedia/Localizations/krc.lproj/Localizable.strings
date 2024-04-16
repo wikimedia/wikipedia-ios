@@ -40,7 +40,7 @@
 "main-menu-account-logout" = "Чыкъ";
 // Fuzzy
 "main-menu-heading-legal" = "Къатыш зат";
-"main-menu-nearby" = "Джууукъда";
+"main-menu-nearby" = "Джуўукъда";
 "main-menu-privacy-policy" = "Ташалыкъ политика";
 // Fuzzy
 "main-menu-rate-app" = "Къошакъ программагъа багъа бич";
@@ -48,7 +48,7 @@
 "main-menu-terms-of-use" = "Хайырланыу шартла";
 "main-menu-title" = "Энтда";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Ызына алыу";
+"menu-cancel-accessibility-label" = "Ызына ал";
 "navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";

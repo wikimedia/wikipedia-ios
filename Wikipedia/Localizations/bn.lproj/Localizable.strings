@@ -432,9 +432,7 @@
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
-"wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
-"wikitext-preview-changes-none" = "প্রাকদর্শন করার মত কোন পরিবর্তন করা হয়নি।";
 "wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-preview-save-changes-title" = "পরিবর্তন সংরক্ষণ";
 "wikitext-upload-captcha-error" = "ক্যাপচা যাচাইকরণ ত্রুটি।";
