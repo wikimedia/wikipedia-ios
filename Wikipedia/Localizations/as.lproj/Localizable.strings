@@ -111,12 +111,9 @@
 "diff-thanks-send-title" = "ৰাজহুৱাকৈ 'ধন্যবাদ' জ্ঞাপন কৰক";
 "diff-thanks-sent" = "আপোনাৰ 'ধন্যবাদ' $1-লৈ প্ৰেৰণ কৰা হ'ল";
 "edit-menu-item" = "সম্পাদনা কৰক";
-"edit-style-table-view-title" = "সজ্জা";
 "edit-summary-choice-fixed-grammar" = "ব্যাকৰণ শুধৰণি";
 "edit-summary-choice-fixed-typos" = "বানান শুধৰণি";
 "edit-summary-choice-linked-words" = "লিংক যোগ";
-"edit-text-formatting-table-view-title" = "আখৰৰ ফৰমেটিং";
-"edit-text-size-table-view-title" = "আখৰৰ আকাৰ";
 "edit-watch-this-page-text" = "এই পৃষ্ঠাটো লক্ষ্য কৰক";
 "editing-welcome-be-bold-title" = "আপোনাৰ মত গুৰুত্বপূৰ্ণ";
 "editing-welcome-citations-subtitle" = "সকলো সমল প্ৰমাণীকৰণযোগ্য হ'ব লাগিব। প্ৰবন্ধ এটাত নতুন তথ্য যোগ দিওঁতে সম্পাদকে এক নিৰ্ভৰযোগ্য উৎসৰ এক ইন-লাইন উদ্ধৃতি প্ৰদান কৰিব লাগে যি সম্পাদনাটো পোনপটীয়াকৈ সমৰ্থন কৰে।";
@@ -287,9 +284,7 @@
 "welcome-languages-add-or-edit-button" = "পছন্দৰ ভাষা যোগ বা সম্পাদনা কৰক";
 "welcome-languages-description" = "আমি আপোনাৰ ডিভাইচত নিম্নলিখিত ভাষাবোৰ পাইছোঁ:";
 "welcome-languages-search-title" = "৩০০ৰো অধিক ভাষাত সন্ধান কৰক";
-"wikitext-downloading" = "সমল ল’ড হৈ আছে...";
 "wikitext-preview-changes" = "আপোনাৰ সালসলনিৰ প্ৰাক্‌দৰ্শন উদ্ধাৰ কৰা হৈছে...";
-"wikitext-preview-changes-none" = "প্ৰাক্‌দৰ্শনৰ বাবে কোনো সালসলনি কৰা নাই।";
 "wikitext-preview-link-external-preview-title" = "বাহ্যিক সংযোগ";
 "wikitext-preview-link-not-found-preview-description" = "এই নামৰ সৈতে হুবহু মিলা কোনো প্ৰবন্ধ ৱিকিপিডিয়াত নাই";
 "wikitext-upload-save" = "প্ৰকাশ কৰি থকা হৈছে...";

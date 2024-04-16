@@ -103,9 +103,7 @@
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";
 "table-of-contents-heading" = "Зьмест";
-"wikitext-downloading" = "Загрузка зьместу...";
 "wikitext-preview-changes" = "Атрыманьне папярэдняга прагляду зьменаў...";
-"wikitext-preview-changes-none" = "Няма зьменаў для прагляду.";
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";
 "wikitext-upload-result-unknown" = "Не атрымліваецца вызначыць вынік загрузкі вікі-тэксту.";
