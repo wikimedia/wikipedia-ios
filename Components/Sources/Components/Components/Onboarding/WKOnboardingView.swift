@@ -15,18 +15,20 @@ public struct WKOnboardingView: View {
     var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 32
     }
+    
+    @ScaledMetric var scrollViewBottomInset = 125.0
 
     // MARK: - Lifecycle
 
 	var content: some View {
-		Group {
+        ZStack(alignment: .bottom, content: {
 			ScrollView(showsIndicators: true) {
 				VStack {
 					Text(viewModel.title)
 						.font(Font(WKFont.for(.boldTitle1)))
 						.foregroundColor(Color(appEnvironment.theme.text))
-						.padding(.bottom, 44)
-						.padding(.top, 44 + sizeClassPadding)
+                        .padding(.bottom, 44)
+                        .padding(.top, 44 + sizeClassPadding)
 						.multilineTextAlignment(.center)
 					ForEach(1...viewModel.cells.count, id:\.self) { cell in
 						VStack {
@@ -36,28 +38,30 @@ public struct WKOnboardingView: View {
 						}
 					}
 				}
-				.padding(.bottom, 125)
+                .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
 			}
-			ZStack(alignment: .bottom, content: {
-				VStack {
-					WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
-						.padding([.top], 16)
+            VStack(spacing: 20) {
+                WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                    .padding([.top], 16)
 
-					if let secondaryTitle = viewModel.secondaryButtonTitle {
-						let configuration = WKSmallButton.Configuration(style: .quiet)
-						WKSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
-					}
-				}
-			})
-		}
-		.padding([.leading, .trailing, .bottom], sizeClassPadding)
+                if let secondaryTitle = viewModel.secondaryButtonTitle {
+                    let configuration = WKSmallButton.Configuration(style: .quiet)
+                    WKSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
+                }
+            }
+            .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))
+            .background {
+                Color(appEnvironment.theme.paperBackground).ignoresSafeArea()
+            }
+        })
+		
 	}
 
     public var body: some View {
-		ZStack(alignment: .bottom) {
-			Color(appEnvironment.theme.paperBackground).ignoresSafeArea()
-			content
-		}		
+        content
+            .background {
+                Color(appEnvironment.theme.paperBackground).ignoresSafeArea()
+            }
     }
 
 }
