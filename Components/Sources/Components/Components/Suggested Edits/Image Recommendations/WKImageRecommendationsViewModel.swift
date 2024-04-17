@@ -10,6 +10,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
+        public typealias TooltipLocalizedStrings = WKTooltipViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -40,6 +41,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
+        let firstTooltipStrings: TooltipLocalizedStrings
+        let secondTooltipStrings: TooltipLocalizedStrings
+        let thirdTooltipStrings: TooltipLocalizedStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
@@ -48,12 +52,15 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let tutorialButtonTitle: String
         let problemWithFeatureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
             self.emptyLocalizedStrings = emptyLocalizedStrings
+            self.firstTooltipStrings = firstTooltipStrings
+            self.secondTooltipStrings = secondTooltipStrings
+            self.thirdTooltipStrings = thirdTooltipStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
