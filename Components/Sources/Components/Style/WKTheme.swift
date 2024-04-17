@@ -57,7 +57,7 @@ public struct WKTheme: Equatable {
         paperBackground: WKColor.white,
         midBackground: WKColor.gray100,
         baseBackground: WKColor.gray200,
-        icon: WKColor.white,
+        icon: WKColor.gray300,
         iconBackground: WKColor.gray500,
         accessoryBackground: WKColor.white,
         inputAccessoryButtonTint: WKColor.gray600,

@@ -64,6 +64,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         #if UITEST
         presentUITestHelperController()
         #endif
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            let viewModel = WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.checkPhoto, primaryButtonAction: {
+                print("Push to image recs.")
+            })
+            self?.announceFeature(viewModel: viewModel, theme: WKAppEnvironment.current.theme)
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -1177,3 +1184,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
 }
 
+extension ExploreViewController: WKFeatureAnnouncing {
+    
+}
