@@ -6,7 +6,9 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     // MARK: Properties
 
     public var viewModel: WKImageRecommendationsViewModel
+    public var tooltipViewModels: [WKTooltipViewModel] = []
     weak var delegate: WKImageRecommendationsDelegate?
+    private(set) var bottomSheetView: WKImageRecommendationBottomSheetView?
 
     // MARK: Lifecycle
 
@@ -26,6 +28,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
             let bottomSheetView = WKImageRecommendationBottomSheetView(frame: UIScreen.main.bounds, viewModel: bottomViewModel)
             bottomSheetView.delegate = self
             addComponent(bottomSheetView, pinToEdges: true)
+            self.bottomSheetView = bottomSheetView
         }
     }
 
@@ -100,5 +103,25 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 
             }
         }
+    }
+}
+
+extension WKImageRecommendationsBottomSheetViewController: WKTooltipPresenting {
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    public func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        
+        // Tooltips are only allowed to dismiss via Next buttons
+        if presentationController.presentedViewController is WKTooltipViewController {
+            return false
+        }
+        
+        return true
     }
 }
