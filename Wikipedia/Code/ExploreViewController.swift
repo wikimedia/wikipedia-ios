@@ -40,6 +40,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(exloreFeedDidAddImageRecommendationsCard(_:)), name: NSNotification.Name.WMFExploreFeedDidAddImageRecommendationsCard, object: nil)
     }
     
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -64,20 +65,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         #if UITEST
         presentUITestHelperController()
         #endif
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            let viewModel = WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.checkPhoto, primaryButtonAction: { [weak self] in
-                
-                guard let self,
-                let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self) else {
-                    return
-                }
-                
-                navigationController?.pushViewController(imageRecommendationViewController, animated: true)
-                
-            })
-            self?.announceFeature(viewModel: viewModel)
-        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -863,6 +850,29 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
+    
+    private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
+        
+        guard presentedViewController == nil else {
+            return
+        }
+        
+        guard self.isViewLoaded && self.view.window != nil else {
+            return
+        }
+        
+        let viewModel = WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.checkPhoto, primaryButtonAction: { [weak self] in
+            
+            guard let self,
+            let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self) else {
+                return
+            }
+            
+            navigationController?.pushViewController(imageRecommendationViewController, animated: true)
+            
+        })
+        announceFeature(viewModel: viewModel)
+    }
 }
 
 // MARK: - Analytics
@@ -1110,6 +1120,12 @@ extension ExploreViewController {
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
+    }
+    
+    @objc func exloreFeedDidAddImageRecommendationsCard(_ note: Notification) {
+        DispatchQueue.main.async {
+            self.presentImageRecommendationsFeatureAnnouncementIfNeeded()
+        }
     }
 
 }
