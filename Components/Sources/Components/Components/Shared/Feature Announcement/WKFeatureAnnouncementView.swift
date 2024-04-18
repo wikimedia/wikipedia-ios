@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WKFeatureAnnouncementView: View {
     
-    var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
     
     let viewModel: WKFeatureAnnouncementViewModel
     
@@ -22,37 +22,37 @@ struct WKFeatureAnnouncementView: View {
         ZStack {
             Color(appEnvironment.theme.paperBackground)
                 .ignoresSafeArea()
-            VStack(spacing: 52) {
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Spacer()
-                        Button(
-                            action: { viewModel.closeButtonAction?() },
-                            label: {
-                            closeImage
-                        })
-                        .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
+            ScrollView(.vertical) {
+                VStack(spacing: 40) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Spacer()
+                            Button(
+                                action: { viewModel.closeButtonAction?() },
+                                label: {
+                                closeImage
+                            })
+                            .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
+                        }
+                        Text(viewModel.title)
+                            .font(Font(WKFont.for(.boldTitle3)))
+                            .foregroundColor(Color(appEnvironment.theme.text))
+                        Text(viewModel.body)
+                            .font(Font(WKFont.for(.body)))
+                            .foregroundColor(Color(appEnvironment.theme.text))
                     }
-                    Text(viewModel.title)
-                        .font(Font(WKFont.for(.boldTitle3)))
-                        .foregroundColor(Color(appEnvironment.theme.text))
-                    Text(viewModel.body)
-                        .font(Font(WKFont.for(.body)))
-                        .foregroundColor(Color(appEnvironment.theme.text))
+                    if let image = viewModel.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 132, height: 118)
+                            .foregroundColor(imageColor)
+                    }
+                    WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                 }
-                if let image = viewModel.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 132, height: 118)
-                        .foregroundColor(imageColor)
-                }
-                WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
+                .padding()
             }
         }
-        .padding(.leading)
-        .padding(.trailing)
-        .padding(.bottom)
     }
 }
 

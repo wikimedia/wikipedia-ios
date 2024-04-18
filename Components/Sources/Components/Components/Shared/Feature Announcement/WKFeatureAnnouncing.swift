@@ -3,11 +3,11 @@ import UIKit
 import SwiftUI
 
 public protocol WKFeatureAnnouncing {
-    func announceFeature(viewModel: WKFeatureAnnouncementViewModel, theme: WKTheme)
+    func announceFeature(viewModel: WKFeatureAnnouncementViewModel)
 }
 
 public extension WKFeatureAnnouncing where Self:UIViewController {
-    func announceFeature(viewModel: WKFeatureAnnouncementViewModel, theme: WKTheme) {
+    func announceFeature(viewModel: WKFeatureAnnouncementViewModel) {
         let oldPrimaryAction = viewModel.primaryButtonAction
         viewModel.primaryButtonAction = { [weak self] in
             self?.dismiss(animated: true) {
@@ -22,13 +22,11 @@ public extension WKFeatureAnnouncing where Self:UIViewController {
             }
         }
         
-        let rootView = WKFeatureAnnouncementView(viewModel: viewModel)
-        let hostingVC = UIHostingController(rootView: rootView)
-        hostingVC.modalPresentationStyle = .pageSheet
-        hostingVC.view.backgroundColor = theme.paperBackground
-        if let sheet = hostingVC.sheetPresentationController {
+        let viewController = WKFeatureAnnouncementViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .pageSheet
+        if let sheet = viewController.sheetPresentationController {
             sheet.detents = [.medium()]
         }
-        present(hostingVC, animated: true)
+        present(viewController, animated: true)
     }
 }
