@@ -861,6 +861,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
+        let imageRecommendationsDataController = WKImageRecommendationsDataController()
+        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
+            return
+        }
+        
         let viewModel = WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.checkPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
@@ -872,6 +877,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
         })
         announceFeature(viewModel: viewModel)
+        
+        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
     }
 }
 
