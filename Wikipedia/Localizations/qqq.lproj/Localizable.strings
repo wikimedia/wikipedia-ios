@@ -549,6 +549,8 @@
 "image-rec-add-image-title" = "title for the add image suggestion view";
 "image-rec-empty-subtitle" = "Subtitle of empty view displayed when there are no more image recommendations.";
 "image-rec-empty-title" = "Title of empty view displayed when there are no more image recommendations.";
+"image-rec-feature-announce-body" = "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible).";
+"image-rec-feature-announce-title" = "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible).";
 "image-rec-onboarding-item-1-body" = "Body of first item in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-item-1-title" = "Title of first item in onboarding view displayed when user first visits image recommendations feature view.";
 "image-rec-onboarding-item-2-body" = "Body of second item in onboarding view displayed when user first visits image recommendations feature view.";
@@ -1165,6 +1167,7 @@
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
+"try-now-title" = "Title of action button. Tapping takes user to a particular feature.";
 "tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
