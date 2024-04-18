@@ -25,7 +25,7 @@ struct WKFeatureAnnouncementView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Color(appEnvironment.theme.paperBackground)
+                Color(appEnvironment.theme.popoverBackground)
                     .ignoresSafeArea()
                 ScrollView(.vertical) {
                     VStack(spacing: spacingForAvailableHeight(geometry.size.height)) {

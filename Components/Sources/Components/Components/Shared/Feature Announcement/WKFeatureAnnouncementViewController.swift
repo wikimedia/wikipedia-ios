@@ -18,6 +18,7 @@ public final class WKFeatureAnnouncementViewController: WKCanvasViewController {
     public init(viewModel: WKFeatureAnnouncementViewModel) {
         self.hostingViewController = WKFeatureAnnouncementHostingController(viewModel: viewModel)
         super.init()
+        self.preferredContentSize = CGSize(width: 278, height: 400)
     }
 
     required init?(coder: NSCoder) {
@@ -30,7 +31,7 @@ public final class WKFeatureAnnouncementViewController: WKCanvasViewController {
     }
     
     public override func appEnvironmentDidChange() {
-        view.backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        hostingViewController.view.backgroundColor = WKAppEnvironment.current.theme.paperBackground
+        view.backgroundColor = WKAppEnvironment.current.theme.popoverBackground
+        hostingViewController.view.backgroundColor = WKAppEnvironment.current.theme.popoverBackground
     }
 }

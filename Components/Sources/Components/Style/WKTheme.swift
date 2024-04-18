@@ -18,6 +18,7 @@ public struct WKTheme: Equatable {
     public let paperBackground: UIColor
     public let midBackground: UIColor
     public let baseBackground: UIColor
+    public let popoverBackground: UIColor
     public let icon: UIColor
     public let iconBackground: UIColor
     public let accessoryBackground: UIColor
@@ -57,6 +58,7 @@ public struct WKTheme: Equatable {
         paperBackground: WKColor.white,
         midBackground: WKColor.gray100,
         baseBackground: WKColor.gray200,
+        popoverBackground: WKColor.white,
         icon: WKColor.gray300,
         iconBackground: WKColor.gray500,
         accessoryBackground: WKColor.white,
@@ -93,6 +95,7 @@ public struct WKTheme: Equatable {
         paperBackground: WKColor.beige100,
         midBackground: WKColor.beige300,
         baseBackground: WKColor.beige400,
+        popoverBackground: WKColor.beige100,
         icon: WKColor.taupe600,
         iconBackground: WKColor.beige400,
         accessoryBackground: WKColor.beige300,
@@ -129,6 +132,7 @@ public struct WKTheme: Equatable {
         paperBackground: WKColor.gray675,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
+        popoverBackground: WKColor.gray800,
         icon: WKColor.gray300,
         iconBackground: WKColor.gray675,
         accessoryBackground: WKColor.gray700,
@@ -165,6 +169,7 @@ public struct WKTheme: Equatable {
         paperBackground: WKColor.black,
         midBackground: WKColor.gray700,
         baseBackground: WKColor.gray800,
+        popoverBackground: WKColor.gray700,
         icon: WKColor.gray300,
         iconBackground: WKColor.gray675,
         accessoryBackground: WKColor.gray700,

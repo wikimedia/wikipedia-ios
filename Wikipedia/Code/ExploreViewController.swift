@@ -859,8 +859,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let suggestedEditsCards = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
-        guard !suggestedEditsCards.isEmpty else {
+        let suggestedEditsCardObjects = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
+        guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
             return
         }
         
@@ -877,6 +877,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
+        guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
+            return
+        }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath),
+        let sourceRect = cell.superview?.convert(cell.frame, to: view) else {
+            return
+        }
+        
         let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WKIcon.checkPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
@@ -887,9 +896,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             navigationController?.pushViewController(imageRecommendationViewController, animated: true)
             
         })
-        announceFeature(viewModel: viewModel)
         
-        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+
+       imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
     }
 }
 
