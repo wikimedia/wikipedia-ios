@@ -60,7 +60,6 @@
                     NSURL *URL = [WMFContentGroup suggestedEditsURL];
 
                     [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedDidAddImageRecommendationsCardNotification object:nil];
                 }
             }
             

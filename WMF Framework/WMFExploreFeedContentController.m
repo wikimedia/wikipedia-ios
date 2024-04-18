@@ -23,7 +23,6 @@ NSString *const WMFExploreFeedPreferencesGlobalCardsKey = @"WMFExploreFeedPrefer
 NSString *const WMFExploreFeedPreferencesDidChangeNotification = @"WMFExploreFeedPreferencesDidChangeNotification";
 NSString *const WMFExploreFeedPreferencesDidSaveNotification = @"WMFExploreFeedPreferencesDidSaveNotification";
 NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewExploreFeedPreferencesWereRejectedNotification";
-NSString *const WMFExploreFeedDidAddImageRecommendationsCardNotification = @"WMFNewExploreFeedDidAddImageRecommendationsCardNotification";
 
 @interface WMFExploreFeedContentController () <WMFBackgroundFetcher>
 

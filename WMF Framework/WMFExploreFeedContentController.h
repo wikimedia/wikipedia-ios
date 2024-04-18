@@ -11,7 +11,6 @@ extern NSString *const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *const WMFExploreFeedPreferencesDidChangeNotification;
 extern NSString *const WMFExploreFeedPreferencesDidSaveNotification;
 extern NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification;
-extern NSString *const WMFExploreFeedDidAddImageRecommendationsCardNotification;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 

@@ -40,7 +40,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(exloreFeedDidAddImageRecommendationsCard(_:)), name: NSNotification.Name.WMFExploreFeedDidAddImageRecommendationsCard, object: nil)
     }
     
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -62,9 +61,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
-        #if UITEST
+#if UITEST
         presentUITestHelperController()
-        #endif
+#endif
+        
+        presentImageRecommendationsFeatureAnnouncementIfNeeded()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -853,6 +854,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
         
+        guard let fetchedResultsController,
+            let groups = fetchedResultsController.fetchedObjects else {
+            return
+        }
+        
+        let suggestedEditsCards = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
+        guard !suggestedEditsCards.isEmpty else {
+            return
+        }
+        
         guard presentedViewController == nil else {
             return
         }
@@ -1127,12 +1138,6 @@ extension ExploreViewController {
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
-    }
-    
-    @objc func exloreFeedDidAddImageRecommendationsCard(_ note: Notification) {
-        DispatchQueue.main.async {
-            self.presentImageRecommendationsFeatureAnnouncementIfNeeded()
-        }
     }
 
 }
