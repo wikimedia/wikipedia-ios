@@ -175,6 +175,10 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .captionEntry, action: .advancedSettingOpen)
     }
     
+    func logPreviewDidAppear() {
+        logEvent(activeInterface: .captionPreview, action: .impression)
+    }
+    
     func logPreviewDidTapBack() {
         logEvent(activeInterface: .captionPreview, action: .back)
     }

@@ -1242,6 +1242,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
             editPreviewViewController.languageCode = articleURL.wmf_languageCode
             editPreviewViewController.wikitext = wikitextWithImage
             editPreviewViewController.delegate = self
+            editPreviewViewController.loggingDelegate = self
 
             navigationController?.pushViewController(editPreviewViewController, animated: true)
         } catch let error {
@@ -1445,5 +1446,19 @@ extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegat
     
     func insertMediaSettingsViewControllerDidTapAdvancedSettings() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAdvancedSettings()
+    }
+}
+
+extension ExploreViewController: EditPreviewViewControllerLoggingDelegate {
+    func logEditPreviewDidAppear() {
+        ImageRecommendationsFunnel.shared.logPreviewDidAppear()
+    }
+    
+    func logEditPreviewDidTapBack() {
+        ImageRecommendationsFunnel.shared.logPreviewDidTapBack()
+    }
+    
+    func logEditPreviewDidTapNext() {
+        ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
     }
 }
