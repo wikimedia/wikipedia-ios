@@ -18,6 +18,14 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logTooltipsDidTapFirstNext()
     func logTooltipsDidTapSecondNext()
     func logTooltipsDidTapThirdOK()
+    func logBottomSheetDidAppear()
+    func logBottomSheetDidTapYes()
+    func logBottomSheetDidTapNo()
+    func logBottomSheetDidTapNotSure()
+    func logOverflowDidTapLearnMore()
+    func logOverflowDidTapTutorial()
+    func logOverflowDidTapProblem()
+    func logBottomSheetDidTapFileName()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -48,13 +56,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private var overflowMenu: UIMenu {
 
         let learnMore = UIAction(title: viewModel.localizedStrings.learnMoreButtonTitle, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapLearnMore()
             self?.goToFAQ()
         })
         let tutorial = UIAction(title: viewModel.localizedStrings.tutorialButtonTitle, image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapTutorial()
             self?.showTutorial()
         })
 
         let reportIssues = UIAction(title: viewModel.localizedStrings.problemWithFeatureButtonTitle, image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapProblem()
             self?.reportIssue()
         })
 
@@ -73,7 +84,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
-        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate)
+        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
     }
 
@@ -133,6 +144,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             bottomSheet.prefersGrabberVisible = true
             bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
+        
         navigationController?.present(imageRecommendationBottomSheetController, animated: true, completion: {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in

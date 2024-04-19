@@ -1375,6 +1375,7 @@ extension ExploreViewController: WKFeatureAnnouncing {
 }
 
 extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
+    
     func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
     }
@@ -1393,5 +1394,37 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     
     func logTooltipsDidTapThirdOK() {
         ImageRecommendationsFunnel.shared.logTooltipDidTapThirdOk()
+    }
+    
+    func logBottomSheetDidAppear() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
+    }
+    
+    func logBottomSheetDidTapYes() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapYes()
+    }
+    
+    func logBottomSheetDidTapNo() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNo()
+    }
+    
+    func logBottomSheetDidTapNotSure() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNotSure()
+    }
+    
+    func logOverflowDidTapLearnMore() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapLearnMore()
+    }
+    
+    func logOverflowDidTapTutorial() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapTutorial()
+    }
+    
+    func logOverflowDidTapProblem() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapProblem()
+    }
+    
+    func logBottomSheetDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapFileName()
     }
 }
