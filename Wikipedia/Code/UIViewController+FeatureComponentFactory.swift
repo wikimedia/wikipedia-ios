@@ -3,10 +3,11 @@ import Components
 import WMF
 
 extension WKImageRecommendationsViewController {
-    static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WKImageRecommendationsDelegate?) -> WKImageRecommendationsViewController? {
+    static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> WKImageRecommendationsViewController? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wkProject,
-              let imageRecDelegate = imageRecDelegate else {
+              let imageRecDelegate,
+              let imageRecLoggingDelegate else {
             return nil
         }
 
@@ -55,7 +56,7 @@ extension WKImageRecommendationsViewController {
         let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
 
         let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings, needsSuppressPosting: FeatureFlags.needsImageRecommendationsSuppressPosting)
-        let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
+        let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
     }
 }

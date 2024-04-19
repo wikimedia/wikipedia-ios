@@ -12,6 +12,11 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
 }
 
+public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
+    func logOnboardingDidClickPrimaryButton()
+    func logOnboardingDidClickSecondaryButton()
+}
+
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
     init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
@@ -32,6 +37,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     private weak var delegate: WKImageRecommendationsDelegate?
+    private weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
     @ObservedObject private var viewModel: WKImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
@@ -59,9 +65,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 	private let dataController = WKImageRecommendationsDataController()
     private let tooltipGeometryValues = WKTooltipGeometryValues()
 
-    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, tooltipGeometryValues: tooltipGeometryValues)
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate)
         super.init()
@@ -251,6 +258,8 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
             }
         })
+        
+        loggingDelegate?.logOnboardingDidClickPrimaryButton()
 	}
 
 	public func onboardingViewDidClickSecondaryButton() {
@@ -259,6 +268,8 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 		}
 
 		UIApplication.shared.open(url)
+        
+        loggingDelegate?.logOnboardingDidClickSecondaryButton()
 	}
 
     public func onboardingViewWillSwipeToDismiss() {
