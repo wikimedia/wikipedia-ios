@@ -71,6 +71,16 @@ final class ImageRecommendationsFunnel: NSObject {
         }
     }
     
+    // The Image Recommendations feature is displayed only for the app primary language, so this is a shortcut to get that value. If the business logic changes to include secondary language recommendations, we will need to inject project into each method based on which wiki the recommendation is on.
+    
+    private lazy var project: WikimediaProject? = {
+        guard let appLanguage = MWKDataStore.shared().languageLinkController.appLanguage else {
+            return nil
+        }
+        
+        return WikimediaProject(siteURL: appLanguage.siteURL)
+    }()
+    
     private func logEvent(activeInterface: ActiveInterface? = nil, action: Action? = nil, actionData: [String: String]? = nil, project: WikimediaProject? = nil) {
         
         var actionDataString: String? = nil
@@ -92,115 +102,115 @@ final class ImageRecommendationsFunnel: NSObject {
     }
     
     func logExploreDidTapFeatureAnnouncementPrimaryButton() {
-        logEvent(activeInterface: .onboardingStep1Dialog, action: .startTooltips)
+        logEvent(activeInterface: .onboardingStep1Dialog, action: .startTooltips, project: project)
     }
     
     func logOnboardingDidTapContinue() {
-        logEvent(activeInterface: .onboardingStep2Dialog, action: .next)
+        logEvent(activeInterface: .onboardingStep2Dialog, action: .next, project: project)
     }
     
     func logOnboardingDidTapLearnMore() {
-        logEvent(activeInterface: .onboardingStep2Dialog, action: .learnMore)
+        logEvent(activeInterface: .onboardingStep2Dialog, action: .learnMore, project: project)
     }
     
     func logTooltipDidTapFirstNext() {
-        logEvent(activeInterface: .onboardingStep3Dialog, action: .next)
+        logEvent(activeInterface: .onboardingStep3Dialog, action: .next, project: project)
     }
     
     func logTooltipDidTapSecondNext() {
-        logEvent(activeInterface: .onboardingStep4Dialog, action: .next)
+        logEvent(activeInterface: .onboardingStep4Dialog, action: .next, project: project)
     }
     
     func logTooltipDidTapThirdOk() {
-        logEvent(activeInterface: .onboardingStep5Dialog, action: .completeTooltips)
+        logEvent(activeInterface: .onboardingStep5Dialog, action: .completeTooltips, project: project)
     }
     
     func logExploreCardDidTapAddImage() {
-        logEvent(activeInterface: .suggestedEditsDialog, action: .addImageStart)
+        logEvent(activeInterface: .suggestedEditsDialog, action: .addImageStart, project: project)
     }
     
     func logBottomSheetDidAppear() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .impression)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .impression, project: project)
     }
     
     func logBottomSheetDidTapYes() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionAccept)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionAccept, project: project)
     }
     
     func logBottomSheetDidTapNo() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionReject)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionReject, project: project)
     }
     
     func logBottomSheetDidTapNotSure() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionSkip)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .suggestionSkip, project: project)
     }
     
     func logOverflowDidTapLearnMore() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowLearnMore)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowLearnMore, project: project)
     }
     
     func logOverflowDidTapTutorial() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowTutorial)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowTutorial, project: project)
     }
     
     func logOverflowDidTapProblem() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowReport)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .overflowReport, project: project)
     }
     
     func logBottomSheetDidTapFileName() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .imageDetailView)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .imageDetailView, project: project)
     }
     
     func logCommonsWebViewDidAppear() {
-        logEvent(activeInterface: .imageDetailsDialog, action: .impression)
+        logEvent(activeInterface: .imageDetailsDialog, action: .impression, project: project)
     }
     
     func logAddImageDetailsDidAppear() {
-        logEvent(activeInterface: .captionEntry, action: .impression)
+        logEvent(activeInterface: .captionEntry, action: .impression, project: project)
     }
     
     func logAddImageDetailsDidTapFileName() {
-        logEvent(activeInterface: .captionEntry, action: .imageDetailView)
+        logEvent(activeInterface: .captionEntry, action: .imageDetailView, project: project)
     }
     
     func logAddImageDetailsDidTapCaptionLearnMore() {
-        logEvent(activeInterface: .captionEntry, action: .viewCaptionHelp)
+        logEvent(activeInterface: .captionEntry, action: .viewCaptionHelp, project: project)
     }
     
     func logAddImageDetailsDidTapAltTextLearnMore() {
-        logEvent(activeInterface: .captionEntry, action: .viewAltTextHelp)
+        logEvent(activeInterface: .captionEntry, action: .viewAltTextHelp, project: project)
     }
     
     func logAddImageDetailsDidTapAdvancedSettings() {
-        logEvent(activeInterface: .captionEntry, action: .advancedSettingOpen)
+        logEvent(activeInterface: .captionEntry, action: .advancedSettingOpen, project: project)
     }
     
     func logPreviewDidAppear() {
-        logEvent(activeInterface: .captionPreview, action: .impression)
+        logEvent(activeInterface: .captionPreview, action: .impression, project: project)
     }
     
     func logPreviewDidTapBack() {
-        logEvent(activeInterface: .captionPreview, action: .back)
+        logEvent(activeInterface: .captionPreview, action: .back, project: project)
     }
     
     func logPreviewDidTapNext() {
-        logEvent(activeInterface: .captionPreview, action: .next)
+        logEvent(activeInterface: .captionPreview, action: .next, project: project)
     }
     
     func logSaveChangesDidAppear() {
-        logEvent(activeInterface: .editSummaryDialog, action: .impression)
+        logEvent(activeInterface: .editSummaryDialog, action: .impression, project: project)
     }
     
     func logSaveChangesDidTapBack() {
-        logEvent(activeInterface: .editSummaryDialog, action: .back)
+        logEvent(activeInterface: .editSummaryDialog, action: .back, project: project)
     }
     
     func logSaveChangesDidTapMinorEditsLearnMore() {
-        logEvent(activeInterface: .editSummaryDialog, action: .viewEditHelp)
+        logEvent(activeInterface: .editSummaryDialog, action: .viewEditHelp, project: project)
     }
     
     func logSaveChangesDidTapWatchlistLearnMore() {
-        logEvent(activeInterface: .editSummaryDialog, action: .viewWatchlistHelp)
+        logEvent(activeInterface: .editSummaryDialog, action: .viewWatchlistHelp, project: project)
     }
     
     func logSaveChangesDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool) {
@@ -212,7 +222,7 @@ final class ImageRecommendationsFunnel: NSObject {
             actionData["remove_watchlist"] = "true"
         }
         
-        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:actionData)
+        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:actionData, project: project)
     }
     
     func logSaveChangesPublishSuccess(revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
@@ -222,15 +232,15 @@ final class ImageRecommendationsFunnel: NSObject {
                      "capion_add": "\(captionAdded)",
                      "alt_text_add": "\(altTextAdded)",
                      "summary_add": "\(summaryAdded)"]
-        )
+        , project: project)
     }
     
     func logRejectSurveyDidAppear() {
-        logEvent(activeInterface: .rejectionDialog, action: .impression)
+        logEvent(activeInterface: .rejectionDialog, action: .impression, project: project)
     }
     
     func logRejectSurveyDidTapCancel() {
-        logEvent(activeInterface: .rejectionDialog, action: .rejectCancel)
+        logEvent(activeInterface: .rejectionDialog, action: .rejectCancel, project: project)
     }
     
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String) {
@@ -246,20 +256,20 @@ final class ImageRecommendationsFunnel: NSObject {
             actionData["rejection_text"] = otherReason
         }
         
-        logEvent(activeInterface: .rejectionDialog, action: .rejectSubmit, actionData: actionData)
+        logEvent(activeInterface: .rejectionDialog, action: .rejectSubmit, actionData: actionData, project: project)
     }
     
     func logEmptyStateDidTapBack() {
-        logEvent(activeInterface: .noSuggestionsDialog, action: .noSuggestionsBack)
+        logEvent(activeInterface: .noSuggestionsDialog, action: .noSuggestionsBack, project: project)
     }
     
     func logSettingsToggleSuggestedEditsCard(isOn: Bool) {
         let action = isOn ? Action.enableSuggestedEdits : Action.disableSuggestedEdits
-        logEvent(activeInterface: .exploreSettings, action: action)
+        logEvent(activeInterface: .exploreSettings, action: action, project: project)
     }
     
     func logSettingsDidDisableSuggestedEditsCard() {
-        logEvent(activeInterface: .exploreSettings, action: .disableSuggestedEdits)
+        logEvent(activeInterface: .exploreSettings, action: .disableSuggestedEdits, project: project)
     }
     
     func logSaveChangesPublishFail(abortSource: String?) {
@@ -267,6 +277,6 @@ final class ImageRecommendationsFunnel: NSObject {
         if let abortSource {
             actionData?["abort_source"] = abortSource
         }
-        logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData)
+        logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData, project: project)
     }
 }
