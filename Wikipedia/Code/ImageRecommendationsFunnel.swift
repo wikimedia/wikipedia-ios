@@ -253,8 +253,9 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .noSuggestionsDialog, action: .noSuggestionsBack)
     }
     
-    func logSettingsDidEnableSuggestedEditsCard() {
-        logEvent(activeInterface: .exploreSettings, action: .enableSuggestedEdits)
+    func logSettingsToggleSuggestedEditsCard(isOn: Bool) {
+        let action = isOn ? Action.enableSuggestedEdits : Action.disableSuggestedEdits
+        logEvent(activeInterface: .exploreSettings, action: action)
     }
     
     func logSettingsDidDisableSuggestedEditsCard() {
