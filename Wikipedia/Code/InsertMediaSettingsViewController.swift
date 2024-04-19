@@ -8,6 +8,7 @@ protocol InsertMediaSettingsViewControllerDelegate: ViewController {
 }
 
 protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
+    func logInsertMediaSettingsViewControllerDidAppear()
     func logInsertMediaSettingsViewControllerDidTapFileName()
     func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
     func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
@@ -18,7 +19,7 @@ final class InsertMediaSettingsViewController: ViewController {
     
     private let fromImageRecommendations: Bool
     private weak var delegate: InsertMediaSettingsViewControllerDelegate?
-    private weak var loggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?
+    private weak var imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
@@ -154,7 +155,7 @@ final class InsertMediaSettingsViewController: ViewController {
         imageView.title = searchResult.displayTitle
         imageView.titleURL = imageTitle
         imageView.titleAction = { [weak self] url in
-            self?.loggingDelegate?.logInsertMediaSettingsViewControllerDidTapFileName()
+            self?.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapFileName()
             self?.navigate(to: url, useSafari: false)
         }
         imageView.autoresizingMask = []
@@ -171,7 +172,7 @@ final class InsertMediaSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
-            loggingDelegate?.logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
+            imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
             self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
@@ -214,12 +215,12 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, loggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
         self.delegate = delegate
-        self.loggingDelegate = loggingDelegate
+        self.imageRecLoggingDelegate = imageRecLoggingDelegate
         super.init()
         self.theme = theme
     }
@@ -293,6 +294,8 @@ final class InsertMediaSettingsViewController: ViewController {
         super.viewDidAppear(animated)
         
         UIAccessibility.post(notification: .screenChanged, argument: nil)
+        
+        imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidAppear()
     }
 
     override func viewDidLayoutSubviews() {
@@ -364,9 +367,9 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
             
             switch viewModel.type {
             case .caption:
-                self.loggingDelegate?.logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
             case .alternativeText:
-                self.loggingDelegate?.logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
             }
             
             self.navigate(to: url, useSafari: false)

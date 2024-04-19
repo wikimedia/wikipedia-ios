@@ -17,7 +17,7 @@ final class ImageRecommendationsFunnel: NSObject {
         case captionPreview = "caption_preview"
         case editSummaryDialog = "editsummary_dialog"
         case rejectionDialog = "rejection_dialog"
-        case noSuggestionsDialog = "no_suggestions_dialog"
+        case noSuggestionsDialog = "nosuggestions_dialog"
         case exploreSettings = "explore_settings"
     }
     
@@ -32,8 +32,8 @@ final class ImageRecommendationsFunnel: NSObject {
         case suggestionReject = "suggestion_reject"
         case suggestionSkip = "suggestion_skip"
         case overflowLearnMore = "overflow_learn_more"
-        case overflowTutorial = "overflow_learn_tutorial"
-        case overflowReport = "overflow_learn_report"
+        case overflowTutorial = "overflow_tutorial"
+        case overflowReport = "overflow_report"
         case imageDetailView = "image_detail_view"
         case viewCaptionHelp = "view_caption_help"
         case viewAltTextHelp = "view_alt_text_help"
@@ -194,7 +194,7 @@ final class ImageRecommendationsFunnel: NSObject {
     }
     
     func logPreviewDidTapNext() {
-        logEvent(activeInterface: .captionPreview, action: .next, project: project)
+        logEvent(activeInterface: .captionPreview, action: .captionPreviewAccept, project: project)
     }
     
     func logSaveChangesDidAppear() {
@@ -213,21 +213,20 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .editSummaryDialog, action: .viewWatchlistHelp, project: project)
     }
     
-    func logSaveChangesDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool) {
-        var actionData: [String: String] =  ["minor_edit": "\(minorEditEnabled)"]
-        
-        if watchlistEnabled && !pageWasInWatchlist {
-            actionData["add_watchlist"] = "true"
-        } else if !watchlistEnabled && pageWasInWatchlist {
-            actionData["remove_watchlist"] = "true"
-        }
-        
+    func logSaveChangesDidToggleWatchlist(isOn: Bool) {
+        let action = isOn ? Action.addWatchlist : Action.removeWatchlist
+        logEvent(activeInterface: .editSummaryDialog, action: action, project: project)
+    }
+    
+    func logSaveChangesDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
+        let actionData: [String: String] =  ["minor_edit": "\(minorEditEnabled)", "watchlist_added": "\(watchlistEnabled)"]
+
         logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:actionData, project: project)
     }
     
     func logSaveChangesPublishSuccess(revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
         // TODO: Time Spent, don't know how that should be tracked
-        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:
+        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySuccess, actionData:
                     ["revision_id": "\(revisionID)",
                      "capion_add": "\(captionAdded)",
                      "alt_text_add": "\(altTextAdded)",
@@ -275,7 +274,7 @@ final class ImageRecommendationsFunnel: NSObject {
     func logSaveChangesPublishFail(abortSource: String?) {
         var actionData: [String : String]?
         if let abortSource {
-            actionData?["abort_source"] = abortSource
+            actionData = ["abort_source": abortSource]
         }
         logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData, project: project)
     }

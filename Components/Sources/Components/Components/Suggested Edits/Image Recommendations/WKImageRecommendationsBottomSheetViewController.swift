@@ -86,11 +86,10 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func didTapYesButton() {
-        loggingDelegate?.logBottomSheetDidTapYes()
-        
         if let imageData = viewModel.currentRecommendation?.imageData, let title = viewModel.currentRecommendation?.title {
             self.dismiss(animated: true) {
                 self.delegate?.imageRecommendationsUserDidTapInsertImage(viewModel: self.viewModel, title: title, with: imageData)
+                self.loggingDelegate?.logBottomSheetDidTapYes()
             }
         }
     }
@@ -107,17 +106,22 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 			},
 			submitAction: { [weak self] reasons in
                 
+                guard let self else {
+                    return
+                }
+                
                 // Logging
                 let rejectionReasons = reasons.map { $0.apiIdentifier }
                 let otherReason = reasons.first(where: {$0.otherText != nil})
-                self?.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText)
+                
+                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: self.viewModel.currentRecommendation?.imageData.filename)
                 
                 // Send feedback API call
-                self?.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
+                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
                     
                 })
                 // Dismisses Survey View
-                self?.dismiss(animated: true, completion: { [weak self] in
+                self.dismiss(animated: true, completion: { [weak self] in
                     // Dismisses Bottom Sheet
                     self?.dismiss(animated: true, completion: { [weak self] in
                         self?.viewModel.next {

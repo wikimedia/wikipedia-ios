@@ -27,7 +27,8 @@ protocol EditSaveViewControllerImageRecLoggingDelegate: AnyObject {
     func logEditSaveViewControllerDidTapBack()
     func logEditSaveViewControllerDidTapMinorEditsLearnMore()
     func logEditSaveViewControllerDidTapWatchlistLearnMore()
-    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool)
+    func logEditSaveViewControllerDidToggleWatchlist(isOn: Bool)
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool)
     func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool)
     func logEditSaveViewControllerLogPublishFailed(abortSource: String?)
 }
@@ -62,7 +63,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var needsSuppressPosting: Bool = false
     var editSummaryTag: WKEditSummaryTag?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
-    private var pageWasInWatchlist = false
     weak var delegate: EditSaveViewControllerDelegate?
     weak var pageEditorLoggingDelegate: EditSaveViewControllerPageEditorLoggingDelegate?
     weak var imageRecLoggingDelegate: EditSaveViewControllerImageRecLoggingDelegate?
@@ -221,6 +221,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             addToWatchlistToggle.isOn = savedData.shouldAddToWatchList
         }
         
+        addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
     }
 
@@ -238,6 +239,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         licenseLoginTextView.textAlignment = semanticContentAttibute == .forceRightToLeft ? .right : .left
         licenseTitleTextView.semanticContentAttribute = semanticContentAttibute
         licenseTitleTextView.textAlignment = semanticContentAttibute == .forceRightToLeft ? .right : .left
+    }
+    
+    @objc private func toggledWatchlist() {
+        imageRecLoggingDelegate?.logEditSaveViewControllerDidToggleWatchlist(isOn: addToWatchlistToggle.isOn)
     }
 
     private func setupButtonsAndTitle() {
@@ -296,9 +301,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             DispatchQueue.main.async {
                 switch result {
                 case .success(let status):
-                    if status.watched {
-                        self?.pageWasInWatchlist = true
-                    }
                     self?.addToWatchlistToggle.isOn = status.watched
                 case .failure:
                     break
@@ -353,17 +355,20 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
+        let isMinor = minorEditToggle.isOn
+        
         if let source,
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
-            let isMinor = minorEditToggle.isOn
-            let isWatchlist = addToWatchlistToggle.isOn
             
             pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
-            imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatchlist, pageWasInWatchlist: pageWasInWatchlist)
             
         }
+        
+        let isWatchlist = addToWatchlistToggle.isOn
+        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatchlist)
+        
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
         let section: String?
@@ -408,16 +413,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        if let source,
-           let pageURL,
+        if let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             
-            pageEditorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+            if let source {
+                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+            }
             
             EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
             
-            imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !summaryText.isEmpty)
         }
+        
+        imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !summaryText.isEmpty)
         
         notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
     }
@@ -514,16 +521,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
         }
         
-        if let source,
-           let pageURL,
+        if let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             
-            pageEditorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
+            if let source {
+                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
+            }
+            
             
             EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
-            
-            imageRecLoggingDelegate?.logEditSaveViewControllerLogPublishFailed(abortSource: problemSource?.rawValue)
         }
+        
+        imageRecLoggingDelegate?.logEditSaveViewControllerLogPublishFailed(abortSource: problemSource?.rawValue)
     }
     
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {

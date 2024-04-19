@@ -1213,7 +1213,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, loggingDelegate: nil, theme: theme)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
@@ -1432,14 +1432,13 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
         ImageRecommendationsFunnel.shared.logRejectSurveyDidTapCancel()
     }
     
-    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?) {
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String?) {
         
-        guard let viewModel = imageRecommendationsViewModel,
-              let currentRecommendation = viewModel.currentRecommendation else {
+        guard let fileName else {
             return
         }
         
-        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: currentRecommendation.imageData.filename)
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: fileName)
     }
     
     func logEmptyStateDidTapBack() {
@@ -1448,8 +1447,12 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
-    func logInsertMediaSettingsViewControllerDidTapFileName() {
+    func logInsertMediaSettingsViewControllerDidAppear() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidAppear()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapFileName()
     }
     
     func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore() {
@@ -1505,8 +1508,12 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
         ImageRecommendationsFunnel.shared.logSaveChangesDidTapWatchlistLearnMore()
     }
     
-    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool) {
-        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled, pageWasInWatchlist: pageWasInWatchlist)
+    func logEditSaveViewControllerDidToggleWatchlist(isOn: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidToggleWatchlist(isOn: isOn)
+    }
+    
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled)
     }
     
     func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool) {
