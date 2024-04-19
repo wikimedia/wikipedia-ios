@@ -1389,6 +1389,14 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     }
     
     func logBottomSheetDidTapYes() {
+        
+        if let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
+        }
+        
         ImageRecommendationsFunnel.shared.logBottomSheetDidTapYes()
     }
     
@@ -1445,6 +1453,14 @@ extension ExploreViewController: EditPreviewViewControllerLoggingDelegate {
     }
     
     func logEditPreviewDidTapNext() {
+        
+        if let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
+        }
+        
         ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
     }
 }
