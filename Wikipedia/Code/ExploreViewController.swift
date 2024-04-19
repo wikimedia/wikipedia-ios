@@ -1367,11 +1367,23 @@ extension ExploreViewController: WKFeatureAnnouncing {
 }
 
 extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
-    func logOnboardingDidClickPrimaryButton() {
+    func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
     }
     
-    func logOnboardingDidClickSecondaryButton() {
+    func logOnboardingDidTapSecondaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapLearnMore()
+    }
+    
+    func logTooltipsDidTapFirstNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapFirstNext()
+    }
+    
+    func logTooltipsDidTapSecondNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapSecondNext()
+    }
+    
+    func logTooltipsDidTapThirdOK() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapThirdOk()
     }
 }

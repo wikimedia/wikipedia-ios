@@ -13,8 +13,11 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
-    func logOnboardingDidClickPrimaryButton()
-    func logOnboardingDidClickSecondaryButton()
+    func logOnboardingDidTapPrimaryButton()
+    func logOnboardingDidTapSecondaryButton()
+    func logTooltipsDidTapFirstNext()
+    func logTooltipsDidTapSecondNext()
+    func logTooltipsDidTapThirdOK()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -183,16 +186,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             articleSummaryDivSourceRect = divGlobalFrame
         }
         
-        let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) {
-            print("do some logging 1")
+        let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapFirstNext()
         }
         
-        let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) {
-            print("do some logging 2")
+        let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapSecondNext()
         }
         
-        let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) {
-            print("do some logging 3")
+        let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapThirdOK()
         }
         
         bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
@@ -259,7 +262,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
             }
         })
         
-        loggingDelegate?.logOnboardingDidClickPrimaryButton()
+        loggingDelegate?.logOnboardingDidTapPrimaryButton()
 	}
 
 	public func onboardingViewDidClickSecondaryButton() {
@@ -269,7 +272,7 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
 		UIApplication.shared.open(url)
         
-        loggingDelegate?.logOnboardingDidClickSecondaryButton()
+        loggingDelegate?.logOnboardingDidTapSecondaryButton()
 	}
 
     public func onboardingViewWillSwipeToDismiss() {
