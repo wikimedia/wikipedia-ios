@@ -29,6 +29,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logRejectSurveyDidAppear()
     func logRejectSurveyDidTapCancel()
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?)
+    func logEmptyStateDidTapBack()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -101,6 +102,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
         addComponent(hostingViewController, pinToEdges: true)
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +137,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
+    
+    @objc private func tappedBack() {
+        
+        if viewModel.imageRecommendations.isEmpty {
+            loggingDelegate?.logEmptyStateDidTapBack()
+        }
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.popViewController(animated: true)
+    }
 
     private func setupOverflowMenu() {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)

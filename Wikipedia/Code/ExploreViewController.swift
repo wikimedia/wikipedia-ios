@@ -1441,6 +1441,10 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
         
         ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: currentRecommendation.imageData.filename)
     }
+    
+    func logEmptyStateDidTapBack() {
+        ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
