@@ -1356,22 +1356,6 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidTapShowWebPreview() {
         assertionFailure("This should not be called in the Image Recommendations context")
     }
-    
-    func editSaveViewControllerLogDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject) {
-        
-    }
 }
 
 extension ExploreViewController: WKFeatureAnnouncing {
