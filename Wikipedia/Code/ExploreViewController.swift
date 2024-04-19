@@ -1213,7 +1213,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, theme: theme)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, loggingDelegate: nil, theme: theme)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
@@ -1427,5 +1427,23 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     
     func logBottomSheetDidTapFileName() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidTapFileName()
+    }
+}
+
+extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
+    func insertMediaSettingsViewControllerDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidAppear()
+    }
+    
+    func insertMediaSettingsViewControllerDidTapCaptionLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapCaptionLearnMore()
+    }
+    
+    func insertMediaSettingsViewControllerDidTapAltTextLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAltTextLearnMore()
+    }
+    
+    func insertMediaSettingsViewControllerDidTapAdvancedSettings() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAdvancedSettings()
     }
 }

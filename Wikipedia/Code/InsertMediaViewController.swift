@@ -106,7 +106,7 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, theme: theme)
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, loggingDelegate: nil, theme: theme)
 
         navigationController.pushViewController(settingsViewController, animated: true)
     }
