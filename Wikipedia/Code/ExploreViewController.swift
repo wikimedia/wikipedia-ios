@@ -542,6 +542,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
             
+            if vc is WKImageRecommendationsViewController {
+                ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+            }
+            
             push(vc, animated: true)
             return
         }
@@ -688,6 +692,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
         if let otdvc = vc as? OnThisDayViewController {
             otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
+        }
+        
+        if vc is WKImageRecommendationsViewController {
+            ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
         }
         
         presentedContentGroupKey = contentGroup.key
