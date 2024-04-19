@@ -101,9 +101,18 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 		let surveyView = WKImageRecommendationsSurveyView(
 			viewModel: WKImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
 			cancelAction: { [weak self] in
+                self?.loggingDelegate?.logRejectSurveyDidTapCancel()
+                
 				self?.dismiss(animated: true)
 			},
 			submitAction: { [weak self] reasons in
+                
+                // Logging
+                let rejectionReasons = reasons.map { $0.apiIdentifier }
+                let otherReason = reasons.first(where: {$0.otherText != nil})
+                self?.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText)
+                
+                // Send feedback API call
                 self?.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
                     
                 })
@@ -120,6 +129,8 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 
 		let hostedView = WKComponentHostingController(rootView: surveyView)
 		present(hostedView, animated: true)
+        
+        loggingDelegate?.logRejectSurveyDidAppear()
     }
 
     func didTapSkipButton() {

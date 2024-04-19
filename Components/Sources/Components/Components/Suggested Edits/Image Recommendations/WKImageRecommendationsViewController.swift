@@ -26,6 +26,9 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logOverflowDidTapTutorial()
     func logOverflowDidTapProblem()
     func logBottomSheetDidTapFileName()
+    func logRejectSurveyDidAppear()
+    func logRejectSurveyDidTapCancel()
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {

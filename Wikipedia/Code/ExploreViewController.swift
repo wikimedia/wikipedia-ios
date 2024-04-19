@@ -1423,6 +1423,24 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     func logBottomSheetDidTapFileName() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidTapFileName()
     }
+    
+    func logRejectSurveyDidAppear() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidAppear()
+    }
+    
+    func logRejectSurveyDidTapCancel() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapCancel()
+    }
+    
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: currentRecommendation.imageData.filename)
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
