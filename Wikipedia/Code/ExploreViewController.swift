@@ -1221,7 +1221,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
         
         guard let viewModel = imageRecommendationsViewModel,
         let currentRecommendation = viewModel.currentRecommendation,
@@ -1232,6 +1232,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         }
         
         currentRecommendation.caption = caption
+        currentRecommendation.altText = altText
         
         do {
             let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
@@ -1267,6 +1268,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
+        saveVC.imageRecLoggingDelegate = self
         saveVC.theme = self.theme
         
         navigationController?.pushViewController(saveVC, animated: true)
@@ -1432,19 +1434,19 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
-    func insertMediaSettingsViewControllerDidTapFileName() {
+    func logInsertMediaSettingsViewControllerDidTapFileName() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidAppear()
     }
     
-    func insertMediaSettingsViewControllerDidTapCaptionLearnMore() {
+    func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapCaptionLearnMore()
     }
     
-    func insertMediaSettingsViewControllerDidTapAltTextLearnMore() {
+    func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAltTextLearnMore()
     }
     
-    func insertMediaSettingsViewControllerDidTapAdvancedSettings() {
+    func logInsertMediaSettingsViewControllerDidTapAdvancedSettings() {
         ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAdvancedSettings()
     }
 }
@@ -1461,4 +1463,42 @@ extension ExploreViewController: EditPreviewViewControllerLoggingDelegate {
     func logEditPreviewDidTapNext() {
         ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
     }
+}
+
+extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
+    
+    func logEditSaveViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidAppear()
+    }
+    
+    func logEditSaveViewControllerDidTapBack() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapBack()
+    }
+    
+    func logEditSaveViewControllerDidTapMinorEditsLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapMinorEditsLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidTapWatchlistLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapWatchlistLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled, pageWasInWatchlist: pageWasInWatchlist)
+    }
+    
+    func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+    }
+    
+    func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
+    }
+    
 }

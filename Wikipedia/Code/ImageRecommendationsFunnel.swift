@@ -203,11 +203,16 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .editSummaryDialog, action: .viewWatchlistHelp)
     }
     
-    func logSaveChangesDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
-        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:
-                    ["minor_edit": "\(minorEditEnabled)",
-                     "watchlist_added": "\(watchlistEnabled)"]
-        )
+    func logSaveChangesDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool, pageWasInWatchlist: Bool) {
+        var actionData: [String: String] =  ["minor_edit": "\(minorEditEnabled)"]
+        
+        if watchlistEnabled && !pageWasInWatchlist {
+            actionData["add_watchlist"] = "true"
+        } else if !watchlistEnabled && pageWasInWatchlist {
+            actionData["remove_watchlist"] = "true"
+        }
+        
+        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:actionData)
     }
     
     func logSaveChangesPublishSuccess(revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
@@ -256,7 +261,11 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .exploreSettings, action: .disableSuggestedEdits)
     }
     
-    func logSaveChangesPublishFail(abortSource: String) {
-        logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: ["abort_source": abortSource])
+    func logSaveChangesPublishFail(abortSource: String?) {
+        var actionData: [String : String]?
+        if let abortSource {
+            actionData?["abort_source"] = abortSource
+        }
+        logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData)
     }
 }
