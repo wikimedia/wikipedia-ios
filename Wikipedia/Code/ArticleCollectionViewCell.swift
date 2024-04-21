@@ -16,11 +16,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var _titleBoldedString: String? = nil
     
     private func updateTitleLabel() {
-        if let titleHTML = _titleHTML {
-            let attributedTitle = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
+        if var titleHTML = _titleHTML {
             if let boldString = _titleBoldedString {
-                attributedTitle.applyBoldFont(to: boldString, textStyle: titleTextStyle, matching: traitCollection)
+                titleHTML.applyBoldTag(to: boldString)
             }
+            let attributedTitle = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
             titleLabel.attributedText = attributedTitle
         } else {
             let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
