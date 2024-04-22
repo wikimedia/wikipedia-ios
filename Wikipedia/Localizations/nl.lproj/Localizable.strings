@@ -146,7 +146,6 @@
 "action-unsaved-accessibility-notification" = "Artikel niet meer opgeslagen";
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
-"add-image-learn-more-text" = "Meer lezen";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar en gemakkelijker te lezen Explore-feed. Lokalisatie, prestatieverbeteringen en bugfixes.";
@@ -205,7 +204,6 @@
 "data-migration-status" = "Bijwerken...";
 "description-add-title" = "Beschrijving toevoegen";
 "description-edit-for-article" = "Artikelbeschrijving voor $1";
-"description-edit-learn-more" = "Meer leren";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Door de artikelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de $2 licentie.";
 "description-edit-pencil-introduction" = "Bewerk inleiding";
@@ -327,7 +325,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
-"edit-summary-learn-more-text" = "Meer informatie";
 "edit-summary-placeholder-text" = "Hoe heeft u het artikel verbeterd?";
 "edit-watch-list-learn-more-text" = "Meer over uw volglijst";
 "edit-watch-this-page-text" = "Deze pagina volgen";
@@ -618,6 +615,7 @@
 "languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
+"learn-more-title" = "Meer lezen";
 "logged-out-continue-without-logging-in-button-title" = "Doorgaan zonder aan te melden";
 "logged-out-log-back-in-button-title" = "Opnieuw aanmelden bij uw account";
 "logged-out-subtitle" = "Er is een probleem opgetreden bij het verifiëren van uw account. Als u uw leeslijsten wilt synchroniseren en wilt bewerken onder uw gebruikersnaam, meldt u zich opnieuw aan.";
@@ -1167,7 +1165,6 @@
 "uzbek-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Oezbeeks als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "uzbek-variants-alert-title" = "Updates voor ondersteuning van Oezbeekse variant";
 "vanish-account-continue-button-title" = "Doorgaan";
-"vanish-account-learn-more-text" = "Meer lezen";
 "vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
 "vanish-account-warning-body" = "Verdwijnen is een **laatste redmiddel** en moet je **alleen gebruiken als je voor altijd wilt stoppen met bewerken** en ook om zoveel mogelijk van je vroegere associaties te verbergen.\n\nAccountverwijdering op Wikipedia is voltooid door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen in een proces dat accountverdwijning wordt genoemd. **Verdwijnen garandeert geen volledige anonimiteit en verwijdert geen bijdragen aan de projecten**.";
 "vanish-account-warning-title" = "Waarschuwing";

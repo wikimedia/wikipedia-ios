@@ -175,7 +175,6 @@
 "data-migration-status" = "กำลังปรับปรุง...";
 "description-add-title" = "เพิ่มคำอธิบาย";
 "description-edit-for-article" = "คำอธิบายบทความสำหรับ $1";
-"description-edit-learn-more" = "เรียนรู้เพิ่มเติม";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "การเปลี่ยนคำอธิบายบทความ ถือว่าคุณยอมรับ $1 และคุณตกลงเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างไม่อาจเพิกถอนได้";
 "description-edit-pencil-introduction" = "แก้ไขบทนำ";
@@ -272,7 +271,6 @@
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขการพิมพ์ผิด";
 "edit-summary-choice-linked-words" = "เพิ่มลิงก์";
-"edit-summary-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "edit-summary-placeholder-text" = "คุณปรับปรุงบทความนี้อย่างไร?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
@@ -1000,7 +998,6 @@
 "unwatch" = "เลิกเฝ้าดู";
 "user-title" = "ผู้ใช้";
 "vanish-account-continue-button-title" = "ดำเนินการต่อ";
-"vanish-account-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "vanish-account-username-field" = "ชื่อผู้ใช้และหน้าผู้ใช้";
 "vanish-account-warning-title" = "คำเตือน";
 "variants-alert-dismiss-button" = "ไม่ขอบคุณ";

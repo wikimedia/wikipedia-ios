@@ -128,7 +128,6 @@
 "action-unsaved-accessibility-notification" = "Artikkelen er ikke lenger lagret";
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
-"add-image-learn-more-text" = "Lær mer";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
@@ -187,7 +186,6 @@
 "data-migration-status" = "Oppdaterer …";
 "description-add-title" = "Legg til beskrivelse";
 "description-edit-for-article" = "Artikkelbeskrivelse for $1";
-"description-edit-learn-more" = "Les mer";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ved å endre artikkelbeskrivelsen samtykker jeg til $1 og til å ugjenkallelig slippe bidragene mine under $2-lisensen.";
 "description-edit-pencil-introduction" = "Rediger innledning";
@@ -308,7 +306,6 @@
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
 "edit-summary-choice-fixed-typos" = "Fikset typo";
 "edit-summary-choice-linked-words" = "La til lenker";
-"edit-summary-learn-more-text" = "Lær mer";
 "edit-summary-placeholder-text" = "Hvordan forbedret du artikkelen?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Lær mer om overvåkingslister";
@@ -603,6 +600,7 @@
 "languages-settings-title" = "Språk";
 "languages-title" = "Endre språk";
 "languages-wikipedia" = "Wikipedia-språk";
+"learn-more-title" = "Lær mer";
 "logged-out-continue-without-logging-in-button-title" = "Fortsett uten å logge inn";
 "logged-out-log-back-in-button-title" = "Logg inn på kontoen din igjen";
 "logged-out-subtitle" = "Et problem medførte at du ikke lenger er logget inn. Du må logge inn igjen for å kunne synkronisere leselister og redigere under brukernavnet ditt.";
@@ -1151,7 +1149,6 @@
 "uzbek-variants-alert-body" = "Wikipedia-appen støtter nå følgende usbekiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\noʻzbekcha lotin latinsk usbekisk (uz-latin)\nўзбекча кирилл kyrillisk usbekisk (uz-cyrl)";
 "uzbek-variants-alert-title" = "Oppdateringer i støtte for usbekiske varianter";
 "vanish-account-continue-button-title" = "Fortsett";
-"vanish-account-learn-more-text" = "Les mer";
 "vanish-account-username-field" = "Brukernavn og brukerside";
 "vanish-account-warning-body" = "Forsvinning er en **siste utvei**, og bør **kun brukes hvis du ønsker å slutte å redigere for alltid**, og også skjule så mange som mulig av de tidligere handlingene dine.\n\nKontosletting på Wikipedia gjøres ved å endre kontonavnet ditt slik at andre ikke kan kjenne igjen bidragene i en prosess som kalles kontoforsvinning. **Forsvinning garanterer ikke fullstendig anonymitet, og fjerner ikke bidragene dine fra prosjektene.**";
 "vanish-account-warning-title" = "Advarsel";

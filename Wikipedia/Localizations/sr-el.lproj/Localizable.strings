@@ -162,7 +162,6 @@
 "data-migration-status" = "Ažuriranje...";
 "description-add-title" = "Dodavanje opisa";
 "description-edit-for-article" = "Opis članka za stranicu $1";
-"description-edit-learn-more" = "Saznajte više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Promenom opisa članka, prihvatam $1 i neopozivo objavljujem doprinose pod licencom $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
@@ -282,7 +281,6 @@
 "edit-summary-choice-fixed-grammar" = "Ispravljena pravopisna greška";
 "edit-summary-choice-fixed-typos" = "Ispravljena greška u kucanju";
 "edit-summary-choice-linked-words" = "Dodati linkovi";
-"edit-summary-learn-more-text" = "Saznajte više";
 "edit-summary-placeholder-text" = "Kako ste poboljšali članak?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Saznajte više o listama za nadgledanje";
@@ -1044,7 +1042,6 @@
 "unwatch" = "Prekini nadgledanje";
 "user-title" = "Korisnik";
 "vanish-account-continue-button-title" = "Nastavi";
-"vanish-account-learn-more-text" = "Saznajte više";
 "vanish-account-username-field" = "Korisničko ime i korisnička stranica";
 "vanish-account-warning-body" = "Nestajanje je **poslednja opcija** i treba je koristiti **samo kada želite da zauvek prestanete sa uređivanjem**, kao i da sakrijete što više svojih prošlih asocijacija.\n\nBrisanje naloga na Vikipediji se vrši promenom naziva naloga tako da drugi ne mogu da prepoznaju Vaše doprinose u procesu koji se zove učtivi nestanak. **Nestajanje ne garantuje potpunu anonimnost i ne uklanja doprinose na projektima**.";
 "vanish-account-warning-title" = "Upozorenje";

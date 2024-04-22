@@ -170,7 +170,6 @@
 "data-migration-status" = "Posodabljam ...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis članka za $1";
-"description-edit-learn-more" = "Več o tem";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "S spremembo opisa članka se strinjam s $1 in nepreklicno objavljam svoj prispevek pod licenco $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
@@ -291,7 +290,6 @@
 "edit-summary-choice-fixed-grammar" = "Slovnični popravek";
 "edit-summary-choice-fixed-typos" = "popravek tipkarske napake";
 "edit-summary-choice-linked-words" = "Dodane povezave";
-"edit-summary-learn-more-text" = "Več o tem";
 "edit-summary-placeholder-text" = "Kako ste izboljšali članek?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Več o spiskih nadzorov";
@@ -1134,7 +1132,6 @@
 "uzbek-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednji različici uzbeščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\noʻzbekcha lotin – uzbeščina, latinica (uz-latin)\nўзбекча кирилл – uzbeščina, cirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Posodobitve podpore za uzbeške različice";
 "vanish-account-continue-button-title" = "Nadaljuj";
-"vanish-account-learn-more-text" = "Več o tem";
 "vanish-account-username-field" = "Uporabniško ime in uporabniška stran";
 "vanish-account-warning-body" = "Izginotje je **skrajni ukrep** in ga **uporabite le, če želite za vedno prenehati z urejanjem** in tudi, da skrijete čim več svojih preteklih povezav.\n\nIzbris računa v Wikipediji se v postopku, imenovanem izginotje računa, opravi tako, da spremenite ime svojega računa, da drugi ne morejo prepoznati vaših prispevkov. **Izginotje ne zagotavlja popolne anonimnosti ali odstranitve prispevkov k projektom**.";
 "vanish-account-warning-title" = "Opozorilo";

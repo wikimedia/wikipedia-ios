@@ -125,7 +125,6 @@
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
-"description-edit-learn-more" = "Fir méi ze wëssen";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Aleedung änneren";
 "description-edit-pencil-title" = "Artikelbeschreiwung änneren";
@@ -204,7 +203,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Linken derbäigesat";
-"edit-summary-learn-more-text" = "Fir méi ze wëssen";
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
@@ -785,7 +783,6 @@
 "unwatch" = "Net méi iwwerwaachen";
 "user-title" = "Benotzer";
 "vanish-account-continue-button-title" = "Virufueren";
-"vanish-account-learn-more-text" = "Fir méi ze wëssen";
 "vanish-account-username-field" = "Benotzernumm a Benotzersäit";
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nee, merci";

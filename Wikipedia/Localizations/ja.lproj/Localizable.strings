@@ -213,7 +213,6 @@
 "data-migration-status" = "更新中...";
 "description-add-title" = "説明を追加";
 "description-edit-for-article" = "$1の説明";
-"description-edit-learn-more" = "もっと詳しく";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "記事の説明を変更すると、$1 に同意し、$2ライセンスのもとで貢献を公開することになります。これは取り消せません。";
 "description-edit-pencil-introduction" = "導入部を編集";
@@ -315,7 +314,6 @@
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
 "edit-summary-choice-linked-words" = "リンクを追加";
-"edit-summary-learn-more-text" = "詳細";
 "edit-summary-placeholder-text" = "どのようにこの記事を改善しましたか?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "ウォッチリストの詳細";
@@ -1049,7 +1047,6 @@
 "uzbek-variants-alert-body" = "ウィキペディアのアプリでは以下のウズベク諸語の変種を第1もしくは第2言語として表示できるようになり、個人設定で指定した言語変種の閲覧、検索、編集がしやすくなりました。\n\nウズベク語ラテン表記（oʻzbekcha lotin Uzbek）、Latin（uz-cyrl）\nウズベク語キリル表記（ўзбекча кирилл）、Uzbek, Cyrillic（uz-cyrl）";
 "uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
 "vanish-account-continue-button-title" = "続行";
-"vanish-account-learn-more-text" = "もっと詳しく";
 "vanish-account-username-field" = "利用者名と利用者ページ";
 "vanish-account-warning-body" = "アカウントの削除は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nWikipedia のアカウント削除が完了しました。アカウント名を変更して、アカウント削除と呼ばれるプロセスで他の人があなたの貢献を認識できないようにします。 **削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
 "vanish-account-warning-title" = "警告";

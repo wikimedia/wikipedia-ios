@@ -160,7 +160,6 @@
 "data-migration-status" = "Atnaujinama...";
 "description-add-title" = "Pridėti aprašymą";
 "description-edit-for-article" = "$1 straipsnio aprašymas";
-"description-edit-learn-more" = "Sužinokite daugiau";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Pakeičiant straipsnio aprašymą aš sutinku su $1 ir leidžiu naudoti savo indėlį pagal $2 licenciją.";
 "description-edit-pencil-introduction" = "Redaguoti įžangą";
@@ -245,7 +244,6 @@
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
 "edit-summary-choice-linked-words" = "Pridėtos nuorodos";
-"edit-summary-learn-more-text" = "Sužinokite daugiau";
 "edit-summary-placeholder-text" = "Kaip patobulinote straipsnį?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Sužinokite daugiau apie stebimųjų sąrašus";
@@ -992,7 +990,6 @@
 "uzbek-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos uzbekų kalbos variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uzbekų k. varianto palaikymo atnaujinimai";
 "vanish-account-continue-button-title" = "Tęsti";
-"vanish-account-learn-more-text" = "Sužinokite daugiau";
 "vanish-account-username-field" = "Naudotojo vardas ir naudotojo puslapis";
 "vanish-account-warning-title" = "Įspėjimas";
 "variants-alert-dismiss-button" = "Ne, ačiū";

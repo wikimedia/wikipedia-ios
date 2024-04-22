@@ -150,7 +150,6 @@
 "data-migration-status" = "កំពុងបន្ទាន់សម័យ...";
 "description-add-title" = "បន្ថែមចំណារពន្យល់";
 "description-edit-for-article" = "ចំណារពន្យល់អំពីអត្ថបទសម្រាប់ $1";
-"description-edit-learn-more" = "ស្វែងយល់បន្ថែម";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "កែប្រែសេចក្ដីផ្ដើម";
 "description-edit-pencil-title" = "កែប្រែការពិពណ៌នាអត្ថបទ";
@@ -227,7 +226,6 @@
 "edit-summary-choice-fixed-grammar" = "បានកែតម្រូវវេយ្យាករណ៍";
 "edit-summary-choice-fixed-typos" = "បានកែតម្រូវកំហុសអក្ខរាវិរុទ្ធ";
 "edit-summary-choice-linked-words" = "បានបន្ថែមតំណភ្ជាប់";
-"edit-summary-learn-more-text" = "ស្វែងយល់បន្ថែម";
 "edit-summary-placeholder-text" = "តើអ្នកបានកែលម្អអត្ថបទនេះដោយរបៀបណា?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "ស្វែងយល់បន្ថែមអំពីបញ្ជីតាមដាន";

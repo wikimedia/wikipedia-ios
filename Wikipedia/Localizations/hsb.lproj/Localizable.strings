@@ -117,7 +117,6 @@
 "data-migration-status" = "Aktualizuju...";
 "description-add-title" = "Wopis přidać";
 "description-edit-for-article" = "Wopis zapiska $1";
-"description-edit-learn-more" = "Wjace zhonić";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "Přez změnjenje wopisa zapiska přihłosuju $1 a doskónčnemu wozjewjenju mojich přinoškow pod licencu $2.";
 "description-edit-pencil-introduction" = "Zawod wobdźěłać";
@@ -184,7 +183,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramatika skorigowana";
 "edit-summary-choice-fixed-typos" = "Pisanski zmylk skorigowany";
 "edit-summary-choice-linked-words" = "Wotkazy přidate";
-"edit-summary-learn-more-text" = "Wjace zhonić";
 "edit-watch-this-page-text" = "Tutu stronu wobkedźbować";
 "editing-welcome-be-bold-title" = "Twój hłós je wažny";
 "editing-welcome-citations-title" = "Spušćomne žórła citować";

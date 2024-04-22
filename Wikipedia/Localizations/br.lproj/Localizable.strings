@@ -93,7 +93,6 @@
 "action-unsaved-accessibility-notification" = "Pennad n'eo ket enrollet";
 "action-update" = "Hizivaat";
 "add-articles-to-reading-list" = "Ouzhpennañ {{PLURAL:$1|$1 pennad|$1 pennad}} d'ar roll lenn";
-"add-image-learn-more-text" = "Gouzout hiroc'h";
 "announcements-dismiss" = "Disteurel";
 "app-store-subtitle" = "An Holloueziadur digor";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
@@ -135,7 +134,6 @@
 "data-migration-status" = "Oc'h hizivaat...";
 "description-add-title" = "Ouzhpennañ un deskrivadur";
 "description-edit-for-article" = "Deskrivadur ar pennad evit $1";
-"description-edit-learn-more" = "Gouzout hiroc'h";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Pa'z embannit e tegemerit ar $1, hag e lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "description-edit-pencil-introduction" = "Kemmañ ar raklavar";
@@ -196,7 +194,6 @@
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
-"edit-summary-learn-more-text" = "Gouzout hiroc'h";
 "edit-summary-placeholder-text" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "edit-watch-this-page-text" = "Evezhiañ ar bajenn-mañ";
 "editor-exit-confirmation-body" = "Ha sur oc’h e fell deoc’h mont kuit eus ar mod kemmañ hep embann?";
@@ -357,6 +354,7 @@
 "languages-settings-title" = "Yezhoù";
 "languages-title" = "Cheñch yezh";
 "languages-wikipedia" = "Yezhoù Wikipedia";
+"learn-more-title" = "Gouzout hiroc'h";
 "logged-out-continue-without-logging-in-button-title" = "Kenderc'hel hep kevreañ";
 "logged-out-log-back-in-button-title" = "Adkevreit ouzh ho kont";
 "logged-out-title" = "Digevreet oc'h bet";
@@ -661,6 +659,7 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-readers-count" = "$1 lenner";
 "top-read-widget-title" = "Ar re lennetañ";
+"tutorial-title" = "Tuto";
 "two-factor-login-continue" = "Kenderc'hel da gevreañ";
 "two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
 "two-factor-login-title" = "Kevreañ d'ho kont";
@@ -670,7 +669,6 @@
 "unwatch" = "Paouez da evezhiañ";
 "user-title" = "Implijer/ez";
 "vanish-account-continue-button-title" = "Kenderc'hel";
-"vanish-account-learn-more-text" = "Gouzout hiroc'h";
 "vanish-account-username-field" = "Anv-implijer ha pajenn an implijer";
 "vanish-account-warning-title" = "Diwallit";
 "variants-alert-dismiss-button" = "Nann, trugarez";
