@@ -76,10 +76,11 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
+
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 
     [self updateDynamicIconShortcutItems];
 
