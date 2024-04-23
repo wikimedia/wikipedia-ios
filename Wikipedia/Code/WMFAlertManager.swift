@@ -128,6 +128,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
         messageView.buttonTitleColor = theme.colors.link
+        messageView.imageViewTintColor = theme.colors.link
         switch messageView.messageType {
         case .error:
             messageView.titleTextColor = theme.colors.error
