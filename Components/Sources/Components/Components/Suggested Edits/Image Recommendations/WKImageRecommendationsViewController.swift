@@ -28,7 +28,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logBottomSheetDidTapFileName()
     func logRejectSurveyDidAppear()
     func logRejectSurveyDidTapCancel()
-    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String?)
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
     func logEmptyStateDidTapBack()
 }
 

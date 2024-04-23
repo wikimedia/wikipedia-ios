@@ -1433,13 +1433,9 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
         ImageRecommendationsFunnel.shared.logRejectSurveyDidTapCancel()
     }
     
-    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String?) {
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String) {
         
-        guard let fileName else {
-            return
-        }
-        
-        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: fileName)
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: fileName, recommendationSource: recommendationSource)
     }
     
     func logEmptyStateDidTapBack() {

@@ -106,7 +106,8 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 			},
 			submitAction: { [weak self] reasons in
                 
-                guard let self else {
+                guard let self,
+                let currentRecommendation = self.viewModel.currentRecommendation else {
                     return
                 }
                 
@@ -114,7 +115,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
                 let rejectionReasons = reasons.map { $0.apiIdentifier }
                 let otherReason = reasons.first(where: {$0.otherText != nil})
                 
-                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: self.viewModel.currentRecommendation?.imageData.filename)
+                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
                 
                 // Send feedback API call
                 self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in

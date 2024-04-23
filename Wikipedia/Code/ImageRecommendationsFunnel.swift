@@ -242,13 +242,13 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .rejectionDialog, action: .rejectCancel, project: project)
     }
     
-    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String) {
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String) {
         let rejectionReasonsJoined = rejectionReasons.joined(separator: ",")
         
-        // TODO: Recommendation Source, don't know how we capture that.
         var actionData: [String: String] = [
             "rejection_reason": "\(rejectionReasonsJoined)",
-            "filename": "\(fileName)"
+            "filename": "\(fileName)",
+            "recommendation_source": "\(recommendationSource)"
         ]
         
         if let otherReason {
