@@ -290,6 +290,8 @@
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
 "edit-summary-add-summary-text" = "Text for add summary label";
+"edit-summary-choice-added-image" = "Button text for quick 'added image' edit summary selection";
+"edit-summary-choice-added-image-and-caption" = "Button text for quick 'added image and caption' edit summary selection";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";

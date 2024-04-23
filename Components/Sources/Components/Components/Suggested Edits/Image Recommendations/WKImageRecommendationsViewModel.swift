@@ -7,6 +7,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
     
+    enum ImageRecommendationsError: Error {
+        case cannotFindCurrentRecommendation
+    }
+    
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
@@ -94,12 +98,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    final class ImageRecommendation: ObservableObject {
+    public final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
-        let title: String
+        public let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        let imageData: WKImageRecommendationData
+        public let imageData: WKImageRecommendationData
+        public var caption: String?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
@@ -111,31 +116,34 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    let project: WKProject
+    public let project: WKProject
     let semanticContentAttribute: UISemanticContentAttribute
     let localizedStrings: LocalizedStrings
     
     private(set) var imageRecommendations: [ImageRecommendation] = []
-    @Published var currentRecommendation: ImageRecommendation?
+    @Published public private(set) var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     private var subscriptions = Set<AnyCancellable>()
+    private let needsSuppressPosting: Bool
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
-
+    let imageRecommendationsDataController: WKImageRecommendationsDataController
     let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
 
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
+        self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
         self.imageDataController = WKImageDataController()
+        self.imageRecommendationsDataController = WKImageRecommendationsDataController()
         
         $loading
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
@@ -198,7 +206,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    func next(completion: @escaping () -> Void) {
+    public func next(completion: @escaping () -> Void) {
         guard !imageRecommendations.isEmpty else {
             self.currentRecommendation = nil
             completion()
@@ -224,6 +232,21 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             self?.loading = false
             completion()
         }
+    }
+    
+    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard !needsSuppressPosting else {
+            completion(.success(()))
+            return
+        }
+        
+        guard let currentRecommendation else {
+            completion(.failure(ImageRecommendationsError.cannotFindCurrentRecommendation))
+            return
+        }
+        
+        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
     
     private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {

@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
 }
 
 class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
@@ -78,7 +78,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
     
     @objc func goForward() {
-        delegate?.editPreviewViewControllerDidTapNext(self)
+        delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
     }
 
     override func viewDidLoad() {

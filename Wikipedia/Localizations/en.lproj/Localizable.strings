@@ -290,6 +290,8 @@
 "edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-show-web-preview" = "Show web preview";
 "edit-summary-add-summary-text" = "Add an edit summary";
+"edit-summary-choice-added-image" = "Added image";
+"edit-summary-choice-added-image-and-caption" = "Added image and caption";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
