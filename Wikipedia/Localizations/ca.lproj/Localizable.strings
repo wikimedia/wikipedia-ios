@@ -187,7 +187,6 @@
 "data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
 "description-edit-for-article" = "Descripció de l'article $1";
-"description-edit-learn-more" = "Més informació";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En canviar la descripció de l'article, accepteu $1 i alliberar irrevocablement les contribucions sota la llicència $2.";
 "description-edit-pencil-introduction" = "Modifica la introducció";
@@ -293,7 +292,6 @@
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
-"edit-summary-learn-more-text" = "Més informació";
 "edit-summary-placeholder-text" = "Com heu millorat l'article?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Més informació sobre les llistes de seguiment";
@@ -1071,7 +1069,6 @@
 "uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "vanish-account-continue-button-title" = "Continua";
-"vanish-account-learn-more-text" = "Més informació";
 "vanish-account-username-field" = "Nom d'usuari i pàgina d'usuari";
 "vanish-account-warning-body" = "La desaparició és un **darrer recurs** i s'hauria **d'emprar només quan voleu deixar d'editar per sempre més** i amagar el màxim d'associacions passades que sigui possible.\n\nLa supressió de comptes de la Viquipèdia es fa canviant el nom del compte per tal que altres no puguin reconèixer-ne les contribucions en un procés que s'anomena «desaparició del compte». **La desaparició no garanteix un anonimat complet ni eliminar les contribucions fetes als projectes**.";
 "vanish-account-warning-title" = "Avís";

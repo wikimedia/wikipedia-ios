@@ -150,7 +150,6 @@
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
-"add-image-learn-more-text" = "Daha fazla bilgi edin";
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
@@ -209,7 +208,6 @@
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
 "description-edit-for-article" = "$1 için madde açıklaması";
-"description-edit-learn-more" = "Daha fazla bilgi edinin";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Madde açıklamasını değiştirerek $1nı kabul ediyorum ve $2 lisansı kapsamındaki katkılarımı geri alınamaz bir şekilde yayımlıyorum.";
 "description-edit-pencil-introduction" = "Girişi düzenle";
@@ -342,7 +340,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
-"edit-summary-learn-more-text" = "Daha fazla bilgi";
 "edit-summary-placeholder-text" = "Sayfayı hangi yönden geliştirdiniz?";
 "edit-watch-list-learn-more-text" = "İzleme listeniz hakkında daha fazla bilgi edinin";
 "edit-watch-this-page-text" = "Bu sayfayı izle";
@@ -668,6 +665,7 @@
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
+"learn-more-title" = "Daha fazla bilgi edin";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -1219,7 +1217,6 @@
 "uzbek-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Özbekçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\noʻzbekcha lotin Özbekçe, Latin (uz-latin)\nўзбекча кирилл Özbekçe, Kiril (uz-cyrl)";
 "uzbek-variants-alert-title" = "Özbekçe biçim desteği güncellemeleri";
 "vanish-account-continue-button-title" = "Devam et";
-"vanish-account-learn-more-text" = "Daha fazla bilgi";
 "vanish-account-username-field" = "Kullanıcı adı ve kullanıcı sayfası";
 "vanish-account-warning-body" = "Yok olma, **son çaredir** ve sadece **sonsuz olarak değişiklik yapmayı bırakmak** ve ayrıca olabildiğince geçmiş ilişkilendirmelerinizi gizlemek istiyorsanız kullanılmalıdır.\n\nVikipedi'de hesap silme işlemi, hesabın yok olması adı verilen bir süreçle başkalarının katkılarınızı tanımaması için hesap adınızı değiştirerek yapılır. **Yok olma, tam anonimlik ya da projelere yapılan katkıları kaldırmaya güvence vermez**.";
 "vanish-account-warning-title" = "Uyarı";

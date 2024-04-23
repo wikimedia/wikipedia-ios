@@ -200,7 +200,6 @@
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
 "description-edit-for-article" = "Deskripsi artikel untuk $1";
-"description-edit-learn-more" = "Pelajari lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Dengan mengubah deskripsi artikel, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
 "description-edit-pencil-introduction" = "Sunting pengantar";
@@ -321,7 +320,6 @@
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
-"edit-summary-learn-more-text" = "Pelajari lebih lanjut";
 "edit-summary-placeholder-text" = "Bagaimana Anda menyempurnakan artikel ini?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Pelajari lebih lanjut tentang daftar pantauan";
@@ -1160,7 +1158,6 @@
 "uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
 "uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "vanish-account-continue-button-title" = "Lanjutkan";
-"vanish-account-learn-more-text" = "Pelajari lebih lanjut";
 "vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
 "vanish-account-warning-body" = "Moksa adalah **pilihan terakhir** dan **hanya boleh digunakan ketika Anda ingin berhenti menyunting selamanya** dan juga untuk menyembunyikan sebanyak mungkin jejak lawas Anda.\n\nPenghapusan akun di Wikipedia dilakukan dengan mengubah nama akun Anda agar orang lain tidak dapat mengenali kontribusi Anda dalam proses yang disebut penghilangan akun (moksa). **Moksa tidak menjamin anonimitas penuh atau menghapus kontribusi ke proyek-proyek Wiki**.";
 "vanish-account-warning-title" = "Peringatan";

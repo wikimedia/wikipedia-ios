@@ -168,7 +168,6 @@
 "data-migration-status" = "Uppfæri...";
 "description-add-title" = "Bæta við lýsingu";
 "description-edit-for-article" = "Lýsing á grein fyrir $1";
-"description-edit-learn-more" = "Kanna nánar";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Með því að breyta lýsingu á þessari grein, samþykkir þú  $1 og að þú gefir óafturkræft út framlög þín með $2 notkunarleyfi.";
 "description-edit-pencil-introduction" = "Breyta inngangi";
@@ -264,7 +263,6 @@
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-typos" = "Lagaði innsláttarvillu";
 "edit-summary-choice-linked-words" = "Viðbættir tenglar";
-"edit-summary-learn-more-text" = "Kanna nánar";
 "edit-summary-placeholder-text" = "Hvernig bættir þú greinina?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Fræðast meira um vöktunarlista";
@@ -1044,7 +1042,6 @@
 "user-title" = "Notandi";
 "uzbek-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði úsbekísku";
 "vanish-account-continue-button-title" = "Halda áfram";
-"vanish-account-learn-more-text" = "Kanna nánar";
 "vanish-account-username-field" = "Notandanafn og notandasíða";
 "vanish-account-warning-body" = "Að hverfa er eða vera þurrkaður út er **lokaúrræði** og ætti **aðeins að nota þegar þú vilt endanlega hætta breytingum** og einnig til að fela fyrri tengsl þín eins og mögulegt er.\n\nEyðing reiknings á Wikipedia gerist með því að breyta nafni reikningsins þíns þannig að aðrir geti ekki þekkt framlög þín, og er það ferli kallað **útþurrkun** á reikningi. **Útþurrkun tryggir ekki algjöra nafnleynd eða fjarlægingu framlaga til verkefna**.";
 "vanish-account-warning-title" = "Aðvörun";

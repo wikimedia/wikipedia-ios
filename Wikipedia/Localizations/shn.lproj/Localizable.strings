@@ -115,7 +115,6 @@
 "description-add-title" = "ထႅမ်သႂ်ႇ ၶေႃႈသပ်းလႅင်း";
 // Fuzzy
 "description-edit-for-article" = "ၶေႃႈသပ်းလႅင်းႁူဝ်ၶေႃႈ တွၼ်ႈတႃႇ $1";
-"description-edit-learn-more" = "လဵပ်ႈႁဵၼ်း လိူဝ်";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "ယွၼ်ႉလႅၵ်ႈလၢႆႈ​ ၶေႃႈသပ်းလႅင်းႁူဝ်ၶေႃႈသေလႄႈ၊ ၶႃႈႁဝ်း ၽွမ်ႉၸႂ်တင်း $1 လႄႈ တေပိုၼ်ဢွၵ်ႈ လွင်ႈၶဝ်ႈႁူမ်ႈၶႃႈၶၢတ်ႈၶၢတ်ႈ ၸွမ်းၼင်ႇ ဝႂ်ၶႂၢင်း $2။";
@@ -178,7 +177,6 @@
 "edit-summary-choice-fixed-grammar" = "လၢႆးတႅမ်ႈလိၵ်ႈ ဢၼ်မႄးဝႆႉ";
 "edit-summary-choice-fixed-typos" = "ၵၢၼ်ပေႃႉလိၵ်ႈ ဢၼ်မႄးဝႆႉ";
 "edit-summary-choice-linked-words" = "ႁဵင်းၵွင်ႉ ဢၼ်ထႅမ်သႂ်ႇဝႆႉ";
-"edit-summary-learn-more-text" = "လဵပ်ႈႁဵၼ်း လိူဝ်";
 "edit-summary-placeholder-text" = "ၸဝ်ႈၵဝ်ႇ ႁဵတ်းႁိုဝ်မႄးၵုမ်း ပွင်ႈၵႂၢမ်းမႃး?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "လဵပ်ႈႁဵၼ်း လွင်ႈသဵၼ်ႈမၢႆတႃႇတူၺ်း လိူဝ်ၼႆႉ";

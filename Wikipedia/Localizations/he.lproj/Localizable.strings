@@ -131,7 +131,6 @@
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
-"add-image-learn-more-text" = "מידע נוסף";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -190,7 +189,6 @@
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור הערך עבור $1";
-"description-edit-learn-more" = "מידע נוסף";
 "description-edit-length-warning" = "$1 מתוך $2";
 "description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
 "description-edit-pencil-introduction" = "עריכת הפתיחה";
@@ -323,7 +321,6 @@
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
-"edit-summary-learn-more-text" = "מידע נוסף";
 "edit-summary-placeholder-text" = "איך שיפרת את הערך?";
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימת המעקב שלך";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
@@ -600,6 +597,9 @@
 "image-rec-survey-title" = "סיבה";
 "image-rec-title" = "הוספת תמונה";
 "image-rec-view-article" = "הצגת הערך";
+"image-recommendations-email-fourth-line" = "- [תיאור פתרון מוצע]";
+"image-recommendations-email-second-line" = "- [תיאור בעיה מסוימת]";
+"image-recommendations-email-third-line" = "ההתנהגות שאני רוצה לראות היא:";
 "image-recs-no-title" = "לא";
 "image-recs-not-sure-title" = "אין לי תשובה";
 "image-recs-yes-title" = "כן";
@@ -649,6 +649,7 @@
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
+"learn-more-title" = "מידע נוסף";
 "logged-out-continue-without-logging-in-button-title" = "להמשיך בלי להיכנס לחשבון";
 "logged-out-log-back-in-button-title" = "להיכנס חזרה לחשבון שלך";
 "logged-out-subtitle" = "הייתה בעיה באימות החשבון שלך. כדי לסנכרן את רשימות הקריאה שלך ולערוך תחת שם המשתמש שלך נא להיכנס לחשבון מחדש.";
@@ -894,6 +895,7 @@
 "potd-widget-title" = "תמונת היום";
 "preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "privacy-policy-title" = "מדיניות פרטיות";
+"problem-with-feature-title" = "בעיה עם אפשרות";
 "project-name-mediawiki" = "mediawiki.org";
 "project-name-wikibooks" = "ויקיספר";
 "project-name-wikidata" = "ויקינתונים";
@@ -1189,6 +1191,7 @@
 "top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
 "top-read-widget-readers-count" = "$1 קוראים";
 "top-read-widget-title" = "הנקראים ביותר";
+"tutorial-title" = "מדריך";
 "two-factor-login-continue" = "המשך כניסה לחשבון";
 "two-factor-login-instructions" = "נא להזין את קוד האימות הדו־שלבי";
 "two-factor-login-title" = "כניסה לחשבון שלך";
@@ -1201,7 +1204,6 @@
 "uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "vanish-account-continue-button-title" = "המשך";
-"vanish-account-learn-more-text" = "מידע נוסף";
 "vanish-account-username-field" = "שם משתמש ודף משתמש";
 "vanish-account-warning-body" = "היעלמות היא **מוצא אחרון** וצריך להשתמש בה **רק כשברצונך להפסיק לערוך לתמיד** וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nמחיקת חשבון בוויקיפדיה מתבצעת על ידי שינוי שם החשבון שלך כדי להסוות אותו מפני אחרים כדי שלא יוכלו לזהות את התרומות שלך בתהליך שנקרא העלמת חשבון. **העלמה לא מבטיחה אלמוניות מלאה או הסרת התרומות למיזמים**.";
 "vanish-account-warning-title" = "אזהרה";

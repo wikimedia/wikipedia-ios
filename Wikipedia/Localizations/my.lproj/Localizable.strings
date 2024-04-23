@@ -130,7 +130,6 @@
 "data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
 "description-edit-for-article" = "$1အတွက် ဆောင်းပါးဖော်ပြချက်";
-"description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
 "description-edit-pencil-title" = "ဆောင်းပါးဖော်ပြချက်ကို တည်းဖြတ်ရန်";
@@ -197,7 +196,6 @@
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
 "edit-summary-choice-linked-words" = "လင့်ခ်များပေါင်းထည့်ခဲ့သည်";
-"edit-summary-learn-more-text" = "ပိုမို လေ့လာရန်";
 "edit-summary-placeholder-text" = "စာမျက်နှာကို တိုးတက်ကောင်းမွန်အောင် သင်မည်သို့ လုပ်ခဲ့သနည်း?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "စောင့်ကြည့်စာရင်းများအကြောင်း ပိုမိုလေ့လာမည်";
@@ -691,7 +689,6 @@
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
 "vanish-account-continue-button-title" = "ဆက်လက်";
-"vanish-account-learn-more-text" = "ပိုမို လေ့လာရန်";
 "vanish-account-username-field" = "အသုံးပြုသူအမည်နှင့် အသုံးပြုသူစာမျက်နှာ";
 "vanish-account-warning-title" = "သတိပေးချက်";
 "variants-alert-dismiss-button" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်။";

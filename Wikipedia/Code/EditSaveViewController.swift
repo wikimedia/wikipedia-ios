@@ -285,6 +285,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func updateTextViews() {
+        licenseTitleTextView.textContainerInset = .zero
+        licenseLoginTextView.textContainerInset = .zero
+        licenseTitleTextView.textContainer.lineFragmentPadding = 0
+        licenseLoginTextView.textContainer.lineFragmentPadding = 0
+        
         licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
         licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
         applyThemeToTextViews()
