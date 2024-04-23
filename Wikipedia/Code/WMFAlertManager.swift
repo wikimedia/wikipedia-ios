@@ -149,6 +149,8 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
                 messageView.imageViewTintColor = theme.colors.error
             } else if messageView.customTypeName == "edit-preview-simplified-format" {
                 // no additional customization needed
+            } else if messageView.customTypeName == "edit-published" {
+                messageView.titleTextColor = theme.colors.primaryText
             }
         default:
             messageView.titleTextColor = theme.colors.link
