@@ -156,7 +156,6 @@
 "data-migration-status" = "Mengemaskini...";
 "description-add-title" = "Tambah penerangan";
 "description-edit-for-article" = "Huraian rencana untuk $1";
-"description-edit-learn-more" = "Ketahui lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Dengan mengubah keterangan tajuk, saya bersetuju dengan $1 dan untuk membatalkan pembaharuan tanpa izin di bawah lesen $2.";
@@ -233,7 +232,6 @@
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
 "edit-summary-choice-linked-words" = "Menambahkan pautan";
-"edit-summary-learn-more-text" = "Ketahui lebih lanjut";
 "edit-summary-placeholder-text" = "Bagaimana anda memperbaiki rencana ini?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Ketahui lebih lanjut mengenai senarai pantau";

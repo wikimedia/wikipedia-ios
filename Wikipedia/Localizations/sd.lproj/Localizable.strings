@@ -111,7 +111,6 @@
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
 "action-update" = "تجديد";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ شامل ڪريو";
-"add-image-learn-more-text" = "وڌيڪ ڄاڻيو";
 "announcements-dismiss" = "برخواست";
 "app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ-چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل طور پنھنجي حساب موجب رکڻ جوڳي ۽ پڙهڻ ۾ آسان ايڪسپلور رسد. مڪانيتڪاري، ڪارڪردگي ۾ بھتريون، ۽ چُڪون حل ڪيون ويون.";
@@ -164,7 +163,6 @@
 "data-migration-status" = "تجديد ڪندي...";
 "description-add-title" = "تشريح ڏيو";
 "description-edit-for-article" = "$1 لاءِ تشريح";
-"description-edit-learn-more" = "وڌيڪ سکو";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "مضمون جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
 "description-edit-pencil-introduction" = "تعارف سنواريو";
@@ -279,7 +277,6 @@
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
-"edit-summary-learn-more-text" = "وڌيڪ ڄاڻيو";
 "edit-summary-placeholder-text" = "توھان مضمون کي ڪيئن سڌاريو؟";
 "edit-watch-list-learn-more-text" = "پنھنجي نظر۾فھرست بابت وڌيڪ ڄاڻيو";
 "edit-watch-this-page-text" = "هي صفحو نظر۾رکو";
@@ -545,6 +542,7 @@
 "languages-settings-title" = "ٻوليون";
 "languages-title" = "ٻولي بدلايو";
 "languages-wikipedia" = "وڪيپيڊيا ٻوليون";
+"learn-more-title" = "وڌيڪ ڄاڻيو";
 "logged-out-continue-without-logging-in-button-title" = "داخل ٿيڻ سواءِ جاري رکو";
 "logged-out-log-back-in-button-title" = "پنھنجي کاتي ۾ واپس داخل ٿيو";
 "logged-out-title" = "توھان ٻاھر نڪري چڪا آھيو";
@@ -1013,7 +1011,6 @@
 "unwatch" = "نظر۾نہ رکو";
 "user-title" = "واپرائيندڙ";
 "vanish-account-continue-button-title" = "جاري رکو";
-"vanish-account-learn-more-text" = "وڌيڪ ڄاڻيو";
 "vanish-account-username-field" = "واپرائيندڙنانءُ ۽ واپرائيندڙ جو صفحو";
 "vanish-account-warning-title" = "چتاءُ";
 "variants-alert-dismiss-button" = "نہ مھرباني";

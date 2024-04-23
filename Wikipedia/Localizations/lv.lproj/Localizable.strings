@@ -62,7 +62,6 @@
 "button-skip" = "Izlaist";
 "cancel" = "Atcelt";
 "close-button-accessibility-label" = "Aizvērt";
-"description-edit-learn-more" = "Uzzināt vairāk";
 "description-published-button-title" = "Gatavs";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "No:";
@@ -77,7 +76,6 @@
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
-"edit-summary-learn-more-text" = "Uzzināt vairāk";
 "edit-watch-this-page-text" = "Uzraudzīt šo lapu";
 "empty-insert-media-title" = "Izvēlēties failu no Wikimedia Commons";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";

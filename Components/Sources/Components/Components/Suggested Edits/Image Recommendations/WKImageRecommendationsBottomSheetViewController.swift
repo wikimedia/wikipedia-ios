@@ -78,7 +78,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     func didTapYesButton() {
         if let imageData = viewModel.currentRecommendation?.imageData, let title = viewModel.currentRecommendation?.title {
             self.dismiss(animated: true) {
-                self.delegate?.imageRecommendationsUserDidTapInsertImage(project: self.viewModel.project, title: title, with: imageData)
+                self.delegate?.imageRecommendationsUserDidTapInsertImage(viewModel: self.viewModel, title: title, with: imageData)
             }
         }
     }
@@ -90,7 +90,18 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 				self?.dismiss(animated: true)
 			},
 			submitAction: { [weak self] reasons in
-				self?.dismiss(animated: true)
+                self?.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
+                    
+                })
+                // Dismisses Survey View
+                self?.dismiss(animated: true, completion: { [weak self] in
+                    // Dismisses Bottom Sheet
+                    self?.dismiss(animated: true, completion: { [weak self] in
+                        self?.viewModel.next {
+                            
+                        }
+                    })
+                })
 		})
 
 		let hostedView = WKComponentHostingController(rootView: surveyView)

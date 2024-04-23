@@ -106,47 +106,9 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult)
-            settingsViewController.title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
-            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
-            insertButton.tintColor = theme.colors.link
-            settingsViewController.navigationItem.rightBarButtonItem = insertButton
-            settingsViewController.apply(theme: theme)
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, theme: theme)
 
         navigationController.pushViewController(settingsViewController, animated: true)
-    }
-
-    @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        guard let mediaSettingsTableViewController = navigationController?.topViewController as? InsertMediaSettingsViewController else {
-            assertionFailure()
-            return
-        }
-        let searchResult = mediaSettingsTableViewController.searchResult
-        let wikitext: String
-        switch mediaSettingsTableViewController.settings {
-        case nil:
-            wikitext = "[[\(searchResult.fileTitle)]]"
-        case let mediaSettings?:
-            switch (mediaSettings.caption, mediaSettings.alternativeText) {
-            case (let caption?, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
-                """
-            case (let caption?, nil):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
-                """
-            case (nil, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
-                """
-            default:
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
-                """
-            }
-        }
-        delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: wikitext)
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
@@ -338,5 +300,12 @@ extension InsertMediaViewController: UISearchBarDelegate {
 }
 
 extension InsertMediaViewController: EditingFlowViewController {
+    
+}
+
+extension InsertMediaViewController: InsertMediaSettingsViewControllerDelegate {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+        delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: imageWikitext)
+    }
     
 }

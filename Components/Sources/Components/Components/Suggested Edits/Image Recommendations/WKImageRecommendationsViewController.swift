@@ -7,7 +7,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
     func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
-    func imageRecommendationsUserDidTapInsertImage(project: WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
+    func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
 }
@@ -70,7 +70,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +100,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
         imageRecommendationBottomSheetController.dismiss(animated: true)
         for cancellable in cancellables {
             cancellable.cancel()
@@ -211,7 +209,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
 
         let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
-        onboardingController.hostingController.delegate = self
+        onboardingController.delegate = self
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })

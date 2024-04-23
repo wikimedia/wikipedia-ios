@@ -3,14 +3,18 @@ import WKData
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
+protocol InsertMediaSettingsViewControllerDelegate: ViewController {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?)
+}
+
+
 final class InsertMediaSettingsViewController: ViewController {
+    
+    private let fromImageRecommendations: Bool
+    private weak var delegate: InsertMediaSettingsViewControllerDelegate?
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
-    private let fromImageRecommendations: Bool
-
-    private let wikitext: String?
-    private let articleURL: URL?
-    private let sectionNumber: Int?
 
     let searchResult: InsertMediaSearchResult
     private var nextButton: UIBarButtonItem?
@@ -201,14 +205,13 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, theme: Theme) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
-        self.wikitext = wikitext
-        self.articleURL = articleURL
-        self.sectionNumber = sectionNumber
+        self.delegate = delegate
         super.init()
+        self.theme = theme
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -228,18 +231,23 @@ final class InsertMediaSettingsViewController: ViewController {
 
         if fromImageRecommendations {
             title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
-            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
+            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedProgress(_:)))
             nextButton?.tintColor = theme.colors.secondaryText
             navigationItem.rightBarButtonItem = nextButton
-            navigationController?.navigationBar.topItem?.title = String()
-            self.apply(theme: theme)
+        } else {
+            title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
+            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action:  #selector(tappedProgress(_:)))
+            insertButton.tintColor = theme.colors.link
+            navigationItem.rightBarButtonItem = insertButton
         }
+        
+        apply(theme: theme)
     }
 
-    @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        assert(fromImageRecommendations, "Should only be called from Image Recommendations")
+    @objc private func tappedProgress(_ sender: UIBarButtonItem) {
         let searchResult = searchResult
         let wikitext: String
+        var captionToSend: String?
         switch settings {
         case nil:
             wikitext = "[[\(searchResult.fileTitle)]]"
@@ -249,10 +257,12 @@ final class InsertMediaSettingsViewController: ViewController {
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
                 """
+                captionToSend = caption
             case (let caption?, nil):
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
                 """
+                captionToSend = caption
             case (nil, let alternativeText?):
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
@@ -263,36 +273,7 @@ final class InsertMediaSettingsViewController: ViewController {
                 """
             }
         }
-         didTapInsertMedia(with: wikitext)
-    }
-
-    func didTapInsertMedia(with imageWikitext: String) {
-        guard let wikitext else {
-            return
-        }
-        do {
-            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: wikitext)
-            goToEditPreview(with: wikitextWithImage)
-        } catch let error {
-            print("Error preparing wikitext\(error)")
-        }
-
-    }
-
-    func goToEditPreview(with wikitext: String) {
-        guard let articleURL else {
-            print("Error")
-            return
-        }
-
-        let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
-        editPreviewViewController.theme = theme
-        editPreviewViewController.sectionID = sectionNumber
-        editPreviewViewController.languageCode = articleURL.wmf_languageCode
-        editPreviewViewController.wikitext = wikitext
-        editPreviewViewController.delegate = self
-
-        navigationController?.pushViewController(editPreviewViewController, animated: true)
+        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -422,11 +403,4 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
-}
-
-extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
-        print("Go to Edit Save View Controller")
-    }
-
 }

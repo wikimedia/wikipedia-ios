@@ -121,7 +121,6 @@
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
-"add-image-learn-more-text" = "Lær mere";
 "announcements-dismiss" = "Nej tak";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyklopædi, info, viden, forskning, information, udforsk, lær";
 "app-store-subtitle" = "Den frie encyklopædi";
@@ -172,7 +171,6 @@
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Artikelbeskrivelse for $1";
-"description-edit-learn-more" = "Lær mere";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ved at ændre titelbeskrivelsen indvilliger jeg i $1 og uigenkaldeligt at udgive mit bidrag under $2 licensen.";
 "description-edit-pencil-introduction" = "Rediger introduktion";
@@ -240,7 +238,6 @@
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
 "edit-summary-choice-linked-words" = "Tilføjede links";
-"edit-summary-learn-more-text" = "Lær mere";
 "edit-summary-placeholder-text" = "Hvordan har du forbedret artiklen?";
 "edit-watch-list-learn-more-text" = "Lær mere om din overvågningsliste";
 "edit-watch-this-page-text" = "Overvåg denne side";
@@ -428,6 +425,7 @@
 "languages-settings-title" = "Sprog";
 "languages-title" = "Skift sprog";
 "languages-wikipedia" = "Wikipediasprog";
+"learn-more-title" = "Lær mere";
 "logged-out-continue-without-logging-in-button-title" = "Fortsæt uden at logge på";
 "logged-out-log-back-in-button-title" = "Log ind på din konto igen";
 "logged-out-subtitle" = "Et problem medførte, at du ikke længere er logget ind. Du må logge ind igen, for at kunne synkronisere læselister og redigere under dit brugernavn.";
@@ -792,7 +790,6 @@
 "unknown-generic-text" = "Ukendt";
 "user-title" = "Bruger";
 "vanish-account-continue-button-title" = "Fortsæt";
-"vanish-account-learn-more-text" = "Lær mere";
 "vanish-account-warning-title" = "Advarsel";
 "variants-alert-dismiss-button" = "Nej tak";
 "watch" = "Overvåg";

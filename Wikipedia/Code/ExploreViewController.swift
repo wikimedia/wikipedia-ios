@@ -11,6 +11,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
+    
+    private weak var imageRecommendationsViewModel: WKImageRecommendationsViewModel?
 
     // MARK: - UIViewController
     
@@ -72,6 +74,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
@@ -1131,10 +1135,11 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigate(to: commonsURL, useSafari: false)
     }
 
-    func imageRecommendationsUserDidTapInsertImage(project: WKData.WKProject, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
+    func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+        guard let siteURL = viewModel.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title),
+            let wikitext = imageData.wikitext else {
             return
         }
 
@@ -1145,9 +1150,62 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, wikitext: imageData.wikitext, articleURL: articleURL, sectionNumber: 0)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, theme: theme)
+            self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
+    }
+}
+
+extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+        let currentRecommendation = viewModel.currentRecommendation,
+                    let siteURL = viewModel.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: currentRecommendation.title),
+        let articleWikitext = currentRecommendation.imageData.wikitext else {
+            return
+        }
+        
+        currentRecommendation.caption = caption
+        
+        do {
+            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            
+            let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+            editPreviewViewController.theme = theme
+            editPreviewViewController.sectionID = 0
+            editPreviewViewController.languageCode = articleURL.wmf_languageCode
+            editPreviewViewController.wikitext = wikitextWithImage
+            editPreviewViewController.delegate = self
+
+            navigationController?.pushViewController(editPreviewViewController, animated: true)
+        } catch let error {
+            print("Error preparing wikitext\(error)")
+        }
+    }
+}
+
+extension ExploreViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController) {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            return
+        }
+
+        saveVC.dataStore = dataStore
+        saveVC.pageURL = pageURL
+        saveVC.sectionID = sectionID
+        saveVC.languageCode = pageURL.wmf_languageCode
+        saveVC.wikitext = editPreviewViewController.wikitext
+        saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
+        saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.editSummaryTag = .suggestedEditsAddImageTop
+
+        saveVC.delegate = self
+        saveVC.theme = self.theme
+        
+        navigationController?.pushViewController(saveVC, animated: true)
     }
 
     func imageRecommendationsUserDidTapLearnMore(url: URL?) {
@@ -1173,3 +1231,79 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
 }
 
+extension ExploreViewController: EditSaveViewControllerDelegate {
+    
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
+        
+        switch result {
+        case .success(let changes):
+            sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
+        case .failure(let error):
+            print(error)
+        }
+        
+    }
+    
+    private func sendFeedbackAndPopToImageRecommendations(revID: UInt64) {
+
+        guard let viewControllers = navigationController?.viewControllers,
+        let imageRecommendationsViewModel,
+        let currentRecommendation = imageRecommendationsViewModel.currentRecommendation else {
+            return
+        }
+        
+        for viewController in viewControllers {
+            if viewController is WKImageRecommendationsViewController {
+                navigationController?.popToViewController(viewController, animated: true)
+                
+                // Send Feedback
+                imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
+                }
+                
+                // Go to next recommendation and display success alert
+                imageRecommendationsViewModel.next {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        let title = CommonStrings.editPublishedToastTitle
+                        let image = UIImage(systemName: "checkmark.circle.fill")
+                        
+                        if UIAccessibility.isVoiceOverRunning {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        } else {
+                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+                        }
+                    }
+                    
+                }
+                
+                break
+            }
+        }
+        
+        self.imageRecommendationsViewModel = nil
+    }
+    
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        // no-op
+    }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        assertionFailure("This should not be called in the Image Recommendations context")
+    }
+    
+    func editSaveViewControllerLogDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
+        
+    }
+    
+    func editSaveViewControllerLogDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject) {
+        
+    }
+}

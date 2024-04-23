@@ -53,7 +53,7 @@ public class WKImageRecommendationsDataController {
     
     // MARK: - PUT Send Feedback
     
-    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: Int?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -73,7 +73,7 @@ public class WKImageRecommendationsDataController {
             parameters["editRevId"] = editRevId
         }
 
-        guard let url = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments","v0","suggestions","addimage","feedback", pageTitle]) else {
+        guard let url = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments","v0","suggestions","addimage","feedback", pageTitle.spacesToUnderscores]) else {
             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
             return
         }

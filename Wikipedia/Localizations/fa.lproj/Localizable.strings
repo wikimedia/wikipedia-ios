@@ -207,7 +207,6 @@
 "data-migration-status" = "در حال بروزرسانی...";
 "description-add-title" = "افزودن توضیحات";
 "description-edit-for-article" = "توضیحات مقاله برای $1";
-"description-edit-learn-more" = "اطلاعات بیشتر";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "با تغییر توصیف مقاله، $1 را می‌پذیرم و به‌طور غیرقابل بازگشتی مشارکت‌هایم را تحت پروانه $2 منتشر می‌کنم.";
 "description-edit-pencil-introduction" = "ویرایش مقدمه";
@@ -340,7 +339,6 @@
 "edit-summary-choice-fixed-grammar" = "دستور زبان اصلاح شد";
 "edit-summary-choice-fixed-typos" = "اشتباهات اصلاح شد";
 "edit-summary-choice-linked-words" = "پیوندهایی افزوده‌شد";
-"edit-summary-learn-more-text" = "بیشتر بدانید";
 "edit-summary-placeholder-text" = "چگونه مقاله را بهبود دادید؟";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "اطلاعات بیشتر در بارهٔ فهرست‌های پی‌گیری";
@@ -1187,7 +1185,6 @@
 "uzbek-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان ازبکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان ازبکی";
 "vanish-account-continue-button-title" = "ادامه";
-"vanish-account-learn-more-text" = "بیشتر بدانید";
 "vanish-account-username-field" = "نام کاربری و صفحهٔ کاربری";
 "vanish-account-warning-body" = "ناپدیدسازی **گزینهٔ آخر** است و **تنها در صورتی باید استفاده شود که مایل به توقف ویرایش برای همیشه باشید** و بخواهید که تمامی موارد مرتبط با خود در گذشته را تا حد امکان پنهان کنید.\n\nحذف حساب از ویکی‌پدیا به‌واسطهٔ تغییر نام کاربری شما، به‌گونه‌ای که دیگران قادر به شناسایی مشارکت‌های شما نباشند، در فرایندی به‌نام ناپدیدسازی حساب انجام می‌شود. **ناپدیدسازی، گمنامی کامل را تضمین نمی‌کند و مشارکت‌ها را از پروژه حذف نمی‌کند**.";
 "vanish-account-warning-title" = "هشدار";

@@ -157,7 +157,6 @@
 "data-migration-status" = "తాజాకరిస్తున్నాం...";
 "description-add-title" = "వివరణ చేర్చు";
 "description-edit-for-article" = "$1 కి వ్యాసానికి వివరణ చేర్చండి";
-"description-edit-learn-more" = "ఇంకా తెలుసుకోండి";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "వ్యాస వివరణ మార్చుతూ, నేను $1 కూ, $2 లైసెన్సు కింద నా రచనలను తిరిగి వెనక్కి తీసుకోలేని విధంగా విడుదల చేసేందుకూ అంగీకరిస్తున్నాను.";
 "description-edit-pencil-introduction" = "ప్రవేశికను మార్చు";
@@ -235,7 +234,6 @@
 "edit-summary-choice-fixed-grammar" = "వ్యాకరణం సరిచేసాను";
 "edit-summary-choice-fixed-typos" = "అచ్చుతప్పులు సరిచేసాను";
 "edit-summary-choice-linked-words" = "లింకులు చేర్చాను";
-"edit-summary-learn-more-text" = "ఇంకా తెలుసుకోండి";
 "edit-summary-placeholder-text" = "వ్యాసాన్ని మీరు ఎలా మెరుగుపరచారు?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "వీక్షణ జాబితాల గురించి మరింత తెలుసుకోండి";

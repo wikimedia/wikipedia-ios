@@ -15,7 +15,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
     }
 
     func testFetchInitialImageRecommendations() throws {
-        let viewModel = WKImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, localizedStrings: localizedStrings)
+        let viewModel = WKImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, localizedStrings: localizedStrings, needsSuppressPosting: false)
         
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
         
@@ -31,7 +31,7 @@ final class WKImageRecommendationsViewModelTests: XCTestCase {
     }
     
     func testFetchNextImageRecommendation() throws {
-        let viewModel = WKImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, localizedStrings: localizedStrings)
+        let viewModel = WKImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, localizedStrings: localizedStrings, needsSuppressPosting: false)
         
         let expectation1 = XCTestExpectation(description: "Fetch Image Recommendations")
         

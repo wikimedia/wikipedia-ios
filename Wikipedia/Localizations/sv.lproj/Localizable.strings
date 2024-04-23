@@ -133,7 +133,6 @@
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
-"add-image-learn-more-text" = "Läs mer";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -192,7 +191,6 @@
 "data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Artikelbeskrivning för $1";
-"description-edit-learn-more" = "Läs mer";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Genom att ändra artikelbeskrivningen samtycker jag till $1 och att oåterkalleligt släppa mina bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Redigera inledningen";
@@ -322,7 +320,6 @@
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
-"edit-summary-learn-more-text" = "Läs mer";
 "edit-summary-placeholder-text" = "Hur förbättrade du artikeln?";
 "edit-watch-list-learn-more-text" = "Läs mer om din bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
@@ -647,6 +644,7 @@
 "languages-settings-title" = "Språk";
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
+"learn-more-title" = "Läs mer";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
@@ -1199,7 +1197,6 @@
 "uzbek-variants-alert-body" = "Wikipediaappen stödjer följande uzbekiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\noʻzbekcha lotin uzbekiska, latinska (uz-latin)\nўзбекча кирилл uzbekiska, kyrilliska (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uppdaterades till stöd för uzbekiska varianter";
 "vanish-account-continue-button-title" = "Fortsätt";
-"vanish-account-learn-more-text" = "Läs mer";
 "vanish-account-username-field" = "Användarnamn och användarsida";
 "vanish-account-warning-body" = "Att försvinna är en **sista utväg** och bör **endast användas när du vill sluta redigera för alltid** och även för att dölja så många av dina tidigare associationer som möjligt.\n\nKonton raderas på Wikipedia genom att ändra kontonamnet för att göra så att andra inte kan känna igen bidragen i en process som kallas kontoförsvinnande. **Försvinnande garanterar inte fullständig anonymitet eller att bidrag tas bort från projekten**.";
 "vanish-account-warning-title" = "Varning";

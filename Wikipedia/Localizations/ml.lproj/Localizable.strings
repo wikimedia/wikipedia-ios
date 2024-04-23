@@ -94,7 +94,6 @@
 "description-add-title" = "വിവരണം ചേർക്കുക";
 // Fuzzy
 "description-edit-for-article" = "$1നുള്ള തലക്കെട്ട് വിവരണം";
-"description-edit-learn-more" = "കൂടുതൽ അറിയുക";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "ആമുഖം തിരുത്തുക";
 // Fuzzy
@@ -138,7 +137,6 @@
 "edit-summary-choice-fixed-grammar" = "വ്യാകരണം ശരിയാക്കി";
 "edit-summary-choice-fixed-typos" = "അക്ഷരപിശക് തിരുത്തി";
 "edit-summary-choice-linked-words" = "കണ്ണികൾ ചേർത്തു";
-"edit-summary-learn-more-text" = "കൂടുതൽ അറിയുക";
 "edit-summary-placeholder-text" = "ഈ ലേഖനം താങ്കൾ എങ്ങനെയാണ് മെച്ചപ്പെടുത്തിയത്?";
 "edit-watch-this-page-text" = "ഈ താൾ ശ്രദ്ധിക്കുക";
 "empty-no-search-results-message" = "ഫലങ്ങളൊന്നും കണ്ടെത്താനായില്ല";
