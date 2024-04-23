@@ -229,7 +229,6 @@
 "data-migration-status" = "正在更新...";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的条目描述";
-"description-edit-learn-more" = "了解更多";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "一旦更改条目描述，即表示我同意$1，并在$2的许可下不可撤销地发布我的贡献。";
 "description-edit-pencil-introduction" = "编辑导言";
@@ -350,7 +349,6 @@
 "edit-summary-choice-fixed-grammar" = "修正语病";
 "edit-summary-choice-fixed-typos" = "修正笔误";
 "edit-summary-choice-linked-words" = "添加链接";
-"edit-summary-learn-more-text" = "了解更多";
 "edit-summary-placeholder-text" = "您是如何改进条目的？";
 "edit-watch-list-learn-more-text" = "了解有关您监视列表的更多信息";
 "edit-watch-this-page-text" = "监视本页";
@@ -1194,7 +1192,6 @@
 "uzbek-variants-alert-body" = "维基百科应用现在支持以下乌兹别克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "更新乌兹别克语变体支持";
 "vanish-account-continue-button-title" = "继续";
-"vanish-account-learn-more-text" = "了解更多";
 "vanish-account-username-field" = "用户名和用户页";
 "vanish-account-warning-body" = "隐退作为**最后手段**，应当**仅在您希望永久停止编辑**并尽可能隐藏过去踪迹的情况下使用。\n\n在维基百科上，删除账号通过改名为其他用户无法辨别的名称来进行，称为账号隐退。**账号隐退无法保证完全匿名，也无法保证移除在项目的所有贡献**。";
 "vanish-account-warning-title" = "警告";

@@ -204,7 +204,6 @@
 "data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
 "description-edit-for-article" = "Description de l’article $1";
-"description-edit-learn-more" = "En savoir plus";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En modifiant la description de l’article, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
 "description-edit-pencil-introduction" = "Modifier l’introduction";
@@ -325,7 +324,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammaire corrigée";
 "edit-summary-choice-fixed-typos" = "Coquilles corrigées";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
-"edit-summary-learn-more-text" = "En savoir plus";
 "edit-summary-placeholder-text" = "Comment avez-vous amélioré l’article ?";
 "edit-watch-list-learn-more-text" = "En savoir plus sur les listes de suivi";
 "edit-watch-this-page-text" = "Suivre cette page";
@@ -1166,7 +1164,6 @@
 "uzbek-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’ouzbek comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin – ouzbek latin (uz-latin)\nўзбекча кирилл – ouzbek cyrillique (uz-cyrl)";
 "uzbek-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’ouzbek";
 "vanish-account-continue-button-title" = "Continuer";
-"vanish-account-learn-more-text" = "En savoir plus";
 "vanish-account-username-field" = "Nom d’utilisateur et page utilisateur";
 "vanish-account-warning-body" = "La disparition est à utiliser en **dernier recours** et ne doit **uniquement lorsque vous souhaitez arrêter les modifications pour toujours** et également pour masquer autant de vos associations passées que possible.\n\nLa suppression du compte sur Wikipédia est réalisée en changeant le nom de votre compte pour que les autres ne puissent pas reconnaître vos contributions dans un processus appelé disparition de compte. **La disparition ne garantit pas l’anonymat complet et ne supprime pas les contributions aux projets**.";
 "vanish-account-warning-title" = "Avertissement";

@@ -100,7 +100,6 @@
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
 "description-add-title" = "وضاحت شامل کرو";
 "description-edit-for-article" = "$1 کیتے مضمون تفصیل";
-"description-edit-learn-more" = "ٻیا سِکھو";
 "description-edit-length-warning" = "\n$1 / $2";
 "description-edit-pencil-introduction" = "تعارف وچ تبدیلی کرو";
 "description-edit-pencil-title" = "مضمون  تفصیل وچ تبدیلی کرو";
@@ -137,7 +136,6 @@
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
-"edit-summary-learn-more-text" = "ٻیا سِکھو";
 "edit-watch-this-page-text" = "ایں ورقے تے پارھا ݙیوو";
 "editing-welcome-be-bold-title" = "تہاݙی اواز اہم ہے";
 "editor-find-textfield-accessibility" = "لبھو";
@@ -468,7 +466,6 @@
 "unknown-generic-text" = "نامعلوم";
 "user-title" = "ورتݨ آلا";
 "vanish-account-continue-button-title" = "جاری رکھو";
-"vanish-account-learn-more-text" = "ٻیا سِکھو";
 "vanish-account-warning-title" = "ݙراوا";
 "variants-alert-dismiss-button" = "کو، شکریہ";
 "watch" = "پارھا ݙیوو";

@@ -115,7 +115,6 @@
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
-"add-image-learn-more-text" = "Дознајте повеќе";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -174,7 +173,6 @@
 "data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
 "description-edit-for-article" = "Опис на статијата „$1“";
-"description-edit-learn-more" = "Дознајте повеќе";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Менувајќи го описот на статијата се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
 "description-edit-pencil-introduction" = "Уреди вовед";
@@ -307,7 +305,6 @@
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
-"edit-summary-learn-more-text" = "Дознајте повеќе";
 "edit-summary-placeholder-text" = "На кој начин ја подобривте статијата?";
 "edit-watch-list-learn-more-text" = "Дознајте повеќе за набљудуваните";
 "edit-watch-this-page-text" = "Набљудувај ја страницава";
@@ -584,6 +581,11 @@
 "image-rec-survey-title" = "Причина";
 "image-rec-title" = "Додај слика";
 "image-rec-view-article" = "Погл. статија";
+"image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
+"image-recommendations-email-fourth-line" = "— [Опишете го предложеното решение]";
+"image-recommendations-email-second-line" = "— [Опишете го конкретниот проблем]";
+"image-recommendations-email-third-line" = "Сакам да го видам следново поведение:";
+"image-recommendations-email-title" = "Пријава на проблем — Функција „Додај слика“";
 "image-recs-no-title" = "Не";
 "image-recs-not-sure-title" = "Не знам";
 "image-recs-yes-title" = "Да";
@@ -633,6 +635,7 @@
 "languages-settings-title" = "Јазици";
 "languages-title" = "Смени јазик";
 "languages-wikipedia" = "Јазици на Википедија";
+"learn-more-title" = "Дознајте повеќе";
 "logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
 "logged-out-log-back-in-button-title" = "Назад на најава со сметката";
 "logged-out-subtitle" = "Се јави проблем при заверката на вашата сметка. Ќе треба повторно да се најавите за може да се усогласат списоците за читање и да уредувате под вашето корисничко име.";
@@ -878,6 +881,7 @@
 "potd-widget-title" = "Слика на денот";
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "privacy-policy-title" = "Правила за лични податоци";
+"problem-with-feature-title" = "Проблем со функцијата";
 "project-name-mediawiki" = "МедијаВики";
 "project-name-wikibooks" = "Викикниги";
 "project-name-wikidata" = "Википодатоци";
@@ -1173,6 +1177,7 @@
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";
 "top-read-widget-title" = "Најчитани";
+"tutorial-title" = "Упатство";
 "two-factor-login-continue" = "Продолжете со најавата";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
 "two-factor-login-title" = "Најавете се со вашата сметка";
@@ -1185,7 +1190,6 @@
 "uzbek-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве узбечки варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\noʻzbekcha lotin — узбечки на латиница (uz-latin)\nўзбекча кирилл — узбечки на кирилица (uz-cyrl)";
 "uzbek-variants-alert-title" = "Новост за поддршка на узбечки варијанти";
 "vanish-account-continue-button-title" = "Продолжи";
-"vanish-account-learn-more-text" = "Дознајте повеќе";
 "vanish-account-username-field" = "Корисничко име и корисничка страница";
 "vanish-account-warning-body" = "Гаснењето е **последно средство** и треба да се користи **само ако сакате да престанете да уредувате засекогаш** и што повеќе да ги скриете вашите досегашни врски.\n\nБришењето сметки на Википедија се врши така со менување на името на вашата сметка, така што другите не би можеле да ги препознаат вашите придонеси во постапка наречена гаснење на сметка. **Гаснењето не гарантира целосна анонимност и не ги отстранува придонесите на проектот**.";
 "vanish-account-warning-title" = "Предупредување";

@@ -148,7 +148,6 @@
 "data-migration-status" = "ߟߊ߬ߞߎ߬ߘߊ߬ߟߌ ߦߴߌ ߘߐ߫...";
 "description-add-title" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߘߏ߲߬";
 "description-edit-for-article" = "$1 ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ";
-"description-edit-learn-more" = "ߘߏߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "ߖߐ߲߬ߛߊ߫ ߞߊ߬ ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߡߊߝߊ߬ߟߋ߲߬߸ ߒ ߘߌ߬ߢߍ߬ߣߍ߲߬ ߦߋ߫ $1 ߡߵߊ߬ ߣߌ߫ ߒ ߣߡߌߛߊߓߊߟߌߦߊ߫ ߘߌߢߍߣߍ߲߫ ߦߋ߫ ߒ ߠߊ߫ ߓߟߏߡߊߜߍ߲ ߠߎ߬ ߟߊߓߌ߬ߟߊ ߡߊ߬ $2 ߟߊ߫ ߕߌ߰ߦߊ ߞߐ߬ߣߐߡߊ߬.";
 "description-edit-pencil-introduction" = "ߟߊߘߏ߲߬ߠߌ߲ ߡߊߦߟߍ߬ߡߊ߲߫";
@@ -224,7 +223,6 @@
 "edit-summary-choice-fixed-grammar" = "ߞߊ߲ߜߍ ߘߐߓߍ߲߬";
 "edit-summary-choice-fixed-typos" = "ߛߓߍߟߌ ߞߍߢߊ ߛߊߞߍߟߌ";
 "edit-summary-choice-linked-words" = "ߦߌߟߡߊ ߟߎ߬ ߝߙߊ߬";
-"edit-summary-learn-more-text" = "ߘߏߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
 "edit-summary-placeholder-text" = "ߌ ߦߋ߫ ߞߎߡߘߊ ߟߊߢߊ߬ ߟߊ߫ ߘߌ߬؟";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "ߘߏ߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬ ߞߊ߬ ߓߍ߲߬ ߜߋ߬ߟߎ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߡߊ߬";

@@ -170,7 +170,6 @@
 "data-migration-status" = "Aktualizácia...";
 "description-add-title" = "Pridať popis";
 "description-edit-for-article" = "Popis článku pre $1";
-"description-edit-learn-more" = "Ďalšie informácie";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "Zmenou popisu článku súhlasím s $1 a neodvolateľne uvoľňujem moje príspevky pod licenciou $2.";
 "description-edit-pencil-introduction" = "Upraviť úvod";
@@ -253,7 +252,6 @@
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
-"edit-summary-learn-more-text" = "Viac informácií";
 "edit-summary-placeholder-text" = "Ako ste vylepšili článok?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Viac informácií o sledovaných stránkach";

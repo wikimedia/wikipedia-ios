@@ -137,7 +137,6 @@
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
-"add-image-learn-more-text" = "Lisätietoja";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -194,7 +193,6 @@
 "data-migration-status" = "Päivitetään...";
 "description-add-title" = "Lisää kuvaus";
 "description-edit-for-article" = "Artikkelin kuvaus $1";
-"description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Muuttamalla artikkelin kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-introduction" = "Muokkaa esittelyä";
@@ -303,7 +301,6 @@
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
-"edit-summary-learn-more-text" = "Lisätietoja";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
 "edit-watch-list-learn-more-text" = "Lue lisää omista tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
@@ -572,6 +569,7 @@
 "languages-settings-title" = "Kielet";
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
+"learn-more-title" = "Lisätietoja";
 "logged-out-continue-without-logging-in-button-title" = "Jatka kirjautumatta";
 "logged-out-log-back-in-button-title" = "Kirjaudu takaisin käyttäjätunnuksellesi";
 "logged-out-subtitle" = "Tunnistauduttaessa tapahtui virhe. Kirjaudu takaisin sisään synkronoidaksesi lukulistasi sekä muokataksesi käyttäjätunnuksellasi.";
@@ -1082,7 +1080,6 @@
 "unwatch" = "Lopeta tarkkailu";
 "user-title" = "Käyttäjä";
 "vanish-account-continue-button-title" = "Jatka";
-"vanish-account-learn-more-text" = "Lue lisää";
 "vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
 "vanish-account-warning-title" = "Varoitus";
 "variants-alert-dismiss-button" = "Ei kiitos";
