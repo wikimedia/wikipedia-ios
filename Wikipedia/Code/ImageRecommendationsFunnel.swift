@@ -59,14 +59,12 @@ final class ImageRecommendationsFunnel: NSObject {
         let activeInterface: String?
         let action: String?
         let actionData: String?
-        let platform: String
         let wikiID: String?
         
         enum CodingKeys: String, CodingKey {
             case activeInterface = "active_interface"
             case action = "action"
             case actionData = "action_data"
-            case platform = "platform"
             case wikiID = "wiki_id"
         }
     }
@@ -97,7 +95,7 @@ final class ImageRecommendationsFunnel: NSObject {
             }
         }
         
-        let event: ImageRecommendationsFunnel.Event = ImageRecommendationsFunnel.Event(activeInterface: activeInterface?.rawValue, action: action?.rawValue, actionData: actionDataString, platform: "ios", wikiID: project?.notificationsApiWikiIdentifier)
+        let event: ImageRecommendationsFunnel.Event = ImageRecommendationsFunnel.Event(activeInterface: activeInterface?.rawValue, action: action?.rawValue, actionData: actionDataString, wikiID: project?.notificationsApiWikiIdentifier)
         EventPlatformClient.shared.submit(stream: .imageRecommendation, event: event)
     }
     
