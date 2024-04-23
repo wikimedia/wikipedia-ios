@@ -113,6 +113,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let imageData: WKImageRecommendationData
         public var caption: String?
         public var altText: String?
+        public var suggestionAcceptDate: Date?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId

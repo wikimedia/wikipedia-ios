@@ -1394,6 +1394,7 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
               let currentRecommendation = viewModel.currentRecommendation,
            let siteURL = viewModel.project.siteURL,
            let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            currentRecommendation.suggestionAcceptDate = Date()
             EditAttemptFunnel.shared.logInit(pageURL: pageURL)
         }
         
@@ -1523,7 +1524,12 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
             return
         }
         
-        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+        var timeSpent: Int? = nil
+        if let suggestionAcceptDate = currentRecommendation.suggestionAcceptDate {
+            timeSpent = Int(Date().timeIntervalSince(suggestionAcceptDate))
+        }
+        
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(timeSpent: timeSpent, revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
     }
     
     func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {

@@ -222,14 +222,16 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .editSummaryDialog, action: .editSummarySave, actionData:actionData, project: project)
     }
     
-    func logSaveChangesPublishSuccess(revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
-        // TODO: Time Spent, don't know how that should be tracked
-        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySuccess, actionData:
-                    ["revision_id": "\(revisionID)",
-                     "capion_add": "\(captionAdded)",
-                     "alt_text_add": "\(altTextAdded)",
-                     "summary_add": "\(summaryAdded)"]
-        , project: project)
+    func logSaveChangesPublishSuccess(timeSpent: Int?, revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
+        var actionData = ["revision_id": "\(revisionID)",
+                          "capion_add": "\(captionAdded)",
+                          "alt_text_add": "\(altTextAdded)",
+                          "summary_add": "\(summaryAdded)"]
+        if let timeSpent {
+            actionData["time_spent"] = String(timeSpent)
+                              
+        }
+        logEvent(activeInterface: .editSummaryDialog, action: .editSummarySuccess, actionData: actionData, project: project)
     }
     
     func logRejectSurveyDidAppear() {
