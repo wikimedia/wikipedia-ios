@@ -57,7 +57,6 @@
 "clear-title-accessibility-label" = "Մաքրել";
 "close-button-accessibility-label" = "Փակել";
 "compass-direction" = "Ժամը $1";
-"description-edit-learn-more" = "Իմանալ ավելին";
 "description-help-about-title" = "Ծրագրի մասին";
 "description-help-about-wikidata" = "Վիքիտվյալների մասին";
 "description-help-tips-for-example" = "Օրինակ";
@@ -201,7 +200,6 @@
 "theme-sepia-display-name" = "Սեպիա";
 "unknown-generic-text" = "Անհայտ";
 "vanish-account-continue-button-title" = "Շարունակել";
-"vanish-account-learn-more-text" = "Իմանալ ավելին";
 "vanish-account-warning-title" = "Զգուշացում";
 "welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
 "welcome-explore-tell-me-more-done-button" = "Հասկանալի է";

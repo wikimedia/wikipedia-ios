@@ -141,7 +141,6 @@
 "description-add-title" = "Mbeang wa̱i a̱lyiat";
 // Fuzzy
 "description-edit-for-article" = "Wa̱i a̱lyiat a̱lyoot mat $1";
-"description-edit-learn-more" = "Myiam nkyang njhyang";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "A̱son a̱lyiat jhyuk";
 // Fuzzy
@@ -209,7 +208,6 @@
 "edit-summary-choice-fixed-grammar" = "Jhyi a̱gi̱rama";
 "edit-summary-choice-fixed-typos" = "Jhyi taipo";
 "edit-summary-choice-linked-words" = "Mbeang a̱ka̱fwop";
-"edit-summary-learn-more-text" = "Myiam nkyang njhyang";
 "edit-summary-placeholder-text" = "Nini wa nang a jhyi a̱ti̱kut wuni?";
 "edit-watch-this-page-text" = "Sak a̱ghyi tazwa peji huni";
 "editing-welcome-set-knowledge-free-title" = "Tyia̱ lyen sa̱t";

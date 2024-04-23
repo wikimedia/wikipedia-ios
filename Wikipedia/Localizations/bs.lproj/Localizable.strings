@@ -165,7 +165,6 @@
 "data-migration-status" = "Ažuriram...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis članka za $1";
-"description-edit-learn-more" = "Saznaj više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Mijenjanjem opisa članka prihvatam $1 i neopozivo dajem svoje doprinose pod licencom $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
@@ -251,7 +250,6 @@
 "edit-summary-choice-fixed-grammar" = "Popravljena gramatička greška";
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
-"edit-summary-learn-more-text" = "Saznaj više";
 "edit-summary-placeholder-text" = "Kako ste poboljšali članak?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Saznaj više o spisku praćenja";

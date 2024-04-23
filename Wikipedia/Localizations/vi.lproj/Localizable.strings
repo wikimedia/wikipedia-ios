@@ -184,7 +184,6 @@
 "data-migration-status" = "Đang cập nhật…";
 "description-add-title" = "Thêm lời tóm lược";
 "description-edit-for-article" = "Tóm lược bài viết $1";
-"description-edit-learn-more" = "Tìm hiểu thêm";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Với việc thay đổi lời tóm lược bài viết, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
 "description-edit-pencil-introduction" = "Sửa phần đầu";
@@ -277,7 +276,6 @@
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-typos" = "Sửa chính tả";
 "edit-summary-choice-linked-words" = "Đặt liên kết";
-"edit-summary-learn-more-text" = "Tìm hiểu thêm";
 "edit-summary-placeholder-text" = "Bạn đã cải thiện bài này như thế nào?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Tìm hiểu thêm về danh sách theo dõi";
@@ -989,7 +987,6 @@
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
 "vanish-account-continue-button-title" = "Tiếp tục";
-"vanish-account-learn-more-text" = "Tìm hiểu thêm";
 "vanish-account-warning-body" = "Biến mất là **biện pháp cuối cùng** và nên **chỉ dùng khi bạn muốn chấm dứt sửa đổi vĩnh viễn** và muốn che giấu tối đa những mối liên hệ với bạn trong quá khứ.\n\nViệc xoá tài khoản trên Wikipedia được thực hiện bằng cách đổi tên tài khoản của bạn để người khác không nhận ra được những đóng góp của bạn trong một quy trình gọi là làm biến mất tài khoản. Bạn có thể dùng mẫu bên dưới để yêu cầu biến mất tài khoản. Việc biến mất không đảm bảo ẩn danh hoàn toàn hoặc xoá bỏ những đóng góp trên các dự án.";
 "vanish-account-warning-title" = "Cảnh báo";
 "variants-alert-dismiss-button" = "Thôi";

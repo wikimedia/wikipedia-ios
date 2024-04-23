@@ -164,7 +164,6 @@
 "data-migration-status" = "Maale eŋe";
 "description-add-title" = "Maale eŋ mannoo";
 "description-edit-for-article" = "Ganlee mannoo ko $1";
-"description-edit-learn-more" = "Zanne yaga";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ka ba naŋ leɛtɛ a Aatekle kannoo, N sagɛɛ la a $1 kyɛ e toŋ ena kaŋa a $2 sori teroo.";
 "description-edit-pencil-introduction" = "Maale eŋ piiluu";
@@ -283,7 +282,6 @@
 "edit-summary-choice-fixed-grammar" = "Eŋ Kɔkɔre yelbie gɔɔloŋ";
 "edit-summary-choice-fixed-typos" = "Eŋ sɛgebo";
 "edit-summary-choice-linked-words" = "Eŋ tag lammo";
-"edit-summary-learn-more-text" = "Zanne yɛlɛ yaga";
 "edit-summary-placeholder-text" = "Wolɔ ka fo e maale a Aatekle gaa tɔɔre?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Zanne yɛlɛ yaga a gama poɔ";

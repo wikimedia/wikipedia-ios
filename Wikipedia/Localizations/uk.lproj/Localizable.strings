@@ -187,7 +187,6 @@
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
 "description-edit-for-article" = "Опис статті «$1»";
-"description-edit-learn-more" = "Дізнатися більше";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Змінюючи опис назви, я погоджуюся із $1 та безвідклично публікую свій внесок за ліцензією $2.";
 "description-edit-pencil-introduction" = "Редагувати вступ";
@@ -308,7 +307,6 @@
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-typos" = "Виправлена помилка";
 "edit-summary-choice-linked-words" = "Додані посилання";
-"edit-summary-learn-more-text" = "Дізнатися більше";
 "edit-summary-placeholder-text" = "Як ви вдосконалили статтю?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Дізнатися більше про списки спостереження";
@@ -1087,7 +1085,6 @@
 "uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
 "vanish-account-continue-button-title" = "Продовжити";
-"vanish-account-learn-more-text" = "Дізнайтесь більше";
 "vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-account-warning-body" = "Зникнення є **останнім заходом**, і його слід використовувати **лише тоді, коли ви хочете назавжди припинити редагування**, а також щоб приховати якомога більше своїх минулих зв'язків.\n\nВилучення облікового запису у Вікіпедії робиться шляхом зміни імені вашого облікового запису, щоб інші не могли розпізнати ваші внески; це називають зникненням облікового запису. **Зникнення не гарантує повної анонімності і не вилучає внесок у проєкти**.";
 "vanish-account-warning-title" = "Попередження";

@@ -185,7 +185,6 @@
 "data-migration-status" = "A atualizar...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do artigo $1";
-"description-edit-learn-more" = "Saber mais";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ao alterar a descrição do artigo, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
@@ -306,7 +305,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Hiperligações adicionadas";
-"edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "De que forma melhorou o artigo?";
 "edit-watch-list-learn-more-text" = "Aprende mais sobre a sua lista de observação";
 "edit-watch-this-page-text" = "Vigiar esta página";
@@ -1109,7 +1107,6 @@
 "uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-learn-more-text" = "Saiba mais";
 "vanish-account-username-field" = "Nome de utilizador e página de utilizador";
 "vanish-account-warning-body" = "O desaparecimento é um **recurso de última instância** que **só deve ser usado quando pretende parar de editar para sempre** e ocultar o máximo possível das suas associações anteriores.\n\nA eliminação de contas na Wikipédia é feita alterando o seu nome de utilizador para que as pessoas não possam reconhecer as suas contribuições, num processo designado desaparecimento de conta. **O desaparecimento não garante o anonimato completo nem remove as participações nos projetos**.";
 "vanish-account-warning-title" = "Aviso";

@@ -121,7 +121,6 @@
 "description-add-title" = "Aldoni priskribon";
 // Fuzzy
 "description-edit-for-article" = "Titola priskribo por $1";
-"description-edit-learn-more" = "Ekscii pli";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ŝanĝante la titolan priskribon, mi konsentas kun la $1 kaj nenuligeble eldonas miajn kontribuojn laŭ la permesilo $2.";
@@ -177,7 +176,6 @@
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
-"edit-summary-learn-more-text" = "Lerni plu";
 "edit-summary-placeholder-text" = "Kiel ĝi plibonigis la artikolon?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Lerni pli pri atentaro";

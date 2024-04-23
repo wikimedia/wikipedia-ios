@@ -107,7 +107,6 @@
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-title" = "Nema nedavno čitanih članaka";
 "description-add-title" = "Dodaj opis";
-"description-edit-learn-more" = "Saznaj više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-placeholder-title" = "Kratki su opisi najbolji";
@@ -159,7 +158,6 @@
 "edit-summary-choice-fixed-grammar" = "Popravljen pravopis";
 "edit-summary-choice-fixed-typos" = "Popravljen zatipak";
 "edit-summary-choice-linked-words" = "Dodane poveznice";
-"edit-summary-learn-more-text" = "Saznajte više";
 "edit-summary-placeholder-text" = "Kako ste unaprijedili članak?";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-title" = "Vaš glas je važan";
