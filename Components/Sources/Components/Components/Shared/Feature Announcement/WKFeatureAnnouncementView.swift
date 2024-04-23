@@ -63,5 +63,5 @@ struct WKFeatureAnnouncementView: View {
 }
 
 #Preview {
-    WKFeatureAnnouncementView(viewModel: WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.checkPhoto, primaryButtonAction: {}, closeButtonAction: {}))
+    WKFeatureAnnouncementView(viewModel: WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.addPhoto, primaryButtonAction: {}, closeButtonAction: {}))
 }
