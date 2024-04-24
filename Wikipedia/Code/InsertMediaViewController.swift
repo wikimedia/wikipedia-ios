@@ -106,7 +106,7 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, theme: theme)
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, imageRecLoggingDelegate: nil, theme: theme)
 
         navigationController.pushViewController(settingsViewController, animated: true)
     }
@@ -304,8 +304,7 @@ extension InsertMediaViewController: EditingFlowViewController {
 }
 
 extension InsertMediaViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
         delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: imageWikitext)
     }
-    
 }

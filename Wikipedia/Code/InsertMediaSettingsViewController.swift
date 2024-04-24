@@ -4,14 +4,22 @@ import WKData
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
 protocol InsertMediaSettingsViewControllerDelegate: ViewController {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?)
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?)
 }
 
+protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
+    func logInsertMediaSettingsViewControllerDidAppear()
+    func logInsertMediaSettingsViewControllerDidTapFileName()
+    func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
+    func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
+    func logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
+}
 
 final class InsertMediaSettingsViewController: ViewController {
     
     private let fromImageRecommendations: Bool
     private weak var delegate: InsertMediaSettingsViewControllerDelegate?
+    private weak var imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
@@ -147,6 +155,7 @@ final class InsertMediaSettingsViewController: ViewController {
         imageView.title = searchResult.displayTitle
         imageView.titleURL = imageTitle
         imageView.titleAction = { [weak self] url in
+            self?.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapFileName()
             self?.navigate(to: url, useSafari: false)
         }
         imageView.autoresizingMask = []
@@ -163,6 +172,7 @@ final class InsertMediaSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
+            imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
             self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
@@ -205,11 +215,12 @@ final class InsertMediaSettingsViewController: ViewController {
         return [captionViewModel, alternativeTextViewModel]
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, theme: Theme) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
         self.delegate = delegate
+        self.imageRecLoggingDelegate = imageRecLoggingDelegate
         super.init()
         self.theme = theme
     }
@@ -248,6 +259,7 @@ final class InsertMediaSettingsViewController: ViewController {
         let searchResult = searchResult
         let wikitext: String
         var captionToSend: String?
+        var altTextToSend: String?
         switch settings {
         case nil:
             wikitext = "[[\(searchResult.fileTitle)]]"
@@ -258,6 +270,7 @@ final class InsertMediaSettingsViewController: ViewController {
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
                 """
                 captionToSend = caption
+                altTextToSend = alternativeText
             case (let caption?, nil):
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
@@ -267,19 +280,22 @@ final class InsertMediaSettingsViewController: ViewController {
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
                 """
+                altTextToSend = alternativeText
             default:
                 wikitext = """
                 [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
                 """
             }
         }
-        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend)
+        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         UIAccessibility.post(notification: .screenChanged, argument: nil)
+        
+        imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidAppear()
     }
 
     override func viewDidLayoutSubviews() {
@@ -348,8 +364,17 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
             guard let self = self else {
                 return
             }
+            
+            switch viewModel.type {
+            case .caption:
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
+            case .alternativeText:
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
+            }
+            
             self.navigate(to: url, useSafari: false)
         }
+        
         return cell
     }
 

@@ -12,6 +12,26 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
 }
 
+public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
+    func logOnboardingDidTapPrimaryButton()
+    func logOnboardingDidTapSecondaryButton()
+    func logTooltipsDidTapFirstNext()
+    func logTooltipsDidTapSecondNext()
+    func logTooltipsDidTapThirdOK()
+    func logBottomSheetDidAppear()
+    func logBottomSheetDidTapYes()
+    func logBottomSheetDidTapNo()
+    func logBottomSheetDidTapNotSure()
+    func logOverflowDidTapLearnMore()
+    func logOverflowDidTapTutorial()
+    func logOverflowDidTapProblem()
+    func logBottomSheetDidTapFileName()
+    func logRejectSurveyDidAppear()
+    func logRejectSurveyDidTapCancel()
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
+    func logEmptyStateDidTapBack()
+}
+
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
     init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
@@ -32,6 +52,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     private weak var delegate: WKImageRecommendationsDelegate?
+    private weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
     @ObservedObject private var viewModel: WKImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
@@ -39,13 +60,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private var overflowMenu: UIMenu {
 
         let learnMore = UIAction(title: viewModel.localizedStrings.learnMoreButtonTitle, image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapLearnMore()
             self?.goToFAQ()
         })
         let tutorial = UIAction(title: viewModel.localizedStrings.tutorialButtonTitle, image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapTutorial()
             self?.showTutorial()
         })
 
         let reportIssues = UIAction(title: viewModel.localizedStrings.problemWithFeatureButtonTitle, image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+            self?.loggingDelegate?.logOverflowDidTapProblem()
             self?.reportIssue()
         })
 
@@ -59,11 +83,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 	private let dataController = WKImageRecommendationsDataController()
     private let tooltipGeometryValues = WKTooltipGeometryValues()
 
-    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, tooltipGeometryValues: tooltipGeometryValues)
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
-        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate)
+        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
     }
 
@@ -77,6 +102,10 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
         addComponent(hostingViewController, pinToEdges: true)
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +137,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
+    
+    @objc private func tappedBack() {
+        
+        if viewModel.imageRecommendations.isEmpty {
+            loggingDelegate?.logEmptyStateDidTapBack()
+        }
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.popViewController(animated: true)
+    }
 
     private func setupOverflowMenu() {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
@@ -123,6 +162,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             bottomSheet.prefersGrabberVisible = true
             bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
+        
         navigationController?.present(imageRecommendationBottomSheetController, animated: true, completion: {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
@@ -176,16 +216,16 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             articleSummaryDivSourceRect = divGlobalFrame
         }
         
-        let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) {
-            print("do some logging 1")
+        let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapFirstNext()
         }
         
-        let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) {
-            print("do some logging 2")
+        let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapSecondNext()
         }
         
-        let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) {
-            print("do some logging 3")
+        let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
+            self?.loggingDelegate?.logTooltipsDidTapThirdOK()
         }
         
         bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
@@ -251,6 +291,8 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
             }
         })
+        
+        loggingDelegate?.logOnboardingDidTapPrimaryButton()
 	}
 
 	public func onboardingViewDidClickSecondaryButton() {
@@ -259,6 +301,8 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 		}
 
 		UIApplication.shared.open(url)
+        
+        loggingDelegate?.logOnboardingDidTapSecondaryButton()
 	}
 
     public func onboardingViewWillSwipeToDismiss() {

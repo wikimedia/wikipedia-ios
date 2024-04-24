@@ -540,7 +540,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // When a random article title is tapped, show the previewed article, not another random article
         let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self) {
+        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
+            
+            if vc is WKImageRecommendationsViewController {
+                ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+            }
             
             push(vc, animated: true)
             return
@@ -673,7 +677,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
             let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, imageRecDelegate: self) else {
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
         }
         
@@ -688,6 +692,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
         if let otdvc = vc as? OnThisDayViewController {
             otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
+        }
+        
+        if vc is WKImageRecommendationsViewController {
+            ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
         }
         
         presentedContentGroupKey = contentGroup.key
@@ -893,11 +901,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WKIcon.addPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
-            let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self) else {
+                  let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
                 return
             }
             
             navigationController?.pushViewController(imageRecommendationViewController, animated: true)
+            
+            ImageRecommendationsFunnel.shared.logExploreDidTapFeatureAnnouncementPrimaryButton()
             
         })
         
@@ -1185,6 +1195,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
+        ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
@@ -1202,7 +1213,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, theme: theme)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
@@ -1210,7 +1221,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
         
         guard let viewModel = imageRecommendationsViewModel,
         let currentRecommendation = viewModel.currentRecommendation,
@@ -1221,6 +1232,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         }
         
         currentRecommendation.caption = caption
+        currentRecommendation.altText = altText
         
         do {
             let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
@@ -1231,6 +1243,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
             editPreviewViewController.languageCode = articleURL.wmf_languageCode
             editPreviewViewController.wikitext = wikitextWithImage
             editPreviewViewController.delegate = self
+            editPreviewViewController.loggingDelegate = self
 
             navigationController?.pushViewController(editPreviewViewController, animated: true)
         } catch let error {
@@ -1252,9 +1265,9 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
         saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
-        saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
+        saveVC.imageRecLoggingDelegate = self
         saveVC.theme = self.theme
         
         navigationController?.pushViewController(saveVC, animated: true)
@@ -1342,24 +1355,180 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidTapShowWebPreview() {
         assertionFailure("This should not be called in the Image Recommendations context")
     }
-    
-    func editSaveViewControllerLogDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
-        
-    }
-    
-    func editSaveViewControllerLogDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject) {
-        
-    }
 }
 
 extension ExploreViewController: WKFeatureAnnouncing {
+    
+}
+
+extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
+    
+    func logOnboardingDidTapPrimaryButton() {
+        ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
+    }
+    
+    func logOnboardingDidTapSecondaryButton() {
+        ImageRecommendationsFunnel.shared.logOnboardingDidTapLearnMore()
+    }
+    
+    func logTooltipsDidTapFirstNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapFirstNext()
+    }
+    
+    func logTooltipsDidTapSecondNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapSecondNext()
+    }
+    
+    func logTooltipsDidTapThirdOK() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapThirdOk()
+    }
+    
+    func logBottomSheetDidAppear() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
+    }
+    
+    func logBottomSheetDidTapYes() {
+        
+        if let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            currentRecommendation.suggestionAcceptDate = Date()
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
+        }
+        
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapYes()
+    }
+    
+    func logBottomSheetDidTapNo() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNo()
+    }
+    
+    func logBottomSheetDidTapNotSure() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNotSure()
+    }
+    
+    func logOverflowDidTapLearnMore() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapLearnMore()
+    }
+    
+    func logOverflowDidTapTutorial() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapTutorial()
+    }
+    
+    func logOverflowDidTapProblem() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapProblem()
+    }
+    
+    func logBottomSheetDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapFileName()
+    }
+    
+    func logRejectSurveyDidAppear() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidAppear()
+    }
+    
+    func logRejectSurveyDidTapCancel() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapCancel()
+    }
+    
+    func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String) {
+        
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: fileName, recommendationSource: recommendationSource)
+    }
+    
+    func logEmptyStateDidTapBack() {
+        ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+}
+
+extension ExploreViewController: InsertMediaSettingsViewControllerLoggingDelegate {
+    func logInsertMediaSettingsViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidAppear()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapFileName()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapCaptionLearnMore()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAltTextLearnMore()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapAdvancedSettings() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAdvancedSettings()
+    }
+}
+
+extension ExploreViewController: EditPreviewViewControllerLoggingDelegate {
+    func logEditPreviewDidAppear() {
+        ImageRecommendationsFunnel.shared.logPreviewDidAppear()
+    }
+    
+    func logEditPreviewDidTapBack() {
+        ImageRecommendationsFunnel.shared.logPreviewDidTapBack()
+    }
+    
+    func logEditPreviewDidTapNext() {
+        
+        if let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
+        }
+        
+        ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
+    }
+}
+
+extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
+    
+    func logEditSaveViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidAppear()
+    }
+    
+    func logEditSaveViewControllerDidTapBack() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapBack()
+    }
+    
+    func logEditSaveViewControllerDidTapMinorEditsLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapMinorEditsLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidTapWatchlistLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapWatchlistLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidToggleWatchlist(isOn: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidToggleWatchlist(isOn: isOn)
+    }
+    
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled)
+    }
+    
+    func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+              let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        var timeSpent: Int? = nil
+        if let suggestionAcceptDate = currentRecommendation.suggestionAcceptDate {
+            timeSpent = Int(Date().timeIntervalSince(suggestionAcceptDate))
+        }
+        
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(timeSpent: timeSpent, revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+    }
+    
+    func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
+    }
     
 }

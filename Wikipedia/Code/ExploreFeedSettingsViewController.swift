@@ -336,6 +336,9 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
             }
+            if contentGroupKind == .suggestedEdits {
+                ImageRecommendationsFunnel.shared.logSettingsToggleSuggestedEditsCard(isOn: sender.isOn)
+            }
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
         } else {
             guard let language = languages.first(where: { $0.controlTag == controlTag }) else {

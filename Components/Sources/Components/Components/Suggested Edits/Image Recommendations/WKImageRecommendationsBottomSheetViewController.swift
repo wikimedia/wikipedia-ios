@@ -8,13 +8,15 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
     public var viewModel: WKImageRecommendationsViewModel
     public var tooltipViewModels: [WKTooltipViewModel] = []
     weak var delegate: WKImageRecommendationsDelegate?
+    weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
     private(set) var bottomSheetView: WKImageRecommendationBottomSheetView?
 
     // MARK: Lifecycle
 
-    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate) {
+    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
         super.init()
     }
 
@@ -30,6 +32,12 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
             addComponent(bottomSheetView, pinToEdges: true)
             self.bottomSheetView = bottomSheetView
         }
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loggingDelegate?.logBottomSheetDidAppear()
     }
 
     // MARK: Methods
@@ -66,6 +74,8 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func goToImageCommonsPage() {
+        
+        loggingDelegate?.logBottomSheetDidTapFileName()
 
         guard let currentRecommendation = viewModel.currentRecommendation,
         let url = URL(string: currentRecommendation.imageData.descriptionURL) else {
@@ -79,22 +89,40 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
         if let imageData = viewModel.currentRecommendation?.imageData, let title = viewModel.currentRecommendation?.title {
             self.dismiss(animated: true) {
                 self.delegate?.imageRecommendationsUserDidTapInsertImage(viewModel: self.viewModel, title: title, with: imageData)
+                self.loggingDelegate?.logBottomSheetDidTapYes()
             }
         }
     }
 
     func didTapNoButton() {
+        loggingDelegate?.logBottomSheetDidTapNo()
+        
 		let surveyView = WKImageRecommendationsSurveyView(
 			viewModel: WKImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
 			cancelAction: { [weak self] in
+                self?.loggingDelegate?.logRejectSurveyDidTapCancel()
+                
 				self?.dismiss(animated: true)
 			},
 			submitAction: { [weak self] reasons in
-                self?.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
+                
+                guard let self,
+                let currentRecommendation = self.viewModel.currentRecommendation else {
+                    return
+                }
+                
+                // Logging
+                let rejectionReasons = reasons.map { $0.apiIdentifier }
+                let otherReason = reasons.first(where: {$0.otherText != nil})
+                
+                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
+                
+                // Send feedback API call
+                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
                     
                 })
                 // Dismisses Survey View
-                self?.dismiss(animated: true, completion: { [weak self] in
+                self.dismiss(animated: true, completion: { [weak self] in
                     // Dismisses Bottom Sheet
                     self?.dismiss(animated: true, completion: { [weak self] in
                         self?.viewModel.next {
@@ -106,9 +134,13 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
 
 		let hostedView = WKComponentHostingController(rootView: surveyView)
 		present(hostedView, animated: true)
+        
+        loggingDelegate?.logRejectSurveyDidAppear()
     }
 
     func didTapSkipButton() {
+        loggingDelegate?.logBottomSheetDidTapNotSure()
+        
         self.dismiss(animated: true) {
             self.viewModel.next {
 

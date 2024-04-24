@@ -82,6 +82,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let image: String
         public let filename: String
         public let displayFilename: String
+        public let source: String
         public let thumbUrl: String
         public let fullUrl: String
         public let description: String?
@@ -90,12 +91,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public internal(set) var uiImage: UIImage?
         public let wikitext: String?
 
-        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?) {
+        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, source: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?) {
             self.pageId = pageId
             self.pageTitle = pageTitle
             self.image = image
             self.filename = filename
             self.displayFilename = displayFilename
+            self.source = source
             self.thumbUrl = thumbUrl
             self.fullUrl = fullUrl
             self.description = description
@@ -112,6 +114,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         @Published var articleSummary: WKArticleSummary? = nil
         public let imageData: WKImageRecommendationData
         public var caption: String?
+        public var altText: String?
+        public var suggestionAcceptDate: Date?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
@@ -322,6 +326,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     image: firstImage.image,
                     filename: firstImage.image,
                     displayFilename: firstImage.displayFilename,
+                    source: firstImage.source,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
                     description: metadata.description,
