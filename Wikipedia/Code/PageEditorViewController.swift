@@ -392,9 +392,10 @@ final class PageEditorViewController: UIViewController {
         guard let currentTitle = pageURL.wmf_title else {
             return
         }
-        
+        // swiftlint:disable unused_capture_list
         wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
-            
+        // swiftlint:enable unused_capture_list
+
             guard let self else {
                 return
             }
@@ -418,8 +419,10 @@ final class PageEditorViewController: UIViewController {
             return
         }
 
+        // swiftlint:disable unused_capture_list
         wmf_showBlockedPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, image: UIImage(named: "warning-icon"), linkLoggingAction: { [weak self] in
-            
+        // swiftlint:enable unused_capture_list
+
             guard let self else {
                 return
             }
