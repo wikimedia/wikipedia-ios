@@ -1200,12 +1200,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let siteURL = viewModel.project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
-            let wikitext = imageData.wikitext else {
-            return
-        }
-
         guard let image = imageData.uiImage else {
             return
         }
