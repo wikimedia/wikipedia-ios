@@ -7,10 +7,11 @@ public class WKImageRecommendationsDataController {
 
 	struct OnboardingStatus: Codable {
 		var hasPresentedOnboardingModal: Bool
+        var hasPresentedOnboardingTooltips: Bool
         var hasPresentedFeatureAnnouncementModal: Bool
 
 		static var `default`: OnboardingStatus {
-			return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedFeatureAnnouncementModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false)
 		}
 	}
 
@@ -41,6 +42,16 @@ public class WKImageRecommendationsDataController {
 		}
 	}
     
+    public var hasPresentedOnboardingTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTooltips
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
+            try? userDefaultsStore?.save(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+
     public var hasPresentedFeatureAnnouncementModal: Bool {
         get {
             return onboardingStatus.hasPresentedFeatureAnnouncementModal

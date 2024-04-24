@@ -1264,10 +1264,6 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         navigate(to: url, useSafari: false)
     }
 
-    func imageRecommendationsUserDidTapTutorial() {
-
-    }
-
     func imageRecommendationsUserDidTapReportIssue() {
         let emailAddress = "ios-support@wikimedia.org"
         let emailSubject = WMFLocalizedString("image-recommendations-email-title", value: "Issue Report - Add an Image Feature", comment: "Title text for Image recommendations pre-filled issue report email")

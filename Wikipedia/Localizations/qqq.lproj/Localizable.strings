@@ -572,6 +572,12 @@
 "image-rec-survey-submit-button" = "Title of the image recommendations survey view submit button.";
 "image-rec-survey-title" = "Title of the image recommendations survey view. Displayed in the navigation bar as title of view.";
 "image-rec-title" = "Title of the image recommendation view. Displayed in the navigation bar above an article summary.";
+"image-rec-tooltip-1-body" = "Body of first tooltip displayed when landing on image recommendations feature for the first time.";
+"image-rec-tooltip-1-title" = "Title of first tooltip displayed when landing on image recommendations feature for the first time.";
+"image-rec-tooltip-2-body" = "Body of second tooltip displayed when landing on image recommendations feature for the first time.";
+"image-rec-tooltip-2-title" = "Title of second tooltip displayed when landing on image recommendations feature for the first time.";
+"image-rec-tooltip-3-body" = "Body of second tooltip displayed when landing on image recommendations feature for the first time.";
+"image-rec-tooltip-3-title" = "Title of second tooltip displayed when landing on image recommendations feature for the first time.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
 "image-recommendations-email-first-line" = "Text for Image recommendations pre-filled issue report email";
 "image-recommendations-email-fourth-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution";

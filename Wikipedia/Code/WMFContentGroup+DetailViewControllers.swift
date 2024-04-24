@@ -70,7 +70,7 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
-        case .imageRecommendations:            
+        case .imageRecommendations:
             vc = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate)
         default:
             break

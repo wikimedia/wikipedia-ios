@@ -6,6 +6,8 @@ struct WKImageRecommendationsView: View {
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    @ObservedObject var tooltipGeometryValues: WKTooltipGeometryValues
+    
     let viewArticleAction: (String) -> Void
 
     var body: some View {
@@ -27,6 +29,7 @@ struct WKImageRecommendationsView: View {
             }
             .ignoresSafeArea()
         }
+        .environmentObject(tooltipGeometryValues)
     }
 }
 
@@ -34,6 +37,7 @@ fileprivate struct WKImageRecommendationsArticleSummaryView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    
     let articleSummary: WKArticleSummary
     let viewArticleAction: (String) -> Void
     

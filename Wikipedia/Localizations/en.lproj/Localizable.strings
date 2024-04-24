@@ -572,6 +572,12 @@
 "image-rec-survey-submit-button" = "Submit";
 "image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
+"image-rec-tooltip-1-body" = "Review this article to understand its topic.";
+"image-rec-tooltip-1-title" = "Review";
+"image-rec-tooltip-2-body" = "Inspect the image and its associated information.";
+"image-rec-tooltip-2-title" = "Inspect";
+"image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
+"image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
 "image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
 "image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
