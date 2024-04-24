@@ -12,5 +12,4 @@ public enum WKEditSummaryTag: String {
     case diffRollback = "#diff-rollback"
     case talkReply = "#talk-reply"
     case talkTopic = "#talk-topic"
-    case suggestedEditsAddImageTop = "#suggestededit-add-image-top"
 }
