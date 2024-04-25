@@ -220,6 +220,9 @@
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
 "diff-article-revision-history" = "Artikkelsideversjonshistorikk";
+"diff-change-added" = "Tillegg, $1, slutt på tillegg.";
+"diff-change-paragraph-lines-moved-down" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} ned. Gå til den nye plasseringen.";
+"diff-change-paragraph-lines-moved-up" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} opp. Gå til den nye plasseringen.";
 "diff-compare-header-from-info-heading" = "Forrige redigering";
 "diff-compare-header-heading" = "Sammenlign revisjoner";
 "diff-compare-header-to-info-heading" = "Den viste redigeringen";

@@ -353,6 +353,10 @@
 "image-rec-survey-submit-button" = "Schécken";
 "image-rec-survey-title" = "Grond";
 "image-rec-title" = "Bild derbäisetzen";
+"image-rec-tooltip-2-body" = "Inspizéiert d'Bild an déi dozougehéiereg Informatiounen un.";
+"image-rec-tooltip-2-title" = "Inspizéieren";
+"image-rec-tooltip-3-body" = "Entscheet, ob d'Bild dem Lieser dobäi hëlleft d'Theema besser ze verstoen.";
+"image-rec-tooltip-3-title" = "Entscheeden";
 "image-rec-view-article" = "Artikel weisen";
 "image-recs-no-title" = "Neen";
 "image-recs-not-sure-title" = "Net sécher";

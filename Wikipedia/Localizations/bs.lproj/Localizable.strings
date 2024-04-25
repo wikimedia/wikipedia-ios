@@ -88,8 +88,10 @@
 "action-add-to-reading-list" = "Dodaj na spisak za čitanje";
 "action-add-to-reading-list-short" = "Dodaj na spisak";
 "action-cancel" = "Otkaži";
+"action-discard-edit" = "Odbaci izmjene";
 "action-discard-edits" = "Odbaci izmjene";
 "action-find-in-page" = "Pronađi na stranici";
+"action-keep-editing" = "Nastavi s uređivanjеm";
 "action-language-accessibility" = "Promijeni jezik";
 "action-move-to" = "Premjesti u...";
 "action-move-to-reading-list" = "Premjesti na spisak za čitanje";
@@ -135,8 +137,10 @@
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Detaljnije";
 "article-reference-view-title" = "Referenca $1";
+"article-revision-history" = "Historija revizije članka";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali članak";
 "article-share" = "Podijeli";
+"article-talk-page" = "Stranica za razgovor o članku";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrole tema za čitanje";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite za povratak";
@@ -156,8 +160,11 @@
 "chinese-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante kineskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\n简体 kineski, pojednostavljeni (zh-hans)\n香港繁體 Hong Kong, tradicionalni (zh-hk)\n澳門繁體 Makao, tradicionalni (zh-mo)\n大马简体 Malezija, pojednostavljeni (zh-my)\n新加坡简体 Singapur, pojednostavljeni (zh-sg)\n臺灣正體 tajvanski, tradicionalni (zh-tw)";
 "chinese-variants-alert-title" = "Ažuriranja podrške za varijantu kineskog jezika";
 "clear-title-accessibility-label" = "Očisti";
+"clearing-cache-complete" = "Brisanje keša je završeno.";
+"clearing-cache-in-progress" = "Brisanje keša je u toku.";
 "close-button-accessibility-label" = "Zatvori";
 "compass-direction" = "na $1 sati";
+"continue-button-title" = "Nastavi";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
 "crimean-tatar-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante krimskotatarskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nQırımtatarca, Latin krimskotatarski, latinica (chr-latn)\nкъырымтатарджа, Кирил krimskotatarski, ćirilica (crh-cyrl)";
@@ -198,6 +205,8 @@
 "description-welcome-descriptions-title" = "Opisi članaka";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počni uređivati";
+"diff-article-revision-history" = "Historija revizije članka";
+"diff-change-added" = "Dodavanje, $1, kraj dodavanja.";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Poređenje verzija";
@@ -264,6 +273,7 @@
 "editing-welcome-set-knowledge-free-title" = "Oslobodite znanje";
 "editor-exit-confirmation-body" = "Jeste li sigurni da želite napustiti uređivanje bez prethodnog objavljivanja?";
 "editor-exit-confirmation-title" = "Napusti uređivanje?";
+"editor-keyboard-paragraph-button" = "Odlomak";
 "empty-diff-compare-title" = "Nema razlika između verzija";
 "empty-diff-single-title" = "Nije napravljena nijedna vidljiva promjena";
 "empty-insert-media-title" = "Izaberi datoteku sa Wikimedia Commonsa";

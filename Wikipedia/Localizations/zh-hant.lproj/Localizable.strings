@@ -334,6 +334,8 @@
 "edit-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
 "edit-show-web-preview" = "顯示網頁預覽";
 "edit-summary-add-summary-text" = "添加編輯摘要";
+"edit-summary-choice-added-image" = "已新增圖片";
+"edit-summary-choice-added-image-and-caption" = "已新增圖片與說明";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-typos" = "修正筆誤";
 "edit-summary-choice-linked-words" = "新增連結";
@@ -593,6 +595,8 @@
 "image-rec-add-image-title" = "新增此圖片？";
 "image-rec-empty-subtitle" = "請稍後再回來。";
 "image-rec-empty-title" = "目前您沒有更多可用的建議圖片。";
+"image-rec-feature-announce-body" = "決定是否將圖片新增到維基百科條目。您可以在「探索摘要」中找到「新增圖片」卡。";
+"image-rec-feature-announce-title" = "嘗試「新增圖片」";
 "image-rec-onboarding-item-1-body" = "決定是否讓建議的圖片加入到維基百科條目裡。";
 "image-rec-onboarding-item-1-title" = "查看建議";
 "image-rec-onboarding-item-2-body" = "建議是由機器產生，您將根據您的判斷來決定接受或拒絕。";
@@ -612,6 +616,12 @@
 "image-rec-survey-submit-button" = "提交";
 "image-rec-survey-title" = "原因";
 "image-rec-title" = "新增圖片";
+"image-rec-tooltip-1-body" = "檢閱條目來了解主題";
+"image-rec-tooltip-1-title" = "檢閱";
+"image-rec-tooltip-2-body" = "檢查圖片及其相關資訊";
+"image-rec-tooltip-2-title" = "檢查";
+"image-rec-tooltip-3-body" = "決定圖片是否有幫助到讀者更好理解這個主題";
+"image-rec-tooltip-3-title" = "決定";
 "image-rec-view-article" = "查看條目";
 "image-recommendations-email-first-line" = "我在使用「新增圖片」建議編輯功能時遇到問題：";
 "image-recommendations-email-fourth-line" = "- [描述建議解決方案]";
@@ -799,7 +809,7 @@
 "notifications-center-subheader-mention-talk-page" = "在討論頁上的提及";
 "notifications-center-subheader-message-user-talk-page" = "在您的討論頁的訊息";
 "notifications-center-subheader-page-link" = "頁面連結";
-"notifications-center-subheader-page-reviewed" = "頁面審核";
+"notifications-center-subheader-page-reviewed" = "已檢閱頁面";
 "notifications-center-subheader-thanks" = "感謝";
 "notifications-center-subheader-translate-milestone" = "翻譯里程碑";
 "notifications-center-subheader-user-rights-change" = "用戶權限變更";
@@ -823,7 +833,7 @@
 "notifications-center-type-title-login-success" = "登入成功";
 "notifications-center-type-title-other" = "其他";
 "notifications-center-type-title-page-link" = "頁面連結";
-"notifications-center-type-title-page-review" = "頁面審核";
+"notifications-center-type-title-page-review" = "頁面檢閱";
 "notifications-center-type-title-sent-mention-failure" = "傳送提及失敗";
 "notifications-center-type-title-sent-mention-success" = "傳送提及成功";
 "notifications-center-type-title-talk-page-mention" = "討論頁面提及";
@@ -1209,6 +1219,7 @@
 "top-read-widget-description" = "了解全世界的人今天都在維基百科上讀些什麼。";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";
+"try-now-title" = "現在試試";
 "tutorial-title" = "教程";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";

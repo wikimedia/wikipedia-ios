@@ -302,6 +302,8 @@
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "edit-show-web-preview" = "Прикажи преглед обично";
 "edit-summary-add-summary-text" = "Додај опис на уредувањето";
+"edit-summary-choice-added-image" = "Додадена слика";
+"edit-summary-choice-added-image-and-caption" = "Додадени слика и опис";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
