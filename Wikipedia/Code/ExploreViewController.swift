@@ -66,8 +66,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #if UITEST
         presentUITestHelperController()
 #endif
-        
-        presentImageRecommendationsFeatureAnnouncementIfNeeded()
+        if !UIAccessibility.isVoiceOverRunning {
+            presentImageRecommendationsFeatureAnnouncementIfNeeded()
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
