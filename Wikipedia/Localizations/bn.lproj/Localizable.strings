@@ -126,6 +126,8 @@
 "donate-later-title" = "আমরা আপনাকে আবার আগামীকাল মনে করিয়ে দেব।";
 "edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
+"edit-summary-choice-added-image" = "চিত্র যোগ করা হয়েছে";
+"edit-summary-choice-added-image-and-caption" = "চিত্র ও ক্যাপশন যোগ করা হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিঙ্ক সংযোজন";

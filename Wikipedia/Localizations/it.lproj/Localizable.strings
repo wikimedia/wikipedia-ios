@@ -298,6 +298,8 @@
 "edit-minor-text" = "Questa è una modifica minore";
 "edit-published" = "Modifica pubblicata";
 "edit-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
+"edit-summary-choice-added-image" = "Immagine aggiunta";
+"edit-summary-choice-added-image-and-caption" = "Immagine e didascalia aggiunti";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
@@ -443,7 +445,7 @@
 "image-rec-survey-instructions-2" = "Seleziona una o più opzioni";
 "image-rec-survey-option-1" = "L'immagine non è rilevante";
 "image-rec-survey-option-2" = "Non dispongo di ababstanza informazioni per decidere";
-"image-rec-survey-option-3" = "L'immagine è ofensiva";
+"image-rec-survey-option-3" = "L'immagine è offensiva";
 "image-rec-survey-option-4" = "L'immagine è di bassa qualità";
 "image-rec-survey-option-5" = "Non conosco questo argomento";
 "image-rec-survey-option-6" = "Altro";

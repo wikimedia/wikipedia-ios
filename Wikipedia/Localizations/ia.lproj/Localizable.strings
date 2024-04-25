@@ -296,6 +296,8 @@
 "edit-published-subtitle" = "Tu ha justo ora rendite Wikipedia melior pro omnes";
 "edit-show-web-preview" = "Monstrar previsualisation web";
 "edit-summary-add-summary-text" = "Adder summario de modification";
+"edit-summary-choice-added-image" = "Imagine addite";
+"edit-summary-choice-added-image-and-caption" = "Imagine e legenda addite";
 "edit-summary-choice-fixed-grammar" = "Grammatica corrigite";
 "edit-summary-choice-fixed-typos" = "Error dactylographic corrigite";
 "edit-summary-choice-linked-words" = "Ligamines addite";
