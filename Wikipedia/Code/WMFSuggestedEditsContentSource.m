@@ -55,7 +55,7 @@
         
         [group waitInBackgroundWithCompletion:^{
             if (currentUser) {
-                if ((currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations) || WMFFeatureFlags.forceImageRecommendationsExploreCard) {
+                if ((currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations && !UIAccessibilityIsVoiceOverRunning()) || WMFFeatureFlags.forceImageRecommendationsExploreCard) {
 
                     NSURL *URL = [WMFContentGroup suggestedEditsURL];
 
