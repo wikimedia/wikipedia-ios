@@ -202,7 +202,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
-        if FeatureFlags.needsImageRecommendations {
+        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
         } else {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
