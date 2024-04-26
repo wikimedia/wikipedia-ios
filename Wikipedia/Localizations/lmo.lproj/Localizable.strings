@@ -157,7 +157,6 @@
 "data-migration-status" = "Adree a atualizà...";
 "description-add-title" = "Sgiontegh la descrizzion";
 "description-edit-for-article" = "Descrizzion de la vos per $1";
-"description-edit-learn-more" = "Di alter informazzion";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "A cambià la descrizzion de la vos, a aceti i $1 e de rilassà irrevocabilment i me contribuzzion a termin de la licenza $2.";
 "description-edit-pencil-introduction" = "Modifega l'introduzzion";
@@ -240,7 +239,6 @@
 "edit-summary-choice-fixed-grammar" = "Giusta la gramatega";
 "edit-summary-choice-fixed-typos" = "Giusta i refus";
 "edit-summary-choice-linked-words" = "Sgionta i ligam";
-"edit-summary-learn-more-text" = "Per savénn pussee";
 "edit-summary-placeholder-text" = "Comè che t'hhe mijorad la vos?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Di alter informazzion sora la lista di pagine che te tegnet d'oeugg";

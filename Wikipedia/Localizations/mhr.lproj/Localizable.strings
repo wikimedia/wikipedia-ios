@@ -75,6 +75,7 @@
 "account-request-vanishing" = "Аккаунтым кораҥдаш";
 "account-talk-page-title" = "Тыйын каҥашымаш велыжет";
 "account-talk-preferences-auto-sign-discussions" = "Каҥашымаште вигак кидпалым шындымаш";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Ойым пидмаш-влакын автоматически кид палым пыштымаште ончылгоч палемдыме кидпале кучылталташ тӱҥалеш";
 "account-talk-preferences-title" = "Каҥашымаш велыжын келыштарымашыже";
 "action-add-to" = "(Кушко) ешараш…";
 "action-add-to-reading-list" = "Лудашлан спискыш ешараш";
@@ -106,7 +107,6 @@
 "action-unsaved-accessibility-notification" = "Статьям аралыме гыч кораҥдыме";
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
-"add-image-learn-more-text" = "Шукырак пален налаш";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-subtitle" = "Эрыкан энциклопедий";
@@ -156,7 +156,6 @@
 "data-migration-status" = "Уэмдымаш...";
 "description-add-title" = "Возен ончыктымашым ешараш";
 "description-edit-for-article" = "$1 статьялан возен ончыктымаш";
-"description-edit-learn-more" = "Шукырак пален налаш";
 "description-edit-length-warning" = "$2 гыч $1";
 "description-edit-pencil-introduction" = "Пуртымо мутым тӧрлатымаш";
 "description-edit-pencil-title" = "Статьян возен ончыктымашыжым тӧрлаташ";
@@ -224,7 +223,6 @@
 "edit-summary-choice-fixed-grammar" = "Чын возымым тӧрлатыме";
 "edit-summary-choice-fixed-typos" = "Опечаткым тӧрлатыме";
 "edit-summary-choice-linked-words" = "Ешарыме кылвер-влак";
-"edit-summary-learn-more-text" = "Шукырак пален налаш";
 "edit-summary-placeholder-text" = "Кузе тый велыжым саемденат?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Эскерыме списке-влак нерген шукырак пален нал";
@@ -391,6 +389,7 @@
 "languages-settings-title" = "Йылме-влак";
 "languages-title" = "Йылмым вашталташ";
 "languages-wikipedia" = "Википедийысе йылме-влак";
+"learn-more-title" = "Шукырак пален налаш";
 "logged-out-continue-without-logging-in-button-title" = "Пурымо деч посна шуяш";
 "logged-out-log-back-in-button-title" = "Шке аккаунтышкет уэш пуро";
 "logged-out-title" = "Тый системе гыч лектынат";

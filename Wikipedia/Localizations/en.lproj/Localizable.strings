@@ -290,6 +290,8 @@
 "edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-show-web-preview" = "Show web preview";
 "edit-summary-add-summary-text" = "Add an edit summary";
+"edit-summary-choice-added-image" = "Added image";
+"edit-summary-choice-added-image-and-caption" = "Added image and caption";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
@@ -549,6 +551,8 @@
 "image-rec-add-image-title" = "Add this image?";
 "image-rec-empty-subtitle" = "Try coming back later.";
 "image-rec-empty-title" = "You have no more suggested images available at this time.";
+"image-rec-feature-announce-body" = "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.";
+"image-rec-feature-announce-title" = "Try 'Add an image'";
 "image-rec-onboarding-item-1-body" = "Decide if a suggested image should be placed in a Wikipedia article.";
 "image-rec-onboarding-item-1-title" = "View a suggestion";
 "image-rec-onboarding-item-2-body" = "Suggestions are machine generated and you will use your judgment to decide whether to accept or reject them.";
@@ -568,6 +572,12 @@
 "image-rec-survey-submit-button" = "Submit";
 "image-rec-survey-title" = "Reason";
 "image-rec-title" = "Add image";
+"image-rec-tooltip-1-body" = "Review this article to understand its topic.";
+"image-rec-tooltip-1-title" = "Review";
+"image-rec-tooltip-2-body" = "Inspect the image and its associated information.";
+"image-rec-tooltip-2-title" = "Inspect";
+"image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
+"image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
 "image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
 "image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
@@ -1165,6 +1175,7 @@
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
 "top-read-widget-title" = "Top read";
+"try-now-title" = "Try now";
 "tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continue log in";
 "two-factor-login-instructions" = "Please enter two factor verification code";

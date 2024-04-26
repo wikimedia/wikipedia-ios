@@ -55,12 +55,11 @@
         
         [group waitInBackgroundWithCompletion:^{
             if (currentUser) {
-                if (currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations) {
+                if ((currentUser.editCount > 50 && !currentUser.isBlocked && hasImageRecommendations && !UIAccessibilityIsVoiceOverRunning()) || WMFFeatureFlags.forceImageRecommendationsExploreCard) {
 
-                    NSURL *URL = [WMFContentGroup suggestedEditsURL];
+                    NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
 
                     [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-
                 }
             }
             

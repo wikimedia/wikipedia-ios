@@ -157,7 +157,6 @@
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
-"add-image-learn-more-text" = "Aprenda más";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
 "app-store-release-notes" = "Canal Explorar completamente personalizable y fácil de leer. Localización, mejoras de rendimiento y corrección de fallos.";
@@ -206,7 +205,6 @@
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
-"description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del artículo, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
@@ -302,7 +300,6 @@
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
-"edit-summary-learn-more-text" = "Más información";
 "edit-summary-placeholder-text" = "¿Cómo has mejorado el artículo?";
 "edit-watch-list-learn-more-text" = "\nAprende sobre tus listas de seguimiento";
 "edit-watch-this-page-text" = "Vigilar esta página";
@@ -509,6 +506,11 @@
 "image-rec-survey-option-6" = "Otra";
 "image-rec-survey-submit-button" = "Enviar";
 "image-rec-survey-title" = "Motivo";
+"image-recommendations-email-first-line" = "Encontré un problema con la función Agregar una imagen de ediciones sugeridas:";
+"image-recommendations-email-fourth-line" = "- [Describir la solución propuesta]";
+"image-recommendations-email-second-line" = "- [Describa el problema específico]";
+"image-recommendations-email-third-line" = "El comportamiento que me gustaría ver es:";
+"image-recommendations-email-title" = "Informe de problemas: agregar una función de imagen";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "No estoy seguro";
 "image-recs-yes-title" = "Sí";
@@ -556,6 +558,7 @@
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
+"learn-more-title" = "Aprenda más";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin acceder";
 "logged-out-log-back-in-button-title" = "Volver a acceder a tu cuenta";
 "logged-out-subtitle" = "Hubo un problema al autenticar tu cuenta. Para poder sincronizar tus listas de lectura y editar bajo tu nombre de usuario, por favor, vuelve a acceder.";
@@ -692,6 +695,7 @@
 "potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
+"problem-with-feature-title" = "Problema con la característica";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
@@ -907,6 +911,7 @@
 "top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Más leídos";
+"tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continuar con el acceso";
 "two-factor-login-instructions" = "Escribe el código de verificación de 2 factores";
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
@@ -916,7 +921,6 @@
 "unknown-generic-text" = "Desconocido";
 "uzbek-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del uzbeko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\noʻzbekcha lotin uzbeko, latino (uz-latin)\nўзбекча кирилл uzbeko, cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizaciones a soporte de variantes del uzbeko";
-"vanish-account-learn-more-text" = "Más información";
 "variants-alert-dismiss-button" = "No, gracias";
 "variants-alert-preferences-button" = "Revisar tus preferencias";
 "watchlist-expiration-subtitle" = "Las páginas permanecen aquí por defecto, pero hay opciones de seguimiento que van desde una semana a un año.";

@@ -193,7 +193,6 @@
 "data-migration-status" = "Aktualisierung …";
 "description-add-title" = "Beschreibung hinzufügen";
 "description-edit-for-article" = "Artikelbeschreibung für $1";
-"description-edit-learn-more" = "Mehr erfahren";
 "description-edit-length-warning" = "$1 von $2";
 "description-edit-license" = "Durch die Änderung der Artikelbeschreibung stimme ich den $1 und der unwiderruflichen Veröffentlichung meiner Beiträge unter der Lizenz $2 zu.";
 "description-edit-pencil-introduction" = "Einleitung bearbeiten";
@@ -294,10 +293,8 @@
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
-"edit-summary-learn-more-text" = "Mehr erfahren";
 "edit-summary-placeholder-text" = "Wie hast du den Artikel verbessert?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Mehr über Beobachtungslisten erfahren";
+"edit-watch-list-learn-more-text" = "Mehr über deine Watchlist erfahren";
 "edit-watch-this-page-text" = "Diese Seite beobachten";
 "editing-welcome-be-bold-subtitle" = "Sei mutig, aber nicht rücksichtslos bei der Aktualisierung von Artikeln. Quäle dich nicht beim Machen von Fehlern: Es wird jede vergangene Version einer Seite gespeichert, so dass Fehler einfach von unserer Gemeinschaft korrigiert werden können.";
 "editing-welcome-be-bold-title" = "Deine Stimme ist wichtig";
@@ -1008,7 +1005,6 @@
 "unknown-generic-text" = "Unbekannt";
 "unwatch" = "Nicht mehr beobachten";
 "vanish-account-continue-button-title" = "Fortfahren";
-"vanish-account-learn-more-text" = "Mehr erfahren";
 "vanish-account-username-field" = "Benutzername und Benutzerseite";
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nein danke";

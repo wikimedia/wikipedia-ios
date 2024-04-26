@@ -100,7 +100,6 @@
 "data-migration-status" = "Yangilanmoqda...";
 "description-add-title" = "Tavsif qoʻshish";
 "description-edit-for-article" = "$1 uchun maqola tavsifi";
-"description-edit-learn-more" = "Batafsil maʼlumot";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Kirishni tahrirlash";
 "description-edit-pencil-title" = "Maqola tavsifini tahrirlash";
@@ -136,7 +135,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammatikani tuzatdim";
 "edit-summary-choice-fixed-typos" = "Xatoni tuzatdim";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
-"edit-summary-learn-more-text" = "Batafsil maʼlumot";
 "edit-watch-this-page-text" = "Bu sahifani kuzatish";
 "editing-welcome-be-bold-title" = "Ovozingiz muhimdir";
 "empty-no-search-results-message" = "Natija topilmadi";

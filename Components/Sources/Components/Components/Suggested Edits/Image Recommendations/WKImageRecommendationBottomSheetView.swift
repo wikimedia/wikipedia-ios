@@ -92,7 +92,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
 
-    private lazy var toolbar: UIToolbar = {
+    private(set) lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar()
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar

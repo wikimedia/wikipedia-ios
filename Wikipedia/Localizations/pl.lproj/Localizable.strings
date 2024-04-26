@@ -133,7 +133,6 @@
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
-"add-image-learn-more-text" = "Dowiedz się więcej";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -185,7 +184,6 @@
 "data-migration-status" = "Aktualizowanie...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis artykułu dla $1";
-"description-edit-learn-more" = "Dowiedz się więcej";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Zmieniając opis artykułu, wyrażam zgodę na $1 i nieodwołalnie wydawać będę swoje wkłady na podstawie licencji $2.";
 "description-edit-pencil-introduction" = "Edytuj wprowadzenie";
@@ -267,7 +265,6 @@
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
-"edit-summary-learn-more-text" = "Dowiedz się więcej";
 "edit-summary-placeholder-text" = "Jak poprawiłeś stronę?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Dowiedz się więcej o listach obserwacyjnych";
@@ -487,6 +484,7 @@
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
+"learn-more-title" = "Dowiedz się więcej";
 "logged-out-continue-without-logging-in-button-title" = "Kontynuuj bez logowania";
 "logged-out-log-back-in-button-title" = "Zaloguj się ponownie na swoje konto";
 "logged-out-subtitle" = "Wystąpił problem z uwierzytelnieniem Twojego konta. Aby zsynchronizować listy czytelnicze i edytować je pod nazwą użytkownika, zaloguj się ponownie.";
@@ -885,7 +883,6 @@
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
 "unable-to-load-talk-page-title" = "Nie można wczytać strony dyskusji";
 "unknown-generic-text" = "Nieznany";
-"vanish-account-learn-more-text" = "Dowiedz się więcej";
 "variants-alert-dismiss-button" = "Nie, dziękuję";
 "variants-alert-preferences-button" = "Sprawdź swoje preferencje";
 "welcome-exploration-explore-feed-description" = "Polecane lektury i codzienne artykuły z naszej społeczności";

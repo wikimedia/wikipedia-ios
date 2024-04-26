@@ -108,7 +108,6 @@
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
 "description-add-title" = "বিবরণ যোগ করুন";
-"description-edit-learn-more" = "আরও জানুন";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-pencil-title" = "নিবন্ধের বিবরণ সম্পাদনা করুন";
 "description-edit-title" = "বিবরণ সম্পাদনা করুন";
@@ -127,6 +126,8 @@
 "donate-later-title" = "আমরা আপনাকে আবার আগামীকাল মনে করিয়ে দেব।";
 "edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
+"edit-summary-choice-added-image" = "চিত্র যোগ করা হয়েছে";
+"edit-summary-choice-added-image-and-caption" = "চিত্র ও ক্যাপশন যোগ করা হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিঙ্ক সংযোজন";

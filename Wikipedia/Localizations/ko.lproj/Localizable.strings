@@ -199,7 +199,6 @@
 "data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
 "description-edit-for-article" = "$1의 문서 설명";
-"description-edit-learn-more" = "더 알아보기";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "문서 설명을 변경하면 당신은 $1에 동의하며 기여한 내용을 $2 라이선스로 배포하는 데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
 "description-edit-pencil-introduction" = "설명 편집";
@@ -318,9 +317,7 @@
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
-"edit-summary-learn-more-text" = "더 알아보기";
 "edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
-// Fuzzy
 "edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
 "edit-watch-this-page-text" = "이 문서 주시하기";
 "editing-welcome-be-bold-subtitle" = "문서 수정은 과감히 하되, 무모하게는 하지 마십시오. 실수를 두려워하지 마십시오: 과거의 모든 문서 판은 보존되므로 실수는 우리 공동체에 의해 쉽게 수정이 가능합니다.";
@@ -379,6 +376,7 @@
 "editor-wikitext-textview-accessibility" = "위키 텍스트 편집기";
 "empty-diff-compare-title" = "판 사이에 차이가 없음";
 "empty-diff-single-title" = "볼 수 있는 변경 사항 없음";
+"empty-edit-summary" = "빈 편집 요약";
 "empty-insert-media-title" = "위키미디어 공용의 파일 선택";
 "empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
 "empty-no-feed-action-message" = "여전히 저장된 페이지를 읽을 수 있습니다.";
@@ -484,6 +482,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
 "explore-suggested-edits-footer" = "추가";
+"explore-suggested-edits-image-recs-title" = "이미지 추가";
 "export-user-data-confirmation-message" = "앱 라이브러리 공유에는 귀하의 읽기 목록 및 기록, 환경설정 및 탐색 피드 내용에 대한 데이터가 포함됩니다. 이 데이터 파일은 기술 진단 목적으로 신뢰할 수 있는 수신자와만 공유해야 합니다.";
 "export-user-data-confirmation-title" = "앱 라이브러리를 공유하시겠습니까?";
 "export-user-data-generic-error" = "데이터를 내보내는 동안 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
@@ -555,15 +554,30 @@
 "icon-shortcut-search-title" = "위키백과 검색";
 "image-gallery-unknown-owner" = "저자 알 수 없음.";
 "image-rec-add-image-title" = "이 이미지를 추가하시겠습니까?";
+"image-rec-empty-subtitle" = "나중에 다시 시도해 보세요.";
 "image-rec-onboarding-item-1-body" = "제안된 이미지를 위키백과 문서에 배치할지 여부를 결정하세요.";
 "image-rec-onboarding-item-1-title" = "제안 보기";
 "image-rec-onboarding-item-2-title" = "이미지 수락 또는 거부";
 "image-rec-onboarding-item-3-title" = "라이선스가 부여된 이미지";
-// Fuzzy
-"image-rec-onboarding-learn-more-button" = "이미지 추가에 대해 알아보기";
+"image-rec-onboarding-learn-more-button" = "편집 제안에 대해 알아보기";
 "image-rec-onboarding-title" = "문서에 이미지 추가";
+"image-rec-survey-instructions-1" = "귀하의 답변은 향후 제안을 개선합니다.";
+"image-rec-survey-instructions-2" = "하나 이상의 옵션을 선택하세요";
+"image-rec-survey-option-1" = "이미지가 적절하지 않습니다";
+"image-rec-survey-option-2" = "결정할 정보가 충분하지 않습니다";
+"image-rec-survey-option-3" = "이미지가 공격적입니다";
+"image-rec-survey-option-4" = "이미지가 저품질입니다";
+"image-rec-survey-option-5" = "이 주제를 모릅니다";
+"image-rec-survey-option-6" = "기타";
+"image-rec-survey-submit-button" = "제출";
+"image-rec-survey-title" = "이유";
 "image-rec-title" = "이미지 추가";
 "image-rec-view-article" = "문서 보기";
+"image-recommendations-email-first-line" = "이미지 추가 제안 편집 기능에 문제가 발생했습니다.";
+"image-recommendations-email-fourth-line" = "- [해결책 제안 설명]";
+"image-recommendations-email-second-line" = "- [구체적인 문제 설명]";
+"image-recommendations-email-third-line" = "제가 보고 싶은 동작은 아래와 같습니다:";
+"image-recommendations-email-title" = "문제 보고 - 이미지 추가 기능";
 "image-recs-no-title" = "아니요";
 "image-recs-not-sure-title" = "확실치 않음";
 "image-recs-yes-title" = "예";
@@ -578,6 +592,7 @@
 "in-the-news-title" = "새로 들어온 소식";
 "insert-action-title" = "넣기";
 "insert-link-title" = "링크 넣기";
+"insert-media-add-image-details-title" = "이미지 상세 정보 추가";
 "insert-media-alternative-text-description" = "이미지를 볼 수 없는 독자를 위한 텍스트 설명";
 "insert-media-alternative-text-placeholder" = "이 이미지 설명하기";
 "insert-media-alternative-text-title" = "대체 텍스트";
@@ -611,6 +626,7 @@
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
+"learn-more-title" = "더 알아보기";
 "logged-out-continue-without-logging-in-button-title" = "로그인 없이 계속하기";
 "logged-out-log-back-in-button-title" = "자신의 계정으로 다시 로그인";
 "logged-out-subtitle" = "계정 인증에 문제가 있었습니다. 읽기 목록을 동기화하고 사용자 이름을 통해 편집하려면 다시 로그인해 주십시오.";
@@ -645,6 +661,7 @@
 "nearby-distance-label-miles" = "$1 마일";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
+"next-action-title" = "다음";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "no-internet-connection" = "인터넷 연결 없음";
 "no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
@@ -851,6 +868,7 @@
 "potd-widget-title" = "오늘의 사진";
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
 "privacy-policy-title" = "개인정보보호정책";
+"problem-with-feature-title" = "기능에 문제가 있습니다";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";
@@ -1118,6 +1136,7 @@
 "talk-pages-topic-compose-body-placeholder" = "설명";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "주제 설명";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "답변 취소";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "주제 버리기";
 "talk-pages-topic-compose-close-confirmation-title" = "이 새 주제를 취소하시겠습니까?";
 "talk-pages-topic-compose-navbar-title" = "주제";
 "talk-pages-topic-compose-title-placeholder" = "주제 제목";
@@ -1136,6 +1155,7 @@
 "top-read-widget-description" = "세상 사람들이 위키백과에서 오늘 무엇을 읽고 있는지 알아보세요.";
 "top-read-widget-readers-count" = "$1명의 독자";
 "top-read-widget-title" = "가장 많이 읽은 글";
+"tutorial-title" = "강좌";
 "two-factor-login-continue" = "로그인 계속";
 "two-factor-login-instructions" = "2요소 인증 코드를 입력해 주십시오";
 "two-factor-login-title" = "자신의 계정으로 로그인";
@@ -1148,7 +1168,6 @@
 "uzbek-variants-alert-body" = "이제 위키백과 앱에서 아래의 우즈베크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\noʻzbekcha lotin 우즈베크어 라틴 (uz-latin)\nўзбекча кирилл 우즈베크어 키릴 (uz-cyrl)";
 "uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
 "vanish-account-continue-button-title" = "계속";
-"vanish-account-learn-more-text" = "더 알아보기";
 "vanish-account-username-field" = "사용자 이름 및 사용자 문서";
 "vanish-account-warning-title" = "경고";
 "variants-alert-dismiss-button" = "괜찮습니다";
