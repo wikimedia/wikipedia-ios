@@ -80,7 +80,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     // MARK: Lifecycle
 
-	private let dataController = WKImageRecommendationsDataController()
+    private let dataController = WKImageRecommendationsDataController()
     private let tooltipGeometryValues = WKTooltipGeometryValues()
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
@@ -95,17 +95,26 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
         navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
         addComponent(hostingViewController, pinToEdges: true)
-        
+
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
+    }
+
+
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -116,15 +125,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
-        
+
         if !dataController.hasPresentedOnboardingModal {
             presentOnboardingIfNecessary()
         } else {
             viewModel.fetchImageRecommendationsIfNeeded {
-                
+
             }
         }
-        
+
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -137,13 +146,13 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
-    
+
     @objc private func tappedBack() {
-        
+
         if viewModel.imageRecommendations.isEmpty {
             loggingDelegate?.logEmptyStateDidTapBack()
         }
-        
+
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.popViewController(animated: true)
     }
@@ -162,34 +171,23 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             bottomSheet.prefersGrabberVisible = true
             bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
-        
+
         navigationController?.present(imageRecommendationBottomSheetController, animated: true, completion: {
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                
+
                 guard let self else {
                     return
                 }
-                
+
                 self.presentTooltipsIfNecessary(onBottomSheetViewController: self.imageRecommendationBottomSheetController)
             }
-            
+
         })
     }
 
-    private func presentImageRecommendationPopover() {
-        imageRecommendationBottomSheetController.isModalInPresentation = true
-        if let popover = imageRecommendationBottomSheetController.popoverPresentationController {
-            let sheet = popover.adaptiveSheetPresentationController
-            sheet.detents = [.medium(), .large()]
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.prefersGrabberVisible = true
-        }
-        navigationController?.present(imageRecommendationBottomSheetController, animated: true)
-    }
-    
     private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
-        
+
         // Do not present tooltips in empty or loading state
         if viewModel.loading || viewModel.imageRecommendations.isEmpty {
             return
@@ -200,13 +198,13 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         }
 
         guard let hostingView = hostingViewController.view,
-        let bottomSheetView = bottomSheetViewController.bottomSheetView else {
+              let bottomSheetView = bottomSheetViewController.bottomSheetView else {
             return
         }
-        
+
         let divGlobalFrame = tooltipGeometryValues.articleSummaryDivGlobalFrame
         let articleSummaryDivSourceRect: CGRect
-        
+
         // Article Summary div frame comes through as global / window coordinates. We need to offset them against the hosting view frame to send in an accurate sourceRect.
         let hostingViewGlobalOrigin = hostingView.superview?.convert(hostingView.frame.origin, to: nil)
         if let hostingViewGlobalOrigin {
@@ -215,19 +213,19 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         } else {
             articleSummaryDivSourceRect = divGlobalFrame
         }
-        
+
         let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapFirstNext()
         }
-        
+
         let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapSecondNext()
         }
-        
+
         let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapThirdOK()
         }
-        
+
         bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
 
         if !force {
@@ -285,25 +283,25 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
 extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
 
-	public func onboardingViewDidClickPrimaryButton() {
+    public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
             self?.viewModel.fetchImageRecommendationsIfNeeded {
 
             }
         })
-        
+
         loggingDelegate?.logOnboardingDidTapPrimaryButton()
-	}
+    }
 
-	public func onboardingViewDidClickSecondaryButton() {
-		guard let url = viewModel.learnMoreURL else {
-			return
-		}
+    public func onboardingViewDidClickSecondaryButton() {
+        guard let url = viewModel.learnMoreURL else {
+            return
+        }
 
-		UIApplication.shared.open(url)
-        
+        UIApplication.shared.open(url)
+
         loggingDelegate?.logOnboardingDidTapSecondaryButton()
-	}
+    }
 
     public func onboardingViewWillSwipeToDismiss() {
         viewModel.fetchImageRecommendationsIfNeeded {
@@ -311,3 +309,4 @@ extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
         }
     }
 }
+
