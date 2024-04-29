@@ -274,6 +274,8 @@
 "edit-published-subtitle" = "توھان ھرڪنھن لاءِ وڪيپيڊيا کي بھتر بڻايو";
 "edit-show-web-preview" = "ويب پيش-نگاھ ڏيکاريو";
 "edit-summary-add-summary-text" = "پنھنجي سنوار جو تَتُ ڏيو";
+"edit-summary-choice-added-image" = "عڪس شامل ڪيو";
+"edit-summary-choice-added-image-and-caption" = "عڪس ۽ عنوان شامل ڪيا";
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
@@ -502,6 +504,8 @@
 "image-rec-survey-submit-button" = "اماڻيو";
 "image-rec-survey-title" = "سبب";
 "image-rec-title" = "عڪس شامل ڪريو";
+"image-rec-tooltip-1-title" = "نظرثاني ڪريو";
+"image-rec-tooltip-3-title" = "فيصلو ڪريو";
 "image-rec-view-article" = "مضمون ڏسو";
 "image-recs-no-title" = "نہ";
 "image-recs-not-sure-title" = "پڪ ناھي";
@@ -768,6 +772,7 @@
 "potd-widget-title" = "اڄ جي تصوير";
 "preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگهجي";
 "privacy-policy-title" = "نويڪلائي نِيَمَ";
+"problem-with-feature-title" = "خاصيت ۾ مسئلو آھي";
 "project-name-mediawiki" = "ميڊياوڪي";
 "project-name-wikibooks" = "وڪي‌ڪتاب";
 "project-name-wikidata" = "وڪيڊيٽا";
@@ -1001,6 +1006,8 @@
 "top-read-widget-description" = "ڏسو وڪيپيڊيا تي اڄ دنيا ڇا پڙھي رھي آھي.";
 "top-read-widget-readers-count" = "$1 پڙھندڙ";
 "top-read-widget-title" = "گهڻو پڙھيل";
+"try-now-title" = "هاڻي ئي آزمايو";
+"tutorial-title" = "سکيانامو";
 "two-factor-login-continue" = "داخل ٿيڻ جاري رکو";
 "two-factor-login-instructions" = "ٻہ-فيڪٽر تصديق ڪوڊ داخل ڪندا";
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";

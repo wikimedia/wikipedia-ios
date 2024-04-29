@@ -199,8 +199,7 @@
 "edit-summary-choice-fixed-typos" = "Поправена правописна грешка";
 "edit-summary-choice-linked-words" = "Добавени препратки";
 "edit-summary-placeholder-text" = "Как подобрихте статията?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Научете повече за списъците за наблюдение";
+"edit-watch-list-learn-more-text" = "Научете повече за Вашия списък за наблюдение";
 "edit-watch-this-page-text" = "Наблюдаване на страницата";
 "editor-exit-confirmation-body" = "Сигурни ли сте, че искате да напуснете режима за редактиране, без да публикувате промените?";
 "empty-diff-compare-title" = "Няма разлики между версиите";

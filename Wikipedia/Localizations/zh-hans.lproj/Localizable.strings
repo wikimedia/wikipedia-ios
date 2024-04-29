@@ -346,6 +346,8 @@
 "edit-published-subtitle" = "您刚刚完善了维基百科，人人都会受益";
 "edit-show-web-preview" = "显示网页预览";
 "edit-summary-add-summary-text" = "添加编辑摘要";
+"edit-summary-choice-added-image" = "已添加图片";
+"edit-summary-choice-added-image-and-caption" = "已添加图片与说明";
 "edit-summary-choice-fixed-grammar" = "修正语病";
 "edit-summary-choice-fixed-typos" = "修正笔误";
 "edit-summary-choice-linked-words" = "添加链接";
@@ -595,6 +597,7 @@
 "icon-shortcut-search-title" = "搜索维基百科";
 "image-gallery-unknown-owner" = "作者不明。";
 "image-rec-add-image-title" = "添加此图片？";
+"image-rec-feature-announce-title" = "尝试“添加图片”";
 "image-rec-onboarding-item-1-body" = "决定是否应该将建议的图片添加至维基百科条目中。";
 "image-rec-onboarding-item-1-title" = "查看建议";
 "image-rec-onboarding-item-2-body" = "这些建议由机器生成，您需要自行判断接受还是拒绝这些建议。";
@@ -604,6 +607,10 @@
 "image-rec-onboarding-learn-more-button" = "了解有关编辑建议的更多信息";
 "image-rec-onboarding-title" = "将图片添加到条目中";
 "image-rec-title" = "添加图片";
+"image-rec-tooltip-1-body" = "查看此条目以了解其主题";
+"image-rec-tooltip-1-title" = "复核";
+"image-rec-tooltip-2-title" = "检查";
+"image-rec-tooltip-3-title" = "决定";
 "image-rec-view-article" = "查看条目";
 "image-recs-no-title" = "否";
 "image-recs-not-sure-title" = "不确定";
@@ -1180,6 +1187,7 @@
 "top-read-widget-description" = "了解全世界的人今天都在维基百科上读些什么。";
 "top-read-widget-readers-count" = "$1位读者";
 "top-read-widget-title" = "热门阅读";
+"try-now-title" = "现在试试";
 "two-factor-login-continue" = "继续登录";
 "two-factor-login-instructions" = "请输入双因素验证码";
 "two-factor-login-title" = "登录您的账号";
