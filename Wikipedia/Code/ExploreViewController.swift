@@ -1252,7 +1252,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
 
             navigationController?.pushViewController(editPreviewViewController, animated: true)
         } catch let error {
-            print("Error preparing wikitext\(error)")
+            showGenericError()
         }
     }
 }
@@ -1293,7 +1293,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            print("Error handling to be done")
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -1309,7 +1309,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         case .success(let changes):
             sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
         case .failure(let error):
-            print(error)
+            showError(error)
         }
         
     }
