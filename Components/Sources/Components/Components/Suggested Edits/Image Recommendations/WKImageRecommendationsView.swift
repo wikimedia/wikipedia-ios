@@ -21,7 +21,11 @@ struct WKImageRecommendationsView: View {
 
                 } else {
                     if !viewModel.debouncedLoading {
-                        WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                        if let error = viewModel.loadingError {
+                            Text("Something went wrong!")
+                        } else {
+                            WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                        }
                     } else {
                         ProgressView()
                     }

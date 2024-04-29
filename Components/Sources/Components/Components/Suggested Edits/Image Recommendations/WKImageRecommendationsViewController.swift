@@ -10,6 +10,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
+    func imageRecommendationsDidTriggerError(_ error: Error)
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -265,6 +266,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                     if self?.viewModel.currentRecommendation?.articleSummary != nil {
                         self?.presentImageRecommendationBottomSheet()
                     }
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$loadingError
+            .receive(on: RunLoop.main)
+            .sink { [weak self] loadingError in
+                if let loadingError {
+                    self?.delegate?.imageRecommendationsDidTriggerError(loadingError)
                 }
             }
             .store(in: &cancellables)

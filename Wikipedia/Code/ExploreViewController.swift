@@ -1219,6 +1219,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
     }
+    
+    func imageRecommendationsDidTriggerError(_ error: any Error) {
+        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
