@@ -262,7 +262,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
                 if !isLoading {
-                    if self?.viewModel.currentRecommendation != nil {
+                    if self?.viewModel.currentRecommendation?.articleSummary != nil {
                         self?.presentImageRecommendationBottomSheet()
                     }
                 }
