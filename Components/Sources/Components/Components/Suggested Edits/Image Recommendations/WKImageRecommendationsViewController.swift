@@ -36,8 +36,14 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
     init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
-        let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, viewArticleAction: { [weak delegate] title in
+        let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
+            
+            viewModel.tryAgainAfterLoadingError()
+            
+        }, viewArticleAction: { [weak delegate] title in
+            
             delegate?.imageRecommendationsUserDidTapViewArticle(project: viewModel.project, title: title)
+            
         })
         super.init(rootView: rootView)
     }
@@ -192,7 +198,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
         
         // Do not present tooltips in empty or loading state
-        if viewModel.loading || viewModel.imageRecommendations.isEmpty {
+        if viewModel.loading || viewModel.imageRecommendations.isEmpty || viewModel.loadingError != nil {
             return
         }
 

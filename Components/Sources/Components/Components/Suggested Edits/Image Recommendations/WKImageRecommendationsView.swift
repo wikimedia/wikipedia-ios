@@ -8,6 +8,7 @@ struct WKImageRecommendationsView: View {
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
     @ObservedObject var tooltipGeometryValues: WKTooltipGeometryValues
     
+    let errorTryAgainAction: () -> Void
     let viewArticleAction: (String) -> Void
 
     var body: some View {
@@ -22,7 +23,7 @@ struct WKImageRecommendationsView: View {
                 } else {
                     if !viewModel.debouncedLoading {
                         if let error = viewModel.loadingError {
-                            Text("Something went wrong!")
+                            WKErrorView(viewModel: WKErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WKIcon.error), tryAgainAction: errorTryAgainAction)
                         } else {
                             WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
                         }
