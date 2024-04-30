@@ -238,9 +238,7 @@
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 // Fuzzy
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
-"wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
-"wikitext-preview-changes-none" = "Geen wysigings gemaak om voor te skou.";
 "wikitext-preview-link-preview-description" = "Dié skakel gaan na '$1'";
 "wikitext-preview-link-preview-title" = "Skakelvoorskou";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasiefout.";

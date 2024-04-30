@@ -6,18 +6,21 @@ protocol EditSummaryViewDelegate: AnyObject {
     func learnMoreButtonTapped(sender: UIButton)
 }
 
-// Int because we use `tag` from storyboard buttons.
-public enum EditSummaryViewCannedButtonType: Int {
-    case typo, grammar, link
+enum EditSummaryViewCannedButtonType {
+    case typo, grammar, link, addedImage, addedImageAndCaption
     
-    var eventLoggingKey: String {
+    func buttonTitle(for languageCode: String) -> String {
         switch self {
         case .typo:
-            return "typo"
+            return WMFLocalizedString("edit-summary-choice-fixed-typos", languageCode: languageCode, value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection")
         case .grammar:
-            return "grammar"
+            return WMFLocalizedString("edit-summary-choice-fixed-grammar", languageCode: languageCode, value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection")
         case .link:
-            return "links"
+            return WMFLocalizedString("edit-summary-choice-linked-words", languageCode: languageCode, value: "Added links", comment: "Button text for quick 'link addition' edit summary selection")
+        case .addedImage:
+            return WMFLocalizedString("edit-summary-choice-added-image", languageCode: languageCode, value: "Added image", comment: "Button text for quick 'added image' edit summary selection")
+        case .addedImageAndCaption:
+            return WMFLocalizedString("edit-summary-choice-added-image-and-caption", languageCode: languageCode, value: "Added image and caption", comment: "Button text for quick 'added image and caption' edit summary selection")
         }
     }
 }
@@ -27,7 +30,8 @@ class EditSummaryViewController: UIViewController, Themeable {
     
     public var theme: Theme = .standard
 
-    public var languageCode: String? = "en"
+    public var languageCode: String = "en"
+    public var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
 
     public weak var delegate: EditSummaryViewDelegate?
     
@@ -41,7 +45,7 @@ class EditSummaryViewController: UIViewController, Themeable {
     @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
 
     private(set) var semanticContentAttribute: UISemanticContentAttribute?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,14 +57,12 @@ class EditSummaryViewController: UIViewController, Themeable {
         }
 
         addSummaryLabel.text = WMFLocalizedString("edit-summary-add-summary-text", languageCode: languageCode, value: "Add an edit summary", comment: "Text for add summary label")
-        learnMoreButton.setTitle(WMFLocalizedString("edit-summary-learn-more-text", languageCode: languageCode, value: "Learn more", comment: "Text for learn more button"), for: .normal)
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(languageCode: languageCode), for: .normal)
         summaryTextField.placeholder = placeholderText
         summaryTextField.delegate = self
         summaryTextField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
-        fixedTypoButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-typos", languageCode: languageCode, value: "Fixed typo", comment: "Button text for quick 'fixed typos' edit summary selection"), for: .normal)
-        fixedGrammarButton.setTitle(WMFLocalizedString("edit-summary-choice-fixed-grammar", languageCode: languageCode, value: "Fixed grammar", comment: "Button text for quick 'improved grammar' edit summary selection"), for: .normal)
-        addedLinksButton.setTitle(WMFLocalizedString("edit-summary-choice-linked-words", languageCode: languageCode, value: "Added links", comment: "Button text for quick 'link addition' edit summary selection"), for: .normal)
-
+        
+        updateCannedSummaryButtons()
         setupSemanticContentAttibute()
         apply(theme: theme)
     }
@@ -101,8 +103,8 @@ class EditSummaryViewController: UIViewController, Themeable {
     }
 
     public func setLanguage(for pageURL: URL?) {
-        if let pageURL {
-            self.languageCode = pageURL.wmf_languageCode
+        if let languageCode = pageURL?.wmf_languageCode {
+            self.languageCode = languageCode
         }
     }
 
@@ -119,6 +121,26 @@ class EditSummaryViewController: UIViewController, Themeable {
         cannedEditSummaryButtons.forEach {
             $0.setTitleColor(theme.colors.tagText, for: .normal)
             $0.backgroundColor = theme.colors.tagBackground
+        }
+    }
+    
+    private func updateCannedSummaryButtons() {
+        
+        guard cannedSummaryTypes.count <= cannedEditSummaryButtons.count else {
+            assertionFailure("We must have equal to or more cannedEditSummaryButtons connected than cannedSummaryTypes configured. Please update via interface builder and connect additional buttons")
+            return
+        }
+        
+        for (index, button) in cannedEditSummaryButtons.enumerated() {
+            
+            if index >= cannedSummaryTypes.count {
+                button.isHidden = true
+                continue
+            }
+            
+            let type = cannedSummaryTypes[index]
+            button.setTitle(type.buttonTitle(for: languageCode), for: .normal)
+            button.isHidden = false
         }
     }
 }

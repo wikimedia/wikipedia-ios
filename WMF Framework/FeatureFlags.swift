@@ -11,12 +11,17 @@ public struct FeatureFlags {
     }
     
     public static var needsImageRecommendations: Bool {
-        
-    #if WMF_STAGING || WMF_EXPERIMENTAL
         return true
-    #else
+    }
+    
+    public static var needsImageRecommendationsSuppressPosting: Bool {
         return false
-    #endif
+    }
+
+    // Bypasses card display conditional (50+ edits on primary app wiki, not blocked, wiki has recommendations)
+    // This allows for easier design review on Experimental app
+    public static var forceImageRecommendationsExploreCard: Bool {
+        return false
     }
 }
 
@@ -25,5 +30,8 @@ public struct FeatureFlags {
     @objc public static var needsImageRecommendations: Bool {
         return FeatureFlags.needsImageRecommendations
     }
-
+    
+    @objc public static var forceImageRecommendationsExploreCard: Bool {
+        return FeatureFlags.forceImageRecommendationsExploreCard
+    }
 }

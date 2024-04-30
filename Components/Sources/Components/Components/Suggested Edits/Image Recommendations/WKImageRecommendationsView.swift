@@ -6,6 +6,9 @@ struct WKImageRecommendationsView: View {
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    @ObservedObject var tooltipGeometryValues: WKTooltipGeometryValues
+    
+    let errorTryAgainAction: () -> Void
     let viewArticleAction: (String) -> Void
 
     var body: some View {
@@ -19,7 +22,11 @@ struct WKImageRecommendationsView: View {
 
                 } else {
                     if !viewModel.debouncedLoading {
-                        WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                        if viewModel.loadingError != nil {
+                            WKErrorView(viewModel: WKErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WKIcon.error), tryAgainAction: errorTryAgainAction)
+                        } else {
+                            WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                        }
                     } else {
                         ProgressView()
                     }
@@ -27,6 +34,7 @@ struct WKImageRecommendationsView: View {
             }
             .ignoresSafeArea()
         }
+        .environmentObject(tooltipGeometryValues)
     }
 }
 
@@ -34,6 +42,7 @@ fileprivate struct WKImageRecommendationsArticleSummaryView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    
     let articleSummary: WKArticleSummary
     let viewArticleAction: (String) -> Void
     

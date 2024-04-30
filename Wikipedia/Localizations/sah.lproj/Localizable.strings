@@ -52,8 +52,6 @@
 "action-read" = "Ааҕыы";
 "action-redo" = "Хатылаа";
 "action-remove" = "Сот";
-"action-replace" = "Солбуйуу";
-"action-replace-all" = "Барытын солбуй";
 "action-save" = "Бигэргэт";
 "action-saved" = "Бигэргэннэ";
 "action-saved-accessibility" = "Бигэргэннэ. Соттороргор көҕүт.";
@@ -66,7 +64,6 @@
 "action-unsaved-accessibility-notification" = "Ыстатыйа испииһэктэн сотулунна";
 "action-update" = "Саҥардыы";
 "add-articles-to-reading-list" = "$1 ыстатыйаны ааҕыы испииһэгэр киллэр";
-"add-citation-title" = "Сытаата эбии";
 "announcements-dismiss" = "Сап";
 "app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
 "app-store-subtitle" = "Аһаҕас энциклопедия";
@@ -104,7 +101,6 @@
 "description-add-title" = "Быһааран суруй";
 // Fuzzy
 "description-edit-for-article" = "Аатын быһаарыыта «$1»";
-"description-edit-learn-more" = "Бу туһунан сиһилии";
 "description-edit-length-warning" = "$1 / $2";
 "description-help-about-wikidata" = "Биики Тиһик туһунан";
 "description-help-more-info-description" = "Ойуулааһыннар Биики Тиһик диэн сиргэ бааллар. Биики Тиһик (Wikidata) Бикимиэдьийэ Пуондатын бырайыага: аһаҕас, көҥүл туттуллар билии олоҕо, онно Бикипиэдьийэни, Биики Хааһаҕы, Бикимиэдьийэ атын да бырайыактарын уонна да атыттары өйүүргэ аналлаах билии сааһыланан түмүллэр.";
@@ -341,9 +337,7 @@
 "welcome-notifications-tell-me-more-creation" = "Биллэриилэр бэйэҥ тэрилгэр оҥоһуллаллар, биһиги (биитэр атын) сиэрбэрбитигэр буолбатах.";
 "welcome-notifications-tell-me-more-storage" = "Биллэриилэр тэрилгэр харалла сылдьыахтара уонна тус бэйэҕиттэн биитэр тугу гынаргыттан тутулуга суох буолуохтара.";
 "welcome-notifications-tell-me-more-title" = "Биллэрии туһунан сиһилии";
-"wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
 "wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
-"wikitext-preview-changes-none" = "Саҥа уларытыы оҥоһуллубатах эбит.";
 "wikitext-preview-link-preview-description" = "Бу сигэ $1' тириэрдэр.";
 "wikitext-preview-link-preview-title" = "Сигэни көрүөх иннинэ";
 "wikitext-upload-captcha-error" = "Капча алҕастаах.";

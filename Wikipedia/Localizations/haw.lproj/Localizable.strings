@@ -50,10 +50,7 @@
 "main-menu-account-title-logged-in" = "ʻEʻe ʻia e: $1";
 "navbar-title-mode-edit-wikitext-preview" = "Nāmua";
 "search-field-placeholder-text" = "Huli iā Wikipikia";
-// Fuzzy
-"wikitext-downloading" = "HOʻouka nei i ke kikokikona wiki...";
 "wikitext-preview-changes" = "Lawe ʻia nei ka nāmua o kāu mau loli...";
-"wikitext-preview-changes-none" = "ʻAʻohe loli a ka nāmua.";
 "wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
 "wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
 "wikitext-upload-result-unknown" = "Hiki ʻole ke ʻike ka hopena o ka hoʻouka kikokikonawiki ʻana.";

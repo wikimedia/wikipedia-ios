@@ -60,8 +60,6 @@
 "action-read" = "Irakurri";
 "action-redo" = "Berregin";
 "action-remove" = "Kendu";
-"action-replace" = "Ordezkatu";
-"action-replace-all" = "Denak ordezkatu";
 "action-retry" = "Saiatu berriro";
 "action-save" = "Gorde";
 "action-saved" = "Gordeta";
@@ -115,7 +113,6 @@
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
 "description-add-title" = "Gehitu deskribapena";
-"description-edit-learn-more" = "Gehiago ikasi";
 "description-edit-length-warning" = "$1 / $2";
 "description-help-about-title" = "Honi buruz";
 "description-help-about-wikidata" = "Wikidatari buruz";
@@ -517,9 +514,7 @@
 "welcome-notifications-tell-me-more-creation" = "Jakinarazpenak zure gailuan sortu eta bidali dira aplikazioak, ez gure zerbitzarietan (edo beste hirugarren batean).";
 "welcome-notifications-tell-me-more-storage" = "Jakinarazpen lehentesiak gailuan biltzen dira, eta ez dira oinarritzen informazio edo jarduera pertsonalean.";
 "welcome-notifications-tell-me-more-title" = "Jakinarazpenei buruzko informazio gehiago";
-"wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes" = "Zure aldaketen aurrebista eskuratzen...";
-"wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
 "wikitext-preview-link-preview-description" = "Estekak '$1'(e)ra eramaten zaitu";
 "wikitext-preview-link-preview-title" = "Estekaren aurrebista";
 "wikitext-upload-captcha-error" = "CAPTCHA egiaztapen errorea.";

@@ -57,8 +57,6 @@
 "action-read" = "Waca";
 "action-redo" = "Balèni";
 "action-remove" = "Buwang";
-"action-replace" = "Ganti";
-"action-replace-all" = "Ganti kabèh";
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
 "action-saved-accessibility" = "Kasimpen. Urubaké saperlu wurung nyimpen.";
@@ -71,7 +69,6 @@
 "action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
 "action-update" = "Anyari";
 "add-articles-to-reading-list" = "Lebokaké {{PLURAL:$1|$1 artikel}} ing pratélan wacan";
-"add-citation-title" = "Wuwuh sitiran";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
 "appearance-settings-reading-themes" = "Cakrik wacan";
@@ -104,7 +101,6 @@
 "description-add-title" = "Wuwuh wedharan";
 // Fuzzy
 "description-edit-for-article" = "Wedharaning sesirah tumrap $1";
-"description-edit-learn-more" = "Sinaoni candhaké";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Besut purwaka";
 // Fuzzy
@@ -117,10 +113,8 @@
 "description-published-button-title" = "Rampung";
 "description-welcome-start-editing-button" = "Wiwit mbesut";
 "dim-images" = "Bleretaké gambar";
-"edit-clear-formatting-accessibility-label" = "Busek format";
 "edit-menu-item" = "Besut";
 "edit-published-subtitle" = "Kowé wis ndadèkaké Wikipédia luwih becik tumrap wong akèh";
-"edit-style-table-view-title" = "Gagrag";
 "edit-summary-choice-fixed-grammar" = "Ndandani paramasastra";
 "edit-summary-choice-fixed-typos" = "Ndandani salah tik";
 "edit-summary-choice-linked-words" = "Nambahi pranala";
@@ -404,9 +398,7 @@
 "welcome-notifications-tell-me-more-creation" = "Biwara kagawé lan kakirim menyang pirantimu lumantar aplikasiné, dudu saka paladèn (utawa péhak katelu)-né awak dhéwé.";
 "welcome-notifications-tell-me-more-storage" = "Pilalan wara-wara disimpen ing piranti lan ora adhedhasar katerangan utawa kagiyatan priangga.";
 "welcome-notifications-tell-me-more-title" = "Candhaké ngenani wara-wara";
-"wikitext-downloading" = "Ngamot isi...";
 "wikitext-preview-changes" = "Njupuk pratuduh owah-owahanmu ...";
-"wikitext-preview-changes-none" = "Ora ana owah-owahan kang kagawé saperlu kapratuduhaké.";
 "wikitext-preview-link-preview-description" = "Pranala iki ngener '$1'";
 "wikitext-preview-link-preview-title" = "Pratuduhé pranala";
 "wikitext-preview-save-changes-title" = "Simpen owahan";

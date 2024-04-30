@@ -74,8 +74,6 @@
 "action-previous-revision-accessibility" = "Vireg Versioun";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
-"action-replace" = "Ersetzen";
-"action-replace-all" = "All ersetzen";
 "action-retry" = "Nach eng Kéier probéieren";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
@@ -89,7 +87,6 @@
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
-"add-citation-title" = "Zitat derbäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
@@ -128,7 +125,6 @@
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
-"description-edit-learn-more" = "Fir méi ze wëssen";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Aleedung änneren";
 "description-edit-pencil-title" = "Artikelbeschreiwung änneren";
@@ -194,7 +190,6 @@
 "donate-success-subtitle" = "Är Generositéit bedeit eis vill.";
 "donate-success-title" = "Merci!";
 "donate-title" = "Wielt ee Betrag";
-"edit-indent-accessibility-label" = "Déi Aktuell Linn eraréckelen";
 "edit-link-display-text-title" = "Text weisen";
 "edit-link-link-target-title" = "Linkzil";
 "edit-link-remove-link-title" = "Link ewechhuelen";
@@ -204,18 +199,11 @@
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
 "edit-published" = "Ännerung verëffentlecht";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
-"edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
-"edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "E Resumé vun der Ännerung derbäisetzen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Linken derbäigesat";
-"edit-summary-learn-more-text" = "Fir méi ze wëssen";
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
-"edit-text-formatting-accessibility-label" = "Textformatéierungsmenü weisen";
-"edit-text-formatting-table-view-title" = "Textformatéierung";
-"edit-text-size-table-view-title" = "Textgréisst";
-"edit-text-style-accessibility-label" = "Textstilmenü weisen";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
@@ -298,6 +286,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
 "explore-suggested-edits-footer" = "Derbäisetzen";
+"explore-suggested-edits-image-recs-title" = "E Bild derbäisetzen";
 "export-user-data-title" = "Benotzerdaten exportéieren";
 "featured-widget-from-language-wikipedia" = "Vun der Wikipedia op $1";
 "featured-widget-from-wikipedia" = "Vun der Wikipedia";
@@ -364,6 +353,10 @@
 "image-rec-survey-submit-button" = "Schécken";
 "image-rec-survey-title" = "Grond";
 "image-rec-title" = "Bild derbäisetzen";
+"image-rec-tooltip-2-body" = "Inspizéiert d'Bild an déi dozougehéiereg Informatiounen un.";
+"image-rec-tooltip-2-title" = "Inspizéieren";
+"image-rec-tooltip-3-body" = "Entscheet, ob d'Bild dem Lieser dobäi hëlleft d'Theema besser ze verstoen.";
+"image-rec-tooltip-3-title" = "Entscheeden";
 "image-rec-view-article" = "Artikel weisen";
 "image-recs-no-title" = "Neen";
 "image-recs-not-sure-title" = "Net sécher";
@@ -646,7 +639,6 @@
 "replace-buttons-replace-all-accessibility" = "All Instanzen ersetzen";
 "replace-infolabel-method-replace" = "Ersetzen";
 "replace-infolabel-method-replace-all" = "All ersetzen";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 Element ersat|$1 Elementer ersat}}";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen duerch...";
 "return-button-title" = "Zréck";
@@ -795,7 +787,6 @@
 "unwatch" = "Net méi iwwerwaachen";
 "user-title" = "Benotzer";
 "vanish-account-continue-button-title" = "Virufueren";
-"vanish-account-learn-more-text" = "Fir méi ze wëssen";
 "vanish-account-username-field" = "Benotzernumm a Benotzersäit";
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nee, merci";
@@ -852,9 +843,7 @@
 "welcome-notifications-tell-me-more-creation" = "Notifikatioune ginn duerch d'App op Ärem Apparat ugeluecht an ausgeliwwert, net vun eise Serveren (oder enger drëtter Säit).";
 "welcome-notifications-tell-me-more-storage" = "D'Astellunge fir d'Notifikatioune sinn um Apparat gespäichert a baséieren net op perséinlechen Informatiounen oder der Aktivitéit.";
 "welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
-"wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-preview-changes" = "Kucken ouni ze späichere vun Ären Ännerunge gëtt preparéiert...";
-"wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";
 "wikitext-preview-link-external-preview-description" = "Dëse Link féiert op eng extern Websäit: $1";
 "wikitext-preview-link-external-preview-title" = "Externe Link";
 "wikitext-preview-link-not-found-preview-description" = "D'Wikipedia huet keen Artikel mat genau dësem Numm";

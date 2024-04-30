@@ -3,9 +3,17 @@ import UIKit
 /// Root view controller for the entire app. Handles splash screen presentation.
 @objc(WMFRootNavigationController)
 class RootNavigationController: WMFThemeableNavigationController {
-    
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return topViewController?.supportedInterfaceOrientations ?? .all
+    }
+
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
+
     @objc var splashScreenViewController: SplashScreenViewController?
-    
+
     @objc func showSplashView() {
         guard splashScreenViewController == nil else {
             return
@@ -19,7 +27,7 @@ class RootNavigationController: WMFThemeableNavigationController {
         splashVC.endAppearanceTransition()
         splashScreenViewController = splashVC
     }
-    
+
     @objc(hideSplashViewAnimated:)
     func hideSplashView(animated: Bool) {
         guard let splashVC = splashScreenViewController else {
@@ -39,7 +47,7 @@ class RootNavigationController: WMFThemeableNavigationController {
         }
         splashScreenViewController = nil
     }
-    
+
     @objc func triggerMigratingAnimation() {
         splashScreenViewController?.triggerMigratingAnimation()
     }
@@ -53,4 +61,5 @@ class RootNavigationController: WMFThemeableNavigationController {
         /// `1..<count-2`: If first controller is Search (from tab bar item Search), it must be kept. Also, if VC prior to top one is Search, it is kept.
         viewControllers[1..<count-2].forEach({ ($0 as? SearchViewController)?.removeFromParent() })
     }
+
 }

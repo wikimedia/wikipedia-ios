@@ -638,6 +638,7 @@ final class PageEditorViewController: UIViewController {
             saveVC.needsWebPreviewButton = true
         }
         saveVC.delegate = self
+        saveVC.pageEditorLoggingDelegate = self
         saveVC.theme = self.theme
         
         navigationController?.pushViewController(saveVC, animated: true)
@@ -924,7 +925,7 @@ extension PageEditorViewController: InsertMediaViewControllerDelegate {
 // MARK: - EditPreviewViewControllerDelegate
 
 extension PageEditorViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController) {
         
         guard case .editorPreviewSave = editFlow else {
             assertionFailure("Edit preview should not have a Next button when using editorSavePreview flow.")
@@ -947,6 +948,7 @@ extension PageEditorViewController: EditPreviewViewControllerDelegate {
 // MARK: - EditSaveViewControllerDelegate
 
 extension PageEditorViewController: EditSaveViewControllerDelegate {
+    
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
         delegate?.pageEditorDidFinishEditing(self, result: result)
     }
@@ -961,6 +963,50 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
             return
         }
         
+        showEditPreview(editFlow: editFlow)
+    }
+}
+
+// MARK: - EditSaveViewControllerPageEditorLoggingDelegate
+
+extension PageEditorViewController: EditSaveViewControllerPageEditorLoggingDelegate {
+    func logEditSaveViewControllerDidTapPublish(source: Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
+        }
+    }
+    
+    func logEditSaveViewControllerPublishSuccess(source: Source, revisionID: UInt64, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticlePublishSuccess(revisionID: Int(revisionID), project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkPublishSuccess(revisionID: Int(revisionID), project: project)
+        }
+    }
+    
+    func logEditSaveViewControllerPublishFailed(source: Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticlePublishFail(problemSource: problemSource, project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkPublishFail(problemSource: problemSource, project: project)
+        }
+    }
+    
+    func logEditSaveViewControllerDidTapBlockedMessageLink(source: Source, project: WikimediaProject) {
+        switch source {
+        case .article:
+            EditInteractionFunnel.shared.logArticleEditSummaryDidTapBlockedMessageLink(project: project)
+        case .talk:
+            EditInteractionFunnel.shared.logTalkEditSummaryDidTapBlockedMessageLink(project: project)
+        }
+    }
+    
+    func logEditSaveViewControllerDidTapShowWebPreview() {
         if let project = WikimediaProject(siteURL: self.pageURL) {
             switch self.source {
             case .talk:
@@ -969,8 +1015,6 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
                 assertionFailure("Article sources should not have show web preview button on edit save.")
             }
         }
-        
-        showEditPreview(editFlow: editFlow)
     }
 }
 

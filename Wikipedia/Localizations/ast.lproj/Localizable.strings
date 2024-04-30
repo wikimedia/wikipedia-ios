@@ -64,8 +64,6 @@
 "action-read" = "Lleer";
 "action-redo" = "Refacer";
 "action-remove" = "Desaniciar";
-"action-replace" = "Sustituir";
-"action-replace-all" = "Sustituir toos";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
 "action-saved-accessibility" = "Guardao. Activa pa recuperar.";
@@ -79,7 +77,6 @@
 "action-unsaved-accessibility-notification" = "Artículu ensin guardar";
 "action-update" = "Anovar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
-"add-citation-title" = "Amestar una cita";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, información, conocimientu, investigación, esploración, deprendimientu";
 "app-store-release-notes" = "Canal d'esploración completamente configurable y fácil de lleer. Allugamientu, ameyoramientos de rindimientu y correición d'errores.";
@@ -122,7 +119,6 @@
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
 "description-add-title" = "Amestar descripción";
 "description-edit-for-article" = "Descripción d'artículu pa $1";
-"description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Editar introducción";
 "description-edit-pencil-title" = "Editar la descripción del artículu";
@@ -189,8 +185,6 @@
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
 "edit-summary-placeholder-text" = "¿Cómo ameyorasti l'artículu?";
-"edit-text-size-table-view-title" = "Tamañu de testu";
-"edit-underline-accessibility-label" = "Amestar sorrayáu";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
@@ -590,9 +584,7 @@
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
 "welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
-"wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
-"wikitext-preview-changes-none" = "Nun se ficieron cambios pa una vista previa.";
 "wikitext-preview-link-preview-description" = "Esti enllaz lleva a '$1'";
 "wikitext-preview-link-preview-title" = "Vista previa del enllaz";
 "wikitext-upload-captcha-error" = "Error na comprobación CAPTCHA.";

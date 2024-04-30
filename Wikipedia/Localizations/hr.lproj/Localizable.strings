@@ -63,8 +63,6 @@
 "action-read" = "Čitaj";
 "action-redo" = "Ponovi";
 "action-remove" = "Ukloni";
-"action-replace" = "Zamijeni";
-"action-replace-all" = "Zamijeni sve";
 "action-retry" = "Pokušaj ponovno";
 "action-save" = "Spremi";
 "action-saved" = "Spremljeno";
@@ -75,7 +73,6 @@
 "action-thank-user-accessibility" = "Zahvali suradniku";
 "action-undo" = "Vrati";
 "action-update" = "Ažuriraj";
-"add-citation-title" = "Dodavanje izvora";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedija, izvor, wiki, enciklopedija, info, znanje, istraživanje, informacije, istraži, učenje";
 "app-store-subtitle" = "Slobodna enciklopedija";
@@ -110,7 +107,6 @@
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-title" = "Nema nedavno čitanih članaka";
 "description-add-title" = "Dodaj opis";
-"description-edit-learn-more" = "Saznaj više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-placeholder-title" = "Kratki su opisi najbolji";
@@ -158,14 +154,11 @@
 "edit-menu-item" = "Uredi";
 "edit-minor-text" = "Ovo je manja izmjena";
 "edit-published" = "Uređivanje je objavljeno";
-"edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "Dodajte sažetak izmjene";
 "edit-summary-choice-fixed-grammar" = "Popravljen pravopis";
 "edit-summary-choice-fixed-typos" = "Popravljen zatipak";
 "edit-summary-choice-linked-words" = "Dodane poveznice";
-"edit-summary-learn-more-text" = "Saznajte više";
 "edit-summary-placeholder-text" = "Kako ste unaprijedili članak?";
-"edit-text-size-table-view-title" = "Veličina teksta";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-title" = "Vaš glas je važan";
 "editing-welcome-citations-title" = "Citirajte pouzdane izvore";

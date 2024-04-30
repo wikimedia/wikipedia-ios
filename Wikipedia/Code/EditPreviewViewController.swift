@@ -2,7 +2,13 @@ import UIKit
 import WMF
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
+}
+
+protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
+    func logEditPreviewDidAppear()
+    func logEditPreviewDidTapBack()
+    func logEditPreviewDidTapNext()
 }
 
 class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
@@ -14,6 +20,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     var needsSimplifiedFormatToast: Bool = false
     
     weak var delegate: EditPreviewViewControllerDelegate?
+    weak var loggingDelegate: EditPreviewViewControllerLoggingDelegate?
     
     lazy var messagingController: ArticleWebMessagingController = {
         let controller = ArticleWebMessagingController()
@@ -74,11 +81,14 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
 
     @objc func goBack() {
+        loggingDelegate?.logEditPreviewDidTapBack()
         navigationController?.popViewController(animated: true)
+        
     }
     
     @objc func goForward() {
-        delegate?.editPreviewViewControllerDidTapNext(self)
+        loggingDelegate?.logEditPreviewDidTapNext()
+        delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
     }
 
     override func viewDidLoad() {
@@ -109,6 +119,11 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggingDelegate?.logEditPreviewDidAppear()
     }
     
     deinit {
