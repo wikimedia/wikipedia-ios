@@ -14,12 +14,12 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidTapShowWebPreview()
 }
 
-protocol EditSaveViewControllerPageEditorLoggingDelegate: AnyObject {
+protocol EditSaveViewControllerEditorLoggingDelegate: AnyObject {
     func logEditSaveViewControllerDidTapShowWebPreview()
-    func logEditSaveViewControllerDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject)
-    func logEditSaveViewControllerPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
-    func logEditSaveViewControllerPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
-    func logEditSaveViewControllerDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapPublish(source: EditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject)
+    func logEditSaveViewControllerPublishSuccess(source: EditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
+    func logEditSaveViewControllerPublishFailed(source: EditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapBlockedMessageLink(source: EditorViewController.Source, project: WikimediaProject)
 }
 
 protocol EditSaveViewControllerImageRecLoggingDelegate: AnyObject {
@@ -55,7 +55,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var pageURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
-    var source: PageEditorViewController.Source?
+    var source: EditorViewController.Source?
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -64,7 +64,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var editSummaryTag: WKEditSummaryTag?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
-    weak var pageEditorLoggingDelegate: EditSaveViewControllerPageEditorLoggingDelegate?
+    weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
     weak var imageRecLoggingDelegate: EditSaveViewControllerImageRecLoggingDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -272,7 +272,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let configuration = WKSmallButton.Configuration(style: .quiet)
         let rootView = WKSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
-            self?.pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
+            self?.editorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
         }
          let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
          showWebPreviewButtonHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -362,7 +362,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
             
-            pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
+            editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
             
         }
         
@@ -417,7 +417,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             
             if let source {
-                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+                editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
             }
             
             EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
@@ -500,7 +500,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                    let pageURL,
                 let project = WikimediaProject(siteURL: pageURL) {
                     
-                    pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapBlockedMessageLink(source: source, project: project)
+                    editorLoggingDelegate?.logEditSaveViewControllerDidTapBlockedMessageLink(source: source, project: project)
                     
                     EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 }
@@ -525,7 +525,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             
             if let source {
-                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
+                editorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
             }
             
             

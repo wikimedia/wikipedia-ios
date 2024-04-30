@@ -145,7 +145,7 @@ class TalkPageViewController: ViewController {
                 return
             }
             
-            self.pushToPageEditor()
+            self.pushToEditor()
             
             if let project = WikimediaProject(siteURL: self.viewModel.siteURL) {
                 EditInteractionFunnel.shared.logTalkDidTapEditSourceButton(project: project)
@@ -472,16 +472,16 @@ class TalkPageViewController: ViewController {
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
-    fileprivate func pushToPageEditor() {
+    fileprivate func pushToEditor() {
         guard let pageURL = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
             return
         }
         
         let dataStore = MWKDataStore.shared()
 
-        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         present(navigationController, animated: true)
         
@@ -1231,16 +1231,16 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
     }
 }
 
-// MARK: - PageEditorViewControllerDelegate
+// MARK: - EditorViewControllerDelegate
 
-extension TalkPageViewController: PageEditorViewControllerDelegate {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+extension TalkPageViewController: EditorViewControllerDelegate {
+    func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
         }
     }
     
-    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<EditorChanges, Error>) {
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>) {
         switch result {
         case .failure(let error):
             showError(error)
