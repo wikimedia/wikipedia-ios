@@ -296,6 +296,8 @@
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
 "edit-summary-placeholder-text" = "How did you improve the article?";
+"edit-summary-short-description-added" = "Added short description";
+"edit-summary-short-description-updated" = "Updated short description";
 "edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
 "editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";

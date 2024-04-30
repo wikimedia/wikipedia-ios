@@ -296,6 +296,8 @@
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
+"edit-summary-short-description-added" = "Edit summary message when adding a short description for an article";
+"edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
 "editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
