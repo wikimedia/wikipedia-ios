@@ -129,7 +129,7 @@ class EditorNavigationItemController: NSObject, Themeable {
         progressButton.isEnabled = true
     }
 
-    func disableButton(button: SectionEditorButton) {
+    func disableButton(button: EditorButton) {
         switch button.kind {
         case .undo:
             undoButton.isEnabled = false
