@@ -81,9 +81,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia ah \"$1\"";
 "table-of-contents-heading" = "Cazin pawl";
-"wikitext-downloading" = "Chungum a langh lio...";
 "wikitext-preview-changes" = "Na remhmi pawl a langh lio...";
-"wikitext-preview-changes-none" = "Zohchun ding ah zei remhnak hmanh a um lo.";
 "wikitext-upload-captcha-error" = "CAPTCHA zohfelnak a rawk.";
 "wikitext-upload-captcha-needed" = "CAPTCHA zohfelnak a herh.";
 "wikitext-upload-result-unknown" = "Wikicafang tarlanghmi phichuak a hmu kholo";

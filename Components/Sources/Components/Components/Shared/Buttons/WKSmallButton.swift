@@ -41,6 +41,7 @@ public struct WKSmallButton: View {
                 if configuration.needsDisclosure,
                 let uiImage = WKSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
                     Image(uiImage: uiImage)
+                        .foregroundColor(Color(appEnvironment.theme.link))
                 }
             }
             .padding([.top, .bottom], 4)

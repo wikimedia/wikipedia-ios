@@ -50,10 +50,6 @@
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
 "description-published-button-title" = "ಆಂಡ್";
-"edit-bold-accessibility-label" = "ದಪ್ಪಾಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
-"edit-bold-remove-accessibility-label" = "ದಪ್ಪಾಕ್ಷರದ ರೂಪನ ದೆಪ್ಪುಲೆ";
-"edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್‌ಗ್ ಪಂದಾಲೆ";
-"edit-italic-accessibility-label" = "ಓರೆಅಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
 "edit-menu-item" = "ಸಂಪೊಲಿಪುಲೆ";
@@ -61,12 +57,10 @@
 "edit-minor-text" = "ಉಂದು ಎಲ್ಯ ಬದಲಾವಣೆ";
 "edit-published" = "ಸಂಪಾದ ಪ್ರಕಟಿಂಡ್";
 "edit-published-subtitle" = "ಈರ್ ಇತ್ತೆ ವಿಕಿಪೀಡಿಯೊನು  ಮಾತೆರೆಗಾದ್ ಸುಧಾರಿಸಾಯೆರ್.";
-"edit-reference-accessibility-label" = "ಉಲ್ಲೇಖ ಪದರಚನೆ ಸೇರಾಲೆ";
-"edit-strikethrough-accessibility-label" = "ಅಡ್ಡಗೀಟ್ ಸೇರಾಲೆ";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
 "edit-summary-placeholder-text" = "ವಾ ನಮೂಡೆಡ್ ಲೇಖನೊನ್ ಎಡ್ಡೆ ಮಲ್ತರ್?";
-"edit-underline-accessibility-label" = "ಅಡಿಗೆರೆ ಸೇರಾಲೆ";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ವೀಕ್ಷಣ ಪಟ್ಟಿಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
 "edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ";
 "empty-no-article-message" = "ಮಾಪು ಮಾನ್ಪುಲೇ, ಲೇಕನೋ ದಿಂಜೊಂತ್ತಿಜ್ಜಿ";
@@ -179,7 +173,6 @@
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
 "welcome-explore-tell-me-more-done-button" = "ಗೊತ್ತಂಡಾ";
 "welcome-languages-add-button" = "ನನೊಂಜಿ ಬಾಸೆನ್ ಸೇರ್ಸಲೇ";
-"wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-preview-save-changes-title" = "ಬದಲಾವಣೆಲೆನ್ ಒರಿಪಾಲೆ";
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";

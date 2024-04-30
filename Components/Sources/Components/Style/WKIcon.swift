@@ -20,6 +20,9 @@ public enum WKIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
     static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
+    public static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    public static let error = UIImage(named: "error", in: .module, with: nil)
 
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -63,6 +66,7 @@ public enum WKSFSymbolIcon {
     case multiplyCircleFill
     case chevronRightCircle
     case close
+    case closeCircleFill
     case ellipsis
     case pencil
     case plusCircleFill
@@ -150,6 +154,8 @@ public enum WKSFSymbolIcon {
             image = UIImage(systemName: "chevron.right.circle.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .close:
             image = UIImage(systemName: "multiply", withConfiguration: configuration)
+        case .closeCircleFill:
+            image = UIImage(systemName: "xmark.circle.fill", withConfiguration: configuration)
         case .ellipsis:
             image = UIImage(systemName: "ellipsis", withConfiguration: configuration)
         case .pencil:

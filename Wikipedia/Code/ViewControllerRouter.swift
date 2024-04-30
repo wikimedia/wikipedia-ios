@@ -327,7 +327,7 @@ class ViewControllerRouter: NSObject {
             return attributedString
         }
 
-        let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
+        let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
 
         let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
 
@@ -351,19 +351,18 @@ class ViewControllerRouter: NSObject {
                 reachabilityNotifier.stop()
             }
         }
+        
+        let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
 
-        if let image = UIImage(named: "watchlist-empty-state") {
-            let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: image, numberOfFilters: viewModel.activeFilterCount)
+        let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
 
-            let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
-
-            targetNavigationController?.pushViewController(watchlistViewController, animated: true)
-        }
+        targetNavigationController?.pushViewController(watchlistViewController, animated: true)
     }
 }
 
 extension ViewControllerRouter: WKOnboardingViewDelegate {
-    func didClickPrimaryButton() {
+    
+    func onboardingViewDidClickPrimaryButton() {
         
         let targetNavigationController = watchlistTargetNavigationController()
         
@@ -376,7 +375,7 @@ extension ViewControllerRouter: WKOnboardingViewDelegate {
         }
     }
 
-    func didClickSecondaryButton() {
+    func onboardingViewDidClickSecondaryButton() {
         
         let targetNavigationController = watchlistTargetNavigationController()
         
@@ -390,5 +389,9 @@ extension ViewControllerRouter: WKOnboardingViewDelegate {
                 self?.appViewController.navigate(to: url)
             }
         }
+    }
+    
+    func onboardingViewWillSwipeToDismiss() {
+        
     }
 }

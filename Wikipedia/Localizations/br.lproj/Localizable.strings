@@ -79,8 +79,6 @@
 "action-read" = "Lenn";
 "action-redo" = "Adober";
 "action-remove" = "Diverkañ";
-"action-replace" = "Erlec'hiañ";
-"action-replace-all" = "Erlec'hiañ pep tra";
 "action-retry" = "Klask en-dro";
 "action-save" = "Enrollañ";
 "action-saved" = "Enrollet";
@@ -95,7 +93,6 @@
 "action-unsaved-accessibility-notification" = "Pennad n'eo ket enrollet";
 "action-update" = "Hizivaat";
 "add-articles-to-reading-list" = "Ouzhpennañ {{PLURAL:$1|$1 pennad|$1 pennad}} d'ar roll lenn";
-"add-citation-title" = "Ouzhpennañ ur meneg";
 "announcements-dismiss" = "Disteurel";
 "app-store-subtitle" = "An Holloueziadur digor";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
@@ -137,7 +134,6 @@
 "data-migration-status" = "Oc'h hizivaat...";
 "description-add-title" = "Ouzhpennañ un deskrivadur";
 "description-edit-for-article" = "Deskrivadur ar pennad evit $1";
-"description-edit-learn-more" = "Gouzout hiroc'h";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Pa'z embannit e tegemerit ar $1, hag e lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "description-edit-pencil-introduction" = "Kemmañ ar raklavar";
@@ -195,15 +191,10 @@
 "edit-minor-text" = "Ur c'hemm dister eo hemañ";
 "edit-notices" = "Kemennoù aozañ";
 "edit-published" = "Kemmoù embannet";
-"edit-style-table-view-title" = "Stil";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
-"edit-summary-learn-more-text" = "Gouzout hiroc'h";
 "edit-summary-placeholder-text" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
-"edit-text-formatting-table-view-title" = "Furmaozañ an destenn";
-"edit-text-size-table-view-title" = "Ment an destenn";
-"edit-underline-accessibility-label" = "Islinennañ";
 "edit-watch-this-page-text" = "Evezhiañ ar bajenn-mañ";
 "editor-exit-confirmation-body" = "Ha sur oc’h e fell deoc’h mont kuit eus ar mod kemmañ hep embann?";
 "editor-find-textfield-accessibility" = "Klask";
@@ -273,6 +264,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Eus Wikipedia";
 "explore-randomizer" = "Dre zegouezh";
 "explore-suggested-edits-footer" = "Ouzhpennañ";
+"explore-suggested-edits-image-recs-title" = "Ouzhpennañ ur skeudenn";
 "featured-widget-from-language-wikipedia" = "Eus $1 Wikipedia";
 "featured-widget-from-wikipedia" = "Eus Wikipedia";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
@@ -321,8 +313,15 @@
 "icon-shortcut-random-title" = "Ur pennad dre zegouezh";
 "icon-shortcut-search-title" = "Klask e Wikipedia";
 "image-gallery-unknown-owner" = "Aozer dianav.";
+"image-rec-add-image-title" = "Ouzhpennañ ar skeudenn-mañ?";
+"image-rec-onboarding-title" = "Ouzhpennañ ur skeudenn d'ur pennad";
+"image-rec-survey-option-6" = "All";
+"image-rec-survey-title" = "Abeg";
 "image-rec-title" = "Ouzhpennañ ur skeudenn";
 "image-rec-view-article" = "Gwelet ar pennad";
+"image-recs-no-title" = "Ket";
+"image-recs-not-sure-title" = "N'on ket sur";
+"image-recs-yes-title" = "Ya";
 "import-shared-reading-list-default-title" = "Ma roll lenn";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ket bremañ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Kemer perzh er sontadeg";
@@ -331,6 +330,7 @@
 "in-the-news-title" = "Er C'heleier";
 "insert-action-title" = "Ensoc'hañ";
 "insert-link-title" = "Ensoc'hañ ul liamm";
+"insert-media-add-image-details-title" = "Ouzhpennañ munudoù d'ar skeudenn";
 "insert-media-alternative-text-placeholder" = "Deskrivañ ar skeudenn-mañ";
 "insert-media-alternative-text-title" = "Testenn all";
 "insert-media-caption-title" = "Alc'hwez";
@@ -351,10 +351,10 @@
 "insert-media-image-type-setting-thumbnail" = "Munud";
 "insert-media-image-type-settings-title" = "Seurt skeudenn";
 "insert-media-media-settings-title" = "Arventennoù ar media";
-"insert-media-uploaded-image-title" = "Skeudenn enporzhiet";
 "languages-settings-title" = "Yezhoù";
 "languages-title" = "Cheñch yezh";
 "languages-wikipedia" = "Yezhoù Wikipedia";
+"learn-more-title" = "Gouzout hiroc'h";
 "logged-out-continue-without-logging-in-button-title" = "Kenderc'hel hep kevreañ";
 "logged-out-log-back-in-button-title" = "Adkevreit ouzh ho kont";
 "logged-out-title" = "Digevreet oc'h bet";
@@ -386,6 +386,7 @@
 "nearby-distance-label-miles" = "$1 mil saoz";
 "new-password-instructions" = "Kevreet oc'h bet gant ur ger-tremen dibad.\nEvit echuiñ kevreañ e rankit lakaat ur ger-tremen nevez amañ :";
 "new-password-title" = "Dielfennañ ho ker-tremen";
+"next-action-title" = "War-lerc'h";
 "no-email-account-alert" = "Kendalc'hit, mar plij da gefluniañ ur gemennadenn en hoc'h ardivink ha klaskit en-dro.";
 "no-internet-connection" = "Kevreadur ebet ouzh ar Genrouedad";
 "no-internet-connection-article-reload-button" = "Distreiñ d'an doare diwezhañ enrollet";
@@ -658,6 +659,7 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-readers-count" = "$1 lenner";
 "top-read-widget-title" = "Ar re lennetañ";
+"tutorial-title" = "Tuto";
 "two-factor-login-continue" = "Kenderc'hel da gevreañ";
 "two-factor-login-instructions" = "Merkit ar c'hod gwiriañ dezhañ daou faktor";
 "two-factor-login-title" = "Kevreañ d'ho kont";
@@ -667,7 +669,6 @@
 "unwatch" = "Paouez da evezhiañ";
 "user-title" = "Implijer/ez";
 "vanish-account-continue-button-title" = "Kenderc'hel";
-"vanish-account-learn-more-text" = "Gouzout hiroc'h";
 "vanish-account-username-field" = "Anv-implijer ha pajenn an implijer";
 "vanish-account-warning-title" = "Diwallit";
 "variants-alert-dismiss-button" = "Nann, trugarez";
@@ -711,9 +712,7 @@
 "welcome-notifications-tell-me-more-creation" = "Krouet ha pourchaset eo ar c'hemennadennoù war ho penveg gant an arload. Ne zeuont ket servijerioù diavaez.";
 "welcome-notifications-tell-me-more-storage" = "Enrollañ a reomp ar penndibaboù war ar benveg, n'int ket diazezet war titouroù personel pe hoc'h obererezh.";
 "welcome-notifications-tell-me-more-title" = "Gouzout hiroc'h diwar-benn ar c'hemennadennoù";
-"wikitext-downloading" = "O kargañ un endalc'had...";
 "wikitext-preview-changes" = "Adtapout an alberz eus ho kemmoù";
-"wikitext-preview-changes-none" = "N'eus bet graet kemm ebet evit an alberz.";
 "wikitext-preview-link-external-preview-title" = "Liamm diavaez";
 "wikitext-preview-link-preview-title" = "Rakwel al liamm";
 "wikitext-preview-save-changes-title" = "Enrollañ ar c'hemmoù";

@@ -8,18 +8,24 @@ public struct WKImageRecommendation {
         public let pageid: Int
         public let title: String
         public let growthimagesuggestiondata: [GrowthImageSuggestionData]?
+        public let revisions: [Revision]
+    }
+
+    public struct Revision {
+        public let revID: Int
+        public let wikitext: String
     }
 
     public struct GrowthImageSuggestionData {
         let titleNamespace: Int
-        let titleText: String
+        public let titleText: String
         public let images: [ImageSuggestion]
     }
 
     public struct ImageSuggestion: Codable {
         public let image: String
         public let displayFilename: String
-        let source: String
+        public let source: String
         let projects: [String]
         public let metadata: ImageMetadata
     }
@@ -39,6 +45,7 @@ public struct WKImageRecommendation {
         let categories: [String]
         public let reason: String
         let contentLanguageName: String
+        let sectionNumber: String?
     }
 
 }

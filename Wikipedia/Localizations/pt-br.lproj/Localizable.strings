@@ -17,6 +17,7 @@
 // Author: Fitoschido
 // Author: Fúlvio
 // Author: HenriqueCrang
+// Author: Lc97
 // Author: Luckas
 // Author: Luk3
 // Author: Macofe
@@ -36,6 +37,7 @@
 // Author: Tooguether
 // Author: Trooper57
 // Author: Tsevener
+// Author: Vinickw
 // Author: Walesson
 // Author: Webysther
 // Author: YuriNikolai
@@ -129,8 +131,6 @@
 "action-read" = "Ler";
 "action-redo" = "Refazer";
 "action-remove" = "Remover";
-"action-replace" = "Substituir";
-"action-replace-all" = "Substituir todos";
 "action-retry" = "Atualizar";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
@@ -145,7 +145,6 @@
 "action-unsaved-accessibility-notification" = "Artigo não salvo";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
-"add-citation-title" = "Adicionar citação";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -199,7 +198,6 @@
 "data-migration-status" = "Atualizando...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do artigo para $1";
-"description-edit-learn-more" = "Saiba mais";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ao alterar a descrição do artigo, eu concordo com os $1 e lanço as minhas contribuições irrevogavelmente sob a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
@@ -235,8 +233,7 @@
 "description-welcome-start-editing-button" = "Começar a editar";
 "diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Para:";
+"diff-compare-header-to-info-heading" = "Edição exibida";
 "diff-compare-title" = "Comparar revisões";
 "diff-context-lines-collapsed-button-title" = "Exibir";
 "diff-context-lines-expanded-button-title" = "Ocultar";
@@ -267,24 +264,8 @@
 "diff-undo-success" = "A revisão foi desfeita.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "dim-images" = "Imagens fracas";
-"edit-bold-accessibility-label" = "Adicionar formatação em negrito";
-"edit-bold-remove-accessibility-label" = "Remover formatação em negrito";
-"edit-clear-formatting-accessibility-label" = "Remover formatação";
-"edit-comment-accessibility-label" = "Adicionar sintaxe de comentário";
-"edit-comment-remove-accessibility-label" = "Remover sintaxe de comentário";
-"edit-decrease-indent-depth-accessibility-label" = "Diminuir a profundidade do recuo";
-"edit-direction-down-accessibility-label" = "Mover o cursor para baixo";
-"edit-direction-left-accessibility-label" = "Mover o cursor para a esquerda";
-"edit-direction-right-accessibility-label" = "Mover o cursor para a direita";
-"edit-direction-up-accessibility-label" = "Mover o cursor para cima";
-"edit-increase-indent-depth-accessibility-label" = "Aumentar a profundidade do recuo";
-"edit-indent-accessibility-label" = "Linha atual de recuo";
-"edit-italic-accessibility-label" = "Adicionar formatação em itálico";
-"edit-italic-remove-accessibility-label" = "Remover formatação em itálico";
-"edit-link-accessibility-label" = "Acrescentar sintaxe para link";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Destino do link";
-"edit-link-remove-accessibility-label" = "Remover a sintaxe do link";
 "edit-link-remove-link-title" = "Remover link";
 "edit-link-title" = "Editar link";
 "edit-menu-item" = "Editar";
@@ -294,39 +275,14 @@
 "edit-minor-text" = "Esta é uma edição menor";
 "edit-notices" = "Avisos de edição";
 "edit-notices-please-read" = "Por favor, leia antes de editar";
-"edit-ordered-list-accessibility-label" = "Tornar a lista ordenada da linha atual";
-"edit-ordered-list-remove-accessibility-label" = "Remover lista ordenada da linha atual";
 "edit-published" = "Editar publicado";
 "edit-published-subtitle" = "Você acabou de tornar a Wikipédia melhor para todos";
-"edit-reference-accessibility-label" = "Adicionar sintaxe de referência";
-"edit-reference-remove-accessibility-label" = "Remover a sintaxe de referência";
-"edit-signature-accessibility-label" = "Adicionar sintaxe de assinatura";
-"edit-signature-remove-accessibility-label" = "Remover a sintaxe da assinatura";
-"edit-strikethrough-accessibility-label" = "Adicionar tachado";
-"edit-strikethrough-remove-accessibility-label" = "Remover tachado";
-"edit-style-table-view-title" = "Estilo";
-"edit-subscript-accessibility-label" = "Adicionar formatação de subscrito";
-"edit-subscript-remove-accessibility-label" = "Remover a formatação de subscrito";
 "edit-summary-add-summary-text" = "Adicionar um resumo de edição";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Links adicionados";
-"edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "Como foi que você melhorou o artigo?";
-"edit-superscript-accessibility-label" = "Adicionar formatação sobrescrita";
-"edit-superscript-remove-accessibility-label" = "Remover formatação sobrescrita";
-"edit-template-accessibility-label" = "Adicionar sintaxe da predefinição";
-"edit-template-remove-accessibility-label" = "Remover a sintaxe da predefinição";
-"edit-text-clear-formatting" = "Limpar formatação";
-"edit-text-formatting-accessibility-label" = "Mostrar menu de formatação de texto";
-"edit-text-formatting-table-view-title" = "Formatação de texto";
-"edit-text-size-table-view-title" = "Tamanho do texto";
-"edit-text-style-accessibility-label" = "Mostrar menu de estilo de texto";
-"edit-underline-accessibility-label" = "Adicionar sublinhado";
-"edit-underline-remove-accessibility-label" = "Remover sublinhado";
-"edit-unordered-list-accessibility-label" = "Tornar a linha atual lista não ordenada";
-"edit-unordered-list-remove-accessibility-label" = "Remover lista não ordenada da linha atual";
-"edit-watch-list-learn-more-text" = "Saiba mais sobre listas de vigiados";
+"edit-watch-list-learn-more-text" = "Saiba mais sobre as listas de páginas vigiadas";
 "edit-watch-this-page-text" = "Vigiar esta página";
 "editing-welcome-be-bold-subtitle" = "Seja ousado, mas não imprudente na atualização de artigos. Não se preocupe em cometer erros: todas as versões anteriores de uma página são salvas, portanto os erros podem ser facilmente corrigidos por nossa comunidade.";
 "editing-welcome-be-bold-title" = "Sua voz é importante";
@@ -340,6 +296,7 @@
 "editor-exit-confirmation-title" = "Sair do modo de edição?";
 "empty-diff-compare-title" = "Não há diferenças entre as revisões";
 "empty-diff-single-title" = "Nenhuma alteração visível feita";
+"empty-edit-summary" = "Resumo de edição vazio";
 "empty-insert-media-title" = "Selecionar um arquivo do Wikimedia Commons";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
@@ -511,6 +468,17 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Ator desconhecido";
+"image-rec-onboarding-learn-more-button" = "Saiba mais sobre edições sugeridas";
+"image-rec-survey-instructions-1" = "Suas respostas melhoram sugestões futuras.";
+"image-rec-survey-instructions-2" = "Selecione uma ou mais opções";
+"image-rec-survey-option-1" = "A imagem não é relevante";
+"image-rec-survey-option-2" = "Não há informações suficientes para decidir";
+"image-rec-survey-option-3" = "A imagem é ofensiva";
+"image-rec-survey-option-4" = "A imagem é de baixa qualidade";
+"image-rec-survey-option-5" = "Eu não sei esse assunto";
+"image-rec-survey-option-6" = "Outros";
+"image-rec-survey-submit-button" = "Enviar";
+"image-rec-survey-title" = "Motivo";
 "import-shared-reading-list-default-title" = "Minha lista de leitura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar da pesquisa";
@@ -523,6 +491,7 @@
 "in-the-news-title" = "Eventos recentes";
 "insert-action-title" = "Inserir";
 "insert-link-title" = "Inserir link";
+"insert-media-add-image-details-title" = "Adicionar detalhes da imagem";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
 "insert-media-alternative-text-placeholder" = "Descreva esta imagem";
 "insert-media-alternative-text-title" = "Texto alternativo";
@@ -547,7 +516,6 @@
 "insert-media-image-type-settings-title" = "Tipo de imagem";
 "insert-media-media-settings-title" = "Configurações de mídia";
 "insert-media-title" = "Inserir mídia";
-"insert-media-uploaded-image-title" = "Imagem carregada";
 "inuktitut-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes do Inuctitute como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuctitute silábico (ike-cans)\nInuktitut ilisautik, inuctitute latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
 "kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";
@@ -557,6 +525,7 @@
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Alterar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
+"learn-more-title" = "Saiba mais";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem entrar";
 "logged-out-log-back-in-button-title" = "Entre novamente na sua conta";
 "logged-out-subtitle" = "Houve um problema ao autenticar sua conta. Para sincronizar suas listas de leitura e editar com o seu nome de usuário, faça o login novamente.";
@@ -591,6 +560,7 @@
 "nearby-distance-label-miles" = "$1 milhas";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
 "new-password-title" = "Defina sua senha";
+"next-action-title" = "Próximo";
 "no-email-account-alert" = "Por favor configure uma conta de email em seu dispositivo e tente novamente.";
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
@@ -911,7 +881,6 @@
 "replace-infolabel-method-replace" = "Substituir";
 "replace-infolabel-method-replace-all" = "Substituir todos";
 "replace-method-button-accessibility" = "Substitua o método. Defina para $1. Selecione para mudar.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 item substituído|$1 itens substituídos}}";
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
 "reverted-edit-title" = "Edição revertida";
@@ -1035,7 +1004,6 @@
 "talk-page-reply-button-accessibility-label" = "Responder a $1";
 "talk-page-reply-depth-accessibility-label" = "Profundidade da resposta: $1";
 "talk-page-reply-placeholder-format" = "Responder a $1";
-"talk-page-reply-terms-and-licenses" = "Note que a sua resposta será assinada automaticamente com o seu nome de usuário. Ao salvar as mudanças, concorda com os $1termos de uso$2 e aceita publicar a sua contribuição nos termos das licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-revision-history" = "Histórico de revisão";
 "talk-page-rply-close-button-accessibility-hint" = "Fechar visualização de resposta";
 "talk-page-share-button" = "Compartilhar página de discussão";
@@ -1046,7 +1014,6 @@
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
 "talk-page-topic-close-button-hint" = "Fechar novo tópico";
-"talk-page-topic-compose-terms-and-licenses" = "Ao salvar as mudanças você concorda com os $1termos de uso$2 e aceita de forma irrevogável publicar a sua contribuição nos termos das licenças $3CC BY-SA 3.0$4 e $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Cancelar inscrição";
 "talk-page-unsubscribed-alert-subtitle" = "Você não receberá mais notificações sobre novos comentários neste tópico";
 "talk-page-unsubscribed-alert-title" = "Cancelar inscrição.";
@@ -1068,7 +1035,8 @@
 "talk-pages-topic-added-alert-title" = "O seu tópico foi adicionado";
 "talk-pages-topic-compose-body-placeholder" = "Descrição";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Descrição do tópico";
-"talk-pages-topic-compose-close-confirmation-discard" = "Descartar resposta";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "Descartar resposta";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Descartar tópico";
 "talk-pages-topic-compose-close-confirmation-title" = "Tem a certeza de que deseja descartar este tópico novo?";
 "talk-pages-topic-compose-navbar-title" = "Tópico";
 "talk-pages-topic-compose-title-placeholder" = "Título do tópico";
@@ -1098,7 +1066,6 @@
 "uzbek-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes uzbeque como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\noʻzbekcha lotin Uzbek, Latino (uz-latin)\nўзбекча кирилл Uzbek, Cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações para o suporte da variante de usbeque";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-learn-more-text" = "Saiba mais";
 "vanish-account-username-field" = "Nome de usuário e página de usuário";
 "vanish-account-warning-body" = "Desaparecer é um **último recurso** e deve **ser usado apenas quando você deseja parar de editar para sempre** e também para ocultar o máximo possível de suas associações anteriores.\n\nA exclusão da conta na Wikipédia é feita alterando o nome da sua conta para que outras pessoas não possam reconhecer suas contribuições em um processo chamado desaparecimento de conta. **O desaparecimento não garante o anonimato completo nem remove as contribuições aos projetos**.";
 "vanish-account-warning-title" = "Aviso";
@@ -1132,9 +1099,7 @@
 "widget-onthisday-description" = "Explore o que aconteceu neste dia na história.";
 "widget-onthisday-placeholder-article-snippet" = "A enciclopédia online livre que qualquer um pode editar";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, fica online.";
-"wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-preview-changes" = "Recuperando uma pré-visualização de suas mudanças...";
-"wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
 "wikitext-preview-link-external-preview-description" = "Este link leva a um site externo: $1";
 "wikitext-preview-link-external-preview-title" = "Link externo";
 "wikitext-preview-link-not-found-preview-description" = "A Wikipédia não tem um artigo com este nome exato";
@@ -1149,5 +1114,4 @@
 "wikitext-upload-save-anonymously-or-login" = "As edições serão atribuídas ao endereço IP do seu dispositivo. Se você $1entrar em$2, você terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-and-licenses" = "Ao publicar alterações, você concorda com os $1termos de uso$2 e concorda irrevogavelmente em liberar sua contribuição sob a Licença $3CC BY-SA 3.0$4 e a licença $5GFDL$6. Você concorda que um hiperlink ou URL é uma atribuição suficiente sob a licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termo de uso";

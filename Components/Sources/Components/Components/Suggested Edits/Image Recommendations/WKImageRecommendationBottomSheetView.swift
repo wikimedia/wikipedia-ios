@@ -5,6 +5,7 @@ protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
     func didTapNoButton()
     func didTapSkipButton()
     func goToImageCommonsPage()
+    func goToGallery()
 }
 
 public class WKImageRecommendationBottomSheetView: WKComponentView {
@@ -44,9 +45,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToGallery))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
     }()
 
@@ -89,7 +92,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
 
-    private lazy var toolbar: UIToolbar = {
+    private(set) lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar()
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
@@ -379,6 +382,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     @objc private func didPressSkipButton() {
         delegate?.didTapSkipButton()
+    }
+    
+    @objc private func goToGallery() {
+        delegate?.goToGallery()
     }
 
 }

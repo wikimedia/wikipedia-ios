@@ -22,10 +22,7 @@
 "main-menu-account-title-logged-in" = "Oongemeldet wie: $1";
 "navbar-title-mode-edit-wikitext-preview" = "Voarschau";
 "search-field-placeholder-text" = "Wikipedia doorrichsuche";
-// Fuzzy
-"wikitext-downloading" = "Wikitext am loode …";
 "wikitext-preview-changes" = "Ruf den Voarschau von deiner Ännrungen ab …";
-"wikitext-preview-changes-none" = "Do worre ken Ännrunge doorrichgeführt für en Voarschau oonzeiche.";
 "wikitext-upload-captcha-error" = "Captcha-Üwerprüfungsfehler.";
 "wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
 "wikitext-upload-result-unknown" = "Das Ergebnis von deine Wikitext-Upload (Uffloodung) konnt net ermittelt sin.";

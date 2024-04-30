@@ -34,16 +34,9 @@ extension ArticleViewController {
         
         let editorViewController: UIViewController
         let editSummaryTag: WKEditSummaryTag = selectedTextEditInfo == nil ?  .articleSectionSourceEditor : .articleSelectSourceEditor
-        if FeatureFlags.needsNativeSourceEditor {
 
-            let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
-
-            editorViewController = pageEditorViewController
-        } else {
-            let sectionEditViewController = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-            sectionEditViewController.delegate = self
-            editorViewController = sectionEditViewController
-        }
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
+        editorViewController = pageEditorViewController
         
         presentEditor(editorViewController: editorViewController)
     }
@@ -225,29 +218,6 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
     }
 }
 
-extension ArticleViewController: SectionEditorViewControllerDelegate {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
-        switch result {
-        case .failure(let error):
-            showError(error)
-        case .success(let changes):
-            dismiss(animated: true)
-            waitForNewContentAndRefresh(changes.newRevisionID)
-        }
-    }
-    
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
-        dismiss(animated: true) {
-            self.navigate(to: url)
-            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
-        }
-    }
-
-    func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
-        
-    }
-}
-
 extension ArticleViewController: PageEditorViewControllerDelegate {
     func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
@@ -270,7 +240,7 @@ extension ArticleViewController: PageEditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
                 }
                 
             }
