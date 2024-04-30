@@ -69,21 +69,26 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.delegate = self
         return textView
     }()
+    
+    private lazy var iconImageContainerView: UIView = {
+       return UIView()
+    }()
 
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         imageView.setContentHuggingPriority(.required, for: .vertical)
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.required, for: .vertical)
         label.font = WKFont.for(.boldTitle3)
@@ -237,14 +242,20 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     // MARK: Private Methods
+    
+    private var iconBaselineOffset: CGFloat {
+        return UIFontMetrics(forTextStyle: .body).scaledValue(for: 8)
+    }
 
     private func setup() {
         configure()
 
         container.addSubview(textView)
         container.addSubview(imageView)
+        
+        iconImageContainerView.addSubview(iconImageView)
 
-        headerStackView.addArrangedSubview(iconImageView)
+        headerStackView.addArrangedSubview(iconImageContainerView)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.spacing = 5
 
@@ -266,8 +277,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0),
-            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor, multiplier: 1.0),
+            iconImageContainerView.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor, constant: -iconBaselineOffset),
+            iconImageContainerView.leadingAnchor.constraint(equalTo: iconImageView.leadingAnchor),
+            iconImageContainerView.trailingAnchor.constraint(equalTo: iconImageView.trailingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
