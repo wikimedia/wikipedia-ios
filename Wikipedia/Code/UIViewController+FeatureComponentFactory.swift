@@ -27,9 +27,6 @@ extension WKImageRecommendationsViewController {
 
         let contentLanguageCode = appLanguage.contentLanguageCode
         let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
-        
-        let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
-        let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
 
         let onboardingStrings = WKImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(
             title: WMFLocalizedString("image-rec-onboarding-title", value: "Add an image to an article", comment: "Title of onboarding view displayed when user first visits image recommendations feature view."),
@@ -52,8 +49,6 @@ extension WKImageRecommendationsViewController {
         let secondTooltipStrings = WKTooltipViewModel.LocalizedStrings(title: WMFLocalizedString("image-rec-tooltip-2-title", value: "Inspect", comment: "Title of second tooltip displayed when landing on image recommendations feature for the first time."), body: WMFLocalizedString("image-rec-tooltip-2-body", value: "Inspect the image and its associated information.", comment: "Body of second tooltip displayed when landing on image recommendations feature for the first time."), buttonTitle: CommonStrings.nextTitle)
         
         let thirdTooltipStrings = WKTooltipViewModel.LocalizedStrings(title: WMFLocalizedString("image-rec-tooltip-3-title", value: "Decide", comment: "Title of second tooltip displayed when landing on image recommendations feature for the first time."), body: WMFLocalizedString("image-rec-tooltip-3-body", value: "Decide if the image helps readers understand this topic better.", comment: "Body of second tooltip displayed when landing on image recommendations feature for the first time."), buttonTitle: CommonStrings.okTitle)
-        
-        let learnMore = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
 
         let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, errorLocalizedStrings: errorStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
 

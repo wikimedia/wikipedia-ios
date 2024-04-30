@@ -1201,12 +1201,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let siteURL = viewModel.project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
-            let wikitext = imageData.wikitext else {
-            return
-        }
-
         guard let image = imageData.uiImage else {
             return
         }
@@ -1251,7 +1245,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
             editPreviewViewController.loggingDelegate = self
 
             navigationController?.pushViewController(editPreviewViewController, animated: true)
-        } catch let error {
+        } catch {
             showGenericError()
         }
     }
