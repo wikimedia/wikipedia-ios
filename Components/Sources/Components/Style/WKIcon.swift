@@ -22,6 +22,7 @@ public enum WKIcon {
     static let bot = UIImage(named: "bot", in: .module, with: nil)
     public static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    public static let error = UIImage(named: "error", in: .module, with: nil)
 
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)

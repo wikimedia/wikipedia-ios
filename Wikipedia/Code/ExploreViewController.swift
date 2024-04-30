@@ -1201,12 +1201,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let siteURL = viewModel.project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
-            let wikitext = imageData.wikitext else {
-            return
-        }
-
         guard let image = imageData.uiImage else {
             return
         }
@@ -1218,6 +1212,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
+    }
+    
+    func imageRecommendationsDidTriggerError(_ error: any Error) {
+        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
     }
 }
 
@@ -1247,8 +1245,8 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
             editPreviewViewController.loggingDelegate = self
 
             navigationController?.pushViewController(editPreviewViewController, animated: true)
-        } catch let error {
-            print("Error preparing wikitext\(error)")
+        } catch {
+            showGenericError()
         }
     }
 }
@@ -1289,7 +1287,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            print("Error handling to be done")
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -1305,7 +1303,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         case .success(let changes):
             sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
         case .failure(let error):
-            print(error)
+            showError(error)
         }
         
     }

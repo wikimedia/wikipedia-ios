@@ -551,6 +551,8 @@
 "image-rec-add-image-title" = "Add this image?";
 "image-rec-empty-subtitle" = "Try coming back later.";
 "image-rec-empty-title" = "You have no more suggested images available at this time.";
+"image-rec-error-subtitle" = "Something went wrong.";
+"image-rec-error-title" = "Unable to load page";
 "image-rec-feature-announce-body" = "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.";
 "image-rec-feature-announce-title" = "Try 'Add an image'";
 "image-rec-onboarding-item-1-body" = "Decide if a suggested image should be placed in a Wikipedia article.";

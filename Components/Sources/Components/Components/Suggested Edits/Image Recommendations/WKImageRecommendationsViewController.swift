@@ -10,6 +10,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
+    func imageRecommendationsDidTriggerError(_ error: Error)
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -35,8 +36,14 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
     init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
-        let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, viewArticleAction: { [weak delegate] title in
+        let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
+            
+            viewModel.tryAgainAfterLoadingError()
+            
+        }, viewArticleAction: { [weak delegate] title in
+            
             delegate?.imageRecommendationsUserDidTapViewArticle(project: viewModel.project, title: title)
+            
         })
         super.init(rootView: rootView)
     }
@@ -189,7 +196,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
 
         // Do not present tooltips in empty or loading state
-        if viewModel.loading || viewModel.imageRecommendations.isEmpty {
+        if viewModel.loading || viewModel.imageRecommendations.isEmpty || viewModel.loadingError != nil {
             return
         }
 
@@ -260,9 +267,18 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
                 if !isLoading {
-                    if self?.viewModel.currentRecommendation != nil {
+                    if self?.viewModel.currentRecommendation?.articleSummary != nil {
                         self?.presentImageRecommendationBottomSheet()
                     }
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$loadingError
+            .receive(on: RunLoop.main)
+            .sink { [weak self] loadingError in
+                if let loadingError {
+                    self?.delegate?.imageRecommendationsDidTriggerError(loadingError)
                 }
             }
             .store(in: &cancellables)

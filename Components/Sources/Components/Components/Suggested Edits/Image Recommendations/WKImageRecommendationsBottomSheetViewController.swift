@@ -118,7 +118,13 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
                 self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
                 
                 // Send feedback API call
-                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { result in
+                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { [weak self] result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        self?.delegate?.imageRecommendationsDidTriggerError(error)
+                    }
                     
                 })
                 // Dismisses Survey View

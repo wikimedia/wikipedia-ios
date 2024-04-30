@@ -551,6 +551,8 @@
 "image-rec-add-image-title" = "title for the add image suggestion view";
 "image-rec-empty-subtitle" = "Subtitle of empty view displayed when there are no more image recommendations.";
 "image-rec-empty-title" = "Title of empty view displayed when there are no more image recommendations.";
+"image-rec-error-subtitle" = "Subtitle of error view displayed when there was an issue when loading image recommendations.";
+"image-rec-error-title" = "Title of error view displayed when there was an issue when loading image recommendations.";
 "image-rec-feature-announce-body" = "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible).";
 "image-rec-feature-announce-title" = "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible).";
 "image-rec-onboarding-item-1-body" = "Body of first item in onboarding view displayed when user first visits image recommendations feature view.";

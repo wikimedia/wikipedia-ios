@@ -68,7 +68,6 @@ import Foundation
                 Self.currentImageRecommendations[project, default: []].append(contentsOf: self.getImageSuggestions(from: response))
                 completion(.success(Self.currentImageRecommendations[project] ?? []))
             case .failure(let error):
-                print(error)
                 completion(.failure(error))
             }
         }

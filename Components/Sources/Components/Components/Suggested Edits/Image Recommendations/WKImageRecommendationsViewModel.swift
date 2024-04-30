@@ -9,12 +9,14 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     enum ImageRecommendationsError: Error {
         case cannotFindCurrentRecommendation
+        case invalidImageFullUrl
     }
     
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
         public typealias TooltipLocalizedStrings = WKTooltipViewModel.LocalizedStrings
+        public typealias ErrorLocalizedStrings = WKErrorViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -45,6 +47,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
+        let errorLocalizedStrings: ErrorLocalizedStrings
         let firstTooltipStrings: TooltipLocalizedStrings
         let secondTooltipStrings: TooltipLocalizedStrings
         let thirdTooltipStrings: TooltipLocalizedStrings
@@ -56,12 +59,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let tutorialButtonTitle: String
         let problemWithFeatureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
             self.emptyLocalizedStrings = emptyLocalizedStrings
+            self.errorLocalizedStrings = errorLocalizedStrings
             self.firstTooltipStrings = firstTooltipStrings
             self.secondTooltipStrings = secondTooltipStrings
             self.thirdTooltipStrings = thirdTooltipStrings
@@ -135,6 +139,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     @Published public private(set) var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
+    @Published var loadingError: Error? = nil
     private var subscriptions = Set<AnyCancellable>()
     private let needsSuppressPosting: Bool
     
@@ -166,6 +171,20 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Internal
     
+    func tryAgainAfterLoadingError() {
+        if let currentRecommendation {
+            loading = true
+            populateImageAndArticleSummary(for: currentRecommendation) { [weak self] error in
+                self?.loading = false
+                self?.loadingError = error
+            }
+        } else {
+            fetchImageRecommendationsIfNeeded {
+                
+            }
+        }
+    }
+    
     func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
         
         guard imageRecommendations.isEmpty else {
@@ -183,6 +202,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
+                    self.loadingError = nil
                     let imageDataArray = self.getFirstImageData(for: pages)
 
                     for page in pages {
@@ -200,9 +220,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                         return
                     }
                     
-                    self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
+                    self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] error in
                         self?.currentRecommendation = firstRecommendation
                         self?.loading = false
+                        self?.loadingError = error
                         completion()
                     }
                 }
@@ -210,9 +231,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.loading = false
+                    self.loadingError = error
                     completion()
                 }
-                print(error)
             }
         }
     }
@@ -238,9 +259,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         loading = true
         
-        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] in
+        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
             self?.currentRecommendation = nextRecommendation
             self?.loading = false
+            self?.loadingError = error
             completion()
         }
     }
@@ -260,44 +282,50 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
     
-    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         let group = DispatchGroup()
+        var populateError: Error? = nil
         
         group.enter()
-        self.populateCurrentArticleSummary(for: imageRecommendation, completion: {
+        self.populateCurrentArticleSummary(for: imageRecommendation, completion: { error in
+            if let error {
+                populateError = error
+            }
             group.leave()
         })
         
         group.enter()
-        self.populateUIImage(for: imageRecommendation.imageData) {
+        self.populateUIImage(for: imageRecommendation.imageData) { error in
+            if let error {
+                populateError = error
+            }
             group.leave()
         }
         
         group.notify(queue: .main) {
-            completion()
+            completion(populateError)
         }
     }
 
-    private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         
         articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { result in
             
             switch result {
             case .success(let summary):
                 imageRecommendation.articleSummary = summary
-                completion()
+                completion(nil)
                 
             case .failure(let error):
-                print(error)
-                completion()
+                completion(error)
             }
         }
     }
     
-    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping () -> Void) {
+    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping (Error?) -> Void) {
         
         guard let url = URL(string: "https:\(imageData.fullUrl)") else {
-            completion()
+            completion(ImageRecommendationsError.invalidImageFullUrl)
             return
         }
         
@@ -306,9 +334,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             case .success(let data):
                 let image = UIImage(data: data)
                 imageData.uiImage = image
-                completion()
-            default:
-                completion()
+                completion(nil)
+            case .failure(let error):
+                completion(error)
             }
         }
     }
