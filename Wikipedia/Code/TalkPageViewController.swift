@@ -1240,7 +1240,7 @@ extension TalkPageViewController: PageEditorViewControllerDelegate {
         }
     }
     
-    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<EditorChanges, Error>) {
         switch result {
         case .failure(let error):
             showError(error)
