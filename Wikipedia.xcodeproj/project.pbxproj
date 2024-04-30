@@ -1086,9 +1086,9 @@
 		7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
 		7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
 		7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */; };
-		7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
-		7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
-		7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
+		7A73B48221E54B4200249E09 /* EditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* EditorNavigationItemController.swift */; };
+		7A73B48321E54B4200249E09 /* EditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* EditorNavigationItemController.swift */; };
+		7A73B48421E54B4200249E09 /* EditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* EditorNavigationItemController.swift */; };
 		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
@@ -3567,7 +3567,7 @@
 		7A71566C22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaCustomImageSizeSettingTableViewCell.swift; sourceTree = "<group>"; };
 		7A71566D22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaCustomImageSizeSettingTableViewCell.xib; sourceTree = "<group>"; };
 		7A71567822699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaLabelTableFooterView.swift; sourceTree = "<group>"; };
-		7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorNavigationItemController.swift; sourceTree = "<group>"; };
+		7A73B48121E54B4200249E09 /* EditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationItemController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
@@ -6189,7 +6189,7 @@
 				6730D8DE2A05BFB50035255B /* PageEditorViewController.swift */,
 				677D8A772B759BA500DD9B7D /* Edit Notices */,
 				677D8A5F2B75948200DD9B7D /* SectionEditorButton.swift */,
-				7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */,
+				7A73B48121E54B4200249E09 /* EditorNavigationItemController.swift */,
 				7AC6B6AC225CE5DD00C285CB /* Media */,
 				7AE98F14228339C4005944E4 /* Links */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
@@ -10163,7 +10163,7 @@
 				7ABE17352239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D837CC37231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				83C0688E292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift in Sources */,
-				7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
+				7A73B48221E54B4200249E09 /* EditorNavigationItemController.swift in Sources */,
 				7AF6F76622395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				B0524B51214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
@@ -11471,7 +11471,7 @@
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				83DB4412244A57590046FABE /* RootNavigationController.swift in Sources */,
-				7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
+				7A73B48321E54B4200249E09 /* EditorNavigationItemController.swift in Sources */,
 				006ABEEA2901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				671DF9C325F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* TableOfContentsPresentationController.swift in Sources */,
@@ -12032,7 +12032,7 @@
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBB21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
 				83DB4411244A57590046FABE /* RootNavigationController.swift in Sources */,
-				7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
+				7A73B48421E54B4200249E09 /* EditorNavigationItemController.swift in Sources */,
 				006ABEE92901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				671DF9C225F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* TableOfContentsPresentationController.swift in Sources */,

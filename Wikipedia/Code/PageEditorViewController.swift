@@ -58,8 +58,8 @@ final class PageEditorViewController: UIViewController {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
     
-    private lazy var navigationItemController: SectionEditorNavigationItemController = {
-        let navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
+    private lazy var navigationItemController: EditorNavigationItemController = {
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -731,8 +731,8 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
 
 // MARK: - PageEditorNavigationItemControllerDelegate
 
-extension PageEditorViewController: SectionEditorNavigationItemControllerDelegate {
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
+extension PageEditorViewController: EditorNavigationItemControllerDelegate {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         
         guard let sourceEditor else {
             return
@@ -759,7 +759,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
         
         let progressButton = navigationItemController.progressButton
         let closeButton = navigationItemController.closeButton
@@ -787,15 +787,15 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         }
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
         sourceEditor?.undo()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         sourceEditor?.redo()
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
         
         guard let sourceEditor else {
             return
@@ -805,7 +805,7 @@ extension PageEditorViewController: SectionEditorNavigationItemControllerDelegat
         showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
     }
     
-    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapEditNoticesButton: UIBarButtonItem) {
         presentEditNoticesIfAvailable()
     }
 }
