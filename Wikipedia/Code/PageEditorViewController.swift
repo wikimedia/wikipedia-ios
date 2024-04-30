@@ -44,7 +44,7 @@ final class PageEditorViewController: UIViewController {
     private weak var delegate: PageEditorViewControllerDelegate?
     private var theme: Theme
     
-    private let wikitextFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
@@ -81,7 +81,7 @@ final class PageEditorViewController: UIViewController {
 
         self.pageURL = pageURL
         self.sectionID = sectionID
-        self.wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        self.wikitextFetcher = WikitextFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.articleSelectedInfo = articleSelectedInfo
@@ -364,7 +364,7 @@ final class PageEditorViewController: UIViewController {
         }
     }
     
-    private func checkUserGroupLevelCanEdit(protection: [SectionFetcher.Protection], userInfo: [String]) -> Bool {
+    private func checkUserGroupLevelCanEdit(protection: [WikitextFetcher.Protection], userInfo: [String]) -> Bool {
         let findEditProtection = protection.map { $0.type == "edit"}
         let articleHasEditProtection = findEditProtection.first ?? false
 

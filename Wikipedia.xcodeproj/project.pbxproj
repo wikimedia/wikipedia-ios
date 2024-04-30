@@ -1488,9 +1488,9 @@
 		83B01F7C23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */; };
 		83B01F7D23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */; };
 		83B01F7E23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */; };
-		83B01F8123DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
-		83B01F8223DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
-		83B01F8323DB1235001185F4 /* SectionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* SectionFetcher.swift */; };
+		83B01F8123DB1235001185F4 /* WikitextFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* WikitextFetcher.swift */; };
+		83B01F8223DB1235001185F4 /* WikitextFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* WikitextFetcher.swift */; };
+		83B01F8323DB1235001185F4 /* WikitextFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F8023DB1235001185F4 /* WikitextFetcher.swift */; };
 		83B01F8B23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
 		83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
 		83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */; };
@@ -3748,7 +3748,7 @@
 		83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleWebMessageHandling.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleToolbarHandling.swift"; sourceTree = "<group>"; };
 		83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Editing.swift"; sourceTree = "<group>"; };
-		83B01F8023DB1235001185F4 /* SectionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFetcher.swift; sourceTree = "<group>"; };
+		83B01F8023DB1235001185F4 /* WikitextFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikitextFetcher.swift; sourceTree = "<group>"; };
 		83B01F8A23DB399E001185F4 /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
 		83B01F8F23DB41BE001185F4 /* ArticleViewController+Sharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Sharing.swift"; sourceTree = "<group>"; };
 		83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+FindInPage.swift"; sourceTree = "<group>"; };
@@ -5432,7 +5432,7 @@
 			isa = PBXGroup;
 			children = (
 				BCCB813F1C110721008BC602 /* Picture of the Day */,
-				83B01F8023DB1235001185F4 /* SectionFetcher.swift */,
+				83B01F8023DB1235001185F4 /* WikitextFetcher.swift */,
 				B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */,
 				B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */,
 				B0E806611C0CE9030065EBC0 /* MWKLanguageLinkFetcher.h */,
@@ -10257,7 +10257,7 @@
 				7A71565B226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
 				D818D3AB1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
-				83B01F8123DB1235001185F4 /* SectionFetcher.swift in Sources */,
+				83B01F8123DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				675D875D2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				6782DBD92344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
@@ -11206,7 +11206,7 @@
 				7ABE17362239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D8A47C9023D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				00D46DAC2889B9250015DE9B /* TalkPageCell.swift in Sources */,
-				83B01F8223DB1235001185F4 /* SectionFetcher.swift in Sources */,
+				83B01F8223DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				0030592827DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -11768,7 +11768,7 @@
 				7ABE17372239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D8A47C9123D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				00D46DAB2889B9250015DE9B /* TalkPageCell.swift in Sources */,
-				83B01F8323DB1235001185F4 /* SectionFetcher.swift in Sources */,
+				83B01F8323DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				0030592727DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
