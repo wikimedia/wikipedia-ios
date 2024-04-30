@@ -294,7 +294,7 @@
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
 "edit-summary-placeholder-text" = "Wie hast du den Artikel verbessert?";
-"edit-watch-list-learn-more-text" = "Mehr über deine Watchlist erfahren";
+"edit-watch-list-learn-more-text" = "Mehr über deine Beobachtungsliste erfahren";
 "edit-watch-this-page-text" = "Diese Seite beobachten";
 "editing-welcome-be-bold-subtitle" = "Sei mutig, aber nicht rücksichtslos bei der Aktualisierung von Artikeln. Quäle dich nicht beim Machen von Fehlern: Es wird jede vergangene Version einer Seite gespeichert, so dass Fehler einfach von unserer Gemeinschaft korrigiert werden können.";
 "editing-welcome-be-bold-title" = "Deine Stimme ist wichtig";
@@ -484,6 +484,8 @@
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
 "image-rec-title" = "Bild hinzufügen";
+"image-rec-tooltip-1-title" = "Überprüfen";
+"image-rec-tooltip-3-title" = "Entscheiden";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
 "import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird durch Dritte durchgeführt. Sieh dir deren $3Datenschutzerklärungen$4 an.";

@@ -557,6 +557,8 @@
 "image-rec-add-image-title" = "Adder iste imagine?";
 "image-rec-empty-subtitle" = "Tenta revenir plus tarde.";
 "image-rec-empty-title" = "Il non ha altere imagines suggerite disponibile in iste momento.";
+"image-rec-feature-announce-body" = "Decider si un imagine es addite a un articulo de Wikipedia. Le carta ‘Adder un imagine’ se trova in le fluxo ‘Explorar’.";
+"image-rec-feature-announce-title" = "Tentar ‘Adder un imagine’";
 "image-rec-onboarding-item-1-body" = "Decider si un imagine suggerite debe esser inserite in un articulo de Wikipedia.";
 "image-rec-onboarding-item-1-title" = "Vider un suggestion";
 "image-rec-onboarding-item-2-body" = "Suggestiones es generate per machina e tu usara tu judicamento pro decider si acceptar o rejectar los.";
@@ -576,6 +578,12 @@
 "image-rec-survey-submit-button" = "Submitter";
 "image-rec-survey-title" = "Motivo";
 "image-rec-title" = "Adder imagine";
+"image-rec-tooltip-1-body" = "Revide iste articulo pro comprender su subjecto.";
+"image-rec-tooltip-1-title" = "Revider";
+"image-rec-tooltip-2-body" = "Inspecta le imagine e su information associate.";
+"image-rec-tooltip-2-title" = "Inspectar";
+"image-rec-tooltip-3-body" = "Decide si le imagine adjuta lectores a comprender melio iste subjecto.";
+"image-rec-tooltip-3-title" = "Decider";
 "image-rec-view-article" = "Vider articulo";
 "image-recommendations-email-first-line" = "Io ha incontrate un problema con le function Adder un imagine del Modificationes suggerite:";
 "image-recommendations-email-fourth-line" = "- [Describe le solution proponite]";
@@ -1173,6 +1181,7 @@
 "top-read-widget-description" = "Discoperi lo que le mundo lege hodie sur Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Le plus legite";
+"try-now-title" = "Tentar ora";
 "tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continuar apertura de session";
 "two-factor-login-instructions" = "Per favor insere le codice de verification bifactorial";

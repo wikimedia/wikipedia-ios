@@ -294,7 +294,7 @@
 "donate-minimum-error-text" = "נא לבחור את הסכום (לפחות $1 $2)";
 "donate-monthly-recurring-text" = "להפוך את זה לתרומה חוזרת חודשית.";
 "donate-payment-method-prompt-apple-pay-button-title" = "תרומה באמצעות Apple Pay";
-"donate-payment-method-prompt-message" = "לתרום באמצעות Apple Pay או לבחוק אמצעי תשלום אחר.";
+"donate-payment-method-prompt-message" = "לתרום באמצעות Apple Pay או לבחור אמצעי תשלום אחר.";
 "donate-payment-method-prompt-other-button-title" = "אמצעי תשלום אחר";
 "donate-payment-method-prompt-title" = "לתרום באמצעות Apple Pay?";
 "donate-success-subtitle" = "הנדיבות שלך חשובה לנו כל־כך.";
@@ -318,6 +318,8 @@
 "edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "edit-show-web-preview" = "תצוגה מקדימה בדפדפן";
 "edit-summary-add-summary-text" = "הוספת תקציר עריכה";
+"edit-summary-choice-added-image" = "נוספה תמונה";
+"edit-summary-choice-added-image-and-caption" = "נוספו תמונה וכיתוב";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
@@ -577,6 +579,8 @@
 "image-rec-add-image-title" = "להוסיף את התמונה הזאת?";
 "image-rec-empty-subtitle" = "נא לנסות לחזור מאוחר יותר.";
 "image-rec-empty-title" = "אין לך תמונות מוצעות נוספות זמינות כעת.";
+"image-rec-feature-announce-body" = "כאן מחליטים אם תמונה תתווסף לערך בויקיפדיה. אפשר למצוא את הכרטיס \"הוספת תמונה\" בהזנת \"לחקור\" אצלך.";
+"image-rec-feature-announce-title" = "לנסות את \"הוספת תמונה\"";
 "image-rec-onboarding-item-1-body" = "בידך ההחלטה האם לשים תמונה מוצעת בערך בוויקיפדיה.";
 "image-rec-onboarding-item-1-title" = "הצגת הצעה";
 "image-rec-onboarding-item-2-body" = "הצעות נוצרות על־ידי מכונה ויש להשתמש בשיקול דעתך כדי להחליט אם לקבל או לדחות אותן.";
@@ -596,10 +600,18 @@
 "image-rec-survey-submit-button" = "שליחה";
 "image-rec-survey-title" = "סיבה";
 "image-rec-title" = "הוספת תמונה";
+"image-rec-tooltip-1-body" = "יש לעיין בערך הזה כדי להבין את הנושא שלו.";
+"image-rec-tooltip-1-title" = "סקירה";
+"image-rec-tooltip-2-body" = "יש לבדוק את התמונה והמידע המשויך לה.";
+"image-rec-tooltip-2-title" = "לִבדוֹק";
+"image-rec-tooltip-3-body" = "יש להחליט האם התמונה עוזרת לקוראים להבין טוב יותר את הנושא הזה.";
+"image-rec-tooltip-3-title" = "להחליט";
 "image-rec-view-article" = "הצגת הערך";
+"image-recommendations-email-first-line" = "נתקלתי בבעיה בתכונת העריכות המוצעות \"הוספת תמונה\":";
 "image-recommendations-email-fourth-line" = "- [תיאור פתרון מוצע]";
 "image-recommendations-email-second-line" = "- [תיאור בעיה מסוימת]";
 "image-recommendations-email-third-line" = "ההתנהגות שאני רוצה לראות היא:";
+"image-recommendations-email-title" = "דו\"ח בעיה - תכונת הוספת תמונה";
 "image-recs-no-title" = "לא";
 "image-recs-not-sure-title" = "אין לי תשובה";
 "image-recs-yes-title" = "כן";
@@ -1191,6 +1203,7 @@
 "top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
 "top-read-widget-readers-count" = "$1 קוראים";
 "top-read-widget-title" = "הנקראים ביותר";
+"try-now-title" = "לנסות עכשיו";
 "tutorial-title" = "מדריך";
 "two-factor-login-continue" = "המשך כניסה לחשבון";
 "two-factor-login-instructions" = "נא להזין את קוד האימות הדו־שלבי";
