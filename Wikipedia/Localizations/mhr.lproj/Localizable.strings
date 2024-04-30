@@ -109,12 +109,16 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
+"app-store-release-notes" = "Explore ленте тичмашнек тӧрлаташ лийше да лудаш йӧнанрак. Локализаций, паша лектышым саемдымаш да йоҥылышым тӧрлымаш.";
+"app-store-short-description" = "Пеленет могай вер улмым палаш Wikipedia приложенийым вераҥде, автоном режимыште лудшаш статья-влакым ик шотыш кондаш да шке лудмым тӧрлаш.";
 "app-store-subtitle" = "Эрыкан энциклопедий";
 "appearance-settings-adjust-text-sizing" = "Статьян текстшын кугытшым келыштара";
 "appearance-settings-expand-tables" = "Таблице-влакым лопкаҥдаш";
+"appearance-settings-expand-tables-footer" = "Чыла таблице чыла статьялан ончылгоч почмо лийышт манын палемде, тушкак Писе факт-влак, Кылвер-влак, Палемдымаш, Тӱжвал кылвер-влак пурталтыт.";
 "appearance-settings-image-dimming-footer" = "Шем да шемалге темылаште сӱретын вошткоймодылыкшыи иземдаш";
 "appearance-settings-reading-themes" = "Лудашлан теме-влак";
 "appearance-settings-set-automatic-table-opening" = "Таблице келыштарымаш";
+"appearance-settings-text-sizing-example-text" = "Статьясе текстын кугытшым вашталташлан ползунокым кусаре. Приложенийыште вес текст кышкар-влакын кугытыштым вашталташлан системе текст кугытым кучылт.";
 "appearance-settings-theme-options" = "Темын параметрже-влак";
 "article-about-title" = "Тиде статья нерген";
 "article-delete" = "Кораҥдаш";

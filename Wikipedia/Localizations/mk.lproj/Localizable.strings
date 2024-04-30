@@ -563,6 +563,8 @@
 "image-rec-add-image-title" = "Да ја додадам сликава?";
 "image-rec-empty-subtitle" = "Навратете се подоцна.";
 "image-rec-empty-title" = "Засега нема повеќе предложени слики.";
+"image-rec-feature-announce-body" = "Одлучете дали една слика ќе биде ставена во статија на Википедија. Можете да ја најдете картичката „Додај слика“ во тековникот „Истражи“.";
+"image-rec-feature-announce-title" = "Пробајте го „Додај слика“";
 "image-rec-onboarding-item-1-body" = "Одлучете дали предложена слика треба да се стави во статија на Википедија.";
 "image-rec-onboarding-item-1-title" = "Погл. предлог";
 "image-rec-onboarding-item-2-body" = "Предлозите се машински направени и на вас е да просудите дали да ги прифатите или одбиете.";
@@ -582,6 +584,12 @@
 "image-rec-survey-submit-button" = "Поднеси";
 "image-rec-survey-title" = "Причина";
 "image-rec-title" = "Додај слика";
+"image-rec-tooltip-1-body" = "Прочитајте ја статијава за да ја разберете темата.";
+"image-rec-tooltip-1-title" = "Проверете";
+"image-rec-tooltip-2-body" = "Разгледајте ја сликата и нејзините информации.";
+"image-rec-tooltip-2-title" = "Разгледајте";
+"image-rec-tooltip-3-body" = "Одлучете дали сликата им помага на читателите подобро да ја разберат оваа тема.";
+"image-rec-tooltip-3-title" = "Одлучете";
 "image-rec-view-article" = "Погл. статија";
 "image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
 "image-recommendations-email-fourth-line" = "— [Опишете го предложеното решение]";
@@ -1179,6 +1187,7 @@
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";
 "top-read-widget-title" = "Најчитани";
+"try-now-title" = "Пробајте сега";
 "tutorial-title" = "Упатство";
 "two-factor-login-continue" = "Продолжете со најавата";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";

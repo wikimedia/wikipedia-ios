@@ -703,6 +703,38 @@
 			<string>Быйыл</string>
 		</dict>
 	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ сакъландырмады, байламлы болгъан бютеу тизмелени къоратырыкъды</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Бу статьяны</string>
+			<key>other</key>
+			<string>Бу статьяланы</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ сакъландырыулары кери алынсынмы?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Статьяны</string>
+			<key>other</key>
+			<string>Статьяланы</string>
+		</dict>
+	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -729,6 +761,34 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d джууаб</string>
+		</dict>
+	</dict>
+	<key>watchlist-byte-change</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>(%#@v1@)</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d байт</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Аслам кёздеги тизме элемент кёрюр ючюн [%#@v1@](wikipedia://watchlist/filter) тюзет</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d фильтр</string>
 		</dict>
 	</dict>
 </dict>
