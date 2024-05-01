@@ -284,12 +284,12 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             topAnchor.constraint(equalTo: scrollView.topAnchor),
-            bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            toolbar.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
-            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: padding),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -padding),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: padding),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -padding),
             
             scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
 
