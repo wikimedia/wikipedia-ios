@@ -14,11 +14,17 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
 
     private lazy var container: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.setContentHuggingPriority(.required, for: .vertical)
         view.setContentCompressionResistancePriority(.required, for: .vertical)
         return view
     }()
@@ -26,6 +32,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         stackView.alignment = .fill
         stackView.axis = .vertical
         return stackView
@@ -34,17 +42,19 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var headerStackView:  UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.setContentHuggingPriority(.required, for: .vertical)
-        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         return stackView
     }()
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -71,7 +81,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
     
     private lazy var iconImageContainerView: UIView = {
-       return UIView()
+       let view = UIView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
+        view.setContentHuggingPriority(.required, for: .vertical)
+        return view
     }()
 
     private lazy var iconImageView: UIImageView = {
@@ -87,10 +100,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.font = WKFont.for(.boldTitle3)
         return label
     }()
@@ -259,18 +272,27 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.spacing = 5
 
+        scrollView.addSubview(stackView)
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(container)
         stackView.spacing = padding
 
-        addSubview(stackView)
+        addSubview(scrollView)
         addSubview(toolbar)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            topAnchor.constraint(equalTo: scrollView.topAnchor),
+            bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.topAnchor.constraint(equalTo: container.topAnchor),
@@ -345,7 +367,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
 
-        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle, attributes: [.font: WKFont.for(.callout), .foregroundColor: theme.link])
 
         let attachment = NSTextAttachment()
         if let image = WKIcon.externalLink {
@@ -358,24 +380,22 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         attributedString.append(linkAttributedString)
         attributedString.append(attachmentAttributedString)
-        attributedString.append(NSAttributedString(string: "\n\n"))
+        
+        if let url = URL(string: viewModel.imageLink) {
+            attributedString.addAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
+        }
 
         if let description = viewModel.imageDescription {
             let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
                                          NSAttributedString.Key.foregroundColor: theme.text]
-            let descriptionAttributedString = NSMutableAttributedString(string: description, attributes: descriptionAttributes)
+            let descriptionAttributedString = NSMutableAttributedString(string: "\n\n" + description, attributes: descriptionAttributes)
             attributedString.append(descriptionAttributedString)
-            attributedString.append(NSAttributedString(string: "\n\n"))
         }
 
         let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
                                 NSAttributedString.Key.foregroundColor: theme.secondaryText]
-        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
+        let reasonAttributedString = NSMutableAttributedString(string: "\n\n" + viewModel.reason, attributes: reasonAttributes)
         attributedString.append(reasonAttributedString)
-
-        if let url = URL(string: viewModel.imageLink) {
-            attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
-        }
 
         return attributedString
     }
