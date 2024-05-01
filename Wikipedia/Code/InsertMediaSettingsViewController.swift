@@ -214,6 +214,21 @@ final class InsertMediaSettingsViewController: ViewController {
         let alternativeTextViewModel = TextViewModel(type: .alternativeText)
         return [captionViewModel, alternativeTextViewModel]
     }()
+    
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
 
     init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
         self.image = image
@@ -292,10 +307,21 @@ final class InsertMediaSettingsViewController: ViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        reachabilityNotifier.start()
         
         UIAccessibility.post(notification: .screenChanged, argument: nil)
         
         imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidAppear()
+        
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        reachabilityNotifier.stop()
     }
 
     override func viewDidLayoutSubviews() {
@@ -321,6 +347,19 @@ final class InsertMediaSettingsViewController: ViewController {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
+    }
+    
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
+    }
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
     }
 
     // MARK: - Themeable
