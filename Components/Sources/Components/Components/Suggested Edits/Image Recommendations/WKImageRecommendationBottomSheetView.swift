@@ -111,96 +111,17 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
 
     private(set) lazy var toolbar: UIToolbar = {
-        let toolbar = UIToolbar()
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
 
     lazy var yesToolbarButton: UIBarButtonItem = {
-        let customView = UIView()
-
-        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .checkmark))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = theme.link
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let label = UILabel()
-        label.text = viewModel.yesButtonTitle
-        label.textColor = theme.link
-        label.font = WKFont.for(.boldCallout)
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didPressYesButton), for: .touchUpInside)
-        customView.addSubview(imageView)
-        customView.addSubview(label)
-        customView.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-
-            button.topAnchor.constraint(equalTo: customView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
-        ])
-
-        customView.layoutIfNeeded()
-        let customViewWidth = label.frame.origin.x + label.frame.width
-        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
-        let barButtonItem = UIBarButtonItem(customView: customView)
-
-        return barButtonItem
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .checkmark, font: .body), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
     }()
 
     lazy var noToolbarButton: UIBarButtonItem = {
-        let customView = UIView()
-
-        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .xMark))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = theme.link
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let label = UILabel()
-        label.text = viewModel.noButtonTitle
-        label.font = WKFont.for(.boldCallout)
-        label.textColor = theme.link
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didPressNoButton), for: .touchUpInside)
-        customView.addSubview(imageView)
-        customView.addSubview(label)
-        customView.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 20),
-            imageView.heightAnchor.constraint(equalToConstant: 20),
-
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-
-            button.topAnchor.constraint(equalTo: customView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
-        ])
-
-        customView.layoutIfNeeded()
-        let customViewWidth = label.frame.origin.x + label.frame.width
-        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
-        let barButtonItem = UIBarButtonItem(customView: customView)
-
-        return barButtonItem
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .xMark, font: .body), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
     }()
 
     lazy var notSureToolbarButton: UIBarButtonItem = {
@@ -256,6 +177,59 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     // MARK: Private Methods
     
+    private func customToolbarButton(image: UIImage?, text: String, selector: Selector) -> UIBarButtonItem {
+        let customView = UIView()
+        customView.translatesAutoresizingMaskIntoConstraints = false
+
+        let label = UILabel()
+        label.text = text
+        label.font = WKFont.for(.boldCallout)
+        label.textColor = theme.link
+        label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        customView.addSubview(label)
+
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        customView.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            
+            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
+            label.topAnchor.constraint(equalTo: customView.topAnchor),
+            label.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
+            
+            button.topAnchor.constraint(equalTo: label.topAnchor),
+            button.trailingAnchor.constraint(equalTo: label.trailingAnchor),
+            button.bottomAnchor.constraint(equalTo: label.bottomAnchor)
+        ])
+        
+        if let image {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.tintColor = theme.link
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            customView.addSubview(imageView)
+            
+            NSLayoutConstraint.activate([
+                imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+                imageView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+                imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -8),
+                button.leadingAnchor.constraint(equalTo: imageView.leadingAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                label.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+                button.leadingAnchor.constraint(equalTo: label.leadingAnchor)
+            ])
+        }
+
+        let barButtonItem = UIBarButtonItem(customView: customView)
+
+        return barButtonItem
+    }
+    
     private var iconBaselineOffset: CGFloat {
         return UIFontMetrics(forTextStyle: .body).scaledValue(for: 8)
     }
@@ -305,8 +279,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
             iconImageContainerView.trailingAnchor.constraint(equalTo: iconImageView.trailingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            toolbar.heightAnchor.constraint(equalToConstant: 44)
+            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
 
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
