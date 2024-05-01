@@ -367,7 +367,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
                                 NSAttributedString.Key.foregroundColor: theme.secondaryText]
-        let reasonAttributedString = NSMutableAttributedString(string: "\n\n" + viewModel.reason, attributes: reasonAttributes)
+        let reasonAttributedString = NSMutableAttributedString(string: "\n\n" + viewModel.reason + "\n\n", attributes: reasonAttributes)
         attributedString.append(reasonAttributedString)
 
         return attributedString
