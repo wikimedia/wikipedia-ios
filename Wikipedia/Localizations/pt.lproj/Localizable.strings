@@ -540,7 +540,7 @@
 "image-rec-survey-instructions-2" = "Selecione uma ou mais opções";
 "image-rec-survey-option-1" = "A imagem não é relevante";
 "image-rec-survey-option-2" = "Não há informações suficientes para decidir";
-"image-rec-survey-option-3" = "Image is offensive";
+"image-rec-survey-option-3" = "A imagem é ofensiva";
 "image-rec-survey-option-4" = "A imagem possui baixa qualidade";
 "image-rec-survey-option-5" = "Não conheço este assunto";
 "image-rec-survey-option-6" = "Outro";
@@ -551,7 +551,7 @@
 "image-rec-tooltip-1-title" = "Revisar";
 "image-rec-tooltip-2-body" = "Inspecione a imagem e suas informações associadas.";
 "image-rec-tooltip-2-title" = "Inspecionar";
-"image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
+"image-rec-tooltip-3-body" = "Decida se uma imagem será adicionada a um artigo da Wikipédia. Você pode encontrar o cartão ‘Adicionar uma imagem’ no seu feed ‘Explorar’.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artigo";
 "image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";

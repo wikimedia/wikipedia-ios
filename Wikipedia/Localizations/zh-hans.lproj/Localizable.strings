@@ -721,6 +721,7 @@
 "nearby-distance-label-miles" = "$1英里";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "new-password-title" = "设置您的密码";
+"next-action-title" = "下一个";
 "no-email-account-alert" = "请在您的设备上设置电子邮件地址并重试。";
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
