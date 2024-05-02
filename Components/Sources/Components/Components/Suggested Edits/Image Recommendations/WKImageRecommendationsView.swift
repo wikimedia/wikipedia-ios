@@ -10,6 +10,7 @@ struct WKImageRecommendationsView: View {
     
     let errorTryAgainAction: () -> Void
     let viewArticleAction: (String) -> Void
+    let emptyViewAppearanceAction: () -> Void
 
     var body: some View {
         Group {
@@ -26,6 +27,9 @@ struct WKImageRecommendationsView: View {
                             WKErrorView(viewModel: WKErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WKIcon.error), tryAgainAction: errorTryAgainAction)
                         } else {
                             WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                                .onAppear {
+                                    emptyViewAppearanceAction()
+                                }
                         }
                     } else {
                         ProgressView()
