@@ -172,6 +172,7 @@
 "action-unsaved-accessibility-notification" = "条目未保存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
+"advanced-settings-title" = "高级设置";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";

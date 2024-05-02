@@ -127,6 +127,7 @@
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
+"advanced-settings-title" = "Configurações avançadas";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
@@ -533,6 +534,7 @@
 "image-rec-onboarding-item-2-title" = "Aceitar ou rejeitar uma imagem";
 "image-rec-onboarding-item-3-body" = "As imagens são do Wikimedia Commons, uma coleção de imagens licenciadas gratuitamente usadas pela Wikipédia.";
 "image-rec-onboarding-item-3-title" = "Imagens licenciadas";
+"image-rec-onboarding-learn-more-button" = "Saiba mais sobre edições sugeridas";
 "image-rec-onboarding-title" = "Adicionar uma imagem a um artigo";
 "image-rec-survey-instructions-1" = "Suas respostas melhoram sugestões futuras.";
 "image-rec-survey-instructions-2" = "Selecione uma ou mais opções";
