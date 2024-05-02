@@ -42,6 +42,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -1165,6 +1166,11 @@ extension ExploreViewController {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
+    @objc func applicationDidBecomeActive() {
+        if !UIAccessibility.isVoiceOverRunning {
+            presentImageRecommendationsFeatureAnnouncementIfNeeded()
+        }
+    }
 }
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
