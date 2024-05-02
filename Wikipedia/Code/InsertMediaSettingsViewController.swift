@@ -158,7 +158,6 @@ final class InsertMediaSettingsViewController: ViewController {
             self?.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapFileName()
             self?.navigate(to: url, useSafari: false)
         }
-        imageView.autoresizingMask = []
         return imageView
     }()
 
@@ -176,7 +175,6 @@ final class InsertMediaSettingsViewController: ViewController {
             self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
-        buttonView.autoresizingMask = []
         return buttonView
     }()
 
@@ -214,6 +212,21 @@ final class InsertMediaSettingsViewController: ViewController {
         let alternativeTextViewModel = TextViewModel(type: .alternativeText)
         return [captionViewModel, alternativeTextViewModel]
     }()
+    
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
 
     init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
         self.image = image
@@ -234,11 +247,10 @@ final class InsertMediaSettingsViewController: ViewController {
         super.viewDidLoad()
         navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
+        tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = imageView
-        tableView.tableFooterView = buttonView
 
         if fromImageRecommendations {
             title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
@@ -292,23 +304,21 @@ final class InsertMediaSettingsViewController: ViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        reachabilityNotifier.start()
         
         UIAccessibility.post(notification: .screenChanged, argument: nil)
         
         imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidAppear()
+        
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        guard let headerView = tableView.tableHeaderView else {
-            return
-        }
-        let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        guard headerView.frame.size.height != height else {
-            return
-        }
-        headerView.frame.size.height = height
-        tableView.tableHeaderView = headerView
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        reachabilityNotifier.stop()
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -321,6 +331,19 @@ final class InsertMediaSettingsViewController: ViewController {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
+    }
+    
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
+    }
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
     }
 
     // MARK: - Themeable
@@ -378,18 +401,41 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard
-            let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell,
-            let textViewHeightDelta = textViewHeightDelta,
-            textViewHeightDelta.row == indexPath.row
-        else {
-            return UITableView.automaticDimension
-        }
-        return cell.frame.size.height + textViewHeightDelta.value
+}
+
+// MARK: - UITableViewDelegate
+
+extension InsertMediaSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return imageView
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return buttonView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 300
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
+
+// MARK: - UITextViewDelegate
 
 extension InsertMediaSettingsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

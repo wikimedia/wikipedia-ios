@@ -599,7 +599,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     @IBAction public func minorEditButtonTapped(sender: UIButton) {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapMinorEditsLearnMore()
-        navigate(to: URL(string: "https://meta.wikimedia.org/wiki/Help:Minor_edit"))
+        navigate(to: URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Minor_edit"))
     }
 
     @IBAction public func watchlistButtonTapped(sender: UIButton) {

@@ -5,8 +5,6 @@ final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageDescriptionLabel: UILabel!
     @IBOutlet private weak var titleButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private weak var separatorView: UIView!
-    @IBOutlet weak var buttonHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
 
     var image: UIImage? {
         didSet {
@@ -47,14 +45,6 @@ final class InsertMediaSettingsImageView: UIView {
         
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        imageDescriptionLabel.numberOfLines = 2
-        imageDescriptionLabel.preferredMaxLayoutWidth = imageDescriptionLabel.bounds.width
-        buttonHeightConstraint.constant = imageHeightConstraint.constant/2
-        titleButton.titleLabel?.numberOfLines = 3
-    }
-
     @IBAction private func performTitleAction(_ sender: UIButton) {
         guard let url = titleURL else {
             assertionFailure("titleURL should be set by now")
@@ -75,10 +65,8 @@ final class InsertMediaSettingsImageView: UIView {
     }
 
     private func configTitleButton() {
-        titleButton.titleLabel?.lineBreakMode = .byTruncatingMiddle
         titleButton.configuration?.contentInsets = .zero
         titleButton.configuration?.titlePadding = .zero
-        titleButton.sizeToFit()
     }
 }
 

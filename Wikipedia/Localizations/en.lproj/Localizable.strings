@@ -103,6 +103,7 @@
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
+"advanced-settings-title" = "Advanced settings";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -581,6 +582,7 @@
 "image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
 "image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
+"image-recommendations-email-fifth-line" = "[Screenshots or Links]";
 "image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
 "image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
 "image-recommendations-email-second-line" = "- [Describe specific problem]";
@@ -617,12 +619,16 @@
 "insert-media-image-preview-select-image-action-title" = "Select image";
 "insert-media-image-size-setting-custom" = "Custom";
 "insert-media-image-size-setting-default" = "Default";
+"insert-media-image-size-settings-measure-height" = "Height";
+"insert-media-image-size-settings-measure-width" = "Width";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Image size";
+"insert-media-image-text-wrapping-setting" = "Wrap text around image";
 "insert-media-image-type-setting-basic" = "Basic";
 "insert-media-image-type-setting-frame" = "Frame";
 "insert-media-image-type-setting-frameless" = "Frameless";
 "insert-media-image-type-setting-thumbnail" = "Thumbnail";
+"insert-media-image-type-settings-footer-title" = "You can set how the media item appears on the page. This should be the thumbnail format to be consistent with other pages in almost all cases.";
 "insert-media-image-type-settings-title" = "Image type";
 "insert-media-media-settings-title" = "Media settings";
 "insert-media-title" = "Insert media";
