@@ -242,10 +242,13 @@
 "insert-media-image-position-setting-right" = "दायाँ";
 "insert-media-image-preview-more-information-action-title" = "थप जानकारी";
 "insert-media-image-preview-select-image-action-title" = "चित्र छान्नुहोस्";
+"insert-media-image-size-settings-measure-height" = "उचाइ";
+"insert-media-image-size-settings-measure-width" = "चौडाइ";
 "insert-media-image-size-settings-title" = "तस्वीर आकार";
 "insert-media-image-type-setting-basic" = "सामान्य";
 "insert-media-image-type-setting-frame" = "ढाँचा";
 "insert-media-image-type-setting-frameless" = "ढाँचा बिहिन";
+"insert-media-image-type-settings-footer-title" = "तपाईं पृष्ठमा मिडिया वस्तु कसरी देखा पर्दछ सेट गर्न सक्नुहुन्छ। यो थम्बनेल ढाँचा लगभग सबै अवस्थामा अन्य पृष्ठहरूसँग मिल्दोजुल्दो हुनुपर्छ।";
 "insert-media-image-type-settings-title" = "तस्वीरकाे प्रकार";
 "languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";

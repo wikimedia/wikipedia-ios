@@ -33,6 +33,7 @@
 "aaald-revision-userInfo" = "$1 тӧрлалталтын ($2 тӧрлымаш)";
 "aaald-single-reference-added-description" = "Палемдымашым ешарыме";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Изи вашталтышым ыштыме огыл|$1 изи вашталтышым ыштыме}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 вашталтыш-влак|$1 вашталтыш|$1 вашталтыш-влак}} by {{PLURAL:$2|0=0 тӧрлатыше-влак|$2 тӧрлатыше|$2 тӧрлатыше-влак}} in {{PLURAL:$3|0=0 кече|$3 кечылаште|$3 кече}}";
 "aaald-two-sections-description" = "$1 да $2 ужашлаште";
 "aaald-vandalism-revert-description" = "Лийын кертше вандализмым жапыштыже чарыме";
 "aaald-view-full-history-button" = "Статьян чыла историйжым ончалаш";
@@ -107,6 +108,7 @@
 "action-unsaved-accessibility-notification" = "Статьям аралыме гыч кораҥдыме";
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
+"advanced-settings-title" = "Ешартыш тӧрлымаш";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-release-notes" = "Explore ленте тичмашнек тӧрлаташ лийше да лудаш йӧнанрак. Локализаций, паша лектышым саемдымаш да йоҥылышым тӧрлымаш.";
@@ -123,6 +125,7 @@
 "article-about-title" = "Тиде статья нерген";
 "article-delete" = "Кораҥдаш";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|статьям}} кораҥдыме";
+"article-fetcher-error-updated-content-timeout" = "Приложений уэмдыме контентым жапыштыше налын кертын огыл. Шкендын вашталтышетым ужаш манын, поро лий, варарак тиде велыжым уэмде.";
 "article-languages-filter-placeholder" = "Йылме фильтр";
 "article-languages-label" = "Йылмым ойыро";
 "article-languages-others" = "Вес йылме-влак";
@@ -149,6 +152,7 @@
 "button-skip" = "Кодаш";
 "cancel" = "Чараш";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-title" = "Китай вариант-влаклан полшымаште уэмдымаш-влак";
 "clear-title-accessibility-label" = "Эрыкташ";
 "clearing-cache-complete" = "\nКэшым эрыктыме.";
 "clearing-cache-in-progress" = "Кэшым эрыктымаш кая.";
@@ -157,6 +161,7 @@
 "continue-button-title" = "Шуяш";
 "continue-reading-empty-description" = "Лудашлан шукырак статьям муаш манын, Википедийым шымле";
 "continue-reading-empty-title" = "Шукерте огыл лудмо статья уке";
+"crimean-tatar-variants-alert-title" = "Крым суас вариант-влаклан полшымаште уэмдымаш-влак";
 "data-migration-status" = "Уэмдымаш...";
 "description-add-title" = "Возен ончыктымашым ешараш";
 "description-edit-for-article" = "$1 статьялан возен ончыктымаш";
@@ -166,6 +171,7 @@
 "description-edit-placeholder-title" = "Кӱчыкын возен ончыктымаш эн сай";
 "description-edit-publish" = "Возен ончыктымашым савыкташ";
 "description-edit-title" = "Возен ончыктымашым тӧрлаш";
+"description-edit-warning" = "Ушнышо-влак вигак статьян темыжым умылен кертышт манын, возен ончыктымашым кӱчыкым ышташ тырше.";
 "description-help-about-title" = "Приложений нерген";
 "description-help-about-wikidata" = "Викиданный нерген";
 "description-help-more-info-title" = "Ешартыш информаций";

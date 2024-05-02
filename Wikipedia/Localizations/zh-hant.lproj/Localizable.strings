@@ -595,6 +595,8 @@
 "image-rec-add-image-title" = "新增此圖片？";
 "image-rec-empty-subtitle" = "請稍後再回來。";
 "image-rec-empty-title" = "目前您沒有更多可用的建議圖片。";
+"image-rec-error-subtitle" = "發生錯誤。";
+"image-rec-error-title" = "無法載入頁面";
 "image-rec-feature-announce-body" = "決定是否將圖片新增到維基百科條目。您可以在「探索摘要」中找到「新增圖片」卡。";
 "image-rec-feature-announce-title" = "嘗試「新增圖片」";
 "image-rec-onboarding-item-1-body" = "決定是否讓建議的圖片加入到維基百科條目裡。";

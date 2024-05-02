@@ -191,6 +191,7 @@
 "edit-minor-text" = "Ur c'hemm dister eo hemañ";
 "edit-notices" = "Kemennoù aozañ";
 "edit-published" = "Kemmoù embannet";
+"edit-summary-choice-added-image" = "Skeudenn ouzhpennet";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
@@ -318,6 +319,9 @@
 "image-rec-survey-option-6" = "All";
 "image-rec-survey-title" = "Abeg";
 "image-rec-title" = "Ouzhpennañ ur skeudenn";
+"image-rec-tooltip-1-title" = "Adwelet";
+"image-rec-tooltip-2-title" = "Ensellet";
+"image-rec-tooltip-3-title" = "Divizout";
 "image-rec-view-article" = "Gwelet ar pennad";
 "image-recs-no-title" = "Ket";
 "image-recs-not-sure-title" = "N'on ket sur";
