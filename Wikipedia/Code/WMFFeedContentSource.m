@@ -232,10 +232,28 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
 
-    if (group == nil) {
-        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
+    NSString *primaryLanguage = self.userDataStore.languageLinkController.appLanguage.languageCode;
+    NSString *feedLanguage = [self.siteURL wmf_languageCode];
+    BOOL isPrimaryLanguageFeed = [feedLanguage isEqualToString:primaryLanguage];
+
+    // T356255 - the POTD is the same across all feeds (i.e. same image, different localized description).
+    // To prevent the same image from showing on each language feed, we save the POTD for the primary language only
+    // (and clean up any secondary ones - secondary ones may exist when the user has changed the app primary language).
+
+    if (isPrimaryLanguageFeed) {
+        if (group == nil) {
+            DDLogDebug(@"Creating POTD content group for primary feed language [%@]", feedLanguage);
+            group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
+        } else {
+            DDLogDebug(@"Updating POTD content group for primary feed language [%@]", feedLanguage);
+        }
+        group.contentPreview = image;
+    } else {
+        if (group != nil) {
+            DDLogDebug(@"Removing POTD content group for OLD secondary feed language [%@].", feedLanguage);
+            [moc removeContentGroup:group];
+        }
     }
-    group.contentPreview = image;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -328,8 +346,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    // NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
-    return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
+    return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
