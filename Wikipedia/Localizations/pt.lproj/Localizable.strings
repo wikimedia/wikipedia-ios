@@ -551,7 +551,7 @@
 "image-rec-tooltip-1-title" = "Revisar";
 "image-rec-tooltip-2-body" = "Inspecione a imagem e suas informações associadas.";
 "image-rec-tooltip-2-title" = "Inspecionar";
-"image-rec-tooltip-3-body" = "Decida se uma imagem será adicionada a um artigo da Wikipédia. Você pode encontrar o cartão ‘Adicionar uma imagem’ no seu feed ‘Explorar’.";
+"image-rec-tooltip-3-body" = "Decida se a imagem ajuda os leitores a entender melhor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artigo";
 "image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
