@@ -151,7 +151,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
-        imageView.imageDescription = searchResult.imageDescription
+        imageView.imageDescription = searchResult.imageDescription ?? searchResult.imageInfo?.imageDescription
         imageView.title = searchResult.displayTitle
         imageView.titleURL = imageTitle
         imageView.titleAction = { [weak self] url in
