@@ -15,6 +15,7 @@ internal struct WKImageRecommendationAPIResponse: Codable {
         let ns: Int
         let growthimagesuggestiondata: [GrowthImageSuggestionData]?
         let revisions: [Revision]
+        let pageimage: String?
     }
 
     struct Revision: Codable {
