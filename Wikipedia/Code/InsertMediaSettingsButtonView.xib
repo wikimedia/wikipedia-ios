@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="354" height="61"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixc-Bu-aNR">
+                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ixc-Bu-aNR">
                     <rect key="frame" x="0.0" y="0.0" width="354" height="0.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="Mh3-mG-Lqh"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kG-VA-g9G">
                     <rect key="frame" x="12" y="12.5" width="330" height="44.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
@@ -33,6 +31,7 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Lr7-GY-Xmw"/>
             <constraints>
                 <constraint firstItem="Lr7-GY-Xmw" firstAttribute="bottom" secondItem="5kG-VA-g9G" secondAttribute="bottomMargin" constant="12" id="6FJ-yC-zCC"/>
                 <constraint firstItem="Ixc-Bu-aNR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JUC-eA-ieV"/>
@@ -43,7 +42,6 @@
                 <constraint firstAttribute="trailing" secondItem="Ixc-Bu-aNR" secondAttribute="trailing" id="pbm-Ei-yUq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="Lr7-GY-Xmw"/>
             <connections>
                 <outlet property="button" destination="5kG-VA-g9G" id="0eU-yI-hqH"/>
                 <outlet property="separatorView" destination="Ixc-Bu-aNR" id="St6-8d-RG3"/>

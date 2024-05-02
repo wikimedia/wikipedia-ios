@@ -30,12 +30,13 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logRejectSurveyDidAppear()
     func logRejectSurveyDidTapCancel()
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
+    func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
 
-    init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
+    init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
         let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
             
             viewModel.tryAgainAfterLoadingError()
@@ -43,6 +44,10 @@ fileprivate final class WKImageRecommendationsHostingViewController: WKComponent
         }, viewArticleAction: { [weak delegate] title in
             
             delegate?.imageRecommendationsUserDidTapViewArticle(project: viewModel.project, title: title)
+            
+        }, emptyViewAppearanceAction: { [weak loggingDelegate] in
+            
+            loggingDelegate?.logEmptyStateDidAppear()
             
         })
         super.init(rootView: rootView)
@@ -91,7 +96,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private let tooltipGeometryValues = WKTooltipGeometryValues()
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
-        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, tooltipGeometryValues: tooltipGeometryValues)
+        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate, tooltipGeometryValues: tooltipGeometryValues)
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
@@ -156,7 +161,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     @objc private func tappedBack() {
 
-        if viewModel.imageRecommendations.isEmpty {
+        if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
             loggingDelegate?.logEmptyStateDidTapBack()
         }
 
