@@ -631,6 +631,7 @@
 "image-rec-tooltip-3-title" = "决定";
 "image-rec-view-article" = "查看条目";
 "image-recommendations-email-first-line" = "我在使用“添加图片建议编辑”功能时遇到了一个问题：";
+"image-recommendations-email-fifth-line" = "- [屏幕截图或链接]";
 "image-recommendations-email-fourth-line" = "- [描述您建议的解决方案]";
 "image-recommendations-email-second-line" = "- [描述具体问题]";
 "image-recommendations-email-third-line" = "我希望看到的操作是：";
