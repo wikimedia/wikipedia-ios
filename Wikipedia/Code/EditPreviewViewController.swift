@@ -11,7 +11,7 @@ protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
     func logEditPreviewDidTapNext()
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
+class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLinkPreviewing {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -63,6 +63,10 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
             showInternalLink(url: url)
         }
     }
+    
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didFailWithError error: any Error) {
+        showError(error)
+    }
 
     func showExternalLinkInAlert(link: String) {
         let title = WMFLocalizedString("wikitext-preview-link-external-preview-title", value: "External link", comment: "Title for external link preview popup")
@@ -96,7 +100,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
 
         view.addSubview(previewWebViewContainer)
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
-        previewWebViewContainer.previewAnchorTapAlertDelegate = self
+        previewWebViewContainer.delegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
