@@ -199,14 +199,14 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    //Sometimes top read is nil, depends on time of day
+    // Sometimes top read is nil, depends on time of day
     if ([topRead.articlePreviews count] == 0 || date == nil) {
         return;
     }
 
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
-        [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url] isFeatured: NO];
+        [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url] isFeatured:NO];
     }];
 
     WMFContentGroup *group = [self topReadForDate:date inManagedObjectContext:moc];
@@ -261,7 +261,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSDateComponents *storyComponents = [utcCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightMonthAndDay];
         NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
         NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:storyDate];
-        if (storyComponents.month > components.month + 1) { //probably not how this should be done
+        if (storyComponents.month > components.month + 1) { // probably not how this should be done
             components.year = components.year - 1;          // assume it's last year
         } else if (components.month > storyComponents.month + 1) {
             components.year = components.year + 1; // assume it's next year
@@ -289,7 +289,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
-            [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL isFeatured: NO];
+            [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL isFeatured:NO];
         }];
 
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML siteURL:self.siteURL];
@@ -328,7 +328,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    //NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
+    // NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
     return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
@@ -343,7 +343,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
 }
-
 
 #pragma mark - Utility
 
