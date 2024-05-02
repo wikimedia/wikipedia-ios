@@ -582,6 +582,7 @@
 "image-rec-tooltip-3-body" = "Body of second tooltip displayed when landing on image recommendations feature for the first time.";
 "image-rec-tooltip-3-title" = "Title of second tooltip displayed when landing on image recommendations feature for the first time.";
 "image-rec-view-article" = "Button from an image recommendation article summary. Tapping the button displays the full article.";
+"image-recommendations-email-fifth-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.";
 "image-recommendations-email-first-line" = "Text for Image recommendations pre-filled issue report email";
 "image-recommendations-email-fourth-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution";
 "image-recommendations-email-second-line" = "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering";

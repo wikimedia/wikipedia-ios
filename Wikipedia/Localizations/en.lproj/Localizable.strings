@@ -582,6 +582,7 @@
 "image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
 "image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
+"image-recommendations-email-fifth-line" = "[Screenshots or Links]";
 "image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
 "image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
 "image-recommendations-email-second-line" = "- [Describe specific problem]";
