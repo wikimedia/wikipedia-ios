@@ -527,6 +527,8 @@
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
 "image-rec-add-image-title" = "Додај ову слику?";
 "image-rec-empty-subtitle" = "Покушајте касније.";
+"image-rec-error-subtitle" = "Дошло је до грешке.";
+"image-rec-error-title" = "Учитавање странице неуспешно";
 "image-rec-onboarding-item-1-body" = "Одлучите да ли предложена слика треба да буде постављена у чланак на Википедији.";
 "image-rec-onboarding-item-1-title" = "Види предлог";
 "image-rec-onboarding-item-2-body" = "Предлози су машински генерисани и Ви ћете на основу своје процене одлучити да ли ћете их прихватити или одбити.";

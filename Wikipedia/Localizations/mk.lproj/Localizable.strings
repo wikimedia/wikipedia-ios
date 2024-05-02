@@ -115,6 +115,7 @@
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
+"advanced-settings-title" = "Напредни нагодувања";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -563,6 +564,8 @@
 "image-rec-add-image-title" = "Да ја додадам сликава?";
 "image-rec-empty-subtitle" = "Навратете се подоцна.";
 "image-rec-empty-title" = "Засега нема повеќе предложени слики.";
+"image-rec-error-subtitle" = "Нешто не е во ред.";
+"image-rec-error-title" = "Не можам да ја вчитам страницата";
 "image-rec-feature-announce-body" = "Одлучете дали една слика ќе биде ставена во статија на Википедија. Можете да ја најдете картичката „Додај слика“ во тековникот „Истражи“.";
 "image-rec-feature-announce-title" = "Пробајте го „Додај слика“";
 "image-rec-onboarding-item-1-body" = "Одлучете дали предложена слика треба да се стави во статија на Википедија.";
@@ -591,6 +594,7 @@
 "image-rec-tooltip-3-body" = "Одлучете дали сликата им помага на читателите подобро да ја разберат оваа тема.";
 "image-rec-tooltip-3-title" = "Одлучете";
 "image-rec-view-article" = "Погл. статија";
+"image-recommendations-email-fifth-line" = "[Екрански снимки или Врски]";
 "image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
 "image-recommendations-email-fourth-line" = "— [Опишете го предложеното решение]";
 "image-recommendations-email-second-line" = "— [Опишете го конкретниот проблем]";
@@ -627,12 +631,16 @@
 "insert-media-image-preview-select-image-action-title" = "Изберете слика";
 "insert-media-image-size-setting-custom" = "Прилагодено";
 "insert-media-image-size-setting-default" = "По основно";
+"insert-media-image-size-settings-measure-height" = "Висина";
+"insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "п";
 "insert-media-image-size-settings-title" = "Големина на сликата";
+"insert-media-image-text-wrapping-setting" = "Сложи го текстот околу сликата";
 "insert-media-image-type-setting-basic" = "Основно";
 "insert-media-image-type-setting-frame" = "Рамка";
 "insert-media-image-type-setting-frameless" = "Без рамка";
 "insert-media-image-type-setting-thumbnail" = "Минијатура";
+"insert-media-image-type-settings-footer-title" = "Можете да зададете како да се појавува податотеката на страницата. Ова во речиси сите случаи треба да биде во минијатура за да биде доследно на другите страници.";
 "insert-media-image-type-settings-title" = "Тип на слика";
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
 "insert-media-title" = "Вметнување на слика или снимка";

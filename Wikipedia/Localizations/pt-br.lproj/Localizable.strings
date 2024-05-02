@@ -21,6 +21,7 @@
 // Author: Luckas
 // Author: Luk3
 // Author: Macofe
+// Author: Marinaazev
 // Author: Maxan
 // Author: McDutchie
 // Author: Mello25
@@ -121,8 +122,10 @@
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
+"action-discard-edit" = "Descartar edição";
 "action-discard-edits" = "Descartar edições";
 "action-find-in-page" = "Encontrar na página";
+"action-keep-editing" = "Continuar editando";
 "action-language-accessibility" = "Alterar idioma";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover à lista de leitura";
@@ -145,6 +148,7 @@
 "action-unsaved-accessibility-notification" = "Artigo não salvo";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
+"advanced-settings-title" = "Configurações avançadas";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -168,8 +172,10 @@
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
 "article-reference-view-title" = "Referências $1";
+"article-revision-history" = "Histórico de revisões do artigo";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para salvar este artigo";
 "article-share" = "Compartilhar";
+"article-talk-page" = "Página de discussão do artigo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de leitura de temas";
 "back-button-accessibility-label" = "Voltar";
 "back-button-popover-title" = "Tocar para voltar atrás";
@@ -189,8 +195,11 @@
 "chinese-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes chinesas como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n简体 Chinês simplificado (zh-hans)\n香港繁體 Hong Kong tradicional (zh-hk)\n澳門繁體 Macau tradicional (zh-mo)\n大马简体 Malaio simplificado (zh-my)\n新加坡简体 Singapore simplificado (zh-sg)\n臺灣正體 Taiwanês tradicional (zh-tw)";
 "chinese-variants-alert-title" = "Atualizações para suporte a variantes chinesas";
 "clear-title-accessibility-label" = "Limpar";
+"clearing-cache-complete" = "Limpeza da cache concluída.";
+"clearing-cache-in-progress" = "Limpeza de cache em andamento.";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
+"continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
 "crimean-tatar-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes de tártara da crimeia como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nQırımtatarca, tártara da crimeia latino (chr-latn)\nкъырымтатарджа, tártara da crimeia cirílico (crh-cyrl)";
@@ -231,6 +240,9 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+"diff-article-revision-history" = "Histórico de revisões do artigo";
+"diff-change-added" = "Adição, $1, fim de adição.";
+"diff-change-paragraph-lines-moved-down" = "Parágrafo movido {{PLURAL:$1|0=0 linhas|$1 linha|$1 linhas}} para baixo. Ir para nova localização.";
 "diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
 "diff-compare-header-to-info-heading" = "Edição exibida";

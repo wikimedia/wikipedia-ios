@@ -273,7 +273,32 @@
 "editing-welcome-set-knowledge-free-title" = "Oslobodite znanje";
 "editor-exit-confirmation-body" = "Jeste li sigurni da želite napustiti uređivanje bez prethodnog objavljivanja?";
 "editor-exit-confirmation-title" = "Napusti uređivanje?";
+"editor-find-textfield-accessibility" = "Traži";
+"editor-keyboard-bold-accessibility" = "Podebljano";
+"editor-keyboard-comment-accessibility" = "Komentiraj";
+"editor-keyboard-heading-button" = "Naslov";
+"editor-keyboard-indent-decrease-accessibility" = "Smanji uvlačenje";
+"editor-keyboard-indent-increase-accessibility" = "Povećaj uvlačenje";
+"editor-keyboard-italics-accessibility" = "Ukošeno";
+"editor-keyboard-link-accessibility" = "Link";
 "editor-keyboard-paragraph-button" = "Odlomak";
+"editor-keyboard-reference-accessibility" = "Referenca";
+"editor-keyboard-strikethrough-accessibility" = "Precrtano";
+"editor-keyboard-subheading1-button" = "Podnaslov 1";
+"editor-keyboard-subheading2-button" = "Podnaslov 2";
+"editor-keyboard-subheading3-button" = "Podnaslov 3";
+"editor-keyboard-subheading4-button" = "Podnaslov 4";
+"editor-keyboard-subscript-accessibility" = "Indeks";
+"editor-keyboard-superscript-accessibility" = "Eksponent";
+"editor-keyboard-template-accessibility" = "Šablon";
+"editor-keyboard-text-formatting-title" = "Formatiranje teksta";
+"editor-keyboard-underline-accessibility" = "Podvučeno";
+"editor-replace-textfield-accessibility" = "Zamijeni";
+"editor-replace-textfield-placeholder" = "Zamijeni sa...";
+"editor-replace-type-all" = "Zamijeni sve";
+"editor-replace-type-single" = "Zamijeni";
+"editor-toolbar-find-accessibility" = "Pronađi na stranici";
+"editor-toolbar-image-accessibility" = "Formatiranje teksta slike";
 "empty-diff-compare-title" = "Nema razlika između verzija";
 "empty-diff-single-title" = "Nije napravljena nijedna vidljiva promjena";
 "empty-insert-media-title" = "Izaberi datoteku sa Wikimedia Commonsa";
@@ -378,6 +403,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "s Wikipedije ($1)";
 "explore-random-article-sub-heading-from-wikipedia" = "s Wikipedije";
 "explore-randomizer" = "Nasumična stranica";
+"explore-suggested-edits-footer" = "Dodaj";
+"explore-suggested-edits-image-recs-title" = "Dodaj sliku";
 "export-user-data-space-error" = "Nemate dovoljno prostora na uređaju za izvoz korisničkih podataka. Pokušajte ponovo kasnije.";
 "export-user-data-title" = "Izvezi korisničke podatke";
 "featured-widget-content-failure-for-date" = "Istaknuti članak nije dostupan za ovaj dan.";
@@ -444,6 +471,14 @@
 "icon-shortcut-random-title" = "Nasumičan članak";
 "icon-shortcut-search-title" = "Pretraži Wikipediju";
 "image-gallery-unknown-owner" = "Autor je nepoznat.";
+"image-rec-onboarding-item-3-title" = "Licencirane slike";
+"image-rec-survey-option-6" = "Ostalo";
+"image-rec-survey-submit-button" = "Pošalji";
+"image-rec-survey-title" = "Razlog";
+"image-rec-title" = "Dodaj sliku";
+"image-recs-no-title" = "Ne";
+"image-recs-not-sure-title" = "Nisam siguran";
+"image-recs-yes-title" = "Da";
 "import-shared-reading-list-default-title" = "Moj spisak za čitanje";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
@@ -605,8 +640,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nova e-pošta";
 "notifications-center-subheader-login-fail-known-device" = "Više neuspješnih pokušaja prijave";
 "notifications-center-subheader-login-fail-unknown-device" = "Neuspješni pokušaj prijave";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Prijava sa nepoznatog uređaja";
+"notifications-center-subheader-login-success-unknown-device" = "Prijava s nepoznatog uređaja";
 "notifications-center-subheader-mention-article-talk-page" = "Spomenuti ste na stranici za razgovor o članku";
 "notifications-center-subheader-mention-edit-summary" = "Spomenuti ste u sažetku izmjene";
 "notifications-center-subheader-mention-failed" = "Neuspješno spominjanje";
@@ -626,7 +660,9 @@
 "notifications-center-title" = "Obavještenja";
 "notifications-center-toolbar-mark-accessibility-label" = "Označite odabrana obavještenja";
 "notifications-center-type-item-description-mentions" = "Spominjanja";
+"notifications-center-type-item-description-notice" = "Obavještenje";
 "notifications-center-type-item-description-welcome-verbose" = "Poruka dobrodošlice";
+"notifications-center-type-title-connection-with-wikidata" = "Veza s Wikipodacima";
 "notifications-center-type-title-welcome" = "Dobro došli";
 "notifications-push-fallback-body-text" = "Nova aktivnost na Wikipediji";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 nova poruka|$1 nove poruke|$1 novih poruka}} na $2";
@@ -875,20 +911,17 @@
 "settings-storage-and-syncing-title" = "Pohrana i sinhronizacija članaka";
 "settings-title" = "Postavke";
 "share-a-fact-made-with" = "Napravljeno u Wikipedia aplikaciji";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipediji:";
 "share-building" = "Stvaram karticu za dijeljenje činjenica…";
 "share-default-format" = "“$1” iz “$2”: $3";
 "share-email-format" = "“$1”\n\niz “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dobij uputstva";
 "share-menu-item" = "Podijeli…";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "preko @Wikipedia";
+"share-on-twitter-sign-off" = "preko Wikipedije";
 "share-open-in-maps" = "Otvori u Kartama";
 "share-social-format" = "“$1” na Wikipediji: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” na @Wikipedia: $2";
+"share-social-mention-format" = "“$1” na Wikipediji: $2";
 "sort-by-recently-added-action" = "Nedavno dodano";
 "sort-by-title-action" = "Naslov";
 "table-of-contents-button-label" = "Sadržaj";
@@ -912,7 +945,6 @@
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-permanent-link" = "Trajni link";
-// Fuzzy
 "talk-page-title-article-talk" = "stranica za razgovor članka";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
 "theme-black-display-name" = "Crna";
