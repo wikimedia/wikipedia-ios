@@ -103,6 +103,7 @@
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
+"advanced-settings-title" = "Title for advanced settings screen";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -617,12 +618,16 @@
 "insert-media-image-preview-select-image-action-title" = "Title for preview action that results in image selection";
 "insert-media-image-size-setting-custom" = "Title for image size setting that sizes image using custom size";
 "insert-media-image-size-setting-default" = "Title for image size setting that sizes image using default size";
+"insert-media-image-size-settings-measure-height" = "Display title for the measurement of image from top to base";
+"insert-media-image-size-settings-measure-width" = "Display title for the measurement of image from side to side";
 "insert-media-image-size-settings-px-unit-name" = "Image size unit name, abbreviation for 'pixels'";
 "insert-media-image-size-settings-title" = "Display ritle for image size setting";
+"insert-media-image-text-wrapping-setting" = "Title for image setting that wraps text around image";
 "insert-media-image-type-setting-basic" = "Title for image type setting that formats image as basic";
 "insert-media-image-type-setting-frame" = "Title for image type setting that formats image as framed";
 "insert-media-image-type-setting-frameless" = "Title for image type setting that formats image as frameless";
 "insert-media-image-type-setting-thumbnail" = "Title for image type setting that formats image as thumbnail";
+"insert-media-image-type-settings-footer-title" = "Footer for";
 "insert-media-image-type-settings-title" = "Display ritle for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
