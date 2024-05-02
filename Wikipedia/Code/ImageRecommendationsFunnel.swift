@@ -258,6 +258,10 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .rejectionDialog, action: .rejectSubmit, actionData: actionData, project: project)
     }
     
+    func logEmptyStateDidAppear() {
+        logEvent(activeInterface: .noSuggestionsDialog, action: .impression, project: project)
+    }
+    
     func logEmptyStateDidTapBack() {
         logEvent(activeInterface: .noSuggestionsDialog, action: .noSuggestionsBack, project: project)
     }
