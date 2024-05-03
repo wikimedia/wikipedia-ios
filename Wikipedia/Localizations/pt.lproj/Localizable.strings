@@ -1267,4 +1267,5 @@
 "wikitext-upload-save-anonymously-or-login" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1iniciar uma sessão$2, terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar alterações, você concorda com os $1Termos de Uso$2, e você concorda de maneira irrevogável em disponibilizar sua contribuição sob a licença $3CC BY-SA 4.0$4 e a $5GDFL$6. Você concocorda que uma hiperligação ou URL é atribuição suficiente sob a licença Creative Commons";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
