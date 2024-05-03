@@ -970,10 +970,10 @@ extension PageEditorViewController: EditSaveViewControllerDelegate {
 // MARK: - EditSaveViewControllerPageEditorLoggingDelegate
 
 extension PageEditorViewController: EditSaveViewControllerPageEditorLoggingDelegate {
-    func logEditSaveViewControllerDidTapPublish(source: Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject) {
+    func logEditSaveViewControllerDidTapPublish(source: Source, summaryAdded: Bool, isMinor: Bool, isWatched: Bool, project: WikimediaProject) {
         switch source {
         case .article:
-            EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
+            EditInteractionFunnel.shared.logArticleEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, watchlistAdded: isWatched, project: project)
         case .talk:
             EditInteractionFunnel.shared.logTalkEditSummaryDidTapPublish(summaryAdded: summaryAdded, minorEdit: isMinor, project: project)
         }
