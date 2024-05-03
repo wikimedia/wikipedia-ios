@@ -1213,7 +1213,11 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
-            let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: imageData.filename, thumbnailURL: thumbURL, imageDescription: imageData.description,  filePageURL: imageURL)
+            
+            let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
+            let imageDescription = imageData.description?.removingHTML
+            let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
+            
             let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)

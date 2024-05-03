@@ -16,7 +16,7 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
 
 protocol EditSaveViewControllerPageEditorLoggingDelegate: AnyObject {
     func logEditSaveViewControllerDidTapShowWebPreview()
-    func logEditSaveViewControllerDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, isWatched: Bool, project: WikimediaProject)
     func logEditSaveViewControllerPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
     func logEditSaveViewControllerPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
     func logEditSaveViewControllerDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject)
@@ -356,18 +356,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         let isMinor = minorEditToggle.isOn
+        let isWatched = addToWatchlistToggle.isOn
         
         if let source,
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
             
-            pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
+            pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
             
         }
         
-        let isWatchlist = addToWatchlistToggle.isOn
-        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatchlist)
+        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
         
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
