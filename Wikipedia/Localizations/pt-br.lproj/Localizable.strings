@@ -520,6 +520,12 @@
 "image-recs-no-title" = "Não";
 "image-recs-not-sure-title" = "Não tenho certeza";
 "image-recs-yes-title" = "Sim";
+"image-recommendations-email-fifth-line" = "[Capturas de tela ou links]";
+"image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
+"image-recommendations-email-fourth-line" = "[Descreva a solução proposta]";
+"image-recommendations-email-second-line" = "[Descreva o problema específico]";
+"image-recommendations-email-third-line" = "O comportamento que eu gostaria de ver é:";
+"image-recommendations-email-title" = "Relatório de Problemas - Recurso Adicionar uma Imagem";
 "import-shared-reading-list-default-title" = "Minha lista de leitura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar da pesquisa";
