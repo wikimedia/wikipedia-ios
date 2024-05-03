@@ -256,9 +256,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         minorEditLabel.text = WMFLocalizedString("edit-minor-text", languageCode: languageCode, value: "This is a minor edit", comment: "Text for minor edit label")
         minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", languageCode: languageCode, value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
 
-        addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
-        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
-        
+        addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", languageCode: languageCode, value: "Watch this page", comment: "Text for watch this page label")
+        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", languageCode: languageCode, value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
+
         setupWebPreviewButton()
     }
     
