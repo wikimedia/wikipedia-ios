@@ -367,8 +367,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             
         }
         
-        let isWatchlist = addToWatchlistToggle.isOn
-        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatchlist)
+        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
         
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
