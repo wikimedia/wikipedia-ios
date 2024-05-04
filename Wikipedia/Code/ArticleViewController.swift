@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import AVFoundation
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
@@ -11,7 +12,9 @@ class ArticleViewController: ViewController, HintPresenting {
         case loaded
         case error
     }
-    
+
+    let speechSynthesizer = AVSpeechSynthesizer()
+
     internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
@@ -331,6 +334,7 @@ class ArticleViewController: ViewController, HintPresenting {
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
+        speechSynthesizer.delegate = self
         surveyTimerController?.timerFireBlock = { [weak self] in
             guard let self = self,
                   let result = self.surveyAnnouncementResult else {
@@ -1272,6 +1276,19 @@ extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
     var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState {
         return articleAsLivingDocController.surveyLinkState
     }
-    
-    
+
+    func playArticle() {
+        let utterance = AVSpeechUtterance(string: "This is a test.")
+        utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
+        speechSynthesizer.speak(utterance)
+    }
+}
+
+extension ArticleViewController: AVSpeechSynthesizerDelegate {
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        speechSynthesizer.stopSpeaking(at: .word)
+
+    }
+
 }
