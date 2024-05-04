@@ -99,7 +99,7 @@ public class ReadingListsAlertController: NSObject {
         guard readingList.isDefault else {
             return
         }
-        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { button, viewController in
             presenter.presentedViewController?.dismiss(animated: true)
             let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
             readingListDetailViewController.apply(theme: theme)

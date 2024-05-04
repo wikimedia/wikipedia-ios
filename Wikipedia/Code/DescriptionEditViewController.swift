@@ -341,7 +341,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _ in
+        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] button, viewController in
             
             self?.dismiss(animated: true) {
                 self?.save()

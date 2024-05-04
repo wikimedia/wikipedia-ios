@@ -1203,7 +1203,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     func promptForLocationAccess() {
         var skipSearchInDismissEnableLocationPanelHandler = false
         
-        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { button, viewController in
             skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
             self.presentedViewController?.dismiss(animated: true, completion: {
                 guard self.locationManager.authorizationStatus == .notDetermined else {

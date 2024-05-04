@@ -112,7 +112,7 @@ extension ThanksGiving where Self: ViewController {
             return
         }
 
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { sender in
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { button, viewController in
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
@@ -122,7 +122,7 @@ extension ThanksGiving where Self: ViewController {
                 self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
             })
             
-        } cancelHandler: { sender in
+        } cancelHandler: { button, viewController in
             
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))

@@ -44,10 +44,10 @@ extension ArticleViewController {
             vcToPresentSurvey = presentedNavVC.viewControllers.count == 1 ? livingDocVC : nil
         }
         
-        vcToPresentSurvey?.wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in
+        vcToPresentSurvey?.wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { button, viewController in
             self.navigate(to: actionURL, useSafari: true)
             // dismiss handler is called
-        }, secondaryButtonTapHandler: { (sender) in
+        }, secondaryButtonTapHandler: { button, viewController in
             // dismiss handler is called
         }, footerLinkAction: { (url) in
              self.navigate(to: url, useSafari: true)

@@ -384,12 +384,12 @@ private extension ReadingListDetailViewController {
             self.seenSurveyPrompt = true
             ReadingListsFunnel.shared.logPresentedSurveyPrompt()
 
-            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { (sender) in
+            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { button, viewController in
                 ReadingListsFunnel.shared.logTappedTakeSurvey()
                 UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey = true
                 self.navigate(to: surveyURL, useSafari: true)
                 // dismiss handler is called
-            }, secondaryButtonTapHandler: { (sender) in
+            }, secondaryButtonTapHandler: { button, viewController in
                 // dismiss handler is called
             }, footerLinkAction: { (url) in
                  self.navigate(to: url, useSafari: true)

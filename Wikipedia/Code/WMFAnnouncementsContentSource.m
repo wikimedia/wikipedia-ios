@@ -11,7 +11,6 @@
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 
 @property (readwrite, nonatomic, strong) WKFundraisingCampaignDataController *fundraisingCampaignDataController;
-@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
 
 @end
 
@@ -25,7 +24,6 @@
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession: userDataStore.session configuration: userDataStore.configuration];
         self.fundraisingCampaignDataController = [[WKFundraisingCampaignDataController alloc] init];
-        self.donateDataController = [[WKDonateDataController alloc] init];
     }
     return self;
 }
@@ -41,9 +39,6 @@
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
     
-    NSString *countryCode = [[NSLocale currentLocale] countryCode];
-    [self.donateDataController fetchConfigsWithCountryCode:countryCode];
-    
     if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
@@ -54,6 +49,7 @@
         return;
     }
     
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
     [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
     
     [self.fetcher fetchAnnouncementsForURL:self.siteURL

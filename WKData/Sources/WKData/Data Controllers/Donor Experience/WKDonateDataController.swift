@@ -11,10 +11,6 @@ import Contacts
     private(set) var donateConfig: WKDonateConfig?
     private(set) var paymentMethods: WKPaymentMethods?
     
-    private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
-    private let cacheDonateConfigFileName = "AppsDonationConfig"
-    private let cachePaymentMethodsFileName = "PaymentMethods"
-    
     // MARK: - Lifecycle
     
     public override init() {
@@ -24,24 +20,17 @@ import Contacts
     // MARK: - Public
     
     public func loadConfigs() -> (donateConfig: WKDonateConfig?, paymentMethods: WKPaymentMethods?) {
-        
-        guard donateConfig == nil,
-              paymentMethods == nil else {
-            return (donateConfig, paymentMethods)
-        }
-        
-        let donateConfigResponse: WKDonateConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigFileName)
-        let paymentMethodsResponse: WKPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsFileName)
-        
-        donateConfig = donateConfigResponse?.config
-        paymentMethods = paymentMethodsResponse
-        
         return (donateConfig, paymentMethods)
     }
     
-    @objc public func fetchConfigs(countryCode: String) {
+    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping (Error?) -> Void) {
         fetchConfigs(for: countryCode) { result in
-            
+            switch result {
+            case .success:
+                completion(nil)
+            case .failure(let error):
+                completion(error)
+            }
         }
     }
     
@@ -72,21 +61,19 @@ import Contacts
         
         var errors: [Error] = []
         
+        var donateConfig: WKDonateConfig?
+        var paymentMethods: WKPaymentMethods?
+        
         group.enter()
         let paymentMethodsRequest = WKBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
-        service.performDecodableGET(request: paymentMethodsRequest) { [weak self] (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WKPaymentMethods, Error>) in
             defer {
                 group.leave()
             }
             
-            guard let self else {
-                return
-            }
-            
             switch result {
-            case .success(let paymentMethods):
-                self.paymentMethods = paymentMethods
-                try? self.sharedCacheStore?.save(key: cacheDirectoryName, cachePaymentMethodsFileName, value: paymentMethods)
+            case .success(let response):
+                paymentMethods = response
             case .failure(let error):
                 errors.append(error)
             }
@@ -94,31 +81,34 @@ import Contacts
         
         group.enter()
         let donateConfigRequest = WKBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
-        service.performDecodableGET(request: donateConfigRequest) { [weak self] (result: Result<WKDonateConfigResponse, Error>) in
+        service.performDecodableGET(request: donateConfigRequest) { (result: Result<WKDonateConfigResponse, Error>) in
             
             defer {
                 group.leave()
             }
             
-            guard let self else {
-                return
-            }
-            
             switch result {
             case .success(let response):
-                self.donateConfig = response.config
-                try? self.sharedCacheStore?.save(key: cacheDirectoryName, cacheDonateConfigFileName, value: response)
+                donateConfig = response.config
             case .failure(let error):
                 errors.append(error)
             }
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: .main) { [weak self] in
             if let firstError = errors.first {
                 completion(.failure(firstError))
                 return
             }
             
+            guard let donateConfig,
+               let paymentMethods else {
+                completion(.failure(WKServiceError.unexpectedResponse))
+                return
+            }
+            
+            self?.donateConfig = donateConfig
+            self?.paymentMethods = paymentMethods
             completion(.success(()))
         }
     }
