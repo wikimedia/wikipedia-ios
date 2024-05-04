@@ -1334,41 +1334,42 @@ extension ArticleViewController {
             if let wikitext = self.wikitext {
                 let utterance = AVSpeechUtterance(string: wikitext.removingHTML)
                 utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR") // get preferred voice in a better way
-                self.speechSynthesizer.speak(utterance)
+//                self.speechSynthesizer.speak(utterance)
                 self.saveSpeechToFile(utterance: utterance)
             }
         }
     }
 
     func saveSpeechToFile(utterance: AVSpeechUtterance) {
-
-        let cacheURL = FileManager.default.wmf_containerURL().appendingPathComponent("Audio Cache", isDirectory: true)
-        let fileURL = cacheURL.appendingPathComponent("AudioFile", isDirectory: false)
+        let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("Audio Cache", isDirectory: true)
+        let fileURL = cacheURL.appendingPathComponent("AudioFile.caf", isDirectory: false)
         print(fileURL)
 
-        //        try? FileManager.default.removeItem(at: fileURL)
+        if !FileManager.default.fileExists(atPath: cacheURL.path) {
+            try? FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
+        }
+
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+
         var output: AVAudioFile?
 
         speechSynthesizer.write(utterance) { buffer in
             guard let pcmBuffer = buffer as? AVAudioPCMBuffer else {
-                fatalError("unknown buffer type: \(buffer)")
+                print("unknown buffer type: \(buffer)")
+                return
             }
             if pcmBuffer.frameLength > 0 {
                 do {
                     if output == nil {
-                        try  output = AVAudioFile(
-                            forWriting: fileURL,
-                            settings: pcmBuffer.format.settings,
-                            commonFormat: pcmBuffer.format.commonFormat,
-                            interleaved: false)
+                        output = try AVAudioFile(forWriting: fileURL, settings: pcmBuffer.format.settings, commonFormat: pcmBuffer.format.commonFormat, interleaved: false)
                     }
                     try output?.write(from: pcmBuffer)
                 } catch {
-                    print(error.localizedDescription)
+                    print("Error occurred while writing audio file: \(error.localizedDescription)")
                 }
-
             }
-
         }
     }
 }
