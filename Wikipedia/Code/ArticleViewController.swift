@@ -14,6 +14,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     let speechSynthesizer = AVSpeechSynthesizer()
+    var wikitext: String?
 
     internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
@@ -340,11 +341,13 @@ class ArticleViewController: ViewController, HintPresenting {
                   let result = self.surveyAnnouncementResult else {
                 return
             }
-            
+
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
+
+        wikitext = getWikitext()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
@@ -1255,32 +1258,118 @@ extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
     var displayDelay: TimeInterval? {
         surveyAnnouncementResult?.displayDelay
     }
-    
+
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         return articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
     }
-    
+
     var userHasSeenSurveyPrompt: Bool {
-        
+
         guard let identifier = surveyAnnouncementResult?.campaignIdentifier else {
             return false
         }
-        
+
         return SurveyAnnouncementsController.shared.userHasSeenSurveyPrompt(forCampaignIdentifier: identifier)
     }
-    
+
     var shouldShowArticleAsLivingDoc: Bool {
         return articleAsLivingDocController.shouldShowArticleAsLivingDoc
     }
-    
+
     var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState {
         return articleAsLivingDocController.surveyLinkState
     }
 
+}
+
+// Hackathon text-to-speech experiment
+
+extension ArticleViewController {
+
+    /*
+     Temporary documentation
+
+     resources:
+     - https://nshipster.com/avspeechsynthesizer/
+     - https://developer.apple.com/documentation/avfaudio/avspeechsynthesizer/
+
+     Solution comments:
+     -
+
+     Thoughts and considerations
+     -
+
+     */
+
+    // you can probably get wikitext in a smarter way here, but I was just too lazy to actually do it properly
+    private func loadWikitext(completion: @escaping (Result<String, Error>) -> Void) {
+        let wikitextFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        wikitextFetcher.fetchSection(with: Int(), articleURL: articleURL) {  result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let response):
+                    completion(.success(response.wikitext))
+                }
+            }
+        }
+    }
+
+    func getWikitext() -> String? {
+
+        self.loadWikitext { result in
+            switch result {
+            case .success(let result):
+                self.wikitext = result
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+        return wikitext
+    }
+
     func playArticle() {
-        let utterance = AVSpeechUtterance(string: "This is a test.")
-        utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
-        speechSynthesizer.speak(utterance)
+        DispatchQueue.main.async {
+            if let wikitext = self.wikitext {
+                let utterance = AVSpeechUtterance(string: wikitext.removingHTML)
+                utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR") // get preferred voice in a better way
+                self.speechSynthesizer.speak(utterance)
+                self.saveSpeechToFile(utterance: utterance)
+            }
+        }
+    }
+
+    func saveSpeechToFile(utterance: AVSpeechUtterance) {
+
+        let cacheURL = FileManager.default.wmf_containerURL().appendingPathComponent("Audio Cache", isDirectory: true)
+        let fileURL = cacheURL.appendingPathComponent("AudioFile", isDirectory: false)
+        print(fileURL)
+
+        //        try? FileManager.default.removeItem(at: fileURL)
+        var output: AVAudioFile?
+
+        speechSynthesizer.write(utterance) { buffer in
+            guard let pcmBuffer = buffer as? AVAudioPCMBuffer else {
+                fatalError("unknown buffer type: \(buffer)")
+            }
+            if pcmBuffer.frameLength > 0 {
+                do {
+                    if output == nil {
+                        try  output = AVAudioFile(
+                            forWriting: fileURL,
+                            settings: pcmBuffer.format.settings,
+                            commonFormat: pcmBuffer.format.commonFormat,
+                            interleaved: false)
+                    }
+                    try output?.write(from: pcmBuffer)
+                } catch {
+                    print(error.localizedDescription)
+                }
+
+            }
+
+        }
     }
 }
 
@@ -1288,7 +1377,6 @@ extension ArticleViewController: AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         speechSynthesizer.stopSpeaking(at: .word)
-
     }
 
 }
