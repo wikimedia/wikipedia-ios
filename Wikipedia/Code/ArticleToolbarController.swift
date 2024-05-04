@@ -16,6 +16,7 @@ protocol ArticleToolbarHandling: AnyObject {
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
     func editArticle(from controller: ArticleToolbarController)
+    func listenToArticle()
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -95,7 +96,11 @@ class ArticleToolbarController: Themeable {
         actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
         
         actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
-        
+
+        actions.append(UIAction(title: "Listen to Article", image: UIImage(systemName: "play.fill"), handler: { [weak self] _ in
+            self?.tappedListenToArticle()
+        }))
+
         if needsWatchButton {
            actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
         } else if needsUnwatchHalfButton {
@@ -197,7 +202,11 @@ class ArticleToolbarController: Themeable {
     @objc func tappedEditArticle() {
         delegate?.editArticle(from: self)
     }
-    
+
+    @objc func tappedListenToArticle() {
+        delegate?.listenToArticle()
+    }
+
     // MARK: State
     
     func setSavedState(isSaved: Bool) {

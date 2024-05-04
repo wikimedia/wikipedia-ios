@@ -55,6 +55,10 @@ extension ArticleViewController {
         
         watchlistController.unwatch(pageTitle: title, siteURL: siteURL, viewController: self, authenticationManager: authManager, theme: theme)
     }
+
+    func playArticle() {
+        
+    }
 }
 
 extension ArticleViewController: WatchlistControllerDelegate {

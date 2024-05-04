@@ -71,4 +71,8 @@ extension ArticleViewController: ArticleToolbarHandling {
     func editArticle(from controller: ArticleToolbarController) {
         showEditorForFullSource()
     }
+
+    func listenToArticle() {
+        playArticle()
+    }
 }
