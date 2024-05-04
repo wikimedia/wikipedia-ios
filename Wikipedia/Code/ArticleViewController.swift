@@ -1334,7 +1334,7 @@ extension ArticleViewController {
             if let wikitext = self.wikitext {
                 let utterance = AVSpeechUtterance(string: wikitext.removingHTML)
                 utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR") // get preferred voice in a better way
-//                self.speechSynthesizer.speak(utterance)
+//                self.speechSynthesizer.speak(utterance) - read out loud
                 self.saveSpeechToFile(utterance: utterance)
             }
         }
@@ -1369,7 +1369,25 @@ extension ArticleViewController {
                 } catch {
                     print("Error occurred while writing audio file: \(error.localizedDescription)")
                 }
+
+                DispatchQueue.main.async {
+                    self.playTextToSpeechFile(fileURL: fileURL)
+                }
             }
+        }
+    }
+
+    // improvements: Now Playing info MPNowPlayingInfoCenter for lock screen controls
+    // otherwise AVAudioPlayer gives all the necessary controls, we just need the interface
+
+    func playTextToSpeechFile(fileURL: URL) {
+        var audioPlayer: AVAudioPlayer?
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+            audioPlayer?.prepareToPlay() // ??????????
+            audioPlayer?.play()
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }
