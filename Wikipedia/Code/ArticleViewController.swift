@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 import AVFoundation
+import MediaPlayer
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
@@ -14,6 +15,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     let speechSynthesizer = AVSpeechSynthesizer()
+    var audioPlayer: AVAudioPlayer?
     var wikitext: String?
 
     internal lazy var toolbarController: ArticleToolbarController = {
@@ -336,6 +338,7 @@ class ArticleViewController: ViewController, HintPresenting {
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         speechSynthesizer.delegate = self
+        audioPlayer?.delegate = self
         surveyTimerController?.timerFireBlock = { [weak self] in
             guard let self = self,
                   let result = self.surveyAnnouncementResult else {
@@ -1381,15 +1384,25 @@ extension ArticleViewController {
     // otherwise AVAudioPlayer gives all the necessary controls, we just need the interface
 
     func playTextToSpeechFile(fileURL: URL) {
-        var audioPlayer: AVAudioPlayer?
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.prepareToPlay() // ??????????
             audioPlayer?.play()
+            updateNowPlaying()
         } catch {
             print(error.localizedDescription)
         }
     }
+
+    func updateNowPlaying() {
+        var nowPlayingInfo = [String: Any]()
+        nowPlayingInfo[MPMediaItemPropertyTitle] = article.displayTitle
+        nowPlayingInfo[MPMediaItemPropertyArtist] = "Wikipedia" // get localized app name?
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = audioPlayer?.duration
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = audioPlayer?.currentTime
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+
 }
 
 extension ArticleViewController: AVSpeechSynthesizerDelegate {
@@ -1398,4 +1411,11 @@ extension ArticleViewController: AVSpeechSynthesizerDelegate {
         speechSynthesizer.stopSpeaking(at: .word)
     }
 
+}
+
+extension ArticleViewController: AVAudioPlayerDelegate {
+
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
+    }
 }
