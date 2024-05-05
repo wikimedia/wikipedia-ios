@@ -1295,12 +1295,19 @@ extension ArticleViewController {
      resources:
      - https://nshipster.com/avspeechsynthesizer/
      - https://developer.apple.com/documentation/avfaudio/avspeechsynthesizer/
+     - https://developer.apple.com/documentation/mediaplayer/mpnowplayinginfocenter
+     - https://developer.apple.com/documentation/avfaudio/avaudioplayer
 
      Solution comments:
-     -
+     - The idea is to get AVSpeechUtterance to generate text to speech, save the audio to file and play it back using the now playing API
+     - AVAudio player allows us to control the audio using custom controls (Olga has designed a couple of solutions for that use case) - we can control basically every audio function with it.
+     AVSpeechUtterance allows us to control voice (en-GB, pt-BR for accent for example, gender etc). Is not clear if the user has to download it previously, or if it is a Simulator-only issue. I was not able to run it on simulator even downloading the voices, only on device
+     - Using MPNowPlaying is not finalized/not working, but apparently not super hard, i'd need more time playing with it to understand it better
+     - Currently, the audio playback is tied to the article view for prototyping reasons. Developing it properly in a decoupled manner could free us to keep playing the track while navigating to other areas (not considering all the UI complexity for this, given we'd have to keep the player view accessible from any part of the app)
 
      Thoughts and considerations
-     -
+     - Doable, fun to develop, I believe the UI controller part would be the most complicated part depending on the designs.
+     - The NSHipster article I linked shows an example of highlighting the spoken portion of the text, so we can have this option
 
      */
 
@@ -1336,9 +1343,9 @@ extension ArticleViewController {
         DispatchQueue.main.async {
             if let wikitext = self.wikitext {
                 let utterance = AVSpeechUtterance(string: wikitext.removingHTML)
-                utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR") // get preferred voice in a better way
-//                self.speechSynthesizer.speak(utterance) - read out loud
-                self.saveSpeechToFile(utterance: utterance)
+                utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR") // try to get preferred voice in a better way
+                self.speechSynthesizer.speak(utterance) // - read out loud
+//                self.saveSpeechToFile(utterance: utterance)
             }
         }
     }
