@@ -538,13 +538,13 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             }
 
             DispatchQueue.main.async {
-                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] button, viewController in
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
                     self?.dismiss(animated: true, completion: {
                         self?.userDidTapPushNotificationsOptIn()
                     })
                 }
 
-                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] button, viewController in
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
                     self?.dismiss(animated: true)
                 }
 
