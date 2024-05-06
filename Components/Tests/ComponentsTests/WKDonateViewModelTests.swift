@@ -19,8 +19,8 @@ final class WKDonateViewModelTests: XCTestCase {
         controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
-                self.paymentMethods = controller.paymentMethods
-                self.donateConfig = controller.donateConfig
+                self.paymentMethods = WKDonateDataController.paymentMethods
+                self.donateConfig = WKDonateDataController.donateConfig
                 completion(nil)
             case .failure(let error):
                 completion(error)
