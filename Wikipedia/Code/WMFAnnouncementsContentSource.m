@@ -55,6 +55,7 @@
     }
     
     [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
+    [self fetchMediaWikiBannerOptInForSiteURL:self.siteURL];
     
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force

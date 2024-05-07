@@ -6,9 +6,11 @@ import Foundation
     
     var service: WKService?
     var sharedCacheStore: WKKeyValueStore?
+    var mediaWikiService: WKService?
     
     private var activeCountryConfigs: [WKFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
+    private var preferencesBannerOptIns: [WKProject: Bool] = [:]
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -16,9 +18,10 @@ import Foundation
     
     // MARK: - Lifecycle
     
-    private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore) {
+    private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore, mediaWikiService: WKService? = WKDataEnvironment.current.mediaWikiService) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
+        self.mediaWikiService = mediaWikiService
     }
     
     @objc(sharedInstance)
@@ -140,6 +143,46 @@ import Foundation
                 completion(.failure(error))
             }
         }
+    }
+    
+    public func fetchMediaWikiBannerOptIn(project: WKProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        guard let mediaWikiService else {
+            completion?(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            completion?(.failure(WKDataControllerError.failureCreatingRequestURL))
+            return
+        }
+        
+        let parameters: [String: Any] = [
+            "action": "query",
+            "meta": "userinfo",
+            "uiprop": "options",
+            "format": "json"
+        ]
+        
+        let request = WKMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        
+        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
+            switch result {
+            case .success(let dict):
+                if let query = dict?["query"] as? [String: Any],
+                   let userInfo = query["userinfo"] as? [String: Any],
+                   let options = userInfo["options"] as? [String: Any],
+                   let fundraising = options["centralnotice-display-campaign-type-fundraising"] as? Bool {
+                    // TODO: thread safety
+                    self.preferencesBannerOptIns[project] = fundraising
+                }
+                
+                completion?(.success(()))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+        
+        mediaWikiService.perform(request: request, completion: completion)
     }
     
     // MARK: - Internal
