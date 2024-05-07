@@ -14,13 +14,14 @@ final class WKDonateViewModelTests: XCTestCase {
         WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         
-        let controller = WKDonateDataController()
+        let controller = WKDonateDataController.shared
         
         controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
-                self.paymentMethods = WKDonateDataController.paymentMethods
-                self.donateConfig = WKDonateDataController.donateConfig
+                let data = controller.loadConfigs()
+                self.paymentMethods = data.paymentMethods
+                self.donateConfig = data.donateConfig
                 completion(nil)
             case .failure(let error):
                 completion(error)

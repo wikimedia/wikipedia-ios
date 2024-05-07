@@ -5,11 +5,11 @@ import Contacts
     
     // MARK: - Properties
     
-    private let service = WKDataEnvironment.current.basicService
-    private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
+    var service: WKService?
+    var sharedCacheStore: WKKeyValueStore?
     
-    static var donateConfig: WKDonateConfig?
-    static var paymentMethods: WKPaymentMethods?
+    private var donateConfig: WKDonateConfig?
+    private var paymentMethods: WKPaymentMethods?
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
@@ -17,18 +17,22 @@ import Contacts
     
     // MARK: - Lifecycle
     
-    public override init() {
-        
-    }
+    @objc(sharedInstance)
+    public static let shared = WKDonateDataController()
+    
+    private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore) {
+       self.service = service
+        self.sharedCacheStore = sharedCacheStore
+   }
     
     // MARK: - Public
     
     public func loadConfigs() -> (donateConfig: WKDonateConfig?, paymentMethods: WKPaymentMethods?) {
         
         // First pull from memory
-        guard Self.donateConfig == nil,
-              Self.paymentMethods == nil else {
-            return (Self.donateConfig, Self.paymentMethods)
+        guard donateConfig == nil,
+              paymentMethods == nil else {
+            return (donateConfig, paymentMethods)
         }
         
         // Fall back to persisted objects if within seven days
@@ -46,10 +50,10 @@ import Contacts
             return (nil, nil)
         }
         
-        Self.donateConfig = donateConfig
-        Self.paymentMethods = paymentMethods
+        self.donateConfig = donateConfig
+        self.paymentMethods = paymentMethods
         
-        return (Self.donateConfig, Self.paymentMethods)
+        return (self.donateConfig, self.paymentMethods)
     }
     
     @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping (Error?) -> Void) {
@@ -127,16 +131,16 @@ import Contacts
         group.notify(queue: .main) {
 
             if let firstError = errors.first {
-                Self.donateConfig = nil
-                Self.paymentMethods = nil
+                self.donateConfig = nil
+                self.paymentMethods = nil
                 completion(.failure(firstError))
                 return
             }
             
             guard var donateConfig,
                 var paymentMethods else {
-                Self.donateConfig = nil
-                Self.paymentMethods = nil
+                self.donateConfig = nil
+                self.paymentMethods = nil
                 completion(.failure(WKServiceError.unexpectedResponse))
                 return
             }
@@ -144,8 +148,8 @@ import Contacts
             donateConfig.cachedDate = Date()
             paymentMethods.cachedDate = Date()
             
-            Self.donateConfig = donateConfig
-            Self.paymentMethods = paymentMethods
+            self.donateConfig = donateConfig
+            self.paymentMethods = paymentMethods
             
             try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheDonateConfigContainerFileName, value: donateConfig)
             try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cachePaymentMethodsResponseFileName, value: paymentMethods)
@@ -222,5 +226,12 @@ import Contacts
                 completion(.failure(error))
             }
         })
+    }
+    
+    // MARK: - Internal
+    
+    func reset() {
+        donateConfig = nil
+        paymentMethods = nil
     }
 }

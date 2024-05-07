@@ -38,7 +38,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
-    vc.donateDataController = [[WKDonateDataController alloc] init];
+    vc.donateDataController = [WKDonateDataController sharedInstance];
     
     return vc;
 }
