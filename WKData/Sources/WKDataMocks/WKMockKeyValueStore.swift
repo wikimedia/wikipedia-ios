@@ -7,10 +7,6 @@ public final class WKMockKeyValueStore: WKKeyValueStore {
         self.savedObjects = [:]
     }
     
-    public func reset() {
-        self.savedObjects = [:]
-    }
-    
     private var savedObjects: [String: Codable] = [:]
     public func load<T>(key: String...) throws -> T? where T : Decodable, T : Encodable {
         let defaultsKey = key.joined(separator: ".")

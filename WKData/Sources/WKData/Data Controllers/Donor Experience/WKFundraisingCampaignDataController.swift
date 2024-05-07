@@ -5,7 +5,8 @@ import Foundation
     // MARK: - Properties
     
     var service: WKService?
-    private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
+    var sharedCacheStore: WKKeyValueStore?
+    
     private var activeCountryConfigs: [WKFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
     
@@ -15,8 +16,9 @@ import Foundation
     
     // MARK: - Lifecycle
     
-    private init(service: WKService? = WKDataEnvironment.current.basicService) {
+    private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore) {
         self.service = service
+        self.sharedCacheStore = sharedCacheStore
     }
     
     @objc(sharedInstance)
