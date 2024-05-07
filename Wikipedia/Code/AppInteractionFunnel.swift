@@ -90,12 +90,12 @@ import WMF
         logEvent(activeInterface: .setting, action: .donateStartClick)
     }
     
-    func logFundraisingCampaignModalImpression(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalImpression(project: WikimediaProject, metricsID: String?) {
         
         var actionData: [String: String]?
-        if let campaignID {
+        if let metricsID {
             actionData = [:]
-            actionData?["campaign_id"] = campaignID
+            actionData?["campaign_id"] = metricsID
         }
         
         logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
@@ -192,13 +192,13 @@ import WMF
         logEvent(activeInterface: .applePay, action: .taxInfoClick, project: project)
     }
     
-    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String?, project: WikimediaProject?) {
+    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, metricsID: String?, donorEmail: String?, project: WikimediaProject?) {
         var actionData = ["preset_selected": String(presetIsSelected),
                           "donation_amount": (amount as NSNumber).stringValue,
                           "recurring": String(recurringMonthlyIsSelected),
                           "pay_method": "applepay"]
-        if let campaignID {
-            actionData["campaign_id"] = campaignID
+        if let metricsID {
+            actionData["campaign_id"] = metricsID
         }
         
         if let donorEmail {
@@ -238,11 +238,11 @@ import WMF
         logEvent(activeInterface: .webPayInitiated, action: .impression, project: project)
     }
     
-    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, campaignBannerID: String?) {
+    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignBannerID {
+        if let metricsID {
             actionData = [:]
-            actionData?["campaign_id"] = campaignBannerID
+            actionData?["campaign_id"] = metricsID
         }
         logEvent(activeInterface: .webPayProcessed, action: .impression, actionData: actionData, project: project)
     }
