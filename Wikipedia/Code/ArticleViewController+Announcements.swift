@@ -11,7 +11,7 @@ extension ArticleViewController {
         if let countryCode = Locale.current.regionCode,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wkProject = wikimediaProject.wkProject,
-           let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
+           let activeCampaignAsset = WKFundraisingCampaignDataController.shared.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
             return
         }
@@ -21,7 +21,7 @@ extension ArticleViewController {
         
         AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, campaignID: asset.utmSource)
         
-        let dataController = WKFundraisingCampaignDataController()
+        let dataController = WKFundraisingCampaignDataController.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
         

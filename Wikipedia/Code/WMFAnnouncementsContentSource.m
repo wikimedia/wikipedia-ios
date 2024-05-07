@@ -24,7 +24,7 @@
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession: userDataStore.session configuration: userDataStore.configuration];
-        self.fundraisingCampaignDataController = [[WKFundraisingCampaignDataController alloc] init];
+        self.fundraisingCampaignDataController = [WKFundraisingCampaignDataController sharedInstance];
         self.donateDataController = [[WKDonateDataController alloc] init];
     }
     return self;

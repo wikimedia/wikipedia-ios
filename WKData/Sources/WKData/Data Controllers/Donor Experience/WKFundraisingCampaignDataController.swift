@@ -4,9 +4,10 @@ import Foundation
     
     // MARK: - Properties
     
-    private let service = WKDataEnvironment.current.basicService
+    var service: WKService?
     private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     private var activeCountryConfigs: [WKFundraisingCampaignConfig] = []
+    private var promptState: WKFundraisingCampaignPromptState?
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -14,9 +15,12 @@ import Foundation
     
     // MARK: - Lifecycle
     
-    public override init() {
-        
+    private init(service: WKService? = WKDataEnvironment.current.basicService) {
+        self.service = service
     }
+    
+    @objc(sharedInstance)
+    public static let shared = WKFundraisingCampaignDataController()
     
     // MARK: - Public
     
@@ -31,6 +35,7 @@ import Foundation
         let nextDayMidnight = Calendar.current.startOfDay(for: oneDayLater)
         let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: false, maybeLaterDate: nextDayMidnight)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
+        self.promptState = promptState
     }
 
     
@@ -53,6 +58,7 @@ import Foundation
     public func markAssetAsPermanentlyHidden(asset: WKFundraisingCampaignConfig.WKAsset) {
         let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: true, maybeLaterDate: nil)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
+        self.promptState = promptState
     }
     
     /// Load actively running campaign text. This method automatically filters out campaigns that:
@@ -69,6 +75,10 @@ import Foundation
     public func loadActiveCampaignAsset(countryCode: String, wkProject: WKProject, currentDate: Date) -> WKFundraisingCampaignConfig.WKAsset? {
         
         guard activeCountryConfigs.isEmpty else {
+            
+            // re-filter activeCountryConfigs in case campaigns have ended
+            self.activeCountryConfigs = activeCountryConfigs(from: activeCountryConfigs, currentDate: currentDate)
+            
             return queuedActiveLanguageSpecificAsset(languageCode: wkProject.languageCode, languageVariantCode: wkProject.languageVariantCode, currentDate: currentDate)
         }
         
@@ -130,6 +140,13 @@ import Foundation
         }
     }
     
+    // MARK: - Internal
+    
+    func reset() {
+        activeCountryConfigs = []
+        promptState = nil
+    }
+    
     // MARK: - Private
     
     private func queuedActiveLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?, currentDate: Date) -> WKFundraisingCampaignConfig.WKAsset? {
@@ -137,9 +154,8 @@ import Foundation
         guard let asset = activeLanguageSpecificAsset(languageCode: languageCode, languageVariantCode: languageVariantCode) else {
             return nil
         }
-                
-        if let promptState: WKFundraisingCampaignPromptState = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePromptStateFileName) {
-            
+        
+        let validateAsset: ((WKFundraisingCampaignConfig.WKAsset, WKFundraisingCampaignPromptState) -> WKFundraisingCampaignConfig.WKAsset?) = { asset, promptState in
             guard promptState.campaignID == asset.id else {
                 return asset
             }
@@ -160,8 +176,14 @@ import Foundation
             
             return asset
         }
-        
-        return asset
+         
+        if let promptState {
+            return validateAsset(asset, promptState)
+        } else if let promptState: WKFundraisingCampaignPromptState = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePromptStateFileName) {
+            return validateAsset(asset, promptState)
+        } else {
+            return asset
+        }
     }
     
     private func activeLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?) -> WKFundraisingCampaignConfig.WKAsset? {
@@ -180,6 +202,26 @@ import Foundation
         }
         
         return nil
+    }
+    
+    private func activeCountryConfigs(from currentConfigs: [WKFundraisingCampaignConfig], currentDate: Date) -> [WKFundraisingCampaignConfig] {
+        
+        var configs: [WKFundraisingCampaignConfig] = []
+        currentConfigs.forEach { config in
+            
+            guard let firstAsset = config.assets.values.first else {
+                return
+            }
+            
+            
+            guard (firstAsset.startDate...firstAsset.endDate).contains(currentDate) else {
+                return
+            }
+            
+            configs.append(config)
+        }
+        
+        return configs
     }
     
     private func activeCountryConfigs(from response: WKFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WKFundraisingCampaignConfig] {
@@ -215,7 +257,7 @@ import Foundation
                     return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
 
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, endDate: endDate, languageCode: key)
+                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
                 assets[key] = asset
             }
             
