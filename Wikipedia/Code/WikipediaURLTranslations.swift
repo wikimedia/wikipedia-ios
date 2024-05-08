@@ -18,11 +18,11 @@ struct WikipediaURLTranslations {
     
     static func commonNamespace(for namespaceString: String, in languageCode: String) -> PageNamespace? {
         let canonicalNamespace = canonicalized(namespaceString)
-        return lookupTable(for: languageCode)?.namespace[canonicalNamespace]
+        return lookupTable(for: languageCode)?.namespaceInfo.namespace[canonicalNamespace]
     }
     
     static func isMainpageTitle(_ maybeMainpage: String, in languageCode: String) -> Bool {
-        return lookupTable(for: languageCode)?.mainpage == canonicalized(maybeMainpage)
+        return lookupTable(for: languageCode)?.namespaceInfo.mainpage == canonicalized(maybeMainpage)
     }
     
     static func fromFile(with languageCode: String) -> WikipediaSiteInfoLookup? {

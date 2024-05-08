@@ -115,7 +115,7 @@ class WikipediaLanguageCommandLineUtility {
         if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
             recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))
         }
-        let namespace = WikipediaSiteInfoLookup.Namespace(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
-        return WikipediaSiteInfoLookup(namespace: namespace, magicWords: recognizedMagicWords)
+        let namespaceInfo = WikipediaSiteInfoLookup.NamespaceInfo(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
+        return WikipediaSiteInfoLookup(namespaceInfo: namespaceInfo, magicWordInfo: recognizedMagicWords)
     }
 }
