@@ -276,47 +276,12 @@ final class InsertMediaSettingsViewController: ViewController {
 
     @objc private func tappedProgress(_ sender: UIBarButtonItem) {
         let searchResult = searchResult
-        let wikitext: String
-        var captionToSend: String?
-        var altTextToSend: String?
         
-        let fileTitle = localizedFileTitle(searchResult: searchResult)
+        let info = Self.imageInsertInfo(searchResult: searchResult, settings: settings, siteURL: siteURL)
         
-        guard let mediaSettings = settings else {
-            wikitext = "[[\(fileTitle)]]"
-            delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
-            return
-        }
-        
-        var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
-        let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition)
-        let altTextFormat = localizedAltTextFormat()
-        
-        let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
-        imageTypeName = imageTypeName == InsertMediaSettings.Advanced.ImageType.basic.rawValue ? "" : " | \(imageTypeName)"
-        
-        switch (mediaSettings.caption, mediaSettings.alternativeText) {
-        case (let caption?, let alternativeText?):
-            wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(String.localizedStringWithFormat(altTextFormat, alternativeText)) | \(caption)]]
-            """
-            captionToSend = caption
-            altTextToSend = alternativeText
-        case (let caption?, nil):
-            wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
-            """
-            captionToSend = caption
-        case (nil, let alternativeText?):
-            wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) |  \(String.localizedStringWithFormat(altTextFormat, alternativeText))]]
-            """
-            altTextToSend = alternativeText
-        default:
-            wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName)]]
-            """
-        }
+        let wikitext = info.wikitext
+        let captionToSend = info.caption
+        let altTextToSend = info.altText
         
         delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
     }
@@ -365,7 +330,57 @@ final class InsertMediaSettingsViewController: ViewController {
         WMFAlertManager.sharedInstance.dismissAllAlerts()
     }
     
-    private func localizedFileTitle(searchResult: InsertMediaSearchResult) -> String {
+    typealias Wikitext = String
+    typealias Caption = String
+    typealias AltText = String
+    
+    static func imageInsertInfo(searchResult: InsertMediaSearchResult, settings: InsertMediaSettings?, siteURL: URL) -> (wikitext: Wikitext, caption: Caption?, altText: AltText?) {
+        
+        let fileTitle = localizedFileTitle(searchResult: searchResult, siteURL: siteURL)
+        var wikitext: String
+        var captionToSend: String?
+        var altTextToSend: String?
+        
+        guard let mediaSettings = settings else {
+            wikitext = "[[\(fileTitle)]]"
+            return (wikitext, nil, nil)
+        }
+        
+        var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType, siteURL: siteURL)
+        let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition, siteURL: siteURL)
+        let altTextFormat = localizedAltTextFormat(siteURL: siteURL)
+        
+        let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
+        imageTypeName = imageTypeName == InsertMediaSettings.Advanced.ImageType.basic.rawValue ? "" : " | \(imageTypeName)"
+        
+        switch (mediaSettings.caption, mediaSettings.alternativeText) {
+        case (let caption?, let alternativeText?):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(String.localizedStringWithFormat(altTextFormat, alternativeText)) | \(caption)]]
+            """
+            captionToSend = caption
+            altTextToSend = alternativeText
+        case (let caption?, nil):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
+            """
+            captionToSend = caption
+        case (nil, let alternativeText?):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) |  \(String.localizedStringWithFormat(altTextFormat, alternativeText))]]
+            """
+            altTextToSend = alternativeText
+        default:
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName)]]
+            """
+        }
+        
+        return (wikitext, captionToSend, altTextToSend)
+        
+    }
+    
+    private static func localizedFileTitle(searchResult: InsertMediaSearchResult, siteURL: URL) -> String {
         guard let languageCode = siteURL.wmf_languageCode,
               searchResult.fileTitle.hasPrefix("File:") else {
             return searchResult.fileTitle
@@ -380,7 +395,7 @@ final class InsertMediaSettingsViewController: ViewController {
         return "\(magicWord):\(clippedTitle)"
     }
     
-    private func localizedImageTypeName(imageType: InsertMediaImageTypeSettingsViewController.ImageType) -> String {
+    private static func localizedImageTypeName(imageType: InsertMediaImageTypeSettingsViewController.ImageType, siteURL: URL) -> String {
         guard let languageCode = siteURL.wmf_languageCode else {
             return imageType.rawValue
         }
@@ -404,7 +419,7 @@ final class InsertMediaSettingsViewController: ViewController {
         return magicWord
     }
     
-    private func localizedImagePositionName(imagePosition: InsertMediaImageTypeSettingsViewController.ImagePosition) -> String {
+    private static func localizedImagePositionName(imagePosition: InsertMediaImageTypeSettingsViewController.ImagePosition, siteURL: URL) -> String {
         guard let languageCode = siteURL.wmf_languageCode else {
             return imagePosition.rawValue
         }
@@ -428,7 +443,7 @@ final class InsertMediaSettingsViewController: ViewController {
         return magicWord
     }
     
-    private func localizedAltTextFormat() -> String {
+    private static func localizedAltTextFormat(siteURL: URL) -> String {
         let enFormat = "alt=%@"
         guard let languageCode = siteURL.wmf_languageCode else {
             return enFormat
