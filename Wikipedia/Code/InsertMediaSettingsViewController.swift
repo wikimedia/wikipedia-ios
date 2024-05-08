@@ -290,6 +290,7 @@ final class InsertMediaSettingsViewController: ViewController {
         
         var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
         let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition)
+        let altTextFormat = localizedAltTextFormat()
         
         let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
         imageTypeName = imageTypeName == InsertMediaSettings.Advanced.ImageType.basic.rawValue ? "" : " | \(imageTypeName)"
@@ -297,7 +298,7 @@ final class InsertMediaSettingsViewController: ViewController {
         switch (mediaSettings.caption, mediaSettings.alternativeText) {
         case (let caption?, let alternativeText?):
             wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(String.localizedStringWithFormat(altTextFormat, alternativeText)) | \(caption)]]
             """
             captionToSend = caption
             altTextToSend = alternativeText
@@ -308,7 +309,7 @@ final class InsertMediaSettingsViewController: ViewController {
             captionToSend = caption
         case (nil, let alternativeText?):
             wikitext = """
-            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) |  \(String.localizedStringWithFormat(altTextFormat, alternativeText))]]
             """
             altTextToSend = alternativeText
         default:
@@ -425,6 +426,19 @@ final class InsertMediaSettingsViewController: ViewController {
         }
              
         return magicWord
+    }
+    
+    private func localizedAltTextFormat() -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
     }
 
     // MARK: - Themeable
