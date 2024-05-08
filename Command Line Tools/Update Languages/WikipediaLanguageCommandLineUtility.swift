@@ -85,8 +85,8 @@ class WikipediaLanguageCommandLineUtility {
             .sink(receiveCompletion: { (result) in
                 completion()
             }) { (siteInfoTuple) in
-                self.writeCodable(siteInfoTuple.0.namespace, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
-                self.writeCodable(siteInfoTuple.0.magicWords, to: ["Wikipedia", "Code", "wikipedia-magicwords", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.namespaceInfo, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.magicWordInfo, to: ["Wikipedia", "Code", "wikipedia-magicwords", "\(siteInfoTuple.1.languageCode).json"])
             }
     }
     
