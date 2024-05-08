@@ -727,6 +727,7 @@
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
+		67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */; };
 		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */; };
 		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
@@ -3393,6 +3394,7 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
+		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
 		67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheDBWriter.swift; sourceTree = "<group>"; };
 		67A6F13923BFEA0400736539 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
@@ -6415,6 +6417,15 @@
 			name = "Article Tests";
 			sourceTree = "<group>";
 		};
+		67A486A62BEC0055001D3FF9 /* Magic Words */ = {
+			isa = PBXGroup;
+			children = (
+				67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */,
+				67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */,
+			);
+			name = "Magic Words";
+			sourceTree = "<group>";
+		};
 		67A6F13423BFB4E700736539 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -8448,7 +8459,6 @@
 				D813FDA41EC34B2600FA4690 /* WMFArticle+Extensions.swift */,
 				831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */,
 				7A4170D8229EFC2A00251582 /* PageNamespace.swift */,
-				67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */,
 				83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */,
 				D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */,
 				D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */,
@@ -8533,6 +8543,7 @@
 		D8FA18A91E1BD84D009675C3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				67A486A62BEC0055001D3FF9 /* Magic Words */,
 				7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */,
 				7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */,
 				D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */,
@@ -10884,6 +10895,7 @@
 				83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */,
 				83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
+				67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */,
 				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */,
