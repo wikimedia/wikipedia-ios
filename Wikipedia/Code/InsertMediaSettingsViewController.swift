@@ -288,30 +288,32 @@ final class InsertMediaSettingsViewController: ViewController {
             return
         }
         
-        let imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
+        var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
         let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition)
+        
         let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
+        imageTypeName = imageTypeName == InsertMediaSettings.Advanced.ImageType.basic.rawValue ? "" : " | \(imageTypeName)"
         
         switch (mediaSettings.caption, mediaSettings.alternativeText) {
         case (let caption?, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
             """
             captionToSend = caption
             altTextToSend = alternativeText
         case (let caption?, nil):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
             """
             captionToSend = caption
         case (nil, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText)]]
             """
             altTextToSend = alternativeText
         default:
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName)]]
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName)]]
             """
         }
         
