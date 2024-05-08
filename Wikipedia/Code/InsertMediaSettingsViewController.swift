@@ -1,5 +1,6 @@
 import UIKit
 import WKData
+import WMF
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
@@ -25,6 +26,7 @@ final class InsertMediaSettingsViewController: ViewController {
     private let image: UIImage
 
     let searchResult: InsertMediaSearchResult
+    let siteURL: URL
     private var nextButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
@@ -228,12 +230,13 @@ final class InsertMediaSettingsViewController: ViewController {
         return notifier
     }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme, siteURL: URL) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
         self.delegate = delegate
         self.imageRecLoggingDelegate = imageRecLoggingDelegate
+        self.siteURL = siteURL
         super.init()
         self.theme = theme
     }
@@ -272,30 +275,33 @@ final class InsertMediaSettingsViewController: ViewController {
         let wikitext: String
         var captionToSend: String?
         var altTextToSend: String?
+        
+        let fileTitle = localizedFileNamespaceName(searchResult: searchResult)
+        
         switch settings {
         case nil:
-            wikitext = "[[\(searchResult.fileTitle)]]"
+            wikitext = "[[\(fileTitle)]]"
         case let mediaSettings?:
             switch (mediaSettings.caption, mediaSettings.alternativeText) {
             case (let caption?, let alternativeText?):
                 wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
+                [[\(fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
                 """
                 captionToSend = caption
                 altTextToSend = alternativeText
             case (let caption?, nil):
                 wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
+                [[\(fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
                 """
                 captionToSend = caption
             case (nil, let alternativeText?):
                 wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
+                [[\(fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
                 """
                 altTextToSend = alternativeText
             default:
                 wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
+                [[\(fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
                 """
             }
         }
@@ -344,6 +350,21 @@ final class InsertMediaSettingsViewController: ViewController {
 
     private func hideOfflineAlertIfNeeded() {
         WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
+    
+    private func localizedFileNamespaceName(searchResult: InsertMediaSearchResult) -> String {
+        guard let languageCode = siteURL.wmf_languageCode,
+              searchResult.fileTitle.hasPrefix("File:") else {
+            return searchResult.fileTitle
+        }
+        
+        let clippedTitle = searchResult.fileTitle.dropFirst(5)
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.fileNamespace, languageCode: languageCode) else {
+            return searchResult.fileTitle
+        }
+             
+        return "\(magicWord):\(clippedTitle)"
     }
 
     // MARK: - Themeable
