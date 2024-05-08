@@ -285,27 +285,28 @@ final class InsertMediaSettingsViewController: ViewController {
         }
         
         let imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
+        let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition)
         
         switch (mediaSettings.caption, mediaSettings.alternativeText) {
         case (let caption?, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
+            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
             """
             captionToSend = caption
             altTextToSend = alternativeText
         case (let caption?, nil):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
+            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | \(caption)]]
             """
             captionToSend = caption
         case (nil, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
+            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | alt= \(alternativeText)]]
             """
             altTextToSend = alternativeText
         default:
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
+            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName)]]
             """
         }
         
@@ -390,6 +391,30 @@ final class InsertMediaSettingsViewController: ViewController {
         
         guard let magicWord = MagicWordUtils.getMagicWordForKey(key, languageCode: languageCode) else {
             return imageType.rawValue
+        }
+             
+        return magicWord
+    }
+    
+    private func localizedImagePositionName(imagePosition: InsertMediaImageTypeSettingsViewController.ImagePosition) -> String {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return imagePosition.rawValue
+        }
+        
+        let key: MagicWordKey
+        switch imagePosition {
+        case .center:
+            key = .imageCenter
+        case .left:
+            key = .imageLeft
+        case .right:
+            key = .imageRight
+        case .none:
+            key = .imageNone
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(key, languageCode: languageCode) else {
+            return imagePosition.rawValue
         }
              
         return magicWord
