@@ -107,11 +107,15 @@ final class InsertMediaSettingsViewController: ViewController {
                 static var displayTitle: String {
                     return WMFLocalizedString("insert-media-image-size-settings-title", value: "Image size", comment: "Display ritle for image size setting")
                 }
+                
+                static var defaultSize: String {
+                    "\(ImageSize.defaultWidth)x\(ImageSize.defaultHeight)px"
+                }
 
                 var rawValue: String {
                     switch self {
                     case .default:
-                        return "\(ImageSize.defaultWidth)x\(ImageSize.defaultHeight)px"
+                        return Self.defaultSize
                     case .custom(let width, let height):
                         return "\(width)x\(height)px"
                     }
@@ -286,27 +290,28 @@ final class InsertMediaSettingsViewController: ViewController {
         
         let imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType)
         let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition)
+        let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
         
         switch (mediaSettings.caption, mediaSettings.alternativeText) {
         case (let caption?, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
+            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText) | \(caption)]]
             """
             captionToSend = caption
             altTextToSend = alternativeText
         case (let caption?, nil):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | \(caption)]]
+            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
             """
             captionToSend = caption
         case (nil, let alternativeText?):
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName) | alt= \(alternativeText)]]
+            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName) | alt= \(alternativeText)]]
             """
             altTextToSend = alternativeText
         default:
             wikitext = """
-            [[\(fileTitle) | \(imageTypeName) | \(mediaSettings.advanced.imageSize.rawValue) | \(imagePositionName)]]
+            [[\(fileTitle) | \(imageTypeName)\(imageSize) | \(imagePositionName)]]
             """
         }
         
