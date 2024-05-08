@@ -6415,13 +6415,6 @@
 			name = "Article Tests";
 			sourceTree = "<group>";
 		};
-		67A486A22BEBE923001D3FF9 /* Magic Words */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Magic Words";
-			sourceTree = "<group>";
-		};
 		67A6F13423BFB4E700736539 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -7487,7 +7480,6 @@
 		BC45D58B1C32FC15007C72F3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				67A486A22BEBE923001D3FF9 /* Magic Words */,
 				67DB110822613EF700F789B0 /* SchemeHandler */,
 				04C43AB7183442FC006C643B /* Categories */,
 				83ACAAA024E6E371003B3035 /* Wikipedia */,
