@@ -1,0 +1,82 @@
+[
+  {
+    "aliases" : [
+      "ortağa",
+      "orta",
+      "ортаға",
+      "орта",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "sürmeli",
+      "сүрмелі",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sürmesiz",
+      "сүрмесіз",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "solğa",
+      "sol",
+      "солға",
+      "сол",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "eşqandaý",
+      "joq",
+      "ешқандай",
+      "жоқ",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "oñğa",
+      "oñ",
+      "оңға",
+      "оң",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "nobaý",
+      "нобай",
+      "thumbnail",
+      "thumb"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fayl"
+    ],
+    "name" : "file_namespace"
+  }
+]

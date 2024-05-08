@@ -1,0 +1,84 @@
+[
+  {
+    "aliases" : [
+      "gasku",
+      "center",
+      "centre",
+      "sentrer",
+      "senter",
+      "midtstilt",
+      "keski",
+      "keskitetty"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "gurut",
+      "left",
+      "venstre",
+      "vasen"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "olgeš",
+      "right",
+      "høyre",
+      "oikea"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "mini",
+      "thumb",
+      "thumbnail",
+      "miniatyr",
+      "pienoiskuva",
+      "pienois"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "ramme",
+      "framed",
+      "enframed",
+      "frame",
+      "kehys",
+      "kehystetty"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "rammeløs",
+      "ingenramme",
+      "frameless",
+      "kehyksetön"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "ingen",
+      "none",
+      "tyhjä"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fiila"
+    ],
+    "name" : "file_namespace"
+  }
+]
