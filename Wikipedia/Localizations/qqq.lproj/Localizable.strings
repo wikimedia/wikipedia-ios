@@ -256,7 +256,7 @@
 "donate-accessibility-textfield-hint" = "Accessibility hint on donate form custom amount textfield for screen readers.";
 "donate-accessibility-transaction-fee-hint" = "Accessibility hint on donate form transaction fee checkbox for screen readers.";
 "donate-already-donated" = "Thank you toast shown when user clicks already donated on fundraising banner";
-"donate-apple-fine-print" = "Fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.";
+"donate-apple-fine-print" = "Apple fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.";
 "donate-email-opt-in-text" = "Text next to email opt-in checkbox on donate form.";
 "donate-help-frequently-asked-questions" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-help-other-ways-to-give" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
@@ -274,6 +274,8 @@
 "donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";
 "donate-transaction-fee-opt-in-text" = "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * $1 - transaction fee amount. Please leave %% unchanged for proper formatting.";
+"donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url.";
+"donate-wikimedia-fine-print-2" = "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
 "edit-link-remove-link-title" = "Title for the remove link button";

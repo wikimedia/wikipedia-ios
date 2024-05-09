@@ -29,6 +29,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let helpLinkFrequentlyAskedQuestions: String
         public let helpLinkTaxDeductibilityInformation: String
         public let appleFinePrint: String
+        public let wikimediaFinePrint1: String
+        public let wikimediaFinePrint2: String
         public let accessibilityAmountButtonHint: String
         public let accessibilityTextfieldHint: String
         public let accessibilityTransactionFeeHint: String
@@ -37,7 +39,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
             self.doneTitle = doneTitle
             self.transactionFeeOptInText = transactionFeeOptInText
@@ -51,6 +53,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
             self.helpLinkFrequentlyAskedQuestions = helpLinkFrequentlyAskedQuestions
             self.helpLinkTaxDeductibilityInformation = helpLinkTaxDeductibilityInformation
             self.appleFinePrint = appleFinePrint
+            self.wikimediaFinePrint1 = wikimediaFinePrint1
+            self.wikimediaFinePrint2 = wikimediaFinePrint2
             self.accessibilityAmountButtonHint = accessibilityAmountButtonHint
             self.accessibilityTextfieldHint = accessibilityTextfieldHint
             self.accessibilityTransactionFeeHint = accessibilityTransactionFeeHint

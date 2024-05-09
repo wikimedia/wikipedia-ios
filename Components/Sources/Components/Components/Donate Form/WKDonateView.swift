@@ -70,11 +70,14 @@ struct WKDonateView: View {
                 }
                 
                 Group {
-                    WKAppleFinePrint(viewModel: viewModel)
+                    VStack(alignment: .leading, spacing: 15) {
+                        WKAppleFinePrint(viewModel: viewModel)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2)
+                    }
                     Spacer()
                         .frame(height: 40)
                     WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
-                    
                     Spacer()
                 }
             }
@@ -263,6 +266,32 @@ private struct WKAppleFinePrint: View {
             Text(viewModel.localizedStrings.appleFinePrint)
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                 .font(Font(WKFont.for(.caption1)))
+            Spacer()
+        }
+    }
+}
+
+private struct WKWikimediaFinePrint: View {
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    let text: String
+    
+    var attributedString: AttributedString? {
+        if let finePrint = try? AttributedString(markdown: text, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+            return finePrint
+        }
+        
+        return AttributedString(text)
+    }
+    
+    var body: some View {
+        HStack {
+            
+            if let attributedString {
+                Text(attributedString)
+                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                    .font(Font(WKFont.for(.caption1)))
+            }
+            
             Spacer()
         }
     }
