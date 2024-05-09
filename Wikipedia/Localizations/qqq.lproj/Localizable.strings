@@ -274,7 +274,7 @@
 "donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";
 "donate-transaction-fee-opt-in-text" = "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * $1 - transaction fee amount. Please leave %% unchanged for proper formatting.";
-"donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url.";
+"donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url. $1 is replaced by the localized donor policy link.";
 "donate-wikimedia-fine-print-2" = "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
