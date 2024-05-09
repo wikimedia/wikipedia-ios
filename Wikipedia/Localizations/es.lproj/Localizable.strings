@@ -522,8 +522,8 @@
 "image-rec-tooltip-3-body" = "Decida si la imagen ayuda a los lectores a entender mejor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artículo";
+"image-recommendations-email-fifth-line" = "[Capturas de pantalla o enlaces]";
 "image-recommendations-email-first-line" = "Encontré un problema con la función Agregar una imagen de ediciones sugeridas:";
-"image-recommendations-email-fifth-line" = "- [Capturas de pantalla o enlaces]";
 "image-recommendations-email-fourth-line" = "- [Describir la solución propuesta]";
 "image-recommendations-email-second-line" = "- [Describa el problema específico]";
 "image-recommendations-email-third-line" = "El comportamiento que me gustaría ver es:";
