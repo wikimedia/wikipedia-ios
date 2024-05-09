@@ -72,8 +72,8 @@ struct WKDonateView: View {
                 Group {
                     VStack(alignment: .leading, spacing: 15) {
                         WKAppleFinePrint(viewModel: viewModel)
-                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1)
-                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1, isAttributed: true)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2, isAttributed: false)
                     }
                     Spacer()
                         .frame(height: 40)
@@ -274,6 +274,7 @@ private struct WKAppleFinePrint: View {
 private struct WKWikimediaFinePrint: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     let text: String
+    let isAttributed: Bool
     
     var attributedString: AttributedString? {
         if let finePrint = try? AttributedString(markdown: text, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
@@ -283,14 +284,22 @@ private struct WKWikimediaFinePrint: View {
         return AttributedString(text)
     }
     
+    @ViewBuilder
+    var contentView: some View {
+        if isAttributed,
+           let attributedString {
+            Text(attributedString)
+        } else {
+            Text(text)
+        }
+    }
+    
     var body: some View {
         HStack {
             
-            if let attributedString {
-                Text(attributedString)
-                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
-                    .font(Font(WKFont.for(.caption1)))
-            }
+            contentView
+                .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                .font(Font(WKFont.for(.caption1)))
             
             Spacer()
         }
