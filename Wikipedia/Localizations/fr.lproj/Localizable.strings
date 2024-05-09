@@ -610,11 +610,11 @@
 "image-rec-tooltip-3-body" = "Déterminez si l'image aide les lecteurs à mieux comprendre ce sujet.";
 "image-rec-tooltip-3-title" = "Décider";
 "image-rec-view-article" = "Afficher l’article";
+"image-recommendations-email-fifth-line" = "[Captures d'écran ou liens]";
 "image-recommendations-email-first-line" = "J'ai rencontré un problème avec les modifications suggérées par la fonctionnalité « Ajouter une image » :";
-"image-recommendations-email-fifth-line" = "- [Captures d'écran ou liens]";
 "image-recommendations-email-fourth-line" = "- [Décrire la solution proposée]";
 "image-recommendations-email-second-line" = "- [Décrire le problème spécifique]";
-"image-recommendations-email-third-line" = "Le comportement que je souhaiterais voir :";
+"image-recommendations-email-third-line" = "Le comportement que je souhaiterais voir est :";
 "image-recommendations-email-title" = "Signalement de problème – Fonctionnalité « Ajouter une image »";
 "image-recs-no-title" = "Non";
 "image-recs-not-sure-title" = "Pas sûr(e)";

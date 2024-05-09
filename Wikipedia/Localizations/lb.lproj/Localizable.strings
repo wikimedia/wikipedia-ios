@@ -387,6 +387,8 @@
 "insert-media-image-preview-select-image-action-title" = "Bild eraussichen";
 "insert-media-image-size-setting-custom" = "Personaliséiert";
 "insert-media-image-size-setting-default" = "Standard";
+"insert-media-image-size-settings-measure-height" = "Héicht";
+"insert-media-image-size-settings-measure-width" = "Breet";
 "insert-media-image-size-settings-px-unit-name" = "Px";
 "insert-media-image-size-settings-title" = "Gréisst vum Bild";
 "insert-media-image-type-setting-basic" = "Einfach";
