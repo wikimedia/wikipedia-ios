@@ -2,6 +2,21 @@ import Foundation
 
 @objc final public class WKFundraisingCampaignDataController: NSObject {
     
+    private actor SafeDictionary<Key: Hashable, Value> {
+        private var dictionary: [Key: Value]
+        init(dict: [Key: Value] = [Key: Value]()) {
+            self.dictionary = dict
+        }
+        
+        func getValue(forKey key: Key) -> Value? {
+            dictionary[key]
+        }
+        
+        func update(value: Value, forKey key: Key) {
+            dictionary[key] = value
+        }
+    }
+    
     // MARK: - Properties
     
     var service: WKService?
@@ -10,7 +25,7 @@ import Foundation
     
     private var activeCountryConfigs: [WKFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
-    private var preferencesBannerOptIns: [WKProject: Bool] = [:]
+    private var preferencesBannerOptIns: SafeDictionary<WKProject, Bool> = SafeDictionary<WKProject, Bool>()
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -28,6 +43,10 @@ import Foundation
     public static let shared = WKFundraisingCampaignDataController()
     
     // MARK: - Public
+    
+    public func isOptedIn(project: WKProject) async -> Bool {
+        return await preferencesBannerOptIns.getValue(forKey: project) ?? true
+    }
     
     /// Set asset as "maybe later" in persistence, so that it can me loaded later only once the maybe later date has passed
     /// - Parameters:
@@ -168,12 +187,27 @@ import Foundation
         let completion: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success(let dict):
+                
                 if let query = dict?["query"] as? [String: Any],
                    let userInfo = query["userinfo"] as? [String: Any],
-                   let options = userInfo["options"] as? [String: Any],
-                   let fundraising = options["centralnotice-display-campaign-type-fundraising"] as? Bool {
-                    // TODO: thread safety
-                    self.preferencesBannerOptIns[project] = fundraising
+                   let options = userInfo["options"] as? [String: Any] {
+                    
+                    if options.keys.contains("centralnotice-display-campaign-type-fundraising") {
+                        
+                        if let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) {
+                            
+                            Task {
+                                await self.preferencesBannerOptIns.update(value:responseOptInFlag, forKey:project)
+                                
+                            }
+                        } else {
+                            Task {
+                                await self.preferencesBannerOptIns.update(value:false, forKey:project)
+                                
+                            }
+                        }
+                    }
+                    
                 }
                 
                 completion?(.success(()))

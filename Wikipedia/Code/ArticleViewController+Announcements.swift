@@ -7,13 +7,23 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         
-        // New Donor Experience
-        if let countryCode = Locale.current.regionCode,
+        guard let countryCode = Locale.current.regionCode,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
-           let wkProject = wikimediaProject.wkProject,
-           let activeCampaignAsset = WKFundraisingCampaignDataController.shared.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
-            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
+           let wkProject = wikimediaProject.wkProject else {
             return
+        }
+        
+        let dataController = WKFundraisingCampaignDataController.shared
+        
+        Task {
+            let isOptedIn = await dataController.isOptedIn(project: wkProject)
+            
+            guard isOptedIn,
+            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) else {
+                return
+            }
+            
+            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
     }
     
