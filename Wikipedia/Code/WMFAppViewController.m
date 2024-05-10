@@ -323,10 +323,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
+    
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:[self placesViewController]];
+    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:[self savedViewController]];
+    UINavigationController *nav4 = [[UINavigationController alloc] initWithRootViewController:[self recentArticlesViewController]];
+    UINavigationController *nav5 = [[UINavigationController alloc] initWithRootViewController:[self searchViewController]];
 
-    NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self savedViewController], [self recentArticlesViewController], [self searchViewController]];
-
-    [self setViewControllers:viewControllers animated:NO];
+    [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
     BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
@@ -783,16 +787,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
-    articleNavigationController.themeableNavigationControllerDelegate = self;
-    articleNavigationController.delegate = self;
-    articleNavigationController.interactivePopGestureRecognizer.delegate = self;
-    articleNavigationController.extendedLayoutIncludesOpaqueBars = YES;
-    [articleNavigationController setNavigationBarHidden:YES animated:NO];
-    [window setRootViewController:articleNavigationController];
+    [window setRootViewController:self];
     [window makeKeyAndVisible];
-    [articleNavigationController applyTheme:self.theme];
-    [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];

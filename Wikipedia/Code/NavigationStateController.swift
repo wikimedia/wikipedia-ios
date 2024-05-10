@@ -23,6 +23,10 @@ final class NavigationStateController: NSObject {
 
     /// Finds the topmost article from persisted NavigationState and pushes it onto navigationController
     @objc func restoreLastArticle(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
+        
+        // TODO: Bring back to work with multiple navigation controllers (1 per tab)
+        completion()
+        return
         guard navigationController.viewControllers.first is UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             completion()
