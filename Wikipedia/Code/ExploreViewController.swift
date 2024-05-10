@@ -236,6 +236,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             return
         }
         
+        // TODO: Investigate why this isn't paging
         let calendar = NSCalendar.wmf_gregorian()
         let days: Int = calendar?.wmf_days(from: lastGroupMidnightUTC, to: midnightUTC) ?? 0
         guard days < Int(WMFExploreFeedMaximumNumberOfDays) else {
@@ -1522,6 +1523,8 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
 
 extension ExploreViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        // Always show the search result controller
+        searchController.searchResultsController?.view.isHidden = false
         guard let text = searchController.searchBar.text else { return }
         print(text)
     }
