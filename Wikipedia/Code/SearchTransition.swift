@@ -28,14 +28,14 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
         toViewController.view.frame = toFinalFrame
         
         if isEnteringSearch {
-            searchViewController.prepareForIncomingTransition(with: exploreViewController.navigationBar)
+            // searchViewController.prepareForIncomingTransition(with: exploreViewController.navigationBar)
             searchViewController.nonSearchAlpha = 0
             exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
         } else {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
             exploreViewController.view.layoutIfNeeded()
-            searchViewController.prepareForOutgoingTransition(with: exploreViewController.navigationBar)
+            // searchViewController.prepareForOutgoingTransition(with: exploreViewController.navigationBar)
             exploreViewController.searchBar.alpha = 0
         }
 

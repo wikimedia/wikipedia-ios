@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import Components
 import WKData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
+class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -21,15 +21,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         navigationItem.titleView = titleView
-        navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = dataStore.authenticationManager.isLoggedIn ? .centeredLargeTitle : .largeTitle
-        navigationBar.shouldTransformUnderBarViewWithBar = true
-        navigationBar.isShadowHidingEnabled = true
 
         updateNotificationsCenterButton()
         updateSettingsButton()
-        updateNavigationBarVisibility()
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
@@ -78,7 +72,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
         
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
@@ -128,16 +121,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
             notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
             navigationItem.leftBarButtonItem = notificationsBarButton
-            navigationBar.displayType = .centeredLargeTitle
         } else {
             navigationItem.leftBarButtonItem = nil
-            navigationBar.displayType = .largeTitle
         }
-        navigationBar.updateNavigationItems()
-    }
-
-    @objc public func updateNavigationBarVisibility() {
-        navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
     }
     
     func updateSettingsButton() {
@@ -145,10 +131,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
         navigationItem.rightBarButtonItem = settingsBarButtonItem
-        navigationBar.updateNavigationItems()
     }
     
     // MARK: - NavBar
+    
+    @objc func scrollToTop() {
+        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
+    }
     
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
@@ -253,7 +242,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard let group = group(at: indexPath), group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
-            let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
+            // TODO: Test this.
+            let navBarVisibleHeight = CGFloat(0) // navigationBar.visibleHeight
+            let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navBarVisibleHeight)
             let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
             let itemCenter = CGPoint(x: itemFrame.midX, y: itemFrame.midY)
             let visibleRect = CGRect(origin: visibleRectOrigin, size: visibleRectSize)
@@ -311,9 +302,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
     
     @objc func ensureWikipediaSearchIsShowing() {
-        if self.navigationBar.underBarViewPercentHidden > 0 {
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 1, animated: true)
-        }
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     // MARK: - UISearchBarDelegate

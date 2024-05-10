@@ -235,11 +235,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(voiceOverStatusDidChange)
-                                                 name:UIAccessibilityVoiceOverStatusDidChangeNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
@@ -511,10 +506,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator = (ExploreFeedPreferencesUpdateCoordinator *)note.object;
     [exploreFeedPreferencesUpdateCoordinator coordinateUpdateFrom:self];
-}
-
-- (void)voiceOverStatusDidChange {
-    [self.exploreViewController updateNavigationBarVisibility];
 }
 
 - (void)showErrorBanner:(NSNotification *)notification {

@@ -3,11 +3,11 @@ import WKData
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
-protocol InsertMediaSettingsViewControllerDelegate: ViewController {
+protocol InsertMediaSettingsViewControllerDelegate: UIViewController {
     func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?)
 }
 
-protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
+protocol InsertMediaSettingsViewControllerLoggingDelegate: UIViewController {
     func logInsertMediaSettingsViewControllerDidAppear()
     func logInsertMediaSettingsViewControllerDidTapFileName()
     func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
