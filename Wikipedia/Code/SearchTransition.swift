@@ -30,13 +30,13 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
         if isEnteringSearch {
             // searchViewController.prepareForIncomingTransition(with: exploreViewController.navigationBar)
             searchViewController.nonSearchAlpha = 0
-            exploreViewController.searchBar.alpha = 0
+            // exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
         } else {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
             exploreViewController.view.layoutIfNeeded()
             // searchViewController.prepareForOutgoingTransition(with: exploreViewController.navigationBar)
-            exploreViewController.searchBar.alpha = 0
+            // exploreViewController.searchBar.alpha = 0
         }
 
         let duration = self.transitionDuration(using: transitionContext)
@@ -49,7 +49,7 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             })
         }) { (finished) in
             self.searchViewController.completeTransitionFromExploreFeed(enteringSearch: self.isEnteringSearch)
-            self.exploreViewController.searchBar.alpha = 1
+            // self.exploreViewController.searchBar.alpha = 1
             transitionContext.completeTransition(true)
         }
     }

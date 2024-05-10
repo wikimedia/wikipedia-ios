@@ -20,8 +20,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
-        navigationItem.titleView = titleView
-
+        setupNavigationBar()
         updateNotificationsCenterButton()
         updateSettingsButton()
 
@@ -112,6 +111,31 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             self.refresh()
         }
     }
+    
+    func setupNavigationBar() {
+        navigationItem.titleView = titleView
+        navigationController?.navigationBar.prefersLargeTitles = false
+        if #available(iOS 17.0, *) {
+            navigationItem.largeTitleDisplayMode = .inline
+        } else {
+            // Fallback on earlier versions
+        }
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnTap = true
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = true
+        search.searchBar.searchBarStyle = .minimal
+        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        navigationItem.searchController = search
+    }
 
     @objc func updateNotificationsCenterButton() {
         if self.dataStore.authenticationManager.isLoggedIn {
@@ -136,6 +160,8 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     // MARK: - NavBar
     
     @objc func scrollToTop() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        // TODO: Fix
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     
@@ -260,46 +286,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     public var wantsCustomSearchTransition: Bool {
         return true
     }
-    
-    lazy var searchBarContainerView: UIView = {
-        let searchContainerView = UIView()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchContainerView.addSubview(searchBar)
-        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
-        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
-        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
-        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
-        searchContainerView.addConstraints([leading, trailing, top, bottom])
-        return searchContainerView
-    }()
-
-    private var _scribbleIgnoringDelegate: Any? = nil
-    
-    private var scribbleIgnoringDelegate: ScribbleIgnoringInteractionDelegate? {
-        if _scribbleIgnoringDelegate == nil {
-            _scribbleIgnoringDelegate = ScribbleIgnoringInteractionDelegate()
-        }
-        return _scribbleIgnoringDelegate as? ScribbleIgnoringInteractionDelegate
-    }
-
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.returnKeyType = .search
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-
-        // Disable Scribble on this placeholder text field
-        if UIDevice.current.userInterfaceIdiom == .pad,
-        let scribbleIgnoringDelegate = scribbleIgnoringDelegate {
-            let existingInteractions = searchBar.searchTextField.interactions
-            existingInteractions.forEach { searchBar.searchTextField.removeInteraction($0) }
-            let scribbleIgnoringInteraction = UIScribbleInteraction(delegate: scribbleIgnoringDelegate)
-            searchBar.searchTextField.addInteraction(scribbleIgnoringInteraction)
-        }
-
-        return searchBar
-    }()
     
     @objc func ensureWikipediaSearchIsShowing() {
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -601,8 +587,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         updateNotificationsCenterButton()
         updateSettingsButton()
 
-        searchBar.apply(theme: theme)
-        searchBarContainerView.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
@@ -1534,4 +1518,11 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
         ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
     }
     
+}
+
+extension ExploreViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        print(text)
+    }
 }

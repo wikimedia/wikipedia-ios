@@ -319,11 +319,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
     
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:[self placesViewController]];
-    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:[self savedViewController]];
-    UINavigationController *nav4 = [[UINavigationController alloc] initWithRootViewController:[self recentArticlesViewController]];
-    UINavigationController *nav5 = [[UINavigationController alloc] initWithRootViewController:[self searchViewController]];
+    UINavigationController *nav1 = [[WMFThemeableNavigationController alloc] initWithRootViewController:mainViewController theme: self.theme];
+    UINavigationController *nav2 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self placesViewController] theme: self.theme];
+    UINavigationController *nav3 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self savedViewController] theme: self.theme];
+    UINavigationController *nav4 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self recentArticlesViewController] theme: self.theme];
+    UINavigationController *nav5 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self searchViewController] theme: self.theme];
 
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
