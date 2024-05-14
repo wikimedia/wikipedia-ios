@@ -65,14 +65,7 @@ extension ArticleViewController {
         let firstAction = asset.actions[0]
         
         let appVersion = Bundle.main.wmf_debugVersion()
-        
-        // Append app_version to donate url
-        var donateURL: URL?
-        if let assetDonateUrl = firstAction.url,
-        let appVersion {
-            let urlString = assetDonateUrl.absoluteString
-            donateURL = URL(string: "\(urlString)&app_version=\(appVersion)")
-        }
+        let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
         
         let utmSource = asset.utmSource
         
@@ -237,5 +230,26 @@ extension WKFundraisingCampaignConfig.WKAsset {
         }
         
         return utmSource
+    }
+}
+
+fileprivate extension URL {
+    func appendingAppVersion(appVersion: String?) -> URL {
+        
+        guard let appVersion,
+              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+        var queryItems = components.queryItems else {
+            return self
+        }
+        
+        
+        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            return self
+        }
+        
+        return url
     }
 }
