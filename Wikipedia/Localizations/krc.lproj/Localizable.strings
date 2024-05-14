@@ -724,7 +724,7 @@
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Кириу хапарландырыула";
 "notifications-center-mark" = "Белгиле";
-"notifications-center-mark-all-as-read" = "Окъулгъанча белгиле";
+"notifications-center-mark-all-as-read" = "Барсын да окъулгъанды деб белгиле";
 "notifications-center-mark-all-as-read-confirmation-format" = "Хапарландырыуларыгъыздагъы {{PLURAL:$1|$1 билдириуню}} окъулду деб белгилерге излегенигизге ишексизмисиз? Хапарландырыуларыгъыз, бютеу девайсларыгъызда окъулду деб бил белгиленникди.";
 "notifications-center-mark-all-as-read-missing-number" = "Бютеу хапарландырыуларыгъызны окъулду деб билгилерге излегенигизге ишексизмисиз? Хапарлдандырыуларыгъыз бютеу девайсларыгъызда окъулду деб белгиленникди.";
 "notifications-center-mark-as-read" = "Окъулмагъанды деб белгиле";
