@@ -63,11 +63,18 @@ extension ArticleViewController {
 
     private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
-        let donateURL = firstAction.url
-        
-        let utmSource = asset.utmSource
         
         let appVersion = Bundle.main.wmf_debugVersion()
+        
+        // Append app_version to donate url
+        var donateURL: URL?
+        if let assetDonateUrl = firstAction.url,
+        let appVersion {
+            let urlString = assetDonateUrl.absoluteString
+            donateURL = URL(string: "\(urlString)&app_version=\(appVersion)")
+        }
+        
+        let utmSource = asset.utmSource
         
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, appVersion: appVersion),
            let donateURL = donateURL {
