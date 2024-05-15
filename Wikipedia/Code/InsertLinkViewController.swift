@@ -34,7 +34,6 @@ class InsertLinkViewController: UIViewController {
         searchViewController.dataStore = dataStore
         searchViewController.siteURL = siteURL
         searchViewController.searchTerm = link.page
-        searchViewController.areRecentSearchesEnabled = true
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
@@ -71,8 +70,8 @@ class InsertLinkViewController: UIViewController {
     }
 }
 
-extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+extension InsertLinkViewController: ArticleCollectionViewControllerDelegate2 {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController2, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         guard let title = articleURL.wmf_title else {
             return
         }

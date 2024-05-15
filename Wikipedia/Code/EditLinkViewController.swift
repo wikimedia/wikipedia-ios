@@ -165,13 +165,8 @@ class EditLinkViewController: ViewController {
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
-        searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
-        searchViewController.shouldAdjustNavigationBarInsetHidingOnAppearance = false
         searchViewController.siteURL = siteURL
-        searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.displayType = .backVisible
-        searchViewController.areRecentSearchesEnabled = true
         searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
@@ -204,8 +199,8 @@ class EditLinkViewController: ViewController {
     }
 }
 
-extension EditLinkViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+extension EditLinkViewController: ArticleCollectionViewControllerDelegate2 {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController2, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
         self.articleURL = articleURL
         navigationController?.popViewController(animated: true)
     }

@@ -131,9 +131,9 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = true
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        definesPresentationContext = true
         navigationItem.searchController = search
     }
 
@@ -283,10 +283,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     }
     
     // MARK: - Search
-
-    public var wantsCustomSearchTransition: Bool {
-        return true
-    }
     
     @objc func ensureWikipediaSearchIsShowing() {
         navigationController?.setNavigationBarHidden(false, animated: true)
