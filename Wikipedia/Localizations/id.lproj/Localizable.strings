@@ -566,6 +566,8 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
+"image-rec-error-subtitle" = "Ada yang tidak beres.";
+"image-rec-error-title" = "Tidak dapat memuat halaman";
 "import-shared-reading-list-default-title" = "Daftar Bacaan Saya";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nanti";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ikuti survei";
@@ -593,6 +595,8 @@
 "insert-media-image-preview-select-image-action-title" = "Pilih gambar:";
 "insert-media-image-size-setting-custom" = "Ubahsuai";
 "insert-media-image-size-setting-default" = "Baku";
+"insert-media-image-size-settings-measure-height" = "Tinggi";
+"insert-media-image-size-settings-measure-width" = "Lebar";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Ukuran gambar";
 "insert-media-image-type-setting-basic" = "Dasar";

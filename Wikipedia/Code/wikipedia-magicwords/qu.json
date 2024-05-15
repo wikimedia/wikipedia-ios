@@ -1,0 +1,96 @@
+[
+  {
+    "aliases" : [
+      "wak=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "chawpi",
+      "centro",
+      "centrado",
+      "centrada",
+      "centrar",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "inchuyuq",
+      "inchu",
+      "marco",
+      "enmarcado",
+      "enmarcada",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "inchunnaq",
+      "sinmarco",
+      "sin_embarcar",
+      "sinenmarcar",
+      "sin_enmarcar",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "lluqi",
+      "ichuq",
+      "izquierda",
+      "izda",
+      "izq",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "manaima",
+      "mana",
+      "ninguna",
+      "nada",
+      "no",
+      "ninguno",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "paña",
+      "alliq",
+      "derecha",
+      "dcha",
+      "der",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "rikchacha",
+      "miniaturadeimagen",
+      "mini",
+      "miniatura",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Rikcha"
+    ],
+    "name" : "file_namespace"
+  }
+]

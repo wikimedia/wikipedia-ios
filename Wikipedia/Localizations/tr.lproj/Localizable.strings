@@ -598,7 +598,7 @@
 "image-rec-empty-title" = "Şu anda başka önerilen görsel yok.";
 "image-rec-onboarding-item-1-body" = "Önerilen bir görselin bir Vikipedi maddesine yerleştirilip yerleştirilmeyeceğine karar verin.";
 "image-rec-onboarding-item-1-title" = "Bir öneri görüntüle";
-"image-rec-onboarding-item-2-body" = "Önerileri makine oluşturulmuştur ve bunları kabul edip etmemeye karar vermek için sağduyunuzu kullanırsınız.";
+"image-rec-onboarding-item-2-body" = "Öneriler makine ile oluşturulmuştur ve bunları kabul edip etmemeye karar vermek için sağduyunuzu kullanırsınız.";
 "image-rec-onboarding-item-2-title" = "Bir görseli kabul et ya da geri çevir";
 "image-rec-onboarding-item-3-body" = "Görseller, Vikipedi tarafından kullanılan özgür lisanslı görsel koleksiyonu Wikimedia Commons'tan gelir.";
 "image-rec-onboarding-item-3-title" = "Lisanslı görseller";

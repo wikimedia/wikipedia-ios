@@ -109,6 +109,7 @@
 "action-unsaved-accessibility-notification" = "Articulo non plus salveguardate";
 "action-update" = "Actualisar";
 "add-articles-to-reading-list" = "Adder {{PLURAL:$1|$1 articulo|$1 articulos}} al lista de lectura";
+"advanced-settings-title" = "Parametros avantiate";
 "announcements-dismiss" = "Clauder";
 "app-store-keywords" = "Wikipedia, referentia, wiki, encyclopedia, info, cognoscentia, recerca, information, explorar, apprender";
 "app-store-release-notes" = "Un canal Explorar completemente personalisabile e plus facile a leger. Localisation, melior prestationes e correction de errores.";
@@ -557,6 +558,8 @@
 "image-rec-add-image-title" = "Adder iste imagine?";
 "image-rec-empty-subtitle" = "Tenta revenir plus tarde.";
 "image-rec-empty-title" = "Il non ha altere imagines suggerite disponibile in iste momento.";
+"image-rec-error-subtitle" = "Qualcosa ha vadite mal.";
+"image-rec-error-title" = "Impossibile cargar le pagina";
 "image-rec-feature-announce-body" = "Decider si un imagine es addite a un articulo de Wikipedia. Le carta ‘Adder un imagine’ se trova in le fluxo ‘Explorar’.";
 "image-rec-feature-announce-title" = "Tentar ‘Adder un imagine’";
 "image-rec-onboarding-item-1-body" = "Decider si un imagine suggerite debe esser inserite in un articulo de Wikipedia.";
@@ -585,6 +588,7 @@
 "image-rec-tooltip-3-body" = "Decide si le imagine adjuta lectores a comprender melio iste subjecto.";
 "image-rec-tooltip-3-title" = "Decider";
 "image-rec-view-article" = "Vider articulo";
+"image-recommendations-email-fifth-line" = "[Capturas de schermo o ligamines]";
 "image-recommendations-email-first-line" = "Io ha incontrate un problema con le function Adder un imagine del Modificationes suggerite:";
 "image-recommendations-email-fourth-line" = "- [Describe le solution proponite]";
 "image-recommendations-email-second-line" = "- [Describe le problema specific]";
@@ -621,12 +625,16 @@
 "insert-media-image-preview-select-image-action-title" = "Selige imagines";
 "insert-media-image-size-setting-custom" = "Personalisate";
 "insert-media-image-size-setting-default" = "Predefinite";
+"insert-media-image-size-settings-measure-height" = "Altitude";
+"insert-media-image-size-settings-measure-width" = "Latitude";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Dimension del imagine";
+"insert-media-image-text-wrapping-setting" = "Disponer texto circum imagine";
 "insert-media-image-type-setting-basic" = "Basic";
 "insert-media-image-type-setting-frame" = "Quadro";
 "insert-media-image-type-setting-frameless" = "Sin quadro";
 "insert-media-image-type-setting-thumbnail" = "Miniatura";
+"insert-media-image-type-settings-footer-title" = "Tu pote definir como le objecto multimedial appare sur le pagina. Isto deberea quasi sempre esser le formato de miniatura pro esser consistente con altere paginas.";
 "insert-media-image-type-settings-title" = "Typo de imagine";
 "insert-media-media-settings-title" = "Parametros multimedial";
 "insert-media-title" = "Inserer multimedia";

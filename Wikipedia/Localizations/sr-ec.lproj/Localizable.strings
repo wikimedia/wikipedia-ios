@@ -127,6 +127,7 @@
 "action-unsaved-accessibility-notification" = "Чланак је уклоњен из сачуваних";
 "action-update" = "Ажурирај";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
+"advanced-settings-title" = "Напредна подешавања";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
@@ -583,6 +584,8 @@
 "insert-media-image-preview-select-image-action-title" = "Одабери слику";
 "insert-media-image-size-setting-custom" = "Прилагођено";
 "insert-media-image-size-setting-default" = "Подразумевано";
+"insert-media-image-size-settings-measure-height" = "Висина";
+"insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "п";
 "insert-media-image-size-settings-title" = "Величина слике";
 "insert-media-image-type-setting-basic" = "Основна";

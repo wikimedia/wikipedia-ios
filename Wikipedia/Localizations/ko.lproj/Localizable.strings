@@ -141,6 +141,7 @@
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
 "action-update" = "업데이트";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
+"advanced-settings-title" = "고급 설정";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 각주, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
@@ -314,6 +315,8 @@
 "edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-show-web-preview" = "웹 미리보기 표시";
 "edit-summary-add-summary-text" = "편집 요약을 추가합니다";
+"edit-summary-choice-added-image" = "이미지를 추가함";
+"edit-summary-choice-added-image-and-caption" = "이미지와 캡션을 추가함";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
@@ -573,6 +576,7 @@
 "image-rec-survey-title" = "이유";
 "image-rec-title" = "이미지 추가";
 "image-rec-view-article" = "문서 보기";
+"image-recommendations-email-fifth-line" = "[스크린샷 또는 링크]";
 "image-recommendations-email-first-line" = "이미지 추가 제안 편집 기능에 문제가 발생했습니다.";
 "image-recommendations-email-fourth-line" = "- [해결책 제안 설명]";
 "image-recommendations-email-second-line" = "- [구체적인 문제 설명]";
@@ -608,6 +612,8 @@
 "insert-media-image-preview-select-image-action-title" = "이미지 선택";
 "insert-media-image-size-setting-custom" = "사용자 지정";
 "insert-media-image-size-setting-default" = "기본값";
+"insert-media-image-size-settings-measure-height" = "높이";
+"insert-media-image-size-settings-measure-width" = "너비";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "이미지 크기";
 "insert-media-image-type-setting-basic" = "기본";
