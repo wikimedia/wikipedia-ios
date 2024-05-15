@@ -27,25 +27,25 @@ extension ArticleViewController {
         
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
             
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, campaignID: asset.utmSource)
             self.pushToDonateForm(asset: asset, sourceView: button)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, secondaryButtonTapHandler: { _, _ in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project)
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, campaignID: asset.utmSource)
             
             
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
                 self.donateDidSetMaybeLater()
             } else {
-                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project)
+                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
                 self.donateAlreadyDonated()
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
             
         }, optionalButtonTapHandler: { _, _ in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project)
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
@@ -55,7 +55,7 @@ extension ArticleViewController {
         }, traceableDismissHandler: { action in
             
             if action == .tappedClose {
-                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project)
+                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, campaignID: asset.utmSource)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
         }, showMaybeLater: shouldShowMaybeLater)
