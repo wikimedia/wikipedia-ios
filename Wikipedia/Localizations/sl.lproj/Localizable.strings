@@ -1149,7 +1149,7 @@
 "top-read-widget-description" = "Izvedite, kaj svet danes bere v Wikipediji.";
 "top-read-widget-readers-count" = "$1 bralcev";
 "top-read-widget-title" = "Najbolj brano";
-"two-factor-login-continue" = "Nadaljuj s prijavo";
+"two-factor-login-continue" = "Nadaljuj prijavo";
 "two-factor-login-instructions" = "Vnesite dvofaktorsko kodo za preverjanje";
 "two-factor-login-title" = "Prijavite se v svoj račun";
 "two-factor-login-with-backup-code" = "Uporabite eno od svojih varnostnih kod";

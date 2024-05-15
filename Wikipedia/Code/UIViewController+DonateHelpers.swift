@@ -24,7 +24,7 @@ import PassKit
     
     private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) -> WKDonateViewModel? {
         
-        let donateDataController = WKDonateDataController()
+        let donateDataController = WKDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
         
         guard let donateConfig = donateData.donateConfig,

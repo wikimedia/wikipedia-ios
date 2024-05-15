@@ -246,10 +246,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d 位元組已添加</string>
 			<key>other</key>
-			<string>%1$d 位元組已添加</string>
+			<string>%1$d 位元組已新增</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>

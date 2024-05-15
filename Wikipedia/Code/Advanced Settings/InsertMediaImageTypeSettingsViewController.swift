@@ -3,6 +3,7 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
     private var selectedIndexPath: IndexPath?
 
     typealias ImageType = InsertMediaSettings.Advanced.ImageType
+    typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
 
     var selectedImageType: ImageType {
         guard let selectedIndexPath = selectedIndexPath else {

@@ -488,7 +488,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
-        let dataController = WKDonateDataController()
+        let dataController = WKDonateDataController.shared
         dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, bannerID: bannerID, appVersion: appVersion) { [weak self] result in
             
             guard let self else {

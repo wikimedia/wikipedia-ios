@@ -14,6 +14,7 @@
 // Author: Macofe
 // Author: Mansil
 // Author: Mansil alfalb
+// Author: Marinaazev
 // Author: MokaAkashiyaPT
 // Author: Nemo bis
 // Author: Ruila
@@ -554,9 +555,9 @@
 "image-rec-tooltip-3-body" = "Decida se a imagem ajuda os leitores a entender melhor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artigo";
+"image-recommendations-email-fifth-line" = "- [Capturas de tela ou links]";
 "image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
-"image-recommendations-email-fifth-line" =  "- [[Capturas de tela ou links]]";
-"image-recommendations-email-fourth-line" = "- [Descreva a solução proposta]";
+"image-recommendations-email-fourth-line" = "[Descreva a solução proposta]";
 "image-recommendations-email-second-line" = "- [Descreva o problema específico]";
 "image-recommendations-email-third-line" = "O comportamento que eu gostaria de ver é:";
 "image-recommendations-email-title" = "Relatório de Problemas - Recurso Adicionar uma Imagem";

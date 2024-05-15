@@ -46,6 +46,7 @@
 // Author: Nemo bis
 // Author: Nick
 // Author: No se
+// Author: PPenloglou-WMF
 // Author: Papouten
 // Author: Pginer
 // Author: RicardoSGZ
@@ -185,7 +186,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
-"button-go-back" = "Volver";
+"button-go-back" = "Atrás";
 "button-next" = "Siguiente";
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
@@ -283,7 +284,17 @@
 "diff-unchanged-contextual-line" = "Línea contextual, sin cambios: $1";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
-"donate-apple-fine-print" = "Apple no se encarga de recaudar dinero para este fin.";
+"donate-already-donated" = "¡Gracias por tu donación! Tu generosidad mantiene viva la Wikipedia y otros proyectos relacionados.";
+"donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
+"donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";
+"donate-later-title" = "Volveremos a intentarlo mañana.";
+"donate-monthly-recurring-text" = "Quiero hacer una donación recurrente.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Donar con Apple Pay";
+"donate-payment-method-prompt-message" = "Dona con Apple Pay o elige otro método de pago.";
+"donate-payment-method-prompt-other-button-title" = "Otro método de pago";
+"donate-payment-method-prompt-title" = "¿Quieres donar con Apple Pay?";
+"donate-title" = "Selecciona un importe";
+"donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Enlace destino";
 "edit-link-remove-link-title" = "Eliminar enlace";
@@ -522,8 +533,8 @@
 "image-rec-tooltip-3-body" = "Decida si la imagen ayuda a los lectores a entender mejor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artículo";
+"image-recommendations-email-fifth-line" = "[Capturas de pantalla o enlaces]";
 "image-recommendations-email-first-line" = "Encontré un problema con la función Agregar una imagen de ediciones sugeridas:";
-"image-recommendations-email-fifth-line" = "- [Capturas de pantalla o enlaces]";
 "image-recommendations-email-fourth-line" = "- [Describir la solución propuesta]";
 "image-recommendations-email-second-line" = "- [Describa el problema específico]";
 "image-recommendations-email-third-line" = "El comportamiento que me gustaría ver es:";
@@ -819,6 +830,7 @@
 "replace-method-button-accessibility" = "Método de reemplazo. Establecido en $1. Seleccione para cambiarlo.";
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
+"return-to-article" = "Volver al artículo";
 "reverted-edit-title" = "Edición rechazada";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";

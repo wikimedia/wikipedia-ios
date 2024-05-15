@@ -25,13 +25,13 @@ extension ArticleViewController {
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
         
-        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { sender in
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
             
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project)
-            self.pushToDonateForm(asset: asset, sourceView: sender as? UIButton)
+            self.pushToDonateForm(asset: asset, sourceView: button)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
-        }, secondaryButtonTapHandler: { sender in
+        }, secondaryButtonTapHandler: { _, _ in
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project)
             
             
@@ -44,7 +44,7 @@ extension ArticleViewController {
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
             
-        }, optionalButtonTapHandler: { sender in
+        }, optionalButtonTapHandler: { _, _ in
             AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)

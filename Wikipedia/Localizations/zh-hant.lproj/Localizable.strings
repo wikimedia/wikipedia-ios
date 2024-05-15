@@ -21,6 +21,7 @@
 // Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: Marinaazev
 // Author: Mikepanhu
 // Author: Neetp7k9
 // Author: Nemo bis
@@ -147,6 +148,7 @@
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
+"advanced-settings-title" = "進階設定";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
@@ -271,7 +273,7 @@
 "diff-rollback-success" = "已回退編輯。";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
 "diff-single-header-editor-title" = "編者資訊";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已新增}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 位元組已移除|$1 位元組已移除}}";
 "diff-single-header-summary-heading" = "編輯摘要";
 "diff-single-intro-title" = "介紹";
@@ -625,6 +627,7 @@
 "image-rec-tooltip-3-body" = "決定圖片是否有幫助到讀者更好理解這個主題";
 "image-rec-tooltip-3-title" = "決定";
 "image-rec-view-article" = "查看條目";
+"image-recommendations-email-fifth-line" = "- [屏幕截图或链接]";
 "image-recommendations-email-first-line" = "我在使用「新增圖片」建議編輯功能時遇到問題：";
 "image-recommendations-email-fourth-line" = "- [描述建議解決方案]";
 "image-recommendations-email-second-line" = "- [描述具體問題]";
@@ -661,12 +664,16 @@
 "insert-media-image-preview-select-image-action-title" = "選擇圖片";
 "insert-media-image-size-setting-custom" = "自訂";
 "insert-media-image-size-setting-default" = "預設";
+"insert-media-image-size-settings-measure-height" = "高度";
+"insert-media-image-size-settings-measure-width" = "寬度";
 "insert-media-image-size-settings-px-unit-name" = "像素";
 "insert-media-image-size-settings-title" = "圖片大小";
+"insert-media-image-text-wrapping-setting" = "在圖片周圍環繞文字";
 "insert-media-image-type-setting-basic" = "基本";
 "insert-media-image-type-setting-frame" = "帶框";
 "insert-media-image-type-setting-frameless" = "無框";
 "insert-media-image-type-setting-thumbnail" = "縮圖";
+"insert-media-image-type-settings-footer-title" = "您可以設定媒體要如何在頁面上呈現。在大多數情況下，應為與其他頁面一致的縮圖格式。";
 "insert-media-image-type-settings-title" = "圖片類型";
 "insert-media-media-settings-title" = "媒體設定";
 "insert-media-title" = "插入媒體";

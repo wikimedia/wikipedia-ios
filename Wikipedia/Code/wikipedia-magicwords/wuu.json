@@ -1,0 +1,74 @@
+[
+  {
+    "aliases" : [
+      "替代=$1",
+      "替代文本=$1",
+      "alt=$1",
+      "替代文字"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "居中",
+      "center",
+      "centre",
+      "置中"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "有框",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "无框",
+      "frameless",
+      "無框"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "左",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "无",
+      "none",
+      "無"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "右",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "缩略图",
+      "thumbnail",
+      "thumb",
+      "縮圖"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "File"
+    ],
+    "name" : "file_namespace"
+  }
+]

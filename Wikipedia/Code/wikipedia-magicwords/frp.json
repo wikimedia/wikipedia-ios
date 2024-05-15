@@ -1,0 +1,81 @@
+[
+  {
+    "aliases" : [
+      "centrâ",
+      "centré",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "encâdrâ",
+      "câdro",
+      "cadre",
+      "encadré",
+      "encadre",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sen_câdro",
+      "pas_encâdrâ",
+      "sans_cadre",
+      "non_encadré",
+      "non_encadre",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "gôche",
+      "gauche",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "vouedo",
+      "néant",
+      "neant",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "drêta",
+      "droite",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "figura",
+      "vignette",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fichiér"
+    ],
+    "name" : "file_namespace"
+  }
+]
