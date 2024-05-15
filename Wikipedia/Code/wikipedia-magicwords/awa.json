@@ -1,0 +1,78 @@
+[
+  {
+    "aliases" : [
+      "पाठ=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "केंद्र",
+      "केन्द्र",
+      "केन्द्रित",
+      "केंद्रित",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "फ्रेम",
+      "फ़्रेम",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "फ़्रेमहीन",
+      "फ्रेमहीन",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "बाएँ",
+      "बाएं",
+      "बायें",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "कोई_नहीं",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "दाएँ",
+      "दायें",
+      "दाएं",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "अंगूठाकार",
+      "अंगूठा",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "फाइल"
+    ],
+    "name" : "file_namespace"
+  }
+]

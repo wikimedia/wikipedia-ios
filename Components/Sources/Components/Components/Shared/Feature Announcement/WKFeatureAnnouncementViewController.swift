@@ -18,7 +18,7 @@ public final class WKFeatureAnnouncementViewController: WKCanvasViewController {
     public init(viewModel: WKFeatureAnnouncementViewModel) {
         self.hostingViewController = WKFeatureAnnouncementHostingController(viewModel: viewModel)
         super.init()
-        self.preferredContentSize = CGSize(width: 278, height: 400)
+        self.preferredContentSize = CGSize(width: 278, height: 450)
     }
 
     required init?(coder: NSCoder) {

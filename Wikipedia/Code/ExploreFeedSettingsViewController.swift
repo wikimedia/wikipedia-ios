@@ -189,6 +189,22 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         dismiss(animated: true)
     }
 
+    var editCount: Int {
+        var count: Int = 0
+        if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
+            self.dataStore?.authenticationManager.getLoggedInUser(for: language, completion: { result in
+                switch result {
+                case .success(let user):
+                    count = Int(user?.editCount ?? 0)
+                default:
+                    break
+                }
+            })
+        }
+
+        return count
+    }
+
     // MARK: Items
 
     private lazy var feedCards: [FeedCard] = {
@@ -202,7 +218,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
-        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning {
+
+        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
         } else {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]

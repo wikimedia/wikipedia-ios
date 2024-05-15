@@ -178,10 +178,11 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .articleEditPreview, action: .previewNext, project: project)
     }
     
-    func logArticleEditSummaryDidTapPublish(summaryAdded: Bool, minorEdit: Bool, project: WikimediaProject) {
+    func logArticleEditSummaryDidTapPublish(summaryAdded: Bool, minorEdit: Bool, watchlistAdded: Bool, project: WikimediaProject) {
         
         let actionData = ["summary_added": String(summaryAdded),
-                          "minor_edit": String(minorEdit)]
+                          "minor_edit": String(minorEdit),
+                          "watchlist_added": String(watchlistAdded)]
         
         logEvent(activeInterface: .articleEditSummary, action: .saveAttempt, actionData: actionData, project: project)
     }
