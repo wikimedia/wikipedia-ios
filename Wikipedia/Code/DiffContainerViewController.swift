@@ -992,7 +992,7 @@ private extension DiffContainerViewController {
         if UserDefaults.standard.bool(forKey: key) {
             return
         }
-        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] (action) in
+        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] _, _ in
             self?.presentedViewController?.dismiss(animated: true)
         }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)

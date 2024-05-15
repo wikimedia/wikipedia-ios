@@ -726,6 +726,9 @@
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
+		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
+		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
+		67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */; };
 		67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		67A6F13823BFB75300736539 /* ImageCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */; };
 		67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13923BFEA0400736539 /* ImageFetcher.swift */; };
@@ -751,6 +754,7 @@
 		67BEFFD628AD9DF000606B38 /* TalkPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD428AD9DF000606B38 /* TalkPageType.swift */; };
 		67BEFFD728AD9DF000606B38 /* TalkPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD428AD9DF000606B38 /* TalkPageType.swift */; };
 		67BEFFDE28AEDF5200606B38 /* WikimediaProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */; };
+		67C169A22BEC0B9900F09043 /* wikipedia-magicwords in Resources */ = {isa = PBXBuildFile; fileRef = 67C169A12BEC0B9900F09043 /* wikipedia-magicwords */; };
 		67C1757628AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
 		67C1757728AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
 		67C1757828AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */; };
@@ -896,6 +900,7 @@
 		67E5DA5D2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA5E2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */; };
+		67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */; };
 		67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67E9A11C25536B6F00C5ED31 /* ABTestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */; };
@@ -3392,6 +3397,8 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
+		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
+		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
 		67A6F13723BFB75300736539 /* ImageCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheDBWriter.swift; sourceTree = "<group>"; };
 		67A6F13923BFEA0400736539 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
@@ -3406,6 +3413,7 @@
 		67BE16252A9927E1009486A6 /* DeprecatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprecatedButton.swift; sourceTree = "<group>"; };
 		67BEFFD428AD9DF000606B38 /* TalkPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageType.swift; sourceTree = "<group>"; };
 		67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikimediaProject.swift; sourceTree = "<group>"; };
+		67C169A12BEC0B9900F09043 /* wikipedia-magicwords */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "wikipedia-magicwords"; path = "Wikipedia/Code/wikipedia-magicwords"; sourceTree = SOURCE_ROOT; };
 		67C1757528AD4D6000C5ABA4 /* TalkPageDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageDataController.swift; sourceTree = "<group>"; };
 		67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotificationsModelController+TestExtensions.swift"; sourceTree = "<group>"; };
 		67C6F74F27E293C700B9C864 /* NotificationsCenterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewModelTests.swift; sourceTree = "<group>"; };
@@ -3483,6 +3491,7 @@
 		67E5A1E729E6ED3400BADF20 /* WMFTestConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFTestConstants.m; sourceTree = "<group>"; };
 		67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFilterView.swift; sourceTree = "<group>"; };
 		67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshCrossWikiOperation.swift; sourceTree = "<group>"; };
+		67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
 		67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestsController.swift; sourceTree = "<group>"; };
 		67ED8EB024F99FF400DD5D39 /* SignificantEventsFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcherTests.swift; sourceTree = "<group>"; };
@@ -6415,6 +6424,16 @@
 			name = "Article Tests";
 			sourceTree = "<group>";
 		};
+		67A486A62BEC0055001D3FF9 /* Magic Words */ = {
+			isa = PBXGroup;
+			children = (
+				67C169A12BEC0B9900F09043 /* wikipedia-magicwords */,
+				67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */,
+				67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */,
+			);
+			name = "Magic Words";
+			sourceTree = "<group>";
+		};
 		67A6F13423BFB4E700736539 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -6483,6 +6502,14 @@
 				04478625185145090050563B /* WebView */,
 			);
 			name = Article;
+			sourceTree = "<group>";
+		};
+		67E6532A2BEC1DF40024F699 /* Wikitext Tests */ = {
+			isa = PBXGroup;
+			children = (
+				67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */,
+			);
+			path = "Wikitext Tests";
 			sourceTree = "<group>";
 		};
 		67ED8EAF24F99F1900DD5D39 /* Significant Events Tests */ = {
@@ -7787,6 +7814,7 @@
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				67E6532A2BEC1DF40024F699 /* Wikitext Tests */,
 				67F73384273C1FA200D7D713 /* Notifications Tests */,
 				671DF9D625F2B57B0011799E /* Article Description Tests */,
 				67ED8EAF24F99F1900DD5D39 /* Significant Events Tests */,
@@ -8532,6 +8560,7 @@
 		D8FA18A91E1BD84D009675C3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				67A486A62BEC0055001D3FF9 /* Magic Words */,
 				7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */,
 				7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */,
 				D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */,
@@ -9687,6 +9716,7 @@
 				0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
+				67C169A22BEC0B9900F09043 /* wikipedia-magicwords in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				83ACAAA824E6E6C5003B3035 /* wikipedia-languages.json in Resources */,
 				7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */,
@@ -9885,6 +9915,7 @@
 				A452F9FB24081A7200D8ED09 /* LocationManagerTests.swift in Sources */,
 				67C6F77427E2E78800B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift in Sources */,
 				67C6F76827E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift in Sources */,
+				67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */,
 				B0E8090F1C0D18F30065EBC0 /* WMFMathTests.m in Sources */,
 				671DF9D825F2B59A0011799E /* ShortDescriptionControllerTests.swift in Sources */,
 				67DAEDEE27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift in Sources */,
@@ -10761,6 +10792,7 @@
 				6773B1FE240F02E40022A70E /* PermanentlyPersistableURLCache.swift in Sources */,
 				70B7983625758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift in Sources */,
 				678C7C3023BE7319001AC4D5 /* CacheDBWriterHelper.swift in Sources */,
+				67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */,
 				67F73388273C26A000D7D713 /* NotificationServiceHelper.swift in Sources */,
 				D84C363E1F32441800895FA1 /* WMFDynamicTypeExtentions.swift in Sources */,
 				6761AEEF2706249300E47BAD /* PushNotificationsCache.swift in Sources */,
@@ -10883,6 +10915,7 @@
 				83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */,
 				83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
+				67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */,
 				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */,
@@ -10940,6 +10973,7 @@
 				83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */,
 				83ACAAAE24E6EF0B003B3035 /* WikipediaSiteInfoLookup.swift in Sources */,
 				83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */,
+				67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

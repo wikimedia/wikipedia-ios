@@ -1,0 +1,76 @@
+[
+  {
+    "aliases" : [
+      "альт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "орто",
+      "center",
+      "centre",
+      "центр"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "раамка",
+      "frame",
+      "framed",
+      "enframed",
+      "обрамить"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "раамката_суох",
+      "frameless",
+      "безрамки"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "хаҥас",
+      "left",
+      "слева"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "суох",
+      "none",
+      "без"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "уҥа",
+      "right",
+      "справа"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "ойуучаан",
+      "thumb",
+      "thumbnail",
+      "миниатюра"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Билэ"
+    ],
+    "name" : "file_namespace"
+  }
+]
