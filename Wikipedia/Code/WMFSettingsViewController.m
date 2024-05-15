@@ -7,6 +7,7 @@
 #import "AboutViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+@import WKData;
 
 #pragma mark - Static URLs
 
@@ -27,6 +28,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
+@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
 
 @end
 
@@ -36,6 +38,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
+    vc.donateDataController = [WKDonateDataController sharedInstance];
+    
     return vc;
 }
 
@@ -267,20 +271,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support: {
-                [[WMFAppInteractionFunnel shared] logSettingsDidTapDonateCell];
-                
-                NSString *countryCode = [[NSLocale currentLocale] countryCode];
-                NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
-                NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
-                
-                NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
-                if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil appVersion: appVersion]) {
-                    [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil appVersion: appVersion articleURL:nil sourceView: cell loggingDelegate:self];
-                } else {
-                    // New experience pushing to in-app browser
-                    [self wmf_navigateToURL:[self donationURL] useSafari:NO];
-                }
+            [[WMFAppInteractionFunnel shared] logSettingsDidTapDonateCell];
+            
+            if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
+                WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;
+                [self showDonateForCell:settingsCell];
             }
+        }
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
@@ -470,6 +467,31 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
     [appearanceSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
+}
+
+#pragma mark - Donate
+
+- (void)showDonateForCell:(WMFSettingsTableViewCell *)settingsCell {
+    settingsCell.isLoading = YES;
+    
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
+    
+    @weakify(self);
+    [self.donateDataController fetchConfigsForCountryCode:countryCode completion:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            settingsCell.isLoading = NO;
+            NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
+            NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
+            NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
+            if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil appVersion: appVersion]) {
+                [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil appVersion: appVersion articleURL:nil sourceView: settingsCell loggingDelegate:self];
+            } else {
+                // New experience pushing to in-app browser
+                [self wmf_navigateToURL:[self donationURL] useSafari:NO];
+            }
+        });
+    }];
 }
 
 #pragma mark - Storage and syncing
