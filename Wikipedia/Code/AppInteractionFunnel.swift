@@ -101,20 +101,41 @@ import WMF
         logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .closeClick, project: project)
+    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = [:]
+            actionData?["campaign_id"] = campaignID
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .closeClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .donateClick, project: project)
+    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .donateClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .laterClick, project: project)
+    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .laterClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, project: project)
+    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, actionData: actionData, project: project)
     }
     
     func logFundraisingCampaignModalDidTapDonorPolicy(project: WikimediaProject) {
