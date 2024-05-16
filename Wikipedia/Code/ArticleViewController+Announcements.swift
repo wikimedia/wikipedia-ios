@@ -73,13 +73,13 @@ extension ArticleViewController {
 
     private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
-        let donateURL = firstAction.url
         
         let utmSource = asset.utmSource
         let metricsID = asset.metricsID
-        
+
         let appVersion = Bundle.main.wmf_debugVersion()
-        
+        let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
+
         if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion),
            let donateURL = donateURL {
             presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
@@ -245,5 +245,26 @@ extension WKFundraisingCampaignConfig.WKAsset {
     
     var metricsID: String {
         return "\(languageCode)\(id)_iOS"
+    }
+}
+
+fileprivate extension URL {
+    func appendingAppVersion(appVersion: String?) -> URL {
+        
+        guard let appVersion,
+              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+        var queryItems = components.queryItems else {
+            return self
+        }
+        
+        
+        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            return self
+        }
+        
+        return url
     }
 }
