@@ -467,7 +467,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
                 
-                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _ in
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _, _ in
                     
                     self?.dismiss(animated: true) {
                         self?.save()

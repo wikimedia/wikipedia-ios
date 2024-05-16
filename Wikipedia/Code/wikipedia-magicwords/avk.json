@@ -1,0 +1,104 @@
+[
+  {
+    "aliases" : [
+      "centré",
+      "center",
+      "centre",
+      "centro",
+      "centrado",
+      "centrada",
+      "centrar",
+      "центр"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "cadre",
+      "encadré",
+      "encadre",
+      "frame",
+      "framed",
+      "enframed",
+      "marco",
+      "enmarcado",
+      "enmarcada",
+      "обрамить"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sans_cadre",
+      "non_encadré",
+      "non_encadre",
+      "frameless",
+      "sinmarco",
+      "sin_enmarcar",
+      "sinenmarcar",
+      "безрамки"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "gauche",
+      "left",
+      "izquierda",
+      "izda",
+      "izq",
+      "слева"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "néant",
+      "neant",
+      "none",
+      "no",
+      "ninguna",
+      "ninguno",
+      "nada",
+      "без"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "droite",
+      "right",
+      "derecha",
+      "der",
+      "dcha",
+      "справа"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "vignette",
+      "thumb",
+      "thumbnail",
+      "miniaturadeimagen",
+      "miniatura",
+      "mini",
+      "мини",
+      "миниатюра"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "альт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Iyeltak"
+    ],
+    "name" : "file_namespace"
+  }
+]

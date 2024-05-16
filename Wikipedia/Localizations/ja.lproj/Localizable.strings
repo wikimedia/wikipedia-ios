@@ -155,6 +155,7 @@
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
+"advanced-settings-title" = "高度な設定";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "探索フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -295,6 +296,7 @@
 "donate-payment-method-prompt-other-button-title" = "その他の支払い方法";
 "donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
 "donate-success-title" = "ありがとうございます!";
+"donate-title" = "金額を選択";
 "edit-link-display-text-title" = "表示テキスト";
 "edit-link-link-target-title" = "リンク先";
 "edit-link-remove-link-title" = "リンクを除去";
@@ -330,8 +332,11 @@
 "editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "editor-exit-confirmation-title" = "編集モードを終了しますか?";
 "editor-replace-textfield-accessibility" = "置換";
+"editor-replace-type-all" = "全て置換";
 "editor-replace-type-all-accessibility" = "すべて置換";
+"editor-replace-type-single" = "置換";
 "editor-replace-type-single-accessibility" = "1件だけ置換";
+"editor-toolbar-find-accessibility" = "ページ内検索";
 "empty-diff-compare-title" = "版間の相違点はありません";
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
@@ -436,6 +441,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1版ウィキペディアより";
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
+"explore-suggested-edits-footer" = "追加";
 "export-user-data-confirmation-message" = "アプリ ライブラリの共有には、閲覧リストと履歴、設定、Explore フィード コンテンツに関するデータが含まれます。このデータ ファイルは、技術的な診断目的で使用するために、信頼できる受信者とのみ共有する必要があります。";
 "export-user-data-confirmation-title" = "アプリ ライブラリを共有しますか？";
 "export-user-data-generic-error" = "データのエクスポート中にエラーが発生しました。後でもう一度やり直してください。";
@@ -505,6 +511,10 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
+"image-rec-add-image-title" = "この画像を追加しますか?";
+"image-recs-no-title" = "いいえ";
+"image-recs-not-sure-title" = "わからない";
+"image-recs-yes-title" = "はい";
 "import-shared-reading-list-default-title" = "リーディング リスト";
 "import-shared-reading-list-survey-prompt-button-cancel" = "今はしない";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "調査の実施";
@@ -530,6 +540,8 @@
 "insert-media-image-preview-select-image-action-title" = "画像を選択";
 "insert-media-image-size-setting-custom" = "カスタム";
 "insert-media-image-size-setting-default" = "既定";
+"insert-media-image-size-settings-measure-height" = "高さ";
+"insert-media-image-size-settings-measure-width" = "幅";
 "insert-media-image-size-settings-px-unit-name" = "ピクセル";
 "insert-media-image-size-settings-title" = "画像サイズ";
 "insert-media-image-type-setting-basic" = "基本";
@@ -543,6 +555,7 @@
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
+"learn-more-title" = "詳細";
 "logged-out-continue-without-logging-in-button-title" = "ログインしないで続ける";
 "logged-out-log-back-in-button-title" = "もう一度アカウントにログインする";
 "logged-out-subtitle" = "アカウント認証に失敗しました。あとで読むリストと編集履歴をあなたの利用者名で同期するには、もう一度ログインしてください。";
@@ -857,6 +870,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "構文の強調";
 "reading-themes-controls-accessibility-text-size-slider" = "文字サイズ調節スライダ";
 "reading-themes-controls-syntax-highlighting" = "構文の強調";
+"reference-section-button-accessibility-label" = "脚注の節へジャンプ";
 "reference-title" = "情報源 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|1=昨日|$1日前}}";
 "relative-date-hours-abbreviated" = "$1時間";
@@ -880,6 +894,8 @@
 "replace-method-button-accessibility" = "置換方法。現在$1に設定されています。選択して変更。";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
+"return-button-title" = "戻る";
+"return-to-article" = "記事へ戻る";
 "reverted-edit-title" = "差し戻された編集";
 "saved-all-articles-title" = "すべての記事";
 "saved-default-reading-list-tag" = "このリストは削除できません";
@@ -1003,7 +1019,9 @@
 "talk-page-title-user-talk" = "利用者の議論";
 "talk-page-topic-close-button-hint" = "新しいトピックを閉じる";
 "talk-page-unsubscribe-to-topic" = "購読解除";
+"talk-page-user-about" = "利用者のトークページについて";
 "talk-page-user-contributions" = "投稿記録";
+"talk-pages-archives-empty-title" = "アーカイブされたページが見つかりません。";
 "talk-pages-archives-view-title" = "アーカイブ";
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
