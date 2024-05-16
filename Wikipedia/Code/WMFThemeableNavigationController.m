@@ -34,7 +34,7 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    self.navigationBar.translucent = NO;
+    //self.navigationBar.translucent = NO;
     self.navigationBar.tintColor = theme.colors.chromeText;
     UINavigationBarAppearance *appearance = [UINavigationBarAppearance appearanceForTheme:theme style:self.style];
     self.navigationBar.standardAppearance = appearance;

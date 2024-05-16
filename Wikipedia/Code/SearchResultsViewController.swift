@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class SearchResultsViewController: ArticleCollectionViewController {
+class SearchResultsViewController: ArticleCollectionViewController2 {
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
         didSet {
@@ -15,7 +15,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }

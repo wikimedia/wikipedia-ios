@@ -1350,10 +1350,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (WMFArticleViewController *)visibleArticleViewController {
-    UINavigationController *navVC = self.navigationController;
-    UIViewController *topVC = navVC.topViewController;
-    if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
-        return (WMFArticleViewController *)topVC;
+    if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)self.selectedViewController;
+        
+        UIViewController *topVC = navVC.topViewController;
+        if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
+            return (WMFArticleViewController *)topVC;
+        }
     }
     return nil;
 }
@@ -1927,6 +1930,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([presented isKindOfClass:[UINavigationController class]]) {
         return (UINavigationController *)presented;
     } else {
+        if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navVC = (UINavigationController *)self.selectedViewController;
+            return navVC;
+        }
+        
         return self.navigationController;
     }
 }

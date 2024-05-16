@@ -121,7 +121,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             // Fallback on earlier versions
         }
         navigationController?.hidesBarsOnSwipe = true
-        navigationController?.hidesBarsOnTap = true
         navigationItem.hidesSearchBarWhenScrolling = false
         if #available(iOS 16.0, *) {
             navigationItem.preferredSearchBarPlacement = .stacked
@@ -129,11 +128,16 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             // Fallback on earlier versions
         }
         
-        let search = UISearchController(searchResultsController: nil)
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
+        let search = UISearchController(searchResultsController: searchViewController)
         search.searchResultsUpdater = self
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-        definesPresentationContext = true
+        search.showsSearchResultsController = true
+        // definesPresentationContext = true
         navigationItem.searchController = search
     }
 
@@ -1519,9 +1523,31 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
 
 extension ExploreViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        // Always show the search result controller
-        searchController.searchResultsController?.view.isHidden = false
         guard let text = searchController.searchBar.text else { return }
-        print(text)
+        
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+        
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+        
+        navigationController?.hidesBarsOnSwipe = !searchController.searchBar.isFirstResponder
+    }
+}
+
+extension ExploreViewController: SearchTermSelectDelegate {
+    var searchBarText: String? {
+        navigationItem.searchController?.searchBar.text
+    }
+    
+    func searchViewController(_ searchViewController: SearchViewController, didSelectSearchTerm searchTerm: String, at indexPath: IndexPath) {
+        navigationItem.searchController?.searchBar.text = searchTerm
     }
 }

@@ -170,7 +170,7 @@ class EditLinkViewController: ViewController {
         searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
-        searchViewController.delegatesSelection = true
+        searchViewController.delegatesSearchResultSelection = true
         searchViewController.showLanguageBar = false
         searchViewController.navigationItem.title = title
         searchViewController.searchTerm = articleURL.wmf_title
