@@ -44,7 +44,6 @@ class ColumnarCollectionViewController2: ThemeableViewController, ColumnarCollec
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
-        extendedLayoutIncludesOpaqueBars = true
     }
 
     @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
