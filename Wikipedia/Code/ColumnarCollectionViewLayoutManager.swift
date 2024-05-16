@@ -38,7 +38,7 @@ class ColumnarCollectionViewLayoutManager {
         }
         let cell = cellClass.init(frame: view.bounds)
         cell.isHidden = true
-        view.insertSubview(cell, at: 0) // so that the trait collections are updated
+        // view.insertSubview(cell, at: 0) // so that the trait collections are updated
         placeholders[identifier] = cell
     }
     
@@ -49,7 +49,7 @@ class ColumnarCollectionViewLayoutManager {
             return
         }
         cell.isHidden = true
-        view.insertSubview(cell, at: 0) // so that the trait collections are updated
+        // view.insertSubview(cell, at: 0) // so that the trait collections are updated
         placeholders[identifier] = cell
     }
     
@@ -64,7 +64,7 @@ class ColumnarCollectionViewLayoutManager {
         }
         let reusableView = viewClass.init(frame: view.bounds)
         reusableView.isHidden = true
-        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
+        // view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
         placeholders["\(elementKind)-\(identifier)"] = reusableView
     }
     
@@ -78,7 +78,7 @@ class ColumnarCollectionViewLayoutManager {
             return
         }
         reusableView.isHidden = true
-        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
+        // view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
         placeholders["\(elementKind)-\(identifier)"] = reusableView
     }
 }

@@ -54,13 +54,13 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     var shouldShowCancelButton: Bool = true
     var delegatesSelection: Bool = false {
         didSet {
-            resultsViewController.delegatesSelection = delegatesSelection
+            // resultsViewController.delegatesSelection = delegatesSelection
         }
     }
 
     var doResultsShowArticlePreviews = true {
         didSet {
-            resultsViewController.doesShowArticlePreviews = doResultsShowArticlePreviews
+            // resultsViewController.doesShowArticlePreviews = doResultsShowArticlePreviews
         }
     }
 
@@ -122,8 +122,8 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
                       searchTerm == self.navigationItem.searchController?.searchBar.text else {
                     return
                 }
-                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                self.resultsViewController.results = []
+                // self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                // self.resultsViewController.results = []
                 SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
@@ -136,10 +136,10 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
                 }
                 NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
                 let resultsArray = results.results ?? []
-                self.resultsViewController.emptyViewType = .noSearchResults
-                self.resultsViewController.resultsInfo = results
-                self.resultsViewController.searchSiteURL = siteURL
-                self.resultsViewController.results = resultsArray
+                // self.resultsViewController.emptyViewType = .noSearchResults
+                // self.resultsViewController.resultsInfo = results
+                // self.resultsViewController.searchSiteURL = siteURL
+                // self.resultsViewController.results = resultsArray
                 guard !suggested else {
                     return
                 }
@@ -201,8 +201,8 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     }()
     
     func didCancelSearch() {
-        resultsViewController.emptyViewType = .none
-        resultsViewController.results = []
+        // resultsViewController.emptyViewType = .none
+        // resultsViewController.results = []
         navigationItem.searchController?.searchBar.text = nil
         SearchFunnel.shared.logSearchCancel(source: source)
     }
@@ -225,32 +225,32 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     }
     
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
-    
-    lazy var resultsViewController: SearchResultsViewController = {
-        let resultsViewController = SearchResultsViewController()
-        resultsViewController.dataStore = dataStore
-        resultsViewController.apply(theme: theme)
-        resultsViewController.delegate = self
-        addChild(resultsViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParent: self)
-        return resultsViewController
-    }()
-    
+//    
+//    lazy var resultsViewController: SearchResultsViewController = {
+//        let resultsViewController = SearchResultsViewController()
+//        resultsViewController.dataStore = dataStore
+//        resultsViewController.apply(theme: theme)
+//        resultsViewController.delegate = self
+//        addChild(resultsViewController)
+//        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
+//        resultsViewController.didMove(toParent: self)
+//        return resultsViewController
+//    }()
+//    
     // MARK: - Recent Search Saving
     
     
     func saveLastSearch() {
-        guard
-            let term = resultsViewController.resultsInfo?.searchTerm,
-            let url = resultsViewController.searchSiteURL,
-            let entry = MWKRecentSearchEntry(url: url, searchTerm: term)
-        else {
-            return
-        }
-        dataStore.recentSearchList.addEntry(entry)
-        dataStore.recentSearchList.save()
-        reloadRecentSearches()
+//        guard
+//            let term = resultsViewController.resultsInfo?.searchTerm,
+//            let url = resultsViewController.searchSiteURL,
+//            let entry = MWKRecentSearchEntry(url: url, searchTerm: term)
+//        else {
+//            return
+//        }
+//        dataStore.recentSearchList.addEntry(entry)
+//        dataStore.recentSearchList.save()
+//        reloadRecentSearches()
     }
     
     // MARK: - UISearchBarDelegate
@@ -290,7 +290,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             return
         }
         searchLanguageBarViewController?.apply(theme: theme)
-        resultsViewController.apply(theme: theme)
+        // resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
     }
@@ -298,12 +298,12 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     // Recent
 
     func updateRecentlySearchedVisibility(searchText: String?) {
-		guard let searchText = searchText else {
-			resultsViewController.view.isHidden = true
-			return
-		}
+//		guard let searchText = searchText else {
+//			resultsViewController.view.isHidden = true
+//			return
+//		}
 
-        resultsViewController.view.isHidden = searchText.isEmpty
+        // resultsViewController.view.isHidden = searchText.isEmpty
     }
 
     var recentSearches: MWKRecentSearchList? {
