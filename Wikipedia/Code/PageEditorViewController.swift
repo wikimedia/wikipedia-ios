@@ -715,12 +715,13 @@ extension PageEditorViewController: WKSourceEditorViewControllerDelegate {
     
     func sourceEditorViewControllerDidTapImage() {
         
-        guard let sourceEditor else {
+        guard let sourceEditor,
+              let siteURL = pageURL.wmf_site else {
             return
         }
         
         sourceEditor.removeFocus()
-        let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: pageURL.wmf_site)
+        let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: siteURL)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)

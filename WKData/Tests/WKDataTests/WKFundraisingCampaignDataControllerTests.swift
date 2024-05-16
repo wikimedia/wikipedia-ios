@@ -8,10 +8,15 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     private let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
     private let nlProject = WKProject.wikipedia(WKLanguage(languageCode: "nl", languageVariantCode: nil))
 
+    private var controller: WKFundraisingCampaignDataController = WKFundraisingCampaignDataController.shared
+    
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        self.controller.reset()
+        self.controller.service = WKDataEnvironment.current.basicService
+        self.controller.sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     }
     
     func validFirstDayDate() -> Date {
@@ -51,8 +56,6 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     }
 
     func testFetchConfigAndLoadAssetWithValidCountryValidDateValidWiki() {
-        
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -103,7 +106,6 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
 
     func testFetchConfigAndLoadAssetWithInvalidCountryValidDateValidWiki() {
         
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let invalidCountry = "US"
@@ -132,7 +134,6 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     
     func testFetchConfigAndLoadAssetWithValidCountryInvalidDateValidWiki() {
         
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -161,7 +162,6 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     
     func testFetchConfigAndLoadAssetWithValidCountryValidDateInvalidWiki() {
         
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -186,8 +186,8 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     
     func testFetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() {
         WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        controller.service = WKDataEnvironment.current.basicService
         
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Campaign Config")
         
         let validCountry = "NL"
@@ -228,19 +228,18 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         
         // First fetch successfully to populate cache
 
-        let connectedController = WKFundraisingCampaignDataController()
-        connectedController.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
+        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
             switch result {
             case .success:
                 
-                connectedAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: validCountry, wkProject: self.nlProject, currentDate: validDate)
+                connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: self.nlProject, currentDate: validDate)
 
                 // Drop Internet Connection
                 WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-                let disconnectedController = WKFundraisingCampaignDataController()
+                self.controller.service = WKDataEnvironment.current.basicService
 
                 // Fetch again
-                disconnectedController.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
+                self.controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
                     switch result {
                     case .success:
                         
@@ -249,7 +248,7 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
                     case .failure:
                         
                         // Despite failure, we still expect to be able to load configs from cache
-                        notConnectedAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+                        notConnectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
                         
                     }
                     
@@ -270,9 +269,8 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         XCTAssertEqual(connectedAsset?.id, notConnectedAsset?.id, "Expected asset campaign IDs to be equal")
         XCTAssertEqual(connectedAsset?.textHtml, notConnectedAsset?.textHtml, "Expected asset texts to be equal")
     }
-    
+  
     func testLoadHiddenAsset() {
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -300,13 +298,11 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         controller.markAssetAsPermanentlyHidden(asset: nlWikiAsset!)
         
         // Now try to load again
-        let newController = WKFundraisingCampaignDataController()
-        let hiddenNLWikiAsset = newController.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let hiddenNLWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
         XCTAssertNil(hiddenNLWikiAsset, "Hidden NL asset should be nil")
     }
     
     func testLoadMaybeLaterAssetSixHoursLater() {
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -335,14 +331,12 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Six Hours later
-        let newController = WKFundraisingCampaignDataController()
-        let nlWikiAssetSixHoursLater = newController.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
+        let nlWikiAssetSixHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
         
         XCTAssertNil(nlWikiAssetSixHoursLater, "NL asset marked as maybe later, then loaded 6 hours later should be nil")
     }
     
     func testLoadMaybeLaterAssetThirtyHoursLater() {
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -371,14 +365,12 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Thirty Hours later
-        let newController = WKFundraisingCampaignDataController()
-        let nlWikiAssetThirtyHoursLater = newController.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
         
         XCTAssertNotNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded 30 hours later should not be nil")
     }
     
     func testLoadMaybeLaterAssetAfterCampaignEnds() {
-        let controller = WKFundraisingCampaignDataController()
         let expectation = XCTestExpectation(description: "Fetch Config")
         
         let validCountry = "NL"
@@ -407,8 +399,7 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load next day after campaign ends
-        let newController = WKFundraisingCampaignDataController()
-        let nlWikiAssetThirtyHoursLater = newController.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
         
         XCTAssertNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded after last day of campaign should be nil")
     }

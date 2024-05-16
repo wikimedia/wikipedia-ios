@@ -1,0 +1,76 @@
+[
+  {
+    "aliases" : [
+      "טעקסט=$1",
+      "טקסט=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "צענטער",
+      "מרכז",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "לינקס",
+      "שמאל",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "אן",
+      "ללא",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "רעכטס",
+      "ימין",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "קליין",
+      "ממוזער",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "מסגרת",
+      "ממוסגר",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "לא ממוסגר",
+      "ללא מסגרת",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "טעקע"
+    ],
+    "name" : "file_namespace"
+  }
+]
