@@ -168,6 +168,7 @@
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
+"advanced-settings-title" = "Дополнительные настройки";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -344,6 +345,8 @@
 "edit-published" = "Правка опубликована";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
 "edit-summary-add-summary-text" = "Добавление описания правки";
+"edit-summary-choice-added-image" = "Добавлено изображение";
+"edit-summary-choice-added-image-and-caption" = "Добавить изображение и подпись";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
@@ -366,11 +369,15 @@
 "editor-find-clear-button-accessibility" = "Очистить поиск";
 "editor-find-close-button-accessibility" = "Закрыть поиск";
 "editor-find-current-match-info-zero-results-accessibility" = "Совпадений не найдено";
+"editor-find-next-button-accessibility" = "Следующее вхождение";
+"editor-find-previous-button-accessibility" = "Предыдущее вхождение";
 "editor-find-textfield-accessibility" = "Найти";
 "editor-keyboard-bold-accessibility" = "Полужирный";
 "editor-keyboard-close-text-format-menu-accessibility" = "Закрыть меню форматирования";
 "editor-keyboard-comment-accessibility" = "Комментарий";
 "editor-keyboard-heading-button" = "Заголовок";
+"editor-keyboard-indent-decrease-accessibility" = "Уменьшить отступ";
+"editor-keyboard-indent-increase-accessibility" = "Увеличить отступ";
 "editor-keyboard-italics-accessibility" = "Курсив";
 "editor-keyboard-link-accessibility" = "Ссылка";
 "editor-keyboard-list-ordered-accessibility" = "Упорядоченный список";
@@ -388,6 +395,7 @@
 "editor-keyboard-text-formatting-title" = "Форматирование текста";
 "editor-keyboard-underline-accessibility" = "Подчёркнутый";
 "editor-replace-textfield-accessibility" = "Заменить";
+"editor-replace-textfield-placeholder" = "Заменить на…";
 "editor-replace-type-all" = "Заменить все";
 "editor-replace-type-single" = "Заменить";
 "editor-toolbar-find-accessibility" = "Найти на странице";
@@ -626,8 +634,11 @@
 "insert-media-image-preview-select-image-action-title" = "Выбрать изображение";
 "insert-media-image-size-setting-custom" = "Размер вручную";
 "insert-media-image-size-setting-default" = "По умолчанию";
+"insert-media-image-size-settings-measure-height" = "Высота";
+"insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "пкс";
 "insert-media-image-size-settings-title" = "Размер изображения";
+"insert-media-image-text-wrapping-setting" = "Расположить текст вокруг изображения";
 "insert-media-image-type-setting-basic" = "Базовый";
 "insert-media-image-type-setting-frame" = "Рамка";
 "insert-media-image-type-setting-frameless" = "Без рамки";
@@ -1164,6 +1175,7 @@
 "talk-pages-user-groups" = "Группы участников";
 "talk-pages-user-logs" = "Журналы";
 "talk-pages-view-title" = "Обсуждение";
+"terms-of-use-title" = "Условия использования";
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
@@ -1181,6 +1193,7 @@
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
 "unknown-generic-text" = "Неизвестно";
+"unwatch" = "Не следить";
 "user-title" = "Участник";
 "uzbek-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие Узбекские варианты в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Обновление поддержки вариантов Узбекского";
@@ -1189,6 +1202,7 @@
 "vanish-account-warning-title" = "Предупреждение";
 "variants-alert-dismiss-button" = "Нет, спасибо";
 "variants-alert-preferences-button" = "Просмотреть свои настройки";
+"watch" = "Следить";
 "watchlist" = "Список наблюдения";
 "watchlist-added-toast-one-month" = "Добавлено в ваш список наблюдения на 1 месяц.";
 "watchlist-added-toast-one-week" = "Добавлено в ваш список наблюдения на 1 неделю.";
@@ -1206,6 +1220,8 @@
 "watchlist-change-expiry-option-three-months" = "3 месяца";
 "watchlist-change-expiry-subtitle" = "Выберите период времени в списке наблюдения";
 "watchlist-change-expiry-title" = "Срок действия списка наблюдения";
+"watchlist-edit-summary-accessibility" = "Описание изменений";
+"watchlist-empty-view-button-title" = "Искать статьи";
 "watchlist-expiration-title" = "Установить срок действия";
 "watchlist-filter" = "Фильтр";
 "watchlist-filter-automated-contributions-options-bot" = "Бот";
@@ -1219,8 +1235,10 @@
 "watchlist-filter-type-of-change-options-category-changes" = "Изменения категорий";
 "watchlist-filter-type-of-change-options-page-creations" = "Создания страниц";
 "watchlist-filter-type-of-change-options-page-edits" = "Правки страницы";
+"watchlist-filters-add-language" = "Добавить язык…";
 "watchlist-removed" = "Удалено из вашего списка наблюдения";
 "watchlist-updates-title" = "Просмотр обновлений";
+"watchlist-user-button-thank" = "Поблагодарить";
 "watchlist-user-button-user-contributions" = "Вклад участника";
 "watchlist-user-button-user-page" = "Страница участника";
 "watchlist-user-button-user-talk-page" = "Страница обсуждения участника";
