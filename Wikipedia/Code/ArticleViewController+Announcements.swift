@@ -7,21 +7,31 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         
-        // New Donor Experience
-        if let countryCode = Locale.current.regionCode,
+        guard let countryCode = Locale.current.regionCode,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
-           let wkProject = wikimediaProject.wkProject,
-           let activeCampaignAsset = WKFundraisingCampaignDataController().loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) {
-            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
+           let wkProject = wikimediaProject.wkProject else {
             return
+        }
+        
+        let dataController = WKFundraisingCampaignDataController.shared
+        
+        Task {
+            let isOptedIn = await dataController.isOptedIn(project: wkProject)
+            
+            guard isOptedIn,
+            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) else {
+                return
+            }
+            
+            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
         
-        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, campaignID: asset.utmSource)
+        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
-        let dataController = WKFundraisingCampaignDataController()
+        let dataController = WKFundraisingCampaignDataController.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
         
@@ -63,19 +73,20 @@ extension ArticleViewController {
 
     private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
-        let donateURL = firstAction.url
         
         let utmSource = asset.utmSource
-        
+        let metricsID = asset.metricsID
+
         let appVersion = Bundle.main.wmf_debugVersion()
-        
-        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, appVersion: appVersion),
+        let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
+
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
         } else {
             self.navigate(to: donateURL, userInfo: [
                 RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
-                RoutingUserInfoKeys.campaignBannerID: utmSource as Any
+                RoutingUserInfoKeys.campaignMetricsID: metricsID as Any
             ], useSafari: false)
         }
     }
@@ -167,12 +178,12 @@ extension ArticleViewController: WKDonateLoggingDelegate {
         sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject)
     }
     
-    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, bannerID: String?) {
+    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
         guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
             return
         }
         
-        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, bannerID: bannerID)
+        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, metricsID: metricsID)
     }
     
     func logDonateFormUserDidTapProblemsDonatingLink() {
@@ -230,5 +241,30 @@ extension WKFundraisingCampaignConfig.WKAsset {
         }
         
         return utmSource
+    }
+    
+    var metricsID: String {
+        return "\(languageCode)\(id)_iOS"
+    }
+}
+
+fileprivate extension URL {
+    func appendingAppVersion(appVersion: String?) -> URL {
+        
+        guard let appVersion,
+              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+        var queryItems = components.queryItems else {
+            return self
+        }
+        
+        
+        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            return self
+        }
+        
+        return url
     }
 }

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
-static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
@@ -484,8 +484,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
             NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
             NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
-            if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil appVersion: appVersion]) {
-                [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil appVersion: appVersion articleURL:nil sourceView: settingsCell loggingDelegate:self];
+            if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil metricsID:nil appVersion: appVersion]) {
+                [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil metricsID:nil appVersion: appVersion articleURL:nil sourceView: settingsCell loggingDelegate:self];
             } else {
                 // New experience pushing to in-app browser
                 [self wmf_navigateToURL:[self donationURL] useSafari:NO];

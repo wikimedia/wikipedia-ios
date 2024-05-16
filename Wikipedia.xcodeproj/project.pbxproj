@@ -725,6 +725,7 @@
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
+		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */; };
@@ -3395,6 +3396,7 @@
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
+		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5817,6 +5819,7 @@
 				0E19B9B51DAC574E00239F3A /* WMFRandomContentSource.m */,
 				0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */,
 				0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */,
+				67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */,
 				B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */,
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 				675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */,
@@ -10582,6 +10585,7 @@
 				0042807125E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */,
 				8341A345299ACD8C00016535 /* MEPEventProviding.swift in Sources */,
 				0042809325E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m in Sources */,
+				67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
 				837E619B2510E47400C67494 /* ArticleSummary.swift in Sources */,
