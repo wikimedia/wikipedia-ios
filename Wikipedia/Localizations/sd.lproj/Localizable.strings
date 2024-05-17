@@ -28,6 +28,7 @@
 "aaald-new-news-reference-retrieved-date" = "$1 تي حاصل ڪيل";
 "aaald-new-news-reference-title" = "خبرون";
 "aaald-new-talk-topic-description-format" = "ھن مضمون بابت $1";
+"aaald-new-website-reference-archive-date-text" = "$1 تان اصل حالت ۾ ورتل";
 "aaald-new-website-reference-archive-url-text" = "Archive.org يوآرايل";
 "aaald-new-website-reference-title" = "ويبسائيٽ";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 حوالا|$1 حوالو|$1 حوالا}} وڌا/وڌو ويا/ويو";
@@ -111,6 +112,7 @@
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
 "action-update" = "تجديد";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ شامل ڪريو";
+"advanced-settings-title" = "متقدم ترتيبون";
 "announcements-dismiss" = "برخواست";
 "app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ-چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل طور پنھنجي حساب موجب رکڻ جوڳي ۽ پڙهڻ ۾ آسان ايڪسپلور رسد. مڪانيتڪاري، ڪارڪردگي ۾ بھتريون، ۽ چُڪون حل ڪيون ويون.";
@@ -154,6 +156,7 @@
 "cancel" = "رد";
 "cc-zero" = "ڪريئيٽو ڪامنز سيسي0";
 "clear-title-accessibility-label" = "ختم ڪريو";
+"clearing-cache-complete" = "ڪيشي صاف ڪرڻ مڪمل.";
 "clearing-cache-in-progress" = "ڪيشي صاف ڪرڻ جاري آهي.";
 "close-button-accessibility-label" = "بند ڪريو";
 "compass-direction" = "$1 وڳي";
@@ -291,7 +294,11 @@
 "editor-exit-confirmation-body" = "ڇا توھان کي پڪ آھي تہ توھان سنوارڻ جي موڊ کي ڇاپڻ کان اگ ئي ڇڏڻ گهرو ٿا؟";
 "editor-exit-confirmation-message" = "ڇا توھان پڪ سان ھي سنوار ڦٽو ڪرڻ چاھيو ٿا؟";
 "editor-exit-confirmation-title" = "سنوارڻ جي موڊ کي برخواست ڪريون؟";
+"editor-find-clear-button-accessibility" = "لڌل صاف ڪريو";
+"editor-find-close-button-accessibility" = "لھڻ بند ڪريو";
 "editor-find-current-match-info-zero-results-accessibility" = "ڪي بہ ميل نہ لڌا";
+"editor-find-next-button-accessibility" = "لھڻ جو اڳيون نتيجو";
+"editor-find-previous-button-accessibility" = "لھڻ جو پويون نتيجو";
 "editor-find-textfield-accessibility" = "لھو";
 "editor-keyboard-bold-accessibility" = "گھرو";
 "editor-keyboard-close-text-format-menu-accessibility" = "متن جو فارميٽنگ مينيو بند ڪريو";
@@ -313,10 +320,14 @@
 "editor-keyboard-template-accessibility" = "سانچو";
 "editor-keyboard-text-formatting-title" = "متن فارميٽنگ";
 "editor-keyboard-underline-accessibility" = "هيٺان ليڪ";
+"editor-replace-clear-button-accessibility" = "مٽايل صاف ڪريو";
+"editor-replace-textfield-accessibility" = "مٽايو";
 "editor-replace-textfield-placeholder" = "سان مٽايو...";
 "editor-replace-type-all" = "سڀ مٽايو";
+"editor-replace-type-all-accessibility" = "سڀني جگھن تي مٽايو";
 "editor-replace-type-single" = "مٽايو";
 "editor-toolbar-find-accessibility" = "صفحي ۾ لھو";
+"editor-wikitext-loading-accessibility" = "سنوارگاھ جو متن لھي رھيو آھي";
 "editor-wikitext-textview-accessibility" = "وڪي متن سنوارگاھ";
 "empty-diff-compare-title" = "ورجائن وچ ۾ ڪي بہ تفاوت ناھن";
 "empty-diff-single-title" = "ڪي بہ ڏسي سگھجندڙ تبديليون ناھن ٿيون";
@@ -427,6 +438,7 @@
 "explore-suggested-edits-footer" = "وجهو";
 "explore-suggested-edits-image-recs-title" = "ڪو عڪس شامل ڪريو";
 "export-user-data-confirmation-title" = "ايپ لائبرري ونڊيون؟";
+"export-user-data-generic-error" = "توهان جي ڊيٽا برآمد ڪرڻ دوران ڪا چُڪَ پيش آئي. مھرباني ڪري ڪجهہ دير رکي ٻيھر ڪوشش ڪندا.";
 "export-user-data-title" = "واپرائيندڙ ڊيٽا درآمد ڪريو";
 "featured-widget-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "featured-widget-from-wikipedia" = "وڪيپيڊيا تان";
@@ -488,8 +500,14 @@
 "image-gallery-unknown-owner" = "ليکڪ اڻڄاتل.";
 "image-rec-add-image-title" = "ھي عڪس شامل ڪريو؟";
 "image-rec-empty-subtitle" = "بعد ۾ واپس اچڻ جي ڪوشش ڪريو.";
+"image-rec-error-subtitle" = "ڪا غلطي ٿي آهي.";
+"image-rec-error-title" = "صفحو لاھڻ ۾ ناڪام";
+"image-rec-feature-announce-title" = "'عڪس شامل ڪريو' کي آزمايو";
+"image-rec-onboarding-item-1-body" = "فيصلو ڪندا تہ وڪيپيڊيا مضمون ۾ ڏسيل عڪس رکيو وڃي يا نہ.";
 "image-rec-onboarding-item-1-title" = "ڪا صلاح ڏسو";
+"image-rec-onboarding-item-2-body" = "صلاحون مشين پاران جوڙيل آھن ۽ توهان طئي ڪرڻ لاءِ پنھنجو فيصلو استعمال ڪندا تہ انهن کي قبول ڪجي يا رد ڪجي.";
 "image-rec-onboarding-item-2-title" = "ڪو عڪس قبول يا رد ڪريو";
+"image-rec-onboarding-item-3-body" = "عڪس وڪيميڊیا ڪامنس مان آھن، آزاد لائسنس ٿيل عڪسن جو مجموعو جيڪو وڪيپيڊیا پاران استعمال ڪيو ويندو آھي.";
 "image-rec-onboarding-item-3-title" = "لائسنس ٿيل عڪس";
 "image-rec-onboarding-learn-more-button" = "صلاح ڏنل سنوارن بابت وڌيڪ ڄاڻيو";
 "image-rec-onboarding-title" = "ڪنھن مضمون ۾ ڪو عڪس شامل ڪريو";
@@ -504,9 +522,18 @@
 "image-rec-survey-submit-button" = "اماڻيو";
 "image-rec-survey-title" = "سبب";
 "image-rec-title" = "عڪس شامل ڪريو";
+"image-rec-tooltip-1-body" = "موضوع کي سمجھڻ لاءِ ھن مضمون جو جائزو وٺو.";
 "image-rec-tooltip-1-title" = "نظرثاني ڪريو";
+"image-rec-tooltip-2-body" = "عڪس ۽ ان سان جُڙيل معلومات جو معائنو ڪريو.";
+"image-rec-tooltip-2-title" = "معائنو ڪرڻ";
+"image-rec-tooltip-3-body" = "فيصلو ڪريو تہ ڇا عڪس پڙهندڙن کي هن موضوع کي بھتر سمجهڻ ۾ مدد ڪري ٿو.";
 "image-rec-tooltip-3-title" = "فيصلو ڪريو";
 "image-rec-view-article" = "مضمون ڏسو";
+"image-recommendations-email-fifth-line" = "[اسڪرين شاٽ يا لنڪس]";
+"image-recommendations-email-fourth-line" = "- [تجويز ڪيل حل بيان ڪريو]";
+"image-recommendations-email-second-line" = "- [مخصوص مسئلو بيان ڪريو]";
+"image-recommendations-email-third-line" = "اهو رويو جيڪو مان ڏسڻ چاهيان ٿو، اھو ھي آھي:";
+"image-recommendations-email-title" = "مسئلي جي رپورٽ - عڪس شامل ڪريو خصوصيت";
 "image-recs-no-title" = "نہ";
 "image-recs-not-sure-title" = "پڪ ناھي";
 "image-recs-yes-title" = "ها";
@@ -534,8 +561,11 @@
 "insert-media-image-preview-select-image-action-title" = "عڪس چونڊيو";
 "insert-media-image-size-setting-custom" = "مرضي موجب";
 "insert-media-image-size-setting-default" = "ڏنل";
+"insert-media-image-size-settings-measure-height" = "اوچائي";
+"insert-media-image-size-settings-measure-width" = "ويڪر";
 "insert-media-image-size-settings-px-unit-name" = "عڪ";
 "insert-media-image-size-settings-title" = "عڪس ماپ";
+"insert-media-image-text-wrapping-setting" = "متن کي عڪس جي چوڌاري ويڙھيو";
 "insert-media-image-type-setting-basic" = "بنيادي";
 "insert-media-image-type-setting-frame" = "فريم";
 "insert-media-image-type-setting-frameless" = "بنا-فريم";
@@ -640,6 +670,7 @@
 "notifications-center-onboarding-panel-heading" = "ڌڪيل اطلاع آن ڪجن؟";
 "notifications-center-onboarding-panel-primary-button" = "ڌڪيل اطلاع آن ڪريو";
 "notifications-center-onboarding-panel-secondary-button" = "نہ مھرباني";
+"notifications-center-onboarding-panel-subheading" = "وڪيپيڊيا هڪ گڏيل رٿا آهي ۽ پش نوٽيفڪيشن کي آن ڪرڻ سان ساٿي سنواريندڙن جي پيغامن، خبردارين، ۽ ”مھربانين“ بابت باخبر رهڻ آسان ٿي سگهي ٿو.";
 "notifications-center-project-filters-accessibility-label" = "رٿائن جي ڇاڻي";
 "notifications-center-status-all" = "سڀ";
 "notifications-center-status-all-notifications" = "سڀ اطلاع";
@@ -956,6 +987,7 @@
 "talk-page-reply-button-accessibility-label" = "$1 کي ورندي ڏيو";
 "talk-page-reply-depth-accessibility-label" = "ورنديءَ جي گَھِرائي: $1";
 "talk-page-reply-placeholder-format" = "$1 کي ورندي";
+"talk-page-reply-terms-and-licenses-ccsa4" = "ياد رھي تہ توھان جي ورنديءَ تي پاڻمرادو توھان جي واپرائيندڙنانءَ سان سھي ٿي ويندي. تبديليون سانڍڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ $3CC BY-SA 4.0$4 ۽ $5GFDL$6 اجازتنامن ھيٺ پنھنجي ڀاڱيداري جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-revision-history" = "ورجاءَ سوانح";
 "talk-page-rply-close-button-accessibility-hint" = "ورنديءَ جو ڏيک بند ڪريو";
 "talk-page-share-button" = "بحث صفحو ونڊيو";
@@ -966,6 +998,7 @@
 "talk-page-title-article-talk" = "مضمون بحث";
 "talk-page-title-user-talk" = "واپرائيندڙ بحث";
 "talk-page-topic-close-button-hint" = "نئون موضوع بند ڪريو";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "تبديليون ڇاپڻ سان، توھان $1استعمال جي شرطن$2 سان راضي آھيو، ۽ بغير واپس ڪئي پنھنجي ڀاڱيداري$3CC BY-SA 4.0 اجازتنامي$4 ۽ $5GFDL$6 ھيٺ جاري ڪرڻ لاءِ راضي آھيو.";
 "talk-page-unsubscribe-to-topic" = "اڻسبسڪرائب ڪريو";
 "talk-page-unsubscribed-alert-subtitle" = "توھان کي ھن موضوع بابت نون تبصرن جا اطلاع نہ ڏنا ويندا.";
 "talk-page-unsubscribed-alert-title" = "توھان اڻسبسڪرائب ڪري ڇڏيو.";
@@ -983,11 +1016,13 @@
 "talk-pages-empty-view-button-user-start-discussion" = "ڪا گفتگو شروع ڪريو";
 "talk-pages-empty-view-header-article" = "گفتگو هتي شروع ٿئي ٿي";
 "talk-pages-empty-view-header-user" = "$1 سان ڪا گفتگو شروع ڪريو";
+"talk-pages-reply-compose-close-confirmation-title" = "ڇا توھان پڪ سان ھي نئين ورندي ڦٽو ڪرڻ چاھيو ٿا؟";
 "talk-pages-topic-added-alert-title" = "توھان جو موضوع وڌو ويو";
 "talk-pages-topic-compose-body-placeholder" = "تشريح";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "موضوع جي تشريح";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "ورندي رد ڪريو";
 "talk-pages-topic-compose-close-confirmation-discard-topic" = "موضوع ڦٽو ڪريو";
+"talk-pages-topic-compose-close-confirmation-title" = "ڇا توھان پڪ سان ھي نئون نوضوع ڦٽو ڪرڻ چاھيو ٿا؟";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "موضوع جو عنوان";
 "talk-pages-topic-reply-onboarding-body" = "بحث صفحن تي ماڻھو ڳالھائيندا آهن تہ ڪيئن وڪيپيڊيا مواد کي بھترين طريقي سان ٺاهيو وڃي. وڪيپيڊينس جي برادريءَ سان ڳنڍجڻ ۽ تعاون ڪرڻ لاءِ هڪ نئون بحث موضوع شامل ڪري شروعات ڪريو.\n\nرحمدل رھو، ھتي پاڻ سڀ انسان آھيون.";
@@ -1122,4 +1157,5 @@
 "wikitext-upload-save-anonymously-or-login" = "سنوارون توھان جي ڊوائيس جي آئِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1داخل ٿيو$2 ٿا تہ توھان کي وڌيڪ نويڪلائي ھوندي.";
 "wikitext-upload-save-anonymously-warning" = "سنوارون توھان جي ڊوائيس جي آئپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-sign-in" = "داخل ٿيو";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "تبديليون ڇاپڻ سان توھان $1استعمال جي شرطن$2، ۽ بغير رد ڪئي پنھنجون ڀاڱيداريون $3CC BY-SA 4.0$4 اجازتنامي ۽ $5GFDL$6 ھيٺ جاري ڪرڻ لاءِ راضي آھيو. توھان راضي آھيو تہ ڪو ھائپرڳنڍڻو يا يوآرايل ڪريئيٽو ڪامنز اجازتنامي ھيٺ ڪافي انتساب آھي.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
