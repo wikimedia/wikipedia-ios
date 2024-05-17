@@ -52,6 +52,17 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         search.searchResultsUpdater = self
         search.searchBar.placeholder = "Type something here to search"
         search.automaticallyShowsCancelButton = true
+        search.searchBar.scopeButtonTitles = ["Test1",
+                                              "Test2",
+                                              "Test3",
+                                              "Test4",
+                                              "Test5",
+                                              "Test6",
+                                              "Test7",
+                                              "Test8",
+                                              "Test9",
+                                              "Test10"]
+        search.searchBar.showsScopeBar = true
         navigationItem.searchController = search
     }
     
