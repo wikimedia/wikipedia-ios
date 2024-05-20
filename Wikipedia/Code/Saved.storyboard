@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbA-ai-MSH">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbA-ai-MSH">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,6 +26,7 @@
                                 </constraints>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                         <constraints>
                             <constraint firstItem="gPn-7Q-j2P" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="0M7-0H-eu1"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="7h6-U1-pjA"/>
@@ -37,22 +36,13 @@
                             <constraint firstItem="SMV-D9-nEr" firstAttribute="bottom" secondItem="gPn-7Q-j2P" secondAttribute="bottom" id="eiv-L8-05c"/>
                             <constraint firstAttribute="trailing" secondItem="gPn-7Q-j2P" secondAttribute="trailing" id="tsd-9o-tNl"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>
                     <navigationItem key="navigationItem" id="BCS-mT-Lm6">
                         <barButtonItem key="backBarButtonItem" title="Back" id="moe-WC-1c5"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="actionButton" destination="269-0y-zMz" id="afs-tZ-Hwi"/>
-                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="FuC-sg-qXp"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
-                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="L0n-ol-sJk"/>
-                        <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
-                        <outlet property="searchView" destination="eby-nN-6Yg" id="ImI-Ka-saE"/>
-                        <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
-                        <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
-                        <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,9 +66,6 @@
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="useDefaultFont" value="NO"/>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Tjj-9u-FAV"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
                                     <rect key="frame" x="167.5" y="0.0" width="151.5" height="38"/>
@@ -93,41 +80,36 @@
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="useDefaultFont" value="NO"/>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="uxl-yy-BNt"/>
-                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="anm-PF-eyE"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Oco-6Z-eRG" secondAttribute="bottom" id="Fjx-oT-Be2"/>
                         <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" constant="6" id="Spm-sh-QSJ"/>
                         <constraint firstAttribute="trailingMargin" secondItem="Oco-6Z-eRG" secondAttribute="trailing" constant="12" id="UCv-Jz-Qr4"/>
                         <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="12" id="vTy-ss-cx0"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="anm-PF-eyE"/>
                 </view>
                 <view contentMode="scaleToFill" id="eby-nN-6Yg" userLabel="Search View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-Fx-dME">
-                            <rect key="frame" x="20" y="8" width="281" height="36"/>
+                            <rect key="frame" x="20" y="28" width="281" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="cRy-oU-bgr"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz" userLabel="Action Button">
-                            <rect key="frame" x="317" y="11" width="30" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz" userLabel="Action Button">
+                            <rect key="frame" x="317" y="31" width="30" height="30"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
-                            <connections>
-                                <action selector="actionButonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="SqX-sp-EPM"/>
-                            </connections>
                         </button>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="ZLC-gE-F7n"/>
                     <constraints>
                         <constraint firstItem="269-0y-zMz" firstAttribute="leading" secondItem="nj7-Fx-dME" secondAttribute="trailing" constant="16" id="6I6-rJ-tqQ"/>
                         <constraint firstItem="nj7-Fx-dME" firstAttribute="top" secondItem="eby-nN-6Yg" secondAttribute="topMargin" constant="8" id="7kR-eh-tKa"/>
@@ -136,10 +118,17 @@
                         <constraint firstItem="269-0y-zMz" firstAttribute="centerY" secondItem="nj7-Fx-dME" secondAttribute="centerY" id="jlo-bf-sL9"/>
                         <constraint firstAttribute="bottomMargin" secondItem="nj7-Fx-dME" secondAttribute="bottom" constant="8" id="yFy-GN-5oz"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="ZLC-gE-F7n"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-970" y="145"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Euv-Dh-yK7">
+            <size key="intrinsicContentSize" width="79" height="33"/>
+        </designable>
+        <designable name="Kqc-qA-t3B">
+            <size key="intrinsicContentSize" width="97" height="33"/>
+        </designable>
+    </designables>
 </document>

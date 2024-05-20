@@ -7,7 +7,7 @@ protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController)
 }
 
-class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
+class ReadingListEntryCollectionViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
     let dataStore: MWKDataStore
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
@@ -47,7 +47,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,7 +100,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         cell.alertButtonCallback = { [weak self] in
-            self?.presentArticleErrorRecovery(with: article)
+            // self?.presentArticleErrorRecovery(with: article)
         }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
@@ -525,7 +525,7 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBar.isInteractiveHidingEnabled = false
+        // navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -534,6 +534,6 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBar.isInteractiveHidingEnabled = true
+        // navigationBar.isInteractiveHidingEnabled = true
     }
 }

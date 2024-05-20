@@ -1982,7 +1982,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self dismissPresentedViewControllers];
     [self setSelectedIndex:WMFAppTabTypeSaved];
     [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.savedViewController toggleCurrentView:WMFSavedViewControllerView.readingListsViewRawValue];
+    //[self.savedViewController toggleCurrentView:WMFSavedViewControllerView.readingListsViewRawValue];
     ReadingListDetailViewController *detailVC = [[ReadingListDetailViewController alloc] initFor:readingList with:self.dataStore fromImport:YES theme:self.theme];
     [self.navigationController pushViewController:detailVC animated:YES];
 }

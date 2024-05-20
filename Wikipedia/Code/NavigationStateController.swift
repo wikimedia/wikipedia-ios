@@ -162,7 +162,7 @@ final class NavigationStateController: NSObject {
                 guard let currentSavedViewRawValue = info.currentSavedViewRawValue else {
                     return
                 }
-                savedViewController.toggleCurrentView(currentSavedViewRawValue)
+                // savedViewController.toggleCurrentView(currentSavedViewRawValue)
             case let searchViewController as SearchViewController:
                 searchViewController.searchAndMakeResultsVisibleForSearchTerm(info.searchTerm, animated: false)
             case let exploreViewController as ExploreViewController:

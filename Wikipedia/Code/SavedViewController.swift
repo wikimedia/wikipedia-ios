@@ -14,7 +14,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFSavedViewController)
-class SavedViewController: ViewController {
+class SavedViewController: ThemeableViewController {
 
     private var savedArticlesViewController: SavedArticlesCollectionViewController?
     
@@ -30,13 +30,6 @@ class SavedViewController: ViewController {
     }()
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet var searchView: UIView!
-    @IBOutlet var underBarView: UIView!
-    @IBOutlet var allArticlesButton: UnderlineButton!
-    @IBOutlet var readingListsButton: UnderlineButton!
-    @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
 
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
@@ -71,28 +64,28 @@ class SavedViewController: ViewController {
         case savedArticles, readingLists
     }
     
-    @IBAction func toggleButtonPressed(_ sender: UIButton) {
-        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
-        sender.isSelected = true
-        currentView = View(rawValue: sender.tag) ?? .savedArticles
-        logTappedView(currentView)
-    }
-
-    @objc func toggleCurrentView(_ newViewRawValue: Int) {
-        toggleButtons.first { $0.tag != newViewRawValue }?.isSelected = false
-        for button in toggleButtons {
-            if button.tag == newViewRawValue {
-                button.isSelected = true
-            } else {
-                button.isSelected = false
-            }
-        }
-        currentView = View(rawValue: newViewRawValue) ?? .savedArticles
-    }
+//    @IBAction func toggleButtonPressed(_ sender: UIButton) {
+//        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
+//        sender.isSelected = true
+//        currentView = View(rawValue: sender.tag) ?? .savedArticles
+//        logTappedView(currentView)
+//    }
+//
+//    @objc func toggleCurrentView(_ newViewRawValue: Int) {
+//        toggleButtons.first { $0.tag != newViewRawValue }?.isSelected = false
+//        for button in toggleButtons {
+//            if button.tag == newViewRawValue {
+//                button.isSelected = true
+//            } else {
+//                button.isSelected = false
+//            }
+//        }
+//        currentView = View(rawValue: newViewRawValue) ?? .savedArticles
+//    }
 
     private(set) var currentView: View = .savedArticles {
         didSet {
-            searchBar.resignFirstResponder()
+            // searchBar.resignFirstResponder()
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsViewController)
@@ -101,22 +94,28 @@ class SavedViewController: ViewController {
                 savedArticlesViewController?.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                scrollView = savedArticlesViewController?.collectionView
+                // scrollView = savedArticlesViewController?.collectionView
                 activeEditableCollection = savedArticlesViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
                 evaluateEmptyState()
                 ReadingListsFunnel.shared.logTappedAllArticlesTab()
+                if let searchBar = navigationItem.searchController?.searchBar {
+                    searchBar.placeholder = "Search saved articles"
+                }
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController?.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addSavedChildViewController(readingListsViewController)
-                scrollView = readingListsViewController?.collectionView
+                // scrollView = readingListsViewController?.collectionView
                 extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
                 evaluateEmptyState()
                 ReadingListsFunnel.shared.logTappedReadingListsTab()
+                if let searchBar = navigationItem.searchController?.searchBar {
+                    searchBar.placeholder = "Search reading lists"
+                }
             }
         }
     }
@@ -129,13 +128,14 @@ class SavedViewController: ViewController {
 
     private var extendedNavBarViewType: ExtendedNavBarViewType = .none {
         didSet {
-            navigationBar.removeExtendedNavigationBarView()
+            // navigationBar.removeExtendedNavigationBarView()
             switch extendedNavBarViewType {
             case .search:
-                navigationBar.addExtendedNavigationBarView(searchView)
+                // navigationBar.addExtendedNavigationBarView(searchView)
+                break
             case .createNewReadingList:
                 if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
-                    navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
+                    // navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
                     createNewReadingListButtonView.apply(theme: theme)
                 }
             default:
@@ -183,40 +183,64 @@ class SavedViewController: ViewController {
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
-        navigationBar.addExtendedNavigationBarView(searchView)
-        navigationBar.addUnderNavigationBarView(underBarView)
-        navigationBar.displayType = .largeTitle
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = false
-        navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isShadowHidingEnabled = false
-        navigationBar.isShadowBelowUnderBarView = true
+        super.viewDidLoad()
+//        navigationBar.addExtendedNavigationBarView(searchView)
+//        navigationBar.addUnderNavigationBarView(underBarView)
+//        navigationBar.displayType = .largeTitle
+//        navigationBar.isBarHidingEnabled = false
+//        navigationBar.isUnderBarViewHidingEnabled = false
+//        navigationBar.isExtendedViewHidingEnabled = true
+//        navigationBar.isShadowHidingEnabled = false
+//        navigationBar.isShadowBelowUnderBarView = true
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         if activeEditableCollection == nil {
             currentView = .savedArticles
         }
-        
+//        
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
-        allArticlesButton.setTitle(allArticlesButtonTitle, for: .normal)
+        // allArticlesButton.setTitle(allArticlesButtonTitle, for: .normal)
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
-        readingListsButton.setTitle(readingListsButtonTitle, for: .normal)
-        allArticlesButton.titleLabel?.numberOfLines = 1
-        readingListsButton.titleLabel?.numberOfLines = 1
-        allArticlesButton.titleLabel?.lineBreakMode = .byTruncatingTail
-        readingListsButton.titleLabel?.lineBreakMode = .byTruncatingTail
+//        readingListsButton.setTitle(readingListsButtonTitle, for: .normal)
+//        allArticlesButton.titleLabel?.numberOfLines = 1
+//        readingListsButton.titleLabel?.numberOfLines = 1
+//        allArticlesButton.titleLabel?.lineBreakMode = .byTruncatingTail
+//        readingListsButton.titleLabel?.lineBreakMode = .byTruncatingTail
 
-        searchBar.delegate = self
-        searchBar.returnKeyType = .search
-        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved")
+//        searchBar.delegate = self
+//        searchBar.returnKeyType = .search
+//        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved")
+//        
+        // extendedLayoutIncludesOpaqueBars = true
+        // edgesForExtendedLayout = .all
         
-        extendedLayoutIncludesOpaqueBars = true
-        edgesForExtendedLayout = .all
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        // TODO: true doesn't work here with scopeBar :(
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
+
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        // search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved")
+        if #available(iOS 16.0, *) {
+            search.scopeBarActivation = .manual
+        } else {
+            // Fallback on earlier versions
+        }
+        search.searchBar.showsScopeBar = true
+        search.searchBar.scopeButtonTitles = [allArticlesButtonTitle,readingListsButtonTitle]
+        search.searchBar.delegate = self
+        
+        navigationItem.searchController = search
         
         actionButtonType = .sort
-        
-        super.viewDidLoad()
 
         updateFonts()
     }
@@ -243,7 +267,7 @@ class SavedViewController: ViewController {
     }
 
     private func updateFonts() {
-        actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        // actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {
@@ -272,12 +296,12 @@ class SavedViewController: ViewController {
     
     private var actionButtonType: ActionButtonType = .sort {
         didSet {
-            switch actionButtonType {
-            case .sort:
-                actionButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
-            case .cancel:
-                actionButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
-            }
+//            switch actionButtonType {
+//            case .sort:
+//                actionButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
+//            case .cancel:
+//                actionButton.setTitle(CommonStrings.cancelActionTitle, for: .normal)
+//            }
         }
     }
     
@@ -286,7 +310,8 @@ class SavedViewController: ViewController {
         case .sort:
             savedDelegate?.savedWillShowSortAlert(self, from: sender)
         case .cancel:
-            searchBar.resignFirstResponder()
+            // searchBar.resignFirstResponder()
+            break
         }
     }
     
@@ -303,14 +328,14 @@ class SavedViewController: ViewController {
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
 
-        for button in toggleButtons {
-            button.setTitleColor(theme.colors.secondaryText, for: .normal)
-            button.tintColor = theme.colors.link
-        }
+//        for button in toggleButtons {
+//            button.setTitleColor(theme.colors.secondaryText, for: .normal)
+//            button.tintColor = theme.colors.link
+//        }
         
-        underBarView.backgroundColor = theme.colors.paperBackground
-        searchView.backgroundColor = theme.colors.paperBackground
-        searchBar.apply(theme: theme)
+//        underBarView.backgroundColor = theme.colors.paperBackground
+//        searchView.backgroundColor = theme.colors.paperBackground
+//        searchBar.apply(theme: theme)
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
@@ -327,27 +352,27 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         defer {
-            navigationBar.updateNavigationItems()
+            // navigationBar.updateNavigationItems()
         }
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
-        actionButton.isEnabled = !isEditing
+        // actionButton.isEnabled = !isEditing
         if newEditingState == .open,
             let batchEditToolbar = savedArticlesViewController?.editController.batchEditToolbarView,
             let contentView = containerView,
             let appTabBar = tabBarDelegate?.tabBar {
-                accessibilityElements = [navigationBar, batchEditToolbar, contentView, appTabBar]
+                accessibilityElements = [batchEditToolbar, contentView, appTabBar] // , navigationBar
         } else {
             accessibilityElements = []
         }
         guard isEditing else {
             return
         }
-        if searchBar.isFirstResponder {
-            searchBar.resignFirstResponder()
-        }
+//        if searchBar.isFirstResponder {
+//            searchBar.resignFirstResponder()
+//        }
         ReadingListsFunnel.shared.logTappedEditButton()
     }
     
@@ -393,6 +418,15 @@ extension SavedViewController: UISearchBarDelegate {
         actionButtonType = .sort
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if selectedScope == 0 {
+            currentView = .savedArticles
+        } else {
+            currentView = .readingLists
+        }
+        logTappedView(currentView)
+    }
 }
 
 extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate {
@@ -406,4 +440,11 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
         navigate(to: articleURL)
     }
     
+}
+
+extension SavedViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        print(text)
+    }
 }

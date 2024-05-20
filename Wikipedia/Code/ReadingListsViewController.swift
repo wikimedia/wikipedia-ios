@@ -10,7 +10,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
+class ReadingListsViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection {
 
     typealias T = ReadingList
     let dataStore: MWKDataStore
@@ -77,7 +77,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     init(with dataStore: MWKDataStore) {
         self.dataStore = dataStore
         self.readingListsController = dataStore.readingListsController
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {

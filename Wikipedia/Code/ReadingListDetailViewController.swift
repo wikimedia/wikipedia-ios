@@ -4,7 +4,7 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ViewController {
+class ReadingListDetailViewController: ThemeableViewController {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
@@ -45,7 +45,7 @@ class ReadingListDetailViewController: ViewController {
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
         readingListEntryCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
@@ -84,8 +84,8 @@ class ReadingListDetailViewController: ViewController {
         addChild(readingListEntryCollectionViewController)
         view.addSubview(readingListEntryCollectionViewController.view)
         readingListEntryCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        readingListEntryCollectionViewController.edgesForExtendedLayout = .all
-        scrollView = readingListEntryCollectionViewController.collectionView
+        // readingListEntryCollectionViewController.edgesForExtendedLayout = .all
+        // scrollView = readingListEntryCollectionViewController.collectionView
         NSLayoutConstraint.activate(
             [
                 readingListEntryCollectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
@@ -104,16 +104,16 @@ class ReadingListDetailViewController: ViewController {
         
         setUpArticlesViewController()
         
-        navigationBar.title = readingList.name
+        title = readingList.name
 
         navigationItem.backButtonTitle = readingList.name
         navigationItem.backButtonDisplayMode = .generic
 
-        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
-        navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isExtendedViewHidingEnabled = true
+//        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
+//        navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+//        navigationBar.isBarHidingEnabled = false
+//        navigationBar.isUnderBarViewHidingEnabled = true
+//        navigationBar.isExtendedViewHidingEnabled = true
         addExtendedView()
         
         if displayType == .modal {
@@ -130,7 +130,7 @@ class ReadingListDetailViewController: ViewController {
         guard let extendedView = searchBarExtendedViewController?.view else {
             return
         }
-        navigationBar.addExtendedNavigationBarView(extendedView)
+        // navigationBar.addExtendedNavigationBarView(extendedView)
     }
     
     @objc private func dismissController() {
@@ -219,7 +219,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             break
         }
         
-        navigationBar.updateNavigationItems()
+        // navigationBar.updateNavigationItems()
     }
 }
 
@@ -276,7 +276,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        navigationBar.isExtendedViewHidingEnabled = false
+        // navigationBar.isExtendedViewHidingEnabled = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -287,7 +287,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         searchBar.text = ""
         readingListEntryCollectionViewController.updateSearchString("")
         searchBar.resignFirstResponder()
-        navigationBar.isExtendedViewHidingEnabled = true
+        // navigationBar.isExtendedViewHidingEnabled = true
     }
     
     func textStyle(for button: UIButton) -> DynamicTextStyle {
@@ -334,11 +334,11 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         }
         if viewController.isEmpty {
             title = readingList.name
-            navigationBar.removeExtendedNavigationBarView()
+            // navigationBar.removeExtendedNavigationBarView()
         } else {
             addExtendedView()
         }
-        viewController.updateScrollViewInsets()
+        // viewController.updateScrollViewInsets()
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
