@@ -34,15 +34,15 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
         fetch()
     }
     
-    lazy var fakeProgressController: FakeProgressController = {
-        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
-    }()
+//    lazy var fakeProgressController: FakeProgressController = {
+//        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
+//    }()
     
     func fetch() {
-        fakeProgressController.start()
+        // fakeProgressController.start()
         let articleKeys = articleURLs.compactMap { $0.wmf_inMemoryKey }
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys) { (_, error) in
-            self.fakeProgressController.finish()
+            // self.fakeProgressController.finish()
             if let error = error {
                 self.wmf_showAlertWithError(error as NSError)
                 return

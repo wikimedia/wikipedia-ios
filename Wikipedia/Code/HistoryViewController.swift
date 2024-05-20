@@ -13,9 +13,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isShadowHidingEnabled = true
-        navigationBar.displayType = .largeTitle
+//        navigationBar.isBarHidingEnabled = false
+//        navigationBar.isShadowHidingEnabled = true
+//        navigationBar.displayType = .largeTitle
 
         emptyViewType = .noHistory
         
@@ -26,6 +26,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         deleteAllCancelText = WMFLocalizedString("history-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
         isDeleteAllVisible = true
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,9 +57,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
     }
     
-    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-        return .sections
-    }
+//    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+//        return .sections
+//    }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {

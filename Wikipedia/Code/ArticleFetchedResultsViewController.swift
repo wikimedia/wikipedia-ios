@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc(WMFArticleFetchedResultsViewController)
-class ArticleFetchedResultsViewController: ArticleCollectionViewController, CollectionViewUpdaterDelegate {
+class ArticleFetchedResultsViewController: ArticleCollectionViewController2, CollectionViewUpdaterDelegate {
     var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
     var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
 
@@ -65,7 +65,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
 
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
-        navigationBar.updateNavigationItems()
+        // navigationBar.updateNavigationItems()
     }
     
     @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {
