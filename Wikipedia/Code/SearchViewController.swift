@@ -17,9 +17,8 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        // TODO:
-        // updateLanguageBarVisibility()
         super.viewWillAppear(animated)
+        updateLanguageBarVisibility()
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
             navigationItem.searchController?.searchBar.becomeFirstResponder()
@@ -50,19 +49,9 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         let search = UISearchController(searchResultsController: nil)
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
+        search.searchBar.delegate = self
         search.searchBar.placeholder = "Type something here to search"
         search.automaticallyShowsCancelButton = true
-        search.searchBar.scopeButtonTitles = ["Test1",
-                                              "Test2",
-                                              "Test3",
-                                              "Test4",
-                                              "Test5",
-                                              "Test6",
-                                              "Test7",
-                                              "Test8",
-                                              "Test9",
-                                              "Test10"]
-        search.searchBar.showsScopeBar = true
         navigationItem.searchController = search
     }
     
@@ -207,18 +196,20 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
 
     private func updateLanguageBarVisibility() {
         let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
-        if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
-            let searchLanguageBarViewController = setupLanguageBarViewController()
-            addChild(searchLanguageBarViewController)
-            searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            // TODO: Add languages to heirarchy somewhere, or use search scopes
-            searchLanguageBarViewController.didMove(toParent: self)
-            searchLanguageBarViewController.view.isHidden = false
-        } else if !showLanguageBar && searchLanguageBarViewController != nil {
-            searchLanguageBarViewController?.willMove(toParent: nil)
-            // TODO: Remove languages from heirarchy
-            searchLanguageBarViewController?.removeFromParent()
-            searchLanguageBarViewController = nil
+        
+        let searchController = navigationItem.searchController
+        searchController?.searchBar.showsScopeBar = showLanguageBar
+        if showLanguageBar {
+            let languages = dataStore.languageLinkController.preferredLanguages
+            searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
+                
+//                let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
+//                
+//                return truncatedLanguageCode.last?.isPunctuation ?? false
+//                ? String(truncatedLanguageCode.dropLast())
+//                : String(truncatedLanguageCode)
+                return $0.contentLanguageCode.localizedUppercase
+            }
         }
     }
     
@@ -284,25 +275,31 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     
     // MARK: - UISearchBarDelegate
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateRecentlySearchedVisibility(searchText: searchText)
-        search(for: searchBar.text, suggested: false)
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        saveLastSearch()
-        searchBar.endEditing(true)
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        updateRecentlySearchedVisibility(searchText: searchText)
+//        search(for: searchBar.text, suggested: false)
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        saveLastSearch()
+//        searchBar.endEditing(true)
+//    }
+//    
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+//            navigationController.popViewController(animated: true)
+//        } else {
+//            searchBar.endEditing(true)
+//            didCancelSearch()
+//        }
+//        deselectAll(animated: true)
+//		updateRecentlySearchedVisibility(searchText: searchBar.text)
+//    }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
-            navigationController.popViewController(animated: true)
-        } else {
-            searchBar.endEditing(true)
-            didCancelSearch()
-        }
-        deselectAll(animated: true)
-		updateRecentlySearchedVisibility(searchText: searchBar.text)
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        let languages = dataStore.languageLinkController.preferredLanguages
+        let language = languages[selectedScope]
+        siteURL = language.siteURL
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {

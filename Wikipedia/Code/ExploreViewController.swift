@@ -134,10 +134,14 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         searchViewController.searchTermSelectDelegate = self
         let search = UISearchController(searchResultsController: searchViewController)
         search.searchResultsUpdater = self
+        search.searchBar.delegate = self
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         search.showsSearchResultsController = true
+        search.searchBar.showsScopeBar = false
+
         // definesPresentationContext = true
+        
         navigationItem.searchController = search
     }
 
@@ -294,10 +298,18 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 
     // MARK: - UISearchBarDelegate
     
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let searchActivity = NSUserActivity.wmf_searchView()
-        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
-        return false
+//    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+//        let searchActivity = NSUserActivity.wmf_searchView()
+//        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
+//        return false
+//    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        let languages = dataStore.languageLinkController.preferredLanguages
+        let language = languages[selectedScope]
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.siteURL = language.siteURL
+        }
     }
     
     // MARK: - State
@@ -1523,7 +1535,9 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
 
 extension ExploreViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
+        guard let text = searchController.searchBar.text else {
+            return
+        }
         
         guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
             return
@@ -1538,7 +1552,29 @@ extension ExploreViewController: UISearchResultsUpdating {
             searchViewController.search()
         }
         
-        navigationController?.hidesBarsOnSwipe = !searchController.searchBar.isFirstResponder
+        if searchController.searchBar.isFirstResponder {
+            
+            let showLanguageBar = UserDefaults.standard.wmf_showSearchLanguageBar()
+            
+            if showLanguageBar {
+                navigationItem.searchController?.searchBar.showsScopeBar = true
+                let languages = dataStore.languageLinkController.preferredLanguages
+                navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
+                    
+//                    let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
+//                    
+//                    return truncatedLanguageCode.last?.isPunctuation ?? false
+//                    ? String(truncatedLanguageCode.dropLast())
+//                    : String(truncatedLanguageCode)
+                    return $0.contentLanguageCode.localizedUppercase
+                }
+            }
+            
+            navigationController?.hidesBarsOnSwipe = false
+        } else {
+            navigationController?.hidesBarsOnSwipe = true
+            navigationItem.searchController?.searchBar.showsScopeBar = false
+        }
     }
 }
 
