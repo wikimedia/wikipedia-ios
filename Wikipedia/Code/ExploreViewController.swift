@@ -143,6 +143,19 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         // definesPresentationContext = true
         
         navigationItem.searchController = search
+        
+        // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
+        // TODO: Update this upon theming change.
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.backgroundColor = theme.colors.paperBackground
+        view.insertSubview(overlayView, aboveSubview: collectionView)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: overlayView.bottomAnchor)
+        ])
     }
 
     @objc func updateNotificationsCenterButton() {
