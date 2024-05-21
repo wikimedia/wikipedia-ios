@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
+class PlacesViewController: ThemeableViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
 
     fileprivate var mapView: MapView!
 
@@ -14,7 +14,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
 
-    var fakeProgressController: FakeProgressController!
+   // var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     @IBOutlet weak var listAndSearchOverlaySliderSeparator: UIView!
@@ -143,10 +143,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     override func viewDidLoad() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
-        navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        navigationBar.displayType = .largeTitle
-        navigationBar.delegate = self
-        navigationBar.isBarHidingEnabled = false
+//        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+//        navigationBar.displayType = .largeTitle
+//        navigationBar.delegate = self
+//        navigationBar.isBarHidingEnabled = false
 
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
         addChild(listViewController)
@@ -171,7 +171,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         mapContainerView.wmf_addSubviewWithConstraintsToEdges(mapView)
 
-        fakeProgressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+        // fakeProgressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
 
         // Setup location manager
         locationManager.delegate = self
@@ -211,6 +211,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         self.view.layoutIfNeeded()
     }
     
+    private var isFirstAppearance: Bool = true
     override func viewWillAppear(_ animated: Bool) {
         
         // Update saved places locations
@@ -261,9 +262,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     private func constrainButtonsToNavigationBar() {
-        let recenterOnUserLocationButtonTopConstraint = recenterOnUserLocationButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
-        let redoSearchButtonTopConstraint = redoSearchButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
-        let didYouMeanButtonTopConstraint = didYouMeanButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+        let recenterOnUserLocationButtonTopConstraint = recenterOnUserLocationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17)
+        let redoSearchButtonTopConstraint = redoSearchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17)
+        let didYouMeanButtonTopConstraint = didYouMeanButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17)
 
         NSLayoutConstraint.activate([recenterOnUserLocationButtonTopConstraint, redoSearchButtonTopConstraint, didYouMeanButtonTopConstraint])
     }
@@ -565,7 +566,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         let done = {
             self.searching = false
-            self.fakeProgressController.finish()
+            // self.fakeProgressController.finish()
         }
         
         searching = true
@@ -591,7 +592,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             mapRegion = region
         }
                 
-        self.fakeProgressController.start()
+        // self.fakeProgressController.start()
         
         switch search.filter {
         case .saved:
@@ -1017,7 +1018,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 mapListToggleContainer.isHidden = true
-                navigationBar.isInteractiveHidingEnabled = false
+                // navigationBar.isInteractiveHidingEnabled = false
                 listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
             case .list:
                 deselectAllAnnotations()
@@ -1028,7 +1029,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
-                navigationBar.isInteractiveHidingEnabled = true
+                // navigationBar.isInteractiveHidingEnabled = true
                 listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
             case .searchOverlay:
                 if overlayState == .min {
@@ -1038,19 +1039,19 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
-                navigationBar.isInteractiveHidingEnabled = false
+                // navigationBar.isInteractiveHidingEnabled = false
                 searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
-                scrollView = nil
+                // scrollView = nil
                 searchSuggestionController.navigationBarHider = nil
             case .search:
                 mapView.isHidden = true
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
-                navigationBar.isInteractiveHidingEnabled = true
+                // navigationBar.isInteractiveHidingEnabled = true
                 searchSuggestionView.contentInsetAdjustmentBehavior = .never
-                scrollView = searchSuggestionView
-                searchSuggestionController.navigationBarHider = navigationBarHider
+                // scrollView = searchSuggestionView
+                // searchSuggestionController.navigationBarHider = navigationBarHider
             case .map:
                 fallthrough
             default:
@@ -1058,7 +1059,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
-                navigationBar.isInteractiveHidingEnabled = false
+                // navigationBar.isInteractiveHidingEnabled = false
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             if mapView.isHidden {
@@ -1577,7 +1578,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
        
         addChild(articleVC)
-        view.insertSubview(articleVC.view, belowSubview: navigationBar)
+        view.addSubview(articleVC.view)
+        // view.insertSubview(articleVC.view, belowSubview: navigationBar)
         articleVC.didMove(toParent: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
@@ -1611,10 +1613,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }, completion: nil)
     }
     
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
-        emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
-    }
+//    override func scrollViewInsetsDidChange() {
+//        super.scrollViewInsetsDidChange()
+//        emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
+//    }
 
     // MARK: HintPresenting
 
@@ -1723,7 +1725,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let left = totalWidth - annotationCenter.x
         let right = annotationCenter.x + totalWidth - viewSize.width
 
-        let navBarHeight = navigationBar.visibleHeight
+        // let navBarHeight = navigationBar.visibleHeight
+        let navBarHeight = CGFloat(0)
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
         var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing + navBarHeight
 
@@ -1963,10 +1966,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         didSet {
             if oldValue == false && isWaitingForSearchSuggestionUpdate == true {
                 // start progress bar
-                fakeProgressController.start()
+                // fakeProgressController.start()
             } else if isWaitingForSearchSuggestionUpdate == false {
                 // stop progress bar
-                fakeProgressController.finish()
+                // fakeProgressController.finish()
             }
         }
     }
@@ -2195,7 +2198,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
         view.backgroundColor = theme.colors.baseBackground
-        navigationBar.apply(theme: theme)
+        // navigationBar.apply(theme: theme)
 
         searchBar.apply(theme: theme)
         searchBar.backgroundColor = theme.colors.paperBackground
