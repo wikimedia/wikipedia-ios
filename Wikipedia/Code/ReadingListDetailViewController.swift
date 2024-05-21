@@ -99,15 +99,58 @@ class ReadingListDetailViewController: ThemeableViewController {
         readingListEntryCollectionViewController.editController.navigationDelegate = self
     }
     
+    private func setupHeaderView() {
+        addChild(readingListDetailUnderBarViewController)
+        view.addSubview(readingListDetailUnderBarViewController.view)
+        readingListDetailUnderBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        // readingListEntryCollectionViewController.edgesForExtendedLayout = .all
+        // scrollView = readingListEntryCollectionViewController.collectionView
+        NSLayoutConstraint.activate(
+            [
+                readingListDetailUnderBarViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                readingListDetailUnderBarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                readingListDetailUnderBarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        )
+        readingListEntryCollectionViewController.didMove(toParent: self)
+        
+        readingListDetailUnderBarViewController.view.setNeedsLayout()
+        readingListDetailUnderBarViewController.view.layoutIfNeeded()
+        readingListEntryCollectionViewController.additionalSafeAreaInsets = UIEdgeInsets(top: readingListDetailUnderBarViewController.view.frame.height, left: 0, bottom: 0, right: 0)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.readingListDetailUnderBarViewController.view.layoutIfNeeded()
+        self.readingListDetailUnderBarViewController.view.alpha = 1
+        self.readingListEntryCollectionViewController.additionalSafeAreaInsets = UIEdgeInsets(top: self.readingListDetailUnderBarViewController.view.frame.height, left: 0, bottom: 0, right: 0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpArticlesViewController()
+        setupHeaderView()
         
         title = readingList.name
 
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.backButtonTitle = readingList.name
         navigationItem.backButtonDisplayMode = .generic
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
+
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = "Search reading list"
+        navigationItem.searchController = search
 
 //        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
 //        navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
@@ -121,7 +164,7 @@ class ReadingListDetailViewController: ThemeableViewController {
             title = readingList.name
         }
         
-        wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        // wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
         
         apply(theme: theme)
     }
@@ -398,5 +441,12 @@ private extension ReadingListDetailViewController {
                 // Do nothing
             }, theme: self.theme, languageCode: languageCode)
         })
+    }
+}
+
+extension ReadingListDetailViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        readingListEntryCollectionViewController.updateSearchString(text)
     }
 }
