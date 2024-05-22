@@ -6,11 +6,13 @@ public enum WKFont {
     case boldCallout
     case boldCaption1
     case boldFootnote
+    case boldGeorgiaTitle1
     case boldGeorgiaTitle3
     case boldHeadline
     case boldItalicCallout
     case boldItalicFootnote
-    case boldItalicsSubheadline
+    case boldItalicGeorgiaTitle1
+    case boldItalicSubheadline
     case boldSubheadline
     case boldTitle1
     case boldTitle3
@@ -59,6 +61,13 @@ public enum WKFont {
             }
             return UIFont(descriptor: descriptor, size: 0)
 
+        case .boldGeorgiaTitle1:
+            let baseFont = WKFont.for(.georgiaTitle1)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            return baseFont
+
         case .boldGeorgiaTitle3:
             let baseFont = WKFont.for(.georgiaTitle3)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
@@ -84,7 +93,14 @@ public enum WKFont {
             }
             return UIFont(descriptor: descriptor, size: 0)
 
-        case .boldItalicsSubheadline:
+        case .boldItalicGeorgiaTitle1:
+            let baseFont = WKFont.for(.georgiaTitle1)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            return baseFont
+
+        case .boldItalicSubheadline:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .headline, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
                 fatalError()
             }
@@ -192,6 +208,7 @@ public enum WKFont {
 
         case .title3:
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
+
         }
 
     }

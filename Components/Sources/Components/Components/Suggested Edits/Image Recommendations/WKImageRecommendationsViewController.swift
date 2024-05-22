@@ -116,7 +116,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         addComponent(hostingViewController, pinToEdges: true)
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
+        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 

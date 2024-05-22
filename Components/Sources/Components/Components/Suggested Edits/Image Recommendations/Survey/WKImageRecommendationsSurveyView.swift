@@ -34,7 +34,7 @@ struct WKImageRecommendationsSurveyView: View {
 						Text(viewModel.localizedStrings.improveSuggestions)
 							.font(Font(WKFont.for(.callout)))
 						Text(viewModel.localizedStrings.selectOptions)
-							.font(Font(WKFont.for(.italicsCallout)))
+							.font(Font(WKFont.for(.italicCallout)))
 					}
 				}
 				.foregroundColor(Color(theme.secondaryText))

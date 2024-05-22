@@ -33,7 +33,7 @@ struct WKOnboardingCell: View {
             VStack {
                 Text(viewModel.title)
                     .multilineTextAlignment(.leading)
-                    .font(Font(WKFont.for(.boldBody)))
+                    .font(Font(WKFont.for(.boldCallout)))
                     .foregroundColor(Color(appEnvironment.theme.text))
                     .padding([.bottom], 1)
                     .frame(maxWidth: .infinity, alignment: .leading)
