@@ -869,7 +869,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // TODO: - Remove after expiry date (5 Aug, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
         
-        guard ImageRecommendationsFeatureAnnouncementExpiration.isAnnouncementActive() else {
+        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
         }
         
@@ -924,9 +924,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 }
 
-// MARK: - Image Recommendations Announcement expiration
+// MARK: - Image Recommendations Announcement Time-box
 // TODO: - Remove after expiry date (5 Aug, 2024)
-struct ImageRecommendationsFeatureAnnouncementExpiration {
+struct ImageRecommendationsFeatureAnnouncementTimeBox {
     static let expiryDate: Date? = {
         var expiryDateComponents = DateComponents()
         expiryDateComponents.year = 2024
