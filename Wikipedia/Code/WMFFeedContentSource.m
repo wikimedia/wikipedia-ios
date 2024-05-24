@@ -229,29 +229,45 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (image == nil || date == nil) {
         return;
     }
-
-    WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
-
-    NSString *primaryLanguage = self.userDataStore.languageLinkController.appLanguage.languageCode;
-    NSString *feedLanguage = [self.siteURL wmf_languageCode];
-    BOOL isPrimaryLanguageFeed = [feedLanguage isEqualToString:primaryLanguage];
-
+    
+    NSString *primaryLanguage = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
+    NSString *feedLanguage = [self.siteURL wmf_contentLanguageCode];
+    BOOL isPrimaryLanguageFeed = [feedLanguage wmf_isEqualToStringIgnoringCase:primaryLanguage];
+    
     // T356255 - the POTD is the same across all feeds (i.e. same image, different localized description).
     // To prevent the same image from showing on each language feed, we save the POTD for the primary language only
-    // (and clean up any secondary ones - secondary ones may exist when the user has changed the app primary language).
-
+    // (and clean up any secondary / duplicate ones - secondary ones may exist when the user has removed a language
+    // or changed the app primary language).
+    
     if (isPrimaryLanguageFeed) {
-        if (group == nil) {
-            DDLogDebug(@"Creating POTD content group for primary feed language [%@]", feedLanguage);
-            group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
-        } else {
-            DDLogDebug(@"Updating POTD content group for primary feed language [%@]", feedLanguage);
-        }
-        group.contentPreview = image;
+        [self insertOrUpdatePictureOfTheDayForImage:image date:date inManagedObjectContext:moc];
+        [self removeDuplicatePicturesOfTheDayForDate:date inManagedObjectContext:moc];
+    }
+}
+
+- (void)insertOrUpdatePictureOfTheDayForImage:(WMFFeedImage *)image date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    WMFContentGroup * group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
+    
+    if (group == nil) {
+        DDLogDebug(@"Creating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
+        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
     } else {
-        if (group != nil) {
-            DDLogDebug(@"Removing POTD content group for OLD secondary feed language [%@].", feedLanguage);
-            [moc removeContentGroup:group];
+        DDLogDebug(@"Updating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
+    }
+    
+    group.contentPreview = image;
+}
+
+- (void)removeDuplicatePicturesOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    
+    NSArray<WMFContentGroup *> *allPicturesOfTheDay = [self allPicturesOfTheDayForDate:date inManagedObjectContext:moc];
+    NSString *primaryLanguageCode = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
+
+    for (WMFContentGroup *contentGroup in allPicturesOfTheDay) {
+        NSString *contentGroupLanguageCode = [contentGroup.siteURL wmf_contentLanguageCode];
+        if (![primaryLanguageCode wmf_isEqualToStringIgnoringCase:contentGroupLanguageCode]) {
+            DDLogDebug(@"Deleting POTD content group for secondary language code: [%@]", contentGroupLanguageCode);
+            [moc removeContentGroup:contentGroup];
         }
     }
 }
@@ -347,6 +363,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date siteURL:self.siteURL];
+}
+
+- (nullable NSArray<WMFContentGroup *> *)allPicturesOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupsOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
