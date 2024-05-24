@@ -1203,6 +1203,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
         ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {

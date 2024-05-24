@@ -280,6 +280,8 @@
 "donate-success-title" = "Gratias!";
 "donate-title" = "Selige un amonta";
 "donate-transaction-fee-opt-in-text" = "Io vole generosemente adder $1 pro coperir le costo del transaction de maniera que vos pote retener 100%% de mi donation.";
+"donate-wikimedia-fine-print-1" = "Nos non vende o commercialisa tu information a alcuno. Faciente un donation, tu consenti al divulgation de tu information personal al Fundation Wikimedia, le organisation sin scopo lucrative que alberga Wikipedia e altere projectos de Wikimedia, e su fornitores de servicio secundo nostre [politica de donation]($1). Le Fundation Wikimedia e su fornitores de servicio es situate in le Statos Unite e in altere paises cuje leges de confidentialitate pote differer del tues. Pro plus information, lege nostre [politica de donation]($1).";
+"donate-wikimedia-fine-print-2" = "Pro donationes recurrente, le pagamentos mensual fixe essera debitate per le Fundation Wikimedia al mesme die de cata mense que illo del prime donation, usque tu nos notifica pro discontinuar los. Le donationes initiate le 29, 30 o 31 del mense recurrera le ultime die del mense pro menses plus curte, tanto proxime al die original como possibile. Pro questiones, per favor contacta donate@wikimedia.org.";
 "edit-link-display-text-title" = "Texto a monstrar";
 "edit-link-link-target-title" = "Destination del ligamine";
 "edit-link-remove-link-title" = "Remover ligamine";
