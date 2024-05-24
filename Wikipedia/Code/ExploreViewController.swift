@@ -866,7 +866,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
     
+    // TODO: - Remove after expiry date (5 Aug, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
+        
+        guard ImageRecommendationsFeatureAnnouncementExpiration.isAnnouncementActive() else {
+            return
+        }
         
         guard let fetchedResultsController,
             let groups = fetchedResultsController.fetchedObjects else {
@@ -916,6 +921,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+    }
+}
+
+// MARK: - Image Recommendations Announcement expiration
+// TODO: - Remove after expiry date (5 Aug, 2024)
+struct ImageRecommendationsFeatureAnnouncementExpiration {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2024
+        expiryDateComponents.month = 8
+        expiryDateComponents.day = 5
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
     }
 }
 
