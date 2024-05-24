@@ -199,14 +199,14 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)saveGroupForTopRead:(WMFFeedTopReadResponse *)topRead pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    //Sometimes top read is nil, depends on time of day
+    // Sometimes top read is nil, depends on time of day
     if ([topRead.articlePreviews count] == 0 || date == nil) {
         return;
     }
 
     [topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSURL *url = [obj articleURL];
-        [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url] isFeatured: NO];
+        [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url] isFeatured:NO];
     }];
 
     WMFContentGroup *group = [self topReadForDate:date inManagedObjectContext:moc];
@@ -229,13 +229,47 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (image == nil || date == nil) {
         return;
     }
-
-    WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
-
-    if (group == nil) {
-        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
+    
+    NSString *primaryLanguage = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
+    NSString *feedLanguage = [self.siteURL wmf_contentLanguageCode];
+    BOOL isPrimaryLanguageFeed = [feedLanguage wmf_isEqualToStringIgnoringCase:primaryLanguage];
+    
+    // T356255 - the POTD is the same across all feeds (i.e. same image, different localized description).
+    // To prevent the same image from showing on each language feed, we save the POTD for the primary language only
+    // (and clean up any secondary / duplicate ones - secondary ones may exist when the user has removed a language
+    // or changed the app primary language).
+    
+    if (isPrimaryLanguageFeed) {
+        [self insertOrUpdatePictureOfTheDayForImage:image date:date inManagedObjectContext:moc];
+        [self removeDuplicatePicturesOfTheDayForDate:date inManagedObjectContext:moc];
     }
+}
+
+- (void)insertOrUpdatePictureOfTheDayForImage:(WMFFeedImage *)image date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    WMFContentGroup * group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
+    
+    if (group == nil) {
+        DDLogDebug(@"Creating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
+        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
+    } else {
+        DDLogDebug(@"Updating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
+    }
+    
     group.contentPreview = image;
+}
+
+- (void)removeDuplicatePicturesOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    
+    NSArray<WMFContentGroup *> *allPicturesOfTheDay = [self allPicturesOfTheDayForDate:date inManagedObjectContext:moc];
+    NSString *primaryLanguageCode = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
+
+    for (WMFContentGroup *contentGroup in allPicturesOfTheDay) {
+        NSString *contentGroupLanguageCode = [contentGroup.siteURL wmf_contentLanguageCode];
+        if (![primaryLanguageCode wmf_isEqualToStringIgnoringCase:contentGroupLanguageCode]) {
+            DDLogDebug(@"Deleting POTD content group for secondary language code: [%@]", contentGroupLanguageCode);
+            [moc removeContentGroup:contentGroup];
+        }
+    }
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -261,7 +295,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSDateComponents *storyComponents = [utcCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightMonthAndDay];
         NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
         NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:storyDate];
-        if (storyComponents.month > components.month + 1) { //probably not how this should be done
+        if (storyComponents.month > components.month + 1) { // probably not how this should be done
             components.year = components.year - 1;          // assume it's last year
         } else if (components.month > storyComponents.month + 1) {
             components.year = components.year + 1; // assume it's next year
@@ -289,7 +323,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [story.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *url = [obj articleURL];
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
-            [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL isFeatured: NO];
+            [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL isFeatured:NO];
         }];
 
         NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML siteURL:self.siteURL];
@@ -328,8 +362,11 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    //NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
-    return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
+    return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date siteURL:self.siteURL];
+}
+
+- (nullable NSArray<WMFContentGroup *> *)allPicturesOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupsOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -343,7 +380,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
 }
-
 
 #pragma mark - Utility
 
