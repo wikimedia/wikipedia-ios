@@ -7,6 +7,7 @@
 #import "AboutViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+@import WKData;
 
 #pragma mark - Static URLs
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
-static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
@@ -27,6 +28,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
+@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
 
 @end
 
@@ -36,6 +38,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
+    vc.donateDataController = [WKDonateDataController sharedInstance];
+    
     return vc;
 }
 
@@ -61,12 +65,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
-
-#if UI_TEST
-    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
-        self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-    }
-#endif
 }
 
 - (void)dealloc {
@@ -114,6 +112,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
+
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
         if (self.dataStore.authenticationManager.isLoggedIn) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
@@ -181,29 +180,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self logNavigationEventsForMenuType:type];
-    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
-        [self loadSections];
-    }];
+    [self loadSections];
 }
 
 #pragma mark - Switch tap handling
-
-- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn completion:(void (^)(void))completion {
-    switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            if (isOn) {
-                [[SessionsFunnel shared] settingsLoggingToggledOn];
-                [[UserHistoryFunnel shared] logStartingSnapshot];
-            } else {
-                [[UserHistoryFunnel shared] logSnapshot];
-                [[SessionsFunnel shared] settingsLoggingToggledOffWithCompletion:completion];
-            }
-        } break;
-        default:
-            completion();
-            break;
-    }
-}
 
 - (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
 
@@ -253,9 +233,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ClearCache:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsClearCachedData];
             break;
-        case WMFSettingsMenuItemType_SendUsageReports:
-            [[WMFNavigationEventsFunnel shared] logTappedSettingsSendUsageReports];
-            break;
         default:
             break;
     }
@@ -293,8 +270,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showStorageAndSyncingDebug];
             break;
         }
-        case WMFSettingsMenuItemType_Support:
-            [self wmf_navigateToURL:[self donationURL] useSafari:YES];
+        case WMFSettingsMenuItemType_Support: {
+            [[WMFAppInteractionFunnel shared] logSettingsDidTapDonateCell];
+            
+            if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
+                WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;
+                [self showDonateForCell:settingsCell];
+            }
+        }
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
@@ -324,9 +307,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
     }
 
-    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) {
-            [self logNavigationEventsForMenuType:cell.tag];
-    }
+    [self logNavigationEventsForMenuType:cell.tag];
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
@@ -382,14 +363,46 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     message = [NSString localizedStringWithFormat:message, bytesString];
 
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-title", nil, nil, @"Clear cached data?", @"Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.") message:message preferredStyle:UIAlertControllerStyleAlert];
+    typeof(self) __weak weakSelf = self;
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self.dataStore clearTemporaryCache];
+                                                [weakSelf clearCache];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data {{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
     [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+- (void)clearCache {
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
+    [self performSelector:@selector(showClearCacheInProgressBanner) withObject:nil afterDelay:1.0];
+    
+    [self.dataStore clearTemporaryCache];
+    
+    WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
+    WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
+    
+    [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext * _Nonnull moc) {
+        NSError *housekeepingError = nil;
+        [databaseHousekeeper performHousekeepingOnManagedObjectContext:moc navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
+        if (housekeepingError) {
+            DDLogError(@"Error on cleanup: %@", housekeepingError);
+            housekeepingError = nil;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
+            [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+        });
+    }];
+
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelHigh];
+}
+
+- (void)showClearCacheInProgressBanner {
+    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
 }
 
 - (void)logout {
@@ -456,6 +469,31 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
+#pragma mark - Donate
+
+- (void)showDonateForCell:(WMFSettingsTableViewCell *)settingsCell {
+    settingsCell.isLoading = YES;
+    
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
+    
+    @weakify(self);
+    [self.donateDataController fetchConfigsForCountryCode:countryCode completion:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            settingsCell.isLoading = NO;
+            NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
+            NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
+            NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
+            if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode bannerID:nil metricsID:nil appVersion: appVersion]) {
+                [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource: DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL bannerID:nil metricsID:nil appVersion: appVersion articleURL:nil sourceView: settingsCell loggingDelegate:self];
+            } else {
+                // New experience pushing to in-app browser
+                [self wmf_navigateToURL:[self donationURL] useSafari:NO];
+            }
+        });
+    }];
+}
+
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
@@ -495,16 +533,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     WMFTableHeaderFooterLabelView *header = (WMFTableHeaderFooterLabelView *)[self tableView:tableView viewForHeaderInSection:section];
     if (header) {
-
-        if (@available(iOS 15.0, *)) {
-
-        } else {
-            // Hides odd content inset bug in iOS 13 & 14
-            if (section == 0) {
-                return 0;
-            }
-        }
-
         return UITableViewAutomaticDimension;
     }
 
@@ -560,8 +588,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (WMFSettingsTableViewSection *)section_3 {
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PrivacyPolicy],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms]
     ]
                                                                                   headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, nil, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
                                                                                    footerText:WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, nil, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.")];

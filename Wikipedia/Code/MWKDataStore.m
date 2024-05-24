@@ -14,7 +14,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 15;
+static const NSInteger WMFCurrentLibraryVersion = 18;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -43,7 +43,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 
-@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
@@ -101,19 +101,27 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         self.containerURL = containerURL;
         self.basePath = [self.containerURL URLByAppendingPathComponent:@"Data" isDirectory:YES].path;
         [self setupLegacyDataStore];
-        [self setupCoreDataStackWithContainerURL:containerURL];
-        [self setupCoreDataSynchronizersWithContainerURL:containerURL];
-        [self startSynchronizingLibraryContexts];
-        [self setupHistoryAndSavedPageLists];
-        self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
-        self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
-        [self.feedContentController updateContentSources];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration languageLinkController:self.languageLinkController authManager:authenticationManager];
-        self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
     }
     return self;
+}
+
+- (void)finishSetup:(nullable dispatch_block_t)completion {
+    [self setupCoreDataStackWithContainerURL:self.containerURL
+                                  completion:^{
+                                      [self setupCoreDataSynchronizersWithContainerURL:self.containerURL];
+                                      [self startSynchronizingLibraryContexts];
+                                      [self setupHistoryAndSavedPageLists];
+                                      self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
+                                      self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
+                                      [self.feedContentController updateContentSources];
+                                      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+                                      self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:self.session configuration:self.configuration languageLinkController:self.languageLinkController authManager:self.authenticationManager];
+                                      self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
+                                      self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:self.session configuration:self.configuration dataStore:self];
+                                      if (completion) {
+                                          completion();
+                                      }
+                                  }];
 }
 
 - (void)teardown:(nullable dispatch_block_t)completion {
@@ -192,42 +200,43 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     return [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:error];
 }
 
-- (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
-    NSURL *modelURL = [[NSBundle wmf] URLForResource:@"Wikipedia" withExtension:@"momd"];
+- (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL completion:(nullable dispatch_block_t)completion {
+    NSString *modelName = @"Wikipedia";
+    NSURL *modelURL = [[NSBundle wmf] URLForResource:modelName withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSString *coreDataDBName = @"Wikipedia.sqlite";
 
+    NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName managedObjectModel:model];
     NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-                              NSInferMappingModelAutomaticallyOption: @YES};
-    NSError *persistentStoreError = nil;
-    if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
-        // TODO: Metrics
-        DDLogError(@"Error adding persistent store: %@", persistentStoreError);
-        NSError *moveError = nil;
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *uuid = [[NSUUID UUID] UUIDString];
-        NSURL *moveURL = [[containerURL URLByAppendingPathComponent:uuid] URLByAppendingPathExtension:@"sqlite"];
-        [fileManager moveItemAtURL:coreDataDBURL toURL:moveURL error:&moveError];
-        if (moveError) {
-            // TODO: Metrics
-            [fileManager removeItemAtURL:coreDataDBURL error:nil];
-        }
-        persistentStoreError = nil;
-        if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
-            // TODO: Metrics
-            DDLogError(@"Second error after adding persistent store: %@", persistentStoreError);
-        }
-    }
+    NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:coreDataDBURL];
+    [description setOption:@YES forKey:NSMigratePersistentStoresAutomaticallyOption];
+    [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
+    description.shouldAddStoreAsynchronously = YES;
+    container.persistentStoreDescriptions = @[description];
 
-    self.persistentStoreCoordinator = persistentStoreCoordinator;
-    self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
-    self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-    self.viewContext.automaticallyMergesChangesFromParent = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *_Nonnull description, NSError *_Nullable error) {
+        if (error) {
+            // TODO: Metrics
+            DDLogError(@"Error adding persistent store: %@", error);
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            self.persistentContainer = container;
+            self.viewContext = container.viewContext;
+            self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+            self.viewContext.automaticallyMergesChangesFromParent = YES;
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+
+            if (completion) {
+                completion();
+            }
+        });
+    }];
 }
 
 - (void)viewContextDidChange:(NSNotification *)note {
@@ -237,7 +246,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     // NSInvalidatedAllObjectsKey is present when NSManagedObjectContext.reset() is called
     if (userInfo[NSInvalidatedAllObjectsKey]) {
         [self clearMemoryCache];
-        [nc postNotificationName:WMFViewContextDidResetNotification object: nil];
+        [nc postNotificationName:WMFViewContextDidResetNotification object:nil];
     }
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
@@ -277,8 +286,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
-    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    backgroundContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+    NSManagedObjectContext *backgroundContext = self.persistentContainer.newBackgroundContext;
     backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -292,8 +300,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 - (NSManagedObjectContext *)feedImportContext {
     WMFAssertMainThread(@"feedImportContext must be created on the main thread");
     if (!_feedImportContext) {
-        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _feedImportContext.persistentStoreCoordinator = _persistentStoreCoordinator;
+        _feedImportContext = self.persistentContainer.newBackgroundContext;
         _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
@@ -467,10 +474,37 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 15) {
         [self markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:moc];
         [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 16) {
+        [self migrateToLanguageVariantsForLibraryVersion:16 inManagedObjectContext:moc];
+        [moc wmf_setValue:@(16) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 17) {
+        [self migrateAKToTWInManagedObjectContext:moc];
+        [moc wmf_setValue:@(17) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 18) {
+        [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindSuggestedEdits isOn:YES updateFeed:NO];
+        [moc wmf_setValue:@(18) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
@@ -482,7 +516,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
-- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
+- (void)performLibraryUpdates:(dispatch_block_t)completion {
     dispatch_block_t combinedCompletion = ^{
         [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext *_Nullable moc, NSError *_Nullable error) {
             if (error) {
@@ -510,7 +544,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         return;
     }
 
-    needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
         combinedCompletion();

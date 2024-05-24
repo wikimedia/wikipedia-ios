@@ -2,14 +2,21 @@
 // Exported from translatewiki.net
 // Author: Bsitzmann
 // Author: Nemo bis
+// Author: Абдуллах Саад
 // Author: Умар
 
+"aaald-article-insert-new-changes" = "Керла хийцамаш";
+"aaald-article-insert-read-more" = "Дукха цӏиндарш деша";
+"aaald-new-website-reference-title" = "Веб-сайт";
 "aaald-revision-userInfo" = "Хийцам бина $1 ($2 нисдар)";
 // Fuzzy
 "about-testers" = "тестераш";
+"about-wikipedia" = "Википеди";
 "account-creation-logging-in" = "Системин чудахар...";
+"account-group-title" = "Хьан хьесапан запись";
 "action-previous-revision-accessibility" = "Хьалхара верси";
-"action-unsave" = "Ӏалашцайина";
+"action-save" = "Ӏалашйан";
+"action-unsave" = "Ӏалаш ца йина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 // Fuzzy
 "article-languages-filter-placeholder" = "Меттанийн луьттург";
@@ -20,6 +27,7 @@
 "cancel" = "Йухайаккха";
 "description-edit-title" = "Нисбе хаам";
 "edit-summary-choice-fixed-grammar" = "Нийсайаздар";
+"edit-summary-choice-fixed-typos" = "Гӏалат нисдина";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
 // Fuzzy
@@ -49,7 +57,6 @@
 "places-search-default-text" = "Лахар";
 // Fuzzy
 "places-search-saved-articles" = "Ӏалашйина агӀонаш";
-"preference-title-eventlogging-opt-in" = "Лелорах лаьцна дӀадохьуьйту";
 "reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
@@ -58,13 +65,12 @@
 "settings-help-and-feedback" = "ЗӀе";
 "share-default-format" = "«$1» «$2» чуьра: $3";
 "share-email-format" = "«$1»\n\n«$2» чуьра \n\n$3";
-"share-menu-item" = "Екха...";
+"share-menu-item" = "Йекъа...";
 "share-message-format" = "«$1» $2";
 "share-social-format" = "«$1» Википеди чохь: $2";
 // Fuzzy
 "share-social-mention-format" = "«$1» Википеди чохь: $2";
 "table-of-contents-heading" = "Чулацам";
-"wikitext-downloading" = "Чулацам чубаккхар...";
 // Fuzzy
 "wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-sign-in" = "ЧугӀо";

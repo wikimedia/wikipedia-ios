@@ -144,6 +144,78 @@
 			<string>članki izbrisani</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzdol za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vrstico</string>
+			<key>other</key>
+			<string>%1$d vrstic</string>
+			<key>zero</key>
+			<string>0 vrstic</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzgor za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vrstico</string>
+			<key>other</key>
+			<string>%1$d vrstic</string>
+			<key>zero</key>
+			<string>0 vrstic</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzdol za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d razdelek</string>
+			<key>other</key>
+			<string>%1$d razdelkov</string>
+			<key>zero</key>
+			<string>0 razdelkov</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzgor za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d razdelek</string>
+			<key>other</key>
+			<string>%1$d razdelkov</string>
+			<key>zero</key>
+			<string>0 razdelkov</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -238,70 +310,6 @@
 			<string>%1$d vrstica neurejena</string>
 			<key>other</key>
 			<string>%1$d vrstic neurejenih</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Ena vmesna redakcija ni prikazana</string>
-			<key>other</key>
-			<string>%1$d vmesnih redakcij ni prikazanih</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>({{PLURAL:%1$d|%1$d vmesna redakcija %#@v2@ ni prikazana|%1$d vmesni redakciji %#@v2@ nista prikazani|%1$d vmesne redakcije %#@v2@ niso prikazane|%1$d vmesnih redakcij %#@v2@)</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d uporabnika</string>
-			<key>other</key>
-			<string>%2$d uporabnikov}} ni prikazanih</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-limited-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Ena vmesna redakcija %2$d+ uporabnikov ni prikazana</string>
-			<key>other</key>
-			<string>%1$d vmesnih redakcij %2$d+ uporabnikov ni prikazanih</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-limited-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d+ vmesnih redakcij %#@v2@ ni prikazanih</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d uporabnika</string>
-			<key>other</key>
-			<string>%2$d uporabnikov</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -778,22 +786,6 @@
 			<string>Letos</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Zamenjana %1$d pojavitev</string>
-			<key>other</key>
-			<string>Zamenjanih %1$d pojavitev</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -856,6 +848,38 @@
 			<string>%1$d odgovor</string>
 			<key>other</key>
 			<string>%1$d odgovorov</string>
+		</dict>
+	</dict>
+	<key>watchlist-byte-change</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d zlog</string>
+			<key>other</key>
+			<string>%1$d zlogov</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Za ogled več predmetov na spisku nadzorov spremenite [%#@v1@]</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d filter</string>
+			<key>other</key>
+			<string>%1$d filtrov</string>
 		</dict>
 	</dict>
 </dict>

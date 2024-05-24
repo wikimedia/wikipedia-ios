@@ -1,37 +1,37 @@
 {
     "zh": [
         {
-            "languageVariantCode": "zh-hans",
+            "languageVariantCode": "zh-Hans",
             "languageName": "简体",
             "localName": "Simplified Chinese",
             "languageCode": "zh"
         },
         {
-            "languageVariantCode": "zh-hk",
+            "languageVariantCode": "zh-Hant-HK",
             "languageName": "香港繁體",
             "localName": "Traditional Chinese (Hong Kong)",
             "languageCode": "zh"
         },
         {
-            "languageVariantCode": "zh-mo",
+            "languageVariantCode": "zh-Hant-MO",
             "languageName": "澳門繁體",
             "localName": "Traditional Chinese (Macao)",
             "languageCode": "zh"
         },
         {
-            "languageVariantCode": "zh-my",
+            "languageVariantCode": "zh-Hans-MY",
             "languageName": "大马简体",
             "localName": "Simplified Chinese (Malaysia)",
             "languageCode": "zh"
         },
         {
-            "languageVariantCode": "zh-sg",
+            "languageVariantCode": "zh-Hans-SG",
             "languageName": "新加坡简体",
             "localName": "Simplified Chinese (Singapore)",
             "languageCode": "zh"
         },
         {
-            "languageVariantCode": "zh-tw",
+            "languageVariantCode": "zh-Hant-TW",
             "languageName": "臺灣正體",
             "localName": "Traditional Chinese (Taiwan)",
             "languageCode": "zh"
@@ -39,13 +39,13 @@
     ],
     "sr": [
         {
-            "languageVariantCode": "sr-ec",
+            "languageVariantCode": "sr-Cyrl",
             "languageName": "српски",
             "localName": "Serbian (Cyrillic)",
             "languageCode": "sr"
         },
         {
-            "languageVariantCode": "sr-el",
+            "languageVariantCode": "sr-Latn",
             "languageName": "srpski",
             "localName": "Serbian (Latin)",
             "languageCode": "sr"
@@ -53,13 +53,13 @@
     ],
     "crh": [
         {
-            "languageVariantCode": "crh-latn",
+            "languageVariantCode": "crh-Latn",
             "languageName": "Qırımtatarca",
             "localName": "Crimean Tatar (Latin)",
             "languageCode": "crh"
         },
         {
-            "languageVariantCode": "crh-cyrl",
+            "languageVariantCode": "crh-Cyrl",
             "languageName": "къырымтатарджа",
             "localName": "Crimean Tatar (Cyrillic)",
             "languageCode": "crh"
@@ -67,13 +67,13 @@
     ],
     "gan": [
         {
-            "languageVariantCode": "gan-hans",
+            "languageVariantCode": "gan-Hans",
             "languageName": "赣语",
             "localName": "Gan (Simplified)",
             "languageCode": "gan"
         },
         {
-            "languageVariantCode": "gan-hant",
+            "languageVariantCode": "gan-Hant",
             "languageName": "贛語",
             "localName": "Gan (Traditional)",
             "languageCode": "gan"
@@ -81,13 +81,13 @@
     ],
     "iu": [
         {
-            "languageVariantCode": "ike-latn",
+            "languageVariantCode": "ike-Latn",
             "languageName": "Inuktitut",
             "localName": "Inuktitut (Latin)",
             "languageCode": "iu"
         },
         {
-            "languageVariantCode": "ike-cans",
+            "languageVariantCode": "ike-Cans",
             "languageName": "ᐃᓄᒃᑎᑐᑦ",
             "localName": "Inuktitut (Syllabics)",
             "languageCode": "iu"
@@ -95,19 +95,19 @@
     ],
     "kk": [
         {
-            "languageVariantCode": "kk-cyrl",
+            "languageVariantCode": "kk-Cyrl",
             "languageName": "Қазақша",
             "localName": "Kazakh (Cyrillic)",
             "languageCode": "kk"
         },
         {
-            "languageVariantCode": "kk-latn",
+            "languageVariantCode": "kk-Latn",
             "languageName": "qazaqşa",
             "localName": "Kazakh (Latin)",
             "languageCode": "kk"
         },
         {
-            "languageVariantCode": "kk-arab",
+            "languageVariantCode": "kk-Arab",
             "languageName": "توتە",
             "localName": "Kazakh (Arabic)",
             "languageCode": "kk"
@@ -115,27 +115,42 @@
     ],
     "ku": [
         {
-            "languageVariantCode": "ku-latn",
+            "languageVariantCode": "ku-Latn",
             "languageName": "Kurdî",
             "localName": "Kurdish (Latin)",
             "languageCode": "ku"
         },
         {
-            "languageVariantCode": "ku-arab",
+            "languageVariantCode": "ku-Arab",
             "languageName": "كوردی",
             "localName": "Kurdish (Arabic)",
             "languageCode": "ku"
         }
     ],
+    "shi": [
+        {
+            "languageVariantCode": "shi-Latn",
+            "languageName": "Taclḥit",
+            "localName": "Tachelhit (Latin)",
+            "languageCode": "shi"
+        },
+        {
+            "languageVariantCode": "shi-Tfng",
+            "languageName": "ⵜⴰⵛⵍⵃⵉⵜ ",
+            "localName": "Tachelhit (Tifinagh)",
+            "languageCode": "shi"
+
+        },
+    ],
     "tg": [
         {
-            "languageVariantCode": "tg-cyrl",
+            "languageVariantCode": "tg-Cyrl",
             "languageName": "тоҷикӣ",
             "localName": "Tajik (Cyrillic)",
             "languageCode": "tg"
         },
         {
-            "languageVariantCode": "tg-latn",
+            "languageVariantCode": "tg-Latn",
             "languageName": "tojikī",
             "localName": "Tajik (Latin)",
             "languageCode": "tg"
@@ -143,13 +158,13 @@
     ],
     "uz": [
         {
-            "languageVariantCode": "uz-cyrl",
+            "languageVariantCode": "uz-Cyrl",
             "languageName": "ўзбекча",
             "localName": "Uzbek (Cyrillic)",
             "languageCode": "uz"
         },
         {
-            "languageVariantCode": "uz-latin",
+            "languageVariantCode": "uz-Latn",
             "languageName": "oʻzbekcha",
             "localName": "Uzbek (Latin)",
             "languageCode": "uz"

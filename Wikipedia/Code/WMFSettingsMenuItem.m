@@ -1,5 +1,6 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
+#import "WMFSettingsViewController.h"
 
 @interface WMFSettingsMenuItem ()
 
@@ -37,14 +38,13 @@
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Support: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
-                                                 iconName:@"settings-support"
-                                                iconColor:[UIColor wmf_red_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
+            return [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate", @"Title for button letting user make a donation.")
+                                             iconName:@"settings-support"
+                                            iconColor:[UIColor wmf_red_600]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
@@ -125,17 +125,6 @@
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
-        }
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            BOOL loggingEnabled = [EventPlatformClient shared].isEnabled;
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")
-                                                 iconName:@"settings-analytics"
-                                                iconColor:[UIColor wmf_green_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                           disclosureText:nil
-                                               isSwitchOn:loggingEnabled];
         }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return

@@ -1,71 +1,270 @@
 import WMF
 import CocoaLumberjackSwift
+import WKData
+import Components
 
 extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
-        guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
+        
+        guard let countryCode = Locale.current.regionCode,
+           let wikimediaProject = WikimediaProject(siteURL: articleURL),
+           let wkProject = wikimediaProject.wkProject else {
             return
         }
-        let predicate = NSPredicate(format: "placement == 'article' && isVisible == YES")
-        let contentGroups = dataStore.viewContext.orderedGroups(of: .announcement, with: predicate)
-        let currentDate = Date()
         
-        // get the first content group with a valid date
-        let contentGroup = contentGroups?.first(where: { (group) -> Bool in
-            guard group.contentType == .announcement,
-                  let announcement = group.contentPreview as? WMFAnnouncement,
-                  let startDate = announcement.startTime,
-                  let endDate = announcement.endTime
-                  else {
-                return false
+        let dataController = WKFundraisingCampaignDataController.shared
+        
+        Task {
+            let isOptedIn = await dataController.isOptedIn(project: wkProject)
+            
+            guard isOptedIn,
+            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) else {
+                return
             }
             
-            return (startDate...endDate).contains(currentDate)
-        })
-        
-        guard
-            !isBeingPresentedAsPeek,
-            let contentGroupURL = contentGroup?.url,
-            let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
-            let actionURL = announcement.actionURL
-        else {
-            return
+            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
+    }
+    
+    private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
         
-        let dismiss = {
-            // re-fetch since time has elapsed
-            let contentGroup = self.dataStore.viewContext.contentGroup(for: contentGroupURL)
-            contentGroup?.markDismissed()
-            contentGroup?.updateVisibilityForUserIsLogged(in: self.session.isAuthenticated)
-            do {
-                try self.dataStore.viewContext.save()
-            } catch let saveError {
-                DDLogError("Error saving after marking article announcement as dismissed: \(saveError)")
+        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
+        
+        let dataController = WKFundraisingCampaignDataController.shared
+        
+        let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
+        
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
+            
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, campaignID: asset.utmSource)
+            self.pushToDonateForm(asset: asset, sourceView: button)
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+            
+        }, secondaryButtonTapHandler: { _, _ in
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, campaignID: asset.utmSource)
+            
+            
+            if shouldShowMaybeLater {
+                dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                self.donateDidSetMaybeLater()
+            } else {
+                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+                self.donateAlreadyDonated()
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
-        }
-        
-        guard !articleURL.isThankYouDonationURL else {
-            dismiss()
-            return
-        }
+            
+        }, optionalButtonTapHandler: { _, _ in
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+            self.donateAlreadyDonated()
+            dataController.markAssetAsPermanentlyHidden(asset: asset)
+            
+        }, footerLinkAction: { url in
+            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
+            self.navigate(to: url, useSafari: true)
+        }, traceableDismissHandler: { action in
+            
+            if action == .tappedClose {
+                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, campaignID: asset.utmSource)
+                dataController.markAssetAsPermanentlyHidden(asset: asset)
+            }
+        }, showMaybeLater: shouldShowMaybeLater)
+    }
 
-        wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
-            self.navigate(to: actionURL, useSafari: true)
-            // dismiss handler is called
-        }, secondaryButtonTapHandler: { (sender) in
-            // dismiss handler is called
-        }, footerLinkAction: { (url) in
-             self.navigate(to: url, useSafari: true)
-            // intentionally don't dismiss
-        }, traceableDismissHandler: { _ in
-            dismiss()
-        }, theme: theme)
+    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
+        let firstAction = asset.actions[0]
+        
+        let utmSource = asset.utmSource
+        let metricsID = asset.metricsID
+
+        let appVersion = Bundle.main.wmf_debugVersion()
+        let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
+
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion),
+           let donateURL = donateURL {
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
+        } else {
+            self.navigate(to: donateURL, userInfo: [
+                RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
+                RoutingUserInfoKeys.campaignMetricsID: metricsID as Any
+            ], useSafari: false)
+        }
+    }
+
+    func donateDidSetMaybeLater() {
+        
+        let project = WikimediaProject(siteURL: articleURL)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
+
+            if let project {
+                AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
+            }
+            
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+
+    func donateAlreadyDonated() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
+
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
+        }
     }
 }
 
-private extension URL {
-    var isThankYouDonationURL: Bool {
-        return self.host == "thankyou.wikipedia.org"
+extension ArticleViewController: WKDonateDelegate {
+    public func donateDidTapProblemsDonatingLink() {
+        sharedDonateDidTapProblemsDonatingLink()
+    }
+    
+    public func donateDidTapOtherWaysToGive() {
+        sharedDonateDidTapOtherWaysToGive()
+    }
+    
+    public func donateDidTapFrequentlyAskedQuestions() {
+        sharedDonateDidTapFrequentlyAskedQuestions()
+    }
+    
+    public func donateDidTapTaxDeductibilityInformation() {
+        sharedDonateDidTapTaxDeductibilityInformation()
+    }
+    
+    public func donateDidSuccessfullySubmitPayment() {
+        sharedDonateDidSuccessfullSubmitPayment(source: .articleCampaignModal, articleURL: articleURL)
+    }
+}
+
+extension ArticleViewController: WKDonateLoggingDelegate {
+    
+    func logDonateFormDidAppear() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormDidAppear(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTriggerError(error: Error) {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTriggerError(error: error, project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTapAmountPresetButton() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapAmountPresetButton(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidEnterAmountInTextfield() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidEnterAmountInTextfield(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?) {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, metricsID: metricsID)
+    }
+    
+    func logDonateFormUserDidTapProblemsDonatingLink() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapProblemsDonatingLink(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTapOtherWaysToGiveLink() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapOtherWaysToGiveLink(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTapFAQLink() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapFAQLink(project: wikimediaProject)
+    }
+    
+    func logDonateFormUserDidTapTaxInfoLink() {
+        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+            return
+        }
+        
+        sharedLogDonateFormUserDidTapTaxInfoLink(project: wikimediaProject)
+    }
+    
+    
+}
+
+extension WKFundraisingCampaignConfig.WKAsset {
+    
+    var utmSource: String? {
+        
+        guard actions.count > 0 else {
+            return nil
+        }
+        
+        let firstAction = actions[0]
+        var utmSource: String? = nil
+        if let donateURL = firstAction.url,
+           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
+            for queryItem in queryItems {
+                if queryItem.name == "utm_source" {
+                    utmSource = queryItem.value
+                }
+            }
+        }
+        
+        return utmSource
+    }
+    
+    var metricsID: String {
+        return "\(languageCode)\(id)_iOS"
+    }
+}
+
+fileprivate extension URL {
+    func appendingAppVersion(appVersion: String?) -> URL {
+        
+        guard let appVersion,
+              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+        var queryItems = components.queryItems else {
+            return self
+        }
+        
+        
+        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            return self
+        }
+        
+        return url
     }
 }

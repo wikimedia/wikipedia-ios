@@ -25,6 +25,8 @@
 @property (strong, nonatomic) UIColor *iconColor;
 @property (strong, nonatomic) UIColor *iconBackgroundColor;
 
+@property (assign, nonatomic) BOOL isLoading;
+
 @property (nonatomic, weak) id<WMFSettingsTableViewCellDelegate> delegate;
 - (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme;
 

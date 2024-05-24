@@ -3,6 +3,7 @@
 // Author: Bugoslav
 // Author: Cleinman
 // Author: Helena
+// Author: Hijerovit
 // Author: Hmxhmx
 // Author: Ivi104
 // Author: JoeWalshWMF
@@ -11,6 +12,14 @@
 // Author: Npavcec
 // Author: Ponor
 
+"aaald-added-text-description-2" = "$1 dodano";
+"aaald-article-description-updated-description" = "Opis članka je objavljen";
+"aaald-article-insert-header" = "Značajna ažuriranja";
+"aaald-article-insert-last-updated" = "Posljednji puta ažurirano";
+"aaald-article-insert-new-changes" = "Nove izmjene";
+"aaald-article-insert-read-more" = "Pročitajte još ažuriranja";
+"aaald-error-subitle" = "Osvježite za ponovni pokušaj";
+"aaald-error-title" = "Nije moguće učitati povijest uređivanja članka";
 "about-content-license" = "Licencija sadržaja";
 "about-contributors" = "Doprinositelji";
 "about-libraries" = "Korištene biblioteke";
@@ -33,6 +42,7 @@
 "account-creation-have-account" = "Već imate račun? $1";
 "account-creation-log-in" = "Prijavite se.";
 "account-creation-logging-in" = "Prijavljivanje...";
+"account-creation-missing-fields" = "Potrebno je unijeti suradničko ime, lozinku i potvrdu lozinke kako biste stvorili račun.";
 "account-creation-passwords-mismatched" = "Zaporke se ne podudaraju.";
 "account-creation-saving" = "Spremanje...";
 "account-creation-title" = "Stvorite novi račun";
@@ -44,14 +54,15 @@
 "action-add-to-reading-list-short" = "Dodaj na popis";
 "action-cancel" = "Odustani";
 "action-find-in-page" = "Pronađi na stranici";
+"action-keep-editing" = "Nastavite uređivanje";
 "action-language-accessibility" = "Promijenite jezik";
 "action-move-to" = "Premjesti u...";
 "action-move-to-reading-list" = "Premjesti na popis za čitanje";
+"action-next-revision-accessibility" = "Sljedeća izmjena";
+"action-previous-revision-accessibility" = "Prethodna izmjena";
 "action-read" = "Čitaj";
 "action-redo" = "Ponovi";
 "action-remove" = "Ukloni";
-"action-replace" = "Zamijeni";
-"action-replace-all" = "Zamijeni sve";
 "action-retry" = "Pokušaj ponovno";
 "action-save" = "Spremi";
 "action-saved" = "Spremljeno";
@@ -62,7 +73,6 @@
 "action-thank-user-accessibility" = "Zahvali suradniku";
 "action-undo" = "Vrati";
 "action-update" = "Ažuriraj";
-"add-citation-title" = "Dodavanje izvora";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedija, izvor, wiki, enciklopedija, info, znanje, istraživanje, informacije, istraži, učenje";
 "app-store-subtitle" = "Slobodna enciklopedija";
@@ -97,7 +107,6 @@
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-title" = "Nema nedavno čitanih članaka";
 "description-add-title" = "Dodaj opis";
-"description-edit-learn-more" = "Saznaj više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-placeholder-title" = "Kratki su opisi najbolji";
@@ -121,8 +130,10 @@
 "description-welcome-descriptions-title" = "Opisi naslova";
 "description-welcome-promise-title" = "Započinjanjem radnje izvršenja obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počnite uređivati";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Usporedi izmjene";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Za:";
 "diff-compare-title" = "Usporedi izmjene";
 "diff-context-lines-collapsed-button-title" = "Prikaži";
@@ -143,14 +154,11 @@
 "edit-menu-item" = "Uredi";
 "edit-minor-text" = "Ovo je manja izmjena";
 "edit-published" = "Uređivanje je objavljeno";
-"edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "Dodajte sažetak izmjene";
 "edit-summary-choice-fixed-grammar" = "Popravljen pravopis";
 "edit-summary-choice-fixed-typos" = "Popravljen zatipak";
 "edit-summary-choice-linked-words" = "Dodane poveznice";
-"edit-summary-learn-more-text" = "Saznajte više";
 "edit-summary-placeholder-text" = "Kako ste unaprijedili članak?";
-"edit-text-size-table-view-title" = "Veličina teksta";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-title" = "Vaš glas je važan";
 "editing-welcome-citations-title" = "Citirajte pouzdane izvore";
@@ -179,6 +187,7 @@
 "explore-feed-preferences-places-description" = "Wikipedijini članci o temama u Vašoj blizini";
 "explore-main-page-heading" = "Danas na Wikipediji";
 "explore-most-read-footer" = "Svi najčitaniji članci";
+"explore-most-read-generic-heading" = "Najčitaniji članci";
 "explore-nearby-heading" = "Mjesta u blizini";
 "explore-nearby-placeholder-heading" = "Mjesta";
 "explore-potd-heading" = "Slika dana";
@@ -252,7 +261,6 @@
 "search-clear-title" = "Očisti";
 "search-recent-clear-cancel" = "Odustani";
 "settings-account" = "Račun";
-"talk-page-link-user-action-sheet-title" = "Suradničke stranice";
 "welcome-intro-free-encyclopedia-description" = "Wikipedija je rezultat volonterske suradnje i sadrži više od 40 milijuna članaka na preko 300 jezika.";
 "welcome-languages-search-title" = "Pretraživanje u više od 300 jezika";
 "wikitext-upload-save-anonymously-warning" = "Uređivanja će biti pripisana IP-adresi Vašega uređaja. Ako pritisnete $1, ostvarit ćete više privatnosti.";

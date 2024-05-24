@@ -5,11 +5,15 @@ import XCTest
 class ArticleCacheReadingTests: XCTestCase {
     let timeout: TimeInterval = 10
     
-    override func setUp() {
-        super.setUp()
-        LSNocilla.sharedInstance().start()
-        ArticleTestHelpers.pullDataFromFixtures(inBundle: wmf_bundle())
-        ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: wmf_bundle())
+    override func setUp(completion: @escaping (Error?) -> Void) {
+        
+        ArticleTestHelpers.setup {
+            LSNocilla.sharedInstance().start()
+            ArticleTestHelpers.pullDataFromFixtures(inBundle: self.wmf_bundle())
+            ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: self.wmf_bundle())
+            completion(nil)
+        }
+        
     }
     
     override func tearDown() {
@@ -121,7 +125,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+        basicVC.loadViewIfNeeded()
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -169,7 +173,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+        basicVC.loadViewIfNeeded()
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -218,7 +222,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+        basicVC.loadViewIfNeeded()
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -267,7 +271,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
+        basicVC.loadViewIfNeeded()
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)

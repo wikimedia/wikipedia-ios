@@ -36,7 +36,9 @@
 "cancel" = "Пӯшидан";
 "description-add-title" = "Тавзеҳот илова намудан";
 "description-published-button-title" = "Карда шуд";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Аз:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Ба:";
 "diff-context-lines-collapsed-button-title" = "Нишон додан";
 "diff-context-lines-expanded-button-title" = "Пинҳон";
@@ -95,7 +97,6 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}} аз $2";
 "page-history-user-edits" = "вироишоти корбар";
 "places-search-default-text" = "Ҷои ҷустуҷӯ";
-"preference-title-eventlogging-opt-in" = "Фиристодани ҳисоботи истифода";
 "relative-date-hours-abbreviated" = "$1 соат";
 "relative-date-hours-ago-abbreviated" = "$1 соат пеш";
 "relative-date-minutes-abbreviated" = "$1 дақ.";
@@ -110,9 +111,7 @@
 "table-of-contents-heading" = "Мундариҷа";
 "talk-page-discussion-read-accessibility-label" = "Хондан";
 "unknown-generic-text" = "Номаълум";
-"wikitext-downloading" = "Дар ҳоли кушодани муҳтаво...";
 "wikitext-preview-changes" = "Фарохонии пешнамоиши тағийроти шумо...";
-"wikitext-preview-changes-none" = "Барои пешнамоиш ягон тағйирот нашуд.";
 // Fuzzy
 "wikitext-upload-save" = "Дар ҳоли захиракунӣ...";
 "wikitext-upload-save-sign-in" = "Вуруд";

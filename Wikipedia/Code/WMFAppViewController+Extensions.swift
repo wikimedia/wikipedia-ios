@@ -1,6 +1,8 @@
 import UIKit
 import WMF
 import SwiftUI
+import Components
+import WKData
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -49,7 +51,7 @@ extension WMFAppViewController {
         if let nextCode = remainingCodes.first {
             
             // If more to show, primary button shows next variant alert
-            primaryButtonTapHandler = { _ in
+            primaryButtonTapHandler = { _, _ in
                 self.dismiss(animated: true) {
                     self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
                 }
@@ -59,12 +61,12 @@ extension WMFAppViewController {
             
         } else {
             // If no more to show, primary button navigates to languge settings
-            primaryButtonTapHandler = { _ in
+            primaryButtonTapHandler = { _, _ in
                 self.displayPreferredLanguageSettings(completion: completion)
             }
 
             // And secondary button dismisses
-            secondaryButtonTapHandler = { _ in
+            secondaryButtonTapHandler = { _, _ in
                 self.dismiss(animated: true, completion: completion)
             }
         }
@@ -200,6 +202,278 @@ extension WMFAppViewController {
     }
 }
 
+// MARK: - Watchlist
+
+extension WMFAppViewController: WKWatchlistDelegate {
+
+    public func emptyViewDidTapSearch() {
+        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
+    }
+
+    public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
+            return
+        }
+
+        let diffURL: URL?
+
+        if revisionID == 0 {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)", isMobile: true)
+        } else if oldRevisionID == 0 {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(revisionID)", isMobile: true)
+        } else {
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)", isMobile: true)
+        }
+        
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
+
+        navigate(to: diffURL, userInfo: userInfo)
+    }
+
+    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
+            return
+        }
+
+        switch action {
+        case .userPage:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true))
+        case .userTalkPage:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true))
+        case .userContributions:
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true))
+        case .thank(let revisionID):
+            let performThanks = {
+                let diffThanker = DiffThanker()
+                diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
+                    switch result {
+                    case .success:
+                        let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
+                        let successMessage = String.localizedStringWithFormat(successfulThanks, username)
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    case .failure(let failure):
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, type: .error, customTypeName: nil, dismissPreviousAlerts: true)
+                    }
+                })
+            }
+
+            if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _, _ in
+                    WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
+                    UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
+                    self?.topMostViewController?.dismiss(animated: true, completion: {
+                        performThanks()
+                    })
+                }, cancelHandler: { [weak self] _, _ in
+                    WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
+                    self?.topMostViewController?.dismiss(animated: true)
+                })
+            } else {
+                performThanks()
+            }
+        case .diff(let revId, let oldRevId):
+            watchlistUserDidTapDiff(project: project, title: title, revisionID: revId, oldRevisionID: oldRevId)
+        }
+    }
+    
+    public func watchlistEmptyViewUserDidTapSearch() {
+        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
+    }
+
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
+        let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
+        languagesController.title = CommonStrings.wikipediaLanguages
+        languagesController.apply(theme)
+        languagesController.delegate = self
+        languagesController.showAllLanguages = true
+        languagesController.showPreferredLanguages = false
+        languagesController.showNonPreferredLanguages = false
+
+        languagesController.userLanguageSelectionBlock = { [weak self, weak viewModel] in
+            guard let self = self else { return }
+
+            // From `ViewControllerRouter`
+            let dataStore = self.dataStore
+            let appLanguages = dataStore.languageLinkController.preferredLanguages
+            var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
+                    return
+                }
+
+                result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            }
+            localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
+            localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
+
+            viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
+        }
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        viewController.present(navigationController, animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
+
+    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        dataStore.languageLinkController.appendPreferredLanguage(language)
+        controller.userLanguageSelectionBlock?()
+        controller.dismiss(animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WKWatchlistLoggingDelegate {
+    public func logWatchlistDidLoad(itemCount: Int) {
+        WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
+    }
+    
+    public func logWatchlistUserDidTapNavBarFilterButton() {
+        WatchlistFunnel.shared.logOpenFilterSettings()
+    }
+    
+    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+        
+        // Projects
+        let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
+        
+        if onProjects.contains(.commons) && onProjects.contains(.wikidata) {
+            commonsAndWikidataProjects = .both
+        } else if onProjects.contains(.commons) && onProjects.contains(.commons) {
+            commonsAndWikidataProjects = .commons
+        } else if onProjects.contains(.wikidata) {
+            commonsAndWikidataProjects = .wikidata
+        } else {
+            commonsAndWikidataProjects = nil
+        }
+        
+        // Wikis
+        let wikipediaProjects = onProjects.map { WikimediaProject(wkProject: $0) }.filter {
+            switch $0 {
+            case .wikipedia: return true
+            default: return false
+            }
+        }
+        
+        let wikiIdentifiers = wikipediaProjects.map { $0.notificationsApiWikiIdentifier }
+        
+        // Latest
+        let latest: WatchlistFunnel.FilterEnabledList.Latest
+        switch filterSettings.latestRevisions {
+        case .notTheLatestRevision:
+            latest = .notLatest
+        case .latestRevision:
+            latest = .latest
+        }
+        
+        // Activity
+        let activity: WatchlistFunnel.FilterEnabledList.Activity
+        switch filterSettings.activity {
+        case .all:
+            activity = .all
+        case .seenChanges:
+            activity = .seen
+        case .unseenChanges:
+            activity = .unseen
+        }
+        
+        // Automated
+        let automated: WatchlistFunnel.FilterEnabledList.Automated
+        switch filterSettings.automatedContributions {
+        case .all:
+            automated = .all
+        case .bot:
+            automated = .bot
+        case .human:
+            automated = .nonBot
+        }
+        
+        // Significance
+        let significance: WatchlistFunnel.FilterEnabledList.Significance
+        switch filterSettings.significance {
+        case .all:
+            significance = .all
+        case .minorEdits:
+            significance = .minor
+        case .nonMinorEdits:
+            significance = .nonMinor
+        }
+        
+        // User Registration
+        let userRegistration: WatchlistFunnel.FilterEnabledList.UserRegistration
+        switch filterSettings.userRegistration {
+        case .all:
+            userRegistration = .all
+        case .registered:
+            userRegistration = .registered
+        case .unregistered:
+            userRegistration = .unregistered
+        }
+        
+        // Type Change
+        var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
+        for changeType in WKWatchlistFilterSettings.ChangeType.allCases {
+            if !filterSettings.offTypes.contains(changeType) {
+                switch changeType {
+                case .categoryChanges: onTypeChanges.append(.categoryChanges)
+                case .loggedActions: onTypeChanges.append(.logActions)
+                case .pageCreations: onTypeChanges.append(.pageCreations)
+                case .pageEdits: onTypeChanges.append(.pageEdits)
+                case .wikidataEdits: onTypeChanges.append(.wikidataEdits)
+                }
+            }
+        }
+        
+        let filterEnabledList = WatchlistFunnel.FilterEnabledList(projects: commonsAndWikidataProjects, wikis: wikiIdentifiers, latest: latest, activity: activity, automated: automated, significance: significance, userRegistration: userRegistration, typeChange: onTypeChanges)
+        
+        WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
+    }
+    
+    public func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType) {
+        switch type {
+        case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
+        case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
+        }
+    }
+    
+    public func logWatchlistEmptyViewUserDidTapSearch() {
+        WatchlistFunnel.shared.logWatchlistEmptyStateTapSearch()
+    }
+    
+    public func logWatchlistEmptyViewUserDidTapModifyFilters() {
+        WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
+    }
+    
+    public func logWatchlistUserDidTapUserButton(project: WKData.WKProject) {
+        
+        let wikimediaProject = WikimediaProject(wkProject: project)
+        WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
+    }
+    
+    public func logWatchlistUserDidTapUserButtonAction(project: WKData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+        
+        let wikimediaProject = WikimediaProject(wkProject: project)
+
+        switch action {
+        case .userPage:
+            WatchlistFunnel.shared.logTapUserPage(project: wikimediaProject)
+        case .userTalkPage:
+            WatchlistFunnel.shared.logTapUserTalk(project: wikimediaProject)
+        case .userContributions:
+            WatchlistFunnel.shared.logTapUserContributions(project: wikimediaProject)
+        case .thank:
+            WatchlistFunnel.shared.logTapUserThank(project: wikimediaProject)
+        case .diff:
+            break
+        }
+    }
+    
+    
+}
+
 fileprivate extension UIViewController {
     
     /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
@@ -265,4 +539,68 @@ extension WMFAppViewController: CreateReadingListDelegate {
             }
         }
     }
+    
+    @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wkTheme: WKTheme
+        switch theme.name {
+        case "light":
+            wkTheme = WKTheme.light
+        case "sepia":
+            wkTheme = WKTheme.sepia
+        case "dark":
+            wkTheme = WKTheme.dark
+        case "black":
+            wkTheme = WKTheme.black
+        default:
+            wkTheme = WKTheme.light
+        }
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    }
+}
+
+// MARK: WKData setup
+
+extension WMFAppViewController {
+    @objc func setupWKDataEnvironment() {
+        WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        
+        switch Configuration.current.environment {
+        case .staging:
+            WKDataEnvironment.current.serviceEnvironment = .staging
+        default:
+            WKDataEnvironment.current.serviceEnvironment = .production
+        }
+        
+        WKDataEnvironment.current.userAgentUtility = {
+            return WikipediaAppUtils.versionedUserAgent()
+        }
+        
+        WKDataEnvironment.current.appInstallIDUtility = {
+            return UserDefaults.standard.wmf_appInstallId
+        }
+        
+        WKDataEnvironment.current.acceptLanguageUtility = {
+            return Locale.acceptLanguageHeaderForPreferredLanguages
+        }
+        
+        WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+    }
+    
+    @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+    }
+}
+
+// MARK: Components App Environment
+extension WMFAppViewController {
+
+    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
+        let wkTheme = Theme.wkTheme(from: theme)
+        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    }
+
 }

@@ -4,6 +4,7 @@
 // Author: AnupamM
 // Author: Babanwalia
 // Author: Jimidar
+// Author: Kuldeepburjbhalaike
 // Author: Nachhattardhammu
 // Author: Nemo bis
 // Author: Satdeep gill
@@ -12,6 +13,8 @@
 // Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
+"aaald-added-text-description-2" = "$1 ਜੋਡ਼ਿਆ ਗਿਆ";
+"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ";
 "about-content-license" = "ਸਮੱਗਰੀ ਲਸੰਸ";
 "about-content-license-details" = "ਜੇ ਕੁਝ ਹੋਰ ਨਹੀਂ ਕਿਹਾ ਗਿਆ ਤਾਂ ਸਮੱਗਰੀ $1 ਹੇਠ ਉਪਲੱਬਧ ਹੈ।";
 "about-content-license-details-share-alike-license" = "ਕਰੀਏਟਿਵ ਕਾਮਨਜ਼ ਐਟ੍ਰੀਰਬ੍ਯੂਸ਼ਨ-ਸ਼ੇਅਰ ਅਲਾਈਕ ਲਸੰਸ";
@@ -95,6 +98,7 @@
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
+"explore-suggested-edits-image-recs-title" = "ਇੱਕ ਤਸਵੀਰ ਜੋੜੋ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
@@ -159,7 +163,6 @@
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
-"preference-title-eventlogging-opt-in" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
 "reading-themes-controls-accessibility-black-theme-button" = "ਕਾਲਾ ਥੀਮ";
 "reference-title" = "ਹਵਾਲਾ $1";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
@@ -187,7 +190,6 @@
 "settings-primary-language" = "ਮੁੱਢਲਾ";
 // Fuzzy
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
-"settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
 // Fuzzy
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
@@ -203,10 +205,7 @@
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";
-"welcome-volunteer-send-usage-reports" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
-"wikitext-downloading" = "ਸਮੱਗਰੀ ਲੱਦ ਰਿਹਾ ਹੈ...";
 "wikitext-preview-changes" = "ਤੁਹਾਡੀਆਂ ਤਬਦੀਲੀਆਂ ਦੀ ਝਾਤ ਲਿਆਂਦੀ ਜਾ ਰਹੀ ਹੈ...";
-"wikitext-preview-changes-none" = "ਝਾਤ ਮਾਰਨ ਵਾਸਤੇ ਕੋਈ ਵੀ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ।";
 "wikitext-upload-captcha-error" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਵਿੱਚ ਦੋਸ਼।";
 "wikitext-upload-captcha-needed" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ।";
 "wikitext-upload-result-unknown" = "ਵਿਕੀਲਿਖਤ ਦੀ ਚੜ੍ਹਾਈ ਦੇ ਨਤੀਜੇ ਦਾ ਪਤਾ ਨਹੀਂ ਲੱਗ ਰਿਹਾ।";

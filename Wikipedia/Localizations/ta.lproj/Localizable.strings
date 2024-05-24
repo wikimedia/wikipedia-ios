@@ -5,6 +5,7 @@
 // Author: CaptainIRS
 // Author: Dineshkumar Ponnusamy
 // Author: ElangoRamanujam
+// Author: Fahimrazick
 // Author: Jayarathina
 // Author: Kaartic
 // Author: Mahir78
@@ -23,7 +24,7 @@
 "about-repositories-app-source-license-mit" = "எம்ஐடி உரிமம்";
 "about-send-feedback" = "நிரல் பின்னூட்டம் அனுப்புக";
 "about-testers" = "சோதிப்பவர்கள்";
-"about-title" = "இதுபற்றி";
+"about-title" = "இதைப் பற்றி";
 "about-translators" = "மொழிபெயர்ப்பாளர்கள்";
 "about-translators-details" = "$1யில் தன்னார்வலர்களால் மொழிபெயர்க்கப்பட்டுள்ளது";
 "about-wikimedia-foundation" = "விக்கிமீடியா அறக்கட்டளை";
@@ -50,18 +51,18 @@
 "action-unsaved-accessibility-notification" = "கட்டுரை சேமிக்கப்படவில்லை";
 "announcements-dismiss" = "அகற்று";
 "appearance-settings-adjust-text-sizing" = "கட்டுரை அளவை பொருத்திக்கொள்";
-"appearance-settings-expand-tables" = "அட்டவணைகளை விரிவாக்குக";
+"appearance-settings-expand-tables" = "அட்டவணைகளை விரி";
 "appearance-settings-reading-themes" = "தோற்றங்கள் படிக்கப்படுகிறது";
 "appearance-settings-set-automatic-table-opening" = "அட்டவணை அமைவுகள்";
 "appearance-settings-theme-options" = "தோற்ற அமைவுகள்";
-"article-delete" = "அழிக்கவும்";
+"article-delete" = "நீக்கு";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|கட்டுரை நீக்கப்பட்டது|கட்டுரைகள் நீக்கப்பட்டன}}";
 "article-languages-filter-placeholder" = "மொழியைக் கண்டறி";
 "article-languages-label" = "மொழியைத் தேர்ந்தெடுக்கவும்";
 "article-languages-others" = "மற்ற மொழிகளில்";
 "article-languages-yours" = "தங்களது மொழி";
 "article-share" = "பகிர்க";
-"back-button-accessibility-label" = "பின் செல்";
+"back-button-accessibility-label" = "பின்னே";
 "button-next" = "அடுத்தது";
 "button-ok" = "சரி";
 "button-publish" = "பதிப்பிடு";
@@ -69,7 +70,7 @@
 "button-report-a-bug" = "வழுக்களை அறிக்கையிடுக";
 "button-save-for-later" = "பிற்காலத்திற்கு சேமி";
 "button-saved-for-later" = "பிற்காலத்திற்கு சேமிக்கப்பட்டது";
-"button-saved-remove" = "சேமிக்கப்பட்டதிலிருந்து நீக்கவும்";
+"button-saved-remove" = "சேமிப்பிலிருந்து அகற்று";
 "button-skip" = "தவிர்";
 "cancel" = "கைவிடுக";
 "close-button-accessibility-label" = "மூடுக";
@@ -90,7 +91,7 @@
 "error-unknown" = "அறியாப் பிழை ஏற்பட்டது";
 "explore-another-random" = "மற்றொரு தொடர்பிலா கட்டுரை";
 "explore-because-you-read" = "நீங்கள் படித்ததால்";
-"explore-continue-reading-heading" = "தொடர்ந்து படிக்கவும்";
+"explore-continue-reading-heading" = "வாசிப்பைத் தொடர்";
 "explore-enable-location-title" = "உங்கள் இடத்திற்கு அருகாமையிலுள்ள கட்டுரைகளை சுற்றிபார்க்கவும்";
 "explore-featured-article-heading" = "சிறப்பு கட்டுரைகள்";
 "explore-main-page-description" = "விக்கிமீடியா திட்டங்களின் முதன்மை பக்கங்கள்";
@@ -129,9 +130,9 @@
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
-"history-clear-all" = "வெறுமையாக்கு";
+"history-clear-all" = "அழி";
 "history-clear-cancel" = "ரத்து செய்";
-"history-clear-delete-all" = "அனைத்தையும் நீக்குக";
+"history-clear-delete-all" = "ஆம், யாவையும் நீக்கு";
 "history-title" = "வரலாறு";
 "home-button-explore-accessibility-label" = "விக்கிப்பீடியா, சுற்றிப்பார்க்க திரும்புக";
 "home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
@@ -140,7 +141,7 @@
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் இருக்கும் மேலும் இடங்கள்";
 "home-nearby-location-footer" = "$1 க்கு அருகாமையில் மேலும்";
 "home-news-footer" = "மேலும் தற்போதய நிக்ழ்வுகள்";
-"home-themes-action-title" = "விருப்பத்தேர்வுகளை நிர்வகி";
+"home-themes-action-title" = "விருப்பங்களை நிருவகி";
 "home-title" = "சுற்றிப்பார்";
 "icon-shortcut-nearby-title" = "அருகாமை கட்டுரைகள்";
 "icon-shortcut-random-title" = "தொடர்பற்ற கட்டுரை";
@@ -185,7 +186,7 @@
 "page-protected-can-not-edit" = "உங்களுக்கு இந்த பக்கத்தை தொகுக்கும் உரிமைகள் இல்லை";
 "page-protected-can-not-edit-title" = "இந்த பக்கம் பாதுகாக்கப்பட்டுள்ளது.";
 "pictured" = "படம்";
-"places-accessibility-clear-saved-searches" = "சேமிக்கப்பட்ட தேடல்களை அழிக்கவும்";
+"places-accessibility-clear-saved-searches" = "சேமித்த தேடல்களை அழி";
 "places-accessibility-group" = "$1 கட்டுரைகள்";
 "places-accessibility-recenter-map-on-user-location" = "உங்கள் இடத்தை மறுமையமாக்கவும்";
 "places-accessibility-show-as-list" = "பட்டியலாக காட்டுக";
@@ -196,7 +197,7 @@
 "places-filter-saved-articles" = "சேமிக்கப்பட்ட கட்டுரைகள்";
 "places-filter-top-articles" = "அதிகமாக படிக்கப்பட்டது";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 கட்டுரை|$1 கட்டுரைகள்}}";
-"places-search-default-text" = "இடங்களை தேடுக";
+"places-search-default-text" = "இடங்களைத் தேடு";
 "places-search-did-you-mean" = "தாங்கள் கருதியது $1?";
 "places-search-recently-searched-header" = "அண்மையில் தேடப்பட்டது";
 "places-search-saved-articles" = "அனைத்து சேமிக்கப்பட்ட கட்டுரைகள்";
@@ -207,7 +208,6 @@
 "places-search-your-current-location" = "தங்களது தற்போதைய இருப்பிடம்";
 "places-title" = "இடங்கள்";
 "places-unknown-distance" = "தெரியாத தொலைவு";
-"preference-title-eventlogging-opt-in" = "பயன்பாடு அறிக்கை அனுப்பு";
 "reading-themes-controls-accessibility-black-theme-button" = "கறுப்பு தோற்றம்";
 "reading-themes-controls-accessibility-brightness-slider" = "ஒளிர்வு வழுக்கான்";
 "reading-themes-controls-accessibility-dark-theme-button" = "இருண்ட தோற்றம்";
@@ -225,16 +225,15 @@
 "search-field-placeholder-text" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-recent-clear-cancel" = "விட்டுவிடு";
 "search-recent-clear-confirmation-heading" = "அண்மைய தேடல்களையும் அனைத்தையும் நீக்கவா?";
-"search-recent-clear-delete-all" = "அனைத்தையும் நீக்குக";
+"search-recent-clear-delete-all" = "யாவையும் நீக்கு";
 "search-recent-title" = "அண்மையில் தேடப்பட்டது";
 "search-title" = "தேடு";
-"settings-appearance" = "வாசிப்பு விருப்பத்தேர்வுகள்";
+"settings-appearance" = "வாசிப்பு விருப்பங்கள்";
 "settings-clear-cache-cancel" = "கைவிடுக";
 "settings-my-languages" = "என் மொழிகள்";
 // Fuzzy
 "settings-notifications" = "அறிவிக்கைகள்";
 "settings-primary-language" = "முதன்மை";
-"settings-support" = "விக்கிமீடியாவை ஆதரிக்கவும்";
 "settings-title" = "அமைப்புகள்";
 "share-a-fact-made-with" = "விக்கிப்பீடியா செயலி மூலம் உருவாக்கப்பட்டது";
 "share-menu-item" = "பகிர்க...";
@@ -257,7 +256,6 @@
 "welcome-intro-free-encyclopedia-more-about" = "விக்கிப்பீடியாவைப் பற்றி";
 "welcome-intro-free-encyclopedia-title" = "இலவச கலை கலஞ்சியம்";
 "welcome-languages-add-button" = "மற்றொரு மொழி சேர்க்கவும்";
-"welcome-volunteer-send-usage-reports" = "பயன்பாடு அறிக்கை அனுப்பு";
 "wikitext-upload-save" = "பதிப்பிடப்படுகின்றது...";
 "wikitext-upload-save-sign-in" = "புகுபதிகை";
 "wikitext-upload-save-terms-name" = "பயன்பாட்டு விதிமுறைகள்";

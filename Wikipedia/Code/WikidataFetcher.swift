@@ -1,3 +1,5 @@
+import WKData
+
 public enum ArticleDescriptionSource: String {
     case none
     case unknown
@@ -135,7 +137,7 @@ public enum ArticleDescriptionSource: String {
     ///   - languageCode: language code of the page's wiki, e.g., "en".
     ///   - completion: completion block called when operation is completed.
 
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editSummaryTag: WKEditSummaryTag, completion: @escaping (Error?) -> Void) {
         guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return
@@ -149,6 +151,7 @@ public enum ArticleDescriptionSource: String {
             
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
             let queryParameters: [String: Any] = ["action": "wbsetdescription",
+                                                  "summary": editSummaryTag.rawValue,
                                    "errorformat": "html",
                                    "erroruselocal": 1,
                                    "format": "json",
@@ -222,7 +225,7 @@ public enum ArticleDescriptionSource: String {
         
         completion(nil)
         
-        if (isAuthorized ?? false), (result.errors ?? []).count == 0 {
+        if isAuthorized ?? false, (result.errors ?? []).count == 0 {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: WikidataFetcher.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
             }

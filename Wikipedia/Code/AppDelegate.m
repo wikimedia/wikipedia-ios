@@ -71,21 +71,16 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
 
-#if UI_TEST
-    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
-        [UIView setAnimationsEnabled:NO];
-    }
-#endif
-
     [[NSUserDefaults standardUserDefaults] wmf_migrateFontSizeMultiplier];
     NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume = [self shouldRestoreNavigationStackOnResumeAfterBecomingActive];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
+
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 
     [self updateDynamicIconShortcutItems];
 

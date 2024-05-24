@@ -79,13 +79,22 @@ class ArticleTestHelpers {
     }
     static var fixtureData: FixtureData?
     
-    static let dataStore = MWKDataStore.temporary()
-    static let cacheController: PermanentCacheController = {
-        let tempPath = WMFRandomTemporaryPath()!
-        let randomURL = NSURL.fileURL(withPath: tempPath)
-        let temporaryCacheURL = randomURL.appendingPathComponent("Permanent Cache", isDirectory: true)
-        return PermanentCacheController.testController(with: temporaryCacheURL, dataStore: dataStore)
-    }()
+    static var dataStore: MWKDataStore!
+    static var cacheController: PermanentCacheController!
+    
+    static func setup(completion: @escaping () -> Void) {
+        MWKDataStore.createTemporaryDataStore(completion: { dataStore in
+            
+            let tempPath = WMFRandomTemporaryPath()!
+            let randomURL = NSURL.fileURL(withPath: tempPath)
+            let temporaryCacheURL = randomURL.appendingPathComponent("Permanent Cache", isDirectory: true)
+            let permCache = PermanentCacheController.testController(with: temporaryCacheURL, dataStore: dataStore)
+            
+            self.dataStore = dataStore
+            self.cacheController = permCache
+            completion()
+        })
+    }
     
     static func pullDataFromFixtures(inBundle bundle: Bundle) {
         

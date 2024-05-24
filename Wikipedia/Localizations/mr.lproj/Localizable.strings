@@ -115,7 +115,6 @@
 "potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
-"preference-title-eventlogging-opt-in" = "वापराचा अहवाल पाठवा";
 "reading-list-add-hint-title" = "$1 हे वाचनयादीत जोडायचे आहे?";
 // Fuzzy
 "reading-list-exists-with-same-name" = "$1 या नावाची वाचन यादी आधीच अस्तित्त्वात आहे.";
@@ -144,7 +143,6 @@
 "settings-primary-language" = "प्राथमिक";
 // Fuzzy
 "settings-primary-language-details" = "या अॲपसाठी, यादीतील प्रथम भाषा ही प्राथमिक भाषा म्हणून वापरल्या जाते. ही भाषा बदलण्याने, शोधा वर दाखविलेले, रोजचे आशय  बदलतील(जसे अविशिष्ट लेख).";
-"settings-support" = "विकिपीडियास साहाय्य करा";
 "settings-title" = "मांडण्या";
 "sort-by-recently-added-action" = "नुकतेच जोडलेले";
 "sort-by-title-action" = "शीर्षक";
@@ -155,10 +153,7 @@
 "welcome-explore-continue-button" = "सुरुवात करा";
 "welcome-explore-tell-me-more-done-button" = "समजले";
 "welcome-languages-add-button" = "इतर भाषा जोडा";
-"welcome-volunteer-send-usage-reports" = "वापराचा अहवाल पाठवा";
-"wikitext-downloading" = "आशयाचे भारण करीत आहे...";
 "wikitext-preview-changes" = "आपल्या बदलाची झलक दाखवित आहे...";
-"wikitext-preview-changes-none" = "झलक दाखविण्याजोगे काहीच बदल केल्या गेले नाहीत.";
 "wikitext-upload-captcha-error" = "कॅपचा पडताळणीत त्रुटी.";
 "wikitext-upload-captcha-needed" = "कॅपचा पडताळणी करणे आवश्यक.";
 "wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";

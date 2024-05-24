@@ -74,6 +74,12 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconName = "recent-mini"
             iconColor = .gray400
             iconBackgroundColor = .gray200
+        case .suggestedEdits:
+            title = CommonStrings.suggestedEditsTitle
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggestions to add content to Wikipedia", comment: "Description of Suggested Edits section of Explore feed")
+            iconName = "pencil"
+            iconColor = .blue600
+            iconBackgroundColor = .blue100
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""
@@ -183,6 +189,22 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         dismiss(animated: true)
     }
 
+    var editCount: Int {
+        var count: Int = 0
+        if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
+            self.dataStore?.authenticationManager.getLoggedInUser(for: language, completion: { result in
+                switch result {
+                case .success(let user):
+                    count = Int(user?.editCount ?? 0)
+                default:
+                    break
+                }
+            })
+        }
+
+        return count
+    }
+
     // MARK: Items
 
     private lazy var feedCards: [FeedCard] = {
@@ -195,7 +217,14 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
-        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
+
+        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
+        } else {
+            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        }
+        
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
@@ -323,6 +352,9 @@ extension ExploreFeedSettingsViewController {
             guard contentGroupKind.isCustomizable || contentGroupKind.isGlobal else {
                 assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
+            }
+            if contentGroupKind == .suggestedEdits {
+                ImageRecommendationsFunnel.shared.logSettingsToggleSuggestedEditsCard(isOn: sender.isOn)
             }
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
         } else {

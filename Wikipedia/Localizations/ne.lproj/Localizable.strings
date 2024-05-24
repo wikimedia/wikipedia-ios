@@ -66,8 +66,6 @@
 "action-read" = "पढ्नुहोस्";
 "action-redo" = "पुन: कायम गर्नुहाेस्";
 "action-remove" = "हटाउनुहोस्";
-"action-replace" = "बदल्नुहोस्";
-"action-replace-all" = "सबै बदल्नुहोस्";
 "action-retry" = "पुनः प्रयास गर्नुहोस्";
 "action-save" = "संग्रह गर्नुहोस्";
 "action-saved" = "सुरक्षित गरिएको";
@@ -81,7 +79,6 @@
 "action-unsaved-accessibility-notification" = "लेख सङ्ग्रहबाट हटाइयो";
 "action-update" = "अद्यावधिक गर्नुहोस्";
 "add-articles-to-reading-list" = "पठन सूचीमा {{PLURAL:$1|$1 लेख|$1 लेखहरू}} थप्नुहाेस्";
-"add-citation-title" = "सन्दर्भ थप्नुहोस्";
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
 "app-store-subtitle" = "एक स्वतन्त्र विश्वकोश";
@@ -115,7 +112,6 @@
 "description-add-title" = "विवरण थप्नुहोस्";
 // Fuzzy
 "description-edit-for-article" = "$1का लागि शीर्षक जानकारी";
-"description-edit-learn-more" = "थप जान्नुहोस्";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "परिचय सम्पादन गर्नुहोस्";
 // Fuzzy
@@ -132,7 +128,9 @@
 "description-published-subtitle" = "तपाईंले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
 "description-welcome-concise-title" = "यसलाई छोटो राख्नुहोस्";
 "description-welcome-start-editing-button" = "सम्पादन सुरुवात गर्नुहोस्";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "देखि:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "लाई:";
 "diff-compare-title" = "संशोधनहरू तुलना गर्नुहोस्";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";
@@ -150,13 +148,10 @@
 "diff-thanks-send-button-title" = "धन्यवाद पठाउनुहोस्";
 "edit-menu-item" = "सम्पादन";
 "edit-published-subtitle" = "तपाईंले विकिपिडियालाई सबैको लागि अझ राम्रो बनाउनु भएकाे छ";
-"edit-style-table-view-title" = "शैली";
 "edit-summary-add-summary-text" = "सम्पादन साशंस थप्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "विवरण ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
-"edit-summary-learn-more-text" = "अधिक जानकारी";
-"edit-text-size-table-view-title" = "पाठको आकार";
 "editing-welcome-set-knowledge-free-subtitle" = "विश्वको ज्ञानमा सबैलाई पहुँच दिनको लागि, हामीले तपाईलाई सबैभन्दा महत्त्वपूर्ण विषयहरू पढेर, सम्पादन गरेर र योगदान गरेर यसको सिर्जनामा सहभागी हुन आवश्यक छ।";
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
@@ -247,12 +242,14 @@
 "insert-media-image-position-setting-right" = "दायाँ";
 "insert-media-image-preview-more-information-action-title" = "थप जानकारी";
 "insert-media-image-preview-select-image-action-title" = "चित्र छान्नुहोस्";
+"insert-media-image-size-settings-measure-height" = "उचाइ";
+"insert-media-image-size-settings-measure-width" = "चौडाइ";
 "insert-media-image-size-settings-title" = "तस्वीर आकार";
 "insert-media-image-type-setting-basic" = "सामान्य";
 "insert-media-image-type-setting-frame" = "ढाँचा";
 "insert-media-image-type-setting-frameless" = "ढाँचा बिहिन";
+"insert-media-image-type-settings-footer-title" = "तपाईं पृष्ठमा मिडिया वस्तु कसरी देखा पर्दछ सेट गर्न सक्नुहुन्छ। यो थम्बनेल ढाँचा लगभग सबै अवस्थामा अन्य पृष्ठहरूसँग मिल्दोजुल्दो हुनुपर्छ।";
 "insert-media-image-type-settings-title" = "तस्वीरकाे प्रकार";
-"insert-media-uploaded-image-title" = "उर्ध्वभरण गरिएकाा तस्वीरहरू";
 "languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
@@ -345,10 +342,10 @@
 "places-search-recently-searched-header" = "भर्खरैका खोजहरू";
 "places-search-suggested-searches-header" = "सुझाव खोजीहरू";
 "places-search-top-articles-that-match-scope" = "नजिकै";
+"places-search-your-current-location" = "तपाईंको हालको स्थान";
 "places-title" = "स्थानहरू";
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
-"preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
 "project-name-mediawiki" = "मिडियाविकी";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
@@ -395,7 +392,6 @@
 "settings-primary-language" = "प्राथमिक";
 "settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "मेट्नुहोस्";
-"settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "मेरो अभिरुचिहरू";
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia मा \"$1\" :";
@@ -410,14 +406,9 @@
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-of-contents-hide-button-label" = "विषयसूची बन्द गर्नहोस्";
-"talk-page-add-discussion-accessibility-label" = "छलफल थप्नुहोस्";
 "talk-page-discussion-read-accessibility-label" = "पढिएकाे";
-"talk-page-link-user-action-sheet-title" = "प्रयोगकर्ता पृष्ठहरू";
-"talk-page-new-subject-placeholder-text" = "विषय";
-"talk-page-new-subject-textfield-accessibility-label" = "विषय";
 "talk-page-reply-button" = "जवाफ दिनुहोस्";
 "talk-page-reply-placeholder-format" = "$1लाई जवाफ दिनुहोस्";
-"talk-page-reply-title" = "जवाफ दिनुहोस्";
 "talk-page-subscribe-to-topic" = "सदस्यता लिनुहोस्";
 "talk-page-unsubscribe-to-topic" = "सदस्यता खारेज गर्नुहोस्";
 "talk-page-user-contributions" = "योगदानहरू";
@@ -428,7 +419,7 @@
 "talk-pages-topic-added-alert-title" = "तपाईंको विषय थपियो।";
 "talk-pages-topic-compose-body-placeholder" = "वर्णन";
 // Fuzzy
-"talk-pages-topic-compose-close-confirmation-discard" = "विषय खारेज गर्नुहोस्";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "विषय खारेज गर्नुहोस्";
 "talk-pages-topic-compose-close-confirmation-title" = "के तपाइँ यो नयाँ विषयलाई खारेज गर्न निश्चित हुनुहुन्छ?";
 "talk-pages-topic-compose-navbar-title" = "विषय";
 "talk-pages-topic-compose-title-placeholder" = "विषय शीर्षक";
@@ -439,12 +430,9 @@
 "theme-default-display-name" = "पूर्वनिर्धारित";
 "theme-light-display-name" = "हल्का";
 "theme-sepia-display-name" = "सेपिया";
+"tutorial-title" = "स्वशिक्षा";
 "two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
 "unknown-generic-text" = "अज्ञात";
-"vanish-account-additional-information-field" = "थप जानकारी";
-"vanish-account-additional-information-placeholder" = "वैकल्पिक";
-"vanish-account-back-confirm-discard" = "अनुरोध खारेज गर्नुहोस्";
-"vanish-account-back-confirm-keep-editing" = "सम्पादन जारी राख्नुहोस्";
 "vanish-account-continue-button-title" = "जारी राख्नुहोस्";
 "vanish-account-warning-title" = "चेतावनी";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
@@ -456,9 +444,6 @@
 "welcome-intro-free-encyclopedia-title" = "एक स्वतन्त्र विश्वकोष";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
-"welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। सङकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
-"welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
-"wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-external-preview-title" = "बाह्य कडीहरू";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";

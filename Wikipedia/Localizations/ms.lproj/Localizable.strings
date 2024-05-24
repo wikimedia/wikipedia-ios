@@ -3,10 +3,13 @@
 // Author: Anakmalaysia
 // Author: Arifin.wijaya
 // Author: Aviator
+// Author: Bebudak
+// Author: Hakimi97
 // Author: Jeluang Terluang
 // Author: Joseagush
 // Author: Kurniasan
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Tofeiku
 // Author: Ultron90
@@ -90,8 +93,6 @@
 "action-read" = "Baca";
 "action-redo" = "Buat semula";
 "action-remove" = "Buang";
-"action-replace" = "Ganti";
-"action-replace-all" = "Ganti semua";
 "action-retry" = "Langcuba";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
@@ -106,7 +107,6 @@
 "action-unsaved-accessibility-notification" = "Rencana ternyahsimpan";
 "action-update" = "Kemaskini";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
-"add-citation-title" = "Tambah petikan";
 "announcements-dismiss" = "Singkir";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
 "app-store-release-notes" = "Sepenuhnya disesuaikan dan mudah dibaca meneroka suapan. Penyetempatan, penambahbaikan prestasi dan pembetulan pepijat.";
@@ -156,7 +156,6 @@
 "data-migration-status" = "Mengemaskini...";
 "description-add-title" = "Tambah penerangan";
 "description-edit-for-article" = "Huraian rencana untuk $1";
-"description-edit-learn-more" = "Ketahui lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Dengan mengubah keterangan tajuk, saya bersetuju dengan $1 dan untuk membatalkan pembaharuan tanpa izin di bawah lesen $2.";
@@ -191,8 +190,10 @@
 "description-welcome-descriptions-title" = "Huraian rencana";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula suntingan";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Daripada:";
 "diff-compare-header-heading" = "Bandingkan Semakan";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kepada:";
 "diff-compare-title" = "Bandingkan Semakan";
 "diff-context-lines-collapsed-button-title" = "Tunjukkan";
@@ -218,59 +219,21 @@
 "diff-thanks-sent" = "Ucapan 'Terima kasih' anda diberi kepada $1";
 "diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
-"edit-bold-accessibility-label" = "Tambah pemformatan tebal";
-"edit-bold-remove-accessibility-label" = "Buang pemformatan tebal";
-"edit-comment-accessibility-label" = "Tambah sintaks komen";
-"edit-comment-remove-accessibility-label" = "Buang sintaks komen";
-"edit-decrease-indent-depth-accessibility-label" = "Kurangkan kedalaman inden";
-"edit-direction-down-accessibility-label" = "Gerakkan kursor ke bawah";
-"edit-direction-left-accessibility-label" = "Gerakkan kursor ke kiri";
-"edit-direction-right-accessibility-label" = "Gerakkan kursor ke kanan";
-"edit-direction-up-accessibility-label" = "Gerakkan kursor ke atas";
-"edit-increase-indent-depth-accessibility-label" = "Meningkatkan kedalaman inden";
-"edit-indent-accessibility-label" = "Inden baris semasa";
-"edit-italic-accessibility-label" = "Tambah pemformatan italik";
-"edit-italic-remove-accessibility-label" = "Buang pemformatan italik";
-"edit-link-accessibility-label" = "Tambah sintaks pautan";
 "edit-link-display-text-title" = "Teks paparan";
 "edit-link-link-target-title" = "Sasaran pautan";
-"edit-link-remove-accessibility-label" = "Buang sintaks pautan";
 "edit-link-remove-link-title" = "Buang pautan";
 "edit-link-title" = "Sunting pautan";
 "edit-menu-item" = "Sunting";
 "edit-minor-learn-more-text" = "Ketahui lebih lanjut mengenai suntingan kecil";
 "edit-minor-text" = "Ini ialah suntingan kecil";
-"edit-ordered-list-accessibility-label" = "Buat senarai yang diperintahkan baris semasa";
-"edit-ordered-list-remove-accessibility-label" = "Buang senarai pesanan dari baris semasa";
 "edit-published" = "Suntingan diterbitkan";
 "edit-published-subtitle" = "Anda hanya membuat Wikipedia lebih baik untuk semua orang";
-"edit-reference-accessibility-label" = "Tambah sintaks rujukan";
-"edit-reference-remove-accessibility-label" = "Buang sintaks rujukan";
-"edit-signature-accessibility-label" = "Tambah sintaks tandatangan";
-"edit-signature-remove-accessibility-label" = "Buang sintaks tandatangan";
-"edit-strikethrough-accessibility-label" = "Tambah strikethrough";
-"edit-strikethrough-remove-accessibility-label" = "Buang strikethrough";
-"edit-style-table-view-title" = "Gaya";
-"edit-subscript-accessibility-label" = "Tambah pemformatan subskrip";
-"edit-subscript-remove-accessibility-label" = "Buang pemformatan subskrip";
 "edit-summary-add-summary-text" = "Tambah ringkasan suntingan";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
 "edit-summary-choice-linked-words" = "Menambahkan pautan";
-"edit-summary-learn-more-text" = "Ketahui lebih lanjut";
 "edit-summary-placeholder-text" = "Bagaimana anda memperbaiki rencana ini?";
-"edit-superscript-accessibility-label" = "Tambah pemformatan superskrip";
-"edit-superscript-remove-accessibility-label" = "Buang pemformatan superskrip";
-"edit-template-accessibility-label" = "Tambah sintaks templat";
-"edit-template-remove-accessibility-label" = "Buang sintaks templat";
-"edit-text-formatting-accessibility-label" = "Tunjukkan menu pemformatan teks";
-"edit-text-formatting-table-view-title" = "Pemformatan teks";
-"edit-text-size-table-view-title" = "Saiz teks";
-"edit-text-style-accessibility-label" = "Paparkan menu gaya teks";
-"edit-underline-accessibility-label" = "Tambah garis bawah";
-"edit-underline-remove-accessibility-label" = "Buang garis bawah";
-"edit-unordered-list-accessibility-label" = "Buat senarai baris yang tidak teratur semasa";
-"edit-unordered-list-remove-accessibility-label" = "Buang senarai tanpa urutan dari baris semasa";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Ketahui lebih lanjut mengenai senarai pantau";
 "edit-watch-this-page-text" = "Pantau laman ini";
 "editing-welcome-be-bold-title" = "Suara anda penting";
@@ -360,8 +323,8 @@
 "explore-hide-card-prompt" = "Sembunyikan kad ini";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
-"explore-most-read-footer" = "Semua rencana bacaan teratas";
-"explore-most-read-generic-heading" = "Bacaan teratas";
+"explore-most-read-footer" = "Semua rencana bacaan tersohor";
+"explore-most-read-generic-heading" = "Bacaan tersohor";
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Di Wikipedia $1";
 "explore-most-read-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -388,7 +351,7 @@
 "field-backup-token-title" = "Kod sandaran";
 "field-captcha-placeholder" = "Teks CAPTCHA";
 "field-captcha-title" = "Masukkan teks yang anda lihat di atas";
-"field-email-placeholder" = "contoh@contoh.org";
+"field-email-placeholder" = "contoh@example.org";
 "field-email-title" = "E-mel";
 "field-email-title-optional" = "E-mel (pilihan)";
 "field-new-password-confirm-placeholder" = "masukkan semula kata laluan baru";
@@ -463,7 +426,6 @@
 "insert-media-image-type-settings-title" = "Jenis gambar";
 "insert-media-media-settings-title" = "Tetapan media";
 "insert-media-title" = "Sisipkan media";
-"insert-media-uploaded-image-title" = "Imej yang dimuat naik";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Tukar bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
@@ -543,13 +505,17 @@
 "notifications-center-status-read" = "Baca";
 "notifications-center-status-unread" = "Awabaca";
 "notifications-center-subheader-email-from-other-user" = "E-mel baru";
+"notifications-center-subheader-login-success-unknown-device" = "Log masuk daripada peranti yang tidak dikenali";
 "notifications-center-subheader-thanks" = "Terima kasih";
 "notifications-center-subheader-welcome" = "Selamat datang!";
 "notifications-center-swipe-more" = "Lebih";
 "notifications-center-title" = "Pemberitahuan";
 "notifications-center-type-item-description-notice" = "Pemberitahuan";
 "notifications-center-type-item-description-welcome-verbose" = "Pesanan selamat datang";
+"notifications-center-type-title-connection-with-wikidata" = "Sambungan dengan Wikidata";
+"notifications-center-type-title-edit-milestone" = "Pencapaian suntingan";
 "notifications-center-type-title-edit-reverted" = "Suntingan diundurkan";
+"notifications-center-type-title-email-from-other-user" = "E-mel daripada pengguna lain";
 "notifications-center-type-title-login-attempts" = "Cubaan log masuk";
 "notifications-center-type-title-other" = "Lain";
 "notifications-center-type-title-page-link" = "Pautan halaman";
@@ -593,9 +559,9 @@
 "places-filter-button-title" = "Penapis";
 "places-filter-no-saved-places" = "Anda tidak mempunyai tempat yang disimpan";
 "places-filter-saved-articles" = "Rencana tersimpan";
-"places-filter-top-articles" = "Bacaan teratas";
+"places-filter-top-articles" = "Bacaan tersohor";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 rencana|$1 rencana}}";
-"places-filter-top-read-articles" = "Rencana bacaan teratas";
+"places-filter-top-read-articles" = "Rencana bacaan tersohor";
 "places-location-enabled" = "Lokasi didayakan";
 "places-no-saved-articles-have-location" = "Tiada artikel tersimpan anda mempunyai maklumat terperinci";
 "places-search-articles-that-match" = "$1 yang hampir sama “$2”";
@@ -613,13 +579,12 @@
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
-"preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
 "project-name-wikiquote" = "Wikipetikan";
 "project-name-wikisource" = "Wikisumber";
 "project-name-wikiversity" = "Wikiversiti";
-"project-name-wikivoyage" = "Wikikembara";
+"project-name-wikivoyage" = "Wikilayar";
 "project-name-wiktionary" = "Wikikamus";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
@@ -774,7 +739,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Tunjukkan Senarai bacaan tersimpan (contohnya Lalai) sebagai senarai berasingan dalam paparan senarai bacaan anda. Senarai ini muncul pada peranti Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tunjukkan Senarai bacaan tersimpan";
 "settings-storage-and-syncing-title" = "Penyimpanan dan penyegerakan rencana";
-"settings-support" = "Sokonglah Wikipedia";
 "settings-title" = "Tetapan";
 "share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
 // Fuzzy
@@ -797,21 +761,17 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
-"talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
 "talk-page-discussion-read-accessibility-label" = "Baca";
 "talk-page-discussion-unread-accessibility-label" = "Awabaca";
-"talk-page-link-user-action-sheet-title" = "Laman pengguna";
-"talk-page-new-topic-title" = "Perbincangan baru";
-"talk-page-reply-title" = "Balas";
+"talk-page-subscribe-to-topic" = "Langgan";
 "talk-page-title-user-talk" = "Perbincangan Pengguna";
-"talk-page-topic-title" = "Perbincangan";
 "talk-pages-archives-view-title" = "Arkib";
-"talk-pages-reply-button-title" = "Balas perbincangan ini";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
 "theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
+"top-read-widget-title" = "Bacaan tersohor";
 "two-factor-login-continue" = "Teruskan log masuk";
 "two-factor-login-instructions" = "Sila masukkan kod pengesahan dua faktor";
 "two-factor-login-title" = "Log masuk ke akaun anda";
@@ -820,6 +780,9 @@
 "unknown-generic-text" = "Tidak diketahui";
 "variants-alert-dismiss-button" = "Tidak perlu";
 "variants-alert-preferences-button" = "Semak keutamaan anda";
+"watchlist-change-expiry-option-permanent" = "Kekal";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Suntingan Wikidata";
+"watchlist-user-button-user-page" = "Laman pengguna";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disyorkan dan rencana harian dari komuniti kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajah";
 "welcome-exploration-on-this-day-description" = "Perjalanan kembali ke masa untuk mempelajari apa yang berlaku hari ini dalam sejarah";
@@ -841,13 +804,7 @@
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut mengenai pemberitahuan";
-"welcome-send-data-helps-title" = "Bantu menjadikan aplikasi lebih baik";
-"welcome-send-data-learn-more" = "Ketahui lebih lanjut mengenai data yang dikumpul";
-"welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui cara anda menggunakannya. Data yang dikumpul tidak dikenali.";
-"welcome-volunteer-send-usage-reports" = "Hantar laporan penggunaan";
-"wikitext-downloading" = "Memuat kandungan...";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
-"wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
 "wikitext-preview-link-external-preview-title" = "Pautan luar";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia tidak mempunyai rencana dengan nama yang tepat";
 "wikitext-preview-link-not-found-preview-title" = "Tiada pautan dalaman dijumpai";
@@ -861,5 +818,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP peranti anda. Jika anda $1Log masuk$2, anda akan mempunyai lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
-"wikitext-upload-save-terms-and-licenses" = "Dengan menyimpan perubahan, anda setujui kepada $1Syarat-Syarat Penggunaan$2, dan bersetuju, tanpa kebolehan menarik balik, untuk melepaskan sumbangan anda di bawah Lesen $3CC BY-SA 3.0$4 serta $5GFDL$6. Anda bersetuju bahawa sebuah pautan hiper atau URL ialah pengiktirafan yang memadai di bawah lesen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Dipusparaga
 // Author: Kandar
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Uchup19
 // Author: WikiKaruhun
@@ -126,7 +127,7 @@
 "field-backup-token-title" = "Kodeu cadangan";
 "field-captcha-placeholder" = "Téks CAPTCHA";
 "field-captcha-title" = "Asupkeun nu ku anjeun katempo di luhur";
-"field-email-placeholder" = "conto@conto.org";
+"field-email-placeholder" = "conto@example.org";
 "field-email-title" = "Surélék";
 "field-email-title-optional" = "Surélék (teu wajib)";
 "field-new-password-confirm-placeholder" = "asupkeun deui kecap sandi anyar";
@@ -243,7 +244,6 @@
 "potd-description-prefix" = "Gambar poé ieu pikeun $1";
 "potd-empty-error-description" = "Gagal pikeun nampa gambar poé ieu dina $1";
 "preference-summary-eventlogging-opt-in" = "Heugbaékeun Wikimédia pikeun ngumpulkeun info ngeunaan cara anjeun migunakeun aplikasi nu leuwih hadé";
-"preference-title-eventlogging-opt-in" = "Kirim laporan pamakéan";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Runtuykeun artikel";
 "reading-list-sync-enable-button-title" = "Hurungkeun singkronan";
 "reading-lists-sort-saved-articles" = "Runtuykeun artikel kasimpen";
@@ -293,7 +293,6 @@
 "settings-primary-language" = "Utama";
 // Fuzzy
 "settings-primary-language-details" = "Basa munggaran dina ieu daptar dipaké minangka basa utama pikeun aplikasi. Ngarobah ieu basa bakal ngarobah kontén sapopoé (kawas Artikel Petingan) nu dipidangkeun dina Langlang.";
-"settings-support" = "Rojong Wikipédia";
 "settings-title" = "Pangaturan";
 "share-a-fact-made-with" = "Dijieun maké aplikasi Wikipédia";
 // Fuzzy
@@ -347,13 +346,7 @@
 "welcome-notifications-tell-me-more-creation" = "Iber dijieun sarta ditepikeun kana parangkat anjeun ku aplikasi, lain tina sérver kami (atawa pihak katiga).";
 "welcome-notifications-tell-me-more-storage" = "Préférénsi iber disimpen di parangkat sarta teu dumasar kana informasi atawa aktivitas pribadi.";
 "welcome-notifications-tell-me-more-title" = "Leuwih jero ngeunaan iber";
-"welcome-send-data-helps-title" = "Bantuan sangkan aplikasi leuwih hadé";
-"welcome-send-data-learn-more" = "Teuleuman ngeunaan data nu dikumpulkeun";
-"welcome-send-data-sub-title" = "Bantu ngaropéa aplikasi ku cara méré nyaho Wikimedia Foundation kumaha cara anjeun dina maké aplikasi. Data nu dikumpulkeun miwatek anonim";
-"welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
-"wikitext-downloading" = "Muatkeun kontén...";
 "wikitext-preview-changes" = "Nganteur pramidang tina parobahan ajeun...";
-"wikitext-preview-changes-none" = "Taya parobahan nu dijieun pikeun némbongan pramidang.";
 "wikitext-preview-link-preview-description" = "Ieu tutumbu nungtun ka '$1'";
 "wikitext-preview-link-preview-title" = "Pramidang tutumbu";
 "wikitext-preview-save-changes-title" = "Simpen parobahan";

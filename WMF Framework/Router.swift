@@ -5,8 +5,7 @@ public class Router: NSObject {
         case externalLink(_: URL)
         case article(_: URL)
         case articleHistory(_: URL, articleTitle: String)
-        case articleDiffCompare(_: URL, fromRevID: Int?, toRevID: Int?)
-        case articleDiffSingle(_: URL, fromRevID: Int?, toRevID: Int?)
+        case articleDiff(_: URL, fromRevID: Int?, toRevID: Int?)
         case talk(_: URL)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
@@ -14,6 +13,7 @@ public class Router: NSObject {
         case onThisDay(_: Int?)
         case readingListsImport(encodedPayload: String)
         case login
+        case watchlist
     }
     
     unowned let configuration: Configuration
@@ -47,8 +47,8 @@ public class Router: NSObject {
     
     // MARK: Internal and Private
     
-    private let mobilediffRegexCompare = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
-    private let mobilediffRegexSingle = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
+    private let mobilediffRegexMultiRevisionID = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)\\.\\.\\.([0-9]+)", options: .caseInsensitive)
+    private let mobilediffRegexSingleRevisionID = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     private let historyRegex = try! NSRegularExpression(pattern: "^history/(.*)", options: .caseInsensitive)
     
     internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject, loggedInUsername: String?) -> Destination? {
@@ -102,19 +102,23 @@ public class Router: NSObject {
                 return .readingListsImport(encodedPayload: encodedPayload)
             }
             
+            if title == "Watchlist" {
+                return .watchlist
+            }
+            
             guard project.supportsNativeDiffPages else {
                 return nil
             }
             
-            if let compareDiffMatch = mobilediffRegexCompare.firstMatch(in: title),
-                let fromRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$1")),
-                let toRevID = Int(mobilediffRegexCompare.replacementString(for: compareDiffMatch, in: title, offset: 0, template: "$2")) {
+            if let multiRevisionIdDiffMatch = mobilediffRegexMultiRevisionID.firstMatch(in: title),
+                let fromRevID = Int(mobilediffRegexMultiRevisionID.replacementString(for: multiRevisionIdDiffMatch, in: title, offset: 0, template: "$1")),
+                let toRevID = Int(mobilediffRegexMultiRevisionID.replacementString(for: multiRevisionIdDiffMatch, in: title, offset: 0, template: "$2")) {
                 
-                return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
+                return .articleDiff(url, fromRevID: fromRevID, toRevID: toRevID)
             }
-            if let singleDiffMatch = mobilediffRegexSingle.firstReplacementString(in: title),
-                let toRevID = Int(singleDiffMatch) {
-                return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
+            if let singleRevisionIdDiffMatch = mobilediffRegexSingleRevisionID.firstReplacementString(in: title),
+                let toRevID = Int(singleRevisionIdDiffMatch) {
+                return .articleDiff(url, fromRevID: nil, toRevID: toRevID)
             }
             
             if let articleTitle = historyRegex.firstReplacementString(in: title)?.normalizedPageTitle {
@@ -213,20 +217,27 @@ public class Router: NSObject {
             let oldIDString = maybeOldID,
             let toRevID = Int(diffString),
             let fromRevID = Int(oldIDString) {
-            return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: toRevID)
+            return .articleDiff(url, fromRevID: fromRevID, toRevID: toRevID)
         } else if let diff = maybeDiff,
             diff == "prev",
             let oldIDString = maybeOldID,
             let toRevID = Int(oldIDString) {
-            return .articleDiffCompare(url, fromRevID: nil, toRevID: toRevID)
+            return .articleDiff(url, fromRevID: nil, toRevID: toRevID)
         } else if let diff = maybeDiff,
             diff == "next",
             let oldIDString = maybeOldID,
-            let fromRevID = Int(oldIDString) {
-            return .articleDiffCompare(url, fromRevID: fromRevID, toRevID: nil)
+                  let fromRevID = Int(oldIDString) {
+            return .articleDiff(url, fromRevID: fromRevID, toRevID: nil)
+        } else if let diff = maybeDiff,
+                  let toRevID = Int(diff) {
+            var fromRevID: Int? = nil
+            if let maybeOldID {
+                fromRevID = Int(maybeOldID)
+            }
+            return .articleDiff(url, fromRevID: fromRevID, toRevID: toRevID)
         } else if let oldIDString = maybeOldID,
             let toRevID = Int(oldIDString) {
-            return .articleDiffSingle(url, fromRevID: nil, toRevID: toRevID)
+            return .articleDiff(url, fromRevID: nil, toRevID: toRevID)
         }
         
         return nil

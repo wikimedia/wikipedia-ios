@@ -15,9 +15,6 @@ public typealias WMFCaptchaResetterResultBlock = (WMFCaptchaResetterResult) -> V
 
 public struct WMFCaptchaResetterResult {
     var index: String
-    init(index:String) {
-        self.index = index
-    }
 }
 
 public class WMFCaptchaResetter: Fetcher {

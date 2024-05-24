@@ -99,15 +99,16 @@ final class TalkPageCellCommentView: SetupView {
         
         commentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         
+        var deprecatedReplyButton = replyButton as DeprecatedButton
         switch semanticContentAttribute {
         case .forceRightToLeft:
-            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            deprecatedReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            deprecatedReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            deprecatedReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
         default:
-            replyButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-            replyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-            replyButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            deprecatedReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            deprecatedReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            deprecatedReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
         
     }

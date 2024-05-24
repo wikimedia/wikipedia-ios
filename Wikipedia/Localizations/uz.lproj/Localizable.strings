@@ -3,6 +3,7 @@
 // Author: 6ahodir
 // Author: Jamshiduralovofficial
 // Author: Malikxan
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Ochilov
@@ -61,8 +62,6 @@
 "action-language-accessibility" = "Tilni oʻzgartirish";
 "action-read" = "Mutolaa";
 "action-remove" = "Olib tashlash";
-"action-replace" = "Almashtirish";
-"action-replace-all" = "Hammasini almashtirish";
 "action-retry" = "Qayta urinish";
 "action-save" = "Saqlash";
 "action-saved" = "Saqlandi";
@@ -101,7 +100,6 @@
 "data-migration-status" = "Yangilanmoqda...";
 "description-add-title" = "Tavsif qoʻshish";
 "description-edit-for-article" = "$1 uchun maqola tavsifi";
-"description-edit-learn-more" = "Batafsil maʼlumot";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Kirishni tahrirlash";
 "description-edit-pencil-title" = "Maqola tavsifini tahrirlash";
@@ -114,7 +112,9 @@
 "description-help-tips-for-example" = "Misol uchun:";
 "description-published-button-title" = "Bajarildi";
 "description-welcome-start-editing-button" = "Tahrirlashni boshlash";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "Kimdan:";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "Kimga:";
 "diff-context-lines-collapsed-button-title" = "Koʻrsatish";
 "diff-context-lines-expanded-button-title" = "Yashirish";
@@ -132,14 +132,9 @@
 "edit-menu-item" = "Tahrirlash";
 "edit-minor-text" = "Bu kichik tahrir";
 "edit-published" = "Tahrir chop etildi!";
-"edit-style-table-view-title" = "Uslub";
 "edit-summary-choice-fixed-grammar" = "Grammatikani tuzatdim";
 "edit-summary-choice-fixed-typos" = "Xatoni tuzatdim";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
-"edit-summary-learn-more-text" = "Batafsil maʼlumot";
-"edit-text-size-table-view-title" = "Matn oʻlchami";
-"edit-underline-accessibility-label" = "Tagchiziq qoʻshish";
-"edit-underline-remove-accessibility-label" = "Tagchiziqni olib tashlash";
 "edit-watch-this-page-text" = "Bu sahifani kuzatish";
 "editing-welcome-be-bold-title" = "Ovozingiz muhimdir";
 "empty-no-search-results-message" = "Natija topilmadi";
@@ -165,7 +160,7 @@
 "field-alert-captcha-invalid" = "Yaroqsiz CAPTCHA";
 "field-alert-token-invalid" = "Yaroqsiz kod";
 "field-captcha-placeholder" = "CAPTCHA matni";
-"field-email-placeholder" = "misol@misol.org";
+"field-email-placeholder" = "misol@example.org";
 "field-email-title" = "E-pochta";
 "field-new-password-placeholder" = "yangi parolni kiriting";
 "field-new-password-title" = "Yangi parol";
@@ -273,7 +268,6 @@
 "places-search-your-current-location" = "Joriy joylashuvingiz";
 "places-title" = "Joylar";
 "preference-summary-eventlogging-opt-in" = "Dasturni yaxshilash maqsadida sizning dasturni ishlatishingiz haqida maʼlumotlarni yig‘ishga Vikimediyaga ruxsat bering";
-"preference-title-eventlogging-opt-in" = "Foydalanish haqida hisobotni joʻnatish";
 "reading-list-create-new-list-description" = "Tavsif";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Maqolalarni saralash";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugun|1=Kecha|$1 kun avval}}";
@@ -297,14 +291,6 @@
 "settings-clear-cache-ok" = "Keshni tozalash";
 "settings-title" = "Sozlamalar";
 "table-of-contents-heading" = "Mundarija";
-"talk-page-add-discussion-accessibility-label" = "Munozara qoʻshish";
-"talk-page-new-subject-clear-button-accessibility" = "Mavzuni tozalash";
-"talk-page-new-subject-placeholder-text" = "Mavzu";
-"talk-page-new-subject-textfield-accessibility-label" = "Mavzu";
-"talk-page-new-topic-title" = "Yangi munozara";
-"talk-page-reply-title" = "Javob berish";
-"talk-page-topic-title" = "Munozara";
-"talk-pages-reply-button-title" = "Bu munozaraga javob berish";
 "theme-black-display-name" = "Qora";
 "theme-dark-display-name" = "Toʻq qora";
 "theme-default-display-name" = "Sukut boʻyicha";
@@ -312,7 +298,6 @@
 "theme-sepia-display-name" = "Sepia";
 "welcome-intro-free-encyclopedia-description" = "Vikipediya ko'ngillilar tomonidan hamkorlikda yozilgan va 300 dan ortiq tillarda 40 milliondan ortiq maqolalardan iborat.";
 "welcome-languages-search-title" = "300 dan ortiq tillarda qidirish";
-"wikitext-downloading" = "Tarkib yuklanyapti...";
 "wikitext-upload-save" = "Saqlanmoqda...";
 "wikitext-upload-save-sign-in" = "Kirish";
 "wikitext-upload-save-terms-name" = "Foydalanish shartlari";

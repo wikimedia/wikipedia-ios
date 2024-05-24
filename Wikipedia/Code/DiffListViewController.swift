@@ -26,14 +26,7 @@ class DiffListViewController: ViewController {
     var layoutCopy: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 20
-        switch type {
-        case .single:
-            layout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 0)
-        case .compare:
-            layout.sectionInset = UIEdgeInsets(top: 25, left: 0, bottom: 10, right: 0)
-        }
-        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 125, right: 0)
         return layout
     }
     
@@ -239,6 +232,10 @@ private extension DiffListViewController {
            let midPointTarget = collectionView.frame.height / 2
            let delta = midPointTarget - offsetToView
            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y - delta), animated: true)
+           
+           if let focusView = cell.arrangedSubview(at: itemIndex) {
+                UIAccessibility.post(notification: .layoutChanged, argument: focusView)
+           }
        }
     }
 }
@@ -360,6 +357,8 @@ extension DiffListViewController: DiffListChangeCellDelegate {
                 scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
                 collectionView.scrollToItem(at: indexPathToScrollTo, at: UICollectionView.ScrollPosition.top, animated: true)
             }
+            
+            
         }
     }
     

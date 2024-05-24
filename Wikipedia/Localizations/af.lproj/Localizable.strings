@@ -3,6 +3,7 @@
 // Author: Arnobarnard
 // Author: Fwolff
 // Author: Joris Darlington Quarshie
+// Author: McDutchie
 // Author: Naudefj
 // Author: Nemo bis
 // Author: Puvircho
@@ -97,7 +98,7 @@
 "field-backup-token-title" = "Rugsteunkode";
 "field-captcha-placeholder" = "CAPTCHA-teks";
 "field-captcha-title" = "Voer die bostaande teks in";
-"field-email-placeholder" = "voorbeeld@voorbeeld.org";
+"field-email-placeholder" = "voorbeeld@example.org";
 "field-email-title" = "E-pos";
 "field-email-title-optional" = "E-pos (opsioneel)";
 "field-new-password-confirm-placeholder" = "voer u wagwoord weer in";
@@ -181,7 +182,6 @@
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Prent van die dag vir $1";
 "preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
-"preference-title-eventlogging-opt-in" = "Stuur gebruiksverslae";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorteer artikels";
 "reference-title" = "Verwysing $1";
 "saved-reading-lists-title" = "Leeslyste";
@@ -203,7 +203,6 @@
 "settings-my-languages" = "My tale";
 // Fuzzy
 "settings-notifications" = "Kennisgewings";
-"settings-support" = "Ondersteun Wikipedia";
 "settings-title" = "Voorkeure";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
@@ -239,9 +238,7 @@
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 // Fuzzy
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
-"wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
-"wikitext-preview-changes-none" = "Geen wysigings gemaak om voor te skou.";
 "wikitext-preview-link-preview-description" = "Dié skakel gaan na '$1'";
 "wikitext-preview-link-preview-title" = "Skakelvoorskou";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasiefout.";

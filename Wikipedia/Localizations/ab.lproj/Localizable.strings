@@ -1,6 +1,7 @@
 // Messages for Abkhazian (аԥсшәа)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Fraxinus.cs
 // Author: Pupsik-ipa
 // Author: Surprizi
 // Author: Андрей
@@ -11,7 +12,7 @@
 "about-libraries-license" = "Алицензиа";
 "about-repositories-app-source-license-mit" = "MIT Алицензиа";
 "about-translators" = "Аиҭагаҩцәа";
-"about-wikipedia" = "Авикипедиa";
+"about-wikipedia" = "Авикипедиа";
 "account-creation-log-in" = "Иҭалатәуп";
 "account-creation-logging-in" = "Асистемахь аҭаларҭа...";
 "account-creation-passwords-mismatched" = "Ажәамаӡақәа еиқәшәаӡом.";

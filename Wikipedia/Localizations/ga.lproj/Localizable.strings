@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: GBeecham
 // Author: Kwekubo
+// Author: McDutchie
 // Author: Smirkybec
 // Author: Tem
 
@@ -94,7 +95,6 @@
 "description-add-title" = "Cuir cur síos leis";
 // Fuzzy
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
-"description-edit-learn-more" = "Foghlaim a thuilleadh";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ach an sainchuntas teidil a athrú, glacaim leis na $1 agus le mo chuid dréachtaí a scaoileadh go neamh-inchúlghairthe faoin gceadúnas $2.";
@@ -134,12 +134,10 @@
 "diff-thanks-sent" = "Seoladh do 'Bhuíochas' chuig $1";
 "diff-thanks-sent-cannot-unsend" = "Ní féidir 'Buíochas' a tharraingt siar";
 "dim-images" = "Maolaigh íomhánna";
-"edit-style-table-view-title" = "Stíl";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
 "edit-summary-choice-linked-words" = "Cuireadh naisc leis";
 "edit-summary-placeholder-text" = "Conas mar a fheabhsaigh tú an t-alt?";
-"edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
 "empty-no-history-message" = "Coinnigh súil anseo ar na hailt atá léite agat";
@@ -218,7 +216,7 @@
 "field-backup-token-title" = "Cód cúltaca";
 "field-captcha-placeholder" = "Téacs ón CAPTCHA";
 "field-captcha-title" = "Iontráil an téacs a bhfeiceann tú thuas";
-"field-email-placeholder" = "sampla@sampla.org";
+"field-email-placeholder" = "sampla@example.org";
 "field-email-title" = "Ríomhphost";
 "field-email-title-optional" = "Ríomhphost (Roghnach)";
 "field-new-password-confirm-placeholder" = "athiontráil pasfhocal nua";
@@ -352,7 +350,6 @@
 "places-title" = "Áiteanna";
 "potd-description-prefix" = "Pictiúr an lae ar $1";
 "potd-widget-title" = "Pictiúr an lae";
-"preference-title-eventlogging-opt-in" = "Seol tuairiscí úsáide";
 "reading-list-add-generic-hint-title" = "Cuir an t-alt seo ar liosta léitheoireachta?";
 "reading-list-add-hint-title" = "Cuir “$1” ar liosta léitheoireachta?";
 "reading-list-add-saved-button-title" = "Ba mhaith, cuir ar mo liostaí léitheoireachta iad";
@@ -439,7 +436,6 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "Léirscrios ailt shábháilte";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Taispeáin an liosta léitheoireachta Sábháilte (.i. an ceann réamhshocraithe) mar liosta ar leith ar amharc na liostaí léitheoireachta. Is ar ghléasanna Android a thagann an liosta seo aníos.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Taispeáin liosta léitheoireachta Sábháilte";
-"settings-support" = "Tacaigh le Vicipéid";
 "settings-title" = "Socruithe";
 "share-a-fact-made-with" = "Arna dhéanamh leis an aip Vicipéide";
 // Fuzzy
@@ -490,11 +486,6 @@
 "welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
 "welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";
 "welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";
-"welcome-send-data-helps-title" = "Tabhair cabhair dúin an aip a fheabhsú";
-"welcome-send-data-learn-more" = "Foghlaim tuilleadh maidir le sonraí a bhailítear";
-"welcome-send-data-sub-title" = "Cuidigh leis an aip a fheabhsú tríd an bhFondúireacht Wikimedia a chur ar an eolas ar conas mar a úsáideann tú é. Is anaithnid na sonraí a bhailítear.";
-"welcome-volunteer-send-usage-reports" = "Seol tuairiscí úsáide";
-"wikitext-downloading" = "Ag lódáil inneachair...";
 "wikitext-preview-link-preview-title" = "Réamhamharc ar an nasc";
 "wikitext-upload-captcha-needed" = "Deimhniú CAPTCHA de dhíth";
 "wikitext-upload-save" = "Ag foilsiú...";

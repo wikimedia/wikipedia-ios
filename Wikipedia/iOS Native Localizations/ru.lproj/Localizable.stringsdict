@@ -244,69 +244,6 @@
 			<string>%1$d строк не изменилось</string>
 		</dict>
 	</dict>
-	<key>intermediate-edits-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ от %#@v2@ не показано</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>few</key>
-			<string>%1$d промежуточные ревизии</string>
-			<key>one</key>
-			<string>%1$d промежуточная ревизия</string>
-			<key>other</key>
-			<string>%1$d промежуточных ревизий</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d пользователя</string>
-			<key>other</key>
-			<string>%2$d пользователей</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-limited-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ от %2$d+ пользователей не показано</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>few</key>
-			<string>%1$d промежуточные ревизии</string>
-			<key>one</key>
-			<string>%1$d промежуточная ревизия</string>
-			<key>other</key>
-			<string>%1$d промежуточных ревизий</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-limited-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d+ промежуточных ревизий от %#@v2@ не показано</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d пользователя</string>
-			<key>other</key>
-			<string>%2$d пользователей</string>
-		</dict>
-	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -341,6 +278,20 @@
 			<string>фильтр</string>
 			<key>other</key>
 			<string>фильтров</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Вы уверены, что хотите пометить все сообщения (%#@v1@) о ваших уведомлений как прочитанные? Ваши уведомления будут помечены как прочитанные на всех ваших устройствах.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d шт.</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
@@ -783,24 +734,6 @@
 			<string>Этот год</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>few</key>
-			<string>выполнены %1$d замены</string>
-			<key>one</key>
-			<string>выполнена 1 замена</string>
-			<key>other</key>
-			<string>выполнены %1$d замен</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -833,6 +766,60 @@
 			<string>статья</string>
 			<key>other</key>
 			<string>статей</string>
+		</dict>
+	</dict>
+	<key>talk-page-active-users-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d активных участника</string>
+			<key>one</key>
+			<string>%1$d активный участник</string>
+			<key>other</key>
+			<string>%1$d активных участников</string>
+		</dict>
+	</dict>
+	<key>talk-page-replies-count-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d ответа</string>
+			<key>one</key>
+			<string>%1$d ответ</string>
+			<key>other</key>
+			<string>%1$d ответов</string>
+		</dict>
+	</dict>
+	<key>watchlist-byte-change</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>байта</string>
+			<key>one</key>
+			<string>байт</string>
+			<key>other</key>
+			<string>байт</string>
 		</dict>
 	</dict>
 </dict>

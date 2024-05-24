@@ -362,7 +362,7 @@ class DiffTransformer {
             
             if contextItems.count > 0 {
                 // package contexts up into context view model, append to result
-                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
+                let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: UIAccessibility.isVoiceOverRunning, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(contextViewModel)
                 contextItems.removeAll()
             }

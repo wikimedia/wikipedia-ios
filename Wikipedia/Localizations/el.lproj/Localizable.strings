@@ -8,6 +8,7 @@
 // Author: Glavkos
 // Author: KATRINE1992
 // Author: KATRINE1993
+// Author: McDutchie
 // Author: Nemo bis
 // Author: NikosLikomitros
 // Author: Nikosgranturismogt
@@ -73,22 +74,21 @@
 "action-read" = "Ανάγνωση";
 "action-redo" = "Αναίρεση";
 "action-remove" = "Αφαίρεση";
-"action-replace" = "Αντικατάσταση";
-"action-replace-all" = "Αντικατάσταση όλων";
 "action-retry" = "Ξαναπροσπαθήστε";
 "action-save" = "Αποθήκευση";
 "action-saved" = "Αποθηκεύθηκε";
 "action-saved-accessibility" = "Αποθηκεύτηκε. Ενεργοποίηστε για ξεαποθήκευση.";
+// Fuzzy
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
 "action-share-accessibility" = "Διαμοιρασμός";
 "action-sort" = "Ταξινόμηση";
 "action-undo" = "Αναίρεση";
 "action-unsave" = "Ξεαποθήκευση";
+// Fuzzy
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
 "add-articles-to-reading-list" = "Πρόσθεση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
-"add-citation-title" = "Προσθήκη παραπομπής";
 "announcements-dismiss" = "Απόρριψη";
 "app-store-keywords" = "Βικιπαίδεια, παραπομπή, βίκι, εγκυκλοπαίδεια, πληροφορία, γνώση, έρευνα, πληροφορίες, εξερευνήστε, μάθετε";
 "app-store-release-notes" = "Πλήρως προσαρμόσιμο και ευανάγνωστη Ροή εξερεύνησης. Διορθώθηκαν τοπικοποίηση, βελτιώσεις απόδοσης και διορθώσεις σφαλμάτων.";
@@ -131,7 +131,6 @@
 "description-add-title" = "Προσθήκη περιγραφής";
 // Fuzzy
 "description-edit-for-article" = "Περιγραφή τίτλου για $1";
-"description-edit-learn-more" = "Μάθετε περισσότερα";
 "description-edit-length-warning" = "$1 από $2";
 // Fuzzy
 "description-edit-pencil-title" = "Επεξεργασία περιγραφή τίτλου";
@@ -142,8 +141,6 @@
 "description-help-more-info-title" = "Περισσότερες πληροφορίες";
 "description-help-tips-for-example" = "Για παράδειγμα:";
 "dim-images" = "εικόνες Dim";
-"edit-bold-accessibility-label" = "Προσθέστε πλάγια";
-"edit-bold-remove-accessibility-label" = "Αφαιρέστε τα πλάγια";
 "edit-summary-choice-fixed-grammar" = "Διόρθωση γραμματικής";
 "edit-summary-choice-fixed-typos" = "Διόρθωση ορθογραφίας";
 "edit-summary-choice-linked-words" = "Σύνδεσμοι που προστέθηκαν";
@@ -284,6 +281,7 @@
 "menu-cancel-accessibility-label" = "Άκυρο";
 // Fuzzy
 "more-languages-tooltip-description" = "Αναζητήστε την Wikipedia σε σχεδόν 300 γλώσσες";
+// Fuzzy
 "more-languages-tooltip-title" = "Προσθέστε γλώσσες";
 "move-articles-to-reading-list" = "Μετακίνηση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
 "navbar-title-mode-edit-wikitext-preview" = "Προεπισκόπηση";
@@ -352,7 +350,6 @@
 "places-title" = "Μέρη";
 "places-unknown-distance" = "Άγνωστη απόσταση";
 "potd-description-prefix" = "Εικόνα της ημέρας για το $1";
-"preference-title-eventlogging-opt-in" = "Στείλτε εκθέσεις χρήσης";
 "reading-list-add-hint-title" = "Προσθήκη του \"$1\" σε μια λίστα ανάνγωσης;";
 "reading-list-add-saved-button-title" = "Ναι, πρόσθεσέ τα στις λίστες ανάγνωσής μου";
 "reading-list-add-saved-title" = "Αποθηκευμένα λήμματα που βρέθηκαν";
@@ -408,6 +405,7 @@
 "saved-search-default-text" = "Αναζήτηση αποθηκευμένων άρθρων";
 "saved-title" = "Αποθηκεύθηκε";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";
+// Fuzzy
 "search-button-accessibility-label" = "Αυτό δεν είναι έγκυρο url MediaWiki";
 "search-did-you-mean" = "Μήπως εννοούσατε $1;";
 "search-field-placeholder-text" = "Αναζήτηση στη Βικιπαίδεια";
@@ -436,7 +434,6 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "Σβήσιμο αποθηκευμένων άρθρων";
 "settings-storage-and-syncing-server-sync-title" = "Ενημέρωση συγχρονισμένων λιστών ανάγνωσης";
 "settings-storage-and-syncing-title" = "Αποθήκη λημμάτων και συγχρονισμός";
-"settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "settings-title" = "Ρυθμίσεις";
 "share-a-fact-made-with" = "Δημιουργήθηκε με την εφαρμογή Βικιπαίδεια";
 // Fuzzy
@@ -485,13 +482,7 @@
 // Fuzzy
 "welcome-languages-search-title" = "Αναζητήστε σε σχεδόν 300 γλώσσες";
 "welcome-notifications-tell-me-more-title" = "Περισσότερα σχετικά με τις ειδοποιήσεις";
-"welcome-send-data-helps-title" = "Βοηθήστε την εφαρμογή να γίνει καλύτερη";
-"welcome-send-data-learn-more" = "Μάθετε περισσότερα για την συλλογή των δεδομένων";
-"welcome-send-data-sub-title" = "Βοηθήστε στη βελτίωση της εφαρμογής αφήνοντας το Ίδρυμα Wikimedia να ξέρει πως το χρησιμοποιείτε. Τα δεδομένα που συλλέγονται είναι ανώνυμα.";
-"welcome-volunteer-send-usage-reports" = "Στείλτε αναφορές χρήσης";
-"wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-preview-changes" = "Ανάκτηση προεπισκόπησης των αλλαγών σας σε εξέλιξη...";
-"wikitext-preview-changes-none" = "Δεν έγιναν αλλαγές για προεπισκόπηση.";
 "wikitext-preview-link-preview-description" = "Αυτός ο σύνδεσμος οδηγεί στο '$1'";
 "wikitext-preview-link-preview-title" = "Προεπισκόπηση συνδέσμου";
 "wikitext-upload-captcha-error" = "Σφάλμα επαλήθευσης CAPTCHA.";

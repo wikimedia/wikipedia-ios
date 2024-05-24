@@ -26,6 +26,7 @@ class DiffListChangeCell: UICollectionViewCell {
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var textStackView: UIStackView!
     @IBOutlet var innerView: UIView!
+    @IBOutlet weak var divView: UIView!
     
     private(set) var viewModel: DiffListChangeViewModel?
     private var textLabels: [UILabel] = []
@@ -35,7 +36,6 @@ class DiffListChangeCell: UICollectionViewCell {
     weak var delegate: DiffListChangeCellDelegate?
     
     func update(_ viewModel: DiffListChangeViewModel) {
-        
         textLeadingConstraint.constant = viewModel.stackViewPadding.leading
         textTrailingConstraint.constant = viewModel.stackViewPadding.trailing
         textTopConstraint.constant = viewModel.stackViewPadding.top
@@ -58,11 +58,18 @@ class DiffListChangeCell: UICollectionViewCell {
         
         updateTextLabels(in: textStackView, newViewModel: viewModel)
 
-        innerView.borderWidth = 1
-        
         self.viewModel = viewModel
-        
+
         apply(theme: viewModel.theme)
+    }
+    
+    func arrangedSubview(at index: Int) -> UIView? {
+        
+        guard textStackView.arrangedSubviews.count > index else {
+            return nil
+        }
+        
+        return textStackView.arrangedSubviews[index]
     }
     
     func yLocationOfItem(index: Int, convertView: UIView) -> CGFloat? {
@@ -107,12 +114,14 @@ private extension DiffListChangeCell {
             label.tag = index
             label.translatesAutoresizingMaskIntoConstraints = false
 
-            if label.gestureRecognizers == nil {
-                addTapGestureRecognizer(to: label)
-            } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
-                addTapGestureRecognizer(to: label)
+            if item.diffItemType.isMoveBased {
+                if label.gestureRecognizers == nil {
+                    addTapGestureRecognizer(to: label)
+                } else if let gestureRecognizers = label.gestureRecognizers, gestureRecognizers.isEmpty {
+                    addTapGestureRecognizer(to: label)
+                }
             }
-            
+
             // add surrounding view
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -178,6 +187,8 @@ private extension DiffListChangeCell {
         for (index, label) in textLabels.enumerated() {
             if let item = newViewModel.items[safeIndex: index] {
                 label.attributedText = item.textAttributedString
+                label.accessibilityLabel = item.accessibilityLabelText
+                label.accessibilityTextualContext = .sourceCode
             }
         }
     }
@@ -199,13 +210,10 @@ extension DiffListChangeCell: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
-        
+        divView.backgroundColor = theme.colors.baseBackground
+
         if let viewModel = viewModel {
-            innerView.borderColor = viewModel.borderColor
-            innerView.layer.cornerRadius = viewModel.innerViewClipsToBounds ? 7 : 0
             innerView.clipsToBounds = viewModel.innerViewClipsToBounds
-            
-            headingContainerView.backgroundColor = viewModel.borderColor
             headingLabel.attributedText = viewModel.headingAttributedString
         }
         

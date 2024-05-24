@@ -51,9 +51,10 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         subtitleLabel.numberOfLines = 0
         contentView.addSubview(subtitleLabel)
         customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
-        customizationButton.contentEdgeInsets = .zero
-        customizationButton.imageEdgeInsets = .zero
-        customizationButton.titleEdgeInsets = .zero
+        var deprecatedCustomizationButton = customizationButton as DeprecatedButton
+        deprecatedCustomizationButton.deprecatedContentEdgeInsets = .zero
+        deprecatedCustomizationButton.deprecatedImageEdgeInsets = .zero
+        deprecatedCustomizationButton.deprecatedTitleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
@@ -192,7 +193,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
                 undoLabel.isHidden = true
                 undoButton.isHidden = true
                 titleLabel.isHidden = title == nil
-                subtitleLabel.isHidden = subtitle == nil
+                subtitleLabel.isHidden = subtitle == nil || subtitle == ""
                 footerButton.isHidden = footerTitle == nil
             }
             setNeedsLayout()
@@ -231,6 +232,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         }
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
+        } else {
+            origin.y += 20
         }
 
         if let cardContent = cardContent, !cardContent.view.isHidden {

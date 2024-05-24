@@ -25,12 +25,12 @@ final class DiffContainerViewModel {
     }
     var stateHandler: ((_ oldState: DiffContainerViewModel.State) -> Void)?
     
-    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, byteDifference: Int?, theme: Theme) {
+    init(type: DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision?, listViewModel: [DiffListGroupViewModel]?, articleTitle: String?, imageURL: URL?, byteDifference: Int?, theme: Theme, project: WikimediaProject?) {
         self.type = type
         
         if let toModel = toModel,
             let articleTitle = articleTitle {
-            self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, articleTitle: articleTitle, byteDifference: byteDifference, theme: theme)
+            self.headerViewModel = DiffHeaderViewModel(diffType: type, fromModel: fromModel, toModel: toModel, articleTitle: articleTitle, imageURL: imageURL, byteDifference: byteDifference, theme: theme, project: project)
         } else {
             self.headerViewModel = nil
         }

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4663843E-07AC-4FED-B0D2-EDEE400B1ABE",
+      "name" : "Default (Light)",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ComponentsTests",
+        "name" : "ComponentsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

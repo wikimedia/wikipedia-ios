@@ -23,6 +23,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private let pageHistoryFetcher = PageHistoryFetcher()
     private var pageHistoryFetcherParams: PageHistoryRequestParameters
+    private let articleSummaryController: ArticleSummaryController
+    private let authenticationManager: WMFAuthenticationManager
 
     private var batchComplete = false
     private var isLoadingData = false
@@ -48,10 +50,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    init(pageTitle: String, pageURL: URL) {
+    init(pageTitle: String, pageURL: URL, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
+        self.articleSummaryController = articleSummaryController
+        self.authenticationManager = authenticationManager
         super.init()
     }
 
@@ -238,8 +242,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     return
                 }
                 switch result {
-                case .failure(let error):
-                    self.showNoInternetConnectionAlertOrOtherWarning(from: error)
+                case .failure:
                     self.countsViewController.timeseriesOfEditsCounts = []
                 case .success(let timeseriesOfEditCounts):
                     self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
@@ -334,7 +337,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
             
-            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, type: type, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision)
+            let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
             push(diffContainerVC, animated: true)
         }
     }
@@ -508,17 +511,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let backgroundColor: UIColor
         let authorColor: UIColor
         let commentColor: UIColor
+        let emptyCommentColor: UIColor
         let timeColor: UIColor
         let sizeDiffAdditionColor: UIColor
         let sizeDiffSubtractionColor: UIColor
         let sizeDiffNoDifferenceColor: UIColor
 
-        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, timeColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
+        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, emptyCommentColor: UIColor, timeColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
             self.selectedImage = selectedImage
             self.borderColor = borderColor
             self.backgroundColor = backgroundColor
             self.authorColor = authorColor
             self.commentColor = commentColor
+            self.emptyCommentColor = emptyCommentColor
             self.timeColor = timeColor
             self.sizeDiffAdditionColor = sizeDiffAdditionColor
             self.sizeDiffSubtractionColor = sizeDiffSubtractionColor
@@ -526,7 +531,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
     }
 
-    private lazy var firstSelectionThemeModel: SelectionThemeModel = {
+    private lazy var secondSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
         backgroundColor = .orange600.withAlphaComponent(0.15)
@@ -536,10 +541,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         } else {
             timeColor = .gray500
         }
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange600, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange600, commentColor: theme.colors.primaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
-    private lazy var secondSelectionThemeModel: SelectionThemeModel = {
+    private lazy var firstSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
         // themeTODO: define a semantic color for this instead of checking isDark
@@ -550,11 +555,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             backgroundColor = .blue100
             timeColor = .gray500
         }
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var disabledSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, timeColor: .gray500, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: .gray500, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -619,8 +624,12 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             }
             
             let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
-            
-            showDiff(from: fromRevision, to: toRevision, type: .single)
+
+            if fromRevision == nil {
+                showDiff(from: fromRevision, to: toRevision, type: .single)
+            } else {
+                showDiff(from: fromRevision, to: toRevision, type: .compare)
+            }
         }
     }
 
@@ -837,5 +846,10 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
         
     }
     
+    func refreshRevisions() {
+        self.pageHistorySections.removeAll()
+        self.collectionView.reloadData()
+        self.getPageHistory()
+    }
     
 }

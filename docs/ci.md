@@ -1,82 +1,49 @@
 # Wikipedia iOS Continuous Integration
-This document describes the dependencies for working on continuous-integration-related aspects of the Wikipedia iOS project (automated building, testing, deployment, etc).
 
-## Fastlane
+Our continuous integration process involves a combination of both Xcode Cloud workflows and Github Actions.
 
-[fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
+## Localizations
 
-Fastlane isn't necessary for normal development, but will be necessary if you need to automate tasks locally or you'll be updating the lanes run on our CI server.
+We have a Github Action [workflow](../.github/workflows/localization.yml) that automatically runs our localizations script whenever a Translatewiki PR is opened against the `twn` branch. The file changes made from this script are then commited and pushed up to the PR branch. More details on this process can be found in the the [localization document](localization.md).
 
-Similar to the [project's node setup for web dev](web_dev.md), we recommend using a Ruby version manager to install node and manage multiple versions of Ruby on the same machine.
+## PR Tests
 
-These are the recommended steps for setting up Fastlane:
+Our PR unit tests are run in an Xcode Cloud workflow named "Run Tests". This kicks off any time a PR is opened or changed against any branch.
 
-#### Install [homebrew](https://brew.sh)
-[homebrew](https://brew.sh) should have been installed by `scripts/setup`. If you didn't run that script or would like to manually install it, please follow the installation instructions at https://brew.sh/.
 
-#### Install [rbenv](https://github.com/rbenv/rbenv)
-rbenv installs Ruby inside of your home folder so you don't have to modify the macOS ruby installation using root privileges. You can also manage multiple ruby versions on the same machine if you have other projects that depend on a different Ruby version. After [homebrew](https://brew.sh) is installed, follow the rbenv installation instructions at https://github.com/rbenv/rbenv.
+#### Localization Tests
 
-After installation, you can verify rbenv is working properly by typing `which ruby` and verifying it shows a path inside your home folder.
+In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTests.m) to run properly, some workarounds were needed to make the localization source code (files within `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations`) available in the Xcode Cloud environment.
 
-#### Install the required ruby version
-First `cd` to the directory where you have this repository:
-```
-cd /path/to/your/wikipedia-ios
-```
+1. We made references to source root directory dynamic, depending on if tests are running locally or within the Xcode Cloud context. This source root directory is referenced when pulling the resources referenced in `Wikipedia/iOS Native Localizations` or `Wikipedia/Localizations` for evaluations in these tests. We are using `SOURCE_ROOT_DIR` key in the unit tests Info.plist [file](../WikipediaUnitTests/Info.plist) which has value of $(SRCROOT) by default, to run locally. This key's value is then updated before tests are run in the Xcode Cloud environment, via [ci_pre_xcodebuild.sh](../ci_scripts/ci_pre_xcodebuild.sh) and our [copy_sourceroot.sh](../ci_scripts/copy_sourceroot.sh) script.
+2. We added a relative symlink from `ci_scripts` to the localizations directories. First a `Wikipedia` directory was made in `ci_scripts`, then symlinks were added from that directory like this:
 
-Then, install the ruby version specified by our project by running:
-```
-rbenv install -s
-```
+`ln -s ../../Wikipedia/"iOS Native Localizations" "iOS Native Localizations"`
 
-Verify it was installed by running `ruby -v` and matching it to the version number specified in the `.ruby-version` file in this repository.
+Changes were then committed to git ([example](https://github.com/wikimedia/wikipedia-ios/pull/4507/commits/86d9f3150c2e5a021910eba0a3e21a96ad0a27e6)). 
 
-#### Install bundler
-Next, install bundler by running:
-```
-gem install bundler
-```
+## Nightly Production Build
 
-#### Install gems
-First `cd` to the directory where you have this repository if you aren't there already:
-```
-cd /path/to/your/wikipedia-ios
-```
-Next, install the Ruby dependencies (gems) specified by the `Gemfile` (including Fastlane) by running:
-```
-bundle install
-```
+Our CI process distributes a new production Wikipedia app to TestFlight for internal testers each night against the latest commit in our `main` branch. If there are no new commits since the last distribution, this workflow does not run. This two-step process allows us to distribute conditionally each night:
 
-Verify fastlane was installed by running `bundle exec fastlane lanes` and verifying it shows a list of lanes defined by this project.
+### GitHub Action
 
-## Xcode version
-You can set the Xcode version used by fastlane by editing the `.xcversion` file in the root directory of the repo. This is helpful when a branch uses a new Xcode beta and you'd like to be able to utilize different Xcode versions for building each branch. 
+Every night, we run a Github [Action](../.github/workflows/tag_latest_beta.yml) titled "Tag Latest Beta". This script moves the git tag `latest_beta` to the latest commit in our `main` branch. If the `latest_beta` tag is already located at the last commit, it does nothing.
 
-Additionally, the Xcode version used by Circle CI is set in `.circleci/config.yml`
+### Xcode Cloud
 
-## Tests
-Tests are run on [Circle CI](https://app.circleci.com/pipelines/github/wikimedia/wikipedia-ios) in response to pull requests. You can run the same tests that are run on a pr locally by running `bundle exec fastlane verify_pull_request`.
+Xcode Cloud has a workflow titled "Nightly Build" that is set to trigger a build distribution whenever the `latest_beta` tag changes.
 
-## Jenkins server and releasing
-Are handled by the `wmf2249` server. After logging onto the WMF VPN, open a web browser and navigate to the [Jenkins instance](https://wmf2249:8043/). 
+Once a build completes in this workflow, it pushes a git tag entitled `betas/{build number}` to the repository, so that we know which commit a nightly build is built against. It performs this task via [ci_post_xcodebuild.sh](../ci_scripts/ci_post_xcodebuild.sh) and our [tag_script_xcodebuild.sh](../ci_scripts/tag_script_xcodebuild.sh) script.
 
-There are several Jenkins jobs:
-- **Deploy** - This builds the app from a given branch (defaults to `main`) and uploads it to App Store Connect (essentially running `bundle exec fastlane deploy`). It is immediately released to internal beta, and can be released to an external beta or wide release via App Store Connect. This job automatically runs nightly, if there are new commits to `main`. 
-- **Experimental** - This the app from a given branch (defaults to `main`) and uploads it as the Experimental TestFlight app (aka "Black icon") to App Store Connect. It is immediately released to internal beta, and can be released to an external beta via App Store Connect.
-- **Post-release - Git tag as release** - Should be manually run after each release to the app store. Uploads a git tag for a release. (`bundle exec fastlane tag_release build_tag:[tag]`)
-- **Post-release - Increase app version** - Should be manually run after each release to the app store. Updates the release number in Xcode.
+## Weekly Staging Build
 
-## Build server maintenance
-If you need to do more intensive build server work - like updating Xcode on the build server - when on the VPN, use the `Screen Sharing` macOS app to log into `wmf2249`.
+Our CI process distributes a new staging Wikipedia app to TestFlight for internal testers once a week on Sundays. This staging app is pointed to various staging server environments, as well as has feature flags turned on for in-development feature testing.
 
-To rotate App Store Connect credentials, log into the build server via the `Jenkins` account and update the files in the account's home directory. 
+This is done through Xcode Cloud on a schedule, via the workflow named "Weekly Staging Build". There is no additional GitHub Action component to make it conditional, like we do with the nightly build.
 
-To rotate GitHub credentials, update them via the Jenkins web interface.
+## Experimental Build
 
-## Xcode Cloud
-- We are currently using two Xcode Cloud workflows for our builds
-- They can be triggered on Xcode: on the sidebar, click builds -> Cloud -> Look for the chosen build (Main or Experimental) -> right-click on the selected workflow (I.e., Nightly Build) -> Start build, or on App Store Connect
+We also have an Xcode Cloud workflow that distributes a new experimental Wikipedia app for internal testers. This workflow must be kicked off manually by engineers as-needed. It can be run against any branch and defaults to the production server environment.
 
-- **Beta** - We currently use Xcode Cloud to run our nightly Beta build. It runs every day at 03:00AM PST or 10:00AM UTC. This one is automated. 
-- **Experimental** - We have an Experimental build that allows building a specific branch. This was designed to allow for Design review before merging. It can be triggered manually. After clicking `Start Build`, choose a branch, local or remote, to build. It will be deployed to TestFlight
+We use this app to demonstrate implementation of a task or prototype that needs design review. This allows designers to sign off before a task goes through the process of PR review. Once a PR is reviewed, approved and merged into `main`, the feature will make it into the production nightly build and the task moves to QA.

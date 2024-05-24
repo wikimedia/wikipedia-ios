@@ -13,6 +13,10 @@ extension WMFContentGroupKind {
     var isGlobal: Bool {
         return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
+    
+    var isNonDateBased: Bool {
+        return WMFExploreFeedContentController.nonDateBasedContentGroupKindNumbers().contains(NSNumber(value: rawValue))
+    }
 
     var contentLanguageCodes: [String] {
         return feedContentController.contentLanguageCodes(for: self)

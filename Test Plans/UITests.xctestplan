@@ -1,0 +1,68 @@
+{
+  "configurations" : [
+    {
+      "id" : "8E0498FE-92FF-40EC-865C-5BEA22044FC7",
+      "name" : "System Language (Light)",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "UITestThemeLight"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "67D2A1C7-F722-404E-8F8B-9EE88B448393",
+      "name" : "Hebrew (Sepia)",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "UITestThemeSepia"
+          }
+        ],
+        "language" : "he"
+      }
+    },
+    {
+      "id" : "9B0F186E-C17A-428A-8752-69A009336688",
+      "name" : "German (Dark)",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "UITestThemeDark"
+          }
+        ],
+        "language" : "de"
+      }
+    },
+    {
+      "id" : "D9266DCB-72A3-4FA1-81DC-AB33158D08AF",
+      "name" : "Vietnamese (Black)",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "UITestThemeBlack"
+          }
+        ],
+        "language" : "vi"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true,
+    "userAttachmentLifetime" : "keepAlways"
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "WikipediaUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:Wikipedia.xcodeproj",
+        "identifier" : "67623E0B2AFD288A007488C7",
+        "name" : "WikipediaUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

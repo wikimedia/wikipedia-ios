@@ -36,11 +36,7 @@ enum NotificationsCenterIconType: Hashable {
     }
     
     static var diff: NotificationsCenterIconType {
-        if #available(iOS 15, *) {
-            return .system("chevron.left.forwardslash.chevron.right")
-        } else {
-            return .system("chevron.left.slash.chevron.right")
-        }
+        return .system("chevron.left.forwardslash.chevron.right")
     }
     
     static var wikidata: NotificationsCenterIconType {

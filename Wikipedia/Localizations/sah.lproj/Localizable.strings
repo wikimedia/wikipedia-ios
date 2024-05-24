@@ -52,8 +52,6 @@
 "action-read" = "Ааҕыы";
 "action-redo" = "Хатылаа";
 "action-remove" = "Сот";
-"action-replace" = "Солбуйуу";
-"action-replace-all" = "Барытын солбуй";
 "action-save" = "Бигэргэт";
 "action-saved" = "Бигэргэннэ";
 "action-saved-accessibility" = "Бигэргэннэ. Соттороргор көҕүт.";
@@ -66,7 +64,6 @@
 "action-unsaved-accessibility-notification" = "Ыстатыйа испииһэктэн сотулунна";
 "action-update" = "Саҥардыы";
 "add-articles-to-reading-list" = "$1 ыстатыйаны ааҕыы испииһэгэр киллэр";
-"add-citation-title" = "Сытаата эбии";
 "announcements-dismiss" = "Сап";
 "app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
 "app-store-subtitle" = "Аһаҕас энциклопедия";
@@ -104,7 +101,6 @@
 "description-add-title" = "Быһааран суруй";
 // Fuzzy
 "description-edit-for-article" = "Аатын быһаарыыта «$1»";
-"description-edit-learn-more" = "Бу туһунан сиһилии";
 "description-edit-length-warning" = "$1 / $2";
 "description-help-about-wikidata" = "Биики Тиһик туһунан";
 "description-help-more-info-description" = "Ойуулааһыннар Биики Тиһик диэн сиргэ бааллар. Биики Тиһик (Wikidata) Бикимиэдьийэ Пуондатын бырайыага: аһаҕас, көҥүл туттуллар билии олоҕо, онно Бикипиэдьийэни, Биики Хааһаҕы, Бикимиэдьийэ атын да бырайыактарын уонна да атыттары өйүүргэ аналлаах билии сааһыланан түмүллэр.";
@@ -287,7 +283,6 @@
 "potd-description-prefix" = "Күннээҕи ойуу $1";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
 "preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
-"preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ыстатыйалары наардаа";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Наардамматах ыстатыйа ахсаана 5000-ттан таҕыстаҕына мэнэйдэммэт. Бука диэн наардаа, оччоҕо мэнэйдээһин салҕаныа.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Наардамматах ыстатыйалар хааччахтанар ахсааннара";
@@ -321,7 +316,6 @@
 "settings-primary-language" = "Сүрүн";
 // Fuzzy
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
-"settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
 // Fuzzy
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
@@ -343,12 +337,7 @@
 "welcome-notifications-tell-me-more-creation" = "Биллэриилэр бэйэҥ тэрилгэр оҥоһуллаллар, биһиги (биитэр атын) сиэрбэрбитигэр буолбатах.";
 "welcome-notifications-tell-me-more-storage" = "Биллэриилэр тэрилгэр харалла сылдьыахтара уонна тус бэйэҕиттэн биитэр тугу гынаргыттан тутулуга суох буолуохтара.";
 "welcome-notifications-tell-me-more-title" = "Биллэрии туһунан сиһилии";
-// Fuzzy
-"welcome-send-data-sub-title" = "Бикимиэдьийэ тэрилин хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут көрдөрүүлэрин аатыҥ киирбэт.";
-"welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
-"wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
 "wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
-"wikitext-preview-changes-none" = "Саҥа уларытыы оҥоһуллубатах эбит.";
 "wikitext-preview-link-preview-description" = "Бу сигэ $1' тириэрдэр.";
 "wikitext-preview-link-preview-title" = "Сигэни көрүөх иннинэ";
 "wikitext-upload-captcha-error" = "Капча алҕастаах.";

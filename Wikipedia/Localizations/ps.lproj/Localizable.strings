@@ -85,7 +85,6 @@
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
-"preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
 "saved-title" = "خوندي شو";
 "search-did-you-mean" = "آيا $1 مو موخه ده؟";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
@@ -96,7 +95,6 @@
 "search-recent-title" = "تازه پلټل شوي";
 "search-title" = "پلټل";
 "settings-my-languages" = "زما ژبې";
-"settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
 "settings-title" = "امستنې";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
@@ -108,8 +106,6 @@
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
-"welcome-volunteer-send-usage-reports" = "د کارېدنې راپورونه لېږل";
-"wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
 "wikitext-upload-save-terms-name" = "د کارولو شرطونه";

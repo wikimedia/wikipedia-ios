@@ -87,7 +87,78 @@ import Foundation
             return ""
         }
     }
-    
+
+    public var isTalkBased: Bool {
+        return 
+            self == .talk ||
+            self == .userTalk ||
+            self == .wikipediaTalk ||
+            self == .fileTalk ||
+            self == .mediawikiTalk ||
+            self == .templateTalk ||
+            self == .helpTalk ||
+            self == .cateogryTalk ||
+            self == .threadTalk ||
+            self == .summaryTalk ||
+            self == .portalTalk ||
+            self == .projectTalk ||
+            self == .bookTalk ||
+            self == .draftTalk ||
+            self == .educationProgramTalk ||
+            self == .campaignTalk ||
+            self == .timedTextTalk ||
+            self == .moduleTalk ||
+            self == .gadgetTalk ||
+            self == .gadgetDefinitionTalk
+    }
+
+    public var convertedPrimaryTalkPageNamespace: PageNamespace {
+        switch self {
+        case .talk:
+            return .main
+        case .userTalk:
+            return .user
+        case .wikipediaTalk:
+            return .wikipedia
+        case .fileTalk:
+            return .file
+        case .mediawikiTalk:
+            return .mediawiki
+        case .templateTalk:
+            return .template
+        case .helpTalk:
+            return .help
+        case .cateogryTalk:
+            return .category
+        case .threadTalk:
+            return .thread
+        case .summaryTalk:
+            return .summary
+        case .portalTalk:
+            return .portal
+        case .projectTalk:
+            return .project
+        case .bookTalk:
+            return .book
+        case .draftTalk:
+            return .draft
+        case .educationProgramTalk:
+            return .educationProgram
+        case .campaignTalk:
+            return .campaign
+        case .timedTextTalk:
+            return .timedText
+        case .moduleTalk:
+            return .module
+        case .gadgetTalk:
+            return .gadget
+        case .gadgetDefinitionTalk:
+            return .gadgetDefinition
+        default:
+            return .main
+        }
+    }
+
     public var convertedToOrFromTalk: PageNamespace? {
         switch self {
         case .main:

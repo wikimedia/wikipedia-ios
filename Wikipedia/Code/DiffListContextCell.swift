@@ -1,10 +1,13 @@
 import UIKit
+import WMF
 
 protocol DiffListContextCellDelegate: AnyObject {
     func didTapContextExpand(indexPath: IndexPath)
 }
 
+
 class DiffListContextCell: UICollectionViewCell {
+
     static let reuseIdentifier = "DiffListContextCell"
     
     @IBOutlet var innerLeadingConstraint: NSLayoutConstraint!
@@ -16,14 +19,20 @@ class DiffListContextCell: UICollectionViewCell {
     
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var expandButton: UIButton!
+    @IBOutlet weak var divView: UIView!
+    
+    @IBOutlet weak var headerLabelHeightConstraint: NSLayoutConstraint!
     
     private var viewModel: DiffListContextViewModel?
     private var indexPath: IndexPath?
     
     weak var delegate: DiffListContextCellDelegate?
-    
+
+    private let expandSection = WMFLocalizedString("diff-context-cell-expand-section", value: "Expand %1$@", comment: "Text read by VoiceOver in diffs that indicates the line numbers that tapping the button will expand to display. %1$@ is replaced with a string the line numbers range (i.e. Lines 3-10).")
+
+    private let collapseSection = WMFLocalizedString("diff-context-cell-collapse-section", value: "Collapse %1$@", comment: "Text read by VoiceOver in diffs that indicates the line numbers that tapping the button will collapse from being displayed. %1$@ is replaced with the line number range (i.e. Lines 3-10).")
+
     func update(_ viewModel: DiffListContextViewModel, indexPath: IndexPath?) {
-        
         if let indexPath = indexPath {
             self.indexPath = indexPath
         }
@@ -32,7 +41,8 @@ class DiffListContextCell: UICollectionViewCell {
         innerTrailingConstraint.constant = viewModel.innerPadding.trailing
         innerTopConstraint.constant = viewModel.innerPadding.top
         innerBottomConstraint.constant = viewModel.innerPadding.bottom
-        
+        headerLabelHeightConstraint.constant = viewModel.headerHeight
+
         containerStackView.spacing = DiffListContextViewModel.containerStackSpacing
         contextItemStackView.spacing = DiffListContextViewModel.contextItemStackSpacing
         
@@ -40,17 +50,19 @@ class DiffListContextCell: UICollectionViewCell {
         headingLabel.text = viewModel.heading
         
         if self.viewModel == nil {
-            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+            expandButton.setTitle(nil, for: .normal)
+            expandButton.setImage(viewModel.expandButtonImage, for: .normal)
         } else {
             expandButton.alpha = 0
-            expandButton.setTitle(viewModel.expandButtonTitle, for: .normal)
+            expandButton.setTitle(nil, for: .normal)
+            expandButton.setImage(viewModel.expandButtonImage, for: .normal)
             UIView.animate(withDuration: 0.2) {
                 self.expandButton.alpha = 1
             }
         }
         
         expandButton.titleLabel?.font = viewModel.contextFont
-        
+
         apply(theme: viewModel.theme)
         
         if needsNewContextViews(newViewModel: viewModel) {
@@ -59,13 +71,31 @@ class DiffListContextCell: UICollectionViewCell {
         }
         
         updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: viewModel.theme)
-        
+
+        if viewModel.isExpanded {
+            accessibilityElements = [headingLabel as Any, expandButton as Any, contextItemStackView as Any]
+            expandButton.accessibilityLabel = String.localizedStringWithFormat(collapseSection, headingLabel.text ?? "")
+        } else {
+            accessibilityElements = [headingLabel as Any, expandButton as Any]
+            expandButton.accessibilityLabel = String.localizedStringWithFormat(expandSection, headingLabel.text ?? "")
+        }
+
         self.viewModel = viewModel
     }
     
     @IBAction func tappedExpandButton(_ sender: UIButton) {
         if let indexPath = indexPath {
             delegate?.didTapContextExpand(indexPath: indexPath)
+
+            if let viewModel = viewModel {
+                if viewModel.isExpanded {
+                    expandButton.accessibilityLabel = String.localizedStringWithFormat(collapseSection, headingLabel.text ?? "")
+                } else {
+                    expandButton.accessibilityLabel = String.localizedStringWithFormat(expandSection, headingLabel.text ?? "")
+                }
+            }
+
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
     }
 }
@@ -94,8 +124,8 @@ private extension DiffListContextCell {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(label)
                 
-                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: DiffListContextViewModel.contextItemTextPadding.top)
-                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom)
+                let top = label.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+                let bottom = view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: DiffListContextViewModel.contextItemTextPadding.bottom + 5)
                 let leading = label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.leading)
                 let trailing = view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: DiffListContextViewModel.contextItemTextPadding.trailing)
                 
@@ -127,6 +157,8 @@ private extension DiffListContextCell {
             if let item = newViewModel.items[safeIndex: index] as? DiffListContextItemViewModel,
             let label = subview.subviews.first as? UILabel {
                 label.attributedText = item.textAttributedString
+                label.accessibilityLabel = item.accessibilityLabelText
+                label.accessibilityTextualContext = .sourceCode
             }
         }
     }
@@ -150,7 +182,8 @@ extension DiffListContextCell: Themeable {
         expandButton.tintColor = theme.colors.link
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
-        
+        divView.backgroundColor = theme.colors.baseBackground
+
         if let viewModel = viewModel {
             updateContextViews(in: contextItemStackView, newViewModel: viewModel, theme: theme)
         }

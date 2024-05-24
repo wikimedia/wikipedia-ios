@@ -13,6 +13,7 @@ public final class EditAttemptFunnel {
     private struct Event: Codable {
         let action: EditAction
         let editing_session_id: String
+        let app_install_id: String?
         let editor_interface: String
         let integration: String
         let mw_version: String
@@ -37,51 +38,53 @@ public final class EditAttemptFunnel {
         case abort = "abort"
     }
 
-    private func logEvent(articleURL: URL, action: EditAction, revisionId: Int? = nil) {
+    private func logEvent(pageURL: URL, action: EditAction, revisionId: Int? = nil) {
         let editorInterface = "wikitext"
         let integrationID = "app-ios"
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
 
-        let userId = getUserID(articleURL: articleURL)
+        let userId = getUserID(pageURL: pageURL)
+        
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
 
-        let event = Event(action: action, editing_session_id: "", editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: articleURL.wmf_title, page_ns: articleURL.namespace?.rawValue, revision_id: revisionId)
+        let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId)
         
         let container = EventContainer(event: event)
         EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)
     }
 
-    func logInit(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .start)
+    func logInit(pageURL: URL) {
+        logEvent(pageURL: pageURL, action: .start)
     }
 
-    func logSaveIntent(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .saveIntent)
+    func logSaveIntent(pageURL: URL) {
+        logEvent(pageURL: pageURL, action: .saveIntent)
     }
 
-    func logSaveAttempt(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .saveAttempt)
+    func logSaveAttempt(pageURL: URL) {
+        logEvent(pageURL: pageURL, action: .saveAttempt)
     }
 
-    func logSaveSuccess(articleURL: URL, revisionId: Int) {
-        logEvent(articleURL: articleURL, action: .saveSuccess, revisionId: revisionId)
+    func logSaveSuccess(pageURL: URL, revisionId: Int?) {
+        logEvent(pageURL: pageURL, action: .saveSuccess, revisionId: revisionId)
     }
 
-    func logSaveFailure(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .saveFailure)
+    func logSaveFailure(pageURL: URL) {
+        logEvent(pageURL: pageURL, action: .saveFailure)
     }
 
-    func logAbort(articleURL: URL) {
-        logEvent(articleURL: articleURL, action: .abort)
+    func logAbort(pageURL: URL) {
+        logEvent(pageURL: pageURL, action: .abort)
     }
 
-    func getUserID(articleURL: URL) -> Int {
+    fileprivate func getUserID(pageURL: URL) -> Int {
         let isAnon = !MWKDataStore.shared().authenticationManager.isLoggedIn
 
         if isAnon {
             return 0
         } else {
             var userId = 0
-            MWKDataStore.shared().authenticationManager.getLoggedInUser(for: articleURL) { result in
+            MWKDataStore.shared().authenticationManager.getLoggedInUser(for: pageURL) { result in
                 switch result {
                 case .success(let user):
                     userId = user?.userID ?? 0

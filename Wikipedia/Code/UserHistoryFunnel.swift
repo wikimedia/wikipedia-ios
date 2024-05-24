@@ -21,9 +21,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         self.dataStore = dataStore
     }
 
-    private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot", defaultCache: {
-        UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil))
-    })
+    private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot")
 
     public struct FeedEnabledList: Codable, Equatable {
         let featuredArticle: ItemLanguages?
@@ -139,12 +137,16 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             pictureOfTheDay: getItemInFeed(code: "pd"))
         return feedItem
     }
+    
+    private var cache: UserHistorySnapshotCache {
+        return sharedCache.loadCache() ?? UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil))
+    }
 
 
     private func logEvent(event: Event) {
         EventPlatformClient.shared.submit(stream: .userHistory, event: event)
 
-        var cache = self.sharedCache.loadCache()
+        var cache = self.cache
         cache.snapshot = event
 
         UserDefaults.standard.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
@@ -169,14 +171,10 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private var latestSnapshot: Event? {
-        return sharedCache.loadCache().snapshot
+        return self.cache.snapshot
     }
     
     @objc public func logSnapshot() {
-        guard EventPlatformClient.shared.isEnabled else {
-            return
-        }
-        
         guard isTarget else {
             return
         }

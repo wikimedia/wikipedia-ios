@@ -3,8 +3,13 @@ import UIKit
 protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()
     func tappedNext()
-    func tappedShare(_ sender: UIBarButtonItem)
+    func tappedShare()
     func tappedThankButton()
+    func tappedUndo()
+    func tappedRollback()
+    func tappedEditHistory()
+    func tappedWatch()
+    func tappedUnwatch()
     var isLoggedIn: Bool { get }
 }
 
@@ -34,20 +39,23 @@ class DiffToolbarView: UIView {
         return item
     }()
 
-    lazy var shareButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(tappedShare(_:)), for: .touchUpInside)
-        item.accessibilityLabel = CommonStrings.accessibilityShareTitle
+    lazy var moreButton: IconBarButtonItem = {
+        return createMoreButton()
+    }()
 
+    lazy var undoButton: IconBarButtonItem = {
+        let item = IconBarButtonItem(iconName: "Revert", target: self, action: #selector(tappedUndo(_:)), for: .touchUpInside)
+        item.accessibilityLabel = CommonStrings.undo
         return item
     }()
 
     lazy var thankButton: IconBarButtonItem = {
-        let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside , iconInsets: UIEdgeInsets(top: 5.0, left: 0, bottom: -5.0, right: 0))
+        let item = IconBarButtonItem(iconName: "diff-smile", target: self, action: #selector(tappedThank(_:)), for: .touchUpInside , iconInsets: UIEdgeInsets(top: 2.0, left: 0, bottom: -2.0, right: 0))
         item.accessibilityLabel = WMFLocalizedString("action-thank-user-accessibility", value: "Thank User", comment: "Accessibility title for the 'Thank User' action button when viewing a single revision diff.")
         
         return item
     }()
-    
+
     weak var delegate: DiffToolbarViewDelegate?
     var isThankSelected = false {
         didSet {
@@ -81,8 +89,16 @@ class DiffToolbarView: UIView {
         
         setItems()
     }
+
+    @objc func tappedUndo(_ sender: UIBarButtonItem) {
+        delegate?.tappedUndo()
+    }
+
+    @objc func tappedRollback() {
+        delegate?.tappedRollback()
+    }
     
-   @objc func tappedPrevious(_ sender: UIBarButtonItem) {
+    @objc func tappedPrevious(_ sender: UIBarButtonItem) {
         delegate?.tappedPrevious()
     }
     
@@ -90,8 +106,20 @@ class DiffToolbarView: UIView {
         delegate?.tappedNext()
     }
     
-    @objc func tappedShare(_ sender: UIBarButtonItem) {
-        delegate?.tappedShare(shareButton)
+    @objc func tappedShare() {
+        delegate?.tappedShare()
+    }
+    
+    @objc func tappedWatch() {
+        delegate?.tappedWatch()
+    }
+    
+    @objc func tappedUnwatch() {
+        delegate?.tappedUnwatch()
+    }
+
+    @objc func tappedEditHistory() {
+        delegate?.tappedEditHistory()
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
@@ -103,31 +131,64 @@ class DiffToolbarView: UIView {
         
         setItems()
     }
+    
+    func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
+        
+        let resolvedNeedsRollback = needsRollbackButton ?? currentlyHasRollback ?? false
+        self.moreButton = createMoreButton(needsRollbackButton: resolvedNeedsRollback, needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
+        setItems()
+    }
+    
+    private var currentlyHasRollback: Bool?
+    private func createMoreButton(needsRollbackButton: Bool = false, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) -> IconBarButtonItem {
+        
+        var actions: [UIAction] = []
+        if needsRollbackButton {
+            actions.append(UIAction(title: CommonStrings.rollback, image: UIImage(systemName: "arrow.uturn.backward.circle"), attributes: [.destructive], handler: { [weak self] _ in self?.tappedRollback() }))
+        }
+        currentlyHasRollback = needsRollbackButton
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.tappedShare()}))
+
+       if needsWatchButton {
+           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
+       } else if needsUnwatchHalfButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+       } else if needsUnwatchFullButton {
+           actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+       }
+           
+       if needsArticleEditHistoryButton {
+           actions.append(UIAction(title: CommonStrings.diffArticleEditHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedEditHistory() }))
+       }
+        
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        
+        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }
+    
+    var moreButtonSourceView: UIView {
+        return self
+    }
+    
+    var moreButtonSourceRect: CGRect? {
+        
+        guard let undoButtonView = undoButton.customView,
+              let thankButtonView = thankButton.customView else {
+            return nil
+        }
+        
+        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: self, thirdButtonView: undoButtonView, fourthButtonView: thankButtonView)
+    }
 
     private func setItems() {
-        let trailingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
-        case (.regular, .regular):
-            trailingMarginSpacing.width = 58
-        default:
-            trailingMarginSpacing.width = 24
-        }
-        
-        let leadingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
-        case (.regular, .regular):
-            leadingMarginSpacing.width = 42
-        default:
-            leadingMarginSpacing.width = 0
-        }
-        
-        let largeFixedSize = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        largeFixedSize.width = 30
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        toolbar.items = [leadingMarginSpacing, nextButton, previousButton, spacer, thankButton, largeFixedSize, shareButton, trailingMarginSpacing]
+        let flexibleSpace = UIBarButtonItem.flexibleSpaceToolbar()
+
+        toolbar.items = [flexibleSpace, nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton, flexibleSpace]
     }
+    
     
     func setPreviousButtonState(isEnabled: Bool) {
         previousButton.isEnabled = isEnabled
@@ -140,9 +201,9 @@ class DiffToolbarView: UIView {
     func setThankButtonState(isEnabled: Bool) {
         thankButton.isEnabled = isEnabled
     }
-    
-    func setShareButtonState(isEnabled: Bool) {
-        shareButton.isEnabled = isEnabled
+
+    func setMoreButtonState(isEnabled: Bool) {
+        moreButton.isEnabled = isEnabled
     }
 }
 
@@ -171,15 +232,15 @@ extension DiffToolbarView: Themeable {
         
         previousButton.apply(theme: theme)
         nextButton.apply(theme: theme)
-        shareButton.apply(theme: theme)
+        undoButton.apply(theme: theme)
         thankButton.apply(theme: theme)
-        
+        moreButton.apply(theme: theme)
+
         if let delegate = delegate,
             !delegate.isLoggedIn {
             if let button = thankButton.customView as? UIButton {
                 button.tintColor = theme.colors.disabledLink
             }
         }
-        shareButton.tintColor = theme.colors.link
     }
 }

@@ -400,6 +400,19 @@ public class Colors: NSObject {
             return .gray675
         }
     }
+    
+    public var newBorder: UIColor {
+        switch identifier {
+        case .light, .widgetLight:
+            return .gray300
+        case .sepia:
+            return .taupe200
+        case .dark, .widgetDark:
+            return .gray500
+        case .black:
+            return .gray500
+        }
+    }
 
     @objc public var shadow: UIColor {
         switch identifier {
@@ -773,16 +786,7 @@ public class Colors: NSObject {
     }
 
     public var diffCompareChangeHeading: UIColor {
-        switch identifier {
-        case .light:
-            return .white
-        case .sepia:
-            return .beige100
-        case .black, .dark:
-            return .black
-        default:
-             return .clear
-        }
+        return secondaryText
     }
 
     public var talkPageCoffeRollBackground: UIColor {
@@ -884,25 +888,8 @@ public class Theme: NSObject {
     
     public static let exploreCardCornerRadius: CGFloat = 10
     
-    static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
-        let minDimension = 2 * cornerRadius + 1
-        let rect = CGRect(x: 0, y: 0, width: width ?? minDimension, height: height ?? minDimension)
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, scale)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return nil
-        }
-        context.setFillColor(color.cgColor)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-        path.fill()
-        let capInsets = UIEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
-        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: capInsets)
-        UIGraphicsEndImageContext()
-        return image
-    }
-    
     @objc public lazy var searchFieldBackgroundImage: UIImage? = {
-        return Theme.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
+        return UIImage.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
     }()
     
     @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
@@ -1018,4 +1005,28 @@ public final class ObservableTheme: ObservableObject {
     public init(theme: Theme) {
         self.theme = theme
     }
+}
+
+public extension Theme {
+
+    // Convert App `Theme` to Components framework `WKTheme`
+    static func wkTheme(from theme: Theme) -> WKTheme {
+        let wkTheme: Components.WKTheme
+
+        switch theme {
+        case .light:
+            wkTheme = .light
+        case .dark, .darkDimmed:
+            wkTheme = .dark
+        case .black, .blackDimmed:
+            wkTheme = .black
+        case .sepia:
+            wkTheme = .sepia
+        default:
+            wkTheme = .light
+        }
+
+        return wkTheme
+    }
+
 }

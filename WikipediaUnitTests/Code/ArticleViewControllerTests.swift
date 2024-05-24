@@ -17,11 +17,14 @@ private class MockSchemeHandler: SchemeHandler {
 class ArticleViewControllerTests: XCTestCase {
     let timeout: TimeInterval = 10
     
-    override func setUp() {
-       super.setUp()
-       
-       LSNocilla.sharedInstance().start()
-       ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: wmf_bundle())
+    override func setUp(completion: @escaping (Error?) -> Void) {
+        
+        ArticleTestHelpers.setup {
+            LSNocilla.sharedInstance().start()
+            ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: self.wmf_bundle())
+            completion(nil)
+        }
+        
     }
 
     override func tearDown() {
@@ -32,7 +35,18 @@ class ArticleViewControllerTests: XCTestCase {
     func testArticleVCAccessesSchemeHandler() throws {
         
         // test that articleVC converts articleURL to proper scheme and sets up SchemeHandler to ensure it is accessed during a load
-        let dataStore = MWKDataStore.temporary()
+        
+        let tempDatabaseExpectation = expectation(description: "Waiting for temp database setup")
+        
+        var dataStore: MWKDataStore!
+        MWKDataStore.createTemporaryDataStore { result in
+            
+            dataStore = result
+            tempDatabaseExpectation.fulfill()
+        }
+        
+        wait(for: [tempDatabaseExpectation], timeout: timeout)
+        
         let theme = Theme.light
         let url = URL(string: "https://en.wikipedia.org/wiki/Dog")!
         let schemeHandler = MockSchemeHandler(scheme: "app", session: dataStore.session)

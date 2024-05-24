@@ -50,8 +50,6 @@
 "action-read" = "ဟော်ꩻ";
 "action-redo" = "သဲင်ꩻဖျင်ငါ";
 "action-remove" = "ဖုဲင်းထန်ႏထိုꩻ";
-"action-replace" = "လုဲင်ႏသော့ꩻ";
-"action-replace-all" = "လုဲင်ႏထိုꩻလို့လို့";
 "action-retry" = "မာꩻချာယင်း";
 "action-save" = "သိမ်ꩻ";
 "action-saved" = "သဲမ်ထွူလဲဉ်း";
@@ -66,7 +64,6 @@
 "action-unsaved-accessibility-notification" = "ရောမ်ဖြုဲင်ꩻနဝ်ꩻသဲမ်ဗာႏဒွိုန်း";
 "action-update" = "ဒင်ႏထို";
 "add-articles-to-reading-list" = "ဟော်ꩻထွားစာႏရင်ꩻကို ထဲမ်သော့ꩻ {{PLURAL:$1|ရောမ်ဖြုဲင်ꩻ $1|ရောမ်ဖြုဲင်ꩻဖိုင်ႏ $1}}";
-"add-citation-title" = "ထဲမ်သော့ꩻအာႏကွိုꩻချက်";
 "announcements-dismiss" = "လွတ်ꩻ";
 "app-store-keywords" = "ဝီခီပီးဒီးယား၊ အာႏကွိုꩻ၊ ဝီခီ၊ ကျမ်ꩻပေါင်ꩻစွုမ်ႏ၊ အချက်လက်၊ ဗဟုသုတ၊ သုတေသန၊ သတင်ꩻအချက်လျက်၊ လွူꩻထွား၊ သွောန်ထူႏ";
 "app-store-subtitle" = "အငိုꩻလို့တဝ်း ကျမ်ꩻပေါင်ꩻစွုမ်ႏ";
@@ -98,7 +95,6 @@
 "data-migration-status" = "အဝ်ႏဒင်ႏထိုကျာꩻ...";
 "description-add-title" = "ထဲမ်သော့ꩻအွောန်ႏနယ်ချက်ခရာႏ";
 "description-edit-for-article" = "ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက် $1 တာႏ";
-"description-edit-learn-more" = "လွူꩻထွားထဲင်းတာႏ";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-title" = "မွဉ်းဖျင် ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက်";
 "description-edit-publish" = "ဒင်ႏထင်ႏအွောန်ႏနယ်ချက်ခရာႏ";
@@ -132,13 +128,9 @@
 "edit-menu-item" = "မွဉ်းဖျင်";
 "edit-minor-text" = "ယိုနဝ်ꩻထွာဒျာႏ အရေꩻတန်တဝ်းမွဉ်းဖျင်မုꩻဒျာႏသွူ";
 "edit-published" = "ဒင်ႏထင်ႏထွူလဲဉ်း မွဉ်းဖျင်မုꩻ";
-"edit-style-table-view-title" = "သတုဲင်ပုင်ႏ";
 "edit-summary-add-summary-text" = "ထဲမ်သော့ꩻ မွဉ်းဖျင်ချုတ်အအဲဉ်ႏတဗာႏ";
 "edit-summary-choice-fixed-grammar" = "ဖျင်ခါꩻလဲဉ်း သဒ္ဒါႏ";
 "edit-summary-choice-linked-words" = "ထဲမ်သော့ꩻခါꩻလဲဉ်း လိဉ့်ဖိုင်ႏ";
-"edit-summary-learn-more-text" = "လွူꩻထွားထဲင်းတာႏ";
-"edit-text-size-table-view-title" = "လိတ်ယာႏပေႏတန်";
-"edit-text-style-accessibility-label" = "အွောန်ႏနယ် လိတ်ဖြုံႏသတုဲင်ပုင်ႏမီနူး";
 "edit-watch-this-page-text" = "အုံပွေားထွား လိတ်မဲ့ငါယိုတာႏ";
 "editing-welcome-citations-title" = "အာႏကွိုꩻ ယွုမ်းအံႏသꩻဆွော့ꩻလꩻဒါႏ အရွီးခိုႏဖိုင်ႏ";
 "editing-welcome-set-knowledge-free-title" = "အွောန်ႏထွော့ အငိုꩻလို့တဝ်း ဗဟုသုတထာꩻသေꩻ";
@@ -276,7 +268,6 @@
 "insert-media-image-type-settings-title" = "ပုင်ႏအစွိုးအမျိုꩻ";
 "insert-media-media-settings-title" = "မီဒီယာ အပွိုင်အဆင်ဖိုင်ႏ";
 "insert-media-title" = "ဒင်ႏထူႏသော့ꩻမီဒီယာ";
-"insert-media-uploaded-image-title" = "ဒင်ႏခါꩻလဲဉ်းရုက်ပုင်ႏ";
 "languages-settings-title" = "ဘာႏသာႏငေါဝ်းငွါဖိုင်ႏ";
 "languages-title" = "ပြောင်ꩻလုဲင်ႏ ဘာႏသာႏငဝ်းငွါ";
 "languages-wikipedia" = "ဝီခီပီးဒီးယားဘာႏသာႏဖိုင်ႏ";
@@ -383,7 +374,6 @@
 "places-unknown-distance" = "သေတဝ်း အဗော့ꩻအညာꩻ";
 "potd-description-prefix" = "$1 တာႏ ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
 "potd-widget-title" = "ဓာတ်ပုင်ႏဟန်ႏနီꩻ";
-"preference-title-eventlogging-opt-in" = "ပသာ ထူႏသုင်ꩻခါꩻခရာႏဖိုင်ႏ";
 "reading-list-add-generic-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ ရောမ်ဖြုဲင်ꩻယိုဟောင်း?";
 "reading-list-add-hint-title" = "ဟော်ꩻလိတ်စာႏရင်ꩻကို ထဲမ်သော့ꩻနေ \"$1\"ဟောင်း?";
 "reading-list-add-saved-title" = "မော့ꩻ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
@@ -426,7 +416,6 @@
 "replace-clear-button-accessibility" = "သျင်ꩻထိုꩻ သော့ꩻလုဲင်ႏမုꩻ";
 "replace-infolabel-method-replace" = "သော့ꩻလုဲင်ႏ";
 "replace-infolabel-method-replace-all" = "လုဲင်ႏထိုꩻလို့လို့";
-"replace-replace-all-results-count" = "{{PLURAL:$1|သော့ꩻလုဲင်ႏလဲဉ်း $1|သော့ꩻလုဲင်ႏလဲဉ်း $1 ဗာႏ}}";
 "replace-textfield-accessibility" = "လုဲင်ႏသော့ꩻ";
 "replace-textfield-placeholder" = "သော့ꩻလုဲင်ႏတောမ်ႏ...";
 "reverted-edit-title" = "သဲင်ꩻဖျင်ချာ မွဉ်းဖျင်မုꩻ";
@@ -466,7 +455,6 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "အီႏယားကုဲင်လို့ထိုꩻသွူ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏနဲ့?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "ယားကုဲင်";
 "settings-storage-and-syncing-erase-saved-articles-title" = "ယားကုဲင် ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
-"settings-support" = "စွဲးကမ်း ဝီခီပီးဒီးယား";
 "settings-title" = "အဖျင်အဆင်ဖိုင်ႏ";
 "share-a-fact-made-with" = "မာꩻထူႏတောမ်ႏ ဝီခီပီးဒီးယား အဲပ်";
 "share-article-name-on-wikipedia" = "\"$1\" အဝ်ႏဝီခီပီးဒီးယားကို:";
@@ -489,24 +477,15 @@
 "table-of-contents-heading" = "ဟော်ꩻထွားရီးတာႏ";
 "table-of-contents-hide-button-label" = "ပလို့ꩻ ဟော်ꩻထွားရီးတာႏ";
 "table-of-contents-subheading-label" = "ကတူႏရဲန်ႏဖြယ် $1";
-"talk-page-add-discussion-accessibility-label" = "ထဲမ်သော့ꩻ အိုင်ကိုမ်ချက်ခရာႏ";
 "talk-page-discussion-read-accessibility-label" = "ဟော်ꩻ";
 "talk-page-discussion-unread-accessibility-label" = "ဟော်ꩻဗာႏဒွိုန်း";
-"talk-page-link-user-action-sheet-title" = "ကေားသုင်ꩻသား လိတ်မဲ့ငါဖိုင်ႏ";
 "talk-page-new-banner-subtitle" = "နီသွောန်းသီးကားကအဝ်ႏယို ထွာဒျာႏလိုꩻဖိုင်ႏကရိုꩻနဝ်ꩻ ယူႏလꩻပါသွော့သြ";
 "talk-page-new-banner-title" = "ယေန်ႏကေႏသꩻညင်ꩻ ရက်သွော့ဝင်ꩻသြ";
 "talk-page-new-reply-success-text" = "နာꩻလဝ်းပြန်ႏချာချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
-"talk-page-new-subject-clear-button-accessibility" = "သျင်ꩻထိုꩻ အကျောင်ꩻခရာႏ";
-"talk-page-new-subject-placeholder-text" = "အကျောင်ꩻခရာႏ";
-"talk-page-new-subject-textfield-accessibility-label" = "အကျောင်ꩻခရာႏ";
 "talk-page-new-topic-success-text" = "နာꩻအိုင်ကိုမ်ချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
-"talk-page-new-topic-title" = "အိုင်ကိုမ်ချက်တသာ";
-"talk-page-reply-title" = "လဝ်းပြန်ႏချာ";
 // Fuzzy
 "talk-page-title-article-talk" = "ရောမ်ဖြုဲင်ꩻ အိုင်ကိုမ်ဒေါ့ꩻရီ";
 "talk-page-title-user-talk" = "ကေားသုင်ꩻသား အိုင်ကိုမ်ချက်";
-"talk-page-topic-title" = "အိုင်ကိုမ်ချက်";
-"talk-pages-reply-button-title" = "လဝ်းပြန်ႏချာ အိုင်ကိုမ်ချက်ယို";
 "theme-black-display-name" = "အဖြေင်း";
 "theme-dark-display-name" = "အခေ့ꩻ";
 "theme-default-display-name" = "နုဲင်းမူလအတွိုင်ꩻ";
@@ -533,11 +512,7 @@
 "welcome-languages-description" = "နာꩻစက်တခြိုꩻကိုနဝ်ꩻ နီသွဉ်းသီးမော့ꩻခါꩻ ဘာႏသာႏငဝ်းငွါဖိုင်ႏ နုဲင်းလ့နဝ်ꩻအတွိုင်ꩻသွူ။";
 "welcome-languages-search-title" = "ထိုမ်ႏ လွိုထဲင်းဘာႏသာႏငဝ်းငွါ ၃၀၀ လွိုကို";
 "welcome-notifications-tell-me-more-title" = "ဖေႏသေချက်ခရာႏအထဲင်းဖိုင်ႏ";
-"welcome-send-data-helps-title" = "သော့ဝွဲးဖေႏကယံထဲင်း စွဲးကမ်းကိုဖေႏဒျာႏသွူ";
-"welcome-send-data-learn-more" = "လွူꩻထွားထဲင်း ဒေတာရောမ်ထူႏမုꩻခရာႏ";
-"welcome-volunteer-send-usage-reports" = "ပသာ ထူႏသုင်ꩻခါꩻခရာႏဖိုင်ႏ";
 "widget-onthisday-placeholder-article-snippet" = "အငိုꩻလို့တဝ်း လဲင်းလောင်းကျမ်ꩻပေါင်ꩻစွုမ်ႏယိုနဝ်ꩻ ပါမုဲင်ꩻတရိုꩻတဝ်း မွဉ်းဖျင်နွောင်ꩻဒျာႏသွူ";
-"wikitext-downloading" = "အဝ်ႏထူႏဖေႏအကျောင်ꩻခရာႏဖိုင်ႏကျာꩻ...";
 "wikitext-preview-link-external-preview-title" = "လိဉ့်အထန်ႏ";
 "wikitext-preview-link-not-found-preview-description" = "ဝီခီပီးဒီးယားကိုနဝ်ꩻ တောမ်ႏအမိဉ်ꩻစဲင်းစဲ့နုဲင်းယို ရောမ်ဖြုဲင်ꩻတဗာႏဗာႏအဝ်ႏတဝ်းသြ";
 "wikitext-preview-link-not-found-preview-title" = "မော့ꩻတဝ်း လိဉ့်အကို";

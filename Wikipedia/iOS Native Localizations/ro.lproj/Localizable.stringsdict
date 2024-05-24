@@ -228,81 +228,6 @@
 			<string>%1$d linii nemodificate</string>
 		</dict>
 	</dict>
-	<key>intermediate-edits-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nu sunt arătate</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d versiune intermediară</string>
-			<key>other</key>
-			<string>%1$d versiuni intermediare</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ de %#@v2@ nu sunt afișate</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d versiune intermediară</string>
-			<key>other</key>
-			<string>%1$d versiuni intermediare</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d utilizator</string>
-			<key>other</key>
-			<string>%2$d utilizatori</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-editors-limited-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ de %2$d+ utilizatori nu sunt afișate</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d versiune intermediară</string>
-			<key>other</key>
-			<string>%1$d versiuni intermediare</string>
-		</dict>
-	</dict>
-	<key>intermediate-edits-limited-editors-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d+ versiuni intermediare de %#@v2@ nu sunt afișate</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d utilizator</string>
-			<key>other</key>
-			<string>%2$d utilizatori</string>
-		</dict>
-	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -776,22 +701,6 @@
 			<string>%1$d ani în urmă</string>
 			<key>zero</key>
 			<string>Anul acesta</string>
-		</dict>
-	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d element înlocuit</string>
-			<key>other</key>
-			<string>%1$d elemente înlocuite</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

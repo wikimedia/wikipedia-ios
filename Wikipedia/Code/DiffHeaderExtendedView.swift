@@ -1,8 +1,14 @@
 import UIKit
 
 protocol DiffHeaderActionDelegate: AnyObject {
-    func tappedUsername(username: String)
+    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination)
     func tappedRevision(revisionID: Int)
+}
+
+enum DiffHeaderUsernameDestination {
+    case userContributions
+    case userTalkPage
+    case userPage
 }
 
 class DiffHeaderExtendedView: UIView {
@@ -44,18 +50,7 @@ class DiffHeaderExtendedView: UIView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    }
-    
-    func configureHeight(beginSquishYOffset: CGFloat, scrollYOffset: CGFloat) {
-        guard let viewModel = viewModel else {
-            return
-        }
         
-        switch viewModel.headerType {
-        case .compare:
-            compareView.configureHeight(beginSquishYOffset: beginSquishYOffset, scrollYOffset: scrollYOffset)
-        default: break
-        }
     }
     
     func update(_ new: DiffHeaderViewModel) {
@@ -118,7 +113,7 @@ extension DiffHeaderExtendedView: Themeable {
         compareView.apply(theme: theme)
         
         for view in divViews {
-            view.backgroundColor = theme.colors.chromeShadow
+            view.backgroundColor = theme.colors.baseBackground
         }
     }
 }

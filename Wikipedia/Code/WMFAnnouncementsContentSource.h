@@ -1,6 +1,7 @@
 #import <WMF/WMFContentSource.h>
 
 @class MWKDataStore;
+@class WKFundraisingCampaignDataController;
 
 @interface WMFAnnouncementsContentSource : NSObject <WMFContentSource, WMFOptionalNewContentSource>
 

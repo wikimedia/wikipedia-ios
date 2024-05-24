@@ -84,7 +84,7 @@ final class ArticleSurveyTimerController {
         guard let delegate = delegate,
               state == .loaded,
               !delegate.userHasSeenSurveyPrompt,
-              ((isInExperimentAndAllowedArticleList && didScrollPastLivingDocContentInsertAndStartedTimer) || isInControlAndAllowedArticleList) else {
+              (isInExperimentAndAllowedArticleList && didScrollPastLivingDocContentInsertAndStartedTimer) || isInControlAndAllowedArticleList else {
             return
         }
         
@@ -125,7 +125,7 @@ final class ArticleSurveyTimerController {
         guard let delegate = delegate,
               state == .loaded,
               !delegate.userHasSeenSurveyPrompt,
-              (isInControlAndAllowedArticleList || isInExperimentAndAllowedArticleList) else {
+              isInControlAndAllowedArticleList || isInExperimentAndAllowedArticleList else {
             return
         }
         

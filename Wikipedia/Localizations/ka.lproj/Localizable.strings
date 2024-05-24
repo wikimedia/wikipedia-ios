@@ -34,7 +34,6 @@
 "action-read" = "კითხვა";
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
-"add-citation-title" = "ციტირების ჩასმა";
 "announcements-dismiss" = "უარყოფა";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-languages-label" = "აირჩიეთ ენა";
@@ -144,7 +143,6 @@
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
-"preference-title-eventlogging-opt-in" = "გამოყენების ანგარიშის გაგზავნა";
 "reference-title" = "სქოლიო $1";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
 "saved-title" = "შენახულია";
@@ -165,7 +163,6 @@
 "settings-notifications" = "შეტყობინებები";
 "settings-notifications-system-turn-on" = "შეტყობინებების ჩართვა";
 "settings-primary-language" = "ძირითადი";
-"settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
 // Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
@@ -179,9 +176,7 @@
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
-"wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
-"wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";
 "wikitext-upload-captcha-error" = "CAPTCHA-ს დადასტურების შეცდომა.";
 "wikitext-upload-captcha-needed" = "საჭიროა CAPTCHA-ს დადასტურება.";
 "wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";

@@ -143,7 +143,7 @@
     static dispatch_once_t onceToken;
     static NSRegularExpression *percentNumberRegex;
     dispatch_once(&onceToken, ^{
-        percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[%%])(:?[0-9s])" options:0 error:nil];
+        percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?<!%)(?:[%%])(:?[0-9s])" options:0 error:nil];
     });
     return percentNumberRegex;
 }
@@ -155,6 +155,15 @@
         iOSTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"%([0-9]*)\\$?([@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
     });
     return iOSTokenRegex;
+}
+
++ (NSRegularExpression *)singlePercentRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *singlePercentRegex;
+    dispatch_once(&onceToken, ^{
+        singlePercentRegex = [NSRegularExpression regularExpressionWithPattern:@"(?<!%)%(?![%@d])" options:0 error:nil];
+    });
+    return singlePercentRegex;
 }
 
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory haveNoMatchesWithRegex:(NSRegularExpression *)regex {
@@ -202,6 +211,15 @@
 
 - (void)testIncomingTranslationStringForPercentTokens {
     [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.twnLocalizationsDirectory haveNoMatchesWithRegex:TWNStringsTests.percentNumberRegex];
+}
+
+// Note: This test should fail for any incoming strings that have a single percent sign, but only if it is NOT followed by @ or d.
+// Examples:
+// "100% of my donation" should fail (string needs to be "100%% of my donation" to avoid crash)
+// "Wszystkie karty %@ są ukryte" should pass
+// "Zaviedli sme limit %d článkov na zoznam na prečítanie" should also pass
+- (void)testIncomingTranslationStringForSinglePercentSigns {
+    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.twnLocalizationsDirectory haveNoMatchesWithRegex:TWNStringsTests.singlePercentRegex];
 }
 
 + (NSRegularExpression *)htmlTagRegex {

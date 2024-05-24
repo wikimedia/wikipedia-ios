@@ -1,0 +1,74 @@
+[
+  {
+    "aliases" : [
+      "esentreerd",
+      "gecentreerd",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "umraand",
+      "omkaderd",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "kaoderloos",
+      "kaderloos",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "links",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "gien",
+      "geen",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "rechts",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "duum",
+      "doem",
+      "miniatuur",
+      "mini",
+      "thumbnail",
+      "thumb"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Bestaand"
+    ],
+    "name" : "file_namespace"
+  }
+]

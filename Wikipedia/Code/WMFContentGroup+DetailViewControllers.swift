@@ -1,8 +1,14 @@
 import Foundation
+import Components
 
 extension WMFContentGroup {
-	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
+    
+    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+    }
+	
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
         case .page:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
@@ -20,7 +26,9 @@ extension WMFContentGroup {
             }
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
-            return detailViewControllerWithDataStore(dataStore, theme: theme)
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+        case .suggestedEdits:
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
             return nil
         }
@@ -28,6 +36,10 @@ extension WMFContentGroup {
     
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+    }
+    
+    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> UIViewController? {
         var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
@@ -58,6 +70,8 @@ extension WMFContentGroup {
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
+        case .imageRecommendations:
+            vc = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
             break
         }
@@ -72,3 +86,4 @@ extension WMFContentGroup {
         return vc
     }
 }
+

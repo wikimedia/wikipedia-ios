@@ -1,36 +1,44 @@
 import CocoaLumberjackSwift
+import WKData
 
 extension ArticleViewController {
-    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+    func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?) {
         /// If this is a first section with an existing description, show the dialog box. (This is reported as a `central` or `local` description source.) Otherwise, just show the editor for the section. (A first section without an article description has an `Add article description` button, and thus doesn't need the dialog box.)
-        if let descriptionSource = descriptionSource, (descriptionSource == .central || descriptionSource == .local) {
-            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo)
+        if let descriptionSource = descriptionSource, descriptionSource == .central || descriptionSource == .local {
+            showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource)
         } else {
-            showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
+            showEditorForSection(with: id)
         }
-        EditAttemptFunnel.shared.logInit(articleURL: articleURL)
+        
+        if let project = WikimediaProject(siteURL: articleURL) {
+            EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
+        }
+        
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
+    }
+    
+    func showEditorForFullSource() {
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .articleFullSourceEditor, delegate: self, theme: theme)
+        
+        presentEditor(editorViewController: pageEditorViewController)
+        
+        if let project = WikimediaProject(siteURL: articleURL) {
+            EditInteractionFunnel.shared.logArticleDidTapEditSourceButton(project: project)
+        }
+        
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
-        let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
-        sectionEditVC.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: sectionEditVC, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        let editorViewController: UIViewController
+        let editSummaryTag: WKEditSummaryTag = selectedTextEditInfo == nil ?  .articleSectionSourceEditor : .articleSelectSourceEditor
 
-        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
-        if needsIntro {
-            let editingWelcomeViewController = EditingWelcomeViewController(theme: theme) {
-                self.present(navigationController, animated: true)
-            }
-            editingWelcomeViewController.apply(theme: theme)
-            present(editingWelcomeViewController, animated: true) {
-                UserDefaults.standard.didShowEditingOnboarding = true
-            }
-
-        } else {
-            present(navigationController, animated: true)
-        }
+        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
+        editorViewController = pageEditorViewController
+        
+        presentEditor(editorViewController: editorViewController)
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
@@ -69,23 +77,58 @@ extension ArticleViewController {
         }
     }
     
+    private func presentEditor(editorViewController: UIViewController) {
+        
+        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
+        if needsIntro {
+            let editingWelcomeViewController = EditingWelcomeViewController(theme: theme) {
+                self.present(navigationController, animated: true)
+            }
+            editingWelcomeViewController.apply(theme: theme)
+            present(editingWelcomeViewController, animated: true) {
+                UserDefaults.standard.didShowEditingOnboarding = true
+            }
+
+        } else {
+            present(navigationController, animated: true)
+        }
+    }
+    
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
+
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
             self.showTitleDescriptionEditor(with: descriptionSource)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapEditArticleDescription(project: project)
+            }
         }
         sheet.addAction(editTitleDescriptionAction)
         
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
             self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
+            }
         }
         sheet.addAction(editLeadSectionAction)
         
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapCancel(project: project)
+            }
+
+            EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
+
         })
         present(sheet, animated: true)
     }
@@ -175,28 +218,35 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
     }
 }
 
-extension ArticleViewController: SectionEditorViewControllerDelegate {
-    func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>) {
-        switch result {
-        case .failure(let error):
-            showError(error)
-            EditAttemptFunnel.shared.logSaveFailure(articleURL: self.articleURL)
-        case .success(let changes):
-            dismiss(animated: true)
-            waitForNewContentAndRefresh(changes.newRevisionID)
-            EditAttemptFunnel.shared.logSaveSuccess(articleURL: self.articleURL, revisionId: Int(changes.newRevisionID))
+extension ArticleViewController: PageEditorViewControllerDelegate {
+    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+        dismiss(animated: true) {
+            self.navigate(to: url)
         }
     }
     
-    func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController, navigateToURL url: URL?) {
-        dismiss(animated: true) {
-            self.navigate(to: url)
-            EditAttemptFunnel.shared.logAbort(articleURL: self.articleURL)
+    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+        switch result {
+        case .failure(let error):
+            showError(error)
+        case .success(let changes):
+            dismiss(animated: true) {
+                
+                let title = CommonStrings.editPublishedToastTitle
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                    }
+                } else {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+                }
+                
+            }
+            
+            waitForNewContentAndRefresh(changes.newRevisionID)
         }
-    }
-
-    func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController) {
-        
     }
 }
 
@@ -207,7 +257,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
             guard let self = self else {
                 return
             }
-            
+
             switch injectResult {
             case .failure(let error):
                 DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")

@@ -28,6 +28,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
 let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
+let WMFUserHasOnboardedToWatchlists = "WMFUserHasOnboardedToWatchlists"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
@@ -95,15 +96,6 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: WMFAppInstallId)
-        }
-    }
-
-    @objc var wmf_sendUsageReports: Bool {
-        get {
-            return bool(forKey: WMFSendUsageReports)
-        }
-        set {
-            set(newValue, forKey: WMFSendUsageReports)
         }
     }
 
@@ -432,6 +424,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
     }
 
+    @objc var wmf_userHasOnboardedToWatchlists: Bool {
+        get {
+            return bool(forKey: WMFUserHasOnboardedToWatchlists)
+        }
+        set {
+            set(newValue, forKey: WMFUserHasOnboardedToWatchlists)
+        }
+    }
+
     @objc var wmf_didShowNotificationsCenterPushOptInPanel: Bool {
         get {
             return bool(forKey: WMFDidShowNotificationsCenterPushOptInPanel)
@@ -542,11 +543,4 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: "WMFSessionID")
         }
     }
-
-
-#if UI_TEST
-    @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
-        return bool(forKey: "FASTLANE_SNAPSHOT")
-    }
-#endif
 }

@@ -61,10 +61,6 @@ import CocoaLumberjackSwift
         return EventPlatformClient()
     }()
 
-    @objc public var isEnabled: Bool {
-        return UserDefaults.standard.wmf_sendUsageReports
-    }
-
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
     let storageManager: StorageManager?
@@ -88,7 +84,7 @@ import CocoaLumberjackSwift
     }
     
     public func needsReset() -> Bool {
-        return userSession.needsReset() && isEnabled
+        return userSession.needsReset()
     }
     
     public func resetBackgroundTimestamp() {
@@ -132,6 +128,10 @@ import CocoaLumberjackSwift
         case login = "ios.login_action"
         case navigation = "ios.navigation_events"
         case editAttempt = "eventlogging_EditAttemptStep"
+        case watchlist = "ios.watchlists"
+        case appDonorExperience = "app_donor_experience"
+        case editInteraction = "ios.edit_interaction"
+        case imageRecommendation = "android.image_recommendation_event"
     }
     
     /**
@@ -146,15 +146,18 @@ import CocoaLumberjackSwift
     public enum Schema: String, Codable {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.1.0"
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.1.0"
-        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/1.0.0"
+        case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.0.0"
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.1.0"
         case userHistory = "/analytics/mobile_apps/ios_user_history/1.0.0"
-        case search = "/analytics/mobile_apps/ios_search/2.0.0"
+        case search = "/analytics/mobile_apps/ios_search/2.1.0"
         case sessions = "/analytics/mobile_apps/app_session/1.0.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.0.0"
-        case login = "/analytics/mobile_apps/ios_login_action/1.0.1"
+        case login = "/analytics/mobile_apps/ios_login_action/1.0.2"
         case navigation = "/analytics/mobile_apps/ios_navigation_events/1.0.0"
-        case editAttempt = "/analytics/legacy/editattemptstep/1.4.0"
+        case editAttempt = "/analytics/legacy/editattemptstep/2.0.3"
+        case watchlist = "/analytics/mobile_apps/ios_watchlists/4.0.0"
+        case appInteraction = "/analytics/mobile_apps/app_interaction/1.0.0"
+        case imageRecommendation = "/analytics/mobile_apps/android_image_recommendation_event/1.0.0"
     }
 
     /**
@@ -590,10 +593,6 @@ import CocoaLumberjackSwift
         }
 
         let userDefaults = UserDefaults.standard
-
-        if !userDefaults.wmf_sendUsageReports {
-            return
-        }
 
         guard let appInstallID = userDefaults.wmf_appInstallId else {
             DDLogWarn("EPC: App install ID is unset. This shouldn't happen.")

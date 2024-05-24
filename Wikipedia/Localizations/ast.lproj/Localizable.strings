@@ -3,10 +3,12 @@
 // Author: Enolp
 // Author: Fitoschido
 // Author: Macofe
+// Author: McDutchie
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Tokvo
 // Author: Xuacu
+// Author: YoaR
 
 "aaald-new-book-reference-title" = "Llibru";
 "about-content-license" = "Llicencia del conteníu";
@@ -52,7 +54,7 @@
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a llista de llectura";
 "action-add-to-reading-list-short" = "Amestar a la llista";
-"action-cancel" = "Encaboxar";
+"action-cancel" = "Zarrar";
 "action-find-in-page" = "Alcontrar na páxina";
 "action-language-accessibility" = "Camudar llingua";
 "action-move-to" = "Treslladar a…";
@@ -62,8 +64,6 @@
 "action-read" = "Lleer";
 "action-redo" = "Refacer";
 "action-remove" = "Desaniciar";
-"action-replace" = "Sustituir";
-"action-replace-all" = "Sustituir toos";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
 "action-saved-accessibility" = "Guardao. Activa pa recuperar.";
@@ -77,7 +77,6 @@
 "action-unsaved-accessibility-notification" = "Artículu ensin guardar";
 "action-update" = "Anovar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
-"add-citation-title" = "Amestar una cita";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, información, conocimientu, investigación, esploración, deprendimientu";
 "app-store-release-notes" = "Canal d'esploración completamente configurable y fácil de lleer. Allugamientu, ameyoramientos de rindimientu y correición d'errores.";
@@ -111,7 +110,7 @@
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
 "button-skip" = "Saltar";
-"cancel" = "Encaboxar";
+"cancel" = "Zarrar";
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Llimpiar";
 "close-button-accessibility-label" = "Zarrar";
@@ -120,7 +119,6 @@
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
 "description-add-title" = "Amestar descripción";
 "description-edit-for-article" = "Descripción d'artículu pa $1";
-"description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Editar introducción";
 "description-edit-pencil-title" = "Editar la descripción del artículu";
@@ -154,8 +152,10 @@
 "description-welcome-descriptions-title" = "Descripciones del títulu";
 "description-welcome-promise-title" = "De mano, prometo nun abusar d'esta carauterística";
 "description-welcome-start-editing-button" = "Principiar a editar";
+// Fuzzy
 "diff-compare-header-from-info-heading" = "De:";
 "diff-compare-header-heading" = "Comparar revisiones";
+// Fuzzy
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Amosar";
@@ -185,8 +185,6 @@
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
 "edit-summary-placeholder-text" = "¿Cómo ameyorasti l'artículu?";
-"edit-text-size-table-view-title" = "Tamañu de testu";
-"edit-underline-accessibility-label" = "Amestar sorrayáu";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
@@ -272,7 +270,7 @@
 "field-backup-token-title" = "Códigu de respaldu";
 "field-captcha-placeholder" = "Testu CAPTCHA";
 "field-captcha-title" = "Escribe'l testu que ves arriba";
-"field-email-placeholder" = "exemplu@exemplu.ast";
+"field-email-placeholder" = "exemplu@example.org";
 "field-email-title" = "Corréu electrónicu";
 "field-email-title-optional" = "Corréu electrónicu (opcional)";
 "field-new-password-confirm-placeholder" = "escribe otra vuelta la contraseña nueva";
@@ -293,7 +291,7 @@
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Llimpiar";
-"history-clear-cancel" = "Encaboxar";
+"history-clear-cancel" = "Zarrar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
@@ -328,7 +326,7 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-account-logout-are-you-sure" = "¿Seguro que quies zarrar sesión?";
-"main-menu-account-logout-cancel" = "Encaboxar";
+"main-menu-account-logout-cancel" = "Zarrar";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
 "main-menu-nearby" = "Cercanu";
@@ -337,7 +335,7 @@
 "main-menu-terms-of-use" = "Condiciones d'usu";
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Encaboxar";
+"menu-cancel-accessibility-label" = "Zarrar";
 // Fuzzy
 "more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
 "more-languages-tooltip-title" = "Amestar llingües";
@@ -370,7 +368,7 @@
 "places-accessibility-show-as-list" = "Ver como llista";
 "places-accessibility-show-as-map" = "Ver como mapa";
 "places-accessibility-show-more" = "Ver más artículos";
-"places-empty-search-description" = "Esplorar ciudaes, paises, continentes, monumentos naturales, socesos históricos, edificios y más.";
+"places-empty-search-description" = "Esplorar ciudaes, países, continentes, monumentos naturales, socesos históricos, edificios y más.";
 "places-empty-search-title" = "Buscar artículos de Wikipedia con allugamientos xeográficos";
 "places-enable-location-action-button-title" = "Activar l'allugamientu";
 "places-enable-location-description" = "L'accesu al to allugamientu sólo ta disponible cuando la aplicación o una de les sos carauterístiques se ve na pantalla.";
@@ -399,7 +397,6 @@
 "potd-description-prefix" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "preference-summary-eventlogging-opt-in" = "Permite a la Fundación Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
-"preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "reading-list-add-generic-hint-title" = "¿Amestar esti artículu a una llista de llectura?";
 "reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
@@ -496,7 +493,7 @@
 "search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-reading-list-placeholder-text" = "Guetar na llista de llectura";
-"search-recent-clear-cancel" = "Encaboxar";
+"search-recent-clear-cancel" = "Zarrar";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun puede desfacese!";
 "search-recent-clear-delete-all" = "Desaniciar too";
@@ -508,7 +505,7 @@
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
 "settings-clear-cache-are-you-sure-title" = "¿Borrar los datos de la caché?";
-"settings-clear-cache-cancel" = "Encaboxar";
+"settings-clear-cache-cancel" = "Zarrar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";
@@ -535,7 +532,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Amosar la llista de llectura Guardaos (la predeterminada) coma una llista separada na vista de llistes de llectura. Esta llista apaez nos preseos Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Amosar la llista de llectura Guardaos";
 "settings-storage-and-syncing-title" = "Almacenamientu y sincronización d'artículos";
-"settings-support" = "Sofita Wikimedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Fecho cola app de Wikipedia";
 // Fuzzy
@@ -588,13 +584,7 @@
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
 "welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
-"welcome-send-data-helps-title" = "Ayuda a ameyorar la app";
-"welcome-send-data-learn-more" = "Saber más sobre los datos collechaos";
-"welcome-send-data-sub-title" = "Ayuda a ameyorar esta app permitiendo a la Fundación Wikimedia saber cómo la uses. Los datos collechaos son anónimos.";
-"welcome-volunteer-send-usage-reports" = "Unviar informes d'usu";
-"wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
-"wikitext-preview-changes-none" = "Nun se ficieron cambios pa una vista previa.";
 "wikitext-preview-link-preview-description" = "Esti enllaz lleva a '$1'";
 "wikitext-preview-link-preview-title" = "Vista previa del enllaz";
 "wikitext-upload-captcha-error" = "Error na comprobación CAPTCHA.";

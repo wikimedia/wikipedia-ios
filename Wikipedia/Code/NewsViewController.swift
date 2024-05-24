@@ -72,12 +72,6 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
     }
-    
-    // MARK: ArticlePreviewingDelegate
-    
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
-    }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()

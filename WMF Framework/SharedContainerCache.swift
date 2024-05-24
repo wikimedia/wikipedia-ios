@@ -10,12 +10,10 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
     private let fileName: String
     private let subdirectoryPathComponent: String?
-    private let defaultCache: () -> T
     
-    public init(fileName: String, subdirectoryPathComponent: String? = nil, defaultCache: @escaping () -> T) {
+    public init(fileName: String, subdirectoryPathComponent: String? = nil) {
         self.fileName = fileName
         self.subdirectoryPathComponent = subdirectoryPathComponent
-        self.defaultCache = defaultCache
     }
     
     private static var cacheDirectoryContainerURL: URL {
@@ -34,11 +32,11 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         return Self.cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
     }
 
-    public func loadCache() -> T {
+    public func loadCache() -> T? {
         if let data = try? Data(contentsOf: cacheDataFileURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
             return decodedCache
         }
-        return defaultCache()
+        return nil
     }
 
     public func saveCache(_ cache: T) {
@@ -56,13 +54,13 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
     }
 
     /// Persist only the last 50 visited talk pages
-    @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String) {
+    @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel) {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent)
 
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: folderURL,
                                                                        includingPropertiesForKeys: [.contentModificationDateKey],
                                                                        options: .skipsHiddenFiles) {
-            let maxCacheSize = 50
+            let maxCacheSize = cleanupLevel == .high ? 0 : 50
             if urlArray.count > maxCacheSize {
                 let sortedArray =  urlArray.map { url in
                     (url, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
@@ -80,13 +78,13 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 }
 
 @objc public protocol SharedContainerCacheHousekeepingProtocol: AnyObject {
-    static func deleteStaleCachedItems(in subdirectoryPathComponent: String)
+    static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel)
 }
 
 @objc public class SharedContainerCacheClearFeaturedArticleWrapper: NSObject {
     @objc public static func clearOutFeaturedArticleWidgetCache() {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
-        var updatedCache = sharedCache.loadCache()
+        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        var updatedCache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)
     }

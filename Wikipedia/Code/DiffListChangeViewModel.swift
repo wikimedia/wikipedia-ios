@@ -149,21 +149,11 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     }
     
     private static func calculateBorderColor(type: DiffListChangeType, theme: Theme) -> UIColor {
-        switch type {
-        case .compareRevision:
-            return theme.colors.diffCompareAccent
-        case .singleRevison:
-            return theme.colors.paperBackground
-        }
+        return theme.colors.paperBackground
     }
     
     private static func calculateHeadingColor(type: DiffListChangeType, theme: Theme) -> UIColor {
-        switch type {
-        case .compareRevision:
-            return theme.colors.diffCompareChangeHeading
-        case .singleRevison:
-            return theme.colors.secondaryText
-        }
+        return theme.colors.diffCompareChangeHeading
     }
     
     private static func calculateStackViewPadding(type: DiffListChangeType, items: [DiffListChangeItemViewModel]) -> NSDirectionalEdgeInsets {
@@ -193,7 +183,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
     private static func calculateHeadingPadding(type: DiffListChangeType) -> NSDirectionalEdgeInsets {
         switch type {
         case .compareRevision:
-            return NSDirectionalEdgeInsets(top: 10, leading: 7, bottom: 10, trailing: 7)
+            return NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
         case .singleRevison:
             return NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0)
         }
@@ -205,7 +195,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             return nil
         }
         
-        let font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         let attributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: headingColor

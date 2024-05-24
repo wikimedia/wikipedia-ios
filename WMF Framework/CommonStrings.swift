@@ -46,6 +46,12 @@ public class CommonStrings: NSObject {
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
+    public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
+    
+    public static let wikimediaProjectsFooter = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-footer", value: "Only projects you have created an account for will appear here", comment: "Footer of the \"Wikimedia Projects\" section on filter adjustment views. This section only lists projects that user has an account at.")
+    
+    public static let wikipediasHeader = WMFLocalizedString("notifications-center-inbox-wikipedias-section-title", value: "Wikipedias", comment: "Title of the \"Wikipedias\" section on filter adjustment views. This section allows the user to remove certain Wikipedia language projects from displaying in their lists.")
+    
     @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
     @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
     public static let notificationsCenterMarkAsRead = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
@@ -114,7 +120,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let dismissButtonTitle = WMFLocalizedString("announcements-dismiss", value: "Dismiss", comment: "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}")
 
-    @objc public static let textSizeSliderAccessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider that adjusts article text size.")
+    @objc public static let textSizeSliderAccessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider that adjusts text size.")
 
     @objc public static let deleteActionTitle = WMFLocalizedString("article-delete", value: "Delete", comment: "Title of the action that deletes the selected articles article.")
 
@@ -135,7 +141,12 @@ public class CommonStrings: NSObject {
     @objc public static let updateActionTitle = WMFLocalizedString("action-update", value: "Update", comment: "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
+    
+    // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
+    
+    @objc public static let discardEditActionTitle = WMFLocalizedString("action-discard-edit", value: "Discard Edit", comment: "Title of the discard edit action button.")
+    @objc public static let keepEditingActionTitle = WMFLocalizedString("action-keep-editing", value: "Keep Editing", comment: "Title of the keep editing action button.")
 
     @objc public static let sortActionTitle = WMFLocalizedString("action-sort", value: "Sort", comment: "Title of the sort action.")
 
@@ -144,6 +155,9 @@ public class CommonStrings: NSObject {
     @objc public static let nextTitle = WMFLocalizedString("button-next", value: "Next", comment: "Button text for next button used in various places. {{Identical|Next}}")
     @objc public static let skipTitle = WMFLocalizedString("button-skip", value: "Skip", comment: "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedString("button-ok", value: "OK", comment: "Button text for ok button used in various places {{Identical|OK}}")
+    @objc public static let userTitle = WMFLocalizedString("user-title", value: "User", comment: "Text that refers to a user in the app")
+
+
     @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
     public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
     public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
@@ -158,7 +172,11 @@ public class CommonStrings: NSObject {
     @objc public static let gotItButtonTitle = WMFLocalizedString("welcome-explore-tell-me-more-done-button", value: "Got it", comment:"Text for button dismissing detailed explanation of new features")
     public static let getStartedTitle = WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens {{Identical|Get started}}")
 
-    @objc public static let privacyPolicyURLString = "https://foundation.m.wikimedia.org/wiki/Privacy_policy"
+    @objc public static let privacyPolicyTitle = WMFLocalizedString("privacy-policy-title", value: "Privacy policy", comment: "Title for the privacy Policy")
+    @objc public static let termsOfUseTitle = WMFLocalizedString("terms-of-use-title", value: "Terms of use", comment: "Title for the terms of use")
+
+    @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
+    @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
 
@@ -214,11 +232,12 @@ public class CommonStrings: NSObject {
 
     @objc public static let noInternetConnection = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
     
+    public static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
+    
     @objc public static let noEmailClient = WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device")
     
     @objc public static let vanishAccount = WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished ")
     @objc public static var usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
-    @objc public static let learnMoreButtonText = WMFLocalizedString("vanish-account-learn-more-text", value: "Learn more", comment: "Text for button on vanish account request screen that redirects to the meta page about the process")
 
     // REMINDER: do not delete the app store strings below. We're not using them anywhere within the app itself but we need them to remain so they get upstreamed into TWN. ("localizations.swift copies the non-EN translations of these strings into respective Fastlane "Localized Metadata" files. See: https://docs.fastlane.tools/actions/deliver/)
     @objc public static let appStoreSubtitle = WMFLocalizedString("app-store-subtitle", value: "The free encyclopedia", comment: "Subtitle describing the app for the app store")
@@ -267,13 +286,104 @@ public class CommonStrings: NSObject {
     }
     @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for reply button. The %@ will be replaced with the name of the user whose comment is being responded")
 
-    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for option that leads to talk pages revision history. Please prioritize for de, ar and zh wikis.")
+    public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to page revision history.")
+    
+    public static let articleRevisionHistory = WMFLocalizedString("article-revision-history", value: "Article revision history", comment: "Title for menu option that leads to article revision history.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
+
+    public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
+
+    public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+
+    public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
+    
+    public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
+    
+    public static let unwatch = WMFLocalizedString("unwatch", value: "Unwatch", comment: "Title for unwatch toolbar button.")
+
+    public static let rollback = WMFLocalizedString("diff-rollback", value: "Rollback", comment: "Title for rollback toolbar button.")
+    
+    public static let articleTalkPage = WMFLocalizedString("article-talk-page", value: "Article talk page", comment: "Title for article talk page button")
+
+    public static let userButtonPage = WMFLocalizedString("watchlist-user-button-user-page", value: "User page", comment: "Title shown for user page action in user menu button in diff and watchlist views.")
+
+    public static let userButtonTalkPage = WMFLocalizedString("watchlist-user-button-user-talk-page", value: "User talk page", comment: "Title shown for user talk page action in user menu button in diff and watchlist views.")
+
+    public static let userButtonContributions = WMFLocalizedString("watchlist-user-button-user-contributions", value: "User contributions", comment: "Title shown for user contributions action in user menu button in diff and watchlist views.")
+
+    public static let userButtonThank = WMFLocalizedString("watchlist-user-button-thank", value: "Thank", comment: "Title shown for thank action in user menu button in watchlist view.")
+
+    public static let thanksMessage = WMFLocalizedString("diff-thanks-sent", value: "Your 'Thanks' was sent to %1$@", comment: "Message indicating thanks was sent. Parameters:\n* %1$@ - name of user who was thanked")
+
+    public static let editSummaryTitle =  WMFLocalizedString("watchlist-edit-summary-accessibility", value: "Edit summary", comment: "Text for edit summary acessibility text")
+
+    public static let filterOptionsAll = WMFLocalizedString("filter-options-all", value:  "All", comment: "Common option on filter adjustment views to allow All types in the associated section.")
+    public static let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
+
+    public static let watchlistFilterLatestRevisionsHeader =  WMFLocalizedString("watchlist-filter-latest-revisions-header", value:  "Latest Revisions", comment: "Header of watchlist filter adjustment view \"Latest Revisions\" section.")
+    
+    public static let watchlistFilterLatestRevisionsOptionLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-latest-revision", value:  "Latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option only displays the latest revision of a page in the user's watchlist.")
+    
+    public static let watchlistFilterLatestRevisionsOptionNotTheLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-not-latest-revision", value: "Not the latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option displays multiple revisions of the same page in the user's watchlist.")
+    
+    public static let watchlistFilterActivityHeader = WMFLocalizedString("watchlist-filter-activity-header", value:  "Watchlist Activity", comment: "Header of watchlist filter adjustment view \"Watchlist Activity\" section.")
+    
+    public static let watchlistFilterActivityOptionUnseenChanges = WMFLocalizedString("watchlist-filter-activity-options-unseen-changes", value: "Unseen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays unseen revisions in the user's watchlist.")
+    
+    public static let watchlistFilterActivityOptionSeenChanges = WMFLocalizedString("watchlist-filter-activity-options-seen-changes", value: "Seen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays seen revisions in the user's watchlist.")
+    
+    public static let watchlistFilterAutomatedContributionsHeader = WMFLocalizedString("watchlist-filter-automated-contributions-header", value:  "Automated Contributions", comment: "Header of watchlist filter adjustment view \"Automated Contributions\" section.")
+    
+    public static let watchlistFilterAutomatedContributionsOptionBot = WMFLocalizedString("watchlist-filter-automated-contributions-options-bot", value: "Bot", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by bots in the user's watchlist.")
+    
+    public static let watchlistFilterAutomatedContributionsOptionHuman = WMFLocalizedString("watchlist-filter-automated-contributions-options-human", value: "Human (not bot)", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by humans in the user's watchlist.")
+    
+    public static let watchlistFilterSignificanceHeader = WMFLocalizedString("watchlist-filter-significance-header", value:  "Significance", comment: "Header of watchlist filter adjustment view \"Significance\" section.")
+    
+    public static let watchlistFilterSignificanceOptionMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-minor-edits", value: "Minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays minor edits in the user's watchlist.")
+    
+    public static let watchlistFilterSignificanceOptionNonMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-non-minor-edits", value: "Non-minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays non-minor edits in the user's watchlist.")
+    
+    public static let watchlistFilterUserRegistrationHeader = WMFLocalizedString("watchlist-filter-user-registration-header", value:  "User registration and experience", comment: "Header of watchlist filter adjustment view \"User Registration and Experience\" section.")
+    
+    public static let watchlistFilterUserRegistrationOptionUnregistered = WMFLocalizedString("watchlist-filter-user-registration-options-unregistered", value: "Unregistered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays unregistered/anonymous edits in the user's watchlist.")
+    
+    public static let watchlistFilterUserRegistrationOptionRegistered = WMFLocalizedString("watchlist-filter-user-registration-options-registered", value: "Registered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays registered/non-anonymous edits in the user's watchlist.")
+    
+    public static let watchlistFilterTypeOfChangeHeader = WMFLocalizedString("watchlist-filter-type-of-change-header", value:  "Type of change", comment: "Header of watchlist filter adjustment view \"Type of Change\" section.")
+    
+    public static let watchlistFilterTypeOfChangeOptionPageEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-page-edits", value: "Page edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page edits in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionPageCreations = WMFLocalizedString("watchlist-filter-type-of-change-options-page-creations", value: "Page creations", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page creations in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionCategoryChanges = WMFLocalizedString("watchlist-filter-type-of-change-options-category-changes", value: "Category changes", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes category changes in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionWikidataEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-wikidata-edits", value: "Wikidata edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes wikidata edits in the user's watchlist.")
+    public static let watchlistFilterTypeOfChangeOptionLoggedActions = WMFLocalizedString("watchlist-filter-type-of-change-options-logged-actions", value: "Logged actions", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes logged actions in the user's watchlist.")
+
+    public static let watchlistFilterAddLanguageButtonTitle = WMFLocalizedString("watchlist-filters-add-language", value:"Add language...", comment: "Title for button in watchlist filter view to add additional languages to watchlist view.")
+
+    public static let watchlistEmptyViewTitle = WMFLocalizedString("watchlist-empty-view-title", value: "Articles you added to the Watchlist appear here", comment: "Title for empty watchlist view")
+
+    public static let watchlistEmptyViewSubtitle = WMFLocalizedString("watchlist-empty-view-subtitle", value: "Keep track of what's happening to articles you are interested in. Tap the menu in the article and select “Watch” to see changes to an article.", comment: "Subtitle for empty watchlist view")
+
+    public static let watchlistEmptyViewButtonTitle = WMFLocalizedString("watchlist-empty-view-button-title", value: "Search articles", comment: "Title for empty watchlist view button that redirects user to search articles")
+
+    public static let watchlistEmptyViewFilterTitle = WMFLocalizedString("watchlist-empty-view-filter-title", value: "You have no Watchlist items", comment: "Title for empty watchlist view when filters are active")
+
+    public static let watchlistGoToDiff = WMFLocalizedString("watchlist-diff-action-button-title", value: "Go to diff", comment: "Title for watchlist menu button item for go to diff action")
+
+    public static let diffFromHeading = WMFLocalizedString("diff-compare-header-from-info-heading", value: "Previous Edit", comment: "Heading label in info box for previous revision when comparing two revisions.")
+
+    public static let diffToHeading = WMFLocalizedString("diff-compare-header-to-info-heading", value: "Displayed Edit", comment: "Heading label in info box for current revision when comparing two revisions.")
+
+    public static let diffArticleEditHistory = WMFLocalizedString("diff-article-revision-history", value: "Article revision history", comment: "Label for article edit history menu item in diff more menu.")
 
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
 
     public static let diffMultiLineFormat = WMFLocalizedString("diff-multi-line-format", value:"Lines %1$d - %2$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for multiple change lines. %1$d is replaced by the starting line number and %2$d is replaced by the ending line number.")
+    
+    public static let diffUndoSuccess = WMFLocalizedString("diff-undo-success", value:"The revision was undone.", comment:"Success message shown to user when they successfully undid an edit.")
+    
+    public static let diffRollbackSuccess = WMFLocalizedString("diff-rollback-success", value:"Edits reverted.", comment:"Success message shown to user when they successfully rolled back an edit.")
 
     public static let compareTitle = WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items")
     public static let maxRevisionsSelectedWarningTitle = WMFLocalizedString("page-history-revisions-comparison-warning", value: "Only two revisions can be selected", comment: "Text telling the user how many revisions can be selected for comparison")
@@ -298,6 +408,31 @@ public class CommonStrings: NSObject {
     public static let revisionMadeFormat = WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time")
 
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
+
+    public static let watchlistOnboardingTitle = WMFLocalizedString("watchlist-onboarding-title", value: "Introducing your Watchlist", comment: "Watchlists onboarding modal title")
+
+    public static let watchlistTrackChangesTitle = WMFLocalizedString("watchlist-track-title", value: "Track changes", comment: "Watchlists onboarding modal track changes section title")
+
+    public static let watchlistTrackChangesSubtitle = WMFLocalizedString("watchlist-track-subtitle", value: "The Watchlist is a tool that lets you keep track of changes made to pages or articles you're interested in.", comment: "Watchlists onboarding modal track changes section subtitle")
+
+    public static let watchlistWatchChangesTitle = WMFLocalizedString("watchlist-watch-title", value: "Watch articles", comment: "Watchlists onboarding modal watch articles section title")
+
+    public static let watchlistWatchChangesSubitle = WMFLocalizedString("watchlist-watch-subtitle", value: "By tapping the star or \"Watch\" action in the bottom toolbar of an article, you can add that page to your Watchlist.", comment: "Watchlists onboarding modal watch articles section subtitle")
+
+    public static let watchlistSetExpirationTitle = WMFLocalizedString("watchlist-expiration-title", value: "Set expiration", comment: "Watchlists onboarding modal set expiration section title")
+
+    public static let watchlistSetExpirationSubtitle = WMFLocalizedString("watchlist-expiration-subtitle", value: "Pages remain by default, but options exist for temporary watching ranging from one week to one year.", comment: "Watchlists onboarding modal set expiration section subtitle")
+
+    public static let watchlistViewUpdatesTitle = WMFLocalizedString("watchlist-updates-title", value: "View updates", comment: "Watchlists onboarding modal view updates section title")
+
+    public static let watchlistViewUpdatesSubitle = WMFLocalizedString("watchlist-updates-subtitle", value: "The Watchlist of the pages you've added, like edits or discussions, can be accessed via Settings → Account.", comment: "Watchlists onboarding modal view updates section subtitle")
+
+    public static let watchlistOnboardingLearnMore = WMFLocalizedString("watchlist-onboarding-button-title", value: "Learn more about the Watchlist", comment: "Watchlists onboarding modal learn more button title")
+
+    public static let continueButton = WMFLocalizedString("continue-button-title", value: "Continue", comment: "Continue button title")
+
+    public static let donateThankTitle = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
+    public static let donateThankSubtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
 
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
@@ -392,12 +527,135 @@ public class CommonStrings: NSObject {
 
     public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
     
+    // TODO: Delete this when we remove web editor code
     public static let editorExitConfirmationTitle = WMFLocalizedString("editor-exit-confirmation-title", value: "Dismiss the editing mode?", comment: "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
     public static let editorExitConfirmationBody =  WMFLocalizedString("editor-exit-confirmation-body", value: "Are you sure you want to leave editing mode without publishing first?", comment: "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
     
+    public static let editorExitConfirmationMessage =  WMFLocalizedString("editor-exit-confirmation-message", value: "Are you sure you want to discard this edit?", comment: "Message text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
+    
     public static let talkPageCloseConfirmationKeepEditing = WMFLocalizedString("talk-pages-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.")
-}
+    
+    public static let findReplaceHeader = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+    
+    public static let emptyEditSummary = WMFLocalizedString("empty-edit-summary", value: "Empty edit summary", comment: "Label when looking at a particular article revision. Indicates that the user did not add a summary.")
 
+    // Native page editor
+
+    public static let editorKeyboardTextFormattingTitle = WMFLocalizedString("editor-keyboard-text-formatting-title", value: "Text Formatting", comment: "Title of text formatting keyboard view on the editor.")
+    
+    public static let editorKeyboardParagraphButton = WMFLocalizedString("editor-keyboard-paragraph-button", value: "Paragraph", comment: "Paragraph button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardHeadingButton = WMFLocalizedString("editor-keyboard-heading-button", value: "Heading", comment: "Heading button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading1Button = WMFLocalizedString("editor-keyboard-subheading1-button", value: "Subheading 1", comment: "Subheading1 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading2Button = WMFLocalizedString("editor-keyboard-subheading2-button", value: "Subheading 2", comment: "Subheading2 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading3Button = WMFLocalizedString("editor-keyboard-subheading3-button", value: "Subheading 3", comment: "Subheading3 button label in the text formatting keyboard view on the editor.")
+    public static let editorKeyboardSubheading4Button = WMFLocalizedString("editor-keyboard-subheading4-button", value: "Subheading 4", comment: "Subheading4 button label in the text formatting keyboard view on the editor.")
+    
+    public static let editorReplaceTypeSingle = WMFLocalizedString("editor-replace-type-single", value: "Replace", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces a single instance of the find text.")
+    public static let editorReplaceTypeAll = WMFLocalizedString("editor-replace-type-all", value: "Replace all", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces all instances of the find text.")
+    public static let editorReplaceTextfieldPlaceholder = WMFLocalizedString("editor-replace-textfield-placeholder", value: "Replace with...", comment: "Placeholder label displayed when the replace textfield in the editor's find and replace view is empty.")
+    
+    public static let editorFailToScrollToArticleSelectedTextTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
+    public static let editorFailToScrollToArticleSelectedTextBody = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
+    
+    public static let editorToolbarButtonOpenTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-toolbar-open-text-format-menu-accessibility", value: "Open text formatting menu", comment: "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.")
+    
+    public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference text formatting", comment: "Accessibility label for reference toolbar button on the editor.")
+    public static let editorKeyboardButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-keyboard-reference-accessibility", value: "Reference", comment: "Accessibility label for reference keyboard button on the editor.")
+    
+    public static let editorToolbarButtonLinkAccessiblityLabel = WMFLocalizedString("editor-toolbar-link-accessibility", value: "Link text formatting", comment: "Accessibility label for link toolbar button on the editor.")
+    public static let editorKeyboardButtonLinkAccessiblityLabel = WMFLocalizedString("editor-keyboard-link-accessibility", value: "Link", comment: "Accessibility label for link keyboard button on the editor.")
+    
+    public static let editorToolbarButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-toolbar-template-accessibility", value: "Template text formatting", comment: "Accessibility label for template toolbar button on the editor.")
+    public static let editorKeyboardButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-keyboard-template-accessibility", value: "Template", comment: "Accessibility label for template keyboard button on the editor.")
+
+    public static let editorToolbarButtonImageAccessiblityLabel = WMFLocalizedString("editor-toolbar-image-accessibility", value: "Image text formatting", comment: "Accessibility label for image toolbar button on the editor.")
+
+    public static let editorToolbarButtonFindAccessiblityLabel = WMFLocalizedString("editor-toolbar-find-accessibility", value: "Find in page", comment: "Accessibility label for find toolbar button on the editor. This button opens the find in page view.")
+    
+    public static let editorToolbarShowMoreOptionsButtonAccessiblityLabel = WMFLocalizedString("editor-toolbar-show-more-accessibility", value: "Show more formatting options", comment: "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.")
+    
+    public static let editorToolbarButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-unordered-accessibility", value: "Unordered list text formatting", comment: "Accessibility label for unordered list toolbar button on the editor.")
+    public static let editorKeyboardButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-unordered-accessibility", value: "Unordered list", comment: "Accessibility label for unordered list keyboard button on the editor.")
+    
+    public static let editorToolbarButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-ordered-accessibility", value: "Ordered list text formatting", comment: "Accessibility label for ordered list toolbar button on the editor.")
+    public static let editorKeyboardButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-ordered-accessibility", value: "Ordered list", comment: "Accessibility label for ordered list keyboard button on the editor.")
+    
+    public static let editorToolbarButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-increase-accessibility", value: "Increase indent text formatting", comment: "Accessibility label for increase indent toolbar button on the editor.")
+    public static let editorKeyboardButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-increase-accessibility", value: "Increase indent", comment: "Accessibility label for increase indent keyboard button on the editor.")
+    
+    public static let editorToolbarButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-decrease-accessibility", value: "Decrease indent text formatting", comment: "Accessibility label for decrease indent toolbar button on the editor.")
+    public static let editorKeyboardButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-decrease-accessibility", value: "Decrease indent", comment: "Accessibility label for decrease indent keyboard button on the editor.")
+    
+    public static let editorToolbarButtonCursorUpAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-up-accessibility", value: "Move cursor up to previous line.", comment: "Accessibility label for move cursor up button on the editor. This button moves the cursor up to the previous line.")
+    public static let editorToolbarButtonCursorDownAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-down-accessibility", value: "Move cursor down to next line.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor down to the next line.")
+    public static let editorToolbarButtonCursorPreviousAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-previous-accessibility", value: "Move cursor to previous character.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor to the previous character.")
+    public static let editorToolbarButtonCursorNextAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-next-accessibility", value: "Move cursor to next character.", comment: "Accessibility label for move cursor next button on the editor. This button moves the cursor to the next character.")
+    
+    public static let editorToolbarButtonBoldAccessiblityLabel = WMFLocalizedString("editor-toolbar-bold-accessibility", value: "Bold text formatting", comment: "Accessibility label for bold toolbar button on the editor.")
+    public static let editorKeyboardButtonBoldAccessiblityLabel = WMFLocalizedString("editor-keyboard-bold-accessibility", value: "Bold", comment: "Accessibility label for bold keyboard button on the editor.")
+
+    public static let editorToolbarButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-toolbar-italics-accessibility", value: "Italics text formatting", comment: "Accessibility label for italics toolbar button on the editor.")
+    public static let editorKeyboardButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-keyboard-italics-accessibility", value: "Italics", comment: "Accessibility label for italics keyboard button on the editor.")
+ 
+    public static let editorKeyboardButtonCommentAccessiblityLabel = WMFLocalizedString("editor-keyboard-comment-accessibility", value: "Comment", comment: "Accessibility label for comment keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonSuperscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-superscript-accessibility", value: "Superscript", comment: "Accessibility label for superscript keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonSubscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-subscript-accessibility", value: "Subscript", comment: "Accessibility label for subscript keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonUnderlineAccessiblityLabel = WMFLocalizedString("editor-keyboard-underline-accessibility", value: "Underline", comment: "Accessibility label for underline keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonStrikethroughAccessiblityLabel = WMFLocalizedString("editor-keyboard-strikethrough-accessibility", value: "Strikethrough", comment: "Accessibility label for strikethrough keyboard button on the editor.")
+    
+    public static let editorKeyboardButtonCloseTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-keyboard-close-text-format-menu-accessibility", value: "Close text formatting menu", comment: "Accessibility label for close keyboard button on the editor. This button closes the keyboard text formatting menu.")
+    
+    public static let editorWikitextTextViewAccessibility = WMFLocalizedString("editor-wikitext-textview-accessibility", value: "Wiki text editor", comment: "Accessibility label for the wikitext editor textview.")
+    public static let editorWikitextLoadingAccessibility = WMFLocalizedString("editor-wikitext-loading-accessibility", value: "Loading editor text", comment: "Accessibility announcement when the editor textview is activated. This will be spoken with VoiceOver if loading takes a while.")
+    public static let editorFindTextFieldAccessibilityLabel = WMFLocalizedString("editor-find-textfield-accessibility", value: "Find", comment: "Accessibility label for the find textfield on the editor")
+    public static let editorFindClearButtonAccessibilityLabel = WMFLocalizedString("editor-find-clear-button-accessibility", value: "Clear find", comment: "Accessibility label for the clear find button on the editor. This button clears the text in the find textfield.")
+    public static let editorFindCurrentMatchInfoFormatAccessibilityLabel = WMFLocalizedString("editor-find-current-match-info-accessibility", value: "%1$@ total matches found. Highlighted match number %2$@", comment: "Accessibility text for the match results informational label. %1$@ is replaced by the total number of matches found. %2$@ is replaced by which number match is currently highlighted.")
+    public static let editorFindCurrentMatchInfoZeroResultsAccessibilityLabel = WMFLocalizedString("editor-find-current-match-info-zero-results-accessibility", value: "No matches found", comment: "Accessibility text for zero match results informational label.")
+    public static let editorFindCloseButtonAccessibilityLabel = WMFLocalizedString("editor-find-close-button-accessibility", value: "Close find", comment: "Accessibility label for the close find button on the editor. This button clears out find results and closes the find in page view.")
+    public static let editorFindNextButtonAccessibilityLabel = WMFLocalizedString("editor-find-next-button-accessibility", value: "Next find result", comment: "Accessibility label for the find next result on the editor. This button highlights the next find result in the editor text.")
+    public static let editorFindPreviousButtonAccessibilityLabel = WMFLocalizedString("editor-find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the find previous result on the editor. This button highlights the previous find result in the editor text.")
+    public static let editorReplaceTextFieldAccessibilityLabel = WMFLocalizedString("editor-replace-textfield-accessibility", value: "Replace", comment: "Accessibility label for the replace textfield on the editor")
+    public static let editorReplaceClearButtonAccessibilityLabel = WMFLocalizedString("editor-replace-clear-button-accessibility", value: "Clear replace", comment: "Accessibility label for the clear replace button on the editor. This button clears the text in the replace textfield.")
+    
+    public static let editorReplaceButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-button-format-accessibility", value: "Perform replace operation. Replace type is set to %1$@.", comment: "Accessibility label for the replace button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
+    
+    public static let editorReplaceTypeButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-type-button-accessibility", value: "Switch replace type. Currently set to %1$@. Select to change.", comment: "Accessibility label for the replace type button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
+
+    public static let editorReplaceTypeSingleAccessibility = WMFLocalizedString("editor-replace-type-single-accessibility", value: "Replace single instance", comment: "Accessibility text for the replace single instance type on the editor.")
+    public static let editorReplaceTypeAllAccessibility = WMFLocalizedString("editor-replace-type-all-accessibility", value: "Replace all instances", comment: "Accessibility text for the replace all instances type on the editor.")
+    
+    public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
+    
+    public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
+    
+    public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
+    
+    @objc public static let suggestedEditsTitle = WMFLocalizedString("suggested-edits-title", value: "Suggested Edits", comment: "Title for the 'Suggested Edits' explore feed card")
+
+    // Image recommendations
+
+    public static let tryNowTitle = WMFLocalizedString("try-now-title", value: "Try now", comment: "Title of action button. Tapping takes user to a particular feature.")
+    public static let addImageTitle = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
+    public static let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
+    public static let bottomSheetTitle =  WMFLocalizedString("image-rec-add-image-title", value: "Add this image?", comment: "title for the add image suggestion view")
+    public static let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
+    public static let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
+    public static let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
+   
+    public static func learnMoreTitle(languageCode: String? = nil) -> String {
+        WMFLocalizedString("learn-more-title", languageCode: languageCode, value: "Learn more", comment: "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.")
+    }
+    
+    public static let tutorialTitle = WMFLocalizedString("tutorial-title", value: "Tutorial", comment: "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.")
+    
+    public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
+
+
+}
 // Language variant strings
 public extension CommonStrings {
 
@@ -467,4 +725,7 @@ public extension CommonStrings {
 
 	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
 
+    static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
+
+    static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
 }

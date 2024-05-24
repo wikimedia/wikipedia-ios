@@ -135,7 +135,8 @@ public class ActionsView: SizeThatFitsView, Themeable {
             let button = UIButton(type: .custom)
             button.setImage(action.icon, for: .normal)
             button.titleLabel?.numberOfLines = 1
-            button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+            var deprecatedButton = button as DeprecatedButton
+            deprecatedButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
             button.tag = index
             switch action.type {
             case .delete:

@@ -1,0 +1,61 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "watchlist": [
+      {
+        "type": "edit",
+        "ns": 6,
+        "title": "File:Cat November 2010-1a.jpg",
+        "pageid": 12127693,
+        "revid": 788965394,
+        "old_revid": 783793577,
+        "user": "YukiKoKo",
+        "anon": false,
+        "bot": false,
+        "new": false,
+        "minor": true,
+        "oldlen": 9142,
+        "newlen": 9148,
+        "timestamp": "2023-08-01T10:35:20Z",
+        "comment": "Moving from [[Category:Mackerel tabby cats]] to [[Category:Brown mackerel tabby cats]]",
+        "parsedcomment": "Moving from <a href=\"/wiki/Category:Mackerel_tabby_cats\" title=\"Category:Mackerel tabby cats\">Category:Mackerel tabby cats</a> to <a href=\"/wiki/Category:Brown_mackerel_tabby_cats\" title=\"Category:Brown mackerel tabby cats\">Category:Brown mackerel tabby cats</a>"
+      },
+      {
+        "type": "edit",
+        "ns": 6,
+        "title": "File:Cat November 2010-1a.jpg",
+        "pageid": 12127693,
+        "revid": 783793577,
+        "old_revid": 779606423,
+        "user": "باسم",
+        "anon": false,
+        "bot": false,
+        "new": false,
+        "minor": false,
+        "oldlen": 9128,
+        "newlen": 9142,
+        "timestamp": "2023-07-16T15:23:49Z",
+        "comment": "",
+        "parsedcomment": ""
+      },
+      {
+        "type": "edit",
+        "ns": 6,
+        "title": "File:The Earth seen from Apollo 17.jpg",
+        "pageid": 43894484,
+        "revid": 780713726,
+        "old_revid": 780625411,
+        "user": "Till.niermann",
+        "anon": false,
+        "bot": false,
+        "new": false,
+        "minor": true,
+        "oldlen": 18739,
+        "newlen": 18689,
+        "timestamp": "2023-07-06T06:52:22Z",
+        "comment": "removed [[Category:Photos of Earth by Apollo spacecraft]]",
+        "parsedcomment": "removed <a href=\"/wiki/Category:Photos_of_Earth_by_Apollo_spacecraft\" title=\"Category:Photos of Earth by Apollo spacecraft\">Category:Photos of Earth by Apollo spacecraft</a>"
+      }
+    ]
+  }
+}

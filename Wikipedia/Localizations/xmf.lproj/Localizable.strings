@@ -12,6 +12,10 @@
 // Fuzzy
 "article-languages-filter-placeholder" = "ნინაშ ფილტრი";
 "article-languages-label" = "გეგშაგორით ნინა";
+// Fuzzy
+"diff-compare-header-from-info-heading" = "მაჯღონალი:";
+// Fuzzy
+"diff-compare-header-to-info-heading" = "ადრესატი";
 "edit-summary-choice-linked-words" = "გეძინელი რსხუეფი";
 "empty-no-other-article-languages-message" = "თე სტატია დიო ვა რე ჭარილი შხვა ნინაშა";
 "empty-no-other-article-languages-title" = "შხვა ნინეფი ვა რე ხემიოჭირინაფუს";
@@ -42,6 +46,7 @@
 "main-menu-terms-of-use" = "გჷმორინაფაშ წესეფი";
 "main-menu-title" = "ხოლო";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"more-menu" = "უმოსი";
 "navbar-title-mode-edit-wikitext-preview" = "გიწოთოლორაფა";
 "saved-title" = "ჩუალირი";
 "search-field-placeholder-text" = "გორუა ვიკიპედიას";
@@ -53,9 +58,8 @@
 "search-title" = "გორუა";
 "settings-title" = "პარამეტრეფი";
 "talk-pages-topic-reply-onboarding-title" = "სხუნუაშ ხასჷლეფი";
-"wikitext-downloading" = "იხარგუაფუ კონტენტი...";
+"watchlist" = "კონტროლიშ ერკებული";
 "wikitext-preview-changes" = "მიშნაღელი თირაფეფიშ გიწოთოლორაფაშ ძირაფა…";
-"wikitext-preview-changes-none" = "მუთუნნერი თირაფა ვარე მიშაღალირი, ნამუშ ძირაფა შილებედჷნ.";
 "wikitext-upload-captcha-error" = "CAPTCHA-შ დოდასურაფაშ ჩილათა..";
 "wikitext-upload-captcha-needed" = "CAPTCHA-შ დოდასურაფაშ ოხვილჷ.";
 // Fuzzy

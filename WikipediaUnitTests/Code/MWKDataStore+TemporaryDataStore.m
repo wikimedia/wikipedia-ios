@@ -6,11 +6,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKDataStore (Testing)
 
-+ (instancetype)temporaryDataStore {
++ (void)createTemporaryDataStoreWithCompletion:(void (^)(MWKDataStore *))completion {
     MWKDataStore *dataStore = [[MWKDataStore alloc] initWithContainerURL:[NSURL fileURLWithPath:WMFRandomTemporaryPath()]];
-    [dataStore performInitialLibrarySetup];
-    [dataStore performTestLibrarySetup];
-    return dataStore;
+    [dataStore finishSetup:^{
+        [dataStore performInitialLibrarySetup];
+        [dataStore performTestLibrarySetup];
+        if (completion) {
+            completion(dataStore);
+        }
+    }];
 }
 
 @end

@@ -1,0 +1,20 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 76325,
+        "ns": 0,
+        "title": "Cat",
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2023-06-01T11:52:04Z",
+        "lastrevid": 572098,
+        "length": 8443,
+        "watched": true
+      }
+    ]
+  }
+}

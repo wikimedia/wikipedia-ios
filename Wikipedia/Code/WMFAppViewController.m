@@ -134,6 +134,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        self.theme = newTheme;
+    }
+#endif
+    
+    [self appEnvironmentDidChangeWithTheme:self.theme traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -214,11 +223,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationsCenterContextDidSave)
                                                  name:NSNotification.notificationsCenterContextDidSave
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editWasPublished:)
-                                                 name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -416,6 +420,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
+    [self updateWKDataEnvironmentFromLanguagesDidChange];
 }
 
 /**
@@ -543,14 +548,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
              context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
-- (void)editWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
-        return;
-    }
-    [self toggleHint:self.editHintController
-             context:nil];
-}
-
 - (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
@@ -613,14 +610,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
 
     NSError *housekeepingError = nil;
-    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController cleanupLevel:WMFCleanupLevelLow error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
     }
 
     /// Housekeeping for the new talk page cache
-    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
 
     completion(housekeepingError);
 }
@@ -808,6 +805,33 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
+
+}
+
+- (WMFTheme *) themeForUITests {
+    
+#if UITEST
+    
+    if (NSProcessInfo.processInfo.arguments.count > 1) {
+        self.theme = [WMFTheme dark]; //remove
+        NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
+
+        if ([arguments  containsObject: @"UITestThemeLight"]) {
+            return [WMFTheme light];
+        } else if ([arguments  containsObject: @"UITestThemeSepia"]) {
+            return [WMFTheme sepia];
+        }else if ([arguments  containsObject: @"UITestThemeDark"]) {
+            return [WMFTheme dark];
+        }else if ([arguments  containsObject: @"UITestThemeBlack"]) {
+            return [WMFTheme black];
+        }
+    }
+    
+    return nil;
+    
+#else
+    return nil;
+#endif
 }
 
 - (void)migrateIfNecessary {
@@ -831,25 +855,25 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     //    };
 
     self.migrationActive = YES;
-
-    [self.dataStore
-        performLibraryUpdates:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.migrationComplete = YES;
-                self.migrationActive = NO;
-                [self endMigrationBackgroundTask];
-                [self checkRemoteAppConfigIfNecessary];
-                [self setupControllers];
-                if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:NULL];
-                }
-            });
-        }
-        needsMigrateBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
-            });
-        }];
+    [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
+    
+    MWKDataStore *dataStore = self.dataStore; // Triggers init
+    [dataStore finishSetup:^{
+        [dataStore
+            performLibraryUpdates:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.migrationComplete = YES;
+                    self.migrationActive = NO;
+                    [self endMigrationBackgroundTask];
+                    [self checkRemoteAppConfigIfNecessary];
+                    [self setupControllers];
+                    [self setupWKDataEnvironment];
+                    if (!self.isWaitingToResumeApp) {
+                        [self resumeApp:NULL];
+                    }
+                });
+            }];
+    }];
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -984,25 +1008,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-
-#if DEBUG && WMF_SHOW_ALL_ALERTS
-    [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}]
-                                              sticky:YES
-                               dismissPreviousAlerts:NO
-                                         tapCallBack:^{
-                                             [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned about a thing that has a long explanation of why you were warned. You have been warned about a thing that has a long explanation of why you were warned."
-                                                                                         sticky:YES
-                                                                          dismissPreviousAlerts:NO
-                                                                                    tapCallBack:^{
-                                                                                        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful"
-                                                                                                                                    sticky:YES
-                                                                                                                     dismissPreviousAlerts:NO
-                                                                                                                               tapCallBack:^{
-                                                                                                                                   [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-                                                                                                                               }];
-                                                                                    }];
-                                         }];
-#endif
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
@@ -1494,7 +1499,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-
+#if UITEST
+    return NO;
+#else
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
@@ -1502,6 +1509,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
+#endif
 }
 
 - (void)setDidShowOnboarding {
@@ -1822,10 +1830,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)updateAppThemeIfNecessary {
     // self.navigationController is the App's root view controller so rely on its trait collection
-    WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.navigationController.traitCollection];
+    UITraitCollection *traitCollection = self.navigationController.traitCollection;
+    WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
+    
+#if UITEST
+    WMFTheme *newTheme = [self themeForUITests];
+    if (newTheme) {
+        theme = newTheme;
+    }
+#endif
+    
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
+        [self appEnvironmentDidChangeWithTheme:theme traitCollection:self.navigationController.traitCollection];
     }
 }
 
@@ -2006,6 +2024,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
         _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
+        _settingsNavigationController.delegate = self;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
@@ -2097,6 +2116,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                 force:YES
                                                            completion:nil];
         }
+        
+        [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
+                                                            force:YES
+                                                       completion:nil];
     });
 }
 
@@ -2110,6 +2133,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                 force:YES
                                                            completion:nil];
         }
+        
+        [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
+                                                            force:YES
+                                                       completion:nil];
     });
 }
 

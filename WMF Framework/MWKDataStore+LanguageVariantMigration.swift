@@ -36,6 +36,7 @@ import CocoaLumberjackSwift
  */
 
 extension MWKDataStore {
+    
     @objc(migrateToLanguageVariantsForLibraryVersion:inManagedObjectContext:)
     public func migrateToLanguageVariants(for libraryVersion: Int, in moc: NSManagedObjectContext) {
         let languageCodes = newlyAddedVariantLanguageCodes(for: libraryVersion)
@@ -53,13 +54,47 @@ extension MWKDataStore {
         }
         
         // Ensure any settings that currently use 'nb' are updated to use 'no'
+        // Ensure that that settings using the old format codes are updated to the BCP47 format
         var languageCodeMigrationMapping = migrationMapping
         languageCodeMigrationMapping["nb"] = "no"
+        languageCodeMigrationMapping["zh-hans"] = "zh-Hans"
+        languageCodeMigrationMapping["zh-hk"] = "zh-Hant-HK"
+        languageCodeMigrationMapping["zh-mo"] = "zh-Hant-MO"
+        languageCodeMigrationMapping["zh-my"] = "zh-Hans-MY"
+        languageCodeMigrationMapping["zh-sg"] = "zh-Hans-SG"
+        languageCodeMigrationMapping["zh-tw"] = "zh-Hant-TW"
+        languageCodeMigrationMapping["sr-ec"] = "sr-Cyrl"
+        languageCodeMigrationMapping["sr-el"] = "sr-Latn"
+        languageCodeMigrationMapping["crh-latn"] = "crh-Latn"
+        languageCodeMigrationMapping["crh-cyrl"] = "crh-Cyrl"
+        languageCodeMigrationMapping["gan-hans"] = "gan-Hans"
+        languageCodeMigrationMapping["gan-hant"] = "gan-Hant"
+        languageCodeMigrationMapping["ike-latn"] = "ike-Latn"
+        languageCodeMigrationMapping["ike-cans"] = "ike-Cans"
+        languageCodeMigrationMapping["kk-cyrl"] = "kk-Cyrl"
+        languageCodeMigrationMapping["kk-latn"] = "kk-Latn"
+        languageCodeMigrationMapping["kk-arab"] = "kk-Arab"
+        languageCodeMigrationMapping["ku-latn"] = "ku-Latn"
+        languageCodeMigrationMapping["ku-arab"] = "ku-Arab"
+        languageCodeMigrationMapping["tg-cyrl"] = "tg-Cyrl"
+        languageCodeMigrationMapping["tg-Latn"] = "tg-Latn"
+        languageCodeMigrationMapping["uz-cyrl"] = "uz-Cyrl"
+        languageCodeMigrationMapping["uz-latn"] = "uz-Latn"
         
         languageLinkController.migratePreferredLanguages(toLanguageVariants: languageCodeMigrationMapping, in: moc)
         feedContentController.migrateExploreFeedSettings(toLanguageVariants: languageCodeMigrationMapping, in: moc)
-        migrateSearchLanguageSetting(toLanguageVariants: languageCodeMigrationMapping)
+        migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
+        migrateLanguageCodeSearchLanguage(toLanguageVariants: languageCodeMigrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
+        migrateNewVariants(toLanguageVariants: languageCodeMigrationMapping, in: moc)
+    }
+
+    private func migrateLanguageCodeSearchLanguage(toLanguageVariants languageMapping: [String:String]) {
+        let defaults = UserDefaults.standard
+        if let currentSelectedSearchCode = defaults.wmf_currentSearchContentLanguageCode() {
+            let newSearchCode = languageMapping[currentSelectedSearchCode] ?? currentSelectedSearchCode
+            defaults.wmf_setCurrentSearchContentLanguageCode(newSearchCode)
+        }
     }
     
     private func migrateSearchLanguageSetting(toLanguageVariants languageMapping: [String:String]) {
@@ -70,6 +105,57 @@ extension MWKDataStore {
             defaults.wmf_setCurrentSearchContentLanguageCode(searchLanguageCode)
             defaults.removeObject(forKey: WMFSearchURLKey)
         }
+    }
+
+    private func migrateNewVariants(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) {
+        for (oldLanguageVariantCode, newLanguageVariantCode) in languageMapping {
+
+            // Update content groups to new variants
+            let contentGroupFetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
+            contentGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
+            do {
+                let groups = try moc.fetch(contentGroupFetchRequest)
+                for group in groups {
+                    group.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating entities to new variant codes: \(error)")
+            }
+
+            // Update articles to new variants
+            let articleGroupFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            articleGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
+            do {
+                let articles = try moc.fetch(articleGroupFetchRequest)
+                for article in articles {
+                    article.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating saved articles to new variant codes: \(error)")
+            }
+
+            // Update reading lists to new variants
+            let listsGroupFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            listsGroupFetchRequest.predicate = NSPredicate(format: "variant == %@", oldLanguageVariantCode)
+            do {
+                let entries = try moc.fetch(listsGroupFetchRequest)
+                for entry in entries {
+                    entry.variant = newLanguageVariantCode
+                }
+            } catch let error {
+                DDLogError("Error migrating reading lists to new variant codes: \(error)")
+            }
+
+        }
+
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error saving new code variant migrations: \(error)")
+            }
+        }
+
     }
     
     private func migrateWikipediaEntities(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) {
@@ -157,7 +243,19 @@ extension MWKDataStore {
     private func newlyAddedVariantLanguageCodes(for libraryVersion: Int) -> [String] {
         switch libraryVersion {
         case 12: return ["crh", "gan", "iu", "kk", "ku", "sr", "tg", "uz", "zh"]
+        case 16: return ["shi"]
         default: return []
         }
+    }
+    
+    // More specific migrations
+    
+    @objc(migrateAKToTWInManagedObjectContext:)
+    public func migrateAKToTW(in moc: NSManagedObjectContext) {
+        
+        // Migrate AK to TW
+        languageLinkController.migratePreferredLanguages(toLanguageVariants: ["ak": "tw"], in: moc)
+        feedContentController.migrateExploreFeedSettings(toLanguageVariants: ["ak": "tw"], in: moc)
+        migrateLanguageCodeSearchLanguage(toLanguageVariants: ["ak": "tw"])
     }
 }

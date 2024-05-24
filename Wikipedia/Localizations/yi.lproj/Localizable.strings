@@ -7,6 +7,14 @@
 // Author: פוילישער
 
 "aaald-added-text-description-2" = "$1 צוגעגעבן";
+"aaald-article-insert-new-changes" = "נייע ענדערונגען";
+"aaald-deleted-text-description-2" = "$1 אויסגעמעקט";
+"aaald-error-subitle" = "דערפרישן צו פּרובירן ווידער";
+"aaald-new-book-reference-title" = "בוך";
+"aaald-new-news-reference-title" = "נײעס";
+"aaald-new-website-reference-title" = "וועבזײטל";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=קיין רעפֿערענצן| $1 רעפֿערענץ| $1 רעפֿערענצן}} צוגעגעבן";
+"aaald-single-reference-added-description" = "רעפֿערענץ צוגעגעבן";
 "about-contributors" = "בײַשטײַערער";
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-complete-list" = "פֿולשטענדיקע רשימה";
@@ -24,11 +32,13 @@
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
+"account-talk-page-title" = "אייער רעדן בלאַט";
 "action-cancel" = "אַנולירן";
 "action-language-accessibility" = "ענדערן שפּראַך";
 "action-read" = "לייענען";
 "action-save" = "אויפֿהיטן";
 "action-saved" = "אויפֿגעהיטן";
+"action-sort" = "סארטירן";
 "announcements-dismiss" = "צומאַכן";
 "article-delete" = "אויסמעקן";
 "article-languages-filter-placeholder" = "טרעפן שפראך";
@@ -87,7 +97,6 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 אַרטיקל|$1 אַרטיקלען}}";
 "places-search-default-text" = "זוכן ערטער";
 "preference-summary-eventlogging-opt-in" = "דערלויבן די וויקימעדיע פֿונדאציע צו זאמלען אינפארמאציע וויאזוי איר ניצט דעם אפ כדי צו פארבעסערן דעם אפ";
-"preference-title-eventlogging-opt-in" = "שיקן ניצונג־באריכטן";
 "reading-list-create-new-list-button-title" = "שאפֿן לייענען־ליסטע";
 "reading-list-create-new-list-description" = "באַשרײבונג";
 "reading-list-create-new-list-reading-list-name" = "נאמען פון לייענען־ליסטע";
@@ -110,18 +119,16 @@
 "settings-my-languages" = "מיינע שפראכן";
 // Fuzzy
 "settings-notifications" = "אנזאגן";
-"settings-support" = "שטיצן וויקיפעדיע";
 "settings-title" = "איינשטעלונגען";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
 "sort-by-title-action" = "טיטל";
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";
+"talk-pages-empty-view-body-article" = "רעדן־בלעטער זענען וואו מענטשן דיסקוטירן וויאזוי צו מאכן דעם וויקיפעדיע־אינהאלט דאס סאמע בעסטע וואס קען זיין. **הייבט אן מיט צולייגן א נייע דיסקוסיע־טעמע** כדי צו פֿארבינדן און מיטארבעטן מיט א געמיינדע פון וויקיפעדן.";
 "theme-dark-display-name" = "טונקל";
 "theme-default-display-name" = "גרונטלעך";
-"wikitext-downloading" = "אנלאדן אינהאלט…";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
-"wikitext-preview-changes-none" = "קיין ענדערונגען נישט געמאכט פאראויסצוזען.";
 "wikitext-upload-save" = "פֿארעפֿנטלעכן…";
 "wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";

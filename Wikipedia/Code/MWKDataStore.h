@@ -52,6 +52,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (instancetype)init;
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
+- (void)finishSetup:(nullable dispatch_block_t)completion;
 
 /// Call to cancel any async tasks and wait for completion
 - (void)teardown:(nullable dispatch_block_t)completion;
@@ -61,7 +62,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readonly, strong, nonatomic) WMFConfiguration *configuration;
 @property (readonly, strong, nonatomic) WMFPermanentCacheController *cacheController;
 
-- (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
+- (void)performLibraryUpdates:(dispatch_block_t)completion;
 - (void)performInitialLibrarySetup;
 #if TEST
 - (void)performTestLibrarySetup;

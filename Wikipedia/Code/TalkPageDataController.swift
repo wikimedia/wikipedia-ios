@@ -143,10 +143,8 @@ class TalkPageDataController {
 
     private func fetchTalkPageItems(dispatchGroup group: DispatchGroup, completion: @escaping ([TalkPageItem], [Error]) -> Void) {
         
-        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache, defaultCache: {
-            TalkPageCache(talkPages: [])
-        })
-        var cache = sharedCache.loadCache()
+        let sharedCache = SharedContainerCache<TalkPageCache>.init(fileName: cachedFileName(), subdirectoryPathComponent: SharedContainerCacheCommonNames.talkPageCache)
+        var cache = sharedCache.loadCache() ?? TalkPageCache(talkPages: [])
         
         group.enter()
         talkPageFetcher.fetchTalkPageContent(talkPageTitle: pageTitle, siteURL: siteURL) { result in

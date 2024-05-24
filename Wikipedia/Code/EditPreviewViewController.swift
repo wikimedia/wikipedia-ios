@@ -2,16 +2,25 @@ import UIKit
 import WMF
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
+protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
+    func logEditPreviewDidAppear()
+    func logEditPreviewDidTapBack()
+    func logEditPreviewDidTapNext()
+}
+
+class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLinkPreviewing {
     var sectionID: Int?
-    var articleURL: URL
+    var pageURL: URL
     var languageCode: String?
     var wikitext = ""
+    var needsNextButton: Bool = true
+    var needsSimplifiedFormatToast: Bool = false
     
     weak var delegate: EditPreviewViewControllerDelegate?
+    weak var loggingDelegate: EditPreviewViewControllerLoggingDelegate?
     
     lazy var messagingController: ArticleWebMessagingController = {
         let controller = ArticleWebMessagingController()
@@ -34,8 +43,8 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
         return tapGR
     }()
 
-    init(articleURL: URL) {
-        self.articleURL = articleURL
+    init(pageURL: URL) {
+        self.pageURL = pageURL
         self.previewWebViewContainer = PreviewWebViewContainer()
         super.init()
 
@@ -47,12 +56,16 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
     
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
-        let isExternal = url.host != articleURL.host
+        let isExternal = url.host != pageURL.host
         if isExternal {
             showExternalLinkInAlert(link: url.absoluteString)
         } else {
             showInternalLink(url: url)
         }
+    }
+    
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didFailWithError error: any Error) {
+        showError(error)
     }
 
     func showExternalLinkInAlert(link: String) {
@@ -72,11 +85,14 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
 
     @objc func goBack() {
+        loggingDelegate?.logEditPreviewDidTapBack()
         navigationController?.popViewController(animated: true)
+        
     }
     
     @objc func goForward() {
-        delegate?.editPreviewViewControllerDidTapNext(self)
+        loggingDelegate?.logEditPreviewDidTapNext()
+        delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
     }
 
     override func viewDidLoad() {
@@ -84,14 +100,17 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
 
         view.addSubview(previewWebViewContainer)
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
-        previewWebViewContainer.previewAnchorTapAlertDelegate = self
+        previewWebViewContainer.delegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
         navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        if needsNextButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        }
+        
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }
@@ -104,6 +123,11 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggingDelegate?.logEditPreviewDidAppear()
     }
     
     deinit {
@@ -142,7 +166,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
+            try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
         }
         
         let pcsProductionCompletion: () throws -> Void = { [weak self] in
@@ -151,8 +175,12 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                 return
             }
             
-            let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
+            let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
             self.previewWebViewContainer.webView.load(request)
+            
+            if self.needsSimplifiedFormatToast {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, type: .custom, customTypeName: "edit-preview-simplified-format", dismissPreviousAlerts: false)
+            }
         }
         
         do {
@@ -202,6 +230,10 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     var webView: WKWebView {
         return previewWebViewContainer.webView
     }
+    
+    var articleURL: URL {
+        return pageURL
+    }
 }
 
 extension EditPreviewViewController: UIGestureRecognizerDelegate {
@@ -222,13 +254,13 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
         case .link(let href, _, let title):
             if let title = title, !title.isEmpty {
                 guard
-                    let host = articleURL.host,
+                    let host = pageURL.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
-                    let newArticleURL = Configuration.current.articleURLForHost(host, languageVariantCode: articleURL.wmf_languageVariantCode, appending: [encodedTitle]) else {
+                    let newPageURL = Configuration.current.articleURLForHost(host, languageVariantCode: pageURL.wmf_languageVariantCode, appending: [encodedTitle]) else {
                     showInternalLinkInAlert(link: href)
                     break
                 }
-                showInternalLink(url: newArticleURL)
+                showInternalLink(url: newPageURL)
             } else {
                 showExternalLinkInAlert(link: href)
             }
