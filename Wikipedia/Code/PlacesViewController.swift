@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ThemeableViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, HintPresenting {
+class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
 
@@ -23,16 +23,11 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
-    @IBOutlet weak var listContainerView: UIView!
-    var listViewController: ArticleLocationCollectionViewController!
+    // @IBOutlet weak var listContainerView: UIView!
+    // var listViewController: ArticleLocationCollectionViewController!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
-    @objc public var dataStore: MWKDataStore! {
-        didSet {
-            wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        }
-    }
     fileprivate var wikidataFetcher: WikidataFetcher!
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()
@@ -76,6 +71,10 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         return PlaceSearchService(dataStore: self.dataStore)
     }()
     
+    override var addsCollectionView: Bool {
+        return true
+    }
+    
     // MARK: - View Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
@@ -84,7 +83,11 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = UIRectEdge.all
     }
-
+    
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
+        fatalError("init(articleURLs:dataStore:contentGroup:theme:) has not been implemented")
+    }
+    
     // MARK: - Search
 
     lazy var searchBarContainerView: UIView = {
@@ -148,12 +151,17 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
 //        navigationBar.delegate = self
 //        navigationBar.isBarHidingEnabled = false
 
-        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
-        addChild(listViewController)
-        listViewController.view.frame = listContainerView.bounds
-        listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        listContainerView.addSubview(listViewController.view)
-        listViewController.didMove(toParent: self)
+//        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
+//        addChild(listViewController)
+//        listViewController.view.translatesAutoresizingMaskIntoConstraints = false
+//        view.insertSubview(listViewController.view, aboveSubview: mapContainerView)
+//        NSLayoutConstraint.activate([
+//            view.topAnchor.constraint(equalTo: listViewController.view.topAnchor),
+//            view.leadingAnchor.constraint(equalTo: listViewController.view.leadingAnchor),
+//            view.trailingAnchor.constraint(equalTo: listViewController.view.trailingAnchor),
+//            view.bottomAnchor.constraint(equalTo: listViewController.view.bottomAnchor)
+//        ])
+//        listViewController.didMove(toParent: self)
         
         let mapViewFrame = mapContainerView.bounds
         mapView = MapView(frame: mapViewFrame)
@@ -202,6 +210,15 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         searchSuggestionController.delegate = self
 
         super.viewDidLoad()
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(collectionView, at: 0)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        ])
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
@@ -209,9 +226,38 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         overlaySliderPanGestureRecognizer = panGR
 
         self.view.layoutIfNeeded()
+        
+        setupNavBar()
     }
     
-    private var isFirstAppearance: Bool = true
+    private func setupNavBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
+
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        // search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
+        if #available(iOS 16.0, *) {
+            search.scopeBarActivation = .manual
+        } else {
+            // Fallback on earlier versions
+        }
+        search.searchBar.showsScopeBar = true
+        search.searchBar.scopeButtonTitles = ["Map","List"]
+        search.searchBar.delegate = self
+        
+        // search.automaticallyShowsCancelButton = true
+        navigationItem.searchController = search
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         // Update saved places locations
@@ -309,7 +355,7 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
     }
 
     public func logListViewImpressionsForVisibleCells() {
-        for indexPath in listViewController.collectionView.indexPathsForVisibleItems {
+        for indexPath in collectionView.indexPathsForVisibleItems {
             logListViewImpression(forIndexPath: indexPath)
         }
     }
@@ -773,7 +819,8 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         let articleURLs = articleFetchedResultsController?.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
-        listViewController.articleURLs = articleURLs ?? []
+        // listViewController.articleURLs = articleURLs ?? []
+        self.articleURLs = articleURLs ?? []
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
         if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
@@ -1011,43 +1058,57 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
             switch traitBasedViewMode {
             case .listOverlay:
                 deselectAllAnnotations()
-                listViewController.updateLocationOnVisibleCells()
+                // listViewController.updateLocationOnVisibleCells()
+                updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
-                mapView.isHidden = false
-                listContainerView.isHidden = false
+                // mapView.isHidden = false
+                mapContainerView.isHidden = false
+                // listContainerView.isHidden = false
+                // listViewController.view.isHidden = false
+                collectionView.isHidden = false
                 searchSuggestionView.isHidden = true
-                listAndSearchOverlayContainerView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = true // false
                 mapListToggleContainer.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
-                listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
+                // listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
             case .list:
                 deselectAllAnnotations()
-                listViewController.updateLocationOnVisibleCells()
+                // listViewController.updateLocationOnVisibleCells()
+                updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 emptySearchOverlayView.removeFromSuperview()
-                mapView.isHidden = true
-                listContainerView.isHidden = false
+                // mapView.isHidden = true
+                mapContainerView.isHidden = true
+                // listContainerView.isHidden = false
+                // listViewController.view.isHidden = false
+                collectionView.isHidden = false
                 searchSuggestionView.isHidden = true
-                listAndSearchOverlayContainerView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = true // false
                 // navigationBar.isInteractiveHidingEnabled = true
-                listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
+                // listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
                 }
-                mapView.isHidden = false
-                listContainerView.isHidden = true
+                // mapView.isHidden = false
+                mapContainerView.isHidden = false
+                // listContainerView.isHidden = true
+                // listViewController.view.isHidden = true
+                collectionView.isHidden = true
                 searchSuggestionView.isHidden = false
-                listAndSearchOverlayContainerView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = true // false
                 // navigationBar.isInteractiveHidingEnabled = false
                 searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
                 // scrollView = nil
                 searchSuggestionController.navigationBarHider = nil
             case .search:
-                mapView.isHidden = true
-                listContainerView.isHidden = true
+                // mapView.isHidden = true
+                mapContainerView.isHidden = true
+                // listContainerView.isHidden = true
+                // listViewController.view.isHidden = true
+                collectionView.isHidden = true
                 searchSuggestionView.isHidden = false
-                listAndSearchOverlayContainerView.isHidden = false
+                listAndSearchOverlayContainerView.isHidden = true // false
                 // navigationBar.isInteractiveHidingEnabled = true
                 searchSuggestionView.contentInsetAdjustmentBehavior = .never
                 // scrollView = searchSuggestionView
@@ -1055,14 +1116,19 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
             case .map:
                 fallthrough
             default:
-                mapView.isHidden = false
-                listContainerView.isHidden = true
+                // mapView.isHidden = false
+                mapContainerView.isHidden = false
+                // listContainerView.isHidden = true
+                // listViewController.view.isHidden = true
+                collectionView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
             }
-            recenterOnUserLocationButton.isHidden = mapView.isHidden
-            if mapView.isHidden {
+            // recenterOnUserLocationButton.isHidden = mapView.isHidden
+            recenterOnUserLocationButton.isHidden = mapContainerView.isHidden
+            if mapContainerView.isHidden {
+            // if mapView.isHidden {
                 redoSearchButton.isHidden = true
             } else {
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
@@ -1113,6 +1179,17 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
     
 
     @objc func updateViewModeFromSegmentedControl() {
+        
+        if let scopeIndex = navigationItem.searchController?.searchBar.selectedScopeButtonIndex {
+            switch scopeIndex {
+            case 0:
+                viewMode = .map
+            default:
+                viewMode = .list
+            }
+            return
+        }
+        
         switch mapListToggle.selectedSegmentIndex {
         case 0:
             viewMode = .map
@@ -1559,7 +1636,8 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         }
 
         if isViewModeOverlay, let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
-            listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            // listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
         let articleVC = ArticlePopoverViewController(article)
@@ -1619,8 +1697,6 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
 //    }
 
     // MARK: HintPresenting
-
-    var hintController: HintController?
     
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
@@ -2084,6 +2160,10 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         updateViewModeFromSegmentedControl()
     }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        updateViewModeFromSegmentedControl()
+    }
 
     // MARK: - UITableViewDelegate
 
@@ -2211,7 +2291,7 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
 
-        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
+        // listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
@@ -2221,7 +2301,8 @@ class PlacesViewController: ThemeableViewController, UISearchBarDelegate, Articl
         selectedArticlePopover?.apply(theme: theme)
         redoSearchButton.backgroundColor = theme.colors.link
         didYouMeanButton.backgroundColor = theme.colors.link
-        listViewController.apply(theme: theme)
+        // listViewController.apply(theme: theme)
+        collectionView.backgroundColor = theme.colors.paperBackground
     }
 }
 
@@ -2378,8 +2459,9 @@ extension PlacesViewController: MKMapViewDelegate {
 }
 
 // MARK: - LocationManagerDelegate
-extension PlacesViewController: LocationManagerDelegate {
-    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
+extension PlacesViewController {
+    override func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
+        super.locationManager(locationManager, didUpdate: location)
         guard panMapToNextLocationUpdate else {
             return
         }
@@ -2387,11 +2469,13 @@ extension PlacesViewController: LocationManagerDelegate {
         zoomAndPanMapView(toLocation: location)
     }
 
-    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
+    override func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
+        super.locationManager(locationManager, didUpdate: heading)
         updateUserLocationAnnotationViewHeading(heading)
     }
 
-    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
+    override func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
+        super.locationManager(locationManager, didUpdateAuthorized: authorized)
         if authorized {
             panMapToNextLocationUpdate = currentSearch == nil
             locationManager.startMonitoringLocation()
@@ -2428,5 +2512,21 @@ extension PlacesViewController {
                 return false
             }
         }
+    }
+}
+
+extension PlacesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+//        // Always show the search result controller
+//        searchController.searchResultsController?.view.isHidden = false
+        guard let text = searchController.searchBar.text,
+        !text.isEmpty else {
+//            searchTerm = nil
+//            updateRecentlySearchedVisibility(searchText: nil)
+            return
+        }
+//        searchTerm = text
+//        updateRecentlySearchedVisibility(searchText: text)
+//        search(for: text, suggested: false)
     }
 }

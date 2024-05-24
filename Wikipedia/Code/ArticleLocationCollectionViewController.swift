@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController2, DetailPresentingFromContentGroup {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()
@@ -18,12 +18,16 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not supported")
+        self.articleURLs = []
+        self.dataStore = MWKDataStore.shared()
+        self.contentGroup = nil
+        self.contentGroupIDURIString = nil
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {

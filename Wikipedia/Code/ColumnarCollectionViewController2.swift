@@ -34,13 +34,21 @@ class ColumnarCollectionViewController2: ThemeableViewController, ColumnarCollec
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
     
+    open var addsCollectionView: Bool {
+        return true
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        
+        if addsCollectionView {
+            view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        }
+        
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true

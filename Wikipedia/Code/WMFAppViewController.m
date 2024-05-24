@@ -1464,7 +1464,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
-        _placesViewController.dataStore = self.dataStore;
+        //_placesViewController.dataStore = self.dataStore;
         [_placesViewController applyTheme:self.theme];
         _placesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-nearby"];
         _placesViewController.title = [WMFCommonStrings placesTabTitle];
