@@ -29,6 +29,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let helpLinkFrequentlyAskedQuestions: String
         public let helpLinkTaxDeductibilityInformation: String
         public let appleFinePrint: String
+        public let wikimediaFinePrint1: String
+        public let wikimediaFinePrint2: String
         public let accessibilityAmountButtonHint: String
         public let accessibilityTextfieldHint: String
         public let accessibilityTransactionFeeHint: String
@@ -37,7 +39,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
             self.doneTitle = doneTitle
             self.transactionFeeOptInText = transactionFeeOptInText
@@ -51,6 +53,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
             self.helpLinkFrequentlyAskedQuestions = helpLinkFrequentlyAskedQuestions
             self.helpLinkTaxDeductibilityInformation = helpLinkTaxDeductibilityInformation
             self.appleFinePrint = appleFinePrint
+            self.wikimediaFinePrint1 = wikimediaFinePrint1
+            self.wikimediaFinePrint2 = wikimediaFinePrint2
             self.accessibilityAmountButtonHint = accessibilityAmountButtonHint
             self.accessibilityTextfieldHint = accessibilityTextfieldHint
             self.accessibilityTransactionFeeHint = accessibilityTransactionFeeHint
@@ -166,6 +170,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     private let merchantID: String
     private let bannerID: String?
+    private let metricsID: String?
     private let appVersion: String?
     
     @Published var buttonViewModels: [AmountButtonViewModel]
@@ -187,7 +192,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, appVersion: String?, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -196,6 +201,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         self.languageCode = languageCode
         self.merchantID = merchantID
         self.bannerID = bannerID
+        self.metricsID = metricsID
         self.appVersion = appVersion
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
@@ -461,7 +467,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let presetIsSelected = buttonViewModels.first(where: {$0.isSelected}) != nil
         
-        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, bannerID: bannerID)
+        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID)
 
         guard !payment.token.paymentData.isEmpty,
               let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
@@ -486,7 +492,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
-        let dataController = WKDonateDataController()
+        let dataController = WKDonateDataController.shared
         dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, bannerID: bannerID, appVersion: appVersion) { [weak self] result in
             
             guard let self else {

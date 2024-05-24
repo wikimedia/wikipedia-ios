@@ -3,6 +3,7 @@
 // Author: Aceman444
 // Author: Hromoslav
 // Author: Kusavica
+// Author: Larsimore
 // Author: Lexected
 // Author: Luky001
 // Author: Macofe
@@ -119,6 +120,7 @@
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
+"advanced-settings-title" = "Rozšírené nastavenia";
 "announcements-dismiss" = "Zrušiť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
 "app-store-release-notes" = "Plne prispôsobiteľné a jednoduchšie čítanie zdroja informácií. Lokalizácia, vylepšenie výkonu a opravy chýb.";
@@ -434,6 +436,7 @@
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";
 "image-gallery-unknown-owner" = "Neznámy autor.";
+"image-recommendations-email-fifth-line" = "[Snímky obrazovky alebo odkazy]";
 "import-shared-reading-list-default-title" = "Môj zoznam na čítanie";
 "import-shared-reading-list-survey-prompt-footer" = "Pozrite si naše $1vyhlásenie o ochrane osobných údajov$2. Prieskum je od tretej strany. Pozrite si ich $3pravidlá ochrany osobných údajov$4.";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
@@ -456,12 +459,16 @@
 "insert-media-image-preview-select-image-action-title" = "Vybrať obrázok";
 "insert-media-image-size-setting-custom" = "Vlastné";
 "insert-media-image-size-setting-default" = "Predvolené";
+"insert-media-image-size-settings-measure-height" = "Výška";
+"insert-media-image-size-settings-measure-width" = "Šírka";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Veľkosť obrázku";
+"insert-media-image-text-wrapping-setting" = "Zalomiť text okolo obrázka";
 "insert-media-image-type-setting-basic" = "Základné";
 "insert-media-image-type-setting-frame" = "Rám";
 "insert-media-image-type-setting-frameless" = "Bez rámu";
 "insert-media-image-type-setting-thumbnail" = "Náhľad";
+"insert-media-image-type-settings-footer-title" = "Môžete nastaviť, ako sa mediálne položky zobrazujú na tejto stránke. Toto by mal byť formát náhľadu vo väčšine prípadov konzistentný s ostatnými stránkami.";
 "insert-media-image-type-settings-title" = "Typ obrázku";
 "insert-media-media-settings-title" = "Nastavenie multimédií";
 "insert-media-title" = "Vložiť súbor";

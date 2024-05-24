@@ -1,0 +1,76 @@
+[
+  {
+    "aliases" : [
+      "কেন্দ্র",
+      "কেন্দ্রে",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "ফ্রেম",
+      "ফ্রেমসহ",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "ফ্রেমহীন",
+      "ফ্রেমবিহীন",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "বাম",
+      "বামে",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "কিছুই_না",
+      "কোনটি_না",
+      "কিছুইনা",
+      "কোনটিনা",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "ডান",
+      "ডানে",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "থাম্ব",
+      "থাম্বনেইল",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "ছবি"
+    ],
+    "name" : "file_namespace"
+  }
+]

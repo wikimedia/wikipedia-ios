@@ -43,6 +43,7 @@
 // Author: StarrySky
 // Author: SunAfterRain
 // Author: Tonylianlong
+// Author: Tsevener
 // Author: Viztor
 // Author: VulpesVulpes825
 // Author: Willy1018
@@ -171,6 +172,7 @@
 "action-unsaved-accessibility-notification" = "条目未保存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
+"advanced-settings-title" = "高级设置";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";
@@ -526,6 +528,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "来自维基百科";
 "explore-randomizer" = "随机条目";
 "explore-suggested-edits-footer" = "添加";
+"explore-suggested-edits-image-recs-body" = "将建议的图片添加至维基百科条目中，以增强理解。";
+"explore-suggested-edits-image-recs-title" = "添加图片";
 "export-user-data-confirmation-message" = "共享您的应用程序库包括有关您的阅读列表和历史记录、设置以及探索订阅源内容的数据。此数据文件只与受信任的接收者共享，用于技术诊断目的。";
 "export-user-data-confirmation-title" = "共享应用程序库？";
 "export-user-data-generic-error" = "导出数据时发生错误。请稍后重试。";
@@ -597,6 +601,9 @@
 "icon-shortcut-search-title" = "搜索维基百科";
 "image-gallery-unknown-owner" = "作者不明。";
 "image-rec-add-image-title" = "添加此图片？";
+"image-rec-empty-subtitle" = "请稍后回来重试。";
+"image-rec-empty-title" = "目前，您没有其他可用的建议图片。";
+"image-rec-feature-announce-body" = "决定是否将图片添加到维基百科条目中。您可以在“探索 Feed”中找到“添加图片”卡片。";
 "image-rec-feature-announce-title" = "尝试“添加图片”";
 "image-rec-onboarding-item-1-body" = "决定是否应该将建议的图片添加至维基百科条目中。";
 "image-rec-onboarding-item-1-title" = "查看建议";
@@ -606,12 +613,30 @@
 "image-rec-onboarding-item-3-title" = "图片经过授权";
 "image-rec-onboarding-learn-more-button" = "了解有关编辑建议的更多信息";
 "image-rec-onboarding-title" = "将图片添加到条目中";
+"image-rec-survey-instructions-1" = "您的回答将有助于改进未来的推荐。";
+"image-rec-survey-instructions-2" = "请选择一个或多个选项";
+"image-rec-survey-option-1" = "图片不相关";
+"image-rec-survey-option-2" = "没有足够做决定的信息";
+"image-rec-survey-option-3" = "图片有冒犯性";
+"image-rec-survey-option-4" = "图片质量差";
+"image-rec-survey-option-5" = "我不了解这个主题";
+"image-rec-survey-option-6" = "其他";
+"image-rec-survey-submit-button" = "提交";
+"image-rec-survey-title" = "原因";
 "image-rec-title" = "添加图片";
 "image-rec-tooltip-1-body" = "查看此条目以了解其主题";
 "image-rec-tooltip-1-title" = "复核";
+"image-rec-tooltip-2-body" = "检阅图片及其相关信息。";
 "image-rec-tooltip-2-title" = "检查";
+"image-rec-tooltip-3-body" = "确定图片是否能帮助读者更好地理解此话题。";
 "image-rec-tooltip-3-title" = "决定";
 "image-rec-view-article" = "查看条目";
+"image-recommendations-email-fifth-line" = "- [屏幕截图或链接]";
+"image-recommendations-email-first-line" = "我在使用“添加图片建议编辑”功能时遇到了一个问题：";
+"image-recommendations-email-fourth-line" = "- [描述您建议的解决方案]";
+"image-recommendations-email-second-line" = "- [描述具体问题]";
+"image-recommendations-email-third-line" = "我希望看到的操作是：";
+"image-recommendations-email-title" = "报告问题——添加图片功能";
 "image-recs-no-title" = "否";
 "image-recs-not-sure-title" = "不确定";
 "image-recs-yes-title" = "是";
@@ -627,6 +652,7 @@
 "in-the-news-title" = "新闻动态";
 "insert-action-title" = "插入";
 "insert-link-title" = "插入链接";
+"insert-media-add-image-details-title" = "添加图片详情";
 "insert-media-alternative-text-description" = "为无法看到图片的读者提供文字说明";
 "insert-media-alternative-text-placeholder" = "描述一下这张图片";
 "insert-media-alternative-text-title" = "替代文字";
@@ -660,6 +686,7 @@
 "languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";
+"learn-more-title" = "了解更多";
 "logged-out-continue-without-logging-in-button-title" = "继续而不登录";
 "logged-out-log-back-in-button-title" = "重新登录到您的账号";
 "logged-out-subtitle" = "验证您的账号时出现了问题。请重新登录以同步及编辑您的阅读列表。";
@@ -694,6 +721,7 @@
 "nearby-distance-label-miles" = "$1英里";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "new-password-title" = "设置您的密码";
+"next-action-title" = "下一个";
 "no-email-account-alert" = "请在您的设备上设置电子邮件地址并重试。";
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
@@ -893,6 +921,7 @@
 "potd-widget-title" = "今日图片";
 "preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您使用本应用的信息，从而改善应用";
 "privacy-policy-title" = "隐私政策";
+"problem-with-feature-title" = "功能问题";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
 "project-name-wikidata" = "维基数据";
@@ -1188,6 +1217,7 @@
 "top-read-widget-readers-count" = "$1位读者";
 "top-read-widget-title" = "热门阅读";
 "try-now-title" = "现在试试";
+"tutorial-title" = "教程";
 "two-factor-login-continue" = "继续登录";
 "two-factor-login-instructions" = "请输入双因素验证码";
 "two-factor-login-title" = "登录您的账号";

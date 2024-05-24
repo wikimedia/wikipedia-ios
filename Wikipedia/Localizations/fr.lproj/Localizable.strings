@@ -146,6 +146,7 @@
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
+"advanced-settings-title" = "Paramètres avancés";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
 "app-store-release-notes" = "Flux d’exploration complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections d’anomalies.";
@@ -585,6 +586,7 @@
 "image-rec-feature-announce-title" = "Essayer « Ajouter une image »";
 "image-rec-onboarding-item-1-body" = "Décider si une image suggérée doit être placée dans un article de Wikipedia.";
 "image-rec-onboarding-item-1-title" = "Afficher une suggestion";
+"image-rec-onboarding-item-2-body" = "Les suggestions sont générées par la machine et vous devrez faire preuve de discernement pour décider de les accepter ou de les rejeter.";
 "image-rec-onboarding-item-2-title" = "Accepter ou refuser une image";
 "image-rec-onboarding-item-3-body" = "Les images viennent de Wikimedia Commons, une collection d’images libres utilisée par Wikipedia.";
 "image-rec-onboarding-item-3-title" = "Images sous licence";
@@ -608,6 +610,12 @@
 "image-rec-tooltip-3-body" = "Déterminez si l'image aide les lecteurs à mieux comprendre ce sujet.";
 "image-rec-tooltip-3-title" = "Décider";
 "image-rec-view-article" = "Afficher l’article";
+"image-recommendations-email-fifth-line" = "[Captures d'écran ou liens]";
+"image-recommendations-email-first-line" = "J'ai rencontré un problème avec les modifications suggérées par la fonctionnalité « Ajouter une image » :";
+"image-recommendations-email-fourth-line" = "- [Décrire la solution proposée]";
+"image-recommendations-email-second-line" = "- [Décrire le problème spécifique]";
+"image-recommendations-email-third-line" = "Le comportement que je souhaiterais voir est :";
+"image-recommendations-email-title" = "Signalement de problème – Fonctionnalité « Ajouter une image »";
 "image-recs-no-title" = "Non";
 "image-recs-not-sure-title" = "Pas sûr(e)";
 "image-recs-yes-title" = "Oui";

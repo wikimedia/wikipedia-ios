@@ -70,11 +70,14 @@ struct WKDonateView: View {
                 }
                 
                 Group {
-                    WKAppleFinePrint(viewModel: viewModel)
+                    VStack(alignment: .leading, spacing: 15) {
+                        WKAppleFinePrint(viewModel: viewModel)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1, isAttributed: true)
+                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2, isAttributed: false)
+                    }
                     Spacer()
                         .frame(height: 40)
                     WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
-                    
                     Spacer()
                 }
             }
@@ -263,6 +266,41 @@ private struct WKAppleFinePrint: View {
             Text(viewModel.localizedStrings.appleFinePrint)
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                 .font(Font(WKFont.for(.caption1)))
+            Spacer()
+        }
+    }
+}
+
+private struct WKWikimediaFinePrint: View {
+    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    let text: String
+    let isAttributed: Bool
+    
+    var attributedString: AttributedString? {
+        if let finePrint = try? AttributedString(markdown: text, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+            return finePrint
+        }
+        
+        return AttributedString(text)
+    }
+    
+    @ViewBuilder
+    var contentView: some View {
+        if isAttributed,
+           let attributedString {
+            Text(attributedString)
+        } else {
+            Text(text)
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            
+            contentView
+                .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                .font(Font(WKFont.for(.caption1)))
+            
             Spacer()
         }
     }

@@ -11,7 +11,6 @@
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 
 @property (readwrite, nonatomic, strong) WKFundraisingCampaignDataController *fundraisingCampaignDataController;
-@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
 
 @end
 
@@ -23,11 +22,20 @@
     if (self) {
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
-        self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession: userDataStore.session configuration: userDataStore.configuration];
-        self.fundraisingCampaignDataController = [[WKFundraisingCampaignDataController alloc] init];
-        self.donateDataController = [[WKDonateDataController alloc] init];
+        self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:userDataStore.session configuration:userDataStore.configuration];
+        self.fundraisingCampaignDataController = [WKFundraisingCampaignDataController sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userWasLoggedIn:)
+                                                     name:[WMFAuthenticationManager didLogInNotification]
+                                                   object:nil];
     }
     return self;
+}
+
+#pragma mark - Notifications
+
+- (void)userWasLoggedIn:(NSNotification *)note {
+    [self fetchMediaWikiBannerOptInForSiteURL:self.siteURL];
 }
 
 #pragma mark - Accessors
@@ -40,10 +48,7 @@
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
-    
-    NSString *countryCode = [[NSLocale currentLocale] countryCode];
-    [self.donateDataController fetchConfigsWithCountryCode:countryCode];
-    
+
     if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
@@ -54,8 +59,10 @@
         return;
     }
     
+    NSString *countryCode = [[NSLocale currentLocale] countryCode];
+
     [self.fundraisingCampaignDataController fetchConfigWithCountryCode:countryCode currentDate:[NSDate now]];
-    
+
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {
@@ -109,8 +116,8 @@
 
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //Only make these visible for previous users of the app
-    //Meaning a new install will only see these after they close the app and reopen
+    // Only make these visible for previous users of the app
+    // Meaning a new install will only see these after they close the app and reopen
     if ([userDefaults wmf_appResignActiveDate] == nil) {
         return;
     }
@@ -124,12 +131,12 @@
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
-    
+
     [self saveNotificationsGroupInManagedObjectContext:moc date:[NSDate date]];
 
     // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
     // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
-    //also deleting IOSSURVEY20 because we want to bypass persistence and only consider in online mode
+    // also deleting IOSSURVEY20 because we want to bypass persistence and only consider in online mode
     NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
     for (WMFContentGroup *announcement in announcements) {
         if (![announcement.key containsString:@"FUNDRAISING19"] && ![announcement.key containsString:@"IOSSURVEY20"]) {
@@ -169,8 +176,8 @@
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
 
-    //Only make these visible for previous users of the app
-    //Meaning a new install will only see these after they close the app and reopen
+    // Only make these visible for previous users of the app
+    // Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         return;
     }

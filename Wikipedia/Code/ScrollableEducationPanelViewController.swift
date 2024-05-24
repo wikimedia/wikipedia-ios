@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> Void)
+typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)
 typealias ScrollableEducationPanelDismissHandler = (() -> Void)
 typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> Void)
 
@@ -83,6 +83,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
     
     @IBOutlet fileprivate weak var inlinePrimaryButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet weak var inlinePrimaryButtonSpinner: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var pinnedPrimaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var inlineSecondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var pinnedSecondaryButton: AutoLayoutSafeMultiLineButton!
@@ -220,6 +221,21 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     var footerHTML: String? {
         didSet {
             updateFooterHTML()
+        }
+    }
+    
+    var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                inlinePrimaryButtonSpinner.startAnimating()
+                inlinePrimaryButtonSpinner.isHidden = false
+                inlinePrimaryButton.titleLabel?.alpha = 0
+            } else {
+                inlinePrimaryButtonSpinner.stopAnimating()
+                inlinePrimaryButton.titleLabel?.alpha = 1
+                inlinePrimaryButtonSpinner.isHidden = true
+            }
+            
         }
     }
 
@@ -418,6 +434,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineCloseButtonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             inlineCloseButtonStackView.isLayoutMarginsRelativeArrangement = true
         }
+        
+        inlinePrimaryButtonSpinner.isHidden = true
 
         apply(theme: theme)
     }
@@ -510,29 +528,29 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction fileprivate func primaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func primaryButtonTapped(_ button: UIButton) {
         lastAction = .tappedPrimary
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
         primaryButtonTapped = true
-        primaryButtonTapHandler(sender)
+        primaryButtonTapHandler(button, self)
     }
 
-    @IBAction fileprivate func secondaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func secondaryButtonTapped(_ button: UIButton) {
         lastAction = .tappedSecondary
         guard let secondaryButtonTapHandler = secondaryButtonTapHandler else {
             return
         }
-        secondaryButtonTapHandler(sender)
+        secondaryButtonTapHandler(button, self)
     }
 
-    @IBAction fileprivate func optionalButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func optionalButtonTapped(_ button: UIButton) {
         lastAction = .tappedOptional
         guard let optionalButtonTapHandler = optionalButtonTapHandler else {
             return
         }
-        optionalButtonTapHandler(sender)
+        optionalButtonTapHandler(button, self)
     }
 
 
@@ -604,6 +622,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineOptionalButton.backgroundColor = .clear
             inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
         }
+        
+        self.inlinePrimaryButtonSpinner.color = theme.colors.paperBackground
     }
 }
 
