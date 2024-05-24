@@ -319,6 +319,8 @@
 "donate-success-title" = "感謝您！";
 "donate-title" = "選擇金額";
 "donate-transaction-fee-opt-in-text" = "我願意慷慨地添加$1來支付手續費，這樣對方就可以100%%保有我的捐款。";
+"donate-wikimedia-fine-print-1" = "我們不會向任何人販賣或洩漏您的資訊。透過捐款行為，代表您同意與維基媒體基金會、託管維基百科與其他姊妹計劃的非盈利組織、依據我們[捐款方針]（$1）的服務提供者分享您的個人資訊。維基媒體基金會與其服務提供者位於美國與其他國家，其隱私權法可能與您的國家不同。更多相關資訊請閱讀我們的[捐款方針]（$1）。";
+"donate-wikimedia-fine-print-2" = "對於定期捐款者，維基媒體基金會在首次捐款起每隔一個月扣除固定的捐款金額，直至您通知我們停止扣款為止。如果您是在月份上 29 號、30 號，或是 31 號首次發起捐款，會在每月份的最後一天扣款，對於較短的月份，則會盡可能在貼近原始日期的時間進行。若有其他問題，請聯絡 donate@wikimedia.org。";
 "edit-link-display-text-title" = "顯示文字";
 "edit-link-link-target-title" = "連結目標";
 "edit-link-remove-link-title" = "移除連結";

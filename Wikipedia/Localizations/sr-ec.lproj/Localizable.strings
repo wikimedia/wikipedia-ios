@@ -285,6 +285,7 @@
 "donate-success-title" = "Хвала вам!";
 "donate-title" = "Износ донације";
 "donate-transaction-fee-opt-in-text" = "Великодушно ћу додати $1 да покријем провизију за трансакцију тако да можете добити 100%% моје донације.";
+"donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
 "edit-link-remove-link-title" = "Уклони везу";
@@ -351,6 +352,7 @@
 "editor-replace-type-single" = "Замени";
 "editor-toolbar-bold-accessibility" = "Подебљано";
 "editor-toolbar-find-accessibility" = "Пронађи у страници";
+"editor-wikitext-loading-accessibility" = "Учитавање уређивача текста";
 "editor-wikitext-textview-accessibility" = "Уређивач викитекста";
 "empty-diff-compare-title" = "Нема разлика између измена";
 "empty-diff-single-title" = "Нема направљених видљивих промена";
@@ -590,6 +592,7 @@
 "insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "п";
 "insert-media-image-size-settings-title" = "Величина слике";
+"insert-media-image-text-wrapping-setting" = "Истакни текст око слике";
 "insert-media-image-type-setting-basic" = "Основна";
 "insert-media-image-type-setting-frame" = "Оквир";
 "insert-media-image-type-setting-frameless" = "Без оквира";
@@ -1135,6 +1138,7 @@
 "top-read-widget-description" = "Сазнајте шта свет чита данас на Википедији";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
+"try-now-title" = "Пробајте сад";
 "tutorial-title" = "Упутство";
 "two-factor-login-continue" = "Настави пријаву";
 "two-factor-login-instructions" = "Унесите кôд двофакторске потврде идентитета";
@@ -1235,6 +1239,8 @@
 "welcome-notifications-tell-me-more-creation" = "Апликација прави и доставља обавештења на ваш уређај, а не наши сервери (или трећих страна).";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се смештају на уређају и нису заснована на личним информацијама или активности.";
 "welcome-notifications-tell-me-more-title" = "Више о обавештењима";
+"welcome-privacy-subtitle" = "Ми верујемо да не морате одавати личне информације да би учествовали у покрету за слободно знање. Подаци о употреби ове апликације се прикупљају анонимно.";
+"welcome-privacy-terms-button-text" = "Сазнајте више о нашој политици приватности и условима коришћења";
 "widget-onthisday-description" = "Шта се десило на данашњи дан.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна онлајн енциклопедија коју свако може уређивати";
 "widget-onthisday-placeholder-event-snippet" = "Википедија, слободна енциклопедија, иде онлајн.";

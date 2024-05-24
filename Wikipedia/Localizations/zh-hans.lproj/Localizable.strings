@@ -112,7 +112,7 @@
 "about-places-maps-license" = "地点地图许可协议";
 "about-places-maps-license-details" = "地点功能使用Apple地图提供的地图。$1。";
 "about-places-maps-license-details-link-text" = "请点击此处以了解许可协议详情";
-"about-product-of" = "由$1在像您一样的志愿者的帮助下出品";
+"about-product-of" = "由$1在您这样的志愿者的协助下制作而成";
 "about-repositories" = "资源仓库";
 "about-repositories-app-source-license" = "源代码依据$1授权。";
 "about-repositories-app-source-license-mit" = "MIT协议";
@@ -693,7 +693,7 @@
 "logged-out-title" = "您已退出登录";
 "login-forgot-password" = "忘记了您的密码？";
 "login-join-wikipedia" = "加入维基百科。";
-"login-no-account" = "没有账号？$1";
+"login-no-account" = "还没有账号？$1";
 "login-title" = "登录您的账号";
 "main-menu-about" = "关于应用";
 "main-menu-account-login" = "登录";
