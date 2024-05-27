@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
     func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder)
@@ -30,7 +30,7 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button.backgroundColor = theme.colors.paperBackground
         button.imageView?.tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)
-        button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         button.horizontalSpacing = 10
         button.contentHorizontalAlignment = .leading
         button.leftPadding = 10
@@ -95,9 +95,9 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
     }
 
     private func updateFonts() {
-        compareButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        firstSelectionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        secondSelectionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        compareButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        firstSelectionButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        secondSelectionButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 
 }

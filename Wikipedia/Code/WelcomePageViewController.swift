@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol PageViewControllerViewLifecycleDelegate: AnyObject {
     func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)
@@ -116,7 +116,7 @@ final class WelcomePageViewController: UIPageViewController {
     }
 
     private func updateFonts() {
-        let buttonFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let buttonFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = buttonFont
         skipButton.titleLabel?.font = buttonFont
     }

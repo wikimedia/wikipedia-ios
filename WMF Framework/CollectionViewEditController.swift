@@ -485,7 +485,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
         
-        let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_font(.semiboldBody) : UIFont.wmf_font(.body)
+        let font = UIFont.boldSystemFont(ofSize: 17) // TODO - cleanup
         let attributes = [NSAttributedString.Key.font: font]
         rightButton?.setTitleTextAttributes(attributes, for: .normal)
         leftButton?.setTitleTextAttributes(attributes, for: .normal)

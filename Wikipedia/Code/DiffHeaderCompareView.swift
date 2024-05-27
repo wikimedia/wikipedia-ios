@@ -1,4 +1,3 @@
-import UIKit
 import Components
 
 class DiffHeaderCompareView: SetupView {
@@ -217,12 +216,12 @@ class DiffHeaderCompareView: SetupView {
     }
 
     fileprivate func updateFonts(with traitCollection: UITraitCollection) {
-        toHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        fromHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        toTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        fromTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        toDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
-        fromDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
+        toHeadingLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        fromHeadingLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        toTimestampLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        fromTimestampLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        toDescriptionLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        fromDescriptionLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     // MARK: Accessibility labels

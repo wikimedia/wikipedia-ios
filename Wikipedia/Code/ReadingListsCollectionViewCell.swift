@@ -1,3 +1,5 @@
+import Components
+
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
@@ -94,8 +96,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        articleCountLabel.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
-        defaultListTag.font = UIFont.wmf_font(.italicCaption2, compatibleWithTraitCollection: traitCollection)
+        articleCountLabel.font = WKFont.for(.caption1, compatibleWith: traitCollection)
+        defaultListTag.font = WKFont.for(.italicCaption1, compatibleWith: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {

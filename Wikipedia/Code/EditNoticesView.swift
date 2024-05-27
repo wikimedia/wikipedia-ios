@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 final class EditNoticesView: SetupView {
 
@@ -56,7 +56,7 @@ final class EditNoticesView: SetupView {
         label.text = CommonStrings.editNotices
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .title1, weight: .semibold, size: 20)
+        label.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -66,7 +66,7 @@ final class EditNoticesView: SetupView {
         label.text =  WMFLocalizedString("edit-notices-please-read", value: "Please read before editing", comment: "Subtitle displayed in edit notices view.")
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .title2, weight: .semibold, size: 15)
+        label.font = WKFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -85,7 +85,7 @@ final class EditNoticesView: SetupView {
 
     lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 17)
+        button.titleLabel?.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitle(CommonStrings.doneTitle, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +111,7 @@ final class EditNoticesView: SetupView {
         let label = UILabel()
         label.text = WMFLocalizedString("edit-notices-always-display", value: "Always display edit notices", comment: "Title for toggle switch label in edit notices view.")
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+        label.font = WKFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
 

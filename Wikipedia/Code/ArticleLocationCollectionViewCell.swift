@@ -1,11 +1,11 @@
-import UIKit
+import Components
 
 class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     let compassView: WMFCompassView = WMFCompassView()
     let compassViewDimension: CGFloat = 104
     let distanceLabel: UILabel = UILabel()
     let distanceLabelBackground: UIView = UIView()
-    let distanceTextStyle: DynamicTextStyle = .caption1
+    let distanceTextStyle: WKFont = .caption1
     var articleLocation: CLLocation?
     var userLocation: CLLocation?
     
@@ -33,7 +33,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        distanceLabel.font = UIFont.wmf_font(distanceTextStyle, compatibleWithTraitCollection: traitCollection)
+        distanceLabel.font = WKFont.for(distanceTextStyle, compatibleWith: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

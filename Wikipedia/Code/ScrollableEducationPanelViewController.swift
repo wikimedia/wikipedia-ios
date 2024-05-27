@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)
@@ -479,13 +479,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateFonts()
     }
 
-    var secondaryButtonTextStyle: DynamicTextStyle = .semiboldFootnote {
+    var secondaryButtonTextStyle: WKFont = .mediumFootnote {
         didSet {
             updateFonts()
         }
     }
 
-    var optionalButtonTextStyle: DynamicTextStyle = .boldSubheadline {
+    var optionalButtonTextStyle: WKFont = .boldSubheadline {
         didSet {
             updateFonts()
         }
@@ -495,14 +495,14 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
         switch buttonStyle {
         case .legacyStyle:
-            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
-            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
+            pinnedSecondaryButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
 
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
         case .updatedStyle:
-            inlinePrimaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlinePrimaryButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
         }
     }
     

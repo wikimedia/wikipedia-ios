@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
@@ -165,8 +165,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
-        otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
-        
+        otherLanguagesButton?.titleLabel?.font = WKFont.for(.subheadline)
+
         if let otherLanguagesButton {
             var deprecatedOtherLanguagesButton = otherLanguagesButton as DeprecatedButton
             deprecatedOtherLanguagesButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)

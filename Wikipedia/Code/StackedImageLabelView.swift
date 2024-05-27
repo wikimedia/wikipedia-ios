@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 /// A vertically stacked image/label group that resembles `UITableView`'s swipe actions 
 final class StackedImageLabelView: SetupView {
@@ -23,7 +23,7 @@ final class StackedImageLabelView: SetupView {
         label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 14, maximumPointSize: 32)
+        label.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label

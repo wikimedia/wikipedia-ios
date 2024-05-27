@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-public enum WKFont {
+@objc public enum WKFont: Int {
 
     case boldCallout
     case boldCaption1
@@ -31,7 +31,7 @@ public enum WKFont {
     case italicCaption1
     case italicFootnote
     case italicGeorgiaTitle1
-    case italicsSubheadline
+    case italicSubheadline
     case mediumFootnote
     case mediumSubheadline
     case semiboldHeadline
@@ -182,7 +182,7 @@ public enum WKFont {
             }
             return baseFont
 
-        case .italicsSubheadline:
+        case .italicSubheadline:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .headline, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
                 fatalError()
             }
