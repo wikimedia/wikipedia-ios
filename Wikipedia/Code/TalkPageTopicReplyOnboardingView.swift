@@ -1,3 +1,4 @@
+import Components
 import SwiftUI
 import WMF
 
@@ -45,8 +46,8 @@ struct TalkPageTopicReplyOnboardingView: View {
         }
     }
 
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 28)
-    private let buttonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
+    private let titleFont = WKFont.for(.title1)
+    private let buttonFont = WKFont.for(.callout)
 
     // MARK: - Content
 

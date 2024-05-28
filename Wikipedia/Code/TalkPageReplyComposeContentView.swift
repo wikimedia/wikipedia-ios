@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 class TalkPageReplyComposeContentView: SetupView {
@@ -257,9 +257,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func updateFonts() {
-        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
-        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
-        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        publishButton.titleLabel?.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        replyTextView.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        placeholderLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
     
     // MARK: Actions

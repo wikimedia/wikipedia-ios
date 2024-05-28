@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
@@ -354,9 +354,9 @@ class TalkPageTopicComposeViewController: ViewController {
     // MARK: Private
 
     private func updateFonts() {
-        titleTextField.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-        bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
-        bodyPlaceholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        titleTextField.font = WKFont.for(.headline, compatibleWith: traitCollection)
+        bodyTextView.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        bodyPlaceholderLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
     
@@ -373,7 +373,7 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil) //TODO - cleanup HTML
 
         return attributedString
     }
