@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 public enum CollectionViewCellSwipeType {
     case primary, secondary, none
@@ -485,7 +485,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
         
-        let font = UIFont.boldSystemFont(ofSize: 17) // TODO - cleanup
+        let font = WKFont.for(.boldHeadline)
         let attributes = [NSAttributedString.Key.font: font]
         rightButton?.setTitleTextAttributes(attributes, for: .normal)
         leftButton?.setTitleTextAttributes(attributes, for: .normal)

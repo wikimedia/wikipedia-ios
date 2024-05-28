@@ -90,7 +90,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .semiboldBody
+        titleTextStyle = .boldCallout
+        titleDynamicTextStyle = .semiboldBody
         updateFonts(with: traitCollection)
     }
     
@@ -236,6 +237,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         layoutMarginsAdditions.top = 5
         layoutMarginsAdditions.bottom = 5
         titleTextStyle = .subheadline
+        titleDynamicTextStyle = .subheadline 
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
         imageViewDimension = 40

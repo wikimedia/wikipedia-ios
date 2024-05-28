@@ -31,6 +31,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
         titleTextStyle = .callout
+        titleDynamicTextStyle = .callout 
         updateFonts(with: traitCollection)
     }
     

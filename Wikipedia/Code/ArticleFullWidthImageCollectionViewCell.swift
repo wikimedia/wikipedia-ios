@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
@@ -65,6 +65,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         spacing = 6
         imageViewDimension = 150
+        titleDynamicTextStyle = .callout
     }
     
     open override func updateBackgroundColorOfLabels() {
@@ -79,7 +80,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        saveButton.titleLabel?.font = WKFont.for(saveButtonTextStyle, compatibleWith: traitCollection)
     }
     
     public var isSaveButtonHidden = false {

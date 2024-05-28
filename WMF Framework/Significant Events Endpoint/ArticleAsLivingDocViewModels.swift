@@ -863,8 +863,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return nil
         }
         
-        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.callout, compatibleWith: traitCollection)
+        let italicFont = WKFont.for(.italicCallout, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
@@ -899,7 +899,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
 
     private static let changeDetailDescriptionTextStyle = WKFont.subheadline
     private static let changeDetailDescriptionTextStyleItalic = WKFont.italicSubheadline
-    private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+    private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular // TODO - cleanup
 
     static let changeDetailReferenceTitleStyle = WKFont.boldSubheadline
     static let changeDetailReferenceTitleDescriptionSpacing: CGFloat = 13
@@ -1555,7 +1555,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                userType != .anonymous else {
             let anonymousUserInfo = CommonStrings.revisionUserInfoAnonymous
             
-            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+            let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
             let mutableAttributedString = NSMutableAttributedString(string: anonymousUserInfo, attributes: attributes)
@@ -1573,7 +1573,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let formattedEditCount = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: editCount)).localizedLowercase
         let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let rangeOfUserName = (userInfo as NSString).range(of: userName)

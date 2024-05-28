@@ -373,7 +373,7 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil) //TODO - cleanup HTML
+        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil) // TODO - cleanup HTML
 
         return attributedString
     }

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     public let titleLabel = UILabel()
@@ -17,13 +17,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
+            let attributedTitle = titleHTML.byAttributingHTML(with: titleDynamicTextStyle, matching: traitCollection) // TODO - cleanup
             if let boldString = _titleBoldedString {
-                attributedTitle.applyBoldFont(to: boldString, textStyle: titleTextStyle, matching: traitCollection)
+                attributedTitle.applyBoldFont(to: boldString, textStyle: titleDynamicTextStyle, matching: traitCollection) // TODO - cleanup
             }
             titleLabel.attributedText = attributedTitle
         } else {
-            let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+            let titleFont = WKFont.for(titleTextStyle, compatibleWith: traitCollection)
             titleLabel.font = titleFont
         }
     }
@@ -208,11 +208,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
-    public var titleTextStyle: DynamicTextStyle!
-    public var descriptionTextStyle: DynamicTextStyle!
-    public var extractTextStyle: DynamicTextStyle!
-    public var saveButtonTextStyle: DynamicTextStyle!
-    
+    public var titleDynamicTextStyle: DynamicTextStyle! // TODO - cleanup (temp fix to compile)
+    public var titleTextStyle: WKFont!
+    public var descriptionTextStyle: WKFont!
+    public var extractTextStyle: WKFont!
+    public var saveButtonTextStyle: WKFont!
+
     public var imageViewDimension: CGFloat = 0 // used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat = 3
 
@@ -222,16 +223,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
-    
 
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
 
         updateTitleLabel()
         
-        descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
-        alertButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+        descriptionLabel.font = WKFont.for(descriptionTextStyle, compatibleWith: traitCollection)
+        extractLabel?.font = WKFont.for(extractTextStyle, compatibleWith: traitCollection)
+        alertButton.titleLabel?.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
     }
     
     // MARK: - Semantic content

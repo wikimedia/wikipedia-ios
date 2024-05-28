@@ -1,3 +1,5 @@
+import Components
+
 class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
@@ -39,7 +41,7 @@ class CircledRankView: SizeThatFitsView {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

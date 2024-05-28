@@ -1,3 +1,5 @@
+import Components
+
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)
 }
@@ -118,7 +120,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .semiboldBody
+        titleTextStyle = WKFont.boldCallout
+        titleDynamicTextStyle = .semiboldBody
         collectionViewAvailableWidth = 0
         configuredTags = []
         updateFonts(with: traitCollection)

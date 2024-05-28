@@ -26,6 +26,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     override func reset() {
         super.reset()
         titleTextStyle = .georgiaTitle3
+        titleDynamicTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
         imageView.image = #imageLiteral(resourceName: "compass-w")
