@@ -23,8 +23,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
-    // @IBOutlet weak var listContainerView: UIView!
-    // var listViewController: ArticleLocationCollectionViewController!
+    @IBOutlet weak var listContainerView: UIView!
+    var listViewController: ArticleLocationCollectionViewController!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
@@ -151,6 +151,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 //        navigationBar.delegate = self
 //        navigationBar.isBarHidingEnabled = false
 
+        
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
+        addChild(listViewController)
+        listViewController.view.frame = listContainerView.bounds
+        listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        listContainerView.addSubview(listViewController.view)
+        listViewController.didMove(toParent: self)
+        
 //        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
 //        addChild(listViewController)
 //        listViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -356,6 +364,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     public func logListViewImpressionsForVisibleCells() {
         for indexPath in collectionView.indexPathsForVisibleItems {
+            logListViewImpression(forIndexPath: indexPath)
+        }
+        
+        for indexPath in listViewController.collectionView.indexPathsForVisibleItems {
             logListViewImpression(forIndexPath: indexPath)
         }
     }
@@ -819,7 +831,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let articleURLs = articleFetchedResultsController?.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
-        // listViewController.articleURLs = articleURLs ?? []
+        listViewController.articleURLs = articleURLs ?? []
         self.articleURLs = articleURLs ?? []
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
@@ -1058,29 +1070,29 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             switch traitBasedViewMode {
             case .listOverlay:
                 deselectAllAnnotations()
-                // listViewController.updateLocationOnVisibleCells()
+                listViewController.updateLocationOnVisibleCells()
                 updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 // mapView.isHidden = false
                 mapContainerView.isHidden = false
-                // listContainerView.isHidden = false
-                // listViewController.view.isHidden = false
+                listContainerView.isHidden = false
+                listViewController.view.isHidden = false
                 collectionView.isHidden = false
                 searchSuggestionView.isHidden = true
-                listAndSearchOverlayContainerView.isHidden = true // false
+                listAndSearchOverlayContainerView.isHidden = false
                 mapListToggleContainer.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
                 // listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
             case .list:
                 deselectAllAnnotations()
-                // listViewController.updateLocationOnVisibleCells()
+                listViewController.updateLocationOnVisibleCells()
                 updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 emptySearchOverlayView.removeFromSuperview()
                 // mapView.isHidden = true
                 mapContainerView.isHidden = true
-                // listContainerView.isHidden = false
-                // listViewController.view.isHidden = false
+                listContainerView.isHidden = true
+                listViewController.view.isHidden = true
                 collectionView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true // false
@@ -1092,8 +1104,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 }
                 // mapView.isHidden = false
                 mapContainerView.isHidden = false
-                // listContainerView.isHidden = true
-                // listViewController.view.isHidden = true
+                listContainerView.isHidden = true
+                listViewController.view.isHidden = true
                 collectionView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = true // false
@@ -1104,8 +1116,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             case .search:
                 // mapView.isHidden = true
                 mapContainerView.isHidden = true
-                // listContainerView.isHidden = true
-                // listViewController.view.isHidden = true
+                listContainerView.isHidden = true
+                listViewController.view.isHidden = true
                 collectionView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = true // false
@@ -1118,8 +1130,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             default:
                 // mapView.isHidden = false
                 mapContainerView.isHidden = false
-                // listContainerView.isHidden = true
-                // listViewController.view.isHidden = true
+                listContainerView.isHidden = true
+                listViewController.view.isHidden = true
                 collectionView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
@@ -1636,7 +1648,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
 
         if isViewModeOverlay, let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
-            // listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
@@ -2291,7 +2303,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
 
-        // listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
+        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
@@ -2301,7 +2313,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         selectedArticlePopover?.apply(theme: theme)
         redoSearchButton.backgroundColor = theme.colors.link
         didYouMeanButton.backgroundColor = theme.colors.link
-        // listViewController.apply(theme: theme)
+        listViewController.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.paperBackground
     }
 }
