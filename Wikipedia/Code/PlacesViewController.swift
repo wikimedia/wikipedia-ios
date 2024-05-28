@@ -80,8 +80,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
-        extendedLayoutIncludesOpaqueBars = true
-        edgesForExtendedLayout = UIRectEdge.all
+        // extendedLayoutIncludesOpaqueBars = true
+        // edgesForExtendedLayout = UIRectEdge.all
     }
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
@@ -219,8 +219,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         super.viewDidLoad()
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(collectionView, at: 0)
+         collectionView.translatesAutoresizingMaskIntoConstraints = false
+         view.insertSubview(collectionView, at: 0)
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: collectionView.topAnchor),
             view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
@@ -258,9 +258,15 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         } else {
             // Fallback on earlier versions
         }
-        search.searchBar.showsScopeBar = true
-        search.searchBar.scopeButtonTitles = ["Map","List"]
-        search.searchBar.delegate = self
+        
+        if !isViewModeOverlay {
+            search.searchBar.showsScopeBar = true
+            search.searchBar.scopeButtonTitles = ["Map","List"]
+            search.searchBar.delegate = self
+        } else {
+            search.searchBar.showsScopeBar = false
+        }
+
         
         // search.automaticallyShowsCancelButton = true
         navigationItem.searchController = search
@@ -270,8 +276,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
-        
-        super.viewWillAppear(animated)
 
         if isFirstAppearance {
             isFirstAppearance = false
@@ -282,6 +286,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 viewMode = .map
             }
         }
+        
+        super.viewWillAppear(animated)
 
         constrainButtonsToNavigationBar()
         
@@ -1083,6 +1089,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 mapListToggleContainer.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
                 // listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
+                navigationItem.searchController?.searchBar.showsScopeBar = false
             case .list:
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
@@ -1098,6 +1105,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 listAndSearchOverlayContainerView.isHidden = true // false
                 // navigationBar.isInteractiveHidingEnabled = true
                 // listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
+                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
@@ -1113,6 +1121,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
                 // scrollView = nil
                 searchSuggestionController.navigationBarHider = nil
+                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .search:
                 // mapView.isHidden = true
                 mapContainerView.isHidden = true
@@ -1125,6 +1134,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.contentInsetAdjustmentBehavior = .never
                 // scrollView = searchSuggestionView
                 // searchSuggestionController.navigationBarHider = navigationBarHider
+                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .map:
                 fallthrough
             default:
@@ -1136,6 +1146,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
+                navigationItem.searchController?.searchBar.showsScopeBar = true
             }
             // recenterOnUserLocationButton.isHidden = mapView.isHidden
             recenterOnUserLocationButton.isHidden = mapContainerView.isHidden

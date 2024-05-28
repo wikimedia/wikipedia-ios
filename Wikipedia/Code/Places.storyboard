@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +12,6 @@
         <scene sceneID="iCz-d5-DDs">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="pK5-Ai-Kzp" customClass="WMFPlacesViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
-                        <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +50,7 @@
                                     <action selector="recenterOnUserLocation:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="VU6-SF-aWs"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
                                 <rect key="frame" x="123" y="37" width="168" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -86,8 +81,8 @@
                                     <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
-                                <rect key="frame" x="116" y="37" width="182" height="40"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
+                                <rect key="frame" x="115.66666666666669" y="37" width="183" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="DTV-bA-1bt"/>
@@ -217,14 +212,14 @@
                                 </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="WjD-Ab-D2o"/>
                                         <exclude reference="rqr-ZG-5SB"/>
+                                        <exclude reference="WjD-Ab-D2o"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="WjD-Ab-D2o"/>
                                         <include reference="rqr-ZG-5SB"/>
+                                        <include reference="WjD-Ab-D2o"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -234,50 +229,51 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MQo-ay-JlY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
-                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            <constraint firstItem="MQo-ay-JlY" firstAttribute="bottom" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
+                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                             </constraint>
-                            <constraint firstAttribute="trailing" secondItem="EsT-De-Ary" secondAttribute="trailing" id="8Fb-x8-txL"/>
+                            <constraint firstItem="MQo-ay-JlY" firstAttribute="trailing" secondItem="EsT-De-Ary" secondAttribute="trailing" id="8Fb-x8-txL"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="8ve-zs-ofw"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="FX1-9v-ZFx"/>
-                            <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
+                            <constraint firstItem="MQo-ay-JlY" firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="IFe-5L-9c3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mxh-CO-RQm" secondAttribute="trailing" id="Jrj-Yh-h1b"/>
-                            <constraint firstItem="EsT-De-Ary" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="N4z-kS-Lfj"/>
+                            <constraint firstItem="EsT-De-Ary" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="N4z-kS-Lfj"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="S5v-Rm-6Vf"/>
-                            <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
-                            <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="17" placeholder="YES" id="ZmR-fp-6Jv"/>
+                            <constraint firstItem="MQo-ay-JlY" firstAttribute="bottom" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
+                            <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="ZmR-fp-6Jv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="bVF-HO-Onf"/>
-                            <constraint firstItem="hEe-dF-AFg" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="dye-ab-bxM">
+                            <constraint firstItem="hEe-dF-AFg" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="dye-ab-bxM">
                                 <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                             </constraint>
-                            <constraint firstItem="5Dc-Qk-ppi" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="17" placeholder="YES" id="gux-TO-cJM"/>
-                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" constant="17" placeholder="YES" id="iw6-4r-a93"/>
+                            <constraint firstItem="5Dc-Qk-ppi" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="gux-TO-cJM"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="iw6-4r-a93"/>
                             <constraint firstItem="EsT-De-Ary" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="je6-s5-KPy"/>
-                            <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
-                            <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
+                            <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="MQo-ay-JlY" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
+                            <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="MQo-ay-JlY" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="ua0-k1-E4K"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="S5v-Rm-6Vf"/>
-                                <exclude reference="IFe-5L-9c3"/>
                                 <exclude reference="bVF-HO-Onf"/>
+                                <exclude reference="IFe-5L-9c3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="8ve-zs-ofw"/>
                                 <exclude reference="Fqd-WF-erI"/>
+                                <exclude reference="8ve-zs-ofw"/>
                                 <include reference="S5v-Rm-6Vf"/>
                                 <exclude reference="mu2-bC-yEv"/>
                                 <exclude reference="kJv-Kd-ffk"/>
                                 <exclude reference="FX1-9v-ZFx"/>
-                                <include reference="IFe-5L-9c3"/>
-                                <include reference="bVF-HO-Onf"/>
                                 <exclude reference="ua0-k1-E4K"/>
+                                <include reference="bVF-HO-Onf"/>
+                                <include reference="IFe-5L-9c3"/>
                                 <exclude reference="1PC-H2-U7d"/>
                             </mask>
                         </variation>
@@ -318,7 +314,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Wikipedia articles with geographic locations" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYN-g3-07L">
-                                    <rect key="frame" x="14.666666666666657" y="166" width="275.66666666666674" height="50"/>
+                                    <rect key="frame" x="14.666666666666657" y="166" width="276" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="4s2-GM-K7d"/>
                                     </constraints>
@@ -327,7 +323,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore cities, countries, continents, natural landmarks, historical events, buildings and more." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vm1-d9-7Ne">
-                                    <rect key="frame" x="14.666666666666657" y="224" width="275.66666666666674" height="50.333333333333314"/>
+                                    <rect key="frame" x="14.666666666666657" y="224" width="276" height="50.333333333333314"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="97Q-bU-Bot"/>
                                     </constraints>
@@ -345,6 +341,7 @@
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                         </stackView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="zt6-50-2p3"/>
                     <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3Ik-kL-6c1" secondAttribute="bottom" id="BtA-2U-m1w"/>
