@@ -113,9 +113,10 @@ extension ArticleViewController {
         
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
-                self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
-                if let project = WikimediaProject(siteURL: self.articleURL) {
-                    EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
+            self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
+            
+            if let project = WikimediaProject(siteURL: self.articleURL) {
+                EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
             }
         }
         sheet.addAction(editLeadSectionAction)

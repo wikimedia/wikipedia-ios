@@ -478,6 +478,7 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
         }
     }
+
     var autoSignTalkPageDiscussions: Bool {
         get {
             return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
