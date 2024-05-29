@@ -100,20 +100,7 @@ extension ArticleViewController {
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
 
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        
-        let editInformationMessageSheet = UIAlertController(title: nil, message: WMFLocalizedString("description-edit-pencil-introduction-confirmation-message", value: "The ordering of elements will be different in the editing view than article view. Would you like to proceed?", comment: "Description of alert dialouge to show ordering is different"), preferredStyle: .alert)
-        
-        let editInformationMessageTitle = WMFLocalizedString("description-edit-pencil-proceed-button-title", value: "Yes, Proceed", comment: "Title for button to proceed to edit introduction screen. The question being asked is: The ordering of elements will be different in the editing view than article view")
-        let editInformationAction = UIAlertAction(title: editInformationMessageTitle, style: .cancel) { (action) in
-            self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
-            if let project = WikimediaProject(siteURL: self.articleURL) {
-                EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
-            }
-            UserDefaults.standard.didShowInformationEditingMessage = true
-        }
-        editInformationMessageSheet.addAction(editInformationAction)
-        editInformationMessageSheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .destructive))
-
+    
         let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
             self.showTitleDescriptionEditor(with: descriptionSource)
@@ -126,13 +113,9 @@ extension ArticleViewController {
         
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
-            if !UserDefaults.standard.didShowInformationEditingMessage {
-                self.present(editInformationMessageSheet, animated: false)
-            } else {
                 self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
                 if let project = WikimediaProject(siteURL: self.articleURL) {
                     EditInteractionFunnel.shared.logArticleConfirmDidTapEditIntroduction(project: project)
-                }
             }
         }
         sheet.addAction(editLeadSectionAction)

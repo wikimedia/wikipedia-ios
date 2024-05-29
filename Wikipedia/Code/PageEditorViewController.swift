@@ -248,7 +248,10 @@ final class PageEditorViewController: UIViewController {
             } else {
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
-            
+            if !UserDefaults.standard.didShowInformationEditingMessage {
+                WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, sticky: false, dismissPreviousAlerts: true)
+                UserDefaults.standard.didShowInformationEditingMessage = true
+            }
         }
     }
     

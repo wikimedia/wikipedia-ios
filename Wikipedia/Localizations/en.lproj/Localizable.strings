@@ -161,12 +161,11 @@
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
 "data-migration-status" = "Updating...";
 "description-add-title" = "Add description";
+"description-article-introduction-warning-message" = "The ordering of elements will be different in the editing view than article view.";
 "description-edit-for-article" = "Article description for $1";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "By changing the article description, I agree to the $1 and to irrevocably release my contributions under the $2 license.";
 "description-edit-pencil-introduction" = "Edit introduction";
-"description-edit-pencil-introduction-confirmation-message" = "The ordering of elements will be different in the editing view than article view. Would you like to proceed?";
-"description-edit-pencil-proceed-button-title" = "Yes, Proceed";
 "description-edit-pencil-title" = "Edit article description";
 "description-edit-placeholder-title" = "Short descriptions are best";
 "description-edit-publish" = "Publish description";
