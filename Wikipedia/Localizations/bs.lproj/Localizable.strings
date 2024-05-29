@@ -88,8 +88,10 @@
 "action-add-to-reading-list" = "Dodaj na spisak za čitanje";
 "action-add-to-reading-list-short" = "Dodaj na spisak";
 "action-cancel" = "Otkaži";
+"action-discard-edit" = "Odbaci izmjene";
 "action-discard-edits" = "Odbaci izmjene";
 "action-find-in-page" = "Pronađi na stranici";
+"action-keep-editing" = "Nastavi s uređivanjеm";
 "action-language-accessibility" = "Promijeni jezik";
 "action-move-to" = "Premjesti u...";
 "action-move-to-reading-list" = "Premjesti na spisak za čitanje";
@@ -98,8 +100,6 @@
 "action-read" = "Čitaj";
 "action-redo" = "Ponovi";
 "action-remove" = "Ukloni";
-"action-replace" = "Zamijeni";
-"action-replace-all" = "Zamijeni sve";
 "action-retry" = "Pokušaj ponovo";
 "action-save" = "Sačuvaj";
 "action-saved" = "Sačuvano";
@@ -114,7 +114,6 @@
 "action-unsaved-accessibility-notification" = "Članak uklonjen";
 "action-update" = "Ažuriraj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
-"add-citation-title" = "Dodaj referencu";
 "announcements-dismiss" = "Odbaci";
 "app-store-keywords" = "Wikipedia, reference, wiki, enciklopedija, info, znanje, istraživanje, informacije, učenje";
 "app-store-release-notes" = "Poptuno prilagodljiva i lakša za čitanje stranica Istraži. Lokalizacija, poboljšanja performansi i ispravke programskih greški.";
@@ -138,8 +137,10 @@
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Detaljnije";
 "article-reference-view-title" = "Referenca $1";
+"article-revision-history" = "Historija revizije članka";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali članak";
 "article-share" = "Podijeli";
+"article-talk-page" = "Stranica za razgovor o članku";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrole tema za čitanje";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite za povratak";
@@ -159,8 +160,11 @@
 "chinese-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante kineskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\n简体 kineski, pojednostavljeni (zh-hans)\n香港繁體 Hong Kong, tradicionalni (zh-hk)\n澳門繁體 Makao, tradicionalni (zh-mo)\n大马简体 Malezija, pojednostavljeni (zh-my)\n新加坡简体 Singapur, pojednostavljeni (zh-sg)\n臺灣正體 tajvanski, tradicionalni (zh-tw)";
 "chinese-variants-alert-title" = "Ažuriranja podrške za varijantu kineskog jezika";
 "clear-title-accessibility-label" = "Očisti";
+"clearing-cache-complete" = "Brisanje keša je završeno.";
+"clearing-cache-in-progress" = "Brisanje keša je u toku.";
 "close-button-accessibility-label" = "Zatvori";
 "compass-direction" = "na $1 sati";
+"continue-button-title" = "Nastavi";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
 "crimean-tatar-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante krimskotatarskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nQırımtatarca, Latin krimskotatarski, latinica (chr-latn)\nкъырымтатарджа, Кирил krimskotatarski, ćirilica (crh-cyrl)";
@@ -168,7 +172,6 @@
 "data-migration-status" = "Ažuriram...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis članka za $1";
-"description-edit-learn-more" = "Saznaj više";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Mijenjanjem opisa članka prihvatam $1 i neopozivo dajem svoje doprinose pod licencom $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
@@ -202,6 +205,8 @@
 "description-welcome-descriptions-title" = "Opisi članaka";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počni uređivati";
+"diff-article-revision-history" = "Historija revizije članka";
+"diff-change-added" = "Dodavanje, $1, kraj dodavanja.";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
 "diff-compare-header-heading" = "Poređenje verzija";
@@ -236,24 +241,8 @@
 "diff-thanks-sent-cannot-unsend" = "Zahvala se ne može poništiti";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 red neizmijenjen|$1 reda neizmijenjena|$1 redova neizmijenjeno}}";
 "dim-images" = "Zatamni slike";
-"edit-bold-accessibility-label" = "Dodaj podebljano formatiranje";
-"edit-bold-remove-accessibility-label" = "Ukloni podebljano formatiranje";
-"edit-clear-formatting-accessibility-label" = "Ukolni formatiranje";
-"edit-comment-accessibility-label" = "Dodaj sintaksu komentara";
-"edit-comment-remove-accessibility-label" = "Ukloni sintaksu komentara";
-"edit-decrease-indent-depth-accessibility-label" = "Smanji dubinu uvlačenja";
-"edit-direction-down-accessibility-label" = "Pomaknite kursor dolje";
-"edit-direction-left-accessibility-label" = "Pomaknite kursor lijevo";
-"edit-direction-right-accessibility-label" = "Pomaknite kursor desno";
-"edit-direction-up-accessibility-label" = "Pomaknite kursor gore";
-"edit-increase-indent-depth-accessibility-label" = "Povećaj dubinu uvlačenja";
-"edit-indent-accessibility-label" = "Uvuci trenutni red";
-"edit-italic-accessibility-label" = "Dodaj ukošeno formatiranje";
-"edit-italic-remove-accessibility-label" = "Ukloni ukošeno formatiranje";
-"edit-link-accessibility-label" = "Dodaj sintaksu linka";
 "edit-link-display-text-title" = "Prikaži tekst";
 "edit-link-link-target-title" = "Cilj linka";
-"edit-link-remove-accessibility-label" = "Ukloni sintaksu linka";
 "edit-link-remove-link-title" = "Ukloni link";
 "edit-link-title" = "Uredi link";
 "edit-menu-item" = "Uredi";
@@ -264,38 +253,14 @@
 "edit-notices" = "Uređivačke napomene";
 "edit-notices-always-display" = "Uvijek prikaži uređivačke napomene";
 "edit-notices-please-read" = "Pročitajte prije uređivanja";
-"edit-ordered-list-accessibility-label" = "Napravi poredani spisak od trenutnog reda";
-"edit-ordered-list-remove-accessibility-label" = "Ukloni poredani spisak iz trenutne linije";
 "edit-published" = "Izmjena objavljena";
 "edit-published-subtitle" = "Upravo ste učinili Wikipediju boljom za sve";
-"edit-reference-accessibility-label" = "Dodaj sintaksu reference";
-"edit-reference-remove-accessibility-label" = "Ukloni sintaksu reference";
-"edit-signature-accessibility-label" = "Dodaj sintaksu potpisa";
-"edit-signature-remove-accessibility-label" = "Ukloni sintaksu potpisa";
-"edit-strikethrough-accessibility-label" = "Dodaj precrtavanje";
-"edit-strikethrough-remove-accessibility-label" = "Ukloni precrtavanje";
-"edit-style-table-view-title" = "Stil";
-"edit-subscript-accessibility-label" = "Dodaj formatiranje indeksa";
-"edit-subscript-remove-accessibility-label" = "Ukloni formatiranje indeksa";
 "edit-summary-add-summary-text" = "Dodaj sažetak izmjene";
 "edit-summary-choice-fixed-grammar" = "Popravljena gramatička greška";
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
-"edit-summary-learn-more-text" = "Saznaj više";
 "edit-summary-placeholder-text" = "Kako ste poboljšali članak?";
-"edit-superscript-accessibility-label" = "Dodaj formatiranje eksponenta";
-"edit-superscript-remove-accessibility-label" = "Ukloni formatiranje eksponenta";
-"edit-template-accessibility-label" = "Dodaj sintaksu šablona";
-"edit-template-remove-accessibility-label" = "Ukloni sintaksu šablona";
-"edit-text-clear-formatting" = "Očisti formatiranje";
-"edit-text-formatting-accessibility-label" = "Prikaži meni za formatiranje teksta";
-"edit-text-formatting-table-view-title" = "Formatiranje teksta";
-"edit-text-size-table-view-title" = "Veličina teksta";
-"edit-text-style-accessibility-label" = "Prikaži meni za stil teksta";
-"edit-underline-accessibility-label" = "Dodaj podvlačenje";
-"edit-underline-remove-accessibility-label" = "Ukloni podvlačenje";
-"edit-unordered-list-accessibility-label" = "Napravi neporedani spisak od trenutnog reda";
-"edit-unordered-list-remove-accessibility-label" = "Ukloni neporedani spisak iz trenutne linije";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Saznaj više o spisku praćenja";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-subtitle" = "Budite hrabri, ali ne i nemarni u ažuriranju članaka. Ne brinite se oko pravljenja grešaka: svaka prošla verzija stranice je sačuvana, tako da naša zajednica lako može ispraviti greške.";
@@ -308,6 +273,32 @@
 "editing-welcome-set-knowledge-free-title" = "Oslobodite znanje";
 "editor-exit-confirmation-body" = "Jeste li sigurni da želite napustiti uređivanje bez prethodnog objavljivanja?";
 "editor-exit-confirmation-title" = "Napusti uređivanje?";
+"editor-find-textfield-accessibility" = "Traži";
+"editor-keyboard-bold-accessibility" = "Podebljano";
+"editor-keyboard-comment-accessibility" = "Komentiraj";
+"editor-keyboard-heading-button" = "Naslov";
+"editor-keyboard-indent-decrease-accessibility" = "Smanji uvlačenje";
+"editor-keyboard-indent-increase-accessibility" = "Povećaj uvlačenje";
+"editor-keyboard-italics-accessibility" = "Ukošeno";
+"editor-keyboard-link-accessibility" = "Link";
+"editor-keyboard-paragraph-button" = "Odlomak";
+"editor-keyboard-reference-accessibility" = "Referenca";
+"editor-keyboard-strikethrough-accessibility" = "Precrtano";
+"editor-keyboard-subheading1-button" = "Podnaslov 1";
+"editor-keyboard-subheading2-button" = "Podnaslov 2";
+"editor-keyboard-subheading3-button" = "Podnaslov 3";
+"editor-keyboard-subheading4-button" = "Podnaslov 4";
+"editor-keyboard-subscript-accessibility" = "Indeks";
+"editor-keyboard-superscript-accessibility" = "Eksponent";
+"editor-keyboard-template-accessibility" = "Šablon";
+"editor-keyboard-text-formatting-title" = "Formatiranje teksta";
+"editor-keyboard-underline-accessibility" = "Podvučeno";
+"editor-replace-textfield-accessibility" = "Zamijeni";
+"editor-replace-textfield-placeholder" = "Zamijeni sa...";
+"editor-replace-type-all" = "Zamijeni sve";
+"editor-replace-type-single" = "Zamijeni";
+"editor-toolbar-find-accessibility" = "Pronađi na stranici";
+"editor-toolbar-image-accessibility" = "Formatiranje teksta slike";
 "empty-diff-compare-title" = "Nema razlika između verzija";
 "empty-diff-single-title" = "Nije napravljena nijedna vidljiva promjena";
 "empty-insert-media-title" = "Izaberi datoteku sa Wikimedia Commonsa";
@@ -412,6 +403,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "s Wikipedije ($1)";
 "explore-random-article-sub-heading-from-wikipedia" = "s Wikipedije";
 "explore-randomizer" = "Nasumična stranica";
+"explore-suggested-edits-footer" = "Dodaj";
+"explore-suggested-edits-image-recs-title" = "Dodaj sliku";
 "export-user-data-space-error" = "Nemate dovoljno prostora na uređaju za izvoz korisničkih podataka. Pokušajte ponovo kasnije.";
 "export-user-data-title" = "Izvezi korisničke podatke";
 "featured-widget-content-failure-for-date" = "Istaknuti članak nije dostupan za ovaj dan.";
@@ -478,6 +471,14 @@
 "icon-shortcut-random-title" = "Nasumičan članak";
 "icon-shortcut-search-title" = "Pretraži Wikipediju";
 "image-gallery-unknown-owner" = "Autor je nepoznat.";
+"image-rec-onboarding-item-3-title" = "Licencirane slike";
+"image-rec-survey-option-6" = "Ostalo";
+"image-rec-survey-submit-button" = "Pošalji";
+"image-rec-survey-title" = "Razlog";
+"image-rec-title" = "Dodaj sliku";
+"image-recs-no-title" = "Ne";
+"image-recs-not-sure-title" = "Nisam siguran";
+"image-recs-yes-title" = "Da";
 "import-shared-reading-list-default-title" = "Moj spisak za čitanje";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
@@ -510,7 +511,6 @@
 "insert-media-image-type-settings-title" = "Vrsta slike";
 "insert-media-media-settings-title" = "Postavke medija";
 "insert-media-title" = "Umetnite medij";
-"insert-media-uploaded-image-title" = "Postavljena slika";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante inuktitut jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, slogovi (ike-cans)\nInuktitut ilisautik, inuktitut, latinica (ike-latn)";
 "inuktitut-variants-alert-title" = "Ažuriranja podrške za varijantu inuktitut jezika";
 "kazakh-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante kazaškog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nҚазақша kazaški (kk)\nҚазақша Кирил kazaški, ćirilica (kk-cyrl)\nqazaqşa latin kazaški, latinica (kk-latn)\nتوتە قازاقشا kazaški, arapski (kk-arab)";
@@ -640,8 +640,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nova e-pošta";
 "notifications-center-subheader-login-fail-known-device" = "Više neuspješnih pokušaja prijave";
 "notifications-center-subheader-login-fail-unknown-device" = "Neuspješni pokušaj prijave";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Prijava sa nepoznatog uređaja";
+"notifications-center-subheader-login-success-unknown-device" = "Prijava s nepoznatog uređaja";
 "notifications-center-subheader-mention-article-talk-page" = "Spomenuti ste na stranici za razgovor o članku";
 "notifications-center-subheader-mention-edit-summary" = "Spomenuti ste u sažetku izmjene";
 "notifications-center-subheader-mention-failed" = "Neuspješno spominjanje";
@@ -661,7 +660,9 @@
 "notifications-center-title" = "Obavještenja";
 "notifications-center-toolbar-mark-accessibility-label" = "Označite odabrana obavještenja";
 "notifications-center-type-item-description-mentions" = "Spominjanja";
+"notifications-center-type-item-description-notice" = "Obavještenje";
 "notifications-center-type-item-description-welcome-verbose" = "Poruka dobrodošlice";
+"notifications-center-type-title-connection-with-wikidata" = "Veza s Wikipodacima";
 "notifications-center-type-title-welcome" = "Dobro došli";
 "notifications-push-fallback-body-text" = "Nova aktivnost na Wikipediji";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 nova poruka|$1 nove poruke|$1 novih poruka}} na $2";
@@ -843,7 +844,6 @@
 "replace-infolabel-method-replace" = "Zamijeni";
 "replace-infolabel-method-replace-all" = "Zamijeni sve";
 "replace-method-button-accessibility" = "Metoda zamjene. Postavljeno na $1. Odaberite za promjenu.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 stavka zamjenjena|$1 stavke zamjenjene|$1 stavki zamjenjeno}}";
 "replace-textfield-accessibility" = "Zamijeni";
 "replace-textfield-placeholder" = "Zamijeni sa...";
 "reverted-edit-title" = "Vraćena izmjena";
@@ -911,20 +911,17 @@
 "settings-storage-and-syncing-title" = "Pohrana i sinhronizacija članaka";
 "settings-title" = "Postavke";
 "share-a-fact-made-with" = "Napravljeno u Wikipedia aplikaciji";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipediji:";
 "share-building" = "Stvaram karticu za dijeljenje činjenica…";
 "share-default-format" = "“$1” iz “$2”: $3";
 "share-email-format" = "“$1”\n\niz “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dobij uputstva";
 "share-menu-item" = "Podijeli…";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "preko @Wikipedia";
+"share-on-twitter-sign-off" = "preko Wikipedije";
 "share-open-in-maps" = "Otvori u Kartama";
 "share-social-format" = "“$1” na Wikipediji: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” na @Wikipedia: $2";
+"share-social-mention-format" = "“$1” na Wikipediji: $2";
 "sort-by-recently-added-action" = "Nedavno dodano";
 "sort-by-title-action" = "Naslov";
 "table-of-contents-button-label" = "Sadržaj";
@@ -948,7 +945,6 @@
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-permanent-link" = "Trajni link";
-// Fuzzy
 "talk-page-title-article-talk" = "stranica za razgovor članka";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
 "theme-black-display-name" = "Crna";
@@ -995,9 +991,7 @@
 "widget-onthisday-description" = "Istraži šta se dogodilo na današnji dan u historiji.";
 "widget-onthisday-placeholder-article-snippet" = "Slobodna online enciklopedija koju svako može uređivati";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, slobodna enciklopedija wiki sadržaja, postaje dostupna na internetu.";
-"wikitext-downloading" = "Učitavam sadržaj...";
 "wikitext-preview-changes" = "Ispisujem pregled izmjena koje ste napravili...";
-"wikitext-preview-changes-none" = "Nema izmjena za pregled.";
 "wikitext-preview-link-external-preview-description" = "Ovaj link vodi ka vanjskom veb-sajtu: $1";
 "wikitext-preview-link-external-preview-title" = "Vanjski link";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia nema članak sa ovim nazivom";
@@ -1012,5 +1006,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako se $1Prijavite$2, imat ćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Objavljivanjem izmjena prihvatate $1uslove korištenja$2 i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $3CC BY-SA 3.0$4 i $5GFDL$6. Slažete se da je hyperlink ili URL dovoljna atribucija pod Creative Commons licencom.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";

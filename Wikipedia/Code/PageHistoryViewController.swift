@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 typealias PageHistoryCollectionViewCellSelectionThemeModel = PageHistoryViewController.SelectionThemeModel
@@ -511,17 +511,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         let backgroundColor: UIColor
         let authorColor: UIColor
         let commentColor: UIColor
+        let emptyCommentColor: UIColor
         let timeColor: UIColor
         let sizeDiffAdditionColor: UIColor
         let sizeDiffSubtractionColor: UIColor
         let sizeDiffNoDifferenceColor: UIColor
 
-        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, timeColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
+        init(selectedImage: UIImage?, borderColor: UIColor, backgroundColor: UIColor, authorColor: UIColor, commentColor: UIColor, emptyCommentColor: UIColor, timeColor: UIColor, sizeDiffAdditionColor: UIColor, sizeDiffSubtractionColor: UIColor, sizeDiffNoDifferenceColor: UIColor) {
             self.selectedImage = selectedImage
             self.borderColor = borderColor
             self.backgroundColor = backgroundColor
             self.authorColor = authorColor
             self.commentColor = commentColor
+            self.emptyCommentColor = emptyCommentColor
             self.timeColor = timeColor
             self.sizeDiffAdditionColor = sizeDiffAdditionColor
             self.sizeDiffSubtractionColor = sizeDiffSubtractionColor
@@ -532,14 +534,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private lazy var secondSelectionThemeModel: SelectionThemeModel = {
         let backgroundColor: UIColor
         let timeColor: UIColor
-        backgroundColor = .orange600.withAlphaComponent(0.15)
+        backgroundColor = WKColor.orange600.withAlphaComponent(0.15)
         // themeTODO: define a semantic color for this instead of checking isDark
         if theme.isDark {
             timeColor = theme.colors.tertiaryText
         } else {
-            timeColor = .gray500
+            timeColor = WKColor.gray500
         }
-        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: UIColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: UIColor.orange600, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: UIImage(named: "selected-accent"), borderColor: WKColor.orange600.withAlphaComponent(0.5), backgroundColor: backgroundColor, authorColor: WKColor.orange600, commentColor: theme.colors.primaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var firstSelectionThemeModel: SelectionThemeModel = {
@@ -550,14 +552,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             backgroundColor = theme.colors.link.withAlphaComponent(0.2)
             timeColor = theme.colors.tertiaryText
         } else {
-            backgroundColor = .blue100
-            timeColor = .gray500
+            backgroundColor = WKColor.blue100
+            timeColor = WKColor.gray500
         }
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.link, backgroundColor: backgroundColor, authorColor: theme.colors.link, commentColor: theme.colors.primaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: timeColor, sizeDiffAdditionColor: theme.colors.accent, sizeDiffSubtractionColor: theme.colors.destructive, sizeDiffNoDifferenceColor: theme.colors.link)
     }()
 
     private lazy var disabledSelectionThemeModel: SelectionThemeModel = {
-        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, timeColor: .gray500, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
+        return SelectionThemeModel(selectedImage: nil, borderColor: theme.colors.border, backgroundColor: theme.colors.paperBackground, authorColor: theme.colors.secondaryText, commentColor: theme.colors.secondaryText, emptyCommentColor: theme.colors.secondaryText, timeColor: WKColor.gray500, sizeDiffAdditionColor: theme.colors.secondaryText, sizeDiffSubtractionColor: theme.colors.secondaryText, sizeDiffNoDifferenceColor: theme.colors.secondaryText)
     }()
 
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {

@@ -134,15 +134,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
-    
+
 #if UITEST
     WMFTheme *newTheme = [self themeForUITests];
     if (newTheme) {
         self.theme = newTheme;
     }
 #endif
-    
-    [self appEnvironmentDidChangeWithTheme:self.theme traitCollection:self.traitCollection];
+
+    [self appEnvironmentDidChangeWithTheme:self.theme
+                           traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -223,11 +224,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotificationsCenterContextDidSave)
                                                  name:NSNotification.notificationsCenterContextDidSave
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editWasPublished:)
-                                                 name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -553,14 +549,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
              context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
-- (void)editWasPublished:(NSNotification *)note {
-    if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
-        return;
-    }
-    [self toggleHint:self.editHintController
-             context:nil];
-}
-
 - (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
@@ -818,30 +806,29 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
-
 }
 
-- (WMFTheme *) themeForUITests {
-    
+- (WMFTheme *)themeForUITests {
+
 #if UITEST
-    
+
     if (NSProcessInfo.processInfo.arguments.count > 1) {
-        self.theme = [WMFTheme dark]; //remove
+        self.theme = [WMFTheme dark]; // remove
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
 
-        if ([arguments  containsObject: @"UITestThemeLight"]) {
+        if ([arguments containsObject:@"UITestThemeLight"]) {
             return [WMFTheme light];
-        } else if ([arguments  containsObject: @"UITestThemeSepia"]) {
+        } else if ([arguments containsObject:@"UITestThemeSepia"]) {
             return [WMFTheme sepia];
-        }else if ([arguments  containsObject: @"UITestThemeDark"]) {
+        } else if ([arguments containsObject:@"UITestThemeDark"]) {
             return [WMFTheme dark];
-        }else if ([arguments  containsObject: @"UITestThemeBlack"]) {
+        } else if ([arguments containsObject:@"UITestThemeBlack"]) {
             return [WMFTheme black];
         }
     }
-    
+
     return nil;
-    
+
 #else
     return nil;
 #endif
@@ -869,7 +856,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.migrationActive = YES;
     [(WMFRootNavigationController *)self.navigationController triggerMigratingAnimation];
-    
+
     MWKDataStore *dataStore = self.dataStore; // Triggers init
     [dataStore finishSetup:^{
         [dataStore
@@ -937,12 +924,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
             [self.navigationStateController restoreLastArticleFor:self.navigationController
-                                                                   in:self.dataStore.viewContext
-                                                                 with:self.theme
-                                                           completion:^{
-                                                               [self hideSplashViewAnimated:!didShowOnboarding];
-                                                               done();
-                                                           }];
+                                                               in:self.dataStore.viewContext
+                                                             with:self.theme
+                                                       completion:^{
+                                                           [self hideSplashViewAnimated:!didShowOnboarding];
+                                                           done();
+                                                       }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
@@ -1200,7 +1187,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeMain];
             UINavigationController *navController = self.navigationController;
             [navController popToRootViewControllerAnimated:animated];
-            NSURL *url = [activity wmf_contentURL];
+            NSURL *url = [self contentURLForActivity:activity];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
                 switch (group.detailType) {
@@ -1297,6 +1284,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     done();
     [NSUserActivity wmf_makeActivityActive:activity];
     return YES;
+}
+
+- (NSURL *)contentURLForActivity:(NSUserActivity *)activity {
+    NSURL *contentURL = [activity wmf_contentURL];
+
+    //
+    // T356255 - Picture Of The Day not opening when the primary language has a language variant code
+    // For example, zh-Hant-TW (Chinese - Taiwan) vs zh-Hans-MY (Chinese - Malaysia)
+    //
+    if ([contentURL.path containsString:@"picture-of-the-day"]) {
+        NSString *primaryLanguageVariantCode = self.dataStore.languageLinkController.appLanguage.languageVariantCode;
+        if (primaryLanguageVariantCode != nil && contentURL.wmf_languageVariantCode == nil) {
+            contentURL.wmf_languageVariantCode = primaryLanguageVariantCode;
+        }
+    }
+
+    return contentURL;
 }
 
 #pragma mark - Utilities
@@ -1833,14 +1837,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // self.navigationController is the App's root view controller so rely on its trait collection
     UITraitCollection *traitCollection = self.navigationController.traitCollection;
     WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
-    
+
 #if UITEST
     WMFTheme *newTheme = [self themeForUITests];
     if (newTheme) {
         theme = newTheme;
     }
 #endif
-    
+
     if (self.theme != theme) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
@@ -2102,7 +2106,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
@@ -2117,7 +2120,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                 force:YES
                                                            completion:nil];
         }
-        
+
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];
@@ -2134,7 +2137,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                 force:YES
                                                            completion:nil];
         }
-        
+
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];

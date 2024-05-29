@@ -157,7 +157,7 @@ class TalkPageViewController: ViewController {
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let children: [UIMenuElement] = FeatureFlags.needsNativeSourceEditor ? [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu] : [openAllAction, revisionHistoryAction, openInWebAction, submenu]
+        let children: [UIMenuElement] = [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
@@ -1259,7 +1259,7 @@ extension TalkPageViewController: PageEditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
                 }
                 
                 // Refresh page

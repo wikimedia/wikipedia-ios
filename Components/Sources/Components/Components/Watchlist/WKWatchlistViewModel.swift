@@ -13,6 +13,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public var userButtonTalkPage: String
 		public var userButtonContributions: String
 		public var userButtonThank: String
+        public var emptyEditSummary: String
         public var userAccessibility: String
         public var summaryAccessibility: String
         public var userAccessibilityButtonDiff: String
@@ -21,7 +22,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
 		public let htmlStripped: ((String) -> String) // use client app logic to strip HTML tags
 
-        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, emptyEditSummary: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
 
 			self.title = title
 			self.filter = filter
@@ -29,6 +30,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 			self.userButtonTalkPage = userButtonTalkPage
 			self.userButtonContributions = userButtonContributions
 			self.userButtonThank = userButtonThank
+            self.emptyEditSummary = emptyEditSummary
             self.userAccessibility = userAccessibility
             self.summaryAccessibility = summaryAccessibility
             self.userAccessibilityButtonDiff = userAccessibilityButtonDiff

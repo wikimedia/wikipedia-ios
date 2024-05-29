@@ -50,7 +50,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         
         publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
-        learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(), for: .normal)
         
         descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text shown inside description field until user taps on it")
 
@@ -341,7 +341,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _ in
+        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _, _ in
             
             self?.dismiss(animated: true) {
                 self?.save()

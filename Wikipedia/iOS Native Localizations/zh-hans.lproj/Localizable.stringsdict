@@ -614,22 +614,6 @@
 			<string>今年</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>替换了%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d个项目</string>
-			<key>other</key>
-			<string>%1$d个项目</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

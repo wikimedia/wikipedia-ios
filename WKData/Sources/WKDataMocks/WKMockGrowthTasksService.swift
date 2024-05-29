@@ -42,7 +42,7 @@ fileprivate extension WKData.WKServiceRequest {
             return false
         }
 
-        return method == .GET && action == "query" && formatversion == "2" && format == "json" && generator == "search" && gsrsearch == "hasrecommendation:image" && prop == "growthimagesuggestiondata|revisions"
+        return method == .GET && action == "query" && formatversion == "2" && format == "json" && generator == "search" && gsrsearch == "hasrecommendation:image" && prop == "growthimagesuggestiondata|revisions|pageimages"
     }
 }
 
@@ -78,6 +78,15 @@ public final class WKMockGrowthTasksService: WKService {
         
         return nil
 
+    }
+    
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+        guard let jsonData = jsonData(for: request) else {
+            completion(.failure(WKMockError.unableToPullData))
+            return
+        }
+        
+        completion(.success(jsonData))
     }
 
     public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String : Any]?, Error>) -> Void) {

@@ -85,7 +85,7 @@
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
         case WMFContentGroupKindSuggestedEdits:
-            URL = [WMFContentGroup suggestedEditsURL];
+            URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
         default:
             break;
     }
@@ -524,8 +524,10 @@
     return URL;
 }
 
-+ (nullable NSURL *)suggestedEditsURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
++ (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
 }
 
 - (BOOL)isForLocalDate:(NSDate *)date {

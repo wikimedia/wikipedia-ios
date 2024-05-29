@@ -1,3 +1,5 @@
-/* Localized versions of Info.plist keys */
+// Messages for Greek (Ελληνικά)
+// Exported from translatewiki.net
+// Author: Evropi
 
-"CFBundleDisplayName" = "Wikipedia";
+"CFBundleDisplayName" = "Βικιπαίδεια";

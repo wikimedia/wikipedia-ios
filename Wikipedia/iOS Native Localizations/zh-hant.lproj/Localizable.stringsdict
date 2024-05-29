@@ -246,10 +246,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d 位元組已添加</string>
 			<key>other</key>
-			<string>%1$d 位元組已添加</string>
+			<string>%1$d 位元組已新增</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -755,20 +753,6 @@
 			<string>%1$d 年前</string>
 			<key>zero</key>
 			<string>今年</string>
-		</dict>
-	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d 個項目已取代</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
