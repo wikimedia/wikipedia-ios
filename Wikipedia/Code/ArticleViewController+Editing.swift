@@ -110,7 +110,7 @@ extension ArticleViewController {
             }
         }
         sheet.addAction(editTitleDescriptionAction)
-        
+
         let editLeadSectionTitle = WMFLocalizedString("description-edit-pencil-introduction", value: "Edit introduction", comment: "Title for button used to show article lead section editor")
         let editLeadSectionAction = UIAlertAction(title: editLeadSectionTitle, style: .default) { (action) in
             self.showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo)
