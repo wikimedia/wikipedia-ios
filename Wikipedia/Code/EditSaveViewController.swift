@@ -1,4 +1,3 @@
-import UIKit
 import SwiftUI
 import WMF
 import Components
@@ -106,6 +105,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     private let wikiTextSectionUploader = WikiTextSectionUploader()
 
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+    }
+
     private var licenseTitleTextViewAttributedString: NSAttributedString {
         let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses-ccsa4", languageCode: languageCode, value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 4.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
 
@@ -119,8 +122,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
-
+        let attributedString = getAttributedString(substitutedString)
         return attributedString
     }
 
@@ -133,11 +135,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
-
+        let attributedString = getAttributedString(substitutedString)
         return attributedString
     }
-    
+
+    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     private func updateNavigation(for mode: NavigationMode) {
         var backButton: UIBarButtonItem?
         var forwardButton: UIBarButtonItem?

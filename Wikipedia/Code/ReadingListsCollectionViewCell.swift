@@ -16,7 +16,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var singlePixelDimension: CGFloat = 0.5
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
-    
+
+    private var theme: Theme = Theme.standard
+
     override var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
@@ -90,8 +92,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .boldCallout
-        titleDynamicTextStyle = .semiboldBody
+        styles = HtmlUtils.Styles(font: WKFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
         updateFonts(with: traitCollection)
     }
     
@@ -236,8 +238,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     override func configureForCompactList(at index: Int) {
         layoutMarginsAdditions.top = 5
         layoutMarginsAdditions.bottom = 5
-        titleTextStyle = .subheadline
-        titleDynamicTextStyle = .subheadline 
+        styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
         imageViewDimension = 40

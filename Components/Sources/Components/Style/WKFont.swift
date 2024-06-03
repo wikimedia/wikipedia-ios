@@ -152,7 +152,7 @@ import SwiftUI
             return UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 28), size: 0), compatibleWith: traitCollection)
 
         case .georgiaTitle3:
-            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 28), size: 0), compatibleWith: traitCollection)
+            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 20), size: 0), compatibleWith: traitCollection)
 
         case .headline:
             return UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)

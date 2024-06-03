@@ -1,4 +1,5 @@
 import UIKit
+import Components
 
 @objc(WMFFontFamily) public enum FontFamily: Int {
     case system

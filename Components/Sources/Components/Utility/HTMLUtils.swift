@@ -16,7 +16,7 @@ public struct HtmlUtils {
         let lineSpacing: CGFloat
         let listIndent: String
         
-        internal init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
@@ -65,8 +65,8 @@ public struct HtmlUtils {
     
     // MARK: - Shared - Properties
     
-    static let defaultListIndent = "    "
-    
+    public static let defaultListIndent = "    "
+
     // MARK: - NSAttributedString - Public
     
     public static func nsAttributedStringFromHtml(_ html: String, styles: Styles) throws -> NSAttributedString {

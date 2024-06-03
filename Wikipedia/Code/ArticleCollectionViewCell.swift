@@ -14,16 +14,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var _titleHTML: String? = nil
     private var _titleBoldedString: String? = nil
-    
+
+    private var theme: Theme = Theme.standard
+
+    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = titleHTML.byAttributingHTML(with: titleDynamicTextStyle, matching: traitCollection) // TODO - cleanup
-            if let boldString = _titleBoldedString {
-                attributedTitle.applyBoldFont(to: boldString, textStyle: titleDynamicTextStyle, matching: traitCollection) // TODO - cleanup
+            let attributedTitle = getAttributedString(titleHTML)
+            if let boldString = _titleBoldedString, let boldFont {
+                let boldAttributedString = NSMutableAttributedString(string: boldString)
+                let range = NSRange(location: 0, length: boldAttributedString.length)
+                boldAttributedString.addAttribute(.font, value: boldFont, range: range)
             }
             titleLabel.attributedText = attributedTitle
         } else {
-            let titleFont = WKFont.for(titleTextStyle, compatibleWith: traitCollection)
+            let titleFont = WKFont.for(.boldCallout, compatibleWith: traitCollection)
             titleLabel.font = titleFont
         }
     }
@@ -55,7 +63,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     open override func setup() {
-        titleTextStyle = .georgiaTitle3
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -65,7 +73,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true
-      
         
         contentView.addSubview(alertButton)
         alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
@@ -87,7 +94,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        titleTextStyle = .georgiaTitle3
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumFootnote
@@ -207,9 +214,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
-    
-    public var titleDynamicTextStyle: DynamicTextStyle! // TODO - cleanup (temp fix to compile)
-    public var titleTextStyle: WKFont!
+    public var styles: HtmlUtils.Styles!
+    public var boldFont: WKFont!
     public var descriptionTextStyle: WKFont!
     public var extractTextStyle: WKFont!
     public var saveButtonTextStyle: WKFont!

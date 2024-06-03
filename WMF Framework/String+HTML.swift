@@ -24,12 +24,6 @@ extension String {
         return (self as NSString).wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, color: color, linkColor: linkColor, handlingLinks: handlingLinks, handlingLists: handlingLists, handlingSuperSubscripts: handlingSuperSubscripts, tagMapping: tagMapping, additionalTagAttributes: additionalTagAttributes)
     }
 
-
-//    public func byAttributingHTML(with textStyle: WKFont, boldWeight: UIFont.Weight = .bold, matching traitCollection: UITraitCollection, color: UIColor? = nil, handlingLinks: Bool = true, linkColor: UIColor? = nil, handlingLists: Bool = false, handlingSuperSubscripts: Bool = false, tagMapping: [String: String]? = nil, additionalTagAttributes: [String: [NSAttributedString.Key: Any]]? = nil) -> NSMutableAttributedString {
-//        return NSMutableAttributedString()
-////        return (self as NSString).wmf_attributedStringFromHTML(with: font, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, color: color, linkColor: linkColor, handlingLinks: handlingLinks, handlingLists: handlingLists, handlingSuperSubscripts: handlingSuperSubscripts, tagMapping: tagMapping, additionalTagAttributes: additionalTagAttributes)
-//    }
-
     public var removingHTML: String {
         return (self as NSString).wmf_stringByRemovingHTML()
     }

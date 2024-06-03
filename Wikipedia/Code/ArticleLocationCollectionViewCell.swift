@@ -8,7 +8,9 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     let distanceTextStyle: WKFont = .caption1
     var articleLocation: CLLocation?
     var userLocation: CLLocation?
-    
+
+    private var theme: Theme = Theme.standard
+
     override func setup() {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
@@ -25,8 +27,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func reset() {
         super.reset()
-        titleTextStyle = .georgiaTitle3
-        titleDynamicTextStyle = .georgiaTitle3
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
         imageView.image = #imageLiteral(resourceName: "compass-w")

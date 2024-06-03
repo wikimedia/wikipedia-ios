@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     public var bottomSeparator = UIView()
@@ -6,6 +6,8 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     public var areSeparatorsAlignedWithLabels: Bool = false
 
     public var singlePixelDimension: CGFloat = 0.5
+
+    private var theme: Theme = Theme.standard
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -30,8 +32,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .callout
-        titleDynamicTextStyle = .callout 
+        styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         updateFonts(with: traitCollection)
     }
     
