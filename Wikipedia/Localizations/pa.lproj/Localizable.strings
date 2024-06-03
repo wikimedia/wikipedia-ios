@@ -3,6 +3,7 @@
 // Author: Aalam
 // Author: AnupamM
 // Author: Babanwalia
+// Author: Cabal
 // Author: Jimidar
 // Author: Kuldeepburjbhalaike
 // Author: Nachhattardhammu
@@ -13,8 +14,21 @@
 // Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
-"aaald-added-text-description-2" = "$1 ਜੋਡ਼ਿਆ ਗਿਆ";
+"aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
 "aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ";
+"aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
+"aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
+"aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
+"aaald-multiple-changes-description" = "ਕਈ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ ਗਈਆਂ";
+"aaald-new-book-reference-title" = "ਕਿਤਾਬ";
+"aaald-new-journal-reference-title" = "ਰਸਾਲਾ";
+"aaald-new-news-reference-title" = "ਖ਼ਬਰਾਂ";
+"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਦੁਆਰਾ ਸੋਧ";
+"aaald-revision-userInfo" = "$1 ਨਾਲ ਸੋਧ ($2 ਸੋਧਾਂ)";
+"aaald-single-reference-added-description" = "ਹਵਾਲਾ ਜੋੜਿਆ ਗਿਆ";
+"aaald-two-sections-description" = "$1 ਅਤੇ $2 ਭਾਗਾਂ ਵਿੱਚ";
+"aaald-vandalism-revert-description" = "ਸ਼ੱਕੀ ਭੰਨ ਤੋੜ ਵਾਪਸ ਕੀਤੀ ਗਈ";
+"aaald-view-full-history-button" = "ਲੇਖ ਦਾ ਪੂਰਾ ਇਤਿਹਾਸ ਵੇਖੋ";
 "about-content-license" = "ਸਮੱਗਰੀ ਲਸੰਸ";
 "about-content-license-details" = "ਜੇ ਕੁਝ ਹੋਰ ਨਹੀਂ ਕਿਹਾ ਗਿਆ ਤਾਂ ਸਮੱਗਰੀ $1 ਹੇਠ ਉਪਲੱਬਧ ਹੈ।";
 "about-content-license-details-share-alike-license" = "ਕਰੀਏਟਿਵ ਕਾਮਨਜ਼ ਐਟ੍ਰੀਰਬ੍ਯੂਸ਼ਨ-ਸ਼ੇਅਰ ਅਲਾਈਕ ਲਸੰਸ";
@@ -31,16 +45,16 @@
 "about-testers" = "ਟੈਸਟਰ";
 "about-testers-details" = "QA $1 ਦੁਆਰਾ ਟੈਸਟ ਕੀਤਾ ਗਿਆ";
 "about-title" = "ਬਾਰੇ";
-"about-translators" = "ਅਨੁਵਾਦਕ";
-"about-translators-details" = "$1 ਦੇ ਵਲੰਟੀਅਰਾੰ ਦੁਆਰਾ ਅਨੁਵਾਦ";
+"about-translators" = "ਤਰਜਮੇਕਾਰ";
+"about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਦੁਆਰਾ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-captcha-request-account" = "ਅਕਾਊਂਟ ਬੇਨਤੀ";
 "account-creation-create-account" = "ਆਪਣਾ ਖਾਤਾ ਬਣਾਓ";
 "account-creation-have-account" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? $1";
-"account-creation-log-in" = "ਦਾਖ਼ਲ";
-"account-creation-logging-in" = "...ਲਾਗ ਇਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
+"account-creation-log-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
+"account-creation-logging-in" = "...ਦਾਖ਼ਲਾ ਹੋ ਰਿਹਾ ਹੈ";
 "account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
@@ -51,7 +65,7 @@
 "action-share" = "ਸਾਂਝਾ ਕਰੋ";
 // Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
-"article-delete" = "ਮਿਟਾਉ";
+"article-delete" = "ਮਿਟਾਓ";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾ ਲੱਭੋ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-others" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ";
@@ -59,7 +73,7 @@
 "back-button-accessibility-label" = "ਪਿੱਛੇ";
 "button-next" = "ਅੱਗੇ";
 "button-ok" = "ਠੀਕ";
-"button-publish" = "ਸਾਂਭੋ";
+"button-publish" = "ਛਾਪੋ";
 "button-read-now" = "ਪਡ਼੍ਹੋ";
 "button-report-a-bug" = "ਕਿਸੇ ਦੋਸ਼ ਦੀ ਇਤਲਾਹ ਦਿਉ";
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
@@ -126,7 +140,7 @@
 "login-no-account" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? $1";
 "main-menu-about" = "ਐਪ ਬਾਰੇ";
 "main-menu-account-login" = "ਦਾਖ਼ਲ ਹੋਵੋ";
-"main-menu-account-logout" = "ਵਿਦਾਈ ਲਉ";
+"main-menu-account-logout" = "ਬਾਹਰ ਆਉ";
 "main-menu-account-logout-are-you-sure" = "ਕੀ ਤੁਸੀੰ ਯਕੀਨੀ ਵਿਦਾਅ ਹੋਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "main-menu-account-logout-cancel" = "ਰੱਦ ਕਰੋ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
@@ -152,7 +166,8 @@
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 // Fuzzy
 "notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
-"notifications-center-type-item-description-welcome-verbose" = "ਸੁਆਗਤ ਸੁਨੇਹਾ";
+"notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
+"notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -173,7 +188,7 @@
 "search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "search-recent-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਖੋਜਾਂ ਮਿਟਾਓ?";
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
-"search-recent-clear-delete-all" = "ਸਭ ਮਿਟਾਓ";
+"search-recent-clear-delete-all" = "ਸਾਰੇ ਮਿਟਾਓ";
 "search-recent-title" = "ਹਾਲੀਆ ਖੋਜ਼ਾਂ";
 "search-result-redirected-from" = "$1 ਤੋਂ ਰੀਡਿਰੈਕਟ";
 "search-title" = "ਖੋਜ";
