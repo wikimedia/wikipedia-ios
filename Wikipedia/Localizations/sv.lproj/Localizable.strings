@@ -626,12 +626,16 @@
 "insert-media-image-preview-select-image-action-title" = "Välj bild";
 "insert-media-image-size-setting-custom" = "Anpassad";
 "insert-media-image-size-setting-default" = "Standard";
+"insert-media-image-size-settings-measure-height" = "Höjd";
+"insert-media-image-size-settings-measure-width" = "Bredd";
 "insert-media-image-size-settings-px-unit-name" = "bildpunkter";
 "insert-media-image-size-settings-title" = "Bildstorlek";
+"insert-media-image-text-wrapping-setting" = "Linda texten runt bilden";
 "insert-media-image-type-setting-basic" = "Enkel";
 "insert-media-image-type-setting-frame" = "Ram";
 "insert-media-image-type-setting-frameless" = "Ramlös";
 "insert-media-image-type-setting-thumbnail" = "Miniatyrbild";
+"insert-media-image-type-settings-footer-title" = "Du kan ställa in hur mediaobjekt visas på sidan. Detta bör nästan alltid vara i miniatyrformat för att vara konsekvent med andra sidor.";
 "insert-media-image-type-settings-title" = "Bildtyp";
 "insert-media-media-settings-title" = "Mediainställningar";
 "insert-media-title" = "Infoga media";
@@ -890,6 +894,7 @@
 "potd-widget-title" = "Dagens bild";
 "preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
+"problem-with-feature-title" = "Problem med funktion";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1185,6 +1190,8 @@
 "top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 läsare";
 "top-read-widget-title" = "Mest lästa";
+"try-now-title" = "Försök nu";
+"tutorial-title" = "Guide";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";

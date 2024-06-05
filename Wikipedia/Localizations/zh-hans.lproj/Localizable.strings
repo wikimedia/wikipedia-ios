@@ -944,7 +944,7 @@
 "reading-list-create-new-list-button-title" = "创建阅读列表";
 "reading-list-create-new-list-description" = "描述";
 "reading-list-create-new-list-reading-list-name" = "阅读列表名称";
-"reading-list-create-new-list-title" = "创建一个新列表";
+"reading-list-create-new-list-title" = "创建新列表";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
