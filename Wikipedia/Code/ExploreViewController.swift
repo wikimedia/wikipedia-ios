@@ -866,7 +866,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
     
-    // TODO: - Remove after expiry date (5 Aug, 2024)
+    // TODO: - Remove after expiry date (4 Oct, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
         
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
@@ -925,13 +925,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 }
 
 // MARK: - Image Recommendations Announcement Time-box
-// TODO: - Remove after expiry date (5 Aug, 2024)
+// TODO: - Remove after expiry date (4 Oct, 2024)
 struct ImageRecommendationsFeatureAnnouncementTimeBox {
     static let expiryDate: Date? = {
         var expiryDateComponents = DateComponents()
         expiryDateComponents.year = 2024
-        expiryDateComponents.month = 8
-        expiryDateComponents.day = 5
+        expiryDateComponents.month = 10
+        expiryDateComponents.day = 4
         return Calendar.current.date(from: expiryDateComponents)
     }()
     
