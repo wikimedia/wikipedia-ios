@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 extension NotificationsCenterCommonViewModel {
     
@@ -65,7 +65,7 @@ extension NotificationsCenterCommonViewModel {
              .unknownNotice,
              .unknownAlert,
              .unknown:
-            return notification.messageHeader?.removingHTML
+            return try? HtmlUtils.stringFromHTML(notification.messageHeader ?? String())
         }
     }
     
@@ -88,7 +88,7 @@ extension NotificationsCenterCommonViewModel {
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
             
-            if let messageHeader = notification.messageHeader?.removingHTML,
+            if let messageHeader = try? HtmlUtils.stringFromHTML(notification.messageHeader ?? String()),
                !messageHeader.isEmpty {
                 return messageHeader
             }
@@ -102,7 +102,7 @@ extension NotificationsCenterCommonViewModel {
              .unknownNotice,
              .unknown:
             
-            if let messageBody = notification.messageBody?.removingHTML,
+            if let messageBody = try? HtmlUtils.stringFromHTML(notification.messageBody ?? String()),
                !messageBody.isEmpty {
                 return messageBody
             }

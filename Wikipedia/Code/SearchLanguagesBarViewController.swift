@@ -38,7 +38,7 @@ class SearchLanguageButton: UnderlineButton {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
-        label.font = .wmf_font(.boldSubheadline)
+        label.font = WKFont.for(.boldSubheadline)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label

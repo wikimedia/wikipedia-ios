@@ -254,24 +254,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             subheadingTextView.attributedText = nil
             return
         }
-        
-        let attributedText = subheadingHTML.byAttributingHTML(with: .subheadline,
-                                                                    boldWeight: .bold,
-                                                                    matching: traitCollection,
-                                                                    color: theme.colors.primaryText,
-                                                                    handlingLinks: true,
-                                                                    linkColor: theme.colors.link,
-                                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior)
-                                                                    additionalTagAttributes: [
-                                                                        "u": [
-                                                                          NSAttributedString.Key.underlineColor: theme.colors.error,
-                                                                          NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
-                                                                        ],
-                                                                        "strong": [
-                                                                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText
-                                                                        ]
-                                                                    ])
-        
+
+        let styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        let attributedText = getAttributedString(subheadingHTML, styles: styles)
         var attributes: [NSAttributedString.Key : Any] = [:]
         if let subheadingParagraphStyle = subheadingParagraphStyle {
             attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
@@ -290,12 +276,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         return pStyle.copy() as? NSParagraphStyle
     }
 
+    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
+        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
+            return NSMutableAttributedString(attributedString: attributedString)
+        }
+        return NSMutableAttributedString(string: htmlString)
+    }
     private func updateFooterHTML() {
         guard let footerHTML = footerHTML else {
             footerTextView.attributedText = nil
             return
         }
-        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: theme.colors.secondaryText)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.footnote, compatibleWith: traitCollection), boldFont: WKFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        let attributedText = getAttributedString(footerHTML, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -307,6 +300,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         footerTextView.attributedText = attributedText
         footerTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
         footerTextView.textContainerInset = .zero
+    }
+
+    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
+        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
+            return NSMutableAttributedString(attributedString: attributedString)
+        }
+        return NSMutableAttributedString(string: htmlString)
     }
 
     var primaryButtonBorderWidth: CGFloat = 0 {

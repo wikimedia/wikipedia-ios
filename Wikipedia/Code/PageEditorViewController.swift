@@ -221,8 +221,8 @@ final class PageEditorViewController: UIViewController {
                 presentBlockedError(error: blockedError)
             } else if let protectedPageError = wikitextFetchResponse.protectedPageError {
                 presentProtectedPageWarning(error: protectedPageError)
-            } else if let otherError = wikitextFetchResponse.otherError {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
+            } else if let otherError = wikitextFetchResponse.otherError, let errorMessage = try? HtmlUtils.stringFromHTML(otherError.messageHtml) {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(errorMessage, sticky: false, dismissPreviousAlerts: true)
             }
             
             if let editNoticesViewModel,

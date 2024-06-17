@@ -373,11 +373,15 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil) // TODO - cleanup HTML
+        let styles = HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
-        return attributedString
+        return getAttributedString(substitutedString, styles: styles)
     }
-    
+
+    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     private func evaluatePublishButtonEnabledState() {        
         publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

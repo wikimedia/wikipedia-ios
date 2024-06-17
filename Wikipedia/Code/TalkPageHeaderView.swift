@@ -353,12 +353,21 @@ final class TalkPageHeaderView: SetupView {
         }
         
         let theme = viewModel.theme
-        
-        let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
+
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        let coffeeRollAttributedText = getMutableAttributedString(coffeeRollText, styles: styles)
         
         coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
-    
+
+    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
+        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
+            return NSMutableAttributedString(attributedString: attributedString)
+        }
+        return NSMutableAttributedString(string: htmlString)
+    }
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         self.semanticContentAttribute = semanticContentAttribute
         typeLabel.semanticContentAttribute = semanticContentAttribute

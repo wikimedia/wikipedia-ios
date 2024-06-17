@@ -90,18 +90,6 @@ fileprivate var fontCache: [String: UIFont] = [:]
 
 public extension UIFont {
 
-    @objc(wmf_fontForDynamicTextStyle:) class func wmf_font(_ dynamicTextStyle: DynamicTextStyle) -> UIFont {
-        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UITraitCollection(preferredContentSizeCategory: .large))
-    }
-
-    class func wmf_scaledSystemFont(forTextStyle style: UIFont.TextStyle, weight: UIFont.Weight, size: CGFloat) -> UIFont {
-        return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight))
-    }
-
-    class func wmf_scaledSystemFont(forTextStyle style: UIFont.TextStyle, weight: UIFont.Weight, size: CGFloat, maximumPointSize: CGFloat) -> UIFont {
-        return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight), maximumPointSize: maximumPointSize)
-    }
-
     @objc(wmf_fontForDynamicTextStyle:compatibleWithTraitCollection:) class func wmf_font(_ dynamicTextStyle: DynamicTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont {
         let fontFamily = dynamicTextStyle.family
         let weight = dynamicTextStyle.weight

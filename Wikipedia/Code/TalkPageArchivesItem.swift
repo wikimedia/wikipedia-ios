@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 struct TalkPageArchivesItem: Equatable, Identifiable, CustomStringConvertible {
     
@@ -35,6 +35,7 @@ struct TalkPageArchivesItem: Equatable, Identifiable, CustomStringConvertible {
     // MARK: CustomStringConvertible
     
     var description: String {
-        return displayTitle.removingHTML
+        let description =  try? HtmlUtils.stringFromHTML(displayTitle)
+        return description ?? displayTitle
     }
 }

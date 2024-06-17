@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 final class TalkPageCellCommentViewModel: Identifiable {
 
@@ -30,8 +30,18 @@ final class TalkPageCellCommentViewModel: Identifiable {
     }
     
     func commentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        return html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        return getMutableAttributedString(html, styles: styles).removingInitialNewlineCharacters()
     }
+
+    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
+        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
+            return NSMutableAttributedString(attributedString: attributedString)
+        }
+        return NSMutableAttributedString(string: htmlString)
+    }
+
 }
 
 extension TalkPageCellCommentViewModel: Hashable {

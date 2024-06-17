@@ -293,10 +293,16 @@ class TalkPageReplyComposeContentView: SetupView {
             "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
             "</a>"
         )
-        
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
-        
-        return attributedString
+
+        return getAttributedString(substitutedString)
+    }
+
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+
+    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
     }
 
     private func evaluatePublishButtonEnabledState() {

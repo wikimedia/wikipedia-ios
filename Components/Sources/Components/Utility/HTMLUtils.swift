@@ -13,16 +13,18 @@ public struct HtmlUtils {
         let boldItalicsFont: UIFont
         let color: UIColor
         let linkColor: UIColor
+        let strongColor: UIColor?
         let lineSpacing: CGFloat
         let listIndent: String
         
-        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
             self.boldItalicsFont = boldItalicsFont
             self.color = color
             self.linkColor = linkColor
+            self.strongColor = strongColor
             self.lineSpacing = lineSpacing
             self.listIndent = listIndent
         }
@@ -47,6 +49,7 @@ public struct HtmlUtils {
         let superscript: StyleData
         let strikethorugh: StyleData
         let underline: StyleData
+        let strong: StyleData
     }
     
     private struct ListInsertData {
@@ -300,6 +303,15 @@ public struct HtmlUtils {
                 attributedString[underlineRange].underlineStyle = .single
             }
         }
+
+        // Style Strong
+        if let strongColor = styles.strongColor {
+            for strongNSRange in allStyleData.strong.completeNSRanges {
+                if let strongRange  = Range(strongNSRange, in: attributedString) {
+                    attributedString[strongRange].foregroundColor = styles.strongColor
+                }
+            }
+        }
     }
     
     private static func removeHtmlTagAndContent(from attributedString: inout AttributedString, tagAndContentRemoveData: [TagAndContentRemoveData]) {
@@ -437,7 +449,8 @@ public struct HtmlUtils {
         var superscriptStyleData = StyleData()
         var strikethroughStyleData = StyleData()
         var underlineStyleData = StyleData()
-        
+        var strongStyleData = StyleData()
+
         htmlTagRegex.enumerateMatches(in: html, range: html.fullNSRange) { match, flags, stop in
             
             guard let tagNSRange = match?.range(at: 0),
@@ -452,9 +465,10 @@ public struct HtmlUtils {
             updateStyleData(styleData: &superscriptStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "sup", targetAttributeName: nil)
             updateStyleData(styleData: &strikethroughStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "s", targetAttributeName: nil)
             updateStyleData(styleData: &underlineStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "u", targetAttributeName: nil)
+            updateStyleData(styleData: &strongStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "strong", targetAttributeName: nil)
         }
         
-        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethorugh: strikethroughStyleData, underline: underlineStyleData)
+        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethorugh: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData)
     }
     
     private static func updateStyleData(styleData: inout StyleData, html: String, tagNSRange: NSRange, tagNameNSRange: NSRange, targetTagName: String, targetAttributeName: String?) {

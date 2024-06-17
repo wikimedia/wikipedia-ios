@@ -125,7 +125,7 @@ final class DiffHeaderEditSummaryViewModel {
     init(heading: String, isMinor: Bool, summary: String?) {
         self.heading = heading
         self.isMinor = isMinor
-        self.summary = summary?.removingHTML
+        self.summary = try? HtmlUtils.stringFromHTML(summary ?? String())
     }
 }
 
@@ -193,8 +193,8 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         
         self.username = model.user
         self.isMinor = model.isMinor
-        self.summary = model.parsedComment?.removingHTML
-        
+        self.summary = try? HtmlUtils.stringFromHTML(model.parsedComment ?? String())
+
         if let date = model.revisionDate {
             self.timestampString = dateFormatter.string(from: date)
         } else {

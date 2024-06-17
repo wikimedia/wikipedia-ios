@@ -131,7 +131,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
-            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
+            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'nsAttributedStringFromHtml' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
             "</a>"
         )
 

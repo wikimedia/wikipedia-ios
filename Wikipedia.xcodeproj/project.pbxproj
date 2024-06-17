@@ -1345,7 +1345,6 @@
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
 		833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
 		833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
-		833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4FFA20A9E20800B44E7C /* String+HTML.swift */; };
 		8341A345299ACD8C00016535 /* MEPEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A344299ACD8C00016535 /* MEPEventProviding.swift */; };
 		8341A347299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */; };
 		8341A348299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */; };
@@ -1539,7 +1538,6 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */; };
-		83D05189246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
@@ -3682,7 +3680,6 @@
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
-		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		8341A344299ACD8C00016535 /* MEPEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEPEventProviding.swift; sourceTree = "<group>"; };
 		8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistorySnapshotCache.swift; sourceTree = "<group>"; };
 		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3781,7 +3778,6 @@
 		83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheController.swift; sourceTree = "<group>"; };
 		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Mutations.swift"; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
@@ -5859,7 +5855,6 @@
 				B0E804AD1C0CE0B40065EBC0 /* NSString+WMFHTMLParsing.m */,
 				7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */,
 				7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */,
-				833D4FFA20A9E20800B44E7C /* String+HTML.swift */,
 				B0E807321C0CED810065EBC0 /* WMFImageURLParsing.h */,
 				B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */,
 			);
@@ -8587,7 +8582,6 @@
 				B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */,
 				B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */,
 				830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */,
-				83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */,
 				D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */,
 				BC45D5711C32EADD007C72F3 /* NSObject */,
 				8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */,
@@ -10660,7 +10654,6 @@
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
-				83D05189246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift in Sources */,
 				0042807825E6E395004945B3 /* MTLEXTScope.m in Sources */,
 				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */,
@@ -10691,7 +10684,6 @@
 				D85F56A2219C45C900AF3E13 /* URLComponents+Extensions.swift in Sources */,
 				D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */,
 				7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */,
-				833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */,
 				67146034243B8B4F008CE885 /* AnnouncementType.swift in Sources */,
 				6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */,

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 protocol DescriptionEditViewControllerDelegate: AnyObject {
@@ -143,9 +143,19 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         loginLabel.attributedText = loginLabelAttributedString
     }
 
+    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
+    private var styles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WKFont.for(.mediumSubheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+
     private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Article description for %1$@", comment: "String describing which article description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, articleDescriptionController.articleDisplayTitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
+        let localizedFormattedString = String.localizedStringWithFormat(formatString, articleDescriptionController.articleDisplayTitle ?? "")
+
+        return getAttributedString(localizedFormattedString, styles: styles)
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
