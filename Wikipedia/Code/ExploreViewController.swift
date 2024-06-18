@@ -1202,6 +1202,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
         ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
@@ -1275,6 +1276,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
         saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
         saveVC.imageRecLoggingDelegate = self

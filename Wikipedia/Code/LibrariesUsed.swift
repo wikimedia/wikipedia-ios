@@ -1,5 +1,6 @@
 import Components
 import WMF
+import Components
 
 public struct LibraryUsed {
     let title:String
@@ -54,7 +55,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         self.apply(theme: self.theme)
-        view.backgroundColor = .gray400
+        view.backgroundColor = WKColor.gray400
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableView.automaticDimension

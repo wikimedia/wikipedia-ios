@@ -7,11 +7,11 @@ import Components
 
 struct OnThisDayColors {
     static func blueColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(.blue600) : Color(.blue300)
+        return colorScheme == .light ? Color(WKColor.blue600) : Color(WKColor.blue300)
     }
 
     static func grayColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(.gray500) : Color(.gray300)
+        return colorScheme == .light ? Color(WKColor.gray500) : Color(WKColor.gray300)
     }
 
     static func widgetBackgroundColor(_ colorScheme: ColorScheme) -> Color {
@@ -19,11 +19,11 @@ struct OnThisDayColors {
     }
 
     static func boxShadowColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(.gray300.withAlphaComponent(0.55)) : .clear
+        return colorScheme == .light ? Color(WKColor.gray300.withAlphaComponent(0.55)) : .clear
     }
 
     static func boxBackgroundColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? .white : Color(.gray700)
+        return colorScheme == .light ? .white : Color(WKColor.gray700)
     }
 }
 

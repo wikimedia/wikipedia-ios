@@ -124,7 +124,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        imageView.backgroundColor = .green600
+        imageView.backgroundColor = WKColor.green600
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.distanceBorder.cgColor
         compassView.lineColor = theme.colors.accent

@@ -22,7 +22,7 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
             return
         }
         
-        skipButton.setTitleColor(UIColor.gray400, for: .normal)
+        skipButton.setTitleColor(WKColor.gray400, for: .normal)
         nextButton.setTitleColor(theme.colors.link, for: .normal)
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)

@@ -200,7 +200,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
-        stack.backgroundColor = .gray500
+        stack.backgroundColor = WKColor.gray500
         stack.increaseLabelTopPadding = true
         return stack
     }()
@@ -210,14 +210,14 @@ final class NotificationsCenterCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
-        stack.backgroundColor = .green600
+        stack.backgroundColor = WKColor.green600
         return stack
     }()
 
     var swipeBackgroundFillView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray500
+        view.backgroundColor = WKColor.gray500
         return view
     }()
 
@@ -257,7 +257,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMoreActionContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray500
+        view.backgroundColor = WKColor.gray500
         view.isUserInteractionEnabled = true
         return view
     }()
@@ -265,7 +265,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMarkAsReadUnreadActionContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green100
+        view.backgroundColor = WKColor.green100
         view.isUserInteractionEnabled = true
         return view
     }()
