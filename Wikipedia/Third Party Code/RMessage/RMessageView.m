@@ -592,7 +592,7 @@ static NSMutableDictionary *globalDesignDictionary;
   _shouldBlurBackground = NO;
   _titleLabel.numberOfLines = 0;
   _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-  _titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    _titleLabel.font = [WKFontWrapper fontFor:WMFFontsSubheadline compatibleWithTraitCollection:self.traitCollection];
   _titleLabel.textAlignment = NSTextAlignmentLeft;
   _titleLabel.textColor = [UIColor blackColor];
   _titleLabel.shadowColor = nil;
@@ -601,7 +601,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
   _subtitleLabel.numberOfLines = 0;
   _subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-  _subtitleLabel.font = [UIFont systemFontOfSize:12.f];
+    _subtitleLabel.font = [WKFontWrapper fontFor:WMFFontsCaption1 compatibleWithTraitCollection:self.traitCollection];
   _subtitleLabel.textAlignment = NSTextAlignmentLeft;
   _subtitleLabel.textColor = [UIColor darkGrayColor];
   _subtitleLabel.shadowColor = nil;
@@ -610,7 +610,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
     _button.titleLabel.numberOfLines = 0;
     _button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _button.titleLabel.font = [UIFont systemFontOfSize:12.f];
+    _button.titleLabel.font = [WKFontWrapper fontFor:WMFFontsCaption1 compatibleWithTraitCollection:self.traitCollection];
     _button.titleLabel.textAlignment = NSTextAlignmentLeft;
     _button.titleLabel.textColor = [UIColor darkGrayColor];
     _button.titleLabel.shadowColor = nil;
@@ -706,7 +706,7 @@ static NSMutableDictionary *globalDesignDictionary;
         [_button setTitle:_buttonTitle forState:UIControlStateNormal];
         _stackView.spacing = -5;
         [_button addTarget:self action:@selector(executeMessageViewButtonCallBack) forControlEvents:UIControlEventTouchUpInside];
-        _button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        _button.titleLabel.font = [WKFontWrapper fontFor:WMFFontsSubheadline compatibleWithTraitCollection:self.traitCollection];
     } else {
         [_button setHidden:YES];
         _stackView.spacing = 5;
