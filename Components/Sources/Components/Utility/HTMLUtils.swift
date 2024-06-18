@@ -308,7 +308,7 @@ public struct HtmlUtils {
         if let strongColor = styles.strongColor {
             for strongNSRange in allStyleData.strong.completeNSRanges {
                 if let strongRange  = Range(strongNSRange, in: attributedString) {
-                    attributedString[strongRange].foregroundColor = styles.strongColor
+                    attributedString[strongRange].foregroundColor = strongColor
                 }
             }
         }

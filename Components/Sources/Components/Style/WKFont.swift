@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-@objc public enum WKFont: Int {
+public enum WKFont {
 
     case boldCallout
     case boldCaption1
