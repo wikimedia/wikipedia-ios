@@ -1,7 +1,7 @@
 import SwiftUI
 import WidgetKit
 import WMF
-import UIKit
+import Components
 
 // MARK: - Widget
 
@@ -175,15 +175,14 @@ struct FeaturedArticleView: View {
 				Spacer()
 				HStack {
 					Text(headerCaptionText)
-						.font(.caption2)
-						.fontWeight(.bold)
+                        .font(Font(WKFont.for(.boldCaption1)))
 						.foregroundColor(.white)
 						.readableShadow(intensity: 0.8)
 					Spacer()
 				}
 				HStack {
 					Text(headerTitleText)
-						.font(.headline)
+                        .font(Font(WKFont.for(.headline)))
 						.foregroundColor(.white)
 						.readableShadow(intensity: 0.8)
 					Spacer()
@@ -204,13 +203,13 @@ struct FeaturedArticleView: View {
 			HStack {
 				Text(entry.title)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.primaryText : Theme.dark.colors.primaryText))
-					.font(.custom("Georgia", size: 21, relativeTo: .title))
+                    .font(Font(WKFont.for(.georgiaTitle3)))
 				Spacer()
 			}
 			HStack {
 				Text(entry.description)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.secondaryText : Theme.dark.colors.secondaryText))
-					.font(.caption)
+                    .font(Font(WKFont.for(.caption1)))
 				Spacer()
 			}
 			Spacer()
@@ -218,7 +217,7 @@ struct FeaturedArticleView: View {
 			HStack {
 				Text(entry.extract)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.primaryText : Theme.dark.colors.primaryText))
-					.font(.caption)
+                    .font(Font(WKFont.for(.caption1)))
 					.lineLimit(5)
 					.lineSpacing(4)
 					.truncationMode(.tail)
@@ -239,8 +238,7 @@ struct FeaturedArticleView: View {
 					Rectangle()
                         .foregroundColor(Color(UIColor.blue600))
 					Text(entry.extract)
-						.font(.headline)
-						.fontWeight(.semibold)
+                        .font(Font(WKFont.for(.semiboldHeadline)))
 						.lineSpacing(6)
 						.foregroundColor(Color.black.opacity(0.15))
 						.frame(width: proxy.size.width * 1.25, height: proxy.size.height * 2, alignment: .topLeading)
@@ -255,8 +253,7 @@ struct FeaturedArticleView: View {
 			.foregroundColor(Color(UIColor.gray500))
 			.overlay(
 				Text(message)
-					.font(.caption)
-					.bold()
+                    .font(Font(WKFont.for(.boldCaption1)))
 					.multilineTextAlignment(.leading)
 					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
 					.foregroundColor(.white)

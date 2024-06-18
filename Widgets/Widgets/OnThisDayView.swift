@@ -1,7 +1,7 @@
 import WidgetKit
 import SwiftUI
 import WMF
-import UIKit
+import Components
 
 // MARK: - Views
 
@@ -105,8 +105,7 @@ struct ErrorSquare: View {
         Rectangle().foregroundColor(error.errorColor)
             .overlay(
                 Text(error.errorText)
-                    .font(.caption)
-                    .bold()
+                    .font(Font(WKFont.for(.boldCaption1)))
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                     .foregroundColor(.white)
@@ -249,21 +248,18 @@ struct OnThisDayHeaderElement: View {
         VStack(spacing: 0) {
             Text(widgetTitle)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                .font(.subheadline)
-                .bold()
+                .font(Font(WKFont.for(.boldSubheadline)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(monthDay)
-                .font(.title2)
-                .bold()
+                .font(Font(WKFont.for(.boldTitle3)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, needsVerticalCompression ? 2 : 5)
                 .padding(.bottom, needsVerticalCompression ? 2 : 7)
             Text(yearRange)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                .font(.subheadline)
-                .bold()
+                .font(Font(WKFont.for(.boldSubheadline)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -286,11 +282,11 @@ struct MainOnThisDayElement: View {
             MainOnThisDayTopElement(monthDay: monthDay, eventYear: eventYear, eventYearsAgo: eventYearsAgo, fullDate: fullDate)
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
-                        Text(snippet)
-                            .font(.caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 9)
-                            .padding(.bottom, (widgetSize == .systemMedium ? 4 : 8))
+                Text(snippet)
+                    .font(Font(WKFont.for(.caption1)))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 9)
+                    .padding(.bottom, (widgetSize == .systemMedium ? 4 : 8))
                 ).layoutPriority(1.0)
             }
         }.layoutPriority(1.0)
@@ -327,7 +323,7 @@ struct MainOnThisDayTopElement: View {
         if let secondLineText = secondLineText {
             TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
                     Text(firstLineText)
-                        .font(.subheadline)
+                        .font(Font(WKFont.for(.subheadline)))
                         .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .overlay(
@@ -340,7 +336,7 @@ struct MainOnThisDayTopElement: View {
             )
             TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
                     Text(secondLineText)
-                        .font(.caption)
+                        .font(Font(WKFont.for(.caption1)))
                         .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 3)
@@ -360,7 +356,7 @@ struct LargeWidgetMiddleSection: View {
         TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
             VStack(alignment: .leading, spacing: 0) {
                 Text(eventSnippet)
-                    .font(.caption)
+                    .font(Font(WKFont.for(.caption1)))
                 if let link = link {
                     Link(destination: link) {
                         ArticleRectangleBox(title: title, description: description, image: image)
@@ -385,11 +381,10 @@ struct ArticleRectangleBox: View {
         HStack(spacing: 9) {
             VStack {
                 Text(title)
-                    .font(.caption)
-                    .bold()
+                    .font(Font(WKFont.for(.boldCaption1)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(description)
-                    .font(.caption)
+                    .font(Font(WKFont.for(.caption1)))
                     .lineLimit(1)
                     .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -421,8 +416,7 @@ struct OnThisDayAdditionalEventsElement: View {
     var body: some View {
         TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
             Text(otherEventsText)
-                .font(.footnote)
-                .bold()
+                .font(Font(WKFont.for(.boldFootnote)))
                 .lineLimit(1)
                 .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 .frame(maxWidth: .infinity, alignment: .topLeading)

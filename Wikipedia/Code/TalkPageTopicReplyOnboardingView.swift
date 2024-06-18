@@ -47,7 +47,7 @@ struct TalkPageTopicReplyOnboardingView: View {
     }
 
     private let titleFont = WKFont.for(.title1)
-    private let buttonFont = WKFont.for(.callout)
+    private let callout = WKFont.for(.callout)
 
     // MARK: - Content
 
@@ -69,16 +69,16 @@ struct TalkPageTopicReplyOnboardingView: View {
                     Spacer(minLength: 31)
                     if let text = LocalizedStrings.bodyAttributedString {
                         Text(text)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                         Spacer(minLength: 24)
                         Text(LocalizedStrings.bodySecondPartiOS15)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                     } else {
                         Text(LocalizedStrings.body)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                     }
                 }
@@ -91,7 +91,7 @@ struct TalkPageTopicReplyOnboardingView: View {
                         dismissAction?()
                     }, label: {
                         Text(CommonStrings.okTitle)
-                            .font(Font(buttonFont))
+                            .font(Font(callout))
                             .foregroundColor(buttonTextColor)
                             .padding()
                             .frame(maxWidth: .infinity)
