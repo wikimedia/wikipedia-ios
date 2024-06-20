@@ -141,14 +141,75 @@ public struct WKWikitextUtils {
     public enum ParsingError: Error {
         case closingTemplateMarkupBeforeOpeningMarkup
     }
-    
+
+    public static func insertWikitextintoArticle(imageWikitext: String, into articleWikitext: String, language: String?) throws -> String {
+        let infoboxMatch = getInfoboxMatch(wikitext: articleWikitext)
+        var wikitextWithImage: String?
+        // if we get the specified infoboxes and the language is en, we try to place in the infobox
+        if infoboxMatch != nil && language == "en" {
+             wikitextWithImage = try? attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: imageWikitext, into: articleWikitext)
+
+        } else {
+            wikitextWithImage = try? insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+
+        }
+        return wikitextWithImage ?? String()
+
+    }
+
+    private static func getInfoboxMatch(wikitext: String) -> String? {
+
+        let infoboxVarsEnWiki:InfoboxVarsCollection =
+           InfoboxVarsCollection(
+                regex: "infobox|(?:(?:automatic[ |_])?taxobox)|chembox|drugbox|speciesbox",
+                imageKey: "image",
+                captionKey: "caption",
+                altTextKey: "alt",
+                mainKeys: ["name", "official_name", "species", "taxon", "drug_name", "image"],
+                infoboxes: [
+                    InfoboxVars(infoboxType: "taxobox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
+                    InfoboxVars(infoboxType: "chembox", imageKey: "ImageFile", captionKey: "ImageCaption", altTextKey: "ImageAlt"),
+                    InfoboxVars(infoboxType: "speciesbox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
+                    InfoboxVars(infoboxType: "infobox.*place", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt"),
+                    InfoboxVars(infoboxType: "infobox.*settlement", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt")
+                ]
+            )
+
+        let pattern = "\\{\\{\\s*(\(infoboxVarsEnWiki.regex)[^|]*)\\|.*\\}\\}"
+
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators, .caseInsensitive])
+            let range = NSRange(location: 0, length: wikitext.utf16.count)
+            if let match = regex.firstMatch(in: wikitext, options: [], range: range) {
+                let matchedString = (wikitext as NSString).substring(with: match.range)
+                print("Match found: \(matchedString)")
+                return matchedString
+            } else {
+                print("No match found")
+            }
+        } catch {
+            print("Invalid regex: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
+    private static func attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: String, into articleWikitext: String) throws -> String? {
+
+        // if successful return wikitext
+
+        return String()
+        //if it fails try insertion after templates
+        // wikitextWithImage = try insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+
+    }
+
     /// Inserts image wikitext into article wikitext, after all initial templates.
     /// - Parameters:
     ///   - imageWikitext: image wikitext, e.g. `[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]`
     ///   - articleWikitext: article wikitext
     /// - Returns: Article wikitext, with image wikitext inserted.
     public static func insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: String, into articleWikitext: String) throws -> String {
-        
+
         guard !imageWikitext.isEmpty else {
             return articleWikitext
         }
@@ -260,4 +321,20 @@ fileprivate extension String {
         
         return finalText.trimmingCharacters(in: .whitespaces)
     }
+}
+
+private struct InfoboxVars {
+    let infoboxType: String
+    let imageKey: String
+    let captionKey: String
+    let altTextKey: String
+}
+
+private struct InfoboxVarsCollection {
+    let regex: String
+    let imageKey: String
+    let captionKey: String
+    let altTextKey: String
+    let mainKeys: [String]
+    let infoboxes: [InfoboxVars]
 }
