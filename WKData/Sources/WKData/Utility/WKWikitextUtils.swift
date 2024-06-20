@@ -142,12 +142,12 @@ public struct WKWikitextUtils {
         case closingTemplateMarkupBeforeOpeningMarkup
     }
 
-    public static func insertWikitextintoArticle(imageWikitext: String, into articleWikitext: String, language: String?) throws -> String {
+    public static func insertWikitextintoArticle(imageWikitext: String, caption: String, altText: String, into articleWikitext: String, language: String?) throws -> String {
         let infoboxMatch = getInfoboxMatch(wikitext: articleWikitext)
         var wikitextWithImage: String?
         // if we get the specified infoboxes and the language is en, we try to place in the infobox
         if infoboxMatch != nil && language == "en" {
-             wikitextWithImage = try? attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: imageWikitext, into: articleWikitext)
+             wikitextWithImage = try? attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: imageWikitext, caption: caption, altText: caption,into: articleWikitext)
 
         } else {
             wikitextWithImage = try? insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
@@ -157,33 +157,32 @@ public struct WKWikitextUtils {
 
     }
 
-    private static func getInfoboxMatch(wikitext: String) -> String? {
+    private static let infoboxVarsEnWiki: InfoboxVarsCollection =
+    InfoboxVarsCollection(
+        regex: "infobox|(?:(?:automatic[ |_])?taxobox)|chembox|drugbox|speciesbox",
+        imageKey: "image",
+        captionKey: "caption",
+        altTextKey: "alt",
+        possibleNameParamNames: ["name", "official_name", "species", "taxon", "drug_name", "image"],
+        infoboxes: [
+            InfoboxVars(infoboxType: "taxobox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
+            InfoboxVars(infoboxType: "chembox", imageKey: "ImageFile", captionKey: "ImageCaption", altTextKey: "ImageAlt"),
+            InfoboxVars(infoboxType: "speciesbox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
+            InfoboxVars(infoboxType: "infobox.*place", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt"),
+            InfoboxVars(infoboxType: "infobox.*settlement", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt")
+        ]
+     )
 
-        let infoboxVarsEnWiki:InfoboxVarsCollection =
-           InfoboxVarsCollection(
-                regex: "infobox|(?:(?:automatic[ |_])?taxobox)|chembox|drugbox|speciesbox",
-                imageKey: "image",
-                captionKey: "caption",
-                altTextKey: "alt",
-                mainKeys: ["name", "official_name", "species", "taxon", "drug_name", "image"],
-                infoboxes: [
-                    InfoboxVars(infoboxType: "taxobox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
-                    InfoboxVars(infoboxType: "chembox", imageKey: "ImageFile", captionKey: "ImageCaption", altTextKey: "ImageAlt"),
-                    InfoboxVars(infoboxType: "speciesbox", imageKey: "image", captionKey: "image_caption", altTextKey: "image_alt"),
-                    InfoboxVars(infoboxType: "infobox.*place", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt"),
-                    InfoboxVars(infoboxType: "infobox.*settlement", imageKey: "image_skyline", captionKey: "image_caption", altTextKey: "image_alt")
-                ]
-            )
-
-        let pattern = "\\{\\{\\s*(\(infoboxVarsEnWiki.regex)[^|]*)\\|.*\\}\\}"
+    private static func getInfoboxMatch(wikitext: String) -> NSRange? {
+        let infoboxTypesRegex = infoboxVarsEnWiki.regex // "infobox|(?:(?:automatic[ |_])?taxobox)|chembox|drugbox|speciesbox"
+            let pattern = "\\{\\{\\s*(\(infoboxTypesRegex))[^\\}]*\\}\\}"
 
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators, .caseInsensitive])
             let range = NSRange(location: 0, length: wikitext.utf16.count)
             if let match = regex.firstMatch(in: wikitext, options: [], range: range) {
-                let matchedString = (wikitext as NSString).substring(with: match.range)
-                print("Match found: \(matchedString)")
-                return matchedString
+                print("Match found")
+                return match.range
             } else {
                 print("No match found")
             }
@@ -193,14 +192,76 @@ public struct WKWikitextUtils {
         return nil
     }
 
-    private static func attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: String, into articleWikitext: String) throws -> String? {
+    public static func attempInsertImageWikitextIntoArticleWikitextInfobox(imageWikitext: String, caption: String, altText: String, into articleWikitext: String) throws -> String {
 
-        // if successful return wikitext
+        var articleWikitext = articleWikitext
 
-        return String()
-        //if it fails try insertion after templates
-        // wikitextWithImage = try insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+        guard let infoboxMatch = getInfoboxMatch(wikitext: articleWikitext) else {
+            // dry it
+            articleWikitext = try! insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            return articleWikitext
+        }
+            let infoboxStartIndex = infoboxMatch.lowerBound
+            let infoboxEndIndex = infoboxMatch.upperBound
+        let imageParamName = infoboxVarsEnWiki.imageKey
 
+        let haveNameParam = findNameParamInTemplate(infoboxVarsEnWiki.possibleNameParamNames, wikitext: articleWikitext, startIndex: infoboxStartIndex, endIndex: infoboxEndIndex).0 != -1
+
+            if haveNameParam {
+                let match = try? NSRegularExpression(pattern: "\\|\\s*\(imageParamName)\\s*=([^|]*)(\\|)")
+                let firstMatch = match?.firstMatch(in: articleWikitext, options: [], range: NSRange(infoboxStartIndex..<articleWikitext.utf16.count))
+                let group1Range = firstMatch?.range(at: 1)
+                let group2Range = firstMatch?.range(at: 2)
+
+                if let group1Range = group1Range, let group2Range = group2Range, group2Range.lowerBound < infoboxEndIndex {
+                    var insertPos = group2Range.lowerBound
+                    let valueStr = (articleWikitext as NSString).substring(with: group1Range)
+
+                    if valueStr.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        if valueStr.contains("\n") {
+                            insertPos = group1Range.lowerBound + valueStr.distance(from: valueStr.startIndex, to: valueStr.firstIndex(of: "\n")!)
+                        }
+                        if let insertIndex = articleWikitext.index(articleWikitext.startIndex, offsetBy: insertPos, limitedBy: articleWikitext.endIndex) {
+                            articleWikitext = articleWikitext[..<insertIndex] + imageWikitext + articleWikitext[insertIndex...]
+
+                        }
+                    }
+                } else {
+                    let paramInsertPosandSpacing = findNameParamInTemplate(infoboxVarsEnWiki.possibleNameParamNames, wikitext: articleWikitext, startIndex: infoboxStartIndex, endIndex: infoboxEndIndex)
+                    if paramInsertPosandSpacing.0 > 0 {
+
+                        let insertText = "|\(paramInsertPosandSpacing.1)\(imageParamName) = \(imageWikitext)\n"
+                        if let insertIndex = articleWikitext.index(articleWikitext.startIndex, offsetBy: paramInsertPosandSpacing.0, limitedBy: articleWikitext.endIndex) {
+                            articleWikitext = articleWikitext[..<insertIndex] + insertText + articleWikitext[insertIndex...]
+
+                        }
+                    }
+                }
+
+                // repeat for for image caption and alt text
+            }
+
+        print("ARTICLE WIKITEXT =================>>>>>>>>>>>>>>>>>>>> \(articleWikitext)")
+        return articleWikitext
+    }
+
+    static func findNameParamInTemplate(_ possibleNameParamNames: [String], wikitext: String, startIndex: Int, endIndex: Int) -> (Int, String) {
+        var paramInsertPos = -1
+        var paramNameSpaceConvention = ""
+
+        for nameParam in possibleNameParamNames {
+            let regex = try! NSRegularExpression(pattern: "\\|(\\s*)\(nameParam)\\s*=([^|]*)(\\|)")
+            if let match = regex.firstMatch(in: wikitext, options: [], range: NSRange(startIndex..<wikitext.utf16.count)) {
+                let group1Range = match.range(at: 1)
+                let group3Range = match.range(at: 3)
+                if group3Range.lowerBound < endIndex {
+                    paramInsertPos = group3Range.lowerBound
+                    paramNameSpaceConvention = (wikitext as NSString).substring(with: group1Range)
+                    break
+                }
+            }
+        }
+        return (paramInsertPos, paramNameSpaceConvention)
     }
 
     /// Inserts image wikitext into article wikitext, after all initial templates.
@@ -335,6 +396,6 @@ private struct InfoboxVarsCollection {
     let imageKey: String
     let captionKey: String
     let altTextKey: String
-    let mainKeys: [String]
+    let possibleNameParamNames: [String]
     let infoboxes: [InfoboxVars]
 }
