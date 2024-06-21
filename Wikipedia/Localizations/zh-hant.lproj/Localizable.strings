@@ -209,7 +209,7 @@
 "description-edit-for-article" = "$1的條目描述";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "透過更改條目描述，我同意$1且依據$2許可協議不撤銷所發表出我的個人貢獻。";
-"description-edit-pencil-introduction" = "編輯首節";
+"description-edit-pencil-introduction" = "編輯首段";
 "description-edit-pencil-title" = "編輯條目說明";
 "description-edit-placeholder-title" = "簡短的描述是最好的";
 "description-edit-publish" = "發布描述";

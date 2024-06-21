@@ -240,6 +240,13 @@
 "description-welcome-promise-title" = "Ik beloof dat ik deze functie niet misbruiken zal";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis van artikel";
+"diff-change-added" = "Toevoeging, $1, einde toevoeging.";
+"diff-change-paragraph-lines-moved-down" = "De paragraaf is {{PLURAL:$1|0=0 regels|$1 regel|$1 regels}} naar beneden verplaatst. Ga naar de nieuwe locatie.";
+"diff-change-paragraph-lines-moved-up" = "De paragraaf is {{PLURAL:$1|0=0 regels|$1 regel|$1 regels}} naar boven verplaatst. Ga naar de nieuwe locatie.";
+"diff-change-paragraph-moved" = "De paragraaf is verplaatst. Ga naar de vorige locatie.";
+"diff-change-paragraph-sections-moved-down" = "De paragraaf is {{PLURAL:$1|0=0 secties|$1 sectie|$1 secties}} naar beneden verplaatst. Ga naar de nieuwe locatie.";
+"diff-change-paragraph-sections-moved-up" = "De paragraaf is {{PLURAL:$1|0=0 secties|$1 sectie|$1 secties}} naar boven verplaatst. Ga naar de nieuwe locatie.";
+"diff-change-removal" = "Verwijdering, $1, einde verwijdering.";
 "diff-compare-header-from-info-heading" = "Vorige bewerking";
 "diff-compare-header-heading" = "Versies vergelijken";
 "diff-compare-header-to-info-heading" = "Weergegeven bewerking";
@@ -279,6 +286,7 @@
 "diff-thanks-sent" = "Uw bedankje is verstuurd naar $1";
 "diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
 "diff-thanks-sent-cannot-unsend" = "Het versturen van een bedankje kan niet ongedaan worden gemaakt";
+"diff-unchanged-contextual-line" = "Contextuele regel, ongewijzigd: $1";
 "diff-undo-message" = "Hiermee worden de wijzigingen ongedaan gemaakt die zijn aangebracht in de versie(s) van het hier getoonde artikel. Om door te gaan geeft u een reden op voor het ongedaan maken van deze bewerking.";
 "diff-undo-success" = "De versie is ongedaan gemaakt.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 niet bewerkte regel|$1 niet bewerkte regels}}";
@@ -310,6 +318,8 @@
 "donate-success-title" = "Dank u wel!";
 "donate-title" = "Selecteer een bedrag";
 "donate-transaction-fee-opt-in-text" = "Ik betaal graag $1 extra voor de transactiekosten, zodat jullie 100%% van mijn donatie kunnen gebruiken.";
+"donate-wikimedia-fine-print-1" = "Wij verkopen of verhandelen je gegevens aan niemand. Door te doneren, ga je ermee akkoord je persoonlijke gegevens te delen met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimedia-projecten host, en haar dienstverleners in overeenstemming met ons [donorbeleid] ($1). De Wikimedia Foundation en haar dienstverleners zijn gevestigd in de Verenigde Staten en in andere landen waarvan de privacywetten mogelijk niet gelijkwaardig zijn aan die van jou. Lees ons [donorbeleid] ($1) voor meer informatie.";
+"donate-wikimedia-fine-print-2" = "Als je een periodieke donateur bent, schrijft de Wikimedia Foundation elke maand een bedrag af op dezelfde dag waarop de eerste donatie werd verricht, totdat je aangeeft dat je de donatie wilt stopzetten. Donaties die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in de kortere maanden op de laatste dag van de maand afgeschreven, zo dicht mogelijk bij de oorspronkelijke datum. Voor vragen kun je terecht op donate@wikimedia.org.";
 "edit-link-display-text-title" = "Weergavetekst";
 "edit-link-link-target-title" = "Koppelingsdoel";
 "edit-link-remove-link-title" = "Koppeling verwijderen";
@@ -322,6 +332,7 @@
 "edit-notices" = "Bewerkingsmeldingen";
 "edit-notices-always-display" = "Altijd bewerkingsberichten weergeven";
 "edit-notices-please-read" = "Gelieve te lezen alvorens te bewerken";
+"edit-preview-simplified-format-message" = "Alle inhoud wordt in vereenvoudigd formaat weergegeven.";
 "edit-published" = "Bewerking gepubliceerd";
 "edit-published-subtitle" = "U heeft Wikipedia zojuist voor iedereen beter gemaakt";
 "edit-show-web-preview" = "Webvoorbeeld weergeven";
@@ -345,9 +356,11 @@
 "editor-edit-published" = "Uw bewerking is opgeslagen.";
 "editor-edit-source" = "Bron bewerken";
 "editor-exit-confirmation-body" = "Weet u zeker dat u de bewerkingsmodus wilt verlaten zonder eerst te publiceren?";
+"editor-exit-confirmation-message" = "Weet je zeker dat je deze bewerking wilt weggooien?";
 "editor-exit-confirmation-title" = "De bewerkingsmodus sluiten?";
 "editor-find-clear-button-accessibility" = "Zoekveld legen";
 "editor-find-close-button-accessibility" = "Zoeken sluiten";
+"editor-find-current-match-info-accessibility" = "Er zijn in totaal $1 overeenkomsten gevonden. Gemarkeerde overeenkomst is nummer $2";
 "editor-find-current-match-info-zero-results-accessibility" = "Geen overeenkomsten gevonden";
 "editor-find-next-button-accessibility" = "Volgende zoekresultaat";
 "editor-find-previous-button-accessibility" = "Vorige zoekresultaat";
@@ -374,10 +387,13 @@
 "editor-keyboard-template-accessibility" = "Sjabloon";
 "editor-keyboard-text-formatting-title" = "Tekstopmaak";
 "editor-keyboard-underline-accessibility" = "Onderstrepen";
+"editor-replace-button-format-accessibility" = "Voer de vervangingshandeling uit. Vervangtype is ingesteld op $1.";
+"editor-replace-clear-button-accessibility" = "Tekstveld leegmaken";
 "editor-replace-textfield-accessibility" = "Vervangen";
 "editor-replace-textfield-placeholder" = "Vervangen door...";
 "editor-replace-type-all" = "Alles vervangen";
 "editor-replace-type-all-accessibility" = "Vervang alle exemplaren";
+"editor-replace-type-button-accessibility" = "Vervangtype wisselen. Momenteel ingesteld op $1. Selecteer om te wijzigen.";
 "editor-replace-type-single" = "Vervangen";
 "editor-replace-type-single-accessibility" = "Vervang een enkel exemplaar";
 "editor-toolbar-bold-accessibility" = "Vetgedrukte tekstopmaak";
@@ -387,7 +403,12 @@
 "editor-toolbar-cursor-up-accessibility" = "Verplaats de cursor naar de vorige regel.";
 "editor-toolbar-find-accessibility" = "Op pagina zoeken";
 "editor-toolbar-image-accessibility" = "Afbeeldingtekstopmaak";
+"editor-toolbar-indent-decrease-accessibility" = "Inspringende tekstopmaak verminderen";
+"editor-toolbar-indent-increase-accessibility" = "Inspringende tekstopmaak vergroten";
 "editor-toolbar-italics-accessibility" = "Cursieve tekstopmaak";
+"editor-toolbar-link-accessibility" = "Linktekst aanpassen";
+"editor-toolbar-list-ordered-accessibility" = "Geordende tekstformatting van de lijst";
+"editor-toolbar-list-unordered-accessibility" = "On geordende tekstformatting van de lijst";
 "editor-toolbar-open-text-format-menu-accessibility" = "Open tekstopmaak-menu";
 "editor-toolbar-reference-accessibility" = "Referentietekstopmaak";
 "editor-toolbar-show-more-accessibility" = "Toon meer opmaakopties";
@@ -468,6 +489,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Uitschakelen van de meest gelezen-kaart zal deze uitschakelen in alle beschikbare talen.";
 "explore-feed-preferences-show-top-read-title" = "Meest gelezen-kaart vertonen";
 "explore-feed-preferences-suggested-edits-description" = "Suggesties om inhoud aan Wikipedia toe te voegen";
+"explore-feed-preferences-suggested-edits-title" = "Toon gesuggereerde bewerkingen";
 "explore-feed-preferences-top-read-description" = "Dagelijks meest gelezen artikelen";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Verkennen uitschakelen";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Het uitschakelen van alle kaarten zal het tabblad verkennen uitschakelen en vervangen door een tabblad met instellingen";
@@ -501,6 +523,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "explore-suggested-edits-footer" = "Toevoegen";
+"explore-suggested-edits-image-recs-body" = "Voeg gesuggereerde afbeeldingen toe aan Wikipedia-artikelen om het begrip van het onderwerp te vergroten.";
 "explore-suggested-edits-image-recs-title" = "Afbeelding toevoegen";
 "export-user-data-confirmation-message" = "Deelt u uw app-bibliotheek, dan deelt u ook gegevens over uw leeslijsten en geschiedenis, uw voorkeuren en de inhoud van uw overzicht Verkennen. Dit gegevensbestand kunt u beter alleen delen met een vertrouwde ontvanger voor technische diagnosedoeleinden.";
 "export-user-data-confirmation-title" = "App-bibliotheek delen?";
@@ -574,8 +597,10 @@
 "image-gallery-unknown-owner" = "Auteur onbekend.";
 "image-rec-add-image-title" = "Deze afbeelding toevoegen?";
 "image-rec-empty-subtitle" = "Probeer later terug te komen.";
+"image-rec-empty-title" = "Er zijn momenteel geen voorgestelde afbeeldingen meer beschikbaar.";
 "image-rec-error-subtitle" = "Er is iets misgegaan.";
 "image-rec-error-title" = "Kan pagina niet laden";
+"image-rec-feature-announce-body" = "Bepaal of een afbeelding wordt toegevoegd aan een Wikipedia-artikel. Je kunt 'Afbeelding toevoegen' vinden in 'Verkennen'.";
 "image-rec-feature-announce-title" = "Probeer 'Een afbeelding toevoegen'";
 "image-rec-onboarding-item-1-body" = "Bepaal of een voorgestelde afbeelding in een Wikipedia-artikel moet worden geplaatst.";
 "image-rec-onboarding-item-1-title" = "Suggestie bekijken";
@@ -600,9 +625,15 @@
 "image-rec-tooltip-1-title" = "Beoordelen";
 "image-rec-tooltip-2-body" = "Inspecteer de afbeelding en de bijbehorende informatie.";
 "image-rec-tooltip-2-title" = "Inspecteren";
+"image-rec-tooltip-3-body" = "Bepaal of de afbeelding lezers helpt dit onderwerp beter te begrijpen";
 "image-rec-tooltip-3-title" = "Beslissen";
 "image-rec-view-article" = "Artikel bekijken";
 "image-recommendations-email-fifth-line" = "[Schermafbeeldingen of links]";
+"image-recommendations-email-first-line" = "Ik ben een probleem tegengekomen met de functie om een afbeelding toe te voegen voor voorgestelde bewerkingen:";
+"image-recommendations-email-fourth-line" = "- [Beschrijf de voorgestelde oplossing]";
+"image-recommendations-email-second-line" = "- [Beschrijf specifiek probleem]";
+"image-recommendations-email-third-line" = "Het gedrag dat ik graag zou willen zien is:";
+"image-recommendations-email-title" = "Probleemrapport - Voeg een afbeeldingsfunctie toe";
 "image-recs-no-title" = "Nee";
 "image-recs-not-sure-title" = "Niet zeker";
 "image-recs-yes-title" = "Ja";
@@ -643,6 +674,7 @@
 "insert-media-image-type-setting-frame" = "Frame";
 "insert-media-image-type-setting-frameless" = "Zonder frame";
 "insert-media-image-type-setting-thumbnail" = "Miniatuur";
+"insert-media-image-type-settings-footer-title" = "Je kunt instellen hoe het media-item op de pagina verschijnt. Dit moet bijna altijd een miniatuurafbeelding zijn om consistent te blijven met andere pagina's.";
 "insert-media-image-type-settings-title" = "Soort afbeelding";
 "insert-media-media-settings-title" = "Mediainstellingen";
 "insert-media-title" = "Media invoegen";
@@ -1141,6 +1173,7 @@
 "talk-page-reply-button-accessibility-label" = "Reageren op $1";
 "talk-page-reply-depth-accessibility-label" = "Antwoorddiepte: $1";
 "talk-page-reply-placeholder-format" = "Reageren op $1";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Merk op dat je antwoord automatisch wordt ondertekend met je gebruikersnaam. Door wijzigingen op te slaan, ga je akkoord met de $1Gebruiksvoorwaarden$2 en ga je ermee akkoord je bijdrage vrij te geven onder de $3CC BY-SA 4.0$4 en de $5GFDL$6-licenties.";
 "talk-page-revision-history" = "Versiegeschiedenis";
 "talk-page-rply-close-button-accessibility-hint" = "Antwoordweergave sluiten";
 "talk-page-share-button" = "Overlegpagina delen";
@@ -1151,6 +1184,7 @@
 "talk-page-title-article-talk" = "Artikeloverleg";
 "talk-page-title-user-talk" = "Gebruikersoverleg";
 "talk-page-topic-close-button-hint" = "Sluit het nieuwe onderwerp";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Door wijzigingen te publiceren, ga je akkoord met de $1Gebruiksvoorwaarden$2 en stem je er onherroepelijk mee in je bijdrage vrij te geven onder de $3CC BY-SA 4.0-licentie$4 en de$5 GFDL-licentie$6.";
 "talk-page-unsubscribe-to-topic" = "Uitschrijven";
 "talk-page-unsubscribed-alert-subtitle" = "U zult geen meldingen meer ontvangen van nieuwe reacties in dit onderwerp.";
 "talk-page-unsubscribed-alert-title" = "U hebt het abonnement opgezegd.";
@@ -1174,6 +1208,7 @@
 "talk-pages-topic-compose-body-placeholder" = "Beschrijving";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Beschrijving van het onderwerp";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "Antwoord weggooien";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Onderwerp weggooien";
 "talk-pages-topic-compose-close-confirmation-title" = "Weet u zeker dat u dit nieuwe onderwerp wilt weggooien?";
 "talk-pages-topic-compose-navbar-title" = "Onderwerp";
 "talk-pages-topic-compose-title-placeholder" = "Onderwerptitel";
@@ -1319,4 +1354,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Bewerkingen worden gelinkt aan het IP adres van uw apparaat. $1Log in$2 om uw privacy te verbeteren.";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Door wijzigingen te publiceren, ga je akkoord met de $1Gebruiksvoorwaarden$2 en stem je er onherroepelijk mee in je bijdrage vrij te geven onder de $3CC BY-SA 4.0-licentie$4 en de$5 GFDL-licentie$6. Je gaat ermee akkoord dat een hyperlink of URL voldoende toeschrijving is onder de Creative Commons-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
