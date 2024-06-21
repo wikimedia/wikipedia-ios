@@ -222,7 +222,7 @@ public struct WKWikitextUtils {
                             insertPos = group1Range.lowerBound + valueStr.distance(from: valueStr.startIndex, to: valueStr.firstIndex(of: "\n")!)
                         }
                         if let insertIndex = articleWikitext.index(articleWikitext.startIndex, offsetBy: insertPos, limitedBy: articleWikitext.endIndex) {
-                            articleWikitext = articleWikitext[..<insertIndex] + imageWikitext + articleWikitext[insertIndex...]
+                            articleWikitext = articleWikitext[..<insertIndex] + " " + imageWikitext + articleWikitext[insertIndex...]
 
                         }
                     }
