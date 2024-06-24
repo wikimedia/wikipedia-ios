@@ -259,17 +259,25 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             // Fallback on earlier versions
         }
         
-        if !isViewModeOverlay {
-            search.searchBar.showsScopeBar = true
-            search.searchBar.scopeButtonTitles = ["Map","List"]
-            search.searchBar.delegate = self
-        } else {
-            search.searchBar.showsScopeBar = false
-        }
-
+        updateScopeBarVisibility()
         
         // search.automaticallyShowsCancelButton = true
         navigationItem.searchController = search
+    }
+    
+    private func updateScopeBarVisibility() {
+        
+        guard let searchController = navigationItem.searchController else {
+            return
+        }
+        
+        if !isViewModeOverlay {
+            searchController.searchBar.showsScopeBar = true
+            searchController.searchBar.scopeButtonTitles = ["Map","List"]
+            searchController.searchBar.delegate = self
+        } else {
+            searchController.searchBar.showsScopeBar = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1089,7 +1097,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 mapListToggleContainer.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
                 // listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
-                navigationItem.searchController?.searchBar.showsScopeBar = false
             case .list:
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
@@ -1105,7 +1112,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 listAndSearchOverlayContainerView.isHidden = true // false
                 // navigationBar.isInteractiveHidingEnabled = true
                 // listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
-                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
@@ -1121,7 +1127,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
                 // scrollView = nil
                 searchSuggestionController.navigationBarHider = nil
-                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .search:
                 // mapView.isHidden = true
                 mapContainerView.isHidden = true
@@ -1134,7 +1139,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.contentInsetAdjustmentBehavior = .never
                 // scrollView = searchSuggestionView
                 // searchSuggestionController.navigationBarHider = navigationBarHider
-                navigationItem.searchController?.searchBar.showsScopeBar = true
             case .map:
                 fallthrough
             default:
@@ -1146,7 +1150,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
                 // navigationBar.isInteractiveHidingEnabled = false
-                navigationItem.searchController?.searchBar.showsScopeBar = true
             }
             // recenterOnUserLocationButton.isHidden = mapView.isHidden
             recenterOnUserLocationButton.isHidden = mapContainerView.isHidden
@@ -1157,6 +1160,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
+            
+            updateScopeBarVisibility()
         }
     }
 
