@@ -55,7 +55,7 @@
 "account-creation-have-account" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? $1";
 "account-creation-log-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "account-creation-logging-in" = "...ਦਾਖ਼ਲਾ ਹੋ ਰਿਹਾ ਹੈ";
-"account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
+"account-creation-missing-fields" = "ਖਾਤਾ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਵਰਤੋਂਕਾਰ ਨਾਂ, ਪਾਰਸ਼ਬਦ ਅਤੇ ਪਾਰਸ਼ਬਦ ਦੀ ਤਸਦੀਕ ਕਰਨੀ ਪਵੇਗੀ।";
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
@@ -82,7 +82,7 @@
 "cancel" = "ਰੱਦ ਕਰੋ";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
-"edit-published" = "ਸੋਧ ਪ੍ਰਕਾਸ਼ਿਤ";
+"edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
