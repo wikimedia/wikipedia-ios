@@ -11,6 +11,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
+    func imageRecommendationsDidTriggerTimeWarning()
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {

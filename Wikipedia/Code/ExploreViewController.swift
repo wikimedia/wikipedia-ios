@@ -1229,6 +1229,12 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsDidTriggerError(_ error: any Error) {
         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
     }
+
+    func imageRecommendationsDidTriggerTimeWarning() {
+        let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+    }
+
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {

@@ -592,6 +592,7 @@
 "image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
+"image-recs-time-warning-message" = "Please review the article to understand its topic and inspect the image";
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
