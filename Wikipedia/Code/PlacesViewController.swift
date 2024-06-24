@@ -72,7 +72,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }()
     
     override var addsCollectionView: Bool {
-        return true
+        return false
     }
     
     // MARK: - View Lifecycle
@@ -222,10 +222,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
          collectionView.translatesAutoresizingMaskIntoConstraints = false
          view.insertSubview(collectionView, at: 0)
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: collectionView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))

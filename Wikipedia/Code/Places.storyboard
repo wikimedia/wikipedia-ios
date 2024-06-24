@@ -11,13 +11,13 @@
         <!--Places View Controller-->
         <scene sceneID="iCz-d5-DDs">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="pK5-Ai-Kzp" customClass="WMFPlacesViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pK5-Ai-Kzp" customClass="WMFPlacesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EsT-De-Ary">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
@@ -114,24 +114,24 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEe-dF-AFg" customClass="RoundedCornerView" customModule="Wikipedia" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-LT-MnE">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hlf-3Y-4oq">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0l8-no-aYc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="735"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="686"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVq-Mn-HaA">
-                                                        <rect key="frame" x="0.0" y="735" width="414" height="1"/>
+                                                        <rect key="frame" x="0.0" y="686" width="414" height="1"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="ShZ-Si-0vV"/>
@@ -155,7 +155,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0j-C1-Whj">
-                                                <rect key="frame" x="0.0" y="736" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="687" width="414" height="0.0"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-slider" translatesAutoresizingMaskIntoConstraints="NO" id="DJB-tT-pWW">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
@@ -224,7 +224,7 @@
                                 </variation>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwy-SF-J1D">
-                                <rect key="frame" x="0.0" y="69" width="414" height="0.0"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
@@ -266,6 +266,7 @@
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
                                 <exclude reference="Fqd-WF-erI"/>
+                                <exclude reference="1PC-H2-U7d"/>
                                 <exclude reference="8ve-zs-ofw"/>
                                 <include reference="S5v-Rm-6Vf"/>
                                 <exclude reference="mu2-bC-yEv"/>
@@ -274,10 +275,10 @@
                                 <exclude reference="ua0-k1-E4K"/>
                                 <include reference="bVF-HO-Onf"/>
                                 <include reference="IFe-5L-9c3"/>
-                                <exclude reference="1PC-H2-U7d"/>
                             </mask>
                         </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="8EZ-Mg-WBR"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
