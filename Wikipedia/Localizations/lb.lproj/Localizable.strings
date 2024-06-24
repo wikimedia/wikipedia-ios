@@ -18,6 +18,7 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|0=Zeechen|Zeechen|Zeechen}}";
 "aaald-deleted-text-description-2" = "$1 geläscht";
 "aaald-error-subitle" = "Aktualiséiert fir nach eng Kéier ze probéieren";
+"aaald-many-sections-description" = "a(n) $1 Abschnitter";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-discussion" = "Nei Diskussioun";
 "aaald-new-news-reference-title" = "Neiegkeeten";
