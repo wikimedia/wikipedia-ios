@@ -2,10 +2,16 @@ import UIKit
 import WMF
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
+protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
+    func logEditPreviewDidAppear()
+    func logEditPreviewDidTapBack()
+    func logEditPreviewDidTapNext()
+}
+
+class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLinkPreviewing {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -14,6 +20,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     var needsSimplifiedFormatToast: Bool = false
     
     weak var delegate: EditPreviewViewControllerDelegate?
+    weak var loggingDelegate: EditPreviewViewControllerLoggingDelegate?
     
     lazy var messagingController: ArticleWebMessagingController = {
         let controller = ArticleWebMessagingController()
@@ -56,6 +63,10 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
             showInternalLink(url: url)
         }
     }
+    
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didFailWithError error: any Error) {
+        showError(error)
+    }
 
     func showExternalLinkInAlert(link: String) {
         let title = WMFLocalizedString("wikitext-preview-link-external-preview-title", value: "External link", comment: "Title for external link preview popup")
@@ -74,11 +85,14 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
 
     @objc func goBack() {
+        loggingDelegate?.logEditPreviewDidTapBack()
         navigationController?.popViewController(animated: true)
+        
     }
     
     @objc func goForward() {
-        delegate?.editPreviewViewControllerDidTapNext(self)
+        loggingDelegate?.logEditPreviewDidTapNext()
+        delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
     }
 
     override func viewDidLoad() {
@@ -86,7 +100,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
 
         view.addSubview(previewWebViewContainer)
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
-        previewWebViewContainer.previewAnchorTapAlertDelegate = self
+        previewWebViewContainer.delegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
@@ -109,6 +123,11 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggingDelegate?.logEditPreviewDidAppear()
     }
     
     deinit {

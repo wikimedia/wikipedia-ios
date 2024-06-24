@@ -80,7 +80,7 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 + (nullable NSURL *)notificationContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode;
 + (nullable NSURL *)themeContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode;
 + (nullable NSURL *)readingListContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode;
-+ (nullable NSURL *)suggestedEditsURL;
++ (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL;
 
 - (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone

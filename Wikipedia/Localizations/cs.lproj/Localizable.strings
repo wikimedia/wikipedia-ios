@@ -183,7 +183,6 @@
 "data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
 "description-edit-for-article" = "Popis článku pro článek $1";
-"description-edit-learn-more" = "Více informací";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
@@ -262,10 +261,10 @@
 "edit-published" = "Editace zveřejněna";
 "edit-published-subtitle" = "Právě jste pro všechny vylepšili Wikipedii";
 "edit-summary-add-summary-text" = "Přidat shrnutí editace";
+"edit-summary-choice-added-image" = "Přidán obrázek";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
-"edit-summary-learn-more-text" = "Více informací";
 "edit-summary-placeholder-text" = "Jak jste vylepšili článek?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Informace o sledovaných stránkách";

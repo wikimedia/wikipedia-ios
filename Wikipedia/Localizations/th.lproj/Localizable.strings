@@ -80,7 +80,7 @@
 "account-creation-have-account" = "มีบัญชีแล้วหรือ $1";
 "account-creation-log-in" = "เข้าสู่ระบบ";
 "account-creation-logging-in" = "กำลังเข้าสู่ระบบ...";
-"account-creation-missing-fields" = "คุณต้องป้อนชื่อผู้ใช้ รหัสผ่าน และยืนยันรหัสผ่านอีกครั้งเพื่อสร้างบัญชีผู้ใช้";
+"account-creation-missing-fields" = "คุณต้องกรอกชื่อผู้ใช้ รหัสผ่าน และยืนยันรหัสผ่านอีกครั้งเพื่อสร้างบัญชีผู้ใช้";
 "account-creation-passwords-mismatched" = "เขตข้อมูลรหัสผ่านทั้งสองไม่ตรงกัน";
 "account-creation-saving" = "กำลังบันทึก...";
 "account-creation-title" = "สร้างบัญชีใหม่";
@@ -120,6 +120,7 @@
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
 "action-update" = "ปรับปรุง";
 "add-articles-to-reading-list" = "เพิ่ม {{PLURAL:$1|$1 บทความ}} ลงในรายการอ่าน";
+"advanced-settings-title" = "การตั้งค่าขั้นสูง";
 "announcements-dismiss" = "รับทราบ";
 "app-store-keywords" = "วิกิพีเดีย, อ้างอิง, วิกิ, สารานุกรม, ข้อมูล, ความรู้, วิจัย, สำรวจ, เรียนรู้";
 "app-store-release-notes" = "ฟีดสำรวจที่ปรับแต่งได้เต็มที่และอ่านง่ายขึ้น แก้ไขบั๊ก ปรับปรุงประสิทธิภาพ และการแปลเป็นภาษาท้องถิ่น";
@@ -175,7 +176,6 @@
 "data-migration-status" = "กำลังปรับปรุง...";
 "description-add-title" = "เพิ่มคำอธิบาย";
 "description-edit-for-article" = "คำอธิบายบทความสำหรับ $1";
-"description-edit-learn-more" = "เรียนรู้เพิ่มเติม";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "การเปลี่ยนคำอธิบายบทความ ถือว่าคุณยอมรับ $1 และคุณตกลงเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างไม่อาจเพิกถอนได้";
 "description-edit-pencil-introduction" = "แก้ไขบทนำ";
@@ -213,6 +213,8 @@
 "diff-compare-header-heading" = "เปรียบเทียบรุ่นแก้ไข";
 "diff-compare-header-to-info-heading" = "แสดงการแก้ไข";
 "diff-compare-title" = "เปรียบเทียบรุ่นแก้ไข";
+"diff-context-cell-collapse-section" = "ยุบ $1";
+"diff-context-cell-expand-section" = "ขยาย $1";
 "diff-context-lines-collapsed-button-title" = "แสดง";
 "diff-context-lines-expanded-button-title" = "ซ่อน";
 "diff-header-revision-accessibility-text" = "แก้ไขเมื่อ";
@@ -269,13 +271,13 @@
 "edit-published" = "เผยแพร่การแก้ไขแล้ว";
 "edit-published-subtitle" = "คุณทำให้วิกิพีเดียดีขึ้นสำหรับทุกคน";
 "edit-summary-add-summary-text" = "เพิ่มความย่อการแก้ไข";
+"edit-summary-choice-added-image" = "เพิ่มรูปภาพ";
+"edit-summary-choice-added-image-and-caption" = "เพิ่มรูปภาพและคำอธิบาย";
 "edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
 "edit-summary-choice-fixed-typos" = "แก้ไขการพิมพ์ผิด";
 "edit-summary-choice-linked-words" = "เพิ่มลิงก์";
-"edit-summary-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "edit-summary-placeholder-text" = "คุณปรับปรุงบทความนี้อย่างไร?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดู";
+"edit-watch-list-learn-more-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับรายการเฝ้าดูของคุณ";
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-subtitle" = "จงกล้าหาญแต่อย่าประมาทในการปรับปรุงบทความ อย่าทนทุกข์ทรมานกับการทำผิดพลาด: ทุกรุ่นที่ผ่านมาของหน้าจะถูกบันทึกไว้ ดังนั้นชุมชนของเราจึงสามารถแก้ไขข้อผิดพลาดได้อย่างง่ายดาย";
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
@@ -380,6 +382,7 @@
 "explore-feed-preferences-show-related-pages-title" = "แสดงการ์ดเนื่องจากคุณอ่าน";
 "explore-feed-preferences-show-top-read-footer-text" = "การปิดการ์ดอ่านมากที่สุดจะปิดการ์ดในทุกภาษาที่ใช้ได้";
 "explore-feed-preferences-show-top-read-title" = "แสดงการ์ดอ่านมากที่สุด";
+"explore-feed-preferences-suggested-edits-title" = "แสดงการ์ดการแก้ไขที่แนะนำ";
 "explore-feed-preferences-top-read-description" = "บทความที่อ่านมากที่สุดในแต่ละวัน";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "ปิดฟีดสำรวจ";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "การซ่อนการ์ดฟีดสำรวจจะเป็นการปิดแท็บสำรวจและแทนที่ด้วยแท็บการตั้งค่า";
@@ -412,6 +415,9 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "explore-random-article-sub-heading-from-wikipedia" = "จากวิกิพีเดีย";
 "explore-randomizer" = "ตัวสุ่ม";
+"explore-suggested-edits-footer" = "เพิ่ม";
+"explore-suggested-edits-image-recs-body" = "เพิ่มรูปภาพที่แนะนำลงในบทความวิกิพีเดียเพื่อเพิ่มความเข้าใจ";
+"explore-suggested-edits-image-recs-title" = "เพิ่มรูปภาพ";
 "export-user-data-confirmation-title" = "แบ่งปันแอปไลบรารี่?";
 "export-user-data-generic-error" = "เกิดข้อผิดพลาดขณะส่งออกข้อมูลของคุณ กรุณาลองใหม่อีกครั้งในภายหลัง";
 "export-user-data-space-error" = "อุปกรณ์ของคุณมีพื้นที่ไม่เพียงพอที่จะส่งออกข้อมูลผู้ใช้ของคุณ กรุณาลองใหม่อีกครั้งในภายหลัง";
@@ -430,20 +436,20 @@
 "field-alert-username-unavailable" = "ชื่อผู้ใช้ไม่พร้อมใช้งาน";
 "field-backup-token-title" = "รหัสการสำรอง";
 "field-captcha-placeholder" = "ข้อความ CAPTCHA";
-"field-captcha-title" = "ป้อนข้อความที่คุณเห็นด้านบน";
+"field-captcha-title" = "กรอกข้อความที่คุณเห็นด้านบน";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "อีเมล";
 "field-email-title-optional" = "อีเมล (ไม่จำเป็น)";
-"field-new-password-confirm-placeholder" = "ป้อนรหัสผ่านใหม่อีกครั้ง";
+"field-new-password-confirm-placeholder" = "กรอกรหัสผ่านใหม่อีกครั้ง";
 "field-new-password-confirm-title" = "ยืนยันรหัสผ่านใหม่";
-"field-new-password-placeholder" = "ป้อนรหัสผ่านใหม่";
+"field-new-password-placeholder" = "กรอกรหัสผ่านใหม่";
 "field-new-password-title" = "รหัสผ่านใหม่";
-"field-password-confirm-placeholder" = "ป้อนรหัสผ่านใหม่อีกครั้ง";
+"field-password-confirm-placeholder" = "กรอกรหัสผ่านใหม่อีกครั้ง";
 "field-password-confirm-title" = "ยืนยันรหัสผ่าน";
-"field-password-placeholder" = "ป้อนรหัสผ่าน";
+"field-password-placeholder" = "กรอกรหัสผ่าน";
 "field-password-title" = "รหัสผ่าน";
 "field-token-title" = "รหัสการยืนยัน";
-"field-username-placeholder" = "ป้อนชื่อผู้ใช้";
+"field-username-placeholder" = "กรอกชื่อผู้ใช้";
 "field-username-title" = "ชื่อผู้ใช้";
 "filter-options-all" = "ทั้งหมด";
 "find-clear-button-accessibility" = "ล้างการค้นหา";
@@ -455,7 +461,7 @@
 "find-textfield-accessibility" = "ค้นหา";
 "forgot-password-button-title" = "รีเซ็ต";
 "forgot-password-email-sent" = "ส่งอีเมลพร้อมวิธีตั้งค่ารหัสผ่านใหม่แล้ว";
-"forgot-password-instructions" = "ป้อนข้อมูลลงในช่องใดช่องหนึ่งด้านล่างเพื่อรับวิธีการรีเซ็ตรหัสผ่านผ่านทางอีเมล";
+"forgot-password-instructions" = "กรอกข้อมูลลงในช่องใดช่องหนึ่งด้านล่างเพื่อรับวิธีการรีเซ็ตรหัสผ่านผ่านทางอีเมล";
 "forgot-password-title" = "ตั้งรหัสผ่านใหม่";
 "forgot-password-username-or-email-title" = "หรือ";
 "history-clear-all" = "ล้าง";
@@ -479,6 +485,18 @@
 "icon-shortcut-random-title" = "สุ่มบทความ";
 "icon-shortcut-search-title" = "ค้นหาวิกิพีเดีย";
 "image-gallery-unknown-owner" = "ไม่รู้จักผู้เขียน";
+"image-rec-add-image-title" = "เพิ่มภาพนี้?";
+"image-rec-feature-announce-body" = "ตัดสินใจว่าจะเพิ่มรูปภาพลงในบทความวิกิพีเดียหรือไม่ คุณจะพบการ์ด ‘เพิ่มรูปภาพ’ ได้ใน ‘ฟีดสำรวจ’";
+"image-rec-feature-announce-title" = "ลอง 'เพิ่มรูปภาพ'";
+"image-rec-onboarding-learn-more-button" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแก้ไขที่แนะนำ";
+"image-rec-survey-option-6" = "อื่น ๆ";
+"image-rec-survey-submit-button" = "ส่ง";
+"image-rec-survey-title" = "เหตุผล";
+"image-rec-title" = "เพิ่มรูปภาพ";
+"image-rec-view-article" = "ดูบทความ";
+"image-recs-no-title" = "ไม่";
+"image-recs-not-sure-title" = "ไม่แน่ใจ";
+"image-recs-yes-title" = "ใช่";
 "import-shared-reading-list-default-title" = "รายการอ่านของฉัน";
 "import-shared-reading-list-survey-prompt-button-cancel" = "ไม่ใช่ตอนนี้";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "ทำแบบสำรวจ";
@@ -490,6 +508,7 @@
 "in-the-news-title" = "เรื่องจากข่าว";
 "insert-action-title" = "แทรก";
 "insert-link-title" = "แทรกลิงก์";
+"insert-media-add-image-details-title" = "เพิ่มรายละเอียดรูปภาพ";
 "insert-media-alternative-text-description" = "คำอธิบายข้อความสำหรับผู้อ่านที่ไม่สามารถเห็นภาพได้";
 "insert-media-alternative-text-placeholder" = "อธิบายภาพนี้";
 "insert-media-alternative-text-title" = "ข้อความอื่น";
@@ -505,8 +524,11 @@
 "insert-media-image-preview-select-image-action-title" = "เลือกภาพ";
 "insert-media-image-size-setting-custom" = "ปรับแต่ง";
 "insert-media-image-size-setting-default" = "ค่าปริยาย";
+"insert-media-image-size-settings-measure-height" = "ความสูง";
+"insert-media-image-size-settings-measure-width" = "ความกว้าง";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "ขนาดภาพ";
+"insert-media-image-text-wrapping-setting" = "ตัดข้อความรอบ ๆ รูปภาพ";
 "insert-media-image-type-setting-basic" = "พื้นฐาน";
 "insert-media-image-type-setting-frame" = "กรอบ";
 "insert-media-image-type-setting-frameless" = "ไม่มีกรอบ";
@@ -517,6 +539,7 @@
 "languages-settings-title" = "ภาษา";
 "languages-title" = "เปลี่ยนภาษา";
 "languages-wikipedia" = "ภาษาของวิกิพีเดีย";
+"learn-more-title" = "เรียนรู้เพิ่มเติม";
 "logged-out-continue-without-logging-in-button-title" = "ดำเนินการต่อโดยไม่เข้าสู่ระบบ";
 "logged-out-log-back-in-button-title" = "เข้าสู่ระบบกลับไปยังบัญชีของคุณ";
 "logged-out-subtitle" = "มีปัญหาในการรับรองความถูกต้องของบัญชีของคุณ หากต้องการซิงค์รายการอ่านและแก้ไขภายใต้ชื่อผู้ใช้ของคุณ โปรดเข้าสู่ระบบอีกครั้ง";
@@ -657,6 +680,7 @@
 "notifications-center-type-title-login-success" = "เข้าสู่ระบบสำเร็จ";
 "notifications-center-type-title-other" = "อื่น ๆ";
 "notifications-center-type-title-page-link" = "ลิงก์หน้า";
+"notifications-center-type-title-page-review" = "ตรวจทานหน้า";
 "notifications-center-type-title-sent-mention-failure" = "ส่งการกล่าวถึงล้มเหลว";
 "notifications-center-type-title-sent-mention-success" = "ส่งการกล่าวถึงสำเร็จ";
 "notifications-center-type-title-talk-page-mention" = "หน้าพูดคุยกล่าวถึง";
@@ -735,6 +759,7 @@
 "potd-empty-error-description" = "ไม่สามารถดึงข้อมูลรูปภาพประจำวันที่ $1 ได้";
 "potd-widget-title" = "รูปภาพประจำวัน";
 "preference-summary-eventlogging-opt-in" = "อนุญาตให้มูลนิธิวิกิมีเดียเก็บข้อมูลการใช้แอปของคุณเพื่อพัฒนาแอปให้ดีขึ้น";
+"problem-with-feature-title" = "ปัญหาเกี่ยวกับคุณสมบัติ";
 "project-name-mediawiki" = "มีเดียวิกิ";
 "project-name-wikibooks" = "วิกิตำรา";
 "project-name-wikidata" = "วิกิสนเทศ";
@@ -904,6 +929,7 @@
 "share-social-mention-format" = "“$1” ผ่านทาง Wikipedia: $2";
 "sort-by-recently-added-action" = "ที่เพิ่งเพิ่มล่าสุด";
 "sort-by-title-action" = "ชื่อเรื่อง";
+"suggested-edits-title" = "การแก้ไขที่แนะนำ";
 "table-of-contents-button-label" = "สารบัญ";
 "table-of-contents-close-accessibility-hint" = "ปิด";
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";
@@ -990,8 +1016,9 @@
 "top-read-widget-description" = "เรียนรู้สิ่งที่โลกกำลังอ่านในวันนี้บนวิกิพีเดีย";
 "top-read-widget-readers-count" = "ผู้อ่าน $1";
 "top-read-widget-title" = "อ่านมากที่สุด";
+"tutorial-title" = "สอนใช้งาน";
 "two-factor-login-continue" = "เข้าสู่ระบบต่อ";
-"two-factor-login-instructions" = "โปรดป้อนรหัสการยืนยันตัวตนสองขั้นตอน";
+"two-factor-login-instructions" = "โปรดกรอกรหัสการยืนยันตัวตนสองขั้นตอน";
 "two-factor-login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "two-factor-login-with-backup-code" = "ใช้รหัสสำรองของคุณรหัสใดรหัสหนึ่ง";
 "two-factor-login-with-regular-code" = "ใช้รหัสการยืนยันตัวตนสองขั้นตอน";
@@ -1000,7 +1027,6 @@
 "unwatch" = "เลิกเฝ้าดู";
 "user-title" = "ผู้ใช้";
 "vanish-account-continue-button-title" = "ดำเนินการต่อ";
-"vanish-account-learn-more-text" = "เรียนรู้เพิ่มเติม";
 "vanish-account-username-field" = "ชื่อผู้ใช้และหน้าผู้ใช้";
 "vanish-account-warning-title" = "คำเตือน";
 "variants-alert-dismiss-button" = "ไม่ขอบคุณ";

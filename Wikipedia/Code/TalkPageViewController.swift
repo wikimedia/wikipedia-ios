@@ -1259,7 +1259,7 @@ extension TalkPageViewController: PageEditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
                 }
                 
                 // Refresh page

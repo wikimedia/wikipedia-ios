@@ -14,6 +14,7 @@
 // Author: Macofe
 // Author: Mansil
 // Author: Mansil alfalb
+// Author: Marinaazev
 // Author: MokaAkashiyaPT
 // Author: Nemo bis
 // Author: Ruila
@@ -127,6 +128,7 @@
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
+"advanced-settings-title" = "Configurações avançadas";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
@@ -185,7 +187,6 @@
 "data-migration-status" = "A atualizar...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do artigo $1";
-"description-edit-learn-more" = "Saber mais";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ao alterar a descrição do artigo, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
@@ -303,10 +304,11 @@
 "edit-published-subtitle" = "Acabou de tornar a Wikipédia melhor para todos";
 "edit-show-web-preview" = "Mostrar antevisão ''web''";
 "edit-summary-add-summary-text" = "Acrescentar um resumo de edição";
+"edit-summary-choice-added-image" = "Imagem adicionada";
+"edit-summary-choice-added-image-and-caption" = "Imagem e legenda adicionadas";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
 "edit-summary-choice-linked-words" = "Hiperligações adicionadas";
-"edit-summary-learn-more-text" = "Saiba mais";
 "edit-summary-placeholder-text" = "De que forma melhorou o artigo?";
 "edit-watch-list-learn-more-text" = "Aprende mais sobre a sua lista de observação";
 "edit-watch-this-page-text" = "Vigiar esta página";
@@ -449,6 +451,9 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-randomizer" = "Aleatório";
+"explore-suggested-edits-footer" = "Adicionar";
+"explore-suggested-edits-image-recs-body" = "Adicione imagens sugeridas aos artigos da Wikipédia para melhorar o entendimento.";
+"explore-suggested-edits-image-recs-title" = "Adicionar uma imagem";
 "export-user-data-confirmation-message" = "A partilha da sua biblioteca de aplicações inclui dados sobre as suas listas de leitura, o historial de leituras, as preferências e o conteúdo do feed Explorar. Este ficheiro de dados só deve ser partilhado com destinatários de confiança e para fins de diagnóstico técnico.";
 "export-user-data-confirmation-title" = "Partilhar a biblioteca de aplicações?";
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
@@ -519,6 +524,46 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
+"image-rec-add-image-title" = "Adicionar esta imagem?";
+"image-rec-empty-subtitle" = "Tente voltar mais tarde.";
+"image-rec-empty-title" = "Você não possui imagens sugeridas no momento.";
+"image-rec-feature-announce-body" = "Decida se uma imagem será adicionada a um artigo da Wikipédia. Você pode encontrar o cartão ‘Adicionar uma imagem’ no seu feed ‘Explorar’.";
+"image-rec-feature-announce-title" = "Experimente ‘Adicionar uma imagem’";
+"image-rec-onboarding-item-1-body" = "Decida se uma imagem sugerida deve ser colocada em um artigo da Wikipédia.";
+"image-rec-onboarding-item-1-title" = "Ver uma sugestão";
+"image-rec-onboarding-item-2-body" = "As sugestões são geradas automaticamente e você deverá julgar se deve aceitá-las ou rejeitá-las.";
+"image-rec-onboarding-item-2-title" = "Aceitar ou rejeitar uma imagem";
+"image-rec-onboarding-item-3-body" = "As imagens são do Wikimedia Commons, uma coleção de imagens licenciadas gratuitamente usadas pela Wikipédia.";
+"image-rec-onboarding-item-3-title" = "Imagens licenciadas";
+"image-rec-onboarding-learn-more-button" = "Saiba mais sobre edições sugeridas";
+"image-rec-onboarding-title" = "Adicionar uma imagem a um artigo";
+"image-rec-survey-instructions-1" = "Suas respostas melhoram sugestões futuras.";
+"image-rec-survey-instructions-2" = "Selecione uma ou mais opções";
+"image-rec-survey-option-1" = "A imagem não é relevante";
+"image-rec-survey-option-2" = "Não há informações suficientes para decidir";
+"image-rec-survey-option-3" = "A imagem é ofensiva";
+"image-rec-survey-option-4" = "A imagem possui baixa qualidade";
+"image-rec-survey-option-5" = "Não conheço este assunto";
+"image-rec-survey-option-6" = "Outro";
+"image-rec-survey-submit-button" = "Enviar";
+"image-rec-survey-title" = "Motivo";
+"image-rec-title" = "Adicionar imagem";
+"image-rec-tooltip-1-body" = "Revise este artigo para entender seu tema.";
+"image-rec-tooltip-1-title" = "Revisar";
+"image-rec-tooltip-2-body" = "Inspecione a imagem e suas informações associadas.";
+"image-rec-tooltip-2-title" = "Inspecionar";
+"image-rec-tooltip-3-body" = "Decida se a imagem ajuda os leitores a entender melhor este tema.";
+"image-rec-tooltip-3-title" = "Decidir";
+"image-rec-view-article" = "Ver artigo";
+"image-recommendations-email-fifth-line" = "- [Capturas de tela ou links]";
+"image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
+"image-recommendations-email-fourth-line" = "[Descreva a solução proposta]";
+"image-recommendations-email-second-line" = "- [Descreva o problema específico]";
+"image-recommendations-email-third-line" = "O comportamento que eu gostaria de ver é:";
+"image-recommendations-email-title" = "Relatório de Problemas - Recurso Adicionar uma Imagem";
+"image-recs-no-title" = "Não";
+"image-recs-not-sure-title" = "Não tenho certeza";
+"image-recs-yes-title" = "Sim";
 "import-shared-reading-list-default-title" = "A minha lista de leitura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar em inquérito";
@@ -531,6 +576,7 @@
 "in-the-news-title" = "Nas notícias";
 "insert-action-title" = "Inserir";
 "insert-link-title" = "Inserir hiperligação";
+"insert-media-add-image-details-title" = "Adicionar detalhes sobre a imagem";
 "insert-media-alternative-text-description" = "Descrição em texto para leitores que não podem ver a imagem";
 "insert-media-alternative-text-placeholder" = "Descreva esta imagem";
 "insert-media-alternative-text-title" = "Texto alternativo";
@@ -564,6 +610,7 @@
 "languages-settings-title" = "Línguas";
 "languages-title" = "Alterar língua";
 "languages-wikipedia" = "Línguas da Wikipédia";
+"learn-more-title" = "Saiba mais";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem iniciar sessão";
 "logged-out-log-back-in-button-title" = "Entrar novamente na sua conta";
 "logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, volte a iniciar uma sessão.";
@@ -598,6 +645,7 @@
 "nearby-distance-label-miles" = "$1 milhas";
 "new-password-instructions" = "Autenticou-se com uma palavra-passe temporária. Para concluir a autenticação, defina uma palavra-passe nova aqui.";
 "new-password-title" = "Definir a sua palavra-passe";
+"next-action-title" = "Próximo";
 "no-email-account-alert" = "Configure uma conta de correio eletrónico no seu dispositivo e tente novamente, por favor.";
 "no-internet-connection" = "Sem ligação à Internet";
 "no-internet-connection-article-reload" = "Talvez esteja disponível uma versão mais recente deste artigo, mas não pode ser carregada sem ligação à Internet";
@@ -807,6 +855,7 @@
 "potd-widget-description" = "Desfrute de uma linda foto diária selecionada pela nossa comunidade.";
 "potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
+"problem-with-feature-title" = "Problema com a funcionalidade";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivros";
 "project-name-wikidata" = "Wikidata";
@@ -1002,6 +1051,7 @@
 "share-social-mention-format" = "“$1” via Wikipédia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
+"suggested-edits-title" = "Edições sugeridas";
 "table-of-contents-button-label" = "Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar índice";
@@ -1097,6 +1147,8 @@
 "top-read-widget-description" = "Saiba o que o mundo está a ler hoje na Wikipédia.";
 "top-read-widget-readers-count" = "$1 leitores";
 "top-read-widget-title" = "Mais lidos";
+"try-now-title" = "Experimentar agora";
+"tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continuar o início de sessão";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
 "two-factor-login-title" = "Entrar na sua conta";
@@ -1109,7 +1161,6 @@
 "uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-learn-more-text" = "Saiba mais";
 "vanish-account-username-field" = "Nome de utilizador e página de utilizador";
 "vanish-account-warning-body" = "O desaparecimento é um **recurso de última instância** que **só deve ser usado quando pretende parar de editar para sempre** e ocultar o máximo possível das suas associações anteriores.\n\nA eliminação de contas na Wikipédia é feita alterando o seu nome de utilizador para que as pessoas não possam reconhecer as suas contribuições, num processo designado desaparecimento de conta. **O desaparecimento não garante o anonimato completo nem remove as participações nos projetos**.";
 "vanish-account-warning-title" = "Aviso";
@@ -1217,4 +1268,5 @@
 "wikitext-upload-save-anonymously-or-login" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1iniciar uma sessão$2, terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";

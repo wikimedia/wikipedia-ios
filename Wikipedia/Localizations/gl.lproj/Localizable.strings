@@ -123,7 +123,6 @@
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
 "description-add-title" = "Engadir unha descrición";
 "description-edit-for-article" = "Descrición do artigo $1";
-"description-edit-learn-more" = "Máis información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ó alterar a descrición do artigo, acepto os $1 e publico irrevogablemente as miñas contribucións baixo a licenza $2.";
 "description-edit-pencil-introduction" = "Editar introdución";
@@ -182,7 +181,6 @@
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Corrección ortográfica";
 "edit-summary-choice-linked-words" = "Ligazóns engadidas";
-"edit-summary-learn-more-text" = "Máis información";
 "edit-summary-placeholder-text" = "Como mellorou o artigo?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Máis información sobre as listas de vixiancia";

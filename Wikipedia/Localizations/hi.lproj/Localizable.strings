@@ -128,7 +128,6 @@
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "action-update" = "अद्यतन";
 "add-articles-to-reading-list" = "पठन सूची में{{PLURAL:$1|$1 लेख}} जोड़ें";
-"add-image-learn-more-text" = "अधिक जानिए";
 "announcements-dismiss" = "रद्द करें";
 "app-store-keywords" = "विकिपीडिया, संदर्भ, विकी, विश्वकोश, जानकारी, ज्ञान, अनुसंधान, जानकारी, अन्वेषण करें, सीखें";
 "app-store-release-notes" = "एक्सप्लोर फ़ीड पूरी तरह से अनुकूलन योग्य और पढ़ने में आसान है। स्थानीयकरण, प्रदर्शन में सुधार और बग फिक्स।";
@@ -182,7 +181,6 @@
 "data-migration-status" = "अपडेट हो रहा है...";
 "description-add-title" = "विवरण जोड़ें";
 "description-edit-for-article" = "$1 के लिए लेख विवरण";
-"description-edit-learn-more" = "अधिक जानें";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "लेख विवरण को बदलकर, मैं $1 और $2 लाइसेंस के तहत अपना योगदान अपरिवर्तनीय रूप से जारी करने के लिए सहमत हूं।";
 "description-edit-pencil-introduction" = "परिचय सम्पादित करें";
@@ -244,7 +242,6 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
-"edit-summary-learn-more-text" = "अधिक जानें";
 "editor-find-textfield-accessibility" = "खोजें";
 "editor-keyboard-paragraph-button" = "अनुच्छेद";
 "editor-replace-textfield-accessibility" = "बदलें";
@@ -323,6 +320,7 @@
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
+"image-rec-error-subtitle" = "कोई त्रुटि आई।";
 "import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
 "import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
@@ -333,6 +331,7 @@
 "in-the-news-title" = "समाचारों में";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";
+"learn-more-title" = "अधिक जानिए";
 "login-forgot-password" = "अपना पासवर्ड भूल गए?";
 "login-join-wikipedia" = "विकिपीडिया से जुड़ें।";
 "login-no-account" = "खाता नहीं है? $1";
@@ -505,6 +504,8 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
+"try-now-title" = "अब कोशिश करें";
+"tutorial-title" = "अनुशिक्षण";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
@@ -512,7 +513,6 @@
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "user-title" = "सदस्य";
 "vanish-account-continue-button-title" = "जारी रखें";
-"vanish-account-learn-more-text" = "अधिक जानें";
 "watch" = "ध्यान रखें";
 "watchlist-user-button-thank" = "धन्यवाद";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";

@@ -1,0 +1,95 @@
+[
+  {
+    "aliases" : [
+      "алт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "центар",
+      "ц",
+      "c",
+      "center",
+      "centre",
+      "centar"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "оквир",
+      "рам",
+      "framed",
+      "enframed",
+      "frame",
+      "okvir",
+      "ram"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "безоквира",
+      "без_оквира",
+      "безрама",
+      "без_рама",
+      "frameless",
+      "bezokvira",
+      "bez_okvira",
+      "bezrama",
+      "bez_rama"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "лево",
+      "лијево",
+      "л",
+      "left",
+      "levo",
+      "lijevo",
+      "l"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "без",
+      "н",
+      "none",
+      "bez",
+      "n"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "десно",
+      "д",
+      "right",
+      "desno",
+      "d"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "умањено",
+      "thumbnail",
+      "thumb",
+      "mini",
+      "umanjeno"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Датотека"
+    ],
+    "name" : "file_namespace"
+  }
+]

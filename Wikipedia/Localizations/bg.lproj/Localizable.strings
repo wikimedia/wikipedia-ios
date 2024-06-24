@@ -130,7 +130,6 @@
 "data-migration-status" = "Актуализиране...";
 "description-add-title" = "Добавяне на описание";
 "description-edit-for-article" = "Описание на статия „$1“";
-"description-edit-learn-more" = "Научете повече";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променяйки описанието на статията, се съгласявам с $1 и неотменимо публикувам приноса си под $2 лиценз.";
 "description-edit-pencil-introduction" = "Редактиране на въведението";
@@ -199,10 +198,8 @@
 "edit-summary-choice-fixed-grammar" = "Поправена граматична грешка";
 "edit-summary-choice-fixed-typos" = "Поправена правописна грешка";
 "edit-summary-choice-linked-words" = "Добавени препратки";
-"edit-summary-learn-more-text" = "Научете повече";
 "edit-summary-placeholder-text" = "Как подобрихте статията?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Научете повече за списъците за наблюдение";
+"edit-watch-list-learn-more-text" = "Научете повече за Вашия списък за наблюдение";
 "edit-watch-this-page-text" = "Наблюдаване на страницата";
 "editor-exit-confirmation-body" = "Сигурни ли сте, че искате да напуснете режима за редактиране, без да публикувате промените?";
 "empty-diff-compare-title" = "Няма разлики между версиите";
@@ -598,7 +595,6 @@
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
 "vanish-account-continue-button-title" = "Продължаване";
-"vanish-account-learn-more-text" = "Научете повече";
 "vanish-account-warning-title" = "Предупреждение";
 "variants-alert-dismiss-button" = "Не, благодаря";
 "variants-alert-preferences-button" = "Преглед на настройките";

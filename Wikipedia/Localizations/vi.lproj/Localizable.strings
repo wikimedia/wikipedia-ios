@@ -18,6 +18,7 @@
 // Author: Nguyenphutrong2
 // Author: Nguyên Lê
 // Author: Phjtieudoc
+// Author: Phungminh141
 // Author: Pisceskaze
 // Author: TARGET6tidiem
 // Author: Thanhtai2009
@@ -184,7 +185,6 @@
 "data-migration-status" = "Đang cập nhật…";
 "description-add-title" = "Thêm lời tóm lược";
 "description-edit-for-article" = "Tóm lược bài viết $1";
-"description-edit-learn-more" = "Tìm hiểu thêm";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Với việc thay đổi lời tóm lược bài viết, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
 "description-edit-pencil-introduction" = "Sửa phần đầu";
@@ -259,6 +259,7 @@
 "diff-unedited-lines-format" = "$1 dòng chưa được sửa đổi";
 "diff-user-button-accessibility-text" = "Nhấn đúp để mở menu";
 "dim-images" = "Làm tối các hình ảnh";
+"donate-success-title" = "Cảm ơn bạn!";
 "edit-link-display-text-title" = "Hiển thị văn bản";
 "edit-link-link-target-title" = "Đích của liên kết";
 "edit-link-remove-link-title" = "Xóa liên kết";
@@ -277,10 +278,8 @@
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-typos" = "Sửa chính tả";
 "edit-summary-choice-linked-words" = "Đặt liên kết";
-"edit-summary-learn-more-text" = "Tìm hiểu thêm";
 "edit-summary-placeholder-text" = "Bạn đã cải thiện bài này như thế nào?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Tìm hiểu thêm về danh sách theo dõi";
+"edit-watch-list-learn-more-text" = "Tìm hiểu thêm về Danh sách theo dõi của bạn";
 "edit-watch-this-page-text" = "Theo dõi trang này";
 "editing-welcome-be-bold-subtitle" = "Hãy mạnh dạn nhưng không liều lĩnh trong việc cập nhật bài viết. Đừng lo lắng khi mắc lỗi: mọi phiên bản trước đây của trang đều được lưu lại, do đó cộng đồng của chúng tôi có thể dễ dàng sửa lỗi.";
 "editing-welcome-be-bold-title" = "Bạn có tiếng nói quan trọng chứ";
@@ -290,8 +289,21 @@
 "editing-welcome-impartial-tone-title" = "Đạt đến thái độ trung lập";
 "editing-welcome-set-knowledge-free-subtitle" = "Để cung cấp cho mọi người khả năng tiếp cận kiến thức của thế giới, chúng tôi cần bạn tham gia vào quá trình tạo ra nó bằng cách đọc, chỉnh sửa và đóng góp cho các chủ đề quan trọng nhất đối với bạn.";
 "editing-welcome-set-knowledge-free-title" = "Giải phóng kiến thức";
+"editor-edit-source" = "Sửa mã nguồn";
 "editor-exit-confirmation-body" = "Bạn có chắc chắn muốn rời chế độ sửa đổi mà không lưu trang trước?";
 "editor-exit-confirmation-title" = "Thoát chế độ chỉnh sửa?";
+"editor-keyboard-bold-accessibility" = "Đậm";
+"editor-keyboard-heading-button" = "Đề mục";
+"editor-keyboard-italics-accessibility" = "Xiên";
+"editor-keyboard-paragraph-button" = "Đoạn văn";
+"editor-keyboard-subheading1-button" = "Đề mục con 1";
+"editor-keyboard-subheading2-button" = "Đề mục con 2";
+"editor-keyboard-subheading3-button" = "Đề mục con 3";
+"editor-keyboard-subheading4-button" = "Đề mục con 4";
+"editor-keyboard-subscript-accessibility" = "Viết xuống dưới";
+"editor-keyboard-superscript-accessibility" = "Viết lên trên";
+"editor-keyboard-template-accessibility" = "Bản mẫu";
+"editor-toolbar-find-accessibility" = "Tìm trong trang";
 "empty-diff-compare-title" = "Các phiên bản không có khác biệt";
 "empty-diff-single-title" = "Không có thay đổi xem được";
 "empty-insert-media-title" = "Chọn một tập tin từ Wikimedia Commons";
@@ -466,6 +478,7 @@
 "icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
+"image-recs-no-title" = "Không";
 "import-shared-reading-list-default-title" = "Danh sách đọc của tôi";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Để sau";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Thực hiện khảo sát";
@@ -599,6 +612,7 @@
 "notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-onboarding-modal-push-notifications-title" = "Thông báo đẩy";
+"notifications-center-status-all" = "Tất cả";
 "notifications-center-status-read" = "Đã đọc";
 "notifications-center-status-unread" = "Chưa đọc";
 "notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
@@ -989,7 +1003,6 @@
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
 "vanish-account-continue-button-title" = "Tiếp tục";
-"vanish-account-learn-more-text" = "Tìm hiểu thêm";
 "vanish-account-warning-body" = "Biến mất là **biện pháp cuối cùng** và nên **chỉ dùng khi bạn muốn chấm dứt sửa đổi vĩnh viễn** và muốn che giấu tối đa những mối liên hệ với bạn trong quá khứ.\n\nViệc xoá tài khoản trên Wikipedia được thực hiện bằng cách đổi tên tài khoản của bạn để người khác không nhận ra được những đóng góp của bạn trong một quy trình gọi là làm biến mất tài khoản. Bạn có thể dùng mẫu bên dưới để yêu cầu biến mất tài khoản. Việc biến mất không đảm bảo ẩn danh hoàn toàn hoặc xoá bỏ những đóng góp trên các dự án.";
 "vanish-account-warning-title" = "Cảnh báo";
 "variants-alert-dismiss-button" = "Thôi";

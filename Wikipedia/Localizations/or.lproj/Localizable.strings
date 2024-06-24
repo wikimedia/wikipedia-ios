@@ -18,6 +18,7 @@
 "edit-summary-choice-fixed-typos" = "ବନାନ ସୁଧାରିଲି";
 // Fuzzy
 "edit-summary-choice-linked-words" = "ସମ୍ବନ୍ଧିତ ଶବ୍ଦରାଜି";
+"editor-exit-confirmation-body" = "ପ୍ରକାଶ ବିନା ସମ୍ପାଦନା ମୋଡ୍ ଛାଡିବେ ବୋଲି ଆପଣ ପୂରା ନିଶ୍ଚିତ ତ?";
 // Fuzzy
 "languages-title" = "ଭାଷାସମୂହ";
 // Fuzzy
@@ -27,6 +28,7 @@
 "main-menu-account-title-logged-in" = "$1 ନାମରେ ଲଗଇନ କଲେ ।";
 "navbar-title-mode-edit-wikitext-preview" = "ଦେଖଣା";
 "search-field-placeholder-text" = "ଉଇକିପିଡ଼ିଆରେ ଖୋଜନ୍ତୁ";
+"talk-page-permanent-link" = "ସ୍ଥାୟୀ ଲିଙ୍କ";
 "wikitext-preview-changes" = "ଆପଣଙ୍କ ବଦଳର ଦେଖଣା ଆହରଣ କରୁଛି...";
 "wikitext-upload-captcha-error" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବାରେ ଅସୁବିଧା ।";
 "wikitext-upload-captcha-needed" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବା ଲୋଡ଼ା ।";

@@ -117,7 +117,6 @@
 "description-add-title" = "ထပ် မဗၟံက်ထ္ၜး";
 // Fuzzy
 "description-edit-for-article" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး သွက်$1";
-"description-edit-learn-more" = "ဆက် လ္ၚတ်";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "နပွမပြံၚ်ကေတ် မဗမံက်ထ္ၜးက္ဍိုပ်လိက်, အဲတုပ်ကဵု $1 ကေုာံ သ္ဂောံပတိတ်မကလေၚ်ဂွံမာန် ရီုဗၚ်အဲ သၟတ်လာၚ်ဇြေန် $2";
@@ -206,7 +205,6 @@
 "edit-summary-choice-fixed-grammar" = "ပလေဝ်ပလေတ် သဒ္ဒါ";
 "edit-summary-choice-fixed-typos" = "ပလေဝ်ပလေတ် ဗီုပြင်";
 "edit-summary-choice-linked-words" = "စုတ် လေန်";
-"edit-summary-learn-more-text" = "ဆက် လ္ၚတ်";
 "edit-summary-placeholder-text" = "ဗီုလဵု မၞးဂွံ ပခိုဟ်ပတိုန် လိက်ပရေင်ရော?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "ဆက်လ္ၚတ် ပရူ စရင်ပၟင်ပၟဲဂမၠိုင်";
@@ -608,7 +606,7 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=လၟုဟ်ရ|$1 မိနေတ် တုဲကၠုင်|$1 မိနေတ် တုဲကၠုင်}}";
 "relative-date-minutes-ago-abbreviated" = "$1m မတုဲကၠုင်";
 "relative-date-months-ago" = "{{PLURAL:$1|0=ဂိတုဏအ်|1=ဂိတုတုဲကၠုင်|$1 ဂိတုမတုဲကၠုင်}}";
-"relative-date-seconds-abbreviated" = "$1s";
+"relative-date-seconds-abbreviated" = "$1ဂမၠိုၚ်";
 "relative-date-seconds-ago-abbreviated" = "$1s မတုဲကၠုင်";
 "relative-date-years-ago" = "{{PLURAL:$1|0=သၞာံဏအ်|1=သၞာံတုဲကၠုင်|$1 သၞာံ မတုဲကၠုင်}}";
 "replace-button-accessibility" = " $1 ရေင်တၠုင်ညိ။";
@@ -710,8 +708,9 @@
 // Fuzzy
 "talk-page-title-article-talk" = "လိက်ပရေင် ဓရီုကျာ";
 "talk-page-title-user-talk" = "ညးလွပ် ဓရီုကျာ";
+"talk-page-unsubscribe-to-topic" = "ပတိတ်ထောံနူစရၚ်";
 "theme-black-display-name" = "လမ္စံက်";
-"theme-dark-display-name" = "ဓလု";
+"theme-dark-display-name" = "ဒလုက်";
 "theme-default-display-name" = "လီုလာ်";
 "theme-default-explanation" = "ပကိတ် သၞောတ်ပရူပရာ";
 "theme-light-display-name" = "တၟး";

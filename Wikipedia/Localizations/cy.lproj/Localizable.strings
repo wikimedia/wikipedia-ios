@@ -158,7 +158,6 @@
 "data-migration-status" = "Wrthi'n diweddaru...";
 "description-add-title" = "Ychwanegu disgrifiad";
 "description-edit-for-article" = "Disgrifiad erthygl am $1";
-"description-edit-learn-more" = "Dysgu mwy";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Golygu'r cyflwyniad";
 "description-edit-pencil-title" = "Golygu disgrifiad yr erthygl";
@@ -236,7 +235,6 @@
 "edit-summary-choice-fixed-grammar" = "Trwsiwyd y ramadeg";
 "edit-summary-choice-fixed-typos" = "Trwsiwyd rhai gwallau teipio";
 "edit-summary-choice-linked-words" = "Ychwanegwyd dolenni";
-"edit-summary-learn-more-text" = "Dysgu mwy";
 "edit-summary-placeholder-text" = "Sut wnaethoch chi wella'r erthygl?";
 // Fuzzy
 "edit-watch-list-learn-more-text" = "Dysgu mwy am restrau gwylio";
@@ -587,7 +585,7 @@
 "project-name-wikinews" = "Wicinewyddion";
 "project-name-wikiquote" = "Wiciddyfynnu";
 "project-name-wikisource" = "Wicidestun";
-"project-name-wikispecies" = "Wicirywogaeth";
+"project-name-wikispecies" = "Wicifywyd";
 "project-name-wikiversity" = "Wiciysgol";
 "project-name-wikivoyage" = "Wicidaith";
 "project-name-wiktionary" = "Wiciadur";
@@ -740,7 +738,6 @@
 "unknown-generic-text" = "Anhysbys";
 "unwatch" = "Dad-wylio";
 "vanish-account-continue-button-title" = "Parhau";
-"vanish-account-learn-more-text" = "Dysgu mwy";
 "vanish-account-username-field" = "Enw defnyddiwr a thudalen defnyddiwr";
 "vanish-account-warning-title" = "Rhybudd";
 "variants-alert-dismiss-button" = "Dim diolch";

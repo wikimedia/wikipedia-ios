@@ -11,7 +11,7 @@ import PassKit
 
 @objc extension UIViewController {
     
-    func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, appVersion: String?) -> Bool {
+    func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?) -> Bool {
         
         // Hide native Apple Pay path for users with a CN region setting
         // https://phabricator.wikimedia.org/T352180
@@ -19,12 +19,12 @@ import PassKit
             return false
         }
         
-        return nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, appVersion: appVersion, loggingDelegate: nil) != nil
+        return nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: nil) != nil
     }
     
-    private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) -> WKDonateViewModel? {
+    private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) -> WKDonateViewModel? {
         
-        let donateDataController = WKDonateDataController()
+        let donateDataController = WKDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
         
         guard let donateConfig = donateData.donateConfig,
@@ -82,7 +82,12 @@ import PassKit
         let helpFrequentlyAskedQuestions = WMFLocalizedString("donate-help-frequently-asked-questions", value: "Frequently asked questions", comment: "Help link at the bottom of the donate form, that takes user to a web view link with more info.")
         let helpTaxDeductibilityInformation = WMFLocalizedString("donate-help-tax-deductibility-information", value: "Tax deductibility information", comment: "Help link at the bottom of the donate form, that takes user to a web view link with more info.")
         
-        let appleFinePrint = WMFLocalizedString("donate-apple-fine-print", value: "Apple is not in charge of raising money for this purpose.", comment: "Fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.")
+        let appleFinePrint = WMFLocalizedString("donate-apple-fine-print", value: "Apple is not in charge of raising money for this purpose.", comment: "Apple fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.")
+        
+        let wikimediaFinePrint1Format = WMFLocalizedString("donate-wikimedia-fine-print-1", value: "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our [donor policy](%1$@). Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our [donor policy](%1$@).", comment: "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url. %1$@ is replaced by the localized donor policy link.")
+        let wikimediaFinePrint1 = String.localizedStringWithFormat(wikimediaFinePrint1Format, "https://foundation.wikimedia.org/wiki/Special:LandingCheck?landing_page=Donor_privacy_policy&basic=true&language=\(languageCode)")
+        
+        let wikimediaFinePrint2 = WMFLocalizedString("donate-wikimedia-fine-print-2", value: "For recurring donors, fixed monthly payments will be debited by the Wikimedia Foundation on the monthly anniversary of the first donation, until such time as you notify us to discontinue them. Donations initiated on the 29, 30, or 31 of the month will recur on the last day of the month for shorter months, as close to the original date as possible. For questions, please contact donate@wikimedia.org.", comment: "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.")
         
         let accessibilityAmountButtonHint = WMFLocalizedString("donate-accessibility-amount-button-hint", value: "Double tap to select donation amount.", comment: "Accessibility hint on donate form amount option button for screen readers.")
         
@@ -98,22 +103,22 @@ import PassKit
         
         let accessibilityDonateHintButtonFormat = WMFLocalizedString("donate-accessibility-donate-hint-format", value: "Double tap to donate %1$@ to the Wikimedia Foundation.", comment: "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * %1$@ - the donation amount entered by the user.")
         
-        let localizedStrings = WKDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
+        let localizedStrings = WKDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
         
         guard let delegate = self as? WKDonateDelegate else {
             return nil
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, bannerID: bannerID, appVersion: appVersion, delegate: delegate, loggingDelegate: loggingDelegate) else {
+        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, delegate: delegate, loggingDelegate: loggingDelegate) else {
             return nil
         }
         
         return viewModel
     }
     
-    func pushToNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) {
+    func pushToNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) {
         
-        guard let viewModel = nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, appVersion: appVersion, loggingDelegate: loggingDelegate) else {
+        guard let viewModel = nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: loggingDelegate) else {
             return
         }
         
@@ -125,7 +130,7 @@ import PassKit
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, appVersion: String?, articleURL: URL?, sourceView: UIView?, loggingDelegate: WKDonateLoggingDelegate?) {
+    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, metricsID: String?, appVersion: String?, articleURL: URL?, sourceView: UIView?, loggingDelegate: WKDonateLoggingDelegate?) {
         
         let wikimediaProject: WikimediaProject?
         if let articleURL {
@@ -164,10 +169,10 @@ import PassKit
             
             if donateSource == .articleCampaignModal {
                 self.dismiss(animated: true) {
-                    self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, appVersion: appVersion, loggingDelegate: loggingDelegate)
+                    self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: loggingDelegate)
                 }
             } else {
-                self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, appVersion: appVersion, loggingDelegate: loggingDelegate)
+                self.pushToNativeDonateForm(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: loggingDelegate)
             }
         })
         alert.addAction(applePayAction)
@@ -183,12 +188,12 @@ import PassKit
             
             if donateSource == .articleCampaignModal,
             let articleURL = articleURL,
-            let bannerID {
+            let metricsID {
                 self.dismiss(animated: true) {
                     self.navigate(to: donateURL, userInfo: [
                         RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
-                        RoutingUserInfoKeys.campaignBannerID:
-                            bannerID as Any
+                        RoutingUserInfoKeys.campaignMetricsID:
+                            metricsID as Any
                     ], useSafari: false)
                 }
             } else {
@@ -324,8 +329,8 @@ extension UIViewController {
         AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
     }
     
-    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, bannerID: String? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, campaignID: bannerID, donorEmail: donorEmail, project: project)
+    func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, metricsID: String? = nil) {
+        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: project)
     }
     
     func sharedLogDonateFormUserDidTapProblemsDonatingLink(project: WikimediaProject? = nil) {

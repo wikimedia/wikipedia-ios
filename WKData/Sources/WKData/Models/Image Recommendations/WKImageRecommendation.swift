@@ -25,7 +25,7 @@ public struct WKImageRecommendation {
     public struct ImageSuggestion: Codable {
         public let image: String
         public let displayFilename: String
-        let source: String
+        public let source: String
         let projects: [String]
         public let metadata: ImageMetadata
     }

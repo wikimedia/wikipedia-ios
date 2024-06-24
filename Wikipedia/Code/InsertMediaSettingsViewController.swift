@@ -1,18 +1,32 @@
 import UIKit
 import WKData
+import WMF
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
+protocol InsertMediaSettingsViewControllerDelegate: ViewController {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?)
+}
+
+protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
+    func logInsertMediaSettingsViewControllerDidAppear()
+    func logInsertMediaSettingsViewControllerDidTapFileName()
+    func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
+    func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
+    func logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
+}
+
 final class InsertMediaSettingsViewController: ViewController {
+    
+    private let fromImageRecommendations: Bool
+    private weak var delegate: InsertMediaSettingsViewControllerDelegate?
+    private weak var imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let image: UIImage
-    private let fromImageRecommendations: Bool
-
-    private let wikitext: String?
-    private let articleURL: URL?
-    private let sectionNumber: Int?
 
     let searchResult: InsertMediaSearchResult
+    let siteURL: URL
     private var nextButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
@@ -93,11 +107,15 @@ final class InsertMediaSettingsViewController: ViewController {
                 static var displayTitle: String {
                     return WMFLocalizedString("insert-media-image-size-settings-title", value: "Image size", comment: "Display ritle for image size setting")
                 }
+                
+                static var defaultSize: String {
+                    "\(ImageSize.defaultWidth)x\(ImageSize.defaultHeight)px"
+                }
 
                 var rawValue: String {
                     switch self {
                     case .default:
-                        return "\(ImageSize.defaultWidth)x\(ImageSize.defaultHeight)px"
+                        return Self.defaultSize
                     case .custom(let width, let height):
                         return "\(width)x\(height)px"
                     }
@@ -139,13 +157,13 @@ final class InsertMediaSettingsViewController: ViewController {
     private lazy var imageView: InsertMediaSettingsImageView = {
         let imageView = InsertMediaSettingsImageView.wmf_viewFromClassNib()!
         imageView.image = image
-        imageView.imageDescription = searchResult.imageDescription
+        imageView.imageDescription = searchResult.imageDescription ?? searchResult.imageInfo?.imageDescription
         imageView.title = searchResult.displayTitle
         imageView.titleURL = imageTitle
         imageView.titleAction = { [weak self] url in
+            self?.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapFileName()
             self?.navigate(to: url, useSafari: false)
         }
-        imageView.autoresizingMask = []
         return imageView
     }()
 
@@ -159,10 +177,10 @@ final class InsertMediaSettingsViewController: ViewController {
             guard let self = self else {
                 return
             }
+            imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
             self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
-        buttonView.autoresizingMask = []
         return buttonView
     }()
 
@@ -200,15 +218,31 @@ final class InsertMediaSettingsViewController: ViewController {
         let alternativeTextViewModel = TextViewModel(type: .alternativeText)
         return [captionViewModel, alternativeTextViewModel]
     }()
+    
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
 
-    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool = false, wikitext: String? = nil, articleURL: URL? = nil, sectionNumber: Int? = nil) {
+    init(image: UIImage, searchResult: InsertMediaSearchResult, fromImageRecommendations: Bool, delegate: InsertMediaSettingsViewControllerDelegate, imageRecLoggingDelegate: InsertMediaSettingsViewControllerLoggingDelegate?, theme: Theme, siteURL: URL) {
         self.image = image
         self.searchResult = searchResult
         self.fromImageRecommendations = fromImageRecommendations
-        self.wikitext = wikitext
-        self.articleURL = articleURL
-        self.sectionNumber = sectionNumber
+        self.delegate = delegate
+        self.imageRecLoggingDelegate = imageRecLoggingDelegate
+        self.siteURL = siteURL
         super.init()
+        self.theme = theme
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -220,98 +254,55 @@ final class InsertMediaSettingsViewController: ViewController {
         super.viewDidLoad()
         navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
+        tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = imageView
-        tableView.tableFooterView = buttonView
 
         if fromImageRecommendations {
             title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
-            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(insertMedia))
+            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedProgress(_:)))
             nextButton?.tintColor = theme.colors.secondaryText
             navigationItem.rightBarButtonItem = nextButton
-            navigationController?.navigationBar.topItem?.title = String()
-            self.apply(theme: theme)
+        } else {
+            title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
+            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action:  #selector(tappedProgress(_:)))
+            insertButton.tintColor = theme.colors.link
+            navigationItem.rightBarButtonItem = insertButton
         }
+        
+        apply(theme: theme)
     }
 
-    @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        assert(fromImageRecommendations, "Should only be called from Image Recommendations")
+    @objc private func tappedProgress(_ sender: UIBarButtonItem) {
         let searchResult = searchResult
-        let wikitext: String
-        switch settings {
-        case nil:
-            wikitext = "[[\(searchResult.fileTitle)]]"
-        case let mediaSettings?:
-            switch (mediaSettings.caption, mediaSettings.alternativeText) {
-            case (let caption?, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
-                """
-            case (let caption?, nil):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
-                """
-            case (nil, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
-                """
-            default:
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
-                """
-            }
-        }
-         didTapInsertMedia(with: wikitext)
-    }
-
-    func didTapInsertMedia(with imageWikitext: String) {
-        guard let wikitext else {
-            return
-        }
-        do {
-            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: wikitext)
-            goToEditPreview(with: wikitextWithImage)
-        } catch let error {
-            print("Error preparing wikitext\(error)")
-        }
-
-    }
-
-    func goToEditPreview(with wikitext: String) {
-        guard let articleURL else {
-            print("Error")
-            return
-        }
-
-        let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
-        editPreviewViewController.theme = theme
-        editPreviewViewController.sectionID = sectionNumber
-        editPreviewViewController.languageCode = articleURL.wmf_languageCode
-        editPreviewViewController.wikitext = wikitext
-        editPreviewViewController.delegate = self
-
-        navigationController?.pushViewController(editPreviewViewController, animated: true)
+        
+        let info = Self.imageInsertInfo(searchResult: searchResult, settings: settings, siteURL: siteURL)
+        
+        let wikitext = info.wikitext
+        let captionToSend = info.caption
+        let altTextToSend = info.altText
+        
+        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        reachabilityNotifier.start()
         
         UIAccessibility.post(notification: .screenChanged, argument: nil)
+        
+        imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidAppear()
+        
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        guard let headerView = tableView.tableHeaderView else {
-            return
-        }
-        let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        guard headerView.frame.size.height != height else {
-            return
-        }
-        headerView.frame.size.height = height
-        tableView.tableHeaderView = headerView
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        reachabilityNotifier.stop()
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -324,6 +315,145 @@ final class InsertMediaSettingsViewController: ViewController {
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
+    }
+    
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
+    }
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
+    
+    typealias Wikitext = String
+    typealias Caption = String
+    typealias AltText = String
+    
+    static func imageInsertInfo(searchResult: InsertMediaSearchResult, settings: InsertMediaSettings?, siteURL: URL) -> (wikitext: Wikitext, caption: Caption?, altText: AltText?) {
+        
+        let fileTitle = localizedFileTitle(searchResult: searchResult, siteURL: siteURL)
+        var wikitext: String
+        var captionToSend: String?
+        var altTextToSend: String?
+        
+        guard let mediaSettings = settings else {
+            wikitext = "[[\(fileTitle)]]"
+            return (wikitext, nil, nil)
+        }
+        
+        var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType, siteURL: siteURL)
+        let imagePositionName = localizedImagePositionName(imagePosition: mediaSettings.advanced.imagePosition, siteURL: siteURL)
+        let altTextFormat = localizedAltTextFormat(siteURL: siteURL)
+        
+        let imageSize = mediaSettings.advanced.imageSize.rawValue == InsertMediaSettings.Advanced.ImageSize.defaultSize ? "" : " | \(mediaSettings.advanced.imageSize.rawValue)"
+        imageTypeName = imageTypeName == InsertMediaSettings.Advanced.ImageType.basic.rawValue ? "" : " | \(imageTypeName)"
+        
+        switch (mediaSettings.caption, mediaSettings.alternativeText) {
+        case (let caption?, let alternativeText?):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(String.localizedStringWithFormat(altTextFormat, alternativeText)) | \(caption)]]
+            """
+            captionToSend = caption
+            altTextToSend = alternativeText
+        case (let caption?, nil):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) | \(caption)]]
+            """
+            captionToSend = caption
+        case (nil, let alternativeText?):
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName) |  \(String.localizedStringWithFormat(altTextFormat, alternativeText))]]
+            """
+            altTextToSend = alternativeText
+        default:
+            wikitext = """
+            [[\(fileTitle)\(imageTypeName)\(imageSize) | \(imagePositionName)]]
+            """
+        }
+        
+        return (wikitext, captionToSend, altTextToSend)
+        
+    }
+    
+    private static func localizedFileTitle(searchResult: InsertMediaSearchResult, siteURL: URL) -> String {
+        guard let languageCode = siteURL.wmf_languageCode,
+              searchResult.fileTitle.hasPrefix("File:") else {
+            return searchResult.fileTitle
+        }
+        
+        let clippedTitle = searchResult.fileTitle.dropFirst(5)
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.fileNamespace, languageCode: languageCode) else {
+            return searchResult.fileTitle
+        }
+             
+        return "\(magicWord):\(clippedTitle)"
+    }
+    
+    private static func localizedImageTypeName(imageType: InsertMediaImageTypeSettingsViewController.ImageType, siteURL: URL) -> String {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return imageType.rawValue
+        }
+        
+        let key: MagicWordKey
+        switch imageType {
+        case .thumbnail:
+            key = .imageThumbnail
+        case .frameless:
+            key = .imageFrameless
+        case .frame:
+            key = .imageFramed
+        case .basic:
+            return imageType.rawValue
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(key, languageCode: languageCode) else {
+            return imageType.rawValue
+        }
+             
+        return magicWord
+    }
+    
+    private static func localizedImagePositionName(imagePosition: InsertMediaImageTypeSettingsViewController.ImagePosition, siteURL: URL) -> String {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return imagePosition.rawValue
+        }
+        
+        let key: MagicWordKey
+        switch imagePosition {
+        case .center:
+            key = .imageCenter
+        case .left:
+            key = .imageLeft
+        case .right:
+            key = .imageRight
+        case .none:
+            key = .imageNone
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(key, languageCode: languageCode) else {
+            return imagePosition.rawValue
+        }
+             
+        return magicWord
+    }
+    
+    private static func localizedAltTextFormat(siteURL: URL) -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
     }
 
     // MARK: - Themeable
@@ -367,23 +497,55 @@ extension InsertMediaSettingsViewController: UITableViewDataSource {
             guard let self = self else {
                 return
             }
+            
+            switch viewModel.type {
+            case .caption:
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
+            case .alternativeText:
+                self.imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAltTextLearnMore()
+            }
+            
             self.navigate(to: url, useSafari: false)
         }
+        
         return cell
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard
-            let cell = tableView.visibleCells[safeIndex: indexPath.row] as? InsertMediaSettingsTextTableViewCell,
-            let textViewHeightDelta = textViewHeightDelta,
-            textViewHeightDelta.row == indexPath.row
-        else {
-            return UITableView.automaticDimension
-        }
-        return cell.frame.size.height + textViewHeightDelta.value
+}
+
+// MARK: - UITableViewDelegate
+
+extension InsertMediaSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return imageView
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return buttonView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 300
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
+
+// MARK: - UITextViewDelegate
 
 extension InsertMediaSettingsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
@@ -422,11 +584,4 @@ extension InsertMediaSettingsViewController: ThemeableTextViewClearDelegate {
     func themeableTextViewDidClear(_ themeableTextView: UITextView) {
         updateTextViewHeight(themeableTextView)
     }
-}
-
-extension InsertMediaSettingsViewController: EditPreviewViewControllerDelegate {
-    func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
-        print("Go to Edit Save View Controller")
-    }
-
 }

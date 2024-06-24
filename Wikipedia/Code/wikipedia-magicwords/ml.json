@@ -1,0 +1,73 @@
+[
+  {
+    "aliases" : [
+      "പകരം=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "നടുവിൽ",
+      "നടുക്ക്‌",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "ചട്ടം",
+      "ചട്ടത്തിൽ",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "ചട്ടരഹിതം",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "ഇടത്ത്‌",
+      "ഇടത്‌",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "ശൂന്യം",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "വലത്ത്‌",
+      "വലത്‌",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "ലഘുചിത്രം",
+      "ലഘു",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "പ്രമാണം"
+    ],
+    "name" : "file_namespace"
+  }
+]

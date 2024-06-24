@@ -100,7 +100,6 @@
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
 "description-add-title" = "وضاحت شامل کرو";
 "description-edit-for-article" = "$1 کیتے مضمون تفصیل";
-"description-edit-learn-more" = "ٻیا سِکھو";
 "description-edit-length-warning" = "\n$1 / $2";
 "description-edit-pencil-introduction" = "تعارف وچ تبدیلی کرو";
 "description-edit-pencil-title" = "مضمون  تفصیل وچ تبدیلی کرو";
@@ -137,7 +136,6 @@
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
 "edit-summary-choice-linked-words" = "لنک شامل کیتا";
-"edit-summary-learn-more-text" = "ٻیا سِکھو";
 "edit-watch-this-page-text" = "ایں ورقے تے پارھا ݙیوو";
 "editing-welcome-be-bold-title" = "تہاݙی اواز اہم ہے";
 "editor-find-textfield-accessibility" = "لبھو";
@@ -217,6 +215,9 @@
 "icon-shortcut-random-title" = "پوکھواں مضمون";
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";
 "image-gallery-unknown-owner" = "نامعلوم مصنف";
+"image-rec-survey-option-6" = "ٻیا";
+"image-rec-survey-submit-button" = "جمع کرواؤ";
+"image-rec-survey-title" = "سبب";
 "image-recs-no-title" = "کو";
 "image-recs-yes-title" = "جیا";
 "import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
@@ -235,6 +236,8 @@
 "insert-media-image-preview-more-information-action-title" = "ٻیاں معلومات";
 "insert-media-image-preview-select-image-action-title" = "تصویر چݨو";
 "insert-media-image-size-setting-default" = "پہلے کنوں طے تھیا ہویا";
+"insert-media-image-size-settings-measure-height" = "اُچائی";
+"insert-media-image-size-settings-measure-width" = "چوڑائی";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "فوٹو دا سائز";
 "insert-media-image-type-setting-basic" = "بنیادی";
@@ -449,6 +452,7 @@
 "talk-pages-topic-compose-body-placeholder" = "تفصیل";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "موضوع تفصیل";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "جواب منسوخ کرو";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "موضوع مکاؤ";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "موضوع عنوان";
 "talk-pages-topic-reply-onboarding-body" = "ڳالھ مہاڑ ورقے تے بھُوم ڳوجھی تے مواد کوں ممکن حد تائیں بہتر بݨاوݨ کیتے لوک بحث کریندے ہن۔ وکی پیڈیا برادری نال رل تے کم کرݨ تے رابطے کیتے  نواں بحث دا موضوع شامل کرݨ نال شروع کرو۔\nسوہݨا، مہربانی کرو، اتھ اساں سارے انسان ہیں۔";
@@ -462,13 +466,13 @@
 "theme-light-display-name" = "پھکّا";
 "theme-sepia-display-name" = "بھورا";
 "top-read-widget-readers-count" = "$1 قارئین";
+"tutorial-title" = "ٹیٹوریل";
 "two-factor-login-continue" = "لاگ ان جاری رکھو";
 "two-factor-login-title" = "آپݨے کھاتے وچ لاگ ان تھیوو";
 "two-factor-login-with-regular-code" = "تصدیقی کوڈ ورتو";
 "unknown-generic-text" = "نامعلوم";
 "user-title" = "ورتݨ آلا";
 "vanish-account-continue-button-title" = "جاری رکھو";
-"vanish-account-learn-more-text" = "ٻیا سِکھو";
 "vanish-account-warning-title" = "ݙراوا";
 "variants-alert-dismiss-button" = "کو، شکریہ";
 "watch" = "پارھا ݙیوو";

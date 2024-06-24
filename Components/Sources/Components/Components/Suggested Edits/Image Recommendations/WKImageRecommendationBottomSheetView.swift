@@ -14,11 +14,17 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
     private let viewModel: WKImageRecommendationBottomSheetViewModel
     internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
 
     private lazy var container: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.setContentHuggingPriority(.required, for: .vertical)
         view.setContentCompressionResistancePriority(.required, for: .vertical)
         return view
     }()
@@ -26,6 +32,8 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         stackView.alignment = .fill
         stackView.axis = .vertical
         return stackView
@@ -34,17 +42,19 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private lazy var headerStackView:  UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.setContentHuggingPriority(.required, for: .vertical)
-        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         return stackView
     }()
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -69,120 +79,49 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         textView.delegate = self
         return textView
     }()
+    
+    private lazy var iconImageContainerView: UIView = {
+       let view = UIView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
+        view.setContentHuggingPriority(.required, for: .vertical)
+        return view
+    }()
 
     private lazy var iconImageView: UIImageView = {
         let icon = WKIcon.bot
         let imageView = UIImageView(image: icon)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         imageView.setContentHuggingPriority(.required, for: .vertical)
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.font = WKFont.for(.boldTitle3)
         return label
     }()
 
     private let buttonFont: UIFont = WKFont.for(.boldCallout)
 
-    private lazy var toolbar: UIToolbar = {
-        let toolbar = UIToolbar()
+    private(set) lazy var toolbar: UIToolbar = {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
 
     lazy var yesToolbarButton: UIBarButtonItem = {
-        let customView = UIView()
-
-        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .checkmark))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = theme.link
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let label = UILabel()
-        label.text = viewModel.yesButtonTitle
-        label.textColor = theme.link
-        label.font = WKFont.for(.boldCallout)
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didPressYesButton), for: .touchUpInside)
-        customView.addSubview(imageView)
-        customView.addSubview(label)
-        customView.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-
-            button.topAnchor.constraint(equalTo: customView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
-        ])
-
-        customView.layoutIfNeeded()
-        let customViewWidth = label.frame.origin.x + label.frame.width
-        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
-        let barButtonItem = UIBarButtonItem(customView: customView)
-
-        return barButtonItem
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .checkmark, font: .body), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
     }()
 
     lazy var noToolbarButton: UIBarButtonItem = {
-        let customView = UIView()
-
-        let imageView = UIImageView(image: WKSFSymbolIcon.for(symbol: .xMark))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = theme.link
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let label = UILabel()
-        label.text = viewModel.noButtonTitle
-        label.font = WKFont.for(.boldCallout)
-        label.textColor = theme.link
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didPressNoButton), for: .touchUpInside)
-        customView.addSubview(imageView)
-        customView.addSubview(label)
-        customView.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 20),
-            imageView.heightAnchor.constraint(equalToConstant: 20),
-
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
-
-            button.topAnchor.constraint(equalTo: customView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: customView.trailingAnchor)
-        ])
-
-        customView.layoutIfNeeded()
-        let customViewWidth = label.frame.origin.x + label.frame.width
-        customView.frame = CGRect(x: 0, y: 0, width: customViewWidth, height: 40)
-        let barButtonItem = UIBarButtonItem(customView: customView)
-
-        return barButtonItem
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .xMark, font: .body), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
     }()
 
     lazy var notSureToolbarButton: UIBarButtonItem = {
@@ -237,41 +176,110 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }
 
     // MARK: Private Methods
+    
+    private func customToolbarButton(image: UIImage?, text: String, selector: Selector) -> UIBarButtonItem {
+        let customView = UIView()
+        customView.translatesAutoresizingMaskIntoConstraints = false
+
+        let label = UILabel()
+        label.text = text
+        label.font = WKFont.for(.boldCallout)
+        label.textColor = theme.link
+        label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        customView.addSubview(label)
+
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        customView.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            
+            label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
+            label.topAnchor.constraint(equalTo: customView.topAnchor),
+            label.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
+            
+            button.topAnchor.constraint(equalTo: label.topAnchor),
+            button.trailingAnchor.constraint(equalTo: label.trailingAnchor),
+            button.bottomAnchor.constraint(equalTo: label.bottomAnchor)
+        ])
+        
+        if let image {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.tintColor = theme.link
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            customView.addSubview(imageView)
+            
+            NSLayoutConstraint.activate([
+                imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+                imageView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+                imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -8),
+                button.leadingAnchor.constraint(equalTo: imageView.leadingAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                label.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
+                button.leadingAnchor.constraint(equalTo: label.leadingAnchor)
+            ])
+        }
+
+        let barButtonItem = UIBarButtonItem(customView: customView)
+
+        return barButtonItem
+    }
+    
+    private var iconBaselineOffset: CGFloat {
+        return UIFontMetrics(forTextStyle: .body).scaledValue(for: 8)
+    }
 
     private func setup() {
         configure()
 
         container.addSubview(textView)
         container.addSubview(imageView)
+        
+        iconImageContainerView.addSubview(iconImageView)
 
-        headerStackView.addArrangedSubview(iconImageView)
+        headerStackView.addArrangedSubview(iconImageContainerView)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.spacing = 5
 
+        scrollView.addSubview(stackView)
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(container)
         stackView.spacing = padding
 
-        addSubview(stackView)
+        addSubview(scrollView)
         addSubview(toolbar)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            topAnchor.constraint(equalTo: scrollView.topAnchor),
+            toolbar.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: padding),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -padding),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: padding),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -padding),
+            
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.topAnchor.constraint(equalTo: container.topAnchor),
             textView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0),
-            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor, multiplier: 1.0),
+            iconImageContainerView.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor, constant: -iconBaselineOffset),
+            iconImageContainerView.leadingAnchor.constraint(equalTo: iconImageView.leadingAnchor),
+            iconImageContainerView.trailingAnchor.constraint(equalTo: iconImageView.trailingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             toolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            toolbar.heightAnchor.constraint(equalToConstant: 44)
+            toolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
 
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageViewWidth)
@@ -332,7 +340,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
 
-        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle)
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle, attributes: [.font: WKFont.for(.callout), .foregroundColor: theme.link])
 
         let attachment = NSTextAttachment()
         if let image = WKIcon.externalLink {
@@ -345,24 +353,22 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         attributedString.append(linkAttributedString)
         attributedString.append(attachmentAttributedString)
-        attributedString.append(NSAttributedString(string: "\n\n"))
+        
+        if let url = URL(string: viewModel.imageLink) {
+            attributedString.addAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
+        }
 
         if let description = viewModel.imageDescription {
             let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
                                          NSAttributedString.Key.foregroundColor: theme.text]
-            let descriptionAttributedString = NSMutableAttributedString(string: description, attributes: descriptionAttributes)
+            let descriptionAttributedString = NSMutableAttributedString(string: "\n\n" + description, attributes: descriptionAttributes)
             attributedString.append(descriptionAttributedString)
-            attributedString.append(NSAttributedString(string: "\n\n"))
         }
 
         let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
                                 NSAttributedString.Key.foregroundColor: theme.secondaryText]
-        let reasonAttributedString = NSMutableAttributedString(string: viewModel.reason, attributes: reasonAttributes)
+        let reasonAttributedString = NSMutableAttributedString(string: "\n\n" + viewModel.reason + "\n\n", attributes: reasonAttributes)
         attributedString.append(reasonAttributedString)
-
-        if let url = URL(string: viewModel.imageLink) {
-            attributedString.setAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
-        }
 
         return attributedString
     }
