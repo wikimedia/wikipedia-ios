@@ -78,6 +78,9 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.hidesBarsOnSwipe = true
     }
 
     func presentUITestHelperController() {
