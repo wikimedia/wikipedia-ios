@@ -238,7 +238,6 @@ public class CommonStrings: NSObject {
     
     @objc public static let vanishAccount = WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished ")
     @objc public static var usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
-    @objc public static let learnMoreButtonText = WMFLocalizedString("vanish-account-learn-more-text", value: "Learn more", comment: "Text for button on vanish account request screen that redirects to the meta page about the process")
 
     // REMINDER: do not delete the app store strings below. We're not using them anywhere within the app itself but we need them to remain so they get upstreamed into TWN. ("localizations.swift copies the non-EN translations of these strings into respective Fastlane "Localized Metadata" files. See: https://docs.fastlane.tools/actions/deliver/)
     @objc public static let appStoreSubtitle = WMFLocalizedString("app-store-subtitle", value: "The free encyclopedia", comment: "Subtitle describing the app for the app store")
@@ -639,13 +638,21 @@ public class CommonStrings: NSObject {
 
     // Image recommendations
 
+    public static let tryNowTitle = WMFLocalizedString("try-now-title", value: "Try now", comment: "Title of action button. Tapping takes user to a particular feature.")
     public static let addImageTitle = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
     public static let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
     public static let bottomSheetTitle =  WMFLocalizedString("image-rec-add-image-title", value: "Add this image?", comment: "title for the add image suggestion view")
     public static let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
     public static let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
     public static let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
-   public static let learnMoreText = WMFLocalizedString("add-image-learn-more-text", value: "Learn more", comment: "Text for button on add image details for going to links with more information on topics related to images on Wikipedia")
+   
+    public static func learnMoreTitle(languageCode: String? = nil) -> String {
+        WMFLocalizedString("learn-more-title", languageCode: languageCode, value: "Learn more", comment: "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.")
+    }
+    
+    public static let tutorialTitle = WMFLocalizedString("tutorial-title", value: "Tutorial", comment: "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.")
+    
+    public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
 
 
 }

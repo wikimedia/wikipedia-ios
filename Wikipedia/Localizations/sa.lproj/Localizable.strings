@@ -82,9 +82,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia उपरि \"$1\" :";
 "table-of-contents-heading" = "अन्तर्विषयाः";
-"wikitext-downloading" = "सूचनायाः अवारोपणं....";
 "wikitext-preview-changes" = "भवता/भवत्या कृतस्य परिवतनस्य प्राग्दृश्यं प्रदर्शयति...";
-"wikitext-preview-changes-none" = "प्राग्दृश्ये कृते सति किमपि परिवर्तनं न भवति ।";
 "wikitext-upload-captcha-error" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनदोषः ।";
 "wikitext-upload-captcha-needed" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
 "wikitext-upload-result-unknown" = "विकि-पाठस्य उपारोपणनिर्णयस्य निर्धारणं न शक्यते ।";

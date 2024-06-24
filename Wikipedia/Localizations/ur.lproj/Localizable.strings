@@ -108,7 +108,6 @@
 "description-add-title" = "وضاحت شامل کریں";
 // Fuzzy
 "description-edit-for-article" = "$1 کے لیے عنوان وضاحت";
-"description-edit-learn-more" = "مزید پڑھیے";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "دیباچے میں ترمیم  کے ساتھ ہی  مجھے اپنی ترامیم کے ضمن میں $1 اور $2 کے تحت  ناقابل تنسیخ واگزاشت لائسنس کی شرائط سے مکمل اتفاق ہے۔";
@@ -134,8 +133,6 @@
 "description-welcome-promise-title" = "شروع کرنے سے قبل میں عہد لیتا ہوں کہ اس فیچر کا غلط استعمال نہیں کروں گا۔";
 "description-welcome-start-editing-button" = "ترمیم شروع کریں";
 "dim-images" = "تصاویر کو کم روشن کریں";
-"edit-bold-accessibility-label" = "جِلی فارمیٹنگ شامل کریں۔";
-"edit-bold-remove-accessibility-label" = "جِلی فارمیٹنگ ہٹائیں";
 "edit-published" = "ترمیم شائع ہوگئی";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
@@ -371,9 +368,7 @@
 // Fuzzy
 "welcome-languages-search-title" = "تقریباً 300 زبانوں میں تلاش کریں";
 "welcome-notifications-tell-me-more-title" = "اطلاع ناموں کے متعلق مزید معلومات";
-"wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
 "wikitext-preview-changes" = "آپ کی تبدیلیوں کی نمائش دوبارہ حاصل کی جارہی ہے...";
-"wikitext-preview-changes-none" = "کوئی تبدیلی نہیں کی گئی ہے جس کی نمائش کی جا سکے۔";
 "wikitext-preview-link-preview-title" = "ربط کی نمائش";
 "wikitext-upload-captcha-error" = "کیپچا کی تصدیق میں خطا۔";
 "wikitext-upload-captcha-needed" = "کیپچا کی تصدیق ضروری۔";

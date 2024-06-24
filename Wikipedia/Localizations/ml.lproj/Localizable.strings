@@ -58,8 +58,6 @@
 "action-read" = "വായിക്കുക";
 "action-redo" = "വീണ്ടും ചെയ്യുക";
 "action-remove" = "നീക്കം ചെയ്യുക";
-"action-replace" = "മാറ്റിച്ചേർക്കുക";
-"action-replace-all" = "എല്ലാം മാറ്റിച്ചേർക്കുക";
 "action-save" = "സേവ് ചെയ്യുക";
 "action-saved" = "സേവ് ചെയ്തിരിക്കുന്നു";
 "action-share" = "പങ്കുവയ്ക്കുക";
@@ -69,7 +67,6 @@
 "action-undo" = "തിരസ്ക്കരിക്കുക";
 "action-unsaved-accessibility-notification" = "ലേഖനം സേവ് ചെയ്തിട്ടില്ല";
 "action-update" = "പുതുക്കുക";
-"add-citation-title" = "അവലംബം ചേർക്കുക";
 "announcements-dismiss" = "ഒഴിവാക്കുക";
 "app-store-subtitle" = "സ്വതന്ത്ര വിജ്ഞാനകോശം";
 "article-delete" = "മായ്ക്കുക";
@@ -97,7 +94,6 @@
 "description-add-title" = "വിവരണം ചേർക്കുക";
 // Fuzzy
 "description-edit-for-article" = "$1നുള്ള തലക്കെട്ട് വിവരണം";
-"description-edit-learn-more" = "കൂടുതൽ അറിയുക";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "ആമുഖം തിരുത്തുക";
 // Fuzzy
@@ -137,15 +133,11 @@
 "edit-minor-text" = "ഇതൊരു ചെറിയ തിരുത്താണ്";
 "edit-published" = "തിരുത്ത് പ്രസിദ്ധീകരിച്ചു";
 "edit-published-subtitle" = "എല്ലാവർക്കുംവേണ്ടി താങ്കൾ വിക്കിപീഡിയ കൂടുതൽ മെച്ചപ്പെടുത്തി";
-"edit-style-table-view-title" = "ശൈലി";
 "edit-summary-add-summary-text" = "ഒരു തിരുത്തൽ സാരാംശം ചേർക്കുക";
 "edit-summary-choice-fixed-grammar" = "വ്യാകരണം ശരിയാക്കി";
 "edit-summary-choice-fixed-typos" = "അക്ഷരപിശക് തിരുത്തി";
 "edit-summary-choice-linked-words" = "കണ്ണികൾ ചേർത്തു";
-"edit-summary-learn-more-text" = "കൂടുതൽ അറിയുക";
 "edit-summary-placeholder-text" = "ഈ ലേഖനം താങ്കൾ എങ്ങനെയാണ് മെച്ചപ്പെടുത്തിയത്?";
-"edit-underline-accessibility-label" = "അടിവര ചേർക്കുക";
-"edit-underline-remove-accessibility-label" = "അടിവര ഒഴിവാക്കുക";
 "edit-watch-this-page-text" = "ഈ താൾ ശ്രദ്ധിക്കുക";
 "empty-no-search-results-message" = "ഫലങ്ങളൊന്നും കണ്ടെത്താനായില്ല";
 "empty-talk-page-title" = "ഈ ഉപയോക്താവിന് വേണ്ടി ഇതുവരെ സന്ദേശങ്ങളൊന്നും പോസ്റ്റ് ചെയ്തിട്ടില്ല";
@@ -233,9 +225,7 @@
 "settings-search-footer-text" = "അപ്ലിക്കേഷൻ പര്യവേക്ഷണ ടാബിന് പകരം തിരയൽ ടാബിലേക്ക് തുറക്കാൻ അപ്ലിക്കേഷൻ സജ്ജമാക്കുക";
 "settings-search-open-app-on-search" = "തിരയൽ ടാബിൽ അപ്ലിക്കേഷൻ തുറക്കുക";
 "settings-title" = "സജ്ജീകരണങ്ങൾ";
-"wikitext-downloading" = "ഉള്ളടക്കം ശേഖരിക്കുന്നു...";
 "wikitext-preview-changes" = "താങ്കൾ വരുത്തിയ മാറ്റങ്ങളുടെ പ്രിവ്യൂ എടുക്കുന്നു...";
-"wikitext-preview-changes-none" = "എങ്ങനെയുണ്ടെന്ന് കാണാൻ മാറ്റങ്ങളൊന്നും വരുത്തിയിട്ടില്ല.";
 "wikitext-upload-captcha-error" = "കാപ്ച പരിശോധനയിൽ പിഴവുണ്ടായി.";
 "wikitext-upload-captcha-needed" = "കാപ്ച പരിശോധന ആവശ്യമാണ്.";
 "wikitext-upload-result-unknown" = "വിക്കി എഴുത്ത് അപ്‌ലോഡിന്റെ ഫലം നിർണ്ണയിക്കാൻ കഴിഞ്ഞില്ല.";

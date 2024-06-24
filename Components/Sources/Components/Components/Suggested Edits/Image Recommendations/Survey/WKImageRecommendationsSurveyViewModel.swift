@@ -60,6 +60,15 @@ public final class WKImageRecommendationsSurveyViewModel {
 				return localizedStrings.other
 			}
 		}
+        
+        var otherText: String? {
+            switch self {
+            case .other(let reason):
+                return reason
+            default:
+                return nil
+            }
+        }
 
 		var apiIdentifier: String {
 			switch self {

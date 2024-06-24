@@ -57,13 +57,13 @@
                             <rect key="frame" x="0.0" y="85" width="379" height="45"/>
                             <subviews>
                                 <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="SlK-YP-NSk" userLabel="Container view">
-                                    <rect key="frame" x="0.0" y="0.0" width="127" height="38.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9k-al-4Mv">
-                                            <rect key="frame" x="0.0" y="0.0" width="127" height="38.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="27"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqy-lh-5zo" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="38.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="38" height="27"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -79,7 +79,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-2G-gXe" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="45" y="0.0" width="37" height="38.5"/>
+                                                    <rect key="frame" x="46" y="0.0" width="38" height="27"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -95,7 +95,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFh-HH-sUX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="90" y="0.0" width="37" height="38.5"/>
+                                                    <rect key="frame" x="92" y="0.0" width="38" height="27"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
@@ -167,13 +167,13 @@
     </objects>
     <designables>
         <designable name="WbA-2G-gXe">
-            <size key="intrinsicContentSize" width="37" height="38.5"/>
+            <size key="intrinsicContentSize" width="38" height="27"/>
         </designable>
         <designable name="XFh-HH-sUX">
-            <size key="intrinsicContentSize" width="37" height="38.5"/>
+            <size key="intrinsicContentSize" width="38" height="27"/>
         </designable>
         <designable name="mqy-lh-5zo">
-            <size key="intrinsicContentSize" width="37" height="38.5"/>
+            <size key="intrinsicContentSize" width="38" height="27"/>
         </designable>
         <designable name="zHK-us-xbV">
             <size key="intrinsicContentSize" width="46" height="26"/>

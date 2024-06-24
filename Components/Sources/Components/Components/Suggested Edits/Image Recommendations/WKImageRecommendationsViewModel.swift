@@ -7,9 +7,16 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
     
+    enum ImageRecommendationsError: Error {
+        case cannotFindCurrentRecommendation
+        case invalidImageFullUrl
+    }
+    
     public struct LocalizedStrings {
 		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WKEmptyViewModel.LocalizedStrings
+        public typealias TooltipLocalizedStrings = WKTooltipViewModel.LocalizedStrings
+        public typealias ErrorLocalizedStrings = WKErrorViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
 			let title: String
@@ -40,21 +47,35 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 		let onboardingStrings: OnboardingStrings
 		let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
+        let errorLocalizedStrings: ErrorLocalizedStrings
+        let firstTooltipStrings: TooltipLocalizedStrings
+        let secondTooltipStrings: TooltipLocalizedStrings
+        let thirdTooltipStrings: TooltipLocalizedStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
         let notSureButtonTitle: String
+        let learnMoreButtonTitle: String
+        let tutorialButtonTitle: String
+        let problemWithFeatureButtonTitle: String
 
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
 			self.surveyLocalizedStrings = surveyLocalizedStrings
             self.emptyLocalizedStrings = emptyLocalizedStrings
+            self.errorLocalizedStrings = errorLocalizedStrings
+            self.firstTooltipStrings = firstTooltipStrings
+            self.secondTooltipStrings = secondTooltipStrings
+            self.thirdTooltipStrings = thirdTooltipStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
             self.notSureButtonTitle = notSureButtonTitle
+            self.learnMoreButtonTitle = learnMoreButtonTitle
+            self.tutorialButtonTitle = tutorialButtonTitle
+            self.problemWithFeatureButtonTitle = problemWithFeatureButtonTitle
         }
 
     }
@@ -65,6 +86,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let image: String
         public let filename: String
         public let displayFilename: String
+        public let source: String
         public let thumbUrl: String
         public let fullUrl: String
         public let description: String?
@@ -73,12 +95,13 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public internal(set) var uiImage: UIImage?
         public let wikitext: String?
 
-        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?) {
+        public init(pageId: Int, pageTitle: String, image: String, filename: String, displayFilename: String, source: String, thumbUrl: String, fullUrl: String, description: String?, descriptionURL: String, reason: String, wikitext: String?) {
             self.pageId = pageId
             self.pageTitle = pageTitle
             self.image = image
             self.filename = filename
             self.displayFilename = displayFilename
+            self.source = source
             self.thumbUrl = thumbUrl
             self.fullUrl = fullUrl
             self.description = description
@@ -88,12 +111,15 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    final class ImageRecommendation: ObservableObject {
+    public final class ImageRecommendation: ObservableObject {
         
         let pageId: Int
-        let title: String
+        public let title: String
         @Published var articleSummary: WKArticleSummary? = nil
-        let imageData: WKImageRecommendationData
+        public let imageData: WKImageRecommendationData
+        public var caption: String?
+        public var altText: String?
+        public var suggestionAcceptDate: Date?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
@@ -105,29 +131,35 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    let project: WKProject
+    public let project: WKProject
     let semanticContentAttribute: UISemanticContentAttribute
     let localizedStrings: LocalizedStrings
     
     private(set) var imageRecommendations: [ImageRecommendation] = []
-    @Published var currentRecommendation: ImageRecommendation?
+    @Published public private(set) var currentRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
+    @Published var loadingError: Error? = nil
     private var subscriptions = Set<AnyCancellable>()
+    private let needsSuppressPosting: Bool
     
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
-    
+    let imageRecommendationsDataController: WKImageRecommendationsDataController
+    let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
+
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
+        self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WKGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WKArticleSummaryDataController()
         self.imageDataController = WKImageDataController()
+        self.imageRecommendationsDataController = WKImageRecommendationsDataController()
         
         $loading
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
@@ -138,6 +170,20 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     // MARK: - Internal
+    
+    func tryAgainAfterLoadingError() {
+        if let currentRecommendation {
+            loading = true
+            populateImageAndArticleSummary(for: currentRecommendation) { [weak self] error in
+                self?.loading = false
+                self?.loadingError = error
+            }
+        } else {
+            fetchImageRecommendationsIfNeeded {
+                
+            }
+        }
+    }
     
     func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
         
@@ -156,6 +202,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             switch result {
             case .success(let pages):
                 DispatchQueue.main.async {
+                    self.loadingError = nil
                     let imageDataArray = self.getFirstImageData(for: pages)
 
                     for page in pages {
@@ -173,9 +220,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                         return
                     }
                     
-                    self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] in
+                    self.populateImageAndArticleSummary(for: firstRecommendation) { [weak self] error in
                         self?.currentRecommendation = firstRecommendation
                         self?.loading = false
+                        self?.loadingError = error
                         completion()
                     }
                 }
@@ -183,14 +231,14 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.loading = false
+                    self.loadingError = error
                     completion()
                 }
-                print(error)
             }
         }
     }
     
-    func next(completion: @escaping () -> Void) {
+    public func next(completion: @escaping () -> Void) {
         guard !imageRecommendations.isEmpty else {
             self.currentRecommendation = nil
             completion()
@@ -211,51 +259,73 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         loading = true
         
-        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] in
+        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
             self?.currentRecommendation = nextRecommendation
             self?.loading = false
+            self?.loadingError = error
             completion()
         }
     }
     
-    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard !needsSuppressPosting else {
+            completion(.success(()))
+            return
+        }
+        
+        guard let currentRecommendation else {
+            completion(.failure(ImageRecommendationsError.cannotFindCurrentRecommendation))
+            return
+        }
+        
+        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
+    }
+    
+    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         let group = DispatchGroup()
+        var populateError: Error? = nil
         
         group.enter()
-        self.populateCurrentArticleSummary(for: imageRecommendation, completion: {
+        self.populateCurrentArticleSummary(for: imageRecommendation, completion: { error in
+            if let error {
+                populateError = error
+            }
             group.leave()
         })
         
         group.enter()
-        self.populateUIImage(for: imageRecommendation.imageData) {
+        self.populateUIImage(for: imageRecommendation.imageData) { error in
+            if let error {
+                populateError = error
+            }
             group.leave()
         }
         
         group.notify(queue: .main) {
-            completion()
+            completion(populateError)
         }
     }
 
-    private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping () -> Void) {
+    private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         
         articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { result in
             
             switch result {
             case .success(let summary):
                 imageRecommendation.articleSummary = summary
-                completion()
+                completion(nil)
                 
             case .failure(let error):
-                print(error)
-                completion()
+                completion(error)
             }
         }
     }
     
-    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping () -> Void) {
+    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping (Error?) -> Void) {
         
         guard let url = URL(string: "https:\(imageData.fullUrl)") else {
-            completion()
+            completion(ImageRecommendationsError.invalidImageFullUrl)
             return
         }
         
@@ -264,9 +334,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             case .success(let data):
                 let image = UIImage(data: data)
                 imageData.uiImage = image
-                completion()
-            default:
-                completion()
+                completion(nil)
+            case .failure(let error):
+                completion(error)
             }
         }
     }
@@ -284,6 +354,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
                     image: firstImage.image,
                     filename: firstImage.image,
                     displayFilename: firstImage.displayFilename,
+                    source: firstImage.source,
                     thumbUrl: metadata.thumbUrl,
                     fullUrl: metadata.fullUrl,
                     description: metadata.description,

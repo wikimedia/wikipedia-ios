@@ -1,6 +1,11 @@
 import Foundation
 
 internal struct WikipediaSiteInfoLookup: Codable {
-    let namespace: [String: PageNamespace]
-    let mainpage: String
+    internal struct NamespaceInfo: Codable {
+        let namespace: [String: PageNamespace]
+        let mainpage: String
+    }
+    
+    let namespaceInfo: NamespaceInfo
+    let magicWordInfo: [MagicWord]
 }

@@ -30,8 +30,6 @@
 "action-read" = "Կարդալ";
 "action-redo" = "Կրկին անել";
 "action-remove" = "Հեռացնել";
-"action-replace" = "Փոխարինել";
-"action-replace-all" = "Փոխարինել բոլորը";
 "action-retry" = "Կրկնել";
 "action-save" = "Հիշել";
 "action-share" = "Կիսվել";
@@ -59,7 +57,6 @@
 "clear-title-accessibility-label" = "Մաքրել";
 "close-button-accessibility-label" = "Փակել";
 "compass-direction" = "Ժամը $1";
-"description-edit-learn-more" = "Իմանալ ավելին";
 "description-help-about-title" = "Ծրագրի մասին";
 "description-help-about-wikidata" = "Վիքիտվյալների մասին";
 "description-help-tips-for-example" = "Օրինակ";
@@ -71,9 +68,7 @@
 "diff-thanks-send-button-title" = "Շնորհակալություն հայտնել";
 "edit-link-title" = "Խմբագրել հղում";
 "edit-menu-item" = "Խմբագրել";
-"edit-style-table-view-title" = "Ոճ";
 "edit-summary-choice-linked-words" = "Ավելացվել են հղումներ";
-"edit-text-clear-formatting" = "Մաքրել ֆորմատավորում";
 "edit-watch-this-page-text" = "Հսկել այս էջը";
 "empty-no-other-article-languages-title" = "Մատչելի այլ լեզուներ չկան";
 "explore-featured-article-heading" = "Ընտրյալ հոդված";
@@ -104,6 +99,8 @@
 "icon-shortcut-random-title" = "Պատահական հոդված";
 "icon-shortcut-search-title" = "Որոնել Վիքիպեդիայում";
 "image-gallery-unknown-owner" = "Հեղինակը անհայտ է։";
+"image-rec-survey-option-6" = "Այլ";
+"image-rec-survey-title" = "Պատճառ";
 "image-rec-title" = "Ավելացնել պատկեր";
 "image-rec-view-article" = "Դիտել հոդվածը";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Հիմա չէ";
@@ -144,6 +141,7 @@
 "nearby-distance-label-km" = "$1 կմ";
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
+"next-action-title" = "Հաջորդ";
 "notifications-center-go-to-article" = "Հոդված";
 "notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
 "notifications-center-go-to-talk-page" = "Քննարկման էջ";
@@ -202,12 +200,10 @@
 "theme-sepia-display-name" = "Սեպիա";
 "unknown-generic-text" = "Անհայտ";
 "vanish-account-continue-button-title" = "Շարունակել";
-"vanish-account-learn-more-text" = "Իմանալ ավելին";
 "vanish-account-warning-title" = "Զգուշացում";
 "welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
 "welcome-explore-tell-me-more-done-button" = "Հասկանալի է";
 "welcome-intro-free-encyclopedia-more-about" = "Վիքիպեդիայի մասին";
-"wikitext-downloading" = "Բովանդակության բեռնում...";
 "wikitext-preview-save-changes-title" = "Պահպանել փոփոխությունները";
 "wikitext-upload-save" = "Պահպանվում է...";
 "wikitext-upload-save-sign-in" = "Մուտք գործել";

@@ -42,7 +42,7 @@ fileprivate extension WKData.WKServiceRequest {
             return false
         }
 
-        return method == .GET && action == "query" && formatversion == "2" && format == "json" && generator == "search" && gsrsearch == "hasrecommendation:image" && prop == "growthimagesuggestiondata|revisions"
+        return method == .GET && action == "query" && formatversion == "2" && format == "json" && generator == "search" && gsrsearch == "hasrecommendation:image" && prop == "growthimagesuggestiondata|revisions|pageimages"
     }
 }
 

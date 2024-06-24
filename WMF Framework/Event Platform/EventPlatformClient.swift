@@ -131,6 +131,7 @@ import CocoaLumberjackSwift
         case watchlist = "ios.watchlists"
         case appDonorExperience = "app_donor_experience"
         case editInteraction = "ios.edit_interaction"
+        case imageRecommendation = "android.image_recommendation_event"
     }
     
     /**
@@ -156,6 +157,7 @@ import CocoaLumberjackSwift
         case editAttempt = "/analytics/legacy/editattemptstep/2.0.3"
         case watchlist = "/analytics/mobile_apps/ios_watchlists/4.0.0"
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.0.0"
+        case imageRecommendation = "/analytics/mobile_apps/android_image_recommendation_event/1.0.0"
     }
 
     /**

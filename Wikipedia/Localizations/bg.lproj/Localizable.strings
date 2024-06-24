@@ -79,8 +79,6 @@
 "action-read" = "Четене";
 "action-redo" = "Повторение";
 "action-remove" = "Премахване";
-"action-replace" = "Замяна";
-"action-replace-all" = "Замяна на всички";
 "action-retry" = "Повторен опит";
 "action-save" = "Съхраняване";
 "action-saved" = "Съхранени";
@@ -94,7 +92,6 @@
 "action-unsave" = "Отмяна на записа";
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
-"add-citation-title" = "Добавяне на цитат";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -133,7 +130,6 @@
 "data-migration-status" = "Актуализиране...";
 "description-add-title" = "Добавяне на описание";
 "description-edit-for-article" = "Описание на статия „$1“";
-"description-edit-learn-more" = "Научете повече";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променяйки описанието на статията, се съгласявам с $1 и неотменимо публикувам приноса си под $2 лиценз.";
 "description-edit-pencil-introduction" = "Редактиране на въведението";
@@ -188,9 +184,6 @@
 "diff-thanks-send-title" = "Изпратете публично благодарност";
 "diff-thanks-sent-cannot-unsend" = "Изпращането на благодарност не може да бъде отменено";
 "diff-unedited-lines-format" = "{{PLURAL:$1|няма промяна в $1 ред|няма промяна в $1 реда}}";
-"edit-bold-accessibility-label" = "Добавяне на удебелено форматиране";
-"edit-bold-remove-accessibility-label" = "Премахване на удебеленото форматиране";
-"edit-clear-formatting-accessibility-label" = "Премахнете форматирането";
 "edit-link-display-text-title" = "Показване на текст";
 "edit-link-link-target-title" = "Цел на връзката";
 "edit-link-remove-link-title" = "Премахване на препратката";
@@ -201,18 +194,12 @@
 "edit-notices" = "Известия за редактиране";
 "edit-published" = "Редакцията е публикувана";
 "edit-published-subtitle" = "Току-що направихте Уикипедия по-добра за всички";
-"edit-style-table-view-title" = "Стил";
 "edit-summary-add-summary-text" = "Добавяне описание на редакцията";
 "edit-summary-choice-fixed-grammar" = "Поправена граматична грешка";
 "edit-summary-choice-fixed-typos" = "Поправена правописна грешка";
 "edit-summary-choice-linked-words" = "Добавени препратки";
-"edit-summary-learn-more-text" = "Научете повече";
 "edit-summary-placeholder-text" = "Как подобрихте статията?";
-"edit-text-clear-formatting" = "Премахване на форматирането";
-"edit-text-formatting-table-view-title" = "Форматиране на текста";
-"edit-text-size-table-view-title" = "Размер на текста";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Научете повече за списъците за наблюдение";
+"edit-watch-list-learn-more-text" = "Научете повече за Вашия списък за наблюдение";
 "edit-watch-this-page-text" = "Наблюдаване на страницата";
 "editor-exit-confirmation-body" = "Сигурни ли сте, че искате да напуснете режима за редактиране, без да публикувате промените?";
 "empty-diff-compare-title" = "Няма разлики между версиите";
@@ -608,7 +595,6 @@
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
 "vanish-account-continue-button-title" = "Продължаване";
-"vanish-account-learn-more-text" = "Научете повече";
 "vanish-account-warning-title" = "Предупреждение";
 "variants-alert-dismiss-button" = "Не, благодаря";
 "variants-alert-preferences-button" = "Преглед на настройките";
@@ -629,7 +615,6 @@
 "widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
 "widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
 "widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";
-"wikitext-downloading" = "Зареждане на съдържание...";
 "wikitext-preview-link-external-preview-title" = "Външна препратка";
 "wikitext-preview-link-not-found-preview-title" = "Няма намерена вътрешна препратка";
 "wikitext-preview-link-preview-title" = "Преглед на препратката";

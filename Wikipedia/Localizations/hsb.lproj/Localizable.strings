@@ -70,8 +70,6 @@
 "action-read" = "Čitać";
 "action-redo" = "Wospjetować";
 "action-remove" = "Wotstronić";
-"action-replace" = "Narunać";
-"action-replace-all" = "Wšě narunać";
 "action-retry" = "Znowa spytać";
 "action-save" = "Składować";
 "action-saved" = "Składowane";
@@ -85,7 +83,6 @@
 "action-unsaved-accessibility-notification" = "Zapisk wotstronjeny";
 "action-update" = "Aktualizować";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 zapisk|$1 zapiskaj|$1 zapiski|$1 zapiskow}} k čitanskej lisćinje přidać";
-"add-citation-title" = "Citat přidać";
 "announcements-dismiss" = "Schować";
 "app-store-keywords" = "Wikipedija, referenca, wiki, encyklopedija, informacija, info, wěda, wědomosć, slědźenje, wotkrywać, wuknyć";
 "app-store-short-description" = "Sćehń sej Wikipedija-app za wotkrywanje městnow w twojej bliskosći, synchronizowanje zapiskow k offline-čitanju a přiměrjenju twojeho čitanskeho dožiwjenja.";
@@ -120,7 +117,6 @@
 "data-migration-status" = "Aktualizuju...";
 "description-add-title" = "Wopis přidać";
 "description-edit-for-article" = "Wopis zapiska $1";
-"description-edit-learn-more" = "Wjace zhonić";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "Přez změnjenje wopisa zapiska přihłosuju $1 a doskónčnemu wozjewjenju mojich přinoškow pod licencu $2.";
 "description-edit-pencil-introduction" = "Zawod wobdźěłać";
@@ -174,10 +170,6 @@
 "diff-thanks-send-title" = "Zjawnje so podźakować";
 "diff-thanks-sent-cannot-unsend" = "Dźakowanja njehodźa so cofnyć";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 njezměnjena linka|$1 njezměnjenej lince|$1 njezměnjene linki|$1 njezměnjenych linkow}}";
-"edit-direction-down-accessibility-label" = "Kłok dele sunyć";
-"edit-direction-left-accessibility-label" = "Kłok dolěwa sunyć";
-"edit-direction-right-accessibility-label" = "Kłok doprawa sunyć";
-"edit-direction-up-accessibility-label" = "Kłok horje sunyć";
 "edit-link-display-text-title" = "Pokazany tekst";
 "edit-link-link-target-title" = "Cil wotkaza";
 "edit-link-remove-link-title" = "Wotkaz wotstronić";
@@ -187,15 +179,10 @@
 "edit-minor-text" = "To je snadna změna";
 "edit-published" = "Změna wozjewjena";
 "edit-published-subtitle" = "Sy Wikipediju runje za wšěch polěpšił(a)";
-"edit-style-table-view-title" = "Stil";
 "edit-summary-add-summary-text" = "Zjeće wobdźěłanja podać";
 "edit-summary-choice-fixed-grammar" = "Gramatika skorigowana";
 "edit-summary-choice-fixed-typos" = "Pisanski zmylk skorigowany";
 "edit-summary-choice-linked-words" = "Wotkazy přidate";
-"edit-summary-learn-more-text" = "Wjace zhonić";
-"edit-text-clear-formatting" = "Formatěrowanje wušmórnyć";
-"edit-text-formatting-table-view-title" = "Formatěrowanje teksta";
-"edit-text-size-table-view-title" = "Wulkosć teksta";
 "edit-watch-this-page-text" = "Tutu stronu wobkedźbować";
 "editing-welcome-be-bold-title" = "Twój hłós je wažny";
 "editing-welcome-citations-title" = "Spušćomne žórła citować";
@@ -422,9 +409,7 @@
 "welcome-intro-free-encyclopedia-more" = "Wjace wo Wikipediji zhonić";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedija je globalny projekt k wutworjenju swobodnych encyklopedijow we wšěch rěčach swěta. Skoro kóždy z internetnym přistupom móže z neutralnymi a spušćomnymi informacijemi přinošować.";
 "welcome-languages-description" = "Smy slědowace rěče na twojim nastroju namakali:";
-"wikitext-downloading" = "Wobsah so začituje...";
 "wikitext-preview-changes" = "Pokazaj přehlad twojich změnow…";
-"wikitext-preview-changes-none" = "Njejsu žane změny za přehlad.";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedija nima žadyn zapisk z dokładnje tutym mjenom";
 "wikitext-upload-captcha-error" = "Zmylk při přepruwowanju CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Přepruwowanje přez CAPTCHA je trěbne.";

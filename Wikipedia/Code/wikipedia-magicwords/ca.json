@@ -1,0 +1,77 @@
+[
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "center",
+      "centre",
+      "centrat"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "marc",
+      "frame",
+      "framed",
+      "enframed",
+      "quadre",
+      "enquagrat"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sense marc",
+      "frameless",
+      "sens_quadre"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "esquerra",
+      "left",
+      "esquèrra",
+      "senèstra",
+      "gaucha"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "cap",
+      "none",
+      "neant",
+      "nonrés"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "dreta",
+      "right",
+      "drecha"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "miniatura",
+      "thumb",
+      "thumbnail",
+      "vinheta"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Fitxer"
+    ],
+    "name" : "file_namespace"
+  }
+]

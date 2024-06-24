@@ -42,7 +42,7 @@ import Foundation
                            "gsrsearch": "hasrecommendation:image",
                            "gsrnamespace": 0,
                            "gsrsort": "random",
-                           "prop": "growthimagesuggestiondata|revisions",
+                           "prop": "growthimagesuggestiondata|revisions|pageimages",
                            "rvprop": "ids|timestamp|flags|comment|user|content",
                            "rvslots": "main",
                            "rvsection": 0,
@@ -68,7 +68,6 @@ import Foundation
                 Self.currentImageRecommendations[project, default: []].append(contentsOf: self.getImageSuggestions(from: response))
                 completion(.success(Self.currentImageRecommendations[project] ?? []))
             case .failure(let error):
-                print(error)
                 completion(.failure(error))
             }
         }
@@ -80,6 +79,10 @@ import Foundation
         var recommendationsPerPage:[WKImageRecommendation.Page] = []
 
         for page in response.query.pages {
+            
+            if page.pageimage != nil {
+                continue
+            }
 
             let page = WKImageRecommendation.Page(
                 pageid: page.pageid,
