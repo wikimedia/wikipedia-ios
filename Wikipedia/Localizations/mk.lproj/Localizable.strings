@@ -115,6 +115,7 @@
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
+"advanced-settings-title" = "Напредни нагодувања";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -285,6 +286,8 @@
 "donate-success-title" = "Ви благодариме!";
 "donate-title" = "Изберете износ";
 "donate-transaction-fee-opt-in-text" = "Великодушно ќе додадам $1 за да ја покријам трансакциската провизија за да задржите 100%% од мојот дар.";
+"donate-wikimedia-fine-print-1" = "Ние не ги продаваме или разменуваме вашите информации со никого. Давајќи го овој прилог, вие се согласувате со споделувањето на личните информациии со Фондацијата Викимедија, непрофитната организација која раководи со Википедија и другите Викимедиини проекти, и нејзините услужители согласно [правилата за дарители]($1). Фондацијата Викимедија и нејзините услужители се сместени во САД и други земји, чии закони за лични податоци може да не се истоветни со нашите.  Повеќе за ова ќе прочитате на страницата за [правила за дарители]($1).";
+"donate-wikimedia-fine-print-2" = "Кај дарителите со редовна уплата, Фондацијата Викимедија ќе го одбива истиот износ секој месец, на денот на првата уплата, сè додека не нè известите да престанеме. Уплатите започнати на 29, 30 или 31 во месецот ќе се повторуваат на последниот ден од месецот кај пократките месеци, што поблиску до првичниот датум. Доколку имате некакви прашања, обратете се на donate@wikimedia.org.";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Цел на врската";
 "edit-link-remove-link-title" = "Отстрани врска";
@@ -563,6 +566,8 @@
 "image-rec-add-image-title" = "Да ја додадам сликава?";
 "image-rec-empty-subtitle" = "Навратете се подоцна.";
 "image-rec-empty-title" = "Засега нема повеќе предложени слики.";
+"image-rec-error-subtitle" = "Нешто не е во ред.";
+"image-rec-error-title" = "Не можам да ја вчитам страницата";
 "image-rec-feature-announce-body" = "Одлучете дали една слика ќе биде ставена во статија на Википедија. Можете да ја најдете картичката „Додај слика“ во тековникот „Истражи“.";
 "image-rec-feature-announce-title" = "Пробајте го „Додај слика“";
 "image-rec-onboarding-item-1-body" = "Одлучете дали предложена слика треба да се стави во статија на Википедија.";
@@ -591,6 +596,7 @@
 "image-rec-tooltip-3-body" = "Одлучете дали сликата им помага на читателите подобро да ја разберат оваа тема.";
 "image-rec-tooltip-3-title" = "Одлучете";
 "image-rec-view-article" = "Погл. статија";
+"image-recommendations-email-fifth-line" = "[Екрански снимки или Врски]";
 "image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
 "image-recommendations-email-fourth-line" = "— [Опишете го предложеното решение]";
 "image-recommendations-email-second-line" = "— [Опишете го конкретниот проблем]";
@@ -627,12 +633,16 @@
 "insert-media-image-preview-select-image-action-title" = "Изберете слика";
 "insert-media-image-size-setting-custom" = "Прилагодено";
 "insert-media-image-size-setting-default" = "По основно";
+"insert-media-image-size-settings-measure-height" = "Висина";
+"insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "п";
 "insert-media-image-size-settings-title" = "Големина на сликата";
+"insert-media-image-text-wrapping-setting" = "Сложи го текстот околу сликата";
 "insert-media-image-type-setting-basic" = "Основно";
 "insert-media-image-type-setting-frame" = "Рамка";
 "insert-media-image-type-setting-frameless" = "Без рамка";
 "insert-media-image-type-setting-thumbnail" = "Минијатура";
+"insert-media-image-type-settings-footer-title" = "Можете да зададете како да се појавува податотеката на страницата. Ова во речиси сите случаи треба да биде во минијатура за да биде доследно на другите страници.";
 "insert-media-image-type-settings-title" = "Тип на слика";
 "insert-media-media-settings-title" = "Поставки за слики и снимки";
 "insert-media-title" = "Вметнување на слика или снимка";

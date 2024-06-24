@@ -1,0 +1,64 @@
+[
+  {
+    "aliases" : [
+      "tengah",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "kanan",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "tiada",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "kiri",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Fail"
+    ],
+    "name" : "file_namespace"
+  }
+]

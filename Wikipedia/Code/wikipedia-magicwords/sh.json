@@ -1,0 +1,80 @@
+[
+  {
+    "aliases" : [
+      "centar",
+      "c",
+      "središte",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "okvir",
+      "ram",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "bezokvira",
+      "bez_okvira",
+      "frameless",
+      "bezrama",
+      "bez_rama"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "lijevo",
+      "levo",
+      "left",
+      "l"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "n",
+      "ništa",
+      "bez",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "desno",
+      "right",
+      "d"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "mini",
+      "minijatura",
+      "thumb",
+      "thumbnail",
+      "umanjeno"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Datoteka"
+    ],
+    "name" : "fileNamespace"
+  }
+]

@@ -1,0 +1,73 @@
+[
+  {
+    "aliases" : [
+      "үзәк",
+      "центр",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "сулда",
+      "слева",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "юк",
+      "без",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "уңда",
+      "справа",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "альт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "обрамить",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "безрамки",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "миниатюра",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "Файл"
+    ],
+    "name" : "file_namespace"
+  }
+]

@@ -64,7 +64,8 @@ class WikipediaLanguageCommandLineUtility {
             .sink(receiveCompletion: { (result) in
                 completion()
             }) { (siteInfoTuple) in
-                self.writeCodable(siteInfoTuple.0, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.namespaceInfo, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.magicWordInfo, to: ["Wikipedia", "Code", "wikipedia-magicwords", "\(siteInfoTuple.1.languageCode).json"])
             }
     }
     
@@ -80,6 +81,20 @@ class WikipediaLanguageCommandLineUtility {
         for namespaceAlias in siteInfo.query.namespacealiases {
             namespaces[namespaceAlias.alias.uppercased()] = PageNamespace(rawValue: namespaceAlias.id)
         }
-        return WikipediaSiteInfoLookup(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
+        var recognizedMagicWords = siteInfo.query.magicwords.filter {
+            return $0.name == "img_thumbnail" ||
+            $0.name == "img_framed" ||
+            $0.name == "img_frameless" ||
+            $0.name == "img_right" ||
+            $0.name == "img_left" ||
+            $0.name == "img_center" ||
+            $0.name == "img_none" ||
+            $0.name == "img_alt"
+        }
+        if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
+            recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))
+        }
+        let namespaceInfo = WikipediaSiteInfoLookup.NamespaceInfo(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
+        return WikipediaSiteInfoLookup(namespaceInfo: namespaceInfo, magicWordInfo: recognizedMagicWords)
     }
 }

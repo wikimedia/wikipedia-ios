@@ -708,8 +708,9 @@
 // Fuzzy
 "talk-page-title-article-talk" = "လိက်ပရေင် ဓရီုကျာ";
 "talk-page-title-user-talk" = "ညးလွပ် ဓရီုကျာ";
+"talk-page-unsubscribe-to-topic" = "ပတိတ်ထောံနူစရၚ်";
 "theme-black-display-name" = "လမ္စံက်";
-"theme-dark-display-name" = "ဓလု";
+"theme-dark-display-name" = "ဒလုက်";
 "theme-default-display-name" = "လီုလာ်";
 "theme-default-explanation" = "ပကိတ် သၞောတ်ပရူပရာ";
 "theme-light-display-name" = "တၟး";

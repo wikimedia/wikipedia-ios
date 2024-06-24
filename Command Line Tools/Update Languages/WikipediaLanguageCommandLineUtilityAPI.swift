@@ -61,7 +61,7 @@ class WikipediaLanguageCommandLineUtilityAPI {
     }
     
     func getSiteInfo(with languageCode: String) -> AnyPublisher<SiteInfo, Error> {
-        let siteInfoURL = URL(string: "https://\(languageCode).wikipedia.org/w/api.php?action=query&format=json&prop=&list=&meta=siteinfo&siprop=namespaces%7Cgeneral%7Cnamespacealiases&formatversion=2&origin=*")!
+        let siteInfoURL = URL(string: "https://\(languageCode).wikipedia.org/w/api.php?action=query&format=json&prop=&list=&meta=siteinfo&siprop=namespaces%7Cgeneral%7Cnamespacealiases%7Cmagicwords&formatversion=2&origin=*")!
         return URLSession.shared
             .dataTaskPublisher(for: siteInfoURL)
             .tryMap { (result) -> SiteInfo in
@@ -107,6 +107,7 @@ struct SiteInfo: Codable {
         let general: General
         let namespaces: [String: Namespace]
         let namespacealiases: [NamespaceAlias]
+        let magicwords: [MagicWord]
     }
     let query: Query
 }

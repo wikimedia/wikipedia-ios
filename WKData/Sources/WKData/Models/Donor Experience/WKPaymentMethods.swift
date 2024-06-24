@@ -16,6 +16,8 @@ public struct WKPaymentMethods: Codable {
     }
     
     private let response: Response
+    var cachedDate: Date?
+    
     public var applePayPaymentNetworks: [PKPaymentNetwork] {
         let brands = self.response.paymentMethods.first { $0.type == "applepay" }?.brands ?? []
         

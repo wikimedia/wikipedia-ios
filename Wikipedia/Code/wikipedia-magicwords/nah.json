@@ -1,0 +1,83 @@
+[
+  {
+    "aliases" : [
+      "centro",
+      "centrado",
+      "centrada",
+      "centrar",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "marco",
+      "enmarcado",
+      "enmarcada",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sinmarco",
+      "sin_enmarcar",
+      "sinenmarcar",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "izquierda",
+      "izda",
+      "izq",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "no",
+      "ninguna",
+      "ninguno",
+      "nada",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "derecha",
+      "der",
+      "dcha",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "miniaturadeimagen",
+      "miniatura",
+      "mini",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Īxiptli"
+    ],
+    "name" : "file_namespace"
+  }
+]

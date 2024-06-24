@@ -15,6 +15,7 @@
 // Author: Iketsi
 // Author: John Trololo
 // Author: Lhanars
+// Author: Lofhi
 // Author: Lulucmy
 // Author: MacOS Weed
 // Author: Macofe
@@ -146,6 +147,7 @@
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
+"advanced-settings-title" = "Paramètres avancés";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
 "app-store-release-notes" = "Flux d’exploration complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections d’anomalies.";
@@ -238,10 +240,21 @@
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "diff-article-revision-history" = "Historique des révisions de l’article";
+"diff-change-added" = "Ajout, $1, fin de l'ajout.";
+"diff-change-paragraph-lines-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
+"diff-change-paragraph-lines-moved-up" = "Paragraphe déplacé vers le haut {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
+"diff-change-paragraph-moved" = "Le paragraphe a été déplacé. Allez à l'emplacement précédent.";
+"diff-change-paragraph-sections-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 section|$1 section|$1 sections}}. Aller au nouvel emplacement.";
+"diff-change-paragraph-sections-moved-up" = "Paragraphe déplacé vers le haut {{PLURAL:$1|0=0 section|$1 section|$1 sections}}. Aller au nouvel emplacement.";
+"diff-change-removal" = "Suppression, $1, fin de la suppression.";
 "diff-compare-header-from-info-heading" = "Modification précédente";
 "diff-compare-header-heading" = "Comparer les versions";
 "diff-compare-header-to-info-heading" = "Modification affichée";
 "diff-compare-title" = "Comparer les versions";
+"diff-content-added" = "Contenu ajouté, $1";
+"diff-content-removed" = "Contenu supprimé, $1";
+"diff-context-cell-collapse-section" = "Replier $1";
+"diff-context-cell-expand-section" = "Déplier $1";
 "diff-context-lines-collapsed-button-title" = "Afficher";
 "diff-context-lines-expanded-button-title" = "Masquer";
 "diff-header-revision-accessibility-text" = "Révision faite le";
@@ -273,6 +286,7 @@
 "diff-thanks-sent" = "Votre « Merci » a été envoyé à $1";
 "diff-thanks-sent-already" = "Vous avez déjà envoyé un « Merci » pour cette modification";
 "diff-thanks-sent-cannot-unsend" = "Les remerciements ne peuvent pas être retirés";
+"diff-unchanged-contextual-line" = "Ligne contextuelle, inchangé : $1";
 "diff-undo-message" = "Cela annulera les modifications faites par les révisions de l’article affichées ici. Pour poursuivre, veuillez fournir un motif pour annuler cette modification.";
 "diff-undo-success" = "La révision a été annulée.";
 "diff-unedited-lines-format" = "$1 ligne{{PLURAL:$1||s}} restaurée{{PLURAL:$1||s}}";
@@ -304,6 +318,8 @@
 "donate-success-title" = "Merci !";
 "donate-title" = "Sélectionnez le montant";
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
+"donate-wikimedia-fine-print-1" = "Nous ne vendons ou échangeons vos renseignements à personne. En faisant un don, vous acceptez de partager vos informations personnelles avec la Fondation Wikimedia, l'organisation à but non lucratif qui héberge Wikipédia et d'autres projets Wikimedia, et ses fournisseurs de services conformément à notre [politique de confidentialité en matière de donation] ($1). La Fondation Wikimedia et ses fournisseurs de services sont situés aux États-Unis et dans d'autres pays dont les lois sur la vie privée peuvent ne pas être équivalentes à la vôtre. Pour plus d'informations, veuillez lire notre [politique de confidentialité en matière de donation] ($1).";
+"donate-wikimedia-fine-print-2" = "Pour les donateurs mensualisés, un montant fixe vous sera prélevé par la Foundation Wikimedia le même jour chaque mois et ce jusqu’à ce que vous nous informiez que vous souhaitez y mettre fin. Pour les dons démarrés le 29, 30 ou 31 du mois, les prélèvements suivants seront effectués le dernier jour du mois pour les mois plus courts, à la date la plus proche possible de celle du premier don. Pour toutes questions, veuillez contacter donate@wikimedia.org.";
 "edit-link-display-text-title" = "Texte affiché";
 "edit-link-link-target-title" = "Lien cible";
 "edit-link-remove-link-title" = "Supprimer un lien";
@@ -473,6 +489,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Désactiver la carte « Le plus lu » la désactivera dans toutes les langues disponibles.";
 "explore-feed-preferences-show-top-read-title" = "Afficher la carte « Le plus lu »";
 "explore-feed-preferences-suggested-edits-description" = "Suggestions pour ajouter du contenu à Wikipedia";
+"explore-feed-preferences-suggested-edits-title" = "Afficher la fiche de modifications suggérées";
 "explore-feed-preferences-top-read-description" = "Articles quotidiens les plus lus";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Arrêter le flux d’exploration";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "En masquant toutes les cartes de flux d’exploration, vous désactivez l’onglet Explorer qui est remplacé par un onglet des Paramètres.";
@@ -581,10 +598,13 @@
 "image-rec-add-image-title" = "Ajouter cette image ?";
 "image-rec-empty-subtitle" = "Essayez de revenir plus tard.";
 "image-rec-empty-title" = "Vous n’avez plus d’images suggérées disponibles pour le moment.";
+"image-rec-error-subtitle" = "Quelque chose s’est mal passé...";
+"image-rec-error-title" = "Impossible de charger la page";
 "image-rec-feature-announce-body" = "Décider si une image est ajoutée à un article Wikipedia. Vous pouvez trouver la carte « Ajouter une image » dans votre « flux Explorer ».";
 "image-rec-feature-announce-title" = "Essayer « Ajouter une image »";
 "image-rec-onboarding-item-1-body" = "Décider si une image suggérée doit être placée dans un article de Wikipedia.";
 "image-rec-onboarding-item-1-title" = "Afficher une suggestion";
+"image-rec-onboarding-item-2-body" = "Les suggestions sont générées par la machine et vous devrez faire preuve de discernement pour décider de les accepter ou de les rejeter.";
 "image-rec-onboarding-item-2-title" = "Accepter ou refuser une image";
 "image-rec-onboarding-item-3-body" = "Les images viennent de Wikimedia Commons, une collection d’images libres utilisée par Wikipedia.";
 "image-rec-onboarding-item-3-title" = "Images sous licence";
@@ -608,6 +628,12 @@
 "image-rec-tooltip-3-body" = "Déterminez si l'image aide les lecteurs à mieux comprendre ce sujet.";
 "image-rec-tooltip-3-title" = "Décider";
 "image-rec-view-article" = "Afficher l’article";
+"image-recommendations-email-fifth-line" = "[Captures d'écran ou liens]";
+"image-recommendations-email-first-line" = "J'ai rencontré un problème avec les modifications suggérées par la fonctionnalité « Ajouter une image » :";
+"image-recommendations-email-fourth-line" = "- [Décrire la solution proposée]";
+"image-recommendations-email-second-line" = "- [Décrire le problème spécifique]";
+"image-recommendations-email-third-line" = "Le comportement que je souhaiterais voir est :";
+"image-recommendations-email-title" = "Signalement de problème – Fonctionnalité « Ajouter une image »";
 "image-recs-no-title" = "Non";
 "image-recs-not-sure-title" = "Pas sûr(e)";
 "image-recs-yes-title" = "Oui";
@@ -639,12 +665,16 @@
 "insert-media-image-preview-select-image-action-title" = "Sélectionner l’image";
 "insert-media-image-size-setting-custom" = "Personnalisée";
 "insert-media-image-size-setting-default" = "Par défaut";
+"insert-media-image-size-settings-measure-height" = "Hauteur";
+"insert-media-image-size-settings-measure-width" = "Largeur";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Taille de l’image";
+"insert-media-image-text-wrapping-setting" = "Envelopper le texte autour de l'image";
 "insert-media-image-type-setting-basic" = "De base";
 "insert-media-image-type-setting-frame" = "Cadre";
 "insert-media-image-type-setting-frameless" = "Sans cadre";
 "insert-media-image-type-setting-thumbnail" = "Vignette";
+"insert-media-image-type-settings-footer-title" = "Vous pouvez choisir comment le média apparaît sur la page. Cela doit être dans presque tous les cas le format vignette pour être cohérent avec les autres pages.";
 "insert-media-image-type-settings-title" = "Type d’image";
 "insert-media-media-settings-title" = "Paramètres du média";
 "insert-media-title" = "Insérer le média";
@@ -1143,6 +1173,7 @@
 "talk-page-reply-button-accessibility-label" = "Répondre à $1";
 "talk-page-reply-depth-accessibility-label" = "Profondeur de réponse : $1";
 "talk-page-reply-placeholder-format" = "Répondre à $1";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Notez que votre réponse sera automatiquement signée avec votre nom d’utilisateur. En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez de publier votre contribution sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
 "talk-page-revision-history" = "Historique des versions";
 "talk-page-rply-close-button-accessibility-hint" = "Fermer la vue des réponses";
 "talk-page-share-button" = "Partager la page de discussion";
@@ -1153,6 +1184,7 @@
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
 "talk-page-topic-close-button-hint" = "Fermer le nouveau sujet";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez irrévocablement de publier vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Se désabonner";
 "talk-page-unsubscribed-alert-subtitle" = "Vous ne recevrez plus de notifications concernant les nouveaux commentaires sur ce sujet.";
 "talk-page-unsubscribed-alert-title" = "Vous êtes désabonné(e).";
@@ -1176,6 +1208,7 @@
 "talk-pages-topic-compose-body-placeholder" = "Description";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Description du sujet";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "Ignorer la réponse";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Abandonner le sujet";
 "talk-pages-topic-compose-close-confirmation-title" = "Voulez-vous vraiment abandonner ce nouveau sujet ?";
 "talk-pages-topic-compose-navbar-title" = "Sujet";
 "talk-pages-topic-compose-title-placeholder" = "Titre du sujet";
@@ -1321,4 +1354,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1vous connectez$2, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-sign-in" = "Se connecter";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";

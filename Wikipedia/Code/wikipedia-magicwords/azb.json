@@ -1,0 +1,76 @@
+[
+  {
+    "aliases" : [
+      "قابیق",
+      "قاب",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "سول",
+      "چپ",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "هئچ",
+      "هیچ",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "ساغ",
+      "راست",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "جایگزین=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "وسط",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "بی‌قاب",
+      "بیقاب",
+      "بی_قاب",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "بندانگشتی",
+      "انگشتی",
+      "انگشتدان",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "فایل"
+    ],
+    "name" : "file_namespace"
+  }
+]

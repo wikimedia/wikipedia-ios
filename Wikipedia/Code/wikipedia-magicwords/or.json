@@ -1,0 +1,66 @@
+[
+  {
+    "aliases" : [
+      "କେନ୍ଦ୍ର",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "ଫ୍ରେମକରା",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "ଫ୍ରେମନଥିବା",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "ବାଆଁ",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "କିଛି_ନୁହେଁ",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "ଡାହାଣ",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "ଫାଇଲ"
+    ],
+    "name" : "file_namespace"
+  }
+]

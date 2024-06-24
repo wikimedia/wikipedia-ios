@@ -8,6 +8,12 @@ final class WKTooltipViewController: WKComponentViewController {
     private let horizontalPadding = CGFloat(12)
     private let verticalPadding = CGFloat(8)
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     lazy var stackView: UIStackView = {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +38,7 @@ final class WKTooltipViewController: WKComponentViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.numberOfLines = 0
         label.text = viewModel.localizedStrings.body
         label.font = WKFont.for(.callout)
@@ -68,17 +74,25 @@ final class WKTooltipViewController: WKComponentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(stackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
         buttonContainerView.addSubview(actionButton)
         stackView.addArrangedSubview(buttonContainerView)
         
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor, constant: -verticalPadding),
-            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -horizontalPadding),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: horizontalPadding),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: verticalPadding),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            
+            scrollView.contentLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor, constant: -verticalPadding),
+            scrollView.contentLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -horizontalPadding),
+            scrollView.contentLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: horizontalPadding),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: verticalPadding),
+            
             buttonContainerView.topAnchor.constraint(equalTo: actionButton.topAnchor),
             buttonContainerView.leadingAnchor.constraint(lessThanOrEqualTo: actionButton.leadingAnchor),
             buttonContainerView.trailingAnchor.constraint(equalTo: actionButton.trailingAnchor),
@@ -88,11 +102,12 @@ final class WKTooltipViewController: WKComponentViewController {
     
     override var preferredContentSize: CGSize {
         get {
+            let additionalVerticalSize = CGFloat(10) // Needed to prevent unnecessary scrolling
             let size = CGSize(width: 280, height: UIView.noIntrinsicMetric)
             let titleSize = titleLabel.sizeThatFits(size)
             let bodySize = bodyLabel.sizeThatFits(size)
             let buttonSize = actionButton.sizeThatFits(size)
-            return CGSize(width: 280 + (horizontalPadding * 2), height: titleSize.height + bodySize.height + buttonSize.height + (verticalPadding * 2))
+            return CGSize(width: 280 + (horizontalPadding * 2), height: titleSize.height + bodySize.height + buttonSize.height + (verticalPadding * 2) + additionalVerticalSize)
         }
 
         set { super.preferredContentSize = newValue }
