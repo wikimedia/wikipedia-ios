@@ -236,6 +236,8 @@
 "insert-media-image-preview-more-information-action-title" = "ٻیاں معلومات";
 "insert-media-image-preview-select-image-action-title" = "تصویر چݨو";
 "insert-media-image-size-setting-default" = "پہلے کنوں طے تھیا ہویا";
+"insert-media-image-size-settings-measure-height" = "اُچائی";
+"insert-media-image-size-settings-measure-width" = "چوڑائی";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "فوٹو دا سائز";
 "insert-media-image-type-setting-basic" = "بنیادی";

@@ -7,6 +7,7 @@ public struct WKDonateConfig: Codable {
     public let currencyAmountPresets: [String: [Decimal]]
     public let currencyTransactionFees: [String: Decimal]
     public let countryCodeEmailOptInRequired: [String]
+    var cachedDate: Date?
     
     public func transactionFee(for currencyCode: String) -> Decimal? {
         return currencyTransactionFees[currencyCode] ?? currencyTransactionFees["default"]

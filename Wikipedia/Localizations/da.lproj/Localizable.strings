@@ -121,6 +121,7 @@
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
+"advanced-settings-title" = "Avancerede indstillinger";
 "announcements-dismiss" = "Nej tak";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyklopædi, info, viden, forskning, information, udforsk, lær";
 "app-store-subtitle" = "Den frie encyklopædi";
@@ -141,6 +142,7 @@
 "article-languages-yours" = "Dine sprog";
 "article-read-more-title" = "Læs mere";
 "article-reference-view-title" = "Reference $1";
+"article-save-error-not-enough-space" = "Du har ikke nok plads ledig på din enhed for at lagre denne artikel";
 "article-share" = "Del";
 "article-talk-page" = "Artiklens diskussionsside";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
@@ -200,6 +202,10 @@
 "diff-compare-header-heading" = "Sammenlign revisioner";
 "diff-compare-header-to-info-heading" = "Vist redigering";
 "diff-compare-title" = "Sammenlign revisioner";
+"diff-content-added" = "Indhold tilføjet, $1";
+"diff-content-removed" = "Indhold fjernet, $1";
+"diff-context-cell-collapse-section" = "Skjul $1";
+"diff-context-cell-expand-section" = "Udvid $1";
 "diff-context-lines-collapsed-button-title" = "Vis";
 "diff-context-lines-expanded-button-title" = "Skjul";
 "diff-header-revision-accessibility-text" = "Revision foretaget den";
@@ -235,6 +241,8 @@
 "edit-minor-text" = "Dette er en mindre ændring";
 "edit-published" = "Redigering offentliggjort";
 "edit-published-subtitle" = "Du har lige gjort Wikipedia bedre for alle";
+"edit-summary-choice-added-image" = "Tilføjede billede";
+"edit-summary-choice-added-image-and-caption" = "Tilføjede billede og billedtekst";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
 "edit-summary-choice-linked-words" = "Tilføjede links";
@@ -391,6 +399,16 @@
 "image-gallery-unknown-owner" = "Ophavsmand ukendt.";
 "image-rec-add-image-title" = "Tilføj dette billede?";
 "image-rec-empty-subtitle" = "Prøv at vende tilbage senere.";
+"image-rec-onboarding-item-3-title" = "Licenserede billeder";
+"image-rec-onboarding-learn-more-button" = "Lær mere om foreslåede redigeringer";
+"image-rec-onboarding-title" = "Tilføj et billede til en artikel";
+"image-rec-survey-option-6" = "Andet";
+"image-rec-survey-submit-button" = "Indsend";
+"image-rec-survey-title" = "Begrundelse";
+"image-rec-title" = "Tilføj billede";
+"image-rec-tooltip-3-title" = "Afgør";
+"image-rec-view-article" = "Vis artikel";
+"image-recommendations-email-fifth-line" = "[Skærmbilleder eller links]";
 "image-recs-no-title" = "Nej";
 "image-recs-not-sure-title" = "Ikke sikker";
 "image-recs-yes-title" = "Ja";
@@ -414,7 +432,10 @@
 "insert-media-image-preview-select-image-action-title" = "Vælg billede";
 "insert-media-image-size-setting-custom" = "Brugerdefineret";
 "insert-media-image-size-setting-default" = "Standard";
+"insert-media-image-size-settings-measure-height" = "Højde";
+"insert-media-image-size-settings-measure-width" = "Bredde";
 "insert-media-image-size-settings-title" = "Billedestørrelse";
+"insert-media-image-text-wrapping-setting" = "Pak tekst rundt om billede";
 "insert-media-image-type-setting-basic" = "Grundlæggende";
 "insert-media-image-type-setting-frame" = "Ramme";
 "insert-media-image-type-setting-frameless" = "Uden ramme";
@@ -762,6 +783,7 @@
 "talk-page-publish-reply-error-subtitle" = "Tjek venligst din internetforbindelse.";
 "talk-page-publish-reply-error-title" = "Kan ikke udgive din kommentar.";
 "talk-page-publish-topic-error-title" = "Kan ikke udgive nyt emne.";
+"talk-page-read-in-web" = "Læs på web";
 "talk-page-reply-button" = "Svar";
 "talk-page-reply-button-accessibility-label" = "Svar til $1";
 "talk-page-title-user-talk" = "Brugerdiskussion";
@@ -782,6 +804,7 @@
 "top-read-widget-description" = "Se, hvad verden læser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 læsere";
 "top-read-widget-title" = "Mest læst";
+"tutorial-title" = "Guide";
 "two-factor-login-continue" = "Fortsæt login";
 "two-factor-login-instructions" = "Indtast venligst to-faktor-bekræftelseskode";
 "two-factor-login-title" = "Log ind på din konto";

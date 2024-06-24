@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol PageViewControllerViewLifecycleDelegate: AnyObject {
     func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)
@@ -148,7 +148,7 @@ extension WelcomePageViewController: Themeable {
         pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
         pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
         nextButton.tintColor = theme.colors.link
-        skipButton.tintColor = .gray400
+        skipButton.tintColor = WKColor.gray400
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
     }
 }

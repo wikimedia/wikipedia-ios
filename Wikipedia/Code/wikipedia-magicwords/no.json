@@ -1,0 +1,75 @@
+[
+  {
+    "aliases" : [
+      "sentrer",
+      "senter",
+      "midtstilt",
+      "center",
+      "centre",
+      "sentrum"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "ramme",
+      "framed",
+      "enframed",
+      "frame",
+      "ramma"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "rammeløs",
+      "ingenramme",
+      "frameless",
+      "rammelaus"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "venstre",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "ingen",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "høyre",
+      "right",
+      "høgre"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "miniatyr",
+      "mini",
+      "thumbnail",
+      "thumb"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fil"
+    ],
+    "name" : "file_namespace"
+  }
+]

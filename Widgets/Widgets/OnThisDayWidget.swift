@@ -1,6 +1,7 @@
 import WidgetKit
 import SwiftUI
 import WMF
+import Components
 
 // MARK: - Widget
 
@@ -70,9 +71,9 @@ final class OnThisDayData {
         var errorColor: Color {
             switch self {
             case .featureNotSupportedInLanguage:
-                return Color(.gray500)
+                return Color(WKColor.gray500)
             case .noInternet:
-                return Color(.gray800)
+                return Color(WKColor.gray800)
             }
         }
 

@@ -21,6 +21,7 @@
 // Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: Marinaazev
 // Author: Mikepanhu
 // Author: Neetp7k9
 // Author: Nemo bis
@@ -147,6 +148,7 @@
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
+"advanced-settings-title" = "進階設定";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
@@ -207,7 +209,7 @@
 "description-edit-for-article" = "$1的條目描述";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "透過更改條目描述，我同意$1且依據$2許可協議不撤銷所發表出我的個人貢獻。";
-"description-edit-pencil-introduction" = "編輯首節";
+"description-edit-pencil-introduction" = "編輯首段";
 "description-edit-pencil-title" = "編輯條目說明";
 "description-edit-placeholder-title" = "簡短的描述是最好的";
 "description-edit-publish" = "發布描述";
@@ -271,7 +273,7 @@
 "diff-rollback-success" = "已回退編輯。";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 次編輯|$1 次編輯}}";
 "diff-single-header-editor-title" = "編者資訊";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已添加|$1 位元組已添加}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 位元組已新增}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 位元組已移除|$1 位元組已移除}}";
 "diff-single-header-summary-heading" = "編輯摘要";
 "diff-single-intro-title" = "介紹";
@@ -317,6 +319,8 @@
 "donate-success-title" = "感謝您！";
 "donate-title" = "選擇金額";
 "donate-transaction-fee-opt-in-text" = "我願意慷慨地添加$1來支付手續費，這樣對方就可以100%%保有我的捐款。";
+"donate-wikimedia-fine-print-1" = "我們不會向任何人販賣或洩漏您的資訊。透過捐款行為，代表您同意與維基媒體基金會、託管維基百科與其他姊妹計劃的非盈利組織、依據我們[捐款方針]（$1）的服務提供者分享您的個人資訊。維基媒體基金會與其服務提供者位於美國與其他國家，其隱私權法可能與您的國家不同。更多相關資訊請閱讀我們的[捐款方針]（$1）。";
+"donate-wikimedia-fine-print-2" = "對於定期捐款者，維基媒體基金會在首次捐款起每隔一個月扣除固定的捐款金額，直至您通知我們停止扣款為止。如果您是在月份上 29 號、30 號，或是 31 號首次發起捐款，會在每月份的最後一天扣款，對於較短的月份，則會盡可能在貼近原始日期的時間進行。若有其他問題，請聯絡 donate@wikimedia.org。";
 "edit-link-display-text-title" = "顯示文字";
 "edit-link-link-target-title" = "連結目標";
 "edit-link-remove-link-title" = "移除連結";
@@ -595,6 +599,8 @@
 "image-rec-add-image-title" = "新增此圖片？";
 "image-rec-empty-subtitle" = "請稍後再回來。";
 "image-rec-empty-title" = "目前您沒有更多可用的建議圖片。";
+"image-rec-error-subtitle" = "發生錯誤。";
+"image-rec-error-title" = "無法載入頁面";
 "image-rec-feature-announce-body" = "決定是否將圖片新增到維基百科條目。您可以在「探索摘要」中找到「新增圖片」卡。";
 "image-rec-feature-announce-title" = "嘗試「新增圖片」";
 "image-rec-onboarding-item-1-body" = "決定是否讓建議的圖片加入到維基百科條目裡。";
@@ -623,6 +629,7 @@
 "image-rec-tooltip-3-body" = "決定圖片是否有幫助到讀者更好理解這個主題";
 "image-rec-tooltip-3-title" = "決定";
 "image-rec-view-article" = "查看條目";
+"image-recommendations-email-fifth-line" = "- [屏幕截图或链接]";
 "image-recommendations-email-first-line" = "我在使用「新增圖片」建議編輯功能時遇到問題：";
 "image-recommendations-email-fourth-line" = "- [描述建議解決方案]";
 "image-recommendations-email-second-line" = "- [描述具體問題]";
@@ -659,12 +666,16 @@
 "insert-media-image-preview-select-image-action-title" = "選擇圖片";
 "insert-media-image-size-setting-custom" = "自訂";
 "insert-media-image-size-setting-default" = "預設";
+"insert-media-image-size-settings-measure-height" = "高度";
+"insert-media-image-size-settings-measure-width" = "寬度";
 "insert-media-image-size-settings-px-unit-name" = "像素";
 "insert-media-image-size-settings-title" = "圖片大小";
+"insert-media-image-text-wrapping-setting" = "在圖片周圍環繞文字";
 "insert-media-image-type-setting-basic" = "基本";
 "insert-media-image-type-setting-frame" = "帶框";
 "insert-media-image-type-setting-frameless" = "無框";
 "insert-media-image-type-setting-thumbnail" = "縮圖";
+"insert-media-image-type-settings-footer-title" = "您可以設定媒體要如何在頁面上呈現。在大多數情況下，應為與其他頁面一致的縮圖格式。";
 "insert-media-image-type-settings-title" = "圖片類型";
 "insert-media-media-settings-title" = "媒體設定";
 "insert-media-title" = "插入媒體";
@@ -1215,7 +1226,7 @@
 "theme-default-display-name" = "預設";
 "theme-default-explanation" = "符合系統主題";
 "theme-light-display-name" = "明亮";
-"theme-sepia-display-name" = "深褐";
+"theme-sepia-display-name" = "棕褐色";
 "top-read-widget-description" = "了解全世界的人今天都在維基百科上讀些什麼。";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";
