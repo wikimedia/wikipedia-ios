@@ -10,16 +10,19 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
     fileprivate let locationManager = LocationManager()
     private var previewedIndexPath: IndexPath?
     private let contentGroup: WMFContentGroup?
+    private let needsCloseButton: Bool
 
     let contentGroupIDURIString: String?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
+        self.needsCloseButton = needsCloseButton
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,12 +30,52 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         self.dataStore = MWKDataStore.shared()
         self.contentGroup = nil
         self.contentGroupIDURIString = nil
+        self.needsCloseButton = false
         super.init(coder: aDecoder)
+        hidesBottomBarWhenPushed = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
+        if needsCloseButton {
+            addCloseButton()
+        }
+    }
+    
+    private var closeButton: UIButton?
+    private func addCloseButton() {
+        guard closeButton == nil else {
+            return
+        }
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
+        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        view.addSubview(button)
+        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
+        button.addConstraints([height, width])
+        let top = button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
+        view.addConstraints([top, trailing])
+        closeButton = button
+        applyThemeToCloseButton()
+    }
+    
+    private func applyThemeToCloseButton() {
+        closeButton?.tintColor = theme.colors.tertiaryText
+    }
+    
+    @objc private func close() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        applyThemeToCloseButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {

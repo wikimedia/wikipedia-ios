@@ -84,8 +84,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         // edgesForExtendedLayout = UIRectEdge.all
     }
     
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
-        fatalError("init(articleURLs:dataStore:contentGroup:theme:) has not been implemented")
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
+        fatalError("init(articleURLs:dataStore:contentGroup:theme:needsCloseButton:) has not been implemented")
     }
     
     // MARK: - Search
