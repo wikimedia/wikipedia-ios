@@ -13,6 +13,7 @@ class ArticleURLListViewController: ArticleCollectionViewController2, DetailPres
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.theme = theme
         self.dataStore = dataStore
+        hidesBottomBarWhenPushed = true
     }
     
     deinit {
