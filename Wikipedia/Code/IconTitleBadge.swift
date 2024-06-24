@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class IconTitleBadge: SizeThatFitsView {
     
@@ -70,7 +70,7 @@ class IconTitleBadge: SizeThatFitsView {
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         
-        let font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
         
         let icon: UIImage?
         switch configuration.icon {

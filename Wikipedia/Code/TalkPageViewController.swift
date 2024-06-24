@@ -1,4 +1,3 @@
-import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
@@ -684,10 +683,12 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
-                targetIndexPath = IndexPath(item: index, section: 0)
-                targetCellViewModel = cellViewModel
-                break
+            if let stringFromTitle = try? HtmlUtils.stringFromHTML(cellViewModel.topicTitleHtml) {
+                if stringFromTitle == topicTitle {
+                    targetIndexPath = IndexPath(item: index, section: 0)
+                    targetCellViewModel = cellViewModel
+                    break
+                }
             }
         }
         
@@ -697,10 +698,11 @@ class TalkPageViewController: ViewController {
         }
         
         if let replyText = deepLinkData.replyText {
-            
             for commentViewModel in targetCellViewModel.allCommentViewModels {
-                if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
-                    targetCommentViewModel = commentViewModel
+                if let commentFromHtml = try? HtmlUtils.stringFromHTML(commentViewModel.html), let replyTextRemovingHTML = try? HtmlUtils.stringFromHTML(replyText) {
+                    if commentFromHtml.contains(replyTextRemovingHTML) {
+                        targetCommentViewModel = commentViewModel
+                    }
                 }
             }
         }

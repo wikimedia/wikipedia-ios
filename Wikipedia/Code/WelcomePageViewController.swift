@@ -116,7 +116,7 @@ final class WelcomePageViewController: UIPageViewController {
     }
 
     private func updateFonts() {
-        let buttonFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let buttonFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = buttonFont
         skipButton.titleLabel?.font = buttonFont
     }

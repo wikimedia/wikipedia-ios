@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class PageHistoryCountsViewController: UIViewController {
     private let pageTitle: String
@@ -96,9 +96,9 @@ class PageHistoryCountsViewController: UIViewController {
     }
 
     private func updateFonts() {
-        titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        pageTitleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        countsLabel.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        pageTitleLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
+        countsLabel.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

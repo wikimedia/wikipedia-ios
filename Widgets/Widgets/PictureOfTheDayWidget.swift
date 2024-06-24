@@ -1,7 +1,7 @@
 import WidgetKit
 import SwiftUI
 import WMF
-import UIKit
+import Components
 
 // MARK: - Widget
 
@@ -198,7 +198,7 @@ struct PictureOfTheDayView: View {
             Spacer().frame(height: padding)
             GeometryReader { proxy in
                 Text(entry.imageDescription ?? "")
-                    .font(.caption)
+                    .font(Font(WKFont.for(.caption1)))
                     .fontWeight(.medium)
                     .frame(width: proxy.size.width, alignment: .leading)
                     .lineLimit(3)

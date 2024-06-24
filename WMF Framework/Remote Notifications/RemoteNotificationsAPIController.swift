@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import Components
 
 public class RemoteNotificationsAPIController: Fetcher {
 
@@ -481,7 +482,10 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     }
     
     var pushContentText: String? {
-        return self.message?.header?.removingHTML
+        if let header = self.message?.header {
+            return try? HtmlUtils.stringFromHTML(header)
+        }
+        return nil
     }
     
     var namespaceKey: Int? {

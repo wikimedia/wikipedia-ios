@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
@@ -23,9 +23,9 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     }
 
     private func updateFonts() {
-        titleLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        textFieldLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        textField.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        textFieldLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        textField.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
 
     override var isUserInteractionEnabled: Bool {

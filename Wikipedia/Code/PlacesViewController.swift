@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 import CocoaLumberjackSwift
 
@@ -188,6 +188,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         didYouMeanButton.isHidden = true
         didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
         didYouMeanButton.titleLabel?.textAlignment = .center
+        didYouMeanButton.titleLabel?.font = WKFont.for(.callout)
 
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
@@ -670,8 +671,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         let title = String.localizedStringWithFormat(WMFLocalizedString("places-search-did-you-mean", value:"Did you mean %1$@?", comment:"Title displayed on a button shown when the current search has no results. %1$@ is replaced by the short description of the location of the most likely correction."), description)
         
-        let buttonFont = redoSearchButton.titleLabel?.font
-        let italicsFont = UIFont.italicSystemFont(ofSize: buttonFont?.pointSize ?? 15.0)
+        redoSearchButton.titleLabel?.font = WKFont.for(.callout)
+        let italicsFont = WKFont.for(.italicCallout)
         let nsTitle = title as NSString
         let attributedTitle = NSMutableAttributedString(string: title)
         let descriptionRange = nsTitle.range(of: description)

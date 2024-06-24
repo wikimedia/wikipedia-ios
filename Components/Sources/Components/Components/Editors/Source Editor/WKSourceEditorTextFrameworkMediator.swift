@@ -502,12 +502,12 @@ extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
     var fonts: WKSourceEditorFonts {
         let fonts = WKSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        let baseFont = WKFont.for(.body, compatibleWith: traitCollection)
+        let baseFont = WKFont.for(.callout, compatibleWith: traitCollection)
         fonts.baseFont = baseFont
         
-        fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldBody, compatibleWith: traitCollection) : baseFont
-        fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicsBody, compatibleWith: traitCollection) : baseFont
-        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicsBody, compatibleWith: traitCollection) : baseFont
+        fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldCallout, compatibleWith: traitCollection) : baseFont
+        fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicCallout, compatibleWith: traitCollection) : baseFont
+        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicCallout, compatibleWith: traitCollection) : baseFont
         fonts.headingFont = isSyntaxHighlightingEnabled ? WKFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont
         fonts.subheading1Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont
         fonts.subheading2Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont

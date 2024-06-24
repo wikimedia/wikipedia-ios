@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem)
@@ -133,10 +133,10 @@ class EditLinkViewController: ViewController {
     }
 
     private func updateFonts() {
-        displayTextLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        linkTargetLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        displayTextView.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        removeLinkButton.titleLabel?.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        displayTextLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        linkTargetLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        displayTextView.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        removeLinkButton.titleLabel?.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {

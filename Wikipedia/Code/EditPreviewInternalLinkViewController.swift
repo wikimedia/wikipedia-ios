@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!
@@ -27,7 +27,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
     }
 
     private func updateFonts() {
-        button.titleLabel?.font = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.title3, compatibleWith: traitCollection)
     }
 
     override func viewDidLoad() {

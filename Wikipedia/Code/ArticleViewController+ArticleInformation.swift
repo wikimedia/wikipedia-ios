@@ -1,3 +1,5 @@
+import Components
+
 extension ArticleViewController {
     func showLanguages() {
         let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL)
@@ -57,7 +59,7 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        let issues = payload.compactMap { ($0["html"] as? String)?.removingHTML }
+        let issues = payload.compactMap {  try? (HtmlUtils.stringFromHTML(($0["html"] as? String) ?? String())) }
         let issuesVC = PageIssuesTableViewController(style: .grouped)
         issuesVC.issues = issues
         presentEmbedded(issuesVC, style: .sheet)

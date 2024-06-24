@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
@@ -23,7 +23,9 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBOutlet weak var articleSummaryView: UIView!
     @IBOutlet weak var buttonContainerView: UIView!
-    
+
+    private var theme: Theme = .light
+
     var displayTitleHTML: String = ""
     let article: WMFArticle
     
@@ -127,9 +129,15 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
-        titleLabel.attributedText = displayTitleHTML.byAttributingHTML(with: .georgiaTitle3, matching: traitCollection)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        titleLabel.attributedText = getAttributedString(displayTitleHTML, styles: styles) 
     }
-    
+
+    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         configureView(withTraitCollection: traitCollection)
@@ -162,6 +170,7 @@ class ArticlePopoverViewController: UIViewController {
 
 extension ArticlePopoverViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         view.tintColor = theme.colors.link
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText

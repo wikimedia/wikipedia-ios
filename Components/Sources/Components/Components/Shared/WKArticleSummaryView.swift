@@ -13,11 +13,11 @@ struct WKArticleSummaryView: View {
     }
     
     private var titleStyles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.georgiaHeadline), boldFont: WKFont.for(.boldGeorgiaHeadline), italicsFont: WKFont.for(.italicsGeorgiaHeadline), boldItalicsFont: WKFont.for(.boldItalicsGeorgiaHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        HtmlUtils.Styles(font: WKFont.for(.georgiaTitle1), boldFont: WKFont.for(.boldGeorgiaTitle1), italicsFont: WKFont.for(.italicGeorgiaTitle1), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle1), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     private var summaryStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicsCallout), boldItalicsFont: WKFont.for(.boldItalicsCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicCallout), boldItalicsFont: WKFont.for(.boldItalicCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {

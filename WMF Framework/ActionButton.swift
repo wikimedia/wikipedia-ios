@@ -1,9 +1,9 @@
-import UIKit
+import Components
 
 class ActionButton: SetupButton {
     
-    var titleLabelFont = DynamicTextStyle.semiboldSubheadline
-    
+    var titleLabelFont = WKFont.mediumSubheadline
+
     override func setup() {
         super.setup()
         var deprecatedSelf = self as DeprecatedButton
@@ -31,7 +31,7 @@ class ActionButton: SetupButton {
     
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel?.font = UIFont.wmf_font(titleLabelFont, compatibleWithTraitCollection: traitCollection)
+        titleLabel?.font = WKFont.for(titleLabelFont, compatibleWith: traitCollection)
     }
 }
 

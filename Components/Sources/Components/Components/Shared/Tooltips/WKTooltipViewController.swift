@@ -29,7 +29,7 @@ final class WKTooltipViewController: WKComponentViewController {
         label.setContentHuggingPriority(.required, for: .vertical)
         label.numberOfLines = 0
         label.text = viewModel.localizedStrings.title
-        label.font = WKFont.for(.body)
+        label.font = WKFont.for(.callout)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()

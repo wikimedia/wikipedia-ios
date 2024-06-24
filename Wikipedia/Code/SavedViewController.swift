@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
@@ -243,7 +243,7 @@ class SavedViewController: ViewController {
     }
 
     private func updateFonts() {
-        actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        actionButton.titleLabel?.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {

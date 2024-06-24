@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class DiffHeaderEditorView: UIView {
 
@@ -89,9 +89,9 @@ private extension DiffHeaderEditorView {
     
     func updateFonts(with traitCollection: UITraitCollection) {
     
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
-        usernameLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
-        numberOfEditsLabel.font = UIFont.wmf_font(DynamicTextStyle.callout, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = WKFont.for(.boldFootnote, compatibleWith: traitCollection)
+        usernameLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        numberOfEditsLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
 }
 

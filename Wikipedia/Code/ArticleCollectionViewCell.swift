@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     public let titleLabel = UILabel()
@@ -14,16 +14,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var _titleHTML: String? = nil
     private var _titleBoldedString: String? = nil
-    
+
+    private var theme: Theme = Theme.standard
+
+    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
-            if let boldString = _titleBoldedString {
-                attributedTitle.applyBoldFont(to: boldString, textStyle: titleTextStyle, matching: traitCollection)
+            let attributedTitle = getAttributedString(titleHTML)
+            if let boldString = _titleBoldedString, let boldFont {
+                let boldAttributedString = NSMutableAttributedString(string: boldString)
+                let range = NSRange(location: 0, length: boldAttributedString.length)
+                boldAttributedString.addAttribute(.font, value: boldFont, range: range)
             }
             titleLabel.attributedText = attributedTitle
         } else {
-            let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+            let titleFont = WKFont.for(.boldCallout, compatibleWith: traitCollection)
             titleLabel.font = titleFont
         }
     }
@@ -55,7 +63,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     open override func setup() {
-        titleTextStyle = .georgiaTitle3
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -65,7 +73,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true
-      
         
         contentView.addSubview(alertButton)
         alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
@@ -87,7 +94,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        titleTextStyle = .georgiaTitle3
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumFootnote
@@ -207,12 +214,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
-    
-    public var titleTextStyle: DynamicTextStyle!
-    public var descriptionTextStyle: DynamicTextStyle!
-    public var extractTextStyle: DynamicTextStyle!
-    public var saveButtonTextStyle: DynamicTextStyle!
-    
+    public var styles: HtmlUtils.Styles!
+    public var boldFont: WKFont!
+    public var descriptionTextStyle: WKFont!
+    public var extractTextStyle: WKFont!
+    public var saveButtonTextStyle: WKFont!
+
     public var imageViewDimension: CGFloat = 0 // used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat = 3
 
@@ -222,16 +229,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
-    
 
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
 
         updateTitleLabel()
         
-        descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
-        alertButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+        descriptionLabel.font = WKFont.for(descriptionTextStyle, compatibleWith: traitCollection)
+        extractLabel?.font = WKFont.for(extractTextStyle, compatibleWith: traitCollection)
+        alertButton.titleLabel?.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
     }
     
     // MARK: - Semantic content

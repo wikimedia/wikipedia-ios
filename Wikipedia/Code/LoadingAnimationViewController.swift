@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class LoadingAnimationViewController: UIViewController {
     
@@ -53,8 +53,8 @@ class LoadingAnimationViewController: UIViewController {
     }
     
     private func updateFonts() {
-        cancelButton.titleLabel?.font = UIFont.wmf_font(.semiboldTitle3, compatibleWithTraitCollection: traitCollection)
-        statusLabel.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
+        cancelButton.titleLabel?.font = WKFont.for(.semiboldTitle3, compatibleWith: traitCollection)
+        statusLabel.font = WKFont.for(.boldHeadline, compatibleWith: traitCollection)
     }
 }
 

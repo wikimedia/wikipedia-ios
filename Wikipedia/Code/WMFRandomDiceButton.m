@@ -36,7 +36,7 @@
 
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.textColor = [UIColor whiteColor];
-    self.label.font = [UIFont systemFontOfSize:16];
+    self.label.font = [WKFontWrapper fontFor:WMFFontsCallout compatibleWithTraitCollection:self.traitCollection];
     self.label.adjustsFontSizeToFitWidth = YES;
     self.label.minimumScaleFactor = 0.1;
     self.label.textAlignment = NSTextAlignmentCenter;

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 // MARK: - Cell
 class TableOfContentsCell: UITableViewCell {
@@ -20,9 +20,9 @@ class TableOfContentsCell: UITableViewCell {
     }
     
     private var titleHTML: String = ""
-    private var titleTextStyle: DynamicTextStyle = .georgiaTitle3
+    private var titleTextStyle: WKFont = .georgiaTitle3
     private var isTitleLabelHighlighted: Bool = false
-    func setTitleHTML(_ html: String, with textStyle: DynamicTextStyle, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
+    func setTitleHTML(_ html: String, with textStyle: WKFont, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
         isTitleLabelHighlighted = highlighted
         titleHTML = html
         titleTextStyle = textStyle
@@ -30,10 +30,19 @@ class TableOfContentsCell: UITableViewCell {
         titleSelectionColor = selectionColor
         updateTitle()
     }
-    
-    func updateTitle() {
+
+    private var styles: HtmlUtils.Styles {
         let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
-        titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, color: color, handlingLinks: false)
+        return HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
+    }
+
+    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
+    func updateTitle() {
+
+        titleLabel.attributedText = getAttributedString(titleHTML)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

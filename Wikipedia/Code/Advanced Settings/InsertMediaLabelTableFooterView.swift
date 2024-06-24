@@ -1,3 +1,5 @@
+import Components
+
 final class InsertMediaLabelTableFooterView: SetupView, Themeable {
     private let label = UILabel()
     private let separator = UIView()
@@ -36,7 +38,7 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
     }
 
     private func updateFonts() {
-        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
     }
 
     func apply(theme: Theme) {

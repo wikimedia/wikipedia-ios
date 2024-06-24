@@ -43,7 +43,7 @@ struct WKFeatureAnnouncementView: View {
                                 .font(Font(WKFont.for(.boldTitle3)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                             Text(viewModel.body)
-                                .font(Font(WKFont.for(.body)))
+                                .font(Font(WKFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
                         if let image = viewModel.image {

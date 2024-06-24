@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
@@ -34,7 +34,7 @@ class ImageCollectionViewCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        captionLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        captionLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
     }
     
     override func reset() {

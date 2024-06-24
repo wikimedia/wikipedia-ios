@@ -124,7 +124,7 @@ fileprivate struct WKWatchlistViewCell: View {
     }
     
     var editSummaryCommentFont: UIFont {
-        return itemViewModel.comment.isEmpty ? WKFont.for(.smallItalicsBody) : WKFont.for(.smallBody)
+        return itemViewModel.comment.isEmpty ? WKFont.for(.italicFootnote) : WKFont.for(.footnote)
     }
 
 	var body: some View {

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class DescriptionHelpViewController: ViewController {
 
@@ -99,13 +99,13 @@ class DescriptionHelpViewController: ViewController {
 
     private func updateFonts() {
         allLabels.forEach {
-            $0.set(dynamicTextStyle: .body)
+            $0.set(dynamicTextStyle: .callout)
         }
         headingLabels.forEach {
             $0.set(dynamicTextStyle: .headline)
         }
         italicLabels.forEach {
-            $0.set(dynamicTextStyle: .italicBody)
+            $0.set(dynamicTextStyle: .italicCallout)
         }
     }
     
@@ -119,7 +119,7 @@ class DescriptionHelpViewController: ViewController {
 }
 
 private extension UILabel {
-    func set(dynamicTextStyle: DynamicTextStyle) {
-        font = UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: traitCollection)
+    func set(dynamicTextStyle: WKFont) {
+        font = WKFont.for(dynamicTextStyle, compatibleWith: traitCollection)
     }
 }

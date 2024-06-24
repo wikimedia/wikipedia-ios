@@ -1,3 +1,5 @@
+import Components
+
 class WMFWelcomeIntroductionViewController: ThemeableViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
@@ -28,7 +30,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        learnMoreButton.titleLabel?.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

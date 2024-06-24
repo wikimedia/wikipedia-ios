@@ -1,5 +1,5 @@
-import WMF
 import Components
+import WMF
 
 public struct LibraryUsed {
     let title:String
@@ -39,7 +39,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         let labelFrame = headerView.frame.insetBy(dx: 10, dy: 10)
         let label = UILabel.init(frame: labelFrame)
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.font = WKFont.for(.footnote)
         label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0

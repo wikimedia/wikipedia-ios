@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
@@ -43,10 +43,10 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     }
 
     private func updateFonts() {
-        headerLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        learnMoreButton.titleLabel?.font =  UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        footerLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        textView.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font =  WKFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     override func prepareForReuse() {

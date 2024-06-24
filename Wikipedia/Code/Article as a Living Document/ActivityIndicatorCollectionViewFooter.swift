@@ -1,3 +1,5 @@
+import Components
+
 class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)
     private let loadingLabel = UILabel()
@@ -12,7 +14,7 @@ class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
     }
 
     private func setupView() {
-        loadingLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        loadingLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
         loadingLabel.text = WMFLocalizedString("loading-indicator-text", value: "Loading", comment: "Text shown underneath loading indicator.").uppercased()
 
         addSubview(loadingLabel)

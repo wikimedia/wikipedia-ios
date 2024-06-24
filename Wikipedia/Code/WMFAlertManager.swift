@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import MessageUI
 
 extension NSError {
@@ -141,11 +141,11 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             messageView.subtitleTextColor = theme.colors.primaryText
             if messageView.customTypeName == "connection" {
                 messageView.imageViewTintColor = theme.colors.error
-                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                messageView.buttonFont = WKFont.for(.boldSubheadline)
             } else if messageView.customTypeName == "subscription-error" {
                 messageView.imageViewTintColor = theme.colors.warning
             } else if messageView.customTypeName == "watchlist-add-remove-success" {
-                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                messageView.buttonFont = WKFont.for(.boldSubheadline)
             } else if messageView.customTypeName == "donate-success" {
                 messageView.imageViewTintColor = theme.colors.error
             } else if messageView.customTypeName == "edit-preview-simplified-format" {

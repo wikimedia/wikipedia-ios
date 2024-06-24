@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import NotificationCenter
 import WMF
 
@@ -131,9 +131,9 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         } else {
             self.daysAgoView.isHidden = true
         }
+        let styles = HtmlUtils.Styles(font: WKFont.for(.headline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.headline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         
-        self.titleLabel.attributedText = article.displayTitleHTML.byAttributingHTML(with: .headline, matching: traitCollection)
-        
+        self.titleLabel.attributedText = getAttributedString(article.displayTitleHTML, styles: styles)
         let combinedCompletion = {
             self.updatePreferredContentSize()
             completion(true)
@@ -154,6 +154,10 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         }
     }
     
+    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
+        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+    }
+
     func updatePreferredContentSize() {
         var fitSize = UIView.layoutFittingCompressedSize
         fitSize.width = view.bounds.size.width

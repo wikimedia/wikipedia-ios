@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class OnThisDayViewControllerHeader: UICollectionReusableView {
     @IBOutlet weak var eventsLabel: UILabel!
@@ -18,7 +18,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     }
 
     private func updateFonts() {
-        onLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+        onLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, midnightUTCDate: Date) {
