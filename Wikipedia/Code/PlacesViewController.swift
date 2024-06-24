@@ -80,6 +80,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
+        self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
         // extendedLayoutIncludesOpaqueBars = true
         // edgesForExtendedLayout = UIRectEdge.all
     }
@@ -250,8 +251,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
 
         let search = UISearchController(searchResultsController: nil)
+        search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
-        // search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.delegate = self
         search.searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
         if #available(iOS 16.0, *) {
             search.scopeBarActivation = .manual
@@ -274,7 +276,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         if !isViewModeOverlay {
             searchController.searchBar.showsScopeBar = true
             searchController.searchBar.scopeButtonTitles = ["Map","List"]
-            searchController.searchBar.delegate = self
         } else {
             searchController.searchBar.showsScopeBar = false
         }
@@ -1118,11 +1119,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 }
                 // mapView.isHidden = false
                 mapContainerView.isHidden = false
+                
                 listContainerView.isHidden = true
                 listViewController.view.isHidden = true
                 collectionView.isHidden = true
+                
                 searchSuggestionView.isHidden = false
-                listAndSearchOverlayContainerView.isHidden = true // false
+                listAndSearchOverlayContainerView.isHidden = false
+                
                 // navigationBar.isInteractiveHidingEnabled = false
                 searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
                 // scrollView = nil
@@ -1130,11 +1134,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             case .search:
                 // mapView.isHidden = true
                 mapContainerView.isHidden = true
+                
                 listContainerView.isHidden = true
                 listViewController.view.isHidden = true
                 collectionView.isHidden = true
+                
                 searchSuggestionView.isHidden = false
-                listAndSearchOverlayContainerView.isHidden = true // false
+                listAndSearchOverlayContainerView.isHidden = false
+                
                 // navigationBar.isInteractiveHidingEnabled = true
                 searchSuggestionView.contentInsetAdjustmentBehavior = .never
                 // scrollView = searchSuggestionView
@@ -2089,6 +2096,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles() {
+        guard let searchBar = navigationItem.searchController?.searchBar else {
+            return
+        }
+        
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
@@ -2105,7 +2116,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             }
         }) { (searchResult) in
             DispatchQueue.main.async {
-                guard text == self.searchBar.text else {
+                guard text == searchBar.text else {
                     return
                 }
                 
