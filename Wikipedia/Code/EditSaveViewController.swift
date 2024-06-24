@@ -16,7 +16,7 @@ protocol EditSaveViewControllerDelegate: NSObjectProtocol {
 
 protocol EditSaveViewControllerEditorLoggingDelegate: AnyObject {
     func logEditSaveViewControllerDidTapShowWebPreview()
-    func logEditSaveViewControllerDidTapPublish(source: EditorViewController.Source, summaryAdded: Bool, isMinor: Bool, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapPublish(source: EditorViewController.Source, summaryAdded: Bool, isMinor: Bool, isWatched: Bool, project: WikimediaProject)
     func logEditSaveViewControllerPublishSuccess(source: EditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
     func logEditSaveViewControllerPublishFailed(source: EditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
     func logEditSaveViewControllerDidTapBlockedMessageLink(source: EditorViewController.Source, project: WikimediaProject)
@@ -256,9 +256,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         minorEditLabel.text = WMFLocalizedString("edit-minor-text", languageCode: languageCode, value: "This is a minor edit", comment: "Text for minor edit label")
         minorEditButton.setTitle(WMFLocalizedString("edit-minor-learn-more-text", languageCode: languageCode, value: "Learn more about minor edits", comment: "Text for minor edits learn more button"), for: .normal)
 
-        addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", value: "Watch this page", comment: "Text for watch this page label")
-        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
-        
+        addToWatchlistLabel.text = WMFLocalizedString("edit-watch-this-page-text", languageCode: languageCode, value: "Watch this page", comment: "Text for watch this page label")
+        addToWatchlistButton.setTitle(WMFLocalizedString("edit-watch-list-learn-more-text", languageCode: languageCode, value: "Learn more about your Watchlist", comment: "Text for watch lists learn more button"), for: .normal)
+
         setupWebPreviewButton()
     }
     
@@ -356,18 +356,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         
         let isMinor = minorEditToggle.isOn
+        let isWatched = addToWatchlistToggle.isOn
         
         if let source,
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
             
-            editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, project: project)
+            editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
             
         }
         
-        let isWatchlist = addToWatchlistToggle.isOn
-        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatchlist)
+        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
         
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
         
@@ -467,7 +467,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
                 
-                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _ in
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _, _ in
                     
                     self?.dismiss(animated: true) {
                         self?.save()
@@ -599,7 +599,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     @IBAction public func minorEditButtonTapped(sender: UIButton) {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapMinorEditsLearnMore()
-        navigate(to: URL(string: "https://meta.wikimedia.org/wiki/Help:Minor_edit"))
+        navigate(to: URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Minor_edit"))
     }
 
     @IBAction public func watchlistButtonTapped(sender: UIButton) {

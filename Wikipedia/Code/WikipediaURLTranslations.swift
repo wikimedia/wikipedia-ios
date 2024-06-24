@@ -1,9 +1,9 @@
 import Foundation
 
 struct WikipediaURLTranslations {
-    private static var sharedLookupTable: [String: WikipediaSiteInfoLookup] = [:]
+    private static var sharedLookupTable: [String: WikipediaSiteInfoLookup.NamespaceInfo] = [:]
 
-    private static func lookupTable(for languageCode: String) -> WikipediaSiteInfoLookup? {
+    private static func lookupTable(for languageCode: String) -> WikipediaSiteInfoLookup.NamespaceInfo? {
         var lookup = sharedLookupTable[languageCode]
         if lookup == nil {
             lookup = fromFile(with: languageCode)
@@ -25,14 +25,14 @@ struct WikipediaURLTranslations {
         return lookupTable(for: languageCode)?.mainpage == canonicalized(maybeMainpage)
     }
     
-    static func fromFile(with languageCode: String) -> WikipediaSiteInfoLookup? {
+    static func fromFile(with languageCode: String) -> WikipediaSiteInfoLookup.NamespaceInfo? {
         guard
             let url = Bundle.wmf.url(forResource: "wikipedia-namespaces/\(languageCode)", withExtension: "json"),
             let data = try? Data(contentsOf: url)
         else {
             return nil
         }
-        return try? JSONDecoder().decode(WikipediaSiteInfoLookup.self, from: data)
+        return try? JSONDecoder().decode(WikipediaSiteInfoLookup.NamespaceInfo.self, from: data)
     }
 }
 

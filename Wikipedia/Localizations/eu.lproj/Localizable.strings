@@ -262,7 +262,7 @@
 "main-menu-account-logout-cancel" = "Utzi";
 "main-menu-account-title-logged-in" = "Saioa hasita, $1 erabiltzaile izenarekin";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
-"main-menu-nearby" = "Gertukoak";
+"main-menu-nearby" = "Hurbilekoak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
 "main-menu-rate-app" = "Baloratu aplikazioa";
 "main-menu-terms-of-use" = "Erabilera Baldintzak";
@@ -321,7 +321,7 @@
 "places-search-suggested-searches-header" = "Iradokitako bilaketak";
 "places-search-this-area" = "Emaitzak leku honetan";
 "places-search-top-articles" = "Top artikulu guztiak";
-"places-search-top-articles-that-match-scope" = "Gertukoak";
+"places-search-top-articles-that-match-scope" = "Hurbilekoak";
 "places-search-your-current-location" = "Zure oraingo kokapena";
 "places-title" = "Lekuak";
 "places-unknown-distance" = "distantzia ezezaguna";

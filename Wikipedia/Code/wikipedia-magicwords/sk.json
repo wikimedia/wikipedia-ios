@@ -1,0 +1,72 @@
+[
+  {
+    "aliases" : [
+      "stred",
+      "center",
+      "centre",
+      "střed"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "rám",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "vľavo",
+      "left",
+      "vlevo"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "žiadny",
+      "none",
+      "žádné"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "vpravo",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "náhľad",
+      "náhľadobrázka",
+      "thumb",
+      "thumbnail",
+      "náhled"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "bezrámu",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Súbor"
+    ],
+    "name" : "file_namespace"
+  }
+]

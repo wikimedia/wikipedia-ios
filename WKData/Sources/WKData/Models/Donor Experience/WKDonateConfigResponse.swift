@@ -3,7 +3,7 @@ import Foundation
 public struct WKDonateConfigResponse: Codable {
     
     static var currentVersion = 1
-    let config: WKDonateConfig
+    var config: WKDonateConfig
     
     public init(from decoder: Decoder) throws {
         

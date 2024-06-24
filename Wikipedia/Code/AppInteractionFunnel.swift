@@ -90,31 +90,52 @@ import WMF
         logEvent(activeInterface: .setting, action: .donateStartClick)
     }
     
-    func logFundraisingCampaignModalImpression(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalImpression(project: WikimediaProject, metricsID: String?) {
         
+        var actionData: [String: String]?
+        if let metricsID {
+            actionData = [:]
+            actionData?["campaign_id"] = metricsID
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
+    }
+    
+    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, campaignID: String?) {
         var actionData: [String: String]?
         if let campaignID {
             actionData = [:]
             actionData?["campaign_id"] = campaignID
         }
         
-        logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
+        logEvent(activeInterface: .articleBanner, action: .closeClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .closeClick, project: project)
+    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .donateClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .donateClick, project: project)
+    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .laterClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .laterClick, project: project)
-    }
-    
-    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, project: project)
+    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = ["campaign_id": campaignID]
+        }
+        
+        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, actionData: actionData, project: project)
     }
     
     func logFundraisingCampaignModalDidTapDonorPolicy(project: WikimediaProject) {
@@ -192,13 +213,13 @@ import WMF
         logEvent(activeInterface: .applePay, action: .taxInfoClick, project: project)
     }
     
-    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, campaignID: String?, donorEmail: String?, project: WikimediaProject?) {
+    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, metricsID: String?, donorEmail: String?, project: WikimediaProject?) {
         var actionData = ["preset_selected": String(presetIsSelected),
                           "donation_amount": (amount as NSNumber).stringValue,
                           "recurring": String(recurringMonthlyIsSelected),
                           "pay_method": "applepay"]
-        if let campaignID {
-            actionData["campaign_id"] = campaignID
+        if let metricsID {
+            actionData["campaign_id"] = metricsID
         }
         
         if let donorEmail {
@@ -238,11 +259,11 @@ import WMF
         logEvent(activeInterface: .webPayInitiated, action: .impression, project: project)
     }
     
-    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, campaignBannerID: String?) {
+    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignBannerID {
+        if let metricsID {
             actionData = [:]
-            actionData?["campaign_id"] = campaignBannerID
+            actionData?["campaign_id"] = metricsID
         }
         logEvent(activeInterface: .webPayProcessed, action: .impression, actionData: actionData, project: project)
     }
