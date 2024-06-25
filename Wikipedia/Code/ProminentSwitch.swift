@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 @objc (WMFProminentSwitch)
 class ProminentSwitch: UISwitch {
@@ -9,8 +9,8 @@ class ProminentSwitch: UISwitch {
     
     override var isEnabled: Bool {
         didSet {
-            backgroundColor = isEnabled ? nil : .gray300
-            tintColor = isEnabled ? nil : .gray200
+            backgroundColor = isEnabled ? nil : WKColor.gray300
+            tintColor = isEnabled ? nil : WKColor.gray200
         }
     }
 }

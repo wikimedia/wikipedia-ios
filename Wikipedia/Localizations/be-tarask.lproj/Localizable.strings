@@ -26,7 +26,7 @@
 "about-wikipedia" = "Вікіпэдыя";
 "account-creation-captcha-obtaining" = "Атрымліваем новую CAPTCHA…";
 "account-creation-logging-in" = "Уваход у сыстэму...";
-"account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць рахунак.";
+"account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць уліковы запіс.";
 "account-creation-passwords-mismatched" = "Паролі не супадаюць.";
 "account-creation-saving" = "Захаваньне...";
 "article-languages-filter-placeholder" = "Знайсьці мову";
@@ -99,6 +99,7 @@
 "search-recent-title" = "Нядаўна шукалі";
 "search-result-redirected-from" = "Перанакіравана з: $1";
 "search-title" = "Пошук";
+"settings-appearance" = "Налады чытаньня";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";

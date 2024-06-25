@@ -13,6 +13,7 @@
 // Author: BaziOnline
 // Author: Beginneruser
 // Author: Darafsh
+// Author: Ebrahim
 // Author: Ebraminio
 // Author: FarsiNevis
 // Author: Fatemi127
@@ -590,8 +591,13 @@
 "icon-shortcut-random-title" = "مقاله تصادفی";
 "icon-shortcut-search-title" = "جستجو در ویکی‌پدیا";
 "image-gallery-unknown-owner" = "پدیدآورنده ناشناخته است.";
+"image-rec-survey-option-6" = "سایر";
+"image-rec-survey-submit-button" = "ثبت";
+"image-rec-survey-title" = "دلیل";
 "image-rec-title" = "افزودن تصویر";
 "image-rec-view-article" = "مشاهدهٔ مقاله";
+"image-recs-no-title" = "خیر";
+"image-recs-yes-title" = "بله";
 "import-shared-reading-list-default-title" = "فهرست مطالعهٔ من";
 "import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";

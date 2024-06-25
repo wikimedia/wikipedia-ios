@@ -1,8 +1,8 @@
 import WMF
 
-class SectionFetcher: Fetcher {
+class WikitextFetcher: Fetcher {
     
-    typealias Protection = SectionFetcher.APIResponse.Query.Page.Protection
+    typealias Protection = WikitextFetcher.APIResponse.Query.Page.Protection
     
     struct APIResponse: Codable {
         struct Query: Codable {
