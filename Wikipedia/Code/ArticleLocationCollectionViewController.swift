@@ -22,7 +22,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         self.needsCloseButton = needsCloseButton
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        if needsCloseButton {
+            hidesBottomBarWhenPushed = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +34,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         self.contentGroupIDURIString = nil
         self.needsCloseButton = false
         super.init(coder: aDecoder)
-        hidesBottomBarWhenPushed = true
+        if needsCloseButton {
+            hidesBottomBarWhenPushed = true
+        }
     }
     
     override func viewDidLoad() {

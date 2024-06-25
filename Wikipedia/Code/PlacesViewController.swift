@@ -91,40 +91,41 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     // MARK: - Search
 
-    lazy var searchBarContainerView: UIView = {
-        let searchBarContainerView = UIView()
-        searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarContainerView.addSubview(searchBarStackView)
-        let leading = searchBarContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBarStackView.leadingAnchor)
-        let trailing = searchBarContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBarStackView.trailingAnchor)
-        let top = searchBarContainerView.topAnchor.constraint(equalTo: searchBarStackView.topAnchor)
-        let bottom = searchBarContainerView.bottomAnchor.constraint(equalTo: searchBarStackView.bottomAnchor)
-        searchBarContainerView.addConstraints([leading, trailing, top, bottom])
-        return searchBarContainerView
-    }()
+//    lazy var searchBarContainerView: UIView = {
+//        let searchBarContainerView = UIView()
+//        searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
+//        searchBarContainerView.addSubview(searchBarStackView)
+//        let leading = searchBarContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBarStackView.leadingAnchor)
+//        let trailing = searchBarContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBarStackView.trailingAnchor)
+//        let top = searchBarContainerView.topAnchor.constraint(equalTo: searchBarStackView.topAnchor)
+//        let bottom = searchBarContainerView.bottomAnchor.constraint(equalTo: searchBarStackView.bottomAnchor)
+//        searchBarContainerView.addConstraints([leading, trailing, top, bottom])
+//        return searchBarContainerView
+//    }()
 
-    lazy var searchBarStackView: UIStackView = {
-        let searchBarStackView = UIStackView()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        mapListToggleContainer.translatesAutoresizingMaskIntoConstraints = false
-        searchBarStackView.axis = .horizontal
-        searchBarStackView.alignment = .center
-        searchBarStackView.distribution = .fill
-        searchBarStackView.spacing = 10
-        searchBarStackView.addArrangedSubview(searchBar)
-        searchBarStackView.addArrangedSubview(mapListToggleContainer)
-        return searchBarStackView
-    }()
+//    lazy var searchBarStackView: UIStackView = {
+//        let searchBarStackView = UIStackView()
+//        searchBar.translatesAutoresizingMaskIntoConstraints = false
+//        mapListToggleContainer.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        .axis = .horizontal
+//        searchBarStackView.alignment = .center
+//        searchBarStackView.distribution = .fill
+//        searchBarStackView.spacing = 10
+//        searchBarStackView.addArrangedSubview(searchBar)
+//        searchBarStackView.addArrangedSubview(mapListToggleContainer)
+//        return searchBarStackView
+//    }()
 
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
-        searchBar.delegate = self
-        searchBar.returnKeyType = .search
-        searchBar.searchBarStyle = .minimal
-        searchBar.showsCancelButton = false
-        return searchBar
-    }()
+//    lazy var searchBar: UISearchBar = {
+//        let searchBar = UISearchBar()
+//        searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
+//        searchBar.delegate = self
+//        searchBar.returnKeyType = .search
+//        searchBar.searchBarStyle = .minimal
+//        searchBar.showsCancelButton = false
+//        return searchBar
+//    }()
     
     lazy var mapListToggleContainer: UIView = {
         let mapListToggleContainer = UIView()
@@ -1071,15 +1072,15 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.alpha = 1
                     self.mapListToggleContainer.isHidden = false
-                    self.searchBarStackView.layoutIfNeeded()
-                    self.searchBar.setShowsCancelButton(false, animated: true)
+                    // self.searchBarStackView.layoutIfNeeded()
+                    self.navigationItem.searchController?.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.isHidden = true
                     self.mapListToggleContainer.alpha = 0
-                    self.searchBarStackView.layoutIfNeeded()
-                    self.searchBar.setShowsCancelButton(true, animated: true)
+                    // self.searchBarStackView.layoutIfNeeded()
+                    self.navigationItem.searchController?.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
             switch traitBasedViewMode {
@@ -1913,6 +1914,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
+        
+        guard let searchBar = navigationItem.searchController?.searchBar else {
+            return
+        }
+        
         if isDefaultSearch(search) {
             searchBar.text = nil
         } else {
@@ -1923,7 +1929,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     fileprivate func updateSearchBarText() {
         guard let search = currentSearch else {
-            searchBar.text = nil
+            navigationItem.searchController?.searchBar.text = nil
             return
         }
         updateSearchBarText(forSearch: search)
@@ -1937,6 +1943,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - Search Suggestions & Completions
     
     var currentSearchString: String {
+        
+        guard let searchBar = navigationItem.searchController?.searchBar else {
+            return ""
+        }
+        
         guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) else {
             return ""
         }
@@ -1986,7 +1997,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             searchSuggestionController.siteURL = siteURL
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
-            let searchText = searchBar.text ?? ""
+            let searchText = navigationItem.searchController?.searchBar.text ?? ""
             if !searchText.wmf_hasNonWhitespaceText && recentSearches.isEmpty {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
@@ -2108,7 +2119,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             DispatchQueue.main.async {
-                guard text == self.searchBar.text else {
+                guard text == searchBar.text else {
                     return
                 }
                 self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
@@ -2134,7 +2145,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
                 self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
                     DispatchQueue.main.async {
-                        guard text == self.searchBar.text else {
+                        guard text == searchBar.text else {
                             return
                         }
                         var combinedResults: [MWKSearchResult] = searchResult.results ?? []
@@ -2148,7 +2159,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     private func closeSearch() {
-        searchBar.endEditing(true)
+        navigationItem.searchController?.searchBar.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: view)
@@ -2192,7 +2203,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         
-        searchBar.endEditing(true)
+        navigationItem.searchController?.isActive = false
+        // searchBar.endEditing(true)
         searchForFirstSearchSuggestion()
     }
     
@@ -2216,7 +2228,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - PlaceSearchSuggestionControllerDelegate
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
-        searchBar.endEditing(true)
+        
+        guard let searchBar = navigationItem.searchController?.searchBar else {
+            return
+        }
+        
+        navigationItem.searchController?.isActive = false
+        // searchBar.endEditing(true)
         currentSearch = search
     }
     
@@ -2319,8 +2337,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         view.backgroundColor = theme.colors.baseBackground
         // navigationBar.apply(theme: theme)
 
-        searchBar.apply(theme: theme)
-        searchBar.backgroundColor = theme.colors.paperBackground
+        if let searchBar = navigationItem.searchController?.searchBar {
+            searchBar.apply(theme: theme)
+            searchBar.backgroundColor = theme.colors.paperBackground
+        }
 
         searchSuggestionController.apply(theme: theme)
 
