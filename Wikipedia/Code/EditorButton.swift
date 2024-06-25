@@ -1,6 +1,6 @@
 import Foundation
 
-struct SectionEditorButton {
+struct EditorButton {
     enum Kind {
         case undo
         case redo
