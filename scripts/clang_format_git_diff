@@ -13,10 +13,10 @@ made_changes = false
   file = components[1]
   extension = file.split('.').last
   next if !file_types[extension.downcase.to_sym]
-  replacements = `/usr/local/bin/clang-format -style=file -output-replacements-xml #{file}`
+  replacements = `clang-format -style=file -output-replacements-xml #{file}`
   if replacements.match(/^<replacement /)
     made_changes = true
-    `/usr/local/bin/clang-format -style=file -i #{file}`
+    `clang-format -style=file -i #{file}`
   end
 end
 
