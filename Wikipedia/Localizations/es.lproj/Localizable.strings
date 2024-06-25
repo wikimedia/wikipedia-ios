@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: -jem-
 // Author: AVIADOR71
 // Author: Agusbou2015
 // Author: Andru1013
@@ -435,7 +436,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "explore-suggested-edits-footer" = "Añadir";
-"explore-suggested-edits-image-recs-body" = "Agrega las imágenes sugeridas a los artículos de la Wikipedia para mejorar la comprensión";
+"explore-suggested-edits-image-recs-body" = "Añade imágenes sugeridas a los artículos para mejorarlos";
 "explore-suggested-edits-image-recs-title" = "Añadir una imagen";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
