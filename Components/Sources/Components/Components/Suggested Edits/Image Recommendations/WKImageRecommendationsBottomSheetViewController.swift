@@ -86,7 +86,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     
     func didTapYesButton() {
         if let startTime = viewModel.startTime {
-            let currentTime = Date(timeIntervalSinceNow: 0)
+            let currentTime = Date()
             let timeInterval = currentTime.timeIntervalSince(startTime)
             if timeInterval <= 5 {
                 self.delegate?.imageRecommendationsDidTriggerTimeWarning()
