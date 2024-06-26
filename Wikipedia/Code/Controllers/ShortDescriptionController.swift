@@ -152,19 +152,12 @@ private extension ShortDescriptionController {
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
         let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-        
-        let editSummaryShortDescriptionAdded = WMFLocalizedString(
-            "edit-summary-short-description-added",
-            languageCode: languageCode,
-            value: "Added short description",
-            comment: "Edit summary message when adding a short description for an article"
-        )
 
         sectionUploader.prepend(
             toSectionID: "\(sectionID)",
             text: newTemplateToPrepend,
             forArticleURL: articleURL,
-            summary: editSummaryShortDescriptionAdded,
+            summary: CommonStrings.editSummaryShortDescriptionAdded(with: languageCode),
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
             editSummaryTag: editSummaryTag,
@@ -199,18 +192,12 @@ private extension ShortDescriptionController {
             
             let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
             
-            let editSummaryShortDescriptionUpdated = WMFLocalizedString(
-                "edit-summary-short-description-updated",
-                languageCode: languageCode,
-                value: "Updated short description",
-                comment: "Edit summary message when updating the short description of an article"
-            )
             
             sectionUploader.uploadWikiText(
                 updatedWikitext,
                 forArticleURL: articleURL,
                 section: "\(sectionID)",
-                summary: editSummaryShortDescriptionUpdated,
+                summary: CommonStrings.editSummaryShortDescriptionUpdated(with: languageCode),
                 isMinorEdit: true,
                 addToWatchlist: false,
                 baseRevID: baseRevisionID as NSNumber,
