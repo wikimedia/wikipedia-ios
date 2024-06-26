@@ -10,7 +10,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get tags
         run: git fetch --tags origin
       - name: Checkout and pull latest

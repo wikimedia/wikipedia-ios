@@ -312,6 +312,7 @@
 "editor-wikitext-loading-accessibility" = "กำลังโหลดข้อความตัวแก้ไข";
 "empty-diff-compare-title" = "ไม่มีความแตกต่างระหว่างรุ่น";
 "empty-diff-single-title" = "ไม่มีการเปลี่ยนแปลงที่มองเห็นได้";
+"empty-edit-summary" = "ไม่มีความย่อการแก้ไข";
 "empty-insert-media-title" = "เลือกไฟล์จากวิกิมีเดียคอมมอนส์";
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
 "empty-no-feed-action-message" = "คุณยังสามารถอ่านหน้าที่บันทึกไว้ได้";
@@ -574,6 +575,7 @@
 "nearby-distance-label-miles" = "$1 ไมล์";
 "new-password-instructions" = "คุณเข้าสู่ระบบด้วยรหัสผ่านชั่วคราว คุณต้องตั้งรหัสผ่านใหม่ที่นี่เพื่อให้การเข้าสู่ระบบเสร็จสมบูรณ์";
 "new-password-title" = "ตั้งรหัสผ่านของคุณ";
+"next-action-title" = "ต่อไป";
 "no-email-account-alert" = "โปรดตั้งค่าบัญชีอีเมลบนอุปกรณ์ของคุณและลองอีกครั้ง";
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
@@ -997,6 +999,7 @@
 "talk-pages-topic-compose-body-placeholder" = "คำอธิบาย";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "คำอธิบายหัวข้อ";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "ยกเลิกการตอบกลับ";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "ยกเลิกหัวข้อ";
 "talk-pages-topic-compose-close-confirmation-title" = "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกหัวข้อใหม่นี้?";
 "talk-pages-topic-compose-navbar-title" = "หัวข้อ";
 "talk-pages-topic-compose-title-placeholder" = "ชื่อหัวข้อ";
@@ -1016,6 +1019,7 @@
 "top-read-widget-description" = "เรียนรู้สิ่งที่โลกกำลังอ่านในวันนี้บนวิกิพีเดีย";
 "top-read-widget-readers-count" = "ผู้อ่าน $1";
 "top-read-widget-title" = "อ่านมากที่สุด";
+"try-now-title" = "ลองตอนนี้";
 "tutorial-title" = "สอนใช้งาน";
 "two-factor-login-continue" = "เข้าสู่ระบบต่อ";
 "two-factor-login-instructions" = "โปรดกรอกรหัสการยืนยันตัวตนสองขั้นตอน";
@@ -1065,6 +1069,7 @@
 "watchlist-filter-latest-revisions-header" = "รุ่นล่าสุด";
 "watchlist-filter-latest-revisions-options-latest-revision" = "รุ่นล่าสุด";
 "watchlist-filter-latest-revisions-options-not-latest-revision" = "ไม่ใช่รุ่นล่าสุด";
+"watchlist-filter-significance-header" = "ความสำคัญ";
 "watchlist-filter-significance-options-minor-edits" = "การแก้ไขเล็กน้อย";
 "watchlist-filter-significance-options-non-minor-edits" = "ไม่ใช่การแก้ไขเล็กน้อย";
 "watchlist-filter-type-of-change-header" = "ประเภทของการเปลี่ยน";

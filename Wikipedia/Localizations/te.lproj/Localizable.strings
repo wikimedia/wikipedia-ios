@@ -472,7 +472,7 @@
 "notifications-center-destination-web" = "జాలంలో";
 "notifications-center-empty-checking-for-notifications" = "గమనింపుల కోసం చూస్తున్నాం...";
 "notifications-center-empty-no-messages" = "మీకు సందేశాలేమీ లేవు";
-"notifications-center-empty-not-subscribed" = "మీరు ప్రస్తుతం వికీపీడీయా గమనింపులు దేనికీ చందా కట్టలేదు";
+"notifications-center-empty-not-subscribed" = "మీరు ప్రస్తుతం వికీపీడియా గమనింపులు దేనికీ చందా కట్టలేదు";
 "notifications-center-empty-state-filters-subtitle" = "మరిన్ని సందేశాలు చూసేందుకు $1 ను మార్చండి";
 "notifications-center-empty-state-no-projects-selected" = "మరిన్ని సందేశాలు చూసేందుకు ప్రాజెక్టులను చేర్చండి";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 వడపోత|$1 వడపోతలు}}";
