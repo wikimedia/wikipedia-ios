@@ -430,6 +430,10 @@ extension SavedViewController: UISearchBarDelegate {
 }
 
 extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("do nothing")
+    }
+    
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
     }
     

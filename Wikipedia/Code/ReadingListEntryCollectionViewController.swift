@@ -5,6 +5,7 @@ protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
@@ -218,6 +219,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+        delegate?.scrollViewDidScroll(scrollView)
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

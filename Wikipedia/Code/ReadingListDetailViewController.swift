@@ -99,15 +99,19 @@ class ReadingListDetailViewController: ThemeableViewController {
         readingListEntryCollectionViewController.editController.navigationDelegate = self
     }
     
+    private var headerViewTopConstraint: NSLayoutConstraint?
     private func setupHeaderView() {
         addChild(readingListDetailUnderBarViewController)
         view.addSubview(readingListDetailUnderBarViewController.view)
         readingListDetailUnderBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
         // readingListEntryCollectionViewController.edgesForExtendedLayout = .all
         // scrollView = readingListEntryCollectionViewController.collectionView
+        
+        let headerViewTopAnchor = readingListDetailUnderBarViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        self.headerViewTopConstraint = headerViewTopAnchor
         NSLayoutConstraint.activate(
             [
-                readingListDetailUnderBarViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                headerViewTopAnchor,
                 readingListDetailUnderBarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 readingListDetailUnderBarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ]
@@ -392,6 +396,12 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         } else {
             navigate(to: articleURL)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        print(offset)
+        self.headerViewTopConstraint?.constant = min(-offset,0)
     }
 }
 
