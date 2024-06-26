@@ -99,8 +99,7 @@ public class WMFAccountLogin: Fetcher {
 
                 if
                     status == "UI",
-                    let requests = clientlogin["requests"] as? [AnyObject]
-                {
+                    let requests = clientlogin["requests"] as? [AnyObject] {
                     if let passwordAuthRequest = requests.first(where: { request in
                         guard let id = request["id"] as? String else {
                             return false
