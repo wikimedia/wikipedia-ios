@@ -525,8 +525,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if
                 let vc = cell.cardContent as? ExploreCardViewController,
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
-                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
-            {
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             } else {
                 imageScaleTransitionView = nil
@@ -866,7 +865,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
     
+    // TODO: - Remove after expiry date (4 Oct, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
+        
+        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
         
         guard let fetchedResultsController,
             let groups = fetchedResultsController.fetchedObjects else {
@@ -916,6 +920,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+    }
+}
+
+// MARK: - Image Recommendations Announcement Time-box
+// TODO: - Remove after expiry date (4 Oct, 2024)
+struct ImageRecommendationsFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2024
+        expiryDateComponents.month = 10
+        expiryDateComponents.day = 4
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
     }
 }
 
@@ -1317,7 +1341,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 
 extension ExploreViewController: EditSaveViewControllerDelegate {
     
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>) {
         
         switch result {
         case .success(let changes):

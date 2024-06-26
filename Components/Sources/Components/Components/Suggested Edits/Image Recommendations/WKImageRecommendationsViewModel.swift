@@ -59,6 +59,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         let tutorialButtonTitle: String
         let problemWithFeatureButtonTitle: String
 
+
         public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
@@ -281,11 +282,12 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
-    
+
+
     private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         let group = DispatchGroup()
         var populateError: Error? = nil
-        
+
         group.enter()
         self.populateCurrentArticleSummary(for: imageRecommendation, completion: { error in
             if let error {

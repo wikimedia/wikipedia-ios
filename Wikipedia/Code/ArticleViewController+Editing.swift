@@ -18,9 +18,9 @@ extension ArticleViewController {
     }
     
     func showEditorForFullSource() {
-        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .articleFullSourceEditor, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .articleFullSourceEditor, delegate: self, theme: theme)
         
-        presentEditor(editorViewController: pageEditorViewController)
+        presentEditor(editorViewController: editorViewController)
         
         if let project = WikimediaProject(siteURL: articleURL) {
             EditInteractionFunnel.shared.logArticleDidTapEditSourceButton(project: project)
@@ -32,11 +32,9 @@ extension ArticleViewController {
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
         
-        let editorViewController: UIViewController
         let editSummaryTag: WKEditSummaryTag = selectedTextEditInfo == nil ?  .articleSectionSourceEditor : .articleSelectSourceEditor
 
-        let pageEditorViewController = PageEditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
-        editorViewController = pageEditorViewController
+        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
         
         presentEditor(editorViewController: editorViewController)
     }
@@ -218,14 +216,14 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
     }
 }
 
-extension ArticleViewController: PageEditorViewControllerDelegate {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+extension ArticleViewController: EditorViewControllerDelegate {
+    func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
         }
     }
     
-    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>) {
         switch result {
         case .failure(let error):
             showError(error)

@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-let defaultHandler: XCWaitCompletionHandler = { (err: Error?) -> Void in
+let defaultHandler: XCWaitCompletionHandler = { (err: Error?) in
     if let e = err {
         print("Timeout expired with error \(e)")
     }
