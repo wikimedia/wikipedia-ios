@@ -34,11 +34,8 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
         }
     }
 
-    private var startTime: Date?
-
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        startTime = Date(timeIntervalSinceNow: 0)
         loggingDelegate?.logBottomSheetDidAppear()
     }
 
@@ -88,7 +85,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
     
     func didTapYesButton() {
-        if let startTime {
+        if let startTime = viewModel.startTime {
             let currentTime = Date(timeIntervalSinceNow: 0)
             let timeInterval = currentTime.timeIntervalSince(startTime)
             if timeInterval <= 5 {

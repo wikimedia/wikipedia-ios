@@ -150,6 +150,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     let imageRecommendationsDataController: WKImageRecommendationsDataController
     let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
 
+    private(set) public var startTime: Date?
+
     // MARK: - Lifecycle
     
     public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
@@ -303,7 +305,9 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             }
             group.leave()
         }
-        
+
+        startTime = Date()
+
         group.notify(queue: .main) {
             completion(populateError)
         }
