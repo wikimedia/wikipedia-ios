@@ -48,6 +48,7 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
+        static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
@@ -476,6 +477,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+    }
+    
+    var isDifferentErrorBannerShown: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.isDifferentErrorBannerShown)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.isDifferentErrorBannerShown)
         }
     }
 
