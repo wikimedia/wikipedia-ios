@@ -866,7 +866,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
     
+    // TODO: - Remove after expiry date (4 Oct, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
+        
+        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
         
         guard let fetchedResultsController,
             let groups = fetchedResultsController.fetchedObjects else {
@@ -916,6 +921,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+    }
+}
+
+// MARK: - Image Recommendations Announcement Time-box
+// TODO: - Remove after expiry date (4 Oct, 2024)
+struct ImageRecommendationsFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2024
+        expiryDateComponents.month = 10
+        expiryDateComponents.day = 4
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
     }
 }
 
@@ -1276,6 +1301,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
         saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
         saveVC.imageRecLoggingDelegate = self
@@ -1310,7 +1336,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 
 extension ExploreViewController: EditSaveViewControllerDelegate {
     
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>) {
         
         switch result {
         case .success(let changes):

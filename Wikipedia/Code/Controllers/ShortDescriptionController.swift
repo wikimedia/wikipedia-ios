@@ -13,7 +13,7 @@ protocol ShortDescriptionControllerDelegate: AnyObject {
 
 class ShortDescriptionController: ArticleDescriptionControlling {
     
-    private let sectionFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let sectionUploader: WikiTextSectionUploader
     
     private let articleURL: URL
@@ -33,15 +33,15 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     /// Inits for use of updating EN Wikipedia article description
     /// - Parameters:
-    ///   - sectionFetcher: section fetcher that fetches the first section of wikitext. Injectable for unit tests.
+    ///   - wikitextFetcher: fetcher that fetches the first section of wikitext. Injectable for unit tests.
     ///   - sectionUploader: section uploader that uploads the new section wikitext. Injectable for unit tests.
     ///   - article: WMFArticle from ArticleViewController
     ///   - articleLanguageCode: Language code of article that we want to update (from ArticleViewController)
     ///   - articleURL: URL of article that we want to update (from ArticleViewController)
     ///   - descriptionSource: ArticleDescriptionSource determined via .edit action across ArticleViewController js bridge
     ///   - delegate: Delegate that can extract the current description from the article content
-    init(sectionFetcher: SectionFetcher = SectionFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
-        self.sectionFetcher = sectionFetcher
+    init(wikitextFetcher: WikitextFetcher = WikitextFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
+        self.wikitextFetcher = wikitextFetcher
         self.sectionUploader = sectionUploader
         self.article = article
         self.articleURL = articleURL
@@ -56,7 +56,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     ///   - completion: Completion called when updated section upload call is successful.
     func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
 
                 guard let self = self else {
@@ -95,7 +95,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         
         // Populate blocked error
         group.enter()
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             
             defer {
                 group.leave()
@@ -152,19 +152,12 @@ private extension ShortDescriptionController {
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
         let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-        
-        let editSummaryShortDescriptionAdded = WMFLocalizedString(
-            "edit-summary-short-description-added",
-            languageCode: languageCode,
-            value: "Added short description",
-            comment: "Edit summary message when adding a short description for an article"
-        )
 
         sectionUploader.prepend(
             toSectionID: "\(sectionID)",
             text: newTemplateToPrepend,
             forArticleURL: articleURL,
-            summary: editSummaryShortDescriptionAdded,
+            summary: CommonStrings.editSummaryShortDescriptionAdded(with: languageCode),
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
             editSummaryTag: editSummaryTag,
@@ -199,18 +192,12 @@ private extension ShortDescriptionController {
             
             let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
             
-            let editSummaryShortDescriptionUpdated = WMFLocalizedString(
-                "edit-summary-short-description-updated",
-                languageCode: languageCode,
-                value: "Updated short description",
-                comment: "Edit summary message when updating the short description of an article"
-            )
             
             sectionUploader.uploadWikiText(
                 updatedWikitext,
                 forArticleURL: articleURL,
                 section: "\(sectionID)",
-                summary: editSummaryShortDescriptionUpdated,
+                summary: CommonStrings.editSummaryShortDescriptionUpdated(with: languageCode),
                 isMinorEdit: true,
                 addToWatchlist: false,
                 baseRevID: baseRevisionID as NSNumber,

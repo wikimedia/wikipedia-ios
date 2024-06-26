@@ -224,7 +224,7 @@ final class ImageRecommendationsFunnel: NSObject {
     
     func logSaveChangesPublishSuccess(timeSpent: Int?, revisionID: Int, captionAdded: Bool, altTextAdded: Bool, summaryAdded: Bool) {
         var actionData = ["revision_id": "\(revisionID)",
-                          "capion_add": "\(captionAdded)",
+                          "caption_add": "\(captionAdded)",
                           "alt_text_add": "\(altTextAdded)",
                           "summary_add": "\(summaryAdded)"]
         if let timeSpent {

@@ -458,15 +458,6 @@ extension WKSourceEditorViewController: UITextViewDelegate {
         
         delegate?.sourceEditorDidChangeText(self, didChangeText: textView.attributedText.string != viewModel.initialText)
     }
-
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // Don't allow emdash text changes. This throws off find & replace.
-        if text == "—" {
-            return false
-        }
-        
-        return true
-    }
 }
 
 // MARK: - WKEditorToolbarExpandingViewDelegate

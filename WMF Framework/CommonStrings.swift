@@ -635,6 +635,22 @@ public class CommonStrings: NSObject {
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
     
     @objc public static let suggestedEditsTitle = WMFLocalizedString("suggested-edits-title", value: "Suggested Edits", comment: "Title for the 'Suggested Edits' explore feed card")
+    
+    public static func editSummaryShortDescriptionAdded(with languageCode: String? = nil) -> String {
+        WMFLocalizedString(
+            "edit-summary-short-description-added",
+            languageCode: languageCode,
+            value: "Added short description",
+            comment: "Edit summary message when adding a short description for an article")
+    }
+    
+    public static func editSummaryShortDescriptionUpdated(with languageCode: String? = nil) -> String {
+        WMFLocalizedString(
+            "edit-summary-short-description-updated",
+            languageCode: languageCode,
+            value: "Updated short description",
+            comment: "Edit summary message when updating the short description of an article")
+    }
 
     // Image recommendations
 
