@@ -33,6 +33,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
     func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
+    func logDialogWarningMessageDidDisplay()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {

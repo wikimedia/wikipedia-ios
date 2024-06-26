@@ -1429,7 +1429,11 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     func logBottomSheetDidAppear() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
-    
+
+    func logDialogWarningMessageDidDisplay() {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay()
+    }
+
     func logBottomSheetDidTapYes() {
         
         if let viewModel = imageRecommendationsViewModel,
