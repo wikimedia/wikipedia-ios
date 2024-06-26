@@ -89,8 +89,8 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
             let currentTime = Date()
             let timeInterval = currentTime.timeIntervalSince(startTime)
             if timeInterval <= 5 {
-                self.delegate?.imageRecommendationsDidTriggerTimeWarning()
-                self.loggingDelegate?.logDialogWarningMessageDidDisplay()
+                delegate?.imageRecommendationsDidTriggerTimeWarning()
+                loggingDelegate?.logDialogWarningMessageDidDisplay()
                 return
             }
 
