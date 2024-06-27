@@ -807,7 +807,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
-                otdVC.navigationMode = .bar
+                // otdVC.navigationMode = .bar
             } else if let newsVC = viewControllerToCommit as? NewsViewController {
                 newsVC.navigationMode = .bar
             }
@@ -839,7 +839,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
                 avc.wmf_removePeekableChildViewControllers()
                 self.push(avc, animated: false)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
-                otdVC.navigationMode = .detail
+                // otdVC.navigationMode = .detail
                 self.push(viewControllerToCommit, animated: true)
             } else if let newsVC = viewControllerToCommit as? NewsViewController {
                 newsVC.navigationMode = .detail

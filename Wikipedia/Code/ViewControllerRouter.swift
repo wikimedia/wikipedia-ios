@@ -166,7 +166,6 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            onThisDayVC.shouldShowNavigationBar = true
             if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
                 onThisDayVC.initialEvent = selectedEvent
             }
