@@ -344,6 +344,8 @@
 "edit-summary-choice-fixed-typos" = "修正筆誤";
 "edit-summary-choice-linked-words" = "新增連結";
 "edit-summary-placeholder-text" = "您如何改善此條目？";
+"edit-summary-short-description-added" = "已新增簡短描述";
+"edit-summary-short-description-updated" = "已更新簡短描述";
 "edit-watch-list-learn-more-text" = "了解更多關於您的監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
 "editing-welcome-be-bold-subtitle" = "在更新條目的時候可以大膽但不要魯莽。不要為犯錯而苦惱：頁面過去的所有版本都會儲存下來，所以錯誤會很容易被我們的社群糾正。";
@@ -637,6 +639,7 @@
 "image-recommendations-email-title" = "問題報告 - 新增圖片功能";
 "image-recs-no-title" = "否";
 "image-recs-not-sure-title" = "不確定";
+"image-recs-time-warning-message" = "請檢閱條目來了解該主題並檢查圖片";
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的閱讀清單";
 "import-shared-reading-list-survey-prompt-button-cancel" = "現在不要";
