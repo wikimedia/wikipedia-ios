@@ -809,7 +809,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
                 // otdVC.navigationMode = .bar
             } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                newsVC.navigationMode = .bar
+                // newsVC.navigationMode = .bar
             }
 
             previewed.indexPathItem = itemIndex
@@ -842,7 +842,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
                 // otdVC.navigationMode = .detail
                 self.push(viewControllerToCommit, animated: true)
             } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                newsVC.navigationMode = .detail
+                // newsVC.navigationMode = .detail
                 self.push(viewControllerToCommit, animated: true)
             } else {
                 self.push(viewControllerToCommit, animated: true)

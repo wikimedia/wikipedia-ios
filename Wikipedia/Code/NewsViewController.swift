@@ -1,7 +1,7 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
+class NewsViewController: ColumnarCollectionViewController2, DetailPresentingFromContentGroup {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
@@ -20,9 +20,10 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +35,13 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
+        addCloseButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -71,6 +79,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        applyThemeToCloseButton()
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
@@ -82,6 +91,36 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     // MARK: - CollectionViewFooterDelegate
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private var closeButton: UIButton?
+    private func addCloseButton() {
+        guard closeButton == nil else {
+            return
+        }
+        
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
+        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        view.addSubview(button)
+        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
+        button.addConstraints([height, width])
+        let top = button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
+        view.addConstraints([top, trailing])
+        closeButton = button
+        applyThemeToCloseButton()
+    }
+    
+    private func applyThemeToCloseButton() {
+        closeButton?.tintColor = theme.colors.tertiaryText
+    }
+    
+    @objc private func close() {
         navigationController?.popViewController(animated: true)
     }
 }
