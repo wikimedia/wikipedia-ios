@@ -525,8 +525,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if
                 let vc = cell.cardContent as? ExploreCardViewController,
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
-                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
-            {
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             } else {
                 imageScaleTransitionView = nil
@@ -1254,6 +1253,12 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsDidTriggerError(_ error: any Error) {
         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
     }
+
+    func imageRecommendationsDidTriggerTimeWarning() {
+        let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+    }
+
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
@@ -1424,7 +1429,11 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     func logBottomSheetDidAppear() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
-    
+
+    func logDialogWarningMessageDidDisplay() {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay()
+    }
+
     func logBottomSheetDidTapYes() {
         
         if let viewModel = imageRecommendationsViewModel,
