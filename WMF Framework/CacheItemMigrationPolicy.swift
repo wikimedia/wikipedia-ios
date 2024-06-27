@@ -26,7 +26,7 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
             var isDownloaded = false
-            autoreleasepool { () -> Void in
+            autoreleasepool { () in
                 guard
                     let fileName = fetcher.uniqueFileNameForItemKey(key, variant: newVariant),
                     let headerFileName = fetcher.uniqueHeaderFileNameForItemKey(key, variant: newVariant) else {

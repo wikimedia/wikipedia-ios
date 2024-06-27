@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: -jem-
 // Author: AVIADOR71
 // Author: Agusbou2015
 // Author: Andru1013
@@ -46,6 +47,7 @@
 // Author: Nemo bis
 // Author: Nick
 // Author: No se
+// Author: PPenloglou-WMF
 // Author: Papouten
 // Author: Pginer
 // Author: RicardoSGZ
@@ -185,7 +187,7 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
-"button-go-back" = "Volver";
+"button-go-back" = "Atrás";
 "button-next" = "Siguiente";
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
@@ -283,7 +285,17 @@
 "diff-unchanged-contextual-line" = "Línea contextual, sin cambios: $1";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 renglón|$1 renglones}} sin editar";
 "dim-images" = "Atenuación de imágenes";
-"donate-apple-fine-print" = "Apple no se encarga de recaudar dinero para este fin.";
+"donate-already-donated" = "¡Gracias por tu donación! Tu generosidad mantiene viva la Wikipedia y otros proyectos relacionados.";
+"donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
+"donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";
+"donate-later-title" = "Volveremos a intentarlo mañana.";
+"donate-monthly-recurring-text" = "Quiero hacer una donación recurrente.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Donar con Apple Pay";
+"donate-payment-method-prompt-message" = "Dona con Apple Pay o elige otro método de pago.";
+"donate-payment-method-prompt-other-button-title" = "Otro método de pago";
+"donate-payment-method-prompt-title" = "¿Quieres donar con Apple Pay?";
+"donate-title" = "Selecciona un importe";
+"donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Enlace destino";
 "edit-link-remove-link-title" = "Eliminar enlace";
@@ -424,7 +436,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "explore-suggested-edits-footer" = "Añadir";
-"explore-suggested-edits-image-recs-body" = "Agrega las imágenes sugeridas a los artículos de la Wikipedia para mejorar la comprensión";
+"explore-suggested-edits-image-recs-body" = "Añade imágenes sugeridas a los artículos para mejorarlos";
 "explore-suggested-edits-image-recs-title" = "Añadir una imagen";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
@@ -819,6 +831,7 @@
 "replace-method-button-accessibility" = "Método de reemplazo. Establecido en $1. Seleccione para cambiarlo.";
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
+"return-to-article" = "Volver al artículo";
 "reverted-edit-title" = "Edición rechazada";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";

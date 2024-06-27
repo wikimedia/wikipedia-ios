@@ -29,9 +29,7 @@ class WikipediaLanguageCommandLineUtility {
             }
             self.writeCodable(sortedSites, to: ["Wikipedia", "Code", "wikipedia-languages.json"])
             self.cancellable = self.writeNamespaceFiles(with: sites) {
-                self.cancellable = self.writeCodemirrorConfig(with: sites, completion: {
-                    completion()
-                })
+                completion()
             }
         }
     
@@ -55,25 +53,6 @@ class WikipediaLanguageCommandLineUtility {
         }
     }
 
-    private func writeCodemirrorConfig(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable {
-        Publishers.MergeMany(sites.map { site in
-                api.getCodeMirrorConfigJSON(for: site.languageCode)
-                    .map { ($0, site) }
-            })
-            .sink(receiveCompletion: { (result) in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("Error writing codemirror config: \(error)")
-                }
-                completion()
-            }) { (value) in
-                let outputURL = self.getOutputFileURL(with: ["Wikipedia", "assets", "codemirror", "config", "codemirror-config-\(value.1.languageCode).json"])
-                try! value.0.write(to: outputURL, atomically: true, encoding: .utf8)
-            }
-    }
-
     private func writeNamespaceFiles(with sites: [Wikipedia], completion: @escaping () -> Void) -> AnyCancellable? {
         return Publishers.MergeMany(sites.map { site in
                 api.getSiteInfo(with: site.languageCode)
@@ -85,7 +64,8 @@ class WikipediaLanguageCommandLineUtility {
             .sink(receiveCompletion: { (result) in
                 completion()
             }) { (siteInfoTuple) in
-                self.writeCodable(siteInfoTuple.0, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.namespaceInfo, to: ["Wikipedia", "Code", "wikipedia-namespaces", "\(siteInfoTuple.1.languageCode).json"])
+                self.writeCodable(siteInfoTuple.0.magicWordInfo, to: ["Wikipedia", "Code", "wikipedia-magicwords", "\(siteInfoTuple.1.languageCode).json"])
             }
     }
     
@@ -101,6 +81,20 @@ class WikipediaLanguageCommandLineUtility {
         for namespaceAlias in siteInfo.query.namespacealiases {
             namespaces[namespaceAlias.alias.uppercased()] = PageNamespace(rawValue: namespaceAlias.id)
         }
-        return WikipediaSiteInfoLookup(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
+        var recognizedMagicWords = siteInfo.query.magicwords.filter {
+            return $0.name == "img_thumbnail" ||
+            $0.name == "img_framed" ||
+            $0.name == "img_frameless" ||
+            $0.name == "img_right" ||
+            $0.name == "img_left" ||
+            $0.name == "img_center" ||
+            $0.name == "img_none" ||
+            $0.name == "img_alt"
+        }
+        if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
+            recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))
+        }
+        let namespaceInfo = WikipediaSiteInfoLookup.NamespaceInfo(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
+        return WikipediaSiteInfoLookup(namespaceInfo: namespaceInfo, magicWordInfo: recognizedMagicWords)
     }
 }

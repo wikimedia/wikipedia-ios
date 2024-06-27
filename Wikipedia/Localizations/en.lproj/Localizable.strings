@@ -274,6 +274,8 @@
 "donate-success-title" = "Thank you!";
 "donate-title" = "Select an amount";
 "donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100%% of my donation.";
+"donate-wikimedia-fine-print-1" = "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our [donor policy]($1). Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our [donor policy]($1).";
+"donate-wikimedia-fine-print-2" = "For recurring donors, fixed monthly payments will be debited by the Wikimedia Foundation on the monthly anniversary of the first donation, until such time as you notify us to discontinue them. Donations initiated on the 29, 30, or 31 of the month will recur on the last day of the month for shorter months, as close to the original date as possible. For questions, please contact donate@wikimedia.org.";
 "edit-link-display-text-title" = "Display text";
 "edit-link-link-target-title" = "Link target";
 "edit-link-remove-link-title" = "Remove link";
@@ -297,6 +299,8 @@
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
 "edit-summary-placeholder-text" = "How did you improve the article?";
+"edit-summary-short-description-added" = "Added short description";
+"edit-summary-short-description-updated" = "Updated short description";
 "edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
 "editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";
@@ -590,6 +594,7 @@
 "image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
+"image-recs-time-warning-message" = "Please review the article to understand its topic and inspect the image";
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";

@@ -256,7 +256,7 @@
 "donate-accessibility-textfield-hint" = "Accessibility hint on donate form custom amount textfield for screen readers.";
 "donate-accessibility-transaction-fee-hint" = "Accessibility hint on donate form transaction fee checkbox for screen readers.";
 "donate-already-donated" = "Thank you toast shown when user clicks already donated on fundraising banner";
-"donate-apple-fine-print" = "Fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.";
+"donate-apple-fine-print" = "Apple fine print displayed on donation form for Apple Pay, indicating that Apple is not in charge of raising money.";
 "donate-email-opt-in-text" = "Text next to email opt-in checkbox on donate form.";
 "donate-help-frequently-asked-questions" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
 "donate-help-other-ways-to-give" = "Help link at the bottom of the donate form, that takes user to a web view link with more info.";
@@ -274,6 +274,8 @@
 "donate-success-title" = "Thank you toast title displayed after a user successfully donates.";
 "donate-title" = "Title for donate form.";
 "donate-transaction-fee-opt-in-text" = "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * $1 - transaction fee amount. Please leave %% unchanged for proper formatting.";
+"donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url. $1 is replaced by the localized donor policy link.";
+"donate-wikimedia-fine-print-2" = "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
 "edit-link-remove-link-title" = "Title for the remove link button";
@@ -297,6 +299,8 @@
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
+"edit-summary-short-description-added" = "Edit summary message when adding a short description for an article";
+"edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
 "editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
@@ -590,6 +594,7 @@
 "image-recommendations-email-title" = "Title text for Image recommendations pre-filled issue report email";
 "image-recs-no-title" = "Button title for discarding an image suggestion";
 "image-recs-not-sure-title" = "Button title for skipping an image suggestion";
+"image-recs-time-warning-message" = "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less";
 "image-recs-yes-title" = "Button title for accepting an image suggestion";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.";

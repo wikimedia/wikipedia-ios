@@ -86,7 +86,7 @@
 "appearance-settings-expand-tables" = "तालिकालाई खाेल्नुहाेस्";
 "appearance-settings-theme-options" = "थीम विकल्पहरू";
 "article-about-title" = "यस लेखको बारेमा";
-"article-delete" = "हटाउने";
+"article-delete" = "मेटाउने";
 "article-languages-filter-placeholder" = "भाषा खोज्नुहोस्";
 "article-languages-label" = "भाषा छान्नुहोस्";
 "article-languages-others" = "अन्य भाषाहरू";
@@ -296,7 +296,7 @@
 "notifications-center-go-to-wikidata-item" = "विकिडाटा सामग्री";
 "notifications-center-go-to-your-talk-page" = "तपाईकाे वार्तालाप पृष्ठ";
 "notifications-center-inbox-title" = "परियोजनाहरू";
-"notifications-center-inbox-wikimedia-projects-section-title" = "विकिमीडिया परियोजनाहरू";
+"notifications-center-inbox-wikimedia-projects-section-title" = "विकिमिडिया परियोजनाहरू";
 "notifications-center-more-action-accessibility-label" = "थप";
 "notifications-center-onboarding-modal-continue-action" = "जारी राख्नुहोस्";
 "notifications-center-onboarding-panel-secondary-button" = "पर्दैन, धन्यवाद";

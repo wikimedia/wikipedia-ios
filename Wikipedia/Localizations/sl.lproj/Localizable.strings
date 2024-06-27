@@ -614,6 +614,7 @@
 "languages-settings-title" = "Jeziki";
 "languages-title" = "Spremeni jezik";
 "languages-wikipedia" = "Jeziki Wikipedije";
+"learn-more-title" = "Več o tem";
 "logged-out-continue-without-logging-in-button-title" = "Nadaljujte brez prijave";
 "logged-out-log-back-in-button-title" = "Prijavite se v svoj račun";
 "logged-out-subtitle" = "Pri avtentikaciji vašega računa je prišlo do težave. Če želite sinhronizirati svoje bralne sezname in urejati pod svojim uporabniškim imenom, se znova prijavite.";
@@ -1149,7 +1150,7 @@
 "top-read-widget-description" = "Izvedite, kaj svet danes bere v Wikipediji.";
 "top-read-widget-readers-count" = "$1 bralcev";
 "top-read-widget-title" = "Najbolj brano";
-"two-factor-login-continue" = "Nadaljuj s prijavo";
+"two-factor-login-continue" = "Nadaljuj prijavo";
 "two-factor-login-instructions" = "Vnesite dvofaktorsko kodo za preverjanje";
 "two-factor-login-title" = "Prijavite se v svoj račun";
 "two-factor-login-with-backup-code" = "Uporabite eno od svojih varnostnih kod";

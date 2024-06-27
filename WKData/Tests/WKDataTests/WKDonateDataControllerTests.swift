@@ -4,15 +4,19 @@ import Contacts
 @testable import WKDataMocks
 
 final class WKDonateDataControllerTests: XCTestCase {
+    
+    private let controller: WKDonateDataController = WKDonateDataController.shared
 
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        self.controller.reset()
+        self.controller.service = WKDataEnvironment.current.basicService
+        self.controller.sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
     }
     
     func testFetchDonateConfig() {
-        let controller = WKDonateDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
@@ -29,7 +33,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 10.0)
         
-        let donateData = WKDonateDataController().loadConfigs()
+        let donateData = controller.loadConfigs()
         
         let paymentMethods = donateData.paymentMethods
         let donateConfig = donateData.donateConfig
@@ -53,7 +57,6 @@ final class WKDonateDataControllerTests: XCTestCase {
     }
     
     func testDonateSubmitPayment() {
-        let controller = WKDonateDataController()
         
         let expectation = XCTestExpectation(description: "Submit Payment")
         
@@ -76,7 +79,7 @@ final class WKDonateDataControllerTests: XCTestCase {
     
     func testFetchDonateConfigWithNoCacheAndNoInternetConnection() {
         WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-        let controller = WKDonateDataController()
+        controller.service = WKDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
@@ -95,7 +98,7 @@ final class WKDonateDataControllerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 10.0)
         
-        let donateData = WKDonateDataController().loadConfigs()
+        let donateData = controller.loadConfigs()
         
         let paymentMethods = donateData.paymentMethods
         let donateConfig = donateData.donateConfig
@@ -115,22 +118,21 @@ final class WKDonateDataControllerTests: XCTestCase {
         var notConnectedDonateConfig: WKDonateConfig?
         
         // First fetch successfully to populate cache
-        let connectedController = WKDonateDataController()
-        connectedController.fetchConfigs(for: "US") { result in
+        controller.fetchConfigs(for: "US") { result in
             switch result {
             case .success:
                 
-                let donateData = WKDonateDataController().loadConfigs()
+                let donateData = self.controller.loadConfigs()
                 
                 connectedPaymentMethods = donateData.paymentMethods
                 connectedDonateConfig = donateData.donateConfig
                 
                 // Drop Internet Connection
                 WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-                let disconnectedController = WKDonateDataController()
+                self.controller.service = WKDataEnvironment.current.basicService
 
                 // Fetch again
-                disconnectedController.fetchConfigs(for: "US") { result in
+                self.controller.fetchConfigs(for: "US") { result in
                     switch result {
                     case .success:
                         
@@ -139,7 +141,7 @@ final class WKDonateDataControllerTests: XCTestCase {
                     case .failure:
                         
                         // Despite failure, we still expect to be able to load configs from cache
-                        let donateData = disconnectedController.loadConfigs()
+                        let donateData = self.controller.loadConfigs()
                         notConnectedPaymentMethods = donateData.paymentMethods
                         notConnectedDonateConfig = donateData.donateConfig
                         
@@ -165,7 +167,7 @@ final class WKDonateDataControllerTests: XCTestCase {
     
     func testDonateSubmitPaymentNoInternetConnection() {
         WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-        let controller = WKDonateDataController()
+        controller.service = WKDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Submit Payment")
         

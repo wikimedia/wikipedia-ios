@@ -529,8 +529,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             if
                 let vc = cell.cardContent as? ExploreCardViewController,
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
-                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
-            {
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             } else {
                 imageScaleTransitionView = nil
@@ -868,7 +867,12 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
     
+    // TODO: - Remove after expiry date (4 Oct, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
+        
+        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
         
         guard let fetchedResultsController,
             let groups = fetchedResultsController.fetchedObjects else {
@@ -918,6 +922,26 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+    }
+}
+
+// MARK: - Image Recommendations Announcement Time-box
+// TODO: - Remove after expiry date (4 Oct, 2024)
+struct ImageRecommendationsFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2024
+        expiryDateComponents.month = 10
+        expiryDateComponents.day = 4
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
     }
 }
 
@@ -1205,11 +1229,13 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
         ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
 
-        guard let image = imageData.uiImage else {
+        guard let image = imageData.uiImage,
+        let siteURL = viewModel.project.siteURL else {
             return
         }
         
@@ -1220,7 +1246,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             let imageDescription = imageData.description?.removingHTML
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
             
-            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme)
+            let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme, siteURL: siteURL)
             self.imageRecommendationsViewModel = viewModel
             navigationController?.pushViewController(insertMediaViewController, animated: true)
         }
@@ -1229,6 +1255,12 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsDidTriggerError(_ error: any Error) {
         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
     }
+
+    func imageRecommendationsDidTriggerTimeWarning() {
+        let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+    }
+
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
@@ -1276,6 +1308,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
         saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
         saveVC.imageRecLoggingDelegate = self
@@ -1310,7 +1343,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 
 extension ExploreViewController: EditSaveViewControllerDelegate {
     
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, any Error>) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>) {
         
         switch result {
         case .success(let changes):
@@ -1398,7 +1431,11 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     func logBottomSheetDidAppear() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
-    
+
+    func logDialogWarningMessageDidDisplay() {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay()
+    }
+
     func logBottomSheetDidTapYes() {
         
         if let viewModel = imageRecommendationsViewModel,

@@ -724,7 +724,7 @@
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Кириу хапарландырыула";
 "notifications-center-mark" = "Белгиле";
-"notifications-center-mark-all-as-read" = "Окъулгъанча белгиле";
+"notifications-center-mark-all-as-read" = "Барсын да окъулгъанды деб белгиле";
 "notifications-center-mark-all-as-read-confirmation-format" = "Хапарландырыуларыгъыздагъы {{PLURAL:$1|$1 билдириуню}} окъулду деб белгилерге излегенигизге ишексизмисиз? Хапарландырыуларыгъыз, бютеу девайсларыгъызда окъулду деб бил белгиленникди.";
 "notifications-center-mark-all-as-read-missing-number" = "Бютеу хапарландырыуларыгъызны окъулду деб билгилерге излегенигизге ишексизмисиз? Хапарлдандырыуларыгъыз бютеу девайсларыгъызда окъулду деб белгиленникди.";
 "notifications-center-mark-as-read" = "Окъулмагъанды деб белгиле";
@@ -852,7 +852,7 @@
 "places-accessibility-show-as-list" = "Тизмеча кёргюз";
 "places-accessibility-show-as-map" = "Картача кёргюз";
 "places-accessibility-show-more" = "Аслам статья кёргюз";
-"places-empty-search-description" = "Шахарланы, къралланы, континентлени, табийгъат тамашалыкъланы, тарих болууланы, мекямланы эмда андан асламны аулагъыз.";
+"places-empty-search-description" = "Шахарланы, къралланы, континентлени, табигъат тамашалыкъланы, тарих болууланы, мекямланы эмда андан асламны аулагъыз.";
 "places-empty-search-title" = "Гоеграфия локациясы болгъан Википедия статьяланы излегиз";
 "places-enable-location-action-button-title" = "Локацияны джандыр";
 "places-enable-location-description" = "Къуру къошакъ неда къошакъны энчилиги экранда ачыкъ заманда, локациягъызгъа джетишиу амал берилликди.";

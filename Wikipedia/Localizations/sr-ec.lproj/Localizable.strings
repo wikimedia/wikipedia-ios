@@ -285,6 +285,7 @@
 "donate-success-title" = "Хвала вам!";
 "donate-title" = "Износ донације";
 "donate-transaction-fee-opt-in-text" = "Великодушно ћу додати $1 да покријем провизију за трансакцију тако да можете добити 100%% моје донације.";
+"donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
 "edit-link-remove-link-title" = "Уклони везу";
@@ -302,6 +303,8 @@
 "edit-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
 "edit-show-web-preview" = "Прикажи веб преглед";
 "edit-summary-add-summary-text" = "Додај опис измене";
+"edit-summary-choice-added-image" = "Додата слика";
+"edit-summary-choice-added-image-and-caption" = "Додата слика и натпис";
 "edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
@@ -349,6 +352,7 @@
 "editor-replace-type-single" = "Замени";
 "editor-toolbar-bold-accessibility" = "Подебљано";
 "editor-toolbar-find-accessibility" = "Пронађи у страници";
+"editor-wikitext-loading-accessibility" = "Учитавање уређивача текста";
 "editor-wikitext-textview-accessibility" = "Уређивач викитекста";
 "empty-diff-compare-title" = "Нема разлика између измена";
 "empty-diff-single-title" = "Нема направљених видљивих промена";
@@ -524,7 +528,7 @@
 "home-title-accessibility-label" = "Википедија, померите на врх фида „Истражи”";
 "icon-shortcut-nearby-title" = "Чланци о објектима у близини";
 "icon-shortcut-random-title" = "Случајни чланак";
-"icon-shortcut-search-title" = "Претражи Википедију";
+"icon-shortcut-search-title" = "Претрага";
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
 "image-rec-add-image-title" = "Додај ову слику?";
 "image-rec-empty-subtitle" = "Покушајте касније.";
@@ -535,6 +539,7 @@
 "image-rec-onboarding-item-2-body" = "Предлози су машински генерисани и Ви ћете на основу своје процене одлучити да ли ћете их прихватити или одбити.";
 "image-rec-onboarding-item-2-title" = "Прихватите или одбаците слику";
 "image-rec-onboarding-item-3-body" = "Слике су са Викимедијине оставе, колекције слободно лиценцираних слика које се користе на Википедији.";
+"image-rec-onboarding-item-3-title" = "Лиценциране слике";
 "image-rec-onboarding-learn-more-button" = "Научите Више о предложеним изменама";
 "image-rec-onboarding-title" = "Додај слику у чланка";
 "image-rec-survey-instructions-1" = "Ваши одговори унапређују будуће предлоге.";
@@ -548,6 +553,9 @@
 "image-rec-survey-submit-button" = "Проследи";
 "image-rec-survey-title" = "Разлог";
 "image-rec-title" = "Додај слику";
+"image-rec-tooltip-1-body" = "Прегледајте овај чланак да би сте разумели његову тему.";
+"image-rec-tooltip-1-title" = "Прегледај";
+"image-rec-tooltip-3-title" = "Одлучите";
 "image-rec-view-article" = "Види чланак";
 "image-recommendations-email-first-line" = "Наишао сам на проблем са функцијом Предложене измене: додавање слика:";
 "image-recommendations-email-fourth-line" = "- [Опишите могуће решење]";
@@ -588,6 +596,7 @@
 "insert-media-image-size-settings-measure-width" = "Ширина";
 "insert-media-image-size-settings-px-unit-name" = "п";
 "insert-media-image-size-settings-title" = "Величина слике";
+"insert-media-image-text-wrapping-setting" = "Истакни текст око слике";
 "insert-media-image-type-setting-basic" = "Основна";
 "insert-media-image-type-setting-frame" = "Оквир";
 "insert-media-image-type-setting-frameless" = "Без оквира";
@@ -970,7 +979,7 @@
 "saved-title" = "Сачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Овај чланак ће бити избрисан|Ови чланци ће бити избрисани}} са свих повезаних листа за читање";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Уклонити {{PLURAL:$1|чланак|чланке}} из сачуваних?";
-"search-button-accessibility-label" = "Претражи Википедију";
+"search-button-accessibility-label" = "Претрага";
 "search-clear-title" = "Обриши";
 "search-did-you-mean" = "Да ли сте мислили на „$1”?";
 "search-field-placeholder-text" = "Претрага Википедије";
@@ -1133,6 +1142,7 @@
 "top-read-widget-description" = "Сазнајте шта свет чита данас на Википедији";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
+"try-now-title" = "Пробајте сад";
 "tutorial-title" = "Упутство";
 "two-factor-login-continue" = "Настави пријаву";
 "two-factor-login-instructions" = "Унесите кôд двофакторске потврде идентитета";
@@ -1211,7 +1221,7 @@
 "watchlist-user-button-user-page" = "Корисничка страница";
 "watchlist-user-button-user-talk-page" = "Корисничка страница за разговор";
 "watchlist-watch-title" = "Надгледај чланке";
-"welcome-data-privacy-title" = "Подаци & приватност";
+"welcome-data-privacy-title" = "Подаци и приватност";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";
@@ -1233,6 +1243,8 @@
 "welcome-notifications-tell-me-more-creation" = "Апликација прави и доставља обавештења на ваш уређај, а не наши сервери (или трећих страна).";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се смештају на уређају и нису заснована на личним информацијама или активности.";
 "welcome-notifications-tell-me-more-title" = "Више о обавештењима";
+"welcome-privacy-subtitle" = "Ми верујемо да не морате одавати личне податке да би учествовали у покрету за слободно знање. Подаци о употреби ове апликације се прикупљају анонимно.";
+"welcome-privacy-terms-button-text" = "Сазнајте више о нашој политици приватности и условима коришћења";
 "widget-onthisday-description" = "Шта се десило на данашњи дан.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна онлајн енциклопедија коју свако може уређивати";
 "widget-onthisday-placeholder-event-snippet" = "Википедија, слободна енциклопедија, иде онлајн.";

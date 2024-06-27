@@ -9,10 +9,12 @@ final class InsertMediaViewController: ViewController {
     private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
 
     weak var delegate: InsertMediaViewControllerDelegate?
+    private let siteURL: URL
 
-    init(articleTitle: String?, siteURL: URL?) {
+    init(articleTitle: String?, siteURL: URL) {
         searchViewController = InsertMediaSearchViewController(articleTitle: articleTitle, siteURL: siteURL)
         searchResultsCollectionViewController.delegate = selectedImageViewController
+        self.siteURL = siteURL
         super.init()
         selectedImageViewController.delegate = self
         searchViewController.progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -106,7 +108,7 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, imageRecLoggingDelegate: nil, theme: theme)
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, imageRecLoggingDelegate: nil, theme: theme, siteURL: siteURL)
 
         navigationController.pushViewController(settingsViewController, animated: true)
     }
