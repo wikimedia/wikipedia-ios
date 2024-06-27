@@ -311,6 +311,8 @@
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
 "edit-summary-placeholder-text" = "На кој начин ја подобривте статијата?";
+"edit-summary-short-description-added" = "Додаден краток опис";
+"edit-summary-short-description-updated" = "Изменет краток опис";
 "edit-watch-list-learn-more-text" = "Дознајте повеќе за набљудуваните";
 "edit-watch-this-page-text" = "Набљудувај ја страницава";
 "editing-welcome-be-bold-subtitle" = "Бидете смели кога ги уредувате статиите, но не си допуштајте немарност. Нека не ве обесхрабрува тоа што може да направите грешка: секоја претходна верзија на статијата стои зачувана, што значи дека заедницата лесно може да го исправи згрешеното.";
@@ -604,6 +606,7 @@
 "image-recommendations-email-title" = "Пријава на проблем — Функција „Додај слика“";
 "image-recs-no-title" = "Не";
 "image-recs-not-sure-title" = "Не знам";
+"image-recs-time-warning-message" = "Прочитајте ја статијата за да ја разберете темата и разгледајте ја сликата";
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мој список за читање";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
