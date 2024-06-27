@@ -15,7 +15,7 @@ If you're ready to pick up more difficult work, look at the iOS backlog and pick
 Now you want to let the team know what you're working on.
 
 1. In Phabricator, assign the task to yourself.
-2. Add the tag representing the current release to the task. [This link](https://phabricator.wikimedia.org/search/query/WlSMhOAWTG73/) will take you to currently open releases. Tagging your task with the name of the release will add it to the release board.
+2. Add the release tag "iOS Release FY2023-24" to the task.  [This link](https://phabricator.wikimedia.org/project/board/6656/) will take you to our current release board. Tagging your task with the name of the release will add it to the release board.
 3. On the release board, move the task to the "Doing" column.
 4. When you're done developing, move the task to the "Needs Code Review" column.
 
