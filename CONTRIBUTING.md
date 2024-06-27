@@ -19,6 +19,9 @@ Now you want to let the team know what you're working on.
 3. On the release board, move the task to the "Doing" column.
 4. When you're done developing, move the task to the "Needs Code Review" column.
 
+## GitHub is not running unit tests on my pull request
+This is a known limitation with Xcode Cloud (see more details in [T358110](https://phabricator.wikimedia.org/T358110)). We will still review your PR, and a maintainer will confirm run tests locally before merging. Details on improvements we're planning can be found in [T362932](https://phabricator.wikimedia.org/T362932).
+
 ## I don't want to work on my task any more.
 You can let us know by unassigning the task and moving it back to the "Tasks from Product Backlog" column.
 
