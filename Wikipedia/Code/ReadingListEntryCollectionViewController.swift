@@ -5,7 +5,7 @@ protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController)
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    func setupReadingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
@@ -45,6 +45,10 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     weak var delegate: ReadingListEntryCollectionViewControllerDelegate?
     
+    var needsDetailHeaderView: Bool = false
+    var readingListDetailHeaderView: ReadingListDetailHeaderView?
+    fileprivate static let headerReuseIdentifier = "ReadingListDetailHeaderView"
+    
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
@@ -63,6 +67,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         super.viewDidLoad()
         
         layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         setupEditController()
         isRefreshControlEnabled = true
         
@@ -81,6 +86,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         collectionViewUpdater = nil
         fetchedResultsController = nil
         editController.close()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if needsDetailHeaderView, let readingListDetailHeaderView = self.readingListDetailHeaderView {
+            readingListDetailHeaderView.width = collectionView.frame.width
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -219,7 +232,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
-        delegate?.scrollViewDidScroll(scrollView)
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -241,6 +253,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+
+        guard section == 0, needsDetailHeaderView else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
@@ -326,6 +346,22 @@ extension ReadingListEntryCollectionViewController {
         
         configure(cell: savedArticleCell, for: entry, at: indexPath, layoutOnly: false)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard needsDetailHeaderView, indexPath.section == 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+        
+        if let readingListDetailHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? ReadingListDetailHeaderView {
+            self.readingListDetailHeaderView = readingListDetailHeaderView
+            readingListDetailHeaderView.width = collectionView.frame.width
+            delegate?.setupReadingListDetailHeaderView(readingListDetailHeaderView)
+            readingListDetailHeaderView.apply(theme: theme)
+            return readingListDetailHeaderView
+        }
+    
+         return UICollectionReusableView()
     }
 }
 

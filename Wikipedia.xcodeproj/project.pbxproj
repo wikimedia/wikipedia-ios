@@ -1182,12 +1182,12 @@
 		7AB809DC22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift */; };
 		7AB809DD22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift */; };
 		7AB809DE22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift */; };
-		7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
-		7ABAD6B520338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
-		7ABAD6B620338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
-		7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
-		7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
-		7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
+		7ABAD6B420338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */; };
+		7ABAD6B520338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */; };
+		7ABAD6B620338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */; };
+		7ABAD6B920338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailHeaderView.xib */; };
+		7ABAD6BA20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailHeaderView.xib */; };
+		7ABAD6BB20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailHeaderView.xib */; };
 		7ABAD6BF20349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C020349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C120349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
@@ -3613,8 +3613,8 @@
 		7AB7DEC7227203A600DD61A2 /* InsertMediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaViewController.swift; sourceTree = "<group>"; };
 		7AB809CF22675B2300BFAB7C /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
 		7AB809DB22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaAdvancedSettingsViewController.swift; sourceTree = "<group>"; };
-		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
-		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
+		7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailHeaderView.swift; sourceTree = "<group>"; };
+		7ABAD6B320338CFB006A364C /* ReadingListDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailHeaderView.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7ABE16FE2239B346006BA309 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		7ABE170A2239B5A0006BA309 /* WelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageViewController.swift; sourceTree = "<group>"; };
@@ -8051,8 +8051,8 @@
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */,
-				7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */,
-				7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */,
+				7ABAD6B220338CFA006A364C /* ReadingListDetailHeaderView.swift */,
+				7ABAD6B320338CFB006A364C /* ReadingListDetailHeaderView.xib */,
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */,
@@ -9415,7 +9415,7 @@
 				B0524AF62144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
-				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
+				7ABAD6B920338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				0042811525E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
@@ -9541,7 +9541,7 @@
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8CE266D1E698E2400DAE2E0 /* WMFChangePasswordViewController.storyboard in Resources */,
-				7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
+				7ABAD6BA20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
 				6782DBF8234537D0003FA21B /* DiffHeaderExtendedView.xib in Resources */,
@@ -9657,7 +9657,7 @@
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8EC3F6D1E9BDA35006712EB /* WMFChangePasswordViewController.storyboard in Resources */,
-				7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
+				7ABAD6BB20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,
 				6782DBFB234537D0003FA21B /* DiffHeaderExtendedView.xib in Resources */,
@@ -10310,7 +10310,7 @@
 				D8A47C8523D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
-				7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
+				7ABAD6B420338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */,
 				B066F0D51E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				8368BB8424129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */,
@@ -10988,7 +10988,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CE24E11E698E2400DAE2E0 /* UserLocationAnnotationView.swift in Sources */,
-				7ABAD6B520338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
+				7ABAD6B520338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */,
 				D8CE24E31E698E2400DAE2E0 /* WMFImageURLActivitySource.swift in Sources */,
 				D8B3D7671EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				67C797C92BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */,
@@ -11551,7 +11551,7 @@
 			files = (
 				E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */,
 				D8EC3DD81E9BDA35006712EB /* UserLocationAnnotationView.swift in Sources */,
-				7ABAD6B620338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
+				7ABAD6B620338CFB006A364C /* ReadingListDetailHeaderView.swift in Sources */,
 				D8EC3DDA1E9BDA35006712EB /* WMFImageURLActivitySource.swift in Sources */,
 				67C797C82BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */,
 				8368BB8624129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */,
