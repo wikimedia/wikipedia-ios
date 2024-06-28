@@ -22,6 +22,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
+@property (nonatomic, strong) WMFTheme* theme;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 @property (nonatomic, strong) NSMutableArray *sections;
@@ -48,6 +49,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.theme = [WMFTheme standard];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
 
@@ -62,9 +64,23 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.authManager = self.dataStore.authenticationManager;
 
-    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
+    //self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
+    
+    // Insert UIView covering below navigation bar, but above table view. This hides table view content beneath safe area.
+    // TODO: Update this upon theming change.
+    
+    UIView *overlayView = [[UIView alloc] init];
+    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    overlayView.backgroundColor = self.theme.colors.paperBackground;
+    [self.view insertSubview:overlayView aboveSubview:self.tableView];
+    [NSLayoutConstraint activateConstraints:@[
+        [self.view.topAnchor constraintEqualToAnchor:overlayView.topAnchor],
+        [self.view.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor],
+        [self.view.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor],
+        [self.view.safeAreaLayoutGuide.topAnchor constraintEqualToAnchor:overlayView.bottomAnchor],
+    ]];
 }
 
 - (void)dealloc {
@@ -96,13 +112,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)viewWillAppear:(BOOL)animated {
     [self configureBarButtonItems];
-    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
-    self.navigationController.toolbarHidden = YES;
     [self loadSections];
 
-    /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-    self.parentViewController.navigationItem.backButtonTitle = self.title;
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    self.navigationController.hidesBarsOnSwipe = YES;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)configureBarButtonItems {
@@ -110,7 +126,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Always show close button if presented modally
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
-        self.navigationItem.leftBarButtonItem = xButton;
+        self.navigationItem.rightBarButtonItem = xButton;
     } else {
 
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
@@ -126,7 +142,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         }
     }
 
-    [self.navigationBar updateNavigationItems];
+    //[self.navigationBar updateNavigationItems];
 }
 
 - (void)closeButtonPressed {
@@ -610,32 +626,32 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Scroll view
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidScroll:scrollView];
+    //[self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    //[self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    //[self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+    //[self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+    //[self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    //[self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
+   // [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - KVO
@@ -653,10 +669,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    [super applyTheme:theme];
     if (self.viewIfLoaded == nil) {
         return;
     }
+    self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;

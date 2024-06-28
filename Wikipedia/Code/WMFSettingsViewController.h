@@ -1,11 +1,11 @@
-#import "WMFViewController.h"
+@import UIKit;
 @class MWKDataStore;
 @class WKDonateDataController;
 @protocol NotificationsCenterPresentationDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSettingsViewController : WMFViewController <WMFPreferredLanguagesViewControllerDelegate>
+@interface WMFSettingsViewController : UIViewController <WMFThemeable, WMFPreferredLanguagesViewControllerDelegate>
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
