@@ -479,15 +479,6 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
         }
     }
-    
-    var isDifferentErrorBannerShown: Bool {
-        get {
-            return bool(forKey: UserDefaults.Key.isDifferentErrorBannerShown)
-        }
-        set {
-            set(newValue, forKey: UserDefaults.Key.isDifferentErrorBannerShown)
-        }
-    }
 
     var autoSignTalkPageDiscussions: Bool {
         get {

@@ -216,16 +216,16 @@ final class EditorViewController: UIViewController {
                 handleWikitextLoadFailure(error: RequestError.unexpectedResponse)
                 return
             }
-            
+            var isDifferentErrorBannerShown = false
             if let blockedError = wikitextFetchResponse.blockedError {
                 presentBlockedError(error: blockedError)
-                UserDefaults.standard.isDifferentErrorBannerShown = true
+                isDifferentErrorBannerShown = true
             } else if let protectedPageError = wikitextFetchResponse.protectedPageError {
                 presentProtectedPageWarning(error: protectedPageError)
-                UserDefaults.standard.isDifferentErrorBannerShown = true
+                isDifferentErrorBannerShown = true
             } else if let otherError = wikitextFetchResponse.otherError {
                 WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
-                UserDefaults.standard.isDifferentErrorBannerShown = true
+                isDifferentErrorBannerShown = true
             }
             
             if let editNoticesViewModel,
@@ -234,7 +234,7 @@ final class EditorViewController: UIViewController {
                 self.navigationItemController.addEditNoticesButton()
                 self.navigationItemController.apply(theme: self.theme)
                 self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
-                UserDefaults.standard.isDifferentErrorBannerShown = true
+                isDifferentErrorBannerShown = true
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
@@ -252,7 +252,7 @@ final class EditorViewController: UIViewController {
             } else {
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
-            if !UserDefaults.standard.didShowInformationEditingMessage && !UserDefaults.standard.isDifferentErrorBannerShown {
+            if !UserDefaults.standard.didShowInformationEditingMessage && !isDifferentErrorBannerShown {
                 WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, sticky: false, dismissPreviousAlerts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
