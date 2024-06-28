@@ -37,14 +37,7 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
     @IBOutlet private weak var alertStackView: UIStackView!
     @IBOutlet private weak var alertTitleLabel: UILabel?
     @IBOutlet private weak var alertMessageLabel: UILabel?
-    
-    var width: CGFloat = 504 {
-        didSet {
-            containerViewWidthConstraint.constant = width
-        }
-    }
-    @IBOutlet private var containerViewWidthConstraint: NSLayoutConstraint!
-    
+
     private var readingListTitle: String?
     private var readingListDescription: String?
     

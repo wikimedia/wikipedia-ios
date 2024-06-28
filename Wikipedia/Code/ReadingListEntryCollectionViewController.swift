@@ -88,14 +88,6 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         editController.close()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if needsDetailHeaderView, let readingListDetailHeaderView = self.readingListDetailHeaderView {
-            readingListDetailHeaderView.width = collectionView.frame.width
-        }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
@@ -355,7 +347,6 @@ extension ReadingListEntryCollectionViewController {
         
         if let readingListDetailHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? ReadingListDetailHeaderView {
             self.readingListDetailHeaderView = readingListDetailHeaderView
-            readingListDetailHeaderView.width = collectionView.frame.width
             delegate?.setupReadingListDetailHeaderView(readingListDetailHeaderView)
             readingListDetailHeaderView.apply(theme: theme)
             return readingListDetailHeaderView
