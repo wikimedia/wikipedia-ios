@@ -214,16 +214,6 @@ class SavedViewController: ThemeableViewController {
 //        
         // extendedLayoutIncludesOpaqueBars = true
         // edgesForExtendedLayout = .all
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        // TODO: true doesn't work here with scopeBar :(
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
 
         let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
@@ -256,9 +246,16 @@ class SavedViewController: ThemeableViewController {
             // reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
-
-        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        // TODO: true doesn't work here with scopeBar :(
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

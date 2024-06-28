@@ -370,7 +370,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = true
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     var isFirstAppearance = true

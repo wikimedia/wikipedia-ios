@@ -241,15 +241,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
 
         let search = UISearchController(searchResultsController: nil)
         search.obscuresBackgroundDuringPresentation = false
@@ -305,9 +296,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
         }
-
-        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
         
         guard locationManager.isAuthorized else {
             if !defaults.wmf_placesDidPromptForLocationAuthorization() {
@@ -321,6 +309,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
