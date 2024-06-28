@@ -3,7 +3,7 @@ import WMF
 import CocoaLumberjackSwift
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController, HintPresenting {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate {
     enum ViewState {
         case initial
         case loading
@@ -105,7 +105,8 @@ class ArticleViewController: ViewController, HintPresenting {
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
         hidesBottomBarWhenPushed = true
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
@@ -133,9 +134,21 @@ class ArticleViewController: ViewController, HintPresenting {
         return configuration
     }()
     
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     lazy var webView: WKWebView = {
-        let webView = WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
-        view.addSubview(webView)
+        let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
     
@@ -241,7 +254,7 @@ class ArticleViewController: ViewController, HintPresenting {
         let doesArticleUseLargeMargin = (tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible)
         var marginWidth: CGFloat = 0
         if doesArticleUseLargeMargin {
-            marginWidth = articleHorizontalMargin
+            marginWidth = view.layoutMargins.left
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
         leadImageTrailingMarginConstraint.constant = marginWidth
@@ -253,10 +266,10 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: Layout
     
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
-        updateTableOfContentsInsets()
-    }
+//    override func scrollViewInsetsDidChange() {
+//        super.scrollViewInsetsDidChange()
+//        updateTableOfContentsInsets()
+//    }
     
     override func viewLayoutMarginsDidChange() {
         super.viewLayoutMarginsDidChange()
@@ -265,12 +278,14 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal func updateArticleMargins() {
         
+        let margins = UIEdgeInsets(top: 10, left: view.layoutMargins.left, bottom: toolbarContainerView.frame.height, right: view.layoutMargins.right)
+        
         let defaultUpdateBlock = {
-            self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            self.messagingController.updateMargins(with: margins, leadImageHeight: self.leadImageHeightConstraint.constant)
         }
         
         if articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc {
-            messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            messagingController.customUpdateMargins(with: margins, leadImageHeight: self.leadImageHeightConstraint.constant)
         } else {
             defaultUpdateBlock()
         }
@@ -305,30 +320,32 @@ class ArticleViewController: ViewController, HintPresenting {
             case .reloading:
                 fallthrough
             case .loading:
-                fakeProgressController.start()
+                break
+                // fakeProgressController.start()
             case .loaded:
-                fakeProgressController.stop()
+                break
+                // fakeProgressController.stop()
                 rethemeWebViewIfNecessary()
             case .error:
-                fakeProgressController.stop()
+                break
+                // fakeProgressController.stop()
             }
         }
     }
     
-    lazy private var fakeProgressController: FakeProgressController = {
-        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-        progressController.delay = 0.0
-        return progressController
-    }()
+//    lazy private var fakeProgressController: FakeProgressController = {
+//        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+//        progressController.delay = 0.0
+//        return progressController
+//    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
-        setup()
         super.viewDidLoad()
-        setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        setup()
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
@@ -339,6 +356,8 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -350,16 +369,27 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController?.viewWillAppear(withState: state)
     }
     
+    var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
-        setupWButton()
         guard isFirstAppearance else {
             return
         }
         showAnnouncementIfNeeded()
         isFirstAppearance = false
+    }
+    
+    private func setupWButton() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.sizeToFit()
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        navigationItem.titleView = wButton
+    }
+    
+    @objc private func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -747,7 +777,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
     internal func waitForNewContentAndRefresh(_ revisionID: UInt64? = nil) {
-        showNavigationBar()
         state = .reloading
         saveArticleScrollPosition()
         isRestoringState = true
@@ -890,30 +919,25 @@ class ArticleViewController: ViewController, HintPresenting {
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
     var scrollViewAnimationCompletions: [() -> Void] = []
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlightIfNecessary()
     }
     
-    override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        super.scrollViewDidScrollToTop(scrollView)
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlight()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         dismissReferencesPopover()
         hintController?.dismissHintDueToUserInteraction()
     }
 
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndDecelerating(scrollView)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         performWebRefreshAfterScrollViewDecelerationIfNeeded()
     }
     
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        super.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
-
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity == .zero {
             performWebRefreshAfterScrollViewDecelerationIfNeeded()
         }
@@ -927,11 +951,31 @@ class ArticleViewController: ViewController, HintPresenting {
 private extension ArticleViewController {
     
     func setup() {
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
         setupWButton()
         setupSearchButton()
         addNotificationHandlers()
         setupWebView()
+        setupToolbar()
         setupMessagingController()
+        
+        // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
+        // TODO: Update this upon theming change.
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.backgroundColor = theme.colors.paperBackground
+        view.insertSubview(overlayView, aboveSubview: webView)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: overlayView.bottomAnchor)
+        ])
     }
     
     // MARK: Notifications
@@ -980,10 +1024,21 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        
+        view.addSubview(webView)
+        
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: webView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        ])
+        
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+        tableOfContentsController.stackView.isHidden = true
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false
@@ -991,8 +1046,7 @@ private extension ArticleViewController {
         webView.scrollView.backgroundColor = .clear
         
         // Scroll view
-        scrollView = webView.scrollView // so that content insets are inherited
-        scrollView?.delegate = self
+        webView.scrollView.delegate = self
         webView.scrollView.keyboardDismissMode = .interactive
         webView.scrollView.refreshControl = refreshControl
         
@@ -1050,15 +1104,25 @@ private extension ArticleViewController {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        
+        let margins = UIEdgeInsets(top: 0, left: view.layoutMargins.left, bottom: 0, right: view.layoutMargins.right)
 
-        messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
+        messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: margins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
-        enableToolbar()
-        toolbarController.apply(theme: theme)
-        toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
-        setToolbarHidden(false, animated: false)
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
@@ -1115,7 +1179,7 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
-        fakeProgressController.finish()
+        // fakeProgressController.finish()
         if showEmptyView {
             wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
         }

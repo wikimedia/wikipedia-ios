@@ -3,11 +3,15 @@ import Foundation
 /// W icon popover tooltip
 extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
+        
+        guard let navigationController else {
+            return false
+        }
+        
         guard
             !UserDefaults.standard.wmf_didShowWIconPopover(),
             presentedViewController == nil,
-            navigationController != nil,
-            navigationBar.navigationBarPercentHidden < 0.1
+            !navigationController.isNavigationBarHidden
         else {
             return false
         }

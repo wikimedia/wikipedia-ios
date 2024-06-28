@@ -280,6 +280,10 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         logFeedImpressionAfterDelay()
     }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     // MARK: - Event logging
 

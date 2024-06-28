@@ -13,6 +13,13 @@ class RandomArticleViewController: ArticleViewController {
     lazy var randomArticleFetcher: RandomArticleFetcher = {
         return RandomArticleFetcher()
     }()
+    
+    lazy var secondToolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        tb.isHidden = true
+        return tb
+    }()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +28,13 @@ class RandomArticleViewController: ArticleViewController {
     }
 
     func setupSecondToolbar() {
+        view.addSubview(secondToolbar)
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: secondToolbar.bottomAnchor),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: secondToolbar.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: secondToolbar.trailingAnchor)
+        ])
+        
         let leadingSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let trailingSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         secondToolbar.items = [leadingSpace, RandomArticleViewController.diceButtonItem, trailingSpace]
@@ -47,11 +61,7 @@ class RandomArticleViewController: ArticleViewController {
         guard secondToolbar.items?.count ?? 0 == 0 else {
           return
         }
-        UIView.performWithoutAnimation {
-            setupSecondToolbar()
-            setSecondToolbarHidden(true, animated: false)
-        }
-        setSecondToolbarHidden(false, animated: true)
+        secondToolbar.isHidden = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -103,9 +113,7 @@ class RandomArticleViewController: ArticleViewController {
     }
 
     func setRandomButtonHidden(_ isRandomButtonHidden: Bool, animated: Bool) {
-        if isSecondToolbarHidden != isRandomButtonHidden {
-            setSecondToolbarHidden(isRandomButtonHidden, animated: animated)
-        }
+        secondToolbar.isHidden = isRandomButtonHidden
     }
     
     
@@ -127,13 +135,13 @@ class RandomArticleViewController: ArticleViewController {
         
         var shouldHideRandomButton = true
         let newContentOffsetY = scrollView.contentOffset.y
-        if isSecondToolbarHidden {
+        if secondToolbar.isHidden {
             let shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.isTracking && scrollView.isDecelerating && newContentOffsetY < previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height))
             shouldHideRandomButton = !shouldShowRandomButton
         } else if scrollView.isTracking || scrollView.isDecelerating {
             shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > previousContentOffsetY
         } else {
-            shouldHideRandomButton = isSecondToolbarHidden
+            shouldHideRandomButton = secondToolbar.isHidden
         }
         
         setRandomButtonHidden(shouldHideRandomButton, animated: true)
