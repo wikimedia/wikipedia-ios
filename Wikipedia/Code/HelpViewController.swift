@@ -9,6 +9,18 @@ class HelpViewController: SinglePageWebViewController {
     static let emailSubject = "Bug:"
     let dataStore: MWKDataStore
     
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     @objc init?(dataStore: MWKDataStore, theme: Theme) {
         guard let faqURL = URL(string: HelpViewController.faqURLString) else {
             return nil
@@ -68,9 +80,26 @@ class HelpViewController: SinglePageWebViewController {
     }
 
     private func setupToolbar() {
-        enableToolbar()
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
+        
         setupToolbarItems(isExportingUserData: false)
-        setToolbarHidden(false, animated: false)
+        
+        toolbarContainerView.setNeedsLayout()
+        toolbarContainerView.layoutIfNeeded()
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
     }
     
     enum UserDataExportError: Error {

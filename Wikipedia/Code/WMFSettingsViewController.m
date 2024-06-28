@@ -67,20 +67,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     //self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
-    
-    // Insert UIView covering below navigation bar, but above table view. This hides table view content beneath safe area.
-    // TODO: Update this upon theming change.
-    
-    UIView *overlayView = [[UIView alloc] init];
-    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
-    overlayView.backgroundColor = self.theme.colors.paperBackground;
-    [self.view insertSubview:overlayView aboveSubview:self.tableView];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.view.topAnchor constraintEqualToAnchor:overlayView.topAnchor],
-        [self.view.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor],
-        [self.view.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor],
-        [self.view.safeAreaLayoutGuide.topAnchor constraintEqualToAnchor:overlayView.bottomAnchor],
-    ]];
 }
 
 - (void)dealloc {
@@ -117,7 +103,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    self.navigationController.hidesBarsOnSwipe = YES;
+    self.navigationController.hidesBarsOnSwipe = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

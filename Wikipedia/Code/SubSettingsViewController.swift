@@ -1,12 +1,7 @@
 import UIKit
 
-class SubSettingsViewController: ViewController {
+class SubSettingsViewController: ThemeableViewController {
     @IBOutlet weak var tableView: UITableView!
-
-    override func viewDidLoad() {
-        scrollView = tableView
-        super.viewDidLoad()
-    }
 
     override var nibName: String? {
         return "SubSettingsViewController"
@@ -15,6 +10,14 @@ class SubSettingsViewController: ViewController {
     override func accessibilityPerformEscape() -> Bool {
         dismiss(animated: true)
         return true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

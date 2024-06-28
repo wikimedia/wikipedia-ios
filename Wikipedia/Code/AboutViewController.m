@@ -99,6 +99,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 @interface AboutViewController ()
 
+@property (nonatomic, strong) WMFTheme* theme;
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) UIBarButtonItem *buttonX;
 @property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
@@ -169,6 +170,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
 - (void)updateNavigationBar {
     self.title = self.title;
     self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : nil;
+    
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    self.navigationController.hidesBarsOnSwipe = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (NSString *)title {
@@ -346,10 +351,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    [super applyTheme:theme];
     if (self.viewIfLoaded == nil) {
         return;
     }
+    self.theme = theme;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_setTextFontColor:theme];
     [self.webView wmf_setLogoStyleWithTheme:theme];

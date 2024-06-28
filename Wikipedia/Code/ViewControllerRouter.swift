@@ -78,7 +78,7 @@ class ViewControllerRouter: NSObject {
         if navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
             if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
                 vc.doesUseSimpleNavigationBar = true
-                vc.navigationBar.isBarHidingEnabled = false
+                // vc.navigationBar.isBarHidingEnabled = false
             }
         }
         

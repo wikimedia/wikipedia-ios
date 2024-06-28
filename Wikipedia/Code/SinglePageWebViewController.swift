@@ -2,7 +2,7 @@ import WebKit
 import CocoaLumberjackSwift
 import WMF
 
-class SinglePageWebViewController: ViewController {
+class SinglePageWebViewController: ThemeableViewController {
     let url: URL
     let campaignArticleURL: URL?
     let campaignMetricsID: String?
@@ -31,7 +31,7 @@ class SinglePageWebViewController: ViewController {
         self.campaignArticleURL = campaignArticleURL
         self.campaignMetricsID = campaignMetricsID
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
         self.navigationItem.backButtonTitle = url.lastPathComponent
@@ -58,17 +58,17 @@ class SinglePageWebViewController: ViewController {
         return config
     }()
 
-    private lazy var webView: WKWebView = {
+    private(set) lazy var webView: WKWebView = {
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
         return webView
     }()
     
-    private lazy var fakeProgressController: FakeProgressController = {
-        let fpc = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-        fpc.delay = 0
-        return fpc
-    }()
+//    private lazy var fakeProgressController: FakeProgressController = {
+//        let fpc = FakeProgressController(progress: navigationBar, delegate: navigationBar)
+//        fpc.delay = 0
+//        return fpc
+//    }()
 
     private lazy var bottomView: UIView = {
         let contentView = UIView(frame: .zero)
@@ -97,24 +97,34 @@ class SinglePageWebViewController: ViewController {
     }()
 
     override func viewDidLoad() {
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+        
         view.wmf_addSubviewWithConstraintsToEdges(webView)
-        scrollView = webView.scrollView
-        scrollView?.delegate = self
 
         if !doesUseSimpleNavigationBar {
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
             let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
             navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
 
-            if url.isDonationURL {
-                navigationBar.isInteractiveHidingEnabled = false
-            }
             setupWButton()
         }
 
         copyCookiesFromSession()
         
         super.viewDidLoad()
+    }
+    
+    private func setupWButton() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.sizeToFit()
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        navigationItem.titleView = wButton
+    }
+    
+    @objc private func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     private func copyCookiesFromSession() {
@@ -126,7 +136,7 @@ class SinglePageWebViewController: ViewController {
     }
 
     private func fetch() {
-        fakeProgressController.start()
+        // fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
     
@@ -138,6 +148,10 @@ class SinglePageWebViewController: ViewController {
             let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
 
         guard !fetched else {
             return
@@ -261,16 +275,16 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         DDLogError("Error loading single page - did fail provisional navigation: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
-        fakeProgressController.finish()
+        // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DDLogError("Error loading single page: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
-        fakeProgressController.finish()
+        // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        fakeProgressController.finish()
+        // fakeProgressController.finish()
     }
 }
