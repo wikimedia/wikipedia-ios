@@ -104,6 +104,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
+        
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -115,13 +117,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         title = viewModel.localizedStrings.title
         navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
-        addComponent(hostingViewController, pinToEdges: true)
+        addComponent(hostingViewController, pinToEdges: true, respectSafeArea: true)
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
-
 
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -134,6 +135,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.hidesBarsOnSwipe = false
     }
 
     public override func viewDidAppear(_ animated: Bool) {
