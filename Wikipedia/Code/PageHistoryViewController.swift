@@ -16,8 +16,55 @@ enum SelectionOrder: Int, CaseIterable {
     }
 }
 
+class TestHeaderView: UICollectionReusableView {
+    
+    var widthConstraint: NSLayoutConstraint?
+    
+    private lazy var containerView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var label: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "testing"
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        containerView.addSubview(label)
+        addSubview(containerView)
+        
+        let widthConstraint = containerView.widthAnchor.constraint(equalToConstant: 200)
+        widthConstraint.priority = .defaultHigh
+        self.widthConstraint = widthConstraint
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: containerView.topAnchor),
+            leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: label.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: label.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
+            widthConstraint
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 @objc(WMFPageHistoryViewController)
-class PageHistoryViewController: ColumnarCollectionViewController {
+class PageHistoryViewController: ColumnarCollectionViewController2 {
+    
+    fileprivate static let headerReuseIdentifier = "TestHeader"
+    
     private let pageTitle: String
     private let pageURL: URL
 
@@ -56,7 +103,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         self.articleSummaryController = articleSummaryController
         self.authenticationManager = authenticationManager
-        super.init()
+        super.init(nibName: nil, bundle: nil)
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -65,7 +113,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
     private var pageHistorySections: [PageHistorySection] = []
 
-    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+    override var headerStyle: ColumnarCollectionViewController2.HeaderStyle {
         return .sections
     }
 
@@ -164,14 +212,14 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         navigationItem.backButtonTitle = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view. Please prioritize for de, ar and zh wikis.")
         navigationItem.backButtonDisplayMode = .generic
         navigationItem.rightBarButtonItem = compareButton
-        addChild(countsViewController)
-        navigationBar.addUnderNavigationBarView(countsViewController.view)
-        navigationBar.shadowColorKeyPath = \Theme.colors.border
-        countsViewController.didMove(toParent: self)
+        // addChild(countsViewController)
+        // navigationBar.addUnderNavigationBarView(countsViewController.view)
+        // navigationBar.shadowColorKeyPath = \Theme.colors.border
+        // countsViewController.didMove(toParent: self)
 
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.allowsUnderbarHitsFallThrough = true
+//        navigationBar.isBarHidingEnabled = false
+//        navigationBar.isUnderBarViewHidingEnabled = true
+//        navigationBar.allowsUnderbarHitsFallThrough = true
 
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
@@ -183,6 +231,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         getEditCounts()
         getPageHistory()
+        
+        layoutManager.register(TestHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
     }
 
     private func getEditCounts() {
@@ -211,7 +261,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                                     let totalEditCount = totalEditResponse.count
                                     if let firstEditDate = firstEditDate,
                                         totalEditResponse.limit == false {
-                                        self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                                        // self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
                                     }
                                     
                                 }
@@ -231,7 +281,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 case .failure(let error):
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                 case .success(let editCountsGroupedByType):
-                    self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
+                    // self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
+                    break
                 }
             }
         }
@@ -243,12 +294,22 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 }
                 switch result {
                 case .failure:
-                    self.countsViewController.timeseriesOfEditsCounts = []
+                    // self.countsViewController.timeseriesOfEditsCounts = []
+                    break
                 case .success(let timeseriesOfEditCounts):
-                    self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
+                    // self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
+                    break
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -263,6 +324,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     
     private func appendSections(from results: HistoryFetchResults) {
         assert(Thread.isMainThread)
+        if self.pageHistorySections.isEmpty {
+            self.pageHistorySections.append(PageHistorySection(sectionTitle: "", items: []))
+        }
         var items = results.items()
         guard
             let last = self.pageHistorySections.last,
@@ -371,6 +435,33 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         }
         configure(cell: cell, at: indexPath)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        if section == 0 {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
+        }
+        
+        return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
+    }
+    
+    var testHeader: TestHeaderView?
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 0 {
+            if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? TestHeaderView {
+                header.widthConstraint?.constant = collectionView.frame.width
+                self.testHeader = header
+                return header
+            }
+        }
+        
+        return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        testHeader?.widthConstraint?.constant = size.width
     }
 
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {

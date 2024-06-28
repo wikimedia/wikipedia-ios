@@ -5,31 +5,6 @@ protocol ReadingListDetailHeaderViewDelegate: AnyObject {
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField)
 }
 
-class TestHeaderView: UICollectionReusableView {
-    private lazy var label: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "testing"
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubview(label)
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: label.topAnchor),
-            leadingAnchor.constraint(equalTo: label.leadingAnchor),
-            trailingAnchor.constraint(equalTo: label.trailingAnchor),
-            bottomAnchor.constraint(equalTo: label.bottomAnchor)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class ReadingListDetailHeaderView: UICollectionReusableView {
     @IBOutlet private weak var articleCountLabel: UILabel!
     @IBOutlet private weak var titleTextField: ThemeableTextField!
