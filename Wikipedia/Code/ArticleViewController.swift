@@ -367,6 +367,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     var isFirstAppearance = true
@@ -953,9 +957,6 @@ private extension ArticleViewController {
     func setup() {
         edgesForExtendedLayout = .all
         extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = true
-        navigationController?.navigationBar.prefersLargeTitles = false
         
         setupWButton()
         setupSearchButton()

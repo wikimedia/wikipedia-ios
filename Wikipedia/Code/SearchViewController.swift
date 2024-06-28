@@ -9,6 +9,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     // MARK: - UIViewController
     
     var searchTermSelectDelegate: SearchTermSelectDelegate?
+    @objc var prefersLargeTitles: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,23 +21,21 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         super.viewWillAppear(animated)
         updateLanguageBarVisibility()
         reloadRecentSearches()
-        if animated && shouldBecomeFirstResponder {
-            navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
+        navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         SearchFunnel.shared.logSearchStart(source: source)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        if !animated && shouldBecomeFirstResponder {
-            navigationItem.searchController?.searchBar.becomeFirstResponder()
+        
+        if shouldBecomeFirstResponder {
+            navigationItem.searchController?.isActive = true
         }
     }
     
     private func setupNavBar() {
-        // TODO: This line depends on context, so maybe set it in App View Controller instead.
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -50,6 +49,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
+        search.delegate = self
         search.searchBar.placeholder = "Type something here to search"
         search.automaticallyShowsCancelButton = true
         navigationItem.searchController = search
@@ -508,6 +508,17 @@ extension SearchViewController: UISearchResultsUpdating {
         searchTerm = text
         updateRecentlySearchedVisibility(searchText: text)
         search(for: text, suggested: false)
+    }
+}
+
+extension SearchViewController: UISearchControllerDelegate {
+    func didPresentSearchController(_ searchController: UISearchController) {
+        if shouldBecomeFirstResponder {
+            DispatchQueue.main.async {[weak self] in
+                self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
+            // searchController.searchBar.becomeFirstResponder()
+        }
     }
 }
 
