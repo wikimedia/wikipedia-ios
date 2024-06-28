@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 
-final class NotificationsCenterDetailViewController: ViewController {
+final class NotificationsCenterDetailViewController: ThemeableViewController {
 
     // MARK: - Properties
 
@@ -16,7 +16,9 @@ final class NotificationsCenterDetailViewController: ViewController {
 
     init(theme: Theme, viewModel: NotificationsCenterDetailViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -26,7 +28,7 @@ final class NotificationsCenterDetailViewController: ViewController {
     override func loadView() {
         let detailView = NotificationsCenterDetailView(frame: UIScreen.main.bounds)
         view = detailView
-        scrollView = detailView.tableView
+        // scrollView = detailView.tableView
 
         detailView.tableView.dataSource = self
         detailView.tableView.delegate = self
@@ -35,6 +37,14 @@ final class NotificationsCenterDetailViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func setupNavigationBar() {

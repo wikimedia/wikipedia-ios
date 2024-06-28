@@ -3,7 +3,7 @@ import WMF
 import SwiftUI
 
 @objc
-final class NotificationsCenterViewController: ViewController {
+final class NotificationsCenterViewController: ThemeableViewController {
 
     // MARK: - Properties
 
@@ -58,14 +58,28 @@ final class NotificationsCenterViewController: ViewController {
 
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
+    
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
 
     // MARK: - Lifecycle
 
     @objc
     init(theme: Theme, viewModel: NotificationsCenterViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
         viewModel.delegate = self
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -81,7 +95,7 @@ final class NotificationsCenterViewController: ViewController {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
         view = notificationsCenterView
-        scrollView = notificationsView.collectionView
+        // scrollView = notificationsView.collectionView
     }
 
     override func viewDidLoad() {
@@ -105,7 +119,16 @@ final class NotificationsCenterViewController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
+    }
 
+    private var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -140,8 +163,25 @@ final class NotificationsCenterViewController: ViewController {
 	// MARK: - Configuration
 
     fileprivate func setupBarButtons() {
-        enableToolbar()
-        setToolbarHidden(false, animated: false)
+        
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
+        
+        toolbarContainerView.setNeedsLayout()
+        toolbarContainerView.layoutIfNeeded()
+        
+        let oldContentInset = notificationsView.collectionView.contentInset
+        notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
 
         navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false
@@ -498,6 +538,10 @@ private extension NotificationsCenterViewController {
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
+    
+    private func scrollToTop() {
+        notificationsView.collectionView.setContentOffset(CGPoint(x: notificationsView.collectionView.contentOffset.x, y: 0 - notificationsView.collectionView.contentInset.top), animated: true)
+    }
 }
 
 // MARK: - Onboarding Modal and Push Opt in
@@ -663,8 +707,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 @objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
 
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         closeSwipeActionsPanelIfNecessary()
     }
 
