@@ -27,13 +27,18 @@ class RandomArticleViewController: ArticleViewController {
         setRandomButtonHidden(false, animated: false)
     }
 
+    private var secondToolbarBottomConstraint: NSLayoutConstraint?
     func setupSecondToolbar() {
         view.addSubview(secondToolbar)
+        
+        let bottom = toolbarContainerView.topAnchor.constraint(equalTo: secondToolbar.bottomAnchor, constant: 10)
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: secondToolbar.bottomAnchor),
+            bottom,
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: secondToolbar.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: secondToolbar.trailingAnchor)
         ])
+        
+        self.secondToolbarBottomConstraint = bottom
         
         let leadingSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let trailingSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -113,6 +118,7 @@ class RandomArticleViewController: ArticleViewController {
     }
 
     func setRandomButtonHidden(_ isRandomButtonHidden: Bool, animated: Bool) {
+        // TODO: animate off screen
         secondToolbar.isHidden = isRandomButtonHidden
     }
     
@@ -124,6 +130,8 @@ class RandomArticleViewController: ArticleViewController {
         }
         (RandomArticleViewController.diceButton as Themeable).apply(theme: theme)
         emptyFadeView.backgroundColor = theme.colors.paperBackground
+        secondToolbar.setBackgroundImage(theme.clearImage, forToolbarPosition: .any, barMetrics: .default)
+        secondToolbar.setShadowImage(theme.clearImage, forToolbarPosition: .any)
     }
     
     var previousContentOffsetY: CGFloat = 0
