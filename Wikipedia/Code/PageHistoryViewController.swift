@@ -16,54 +16,11 @@ enum SelectionOrder: Int, CaseIterable {
     }
 }
 
-class TestHeaderView: UICollectionReusableView {
-    
-    var widthConstraint: NSLayoutConstraint?
-    
-    private lazy var containerView: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var label: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "testing"
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        containerView.addSubview(label)
-        addSubview(containerView)
-        
-        let widthConstraint = containerView.widthAnchor.constraint(equalToConstant: 200)
-        widthConstraint.priority = .defaultHigh
-        self.widthConstraint = widthConstraint
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: containerView.topAnchor),
-            leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            containerView.topAnchor.constraint(equalTo: label.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: label.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: label.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
-            widthConstraint
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ColumnarCollectionViewController2 {
     
-    fileprivate static let headerReuseIdentifier = "TestHeader"
+    // fileprivate static let headerReuseIdentifier = "TestHeader"
+    fileprivate static let headerReuseIdentifier = "PageHistoryCountsView"
     
     private let pageTitle: String
     private let pageURL: URL
@@ -90,7 +47,7 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
         return false
     }
 
-    private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_languageCode))
+    private var countsView: PageHistoryCountsView?
     private lazy var comparisonSelectionViewController: PageHistoryComparisonSelectionViewController = {
         let comparisonSelectionViewController = PageHistoryComparisonSelectionViewController(nibName: "PageHistoryComparisonSelectionViewController", bundle: nil)
         comparisonSelectionViewController.delegate = self
@@ -232,9 +189,13 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
         getEditCounts()
         getPageHistory()
         
-        layoutManager.register(TestHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
     }
 
+    private var totalEditCount: Int?
+    private var firstEditDate: Date?
+    private var editCountsGroupedByType: EditCountsGroupedByType?
+    private var timeseriesOfEditsCounts: [NSNumber]?
     private func getEditCounts() {
         pageHistoryFetcher.fetchFirstRevision(for: pageTitle, pageURL: pageURL) { [weak self] result in
             DispatchQueue.main.async {
@@ -261,7 +222,9 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
                                     let totalEditCount = totalEditResponse.count
                                     if let firstEditDate = firstEditDate,
                                         totalEditResponse.limit == false {
-                                        // self.countsViewController.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
+                                        self.totalEditCount = totalEditCount
+                                        self.firstEditDate = firstEditDate
+                                        self.countsView?.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
                                     }
                                     
                                 }
@@ -281,7 +244,8 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
                 case .failure(let error):
                     self.showNoInternetConnectionAlertOrOtherWarning(from: error)
                 case .success(let editCountsGroupedByType):
-                    // self.countsViewController.editCountsGroupedByType = editCountsGroupedByType
+                    self.editCountsGroupedByType = editCountsGroupedByType
+                    self.countsView?.editCountsGroupedByType = editCountsGroupedByType
                     break
                 }
             }
@@ -294,10 +258,11 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
                 }
                 switch result {
                 case .failure:
-                    // self.countsViewController.timeseriesOfEditsCounts = []
+                    self.countsView?.timeseriesOfEditsCounts = []
                     break
                 case .success(let timeseriesOfEditCounts):
-                    // self.countsViewController.timeseriesOfEditsCounts = timeseriesOfEditCounts
+                    self.timeseriesOfEditsCounts = timeseriesOfEditCounts
+                    self.countsView?.timeseriesOfEditsCounts = timeseriesOfEditCounts
                     break
                 }
             }
@@ -415,7 +380,7 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
         collectionView.backgroundColor = view.backgroundColor
         compareButton.tintColor = theme.colors.link
         cancelComparisonButton.tintColor = theme.colors.link
-        countsViewController.apply(theme: theme)
+        countsView?.apply(theme: theme)
         comparisonSelectionViewController.apply(theme: theme)
     }
 
@@ -445,23 +410,17 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
         return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
     }
     
-    var testHeader: TestHeaderView?
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if indexPath.section == 0 {
-            if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? TestHeaderView {
-                header.widthConstraint?.constant = collectionView.frame.width
-                self.testHeader = header
+            if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? PageHistoryCountsView {
+                // header.widthConstraint?.constant = collectionView.frame.width
+                header.configure(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_languageCode), totalEditCount: totalEditCount, firstEditDate: firstEditDate, editCountsGroupedByType: editCountsGroupedByType, timeseriesOfEditsCounts: timeseriesOfEditsCounts, theme: theme)
+                self.countsView = header
                 return header
             }
         }
         
         return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        testHeader?.widthConstraint?.constant = size.width
     }
 
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
