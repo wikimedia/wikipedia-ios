@@ -106,7 +106,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         cell.alertButtonCallback = { [weak self] in
-            // self?.presentArticleErrorRecovery(with: article)
+            self?.presentArticleErrorRecovery(with: article)
         }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }

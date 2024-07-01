@@ -81,11 +81,8 @@ class HintController: NSObject {
         
         var bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
         
-        if let wmfVCPresenter = presenter as? ViewController { // not ideal, violates encapsulation
-            wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
-            if !wmfVCPresenter.isToolbarHidden && wmfVCPresenter.toolbar.superview != nil {
-                bottomAnchor = wmfVCPresenter.toolbar.topAnchor
-            }
+        if let wmfVCPresenter = presenter as? ThemeableViewController { // not ideal, violates encapsulation
+            wmfVCPresenter.view.addSubview(containerView)
         } else if let subview = subview {
             presenter.view.insertSubview(containerView, belowSubview: subview)
         } else {

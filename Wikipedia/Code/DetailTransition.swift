@@ -15,13 +15,13 @@ protocol ImageScaleTransitionProviding {
 
 class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let detailSourceViewController: DetailTransitionSourceProviding & ViewController
+    let detailSourceViewController: DetailTransitionSourceProviding & ThemeableViewController
     
     var theme: Theme {
         return detailSourceViewController.theme
     }
     
-    required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController, incomingImageScaleTransitionProvider: ImageScaleTransitionProviding?, outgoingImageScaleTransitionProvider: ImageScaleTransitionProviding?) {
+    required init(detailSourceViewController: DetailTransitionSourceProviding & ThemeableViewController, incomingImageScaleTransitionProvider: ImageScaleTransitionProviding?, outgoingImageScaleTransitionProvider: ImageScaleTransitionProviding?) {
         self.detailSourceViewController = detailSourceViewController
         incomingImageScaleTransitionProvider?.prepareForIncomingImageScaleTransition?()
         outgoingImageScaleTransitionProvider?.prepareForOutgoingImageScaleTransition?()

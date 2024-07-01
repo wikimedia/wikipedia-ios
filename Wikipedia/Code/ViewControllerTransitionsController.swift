@@ -51,7 +51,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             actualToVC = toVC
         }
         
-        guard let source = actualFromVC as? (DetailTransitionSourceProviding & ViewController) ?? actualToVC as? (DetailTransitionSourceProviding & ViewController)
+        guard let source = actualFromVC as? (DetailTransitionSourceProviding & ThemeableViewController) ?? actualToVC as? (DetailTransitionSourceProviding & ThemeableViewController)
         else {
             return nil
         }

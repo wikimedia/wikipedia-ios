@@ -1259,7 +1259,7 @@ extension ArticleViewController: WKNavigationDelegate {
     }
 }
 
-extension ViewController { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
+extension ThemeableViewController { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
 
     var articleMargins: UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: articleHorizontalMargin, bottom: 0, right: articleHorizontalMargin)
