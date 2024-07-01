@@ -1,10 +1,9 @@
 import UIKit
 
-protocol DiffListDelegate: AnyObject {
-    func diffListScrollViewDidScroll(_ scrollView: UIScrollView)
-}
-
-class DiffListViewController: ViewController {
+class DiffListViewController: ThemeableViewController {
+    
+    fileprivate static let headerReuseIdentifier = "DiffHeaderView"
+    fileprivate static let headerExtendedReuseIdentifier = "DiffHeaderExtendedView"
     
     enum ListUpdateType {
         case itemExpandUpdate(indexPath: IndexPath) // tapped context cell to expand
@@ -19,19 +18,19 @@ class DiffListViewController: ViewController {
         collectionView.delegate = self
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.alwaysBounceVertical = true
-        scrollView = collectionView
         return collectionView
     }()
     
     var layoutCopy: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 125, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return layout
     }
     
     private var dataSource: [DiffListGroupViewModel] = []
-    private weak var delegate: DiffListDelegate?
+    private let diffHeaderViewModel: DiffHeaderViewModel
+    weak var delegate: (DiffHeaderTitleViewTapDelegate & DiffHeaderActionDelegate)?
     private let type: DiffContainerViewModel.DiffType
 
     private var updateWidthsOnLayoutSubviews = false
@@ -47,11 +46,15 @@ class DiffListViewController: ViewController {
     
     private var scrollDidFinishInfo: (indexPathToScrollTo: IndexPath, changeItemToScrollTo: Int)?
     
-    init(theme: Theme, delegate: DiffListDelegate?, type: DiffContainerViewModel.DiffType) {
+    var diffHeaderView: DiffHeaderView?
+    var diffHeaderExtendedView: DiffHeaderExtendedView?
+    
+    init(theme: Theme, type: DiffContainerViewModel.DiffType, diffHeaderViewModel: DiffHeaderViewModel, delegate: (DiffHeaderTitleViewTapDelegate & DiffHeaderActionDelegate)?) {
         self.type = type
+        self.diffHeaderViewModel = diffHeaderViewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +75,8 @@ class DiffListViewController: ViewController {
         collectionView.register(DiffListChangeCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListChangeCell.reuseIdentifier)
         collectionView.register(DiffListContextCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListContextCell.reuseIdentifier)
         collectionView.register(DiffListUneditedCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListUneditedCell.reuseIdentifier)
+        collectionView.register(DiffHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier)
+        collectionView.register(DiffHeaderExtendedView.wmf_classNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerExtendedReuseIdentifier)
     }
     
     override func viewDidLayoutSubviews() {
@@ -96,7 +101,7 @@ class DiffListViewController: ViewController {
                             self.indexPathBeforeRotating = nil
                         }
                         
-                        self.updateScrollViewInsets()
+                        // self.updateScrollViewInsets()
                     }
                     
                 }
@@ -133,14 +138,7 @@ class DiffListViewController: ViewController {
         
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        delegate?.diffListScrollViewDidScroll(scrollView)
-    }
-    
-    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndScrollingAnimation(scrollView)
-        
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let scrollDidFinishInfo = scrollDidFinishInfo {
             scrollToChangeItem(cellIndexPath: scrollDidFinishInfo.indexPathToScrollTo, itemIndex: scrollDidFinishInfo.changeItemToScrollTo)
             self.scrollDidFinishInfo = nil
@@ -241,8 +239,45 @@ private extension DiffListViewController {
 }
 
 extension DiffListViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        
+        if section == 0 || section == 1 {
+            return 0
+        } else {
+            return dataSource.count
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if indexPath.section == 0 {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? DiffHeaderView else {
+                return UICollectionReusableView()
+            }
+            
+            headerView.configure(with: diffHeaderViewModel, titleViewTapDelegate: delegate, theme: theme)
+            self.diffHeaderView = headerView
+            return headerView
+        } else if indexPath.section == 1 {
+            guard let headerExtendedView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerExtendedReuseIdentifier, for: indexPath) as? DiffHeaderExtendedView else {
+                return UICollectionReusableView()
+            }
+            
+            headerExtendedView.update(diffHeaderViewModel, theme: theme)
+            headerExtendedView.delegate = delegate
+            self.diffHeaderExtendedView = headerExtendedView
+            return headerExtendedView
+        } else {
+            return UICollectionReusableView()
+        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -272,6 +307,24 @@ extension DiffListViewController: UICollectionViewDataSource {
 }
 
 extension DiffListViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        guard section == 0 || section == 1 else {
+            return CGSize.zero
+        }
+        
+        // Get the view for the first header
+            let indexPath = IndexPath(row: 0, section: section)
+            let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
+
+            // Use this view to calculate the optimal size based on the collection view's width
+            let size =  headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
+                                                      withHorizontalFittingPriority: .required, // Width is fixed
+                                                      verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
+        
+        return size
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -357,8 +410,6 @@ extension DiffListViewController: DiffListChangeCellDelegate {
                 scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
                 collectionView.scrollToItem(at: indexPathToScrollTo, at: UICollectionView.ScrollPosition.top, animated: true)
             }
-            
-            
         }
     }
     

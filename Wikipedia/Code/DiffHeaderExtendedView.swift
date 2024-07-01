@@ -11,9 +11,8 @@ enum DiffHeaderUsernameDestination {
     case userPage
 }
 
-class DiffHeaderExtendedView: UIView {
+class DiffHeaderExtendedView: UICollectionReusableView {
  
-    @IBOutlet var contentView: UIView!
     @IBOutlet var stackView: UIStackView!
     @IBOutlet var summaryView: DiffHeaderSummaryView!
     @IBOutlet var editorView: DiffHeaderEditorView!
@@ -35,25 +34,7 @@ class DiffHeaderExtendedView: UIView {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    private func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderExtendedView.wmf_nibName(), owner: self, options: nil)
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
-    }
-    
-    func update(_ new: DiffHeaderViewModel) {
+    func update(_ new: DiffHeaderViewModel, theme: Theme) {
         
         self.viewModel = new
         
@@ -81,6 +62,8 @@ class DiffHeaderExtendedView: UIView {
             }
             editorView.update(editorViewModel)
         }
+        
+        apply(theme: theme)
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

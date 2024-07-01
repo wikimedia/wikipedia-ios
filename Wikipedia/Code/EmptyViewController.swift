@@ -67,10 +67,6 @@ class EmptyViewController: UIViewController {
         emptyContainerViewTopConstraint.constant = topEmptyViewSpacing
     }
     
-    func centerEmptyView(within targetRect: CGRect) {
-        scrollView.contentInset = UIEdgeInsets(top: targetRect.minY, left: 0, bottom: 0, right: 0)
-    }
-    
     private func determineTopOffset(emptyViewHeight: CGFloat) {
         let availableHeight = view.bounds.height - scrollView.contentInset.top
         let middle = availableHeight/2
