@@ -111,19 +111,22 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
     
     private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
         guard let error = error else {
-            alertStackView.alpha = 0
+            alertStackView.isHidden = true
             return
         }
         switch error {
         case .listLimit:
             alertType = .listLimitExceeded(limit: listLimit)
-            alertStackView.alpha = 1
+            alertStackView.isHidden = false
         case .entryLimit:
             alertType = .entryLimitExceeded(limit: entryLimit)
-            alertStackView.alpha = 1
+            alertStackView.isHidden = false
         default:
-            alertStackView.alpha = 0
+            alertStackView.isHidden = true
         }
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     public func reconfigureAlert(for readingList: ReadingList) {
