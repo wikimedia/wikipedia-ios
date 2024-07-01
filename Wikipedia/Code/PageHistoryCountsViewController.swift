@@ -15,11 +15,11 @@ class PageHistoryCountsViewController: UIViewController {
     @IBOutlet private weak var separator: UIView!
 
     @IBOutlet private weak var filterCountsContainerView: UIView!
-    private lazy var filterCountsViewController = PageHistoryFilterCountsViewController()
+    private lazy var filterCountsView = PageHistoryFilterCountsView()
 
     var editCountsGroupedByType: EditCountsGroupedByType? {
         didSet {
-            filterCountsViewController.editCountsGroupedByType = editCountsGroupedByType
+            filterCountsView.editCountsGroupedByType = editCountsGroupedByType
         }
     }
 
@@ -77,13 +77,13 @@ class PageHistoryCountsViewController: UIViewController {
 
         sparklineView.showsVerticalGridlines = true
 
-        filterCountsViewController.delegate = self
-        wmf_add(childController: filterCountsViewController, andConstrainToEdgesOfContainerView: filterCountsContainerView)
+        filterCountsView.delegate = self
+        filterCountsContainerView.wmf_addSubviewWithConstraintsToEdges(filterCountsView)
 
         sparklineView.isAccessibilityElement = true
         sparklineView.accessibilityLabel = WMFLocalizedString("page-history-graph-accessibility-label", value: "Graph of edits over time", comment: "Accessibility label text used for edits graph")
 
-        view.accessibilityElements = [titleLabel, pageTitleLabel, countsLabel, sparklineView, filterCountsViewController.view].compactMap { $0 as Any }
+        view.accessibilityElements = [titleLabel, pageTitleLabel, countsLabel, sparklineView, filterCountsView].compactMap { $0 as Any }
     }
 
     override func viewDidLayoutSubviews() {
@@ -107,14 +107,12 @@ class PageHistoryCountsViewController: UIViewController {
     }
 }
 
-extension PageHistoryCountsViewController: PageHistoryFilterCountsViewControllerDelegate {
-    func didDetermineFilterCountsAvailability(_ available: Bool, viewController: PageHistoryFilterCountsViewController) {
+extension PageHistoryCountsViewController: PageHistoryFilterCountsViewDelegate {
+    func didDetermineFilterCountsAvailability(_ available: Bool, view: PageHistoryFilterCountsView) {
         if !available {
             filterCountsContainerView.isHidden = true
             UIView.animate(withDuration: 0.4) {
-                self.filterCountsViewController.willMove(toParent: nil)
-                self.filterCountsViewController.view.removeFromSuperview()
-                self.filterCountsViewController.removeFromParent()
+                self.filterCountsView.removeFromSuperview()
             }
         }
     }
@@ -131,7 +129,7 @@ extension PageHistoryCountsViewController: Themeable {
         pageTitleLabel.textColor = theme.colors.primaryText
         countsLabel.textColor = theme.colors.accent
         separator.backgroundColor = theme.colors.border
-        filterCountsViewController.apply(theme: theme)
+        filterCountsView.apply(theme: theme)
         sparklineView.apply(theme: theme)
     }
 }
