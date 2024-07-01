@@ -371,6 +371,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = true
         navigationItem.largeTitleDisplayMode = .never
+        
+        // speed up show/hide animation
+        navigationController?.navigationBar.layer.speed = 1.2
     }
     
     var isFirstAppearance = true
@@ -413,6 +416,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
+        
+        navigationController?.navigationBar.layer.speed = 1
     }
     
     // MARK: Article load

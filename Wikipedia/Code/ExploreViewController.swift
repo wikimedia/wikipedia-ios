@@ -78,6 +78,15 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.hidesBarsOnSwipe = true
+        
+        // speed up show/hide animation
+        navigationController?.navigationBar.layer.speed = 1.2
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.layer.speed = 1
     }
 
     func presentUITestHelperController() {
