@@ -2,7 +2,9 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
-final class TalkPageHeaderView: SetupView {
+final class TalkPageHeaderView: UICollectionReusableView {
+    
+    static let reuseIdentifier = "TalkPageHeaderView"
 
     // MARK: - UI Elements
 
@@ -158,10 +160,19 @@ final class TalkPageHeaderView: SetupView {
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
 
-    override func setup() {
+    func setup() {
         // Primary data
         addSubview(verticalStackView)
         horizontalContainer.addSubview(horizontalStackView)

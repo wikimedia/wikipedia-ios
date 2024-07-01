@@ -215,6 +215,10 @@ class DiffContainerViewController: ThemeableViewController {
         if let toolbarView = diffToolbarView {
             view.bringSubviewToFront(toolbarView)
         }
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewDidAppear(_ animated: Bool) {
