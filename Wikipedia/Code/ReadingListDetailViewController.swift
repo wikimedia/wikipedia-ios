@@ -331,8 +331,8 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
     }
     
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
-        readingListDetailHeaderView?.reconfigureAlert(for: readingList)
-        readingListDetailHeaderView?.updateArticleCount(readingList.countOfEntries)
+        let sections = IndexSet(integer: 0)
+        viewController.collectionView.reloadSections(sections)
     }
     
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {

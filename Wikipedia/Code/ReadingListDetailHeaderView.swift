@@ -109,8 +109,14 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        alertStackView.isHidden = true
+    }
+    
     private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
-        guard let error = error else {
+        guard let error else {
             alertStackView.isHidden = true
             return
         }
@@ -127,10 +133,6 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         
         setNeedsLayout()
         layoutIfNeeded()
-    }
-    
-    public func reconfigureAlert(for readingList: ReadingList) {
-        setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
     
     public func dismissKeyboardIfNecessary() {
