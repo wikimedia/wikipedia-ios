@@ -2,7 +2,7 @@ fileprivate protocol ViewModel {
     var title: String { get }
 }
 
-final class InsertMediaImageSizeSettingsViewController: ViewController {
+final class InsertMediaImageSizeSettingsViewController: ThemeableViewController {
     private let tableView = UITableView()
 
     typealias ImageSize = InsertMediaSettings.Advanced.ImageSize
@@ -73,9 +73,9 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
     }()
 
     override func viewDidLoad() {
-        scrollView = tableView
+        // scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
+        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
@@ -84,6 +84,14 @@ final class InsertMediaImageSizeSettingsViewController: ViewController {
         tableView.tableFooterView = UIView()
         title = ImageSize.displayTitle
         apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func apply(theme: Theme, to cell: UITableViewCell) {

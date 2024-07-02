@@ -16,7 +16,7 @@ protocol InsertMediaSettingsViewControllerLoggingDelegate: UIViewController {
     func logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
 }
 
-final class InsertMediaSettingsViewController: ViewController {
+final class InsertMediaSettingsViewController: ThemeableViewController {
     
     private let fromImageRecommendations: Bool
     private weak var delegate: InsertMediaSettingsViewControllerDelegate?
@@ -241,7 +241,7 @@ final class InsertMediaSettingsViewController: ViewController {
         self.delegate = delegate
         self.imageRecLoggingDelegate = imageRecLoggingDelegate
         self.siteURL = siteURL
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
 
@@ -250,9 +250,9 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     override func viewDidLoad() {
-        scrollView = tableView
+       // scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
+        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
@@ -284,6 +284,14 @@ final class InsertMediaSettingsViewController: ViewController {
         let altTextToSend = info.altText
         
         delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewDidAppear(_ animated: Bool) {

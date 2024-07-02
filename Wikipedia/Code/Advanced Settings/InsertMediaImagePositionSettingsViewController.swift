@@ -1,4 +1,4 @@
-final class InsertMediaImagePositionSettingsViewController: ViewController {
+final class InsertMediaImagePositionSettingsViewController: ThemeableViewController {
     private let tableView = UITableView()
     private var selectedIndexPath: IndexPath?
 
@@ -34,9 +34,9 @@ final class InsertMediaImagePositionSettingsViewController: ViewController {
     }()
 
     override func viewDidLoad() {
-        scrollView = tableView
+        // scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
+        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
@@ -45,6 +45,14 @@ final class InsertMediaImagePositionSettingsViewController: ViewController {
         tableView.tableFooterView = UIView()
         title = ImagePosition.displayTitle
         apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func apply(theme: Theme, to cell: UITableViewCell) {

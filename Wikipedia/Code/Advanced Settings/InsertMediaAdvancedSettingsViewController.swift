@@ -1,6 +1,6 @@
 import UIKit
 
-final class InsertMediaAdvancedSettingsViewController: ViewController {
+final class InsertMediaAdvancedSettingsViewController: ThemeableViewController {
     static let title = WMFLocalizedString("advanced-settings-title", value: "Advanced settings", comment: "Title for advanced settings screen")
     private let tableView = UITableView()
 
@@ -74,9 +74,9 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
     }
 
     override func viewDidLoad() {
-        scrollView = tableView
+        // scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
+        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
@@ -86,8 +86,14 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
         apply(theme: theme)
     }
 
+    var isFirstAppearance = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
+        
         defer {
             isFirstAppearance = false
         }

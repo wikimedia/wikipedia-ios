@@ -1,4 +1,4 @@
-final class InsertMediaImageTypeSettingsViewController: ViewController {
+final class InsertMediaImageTypeSettingsViewController: ThemeableViewController {
     private let tableView = UITableView()
     private var selectedIndexPath: IndexPath?
 
@@ -33,9 +33,9 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
     }()
     
     override func viewDidLoad() {
-        scrollView = tableView
+        // scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
+        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
@@ -44,6 +44,14 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
         autolayoutTableViewFooter = InsertMediaLabelTableFooterView(text: WMFLocalizedString("insert-media-image-type-settings-footer-title", value: "You can set how the media item appears on the page. This should be the thumbnail format to be consistent with other pages in almost all cases.", comment: "Footer for "))
         title = ImageType.displayTitle
         apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private var autolayoutTableViewFooter: UIView? {

@@ -914,12 +914,12 @@ extension EditorViewController: InsertLinkViewControllerDelegate {
 
 extension EditorViewController: InsertMediaViewControllerDelegate {
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+        insertMediaViewController.dismiss(animated: true)
     }
     
     func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
         sourceEditor?.insertImage(wikitext: wikitext)
-        dismiss(animated: true)
+        insertMediaViewController.dismiss(animated: true)
     }
 }
 
