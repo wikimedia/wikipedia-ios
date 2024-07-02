@@ -11,6 +11,8 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection {
+    
+    fileprivate static let headerReuseIdentifier = "CreateNewReadingListButtonView"
 
     typealias T = ReadingList
     let dataStore: MWKDataStore
@@ -23,6 +25,7 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
     private var displayType: ReadingListsDisplayType = .readingListsTab
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
+    private var needsCreateReadingListButton: Bool = false
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -80,10 +83,11 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
+    convenience init(with dataStore: MWKDataStore, articles: [WMFArticle], needsCreateReadingListButton: Bool = false) {
         self.init(with: dataStore)
         self.articles = articles
         self.displayType = .addArticlesToReadingList
+        self.needsCreateReadingListButton = needsCreateReadingListButton
     }
     
     convenience init(with dataStore: MWKDataStore, readingLists: [ReadingList]?) {
@@ -98,6 +102,7 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         emptyViewType = .noReadingLists
         emptyViewTarget = self
         emptyViewAction = #selector(presentCreateReadingListViewController)
@@ -165,13 +170,7 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
         }
     }
 
-    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
-        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
-        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
-        createNewReadingListButtonView?.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
-        createNewReadingListButtonView?.apply(theme: theme)
-        return createNewReadingListButtonView!
-    }()
+    private var createNewReadingListButtonView: CreateNewReadingListButtonView?
     
     // MARK: - Cell configuration
     
@@ -209,6 +208,14 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+
+        guard section == 0, needsCreateReadingListButton else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -285,7 +292,7 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        createNewReadingListButtonView.apply(theme: theme)
+        createNewReadingListButtonView?.apply(theme: theme)
     }
 }
 
@@ -342,6 +349,22 @@ extension ReadingListsViewController {
         }
         configure(cell: readingListCell, forItemAt: indexPath, layoutOnly: false)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard needsCreateReadingListButton, indexPath.section == 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+        
+        if let buttonView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? CreateNewReadingListButtonView {
+            self.createNewReadingListButtonView = buttonView
+            buttonView.title = CommonStrings.createNewListTitle
+            buttonView.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+            buttonView.apply(theme: theme)
+            return buttonView
+        }
+    
+         return UICollectionReusableView()
     }
 }
 

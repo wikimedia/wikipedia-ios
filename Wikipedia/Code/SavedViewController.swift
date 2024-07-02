@@ -134,10 +134,11 @@ class SavedViewController: ThemeableViewController {
                 // navigationBar.addExtendedNavigationBarView(searchView)
                 break
             case .createNewReadingList:
-                if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
-                    // navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
-                    createNewReadingListButtonView.apply(theme: theme)
-                }
+//                if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
+//                    // navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
+//                    createNewReadingListButtonView.apply(theme: theme)
+//                }
+                break
             default:
                 break
             }
@@ -246,9 +247,11 @@ class SavedViewController: ThemeableViewController {
             // reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
-        
+
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
         // TODO: true doesn't work here with scopeBar :(
         navigationItem.hidesSearchBarWhenScrolling = false
         if #available(iOS 16.0, *) {

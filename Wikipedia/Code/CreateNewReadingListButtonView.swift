@@ -1,8 +1,7 @@
 import UIKit
 
-public class CreateNewReadingListButtonView: UIView {
+public class CreateNewReadingListButtonView: UICollectionReusableView {
     @IBOutlet weak var button: AlignedImageButton!
-    @IBOutlet private weak var separator: UIView!
 
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +31,5 @@ extension CreateNewReadingListButtonView: Themeable {
     public func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         button.tintColor = theme.colors.link
-        separator.backgroundColor = theme.colors.border
     }
 }

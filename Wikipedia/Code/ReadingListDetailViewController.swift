@@ -145,6 +145,13 @@ class ReadingListDetailViewController: ThemeableViewController {
         dismiss(animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         readingListEntryCollectionViewController.editController.isTextEditing = false

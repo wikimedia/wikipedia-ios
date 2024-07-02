@@ -571,11 +571,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (UIViewController *)visibleViewController {
-    UIViewController *visibleViewController = self.navigationController.visibleViewController;
-    if (visibleViewController == self) {
-        return self.selectedViewController;
+    
+    if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *)self.selectedViewController;
+        return navigationController.visibleViewController;
     }
-    return visibleViewController;
+    
+    return nil;
 }
 
 - (UIViewController<WMFHintPresenting> *)visibleHintPresentingViewController {

@@ -47,7 +47,7 @@ class ReadingListHintViewController: HintViewController {
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
-        navigationController.isNavigationBarHidden = true
+        // navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
     }
 
