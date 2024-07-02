@@ -494,6 +494,7 @@ extension ReadingListEntryCollectionViewController {
 // MARK: - SortableCollection
 
 extension ReadingListEntryCollectionViewController: SortableCollection {
+    
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
         guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
             return ([], nil)
@@ -537,7 +538,7 @@ extension ReadingListEntryCollectionViewController: ShareableArticlesProvider {}
 // MARK: - SavedViewControllerDelegate
 
 extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
         presentSortAlert(from: button)
     }
     

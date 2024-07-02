@@ -175,6 +175,14 @@ class ReadingListDetailViewController: ThemeableViewController {
         searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
     }
+    
+    private lazy var sortBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+    }()
+    
+    @objc func didTapSort(_ sender: UIBarButtonItem) {
+        readingListEntryCollectionViewController.presentSortAlert(from: sender)
+    }
 }
 
 // MARK: - NavigationDelegate
@@ -206,8 +214,12 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
-        navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if let editButton = rightBarButton {
+            navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
+            rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+            sortBarButtonItem.tintColor = theme.colors.link
+        }
         
         if displayType == .pushed {
             navigationItem.leftBarButtonItem = leftBarButton
@@ -246,11 +258,11 @@ extension ReadingListDetailViewController: ReadingListDetailHeaderViewDelegate {
     }
     
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldTextDidChange textField: UITextField) {
-        navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
+        navigationItem.rightBarButtonItems?.first?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
     }
     
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField) {
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItems?.first?.isEnabled = false
     }
 }
 
@@ -321,7 +333,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         }
         switch buttonType {
         case .sort:
-            readingListEntryCollectionViewController.presentSortAlert(from: button)
+            break
+            // readingListEntryCollectionViewController.presentSortAlert(from: button)
         case .cancel:
             makeSearchBarResignFirstResponder(searchBar)
         }

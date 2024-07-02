@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
@@ -102,6 +102,10 @@ class SavedViewController: ThemeableViewController {
                 if let searchBar = navigationItem.searchController?.searchBar {
                     searchBar.placeholder = "Search saved articles"
                 }
+                
+                if let editButton = navigationItem.rightBarButtonItems?.first {
+                    navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
+                }
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController?.editController.navigationDelegate = nil
@@ -115,6 +119,9 @@ class SavedViewController: ThemeableViewController {
                 ReadingListsFunnel.shared.logTappedReadingListsTab()
                 if let searchBar = navigationItem.searchController?.searchBar {
                     searchBar.placeholder = "Search reading lists"
+                }
+                if let editButton = navigationItem.rightBarButtonItems?.first {
+                    navigationItem.rightBarButtonItems = [editButton]
                 }
             }
         }
@@ -306,13 +313,13 @@ class SavedViewController: ThemeableViewController {
     }
     
     @IBAction func actionButonPressed(_ sender: UIButton) {
-        switch actionButtonType {
-        case .sort:
-            savedDelegate?.savedWillShowSortAlert(self, from: sender)
-        case .cancel:
-            // searchBar.resignFirstResponder()
-            break
-        }
+//        switch actionButtonType {
+//        case .sort:
+//            //savedDelegate?.savedWillShowSortAlert(self, from: sender)
+//        case .cancel:
+//            // searchBar.resignFirstResponder()
+//            break
+//        }
     }
     
     // MARK: - Themeable
@@ -339,7 +346,19 @@ class SavedViewController: ThemeableViewController {
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+            for barButtonItem in rightBarButtonItems {
+                barButtonItem.tintColor = theme.colors.link
+            }
+        }
+    }
+    
+    private lazy var sortBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+    }()
+    
+    @objc func didTapSort(_ sender: UIBarButtonItem) {
+        savedDelegate?.savedWillShowSortAlert(self, from: sender)
     }
 }
 
@@ -354,8 +373,13 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         defer {
             // navigationBar.updateNavigationItems()
         }
-        navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        let editButton = rightBarButton
+        let sortBarButtonItem = self.sortBarButtonItem
+        sortBarButtonItem.tintColor = theme.colors.link
+        editButton?.tintColor = theme.colors.link
+        
+        navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem].compactMap {$0}
+        
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         // actionButton.isEnabled = !isEditing
