@@ -15,6 +15,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         label.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -25,6 +26,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         label.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -34,6 +36,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         label.numberOfLines = 3
         label.font = UIFont.wmf_font(.footnote)
         label.adjustsFontForContentSizeCategory = true
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -149,6 +152,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         label.numberOfLines = 2
         label.font = UIFont.wmf_font(.body)
         label.adjustsFontForContentSizeCategory = true
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
