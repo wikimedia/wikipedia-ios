@@ -7,7 +7,7 @@ protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController)
 }
 
-class EditLinkViewController: ViewController {
+class EditLinkViewController: ThemeableViewController {
     weak var delegate: EditLinkViewControllerDelegate?
 
     private let link: Link
@@ -64,7 +64,7 @@ class EditLinkViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.displayType = .modal
+        // navigationBar.displayType = .modal
         title = CommonStrings.editLinkTitle
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = doneButton
@@ -79,12 +79,12 @@ class EditLinkViewController: ViewController {
         removeLinkButton.setTitle(WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button"), for: .normal)
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
-        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
-            guard let self = self else {
-                return
-            }
-            self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
-        })
+//        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
+//            guard let self = self else {
+//                return
+//            }
+//            self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
+//        })
         updateFonts()
         apply(theme: theme)
     }
@@ -92,6 +92,10 @@ class EditLinkViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchArticle()
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func fetchArticle() {
@@ -171,6 +175,7 @@ class EditLinkViewController: ViewController {
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
         searchViewController.delegatesSearchResultSelection = true
+        searchViewController.prefersLargeTitles = false
         searchViewController.showLanguageBar = false
         searchViewController.navigationItem.title = title
         searchViewController.searchTerm = articleURL.wmf_title

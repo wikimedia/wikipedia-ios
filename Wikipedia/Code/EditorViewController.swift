@@ -878,11 +878,11 @@ extension EditorViewController: ReadingThemesControlsPresenting {
 
 extension EditorViewController: EditLinkViewControllerDelegate {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
         sourceEditor?.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
     }
     
@@ -892,7 +892,7 @@ extension EditorViewController: EditLinkViewControllerDelegate {
     }
     
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
         sourceEditor?.removeLink()
     }
 }
@@ -901,12 +901,12 @@ extension EditorViewController: EditLinkViewControllerDelegate {
 
 extension EditorViewController: InsertLinkViewControllerDelegate {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+        insertLinkViewController.dismiss(animated: true)
     }
     
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
         sourceEditor?.insertLink(pageTitle: page)
-        dismiss(animated: true)
+        insertLinkViewController.dismiss(animated: true)
     }
 }
 
