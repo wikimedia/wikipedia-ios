@@ -11,7 +11,7 @@ protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
     func logEditPreviewDidTapNext()
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLinkPreviewing {
+class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -46,9 +46,9 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
     init(pageURL: URL) {
         self.pageURL = pageURL
         self.previewWebViewContainer = PreviewWebViewContainer()
-        super.init()
+        super.init(nibName: nil, bundle: nil)
 
-        webView.scrollView.delegate = self
+        // webView.scrollView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -118,6 +118,10 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadPreviewIfNecessary()
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     override func viewWillDisappear(_ animated: Bool) {
