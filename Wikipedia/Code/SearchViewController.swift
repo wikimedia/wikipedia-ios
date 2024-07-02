@@ -16,7 +16,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         setupNavBar()
         embedResultsViewController()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageBarVisibility()
@@ -44,7 +44,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         } else {
             // Fallback on earlier versions
         }
-
+        
         let search = UISearchController(searchResultsController: nil)
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
@@ -74,19 +74,19 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     }
     
     var delegatesSearchTermSelection: Bool = false
-
+    
     var doResultsShowArticlePreviews = true {
         didSet {
             resultsViewController.doesShowArticlePreviews = doResultsShowArticlePreviews
         }
     }
-
+    
     var showLanguageBar: Bool?
-
+    
     var searchTerm: String?
-
+    
     private var _siteURL: URL?
-
+    
     var siteURL: URL? {
         get {
             return _siteURL ?? searchLanguageBarViewController?.selectedSiteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
@@ -102,7 +102,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         search(for: searchTerm, suggested: false)
         navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
-
+    
     func search() {
         search(for: searchTerm, suggested: false)
     }
@@ -118,7 +118,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             searchTerm.wmf_hasNonWhitespaceText
         else {
             didCancelSearch()
-                return
+            return
         }
         
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else {
@@ -126,15 +126,15 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
         
         let start = Date()
-    
+        
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
                       searchTerm == self.navigationItem.searchController?.searchBar.text else {
                     return
                 }
-                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                 self.resultsViewController.results = []
+                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                self.resultsViewController.results = []
                 SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
@@ -157,10 +157,10 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
                 
                 NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
                 let resultsArray = results.results ?? []
-                 self.resultsViewController.emptyViewType = .noSearchResults
-                 self.resultsViewController.resultsInfo = results
-                 self.resultsViewController.searchSiteURL = siteURL
-                 self.resultsViewController.results = resultsArray
+                self.resultsViewController.emptyViewType = .noSearchResults
+                self.resultsViewController.resultsInfo = results
+                self.resultsViewController.searchSiteURL = siteURL
+                self.resultsViewController.results = resultsArray
                 guard !suggested else {
                     return
                 }
@@ -183,49 +183,87 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
     }
     
-    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
-        if let vc = self.searchLanguageBarViewController {
-            return vc
-        }
-        let searchLanguageBarViewController = SearchLanguagesBarViewController()
-        searchLanguageBarViewController.apply(theme: theme)
-        searchLanguageBarViewController.delegate = self
-        self.searchLanguageBarViewController = searchLanguageBarViewController
-        return searchLanguageBarViewController
-    }
-
+    //    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
+    //        if let vc = self.searchLanguageBarViewController {
+    //            return vc
+    //        }
+    //        let searchLanguageBarViewController = SearchLanguagesBarViewController()
+    //        searchLanguageBarViewController.apply(theme: theme)
+    //        searchLanguageBarViewController.delegate = self
+    //        self.searchLanguageBarViewController = searchLanguageBarViewController
+    //        return searchLanguageBarViewController
+    //    }
+    
     private func updateLanguageBarVisibility() {
         let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
         
         let searchController = navigationItem.searchController
         searchController?.searchBar.showsScopeBar = showLanguageBar
         if showLanguageBar {
-            let languages = dataStore.languageLinkController.preferredLanguages
-            searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
-                
-//                let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
-//                
-//                return truncatedLanguageCode.last?.isPunctuation ?? false
-//                ? String(truncatedLanguageCode.dropLast())
-//                : String(truncatedLanguageCode)
-                return $0.contentLanguageCode.localizedUppercase
-            }
+            updateScopeButtons()
+            setupOverflowMenu()
+        } else {
+            navigationItem.rightBarButtonItem = nil
         }
+    }
+    
+    private func updateScopeButtons() {
+        let languages = dataStore.languageLinkController.preferredLanguages
+        navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
+            
+            //                let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
+            //
+            //                return truncatedLanguageCode.last?.isPunctuation ?? false
+            //                ? String(truncatedLanguageCode.dropLast())
+            //                : String(truncatedLanguageCode)
+            return $0.contentLanguageCode.localizedUppercase
+        }
+        
+        // TODO: make this smarter
+        navigationItem.searchController?.searchBar.selectedScopeButtonIndex = 0
+        let language = languages[0]
+        siteURL = language.siteURL
+    }
+    
+    private func setupOverflowMenu() {
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButtonItem.tintColor = theme.colors.link
+    }
+    
+    private var overflowMenu: UIMenu {
+        
+        let updateLanguages = UIAction(title: "Update Languages", image: nil, handler: { [weak self] _ in
+            self?.openLanguagePicker()
+        })
+        
+        let menuItems: [UIMenuElement] = [updateLanguages]
+        
+        return UIMenu(title: String(), children: menuItems)
+    }
+    
+    private func openLanguagePicker() {
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.delegate = self
+        if let themeable = languagesVC as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        present(WMFThemeableNavigationController(rootViewController: languagesVC, theme: self.theme), animated: true, completion: nil)
     }
     
     override var headerStyle: ColumnarCollectionViewController2.HeaderStyle {
         return .sections
     }
-
+    
     // MARK: - Search
     
     lazy var fetcher: WMFSearchFetcher = {
-       return WMFSearchFetcher()
+        return WMFSearchFetcher()
     }()
     
     func didCancelSearch() {
-         resultsViewController.emptyViewType = .none
-         resultsViewController.results = []
+        resultsViewController.emptyViewType = .none
+        resultsViewController.results = []
         navigationItem.searchController?.searchBar.text = nil
         SearchFunnel.shared.logSearchCancel(source: source)
     }
@@ -234,11 +272,11 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         didCancelSearch()
         updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
     }
-
+    
     // used to match the transition with explore
     
     func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
-
+        
         collectionView.alpha = 0
         view.backgroundColor = .clear
     }
@@ -256,7 +294,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         resultsViewController.delegate = self
         return resultsViewController
     }()
-//    
+    //
     // MARK: - Recent Search Saving
     
     
@@ -275,26 +313,26 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     
     // MARK: - UISearchBarDelegate
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        updateRecentlySearchedVisibility(searchText: searchText)
-//        search(for: searchBar.text, suggested: false)
-//    }
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        saveLastSearch()
-//        searchBar.endEditing(true)
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
-//            navigationController.popViewController(animated: true)
-//        } else {
-//            searchBar.endEditing(true)
-//            didCancelSearch()
-//        }
-//        deselectAll(animated: true)
-//		updateRecentlySearchedVisibility(searchText: searchBar.text)
-//    }
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //        updateRecentlySearchedVisibility(searchText: searchText)
+    //        search(for: searchBar.text, suggested: false)
+    //    }
+    //
+    //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    //        saveLastSearch()
+    //        searchBar.endEditing(true)
+    //    }
+    //
+    //    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    //        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+    //            navigationController.popViewController(animated: true)
+    //        } else {
+    //            searchBar.endEditing(true)
+    //            didCancelSearch()
+    //        }
+    //        deselectAll(animated: true)
+    //		updateRecentlySearchedVisibility(searchText: searchBar.text)
+    //    }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let languages = dataStore.languageLinkController.preferredLanguages
@@ -519,6 +557,12 @@ extension SearchViewController: UISearchControllerDelegate {
             }
             // searchController.searchBar.becomeFirstResponder()
         }
+    }
+}
+
+extension SearchViewController: WMFPreferredLanguagesViewControllerDelegate {
+    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
+        updateScopeButtons()
     }
 }
 
