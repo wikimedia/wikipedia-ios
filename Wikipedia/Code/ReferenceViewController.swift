@@ -6,7 +6,7 @@ protocol ReferenceViewControllerDelegate: AnyObject {
     func referenceViewControllerUserDidNavigateBackToReference(_ vc: ReferenceViewController)
 }
 
-class ReferenceViewController: ViewController {
+class ReferenceViewController: ThemeableViewController {
     weak var delegate: ReferenceViewControllerDelegate?
     
     var referenceId: String? = nil
@@ -25,7 +25,7 @@ class ReferenceViewController: ViewController {
     }
     
     func setupNavbar() {
-        navigationBar.displayType = .modal
+        // navigationBar.displayType = .modal
         updateTitle()
         navigationItem.rightBarButtonItem = closeButton
         navigationItem.leftBarButtonItem = backToReferenceButton
@@ -35,9 +35,17 @@ class ReferenceViewController: ViewController {
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
-        navigationMode = .forceBar
+        // navigationMode = .forceBar
         super.viewDidLoad()
         setupNavbar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     // MARK: Actions
