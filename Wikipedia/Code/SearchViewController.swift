@@ -125,6 +125,8 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             return
         }
         
+        resetSearchResults()
+        
         let start = Date()
         
         let failure = { (error: Error, type: WMFSearchType) in
@@ -260,6 +262,11 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     lazy var fetcher: WMFSearchFetcher = {
         return WMFSearchFetcher()
     }()
+    
+    func resetSearchResults() {
+        resultsViewController.emptyViewType = .none
+        resultsViewController.results = []
+    }
     
     func didCancelSearch() {
         resultsViewController.emptyViewType = .none
