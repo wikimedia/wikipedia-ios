@@ -23,6 +23,13 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         reloadRecentSearches()
         navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
         navigationController?.hidesBarsOnSwipe = false
+        
+        let newAppearance = UINavigationBarAppearance()
+        newAppearance.largeTitleTextAttributes = [.font: UIFont.wmf_font(.boldTitle1)]
+        newAppearance.configureWithOpaqueBackground()
+        newAppearance.backgroundColor = theme.colors.chromeBackground
+        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
+        navigationItem.scrollEdgeAppearance = newAppearance
     }
     
     override func viewDidAppear(_ animated: Bool) {

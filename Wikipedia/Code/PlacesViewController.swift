@@ -319,6 +319,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         } else {
             // Fallback on earlier versions
         }
+        
+        let newAppearance = UINavigationBarAppearance()
+        newAppearance.largeTitleTextAttributes = [.font: UIFont.wmf_font(.boldTitle1)]
+        newAppearance.configureWithOpaqueBackground()
+        newAppearance.backgroundColor = theme.colors.chromeBackground
+        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
+        navigationItem.scrollEdgeAppearance = newAppearance
     }
 
     override func viewWillDisappear(_ animated: Bool) {

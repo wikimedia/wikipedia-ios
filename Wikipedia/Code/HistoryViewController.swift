@@ -35,6 +35,12 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.hidesBarsOnSwipe = false
+        let newAppearance = UINavigationBarAppearance()
+        newAppearance.largeTitleTextAttributes = [.font: UIFont.wmf_font(.boldTitle1)]
+        newAppearance.configureWithOpaqueBackground()
+        newAppearance.backgroundColor = theme.colors.chromeBackground
+        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
+        navigationItem.scrollEdgeAppearance = newAppearance
     }
     
     override func viewDidAppear(_ animated: Bool) {
