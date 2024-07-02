@@ -319,12 +319,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
-    
-    UINavigationController *nav1 = [[WMFThemeableNavigationController alloc] initWithRootViewController:mainViewController theme: self.theme];
-    UINavigationController *nav2 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self placesViewController] theme: self.theme];
-    UINavigationController *nav3 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self savedViewController] theme: self.theme];
-    UINavigationController *nav4 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self recentArticlesViewController] theme: self.theme];
-    UINavigationController *nav5 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self searchViewController] theme: self.theme];
+
+    UINavigationController *nav1 = [[WMFThemeableNavigationController alloc] initWithRootViewController:mainViewController theme:self.theme];
+    nav1.delegate = self;
+    UINavigationController *nav2 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self placesViewController] theme:self.theme];
+    nav2.delegate = self;
+    UINavigationController *nav3 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self savedViewController] theme:self.theme];
+    nav3.delegate = self;
+    UINavigationController *nav4 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self recentArticlesViewController] theme:self.theme];
+    nav4.delegate = self;
+    UINavigationController *nav5 = [[WMFThemeableNavigationController alloc] initWithRootViewController:[self searchViewController] theme:self.theme];
+    nav5.delegate = self;
 
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
@@ -571,12 +576,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (UIViewController *)visibleViewController {
-    
+
     if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationController = (UINavigationController *)self.selectedViewController;
         return navigationController.visibleViewController;
     }
-    
+
     return nil;
 }
 
@@ -1371,7 +1376,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (WMFArticleViewController *)visibleArticleViewController {
     if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navVC = (UINavigationController *)self.selectedViewController;
-        
+
         UIViewController *topVC = navVC.topViewController;
         if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
             return (WMFArticleViewController *)topVC;
@@ -1953,7 +1958,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             UINavigationController *navVC = (UINavigationController *)self.selectedViewController;
             return navVC;
         }
-        
+
         return self.navigationController;
     }
 }
