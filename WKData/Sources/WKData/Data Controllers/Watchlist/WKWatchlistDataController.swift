@@ -447,7 +447,7 @@ public class WKWatchlistDataController {
     
     // MARK: POST Rollback Page
     
-    public func rollback(title: String, project: WKProject, username: String, editSummaryTag: WKEditSummaryTag, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
+    public func rollback(title: String, project: WKProject, username: String, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -458,7 +458,7 @@ public class WKWatchlistDataController {
             "action": "rollback",
             "title": title,
             "user": username,
-            "summary": editSummaryTag.rawValue,
+            "matags": WKEditTag.appRollback.rawValue,
             "format": "json",
             "formatversion": "2",
             "errorformat": "html",
@@ -490,7 +490,7 @@ public class WKWatchlistDataController {
     
     // MARK: POST Undo Revision
     
-    public func undo(title: String, revisionID: UInt, summary: String, username: String, editSummaryTag: WKEditSummaryTag, project: WKProject, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
+    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WKProject, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -501,13 +501,14 @@ public class WKWatchlistDataController {
             switch result {
             case .success(let summaryPrefix):
                 
-                let finalSummary = summaryPrefix + " " + summary + " " + editSummaryTag.rawValue
+                let finalSummary = summaryPrefix + " " + summary
                 
                 let parameters = [
                     "action": "edit",
                     "title": title,
                     "summary": finalSummary,
                     "undo": String(revisionID),
+                    "matags": WKEditTag.appUndo.rawValue,
                     "format": "json",
                     "formatversion": "2",
                     "errorformat": "html",

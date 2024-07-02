@@ -137,7 +137,7 @@ public enum ArticleDescriptionSource: String {
     ///   - languageCode: language code of the page's wiki, e.g., "en".
     ///   - completion: completion block called when operation is completed.
 
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editSummaryTag: WKEditSummaryTag, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editTags: [WKEditTag]?, completion: @escaping (Error?) -> Void) {
         guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return
@@ -150,12 +150,16 @@ public enum ArticleDescriptionSource: String {
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, _, _) in
             
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
-            let queryParameters: [String: Any] = ["action": "wbsetdescription",
-                                                  "summary": editSummaryTag.rawValue,
+            var queryParameters: [String: Any] = ["action": "wbsetdescription",
                                    "errorformat": "html",
                                    "erroruselocal": 1,
                                    "format": "json",
                                    "formatversion": "2"]
+            
+            if let editTags,
+               !editTags.isEmpty {
+                queryParameters["matags"] = editTags.map { $0.rawValue }.joined(separator: ",")
+            }
             
             let components = self.configuration.wikidataAPIURLComponents(with: queryParameters)
             let wikidataURL = components.url
