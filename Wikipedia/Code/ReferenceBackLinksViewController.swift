@@ -52,7 +52,7 @@ class ReferenceBackLinksViewController: ReferenceViewController {
             toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
             toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
             toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
             view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
         ])
