@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
-final class TalkPageCoffeeRollViewController: ViewController {
+final class TalkPageCoffeeRollViewController: ThemeableViewController {
 
     // MARK: - Properties
 
@@ -18,12 +18,13 @@ final class TalkPageCoffeeRollViewController: ViewController {
         let coffeeRollView = TalkPageCoffeeRollView(theme: theme, viewModel: viewModel, frame: UIScreen.main.bounds)
         view = coffeeRollView
         coffeeRollView.configure(viewModel: viewModel)
-        scrollView = coffeeRollView.scrollView
+        // scrollView = coffeeRollView.scrollView
     }
 
     init(theme: Theme, viewModel: TalkPageCoffeeRollViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,6 +36,14 @@ final class TalkPageCoffeeRollViewController: ViewController {
         coffeeRollView.linkDelegate = self
 
         navigationItem.title = TalkPageViewController.TalkPageLocalizedStrings.title
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     // MARK: - Themeable
