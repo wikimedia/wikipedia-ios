@@ -1,6 +1,6 @@
 import UIKit
 
-class DescriptionHelpViewController: ViewController {
+class DescriptionHelpViewController: ThemeableViewController {
 
     @IBOutlet private weak var helpScrollView: UIScrollView!
 
@@ -32,11 +32,17 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var dividerViews: [UIView]!
     
     required convenience init?(coder aDecoder: NSCoder) {
-        self.init(theme: Theme.standard)
+        self.init(coder: aDecoder)
+        self.theme = Theme.standard
+    }
+    
+    init(theme: Theme) {
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
     }
     
     public override func viewDidLoad() {
-        scrollView = helpScrollView
+        // scrollView = helpScrollView
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
@@ -63,6 +69,14 @@ class DescriptionHelpViewController: ViewController {
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
         updateFonts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
