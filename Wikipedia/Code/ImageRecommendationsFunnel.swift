@@ -285,6 +285,6 @@ final class ImageRecommendationsFunnel: NSObject {
     }
 
     func logDialogWarningMessageDidDisplay() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .warning)
+        logEvent(activeInterface: .recommendedImageToolbar, action: .warning, project: project)
     }
 }
