@@ -1430,8 +1430,8 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
 
-    func logDialogWarningMessageDidDisplay() {
-        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay()
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay(fileName: fileName, recommendationSource: recommendationSource)
     }
 
     func logBottomSheetDidTapYes() {

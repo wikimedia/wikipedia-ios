@@ -90,7 +90,11 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
             let timeInterval = currentTime.timeIntervalSince(startTime)
             if timeInterval <= 5 {
                 delegate?.imageRecommendationsDidTriggerTimeWarning()
-                loggingDelegate?.logDialogWarningMessageDidDisplay()
+                
+                if let currentRecommendation = viewModel.currentRecommendation {
+                    loggingDelegate?.logDialogWarningMessageDidDisplay(fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
+                }
+                
                 return
             }
 
