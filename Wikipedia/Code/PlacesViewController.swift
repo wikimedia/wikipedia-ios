@@ -81,8 +81,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        //extendedLayoutIncludesOpaqueBars = true
-        //edgesForExtendedLayout = UIRectEdge.all
+        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = [UIRectEdge.top, UIRectEdge.left, UIRectEdge.right]
     }
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
@@ -229,7 +229,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
-        collectionView.contentInsetAdjustmentBehavior = .automatic
+        collectionView.contentInsetAdjustmentBehavior = .always
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
