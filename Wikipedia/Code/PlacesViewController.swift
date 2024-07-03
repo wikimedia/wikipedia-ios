@@ -81,8 +81,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        // extendedLayoutIncludesOpaqueBars = true
-        // edgesForExtendedLayout = UIRectEdge.all
+        //extendedLayoutIncludesOpaqueBars = true
+        //edgesForExtendedLayout = UIRectEdge.all
     }
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
@@ -224,11 +224,12 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
          collectionView.translatesAutoresizingMaskIntoConstraints = false
          view.insertSubview(collectionView, at: 0)
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: collectionView.topAnchor),
-            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+            view.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
+        collectionView.contentInsetAdjustmentBehavior = .automatic
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
