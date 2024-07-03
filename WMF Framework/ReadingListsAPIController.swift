@@ -94,10 +94,7 @@ struct APIReadingListChanges: Codable {
 }
 
 struct APIReadingListErrorResponse: Codable {
-    let type: String?
-    let title: String
-    let method: String?
-    let detail: String?
+    let errorKey: String
 }
 
 enum APIReadingListRequestType: String {
@@ -139,7 +136,7 @@ public class ReadingListsAPIController: Fetcher {
         let components = builder.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
             let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
-            if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
+            if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.errorKey) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
@@ -167,7 +164,7 @@ public class ReadingListsAPIController: Fetcher {
                     defer {
                         self.untrack(taskFor: identifier)
                     }
-                    if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                    if let apiErrorType = result?["errorKey"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                         DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
                     } else {
                         #if DEBUG
