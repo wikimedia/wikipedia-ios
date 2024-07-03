@@ -91,6 +91,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     var showLanguageBar: Bool?
     
     var searchTerm: String?
+    var lastSearchSiteURL: URL?
     
     private var _siteURL: URL?
     
@@ -119,6 +120,8 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             assert(false)
             return
         }
+        
+        self.lastSearchSiteURL = siteURL
         
         guard
             let searchTerm = searchTerm,
@@ -216,7 +219,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
     }
     
-    private func updateScopeButtons() {
+    private func updateScopeButtons(resetToFirst: Bool = false) {
         let languages = dataStore.languageLinkController.preferredLanguages
         navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
             
@@ -229,9 +232,12 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
         
         // TODO: make this smarter
-        navigationItem.searchController?.searchBar.selectedScopeButtonIndex = 0
-        let language = languages[0]
-        siteURL = language.siteURL
+        if resetToFirst {
+            navigationItem.searchController?.searchBar.selectedScopeButtonIndex = 0
+            let language = languages[0]
+            siteURL = language.siteURL
+        }
+        
     }
     
     private func setupOverflowMenu() {
@@ -557,6 +563,13 @@ extension SearchViewController: UISearchResultsUpdating {
             updateRecentlySearchedVisibility(searchText: nil)
             return
         }
+        
+        // Prevents unnecessary searching & flashing
+        if let lastSearchSiteURL,
+           searchTerm == text && lastSearchSiteURL == siteURL {
+            return
+        }
+        
         searchTerm = text
         updateRecentlySearchedVisibility(searchText: text)
         search(for: text, suggested: false)
@@ -576,7 +589,7 @@ extension SearchViewController: UISearchControllerDelegate {
 
 extension SearchViewController: WMFPreferredLanguagesViewControllerDelegate {
     func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
-        updateScopeButtons()
+        updateScopeButtons(resetToFirst: true)
     }
 }
 
