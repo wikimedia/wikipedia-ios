@@ -289,6 +289,11 @@ public class Configuration: NSObject {
     
     // MARK: MediaWiki Rest
     
+    public func mediaWikiRestBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
+        let builder = mediaWikiRestAPIType.builder(withWikiHost: wikiHost)
+        return builder
+    }
+    
     public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
         let builder = mediaWikiRestAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents, queryParameters: queryParameters)

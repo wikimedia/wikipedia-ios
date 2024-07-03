@@ -130,8 +130,8 @@ extension APIReadingListEntry {
 }
 
 public class ReadingListsAPIController: Fetcher {
-    private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
-    private let basePathComponents = ["data", "lists"]
+    private let builder = Configuration.current.mediaWikiRestBuilder(withWikiHost: "en.wikipedia.org")
+    private let basePathComponents = ["readinglists", "v0", "lists"]
     var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
