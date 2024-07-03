@@ -284,7 +284,13 @@ final class ImageRecommendationsFunnel: NSObject {
         logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData, project: project)
     }
 
-    func logDialogWarningMessageDidDisplay() {
-        logEvent(activeInterface: .recommendedImageToolbar, action: .warning, project: project)
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        
+        let actionData: [String: String] = [
+            "filename": "\(fileName)",
+            "recommendation_source": "\(recommendationSource)"
+        ]
+        
+        logEvent(activeInterface: .recommendedImageToolbar, action: .warning, actionData: actionData, project: project)
     }
 }
