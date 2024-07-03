@@ -24,7 +24,7 @@ import UIKit
     public static let italicFootnote = DynamicTextStyle(.system, .footnote, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
     public static let boldFootnote = DynamicTextStyle(.system, .footnote, .bold)
 
-    public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+    @objc public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
     public static let mediumTitle1 = DynamicTextStyle(.system, .title1, .medium)
     public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 

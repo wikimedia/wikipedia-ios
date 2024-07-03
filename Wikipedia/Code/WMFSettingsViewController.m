@@ -100,11 +100,19 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self configureBarButtonItems];
     [super viewWillAppear:animated];
     [self loadSections];
-
+    
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.hidesBarsOnSwipe = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    UINavigationBarAppearance *newAppearance = [[UINavigationBarAppearance alloc] init];
+    UIFont *font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle boldTitle1]];
+    newAppearance.largeTitleTextAttributes = @{NSFontAttributeName: font};
+    [newAppearance configureWithOpaqueBackground];
+    newAppearance.backgroundColor = self.theme.colors.chromeBackground;
+    newAppearance.backgroundImage = self.theme.navigationBarBackgroundImage;
+    self.navigationItem.scrollEdgeAppearance = newAppearance;
 }
 
 - (void)configureBarButtonItems {
