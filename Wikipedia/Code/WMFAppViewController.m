@@ -869,10 +869,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.migrationActive = YES;
     
-    [self triggerMigratingAnimation];
-
     MWKDataStore *dataStore = self.dataStore; // Triggers init
     [dataStore finishSetup:^{
+        
+        if ([dataStore needsMigration]) {
+            [self triggerMigratingAnimation];
+        }
+        
         [dataStore
             performLibraryUpdates:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
