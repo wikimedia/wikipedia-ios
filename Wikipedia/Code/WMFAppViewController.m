@@ -420,7 +420,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.exploreViewController.isGranularUpdatingEnabled = NO;
 
-    [self.navigationStateController saveNavigationStateFor:self.currentTabNavigationController
+    [self.navigationStateController saveNavigationStateFor:self
                                                         in:self.dataStore.viewContext];
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
@@ -935,11 +935,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreLastArticleFor:self.currentTabNavigationController
+            [self.navigationStateController restoreLastArticleFor:self
                                                                in:self.dataStore.viewContext
                                                              with:self.theme
                                                        completion:^{
                                                            [self hideSplashViewAnimated:!didShowOnboarding];
+                
+                                                            NSError *saveError = nil;
+                                                            if (![self.dataStore save:&saveError]) {
+                                                                DDLogError(@"Error saving dataStore: %@", saveError);
+                                                            }
+                
                                                            done();
                                                        }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {

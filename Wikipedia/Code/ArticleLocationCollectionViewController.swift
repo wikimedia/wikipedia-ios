@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()
