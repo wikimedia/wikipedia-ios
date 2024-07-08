@@ -1368,6 +1368,7 @@
 		8351CE7820D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
 		8351CE7920D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
 		8351CE7A20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */; };
+		835463622C3C8E8100AA0643 /* RelatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835463612C3C8E8100AA0643 /* RelatedResponse.swift */; };
 		8356115D28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356115C28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift */; };
 		8356115E28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356115C28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift */; };
 		8356115F28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356115C28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift */; };
@@ -3693,6 +3694,7 @@
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageErrorStateView.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
+		835463612C3C8E8100AA0643 /* RelatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedResponse.swift; sourceTree = "<group>"; };
 		8356115C28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+RemoveNewLine.swift"; sourceTree = "<group>"; };
 		8359BAC621E4C9C1009B5E6C /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		835A042C223AD63000D4D758 /* ArticleSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummaryController.swift; sourceTree = "<group>"; };
@@ -5622,6 +5624,7 @@
 			isa = PBXGroup;
 			children = (
 				7AD5D452223874F600C01164 /* RelatedSearchFetcher.swift */,
+				835463612C3C8E8100AA0643 /* RelatedResponse.swift */,
 			);
 			name = Related;
 			sourceTree = "<group>";
@@ -10755,6 +10758,7 @@
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
+				835463622C3C8E8100AA0643 /* RelatedResponse.swift in Sources */,
 				83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataFetcher.swift in Sources */,
 				A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */,
