@@ -325,9 +325,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self savedViewController], [self recentArticlesViewController], [self searchViewController]];
+    WMFRootNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
+    WMFRootNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
+    WMFRootNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
+    WMFRootNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
+    WMFRootNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
+
+    NSArray<UIViewController *> *viewControllers = @[nav1, nav2, nav3, nav4, nav5];
 
     [self setViewControllers:viewControllers animated:NO];
+
+    [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
     BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
@@ -336,6 +344,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
         [self setSelectedIndex:WMFAppTabTypeMain];
     }
+}
+
+- (WMFRootNavigationController *)rootNavigationControllerWithRootViewController:(UIViewController *)rootViewController {
+
+    WMFRootNavigationController *navigationController = [[WMFRootNavigationController alloc] initWithRootViewController:rootViewController];
+    navigationController.themeableNavigationControllerDelegate = self;
+    navigationController.delegate = self;
+    navigationController.interactivePopGestureRecognizer.delegate = self;
+    navigationController.extendedLayoutIncludesOpaqueBars = YES;
+    [navigationController setNavigationBarHidden:YES animated:NO];
+    [navigationController applyTheme:self.theme];
+    return navigationController;
 }
 
 - (void)setupReadingListsHelpers {
@@ -784,16 +804,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFRootNavigationController *articleNavigationController = [[WMFRootNavigationController alloc] initWithRootViewController:self];
-    articleNavigationController.themeableNavigationControllerDelegate = self;
-    articleNavigationController.delegate = self;
-    articleNavigationController.interactivePopGestureRecognizer.delegate = self;
-    articleNavigationController.extendedLayoutIncludesOpaqueBars = YES;
-    [articleNavigationController setNavigationBarHidden:YES animated:NO];
-    [window setRootViewController:articleNavigationController];
+    [window setRootViewController:self];
     [window makeKeyAndVisible];
-    [articleNavigationController applyTheme:self.theme];
-    [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:articleNavigationController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -1859,18 +1871,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [NSUserDefaults.standardUserDefaults setWmf_isImageDimmingEnabled:isImageDimmingEnabledNumber.boolValue];
     }
     [NSUserDefaults.standardUserDefaults setThemeName:themeName];
-    [self updateUserInterfaceStyleOfViewControllerForCurrentTheme:self.navigationController];
+    [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
     [self updateAppThemeIfNecessary];
 }
 
-- (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
-    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
-    if ([WMFTheme isDefaultThemeName:themeName]) {
-        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-    } else if ([WMFTheme isDarkThemeName:themeName]) {
-        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-    } else {
-        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+- (void)updateUserInterfaceStyleOfNavigationControllersForCurrentTheme {
+
+    for (UIViewController *viewController in self.viewControllers) {
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *navigationController = (UINavigationController *)viewController;
+
+            NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
+            if ([WMFTheme isDefaultThemeName:themeName]) {
+                navigationController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+            } else if ([WMFTheme isDarkThemeName:themeName]) {
+                navigationController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+            } else {
+                navigationController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+            }
+        }
     }
 }
 
