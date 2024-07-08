@@ -142,6 +142,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 #endif
 
+    [self applyTheme:self.theme];
     [self appEnvironmentDidChangeWithTheme:self.theme
                            traitCollection:self.traitCollection];
 
@@ -867,7 +868,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     //    };
 
     self.migrationActive = YES;
-    [(WMFRootNavigationController *)self.currentTabNavigationController triggerMigratingAnimation];
+    
+    [self triggerMigratingAnimation];
 
     MWKDataStore *dataStore = self.dataStore; // Triggers init
     [dataStore finishSetup:^{
@@ -917,7 +919,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         };
 
         if (self.notificationUserInfoToShow) {
-            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self hideSplashView];
             [self showNotificationCenterForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
@@ -925,11 +927,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self processUserActivity:self.unprocessedUserActivity
                              animated:NO
                            completion:^{
-                               [self hideSplashViewAnimated:!didShowOnboarding];
+                               [self hideSplashView];
                                done();
                            }];
         } else if (self.unprocessedShortcutItem) {
-            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self hideSplashView];
             [self processShortcutItem:self.unprocessedShortcutItem
                            completion:^(BOOL didProcess) {
                                done();
@@ -939,7 +941,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                                in:self.dataStore.viewContext
                                                              with:self.theme
                                                        completion:^{
-                                                           [self hideSplashViewAnimated:!didShowOnboarding];
+                                                           [self hideSplashView];
                 
                                                             NSError *saveError = nil;
                                                             if (![self.dataStore save:&saveError]) {
@@ -949,11 +951,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                            done();
                                                        }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
-            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self hideSplashView];
             [self showExplore];
             done();
         } else {
-            [self hideSplashViewAnimated:true];
+            [self hideSplashView];
             done();
         }
     }];
@@ -1553,6 +1555,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 completion(YES);
             }
         };
+        [self hideSplashView];
         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:vc animated:NO completion:NULL];
     } else {
@@ -1565,11 +1568,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
-    [(WMFRootNavigationController *)self.currentTabNavigationController showSplashView];
+    WMFSplashScreenViewController *vc = [[WMFSplashScreenViewController alloc] initWithNibName:nil bundle:nil];
+    [vc applyTheme:self.theme];
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:vc animated:NO completion:NULL];
 }
 
-- (void)hideSplashViewAnimated:(BOOL)animated {
-    [(WMFRootNavigationController *)self.currentTabNavigationController hideSplashViewAnimated:animated];
+- (void)hideSplashView {
+    if ([self.presentedViewController isKindOfClass:[WMFSplashScreenViewController class]]) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
+- (void)triggerMigratingAnimation {
+    if ([self.presentedViewController isKindOfClass:[WMFSplashScreenViewController class]]) {
+        WMFSplashScreenViewController *splashVC = (WMFSplashScreenViewController *)self.presentedViewController;
+        [splashVC triggerMigratingAnimation];
+    }
 }
 
 #pragma mark - Explore VC
@@ -1832,27 +1847,32 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
+    
+    // Ensures theming happens after main UI is loaded
+    if (self.viewControllers.count > 0) {
+        [self.settingsViewController applyTheme:theme];
+        [self.exploreViewController applyTheme:theme];
+        [self.placesViewController applyTheme:theme];
+        [self.savedViewController applyTheme:theme];
+        [self.recentArticlesViewController applyTheme:theme];
+        [self.searchViewController applyTheme:theme];
 
-    [self.settingsViewController applyTheme:theme];
-    [self.exploreViewController applyTheme:theme];
-    [self.placesViewController applyTheme:theme];
-    [self.savedViewController applyTheme:theme];
-    [self.recentArticlesViewController applyTheme:theme];
-    [self.searchViewController applyTheme:theme];
+        [self applyTheme:theme toPresentedViewController:self.presentedViewController];
 
-    [self applyTheme:theme toPresentedViewController:self.presentedViewController];
+        [[WMFAlertManager sharedInstance] applyTheme:theme];
 
-    [[WMFAlertManager sharedInstance] applyTheme:theme];
+        [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
+        [self.tabBar applyTheme:theme];
 
-    [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
-    [self.tabBar applyTheme:theme];
+        [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
-    [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+        [self.readingListHintController applyTheme:self.theme];
+        [self.editHintController applyTheme:self.theme];
 
-    [self.readingListHintController applyTheme:self.theme];
-    [self.editHintController applyTheme:self.theme];
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
 
-    [self setNeedsStatusBarAppearanceUpdate];
+    
 }
 
 - (void)updateAppThemeIfNecessary {
