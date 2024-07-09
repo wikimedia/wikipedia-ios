@@ -2,6 +2,7 @@ import UIKit
 
 protocol DetailTransitionSourceProviding {
     var detailTransitionSourceRect: CGRect? { get }
+    var tabBarSnapshotImage: UIImage? { get }
 }
 
 @objc(WMFImageScaleTransitionProviding)
@@ -36,21 +37,21 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         guard
             let toViewController = transitionContext.viewController(forKey: .to),
             let fromViewController = transitionContext.viewController(forKey: .from)
-            else {
-                transitionContext.completeTransition(false)
-                return
+        else {
+            transitionContext.completeTransition(false)
+            return
         }
-    
+        
         let maybeToISP = (toViewController as? UITabBarController)?.selectedViewController ?? toViewController
         let maybeFromISP = (fromViewController as? UITabBarController)?.selectedViewController ?? fromViewController
-
+        
         let isEnteringDetail: Bool = maybeFromISP === detailSourceViewController
         let containerView = transitionContext.containerView
-
+        
         let toFrame = transitionContext.finalFrame(for: toViewController)
         toViewController.view.frame = toFrame
         containerView.addSubview(toViewController.view)
-
+        
         let fromImageView: UIImageView?
         let toImageView: UIImageView?
         let isImageScaleTransitioning: Bool
@@ -127,6 +128,20 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toSnapshot.transform = transform
         }
         
+        // tab bar handling
+        var detailSourceTabBar: UITabBar?
+        var detailSourceTabBarSnapshotImageView: UIImageView?
+        if let tabBarSnapshotImage = detailSourceViewController.tabBarSnapshotImage,
+           let tabBar = detailSourceViewController.tabBarController?.tabBar {
+            let imageView = UIImageView(image: tabBarSnapshotImage)
+            containerView.addSubview(imageView)
+            let yValue = isEnteringDetail ? containerView.frame.height - imageView.frame.height : containerView.frame.height
+            imageView.frame = CGRect(x: 0, y: yValue, width: imageView.frame.width, height: imageView.frame.height)
+            detailSourceTabBarSnapshotImageView = imageView
+            detailSourceTabBar = tabBar
+            detailSourceTabBar?.alpha = 0
+        }
+        
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
             toSnapshot.transform = .identity
@@ -137,7 +152,24 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
                 toSnapshot.alpha = 1
                 fromSnapshot.transform = transform.inverted()
             }
+            
+            // tab bar handling
+            if let detailSourceTabBar, let detailSourceTabBarSnapshotImageView {
+                let oldFrame = detailSourceTabBarSnapshotImageView.frame
+                let yValue = isEnteringDetail ? containerView.frame.height : containerView.frame.height - detailSourceTabBarSnapshotImageView.frame.height
+                detailSourceTabBarSnapshotImageView.frame = CGRect(x: oldFrame.minX, y: yValue, width: oldFrame.width, height: oldFrame.height)
+                detailSourceTabBar.alpha = 0
+            }
+            
+            
         }) { (finished) in
+            
+            // tab bar handling
+            if let detailSourceTabBar, let detailSourceTabBarSnapshotImageView {
+                detailSourceTabBar.alpha = 1
+                detailSourceTabBarSnapshotImageView.removeFromSuperview()
+            }
+            
             backgroundView.removeFromSuperview()
             toSnapshot.removeFromSuperview()
             fromSnapshot.removeFromSuperview()

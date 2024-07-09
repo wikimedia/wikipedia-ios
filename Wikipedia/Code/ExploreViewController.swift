@@ -70,6 +70,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if !UIAccessibility.isVoiceOverRunning {
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
         }
+        
+        updateTabBarSnapshotImage()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -86,6 +88,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.updateTabBarSnapshotImage()
+        }
     }
 
     func presentUITestHelperController() {
@@ -481,6 +491,25 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - DetailTransitionSourceProviding
     
     var detailTransitionSourceRect: CGRect?
+    
+    var tabBarSnapshotImage: UIImage?
+    
+    private func updateTabBarSnapshotImage() {
+        guard let tabBar = self.tabBarController?.tabBar else {
+            return
+        }
+        
+        let renderer = UIGraphicsImageRenderer(size: tabBar.bounds.size)
+        let image = renderer.image { ctx in
+            tabBar.drawHierarchy(in: tabBar.bounds, afterScreenUpdates: true)
+        }
+        
+        self.tabBarSnapshotImage = image
+    }
+    
+    private func clearTabBarSnapshotImage() {
+        self.tabBarSnapshotImage = nil
+    }
     
     // MARK: - UICollectionViewDataSource
     
