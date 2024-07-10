@@ -71,7 +71,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
         }
         
-        updateTabBarSnapshotImage()
+        if tabBarSnapshotImage == nil {
+            updateTabBarSnapshotImage()
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -505,10 +507,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         self.tabBarSnapshotImage = image
-    }
-    
-    private func clearTabBarSnapshotImage() {
-        self.tabBarSnapshotImage = nil
     }
     
     // MARK: - UICollectionViewDataSource
