@@ -13,8 +13,6 @@
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
 
-#import "AppDelegate.h"
-
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -627,7 +625,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 #pragma mark - Background Processing
 
-- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError *))completion {
+- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError * nullable))completion {
 
     WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
 
