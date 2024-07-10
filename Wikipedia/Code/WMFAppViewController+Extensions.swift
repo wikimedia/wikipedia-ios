@@ -595,12 +595,16 @@ extension WMFAppViewController {
     }
 }
 
-// MARK: Components App Environment
+// MARK: Components App Environment Helpers
 extension WMFAppViewController {
 
-    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
+    @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
         let wkTheme = Theme.wkTheme(from: theme)
         WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    }
+    
+    @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
+        return WKAppEnvironment.current.traitCollection != traitCollection
     }
 
 }
