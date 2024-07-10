@@ -62,6 +62,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
     var editSummaryTag: WKEditSummaryTag?
+    var editTag: WKEditTag?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
     weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
@@ -384,7 +385,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: nil, completion: { (result, error) in
+        var editTags: [String]? = nil
+        if let editTag {
+            editTags = [editTag.rawValue]
+        }
+        
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: editTags, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
