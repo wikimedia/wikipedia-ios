@@ -4,12 +4,22 @@ import CocoaLumberjackSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    private static let backgroundFetchInterval = TimeInterval(10800) // 3 Hours
-    private static let backgroundAppRefreshTaskIdentifier = "org.wikimedia.wikipedia.appRefresh"
-    private static let backgroundDatabaseHousekeeperTaskIdentifier = "org.wikimedia.wikipedia.databaseHousekeeper"
+#if TEST
+// Avoids loading needless dependencies during unit tests
+    var window: UIWindow?
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        
+        window.rootViewController = UIViewController()
+        window.makeKeyAndVisible()
+    }
+    
+#else
 
     var window: UIWindow?
-    private(set) var appViewController: WMFAppViewController?
     private var appNeedsResume = true
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,14 +29,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let appViewController = WMFAppViewController()
+        guard let appViewController else {
+            return
+        }
+        
         UNUserNotificationCenter.current().delegate = appViewController
         appViewController.launchApp(in: window, waitToResumeApp: appNeedsResume)
-        self.appViewController = appViewController
-        
-        registerBackgroundTasks()
     }
-
+    
     func sceneDidDisconnect(_ scene: UIScene) {
 
     }
@@ -42,15 +52,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-
-        cancelPendingBackgroundTasks()
+        appDelegate?.cancelPendingBackgroundTasks()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
 
         appDelegate?.updateDynamicIconShortcutItems()
-        scheduleBackgroundAppRefreshTask()
-        scheduleDatabaseHousekeeperTask()
+        appDelegate?.scheduleBackgroundAppRefreshTask()
+        appDelegate?.scheduleDatabaseHousekeeperTask()
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -125,6 +134,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
+    private var appViewController: WMFAppViewController? {
+        return appDelegate?.appViewController
+    }
+    
     private func resumeAppIfNecessary() {
         if appNeedsResume {
             appViewController?.hideSplashScreenAndResumeApp()
@@ -132,58 +145,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    private func registerBackgroundTasks() {
-        
-        guard let appViewController else {
-            return
-        }
-        
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
-            appViewController.performBackgroundFetch { [weak self] result in
-                switch result {
-                case .failed:
-                    task.setTaskCompleted(success: false)
-                default:
-                    task.setTaskCompleted(success: true)
-                }
-                
-                self?.scheduleBackgroundAppRefreshTask()
-            }
-        }
-        
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) {task in
-            appViewController.performDatabaseHousekeeping { error in
-                
-                if error != nil {
-                    task.setTaskCompleted(success: false)
-                } else {
-                    task.setTaskCompleted(success: true)
-                }
-            }
-        }
-    }
-    
-    private func scheduleBackgroundAppRefreshTask() {
-        let appRefreshTask = BGAppRefreshTaskRequest(identifier: Self.backgroundAppRefreshTaskIdentifier)
-        appRefreshTask.earliestBeginDate = Date(timeIntervalSinceNow: Self.backgroundFetchInterval)
-        do {
-            try BGTaskScheduler.shared.submit(appRefreshTask)
-        } catch {
-            DDLogError("Unable to schedule background task: \(error)")
-        }
-    }
-    
-    private func scheduleDatabaseHousekeeperTask() {
-        let databaseHousekeeperTask = BGAppRefreshTaskRequest(identifier: Self.backgroundDatabaseHousekeeperTaskIdentifier)
-        databaseHousekeeperTask.earliestBeginDate = nil // Docs indicate nil = no start delay.
-        do {
-            try BGTaskScheduler.shared.submit(databaseHousekeeperTask)
-        } catch {
-            DDLogError("Unable to schedule background task: \(error)")
-        }
-    }
-
-    private func cancelPendingBackgroundTasks() {
-        BGTaskScheduler.shared.cancelAllTaskRequests()
-    }
+#endif
 }
