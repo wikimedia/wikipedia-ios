@@ -23,13 +23,13 @@ import WKData
     
     @objc public init(localizedStrings: WKDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
-        let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WKFeatureFlags.doNotPostImageRecommendationsEdit)
+        let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
        
         formViewModel = WKFormViewModel(sections: [WKFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem], selectType: .multi)])
         
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
 
-            WKFeatureFlags.doNotPostImageRecommendationsEdit = isSelected
+            WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
 
         }.store(in: &subscribers)
     }
