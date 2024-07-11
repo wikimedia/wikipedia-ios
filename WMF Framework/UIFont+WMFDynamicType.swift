@@ -14,7 +14,7 @@ import UIKit
     
     public static let headline = DynamicTextStyle(.system, .headline)
     public static let mediumHeadline = DynamicTextStyle(.system, .headline, .medium)
-    public static let semiboldHeadline = DynamicTextStyle(.system, .headline, .semibold)
+    @objc public static let semiboldHeadline = DynamicTextStyle(.system, .headline, .semibold)
     public static let boldHeadline = DynamicTextStyle(.system, .headline, .bold)
     public static let heavyHeadline = DynamicTextStyle(.system, .headline, .heavy)
 

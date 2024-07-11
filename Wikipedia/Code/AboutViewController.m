@@ -102,6 +102,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) UIBarButtonItem *buttonX;
 @property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
+@property (nonatomic, strong) UILabel *navigationTitleLabel;
+@property (nonatomic, assign) NSInteger titleLabelTappedCount;
 
 @end
 
@@ -113,6 +115,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
     self = [super init];
     if (self) {
         self.theme = theme;
+        self.navigationTitleLabel = [[UILabel alloc] init];
+        self.titleLabelTappedCount = 0;
     }
     return self;
 }
@@ -126,23 +130,24 @@ static NSString *const kWMFContributorsKey = @"contributors";
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     [super viewDidLoad];
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
-
+    
     wv.navigationDelegate = self;
-
+    
     self.webView = wv;
     
     [self loadAboutHTML];
     
     self.webView.opaque = NO;
     [self applyTheme:self.theme];
-
+    
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-
+    
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
-
+    
     self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button {{Identical|Cancel}}");
     self.buttonCaretLeft.accessibilityLabel = WMFCommonStrings.accessibilityBackTitle;
-
+    
+    [self setupNavigationBar];
     [self updateNavigationBar];
 }
 
@@ -166,8 +171,24 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 #pragma mark - Navigation Bar Configuration
 
+- (void)setupNavigationBar {
+    self.navigationTitleLabel.font = [UIFont wmf_fontForDynamicTextStyle:WMFDynamicTextStyle.semiboldHeadline compatibleWithTraitCollection:self.traitCollection];
+    self.navigationTitleLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitleViewWithGestureRecognizer:)];
+    [self.navigationTitleLabel addGestureRecognizer:tapGestureRecognizer];
+    self.navigationItem.titleView = self.navigationTitleLabel;
+}
+
+- (void)didTapTitleViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    self.titleLabelTappedCount += 1;
+    
+    if (self.titleLabelTappedCount >= 7) {
+        [self presentDeveloperSettings];
+    }
+}
+
 - (void)updateNavigationBar {
-    self.title = self.title;
+    self.navigationTitleLabel.text = self.title;
     self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : nil;
 }
 
@@ -176,6 +197,12 @@ static NSString *const kWMFContributorsKey = @"contributors";
         return WMFLocalizedStringWithDefaultValue(@"about-libraries-license", nil, nil, @"License", @"About page link title that will display a license for a library used in the app {{Identical|License}}");
     }
     return WMFLocalizedStringWithDefaultValue(@"about-title", nil, nil, @"About", @"Title for credits page {{Identical|About}}");
+}
+
+#pragma mark - Developer Settings
+
+- (void)presentDeveloperSettings {
+    // TODO: Present developer settings
 }
 
 #pragma mark - Accessors
@@ -350,6 +377,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     if (self.viewIfLoaded == nil) {
         return;
     }
+    self.navigationTitleLabel.textColor = theme.colors.primaryText;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_setTextFontColor:theme];
     [self.webView wmf_setLogoStyleWithTheme:theme];
