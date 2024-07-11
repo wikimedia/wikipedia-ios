@@ -195,6 +195,8 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"developer-settings" = "Developer Settings";
+"developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
 "diff-change-paragraph-lines-moved-down" = "Paragraph moved down {{PLURAL:$1|0=0 lines|$1 line|$1 lines}}. Go to new location.";

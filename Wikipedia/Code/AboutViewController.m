@@ -4,6 +4,7 @@
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
+@import Components;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -202,7 +203,14 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - Developer Settings
 
 - (void)presentDeveloperSettings {
-    // TODO: Present developer settings
+    NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
+    NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
+    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
+    
+    WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
+    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController: viewController theme: self.theme];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 #pragma mark - Accessors

@@ -1305,7 +1305,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
-        saveVC.needsSuppressPosting = WKFeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.needsSuppressPosting = WKFeatureFlags.doNotPostImageRecommendationsEdit
         saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self

@@ -53,7 +53,7 @@ extension WKImageRecommendationsViewController {
 
         let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, errorLocalizedStrings: errorStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
 
-        let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings, needsSuppressPosting: WKFeatureFlags.needsImageRecommendationsSuppressPosting)
+        let viewModel = WKImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, localizedStrings: localizedStrings, needsSuppressPosting: WKFeatureFlags.doNotPostImageRecommendationsEdit)
         let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
     }
