@@ -140,10 +140,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
-        
-        if ([WKFeatureFlags needsImageRecommendations]) {
-            [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
-        }
+        [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
         
         for (NSURL *siteURL in siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL

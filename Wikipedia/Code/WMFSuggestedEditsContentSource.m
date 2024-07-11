@@ -37,7 +37,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
                                                       completion:^(WMFCurrentlyLoggedInUser *user) {
-                                                          if ((user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) || WKFeatureFlags.forceImageRecommendationsExploreCard) {
+            
+                                                            // Image Recommendations Business Logic:
+                                                            // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+                                                          if (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) {
 
                                                               [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
                                                                   if (hasRecommendations) {

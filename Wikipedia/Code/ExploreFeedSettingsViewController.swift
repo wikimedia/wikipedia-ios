@@ -220,7 +220,9 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        if WKFeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
+        // Image Recommendations Business Logic:
+        // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+        if !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
         } else {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
