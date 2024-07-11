@@ -625,7 +625,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 #pragma mark - Background Processing
 
-- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError * nullable))completion {
+- (void)performDatabaseHousekeepingWithCompletion:(void (^_Nonnull)(NSError *_Nullable))completion {
 
     WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
 
@@ -2131,7 +2131,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (NSData * _Nullable )deviceToken error: (NSError * _Nullable)error {
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 

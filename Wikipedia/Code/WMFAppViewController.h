@@ -29,22 +29,22 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
-- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError * nullable))completion;
-
 - (void)applyTheme:(WMFTheme *)theme;
 
 - (void)showSearchInCurrentNavigationController;
 
 - (void)showImportedReadingList:(ReadingList *)readingList;
 
-NS_ASSUME_NONNULL_END
-
-
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error;
-
-NS_ASSUME_NONNULL_BEGIN
 /// Returning WMFArticleViewController (which is ArticleViewController in Swift) makes this not work from Swift
 - (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+
+NS_ASSUME_NONNULL_END
+
+- (void)performDatabaseHousekeepingWithCompletion:(void (^_Nonnull)(NSError *_Nullable))completion;
+
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(NSData *_Nullable)deviceToken error:(NSError *_Nullable)error;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @end
 
