@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import Components
+import WKData
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
@@ -231,7 +232,7 @@ class ArticleToolbarController: Themeable {
         
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
         
-        if FeatureFlags.watchlistEnabled {
+        if WKFeatureFlags.watchlistEnabled {
             toolbar.items = [
                 UIBarButtonItem.flexibleSpaceToolbar(),
                 tocItem,

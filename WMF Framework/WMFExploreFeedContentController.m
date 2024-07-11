@@ -9,6 +9,7 @@
 #import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
+@import WKData;
 
 NSString *const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
@@ -140,7 +141,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
         
-        if ([WMFFeatureFlags needsImageRecommendations]) {
+        if ([WKFeatureFlags needsImageRecommendations]) {
             [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
         }
         

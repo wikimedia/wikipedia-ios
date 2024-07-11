@@ -37,7 +37,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
                                                       completion:^(WMFCurrentlyLoggedInUser *user) {
-                                                          if ((user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) || WMFFeatureFlags.forceImageRecommendationsExploreCard) {
+                                                          if ((user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) || WKFeatureFlags.forceImageRecommendationsExploreCard) {
 
                                                               [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
                                                                   if (hasRecommendations) {

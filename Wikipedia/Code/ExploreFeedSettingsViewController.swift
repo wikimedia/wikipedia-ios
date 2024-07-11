@@ -1,4 +1,5 @@
 import Components
+import WKData
 
 private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind
@@ -219,7 +220,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
+        if WKFeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
         } else {
             return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]

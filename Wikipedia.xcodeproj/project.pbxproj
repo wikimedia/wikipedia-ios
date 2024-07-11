@@ -906,7 +906,6 @@
 		67E9A11C25536B6F00C5ED31 /* ABTestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */; };
 		67ED8EB124F99FF400DD5D39 /* SignificantEventsFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ED8EB024F99FF400DD5D39 /* SignificantEventsFetcherTests.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
-		67F1A180286F34A5000D0F74 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56B2869EC2600B98321 /* FeatureFlags.swift */; };
 		67F42EE32AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F42EE22AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift */; };
 		67F42EE42AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F42EE22AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift */; };
 		67F42EE52AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F42EE22AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift */; };
@@ -3701,7 +3700,6 @@
 		8361AEC721949670006B00B0 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ga; path = ga.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticleErrorHandling.swift"; sourceTree = "<group>"; };
-		836BF56B2869EC2600B98321 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
 		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -8173,7 +8171,6 @@
 				70416BF62565D6C000D5BC33 /* Event Platform */,
 				D81A28BD231E8F4C001CC77D /* ExtensionViewController.swift */,
 				83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */,
-				836BF56B2869EC2600B98321 /* FeatureFlags.swift */,
 				0E728D271DAEE3200074EB4B /* Feed */,
 				D80ED2581EE178A800CE8C50 /* Gradient.swift */,
 				D8733C931ECA16940011E379 /* HasText.swift */,
@@ -10945,7 +10942,6 @@
 				67B7E77E2988777A00708A81 /* MediaWikiApiErrors.swift in Sources */,
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */,
-				67F1A180286F34A5000D0F74 /* FeatureFlags.swift in Sources */,
 				836CB7A229DF45F10058A454 /* UserSession.swift in Sources */,
 				0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */,
 				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,

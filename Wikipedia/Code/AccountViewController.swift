@@ -51,7 +51,7 @@ class AccountViewController: SubSettingsViewController {
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
-        if FeatureFlags.watchlistEnabled {
+        if WKFeatureFlags.watchlistEnabled {
             sectionItems = [logout, talkPage, watchlist, vanishAccount]
         } else {
             sectionItems = [logout, talkPage, vanishAccount]

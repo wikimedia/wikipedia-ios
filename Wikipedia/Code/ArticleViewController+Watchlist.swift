@@ -4,7 +4,7 @@ import WKData
 extension ArticleViewController {
     func loadWatchStatusAndUpdateToolbar() {
         
-        guard FeatureFlags.watchlistEnabled,
+        guard WKFeatureFlags.watchlistEnabled,
         let title = articleURL.wmf_title,
         let siteURL = articleURL.wmf_site,
         let project = WikimediaProject(siteURL: siteURL)?.wkProject else {

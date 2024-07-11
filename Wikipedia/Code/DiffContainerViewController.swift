@@ -701,9 +701,9 @@ private extension DiffContainerViewController {
                 switch result {
                 case .success(let status):
                     
-                    let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
-                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && FeatureFlags.watchlistEnabled
-                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && FeatureFlags.watchlistEnabled
+                    let needsWatchButton = !status.watched && WKFeatureFlags.watchlistEnabled
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && WKFeatureFlags.watchlistEnabled
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && WKFeatureFlags.watchlistEnabled
                     let needsArticleEditHistoryButton = true
                     
                     self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
