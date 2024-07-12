@@ -887,7 +887,7 @@ extension EditorViewController: EditLinkViewControllerDelegate {
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
-        DDLogError("Failed to extract article title from \(pageURL)")
+        DDLogWarn("Failed to extract article title from \(pageURL)")
         dismiss(animated: true)
     }
     

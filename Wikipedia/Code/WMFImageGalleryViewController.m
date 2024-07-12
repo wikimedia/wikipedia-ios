@@ -273,7 +273,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
         } else {
             // There should always be a file page URL, but log an error anyway
-            DDLogError(@"No license URL or file page URL for %@", imageInfo);
+            DDLogWarn(@"No license URL or file page URL for %@", imageInfo);
         }
     };
     caption.infoTapCallback = ^{

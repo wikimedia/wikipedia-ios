@@ -534,7 +534,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         
         setNeedsLayout()
-        // DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
                 if shadowAlpha >= 0 {

@@ -1348,7 +1348,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         articleVC.initialSetupCompletion = ^{
             NSDate *end = [NSDate date];
             NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
-            DDLogInfo(@"article load time = %f", articleLoadTime);
+            DDLogDebug(@"article load time = %f", articleLoadTime);
         };
     }
 #endif
@@ -1897,7 +1897,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name
                                                                                                      expirationHandler:^{
-                                                                                                         DDLogWarn(@"Ending background task with name: %@", name);
+                                                                                                         DDLogDebug(@"Ending background task with name: %@", name);
                                                                                                          [workerController cancelWorkWithIdentifier:identifier];
                                                                                                          [self endBackgroundTaskWithWorkerController:workerController identifier:identifier];
                                                                                                      }];

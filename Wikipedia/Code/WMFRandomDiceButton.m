@@ -52,7 +52,7 @@
     NSString *diceJS = [NSString stringWithContentsOfURL:diceJSURL encoding:NSUTF8StringEncoding error:nil];
     [self.webView evaluateJavaScript:diceJS
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
-                       DDLogError(@"%@", error);
+                       DDLogWarn(@"%@", error);
                    }];
 }
 

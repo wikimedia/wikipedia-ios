@@ -147,7 +147,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 }
 
 - (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
-    DDLogDebug(@"didFailToContinueUserActivityWithType: %@ error: %@", userActivityType, error);
+    DDLogWarn(@"didFailToContinueUserActivityWithType: %@ error: %@", userActivityType, error);
 }
 
 - (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {

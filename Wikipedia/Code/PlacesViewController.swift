@@ -660,7 +660,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     func showDidYouMeanButton(search: PlaceSearch) {
         guard let description = search.localizedDescription else {
-            DDLogError("Could not show Did You Mean button = no description for search:\n\(search)")
+            DDLogWarn("Could not show Did You Mean button = no description for search:\n\(search)")
             return
         }
         
@@ -699,7 +699,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         
         wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
-            DDLogError("Error fetching bounding region from Wikidata: \(error)")
+            DDLogWarn("Error fetching bounding region from Wikidata: \(error)")
             fail()
         }, success: { (region) in
             DispatchQueue.main.async {
@@ -820,7 +820,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         
         guard let search = self.didYouMeanSearch else {
-            DDLogError("Did You Mean search is unset")
+            DDLogWarn("Did You Mean search is unset")
             return
         }
         SearchFunnel.shared.logSearchDidYouMean(source: "places")

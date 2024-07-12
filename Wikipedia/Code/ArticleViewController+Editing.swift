@@ -154,7 +154,7 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
         webView.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in articleHtmlTitleDescription: \(error)")
+                    DDLogWarn("Failure in articleHtmlTitleDescription: \(error)")
                     completion(nil)
                     return
                 }
@@ -199,7 +199,7 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
         webView.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in injectNewDescriptionIntoArticleContent: \(error)")
+                    DDLogWarn("Failure in injectNewDescriptionIntoArticleContent: \(error)")
                     completion(.failure(error))
                     return
                 }
@@ -258,7 +258,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 
             switch injectResult {
             case .failure(let error):
-                DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")
+                DDLogWarn("Failure injecting new description into article content, refreshing instead: \(error)")
                 self.waitForNewContentAndRefresh(result.newRevisionID)
             case .success:
                 break
