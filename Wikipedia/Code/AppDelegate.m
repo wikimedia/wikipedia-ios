@@ -242,7 +242,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
     appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
     NSError *taskSubmitError = nil;
     if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
-        DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
+        DDLogWarn(@"Unable to schedule background task. This is expected if this is simulator: %@", taskSubmitError);
     }
 }
 
@@ -251,7 +251,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
     databaseHousekeeperTask.earliestBeginDate = nil; // Docs indicate nil = no start delay.
     NSError *taskSubmitError = nil;
     if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:databaseHousekeeperTask error:&taskSubmitError]) {
-        DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
+        DDLogWarn(@"Unable to schedule background task. This is expected if this is simulator: %@", taskSubmitError);
     }
 }
 
