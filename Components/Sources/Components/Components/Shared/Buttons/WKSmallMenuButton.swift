@@ -114,8 +114,8 @@ public class WKSmallMenuButton: WKComponentView {
         
         var buttonConfig = UIButton.Configuration.filled()
         buttonConfig.image = configuration.image
-        buttonConfig.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 13)
-        buttonConfig.imagePadding = 8
+        buttonConfig.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: UIFontMetrics.default.scaledValue(for: 13))
+        buttonConfig.imagePadding = 6
         buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
 
         var container = AttributeContainer()
