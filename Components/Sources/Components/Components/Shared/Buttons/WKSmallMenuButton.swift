@@ -52,10 +52,14 @@ public class WKSmallMenuButton: WKComponentView {
 
     // MARK: - UI Elements
 
-    private lazy var button: WKButton = {
-        let button = WKButton(type: .custom)
+    private lazy var button: UIButton = {
+        let buttonConfig = createButtonConfig()
+        
+        let button = UIButton(configuration: buttonConfig, primaryAction: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.showsMenuAsPrimaryAction = true
         button.addTarget(self, action: #selector(userDidTap), for: .touchDown)
+        button.menu = generateMenu()
         return button
     }()
 
@@ -73,7 +77,8 @@ public class WKSmallMenuButton: WKComponentView {
 
     public func updateTitle(_ title: String?) {
         configuration.title = title
-        configure()
+        let buttonConfig = createButtonConfig()
+        button.configuration = buttonConfig
     }
 
 	// MARK: - Setup
@@ -90,34 +95,6 @@ public class WKSmallMenuButton: WKComponentView {
             button.topAnchor.constraint(equalTo: topAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-
-        button.showsMenuAsPrimaryAction = true
-
-        configure()
-    }
-
-    private func configure() {
-        button.menu = generateMenu()
-        button.backgroundColor = theme[keyPath: configuration.primaryColor].withAlphaComponent(0.15)
-        button.tintColor = theme[keyPath: configuration.primaryColor]
-        button.setTitleColor(theme[keyPath: configuration.primaryColor], for: .normal)
-        button.titleLabel?.font = WKFont.for(.boldFootnote)
-        button.setTitle(configuration.title, for: .normal)
-        button.setImage(configuration.image, for: .normal)
-
-        button.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        button.adjustsImageWhenHighlighted = false
-
-        button.layer.cornerRadius = 8
-        button.layer.cornerCurve = .continuous
-
-        if effectiveUserInterfaceLayoutDirection == .leftToRight {
-            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -8)
-            button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 8, right: 16)
-        } else {
-            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 4)
-            button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 8, right: 8)
-        }
     }
 
     private func generateMenu() -> UIMenu {
@@ -132,13 +109,37 @@ public class WKSmallMenuButton: WKComponentView {
 
         return UIMenu(children: actions)
     }
+    
+    private func createButtonConfig() -> UIButton.Configuration {
+        
+        var buttonConfig = UIButton.Configuration.filled()
+        buttonConfig.image = configuration.image
+        buttonConfig.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 13)
+        buttonConfig.imagePadding = 8
+        buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+
+        var container = AttributeContainer()
+        container.font = WKFont.for(.boldFootnote)
+        container.foregroundColor = theme[keyPath: configuration.primaryColor]
+        if let title = configuration.title {
+            buttonConfig.attributedTitle = AttributedString(title, attributes: container)
+        }
+
+        buttonConfig.baseForegroundColor = theme[keyPath: configuration.primaryColor]
+        buttonConfig.background.backgroundColor = theme[keyPath: configuration.primaryColor].withAlphaComponent(0.15)
+        
+        buttonConfig.background.cornerRadius = 8
+        buttonConfig.image = configuration.image
+        
+        return buttonConfig
+    }
 
     // MARK: - Button Actions
 
     private func userDidTapMenuItem(_ item: MenuItem) {
         delegate?.wkMenuButton(self, didTapMenuItem: item)
     }
-
+    
     @objc private func userDidTap() {
         delegate?.wkMenuButtonDidTap(self)
     }
@@ -146,6 +147,7 @@ public class WKSmallMenuButton: WKComponentView {
     // MARK: - Component Conformance
 
     public override func appEnvironmentDidChange() {
-        configure()
+        let buttonConfig = createButtonConfig()
+        button.configuration = buttonConfig
     }
 }
