@@ -90,7 +90,7 @@ public class StorageManager: NSObject {
                     DDLogDebug("EPC: Found \(count) events awaiting submission")
                 }
             } catch let error {
-                DDLogError(error.localizedDescription)
+                DDLogError("\(error.localizedDescription)")
             }
         }
         return events
