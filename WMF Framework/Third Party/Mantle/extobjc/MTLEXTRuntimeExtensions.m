@@ -899,8 +899,6 @@ void mtl_replaceMethodsFromClass (Class srcClass, Class dstClass) {
     mtl_injectMethodsFromClass(srcClass, dstClass, mtl_methodInjectionReplace, NULL);
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wformat"
 NSString *mtl_stringFromTypedBytes (const void *bytes, const char *encoding) {
     switch (*encoding) {
         case 'c': return @(*(char *)bytes).description;
@@ -941,4 +939,3 @@ NSString *mtl_stringFromTypedBytes (const void *bytes, const char *encoding) {
             return [[NSValue valueWithBytes:bytes objCType:encoding] description];
     }
 }
-#pragma clang diagnostic pop

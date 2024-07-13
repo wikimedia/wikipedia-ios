@@ -19,8 +19,6 @@
 @end
 #endif
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Weverything"
 @interface FLAnimatedImageView ()
 
 // Override of public `readonly` properties as private `readwrite`
@@ -438,4 +436,3 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
 
 
 @end
-#pragma clang diagnostic pop

@@ -8,8 +8,6 @@
 
 #import "NYTPhotoCaptionView.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Weverything"
 static const CGFloat NYTPhotoCaptionViewHorizontalMargin = 8.0;
 static const CGFloat NYTPhotoCaptionViewVerticalMargin = 7.0;
 
@@ -164,4 +162,3 @@ static const CGFloat NYTPhotoCaptionViewVerticalMargin = 7.0;
 }
 
 @end
-#pragma clang diagnostic pop

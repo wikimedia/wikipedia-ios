@@ -86,8 +86,6 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
         presenterConfigurationBlock(presenter);
     }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([self respondsToSelector:@selector(theme)]) {
         id maybeTheme = [(id)self performSelector:@selector(theme)];
         if ([maybeTheme isKindOfClass:[WMFTheme class]]) {
@@ -95,7 +93,6 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
             presenter.backgroundColor = [(WMFTheme *)maybeTheme colors].paperBackground;
         }
     }
-#pragma clang diagnostic pop
 
     return popoverVC;
 }

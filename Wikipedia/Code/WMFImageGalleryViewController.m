@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincomplete-implementation"
-
 @interface NYTPhotosViewController (WMFExposure)
 
 - (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id<NYTPhoto>)photo;
@@ -323,8 +320,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-#pragma clang diagnostic pop
 
 @interface WMFPOTDPhoto : WMFBasePhoto <WMFPhoto>
 

@@ -19,9 +19,6 @@
 
 #define MEGABYTE (1024 * 1024)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Weverything"
-
 // This is how the fastest browsers do it as per 2012: http://nullsleep.tumblr.com/post/16524517190/animated-gif-minimum-frame-delay-browser-compatibility
 const NSTimeInterval kFLAnimatedImageDelayTimeIntervalMinimum = 0.02;
 
@@ -817,4 +814,3 @@ static FLLogLevel _logLevel;
 
 
 @end
-#pragma clang diagnostic pop

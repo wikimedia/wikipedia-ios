@@ -20,8 +20,6 @@
 
 #import "FLAnimatedImage.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
 NSString * const NYTPhotosViewControllerDidNavigateToPhotoNotification = @"NYTPhotosViewControllerDidNavigateToPhotoNotification";
 NSString * const NYTPhotosViewControllerWillDismissNotification = @"NYTPhotosViewControllerWillDismissNotification";
 NSString * const NYTPhotosViewControllerDidDismissNotification = @"NYTPhotosViewControllerDidDismissNotification";
@@ -553,4 +551,3 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
 }
 
 @end
-#pragma clang diagnostic pop
