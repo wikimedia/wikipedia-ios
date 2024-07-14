@@ -126,7 +126,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 + (UIViewController *)defaultViewController
 {
-    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *viewController = [UIApplication sharedApplication].workaroundKeyWindow.rootViewController;
     if (!viewController) {
         return nil;
     }
