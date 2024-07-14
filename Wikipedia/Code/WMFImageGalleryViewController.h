@@ -58,8 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo;
 
-- (void)updateOverlayInformation;
-
 @property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
 
 @end

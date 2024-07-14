@@ -103,7 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
          */
         NSParameterAssert(self.dataSource);
         NSParameterAssert(self.photos);
-        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
