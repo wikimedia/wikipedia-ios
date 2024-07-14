@@ -58,7 +58,7 @@ static const CGFloat NYTPhotoCaptionViewVerticalMargin = 7.0;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    void (^updateGradientFrame)() = ^{
+    void (^updateGradientFrame)(void) = ^{
         self.gradientLayer.frame = self.layer.bounds;
     };
 
