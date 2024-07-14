@@ -35,7 +35,7 @@ extension ArticleViewController {
         }
         let title = WMFLocalizedString("back-button-popover-title", value: "Tap to go back", comment: "Title for popover explaining the 'W' icon may be tapped to go back.")
         let message = WMFLocalizedString("original-tab-button-popover-description", value: "Tap on the 'W' to return to the tab you started from", comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
-        wmf_presentDynamicHeightPopoverViewController(forSourceRect: sourceRect, withTitle: title, message: message, width: 230, duration: 3)
+        wmf_presentDynamicHeightPopoverViewController(sourceRect: sourceRect, title: title, message: message, width: 230, duration: 3)
         UserDefaults.standard.wmf_setDidShowWIconPopover(true)
     }
 }
