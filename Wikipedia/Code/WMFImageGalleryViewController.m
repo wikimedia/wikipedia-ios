@@ -33,10 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) id<WMFExposedDataSource> dataSource;
 
-- (NYTPhotoViewController *)currentPhotoViewController;
-
-- (UIImageView *)currentImageView;
-
 @property (nonatomic, strong) WMFTheme *theme;
 
 @end
@@ -108,8 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
         NSParameterAssert(self.dataSource);
         NSParameterAssert(self.photos);
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
@@ -145,10 +139,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)shouldAutorotate {
     return YES;
-}
-
-- (UIImageView *)currentImageView {
-    return [self currentPhotoViewController].scalingImageView.imageView;
 }
 
 - (NSArray<id<NYTPhoto>> *)photos {

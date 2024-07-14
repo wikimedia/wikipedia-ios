@@ -52,8 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage;
 
-- (UIImageView *)currentImageView;
-
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 - (void)setOverlayViewTopBarHidden:(BOOL)hidden;
