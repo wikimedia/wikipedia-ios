@@ -20,7 +20,7 @@ struct NotificationsCenterIconImage: View {
 
 struct NotificationsCenterInboxView: View {
 
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     let viewModel: NotificationsCenterInboxViewModel
     let doneAction: () -> Void
     

@@ -25,7 +25,7 @@ public enum ReadingListsAlertActionType {
     }
 }
 
-@objc (WMFReadingListsAlertController)
+@objc(WMFReadingListsAlertController)
 public class ReadingListsAlertController: NSObject {
     @objc public weak var delegate: ReadingListsAlertControllerDelegate?
     

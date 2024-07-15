@@ -1,7 +1,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-@objc (WMFEPCStorageManager)
+@objc(WMFEPCStorageManager)
 public class StorageManager: NSObject {
 
     private let managedObjectContext: NSManagedObjectContext

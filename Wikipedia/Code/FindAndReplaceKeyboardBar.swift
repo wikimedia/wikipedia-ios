@@ -1,6 +1,6 @@
 import UIKit
 
-@objc (WMFFindAndReplaceKeyboardBarDelegate)
+@objc(WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?)
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar)
@@ -41,7 +41,7 @@ struct FindMatchPlacement {
     var total: UInt
 }
 
-@objc (WMFFindAndReplaceKeyboardBar)
+@objc(WMFFindAndReplaceKeyboardBar)
 final class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var outerStackView: UIStackView!
     @IBOutlet private var outerStackViewLeadingConstraint: NSLayoutConstraint!

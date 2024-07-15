@@ -2,7 +2,7 @@ import SwiftUI
 import WMF
 
 struct NotificationsCenterFilterItemView: View {
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @ObservedObject var itemViewModel: NotificationsCenterFiltersViewModel.ItemViewModel
     let theme: Theme
 

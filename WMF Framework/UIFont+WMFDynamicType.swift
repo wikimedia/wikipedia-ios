@@ -5,7 +5,7 @@ import UIKit
     case georgia
 }
 
-@objc (WMFDynamicTextStyle) public class DynamicTextStyle: NSObject {
+@objc(WMFDynamicTextStyle) public class DynamicTextStyle: NSObject {
     @objc public static let subheadline = DynamicTextStyle(.system, .subheadline)
     @objc public static let semiboldSubheadline = DynamicTextStyle(.system, .subheadline, .semibold)
     public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
