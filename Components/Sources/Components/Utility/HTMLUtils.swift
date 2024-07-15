@@ -169,6 +169,13 @@ public struct HtmlUtils {
         for underlineRange in allStyleData.underline.completeNSRanges {
             nsAttributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: underlineRange)
         }
+        
+        // Style Strong
+        if let strongColor = styles.strongColor {
+            for strongRange in allStyleData.strong.completeNSRanges {
+                nsAttributedString.addAttribute(.foregroundColor, value: strongColor, range: strongRange)
+            }
+        }
     }
     
     private static func removeHtmlTagAndContent(from nsAttributedString: NSMutableAttributedString, tagAndContentRemoveData: [TagAndContentRemoveData]) {
