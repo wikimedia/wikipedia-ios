@@ -66,6 +66,11 @@ public struct HtmlUtils {
         let range: NSRange
     }
     
+    private struct ElementReplaceData {
+        let range: NSRange
+        let replaceText: String
+    }
+    
     // MARK: - Shared - Properties
     
     public static let defaultListIndent = "    "
@@ -91,6 +96,9 @@ public struct HtmlUtils {
         
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: attributedString.string)
         removeHtmlTagAndContent(from: attributedString, tagAndContentRemoveData: tagAndContentRemoveData)
+        
+        let lineBreakReplaceData = try lineBreakReplaceData(html: attributedString.string)
+        replaceLineBreaks(from: attributedString, lineBreakReplaceData: lineBreakReplaceData)
         
         let tagRemoveData = try tagRemoveData(html: attributedString.string)
         removeHtmlTags(from: attributedString, tagRemoveData: tagRemoveData)
@@ -190,6 +198,12 @@ public struct HtmlUtils {
         }
     }
     
+    private static func replaceLineBreaks(from nsAttributedString: NSMutableAttributedString, lineBreakReplaceData: [ElementReplaceData]) {
+        for data in lineBreakReplaceData.reversed() {
+            nsAttributedString.replaceCharacters(in: data.range, with: data.replaceText)
+        }
+    }
+    
     // MARK: - AttributedString - Public
     
     public static func attributedStringFromHtml(_ html: String, styles: Styles) throws -> AttributedString {
@@ -206,6 +220,9 @@ public struct HtmlUtils {
 
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: String(attributedString.characters))
         removeHtmlTagAndContent(from: &attributedString, tagAndContentRemoveData: tagAndContentRemoveData)
+        
+        let lineBreakReplaceData = try lineBreakReplaceData(html: String(attributedString.characters))
+        replaceLineBreaks(from: &attributedString, lineBreakReplaceData: lineBreakReplaceData)
         
         let tagRemoveData = try tagRemoveData(html: String(attributedString.characters))
         removeHtmlTags(from: &attributedString, tagRemoveData: tagRemoveData)
@@ -344,6 +361,18 @@ public struct HtmlUtils {
             attributedString.removeSubrange(tagRange)
         }
     }
+    
+    private static func replaceLineBreaks(from attributedString: inout AttributedString, lineBreakReplaceData: [ElementReplaceData]) {
+        
+        for data in lineBreakReplaceData.reversed() {
+            
+            guard let tagRange = Range(data.range, in: attributedString) else {
+                continue
+            }
+            
+            attributedString.replaceSubrange(tagRange, with: AttributedString(data.replaceText))
+        }
+    }
 
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
@@ -355,6 +384,10 @@ public struct HtmlUtils {
     
     private static func htmlTagRegex() throws -> NSRegularExpression {
         return try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)([^>]*)(?:>)")
+    }
+    
+    private static func lineBreakRegex() throws -> NSRegularExpression {
+        return try NSRegularExpression(pattern: "<br(?: \\/)?>")
     }
     
     private static func subscriptPointSize(styles: Styles) -> CGFloat {
@@ -546,6 +579,16 @@ public struct HtmlUtils {
             data.append(TagRemoveData(range: match.range(at: 0)))
         }
         
+        return data
+    }
+    
+    private static func lineBreakReplaceData(html: String) throws -> [ElementReplaceData] {
+        let lineBreakRegex = try lineBreakRegex()
+        var data: [ElementReplaceData] = []
+        let matches = lineBreakRegex.matches(in: html, range: html.fullNSRange)
+        for match in matches {
+            data.append(ElementReplaceData(range: match.range(at: 0), replaceText: "\n"))
+        }
         return data
     }
 }
