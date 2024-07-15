@@ -103,6 +103,9 @@ public struct HtmlUtils {
         let tagRemoveData = try tagRemoveData(html: attributedString.string)
         removeHtmlTags(from: attributedString, tagRemoveData: tagRemoveData)
         
+        let entityReplaceData = try entityReplaceData(html: attributedString.string)
+        replaceEntities(from: attributedString, entityReplaceData: entityReplaceData)
+        
         return attributedString
     }
     
@@ -204,6 +207,12 @@ public struct HtmlUtils {
         }
     }
     
+    private static func replaceEntities(from nsAttributedString: NSMutableAttributedString, entityReplaceData: [ElementReplaceData]) {
+        for data in entityReplaceData.reversed() {
+            nsAttributedString.replaceCharacters(in: data.range, with: data.replaceText)
+        }
+    }
+    
     // MARK: - AttributedString - Public
     
     public static func attributedStringFromHtml(_ html: String, styles: Styles) throws -> AttributedString {
@@ -226,6 +235,9 @@ public struct HtmlUtils {
         
         let tagRemoveData = try tagRemoveData(html: String(attributedString.characters))
         removeHtmlTags(from: &attributedString, tagRemoveData: tagRemoveData)
+        
+        let entityReplaceData = try entityReplaceData(html: String(attributedString.characters))
+        replaceEntities(from: &attributedString, entityReplaceData: entityReplaceData)
         
         return attributedString
     }
@@ -366,13 +378,26 @@ public struct HtmlUtils {
         
         for data in lineBreakReplaceData.reversed() {
             
-            guard let tagRange = Range(data.range, in: attributedString) else {
+            guard let range = Range(data.range, in: attributedString) else {
                 continue
             }
             
-            attributedString.replaceSubrange(tagRange, with: AttributedString(data.replaceText))
+            attributedString.replaceSubrange(range, with: AttributedString(data.replaceText))
         }
     }
+    
+    private static func replaceEntities(from attributedString: inout AttributedString, entityReplaceData: [ElementReplaceData]) {
+        
+        for data in entityReplaceData.reversed() {
+            
+            guard let range = Range(data.range, in: attributedString) else {
+                continue
+            }
+            
+            attributedString.replaceSubrange(range, with: AttributedString(data.replaceText))
+        }
+    }
+
 
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
@@ -387,7 +412,11 @@ public struct HtmlUtils {
     }
     
     private static func lineBreakRegex() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: "<br(?: \\/)?>")
+        return try NSRegularExpression(pattern: "<br(?: ?\\/?)?>")
+    }
+    
+    private static func entityRegex() throws -> NSRegularExpression {
+        return try NSRegularExpression(pattern: "&([^\\s;]+);")
     }
     
     private static func subscriptPointSize(styles: Styles) -> CGFloat {
@@ -588,6 +617,46 @@ public struct HtmlUtils {
         let matches = lineBreakRegex.matches(in: html, range: html.fullNSRange)
         for match in matches {
             data.append(ElementReplaceData(range: match.range(at: 0), replaceText: "\n"))
+        }
+        return data
+    }
+    
+    private static func entityReplaceData(html: String) throws -> [ElementReplaceData] {
+        let entityRegex = try entityRegex()
+        var data: [ElementReplaceData] = []
+        let matches = entityRegex.matches(in: html, range: html.fullNSRange)
+        for match in matches {
+            
+            let range = match.range(at: 0)
+            let text = (html as NSString).substring(with: range)
+            let replaceText: String?
+            
+            switch text {
+            case "&amp;":
+                replaceText = "&"
+            case "&nbsp;":
+                replaceText = " "
+            case "&gt;":
+                replaceText = ">"
+            case "&lt;":
+                replaceText = "<"
+            case "&apos;":
+                replaceText = "'"
+            case "&quot;":
+                replaceText = "\""
+            case "&ndash;":
+                replaceText = "\u{2013}"
+            case "&mdash;":
+                replaceText = "\u{2014}"
+            case "&#8722;":
+                replaceText = "\u{2212}"
+            default:
+                replaceText = nil
+            }
+            
+            if let replaceText {
+                data.append(ElementReplaceData(range: range, replaceText: replaceText))
+            }
         }
         return data
     }
