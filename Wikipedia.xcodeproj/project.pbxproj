@@ -1421,7 +1421,6 @@
 		83842A892B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
-		838640DC2C45734A00BA3D3A /* RelatedPageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838640DB2C45734A00BA3D3A /* RelatedPageExtensions.swift */; };
 		8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */; };
 		8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08423DD2384E2C7005E93A0 /* WikipediaURLTranslations.swift */; };
 		8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDF02386D3E1007EE89D /* RequestError.swift */; };
@@ -3722,7 +3721,6 @@
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
 		83842A872B07A22300EFC55F /* UITestHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelperViewController.swift; sourceTree = "<group>"; };
-		838640DB2C45734A00BA3D3A /* RelatedPageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedPageExtensions.swift; sourceTree = "<group>"; };
 		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
 		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
@@ -5753,7 +5751,6 @@
 				D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */,
 				D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */,
 				83DF1D1324F53878007E08D8 /* WMFPreferredLanguageInfoProvider.h */,
-				838640DB2C45734A00BA3D3A /* RelatedPageExtensions.swift */,
 			);
 			name = "User DataStore";
 			sourceTree = "<group>";
@@ -10718,7 +10715,6 @@
 				006694FC265D9F2900E23AE4 /* WidgetSettings.swift in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
 				670AF1CF26CD74A6005F76D0 /* EchoSubscriptionFetcher.swift in Sources */,
-				838640DC2C45734A00BA3D3A /* RelatedPageExtensions.swift in Sources */,
 				7A0312FF215422960095C953 /* RemoteNotificationsMarkReadOrUnreadOperation.swift in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
