@@ -6,8 +6,6 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate let headerBackgroundView = UIView()
 
-    private var theme: Theme = Theme.standard
-
     public var headerBackgroundColor: UIColor? {
         get {
             return headerBackgroundView.backgroundColor
@@ -67,6 +65,9 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         spacing = 6
         imageViewDimension = 150
+    }
+    
+    override open func updateStyles() {
         styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
     

@@ -3,7 +3,9 @@ import Components
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)
     func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
+        self.theme = theme
         apply(theme: theme)
+        updateStyles()
         
         let group = DispatchGroup()
         

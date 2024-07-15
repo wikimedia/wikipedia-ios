@@ -15,7 +15,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var _titleHTML: String? = nil
     private var _titleBoldedString: String? = nil
 
-    private var theme: Theme = Theme.standard
+    public var theme: Theme = Theme.standard
 
     private func getAttributedString(_ htmlString: String) -> NSAttributedString {
         return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
@@ -63,7 +63,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     open override func setup() {
-        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        updateStyles()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -94,7 +94,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        updateStyles()
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumFootnote
@@ -109,6 +109,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         isAlertButtonHidden = true
         isStatusViewHidden = true
         updateFonts(with: traitCollection)
+    }
+    
+    open func updateStyles() {
+        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     override open func updateBackgroundColorOfLabels() {
