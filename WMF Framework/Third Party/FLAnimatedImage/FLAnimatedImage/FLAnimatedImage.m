@@ -6,7 +6,6 @@
 //  Copyright (c) 2013-2015 Flipboard. All rights reserved.
 //
 
-
 #import "FLAnimatedImage.h"
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
