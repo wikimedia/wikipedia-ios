@@ -115,7 +115,8 @@ private extension ArticleSummary {
            let height = relatedPage.thumbnail?.height {
             thumbnail = ArticleSummaryImage(source: source, width: width, height: height)
         }
-        
-        self.init(id: Int64(relatedPage.pageId), wikidataID: nil, revision: nil, timestamp: relatedPage.touched, index: relatedPage.index, namespace: namespace, title: relatedPage.title, displayTitle: relatedPage.title, articleDescription: relatedPage.articleDescription, extract: nil, extractHTML: nil, thumbnail: thumbnail, original: nil, coordinates: nil, languageVariantCode: relatedPage.languageVariantCode, contentURLs: ArticleSummaryContentURLs(desktop: nil, mobile: nil))
+        let desktopURLs = ArticleSummaryURLs(page: relatedPage.articleURL?.absoluteString)
+
+        self.init(id: Int64(relatedPage.pageId), wikidataID: nil, revision: nil, timestamp: relatedPage.touched, index: relatedPage.index, namespace: namespace, title: relatedPage.title, displayTitle: relatedPage.title, articleDescription: relatedPage.articleDescription, extract: nil, extractHTML: nil, thumbnail: thumbnail, original: nil, coordinates: nil, languageVariantCode: relatedPage.languageVariantCode, contentURLs: ArticleSummaryContentURLs(desktop: desktopURLs, mobile: nil))
     }
 }

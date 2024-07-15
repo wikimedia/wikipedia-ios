@@ -113,6 +113,13 @@ class ArticleSummaryURLs: NSObject, Codable {
     let revisions: String?
     let edit: String?
     let talk: String?
+    
+    internal init(page: String? = nil, revisions: String? = nil, edit: String? = nil, talk: String? = nil) {
+        self.page = page
+        self.revisions = revisions
+        self.edit = edit
+        self.talk = talk
+    }
 }
 
 @objc(WMFArticleSummaryContentURLs)
