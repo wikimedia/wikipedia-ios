@@ -101,7 +101,7 @@ public enum WKFont {
             return baseFont
 
         case .boldItalicSubheadline:
-            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .headline, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
@@ -183,7 +183,7 @@ public enum WKFont {
             return baseFont
 
         case .italicSubheadline:
-            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .headline, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
