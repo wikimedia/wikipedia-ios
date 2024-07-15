@@ -3,7 +3,7 @@ import Foundation
 @objc(WMFRelatedSearchFetcher)
 final class RelatedSearchFetcher: Fetcher {
 
-    @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: RelatedPage]?) -> Void) {
+    @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
         guard
             let articleURL = articleURL,
             let articleTitle = articleURL.percentEncodedPageTitleForPathComponents,
@@ -36,19 +36,18 @@ final class RelatedSearchFetcher: Fetcher {
                 guard let relatedPages = self.getRelatedPages(from: result, siteURL: siteURL), relatedPages.count > 0 else {
                     return
                 }
-
-                let relatedPagesWithUniqueURLKeys: [(WMFInMemoryURLKey, RelatedPage)] = relatedPages.compactMap { (summary) -> (WMFInMemoryURLKey, RelatedPage)? in
-
-                    if let variant = articleURL.wmf_languageVariantCode {
-                        summary.languageVariantCode = variant
-                    }
-
-                    guard let articleKey = summary.key else {
-                        return nil
-                    }
-                    return (articleKey, summary)
-                }
-                completion(nil, Dictionary(uniqueKeysWithValues: relatedPagesWithUniqueURLKeys))
+                
+                let summaries = relatedPages.map { ArticleSummary(relatedPage: $0) }
+                
+                let summaryKeysWithValues: [(WMFInMemoryURLKey, ArticleSummary)] = summaries.compactMap { (summary) -> (WMFInMemoryURLKey, ArticleSummary)? in
+                                summary.languageVariantCode = articleURL.wmf_languageVariantCode
+                                guard let articleKey = summary.key else {
+                                    return nil
+                                }
+                                return (articleKey, summary)
+                        }
+                
+                completion(nil, Dictionary(uniqueKeysWithValues: summaryKeysWithValues))
 
             case .failure:
                 completion(Fetcher.unexpectedResponseError, nil)
@@ -79,6 +78,7 @@ final class RelatedSearchFetcher: Fetcher {
             }
             let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: pageTitle, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
             item.articleURL = getArticleURLFromTitle(title: pageTitle, siteURL: siteURL)
+            item.languageVariantCode = siteURL.wmf_languageVariantCode
             pages.append(item)
         }
         return pages
@@ -103,4 +103,19 @@ final class RelatedSearchFetcher: Fetcher {
         let title: String
     }
 
+}
+
+private extension ArticleSummary {
+    convenience init(relatedPage: RelatedPage) {
+        let namespace = ArticleSummary.Namespace(id: relatedPage.ns, text: nil)
+        
+        var thumbnail: ArticleSummaryImage?
+        if let source = relatedPage.thumbnail?.source,
+           let width = relatedPage.thumbnail?.width,
+           let height = relatedPage.thumbnail?.height {
+            thumbnail = ArticleSummaryImage(source: source, width: width, height: height)
+        }
+        
+        self.init(id: Int64(relatedPage.pageId), wikidataID: nil, revision: nil, timestamp: relatedPage.touched, index: relatedPage.index, namespace: namespace, title: relatedPage.title, displayTitle: relatedPage.title, articleDescription: relatedPage.articleDescription, extract: nil, extractHTML: nil, thumbnail: thumbnail, original: nil, coordinates: nil, languageVariantCode: relatedPage.languageVariantCode, contentURLs: ArticleSummaryContentURLs(desktop: nil, mobile: nil))
+    }
 }
