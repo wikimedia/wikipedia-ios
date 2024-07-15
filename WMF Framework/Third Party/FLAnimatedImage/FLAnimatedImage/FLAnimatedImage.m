@@ -10,7 +10,7 @@
 #import "FLAnimatedImage.h"
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-
+@import UniformTypeIdentifiers;
 
 // From vm_param.h, define for iOS 8.0 or higher to build on device.
 #ifndef BYTE_SIZE
@@ -211,7 +211,8 @@ static NSHashTable *allAnimatedImagesWeak;
         
         // Early return if not GIF!
         CFStringRef imageSourceContainerType = CGImageSourceGetType(_imageSource);
-        const BOOL isGIFData = imageSourceContainerType ? UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF) : NO;
+        UTType *type = [UTType typeWithIdentifier:(__bridge NSString *)imageSourceContainerType];
+        const BOOL isGIFData = imageSourceContainerType ? [type conformsToType:UTTypeGIF] : NO;
         if (!isGIFData) {
             FLLog(FLLogLevelError, @"Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
             return nil;
