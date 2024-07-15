@@ -92,17 +92,16 @@ extension WMFArticle {
     }
 
     @objc public func update(withRelatedPage page: RelatedPage) {
-
         if let thumbnail = page.thumbnail, let url = thumbnail.source {
             thumbnailURLString = url
             thumbnailURL = URL(string: url)
         }
 
-        wikidataDescription = page.description
         displayTitleHTML = page.title
         pageID = NSNumber(value: page.pageId)
         lastModifiedDate = DateFormatter.wmf_iso8601()?.date(from: page.touched)
-
+        snippet = page.articleDescription
+        wikidataDescription = page.articleDescription
     }
 }
 
