@@ -1,5 +1,5 @@
-@import Foundation;
-@import WebKit;
+#import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 #import <WMF/WMFBlockDefinitions.h>
 
 @class MWKSavedPageList;

@@ -1,5 +1,5 @@
 #import <WMF/WMFMTLModel.h>
-@import CoreLocation;
+#import <CoreLocation/CoreLocation.h>
 
 @interface MWKSearchResult : WMFMTLModel <MTLJSONSerializing>
 

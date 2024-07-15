@@ -1,6 +1,6 @@
 #import <WMF/MWKLanguageFilter.h>
 #import <WMF/WMFPreferredLanguageInfoProvider.h>
-@import UIKit.UIView;
+#import <UIKit/UIKit.h>
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
 
