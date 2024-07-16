@@ -6,7 +6,7 @@ final class RelatedSearchFetcher: Fetcher {
     @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
         guard
             let articleURL = articleURL,
-            let articleTitle = articleURL.percentEncodedPageTitleForPathComponents,
+            let articleTitle = articleURL.wmf_title,
             let siteURL = articleURL.wmf_site
         else {
             completion(Fetcher.invalidParametersError, nil)
