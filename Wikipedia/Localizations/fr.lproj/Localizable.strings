@@ -27,6 +27,7 @@
 // Author: Od1n
 // Author: Orikrin1998
 // Author: Orlodrim
+// Author: Oujon
 // Author: Oupsa
 // Author: Selhom
 // Author: SleaY
@@ -343,6 +344,8 @@
 "edit-summary-choice-fixed-typos" = "Coquilles corrigées";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
 "edit-summary-placeholder-text" = "Comment avez-vous amélioré l’article ?";
+"edit-summary-short-description-added" = "Description courte ajoutée";
+"edit-summary-short-description-updated" = "Description courte mise à jour";
 "edit-watch-list-learn-more-text" = "En savoir plus sur les listes de suivi";
 "edit-watch-this-page-text" = "Suivre cette page";
 "editing-welcome-be-bold-subtitle" = "Soyez courageux mais non téméraire dans la mise à jour des articles. Ne vous inquiétez pas de faire des fautes : chaque version passée d’une page est enregistrée, donc les erreurs peuvent facilement être corrigées par notre communauté.";
@@ -636,6 +639,7 @@
 "image-recommendations-email-title" = "Signalement de problème – Fonctionnalité « Ajouter une image »";
 "image-recs-no-title" = "Non";
 "image-recs-not-sure-title" = "Pas sûr(e)";
+"image-recs-time-warning-message" = "Veuillez consulter l'article pour comprendre son sujet et inspecter l'image";
 "image-recs-yes-title" = "Oui";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";

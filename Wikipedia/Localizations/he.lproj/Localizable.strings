@@ -327,6 +327,8 @@
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
 "edit-summary-placeholder-text" = "איך שיפרת את הערך?";
+"edit-summary-short-description-added" = "נוסף תיאור קצר";
+"edit-summary-short-description-updated" = "עודכן תיאור קצר";
 "edit-watch-list-learn-more-text" = "מידע נוסף על רשימת המעקב שלך";
 "edit-watch-this-page-text" = "מעקב אחר דף זה";
 "editing-welcome-be-bold-subtitle" = "היו נועזים, אבל לא פזיזים מדי בעדכון ערכים. אל תפחדו יותר מדי מטעויות: כל הגרסאות הקודמות של הדף נשמרות, ושגיאות יכולות להיות מתוקנות בקלות על־ידי הקהילה שלנו.";
@@ -620,6 +622,7 @@
 "image-recommendations-email-title" = "דו\"ח בעיה - תכונת הוספת תמונה";
 "image-recs-no-title" = "לא";
 "image-recs-not-sure-title" = "אין לי תשובה";
+"image-recs-time-warning-message" = "נא לסקור את הערך כדי להבין את הנושא שלו ולהתבונן היטב בתמונה";
 "image-recs-yes-title" = "כן";
 "import-shared-reading-list-default-title" = "רשימת הקריאה שלי";
 "import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
