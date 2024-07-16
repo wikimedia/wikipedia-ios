@@ -26,6 +26,8 @@ final class RelatedSearchFetcher: Fetcher {
             "piprop": "thumbnail",
             "pithumbsize": 160,
             "prop": "pageimages|description|info",
+            "smaxage": "86400",
+            "maxage": "86400",
             "format": "json"
         ]
 
