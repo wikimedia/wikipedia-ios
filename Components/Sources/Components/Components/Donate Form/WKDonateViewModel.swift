@@ -180,8 +180,15 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     @Published var emailOptInViewModel: OptInViewModel?
     @Published var errorViewModel: ErrorViewModel?
     
-    private let transactionFeeAmount: Decimal
-    private(set) var finalAmount: Decimal
+    private var transactionFeeAmount: Decimal
+    private(set) var finalAmount: Decimal {
+        didSet {
+            guard let transactionFee = donateConfig.transactionFee(for: currencyCode, amount: finalAmount) else {
+                return
+            }
+            self.transactionFeeAmount = transactionFee
+        }
+    }
     
     private var textFieldSubscribers: Set<AnyCancellable> = []
     private var buttonSubscribers: Set<AnyCancellable> = []
