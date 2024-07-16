@@ -14,7 +14,6 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
 
     private var styles: HtmlUtils.Styles {
         HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 3)
-        // Marina todo - fix link styling 
     }
 
     private func getAttributedString(_ htmlString: String) -> NSAttributedString {
