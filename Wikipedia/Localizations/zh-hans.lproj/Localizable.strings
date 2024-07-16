@@ -340,8 +340,8 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "无法定位您所选择的文本";
 "edit-minor-learn-more-text" = "了解更多关于小编辑的信息";
 "edit-minor-text" = "标记为小编辑";
-"edit-notices" = "编辑告示";
-"edit-notices-always-display" = "始终显示编辑告示";
+"edit-notices" = "编辑提示";
+"edit-notices-always-display" = "始终显示编辑提示";
 "edit-notices-please-read" = "编辑前请先阅读";
 "edit-preview-simplified-format-message" = "所有内容均以简化格式显示。";
 "edit-published" = "已发布编辑";
