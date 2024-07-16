@@ -26,8 +26,7 @@ final class RelatedSearchFetcher: Fetcher {
             "piprop": "thumbnail",
             "pithumbsize": 160,
             "prop": "pageimages|description|info",
-            "format": "json",
-            "inprop": "varianttitles"
+            "format": "json"
         ]
 
         performDecodableMediaWikiAPIGET(for: articleURL, with: queryParams) { (result: Result<RelatedResponse, Error>) in
@@ -69,38 +68,12 @@ final class RelatedSearchFetcher: Fetcher {
         }
 
         for page in query.pages {
-            let variantTitles = getVariantTitles(page.varianttitles)
-            let firstVariantTitle = variantTitles?.first?.title
-
-            var pageTitle = page.title
-            if let firstVariantTitle {
-                pageTitle = firstVariantTitle
-            }
-            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: pageTitle, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
-            item.articleURL = getArticleURLFromTitle(title: pageTitle, siteURL: siteURL)
+            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: page.title, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
+            item.articleURL = getArticleURLFromTitle(title: page.title, siteURL: siteURL)
             item.languageVariantCode = siteURL.wmf_languageVariantCode
             pages.append(item)
         }
         return pages
-    }
-
-    private func getVariantTitles(_ variantTitles: [String: String]?) -> [VariantTitle]? {
-
-        var languageTitles: [VariantTitle] = []
-
-        guard let variantTitles else { return nil }
-
-        for (variant, title) in variantTitles {
-            let languageTitle = VariantTitle(variant: variant, title: title)
-            languageTitles.append(languageTitle)
-        }
-
-        return languageTitles
-    }
-
-    private struct VariantTitle {
-        let variant: String
-        let title: String
     }
 
 }
