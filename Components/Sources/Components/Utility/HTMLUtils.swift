@@ -12,12 +12,12 @@ public struct HtmlUtils {
         let italicsFont: UIFont
         let boldItalicsFont: UIFont
         let color: UIColor
-        let linkColor: UIColor
+        let linkColor: UIColor?
         let strongColor: UIColor?
         let lineSpacing: CGFloat
         let listIndent: String
         
-        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
@@ -154,9 +154,11 @@ public struct HtmlUtils {
         }
         
         // Style Link
-        for (linkRange, linkHref) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
-            nsAttributedString.addAttribute(.foregroundColor, value: styles.linkColor, range: linkRange)
-            nsAttributedString.addAttribute(.link, value: linkHref, range: linkRange)
+        if let linkColor = styles.linkColor {
+            for (linkRange, linkHref) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
+                nsAttributedString.addAttribute(.foregroundColor, value: linkColor, range: linkRange)
+                nsAttributedString.addAttribute(.link, value: linkHref, range: linkRange)
+            }
         }
         
         // Style Subscript
@@ -303,10 +305,12 @@ public struct HtmlUtils {
         }
         
         // Style Link
-        for (linkNSRange, hrefString) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
-            if let linkRange = Range(linkNSRange, in: attributedString) {
-                attributedString[linkRange].foregroundColor = styles.linkColor
-                attributedString[linkRange].link = URL(string:hrefString)
+        if let linkColor = styles.linkColor {
+            for (linkNSRange, hrefString) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
+                if let linkRange = Range(linkNSRange, in: attributedString) {
+                    attributedString[linkRange].foregroundColor = linkColor
+                    attributedString[linkRange].link = URL(string:hrefString)
+                }
             }
         }
         
