@@ -33,6 +33,7 @@ final class RelatedSearchFetcher: Fetcher {
             switch result {
             case .success(let result):
                 guard let relatedPages = self.getRelatedPages(from: result, siteURL: siteURL), relatedPages.count > 0 else {
+                    completion(nil, nil)
                     return
                 }
                 
