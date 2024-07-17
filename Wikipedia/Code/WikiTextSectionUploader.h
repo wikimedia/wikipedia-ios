@@ -29,6 +29,7 @@ extern NSString *const NSErrorUserInfoDisplayError;
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
         editSummaryTag:(nullable NSString *)editSummaryTag
+              editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 
 - (void)addSectionWithSummary:(NSString *)summary
@@ -45,9 +46,9 @@ extern NSString *const NSErrorUserInfoDisplayError;
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
                       summary:(nullable NSString *)summary
-             isMinorEdit:(BOOL)isMinorEdit
+            isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
-            editSummaryTag:(nullable NSString *)editSummaryTag
+             editTags:(nullable NSArray<NSString *> *)editTags
               completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 

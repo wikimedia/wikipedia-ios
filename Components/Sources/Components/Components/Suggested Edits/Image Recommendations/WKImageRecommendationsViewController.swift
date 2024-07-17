@@ -11,6 +11,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
+    func imageRecommendationsDidTriggerTimeWarning()
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -32,6 +33,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
     func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {

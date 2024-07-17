@@ -52,6 +52,7 @@ final class ImageRecommendationsFunnel: NSObject {
         case enableSuggestedEdits = "enable_suggested_edits"
         case disableSuggestedEdits = "disable_suggested_edits"
         case saveFailure = "save_failure"
+        case warning = "warning"
     }
     
     private struct Event: EventInterface {
@@ -281,5 +282,15 @@ final class ImageRecommendationsFunnel: NSObject {
             actionData = ["abort_source": abortSource]
         }
         logEvent(activeInterface: .editSummaryDialog, action: .saveFailure, actionData: actionData, project: project)
+    }
+
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        
+        let actionData: [String: String] = [
+            "filename": "\(fileName)",
+            "recommendation_source": "\(recommendationSource)"
+        ]
+        
+        logEvent(activeInterface: .recommendedImageToolbar, action: .warning, actionData: actionData, project: project)
     }
 }

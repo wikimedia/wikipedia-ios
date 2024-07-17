@@ -62,6 +62,7 @@ class SinglePageWebViewController: ViewController {
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         return webView
     }()
     
@@ -273,5 +274,22 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         fakeProgressController.finish()
+    }
+}
+
+extension SinglePageWebViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: CommonStrings.okTitle, style: .default) { _ in
+            completionHandler(true)
+        }
+        let action2 = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default) { _ in
+            completionHandler(false)
+        }
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        
+        present(alertController, animated: true)
     }
 }

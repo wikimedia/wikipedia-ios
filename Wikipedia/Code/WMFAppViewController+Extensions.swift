@@ -494,7 +494,7 @@ fileprivate extension UIViewController {
 }
 
 
-/// View Controllers that have an editing element (Section editor flow, User talk pages, Article description editor)
+/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
 protocol EditingFlowViewController where Self: UIViewController {
     var shouldDisplayExitConfirmationAlert: Bool { get }
 }

@@ -309,6 +309,8 @@
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-placeholder-text" = "Како сте побољшали чланак?";
+"edit-summary-short-description-added" = "Додат кратак опис";
+"edit-summary-short-description-updated" = "Ажуриран кратак опис";
 "edit-watch-list-learn-more-text" = "Сазнајте више о списку надгледања";
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-subtitle" = "Будите одважни, али не несмотрени у ажурирању чланака. Немојте се оптерећивати због грешака: свака претходна верзија странице се чува, тако да наша заједница може лако да исправи грешке.";
@@ -539,6 +541,7 @@
 "image-rec-onboarding-item-2-body" = "Предлози су машински генерисани и Ви ћете на основу своје процене одлучити да ли ћете их прихватити или одбити.";
 "image-rec-onboarding-item-2-title" = "Прихватите или одбаците слику";
 "image-rec-onboarding-item-3-body" = "Слике су са Викимедијине оставе, колекције слободно лиценцираних слика које се користе на Википедији.";
+"image-rec-onboarding-item-3-title" = "Лиценциране слике";
 "image-rec-onboarding-learn-more-button" = "Научите Више о предложеним изменама";
 "image-rec-onboarding-title" = "Додај слику у чланка";
 "image-rec-survey-instructions-1" = "Ваши одговори унапређују будуће предлоге.";
@@ -552,6 +555,9 @@
 "image-rec-survey-submit-button" = "Проследи";
 "image-rec-survey-title" = "Разлог";
 "image-rec-title" = "Додај слику";
+"image-rec-tooltip-1-body" = "Прегледајте овај чланак да би сте разумели његову тему.";
+"image-rec-tooltip-1-title" = "Прегледај";
+"image-rec-tooltip-3-title" = "Одлучите";
 "image-rec-view-article" = "Види чланак";
 "image-recommendations-email-first-line" = "Наишао сам на проблем са функцијом Предложене измене: додавање слика:";
 "image-recommendations-email-fourth-line" = "- [Опишите могуће решење]";

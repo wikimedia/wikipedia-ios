@@ -18,6 +18,7 @@
 "aaald-characters-text-description" = "{{PLURAL:$1|0=Zeechen|Zeechen|Zeechen}}";
 "aaald-deleted-text-description-2" = "$1 geläscht";
 "aaald-error-subitle" = "Aktualiséiert fir nach eng Kéier ze probéieren";
+"aaald-many-sections-description" = "a(n) $1 Abschnitter";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-discussion" = "Nei Diskussioun";
 "aaald-new-news-reference-title" = "Neiegkeeten";
@@ -211,6 +212,8 @@
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Linken derbäigesat";
 "edit-summary-placeholder-text" = "Wéi hutt Dir den Artikel verbessert?";
+"edit-summary-short-description-added" = "Kuerzbeschreiwung derbäigesat";
+"edit-summary-short-description-updated" = "Kuerzbeschreiwung aktualiséiert";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";

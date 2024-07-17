@@ -3,22 +3,22 @@ import WMF
 import Components
 import WKData
 
-struct SectionEditorChanges {
+struct EditorChanges {
     let newRevisionID: UInt64
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
     func editSaveViewControllerDidTapShowWebPreview()
 }
 
-protocol EditSaveViewControllerPageEditorLoggingDelegate: AnyObject {
+protocol EditSaveViewControllerEditorLoggingDelegate: AnyObject {
     func logEditSaveViewControllerDidTapShowWebPreview()
-    func logEditSaveViewControllerDidTapPublish(source: PageEditorViewController.Source, summaryAdded: Bool, isMinor: Bool, isWatched: Bool, project: WikimediaProject)
-    func logEditSaveViewControllerPublishSuccess(source: PageEditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
-    func logEditSaveViewControllerPublishFailed(source: PageEditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
-    func logEditSaveViewControllerDidTapBlockedMessageLink(source: PageEditorViewController.Source, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapPublish(source: EditorViewController.Source, summaryAdded: Bool, isMinor: Bool, isWatched: Bool, project: WikimediaProject)
+    func logEditSaveViewControllerPublishSuccess(source: EditorViewController.Source, revisionID: UInt64, project: WikimediaProject)
+    func logEditSaveViewControllerPublishFailed(source: EditorViewController.Source, problemSource: EditInteractionFunnel.ProblemSource?, project: WikimediaProject)
+    func logEditSaveViewControllerDidTapBlockedMessageLink(source: EditorViewController.Source, project: WikimediaProject)
 }
 
 protocol EditSaveViewControllerImageRecLoggingDelegate: AnyObject {
@@ -54,16 +54,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var pageURL: URL?
     var languageCode: String?
     var dataStore: MWKDataStore?
-    var source: PageEditorViewController.Source?
+    var source: EditorViewController.Source?
     
     var wikitext = ""
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
     var editSummaryTag: WKEditSummaryTag?
+    var editTag: WKEditTag?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
-    weak var pageEditorLoggingDelegate: EditSaveViewControllerPageEditorLoggingDelegate?
+    weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
     weak var imageRecLoggingDelegate: EditSaveViewControllerImageRecLoggingDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -274,7 +275,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let configuration = WKSmallButton.Configuration(style: .quiet)
         let rootView = WKSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
-            self?.pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
+            self?.editorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
         }
          let showWebPreviewButtonHostingController = UIHostingController(rootView: rootView)
          showWebPreviewButtonHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -365,7 +366,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
             
-            pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
+            editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
             
         }
         
@@ -386,7 +387,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, completion: { (result, error) in
+        var editTags: [String]? = nil
+        if let editTag {
+            editTags = [editTag.rawValue]
+        }
+        
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: editTags, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
@@ -403,7 +409,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
-        let notifyDelegate: (Result<SectionEditorChanges, Error>) -> Void = { result in
+        let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 self.delegate?.editSaveViewControllerDidSave(self, result: result)
             }
@@ -419,7 +425,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             
             if let source {
-                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+                editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
             }
             
             EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
@@ -428,7 +434,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !summaryText.isEmpty)
         
-        notifyDelegate(.success(SectionEditorChanges(newRevisionID: newRevID)))
+        notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
     }
     
     private func handleEditFailure(with error: Error) {
@@ -502,7 +508,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                    let pageURL,
                 let project = WikimediaProject(siteURL: pageURL) {
                     
-                    pageEditorLoggingDelegate?.logEditSaveViewControllerDidTapBlockedMessageLink(source: source, project: project)
+                    editorLoggingDelegate?.logEditSaveViewControllerDidTapBlockedMessageLink(source: source, project: project)
                     
                     EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 }
@@ -527,7 +533,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let project = WikimediaProject(siteURL: pageURL) {
             
             if let source {
-                pageEditorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
+                editorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
             }
             
             

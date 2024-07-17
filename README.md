@@ -76,9 +76,6 @@ The **Wikipedia** scheme is configured to execute the project's iOS unit tests, 
 ### Continuous Integration
 Covered in the [CI document](docs/ci.md).
 
-### Event Logging
-Covered in the [event logging document](docs/event_logging.md).
-
 ### Web Development
 The article view and several other components of the app rely on web components. Instructions for working on these components are covered in the [web development document](docs/web_dev.md).
 
