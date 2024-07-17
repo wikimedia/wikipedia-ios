@@ -294,7 +294,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
     
     public override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        titleLabel.font = WKFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         subtitleLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
         footerButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         undoLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)

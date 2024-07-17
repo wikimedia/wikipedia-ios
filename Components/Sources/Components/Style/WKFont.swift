@@ -12,6 +12,7 @@ public enum WKFont {
     case boldItalicCallout
     case boldItalicFootnote
     case boldItalicGeorgiaTitle1
+    case boldItalicGeorgiaTitle3
     case boldItalicSubheadline
     case boldSubheadline
     case boldTitle1
@@ -31,10 +32,12 @@ public enum WKFont {
     case italicCaption1
     case italicFootnote
     case italicGeorgiaTitle1
+    case italicGeorgiaTitle3
     case italicSubheadline
     case mediumFootnote
     case mediumSubheadline
     case semiboldHeadline
+    case semiboldSubheadline
     case semiboldTitle3
     case subheadline
     case title1
@@ -95,6 +98,13 @@ public enum WKFont {
 
         case .boldItalicGeorgiaTitle1:
             let baseFont = WKFont.for(.georgiaTitle1)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            return baseFont
+
+        case .boldItalicGeorgiaTitle3:
+            let baseFont = WKFont.for(.georgiaTitle3)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
@@ -182,6 +192,13 @@ public enum WKFont {
             }
             return baseFont
 
+        case .italicGeorgiaTitle3:
+            let baseFont = WKFont.for(.georgiaTitle3)
+            if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
+                return UIFont(descriptor: descriptor, size: 0)
+            }
+            return baseFont
+
         case .italicSubheadline:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits(.traitItalic) else {
                 fatalError()
@@ -196,6 +213,9 @@ public enum WKFont {
 
         case .semiboldHeadline:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold), compatibleWith: traitCollection)
+
+        case .semiboldSubheadline:
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .semibold), compatibleWith: traitCollection)
 
         case .semiboldTitle3:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold), compatibleWith: traitCollection)

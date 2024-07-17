@@ -30,7 +30,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
             titleLabel.attributedText = attributedTitle
         } else {
-            let titleFont = WKFont.for(.boldCallout, compatibleWith: traitCollection)
+            let titleFont = WKFont.for(.callout, compatibleWith: traitCollection)
             titleLabel.font = titleFont
         }
     }
@@ -111,7 +111,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     open func updateStyles() {
-        styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        styles =  HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     override open func updateBackgroundColorOfLabels() {

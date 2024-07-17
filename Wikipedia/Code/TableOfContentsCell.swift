@@ -33,7 +33,7 @@ class TableOfContentsCell: UITableViewCell {
 
     private var styles: HtmlUtils.Styles {
         let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
-        return HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
     }
 
     func updateTitle() {
