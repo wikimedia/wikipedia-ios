@@ -30,8 +30,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if let boldString = _titleBoldedString, let boldFont {
                 let boldUIFont = WKFont.for(boldFont)
                 let boldAttributedString = NSMutableAttributedString(string: boldString)
-                let range = NSRange(location: 0, length: boldAttributedString.length)
-                attributedTitle.addAttribute(.font, value: boldUIFont, range: range)
+                let range = (attributedTitle.string as NSString).range(of: boldString, options: .caseInsensitive)
+                if range.location != NSNotFound {
+                    attributedTitle.addAttribute(.font, value: boldUIFont, range: range)
+                }
             }
             titleLabel.attributedText = attributedTitle
         } else {
