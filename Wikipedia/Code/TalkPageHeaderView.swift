@@ -356,16 +356,9 @@ final class TalkPageHeaderView: SetupView {
 
         let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 1)
 
-        let coffeeRollAttributedText = getMutableAttributedString(coffeeRollText, styles: styles)
-        
-        coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
-    }
+        let coffeeRollAttributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(coffeeRollText, styles: styles)
 
-    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
-        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
-            return NSMutableAttributedString(attributedString: attributedString)
-        }
-        return NSMutableAttributedString(string: htmlString)
+        coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
 
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {

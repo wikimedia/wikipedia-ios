@@ -133,7 +133,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         }
         let styles = HtmlUtils.Styles(font: WKFont.for(.headline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.headline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         
-        self.titleLabel.attributedText = getAttributedString(article.displayTitleHTML, styles: styles)
+        self.titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(article.displayTitleHTML, styles: styles)
         let combinedCompletion = {
             self.updatePreferredContentSize()
             completion(true)
@@ -152,10 +152,6 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
             self.collapseImageAndWidenLabels = true
             combinedCompletion()
         }
-    }
-    
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
     }
 
     func updatePreferredContentSize() {

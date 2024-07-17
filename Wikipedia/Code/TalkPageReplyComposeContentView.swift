@@ -294,15 +294,11 @@ class TalkPageReplyComposeContentView: SetupView {
             "</a>"
         )
 
-        return getAttributedString(substitutedString)
+        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
     }
 
     private var styles: HtmlUtils.Styles {
         HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
-    }
-
-    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
     }
 
     private func evaluatePublishButtonEnabledState() {

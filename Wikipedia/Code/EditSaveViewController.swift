@@ -122,7 +122,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = getAttributedString(substitutedString)
+        let attributedString = NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
         return attributedString
     }
 
@@ -135,13 +135,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = getAttributedString(substitutedString)
+        let attributedString = NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
         return attributedString
     }
 
-    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
 
     private func updateNavigation(for mode: NavigationMode) {
         var backButton: UIBarButtonItem?

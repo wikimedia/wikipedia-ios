@@ -131,11 +131,7 @@ class ArticlePopoverViewController: UIViewController {
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
         let styles = HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
 
-        titleLabel.attributedText = getAttributedString(displayTitleHTML, styles: styles) 
-    }
-
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+        titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(displayTitleHTML, styles: styles)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

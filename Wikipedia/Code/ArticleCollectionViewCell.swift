@@ -17,18 +17,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     public var theme: Theme = Theme.standard
 
-    private func getMutableAttributedString(_ htmlString: String) -> NSMutableAttributedString {
-        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
-            return NSMutableAttributedString(attributedString: attributedString)
-        }
-        return NSMutableAttributedString(string: htmlString)
-    }
-
     private func updateTitleLabel() {
         if let titleHTML = _titleHTML {
-            let attributedTitle = getMutableAttributedString(titleHTML)
+            let attributedTitle = NSMutableAttributedString.mutableAttributedStringFromHtml(titleHTML, styles: styles)
             if let boldString = _titleBoldedString, let boldFont {
-                let boldUIFont = WKFont.for(boldFont)
+                let boldUIFont = WKFont.for(boldFont, compatibleWith: traitCollection)
                 let boldAttributedString = NSMutableAttributedString(string: boldString)
                 let range = NSRange(location: 0, length: boldAttributedString.length)
                 attributedTitle.addAttribute(.font, value: boldUIFont, range: range)

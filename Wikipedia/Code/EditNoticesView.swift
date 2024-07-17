@@ -250,16 +250,12 @@ final class EditNoticesView: SetupView {
         }
     }
 
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
-
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
         let styles: HtmlUtils.Styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
         let attributedNoticeString = NSMutableAttributedString()
         for notice in viewModel.notices {
-            let noticeString = getAttributedString(notice.description, styles: styles)
+            let noticeString = NSAttributedString.attributedStringFromHtml(notice.description, styles: styles)
             attributedNoticeString.append(noticeString)
         }
 

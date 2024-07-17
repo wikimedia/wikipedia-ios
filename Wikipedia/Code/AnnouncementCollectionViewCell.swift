@@ -110,7 +110,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             return
         }
         let styles = HtmlUtils.Styles(font: WKFont.for(.footnote, compatibleWith: traitCollection), boldFont: WKFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
-        let attributedText = getMutableAttributedString(html, styles: styles)
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -118,13 +118,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
-    }
-
-    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
-        if let attributedString = try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles) {
-            return NSMutableAttributedString(attributedString: attributedString)
-        }
-        return NSMutableAttributedString(string: htmlString)
     }
 
     public var captionHTML: String? {
@@ -144,7 +137,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         }
 
         let styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, strongColor: messageEmphasisColor, lineSpacing: 1)
-        let attributedText = getMutableAttributedString(html, styles: styles)
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = messageLineHeightMultiple
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]

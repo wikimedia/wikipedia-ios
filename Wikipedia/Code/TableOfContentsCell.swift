@@ -36,13 +36,8 @@ class TableOfContentsCell: UITableViewCell {
         return HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
     }
 
-    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
-
     func updateTitle() {
-
-        titleLabel.attributedText = getAttributedString(titleHTML)
+        titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(titleHTML, styles: styles)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -63,27 +63,16 @@ final class TalkPageCellViewModel: Identifiable {
         self.isUserLoggedIn = isUserLoggedIn
     }
 
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
-
-    private func getMutableAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSMutableAttributedString {
-        if let attributedString = (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) {
-            return NSMutableAttributedString(attributedString: attributedString)
-        }
-        return NSMutableAttributedString(string: htmlString)
-    }
-
     func topicTitleAttributedString(traitCollection: UITraitCollection, theme: Theme = .light) -> NSAttributedString {
         let styles = HtmlUtils.Styles(font: WKFont.for(.headline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.headline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
-        return getAttributedString(topicTitleHtml, styles: styles)
+        return NSAttributedString.attributedStringFromHtml(topicTitleHtml, styles: styles)
     }
     
     func leadCommentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let leadComment = leadComment {
             let commentColor = isThreadExpanded ? theme.colors.primaryText : theme.colors.secondaryText
             let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: commentColor, linkColor: theme.colors.link, lineSpacing: 1)
-            let leadCommentFormatted = getMutableAttributedString(leadComment.html, styles: styles).removingInitialNewlineCharacters()
+            let leadCommentFormatted = NSMutableAttributedString.mutableAttributedStringFromHtml(leadComment.html, styles: styles).removingInitialNewlineCharacters()
 
             return leadCommentFormatted
         }
@@ -94,7 +83,7 @@ final class TalkPageCellViewModel: Identifiable {
     func otherContentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let otherContentHtml = otherContentHtml {
             let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
-            return getMutableAttributedString(otherContentHtml, styles: styles).removingInitialNewlineCharacters()
+            return NSMutableAttributedString.mutableAttributedStringFromHtml(otherContentHtml, styles: styles).removingInitialNewlineCharacters()
 
         }
         

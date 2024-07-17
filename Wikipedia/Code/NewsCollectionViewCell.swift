@@ -16,16 +16,12 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 3)
     }
 
-    private func getAttributedString(_ htmlString: String) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
-
     func updateDescriptionHTMLStyle() {
         guard let descriptionHTML = descriptionHTML else {
             descriptionLabel.text = nil
             return
         }
-        descriptionLabel.attributedText = getAttributedString(descriptionHTML)
+        descriptionLabel.attributedText = NSAttributedString.attributedStringFromHtml(descriptionHTML, styles: styles)
     }
     
     var descriptionHTML: String? {

@@ -933,7 +933,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
 
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
-            let attributedString = getAttributedString(newTalkPageTopic.snippet, styles: styles)
+            let attributedString = NSAttributedString.attributedStringFromHtml(newTalkPageTopic.snippet, styles: styles)
             let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
             changeDetails.append(changeDetail)
         case .large(let largeChange):
@@ -944,7 +944,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     guard let snippet = addedText.snippet else {
                         continue
                     }
-                    let attributedString = getAttributedString(snippet, styles: styles)
+                    let attributedString = NSAttributedString.attributedStringFromHtml(snippet, styles: styles)
                     let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
@@ -1008,11 +1008,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         self.changeDetails = changeDetails
         return changeDetails
     }
-
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
-    }
-
+    
     // Note: heightForThreeLineSnippet and heightForReferenceTitle methods are placeholder calculations when determining a side scrolling cell's content height.
     // When there are no reference cells, we are capping off article content snippet cells at 3 lines. If there are reference cells, snippet cells are allowed to show lines to the full height of the tallest reference cell.
     // Reference cells titles are only ever 1 line, so we are using placeholder text to calculate that rather than going up against actual view model title values, since the height will be the same regardless of the size of the title value

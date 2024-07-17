@@ -375,11 +375,7 @@ class TalkPageTopicComposeViewController: ViewController {
 
         let styles = HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
-        return getAttributedString(substitutedString, styles: styles)
-    }
-
-    private func getAttributedString(_ htmlString: String, styles: HtmlUtils.Styles) -> NSAttributedString {
-        return (try? HtmlUtils.nsAttributedStringFromHtml(htmlString, styles: styles)) ?? NSAttributedString(string: htmlString)
+        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
     }
 
     private func evaluatePublishButtonEnabledState() {        
