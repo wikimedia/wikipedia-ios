@@ -26,6 +26,7 @@ final class RelatedSearchFetcher: Fetcher {
             "piprop": "thumbnail",
             "pithumbsize": 160,
             "prop": "pageimages|description|info",
+            "inprop": "varianttitles",
             "smaxage": "86400",
             "maxage": "86400",
             "format": "json"
@@ -70,13 +71,66 @@ final class RelatedSearchFetcher: Fetcher {
             return nil
         }
 
+        let appLegacyLanguageVariantCode = getAppLegacyLanguageVariantCode()
+        
         for page in query.pages {
-            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: page.title, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
+            
+            var pageTitle: String
+            if let appLegacyLanguageVariantCode {
+                pageTitle = getVariantSpecificPageTitle(page: page, appLegacyLanguageVariantCode: appLegacyLanguageVariantCode) ?? page.title
+            } else {
+                pageTitle = page.title
+            }
+            
+            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: pageTitle, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
             item.articleURL = getArticleURLFromTitle(title: page.title, siteURL: siteURL)
             item.languageVariantCode = siteURL.wmf_languageVariantCode
             pages.append(item)
         }
         return pages
+    }
+    
+    private func getAppLegacyLanguageVariantCode() -> String? {
+        let appLanguageVariantCode = MWKDataStore.shared().languageLinkController.appLanguage?.languageVariantCode
+        guard let allLanguageVariants = appLanguageVariantCode != nil ? WikipediaLookup.allLanguageVariants : nil else {
+            return nil
+        }
+        
+        let legacyLanguageVariantCode = allLanguageVariants.first { $0.languageVariantCode == appLanguageVariantCode }?.legacyLanguageVariantCode
+        return legacyLanguageVariantCode
+    }
+    
+    private func getVariantSpecificPageTitle(page: Page, appLegacyLanguageVariantCode: String) -> String? {
+        guard let responseVariantTitles = getVariantTitles(page.varianttitles) else {
+            return nil
+        }
+
+        let newTitle = responseVariantTitles.first { $0.variant == appLegacyLanguageVariantCode}?.title
+        
+        guard let newTitle else {
+            return nil
+        }
+        
+        return newTitle
+    }
+    
+    private func getVariantTitles(_ variantTitles: [String: String]?) -> [VariantTitle]? {
+
+        var languageTitles: [VariantTitle] = []
+
+        guard let variantTitles else { return nil }
+
+        for (variant, title) in variantTitles {
+            let languageTitle = VariantTitle(variant: variant, title: title)
+            languageTitles.append(languageTitle)
+        }
+
+        return languageTitles
+    }
+
+    private struct VariantTitle {
+        let variant: String
+        let title: String
     }
 
 }
