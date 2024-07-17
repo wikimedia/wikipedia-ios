@@ -22,7 +22,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             let attributedTitle = NSMutableAttributedString.mutableAttributedStringFromHtml(titleHTML, styles: styles)
             if let boldString = _titleBoldedString, let boldFont {
                 let boldUIFont = WKFont.for(boldFont, compatibleWith: traitCollection)
-                let boldAttributedString = NSMutableAttributedString(string: boldString)
                 let range = (attributedTitle.string as NSString).range(of: boldString, options: .caseInsensitive)
                 if range.location != NSNotFound {
                     attributedTitle.addAttribute(.font, value: boldUIFont, range: range)
