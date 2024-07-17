@@ -790,10 +790,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     // remove one or more equal signs and zero or more spaces on either side of the title text
     // also removing html for display and potential javascript injection issues - https://phabricator.wikimedia.org/T268201
     private static func sectionTitleWithWikitextAndHtmlStripped(originalTitle: String) -> String {
-        guard let loopTitle = try? HtmlUtils.stringFromHTML(originalTitle) else {
-            return originalTitle
-        }
-
+        let loopTitle = originalTitle.removingHTML
         var loopTitleCopy = loopTitle
         let regex = "^=+\\s*|\\s*=+$"
         var maybeMatch = loopTitleCopy.range(of: regex, options: .regularExpression)

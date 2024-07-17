@@ -28,6 +28,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 let boldAttributedString = NSMutableAttributedString(string: boldString)
                 let range = NSRange(location: 0, length: boldAttributedString.length)
                 boldAttributedString.addAttribute(.font, value: boldFont, range: range)
+                
             }
             titleLabel.attributedText = attributedTitle
         } else {

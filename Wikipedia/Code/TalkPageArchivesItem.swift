@@ -35,7 +35,6 @@ struct TalkPageArchivesItem: Equatable, Identifiable, CustomStringConvertible {
     // MARK: CustomStringConvertible
     
     var description: String {
-        let description =  try? HtmlUtils.stringFromHTML(displayTitle)
-        return description ?? displayTitle
+        return displayTitle.removingHTML
     }
 }

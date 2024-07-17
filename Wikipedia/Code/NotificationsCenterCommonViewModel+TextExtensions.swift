@@ -65,7 +65,7 @@ extension NotificationsCenterCommonViewModel {
              .unknownNotice,
              .unknownAlert,
              .unknown:
-            return try? HtmlUtils.stringFromHTML(notification.messageHeader ?? String())
+            return notification.messageHeader?.removingHTML
         }
     }
     
@@ -88,7 +88,7 @@ extension NotificationsCenterCommonViewModel {
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
             
-            if let messageHeader = try? HtmlUtils.stringFromHTML(notification.messageHeader ?? String()),
+            if let messageHeader = notification.messageHeader?.removingHTML,
                !messageHeader.isEmpty {
                 return messageHeader
             }
@@ -102,7 +102,7 @@ extension NotificationsCenterCommonViewModel {
              .unknownNotice,
              .unknown:
             
-            if let messageBody = try? HtmlUtils.stringFromHTML(notification.messageBody ?? String()),
+            if let messageBody = notification.messageBody?.removingHTML,
                !messageBody.isEmpty {
                 return messageBody
             }

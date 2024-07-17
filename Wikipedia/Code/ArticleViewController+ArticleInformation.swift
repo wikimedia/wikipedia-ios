@@ -59,7 +59,7 @@ extension ArticleViewController {
             showGenericError()
             return
         }
-        let issues = payload.compactMap {  try? (HtmlUtils.stringFromHTML(($0["html"] as? String) ?? String())) }
+        let issues = payload.compactMap { ($0["html"] as? String)?.removingHTML }
         let issuesVC = PageIssuesTableViewController(style: .grouped)
         issuesVC.issues = issues
         presentEmbedded(issuesVC, style: .sheet)

@@ -56,8 +56,8 @@ final class TopReadData {
                 let groupURL = WMFContentGroup.topReadURL(forSiteURL: widgetController.featuredContentSiteURL, midnightUTCDate: midnightUTCDate)
 
                 for rankedElement in topFourElements {
-                    let title = try? HtmlUtils.stringFromHTML(rankedElement.displayTitle)
-                    let description = try? HtmlUtils.stringFromHTML(rankedElement.description ?? String())
+                    let title = rankedElement.displayTitle.removingHTML
+                    let description = rankedElement.description?.removingHTML
                     let url = URL(string: rankedElement.contentURL.desktop.page)
                     let viewCounts: [NSNumber] = rankedElement.viewHistory.compactMap { NSNumber(value: $0.views) }
                     var image: UIImage?
@@ -65,7 +65,7 @@ final class TopReadData {
                         image = UIImage(data: imageData)
                     }
 
-                    if let title, let description {
+                    if let description {
                         let displayElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: url, image: image, viewCounts: viewCounts)
                         rankedElements.append(displayElement)
                     }

@@ -524,8 +524,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if
                 let vc = cell.cardContent as? ExploreCardViewController,
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
-                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
-            {
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             } else {
                 imageScaleTransitionView = nil
@@ -1217,7 +1216,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
            let imageDescription = imageData.description {
 
             let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
-            let imageDescription = try? HtmlUtils.stringFromHTML(imageDescription)
+            let imageDescription = imageDescription.removingHTML
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
             
             let insertMediaViewController = InsertMediaSettingsViewController(image: image, searchResult: searchResult, fromImageRecommendations: true, delegate: self, imageRecLoggingDelegate: self, theme: theme, siteURL: siteURL)

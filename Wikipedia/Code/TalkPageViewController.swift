@@ -683,12 +683,11 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if let stringFromTitle = try? HtmlUtils.stringFromHTML(cellViewModel.topicTitleHtml) {
-                if stringFromTitle == topicTitle {
-                    targetIndexPath = IndexPath(item: index, section: 0)
-                    targetCellViewModel = cellViewModel
-                    break
-                }
+            let stringFromTitle = cellViewModel.topicTitleHtml.removingHTML
+            if stringFromTitle == topicTitle {
+                targetIndexPath = IndexPath(item: index, section: 0)
+                targetCellViewModel = cellViewModel
+                break
             }
         }
         
@@ -699,10 +698,8 @@ class TalkPageViewController: ViewController {
         
         if let replyText = deepLinkData.replyText {
             for commentViewModel in targetCellViewModel.allCommentViewModels {
-                if let commentFromHtml = try? HtmlUtils.stringFromHTML(commentViewModel.html), let replyTextRemovingHTML = try? HtmlUtils.stringFromHTML(replyText) {
-                    if commentFromHtml.contains(replyTextRemovingHTML) {
-                        targetCommentViewModel = commentViewModel
-                    }
+                if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
+                    targetCommentViewModel = commentViewModel
                 }
             }
         }

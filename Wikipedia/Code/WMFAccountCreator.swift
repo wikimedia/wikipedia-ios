@@ -11,7 +11,7 @@ public enum WMFAccountCreatorError: LocalizedError {
         case .cannotExtractStatus:
             return "Could not extract status"
         case .statusNotPass(let message?):
-            return try? HtmlUtils.stringFromHTML(message)
+            return message.removingHTML
         case .blockedError(let message):
             return message
         case .wrongCaptcha:

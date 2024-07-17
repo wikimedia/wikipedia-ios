@@ -466,7 +466,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.author = item.user
             cell.sizeDiff = item.revisionSize
             if let comment = item.parsedComment {
-                cell.comment = try? HtmlUtils.stringFromHTML(comment)
+                cell.comment = comment.removingHTML
             }
             if isSelected, let selectionIndex = indexPathsSelectedForComparisonGroupedByButtonTags.first(where: { $0.value == indexPath })?.key {
                 cell.isSelected = true

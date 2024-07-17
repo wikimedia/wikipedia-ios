@@ -482,10 +482,7 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     }
     
     var pushContentText: String? {
-        if let header = self.message?.header {
-            return try? HtmlUtils.stringFromHTML(header)
-        }
-        return nil
+        return self.message?.header?.removingHTML
     }
     
     var namespaceKey: Int? {

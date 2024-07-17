@@ -111,10 +111,10 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
-        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.preferredContentSizeCategory else {
             return
         }
-        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        contentSizeCategory = traitCollection.preferredContentSizeCategory
         updateFonts(with: traitCollection)
     }
     
