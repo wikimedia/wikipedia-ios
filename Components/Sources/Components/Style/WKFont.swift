@@ -65,14 +65,14 @@ public enum WKFont {
             return UIFont(descriptor: descriptor, size: 0)
 
         case .boldGeorgiaTitle1:
-            let baseFont = WKFont.for(.georgiaTitle1)
+            let baseFont = WKFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
 
         case .boldGeorgiaTitle3:
-            let baseFont = WKFont.for(.georgiaTitle3)
+            let baseFont = WKFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
@@ -97,14 +97,14 @@ public enum WKFont {
             return UIFont(descriptor: descriptor, size: 0)
 
         case .boldItalicGeorgiaTitle1:
-            let baseFont = WKFont.for(.georgiaTitle1)
+            let baseFont = WKFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
 
         case .boldItalicGeorgiaTitle3:
-            let baseFont = WKFont.for(.georgiaTitle3)
+            let baseFont = WKFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
@@ -186,14 +186,14 @@ public enum WKFont {
             return UIFont(descriptor: descriptor, size: 0)
 
         case .italicGeorgiaTitle1:
-            let baseFont = WKFont.for(.georgiaTitle1)
+            let baseFont = WKFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
 
         case .italicGeorgiaTitle3:
-            let baseFont = WKFont.for(.georgiaTitle3)
+            let baseFont = WKFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
@@ -230,7 +230,6 @@ public enum WKFont {
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
 
         }
-
     }
 
 }
