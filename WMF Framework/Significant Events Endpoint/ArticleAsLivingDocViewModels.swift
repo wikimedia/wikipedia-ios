@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 // tonitodo: It makes more sense for this to live in the app. Can we move out of WMF?
 
@@ -790,16 +790,16 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     // remove one or more equal signs and zero or more spaces on either side of the title text
     // also removing html for display and potential javascript injection issues - https://phabricator.wikimedia.org/T268201
     private static func sectionTitleWithWikitextAndHtmlStripped(originalTitle: String) -> String {
-        var loopTitle = originalTitle.removingHTML
-        
+        let loopTitle = originalTitle.removingHTML
+        var loopTitleCopy = loopTitle
         let regex = "^=+\\s*|\\s*=+$"
-        var maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+        var maybeMatch = loopTitleCopy.range(of: regex, options: .regularExpression)
         while let match = maybeMatch {
-            loopTitle.removeSubrange(match)
-            maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+            loopTitleCopy.removeSubrange(match)
+            maybeMatch = loopTitleCopy.range(of: regex, options: .regularExpression)
         }
 
-        return loopTitle
+        return loopTitleCopy
     }
     
     private func localizedStringFromSections(sections: [String]) -> String? {
@@ -863,8 +863,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return nil
         }
         
-        let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.callout, compatibleWith: traitCollection)
+        let italicFont = WKFont.for(.italicCallout, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
         
@@ -897,14 +897,13 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return sideScrollingCellWidth - sideScrollingCellPadding.left - sideScrollingCellPadding.right
     }()
 
-    private static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
-    private static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
-    private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+    private static let changeDetailDescriptionTextStyle = WKFont.subheadline
+    private static let changeDetailDescriptionTextStyleItalic = WKFont.italicSubheadline
 
-    static let changeDetailReferenceTitleStyle = DynamicTextStyle.semiboldSubheadline
+    static let changeDetailReferenceTitleStyle = WKFont.boldSubheadline
     static let changeDetailReferenceTitleDescriptionSpacing: CGFloat = 13
     static let additionalPointsForShadow: CGFloat = 16
-    
+
     @discardableResult func calculateSideScrollingCollectionViewHeightForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
         
         if let sideScrollingCollectionViewHeight = sideScrollingCollectionViewHeight {
@@ -929,10 +928,12 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         var changeDetails: [ChangeDetail] = []
-        
+
+        let styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
-            let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+            let attributedString = NSAttributedString.attributedStringFromHtml(newTalkPageTopic.snippet, styles: styles)
             let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
             changeDetails.append(changeDetail)
         case .large(let largeChange):
@@ -943,8 +944,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     guard let snippet = addedText.snippet else {
                         continue
                     }
-                    
-                    let attributedString = snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+                    let attributedString = NSAttributedString.attributedStringFromHtml(snippet, styles: styles)
                     let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
@@ -954,7 +954,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                         
                         switch template {
                         case .articleDescription(let articleDescription):
-                            let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+                            let font = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
                             let attributes = [NSAttributedString.Key.font: font,
                                               NSAttributedString.Key.foregroundColor:
                                                 theme.colors.primaryText]
@@ -1020,7 +1020,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return heightForThreeLineSnippet
         }
         
-        let snippetFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let snippetFont = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
         let snippetAttributes = [NSAttributedString.Key.font: snippetFont]
         let threeLineSnippetText = """
                                 1
@@ -1041,7 +1041,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return heightForReferenceTitle
         }
         
-        let referenceTitleFont = UIFont.wmf_font(Self.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
+        let referenceTitleFont = WKFont.for(self.changeDetailReferenceTitleStyle, compatibleWith: traitCollection)
         let referenceTitleAttributes = [NSAttributedString.Key.font: referenceTitleFont]
         let oneLineTitleText = "1"
         let oneLineTitleAttString = NSAttributedString(string: oneLineTitleText, attributes: referenceTitleAttributes)
@@ -1154,8 +1154,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.Citation.Journal, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
-        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        let boldFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
+        let boldFont = WKFont.for(Self.changeDetailDescriptionTextStyleItalic, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1221,8 +1221,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     private func descriptionForWebsiteCitation(_ websiteCitation: SignificantEvents.Citation.Website, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
-        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
+        let italicFont = WKFont.for(Self.changeDetailDescriptionTextStyleItalic, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1277,8 +1277,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.Citation.News, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
-        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
+        let italicFont = WKFont.for(Self.changeDetailDescriptionTextStyleItalic, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1337,8 +1337,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForBookCitation(_ bookCitation: SignificantEvents.Citation.Book, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
-        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(Self.changeDetailDescriptionTextStyle, compatibleWith: traitCollection)
+        let italicFont = WKFont.for(Self.changeDetailDescriptionTextStyleItalic, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1555,7 +1555,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                userType != .anonymous else {
             let anonymousUserInfo = CommonStrings.revisionUserInfoAnonymous
             
-            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+            let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
             let mutableAttributedString = NSMutableAttributedString(string: anonymousUserInfo, attributes: attributes)
@@ -1573,7 +1573,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let formattedEditCount = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: editCount)).localizedLowercase
         let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         let rangeOfUserName = (userInfo as NSString).range(of: userName)

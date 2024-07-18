@@ -1,4 +1,3 @@
-import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
@@ -1266,7 +1265,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
-            
+
             let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
             let imageDescription = imageData.description?.removingHTML
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)

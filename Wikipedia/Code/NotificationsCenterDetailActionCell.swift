@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
 
@@ -16,7 +16,7 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
         let label = UILabel()
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = UIApplication.shared.wmf_isRTL ? .right : .left
-        label.font = UIFont.wmf_font(.body)
+        label.font = WKFont.for(.callout)
         label.numberOfLines = 1
         return label
     }()
@@ -25,7 +25,7 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
         let label = UILabel()
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = UIApplication.shared.wmf_isRTL ? .left : .right
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .footnote, weight: .regular, size: 13, maximumPointSize: 64)
+        label.font = WKFont.for(.footnote)
         label.numberOfLines = 1
         return label
     }()

@@ -234,7 +234,7 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
             return
         }
         
-        guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:Contact/accountvanishapps") else {
+        guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:GlobalVanishRequest") else {
             return
         }
         

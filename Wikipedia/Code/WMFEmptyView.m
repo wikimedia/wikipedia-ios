@@ -283,10 +283,11 @@
 }
 
 - (void)updateFonts {
-    self.button.titleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldBody] compatibleWithTraitCollection:self.traitCollection];
+    self.button.titleLabel.font = [WKFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)updateImageView {
+
     if (![self.imageView superview]) {
         return;
     }

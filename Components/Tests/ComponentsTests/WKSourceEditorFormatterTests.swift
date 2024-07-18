@@ -40,10 +40,10 @@ final class WKSourceEditorFormatterTests: XCTestCase {
         self.colors.replacedMatchBackgroundColor = WKTheme.light.editorReplacedMatchBackground
 
         self.fonts = WKSourceEditorFonts()
-        self.fonts.baseFont = WKFont.for(.body, compatibleWith: traitCollection)
-        self.fonts.boldFont = WKFont.for(.boldBody, compatibleWith: traitCollection)
-        self.fonts.italicsFont = WKFont.for(.italicsBody, compatibleWith: traitCollection)
-        self.fonts.boldItalicsFont = WKFont.for(.boldItalicsBody, compatibleWith: traitCollection)
+        self.fonts.baseFont = WKFont.for(.callout, compatibleWith: traitCollection)
+        self.fonts.boldFont = WKFont.for(.boldCallout, compatibleWith: traitCollection)
+        self.fonts.italicsFont = WKFont.for(.italicCallout, compatibleWith: traitCollection)
+        self.fonts.boldItalicsFont = WKFont.for(.boldItalicCallout, compatibleWith: traitCollection)
         self.fonts.headingFont = WKFont.for(.editorHeading, compatibleWith: traitCollection)
         self.fonts.subheading1Font = WKFont.for(.editorSubheading1, compatibleWith: traitCollection)
         self.fonts.subheading2Font = WKFont.for(.editorSubheading2, compatibleWith: traitCollection)

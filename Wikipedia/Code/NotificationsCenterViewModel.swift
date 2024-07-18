@@ -1,7 +1,6 @@
-import Foundation
 import CocoaLumberjackSwift
 import WMF
-import UIKit
+import Components
 
 enum NotificationsCenterUpdateType {
     case emptyDisplay(Bool)
@@ -426,7 +425,7 @@ extension NotificationsCenterViewModel {
 
         let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)
 
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
         let attributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: theme.colors.secondaryText

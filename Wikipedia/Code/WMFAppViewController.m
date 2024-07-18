@@ -140,9 +140,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 #endif
 
+
     [self applyTheme:self.theme];
-    [self appEnvironmentDidChangeWithTheme:self.theme
-                           traitCollection:self.traitCollection];
+
+    [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
@@ -1887,10 +1888,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 #endif
 
-    if (self.theme != theme) {
+    if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
-        [self appEnvironmentDidChangeWithTheme:theme traitCollection:traitCollection];
+        [self updateAppEnvironmentWithTheme:theme traitCollection:self.navigationController.traitCollection];
     }
 }
 

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
 
@@ -11,14 +11,17 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         super.updateBackgroundColorOfLabels()
         collectionView.backgroundColor = labelBackgroundColor
     }
-    
+
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 3)
+    }
+
     func updateDescriptionHTMLStyle() {
         guard let descriptionHTML = descriptionHTML else {
             descriptionLabel.text = nil
             return
         }
-        let attributedString = descriptionHTML.byAttributingHTML(with: .subheadline, boldWeight: .semibold, matching: traitCollection, color: descriptionLabel.textColor, tagMapping: ["a":"b"])
-        descriptionLabel.attributedText = attributedString
+        descriptionLabel.attributedText = NSAttributedString.attributedStringFromHtml(descriptionHTML, styles: styles)
     }
     
     var descriptionHTML: String? {

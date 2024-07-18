@@ -639,6 +639,7 @@
 "image-recommendations-email-title" = "Sorun Bildirimi - Görsel Ekleme Özelliği";
 "image-recs-no-title" = "Hayır";
 "image-recs-not-sure-title" = "Emin değilim";
+"image-recs-time-warning-message" = "Konusunu anlamak için lütfen maddeyi gözden geçirin ve görseli inceleyin";
 "image-recs-yes-title" = "Evet";
 "import-shared-reading-list-default-title" = "Okuma Listem";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Şimdi değil";

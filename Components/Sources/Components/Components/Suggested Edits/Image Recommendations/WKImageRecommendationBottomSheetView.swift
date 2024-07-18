@@ -117,11 +117,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
 
     lazy var yesToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .checkmark, font: .body), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .checkmark, font: .callout), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
     }()
 
     lazy var noToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .xMark, font: .body), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
+        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .xMark, font: .callout), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
     }()
 
     lazy var notSureToolbarButton: UIBarButtonItem = {

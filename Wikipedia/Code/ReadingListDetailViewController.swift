@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 enum ReadingListDetailDisplayType {
     case modal, pushed
@@ -291,8 +291,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         navigationBar.isExtendedViewHidingEnabled = true
     }
     
-    func textStyle(for button: UIButton) -> DynamicTextStyle {
-        return .body
+    func textStyle(for button: UIButton) -> WKFont {
+        return .caption1
     }
     
     func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {
