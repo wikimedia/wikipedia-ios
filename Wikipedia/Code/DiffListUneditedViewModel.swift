@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 final class DiffListUneditedViewModel: DiffListGroupViewModel {
     private(set) var height: CGFloat = 0
@@ -51,7 +51,7 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
     }
     
     private static func calculateTextLabelFont(traitCollection: UITraitCollection) -> UIFont {
-        return UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        return WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
     
     private static func calculateHeight(text: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, font: UIFont) -> CGFloat {

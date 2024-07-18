@@ -1,4 +1,5 @@
 import SwiftUI
+import Components
 import WidgetKit
 import WMF
 
@@ -197,7 +198,7 @@ struct TopReadView: View {
 
         VStack(alignment: .leading, spacing: 8) {
             Text(TopReadWidget.LocalizedStrings.widgetTitle)
-                .font(.subheadline)
+                .font(Font(WKFont.for(.subheadline)))
                 .fontWeight(.bold)
             ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0, id: \.self) { elementIndex in
                 if let articleURL = entry?.rankedElements[elementIndex].articleURL {
@@ -222,28 +223,25 @@ struct TopReadView: View {
                     .frame(width: 22, height: 22, alignment: .leading)
                     .overlay(
                         Text("\(NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: index + 1)))")
-                            .font(.footnote)
-                            .fontWeight(.light)
+                            .font(Font(WKFont.for(.footnote)))
                             .foregroundColor(rankColor)
                     )
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 7))
                 VStack(alignment: .leading, spacing: 5) {
                     Text("\(entry?.rankedElements[index].title ?? "–")")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
+                        .font(Font(WKFont.for(.mediumSubheadline)))
                         .foregroundColor(Color(.label))
                     if showSparkline {
                         Text("\(entry?.rankedElements[index].description ?? "–")")
                             .lineLimit(2)
-                            .font(.caption)
+                            .font(Font(WKFont.for(.caption1)))
                             .foregroundColor(Color(.secondaryLabel))
                         Sparkline(style: .compactWithViewCount, timeSeries: entry?.rankedElements[index].viewCounts)
                             .cornerRadius(4)
                             .frame(height: proxy.size.height / 3.0, alignment: .leading)
                     } else {
                         Text("\(numberOfReadersTextOrEmptyForViewCount(entry?.rankedElements[index].viewCounts.last))")
-                            .font(.caption)
-                            .fontWeight(.medium)
+                            .font(Font(WKFont.for(.boldCaption1)))
                             .lineLimit(2)
                             .foregroundColor(readersTextColor)
                     }
@@ -333,7 +331,7 @@ struct TopReadOverlayView: View {
                 Text(currentNumberOfReadersTextOrEmpty)
                     .fontWeight(.medium)
                     .lineLimit(nil)
-                    .font(.subheadline)
+                    .font(Font(WKFont.for(.subheadline)))
                     .foregroundColor(readersForegroundColor)
                     .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 0))
             }
@@ -365,14 +363,13 @@ struct TopReadOverlayView: View {
     func description() -> some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(TopReadWidget.LocalizedStrings.widgetTitle)
-                .font(.caption2)
-                .fontWeight(.bold)
+                .font(Font(WKFont.for(.boldCaption1)))
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(primaryTextColor)
                 .readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
             Text("\(rankedElement?.title ?? "–")")
                 .lineLimit(nil)
-                .font(.headline)
+                .font(Font(WKFont.for(.headline)))
                 .foregroundColor(primaryTextColor)
                 .readableShadow(intensity: isExpandedStyle ? 0 : 0.8)
         }

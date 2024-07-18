@@ -1,6 +1,7 @@
 import WebKit
 import CocoaLumberjackSwift
 import WMF
+import Components
 
 class SinglePageWebViewController: ViewController {
     let url: URL
@@ -92,7 +93,7 @@ class SinglePageWebViewController: ViewController {
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.headline, compatibleWith: traitCollection)
         button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()

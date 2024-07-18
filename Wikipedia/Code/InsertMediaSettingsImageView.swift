@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!
@@ -40,9 +40,8 @@ final class InsertMediaSettingsImageView: UIView {
     }
 
     private func updateFonts() {
-        imageDescriptionLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        titleButton.titleLabel?.font = UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
-        
+        imageDescriptionLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        titleButton.titleLabel?.font = WKFont.for(.boldHeadline, compatibleWith: traitCollection)
     }
 
     @IBAction private func performTitleAction(_ sender: UIButton) {

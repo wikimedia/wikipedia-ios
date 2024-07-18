@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class ThreeLineHeaderView: UIView {
 
@@ -44,9 +44,9 @@ class ThreeLineHeaderView: UIView {
     }
 
     private func updateFonts() {
-        topSmallLine.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
-        bottomSmallLine.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
-        middleLargeLine.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        topSmallLine.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        bottomSmallLine.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        middleLargeLine.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
 }
 

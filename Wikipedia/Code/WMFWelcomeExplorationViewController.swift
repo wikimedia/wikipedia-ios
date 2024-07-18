@@ -1,3 +1,5 @@
+import Components
+
 class WMFWelcomeExplorationViewController: ThemeableViewController {
 
     @IBOutlet private var exploreTitleLabel:UILabel!
@@ -31,8 +33,8 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        exploreTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        placesTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        onThisDayTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        exploreTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        placesTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        onThisDayTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 }

@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 internal struct CellArticle {
     let articleURL: URL?
@@ -241,8 +241,9 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         layer.masksToBounds = false
         titleLabel.backgroundColor = backgroundView?.backgroundColor
         descriptionLabel.backgroundColor = backgroundView?.backgroundColor
-        titleTextStyle = .subheadline
+        styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .footnote
+        boldFont = .boldFootnote
         imageViewDimension = 40
         layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil

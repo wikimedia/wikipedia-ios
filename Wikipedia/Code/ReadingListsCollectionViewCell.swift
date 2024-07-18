@@ -1,3 +1,5 @@
+import Components
+
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
@@ -14,7 +16,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var singlePixelDimension: CGFloat = 0.5
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
-    
+
     override var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
@@ -88,14 +90,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .semiboldBody
         updateFonts(with: traitCollection)
+    }
+    
+    override func updateStyles() {
+        styles = HtmlUtils.Styles(font: WKFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        articleCountLabel.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
-        defaultListTag.font = UIFont.wmf_font(.italicCaption2, compatibleWithTraitCollection: traitCollection)
+        articleCountLabel.font = WKFont.for(.caption1, compatibleWith: traitCollection)
+        defaultListTag.font = WKFont.for(.italicCaption1, compatibleWith: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {
@@ -233,7 +238,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     override func configureForCompactList(at index: Int) {
         layoutMarginsAdditions.top = 5
         layoutMarginsAdditions.bottom = 5
-        titleTextStyle = .subheadline
+        styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
         imageViewDimension = 40

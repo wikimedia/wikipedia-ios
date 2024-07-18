@@ -465,7 +465,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")
             cell.author = item.user
             cell.sizeDiff = item.revisionSize
-            cell.comment = item.parsedComment?.removingHTML
+            if let comment = item.parsedComment {
+                cell.comment = comment.removingHTML
+            }
             if isSelected, let selectionIndex = indexPathsSelectedForComparisonGroupedByButtonTags.first(where: { $0.value == indexPath })?.key {
                 cell.isSelected = true
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])

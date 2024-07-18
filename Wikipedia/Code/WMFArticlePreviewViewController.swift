@@ -1,8 +1,8 @@
-import UIKit
+import Components
 
 open class WMFArticlePreviewViewController: ExtensionViewController {
 
-    public var titleTextStyle: DynamicTextStyle = .headline
+    public var titleTextStyle: WKFont = .headline
     public var titleTextColor: UIColor = .black {
         didSet {
             titleLabel.textColor = titleTextColor
@@ -15,9 +15,12 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
     }
 
     private func updateTitle() {
-        titleLabel.attributedText = titleHTML?.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
+        let styles = HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(titleTextStyle, compatibleWith: traitCollection), italicsFont: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(titleTextStyle, compatibleWith: traitCollection), color: titleTextColor, linkColor: titleTextColor, lineSpacing: 1)
+        if let titleHTML {
+            titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(titleHTML, styles: styles)
+        }
     }
-    
+
     @IBOutlet weak open var marginWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak open var imageView: UIImageView!
     @IBOutlet weak open var subtitleLabel: UILabel!
