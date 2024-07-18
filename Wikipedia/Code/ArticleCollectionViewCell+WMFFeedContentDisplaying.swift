@@ -44,7 +44,14 @@ public extension ArticleCollectionViewCell {
             imageViewDimension = 130
             extractLabel?.text = nil
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+        case .relatedPages:
             extractLabel?.text = nil
+            descriptionLabel.text = article.wikidataDescription
+            configureForCompactList(at: index)
+            if let cell = self as? ArticleRightAlignedImageCollectionViewCell {
+                cell.topSeparator.isHidden = true
+                cell.bottomSeparator.isHidden = true
+            }
         case .mainPage:
             styles =  HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
             descriptionTextStyle = .subheadline
@@ -58,12 +65,8 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
             break
-        case .compactList, .relatedPages:
+        case .compactList:
             configureForCompactList(at: index)
-            if displayType == .relatedPages, let cell = self as? ArticleRightAlignedImageCollectionViewCell {
-                cell.topSeparator.isHidden = true
-                cell.bottomSeparator.isHidden = true
-            }
             fallthrough
         case .page:
             fallthrough
