@@ -140,7 +140,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
                                                        if (self.appNeedsResume) {
                                                            [self resumeAppIfNecessary];
                                                        } else {
-                                                           [self.appViewController hideSplashViewAnimated:YES];
+                                                           [self.appViewController hideSplashView];
                                                        }
                                                    }];
     return result;
@@ -168,7 +168,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
                                                            if (self.appNeedsResume) {
                                                                [self resumeAppIfNecessary];
                                                            } else {
-                                                               [self.appViewController hideSplashViewAnimated:YES];
+                                                               [self.appViewController hideSplashView];
                                                            }
                                                        }];
         return result;

@@ -50,6 +50,7 @@ class ReadingListDetailViewController: ViewController {
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
         readingListDetailUnderBarViewController.delegate = self
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
