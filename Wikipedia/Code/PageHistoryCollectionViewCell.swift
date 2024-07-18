@@ -151,14 +151,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        timeLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        sizeDiffLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        authorButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        timeLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        sizeDiffLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        authorButton.titleLabel?.font = WKFont.for(.footnote, compatibleWith: traitCollection)
         if let comment,
            !comment.isEmpty {
-            commentLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+            commentLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
         } else {
-            commentLabel.font = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+            commentLabel.font = WKFont.for(.italicFootnote, compatibleWith: traitCollection)
         }
         
     }

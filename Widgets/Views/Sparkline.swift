@@ -1,5 +1,6 @@
 import SwiftUI
 import WMF
+import Components
 
 private struct SparklineShape: Shape {
 
@@ -180,7 +181,7 @@ struct Sparkline: View {
 				}
 				if style == .compactWithViewCount {
 					Text("\(currentViewCountOrEmpty)")
-						.font(.system(size: 12))
+                        .font(Font(WKFont.for(.caption1)))
 						.fontWeight(.medium)
 						.foregroundColor(Theme.light.colors.rankGradientEnd.asColor)
 					}

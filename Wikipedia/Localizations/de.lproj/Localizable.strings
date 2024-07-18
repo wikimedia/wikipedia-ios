@@ -10,6 +10,7 @@
 // Author: FF-11
 // Author: Ferdinand0101
 // Author: Fitoschido
+// Author: Gichi
 // Author: Hikemaniac
 // Author: Hwboehm
 // Author: Ideophagous
@@ -273,6 +274,9 @@
 "donate-accessibility-donate-hint-format" = "Doppeltippen, um $1 an die Wikimedia Foundation zu spenden.";
 "donate-accessibility-monthly-recurring-hint" = "Doppeltippen, um automatische monatliche Spenden dieses Betrags zu aktivieren.";
 "donate-accessibility-textfield-hint" = "Geben Sie den gewünschten Spendenbetrag ein.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Mit Apple Pay spenden";
+"donate-payment-method-prompt-message" = "Spenden Sie mit Apple Pay oder wählen Sie eine andere Zahlungsmethode.";
+"donate-payment-method-prompt-other-button-title" = "Andere Zahlungsmethode";
 "donate-payment-method-prompt-title" = "Per Apple Pay spenden?";
 "donate-success-title" = "Vielen Dank!";
 "edit-link-display-text-title" = "Angezeigter Text";
@@ -289,6 +293,7 @@
 "edit-notices-please-read" = "Bitte vor der Bearbeitung lesen";
 "edit-published" = "Bearbeitung veröffentlicht";
 "edit-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
+"edit-show-web-preview" = "Webvorschau anzeigen";
 "edit-summary-add-summary-text" = "Eine Bearbeitungszusammenfassung hinzufügen";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
@@ -483,6 +488,7 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
+"image-rec-error-title" = "Seite kann nicht geladen werden";
 "image-rec-title" = "Bild hinzufügen";
 "image-rec-tooltip-1-title" = "Überprüfen";
 "image-rec-tooltip-3-title" = "Entscheiden";

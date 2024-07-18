@@ -33,7 +33,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         insetLabel.translatesAutoresizingMaskIntoConstraints = false
         insetLabel.label.setContentCompressionResistancePriority(.required, for: .vertical)
-        insetLabel.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        insetLabel.label.font = WKFont.for(.caption1, compatibleWith: traitCollection)
         insetLabel.label.adjustsFontForContentSizeCategory = true
         insetLabel.label.numberOfLines = 1
         insetLabel.label.text = "EN"
@@ -64,7 +64,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.headline, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.numberOfLines = 1
@@ -79,7 +79,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
@@ -92,7 +92,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
-        label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textContainer.lineBreakMode = .byTruncatingTail
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
@@ -112,7 +112,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.boldFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .left : .right
@@ -122,7 +122,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     lazy var metaLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label

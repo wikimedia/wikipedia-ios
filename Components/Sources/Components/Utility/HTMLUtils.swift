@@ -12,17 +12,19 @@ public struct HtmlUtils {
         let italicsFont: UIFont
         let boldItalicsFont: UIFont
         let color: UIColor
-        let linkColor: UIColor
+        let linkColor: UIColor?
+        let strongColor: UIColor?
         let lineSpacing: CGFloat
         let listIndent: String
         
-        internal init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
             self.boldItalicsFont = boldItalicsFont
             self.color = color
             self.linkColor = linkColor
+            self.strongColor = strongColor
             self.lineSpacing = lineSpacing
             self.listIndent = listIndent
         }
@@ -47,6 +49,7 @@ public struct HtmlUtils {
         let superscript: StyleData
         let strikethorugh: StyleData
         let underline: StyleData
+        let strong: StyleData
     }
     
     private struct ListInsertData {
@@ -63,10 +66,15 @@ public struct HtmlUtils {
         let range: NSRange
     }
     
+    private struct ElementReplaceData {
+        let range: NSRange
+        let replaceText: String
+    }
+    
     // MARK: - Shared - Properties
     
-    static let defaultListIndent = "    "
-    
+    public static let defaultListIndent = "    "
+
     // MARK: - NSAttributedString - Public
     
     public static func nsAttributedStringFromHtml(_ html: String, styles: Styles) throws -> NSAttributedString {
@@ -89,8 +97,14 @@ public struct HtmlUtils {
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: attributedString.string)
         removeHtmlTagAndContent(from: attributedString, tagAndContentRemoveData: tagAndContentRemoveData)
         
+        let lineBreakReplaceData = try lineBreakReplaceData(html: attributedString.string)
+        replaceLineBreaks(from: attributedString, lineBreakReplaceData: lineBreakReplaceData)
+        
         let tagRemoveData = try tagRemoveData(html: attributedString.string)
         removeHtmlTags(from: attributedString, tagRemoveData: tagRemoveData)
+        
+        let entityReplaceData = try entityReplaceData(html: attributedString.string)
+        replaceEntities(from: attributedString, entityReplaceData: entityReplaceData)
         
         return attributedString
     }
@@ -140,9 +154,11 @@ public struct HtmlUtils {
         }
         
         // Style Link
-        for (linkRange, linkHref) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
-            nsAttributedString.addAttribute(.foregroundColor, value: styles.linkColor, range: linkRange)
-            nsAttributedString.addAttribute(.link, value: linkHref, range: linkRange)
+        if let linkColor = styles.linkColor {
+            for (linkRange, linkHref) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
+                nsAttributedString.addAttribute(.foregroundColor, value: linkColor, range: linkRange)
+                nsAttributedString.addAttribute(.link, value: linkHref, range: linkRange)
+            }
         }
         
         // Style Subscript
@@ -166,6 +182,13 @@ public struct HtmlUtils {
         for underlineRange in allStyleData.underline.completeNSRanges {
             nsAttributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: underlineRange)
         }
+        
+        // Style Strong
+        if let strongColor = styles.strongColor {
+            for strongRange in allStyleData.strong.completeNSRanges {
+                nsAttributedString.addAttribute(.foregroundColor, value: strongColor, range: strongRange)
+            }
+        }
     }
     
     private static func removeHtmlTagAndContent(from nsAttributedString: NSMutableAttributedString, tagAndContentRemoveData: [TagAndContentRemoveData]) {
@@ -177,6 +200,18 @@ public struct HtmlUtils {
     private static func removeHtmlTags(from nsAttributedString: NSMutableAttributedString, tagRemoveData: [TagRemoveData]) {
         for removeData in tagRemoveData.reversed() {
             nsAttributedString.replaceCharacters(in: removeData.range, with: "")
+        }
+    }
+    
+    private static func replaceLineBreaks(from nsAttributedString: NSMutableAttributedString, lineBreakReplaceData: [ElementReplaceData]) {
+        for data in lineBreakReplaceData.reversed() {
+            nsAttributedString.replaceCharacters(in: data.range, with: data.replaceText)
+        }
+    }
+    
+    private static func replaceEntities(from nsAttributedString: NSMutableAttributedString, entityReplaceData: [ElementReplaceData]) {
+        for data in entityReplaceData.reversed() {
+            nsAttributedString.replaceCharacters(in: data.range, with: data.replaceText)
         }
     }
     
@@ -197,8 +232,14 @@ public struct HtmlUtils {
         let tagAndContentRemoveData = try tagAndContentRemoveData(html: String(attributedString.characters))
         removeHtmlTagAndContent(from: &attributedString, tagAndContentRemoveData: tagAndContentRemoveData)
         
+        let lineBreakReplaceData = try lineBreakReplaceData(html: String(attributedString.characters))
+        replaceLineBreaks(from: &attributedString, lineBreakReplaceData: lineBreakReplaceData)
+        
         let tagRemoveData = try tagRemoveData(html: String(attributedString.characters))
         removeHtmlTags(from: &attributedString, tagRemoveData: tagRemoveData)
+        
+        let entityReplaceData = try entityReplaceData(html: String(attributedString.characters))
+        replaceEntities(from: &attributedString, entityReplaceData: entityReplaceData)
         
         return attributedString
     }
@@ -264,10 +305,12 @@ public struct HtmlUtils {
         }
         
         // Style Link
-        for (linkNSRange, hrefString) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
-            if let linkRange = Range(linkNSRange, in: attributedString) {
-                attributedString[linkRange].foregroundColor = styles.linkColor
-                attributedString[linkRange].link = URL(string:hrefString)
+        if let linkColor = styles.linkColor {
+            for (linkNSRange, hrefString) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
+                if let linkRange = Range(linkNSRange, in: attributedString) {
+                    attributedString[linkRange].foregroundColor = linkColor
+                    attributedString[linkRange].link = URL(string:hrefString)
+                }
             }
         }
         
@@ -300,6 +343,15 @@ public struct HtmlUtils {
                 attributedString[underlineRange].underlineStyle = .single
             }
         }
+
+        // Style Strong
+        if let strongColor = styles.strongColor {
+            for strongNSRange in allStyleData.strong.completeNSRanges {
+                if let strongRange  = Range(strongNSRange, in: attributedString) {
+                    attributedString[strongRange].foregroundColor = strongColor
+                }
+            }
+        }
     }
     
     private static func removeHtmlTagAndContent(from attributedString: inout AttributedString, tagAndContentRemoveData: [TagAndContentRemoveData]) {
@@ -325,6 +377,31 @@ public struct HtmlUtils {
             attributedString.removeSubrange(tagRange)
         }
     }
+    
+    private static func replaceLineBreaks(from attributedString: inout AttributedString, lineBreakReplaceData: [ElementReplaceData]) {
+        
+        for data in lineBreakReplaceData.reversed() {
+            
+            guard let range = Range(data.range, in: attributedString) else {
+                continue
+            }
+            
+            attributedString.replaceSubrange(range, with: AttributedString(data.replaceText))
+        }
+    }
+    
+    private static func replaceEntities(from attributedString: inout AttributedString, entityReplaceData: [ElementReplaceData]) {
+        
+        for data in entityReplaceData.reversed() {
+            
+            guard let range = Range(data.range, in: attributedString) else {
+                continue
+            }
+            
+            attributedString.replaceSubrange(range, with: AttributedString(data.replaceText))
+        }
+    }
+
 
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
@@ -336,6 +413,14 @@ public struct HtmlUtils {
     
     private static func htmlTagRegex() throws -> NSRegularExpression {
         return try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)([^>]*)(?:>)")
+    }
+    
+    private static func lineBreakRegex() throws -> NSRegularExpression {
+        return try NSRegularExpression(pattern: "<br(?: ?\\/?)?>")
+    }
+    
+    private static func entityRegex() throws -> NSRegularExpression {
+        return try NSRegularExpression(pattern: "&([^\\s;]+);")
     }
     
     private static func subscriptPointSize(styles: Styles) -> CGFloat {
@@ -437,7 +522,8 @@ public struct HtmlUtils {
         var superscriptStyleData = StyleData()
         var strikethroughStyleData = StyleData()
         var underlineStyleData = StyleData()
-        
+        var strongStyleData = StyleData()
+
         htmlTagRegex.enumerateMatches(in: html, range: html.fullNSRange) { match, flags, stop in
             
             guard let tagNSRange = match?.range(at: 0),
@@ -452,9 +538,10 @@ public struct HtmlUtils {
             updateStyleData(styleData: &superscriptStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "sup", targetAttributeName: nil)
             updateStyleData(styleData: &strikethroughStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "s", targetAttributeName: nil)
             updateStyleData(styleData: &underlineStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "u", targetAttributeName: nil)
+            updateStyleData(styleData: &strongStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "strong", targetAttributeName: nil)
         }
         
-        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethorugh: strikethroughStyleData, underline: underlineStyleData)
+        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethorugh: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData)
     }
     
     private static func updateStyleData(styleData: inout StyleData, html: String, tagNSRange: NSRange, tagNameNSRange: NSRange, targetTagName: String, targetAttributeName: String?) {
@@ -525,6 +612,56 @@ public struct HtmlUtils {
             data.append(TagRemoveData(range: match.range(at: 0)))
         }
         
+        return data
+    }
+    
+    private static func lineBreakReplaceData(html: String) throws -> [ElementReplaceData] {
+        let lineBreakRegex = try lineBreakRegex()
+        var data: [ElementReplaceData] = []
+        let matches = lineBreakRegex.matches(in: html, range: html.fullNSRange)
+        for match in matches {
+            data.append(ElementReplaceData(range: match.range(at: 0), replaceText: "\n"))
+        }
+        return data
+    }
+    
+    private static func entityReplaceData(html: String) throws -> [ElementReplaceData] {
+        let entityRegex = try entityRegex()
+        var data: [ElementReplaceData] = []
+        let matches = entityRegex.matches(in: html, range: html.fullNSRange)
+        for match in matches {
+            
+            let range = match.range(at: 0)
+            let text = (html as NSString).substring(with: range)
+            let replaceText: String?
+            
+            switch text {
+            case "&amp;":
+                replaceText = "&"
+            case "&nbsp;":
+                replaceText = " "
+            case "&gt;":
+                replaceText = ">"
+            case "&lt;":
+                replaceText = "<"
+            case "&apos;":
+                replaceText = "'"
+            case "&quot;":
+                replaceText = "\""
+            case "&ndash;":
+                replaceText = "\u{2013}"
+            case "&mdash;":
+                replaceText = "\u{2014}"
+            case "&#8722;":
+                replaceText = "\u{2212}"
+            default:
+                replaceText = nil
+            }
+            
+            if let replaceText {
+                data.append(ElementReplaceData(range: range, replaceText: replaceText))
+            }
+        }
         return data
     }
 }

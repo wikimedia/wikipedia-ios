@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 extension NotificationsCenterCommonViewModel {
     

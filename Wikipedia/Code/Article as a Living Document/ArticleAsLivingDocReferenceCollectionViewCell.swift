@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCell {
     
@@ -86,7 +86,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WKFont.for(ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleStyle)
         iconTitleBadge?.updateFonts(with: traitCollection)
     }
     

@@ -133,11 +133,14 @@
 // Fuzzy
 "diff-compare-header-to-info-heading" = "लाई:";
 "diff-compare-title" = "संशोधनहरू तुलना गर्नुहोस्";
+"diff-context-cell-collapse-section" = "$1 खुमच्याउनुहोस";
+"diff-context-cell-expand-section" = "$1 फैलाउनुहोस्";
 "diff-context-lines-collapsed-button-title" = "देखाउनुहोस्";
 "diff-context-lines-expanded-button-title" = "लुकाउनुहोस्";
 "diff-paragraph-moved-direction-down" = "तल";
 "diff-paragraph-moved-direction-up" = "माथि";
 "diff-revision-error-title" = "संशोधन खोल्न सकिएन";
+"diff-rollback" = "पूर्ववत्";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 सम्पादन|$1 सम्पादनहरू}}";
 "diff-single-header-editor-title" = "सम्पादक जानकारी";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 बाइट थपियो|$1 बाइटहरू थपिए}}";
@@ -220,7 +223,7 @@
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
-"history-title" = "ईतिहास";
+"history-title" = "इतिहास";
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-footer" = "तपाईंको स्थान नजिकै थप ठाउँहरू";
 "home-nearby-location-footer" = "नजिकै थप $1";
@@ -264,7 +267,7 @@
 "main-menu-account-logout-are-you-sure" = "के तपाईं निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-logout-cancel" = "रद्द गर्नुहोस्";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";
-"main-menu-heading-legal" = "गोपनीयता र शर्तहरू";
+"main-menu-heading-legal" = "गोपनीयता र सर्तहरू";
 "main-menu-nearby" = "नजिकै";
 "main-menu-privacy-policy" = "गोप्नियता नीति";
 "main-menu-rate-app" = "एपलाई रेट गर्नुहोस्";
@@ -346,6 +349,7 @@
 "places-title" = "स्थानहरू";
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
+"privacy-policy-title" = "गोपनीयता नीति";
 "project-name-mediawiki" = "मिडियाविकी";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
@@ -367,6 +371,7 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "सेपिया विषयवस्तु";
 "reading-themes-controls-accessibility-text-size-slider" = "पाठ आकार स्लाइडर";
 "reference-title" = "सन्दर्भ $1";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=हालै|$१ घण्टा अगाडि|$१ घण्टा अगाडी}}";
 "replace-infolabel-method-replace" = "बदल्नुहोस्";
 "replace-infolabel-method-replace-all" = "सबै बदल्नुहोस्";
 "saved-all-articles-title" = "सबै लेखहरू";
@@ -448,6 +453,6 @@
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
-"wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
+"wikitext-upload-save-anonymously-warning" = "सम्पादनहरू तपाईँको उपकरणको आईपी ठेगानामा श्रेय दिइनेछ। यदि तपाईँ $1 गर्नुहुन्छ भने तपाईँसँग थप गोपनीयता हुनेछ।";
 "wikitext-upload-save-sign-in" = "प्रवेश गर्नुहोस्";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";

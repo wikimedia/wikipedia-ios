@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 final class DiffListContextItemViewModel {
     private let text: String    
@@ -102,12 +102,12 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     var traitCollection: UITraitCollection {
         didSet {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
-            contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
-            headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+            contextFont = WKFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+            headingFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
         }
     }
     
-    private let contextDynamicTextStyle = DynamicTextStyle.subheadline
+    private let contextDynamicTextStyle = WKFont.subheadline
     private(set) var height: CGFloat = 0
     private(set) var expandedHeight: CGFloat = 0
     private(set) var innerPadding: NSDirectionalEdgeInsets
@@ -144,8 +144,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             self.heading = "" // tonitodo: optional would be better
         }
         
-        let contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
-        
+        let contextFont = WKFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+
         self.items = diffItems.map({ (item) -> DiffListContextItemViewModel? in
             if item.text.isEmpty {
                 return nil
@@ -155,8 +155,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         })
         
         self.contextFont = contextFont
-        self.headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        
+        self.headingFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+
         innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
         
         expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight, headerHeight: headerHeight)
