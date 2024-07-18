@@ -107,7 +107,7 @@ class SearchLanguageButton: UnderlineButton {
     
 }
 
-class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
+class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate {
     required init() {
         super.init(nibName: "SearchLanguagesBarViewController", bundle: nil)
     }
@@ -133,8 +133,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         return stackView
     }()
 
-    @objc var theme: Theme = Theme.standard
-    
     fileprivate var selectedSearchContentLanguageCode: String? {
         get {
             if let contentLanguageCode = UserDefaults.standard.wmf_currentSearchContentLanguageCode() {
@@ -329,8 +327,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         updateSearchLanguageButtons()
     }
     
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
