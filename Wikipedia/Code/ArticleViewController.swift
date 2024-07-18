@@ -111,6 +111,8 @@ class ArticleViewController: ViewController, HintPresenting {
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
         navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
+        
+        hidesBottomBarWhenPushed = true
     }
     
     deinit {

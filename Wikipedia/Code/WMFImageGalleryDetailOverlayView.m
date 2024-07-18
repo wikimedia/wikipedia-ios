@@ -1,5 +1,6 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "Wikipedia-Swift.h"
+#import <WMF/WMF-Swift.h>
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
@@ -96,7 +97,7 @@
 - (UILabel *)newLicenseLabel {
     UILabel *label = [[UILabel alloc] init];
     [label wmf_configureSubviewsForDynamicType];
-    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    label.font = [WKFontWrapper fontFor: WMFFontsSubheadline compatibleWithTraitCollection:self.traitCollection]; 
     label.textColor = [UIColor whiteColor];
     return label;
 }

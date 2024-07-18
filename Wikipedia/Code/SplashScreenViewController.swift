@@ -20,7 +20,7 @@ class SplashScreenViewController: ThemeableViewController {
         setupSplashView()
     }
     
-    func triggerMigratingAnimation() {
+    @objc func triggerMigratingAnimation() {
         perform(#selector(showLoadingAnimation), with: nil, afterDelay: SplashScreenViewController.maximumNonInteractiveTimeInterval)
     }
     

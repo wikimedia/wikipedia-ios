@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 final class InsertMediaSettingsButtonView: UIView {
     @IBOutlet private weak var separatorView: UIView!
@@ -19,7 +19,7 @@ final class InsertMediaSettingsButtonView: UIView {
     }
 
     private func updateFonts() {
-        button.titleLabel?.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
 
     @IBAction private func delegateButtonAction(_ sender: UIButton) {

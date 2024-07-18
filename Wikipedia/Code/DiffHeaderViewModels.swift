@@ -1,4 +1,4 @@
-import Foundation
+import Components
 import WMF
 
 final class DiffHeaderViewModel: Themeable {
@@ -58,8 +58,8 @@ final class DiffHeaderViewModel: Themeable {
             
             let subtitle = DiffHeaderViewModel.byteDifferenceStringFor(value: byteDifference)
 
-            titleViewModel = DiffHeaderTitleViewModel(heading: heading, title: title, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.boldSubheadline, subtitleColor: nil)
-            
+            titleViewModel = DiffHeaderTitleViewModel(heading: heading, title: title, subtitle: subtitle, subtitleTextStyle: .boldSubheadline, subtitleColor: nil)
+
             let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), isMinor: toModel.isMinor, summary: toModel.parsedComment)
             
             let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project)
@@ -88,7 +88,7 @@ final class DiffHeaderViewModel: Themeable {
     static func generateTitleViewModelForCompare(articleTitle: String, byteDifference: Int?) -> DiffHeaderTitleViewModel {
         let heading = CommonStrings.compareRevisionsTitle
         let subtitle = byteDifferenceStringFor(value: byteDifference ?? 0)
-        return DiffHeaderTitleViewModel(heading: heading, title: articleTitle, subtitle: subtitle, subtitleTextStyle: DynamicTextStyle.boldSubheadline, subtitleColor: nil)
+        return DiffHeaderTitleViewModel(heading: heading, title: articleTitle, subtitle: subtitle, subtitleTextStyle: .boldSubheadline, subtitleColor: nil)
     }
     
     func apply(theme: Theme) {
@@ -105,10 +105,10 @@ final class DiffHeaderTitleViewModel {
     let heading: String? // tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
     let title: String?
     let subtitle: String?
-    let subtitleTextStyle: DynamicTextStyle
+    let subtitleTextStyle: WKFont
     var subtitleColor: UIColor?
 
-    init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: DynamicTextStyle, subtitleColor: UIColor?) {
+    init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: WKFont, subtitleColor: UIColor?) {
         self.heading = heading?.localizedUppercase
         self.title = title
         self.subtitle = subtitle
@@ -194,7 +194,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         self.username = model.user
         self.isMinor = model.isMinor
         self.summary = model.parsedComment?.removingHTML
-        
+
         if let date = model.revisionDate {
             self.timestampString = dateFormatter.string(from: date)
         } else {

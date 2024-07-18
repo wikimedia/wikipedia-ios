@@ -514,6 +514,24 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
+/// Simple flag to determine if the library will need to be migrated
+/// Persisted library version number in Core Data is lower than WMFCurrentLibraryVersion or nil
+/// This helps us determine whether or not to trigger the Splash screen updating animation
+- (BOOL)needsMigration {
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
+    
+    if (!libraryVersionNumber) {
+        return NO;
+    }
+    
+    NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
+    if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion {

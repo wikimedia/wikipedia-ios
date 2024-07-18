@@ -1,3 +1,4 @@
+import Components
 import SwiftUI
 import WMF
 
@@ -22,7 +23,7 @@ struct NotificationsCenterFilterItemView: View {
                         Spacer()
                         if itemViewModel.isSelected {
                             Image(systemName: "checkmark")
-                                .font(Font.body.weight(.semibold))
+                                .font(Font(WKFont.for(.boldCallout)))
                                 .foregroundColor(Color(theme.colors.link))
                         }
                     }
@@ -54,7 +55,7 @@ struct NotificationsCenterFilterItemView: View {
                 .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
             }
         }
-        .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
+        .padding(.horizontal, horizontalSizeClass == .regular ? WKFont.for(.callout).pointSize : 0)
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
     
@@ -70,14 +71,14 @@ struct NotificationsCenterFilterItemView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(itemViewModel.title)
                         .foregroundColor(Color(theme.colors.primaryText))
-                        .font(.body)
+                        .font(Font(WKFont.for(.callout)))
                     Text(subtitle)
                         .foregroundColor(Color(theme.colors.secondaryText))
-                        .font(.footnote)
+                        .font(Font(WKFont.for(.footnote)))
                 }
             default:
                 Text(itemViewModel.title)
-                    .font(.body)
+                    .font(Font(WKFont.for(.callout)))
                     .foregroundColor(Color(theme.colors.primaryText))
             }
         }

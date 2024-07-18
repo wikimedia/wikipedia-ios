@@ -5,10 +5,10 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     let compassViewDimension: CGFloat = 104
     let distanceLabel: UILabel = UILabel()
     let distanceLabelBackground: UIView = UIView()
-    let distanceTextStyle: DynamicTextStyle = .caption1
+    let distanceTextStyle: WKFont = .caption1
     var articleLocation: CLLocation?
     var userLocation: CLLocation?
-    
+
     override func setup() {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
@@ -25,15 +25,18 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func reset() {
         super.reset()
-        titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
         imageView.image = #imageLiteral(resourceName: "compass-w")
     }
     
+    override func updateStyles() {
+        styles =  HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        distanceLabel.font = UIFont.wmf_font(distanceTextStyle, compatibleWithTraitCollection: traitCollection)
+        distanceLabel.font = WKFont.for(distanceTextStyle, compatibleWith: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

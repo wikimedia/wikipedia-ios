@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
@@ -354,9 +354,9 @@ class TalkPageTopicComposeViewController: ViewController {
     // MARK: Private
 
     private func updateFonts() {
-        titleTextField.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-        bodyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
-        bodyPlaceholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        titleTextField.font = WKFont.for(.headline, compatibleWith: traitCollection)
+        bodyTextView.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        bodyPlaceholderLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
     
@@ -373,11 +373,11 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
-        return attributedString
+        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
     }
-    
+
     private func evaluatePublishButtonEnabledState() {        
         publishButton.isEnabled = !(titleTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
