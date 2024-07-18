@@ -741,9 +741,9 @@
 		67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13F23BFF62200736539 /* ImageCacheController.swift */; };
 		67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */; };
 		67A7CA7528665CEF008D4BF6 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */; };
-		67AD17F72C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17F62C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
-		67AD17F82C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17F62C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
-		67AD17F92C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17F62C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
+		67AD17FF2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
+		67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
+		67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9723A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9823A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
@@ -3403,7 +3403,7 @@
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
 		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
-		67AD17F62C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFBarButtonItemPopoverMessageViewController.storyboard; path = ../../../../Desktop/WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
+		67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
 		67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataExportCache.swift; sourceTree = "<group>"; };
 		67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -7137,7 +7137,7 @@
 			isa = PBXGroup;
 			children = (
 				679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */,
-				67AD17F62C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */,
+				67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */,
 				B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */,
 				B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */,
 				679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */,
@@ -9374,7 +9374,7 @@
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8421B58203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* TableOfContentsCell.xib in Resources */,
-				67AD17F72C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
+				67AD17FF2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
@@ -9525,7 +9525,7 @@
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
-				67AD17F92C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
+				67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				6782DBF8234537D0003FA21B /* DiffHeaderExtendedView.xib in Resources */,
 				6782DBEB23453787003FA21B /* DiffHeaderEditorView.xib in Resources */,
 				83023C0C20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
@@ -9641,7 +9641,7 @@
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,
-				67AD17F82C49C7D40027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
+				67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				6782DBFB234537D0003FA21B /* DiffHeaderExtendedView.xib in Resources */,
 				6782DBEC23453787003FA21B /* DiffHeaderEditorView.xib in Resources */,
 				83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
