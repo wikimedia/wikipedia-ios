@@ -1,3 +1,5 @@
+import Components
+
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)
 }
@@ -86,8 +88,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return TagCollectionViewCell()
     }()
     
-    private var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
-    
     weak public var delegate: SavedArticlesCollectionViewCellDelegate?
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -118,10 +118,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .semiboldBody
         collectionViewAvailableWidth = 0
         configuredTags = []
         updateFonts(with: traitCollection)
+    }
+    
+    override func updateStyles() {
+        styles = HtmlUtils.Styles(font: WKFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
     
     private var collectionViewAvailableWidth: CGFloat = 0

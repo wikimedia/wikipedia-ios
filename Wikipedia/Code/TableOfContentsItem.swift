@@ -1,4 +1,4 @@
-import Foundation
+import Components
 import WMF
 // MARK: - TOC Item Types
 
@@ -6,7 +6,7 @@ public enum TableOfContentsItemType {
     case primary
     case secondary
     
-    var titleTextStyle: DynamicTextStyle {
+    var titleTextStyle: WKFont {
         switch self {
         case .primary:
             return .georgiaTitle3

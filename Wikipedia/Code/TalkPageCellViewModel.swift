@@ -1,4 +1,4 @@
-import Foundation
+import Components
 
 final class TalkPageCellViewModel: Identifiable {
 
@@ -62,15 +62,19 @@ final class TalkPageCellViewModel: Identifiable {
         self.activeUsersCount = activeUsersCount
         self.isUserLoggedIn = isUserLoggedIn
     }
-    
+
     func topicTitleAttributedString(traitCollection: UITraitCollection, theme: Theme = .light) -> NSAttributedString {
-        return topicTitleHtml.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+        let styles = HtmlUtils.Styles(font: WKFont.for(.headline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.headline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldHeadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        return NSAttributedString.attributedStringFromHtml(topicTitleHtml, styles: styles)
     }
     
     func leadCommentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let leadComment = leadComment {
             let commentColor = isThreadExpanded ? theme.colors.primaryText : theme.colors.secondaryText
-            return leadComment.html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: commentColor, linkColor: theme.colors.link, lineSpacing: 1)
+            let leadCommentFormatted = NSMutableAttributedString.mutableAttributedStringFromHtml(leadComment.html, styles: styles).removingInitialNewlineCharacters()
+
+            return leadCommentFormatted
         }
         
         return nil
@@ -78,7 +82,9 @@ final class TalkPageCellViewModel: Identifiable {
     
     func otherContentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let otherContentHtml = otherContentHtml {
-            return otherContentHtml.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+            return NSMutableAttributedString.mutableAttributedStringFromHtml(otherContentHtml, styles: styles).removingInitialNewlineCharacters()
+
         }
         
         return nil

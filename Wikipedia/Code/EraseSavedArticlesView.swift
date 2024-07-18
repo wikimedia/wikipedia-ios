@@ -15,7 +15,7 @@ class EraseSavedArticlesView: UIView {
     }
 
     func updateFonts() {
-        button.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.callout, compatibleWith: traitCollection)
     }
 }
 

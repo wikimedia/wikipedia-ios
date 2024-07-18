@@ -38,7 +38,7 @@ public class  WKImageRecommendationBottomSheetViewModel {
     }
 
     private func getCleanDescription(from input: String) -> String? {
-        return try? HtmlUtils.stringFromHTML(input)
+        return input.removingHTML
     }
 
 }

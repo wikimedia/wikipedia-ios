@@ -38,7 +38,7 @@ public struct WKEmptyView: View {
                                 .foregroundColor(foregroundColor)
                         }
                         Text(viewModel.localizedStrings.title)
-                            .font(Font(WKFont.for(.boldBody)))
+                            .font(Font(WKFont.for(.boldCallout)))
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.top], 12)
                             .padding([.bottom], 8)

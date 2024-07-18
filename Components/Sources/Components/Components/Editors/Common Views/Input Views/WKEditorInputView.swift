@@ -46,7 +46,7 @@ class WKEditorInputView: WKComponentView {
         
         func font(traitCollection: UITraitCollection) -> UIFont {
             switch self {
-            case .paragraph: return WKFont.for(.body, compatibleWith: traitCollection)
+            case .paragraph: return WKFont.for(.callout, compatibleWith: traitCollection)
             default:
                 return WKFont.for(.headline, compatibleWith: traitCollection)
             }
