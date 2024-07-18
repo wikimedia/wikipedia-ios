@@ -714,7 +714,7 @@
 			<key>other</key>
 			<string>%1$d minuter sedan</string>
 			<key>zero</key>
-			<string>Precis nu</string>
+			<string>Alldeles nyss</string>
 		</dict>
 	</dict>
 	<key>relative-date-months-ago</key>
