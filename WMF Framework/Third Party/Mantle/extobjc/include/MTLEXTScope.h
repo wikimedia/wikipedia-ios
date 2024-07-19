@@ -82,10 +82,7 @@
  */
 #define strongify(...) \
     mtl_keywordify \
-    _Pragma("clang diagnostic push") \
-    _Pragma("clang diagnostic ignored \"-Wshadow\"") \
     metamacro_foreach(mtl_strongify_,, __VA_ARGS__) \
-    _Pragma("clang diagnostic pop")
 
 /*** implementation details follow ***/
 typedef void (^mtl_cleanupBlock_t)(void);

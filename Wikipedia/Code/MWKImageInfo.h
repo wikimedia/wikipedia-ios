@@ -1,5 +1,5 @@
 #import <WMF/MWKDataObject.h>
-@import CoreGraphics;
+#import <CoreGraphics/CoreGraphics.h>
 @class MWKLicense;
 
 NS_ASSUME_NONNULL_BEGIN

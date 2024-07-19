@@ -1,4 +1,4 @@
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 #ifndef Wikipedia_WMFBlockDefinitions_h
 #define Wikipedia_WMFBlockDefinitions_h

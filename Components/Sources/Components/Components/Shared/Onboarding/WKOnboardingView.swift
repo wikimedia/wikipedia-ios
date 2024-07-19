@@ -10,7 +10,7 @@ public struct WKOnboardingView: View {
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
 
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 32

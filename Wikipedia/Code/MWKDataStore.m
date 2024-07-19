@@ -150,7 +150,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     NSError *unarchiveError = nil;
     NSMutableDictionary *infoDictionary = [[self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError] mutableCopy] ?: [NSMutableDictionary new];
     if (unarchiveError) {
-        DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
+        DDLogDebug(@"Error unarchiving shared info dictionary, possibly because this is a fresh install and it doesn't exist yet: %@", unarchiveError);
     }
 
     BOOL needsWrite = false;

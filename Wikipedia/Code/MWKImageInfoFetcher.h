@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <WMF/WMFLegacyFetcher.h>
 #import <WMF/WMFBlockDefinitions.h>
 #import <WMF/WMFPreferredLanguageInfoProvider.h>

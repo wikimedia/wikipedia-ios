@@ -326,7 +326,7 @@ final class TalkPageHeaderView: SetupView {
         
         if let leadImageURL = viewModel.leadImageURL {
             imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                DDLogError("Failure loading talk page header image: \(error)")
+                DDLogWarn("Failure loading talk page header image: \(error)")
             }, success: { [weak self] in
                 self?.imageView.isHidden = false
             })

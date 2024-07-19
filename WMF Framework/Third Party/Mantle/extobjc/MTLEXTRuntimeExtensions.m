@@ -899,8 +899,6 @@ void mtl_replaceMethodsFromClass (Class srcClass, Class dstClass) {
     mtl_injectMethodsFromClass(srcClass, dstClass, mtl_methodInjectionReplace, NULL);
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wformat"
 NSString *mtl_stringFromTypedBytes (const void *bytes, const char *encoding) {
     switch (*encoding) {
         case 'c': return @(*(char *)bytes).description;
@@ -917,8 +915,7 @@ NSString *mtl_stringFromTypedBytes (const void *bytes, const char *encoding) {
         case 'd': return @(*(double *)bytes).description;
         case 'B': return @(*(_Bool *)bytes).description;
         case 'v': return @"(void)";
-        case '*': return [NSString stringWithFormat:@"\"%s\"", bytes];
-
+        case '*': return [NSString stringWithFormat:@"\"%s\"", (char *)bytes];
         case '@':
         case '#': {
             id obj = *(__unsafe_unretained id *)bytes;
@@ -941,4 +938,3 @@ NSString *mtl_stringFromTypedBytes (const void *bytes, const char *encoding) {
             return [[NSValue valueWithBytes:bytes objCType:encoding] description];
     }
 }
-#pragma clang diagnostic pop

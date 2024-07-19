@@ -139,7 +139,7 @@ import CocoaLumberjackSwift
                 DDLogDebug("User \(result.name) is already logged in.")
                 self.session.cloneCentralAuthCookies()
             case .failure(let error):
-                DDLogDebug("loginWithSavedCredentials failed with error \(error).")
+                DDLogError("loginWithSavedCredentials failed with error \(error).")
             }
             DispatchQueue.main.async {
                 completion(loginResult)
@@ -277,7 +277,7 @@ import CocoaLumberjackSwift
                 DispatchQueue.main.async {
                     if let error = error {
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-                        DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                        DDLogError("Failed to log out, delete login tokens and other browser cookies: \(error)")
                         self.resetLocalUserLoginSettings()
                         completion()
                         postDidLogOutNotification()
@@ -309,7 +309,7 @@ extension WMFAuthenticationManager {
         let completion: AuthenticationResultHandler = { loginResult in
             switch loginResult {
             case .failure(let error):
-                DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
                 self.logout(initiatedBy: initiatedBy)
             default:
                 break

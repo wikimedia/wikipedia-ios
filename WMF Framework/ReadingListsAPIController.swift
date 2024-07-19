@@ -168,11 +168,11 @@ public class ReadingListsAPIController: Fetcher {
                         self.untrack(taskFor: identifier)
                     }
                     if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                        DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+                        DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
                     } else {
                         #if DEBUG
                         if let error = error {
-                            DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                            DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
                         } else {
                             DDLogDebug("RLAPI: \(method.stringValue) \(path)")
                         }
