@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import Components
+import WKData
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
@@ -231,39 +232,21 @@ class ArticleToolbarController: Themeable {
         
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
         
-        if FeatureFlags.watchlistEnabled {
-            toolbar.items = [
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                tocItem,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                languagesButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                saveButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                findInPageButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                themeButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                moreButton,
-                UIBarButtonItem.flexibleSpaceToolbar()
-            ]
-        } else {
-            toolbar.items = [
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                tocItem,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                languagesButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                saveButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                shareButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                themeButton,
-                UIBarButtonItem.flexibleSpaceToolbar(),
-                findInPageButton,
-                UIBarButtonItem.flexibleSpaceToolbar()
-            ]
-        }
+        toolbar.items = [
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            tocItem,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            languagesButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            saveButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            findInPageButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            themeButton,
+            UIBarButtonItem.flexibleSpaceToolbar(),
+            moreButton,
+            UIBarButtonItem.flexibleSpaceToolbar()
+        ]
     }
 
     func setToolbarButtons(enabled: Bool) {

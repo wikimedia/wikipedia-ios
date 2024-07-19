@@ -9,6 +9,8 @@ import Components
             WKFont.for(.callout, compatibleWith: traitCollection)
         case .caption1:
             WKFont.for(.caption1, compatibleWith: traitCollection)
+        case .semiboldHeadline:
+            WKFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         case .subheadline:
             WKFont.for(.subheadline, compatibleWith: traitCollection)
         case .title1:
@@ -24,6 +26,7 @@ import Components
     case boldCallout
     case callout
     case caption1
+    case semiboldHeadline
     case subheadline
     case title1
 }

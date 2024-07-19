@@ -51,11 +51,7 @@ class AccountViewController: SubSettingsViewController {
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
-        if FeatureFlags.watchlistEnabled {
-            sectionItems = [logout, talkPage, watchlist, vanishAccount]
-        } else {
-            sectionItems = [logout, talkPage, vanishAccount]
-        }
+        sectionItems = [logout, talkPage, watchlist, vanishAccount]
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
