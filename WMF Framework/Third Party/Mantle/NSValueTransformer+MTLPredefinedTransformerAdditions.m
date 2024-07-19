@@ -431,9 +431,6 @@ NSString * const MTLBooleanValueTransformerName = @"MTLBooleanValueTransformerNa
 			}];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
 + (NSValueTransformer<MTLTransformerErrorHandling> *)mtl_JSONDictionaryTransformerWithModelClass:(Class)modelClass {
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:modelClass];
 }
@@ -441,7 +438,5 @@ NSString * const MTLBooleanValueTransformerName = @"MTLBooleanValueTransformerNa
 + (NSValueTransformer<MTLTransformerErrorHandling> *)mtl_JSONArrayTransformerWithModelClass:(Class)modelClass {
 	return [MTLJSONAdapter arrayTransformerWithModelClass:modelClass];
 }
-
-#pragma clang diagnostic pop
 
 @end

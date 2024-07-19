@@ -1,4 +1,4 @@
-@import CoreLocation;
+#import <CoreLocation/CoreLocation.h>
 #import <WMF/WMFLegacyFetcher.h>
 
 @class WMFLocationSearchResults;

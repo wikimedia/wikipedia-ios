@@ -120,9 +120,6 @@
 
 @implementation MTLValueTransformer (Deprecated)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
 + (instancetype)transformerWithBlock:(id (^)(id))transformationBlock {
 	return [self transformerUsingForwardBlock:^(id value, BOOL *success, NSError **error) {
 		return transformationBlock(value);
@@ -144,7 +141,5 @@
 			return reverseBlock(value);
 		}];
 }
-
-#pragma clang diagnostic pop
 
 @end

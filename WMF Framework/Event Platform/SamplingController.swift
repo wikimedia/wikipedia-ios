@@ -66,13 +66,13 @@ class SamplingController: NSObject {
         let appInstallID = UserDefaults.standard.wmf_appInstallId
 
         guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
-            DDLogDebug("EPC: Logged to stream which is not configured for sampling based on \(sessionIdentifierType) or \(deviceIdentifierType) identifier")
+            DDLogWarn("EPC: Logged to stream which is not configured for sampling based on \(sessionIdentifierType) or \(deviceIdentifierType) identifier")
             cacheSamplingForStream(stream, inSample: false)
             return false
         }
 
         guard let identifier = identifierType == sessionIdentifierType ? delegate?.sessionID : appInstallID else {
-            DDLogError("EPC: Missing token for determining in- vs out-of-sample. Falling back to out-of-sample.")
+            DDLogWarn("EPC: Missing token for determining in- vs out-of-sample. Falling back to out-of-sample.")
             cacheSamplingForStream(stream, inSample: false)
             return false
         }

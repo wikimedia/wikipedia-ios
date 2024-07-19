@@ -1,5 +1,5 @@
 #import <WMF/MWKSearchResult.h>
-@import CoreLocation;
+#import <CoreLocation/CoreLocation.h>
 
 /**
  *  Response object model for search results which have geocoordinates.

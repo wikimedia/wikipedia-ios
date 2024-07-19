@@ -61,7 +61,7 @@ final public class LocationManager: NSObject {
         
         guard authorizationStatus != .notDetermined else {
             authorize(success: startMonitoringLocation)
-            DDLogVerbose("LocationManager - skip monitoring location because status is \(authorizationStatus.rawValue).")
+            DDLogDebug("LocationManager - skip monitoring location because status is \(authorizationStatus.rawValue).")
             return
         }
 
@@ -130,7 +130,7 @@ final public class LocationManager: NSObject {
     private func authorize(success: (() -> Void)? = nil) {
         authorizedCompletion = success
         locationManager.requestWhenInUseAuthorization()
-        DDLogInfo("LocationManager - requesting authorization to access location when in use.")
+        DDLogDebug("LocationManager - requesting authorization to access location when in use.")
     }
 
     // MARK: - Heading
@@ -178,7 +178,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
         self.location = location
         delegate?.locationManager?(self, didUpdate: location)
-        DDLogVerbose("LocationManager - did update location: \(location).")
+        DDLogDebug("LocationManager - did update location: \(location).")
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
@@ -186,12 +186,12 @@ extension LocationManager: CLLocationManagerDelegate {
 
         self.heading = heading
         delegate?.locationManager?(self, didUpdate: heading)
-        DDLogVerbose("LocationManager - did update heading: \(heading).")
+        DDLogDebug("LocationManager - did update heading: \(heading).")
     }
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         guard isUpdating else {
-            DDLogVerbose("LocationManager - suppressing error received after call to stop monitoring location: \(error)")
+            DDLogDebug("LocationManager - suppressing error received after call to stop monitoring location: \(error)")
             return
         }
 
@@ -208,7 +208,7 @@ extension LocationManager: CLLocationManagerDelegate {
     
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
-        DDLogInfo("LocationManager - did change authorization status \(status.rawValue).")
+        DDLogDebug("LocationManager - did change authorization status \(status.rawValue).")
         delegate?.locationManager?(self, didUpdateAuthorized: status.isAuthorized)
 
         if status.isAuthorized {

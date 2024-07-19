@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     let imageView = UIImageView()
@@ -26,7 +26,7 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        captionLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        captionLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
     }
 
     override func reset() {

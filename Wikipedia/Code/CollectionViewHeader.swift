@@ -1,4 +1,4 @@
-import UIKit
+import Components
 
 protocol CollectionViewHeaderDelegate: AnyObject {
     func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader)
@@ -74,20 +74,20 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        let titleTextStyle: DynamicTextStyle
-        let subtitleTextStyle: DynamicTextStyle = .subheadline
-        let buttonTextStyle: DynamicTextStyle = .subheadline
+        let titleTextStyle: WKFont
+        let subtitleTextStyle: WKFont = .subheadline
+        let buttonTextStyle: WKFont = .subheadline
         switch style {
         case .detail:
             fallthrough
         case .explore:
-            titleTextStyle = .boldTitle2
+            titleTextStyle = .boldTitle1 // used to be boldtitle2
         default:
             titleTextStyle = .semiboldHeadline
         }
-        titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
-        button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WKFont.for(titleTextStyle, compatibleWith: traitCollection)
+        subtitleLabel.font = WKFont.for(subtitleTextStyle, compatibleWith: traitCollection)
+        button.titleLabel?.font = WKFont.for(buttonTextStyle, compatibleWith: traitCollection)
     }
     
     override func layoutMarginsDidChange() {

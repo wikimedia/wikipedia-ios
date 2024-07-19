@@ -1,5 +1,5 @@
-@import Foundation;
-@import UserNotifications;
+#import <Foundation/Foundation.h>
+#import <UserNotifications/UserNotifications.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

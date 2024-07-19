@@ -871,7 +871,7 @@ public class Theme: NSObject {
     }()
     
     static let tabBarItemFont: UIFont = {
-        return UIFont.systemFont(ofSize: 12)
+        return WKFont.for(.caption1)
     }()
     
     public lazy var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] = {

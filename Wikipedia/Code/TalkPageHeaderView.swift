@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 import CocoaLumberjackSwift
 
@@ -10,7 +10,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
         return label
@@ -20,7 +20,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 4
-        label.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
         return label
@@ -30,7 +30,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
-        label.font = UIFont.wmf_font(.footnote)
+        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -117,7 +117,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
-        label.font = UIFont.wmf_font(.mediumCaption2)
+        label.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.isAccessibilityElement = false
         return label
@@ -145,7 +145,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = UIFont.wmf_font(.body)
+        label.font = WKFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -154,7 +154,7 @@ final class TalkPageHeaderView: SetupView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .trailing
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 15)
+        button.titleLabel?.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
@@ -326,7 +326,7 @@ final class TalkPageHeaderView: SetupView {
         
         if let leadImageURL = viewModel.leadImageURL {
             imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                DDLogError("Failure loading talk page header image: \(error)")
+                DDLogWarn("Failure loading talk page header image: \(error)")
             }, success: { [weak self] in
                 self?.imageView.isHidden = false
             })
@@ -338,10 +338,10 @@ final class TalkPageHeaderView: SetupView {
     }
 
     func updateLabelFonts() {
-        typeLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        projectLanguageLabel.font = UIFont.wmf_font(.mediumCaption2, compatibleWithTraitCollection: traitCollection)
-        
+        typeLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        titleLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
+        projectLanguageLabel.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+
         updateCoffeeRollText()
     }
     
@@ -353,12 +353,14 @@ final class TalkPageHeaderView: SetupView {
         }
         
         let theme = viewModel.theme
-        
-        let coffeeRollAttributedText: NSMutableAttributedString = coffeeRollText.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true, tagMapping: ["a": "b"])
-        
+
+        let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 1)
+
+        let coffeeRollAttributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(coffeeRollText, styles: styles)
+
         coffeeRollLabel.attributedText = coffeeRollAttributedText.removingInitialNewlineCharacters()
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         self.semanticContentAttribute = semanticContentAttribute
         typeLabel.semanticContentAttribute = semanticContentAttribute

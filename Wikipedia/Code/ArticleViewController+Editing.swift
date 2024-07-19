@@ -18,7 +18,7 @@ extension ArticleViewController {
     }
     
     func showEditorForFullSource() {
-        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .articleFullSourceEditor, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appFullSource, delegate: self, theme: theme)
         
         presentEditor(editorViewController: editorViewController)
         
@@ -32,9 +32,9 @@ extension ArticleViewController {
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
         
-        let editSummaryTag: WKEditSummaryTag = selectedTextEditInfo == nil ?  .articleSectionSourceEditor : .articleSelectSourceEditor
+        let editTag: WKEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
-        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editSummaryTag: editSummaryTag, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editTag: editTag, delegate: self, theme: theme)
         
         presentEditor(editorViewController: editorViewController)
     }
@@ -154,7 +154,7 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
         webView.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in articleHtmlTitleDescription: \(error)")
+                    DDLogWarn("Failure in articleHtmlTitleDescription: \(error)")
                     completion(nil)
                     return
                 }
@@ -199,7 +199,7 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
         webView.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in injectNewDescriptionIntoArticleContent: \(error)")
+                    DDLogWarn("Failure in injectNewDescriptionIntoArticleContent: \(error)")
                     completion(.failure(error))
                     return
                 }
@@ -258,7 +258,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 
             switch injectResult {
             case .failure(let error):
-                DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")
+                DDLogWarn("Failure injecting new description into article content, refreshing instead: \(error)")
                 self.waitForNewContentAndRefresh(result.newRevisionID)
             case .success:
                 break

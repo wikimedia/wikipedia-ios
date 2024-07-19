@@ -1,4 +1,3 @@
-import UIKit
 import SwiftUI
 import WMF
 import Components
@@ -62,6 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
     var editSummaryTag: WKEditSummaryTag?
+    var editTag: WKEditTag?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
     weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
@@ -106,6 +106,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     private let wikiTextSectionUploader = WikiTextSectionUploader()
 
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+    }
+
     private var licenseTitleTextViewAttributedString: NSAttributedString {
         let localizedString = WMFLocalizedString("wikitext-upload-save-terms-and-licenses-ccsa4", languageCode: languageCode, value: "By publishing changes, you agree to the %1$@Terms of Use%2$@, and you irrevocably agree to release your contribution under the %3$@CC BY-SA 4.0%4$@ License and the %5$@GFDL%6$@. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
 
@@ -119,8 +123,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
-
+        let attributedString = NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
         return attributedString
     }
 
@@ -129,15 +132,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
-            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'byAttributingHTML' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
+            "<a href=\"#LOGIN_HREF\">", // "#LOGIN_HREF" ensures 'nsAttributedStringFromHtml' doesn't strip the anchor. The entire text view uses a tap recognizer so the string itself is unimportant.
             "</a>"
         )
 
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, matching: traitCollection)
-
+        let attributedString = NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
         return attributedString
     }
-    
+
+
     private func updateNavigation(for mode: NavigationMode) {
         var backButton: UIBarButtonItem?
         var forwardButton: UIBarButtonItem?
@@ -384,7 +387,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: nil, completion: { (result, error) in
+        var editTags: [String]? = nil
+        if let editTag {
+            editTags = [editTag.rawValue]
+        }
+        
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: editTags, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)

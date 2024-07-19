@@ -26,7 +26,7 @@ class ShiftingTopView: SetupView {
         super.layoutSubviews()
 
         if stackView == nil {
-            DDLogError("Missing stackView assignment in ShiftingSubview, which could potentially cause incorrect content inset/padding calculations.")
+            DDLogWarn("Missing stackView assignment in ShiftingSubview, which could potentially cause incorrect content inset/padding calculations.")
         }
         stackView?.calculateTotalHeight()
     }

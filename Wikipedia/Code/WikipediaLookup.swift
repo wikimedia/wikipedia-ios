@@ -49,7 +49,7 @@ import CocoaLumberjackSwift
                         localizedName = iOSLocalizedName
                     }
                     
-                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: wikipediaLanguageVariant.altISOCode)
+                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: nil)
                 }
             }
         } catch let error {
@@ -57,4 +57,18 @@ import CocoaLumberjackSwift
             return [:]
         }
     }()
+    
+    static var allLanguageVariants: [WikipediaLanguageVariant]? {
+        guard let languagesFileURL = Bundle.wmf.url(forResource: "wikipedia-language-variants", withExtension: "json") else {
+            return nil
+        }
+        do {
+            let data = try Data(contentsOf: languagesFileURL)
+            let entries = try JSONDecoder().decode([String : [WikipediaLanguageVariant]].self, from: data)
+            return entries.values.flatMap { $0 }
+        } catch let error {
+            DDLogError("Error decoding language variant list \(error)")
+            return nil
+        }
+    }
 }

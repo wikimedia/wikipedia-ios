@@ -1,6 +1,7 @@
 import WebKit
 import CocoaLumberjackSwift
 import WMF
+import Components
 
 class SinglePageWebViewController: ViewController {
     let url: URL
@@ -61,6 +62,7 @@ class SinglePageWebViewController: ViewController {
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         return webView
     }()
     
@@ -91,7 +93,7 @@ class SinglePageWebViewController: ViewController {
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WKFont.for(.headline, compatibleWith: traitCollection)
         button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()
@@ -259,18 +261,35 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        DDLogError("Error loading single page - did fail provisional navigation: \(error)")
+        DDLogWarn("Error loading single page - did fail provisional navigation: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
         fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        DDLogError("Error loading single page: \(error)")
+        DDLogWarn("Error loading single page: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
         fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         fakeProgressController.finish()
+    }
+}
+
+extension SinglePageWebViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: CommonStrings.okTitle, style: .default) { _ in
+            completionHandler(true)
+        }
+        let action2 = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default) { _ in
+            completionHandler(false)
+        }
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        
+        present(alertController, animated: true)
     }
 }

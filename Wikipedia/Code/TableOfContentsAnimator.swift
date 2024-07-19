@@ -273,7 +273,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             let transitionProgress = max(min(translation.x * tocMultiplier / self.presentedViewController!.view.bounds.maxX, 0.99), 0.01)
         
             self.update(transitionProgress)
-            DDLogVerbose("TOC transition progress: \(transitionProgress)")
+            DDLogDebug("TOC transition progress: \(transitionProgress)")
         case .ended:
             self.isInteractive = false
             let velocityRequiredToPresent = -gesture.view!.bounds.width * tocMultiplier

@@ -211,12 +211,12 @@ final class TalkPageViewModel {
         for topic in cleanTopics {
             
             guard let topicTitleHtml = topic.html else {
-                DDLogWarn("Missing topic title. Skipping topic.")
+                DDLogDebug("Missing topic title. Skipping topic.")
                 continue
             }
             
             guard let topicName = topic.name else {
-                DDLogError("Unable to parse topic name")
+                DDLogWarn("Unable to parse topic name")
                 continue
             }
             
@@ -231,14 +231,14 @@ final class TalkPageViewModel {
             
             // Parse through topic replies and set up comment view models
             guard let firstReply = topic.replies.first else {
-                DDLogWarn("Unable to parse lead comment. Skipping topic.")
+                DDLogDebug("Unable to parse lead comment. Skipping topic.")
                 continue
             }
             
             let firstReplyHtml = firstReply.html
             
             guard let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, html: firstReplyHtml, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level, talkPageURL: getTalkPageURL(encoded: false)) else {
-                DDLogWarn("Unable to parse lead comment. Skipping topic.")
+                DDLogDebug("Unable to parse lead comment. Skipping topic.")
                 continue
             }
             

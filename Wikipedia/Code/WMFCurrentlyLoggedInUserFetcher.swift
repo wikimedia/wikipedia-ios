@@ -62,7 +62,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
             let editCount = userinfo["editcount"] as? UInt64 ?? 0
             
             var isBlocked = false
-            if let blockID = userinfo["blockid"] as? UInt64 {
+            if userinfo["blockid"] is UInt64 {
                 let blockPartial = (userinfo["blockpartial"] as? Bool ?? false)
                 if !blockPartial {
                     isBlocked = true
