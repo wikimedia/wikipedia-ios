@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 @class WMFArticle, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN

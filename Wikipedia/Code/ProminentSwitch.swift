@@ -1,6 +1,6 @@
 import Components
 
-@objc (WMFProminentSwitch)
+@objc(WMFProminentSwitch)
 class ProminentSwitch: UISwitch {
     override func layoutSubviews() {
         super.layoutSubviews()

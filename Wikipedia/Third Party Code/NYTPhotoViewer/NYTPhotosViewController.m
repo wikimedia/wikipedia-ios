@@ -20,8 +20,6 @@
 
 #import "FLAnimatedImage.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
 NSString * const NYTPhotosViewControllerDidNavigateToPhotoNotification = @"NYTPhotosViewControllerDidNavigateToPhotoNotification";
 NSString * const NYTPhotosViewControllerWillDismissNotification = @"NYTPhotosViewControllerWillDismissNotification";
 NSString * const NYTPhotosViewControllerDidDismissNotification = @"NYTPhotosViewControllerDidDismissNotification";
@@ -37,7 +35,6 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
 @property (nonatomic) id <NYTPhotosViewControllerDataSource> dataSource;
 @property (nonatomic) UIPageViewController *pageViewController;
 @property (nonatomic) NYTPhotoTransitionController *transitionController;
-@property (nonatomic) UIPopoverController *activityPopoverController;
 
 @property (nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic) UITapGestureRecognizer *singleTapGestureRecognizer;
@@ -300,7 +297,7 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
 
 - (void)displayActivityViewController:(UIActivityViewController *)controller animated:(BOOL)animated {
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [self presentViewController:controller animated:animated completion:nil];
     }
     else {
@@ -524,8 +521,7 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
         UIMenuController *menuController = [UIMenuController sharedMenuController];
         CGRect targetRect = CGRectZero;
         targetRect.origin = [longPressGestureRecognizer locationInView:longPressGestureRecognizer.view];
-        [menuController setTargetRect:targetRect inView:longPressGestureRecognizer.view];
-        [menuController setMenuVisible:YES animated:YES];
+        [menuController showMenuFromView:longPressGestureRecognizer.view rect:targetRect];
     }
 }
 
@@ -553,4 +549,3 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
 }
 
 @end
-#pragma clang diagnostic pop

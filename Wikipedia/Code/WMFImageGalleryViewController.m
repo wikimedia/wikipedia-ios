@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincomplete-implementation"
-
 @interface NYTPhotosViewController (WMFExposure)
 
 - (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id<NYTPhoto>)photo;
@@ -35,10 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray<id<NYTPhoto>> *photos;
 
 @property (nonatomic, readonly) id<WMFExposedDataSource> dataSource;
-
-- (NYTPhotoViewController *)currentPhotoViewController;
-
-- (UIImageView *)currentImageView;
 
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -110,9 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
          */
         NSParameterAssert(self.dataSource);
         NSParameterAssert(self.photos);
-        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
@@ -148,10 +138,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)shouldAutorotate {
     return YES;
-}
-
-- (UIImageView *)currentImageView {
-    return [self currentPhotoViewController].scalingImageView.imageView;
 }
 
 - (NSArray<id<NYTPhoto>> *)photos {
@@ -273,7 +259,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
         } else {
             // There should always be a file page URL, but log an error anyway
-            DDLogError(@"No license URL or file page URL for %@", imageInfo);
+            DDLogWarn(@"No license URL or file page URL for %@", imageInfo);
         }
     };
     caption.infoTapCallback = ^{
@@ -323,8 +309,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-#pragma clang diagnostic pop
 
 @interface WMFPOTDPhoto : WMFBasePhoto <WMFPhoto>
 
