@@ -58,6 +58,10 @@ final class EditorViewController: UIViewController {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
     
+    private var shouldShowEditAlert: Bool {
+        return !UserDefaults.standard.didShowInformationEditingMessage && sectionID == 0
+    }
+
     private lazy var navigationItemController: EditorNavigationItemController = {
         let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
@@ -252,7 +256,7 @@ final class EditorViewController: UIViewController {
             } else {
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
-            if !UserDefaults.standard.didShowInformationEditingMessage && !isDifferentErrorBannerShown {
+            if shouldShowEditAlert && !isDifferentErrorBannerShown {
                 WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, sticky: false, dismissPreviousAlerts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
