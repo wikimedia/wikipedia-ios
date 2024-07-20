@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 import MapKit
 
@@ -177,7 +177,7 @@ class ArticlePlaceView: MapAnnotationView {
         countLabel.frame = groupView.bounds
         countLabel.textColor = UIColor.white
         countLabel.textAlignment = .center
-        countLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        countLabel.font = WKFont.for(.boldCallout)
         groupView.addSubview(countLabel)
     
         prepareForReuse()

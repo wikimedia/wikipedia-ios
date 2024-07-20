@@ -41,7 +41,7 @@ class CircledRankView: SizeThatFitsView {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

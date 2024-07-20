@@ -3,7 +3,7 @@ import UIKit
 
 /// Matches the appearance of the launch xib and shows while we do any setup or migrations that need to block user interaction.
 /// If this VC is shown for longer than `maximumNonInteractiveTimeInterval`, the view transitions to a loading animation.
-@objc (WMFSplashScreenViewController)
+@objc(WMFSplashScreenViewController)
 class SplashScreenViewController: ThemeableViewController {
     
     // MARK: Object Lifecycle
@@ -20,7 +20,7 @@ class SplashScreenViewController: ThemeableViewController {
         setupSplashView()
     }
     
-    func triggerMigratingAnimation() {
+    @objc func triggerMigratingAnimation() {
         perform(#selector(showLoadingAnimation), with: nil, afterDelay: SplashScreenViewController.maximumNonInteractiveTimeInterval)
     }
     

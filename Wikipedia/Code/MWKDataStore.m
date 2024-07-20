@@ -150,7 +150,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     NSError *unarchiveError = nil;
     NSMutableDictionary *infoDictionary = [[self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError] mutableCopy] ?: [NSMutableDictionary new];
     if (unarchiveError) {
-        DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
+        DDLogDebug(@"Error unarchiving shared info dictionary, possibly because this is a fresh install and it doesn't exist yet: %@", unarchiveError);
     }
 
     BOOL needsWrite = false;
@@ -512,6 +512,24 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
+}
+
+/// Simple flag to determine if the library will need to be migrated
+/// Persisted library version number in Core Data is lower than WMFCurrentLibraryVersion or nil
+/// This helps us determine whether or not to trigger the Splash screen updating animation
+- (BOOL)needsMigration {
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
+    
+    if (!libraryVersionNumber) {
+        return NO;
+    }
+    
+    NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
+    if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.

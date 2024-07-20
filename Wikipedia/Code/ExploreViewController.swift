@@ -1,4 +1,3 @@
-import UIKit
 import WMF
 import CocoaLumberjackSwift
 import Components
@@ -70,6 +69,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if !UIAccessibility.isVoiceOverRunning {
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
         }
+        
+        if tabBarSnapshotImage == nil {
+            updateTabBarSnapshotImage()
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -86,6 +89,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.updateTabBarSnapshotImage()
+        }
     }
 
     func presentUITestHelperController() {
@@ -482,6 +493,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     var detailTransitionSourceRect: CGRect?
     
+    var tabBarSnapshotImage: UIImage?
+    
+    private func updateTabBarSnapshotImage() {
+        guard let tabBar = self.tabBarController?.tabBar else {
+            return
+        }
+        
+        let renderer = UIGraphicsImageRenderer(size: tabBar.bounds.size)
+        let image = renderer.image { ctx in
+            tabBar.drawHierarchy(in: tabBar.bounds, afterScreenUpdates: true)
+        }
+        
+        self.tabBarSnapshotImage = image
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -525,8 +551,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if
                 let vc = cell.cardContent as? ExploreCardViewController,
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
-                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
-            {
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             } else {
                 imageScaleTransitionView = nil
@@ -1240,7 +1265,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
-            
+
             let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
             let imageDescription = imageData.description?.removingHTML
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
@@ -1254,6 +1279,12 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     func imageRecommendationsDidTriggerError(_ error: any Error) {
         WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
     }
+
+    func imageRecommendationsDidTriggerTimeWarning() {
+        let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+    }
+
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
@@ -1300,7 +1331,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
-        saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
+        saveVC.needsSuppressPosting = WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
         saveVC.editSummaryTag = .suggestedEditsAddImageTop
 
         saveVC.delegate = self
@@ -1424,7 +1455,11 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     func logBottomSheetDidAppear() {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
-    
+
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay(fileName: fileName, recommendationSource: recommendationSource)
+    }
+
     func logBottomSheetDidTapYes() {
         
         if let viewModel = imageRecommendationsViewModel,

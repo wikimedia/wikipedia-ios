@@ -314,7 +314,8 @@ class ViewControllerRouter: NSObject {
         }
 
         let htmlStripped: (String) -> String = { inputString in
-            return inputString.removingHTML
+            let strippedString = inputString.removingHTML
+            return strippedString
         }
 
         let attributedFilterString: (Int) -> AttributedString = { filters in

@@ -11,7 +11,7 @@ extension WKWebView {
             let isSelectedTextInTitleDescription = dictionary["isSelectedTextInTitleDescription"] as? Bool,
             let sectionID = dictionary["sectionID"] as? Int
             else {
-                DDLogError("Error converting dictionary to SelectedTextEditInfo")
+                DDLogWarn("Error converting dictionary to SelectedTextEditInfo")
                 return nil
         }
         let descriptionSource: ArticleDescriptionSource?
@@ -34,14 +34,14 @@ extension WKWebView {
                     let resultDict = result as? [String: Any],
                     let selectedTextEditInfo = self?.selectedTextEditInfo(from: resultDict)
                 else {
-                    DDLogError("Error handling 'getSelectedTextEditInfo()' dictionary response")
+                    DDLogWarn("Error handling 'getSelectedTextEditInfo()' dictionary response")
                     return
                 }
                 
                 completionHandler(selectedTextEditInfo, nil)
                 return
             }
-            DDLogError("Error when evaluating javascript on fetch and transform: \(error)")
+            DDLogWarn("Error when evaluating javascript on fetch and transform: \(error)")
         }
     }
 }

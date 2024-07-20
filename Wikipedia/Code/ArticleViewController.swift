@@ -111,6 +111,8 @@ class ArticleViewController: ViewController, HintPresenting {
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
         navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
+        
+        hidesBottomBarWhenPushed = true
     }
     
     deinit {
@@ -166,7 +168,7 @@ class ArticleViewController: ViewController, HintPresenting {
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-            DDLogError("Error loading lead image: \(error)")
+            DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
             self.updateArticleMargins()
@@ -506,7 +508,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 case .success(let itemKeys):
                     DDLogDebug("successfully synced \(itemKeys.count) resources")
                 case .failure(let error):
-                    DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                    DDLogError("failed to synced resources for \(groupKey): \(error)")
                 }
             }
         }

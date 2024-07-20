@@ -52,15 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage;
 
-- (UIImageView *)currentImageView;
-
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 - (void)setOverlayViewTopBarHidden:(BOOL)hidden;
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo;
-
-- (void)updateOverlayInformation;
 
 @property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
 

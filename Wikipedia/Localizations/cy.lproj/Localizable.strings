@@ -84,6 +84,7 @@
 "action-add-to-reading-list" = "Ychwanegu at eich rhestr ddarllen";
 "action-add-to-reading-list-short" = "Ychwanegu at restr";
 "action-cancel" = "Canslo";
+"action-discard-edit" = "Canslo Golygiad";
 "action-discard-edits" = "Canslo golygiadau";
 "action-find-in-page" = "Chwilio'r testun";
 "action-keep-editing" = "Parhau i olygu";
@@ -109,6 +110,7 @@
 "action-unsaved-accessibility-notification" = "Dad-gadwyd yr erthygl";
 "action-update" = "Diweddaru";
 "add-articles-to-reading-list" = "Ychwanegu {{PLURAL:$1|$1 erthygl}} at restr ddarllen";
+"advanced-settings-title" = "Gosodiadau uwch";
 "announcements-dismiss" = "Cau";
 "app-store-keywords" = "Wicipedia, cyfeirio, wici, gwyddoniadur, gwybodaeth, ymchwil, archwilio, dysgu";
 "app-store-short-description" = "Lawrlwythwch ap Wicipedia i archwilio lleoedd yn agos atoch chi, cysoni erthyglau i'w darllen all-lein ac addasu eich profiad darllen.";
@@ -185,6 +187,8 @@
 "diff-compare-header-heading" = "Cymharu Golygiadau";
 "diff-compare-header-to-info-heading" = "Golygiad a Ddangosir";
 "diff-compare-title" = "Cymharu Golygiadau";
+"diff-context-cell-collapse-section" = "Lleihau $1";
+"diff-context-cell-expand-section" = "Ehangu $1";
 "diff-context-lines-collapsed-button-title" = "Dangos";
 "diff-context-lines-expanded-button-title" = "Cuddio";
 "diff-multi-line-format" = "Llinellau $1 - $2";
@@ -232,17 +236,19 @@
 "edit-notices-please-read" = "Darllenwch hwn cyn golygu";
 "edit-published" = "Wedi cyhoeddi'r golygiad";
 "edit-summary-add-summary-text" = "Rhoi crynodeb golygu";
+"edit-summary-choice-added-image" = "Ychwanegwyd delwedd";
 "edit-summary-choice-fixed-grammar" = "Trwsiwyd y ramadeg";
 "edit-summary-choice-fixed-typos" = "Trwsiwyd rhai gwallau teipio";
 "edit-summary-choice-linked-words" = "Ychwanegwyd dolenni";
 "edit-summary-placeholder-text" = "Sut wnaethoch chi wella'r erthygl?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Dysgu mwy am restrau gwylio";
+"edit-watch-list-learn-more-text" = "Dysgu mwy am eich Rhestr Gwylio";
 "edit-watch-this-page-text" = "Gwylio'r dudalen hon";
 "editing-welcome-be-bold-title" = "Dweud eich dweud";
 "editing-welcome-citations-title" = "Dyfynnu ffynonnellau dibynadwy";
 "editing-welcome-impartial-tone-title" = "Ysgrifennwch yn ddiduedd";
 "editing-welcome-set-knowledge-free-title" = "Rhyddhau gwybodaeth i'r byd";
+"editor-edit-published" = "Cyhoeddwyd eich golygiad.";
+"editor-edit-source" = "Golygu cod";
 "editor-exit-confirmation-title" = "Cau'r modd golygu?";
 "editor-find-textfield-accessibility" = "Canfod";
 "editor-keyboard-bold-accessibility" = "Trwm";
@@ -266,6 +272,12 @@
 "editor-keyboard-template-accessibility" = "Nodyn";
 "editor-keyboard-text-formatting-title" = "Fformatio Testun";
 "editor-keyboard-underline-accessibility" = "Tanlinellu";
+"editor-replace-textfield-accessibility" = "Disodli";
+"editor-replace-textfield-placeholder" = "Disodli gyda...";
+"editor-replace-type-all" = "Disodli'r cyfan";
+"editor-replace-type-all-accessibility" = "Disodli pob achos";
+"editor-replace-type-single" = "Disodli";
+"editor-replace-type-single-accessibility" = "Disodli un achos";
 "empty-diff-compare-title" = "Dim gwahaniaeth rhwng fersiynau";
 "empty-insert-media-title" = "Dewiswch ffeil o Gomin Wicimedia";
 "empty-no-article-message" = "Mae'n ddrwg gennym, ni ellir llwytho'r erthygl";
@@ -335,6 +347,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Wicipedia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Wicipedia";
 "explore-randomizer" = "Hapiwr";
+"explore-suggested-edits-footer" = "Ychwanegu";
+"explore-suggested-edits-image-recs-title" = "Ychwanegu delwedd";
 "export-user-data-confirmation-title" = "Rhannu llyfrgell yr ap?";
 "export-user-data-title" = "Allforio Data Defnyddiwr";
 "featured-widget-from-language-wikipedia" = "Wicipedia $1";
@@ -388,6 +402,17 @@
 "icon-shortcut-random-title" = "Erthygl ar hap";
 "icon-shortcut-search-title" = "Chwilio Wicipedia";
 "image-gallery-unknown-owner" = "Awdur anhysbys.";
+"image-rec-add-image-title" = "Ychwanegu'r ddelwedd hon?";
+"image-rec-empty-subtitle" = "Ceisiwch ddod yn ôl wedyn.";
+"image-rec-survey-option-6" = "Arall";
+"image-rec-survey-submit-button" = "Cyflwyno";
+"image-rec-survey-title" = "Rheswm";
+"image-rec-title" = "Ychwanegu delwedd";
+"image-rec-tooltip-1-title" = "Adolygu";
+"image-rec-tooltip-3-title" = "Penderfynu";
+"image-rec-view-article" = "Gweld erthygl";
+"image-recs-no-title" = "Na";
+"image-recs-yes-title" = "Ie";
 "import-shared-reading-list-default-title" = "Fy rhestr ddarllen";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nes ymlaen";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Cymryd yr arolwg";
@@ -409,6 +434,8 @@
 "insert-media-image-preview-select-image-action-title" = "Dewis delwedd";
 "insert-media-image-size-setting-custom" = "Cyfaddas";
 "insert-media-image-size-setting-default" = "Rhagosodedig";
+"insert-media-image-size-settings-measure-height" = "Uchder";
+"insert-media-image-size-settings-measure-width" = "Lled";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Maint y ddelwedd";
 "insert-media-image-type-setting-basic" = "Sylfaenol";
@@ -424,6 +451,7 @@
 "languages-settings-title" = "Ieithoedd";
 "languages-title" = "Newid iaith";
 "languages-wikipedia" = "Ieithoedd Wicipedia";
+"learn-more-title" = "Dysgu mwy";
 "logged-out-continue-without-logging-in-button-title" = "Parhau heb fewngofnodi";
 "logged-out-log-back-in-button-title" = "Mewngofnodi i'ch cyfrif";
 "logged-out-title" = "Rydych chi wedi allgofnodi";
@@ -455,6 +483,7 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milltir";
 "new-password-title" = "Gosodwch eich cyfrinair";
+"next-action-title" = "Nesaf";
 "no-internet-connection" = "Dim cysylltiad gwe";
 "notifications-center-agent-description-from-format" = "Gan $1";
 "notifications-center-alert" = "Rhybudd";
@@ -577,7 +606,9 @@
 "places-search-top-articles-that-match-scope" = "Gerllaw";
 "places-search-your-current-location" = "Eich lleoliad cyfredol";
 "places-title" = "Lleoedd";
+"potd-description-prefix" = "Delwedd y Dydd am $1";
 "potd-widget-title" = "Delwedd y dydd";
+"privacy-policy-title" = "Polisi preifatrwydd";
 "project-name-mediawiki" = "MediaWici";
 "project-name-wikibooks" = "Wicilyfrau";
 "project-name-wikidata" = "Wicidata";
@@ -622,6 +653,8 @@
 "replace-infolabel-method-replace-all" = "Disodli'r cyfan";
 "replace-textfield-accessibility" = "Disodli";
 "replace-textfield-placeholder" = "Disodli gyda:";
+"return-button-title" = "Nôl";
+"return-to-article" = "Nôl i erthygl";
 "saved-all-articles-title" = "Pob erthygl";
 "saved-title" = "Arbedwyd";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Dad-gadw {{PLURAL:$1|erthygl|erthyglau}}?";
@@ -644,6 +677,7 @@
 "settings-clear-cache-are-you-sure-title" = "Clirio data wedi'i storio?";
 "settings-clear-cache-cancel" = "Canslo";
 "settings-clear-cache-ok" = "Clirio storfa";
+"settings-donate" = "Rhoi arian";
 "settings-help-and-feedback" = "Cymorth ac adborth";
 "settings-language-bar" = "Dangos yr ieithoedd wrth chwilio";
 "settings-my-languages" = "Fy ieithoedd";
@@ -677,7 +711,7 @@
 "talk-page-archives" = "Archifau";
 "talk-page-article-about" = "Ynglŷn â thudalennau sgwrs";
 "talk-page-change-language" = "Newid iaith";
-"talk-page-collapse-thread-button" = "Crebachu edefyn";
+"talk-page-collapse-thread-button" = "Lleihau edefyn";
 "talk-page-discussion-read-accessibility-label" = "Wedi'i ddarllen";
 "talk-page-discussion-unread-accessibility-label" = "Heb ei ddarllen";
 "talk-page-error-alert-title" = "Gwall anhysbys";
@@ -707,6 +741,7 @@
 "talk-pages-archives-view-title" = "Archifau";
 "talk-pages-coffee-roll-read-more" = "Darllen mwy";
 "talk-pages-compose-close-confirmation-keep" = "Parhau i olygu";
+"talk-pages-edit-source" = "Golygu cod";
 "talk-pages-empty-view-button-article-add-topic" = "Ychwanegu pwnc newydd";
 "talk-pages-empty-view-button-user-start-discussion" = "Dechrau trafodaeth newydd";
 "talk-pages-empty-view-header-article" = "Mae'r sgwrs yn dechrau yma";
@@ -721,6 +756,7 @@
 "talk-pages-user-groups" = "Grwpiau defnyddiwr";
 "talk-pages-user-logs" = "Logiau";
 "talk-pages-view-title" = "Sgwrs";
+"terms-of-use-title" = "Telerau defnydd";
 "theme-black-display-name" = "Du";
 "theme-dark-display-name" = "Tywyll";
 "theme-default-display-name" = "Rhagosodedig";
@@ -729,6 +765,8 @@
 "theme-sepia-display-name" = "Sepia";
 "top-read-widget-readers-count" = "$1 o ddarllenwyr";
 "top-read-widget-title" = "Poblogaidd";
+"try-now-title" = "Ceisiwch nawr";
+"tutorial-title" = "Tiwtorial";
 "two-factor-login-continue" = "Parhau i fewngofnodi";
 "two-factor-login-instructions" = "Rhowch god dilysu dau ffactor";
 "two-factor-login-title" = "Mewngofnodwch i'ch cyfri";
@@ -737,6 +775,7 @@
 "unable-to-load-talk-page-title" = "Ni ellir llwytho tudalen sgwrs";
 "unknown-generic-text" = "Anhysbys";
 "unwatch" = "Dad-wylio";
+"user-title" = "Defnyddiwr";
 "vanish-account-continue-button-title" = "Parhau";
 "vanish-account-username-field" = "Enw defnyddiwr a thudalen defnyddiwr";
 "vanish-account-warning-title" = "Rhybudd";
@@ -752,8 +791,26 @@
 "watchlist-change-expiry-option-six-months" = "6 mis";
 "watchlist-change-expiry-option-three-months" = "3 mis";
 "watchlist-change-expiry-subtitle" = "Dewiswch gyfnod amser y Rhestr Gwylio";
+"watchlist-edit-summary-accessibility" = "Crynodeb golygu";
+"watchlist-empty-view-button-title" = "Chwilio erthyglau";
 "watchlist-filter" = "Hidlo";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Dynol (nid bot)";
+"watchlist-filter-significance-header" = "Arwyddocâd";
+"watchlist-filter-significance-options-minor-edits" = "Golygiadau bychain";
+"watchlist-filter-type-of-change-header" = "Math o newid";
+"watchlist-filter-type-of-change-options-category-changes" = "Newidiadau i gategorïau";
+"watchlist-filter-type-of-change-options-logged-actions" = "Cofnodion log";
+"watchlist-filter-type-of-change-options-page-creations" = "Tudalennau a grëwyd";
+"watchlist-filter-type-of-change-options-page-edits" = "Golygiadau i dudalen";
+"watchlist-filter-type-of-change-options-wikidata-edits" = "Golygiadau Wicidata";
+"watchlist-filter-user-registration-header" = "Cofrestru a phrofiad defnyddwyr";
+"watchlist-filter-user-registration-options-registered" = "Cofrestrwyd";
+"watchlist-filter-user-registration-options-unregistered" = "Heb gofrestru";
+"watchlist-filters-add-language" = "Ychwanegu iaith...";
 "watchlist-removed" = "Tynnwyd oddi ar eich Rhestr Wylio";
+"watchlist-updates-title" = "Gweld diweddariadau";
+"watchlist-user-button-thank" = "Diolch";
 "watchlist-user-button-user-contributions" = "Cyfraniadau defnyddiwr";
 "watchlist-user-button-user-page" = "Tudalen ddefnyddiwr";
 "watchlist-user-button-user-talk-page" = "Tudalen sgwrs defnyddiwr";

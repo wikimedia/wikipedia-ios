@@ -111,7 +111,6 @@ public final class ImageCacheController: CacheController {
                 }
                 
                 self.dataCompletionManager.complete(uniqueKey, enumerator: { (completion) in
-                    // DDLogDebug("complete: \(url) \(token)")
                     switch result {
                     case .success(let result):
                         completion.success(result.data, result.response)

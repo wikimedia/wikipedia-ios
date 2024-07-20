@@ -1017,7 +1017,7 @@
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=Nyligen|$1 t sedan|$1 t sedan}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=Nu|$1 min sedan|$1 min sedan}}";
 "relative-date-minutes-abbreviated" = "$1m";
-"relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Alldeles nyss|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-minutes-ago-abbreviated" = "$1m sedan";
 "relative-date-months-ago" = "{{PLURAL:$1|0=Denna månad|1=Senaste månaden|$1 månader sedan}}";
 "relative-date-seconds-abbreviated" = "$1s";

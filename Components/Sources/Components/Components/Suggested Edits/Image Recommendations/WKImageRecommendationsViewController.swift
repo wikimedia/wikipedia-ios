@@ -11,6 +11,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
+    func imageRecommendationsDidTriggerTimeWarning()
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -32,6 +33,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String)
     func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -102,6 +104,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -116,7 +119,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         addComponent(hostingViewController, pinToEdges: true)
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldBody)
+        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 

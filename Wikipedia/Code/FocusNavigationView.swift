@@ -1,4 +1,3 @@
-import UIKit
 import Components
 
 protocol FocusNavigationViewDelegate: AnyObject {
@@ -25,7 +24,7 @@ final class FocusNavigationView: UIView {
        
         titleLabel.text = titleText
         titleLabel.isAccessibilityElement = isTitleAccessible
-        titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WKFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         closeButton.accessibilityLabel = closeButtonAccessibilityText
         
         updateLayout(for: traitCollection)

@@ -701,9 +701,9 @@ private extension DiffContainerViewController {
                 switch result {
                 case .success(let status):
                     
-                    let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
-                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && FeatureFlags.watchlistEnabled
-                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && FeatureFlags.watchlistEnabled
+                    let needsWatchButton = !status.watched
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
                     let needsArticleEditHistoryButton = true
                     
                     self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
@@ -1342,7 +1342,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
         
-        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, editSummaryTag: .diffUndo, project: wkProject) { [weak self] result in
+        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1386,7 +1386,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username, editSummaryTag: .diffRollback) { [weak self] result in
+        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }

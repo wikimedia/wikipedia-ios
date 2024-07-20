@@ -6,11 +6,10 @@
 //  Copyright (c) 2013-2015 Flipboard. All rights reserved.
 //
 
-
 #import "FLAnimatedImage.h"
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-
+@import UniformTypeIdentifiers;
 
 // From vm_param.h, define for iOS 8.0 or higher to build on device.
 #ifndef BYTE_SIZE
@@ -18,9 +17,6 @@
 #endif
 
 #define MEGABYTE (1024 * 1024)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Weverything"
 
 // This is how the fastest browsers do it as per 2012: http://nullsleep.tumblr.com/post/16524517190/animated-gif-minimum-frame-delay-browser-compatibility
 const NSTimeInterval kFLAnimatedImageDelayTimeIntervalMinimum = 0.02;
@@ -214,7 +210,8 @@ static NSHashTable *allAnimatedImagesWeak;
         
         // Early return if not GIF!
         CFStringRef imageSourceContainerType = CGImageSourceGetType(_imageSource);
-        BOOL isGIFData = UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF);
+        UTType *type = [UTType typeWithIdentifier:(__bridge NSString *)imageSourceContainerType];
+        const BOOL isGIFData = imageSourceContainerType ? [type conformsToType:UTTypeGIF] : NO;
         if (!isGIFData) {
             FLLog(FLLogLevelError, @"Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
             return nil;
@@ -302,7 +299,7 @@ static NSHashTable *allAnimatedImagesWeak;
                     CFRelease(frameImageRef);
                 } else {
                     skippedFrameCount++;
-                    FLLog(FLLogLevelInfo, @"Dropping frame %zu because failed to `CGImageSourceCreateImageAtIndex` with image source %@", i, _imageSource);
+                    FLLog(FLLogLevelInfo, @"Dropping frame %zu because failed to `CGImageSourceCreateImageAtIndex` with image source %@", i, self->_imageSource);
                 }
             }
         }
@@ -817,4 +814,3 @@ static FLLogLevel _logLevel;
 
 
 @end
-#pragma clang diagnostic pop

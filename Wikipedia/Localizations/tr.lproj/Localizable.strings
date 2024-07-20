@@ -344,6 +344,8 @@
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
 "edit-summary-placeholder-text" = "Sayfayı hangi yönden geliştirdiniz?";
+"edit-summary-short-description-added" = "Kısa açıklama eklendi";
+"edit-summary-short-description-updated" = "Kısa açıklama güncellendi";
 "edit-watch-list-learn-more-text" = "İzleme listeniz hakkında daha fazla bilgi edinin";
 "edit-watch-this-page-text" = "Bu sayfayı izle";
 "editing-welcome-be-bold-subtitle" = "Maddeleri güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin. Sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
@@ -637,6 +639,7 @@
 "image-recommendations-email-title" = "Sorun Bildirimi - Görsel Ekleme Özelliği";
 "image-recs-no-title" = "Hayır";
 "image-recs-not-sure-title" = "Emin değilim";
+"image-recs-time-warning-message" = "Konusunu anlamak için lütfen maddeyi gözden geçirin ve görseli inceleyin";
 "image-recs-yes-title" = "Evet";
 "import-shared-reading-list-default-title" = "Okuma Listem";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Şimdi değil";

@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import Components
 
 public class RemoteNotificationsAPIController: Fetcher {
 

@@ -1,6 +1,6 @@
 import Foundation
 
-@objc (WMFLicenseView)
+@objc(WMFLicenseView)
 class LicenseView: UIStackView {
     @objc public var licenseCodes: [String] = [] {
         didSet {

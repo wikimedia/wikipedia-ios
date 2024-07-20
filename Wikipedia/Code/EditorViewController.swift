@@ -40,7 +40,7 @@ final class EditorViewController: UIViewController {
     private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
-    private let editSummaryTag: WKEditSummaryTag
+    private let editTag: WKEditTag
     private weak var delegate: EditorViewControllerDelegate?
     private var theme: Theme
     
@@ -81,7 +81,7 @@ final class EditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editSummaryTag: WKEditSummaryTag, delegate: EditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WKEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
 
         self.pageURL = pageURL
         self.sectionID = sectionID
@@ -89,7 +89,7 @@ final class EditorViewController: UIViewController {
         self.editNoticesFetcher = EditNoticesFetcher(session: dataStore.session, configuration: dataStore.configuration)
         self.dataStore = dataStore
         self.articleSelectedInfo = articleSelectedInfo
-        self.editSummaryTag = editSummaryTag
+        self.editTag = editTag
         self.delegate = delegate
         self.theme = theme
         self.editFlow = editFlow
@@ -643,7 +643,7 @@ final class EditorViewController: UIViewController {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
         saveVC.source = source
-        saveVC.editSummaryTag = editSummaryTag
+        saveVC.editTag = editTag
 
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
@@ -898,7 +898,7 @@ extension EditorViewController: EditLinkViewControllerDelegate {
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
-        DDLogError("Failed to extract article title from \(pageURL)")
+        DDLogWarn("Failed to extract article title from \(pageURL)")
         dismiss(animated: true)
     }
     

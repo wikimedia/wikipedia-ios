@@ -196,6 +196,8 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"developer-settings" = "Developer Settings";
+"developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
 "diff-change-paragraph-lines-moved-down" = "Paragraph moved down {{PLURAL:$1|0=0 lines|$1 line|$1 lines}}. Go to new location.";
@@ -595,6 +597,7 @@
 "image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
+"image-recs-time-warning-message" = "Please review the article to understand its topic and inspect the image";
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Not now";

@@ -70,7 +70,7 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
                       summary:(nullable NSString *)summary
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
-            editSummaryTag:(nullable NSString *)editSummaryTag
+            editTags:(nullable NSArray<NSString *> *)editTags
                    completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
 
     NSString *title = articleURL.wmf_title;
@@ -79,14 +79,12 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
         return;
     }
 
-    NSString *finalSummary = appendTagToEditSummary(editSummaryTag, summary);
-
     NSMutableDictionary *params =
     @{
       @"action": @"edit",
       @"prependtext": text,
       @"section": sectionID,
-      @"summary": finalSummary,
+      @"summary": summary,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -102,6 +100,10 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
     if (baseRevID) {
         params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
     }
+    
+    if (editTags && editTags.count > 0) {
+        params[@"matags"] = [editTags componentsJoinedByString:@","];
+    }
 
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
@@ -116,6 +118,7 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
         editSummaryTag:(nullable NSString *)editSummaryTag
+              editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
     wikiText = wikiText ? wikiText : @"";
@@ -160,6 +163,10 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
     if (captchaWord && captchaId) {
         params[@"captchaid"] = captchaId;
         params[@"captchaword"] = captchaWord;
+    }
+    
+    if (editTags && editTags.count > 0) {
+        params[@"matags"] = [editTags componentsJoinedByString:@","];
     }
     
     [self updateWithArticleURL:articleURL parameters:params captchaWord:captchaWord completion:completion];

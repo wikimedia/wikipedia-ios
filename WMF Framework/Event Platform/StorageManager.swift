@@ -1,7 +1,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-@objc (WMFEPCStorageManager)
+@objc(WMFEPCStorageManager)
 public class StorageManager: NSObject {
 
     private let managedObjectContext: NSManagedObjectContext
@@ -90,7 +90,7 @@ public class StorageManager: NSObject {
                     DDLogDebug("EPC: Found \(count) events awaiting submission")
                 }
             } catch let error {
-                DDLogError(error.localizedDescription)
+                DDLogError("\(error.localizedDescription)")
             }
         }
         return events
@@ -100,21 +100,21 @@ public class StorageManager: NSObject {
         perform { moc in
             do {
                 guard let psc = moc.persistentStoreCoordinator else {
-                    DDLogWarn("EPC: Error getting persistent store coordinator")
+                    DDLogError("EPC: Error getting persistent store coordinator")
                     return
                 }
                 guard let moid = psc.managedObjectID(forURIRepresentation: event.managedObjectURI) else {
-                    DDLogWarn("EPC: Error getting managed object ID for URI \(event.managedObjectURI)")
+                    DDLogError("EPC: Error getting managed object ID for URI \(event.managedObjectURI)")
                     return
                 }
                 guard let record = try moc.existingObject(with: moid) as? EPEventRecord else {
-                    DDLogWarn("EPC: Tried to mark managed object \(moid) as purgeable, but it was not found")
+                    DDLogError("EPC: Tried to mark managed object \(moid) as purgeable, but it was not found")
                     return
                 }
                 record.purgeable = true
                 self.save(moc)
             } catch let error {
-                DDLogError(error.localizedDescription)
+                DDLogError("\(error.localizedDescription)")
             }
 
         }
@@ -148,7 +148,7 @@ public class StorageManager: NSObject {
                 }
 
                 if count > 0 {
-                    DDLogInfo("EPC StorageManager: Pruned \(count) events")
+                    DDLogDebug("EPC StorageManager: Pruned \(count) events")
                 }
 
             } catch let error {

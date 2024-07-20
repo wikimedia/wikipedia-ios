@@ -151,7 +151,7 @@ private extension ShortDescriptionController {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
-        let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
+        let editTag = editType == .add ? WKEditTag.appDescriptionAdd.rawValue : WKEditTag.appDescriptionChange.rawValue
 
         sectionUploader.prepend(
             toSectionID: "\(sectionID)",
@@ -160,7 +160,7 @@ private extension ShortDescriptionController {
             summary: CommonStrings.editSummaryShortDescriptionAdded(with: languageCode),
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
-            editSummaryTag: editSummaryTag,
+            editTags: [editTag],
             completion: { [weak self] (result, error) in
 
                 guard let self = self else {
@@ -190,8 +190,7 @@ private extension ShortDescriptionController {
             
             let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
             
-            let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-            
+            let editTag = editType == .add ? WKEditTag.appDescriptionAdd.rawValue : WKEditTag.appDescriptionChange.rawValue
             
             sectionUploader.uploadWikiText(
                 updatedWikitext,
@@ -203,7 +202,8 @@ private extension ShortDescriptionController {
                 baseRevID: baseRevisionID as NSNumber,
                 captchaId: nil,
                 captchaWord: nil,
-                editSummaryTag: editSummaryTag,
+                editSummaryTag: nil,
+                editTags: [editTag],
                 completion: { [weak self] (result, error) in
                 
                     guard let self = self else {
