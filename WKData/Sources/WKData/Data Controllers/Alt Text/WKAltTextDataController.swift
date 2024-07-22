@@ -3,6 +3,8 @@ import UIKit
 
 public final class WKAltTextDataController {
     
+    public static let shared = WKAltTextDataController()
+    
     public lazy var experimentStopDate: Date? = {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
@@ -12,6 +14,7 @@ public final class WKAltTextDataController {
     }()
     
     public enum WKAltTextDataControllerError: Error {
+        case featureFlagIsOff
         case notLoggedIn
         case invalidProject
         case invalidDeviceOrOS
@@ -21,6 +24,7 @@ public final class WKAltTextDataController {
     }
     
     let experimentsDataController: WKExperimentsDataController
+    let developerSettingsDataController: WKDeveloperSettingsDataController
     let userDefaultsStore: WKKeyValueStore
     static let experimentPercentage = 50 //must be between 1 and 100
     
@@ -34,10 +38,16 @@ public final class WKAltTextDataController {
         }
         
         self.experimentsDataController = WKExperimentsDataController(store: experimentStore)
+        self.developerSettingsDataController = WKDeveloperSettingsDataController.shared
         self.userDefaultsStore = userDefaultsStore
     }
     
     public func assignImageRecsExperiment(isLoggedIn: Bool, project: WKProject) throws {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            throw WKAltTextDataControllerError.featureFlagIsOff
+        }
+        
         guard isLoggedIn else {
             throw WKAltTextDataControllerError.notLoggedIn
         }
@@ -71,6 +81,11 @@ public final class WKAltTextDataController {
     }
     
     public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WKProject) throws {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            throw WKAltTextDataControllerError.featureFlagIsOff
+        }
+        
         guard isLoggedIn else {
             throw WKAltTextDataControllerError.notLoggedIn
         }
@@ -103,10 +118,20 @@ public final class WKAltTextDataController {
     }
     
     public func markSawAltTextImageRecommendationsPrompt() {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return
+        }
+        
         self.sawAltTextImageRecommendationsPrompt = true
     }
     
     public func shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: Bool, project: WKProject) -> Bool {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return false
+        }
+        
         guard sawAltTextImageRecommendationsPrompt == false else {
             return false
         }
@@ -140,10 +165,20 @@ public final class WKAltTextDataController {
     }
     
     public func markSawAltTextArticleEditorPrompt() {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return
+        }
+        
         self.sawAltTextArticleEditorPrompt = true
     }
     
     public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WKProject) -> Bool {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return false
+        }
+        
         guard sawAltTextImageRecommendationsPrompt == false else {
             return false
         }
@@ -177,6 +212,11 @@ public final class WKAltTextDataController {
     }
     
     public func assignedGroupForLogging() -> String? {
+        
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return nil
+        }
+        
         if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
             switch imageRecommendationsExperimentBucket {
             case .altTextImageRecommendationsTest:
