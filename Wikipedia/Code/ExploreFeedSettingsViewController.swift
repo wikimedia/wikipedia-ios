@@ -220,14 +220,25 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        // Image Recommendations Business Logic:
-        // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-        if !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
-        } else {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let altTextDevSettingsFeatureFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        let targetWikisForAltText = ["es", "fr", "pt", "zh"]
+        let standardCardOptions = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEditsOption = [suggestedEdits]
+        let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
+
+        if let language = self.dataStore?.languageLinkController.appLanguage?.languageCode {
+            let shouldShowAltTextExperiment = targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning
+
+            if shouldShowAltTextExperiment {
+                return standardCardOptions + suggestedEditsOption
+            }
+
+        } else if shouldShowSuggestedEdits {
+            return standardCardOptions + suggestedEditsOption
         }
-        
+
+        return standardCardOptions
+
     }()
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
