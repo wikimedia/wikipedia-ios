@@ -18,26 +18,40 @@ final class WKExperimentsDataController {
     
     public enum Experiment {
         case articleAsLivingDoc
+        case altTextImageRecommendations
+        case altTextArticleEditor
         
         var config: ExperimentConfig {
             switch self {
             case .articleAsLivingDoc:
                 return WKExperimentsDataController.articleAsLivingDocConfig
+            case .altTextImageRecommendations:
+                return WKExperimentsDataController.altTextImageRecommendationsConfig
+            case .altTextArticleEditor:
+                return WKExperimentsDataController.altTextArticleEditorConfig
             }
         }
     }
     
     public enum PercentageFileName: String {
         case articleAsLivingDocPercent
+        case altTextImageRecommendationsPercent
+        case altTextArticleEditorPercent
     }
     
     enum BucketFileName: String {
         case articleAsLivingDocBucket
+        case altTextImageRecommendationsBucket
+        case altTextArticleEditorBucket
     }
     
     public enum BucketValue: String {
         case articleAsLivingDocTest = "LivingDoc_Test"
         case articleAsLivingDocControl = "LivingDoc_Control"
+        case altTextImageRecommendationsTest = "AltTextImageRecommendations_Test"
+        case altTextImageRecommendationsControl = "AltTextImageRecommendations_Control"
+        case altTextArticleEditorTest = "AltTextArticleEditor_Test"
+        case altTextArticleEditorControl = "AltTextArticleEditor_Control"
     }
     
     // MARK: Properties
@@ -45,6 +59,10 @@ final class WKExperimentsDataController {
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.experiments.rawValue
     
     private static let articleAsLivingDocConfig = ExperimentConfig(experiment: .articleAsLivingDoc, percentageFileName: .articleAsLivingDocPercent, bucketFileName: .articleAsLivingDocBucket, bucketValueControl: .articleAsLivingDocControl, bucketValueTest: .articleAsLivingDocTest)
+    
+    private static let altTextImageRecommendationsConfig = ExperimentConfig(experiment: .altTextImageRecommendations, percentageFileName: .altTextImageRecommendationsPercent, bucketFileName: .altTextImageRecommendationsBucket, bucketValueControl: .altTextImageRecommendationsControl, bucketValueTest: .altTextImageRecommendationsTest)
+    
+    private static let altTextArticleEditorConfig = ExperimentConfig(experiment: .altTextArticleEditor, percentageFileName: .altTextArticleEditorPercent, bucketFileName: .altTextArticleEditorBucket, bucketValueControl: .altTextArticleEditorControl, bucketValueTest: .altTextArticleEditorTest)
     
     private let store: WKKeyValueStore
     
@@ -82,6 +100,10 @@ final class WKExperimentsDataController {
         switch experiment {
         case .articleAsLivingDoc:
             bucket = isInTest ? .articleAsLivingDocTest : .articleAsLivingDocControl
+        case .altTextImageRecommendations:
+            bucket = isInTest ? .altTextImageRecommendationsTest : .altTextImageRecommendationsControl
+        case .altTextArticleEditor:
+            bucket = isInTest ? .altTextArticleEditorTest : .altTextArticleEditorControl
         }
         
         try setBucket(bucket, forExperiment: experiment)
