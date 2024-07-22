@@ -196,6 +196,7 @@
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
 "developer-settings" = "Developer Settings";
+"developer-settings-enable-alt-text-experiment" = "Enable Alt Text experiment.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
