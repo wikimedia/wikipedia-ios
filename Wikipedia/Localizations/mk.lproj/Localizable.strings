@@ -207,6 +207,8 @@
 "description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
+"developer-settings" = "Поставки за разработувачи";
+"developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
 "diff-change-paragraph-lines-moved-down" = "Пасусот е преместен {{PLURAL:$1|0=0 редови|$1 ред|$1 реда}} надолу. Одете на ново место.";

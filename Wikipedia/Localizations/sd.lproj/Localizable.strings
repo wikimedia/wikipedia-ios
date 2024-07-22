@@ -1,6 +1,7 @@
 // Messages for Sindhi (سنڌي)
 // Exported from translatewiki.net
 // Author: Aursani
+// Author: Charoo
 // Author: Indus Asia
 // Author: Macofe
 // Author: Mehtab ahmed
@@ -114,10 +115,10 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ شامل ڪريو";
 "advanced-settings-title" = "متقدم ترتيبون";
 "announcements-dismiss" = "برخواست";
-"app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ-چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
+"app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، انسائيڪلوپيڊيا، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل طور پنھنجي حساب موجب رکڻ جوڳي ۽ پڙهڻ ۾ آسان ايڪسپلور رسد. مڪانيتڪاري، ڪارڪردگي ۾ بھتريون، ۽ چُڪون حل ڪيون ويون.";
 "app-store-short-description" = "پنهنجي ويجھو جڳھن کي جاکوڙڻ، مضمونن کي آف لائين پڙهڻ، ۽ پنھنجي پڙهڻ جي تجربي کي پنھنجو ڪرڻ لاءِ وڪيپيڊياڻايپ ڊائونلوڊ ڪريو.";
-"app-store-subtitle" = "کليل ڄاڻ چيڪلو";
+"app-store-subtitle" = "کليل انسائيڪلوپيڊيا";
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
 "appearance-settings-expand-tables" = "جدول کوليو";
 "appearance-settings-expand-tables-footer" = "مضمونن ۾ جدولون، بشمول ترت معلومات، حوالا، حاشيا، ۽ ٻاھريان ڳنڍڻا عام طور تي کليل هجن.";
@@ -1129,7 +1130,7 @@
 "welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ 300 کان مٿي ٻولين ۾ 40 ملين مضمون آھن.";
 "welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻيو";
 "welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
-"welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ آزاد ڄاڻ-چيڪلو ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
+"welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ کليل انسائيڪلوپيڊيا ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
 "welcome-intro-free-encyclopedia-title" = "مفت انسائيڪلوپيڊيا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون شامل يا مرتب ڪريو";
