@@ -262,7 +262,7 @@ public final class WKAltTextDataController {
             return false
         }
         
-        return experimentStopDate <= Date()
+        return experimentStopDate >= Date()
     }
     
     private var sawAltTextImageRecommendationsPrompt: Bool {
@@ -288,7 +288,7 @@ private extension WKProject {
         switch self {
         case .wikipedia(let language):
             switch language.languageCode {
-            case "es", "fr", "pt", "zh":
+            case "es", "fr", "pt", "zh", "test":
                 return true
             default:
                 return false

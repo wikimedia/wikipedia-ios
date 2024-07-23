@@ -1386,6 +1386,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
             return
         }
         
+        let project = imageRecommendationsViewModel.project
+        
         for viewController in viewControllers {
             if viewController is WKImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
@@ -1403,7 +1405,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                             return
                         }
                         
-                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded()
+                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: project)
                         
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
@@ -1424,19 +1426,18 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         self.imageRecommendationsViewModel = nil
     }
     
-    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded() {
+    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: WKProject) {
         
         let dataController = WKAltTextDataController.shared
         
-        guard let imageRecommendationsViewModel,
-        let dataController else {
+        guard let dataController else {
             return
         }
         
         let isLoggedIn = dataStore.authenticationManager.isLoggedIn
         
         do {
-            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: imageRecommendationsViewModel.project)
+            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: project)
         } catch let error {
             DDLogWarn("Error assigning alt text image recs experiment: \(error)")
         }
@@ -1445,7 +1446,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         
         DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
         
-        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: imageRecommendationsViewModel.project) {
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: project) {
             print("TODO: PRESENT MODAL")
             dataController.markSawAltTextImageRecommendationsPrompt()
         }
