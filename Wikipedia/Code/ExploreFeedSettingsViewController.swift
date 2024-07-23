@@ -227,9 +227,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
 
         if let language = self.dataStore?.languageLinkController.appLanguage?.languageCode {
-            let shouldShowAltTextExperiment = targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning
-
-            if shouldShowAltTextExperiment {
+            if targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning {
                 return standardCardOptions + suggestedEditsOption
             }
 

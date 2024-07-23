@@ -35,26 +35,35 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
+        BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
+        NSSet *targetWikisForAltText = [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
+        BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
+
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
                                                       completion:^(WMFCurrentlyLoggedInUser *user) {
-            
-                                                            // Image Recommendations Business Logic:
-                                                            // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-                                                          if (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) {
 
-                                                              [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
-                                                                  if (hasRecommendations) {
-                                                                      NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
+            // Alt text Experiment Business Logic - for target wikis, bypass minimum edit count
+            BOOL altTextExperiment = (enableAltTextExperiment && appLanguageIsTarget && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
+            // Image Recommendations Business Logic:
+            // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+            BOOL regularImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
-                                                                      [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-                                                                  }
+            if (altTextExperiment || regularImageRecommendations) {
 
-                                                                  completion();
-                                                              }];
-                                                          } else {
-                                                              completion();
-                                                          }
-                                                      }];
+                [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+                    if (hasRecommendations) {
+                        NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
+
+                        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+                    }
+
+                    completion();
+                }];
+            } else {
+                completion();
+            }
+        }];
     });
 }
 
