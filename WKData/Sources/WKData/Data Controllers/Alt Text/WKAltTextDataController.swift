@@ -26,7 +26,7 @@ public final class WKAltTextDataController {
     let experimentsDataController: WKExperimentsDataController
     let developerSettingsDataController: WKDeveloperSettingsDataController
     let userDefaultsStore: WKKeyValueStore
-    static let experimentPercentage = 50 //must be between 1 and 100
+    static let experimentPercentage = 50 // must be between 1 and 100
     
     // MARK: - Public
     
@@ -211,7 +211,7 @@ public final class WKAltTextDataController {
         }
     }
     
-    public func assignedGroupForLogging() -> String? {
+    public func assignedAltTextImageRecommendationsGroupForLogging() -> String? {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             return nil
@@ -228,6 +228,10 @@ public final class WKAltTextDataController {
             }
         }
         
+        return nil
+    }
+    
+    public func assignedAltTextArticleEditorGroupForLogging() -> String? {
         if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
             switch articleEditorExperimentBucket {
             case .altTextArticleEditorTest:

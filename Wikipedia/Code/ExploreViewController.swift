@@ -1395,9 +1395,16 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 }
                 
                 // Go to next recommendation and display success alert
-                imageRecommendationsViewModel.next {
+                imageRecommendationsViewModel.next { [weak self] in
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                        
+                        guard let self else {
+                            return
+                        }
+                        
+                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded()
+                        
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
                         
@@ -1415,6 +1422,33 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         }
         
         self.imageRecommendationsViewModel = nil
+    }
+    
+    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded() {
+        
+        let dataController = WKAltTextDataController.shared
+        
+        guard let imageRecommendationsViewModel,
+        let dataController else {
+            return
+        }
+        
+        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        
+        do {
+            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: imageRecommendationsViewModel.project)
+        } catch let error {
+            DDLogWarn("Error assigning alt text image recs experiment: \(error)")
+        }
+        
+        DDLogDebug("Assigned alt text image recommendations group: \(dataController.assignedAltTextImageRecommendationsGroupForLogging() ?? "nil")")
+        
+        DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
+        
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: imageRecommendationsViewModel.project) {
+            print("TODO: PRESENT MODAL")
+            dataController.markSawAltTextImageRecommendationsPrompt()
+        }
     }
     
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
