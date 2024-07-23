@@ -132,7 +132,7 @@ public final class WKAltTextDataController {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false else {
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
             return false
         }
         
@@ -179,7 +179,7 @@ public final class WKAltTextDataController {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false else {
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
             return false
         }
         
