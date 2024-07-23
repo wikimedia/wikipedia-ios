@@ -223,6 +223,8 @@
 "description-welcome-descriptions-title" = "תיאורי ערך";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
+"developer-settings" = "הגדרות מפתחים";
+"developer-settings-suppress-image-rec-post" = "לא לשלוח את עריכת הצעות התמונה.";
 "diff-article-revision-history" = "היסטוריית גרסאות של ערך";
 "diff-change-added" = "הוספה, $1, סוף הוספה.";
 "diff-change-paragraph-lines-moved-down" = "פסקה הוזזה {{PLURAL:$1|0=אפס שורות|שורה אחת|$1 שורות}} מטה. נא לעבור למיקום חדש.";
