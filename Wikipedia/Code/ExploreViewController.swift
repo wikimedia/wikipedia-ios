@@ -1300,9 +1300,12 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         
         currentRecommendation.caption = caption
         currentRecommendation.altText = altText
+        currentRecommendation.imageWikitext = imageWikitext
         
         do {
             let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            
+            currentRecommendation.fullArticleWikitextWithImage = wikitextWithImage
             
             let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
             editPreviewViewController.theme = theme
@@ -1396,6 +1399,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
                 
+                
+                let lastRecommendation = imageRecommendationsViewModel.currentRecommendation
+                
                 // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next { [weak self] in
                     
@@ -1405,7 +1411,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                             return
                         }
                         
-                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: project)
+                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: project, lastRecommendation: lastRecommendation)
                         
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
@@ -1426,7 +1432,12 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         self.imageRecommendationsViewModel = nil
     }
     
-    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: WKProject) {
+    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: WKProject, lastRecommendation: WKImageRecommendationsViewModel.ImageRecommendation?) {
+        
+        guard let lastRecommendation,
+              lastRecommendation.altText == nil else {
+            return
+        }
         
         let dataController = WKAltTextDataController.shared
         

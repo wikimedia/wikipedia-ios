@@ -230,7 +230,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true) {
                 
-                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded()
+                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: changes.postedWikitext)
                 
                 let title = CommonStrings.editPublishedToastTitle
                 let image = UIImage(systemName: "checkmark.circle.fill")
@@ -249,9 +249,10 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
     }
     
-    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded() {
+    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: String?) {
         
-        guard let siteURL = articleURL.wmf_site else {
+        guard let siteURL = articleURL.wmf_site,
+        let postedWikitext else {
             return
         }
         
@@ -264,6 +265,12 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
         
         let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        
+        guard isLoggedIn else {
+            return
+        }
+        
+        // TODO: Evaluate postedWikitext here, confirm it qualifies for alt text experiment before assigning experiment values https://phabricator.wikimedia.org/T367908
         
         do {
             try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
