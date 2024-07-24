@@ -169,7 +169,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         let userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
         let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
 
-        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil {
+        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil, lastRecommendation.altText == nil {
             if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
 
                 delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true)
