@@ -1285,6 +1285,34 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
 
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool) { 
+
+        DispatchQueue.main.async {
+
+            let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+                self?.dismiss(animated: true) {
+
+                }
+            }
+
+            let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+                self?.dismiss(animated: true) {
+                    // show survey
+                    // pull image recs bottom sheet up
+                }
+            }
+
+            let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                self.dismiss(animated: true) {
+                    // show survey
+                }
+            }
+
+            let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme, isFlowB: isFlowB)
+            self.present(panel, animated: true)
+
+        }
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
@@ -1393,7 +1421,6 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 // Send Feedback
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
-                
                 // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next {
                     

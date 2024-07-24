@@ -133,17 +133,23 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     // MARK: - Properties
     
     public let project: WKProject
-    let semanticContentAttribute: UISemanticContentAttribute
+    public let semanticContentAttribute: UISemanticContentAttribute
     let localizedStrings: LocalizedStrings
-    
+
     private(set) var imageRecommendations: [ImageRecommendation] = []
     @Published public private(set) var currentRecommendation: ImageRecommendation?
+    public private(set) var lastRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     @Published var loadingError: Error? = nil
     private var subscriptions = Set<AnyCancellable>()
     private let needsSuppressPosting: Bool
-    
+
+    // temp
+    public let userIsSortedIntoExperiment = true // this should come from the AB Controller
+    public var hasAlreadyDoneTheExperiment = false // this should be the UD key
+    // end temp
+
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
@@ -263,9 +269,17 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         loading = true
         
         populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
-            self?.currentRecommendation = nextRecommendation
-            self?.loading = false
-            self?.loadingError = error
+
+            guard let self else { return }
+
+            if let currentRecommendation {
+                if userIsSortedIntoExperiment && !hasAlreadyDoneTheExperiment {
+                    self.lastRecommendation = currentRecommendation
+                }
+            }
+            self.currentRecommendation = nextRecommendation
+            self.loading = false
+            self.loadingError = error
             completion()
         }
     }

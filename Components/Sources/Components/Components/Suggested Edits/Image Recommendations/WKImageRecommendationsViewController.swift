@@ -12,6 +12,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool)
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -149,6 +150,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             }
         }
 
+        shouldShowAltTextExperimentModal()
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -161,6 +163,23 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
+
+    private func shouldShowAltTextExperimentModal() {
+        let devSettingsFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        let userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
+        let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
+
+        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil {
+            if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
+
+                delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true)
+
+                // not used at this time, but captured as it was part of the task
+                let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+            }
+        }
+
+    }
 
     @objc private func tappedBack() {
 
