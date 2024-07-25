@@ -20,6 +20,7 @@
 // Author: GoForceX
 // Author: Googology
 // Author: GuoPC
+// Author: Huajing
 // Author: Hudafu
 // Author: ITsu
 // Author: Josephine W.
@@ -264,6 +265,7 @@
 "description-welcome-descriptions-title" = "条目描述";
 "description-welcome-promise-title" = "点击开始按钮即表明我不会滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
+"developer-settings" = "开发者设置";
 "diff-article-revision-history" = "条目修订历史";
 "diff-compare-header-from-info-heading" = "上一次编辑";
 "diff-compare-header-heading" = "对比修订";
