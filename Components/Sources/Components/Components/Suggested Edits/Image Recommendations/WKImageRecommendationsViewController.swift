@@ -166,13 +166,14 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     private func shouldShowAltTextExperimentModal() {
         let devSettingsFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
-        let userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
+        var userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
         let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
 
         if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil, lastRecommendation.altText == nil {
             if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
-
+                userHasNotSeenAltTextYet = false // replace with UserDefaultsKey
                 delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true)
+
 
                 // not used at this time, but captured as it was part of the task
                 let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)

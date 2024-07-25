@@ -40,7 +40,7 @@
             
                                                             // Image Recommendations Business Logic:
                                                             // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-                                                          if (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) {
+                                                          if (user && user.editCount > 1 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning()) {
 
                                                               [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
                                                                   if (hasRecommendations) {
