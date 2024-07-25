@@ -35,36 +35,67 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
-        BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
-        NSSet *targetWikisForAltText = [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
-        BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
-
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
                                                       completion:^(WMFCurrentlyLoggedInUser *user) {
+                                                          // Image Recommendations Business Logic:
+                                                          // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+                                                          BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
-            // Alt text Experiment Business Logic - for target wikis, bypass minimum edit count
-            BOOL altTextExperiment = (enableAltTextExperiment && appLanguageIsTarget && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
-            // Image Recommendations Business Logic:
-            // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-            BOOL regularImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
+                                                          if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
+                                                              [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+                                                                  if (hasRecommendations) {
+                                                                      NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
 
-            if (altTextExperiment || regularImageRecommendations) {
+                                                                      [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+                                                                  }
 
-                [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
-                    if (hasRecommendations) {
-                        NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
-
-                        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-                    }
-
-                    completion();
-                }];
-            } else {
-                completion();
-            }
-        }];
+                                                                  completion();
+                                                              }];
+                                                          } else {
+                                                              completion();
+                                                          }
+                                                      }];
     });
+}
+
+- (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
+    NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
+    BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
+    NSSet *targetWikisForAltText = [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
+    BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
+
+    // Alt text Experiment Business Logic:
+    // logged in users for target wikis, bypass minimum edit count, before Oct 21st
+
+    if (@available(iOS 16.0, *)) {
+        return (user && !user.isBlocked && enableAltTextExperiment && appLanguageIsTarget && !UIAccessibilityIsVoiceOverRunning() && self.shouldAltTextExperimentBeActive && self.isDeviceIPhone);
+    }
+    return NO;
+}
+
+- (BOOL)isDeviceIPhone {
+    NSString *deviceType = [UIDevice currentDevice].model;
+    if ([deviceType isEqualToString:@"iPhone"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)shouldAltTextExperimentBeActive {
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setYear:2024];
+    [dateComponents setMonth:11];
+    [dateComponents setDay:21];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *experimentDate = [calendar dateFromComponents:dateComponents];
+
+    NSDate *currentDate = [NSDate date];
+
+    if ([currentDate compare:experimentDate] == NSOrderedDescending) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)removeAllContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
