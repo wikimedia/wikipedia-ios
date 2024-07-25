@@ -79,9 +79,8 @@ extension WMFAppViewController {
     // The user is deep linking in these states and we don't want to interrupt them
     private var shouldPresentLanguageVariantAlerts: Bool {
         guard presentedViewController == nil,
-              let navigationController = navigationController,
-              navigationController.viewControllers.count == 1 &&
-                navigationController.viewControllers[0] is WMFAppViewController else {
+              let navigationController = currentTabNavigationController,
+              navigationController.viewControllers.count == 1 else {
             return false
         }
         return true
@@ -118,7 +117,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
     public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
 }
 
@@ -140,7 +139,7 @@ extension WMFAppViewController {
         
         let dismissAndPushBlock = { [weak self] in
             self?.dismissPresentedViewControllers()
-            self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+            self?.currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
         }
 
         guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
@@ -153,7 +152,7 @@ extension WMFAppViewController {
     }
     
     var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
-        var currentController: UIViewController? = navigationController
+        var currentController: UIViewController? = currentTabNavigationController
 
         while let presentedViewController = currentController?.presentedViewController {
             if let presentedNavigationController = (presentedViewController as? UINavigationController) {
@@ -174,7 +173,7 @@ extension WMFAppViewController {
     
     private var topMostViewController: UIViewController? {
             
-        var topViewController: UIViewController = navigationController ?? self
+        var topViewController: UIViewController = currentTabNavigationController ?? self
 
         while let presentedViewController = topViewController.presentedViewController {
             topViewController = presentedViewController
