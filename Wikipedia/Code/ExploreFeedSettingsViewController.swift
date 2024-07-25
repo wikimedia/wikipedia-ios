@@ -240,7 +240,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
         if #available(iOS 16, *) {
             if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
-                return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+                return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
                 && shouldAltTextExperimentBeActive()
             }
         }
@@ -250,7 +250,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     func shouldAltTextExperimentBeActive() -> Bool {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
-        dateComponents.month = 11
+        dateComponents.month = 10
         dateComponents.day = 21
 
         let calendar = Calendar(identifier: .gregorian)

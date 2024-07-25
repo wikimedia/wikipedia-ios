@@ -74,17 +74,13 @@
 }
 
 - (BOOL)isDeviceIPhone {
-    NSString *deviceType = [UIDevice currentDevice].model;
-    if ([deviceType isEqualToString:@"iPhone"]) {
-        return YES;
-    }
-    return NO;
+    return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
 }
 
 - (BOOL)shouldAltTextExperimentBeActive {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setYear:2024];
-    [dateComponents setMonth:11];
+    [dateComponents setMonth:10];
     [dateComponents setDay:21];
 
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
