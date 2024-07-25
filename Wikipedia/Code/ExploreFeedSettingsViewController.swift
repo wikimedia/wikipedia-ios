@@ -220,21 +220,31 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        let altTextDevSettingsFeatureFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
-        let targetWikisForAltText = ["es", "fr", "pt", "zh"]
-        let standardCardOptions = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
-        let suggestedEditsOption = [suggestedEdits]
-        let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
-        let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
-        let shouldEnableForAltTextExperiment = targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning
+        var feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEditsOption = suggestedEdits
 
-        if shouldShowSuggestedEdits || shouldEnableForAltTextExperiment {
-            return standardCardOptions + suggestedEditsOption
-        }
+            let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
 
-        return standardCardOptions
+            if shouldShowSuggestedEdits || self.shouldEnableForAltTextExperiment() {
+                feedCards.append(suggestedEditsOption)
+            }
+
+        return feedCards
 
     }()
+
+    private func shouldEnableForAltTextExperiment() -> Bool {
+        let altTextDevSettingsFeatureFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        let targetWikisForAltText = ["es", "fr", "pt", "zh"]
+        let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
+
+        if #available(iOS 16, *) {
+            if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
+                return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+            }
+        }
+        return false
+    }
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
         return ExploreFeedSettingsGlobalCards()
