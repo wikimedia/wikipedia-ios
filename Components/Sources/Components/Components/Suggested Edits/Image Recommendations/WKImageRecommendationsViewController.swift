@@ -150,7 +150,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             }
         }
 
-        shouldShowAltTextExperimentModal()
+
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -309,6 +309,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                 }
             }
             .store(in: &cancellables)
+        self.shouldShowAltTextExperimentModal()
     }
 
     private func showTutorial() {
