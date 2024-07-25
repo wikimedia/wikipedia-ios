@@ -23,7 +23,7 @@ class NewsViewController: ColumnarCollectionViewController2, DetailPresentingFro
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
-        hidesBottomBarWhenPushed = true
+        // hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {

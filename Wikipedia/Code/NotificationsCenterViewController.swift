@@ -79,7 +79,7 @@ final class NotificationsCenterViewController: ThemeableViewController {
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         viewModel.delegate = self
-        hidesBottomBarWhenPushed = true
+        // hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {

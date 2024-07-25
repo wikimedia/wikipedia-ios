@@ -104,8 +104,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
-        
-        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {

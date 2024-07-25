@@ -107,11 +107,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        // hidesBottomBarWhenPushed = true
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
         navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
+        // hidesBottomBarWhenPushed = true
     }
     
     deinit {

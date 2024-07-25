@@ -20,7 +20,7 @@ class OnThisDayViewController: ColumnarCollectionViewController2, DetailPresenti
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         title = CommonStrings.onThisDayTitle
-        hidesBottomBarWhenPushed = true
+        // hidesBottomBarWhenPushed = true
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {

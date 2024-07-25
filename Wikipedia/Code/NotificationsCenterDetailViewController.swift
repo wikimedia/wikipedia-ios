@@ -18,7 +18,7 @@ final class NotificationsCenterDetailViewController: ThemeableViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        // hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {

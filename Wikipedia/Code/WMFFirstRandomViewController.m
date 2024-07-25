@@ -15,7 +15,7 @@
     if (self) {
         self.siteURL = siteURL;
         self.dataStore = dataStore;
-        self.hidesBottomBarWhenPushed = YES;
+        //self.hidesBottomBarWhenPushed = YES;
         self.theme = theme;
     }
     return self;
@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hidesBottomBarWhenPushed = YES;
+    //self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

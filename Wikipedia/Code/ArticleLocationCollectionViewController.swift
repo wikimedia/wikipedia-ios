@@ -23,7 +23,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         if needsCloseButton {
-            hidesBottomBarWhenPushed = true
+            // hidesBottomBarWhenPushed = true
         }
     }
     
@@ -35,7 +35,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         self.needsCloseButton = false
         super.init(coder: aDecoder)
         if needsCloseButton {
-            hidesBottomBarWhenPushed = true
+            // hidesBottomBarWhenPushed = true
         }
     }
     

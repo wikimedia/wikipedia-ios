@@ -603,4 +603,11 @@ extension WMFAppViewController {
         WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }
 
+    @objc func doStuff() {
+        if #available(iOS 18.0, *) {
+            isTabBarHidden = true
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 }
