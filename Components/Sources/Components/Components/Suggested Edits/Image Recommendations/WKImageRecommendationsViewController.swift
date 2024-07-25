@@ -12,7 +12,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
-    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool)
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController)
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -161,44 +161,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         }
         cancellables.removeAll()
     }
-
-    // MARK: Private methods
-
-    private func shouldShowAltTextExperimentModal() {
-        let devSettingsFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
-        var userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
-        let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
-
-        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil, lastRecommendation.altText == nil {
-            if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
-                userHasNotSeenAltTextYet = false // replace with UserDefaultsKey
-                delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true)
-
-
-                // not used at this time, but captured as it was part of the task
-                let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
-            }
-        }
-
-    }
-
-    @objc private func tappedBack() {
-
-        if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
-            loggingDelegate?.logEmptyStateDidTapBack()
-        }
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        navigationController?.popViewController(animated: true)
-    }
-
-    private func setupOverflowMenu() {
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        rightBarButtonItem.tintColor = theme.link
-    }
-
-    private func presentImageRecommendationBottomSheet() {
+    
+    public func presentImageRecommendationBottomSheet() {
         imageRecommendationBottomSheetController.isModalInPresentation = true
         if let bottomSheet = imageRecommendationBottomSheetController.sheetPresentationController {
             bottomSheet.detents = [.medium(), .large()]
@@ -219,6 +183,44 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             }
 
         })
+    }
+
+    // MARK: Private methods
+
+    private func shouldShowAltTextExperimentModal() -> Bool {
+        let devSettingsFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        var userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
+        let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
+
+        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil, lastRecommendation.altText == nil {
+            if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
+                userHasNotSeenAltTextYet = false // replace with UserDefaultsKey
+                return true
+
+
+                // not used at this time, but captured as it was part of the task
+                let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+            }
+        }
+        
+        return false
+
+    }
+
+    @objc private func tappedBack() {
+
+        if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
+            loggingDelegate?.logEmptyStateDidTapBack()
+        }
+
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.popViewController(animated: true)
+    }
+
+    private func setupOverflowMenu() {
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButtonItem.tintColor = theme.link
     }
 
     private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
@@ -294,9 +296,19 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         viewModel.$debouncedLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
+                
+                guard let self else {
+                    return
+                }
+                
                 if !isLoading {
-                    if self?.viewModel.currentRecommendation?.articleSummary != nil {
-                        self?.presentImageRecommendationBottomSheet()
+                    if self.viewModel.currentRecommendation?.articleSummary != nil {
+                        if self.shouldShowAltTextExperimentModal() {
+                            self.delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true, imageRecommendationsViewController: self)
+                        } else {
+                            self.presentImageRecommendationBottomSheet()
+                        }
+                        
                     }
                 }
             }
@@ -310,7 +322,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                 }
             }
             .store(in: &cancellables)
-        self.shouldShowAltTextExperimentModal()
     }
 
     private func showTutorial() {

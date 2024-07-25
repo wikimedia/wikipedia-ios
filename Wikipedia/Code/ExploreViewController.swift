@@ -1285,31 +1285,37 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
 
-    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool) { 
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
 
         DispatchQueue.main.async {
 
             let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                self?.dismiss(animated: true) {
-
+                imageRecommendationsViewController.dismiss(animated: true) {
+                    // todo: show alt text flow
+                    // once flow is done, bring back up next recommendation
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
                 }
             }
 
             let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                self?.dismiss(animated: true) {
+                imageRecommendationsViewController.dismiss(animated: true) {
                     // show survey
-                    // pull image recs bottom sheet up
+                    // once survey is done, bring back up next recommendation
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
                 }
             }
 
-            let dismissHandler: ScrollableEducationPanelDismissHandler = {
-                self.dismiss(animated: true) {
-                    // show survey
+            let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
+                switch lastAction {
+                case .tappedPrimary, .tappedSecondary:
+                    break
+                default:
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
                 }
             }
 
-            let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme, isFlowB: isFlowB)
-            self.present(panel, animated: true)
+            let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+            imageRecommendationsViewController.present(panel, animated: true)
 
         }
     }

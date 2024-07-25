@@ -494,9 +494,9 @@ class NotificationsCenterOnboardingPushPanelViewController: ScrollableEducationP
 class AltTextExperimentPanelViewController: ScrollableEducationPanelViewController {
     let isFlowB: Bool
 
-   init(showCloseButton: Bool, buttonStyle: ScrollableEducationPanelViewController.ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, theme: Theme, isFlowB: Bool) {
+   init(showCloseButton: Bool, buttonStyle: ScrollableEducationPanelViewController.ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, isFlowB: Bool) {
        self.isFlowB = isFlowB
-        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
+        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
     }
 
     required public init?(coder aDecoder: NSCoder) {
