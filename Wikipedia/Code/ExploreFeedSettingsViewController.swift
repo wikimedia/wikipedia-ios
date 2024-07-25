@@ -241,9 +241,30 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         if #available(iOS 16, *) {
             if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
                 return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && altTextDevSettingsFeatureFlag && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+                && shouldAltTextExperimentBeActive()
             }
         }
         return false
+    }
+
+    func shouldAltTextExperimentBeActive() -> Bool {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2024
+        dateComponents.month = 11
+        dateComponents.day = 21
+
+        let calendar = Calendar(identifier: .gregorian)
+        guard let experimentDate = calendar.date(from: dateComponents) else {
+            return false
+        }
+
+        let currentDate = Date()
+
+        if currentDate > experimentDate {
+            return false
+        }
+
+        return true
     }
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
