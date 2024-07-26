@@ -632,7 +632,7 @@ final class EditorViewController: UIViewController {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
         saveVC.source = source
-        saveVC.editTag = editTag
+        saveVC.editTags = [editTag]
 
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
