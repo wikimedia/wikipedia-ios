@@ -1295,10 +1295,24 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         DispatchQueue.main.async {
 
             let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                imageRecommendationsViewController.dismiss(animated: true) {
-                    // todo: show alt text flow
-                    // once flow is done, bring back up next recommendation
-                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
+                    
+                    guard let self else {
+                        return
+                    }
+                    
+                    let articleTitle = lastRecommendation.imageData.pageTitle
+                    let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+                    if let siteURL = viewModel.project.siteURL,
+                       let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme) {
+                        
+                        self.navigationController?.pushViewController(articleViewController, animated: true)
+                    }
+                    
+                    // todo: once alt text is published, bring back up this bottom sheet
+                    // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                }
             }
 
             let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
