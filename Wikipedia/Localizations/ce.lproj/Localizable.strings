@@ -21,8 +21,7 @@
 "action-unsave" = "Ӏалаш ца йина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 "article-about-title" = "ХӀокху агӀонах лаьцна";
-// Fuzzy
-"article-languages-filter-placeholder" = "Меттанийн луьттург";
+"article-languages-filter-placeholder" = "Мотт лаха";
 "article-languages-label" = "Харжа мотт";
 "back-button-accessibility-label" = "Йуханехьа";
 "button-next" = "Кхин дӀа";

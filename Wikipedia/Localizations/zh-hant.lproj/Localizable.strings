@@ -241,6 +241,9 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "點擊開始按鈕即表明我不會濫用此功能";
 "description-welcome-start-editing-button" = "開始編輯";
+"developer-settings" = "開發人員設定";
+"developer-settings-enable-alt-text-experiment" = "啟用替代文字試驗功能。";
+"developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
 "diff-article-revision-history" = "條目修訂紀錄";
 "diff-change-added" = "已新增：$1，新增結束。";
 "diff-change-paragraph-lines-moved-down" = "章節向下移動了 {{PLURAL:$1|0=0|$1}} 行。轉到新的位置。";
@@ -632,7 +635,7 @@
 "image-rec-tooltip-3-body" = "決定圖片是否有幫助到讀者更好理解這個主題";
 "image-rec-tooltip-3-title" = "決定";
 "image-rec-view-article" = "查看條目";
-"image-recommendations-email-fifth-line" = "- [屏幕截图或链接]";
+"image-recommendations-email-fifth-line" = "- [螢幕截圖或連結]";
 "image-recommendations-email-first-line" = "我在使用「新增圖片」建議編輯功能時遇到問題：";
 "image-recommendations-email-fourth-line" = "- [描述建議解決方案]";
 "image-recommendations-email-second-line" = "- [描述具體問題]";
