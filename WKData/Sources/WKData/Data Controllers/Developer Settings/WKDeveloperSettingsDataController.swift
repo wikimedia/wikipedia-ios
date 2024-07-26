@@ -1,9 +1,9 @@
 import Foundation
 
-public final class WKDeveloperSettingsDataController {
-    
-    public static let shared = WKDeveloperSettingsDataController()
-    
+@objc public final class WKDeveloperSettingsDataController: NSObject {
+
+    @objc public static let shared = WKDeveloperSettingsDataController()
+
     private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
     
     public var doNotPostImageRecommendationsEdit: Bool {
@@ -14,7 +14,7 @@ public final class WKDeveloperSettingsDataController {
         }
     }
 
-    public var enableAltTextExperiment: Bool {
+    @objc public var enableAltTextExperiment: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WKUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue)) ?? false
         } set {

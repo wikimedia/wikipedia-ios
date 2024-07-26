@@ -1,5 +1,6 @@
 // Messages for French (français)
 // Exported from translatewiki.net
+// Author: Assorted-Interests
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
@@ -240,6 +241,8 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+"developer-settings-enable-alt-text-experiment" = "Activer l'expérience Alt Text.";
+"developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";
 "diff-change-paragraph-lines-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
