@@ -43,6 +43,7 @@ import Foundation
                            "gsrnamespace": 0,
                            "gsrsort": "random",
                            "prop": "growthimagesuggestiondata|revisions|pageimages",
+                           "pilicense": "any",
                            "rvprop": "ids|timestamp|flags|comment|user|content",
                            "rvslots": "main",
                            "rvsection": 0,

@@ -43,7 +43,7 @@
 "aaald-vandalism-revert-description" = "مشڪوڪ تخريبڪاري موٽائي وئي";
 "aaald-view-full-history-button" = "مضمون جي مڪمل سوانح ڏسو";
 "about-content-license" = "مواد جو اجازتنامو";
-"about-content-license-details" = "مواد $1 ھيٺ موجود آھي، جيسيتائين ٻي صورت واضع نہ ڪئي وڃي.";
+"about-content-license-details" = "مواد $1 تحت موجود آھي، جيسيتائين ٻي صورت واضع نہ ڪئي وڃي.";
 "about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز انتساب-ھڪجھڙي-ونڊ اجازتنامو";
 "about-contributors" = "ڀاڱيدارَ";
 "about-libraries" = "مستعمل لائبريريون";
@@ -55,7 +55,7 @@
 "about-places-maps-license-details-link-text" = "اجازتنامي جي تفصيلن لاءِ ھتي ڏسو";
 "about-product-of" = "توھان جھڙن رضاڪارن جي مدد سان $1 پاران ٺھيل";
 "about-repositories" = "ڀنڊارون";
-"about-repositories-app-source-license" = "سورس ڪوڊ $1 ھيٺ موجود آھي.";
+"about-repositories-app-source-license" = "سورس ڪوڊ $1 تحت موجود آھي.";
 "about-repositories-app-source-license-mit" = "ايم.آئِٽي اجازتنامو";
 "about-send-feedback" = "ايپ تي موٽ موڪليو";
 "about-testers" = "آزمائيندڙ";
@@ -893,7 +893,7 @@
 "saved-title" = "سانڍيل";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "نہ-سانڍڻ {{PLURAL:$1|ھن مضمون کي|ھنن مضمونن کي}} سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|مضمون|مضمون}} اڻسانڍيو؟";
-"search-button-accessibility-label" = "وڪيپيڊيا ڳوليو";
+"search-button-accessibility-label" = "وڪيپيڊيا ۾ ڳوليو";
 "search-clear-title" = "ختم ڪريو";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
