@@ -167,6 +167,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.imageRecommendationsDataController = WKImageRecommendationsDataController()
         
         $loading
+            .removeDuplicates()
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
                     .sink(receiveValue: { [weak self] t in
                         self?.debouncedLoading = t
