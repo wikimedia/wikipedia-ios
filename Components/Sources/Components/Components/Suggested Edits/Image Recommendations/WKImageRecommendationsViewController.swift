@@ -190,7 +190,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     private func shouldShowAltTextExperimentModal() -> Bool {
         
         guard let lastRecommendation = viewModel.lastRecommendation,
-              lastRecommendation.altText == nil else { // lastRecommendation.suggestionAcceptDate != nil
+              lastRecommendation.altText == nil,
+              lastRecommendation.suggestionAcceptDate != nil else {
             return false
         }
         

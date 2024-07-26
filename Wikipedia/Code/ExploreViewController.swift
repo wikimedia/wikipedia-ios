@@ -1287,11 +1287,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
         
-        guard let lastRecommendation = imageRecommendationsViewModel?.lastRecommendation else {
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
             return
         }
-        
-        let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
 
         DispatchQueue.main.async {
 
@@ -1300,7 +1299,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                     // todo: show alt text flow
                     // once flow is done, bring back up next recommendation
                     imageRecommendationsViewController.presentImageRecommendationBottomSheet()
-                }
             }
 
             let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
@@ -1448,6 +1446,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         guard let self else {
                             return
                         }
+                        
+                        imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
 
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
