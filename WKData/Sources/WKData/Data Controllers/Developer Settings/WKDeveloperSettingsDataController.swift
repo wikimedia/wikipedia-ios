@@ -21,4 +21,12 @@ import Foundation
             try? userDefaultsStore?.save(key: WKUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue, value: newValue)
         }
     }
+    
+    @objc public var enableAltTextExperimentForEN: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WKUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WKUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue, value: newValue)
+        }
+    }
 }

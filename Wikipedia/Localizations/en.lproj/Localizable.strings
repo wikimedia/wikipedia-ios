@@ -202,6 +202,7 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-settings" = "Developer Settings";
 "developer-settings-enable-alt-text-experiment" = "Enable Alt Text experiment.";
+"developer-settings-enable-alt-text-experiment-en" = "Enable Alt Text experiment for English Wikipedia.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";

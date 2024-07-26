@@ -235,7 +235,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     private func shouldEnableForAltTextExperiment() -> Bool {
         let altTextDevSettingsFeatureFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
-        let targetWikisForAltText = ["es", "fr", "pt", "zh"]
+        let altTextDevSettingsFeatureFlagForEN = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        let targetWikisForAltText = altTextDevSettingsFeatureFlagForEN ? ["es", "fr", "pt", "zh", "en"] : ["es", "fr", "pt", "zh"]
         let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
 
         if #available(iOS 16, *) {

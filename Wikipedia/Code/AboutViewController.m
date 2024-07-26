@@ -206,7 +206,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
     NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
     NSString *enableAltTextExperiment = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment", nil, nil, @"Enable Alt Text experiment.", @"Title for setting to enable alt text experiment. Displayed on the developer settings view.");
-    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    
+    NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
+    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN close:[WMFCommonStrings closeButtonAccessibilityLabel]];
     WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
     WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

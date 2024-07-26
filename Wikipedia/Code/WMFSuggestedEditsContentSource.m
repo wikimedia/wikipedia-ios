@@ -62,7 +62,8 @@
 - (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
     BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
-    NSSet *targetWikisForAltText = [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
+    BOOL enableAltTextExperimentForEN = [[WKDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
+    NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
     BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
 
     // Alt text Experiment Business Logic:
