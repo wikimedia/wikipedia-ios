@@ -186,25 +186,33 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
-
+    
     private func shouldShowAltTextExperimentModal() -> Bool {
-        let devSettingsFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
-        var userHasNotSeenAltTextYet = true // replace with UserDefaultsKey
-        let userIsSortedIntoExperimentBucket = true // replace with info from experiment bucket
-
-        if let lastRecommendation = viewModel.lastRecommendation, lastRecommendation.suggestionAcceptDate != nil, lastRecommendation.altText == nil {
-            if devSettingsFlag && userHasNotSeenAltTextYet && userIsSortedIntoExperimentBucket {
-                userHasNotSeenAltTextYet = false // replace with UserDefaultsKey
-                return true
-
-
-                // not used at this time, but captured as it was part of the task
-                let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
-            }
+        
+        guard let lastRecommendation = viewModel.lastRecommendation,
+              lastRecommendation.altText == nil else { // lastRecommendation.suggestionAcceptDate != nil
+            return false
+        }
+        
+        let dataController = WKAltTextDataController.shared
+        
+        guard let dataController else {
+            return false
+        }
+        
+        let isLoggedIn = true // dataStore.authenticationManager.isLoggedIn
+        
+        do {
+            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+        } catch let error {
+            return false
+        }
+        
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
+            return true
         }
         
         return false
-
     }
 
     @objc private func tappedBack() {
@@ -308,7 +316,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                         } else {
                             self.presentImageRecommendationBottomSheet()
                         }
-                        
                     }
                 }
             }
