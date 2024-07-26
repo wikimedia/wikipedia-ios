@@ -54,16 +54,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
 
-static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSString * _Nullable summary) {
-    NSString *finalSummary = summary;
-    if (editSummaryTag && editSummaryTag.length > 0 && summary && summary.length > 0) {
-        finalSummary = [summary stringByAppendingFormat:@" %@", editSummaryTag];
-    } else if (editSummaryTag && editSummaryTag.length > 0 && (!summary || summary.length == 0)) {
-        finalSummary = editSummaryTag;
-    }
-    return finalSummary;
-}
-
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
@@ -117,7 +107,6 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
-        editSummaryTag:(nullable NSString *)editSummaryTag
               editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
@@ -129,13 +118,11 @@ static NSString *appendTagToEditSummary(NSString * _Nullable editSummaryTag, NSS
         return;
     }
     
-    NSString *finalSummary = appendTagToEditSummary(editSummaryTag, summary);
-    
     NSMutableDictionary *params =
     @{
       @"action": @"edit",
       @"text": wikiText,
-      @"summary": finalSummary,
+      @"summary": summary,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
