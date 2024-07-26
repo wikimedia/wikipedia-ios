@@ -5,6 +5,7 @@ import WKData
 
 struct EditorChanges {
     let newRevisionID: UInt64
+    let postedWikitext: String?
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
@@ -430,7 +431,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !summaryText.isEmpty)
         
-        notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
+        notifyDelegate(.success(EditorChanges(newRevisionID: newRevID, postedWikitext: wikitext)))
     }
     
     private func handleEditFailure(with error: Error) {
