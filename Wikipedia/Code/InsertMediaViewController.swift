@@ -306,7 +306,7 @@ extension InsertMediaViewController: EditingFlowViewController {
 }
 
 extension InsertMediaViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
         delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: imageWikitext)
     }
 }

@@ -124,6 +124,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public var fullArticleWikitextWithImage: String?
         public var suggestionAcceptDate: Date?
         public var lastRevisionID: UInt64?
+        public var localizedFileTitle: String?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId

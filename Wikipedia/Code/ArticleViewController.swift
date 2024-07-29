@@ -455,10 +455,11 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.articleAsLivingDocController.articleContentFinishedLoading()
             
-            if altTextExperimentViewModel == nil {
-                self.setupFooter()
-            } else {
+            if let altTextExperimentViewModel {
                 messagingController.hideEditPencils()
+                messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
+            } else {
+                self.setupFooter()
             }
             
             self.shareIfNecessary()

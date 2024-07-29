@@ -132,6 +132,25 @@ class ArticleWebMessagingController: NSObject {
         webView?.evaluateJavaScript(js)
     }
     
+    func scrollToNewImage(filename: String) {
+
+        let javascript = """
+                        var imageLinkElement = document.querySelectorAll('[href="./\(filename)"]');
+                        imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                    """
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.webView?.evaluateJavaScript(javascript) { (result, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))

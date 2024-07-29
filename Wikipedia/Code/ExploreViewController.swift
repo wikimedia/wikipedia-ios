@@ -1294,7 +1294,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         guard let imageWikitext = lastRecommendation.imageWikitext,
               let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
-            let lastRevisionID = lastRecommendation.lastRevisionID else {
+            let lastRevisionID = lastRecommendation.lastRevisionID,
+            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
             return
         }
         
@@ -1311,7 +1312,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                     
                     let articleTitle = lastRecommendation.imageData.pageTitle
                     
-                    let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
+                    let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
 
                     if let siteURL = viewModel.project.siteURL,
                        let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
@@ -1351,7 +1352,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
         
         guard let viewModel = imageRecommendationsViewModel,
         let currentRecommendation = viewModel.currentRecommendation,
@@ -1364,6 +1365,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         currentRecommendation.caption = caption
         currentRecommendation.altText = altText
         currentRecommendation.imageWikitext = imageWikitext
+        currentRecommendation.localizedFileTitle = localizedFileTitle
         
         do {
             let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
