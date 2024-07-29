@@ -233,6 +233,7 @@
 "description-welcome-descriptions-title" = "문서 설명";
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
+"developer-settings" = "개발자 설정";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-compare-header-from-info-heading" = "이전 편집";
 "diff-compare-header-heading" = "판 비교";
@@ -374,6 +375,9 @@
 "editor-toolbar-bold-accessibility" = "굵은 텍스트 서식 지정";
 "editor-toolbar-find-accessibility" = "문서에서 찾기";
 "editor-toolbar-image-accessibility" = "이미지 텍스트 서식 지정";
+"editor-toolbar-open-text-format-menu-accessibility" = "텍스트 서식 메뉴 열기";
+"editor-toolbar-reference-accessibility" = "각주 텍스트 서식";
+"editor-toolbar-show-more-accessibility" = "더 많은 서식 옵션 보기";
 "editor-toolbar-template-accessibility" = "틀 텍스트 서식 지정";
 "editor-wikitext-loading-accessibility" = "편집기 텍스트를 불러오는 중";
 "editor-wikitext-textview-accessibility" = "위키 텍스트 편집기";
@@ -485,6 +489,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
 "explore-suggested-edits-footer" = "추가";
+"explore-suggested-edits-image-recs-body" = "이해를 높이기 위해 위키백과의 문서에 제안된 이미지를 추가하십시오.";
 "explore-suggested-edits-image-recs-title" = "이미지 추가";
 "export-user-data-confirmation-message" = "앱 라이브러리 공유에는 귀하의 읽기 목록 및 기록, 환경설정 및 탐색 피드 내용에 대한 데이터가 포함됩니다. 이 데이터 파일은 기술 진단 목적으로 신뢰할 수 있는 수신자와만 공유해야 합니다.";
 "export-user-data-confirmation-title" = "앱 라이브러리를 공유하시겠습니까?";
@@ -558,9 +563,15 @@
 "image-gallery-unknown-owner" = "저자 알 수 없음.";
 "image-rec-add-image-title" = "이 이미지를 추가하시겠습니까?";
 "image-rec-empty-subtitle" = "나중에 다시 시도해 보세요.";
+"image-rec-empty-title" = "지금 사용 가능한 이미지 제안이 없습니다.";
+"image-rec-error-subtitle" = "무언가가 잘못되었습니다.";
+"image-rec-error-title" = "문서를 불러올 수 없습니다";
+"image-rec-feature-announce-title" = "'이미지 추가' 사용해보기";
 "image-rec-onboarding-item-1-body" = "제안된 이미지를 위키백과 문서에 배치할지 여부를 결정하세요.";
 "image-rec-onboarding-item-1-title" = "제안 보기";
+"image-rec-onboarding-item-2-body" = "제안은 자동 생성되며 당신은 그 제안을 허가할지, 아니면 반려할지를 결정하게 됩니다.";
 "image-rec-onboarding-item-2-title" = "이미지 수락 또는 거부";
+"image-rec-onboarding-item-3-body" = "그림은 위키미디어 공용에서 가져옵니다. 위키백과에서 사용하는 자유 라이선스 이미지의 모음집입니다.";
 "image-rec-onboarding-item-3-title" = "라이선스가 부여된 이미지";
 "image-rec-onboarding-learn-more-button" = "편집 제안에 대해 알아보기";
 "image-rec-onboarding-title" = "문서에 이미지 추가";
@@ -575,6 +586,12 @@
 "image-rec-survey-submit-button" = "제출";
 "image-rec-survey-title" = "이유";
 "image-rec-title" = "이미지 추가";
+"image-rec-tooltip-1-body" = "주제를 이해하기 위해 이 문서를 검토합니다.";
+"image-rec-tooltip-1-title" = "검토";
+"image-rec-tooltip-2-body" = "이미지와 관련 정보를 점검합니다.";
+"image-rec-tooltip-2-title" = "점검";
+"image-rec-tooltip-3-body" = "독자가 이 주제를 더 잘 이해할 수 있을지 결정합니다.";
+"image-rec-tooltip-3-title" = "결정";
 "image-rec-view-article" = "문서 보기";
 "image-recommendations-email-fifth-line" = "[스크린샷 또는 링크]";
 "image-recommendations-email-first-line" = "이미지 추가 제안 편집 기능에 문제가 발생했습니다.";
@@ -584,6 +601,7 @@
 "image-recommendations-email-title" = "문제 보고 - 이미지 추가 기능";
 "image-recs-no-title" = "아니요";
 "image-recs-not-sure-title" = "확실치 않음";
+"image-recs-time-warning-message" = "주제를 이해하고 이미지를 점검하기 위해 문서를 검토해 주십시오";
 "image-recs-yes-title" = "예";
 "import-shared-reading-list-default-title" = "내 읽기 목록";
 "import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
@@ -616,6 +634,7 @@
 "insert-media-image-size-settings-measure-width" = "너비";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "이미지 크기";
+"insert-media-image-text-wrapping-setting" = "이미지 주위에 텍스트 줄 바꿈";
 "insert-media-image-type-setting-basic" = "기본";
 "insert-media-image-type-setting-frame" = "프레임";
 "insert-media-image-type-setting-frameless" = "프레임 없음";
@@ -1161,6 +1180,7 @@
 "top-read-widget-description" = "세상 사람들이 위키백과에서 오늘 무엇을 읽고 있는지 알아보세요.";
 "top-read-widget-readers-count" = "$1명의 독자";
 "top-read-widget-title" = "가장 많이 읽은 글";
+"try-now-title" = "지금 사용해보기";
 "tutorial-title" = "강좌";
 "two-factor-login-continue" = "로그인 계속";
 "two-factor-login-instructions" = "2요소 인증 코드를 입력해 주십시오";
