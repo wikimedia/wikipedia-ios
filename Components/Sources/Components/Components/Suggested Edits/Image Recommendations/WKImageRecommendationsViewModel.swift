@@ -147,11 +147,6 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     private let needsSuppressPosting: Bool
 
-    // temp
-    public let userIsSortedIntoExperiment = true // this should come from the AB Controller
-    public var hasAlreadyDoneTheExperiment = false // this should be the UD key
-    // end temp
-
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
@@ -276,9 +271,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
             guard let self else { return }
 
             if let currentRecommendation {
-                if userIsSortedIntoExperiment && !hasAlreadyDoneTheExperiment {
-                    self.lastRecommendation = currentRecommendation
-                }
+                self.lastRecommendation = currentRecommendation
             }
             self.currentRecommendation = nextRecommendation
             self.loading = false
