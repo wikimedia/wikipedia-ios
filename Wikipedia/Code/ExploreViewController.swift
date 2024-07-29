@@ -1292,6 +1292,13 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             return
         }
 
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
+            return
+        }
+
+        let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+
         DispatchQueue.main.async {
 
             let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
@@ -1479,6 +1486,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
             }
         }
     }
+
     
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         // no-op

@@ -133,9 +133,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     // MARK: - Properties
-    
+
     public let project: WKProject
     public let semanticContentAttribute: UISemanticContentAttribute
+    public let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
 
     private(set) var imageRecommendations: [ImageRecommendation] = []
@@ -157,7 +158,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+        self.isLoggedIn = isLoggedIn
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
