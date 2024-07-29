@@ -1291,14 +1291,13 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
               let lastRecommendation = viewModel.lastRecommendation else {
             return
         }
-
-        guard let viewModel = imageRecommendationsViewModel,
-              let lastRecommendation = viewModel.lastRecommendation else {
+        
+        guard let imageWikitext = lastRecommendation.imageWikitext,
+              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
+            let lastRevisionID = lastRecommendation.lastRevisionID else {
             return
         }
-
-        let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
-
+        
         DispatchQueue.main.async {
 
             let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
@@ -1309,11 +1308,13 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                     }
                     
                     let articleTitle = lastRecommendation.imageData.pageTitle
-                    let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+                    let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
+
                     if let siteURL = viewModel.project.siteURL,
                        let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
                        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme) {
                         
+                        articleViewController.altTextExperimentViewModel = altTextViewModel
                         self.navigationController?.pushViewController(articleViewController, animated: true)
                     }
                     
@@ -1469,6 +1470,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         }
                         
                         imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
+                        imageRecommendationsViewModel.lastRecommendation?.lastRevisionID = revID
 
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")

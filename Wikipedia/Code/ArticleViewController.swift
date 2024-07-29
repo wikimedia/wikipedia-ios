@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import Components
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
@@ -90,6 +91,10 @@ class ArticleViewController: ViewController, HintPresenting {
         SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
     }
     // END: Article As Living Doc properties
+    
+    // BEGIN: Alt text experiment properties
+    var altTextExperimentViewModel: AltTextExperimentViewModel?
+    // END: Alt text experiment properties
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
