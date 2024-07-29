@@ -401,6 +401,22 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController?.viewWillDisappear(withState: state)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if altTextExperimentViewModel != nil {
+            return .portrait
+        }
+        
+        return super.supportedInterfaceOrientations
+    }
+
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        if altTextExperimentViewModel != nil {
+            return .portrait
+        }
+        
+        return super.preferredInterfaceOrientationForPresentation
+    }
+    
     // MARK: Article load
     
     var articleLoadWaitGroup: DispatchGroup?
