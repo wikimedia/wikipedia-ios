@@ -1285,6 +1285,49 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
 
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
+
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
+            return
+        }
+
+        let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+
+        DispatchQueue.main.async {
+
+            let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+                imageRecommendationsViewController.dismiss(animated: true) {
+                    // todo: show alt text flow
+                    // once flow is done, bring back up next recommendation
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                }
+            }
+
+            let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+                imageRecommendationsViewController.dismiss(animated: true) {
+                    // show survey
+                    // once survey is done, bring back up next recommendation
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                }
+            }
+
+            let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
+                switch lastAction {
+                case .tappedPrimary, .tappedSecondary:
+                    break
+                default:
+                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                }
+            }
+
+            let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+            imageRecommendationsViewController.present(panel, animated: true)
+            let dataController = WKAltTextDataController.shared
+            dataController?.markSawAltTextImageRecommendationsPrompt()
+
+        }
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
@@ -1392,15 +1435,12 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         let project = imageRecommendationsViewModel.project
         
         for viewController in viewControllers {
-            if viewController is WKImageRecommendationsViewController {
+            if let imageRecommendationsViewController = viewController as? WKImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
-                
-                
-                let lastRecommendation = imageRecommendationsViewModel.currentRecommendation
                 
                 // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next { [weak self] in
@@ -1410,9 +1450,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         guard let self else {
                             return
                         }
-                        
-                        self.assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: project, lastRecommendation: lastRecommendation)
-                        
+
+                        imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
+
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
                         
@@ -1428,40 +1468,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 break
             }
         }
-        
-        self.imageRecommendationsViewModel = nil
+
     }
-    
-    private func assignAltTextImageRecommendationsExperimentAndPresentModalIfNeeded(project: WKProject, lastRecommendation: WKImageRecommendationsViewModel.ImageRecommendation?) {
-        
-        guard let lastRecommendation,
-              lastRecommendation.altText == nil else {
-            return
-        }
-        
-        let dataController = WKAltTextDataController.shared
-        
-        guard let dataController else {
-            return
-        }
-        
-        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
-        
-        do {
-            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: project)
-        } catch let error {
-            DDLogWarn("Error assigning alt text image recs experiment: \(error)")
-        }
-        
-        DDLogDebug("Assigned alt text image recommendations group: \(dataController.assignedAltTextImageRecommendationsGroupForLogging() ?? "nil")")
-        
-        DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
-        
-        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: project) {
-            print("TODO: PRESENT MODAL")
-            dataController.markSawAltTextImageRecommendationsPrompt()
-        }
-    }
+
     
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         // no-op

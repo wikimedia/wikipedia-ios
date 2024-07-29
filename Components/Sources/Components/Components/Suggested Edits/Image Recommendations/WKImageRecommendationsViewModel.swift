@@ -133,19 +133,21 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     }
     
     // MARK: - Properties
-    
+
     public let project: WKProject
-    let semanticContentAttribute: UISemanticContentAttribute
+    public let semanticContentAttribute: UISemanticContentAttribute
+    public let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
-    
+
     private(set) var imageRecommendations: [ImageRecommendation] = []
     @Published public private(set) var currentRecommendation: ImageRecommendation?
+    public private(set) var lastRecommendation: ImageRecommendation?
     @Published var loading: Bool = true
     @Published var debouncedLoading: Bool = true
     @Published var loadingError: Error? = nil
     private var subscriptions = Set<AnyCancellable>()
     private let needsSuppressPosting: Bool
-    
+
     let growthTasksDataController: WKGrowthTasksDataController
     let articleSummaryDataController: WKArticleSummaryDataController
     let imageDataController: WKImageDataController
@@ -156,7 +158,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+        self.isLoggedIn = isLoggedIn
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
@@ -266,9 +269,15 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         loading = true
         
         populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
-            self?.currentRecommendation = nextRecommendation
-            self?.loading = false
-            self?.loadingError = error
+
+            guard let self else { return }
+
+            if let currentRecommendation {
+                self.lastRecommendation = currentRecommendation
+            }
+            self.currentRecommendation = nextRecommendation
+            self.loading = false
+            self.loadingError = error
             completion()
         }
     }

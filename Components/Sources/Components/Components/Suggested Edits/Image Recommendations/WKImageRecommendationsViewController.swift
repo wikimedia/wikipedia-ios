@@ -12,6 +12,7 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController)
 }
 
 public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
@@ -148,7 +149,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
             }
         }
-
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -159,26 +159,8 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         }
         cancellables.removeAll()
     }
-
-    // MARK: Private methods
-
-    @objc private func tappedBack() {
-
-        if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
-            loggingDelegate?.logEmptyStateDidTapBack()
-        }
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        navigationController?.popViewController(animated: true)
-    }
-
-    private func setupOverflowMenu() {
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        rightBarButtonItem.tintColor = theme.link
-    }
-
-    private func presentImageRecommendationBottomSheet() {
+    
+    public func presentImageRecommendationBottomSheet() {
         imageRecommendationBottomSheetController.isModalInPresentation = true
         if let bottomSheet = imageRecommendationBottomSheetController.sheetPresentationController {
             bottomSheet.detents = [.medium(), .large()]
@@ -199,6 +181,54 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             }
 
         })
+    }
+
+    // MARK: Private methods
+
+    private func shouldShowAltTextExperimentModal() -> Bool {
+        guard let lastRecommendation = viewModel.lastRecommendation,
+              lastRecommendation.altText == nil,
+              lastRecommendation.suggestionAcceptDate != nil else {
+                   return false
+               }
+
+               let dataController = WKAltTextDataController.shared
+
+               guard let dataController else {
+                   return false
+               }
+
+               let isLoggedIn = viewModel.isLoggedIn
+
+               do {
+                   try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+               } catch let error {
+                   debugPrint(error)
+                   return false
+               }
+
+               if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
+                   return true
+        }
+        
+        return false
+
+    }
+
+    @objc private func tappedBack() {
+
+        if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
+            loggingDelegate?.logEmptyStateDidTapBack()
+        }
+
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.popViewController(animated: true)
+    }
+
+    private func setupOverflowMenu() {
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButtonItem.tintColor = theme.link
     }
 
     private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
@@ -274,9 +304,19 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         viewModel.$debouncedLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
+                
+                guard let self else {
+                    return
+                }
+                
                 if !isLoading {
-                    if self?.viewModel.currentRecommendation?.articleSummary != nil {
-                        self?.presentImageRecommendationBottomSheet()
+                    if self.viewModel.currentRecommendation?.articleSummary != nil {
+                        if self.shouldShowAltTextExperimentModal() {
+                            self.delegate?.imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: true, imageRecommendationsViewController: self)
+                        } else {
+                            self.presentImageRecommendationBottomSheet()
+                        }
+                        
                     }
                 }
             }
