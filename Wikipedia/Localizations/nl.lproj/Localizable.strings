@@ -239,6 +239,8 @@
 "description-welcome-descriptions-title" = "Artikelbeschrijvingen";
 "description-welcome-promise-title" = "Ik beloof dat ik deze functie niet misbruiken zal";
 "description-welcome-start-editing-button" = "Begin met bewerken";
+"developer-settings" = "Ontwikkelaarsinstellingen";
+"developer-settings-enable-alt-text-experiment" = "Expriment voor Alt Text inschakelen";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis van artikel";
 "diff-change-added" = "Toevoeging, $1, einde toevoeging.";
 "diff-change-paragraph-lines-moved-down" = "De paragraaf is {{PLURAL:$1|0=0 regels|$1 regel|$1 regels}} naar beneden verplaatst. Ga naar de nieuwe locatie.";
@@ -343,6 +345,8 @@
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-placeholder-text" = "Hoe heeft u het artikel verbeterd?";
+"edit-summary-short-description-added" = "Korte beschrijving toegevoegd";
+"edit-summary-short-description-updated" = "Korte beschrijving bijgewerkt";
 "edit-watch-list-learn-more-text" = "Meer over uw volglijst";
 "edit-watch-this-page-text" = "Deze pagina volgen";
 "editing-welcome-be-bold-subtitle" = "Voel je vrij en ga je gang bij het bewerken van artikelen, maar wees niet roekeloos. Maak je niet te veel zorgen over eventuele fouten: elke vorige versie van een pagina wordt opgeslagen, zodat fouten makkelijk door onze gemeenschap kunnen worden verbeterd.";
@@ -473,9 +477,9 @@
 "explore-feed-preferences-potd-description" = "Dagelijkse uitgelichte afbeelding van Wikimedia Commons";
 "explore-feed-preferences-randomizer-description" = "Genereert willekeurige artikelen om te lezen";
 "explore-feed-preferences-related-pages-description" = "Suggesties gebaseerd op uw leesgeschiedenis";
-"explore-feed-preferences-show-continue-reading-title" = "Kaart ‘Doorgaan met lezen’ tonen";
+"explore-feed-preferences-show-continue-reading-title" = "Kaart ‘Doorgaan met lezen’ weergeven";
 "explore-feed-preferences-show-featured-article-footer-text" = "Het uitschakelen van de kaart \"Uitgelicht artikel\" geldt voor alle beschikbare talen.";
-"explore-feed-preferences-show-featured-article-title" = "De kaart \"Uitgelicht artikel\" tonen";
+"explore-feed-preferences-show-featured-article-title" = "De kaart \"Uitgelicht artikel\" weergeven";
 "explore-feed-preferences-show-news-footer-text" = "Uitschakelen van de in het nieuws-kaart zal deze uitschakelen in alle beschikbare talen.";
 "explore-feed-preferences-show-news-title" = "In het nieuws-kaart vertonen";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Uitschakelen van de op deze dag-kaart zal deze uitschakelen in alle beschikbare talen.";
@@ -636,6 +640,7 @@
 "image-recommendations-email-title" = "Probleemrapport - Voeg een afbeeldingsfunctie toe";
 "image-recs-no-title" = "Nee";
 "image-recs-not-sure-title" = "Niet zeker";
+"image-recs-time-warning-message" = "Lees de pagina om het onderwerp te begrijpen en controleer de afbeelding";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Mijn leeslijst";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nu niet";
@@ -1112,7 +1117,7 @@
 "settings-storage-and-syncing-server-sync-footer-text" = "Vraag een update voor uw gesynchroniseerde artikelen en leeslijsten.";
 "settings-storage-and-syncing-server-sync-title" = "Update gesynchroniseerde leeslijsten";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Toon de leeslijst Opgeslagen (bv. de standaardlijst) als een afzonderlijke lijst in uw leeslijstenweergave. Deze lijst wordt weergegeven op Android-apparaten.";
-"settings-storage-and-syncing-show-default-reading-list-title" = "Leeslijst Opgeslagen tonen";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Opgeslagen leeslijst weergeven";
 "settings-storage-and-syncing-title" = "Artikelopslag en -synchronisatie";
 "settings-title" = "Instellingen";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
