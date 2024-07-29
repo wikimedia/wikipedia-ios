@@ -1287,7 +1287,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
 
-        guard let lastRecommendation = imageRecommendationsViewModel?.lastRecommendation else {
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
             return
         }
 
@@ -1449,7 +1450,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         guard let self else {
                             return
                         }
-                        
+
+                        imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
+
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
                         
