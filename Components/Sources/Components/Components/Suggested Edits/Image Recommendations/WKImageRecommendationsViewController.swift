@@ -149,8 +149,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
             }
         }
-
-
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -200,11 +198,12 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                    return false
                }
 
-               let isLoggedIn = true // dataStore.authenticationManager.isLoggedIn
+               let isLoggedIn = viewModel.isLoggedIn
 
                do {
                    try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
                } catch let error {
+                   debugPrint(error)
                    return false
                }
 
