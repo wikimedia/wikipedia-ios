@@ -230,6 +230,8 @@ extension ArticleViewController: EditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true) {
                 
+                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: changes.postedWikitext)
+                
                 let title = CommonStrings.editPublishedToastTitle
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 
@@ -244,6 +246,45 @@ extension ArticleViewController: EditorViewControllerDelegate {
             }
             
             waitForNewContentAndRefresh(changes.newRevisionID)
+        }
+    }
+    
+    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: String?) {
+        
+        guard let siteURL = articleURL.wmf_site,
+        let postedWikitext else {
+            return
+        }
+        
+        let dataController = WKAltTextDataController.shared
+        
+        guard let dataController,
+              let wikimediaProject = WikimediaProject(siteURL: siteURL),
+                let project = wikimediaProject.wkProject else {
+            return
+        }
+        
+        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        
+        guard isLoggedIn else {
+            return
+        }
+        
+        // TODO: Evaluate postedWikitext here, confirm it qualifies for alt text experiment before assigning experiment values https://phabricator.wikimedia.org/T367908
+        
+        do {
+            try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
+        } catch let error {
+            DDLogWarn("Error assigning alt text article editor experiment: \(error)")
+        }
+        
+        DDLogDebug("Assigned alt text image recommendations group: \(dataController.assignedAltTextImageRecommendationsGroupForLogging() ?? "nil")")
+        
+        DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
+        
+        if dataController.shouldEnterAltTextArticleEditorFlow(isLoggedIn: isLoggedIn, project: project) {
+            print("TODO: PRESENT MODAL")
+            dataController.markSawAltTextArticleEditorPrompt()
         }
     }
 }

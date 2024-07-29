@@ -120,6 +120,8 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public let imageData: WKImageRecommendationData
         public var caption: String?
         public var altText: String?
+        public var imageWikitext: String?
+        public var fullArticleWikitextWithImage: String?
         public var suggestionAcceptDate: Date?
 
         fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
@@ -171,6 +173,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.imageRecommendationsDataController = WKImageRecommendationsDataController()
         
         $loading
+            .removeDuplicates()
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
                     .sink(receiveValue: { [weak self] t in
                         self?.debouncedLoading = t

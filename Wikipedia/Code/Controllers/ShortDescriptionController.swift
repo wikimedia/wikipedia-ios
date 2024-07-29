@@ -202,7 +202,6 @@ private extension ShortDescriptionController {
                 baseRevID: baseRevisionID as NSNumber,
                 captchaId: nil,
                 captchaWord: nil,
-                editSummaryTag: nil,
                 editTags: [editTag],
                 completion: { [weak self] (result, error) in
                 

@@ -220,15 +220,52 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        // Image Recommendations Business Logic:
-        // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-        if !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
-        } else {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
-        }
-        
+        var feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEditsOption = suggestedEdits
+
+            let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
+
+            if shouldShowSuggestedEdits || self.shouldEnableForAltTextExperiment() {
+                feedCards.append(suggestedEditsOption)
+            }
+
+        return feedCards
+
     }()
+
+    private func shouldEnableForAltTextExperiment() -> Bool {
+        let altTextDevSettingsFeatureFlag = WKDeveloperSettingsDataController.shared.enableAltTextExperiment
+        let targetWikisForAltText = ["es", "fr", "pt", "zh"]
+        let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
+
+        if #available(iOS 16, *) {
+            if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
+                return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+                && shouldAltTextExperimentBeActive()
+            }
+        }
+        return false
+    }
+
+    func shouldAltTextExperimentBeActive() -> Bool {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2024
+        dateComponents.month = 10
+        dateComponents.day = 21
+
+        let calendar = Calendar(identifier: .gregorian)
+        guard let experimentDate = calendar.date(from: dateComponents) else {
+            return false
+        }
+
+        let currentDate = Date()
+
+        if currentDate > experimentDate {
+            return false
+        }
+
+        return true
+    }
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
         return ExploreFeedSettingsGlobalCards()

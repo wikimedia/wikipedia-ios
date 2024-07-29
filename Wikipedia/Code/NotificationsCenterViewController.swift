@@ -66,6 +66,7 @@ final class NotificationsCenterViewController: ViewController {
         self.viewModel = viewModel
         super.init(theme: theme)
         viewModel.delegate = self
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
