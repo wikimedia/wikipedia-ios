@@ -96,6 +96,11 @@ class ArticleViewController: ViewController, HintPresenting {
     var altTextExperimentViewModel: AltTextExperimentViewModel?
     // END: Alt text experiment properties
     
+    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: AltTextExperimentViewModel) {
+        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        self.altTextExperimentViewModel = altTextExperimentViewModel
+    }
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -335,7 +340,11 @@ class ArticleViewController: ViewController, HintPresenting {
     override func viewDidLoad() {
         setup()
         super.viewDidLoad()
-        setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        
+        if altTextExperimentViewModel == nil {
+            setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        }
+        
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
@@ -361,7 +370,11 @@ class ArticleViewController: ViewController, HintPresenting {
         super.viewDidAppear(animated)
 
         /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
-        setupWButton()
+        
+        if altTextExperimentViewModel == nil {
+            setupWButton()
+        }
+        
         guard isFirstAppearance else {
             return
         }
@@ -426,7 +439,10 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.articleAsLivingDocController.articleContentFinishedLoading()
             
-            self.setupFooter()
+            if altTextExperimentViewModel == nil {
+                self.setupFooter()
+            }
+            
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
             self.articleLoadWaitGroup = nil
@@ -934,8 +950,15 @@ class ArticleViewController: ViewController, HintPresenting {
 private extension ArticleViewController {
     
     func setup() {
-        setupWButton()
-        setupSearchButton()
+        if let altTextExperimentViewModel {
+            self.navigationItem.titleView = nil
+            self.title = altTextExperimentViewModel.localizedStrings.articleNavigationBarTitle
+            self.navigationBar.updateNavigationItems()
+        } else {
+            setupWButton()
+            setupSearchButton()
+        }
+        
         addNotificationHandlers()
         setupWebView()
         setupMessagingController()

@@ -1307,14 +1307,16 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                         return
                     }
                     
+                    let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: WMFLocalizedString("alt-text-exp-article-navbar-title", value: "Add alt text", comment: "Navigation bar title of alt text experiment input view. View displays article context and textfield to enter alt text."))
+                    
                     let articleTitle = lastRecommendation.imageData.pageTitle
-                    let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
+                    
+                    let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
 
                     if let siteURL = viewModel.project.siteURL,
                        let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme) {
+                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel) {
                         
-                        articleViewController.altTextExperimentViewModel = altTextViewModel
                         self.navigationController?.pushViewController(articleViewController, animated: true)
                     }
                     
@@ -1460,6 +1462,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
                 
+                currentRecommendation.suggestionAcceptDate = Date()
+                currentRecommendation.lastRevisionID = revID
+                
                 // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next { [weak self] in
                     
@@ -1468,9 +1473,6 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         guard let self else {
                             return
                         }
-                        
-                        imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
-                        imageRecommendationsViewModel.lastRecommendation?.lastRevisionID = revID
 
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
