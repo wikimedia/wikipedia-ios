@@ -441,6 +441,8 @@ class ArticleViewController: ViewController, HintPresenting {
             
             if altTextExperimentViewModel == nil {
                 self.setupFooter()
+            } else {
+                messagingController.hideEditPencils()
             }
             
             self.shareIfNecessary()
@@ -836,6 +838,11 @@ class ArticleViewController: ViewController, HintPresenting {
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
+        
+        guard altTextExperimentViewModel == nil else {
+            return
+        }
+        
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()
             return

@@ -127,6 +127,11 @@ class ArticleWebMessagingController: NSObject {
         updateSetupParameters()
     }
     
+    func hideEditPencils() {
+        let js = "pcs.c1.Page.setEditButtons(false, false)"
+        webView?.evaluateJavaScript(js)
+    }
+    
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))
