@@ -433,7 +433,10 @@ class ArticleViewController: ViewController, HintPresenting {
         
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
-            self.loadPage(cachePolicy: cachePolicy)
+            
+            let revisionID = self.altTextExperimentViewModel != nil ? self.altTextExperimentViewModel?.lastRevisionID : nil
+            
+            self.loadPage(cachePolicy: cachePolicy, revisionID: revisionID)
         }
     }
     
