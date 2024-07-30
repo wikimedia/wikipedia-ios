@@ -1284,8 +1284,13 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
-
+    
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
+            return
+        }
 
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
@@ -1297,10 +1302,23 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         DispatchQueue.main.async {
 
             let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                imageRecommendationsViewController.dismiss(animated: true) {
-                    // todo: show alt text flow
-                    // once flow is done, bring back up next recommendation
-                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
+                    
+                    guard let self else {
+                        return
+                    }
+                    
+                    let articleTitle = lastRecommendation.imageData.pageTitle
+                    let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+                    if let siteURL = viewModel.project.siteURL,
+                       let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme) {
+                        
+                        self.navigationController?.pushViewController(articleViewController, animated: true)
+                    }
+                    
+                    // todo: once alt text is published, bring back up this bottom sheet
+                    // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
                 }
             }
 
@@ -1325,7 +1343,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             imageRecommendationsViewController.present(panel, animated: true)
             let dataController = WKAltTextDataController.shared
             dataController?.markSawAltTextImageRecommendationsPrompt()
-
         }
     }
 }
@@ -1450,7 +1467,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         guard let self else {
                             return
                         }
-
+                        
                         imageRecommendationsViewModel.lastRecommendation?.suggestionAcceptDate = Date()
 
                         let title = CommonStrings.editPublishedToastTitle
@@ -1468,7 +1485,6 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 break
             }
         }
-
     }
 
     

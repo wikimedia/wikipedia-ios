@@ -39,6 +39,7 @@
                                                       completion:^(WMFCurrentlyLoggedInUser *user) {
                                                           // Image Recommendations Business Logic:
                                                           // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+
                                                           BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
                                                           if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
@@ -61,7 +62,8 @@
 - (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
     BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
-    NSSet *targetWikisForAltText = [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
+    BOOL enableAltTextExperimentForEN = [[WKDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
+    NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
     BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
 
     // Alt text Experiment Business Logic:
