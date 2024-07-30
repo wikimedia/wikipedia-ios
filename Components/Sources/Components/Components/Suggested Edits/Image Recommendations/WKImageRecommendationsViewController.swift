@@ -184,35 +184,34 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 
     // MARK: Private methods
-
+    
     private func shouldShowAltTextExperimentModal() -> Bool {
         guard let lastRecommendation = viewModel.lastRecommendation,
-              lastRecommendation.altText == nil,
-              lastRecommendation.suggestionAcceptDate != nil else {
-                   return false
-               }
-
-               let dataController = WKAltTextDataController.shared
-
-               guard let dataController else {
-                   return false
-               }
-
-               let isLoggedIn = viewModel.isLoggedIn
-
-               do {
-                   try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
-               } catch let error {
-                   debugPrint(error)
-                   return false
-               }
-
-               if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
-                   return true
+            lastRecommendation.altText == nil,
+            lastRecommendation.suggestionAcceptDate != nil else {
+           return false
         }
-        
-        return false
 
+        let dataController = WKAltTextDataController.shared
+
+        guard let dataController else {
+            return false
+        }
+
+        let isLoggedIn = viewModel.isLoggedIn
+
+        do {
+            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+        } catch let error {
+            debugPrint(error)
+            return false
+        }
+
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
+            return true
+        }
+
+        return false
     }
 
     @objc private func tappedBack() {
@@ -316,7 +315,6 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
                         } else {
                             self.presentImageRecommendationBottomSheet()
                         }
-                        
                     }
                 }
             }

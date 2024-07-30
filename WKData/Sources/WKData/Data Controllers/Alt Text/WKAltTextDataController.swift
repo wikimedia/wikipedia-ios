@@ -52,7 +52,7 @@ public final class WKAltTextDataController {
             throw WKAltTextDataControllerError.notLoggedIn
         }
         
-        guard project.qualifiesForAltTextExperiments else {
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
             throw WKAltTextDataControllerError.invalidProject
         }
         
@@ -90,7 +90,7 @@ public final class WKAltTextDataController {
             throw WKAltTextDataControllerError.notLoggedIn
         }
         
-        guard project.qualifiesForAltTextExperiments else {
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
             throw WKAltTextDataControllerError.invalidProject
         }
         
@@ -140,7 +140,7 @@ public final class WKAltTextDataController {
             return false
         }
         
-        guard project.qualifiesForAltTextExperiments else {
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
             return false
         }
         
@@ -187,7 +187,7 @@ public final class WKAltTextDataController {
             return false
         }
         
-        guard project.qualifiesForAltTextExperiments else {
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
             return false
         }
         
@@ -284,12 +284,14 @@ public final class WKAltTextDataController {
 }
 
 private extension WKProject {
-    var qualifiesForAltTextExperiments: Bool {
+    func qualifiesForAltTextExperiments(developerSettingsDataController: WKDeveloperSettingsDataController) -> Bool {
         switch self {
         case .wikipedia(let language):
             switch language.languageCode {
             case "es", "fr", "pt", "zh", "test":
                 return true
+            case "en":
+                return developerSettingsDataController.enableAltTextExperimentForEN
             default:
                 return false
             }
