@@ -92,7 +92,6 @@ final class AltTextExperimentModalSheetView: WKComponentView {
         return button
     }()
 
-
     private let basePadding: CGFloat = 8
     private let padding: CGFloat = 16
 
@@ -101,6 +100,7 @@ final class AltTextExperimentModalSheetView: WKComponentView {
     public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
+        textView.delegate = self
         setup()
     }
 
@@ -121,11 +121,15 @@ final class AltTextExperimentModalSheetView: WKComponentView {
         textView.backgroundColor = theme.paperBackground
         iconImageView.tintColor = theme.link
         nextButton.setTitleColor(theme.link, for: .normal)
+        nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
     }
 
     func configure() {
         updateColors()
+        updateNextButtonState()
+        updatePlaceholderVisibility()
+
         titleLabel.text = viewModel?.localizedStrings.title
         nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
         placeholder.text = viewModel?.localizedStrings.textViewPlaceholder
@@ -184,4 +188,28 @@ final class AltTextExperimentModalSheetView: WKComponentView {
             iconImageContainerView.topAnchor.constraint(equalTo: titleLabel.topAnchor)
         ])
     }
+
+    private func updateNextButtonState() {
+        nextButton.isEnabled = !textView.text.isEmpty
+    }
+
+    private func updatePlaceholderVisibility() {
+        placeholder.isHidden = !textView.text.isEmpty
+    }
+}
+
+extension AltTextExperimentModalSheetView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        updateNextButtonState()
+        updatePlaceholderVisibility()
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        placeholder.isHidden = true
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        updatePlaceholderVisibility()
+    }
+
 }
