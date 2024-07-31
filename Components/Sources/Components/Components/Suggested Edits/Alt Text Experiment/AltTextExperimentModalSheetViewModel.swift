@@ -1,16 +1,22 @@
 import Foundation
 
-final class AltTextExperimentModalSheetViewModel {
-    var altTextViewModel: AltTextExperimentViewModel
-    var localizedStrings: BottomSheetStrings
+@objc final public class AltTextExperimentModalSheetViewModel: NSObject {
+    public var altTextViewModel: AltTextExperimentViewModel
+    public var localizedStrings: LocalizedStrings
 
-    struct BottomSheetStrings {
-        var title: String
-        var buttonTitle: String
-        var textViewPlaceholder: String
+    public struct LocalizedStrings {
+        public var title: String
+        public var buttonTitle: String
+        public var textViewPlaceholder: String
+
+        public init(title: String, buttonTitle: String, textViewPlaceholder: String) {
+            self.title = title
+            self.buttonTitle = buttonTitle
+            self.textViewPlaceholder = textViewPlaceholder
+        }
     }
 
-    init(altTextViewModel: AltTextExperimentViewModel, localizedStrings: BottomSheetStrings) {
+    public init(altTextViewModel: AltTextExperimentViewModel, localizedStrings: LocalizedStrings) {
         self.altTextViewModel = altTextViewModel
         self.localizedStrings = localizedStrings
     }
