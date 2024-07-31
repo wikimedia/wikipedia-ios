@@ -123,6 +123,7 @@ final class AltTextExperimentModalSheetView: WKComponentView {
         nextButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
+        textView.textColor = theme.text
     }
 
     func configure() {
@@ -134,6 +135,8 @@ final class AltTextExperimentModalSheetView: WKComponentView {
         nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
         placeholder.text = viewModel?.localizedStrings.textViewPlaceholder
         
+        textView.font = WKFont.for(.callout, compatibleWith: traitCollection)
+
         titleLabel.font = WKFont.for(.boldTitle3, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = WKFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         placeholder.font = WKFont.for(.callout, compatibleWith: traitCollection)
