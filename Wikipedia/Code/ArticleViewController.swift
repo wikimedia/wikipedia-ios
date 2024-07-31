@@ -1,4 +1,4 @@
-import UIKit
+import Components
 import WMF
 import CocoaLumberjackSwift
 
@@ -90,8 +90,13 @@ class ArticleViewController: ViewController, HintPresenting {
         SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
     }
     // END: Article As Living Doc properties
-    
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
+
+    // MARK: Alt-text experiment Properties
+
+    public var altTextBottomSheetViewModel: AltTextExperimentModalSheetViewModel?
+    private let needsAltTextExperimentSheet: Bool
+
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, needsAltTextExperimentSheet: Bool = false, altTextBottomSheetViewModel: AltTextExperimentModalSheetViewModel? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
@@ -104,7 +109,9 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
-        
+        self.needsAltTextExperimentSheet = needsAltTextExperimentSheet
+        self.altTextBottomSheetViewModel = altTextBottomSheetViewModel
+
         super.init(theme: theme)
         
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
@@ -119,6 +126,7 @@ class ArticleViewController: ViewController, HintPresenting {
         contentSizeObservation?.invalidate()
         messagingController.removeScriptMessageHandler()
         articleLoadWaitGroup = nil
+        altTextBottomSheetViewModel = nil
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -362,8 +370,32 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         showAnnouncementIfNeeded()
         isFirstAppearance = false
+
+        presentAltTextExperimentSheet()
+
     }
-    
+
+    private func presentAltTextExperimentSheet() {
+        guard let altTextBottomSheetViewModel else { return }
+        let bottomSheetViewController = AltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel)
+
+        if #available(iOS 16.0, *) {
+            if let sheet = bottomSheetViewController.sheetPresentationController {
+                let customSmallId = UISheetPresentationController.Detent.Identifier("customSmall")
+                let customSmallDetent = UISheetPresentationController.Detent.custom(identifier: customSmallId) { context in
+                    return 44
+                }
+                sheet.detents = [customSmallDetent, .medium(), .large()]
+                sheet.selectedDetentIdentifier = .medium
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersGrabberVisible = true
+            }
+            bottomSheetViewController.isModalInPresentation = true
+
+            present(bottomSheetViewController, animated: true, completion: nil)
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableOfContentsController.update(with: traitCollection)
