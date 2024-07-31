@@ -308,6 +308,59 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
     }
 }
 
+extension ArticleViewController: TestVCDelegate {
+    
+    private func localizedAltTextFormat(siteURL: URL) -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
+    }
+    
+    func didTapPublish() {
+        guard let altTextExperimentViewModel,
+        let siteURL = articleURL.wmf_site else {
+            return
+        }
+        
+        // TODO: Just inserting dummy alt text here
+        
+        let originalFullArticleWikitext = altTextExperimentViewModel.fullArticleWikitextWithImage
+        let originalImageWikitext = altTextExperimentViewModel.imageWikitext
+        let originalCaption = altTextExperimentViewModel.caption
+        
+        var finalImageWikitext = originalImageWikitext
+        var finalWikitext = originalFullArticleWikitext
+        
+        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), "Dummy")
+        
+        if let originalCaption,
+           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
+        } else if let range = originalImageWikitext.range(of: "]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
+        }
+        
+        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
+            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
+        }
+        
+        print(finalWikitext)
+        
+//        let fetcher = WikiTextSectionUploader()
+//        fetcher.uploadWikiText(finalWikitext, forArticleURL: articleURL, section: "0", summary: "Added alt text", isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: altTextExperimentViewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+//            print(result)
+//            print(error)
+//        }
+    }
+}
+
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit
 // WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
 // WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")

@@ -5,10 +5,41 @@ import Components
 
 
 // TODO: Temporary code to present in half sheet modal and test Article web view content inset.
+
+protocol TestVCDelegate: AnyObject {
+    func didTapPublish()
+}
 class TestVC: UIViewController {
+    
+    lazy var publishButton: UIButton = {
+        let action = UIAction(title: "Publish") { [weak self] _ in
+            self?.delegate?.didTapPublish()
+        }
+       let button = UIButton(primaryAction: action)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    weak var delegate: TestVCDelegate?
+    
+    init(delegate: TestVCDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        view.addSubview(publishButton)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: publishButton.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: publishButton.centerYAnchor)
+        ])
     }
 }
 
@@ -491,7 +522,7 @@ class ArticleViewController: ViewController, HintPresenting {
         messagingController.hideEditPencils()
         messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
         
-        let viewController = TestVC()
+        let viewController = TestVC(delegate: self)
         viewController.isModalInPresentation = true
         if let presentationController = viewController.sheetPresentationController {
             presentationController.delegate = self
