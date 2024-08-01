@@ -116,6 +116,11 @@
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
+"alt-text-add-button-title" = "Додај";
+"alt-text-do-not-add-button-title" = "Не додавај";
+"alt-text-modal-subtitle-image-recommendation" = "Претходната слика нема алтернативен текст. Да се стави опис на сликата за читатели со попречен вид?";
+"alt-text-modal-title" = "Да додадам алтернативен текст на сликата?";
+"alt-text-modalsubtitle-regular-edit" = "Во статијава има слика без алтернативен текст. Дали да ставиме опис за читатели со попречен вид?";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
 "app-store-release-notes" = "Целосно прилагодлив и почесно читлив довод „Истражи“. Јазично прилагодување, подобрувања во делотворноста и исправка на грешки.";
@@ -209,6 +214,7 @@
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-enable-alt-text-experiment" = "Овозможи експеримент со алтернативен текст.";
+"developer-settings-enable-alt-text-experiment-en" = "Овозможи го експериментот со алтернативен текст.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
