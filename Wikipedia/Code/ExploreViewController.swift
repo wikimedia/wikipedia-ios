@@ -1286,7 +1286,6 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     }
     
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
-        
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
             return
@@ -1298,56 +1297,60 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             let localizedFileTitle = lastRecommendation.localizedFileTitle else {
             return
         }
-        
-        DispatchQueue.main.async {
 
-            let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
-                    
-                    guard let self else {
-                        return
-                    }
-                    
-                    let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: WMFLocalizedString("alt-text-exp-article-navbar-title", value: "Add alt text", comment: "Navigation bar title of alt text experiment input view. View displays article context and textfield to enter alt text."))
-                    
-                    let articleTitle = lastRecommendation.imageData.pageTitle
-                    
-                    let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
-
-                    if let siteURL = viewModel.project.siteURL,
-                       let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel) {
-                        
-                        self.navigationController?.pushViewController(articleViewController, animated: true)
-                    }
-                    
-                    // todo: once alt text is published, bring back up this bottom sheet
-                    // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
                 }
-            }
+                
+                let addAltTextTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+                
+                let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle)
+                
+                let articleTitle = lastRecommendation.imageData.pageTitle
+                
+                let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
+                
+                let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
+                let sheetLocalizedStrings = AltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
 
-            let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                imageRecommendationsViewController.dismiss(animated: true) {
-                    // show survey
-                    // once survey is done, bring back up next recommendation
-                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                let bottomSheetViewModel = AltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+
+                if let siteURL = viewModel.project.siteURL,
+                   let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel) {
+
+                    self.navigationController?.pushViewController(articleViewController, animated: true)
                 }
+                
+                // todo: once alt text is published, bring back up this bottom sheet
+                // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
-
-            let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
-                switch lastAction {
-                case .tappedPrimary, .tappedSecondary:
-                    break
-                default:
-                    imageRecommendationsViewController.presentImageRecommendationBottomSheet()
-                }
-            }
-
-            let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
-            imageRecommendationsViewController.present(panel, animated: true)
-            let dataController = WKAltTextDataController.shared
-            dataController?.markSawAltTextImageRecommendationsPrompt()
         }
+
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) {
+                // show survey
+                // once survey is done, bring back up next recommendation
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            }
+        }
+
+        let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
+            switch lastAction {
+            case .tappedPrimary, .tappedSecondary:
+                break
+            default:
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            }
+        }
+
+        let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+        imageRecommendationsViewController.present(panel, animated: true)
+        let dataController = WKAltTextDataController.shared
+        dataController?.markSawAltTextImageRecommendationsPrompt()
     }
 }
 

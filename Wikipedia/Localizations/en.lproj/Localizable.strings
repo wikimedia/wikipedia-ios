@@ -106,7 +106,8 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
-"alt-text-exp-article-navbar-title" = "Add alt text";
+"alt-text-experiment-text-field-placholder" = "Describe the image";
+"alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";
 "alt-text-modal-title" = "Add missing image alt text?";
 "alt-text-modalsubtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
