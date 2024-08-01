@@ -402,11 +402,15 @@ public struct HtmlUtils {
         }
     }
 
-
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
-        let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "").replacingOccurrences(of: "&amp;", with: "&")
-        return cleanString
+        let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "")
+        let entityReplaceData = try entityReplaceData(html: cleanString)
+            let mutableCleanString = NSMutableString(string: cleanString)
+            for data in entityReplaceData {
+                mutableCleanString.replaceCharacters(in: data.range, with: data.replaceText)
+            }
+            return mutableCleanString as String
     }
 
     // MARK: - Shared - Private
