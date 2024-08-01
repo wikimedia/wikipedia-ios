@@ -405,7 +405,7 @@ public struct HtmlUtils {
 
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
-        let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "")
+        let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "").replacingOccurrences(of: "&amp;", with: "&")
         return cleanString
     }
 
