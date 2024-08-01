@@ -5,7 +5,7 @@ import WMF
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
 protocol InsertMediaSettingsViewControllerDelegate: ViewController {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?)
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String)
 }
 
 protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
@@ -282,8 +282,9 @@ final class InsertMediaSettingsViewController: ViewController {
         let wikitext = info.wikitext
         let captionToSend = info.caption
         let altTextToSend = info.altText
+        let localizedFileTitle = info.localizedFileTitle
         
-        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend)
+        delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend, localizedFileTitle: localizedFileTitle)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -333,8 +334,9 @@ final class InsertMediaSettingsViewController: ViewController {
     typealias Wikitext = String
     typealias Caption = String
     typealias AltText = String
+    typealias LocalizedFileTitle = String
     
-    static func imageInsertInfo(searchResult: InsertMediaSearchResult, settings: InsertMediaSettings?, siteURL: URL) -> (wikitext: Wikitext, caption: Caption?, altText: AltText?) {
+    static func imageInsertInfo(searchResult: InsertMediaSearchResult, settings: InsertMediaSettings?, siteURL: URL) -> (wikitext: Wikitext, caption: Caption?, altText: AltText?, localizedFileTitle: LocalizedFileTitle) {
         
         let fileTitle = localizedFileTitle(searchResult: searchResult, siteURL: siteURL)
         var wikitext: String
@@ -343,7 +345,7 @@ final class InsertMediaSettingsViewController: ViewController {
         
         guard let mediaSettings = settings else {
             wikitext = "[[\(fileTitle)]]"
-            return (wikitext, nil, nil)
+            return (wikitext, nil, nil, fileTitle)
         }
         
         var imageTypeName = localizedImageTypeName(imageType: mediaSettings.advanced.imageType, siteURL: siteURL)
@@ -376,7 +378,7 @@ final class InsertMediaSettingsViewController: ViewController {
             """
         }
         
-        return (wikitext, captionToSend, altTextToSend)
+        return (wikitext, captionToSend, altTextToSend, fileTitle)
         
     }
     
