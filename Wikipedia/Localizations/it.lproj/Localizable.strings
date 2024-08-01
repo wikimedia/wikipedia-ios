@@ -152,6 +152,7 @@
 "action-update" = "Aggiorna";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
+"alt-text-add-button-title" = "Aggiungi";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
