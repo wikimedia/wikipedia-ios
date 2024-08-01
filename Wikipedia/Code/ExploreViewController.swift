@@ -1469,7 +1469,6 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
                 
-                currentRecommendation.suggestionAcceptDate = Date()
                 currentRecommendation.lastRevisionID = revID
                 
                 // Go to next recommendation and display success alert
