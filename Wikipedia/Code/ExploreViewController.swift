@@ -1306,12 +1306,14 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                 }
                 
                 let addAltTextTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+                let languageCode = viewModel.project.languageCode
+                let editSummary = WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
                 
-                let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle)
+                let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
                 
                 let articleTitle = lastRecommendation.imageData.pageTitle
                 
-                let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID)
+                let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
                 
                 let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
                 let sheetLocalizedStrings = AltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
@@ -1320,7 +1322,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
                 if let siteURL = viewModel.project.siteURL,
                    let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel) {
+                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
 
                     self.navigationController?.pushViewController(articleViewController, animated: true)
                 }
@@ -1688,4 +1690,99 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
         ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
     }
     
+}
+
+extension ExploreViewController: AltTextDelegate {
+    
+    private func localizedAltTextFormat(siteURL: URL) -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
+    }
+    
+    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: AltTextExperimentViewModel) {
+        let articleURL = articleViewController.articleURL
+        guard let siteURL = articleURL.wmf_site else {
+            return
+        }
+        
+        let originalFullArticleWikitext = viewModel.fullArticleWikitextWithImage
+        let originalImageWikitext = viewModel.imageWikitext
+        let originalCaption = viewModel.caption
+        
+        var finalImageWikitext = originalImageWikitext
+        var finalWikitext = originalFullArticleWikitext
+        
+        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
+        
+        if let originalCaption,
+           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
+        } else if let range = originalImageWikitext.range(of: "]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
+        }
+        
+        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
+            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
+        }
+        
+        let developerSettings = WKDeveloperSettingsDataController()
+        if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
+            
+            navigationController?.popViewController(animated: true)
+            
+            // wait for animation to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.presentAltTextEditPublishedToast()
+            }
+            
+            return
+        } else {
+            
+            let section: String?
+            if let sectionID = viewModel.sectionID {
+                section = "\(sectionID)"
+            } else {
+                section = nil
+            }
+            
+            let fetcher = WikiTextSectionUploader()
+            fetcher.uploadWikiText(finalWikitext, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+                
+                DispatchQueue.main.async {
+                    
+                    self.navigationController?.popViewController(animated: true)
+                    
+                    // wait for animation to complete
+                    if error == nil {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self.presentAltTextEditPublishedToast()
+                        }
+                    }
+                }
+            }
+        }
+        
+
+    }
+    
+    private func presentAltTextEditPublishedToast() {
+        let title = CommonStrings.editPublishedToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        }
+    }
 }

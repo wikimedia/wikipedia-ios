@@ -106,6 +106,7 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
+"alt-text-experiment-edit-summary" = "Added alt text";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";

@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import Components
 import WKData
 
 extension ArticleViewController {
@@ -308,56 +309,15 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
     }
 }
 
-extension ArticleViewController: TestVCDelegate {
+extension ArticleViewController: AltTextExperimentModalSheetDelegate {
     
-    private func localizedAltTextFormat(siteURL: URL) -> String {
-        let enFormat = "alt=%@"
-        guard let languageCode = siteURL.wmf_languageCode else {
-            return enFormat
-        }
+    func didTapNext(altText: String) {
         
-        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
-            return enFormat
-        }
-             
-        return magicWord.replacingOccurrences(of: "$1", with: "%@")
-    }
-    
-    func didTapPublish() {
-        guard let altTextExperimentViewModel,
-        let siteURL = articleURL.wmf_site else {
+        guard let altTextExperimentViewModel else {
             return
         }
         
-        // TODO: Just inserting dummy alt text here
-        
-        let originalFullArticleWikitext = altTextExperimentViewModel.fullArticleWikitextWithImage
-        let originalImageWikitext = altTextExperimentViewModel.imageWikitext
-        let originalCaption = altTextExperimentViewModel.caption
-        
-        var finalImageWikitext = originalImageWikitext
-        var finalWikitext = originalFullArticleWikitext
-        
-        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), "Dummy")
-        
-        if let originalCaption,
-           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
-        } else if let range = originalImageWikitext.range(of: "]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
-        }
-        
-        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
-            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
-        }
-        
-        print(finalWikitext)
-        
-//        let fetcher = WikiTextSectionUploader()
-//        fetcher.uploadWikiText(finalWikitext, forArticleURL: articleURL, section: "0", summary: "Added alt text", isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: altTextExperimentViewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
-//            print(result)
-//            print(error)
-//        }
+        altTextDelegate?.didTapPublish(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
     }
 }
 

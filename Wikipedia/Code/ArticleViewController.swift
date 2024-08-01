@@ -2,6 +2,10 @@ import Components
 import WMF
 import CocoaLumberjackSwift
 
+protocol AltTextDelegate: AnyObject {
+    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: AltTextExperimentViewModel)
+}
+
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
     enum ViewState {
@@ -95,13 +99,15 @@ class ArticleViewController: ViewController, HintPresenting {
 
     private var altTextBottomSheetViewModel: AltTextExperimentModalSheetViewModel?
     private(set) var altTextExperimentViewModel: AltTextExperimentViewModel?
+    private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
 
-    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: AltTextExperimentViewModel, needsAltTextExperimentSheet: Bool = false, altTextBottomSheetViewModel: AltTextExperimentModalSheetViewModel? = nil) {
+    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: AltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: AltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
         self.altTextExperimentViewModel = altTextExperimentViewModel
         self.altTextBottomSheetViewModel = altTextBottomSheetViewModel
         self.needsAltTextExperimentSheet = needsAltTextExperimentSheet
+        self.altTextDelegate = altTextDelegate
     }
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
@@ -487,7 +493,7 @@ class ArticleViewController: ViewController, HintPresenting {
         messagingController.hideEditPencils()
         messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
         
-        let bottomSheetViewController = AltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel)
+        let bottomSheetViewController = AltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self)
 
         if #available(iOS 16.0, *) {
             if let sheet = bottomSheetViewController.sheetPresentationController {
