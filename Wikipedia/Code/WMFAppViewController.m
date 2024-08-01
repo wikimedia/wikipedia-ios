@@ -373,6 +373,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.currentTabNavigationController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return self.currentTabNavigationController.preferredInterfaceOrientationForPresentation;
+}
+
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
@@ -1360,7 +1368,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil needsAltTextExperimentSheet:NO altTextBottomSheetViewModel:nil];
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil];
     articleVC.loadCompletion = completion;
 
 #if DEBUG
