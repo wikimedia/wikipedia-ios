@@ -91,6 +91,8 @@
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "advanced-settings-title" = "Erweidert Astellungen";
+"alt-text-add-button-title" = "Derbäisetzen";
+"alt-text-do-not-add-button-title" = "Net derbäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
