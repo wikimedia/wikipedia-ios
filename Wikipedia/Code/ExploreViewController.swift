@@ -1286,18 +1286,10 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
     }
     
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
-        
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
             return
         }
-
-        guard let viewModel = imageRecommendationsViewModel,
-              let lastRecommendation = viewModel.lastRecommendation else {
-            return
-        }
-
-        let altTextViewModel = AltTextExperimentViewModel(articleTitle: lastRecommendation.imageData.pageTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
 
         DispatchQueue.main.async {
 
@@ -1310,10 +1302,15 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                     
                     let articleTitle = lastRecommendation.imageData.pageTitle
                     let altTextViewModel = AltTextExperimentViewModel(articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: lastRecommendation.imageData.displayFilename)
+                    let addAltTextTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+                    let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
+                    let localizedStrings = AltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
+
+                    let bottomSheetViewModel = AltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: localizedStrings)
+
                     if let siteURL = viewModel.project.siteURL,
                        let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme) {
-                        
+                       let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel) {
                         self.navigationController?.pushViewController(articleViewController, animated: true)
                     }
                     
