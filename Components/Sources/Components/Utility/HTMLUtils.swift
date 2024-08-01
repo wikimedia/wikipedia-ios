@@ -644,7 +644,7 @@ public struct HtmlUtils {
                 replaceText = ">"
             case "&lt;":
                 replaceText = "<"
-            case "&apos;":
+            case "&apos;", "&#039;":
                 replaceText = "'"
             case "&quot;":
                 replaceText = "\""
