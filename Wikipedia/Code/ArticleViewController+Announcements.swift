@@ -13,7 +13,7 @@ extension ArticleViewController {
             return
         }
         
-        let dataController = WKFundraisingCampaignDataController.shared
+        let dataController = WMFFundraisingCampaignDataController.shared
         
         Task {
             let isOptedIn = await dataController.isOptedIn(project: wkProject)
@@ -31,7 +31,7 @@ extension ArticleViewController {
         
         AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
-        let dataController = WKFundraisingCampaignDataController.shared
+        let dataController = WMFFundraisingCampaignDataController.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
         

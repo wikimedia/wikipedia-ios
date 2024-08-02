@@ -152,7 +152,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     let growthTasksDataController: WMFGrowthTasksDataController
     let articleSummaryDataController: WMFArticleSummaryDataController
-    let imageDataController: WKImageDataController
+    let imageDataController: WMFImageDataController
     let imageRecommendationsDataController: WMFImageRecommendationsDataController
     let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
 
@@ -168,7 +168,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WMFArticleSummaryDataController()
-        self.imageDataController = WKImageDataController()
+        self.imageDataController = WMFImageDataController()
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
         $loading

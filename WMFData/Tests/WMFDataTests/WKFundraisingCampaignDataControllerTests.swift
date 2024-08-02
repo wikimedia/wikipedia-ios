@@ -8,7 +8,7 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     private let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
     private let nlProject = WKProject.wikipedia(WKLanguage(languageCode: "nl", languageVariantCode: nil))
 
-    private var controller: WKFundraisingCampaignDataController = WKFundraisingCampaignDataController.shared
+    private var controller: WMFFundraisingCampaignDataController = WMFFundraisingCampaignDataController.shared
     
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockBasicService()

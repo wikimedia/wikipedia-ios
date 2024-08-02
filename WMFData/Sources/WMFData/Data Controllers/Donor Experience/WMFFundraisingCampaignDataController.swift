@@ -1,6 +1,6 @@
 import Foundation
 
-@objc final public class WKFundraisingCampaignDataController: NSObject {
+@objc final public class WMFFundraisingCampaignDataController: NSObject {
     
     private actor SafeDictionary<Key: Hashable, Value> {
         private var dictionary: [Key: Value]
@@ -40,7 +40,7 @@ import Foundation
     }
     
     @objc(sharedInstance)
-    public static let shared = WKFundraisingCampaignDataController()
+    public static let shared = WMFFundraisingCampaignDataController()
     
     // MARK: - Public
     

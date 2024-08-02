@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WKImageDataController {
+public final class WMFImageDataController {
     private var service: WKService?
     private let imageCache = NSCache<NSURL, NSData>()
     

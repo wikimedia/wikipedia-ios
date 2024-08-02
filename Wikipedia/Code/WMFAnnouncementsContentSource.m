@@ -10,7 +10,7 @@
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 
-@property (readwrite, nonatomic, strong) WKFundraisingCampaignDataController *fundraisingCampaignDataController;
+@property (readwrite, nonatomic, strong) WMFFundraisingCampaignDataController *fundraisingCampaignDataController;
 
 @end
 
@@ -23,7 +23,7 @@
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:userDataStore.session configuration:userDataStore.configuration];
-        self.fundraisingCampaignDataController = [WKFundraisingCampaignDataController sharedInstance];
+        self.fundraisingCampaignDataController = [WMFFundraisingCampaignDataController sharedInstance];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userWasLoggedIn:)
                                                      name:[WMFAuthenticationManager didLogInNotification]
