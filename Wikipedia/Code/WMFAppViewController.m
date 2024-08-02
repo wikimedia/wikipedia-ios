@@ -373,6 +373,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.currentTabNavigationController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return self.currentTabNavigationController.preferredInterfaceOrientationForPresentation;
+}
+
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {

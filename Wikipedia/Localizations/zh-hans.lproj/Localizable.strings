@@ -894,7 +894,7 @@
 "places-empty-search-title" = "使用地理位置搜索维基百科条目";
 "places-enable-location-action-button-title" = "启用位置";
 "places-enable-location-description" = "仅当本应用（或其功能之一）在屏幕上显示时才能访问您的位置。";
-"places-enable-location-title" = "通过启用位置访问，探索您所在位置附近的条目";
+"places-enable-location-title" = "授予位置权限，探索您所在位置附近的条目";
 "places-filter-articles-action-sheet-title" = "过滤条目";
 "places-filter-button-title" = "过滤器";
 "places-filter-no-saved-places" = "您没有已保存的地方";
@@ -1297,10 +1297,10 @@
 "welcome-explore-continue-button" = "开始";
 "welcome-explore-new-ways-title" = "探索的新方式";
 "welcome-explore-tell-me-more-done-button" = "明白了";
-"welcome-intro-free-encyclopedia-description" = "维基百科由志愿者共同编写，包含超过300种语言的4,000多万篇条目。";
-"welcome-intro-free-encyclopedia-more" = "了解更多关于维基百科";
+"welcome-intro-free-encyclopedia-description" = "维基百科由志愿者共同编写，包含超过300种语言的4000多万篇条目。";
+"welcome-intro-free-encyclopedia-more" = "了解关于维基百科的更多信息";
 "welcome-intro-free-encyclopedia-more-about" = "关于维基百科";
-"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个建立全世界所有语言的自由百科全书的全球项目。几乎所有能访问互联网的人都可以自由地贡献中立、有来源的信息从而参与其中。";
+"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个全球项目，旨在为全世界所有语言编撰自由的百科全书。几乎所有可访问互联网的人都可以自由地向其贡献中立、有来源佐证的信息。";
 "welcome-intro-free-encyclopedia-title" = "自由的百科全书";
 "welcome-languages-add-button" = "添加另一个语言";
 "welcome-languages-add-or-edit-button" = "添加或编辑首选语言";
