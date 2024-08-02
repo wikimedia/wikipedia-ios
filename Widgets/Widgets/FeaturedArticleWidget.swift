@@ -40,9 +40,9 @@ struct FeaturedArticleEntry: TimelineEntry {
 		return content?.languageCode
 	}
 
-	var title: String {
-		return (content?.displayTitle as NSString?)?.wmf_stringByRemovingHTML() ?? ""
-	}
+    var title: String {
+        return content?.displayTitle.removingHTML ?? ""
+    }
 
 	var description: String {
 		return content?.description ?? ""

@@ -402,11 +402,15 @@ public struct HtmlUtils {
         }
     }
 
-
     public static func stringFromHTML(_ string: String) throws -> String {
         let regex = try htmlTagRegex()
         let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "")
-        return cleanString
+        let entityReplaceData = try entityReplaceData(html: cleanString)
+            let mutableCleanString = NSMutableString(string: cleanString)
+            for data in entityReplaceData {
+                mutableCleanString.replaceCharacters(in: data.range, with: data.replaceText)
+            }
+            return mutableCleanString as String
     }
 
     // MARK: - Shared - Private
@@ -644,7 +648,7 @@ public struct HtmlUtils {
                 replaceText = ">"
             case "&lt;":
                 replaceText = "<"
-            case "&apos;":
+            case "&apos;", "&#039;":
                 replaceText = "'"
             case "&quot;":
                 replaceText = "\""
