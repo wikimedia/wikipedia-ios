@@ -1,7 +1,7 @@
 import UIKit
 import WMFData
 
-public class  WKImageRecommendationBottomSheetViewModel {
+public class  WMFImageRecommendationBottomSheetViewModel {
 
     let pageId: Int
     let headerTitle: String

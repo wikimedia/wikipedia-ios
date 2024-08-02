@@ -1,7 +1,7 @@
 import SwiftUI
 import WMFData
 
-struct WKArticleSummaryView: View {
+struct WMFArticleSummaryView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @EnvironmentObject var tooltipGeometryValues: WMFTooltipGeometryValues
@@ -24,7 +24,7 @@ struct WKArticleSummaryView: View {
         VStack(alignment: .leading, spacing: 8) {
             Spacer()
                 .frame(height: 12)
-            WKHtmlText(html: articleSummary.displayTitle, styles: titleStyles)
+            WMFHtmlText(html: articleSummary.displayTitle, styles: titleStyles)
             
             if let description = articleSummary.description {
                 Text(description)
@@ -51,7 +51,7 @@ struct WKArticleSummaryView: View {
             }
             Spacer()
                 .frame(height: 2)
-            WKHtmlText(html: articleSummary.extractHtml, styles: summaryStyles)
+            WMFHtmlText(html: articleSummary.extractHtml, styles: summaryStyles)
         }
     }
 

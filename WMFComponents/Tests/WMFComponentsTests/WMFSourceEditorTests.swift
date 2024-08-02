@@ -1,7 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
-final class WKSourceEditorTests: XCTestCase {
+final class WMFSourceEditorTests: XCTestCase {
 
     var textView: UITextView!
     var editorViewController: WMFSourceEditorViewController!
@@ -33,7 +33,7 @@ final class WKSourceEditorTests: XCTestCase {
     }
 }
 
-extension WKSourceEditorTests: WMFSourceEditorViewControllerDelegate {
+extension WMFSourceEditorTests: WMFSourceEditorViewControllerDelegate {
     func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
 
     }

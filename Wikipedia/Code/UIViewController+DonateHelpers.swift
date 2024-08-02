@@ -37,7 +37,7 @@ import PassKit
             return nil
         }
         
-        let formatter = NumberFormatter.wkCurrencyFormatter
+        let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = currencyCode
         
         guard let merchantID = Bundle.main.wmf_merchantID() else {

@@ -7,8 +7,8 @@
 #pragma mark - Common Custom Attributed String Keys
 
 // Font and Color custom attributes allow us to easily target already-formatted ranges. This is handy for speedy updates upon theme and text size change, as well as determining keyboard button selection states.
-NSString * const WMFSourceEditorCustomKeyColorOrange = @"WKSourceEditorKeyColorOrange";
-NSString * const WMFSourceEditorCustomKeyColorGreen = @"WKSourceEditorKeyColorGreen";
+NSString * const WMFSourceEditorCustomKeyColorOrange = @"WMFSourceEditorKeyColorOrange";
+NSString * const WMFSourceEditorCustomKeyColorGreen = @"WMFSourceEditorKeyColorGreen";
 
 - (nonnull instancetype)initWithColors:(nonnull WMFSourceEditorColors *)colors fonts:(nonnull WMFSourceEditorFonts *)fonts {
     self = [super init];

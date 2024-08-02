@@ -16,8 +16,8 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyHorizontalTemplate = @"WKSourceEditorCustomKeyHorizontalTemplate";
-NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCustomKeyVerticalTemplate";
+NSString * const WMFSourceEditorCustomKeyHorizontalTemplate = @"WMFSourceEditorCustomKeyHorizontalTemplate";
+NSString * const WMFSourceEditorCustomKeyVerticalTemplate = @"WMFSourceEditorCustomKeyVerticalTemplate";
 
 - (instancetype)initWithColors:(WMFSourceEditorColors *)colors fonts:(WMFSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
@@ -25,12 +25,12 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         
         _horizontalTemplateAttributes = @{
             NSForegroundColorAttributeName: colors.purpleForegroundColor,
-            WKSourceEditorCustomKeyHorizontalTemplate: [NSNumber numberWithBool:YES],
+            WMFSourceEditorCustomKeyHorizontalTemplate: [NSNumber numberWithBool:YES],
         };
         
         _verticalTemplateAttributes = @{
             NSForegroundColorAttributeName: colors.purpleForegroundColor,
-            WKSourceEditorCustomKeyVerticalTemplate: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyVerticalTemplate: [NSNumber numberWithBool:YES]
         };
         
         _horizontalTemplateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\{{2}[^\\{\\}\\n]*(?:\\{{2}[^\\{\\}\\n]*\\}{2})*[^\\{\\}\\n]*\\}{2}" options:0 error:nil];
@@ -50,8 +50,8 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyHorizontalTemplate range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyVerticalTemplate range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyHorizontalTemplate range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyVerticalTemplate range:range];
     
     [self.horizontalTemplateRegex enumerateMatchesInString:attributedString.string
                                                  options:0
@@ -116,7 +116,7 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
        return;
     }
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyHorizontalTemplate
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyHorizontalTemplate
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -128,7 +128,7 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyVerticalTemplate
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyVerticalTemplate
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -158,14 +158,14 @@ NSString * const WKSourceEditorCustomKeyVerticalTemplate = @"WKSourceEditorCusto
         
         NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
         
-        if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
+        if (attrs[WMFSourceEditorCustomKeyHorizontalTemplate] != nil) {
             isTemplate = YES;
         }
         
     } else {
         __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-            if (attrs[WKSourceEditorCustomKeyHorizontalTemplate] != nil) {
+            if (attrs[WMFSourceEditorCustomKeyHorizontalTemplate] != nil) {
                 if (unionRange.location == NSNotFound) {
                     unionRange = loopRange;
                 } else {

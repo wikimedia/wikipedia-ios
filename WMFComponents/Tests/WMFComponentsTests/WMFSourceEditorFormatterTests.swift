@@ -2,7 +2,7 @@ import XCTest
 @testable import WMFComponents
 @testable import WMFComponentsObjC
 
-final class WKSourceEditorFormatterTests: XCTestCase {
+final class WMFSourceEditorFormatterTests: XCTestCase {
 
     var colors: WMFSourceEditorColors!
     var fonts: WMFSourceEditorFonts!

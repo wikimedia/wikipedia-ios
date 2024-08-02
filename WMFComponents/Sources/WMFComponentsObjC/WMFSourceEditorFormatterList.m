@@ -21,10 +21,10 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyContentBulletSingle = @"WKSourceEditorCustomKeyContentBulletSingle";
-NSString * const WKSourceEditorCustomKeyContentBulletMultiple = @"WKSourceEditorCustomKeyContentBulletMultiple";
-NSString * const WKSourceEditorCustomKeyContentNumberSingle = @"WKSourceEditorCustomKeyContentNumberSingle";
-NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditorCustomKeyContentNumberMultiple";
+NSString * const WMFSourceEditorCustomKeyContentBulletSingle = @"WMFSourceEditorCustomKeyContentBulletSingle";
+NSString * const WMFSourceEditorCustomKeyContentBulletMultiple = @"WMFSourceEditorCustomKeyContentBulletMultiple";
+NSString * const WMFSourceEditorCustomKeyContentNumberSingle = @"WMFSourceEditorCustomKeyContentNumberSingle";
+NSString * const WMFSourceEditorCustomKeyContentNumberMultiple = @"WMFSourceEditorCustomKeyContentNumberMultiple";
 
 #pragma mark - Overrides
 
@@ -37,19 +37,19 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
         };
         
         _bulletSingleContentAttributes = @{
-            WKSourceEditorCustomKeyContentBulletSingle: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentBulletSingle: [NSNumber numberWithBool:YES]
         };
         
         _bulletMultipleContentAttributes = @{
-            WKSourceEditorCustomKeyContentBulletMultiple: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentBulletMultiple: [NSNumber numberWithBool:YES]
         };
         
         _numberSingleContentAttributes = @{
-            WKSourceEditorCustomKeyContentNumberSingle: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentNumberSingle: [NSNumber numberWithBool:YES]
         };
         
         _numberMultipleContentAttributes = @{
-            WKSourceEditorCustomKeyContentNumberMultiple: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentNumberMultiple: [NSNumber numberWithBool:YES]
         };
         
         _bulletSingleRegex = [[NSRegularExpression alloc] initWithPattern:@"^(\\*{1})(.*)$" options:NSRegularExpressionAnchorsMatchLines error:nil];
@@ -66,10 +66,10 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
        return;
     }
     
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentBulletSingle range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentBulletMultiple range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentNumberSingle range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentNumberMultiple range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentBulletSingle range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentBulletMultiple range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentNumberSingle range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentNumberMultiple range:range];
    
     [self enumerateAndHighlightAttributedString:attributedString range:range singleRegex:self.bulletSingleRegex multipleRegex:self.bulletMultipleRegex singleContentAttributes:self.bulletSingleContentAttributes singleContentAttributes:self.bulletMultipleContentAttributes];
     [self enumerateAndHighlightAttributedString:attributedString range:range singleRegex:self.numberSingleRegex multipleRegex:self.numberMultipleRegex singleContentAttributes:self.numberSingleContentAttributes singleContentAttributes:self.numberMultipleContentAttributes];
@@ -107,19 +107,19 @@ NSString * const WKSourceEditorCustomKeyContentNumberMultiple = @"WKSourceEditor
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBulletSingleInRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentBulletSingle inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentBulletSingle inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBulletMultipleInRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentBulletMultiple inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentBulletMultiple inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isNumberSingleInRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentNumberSingle inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentNumberSingle inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isNumberMultipleInRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentNumberMultiple inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentNumberMultiple inRange:range];
 }
 
 #pragma mark - Private

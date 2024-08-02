@@ -19,13 +19,13 @@ struct WMFFormSelectSingleRowView: View {
         }) {
             HStack {
                 if let image = viewModel.image {
-                    WKRoundedRectIconView(configuration: .init(icon: image, foregroundColor: \.icon, backgroundColor: \.iconBackground))
+                    WMFRoundedRectIconView(configuration: .init(icon: image, foregroundColor: \.icon, backgroundColor: \.iconBackground))
                         .padding(.trailing, 6)
                 }
                 Text(viewModel.title ?? "")
                     .foregroundColor(Color(theme.text))
                 Spacer()
-                WKCheckmarkView(isSelected: viewModel.isSelected, configuration: WKCheckmarkView.Configuration(style: .default))
+                WMFCheckmarkView(isSelected: viewModel.isSelected, configuration: WMFCheckmarkView.Configuration(style: .default))
             }
         }
         .accessibilityAddTraits(viewModel.isSelected ? [.isSelected] : [])

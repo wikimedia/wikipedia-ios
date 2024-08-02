@@ -18,9 +18,9 @@
 @implementation WMFSourceEditorFormatterBoldItalics
 
 #pragma mark - Custom Attributed String Keys
-NSString * const WKSourceEditorCustomKeyFontBoldItalics = @"WKSourceEditorKeyFontBoldItalics";
-NSString * const WKSourceEditorCustomKeyFontBold = @"WKSourceEditorKeyFontBold";
-NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontItalics";
+NSString * const WMFSourceEditorCustomKeyFontBoldItalics = @"WMFSourceEditorKeyFontBoldItalics";
+NSString * const WMFSourceEditorCustomKeyFontBold = @"WMFSourceEditorKeyFontBold";
+NSString * const WMFSourceEditorCustomKeyFontItalics = @"WMFSourceEditorKeyFontItalics";
 
 #pragma mark - Public
 
@@ -34,17 +34,17 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         
         _boldItalicsAttributes = @{
             NSFontAttributeName: fonts.boldItalicsFont,
-            WKSourceEditorCustomKeyFontBoldItalics: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontBoldItalics: [NSNumber numberWithBool:YES]
         };
         
         _boldAttributes = @{
             NSFontAttributeName: fonts.boldFont,
-            WKSourceEditorCustomKeyFontBold: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontBold: [NSNumber numberWithBool:YES]
         };
         
         _italicsAttributes = @{
             NSFontAttributeName: fonts.italicsFont,
-            WKSourceEditorCustomKeyFontItalics: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontItalics: [NSNumber numberWithBool:YES]
         };
         
         _boldItalicsRegex = [[NSRegularExpression alloc] initWithPattern:@"('{5})(.*?)('{5})" options:0 error:nil];
@@ -63,9 +63,9 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBoldItalics range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontBoldItalics range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontBold range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontItalics range:range];
     
     NSMutableArray *boldItalicsRanges = [[NSMutableArray alloc] init];
     NSMutableArray *boldOnlyRanges = [[NSMutableArray alloc] init];
@@ -176,8 +176,8 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
                                                     
                                                     // Reset range styling to prep for bold italic
                                                     [attributedString removeAttribute:NSFontAttributeName range:textRange];
-                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:textRange];
-                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:intersectionRange];
+                                                    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontItalics range:textRange];
+                                                    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontBold range:intersectionRange];
                                                     
                                                     // Bold italicize instead
                                                     [attributedString addAttributes:self.boldItalicsAttributes range:textRange];
@@ -186,8 +186,8 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
                                                     
                                                     // Reset range styling to prep for bold italic
                                                     [attributedString removeAttribute:NSFontAttributeName range:intersectionRange];
-                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontItalics range:intersectionRange];
-                                                    [attributedString removeAttribute:WKSourceEditorCustomKeyFontBold range:intersectionRange];
+                                                    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontItalics range:intersectionRange];
+                                                    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontBold range:intersectionRange];
                                                     
                                                     // Bold italicize instead
                                                     [attributedString addAttributes:self.boldItalicsAttributes range:intersectionRange];
@@ -246,7 +246,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     self.italicsAttributes = [[NSDictionary alloc] initWithDictionary:mutItalicsAttributes];
     
     // Then update entire attributed string fonts
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontBoldItalics
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontBoldItalics
                      inRange:range
                      options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -258,7 +258,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         }
     }];
 
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontBold
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontBold
                      inRange:range
                      options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -270,7 +270,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontItalics
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontItalics
                      inRange:range
                      options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -286,10 +286,10 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isBoldInRange:(NSRange)range {
-    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontBold];
+    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WMFSourceEditorCustomKeyFontBold];
 }
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isItalicsInRange:(NSRange)range {
-    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WKSourceEditorCustomKeyFontItalics];
+    return [self attributedString:attributedString isFormattedInRange:range formattingKey:WMFSourceEditorCustomKeyFontItalics];
 }
 
 #pragma mark - Private
@@ -305,7 +305,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
     if (range.length == 0) {
         
         NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
-        if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
+        if (attrs[WMFSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
             isFormatted = YES;
         } else {
             // Edge case, check previous character if we are up against a closing bold or italic
@@ -313,7 +313,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
             
             if (attrs[WMFSourceEditorCustomKeyColorOrange] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                 attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-                if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
+                if (attrs[WMFSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                     isFormatted = YES;
                 }
             }
@@ -323,7 +323,7 @@ NSString * const WKSourceEditorCustomKeyFontItalics = @"WKSourceEditorKeyFontIta
         
         __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
         [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-                if (attrs[WKSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
+                if (attrs[WMFSourceEditorCustomKeyFontBoldItalics] != nil || attrs[formattingKey] != nil) {
                     if (unionRange.location == NSNotFound) {
                         unionRange = loopRange;
                     } else {

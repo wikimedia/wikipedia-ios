@@ -23,9 +23,9 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyMatch = @"WKSourceEditorCustomKeyMatch";
-NSString * const WKSourceEditorCustomKeySelectedMatch = @"WKSourceEditorCustomKeySelectedMatch";
-NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKeyReplacedMatch";
+NSString * const WMFSourceEditorCustomKeyMatch = @"WMFSourceEditorCustomKeyMatch";
+NSString * const WMFSourceEditorCustomKeySelectedMatch = @"WMFSourceEditorCustomKeySelectedMatch";
+NSString * const WMFSourceEditorCustomKeyReplacedMatch = @"WMFSourceEditorCustomKeyReplacedMatch";
 
 #pragma mark - Overrides
 
@@ -44,19 +44,19 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
        _matchAttributes = @{
            NSForegroundColorAttributeName: colors.matchForegroundColor,
            NSBackgroundColorAttributeName: colors.matchBackgroundColor,
-           WKSourceEditorCustomKeyMatch: [NSNumber numberWithBool:YES]
+           WMFSourceEditorCustomKeyMatch: [NSNumber numberWithBool:YES]
        };
 
        _selectedMatchAttributes = @{
            NSForegroundColorAttributeName: colors.matchForegroundColor,
            NSBackgroundColorAttributeName: colors.selectedMatchBackgroundColor,
-           WKSourceEditorCustomKeySelectedMatch: [NSNumber numberWithBool:YES]
+           WMFSourceEditorCustomKeySelectedMatch: [NSNumber numberWithBool:YES]
        };
 
        _replacedMatchAttributes = @{
            NSForegroundColorAttributeName: colors.matchForegroundColor,
            NSBackgroundColorAttributeName: colors.replacedMatchBackgroundColor,
-           WKSourceEditorCustomKeyReplacedMatch: [NSNumber numberWithBool:YES]
+           WMFSourceEditorCustomKeyReplacedMatch: [NSNumber numberWithBool:YES]
        };
     }
     
@@ -130,7 +130,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     [mutReplacedMatchAttributes setObject:colors.replacedMatchBackgroundColor forKey:NSBackgroundColorAttributeName];
     self.replacedMatchAttributes = [[NSDictionary alloc] initWithDictionary:mutReplacedMatchAttributes];
 
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyMatch
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyMatch
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -142,7 +142,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
         }
     }];
 
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeySelectedMatch
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeySelectedMatch
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -154,7 +154,7 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyReplacedMatch
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyReplacedMatch
                      inRange:range
                      options:nil
                   usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -418,9 +418,9 @@ NSString * const WKSourceEditorCustomKeyReplacedMatch = @"WKSourceEditorCustomKe
     
     [attributedString removeAttribute:NSForegroundColorAttributeName range:range];
     [attributedString removeAttribute:NSBackgroundColorAttributeName range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyMatch range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeySelectedMatch range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyReplacedMatch range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyMatch range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeySelectedMatch range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyReplacedMatch range:range];
 
 }
 

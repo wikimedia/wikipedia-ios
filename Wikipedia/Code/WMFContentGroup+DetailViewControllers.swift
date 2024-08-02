@@ -8,7 +8,7 @@ extension WMFContentGroup {
         detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
     }
 	
-    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> UIViewController? {
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
         case .page:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
@@ -39,7 +39,7 @@ extension WMFContentGroup {
         return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
     }
     
-    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> UIViewController? {
+    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
@@ -71,7 +71,7 @@ extension WMFContentGroup {
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
         case .imageRecommendations:
-            vc = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
+            vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
             break
         }

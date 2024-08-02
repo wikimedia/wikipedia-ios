@@ -16,7 +16,7 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCustomKeyContentReference";
+NSString * const WMFSourceEditorCustomKeyContentReference = @"WMFSourceEditorCustomKeyContentReference";
 
 #pragma mark - Overrides
 
@@ -34,7 +34,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
         };
         
         _refContentAttributes = @{
-            WKSourceEditorCustomKeyContentReference: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentReference: [NSNumber numberWithBool:YES]
         };
         
         _refHorizontalRegex = [[NSRegularExpression alloc] initWithPattern:@"(<ref(?:[^\\/>]+?)?>)(.*?)(<\\/ref>)" options:0 error:nil];
@@ -53,7 +53,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentReference range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentReference range:range];
     
     [self.refHorizontalRegex enumerateMatchesInString:attributedString.string
                                     options:0
@@ -154,14 +154,14 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
 
        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-       if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+       if (attrs[WMFSourceEditorCustomKeyContentReference] != nil) {
            isContentKey = YES;
        } else {
            // Edge case, check previous character if we are up against closing string
            NSRange newRange = NSMakeRange(range.location - 1, 0);
            if (attrs[WMFSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-               if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+               if (attrs[WMFSourceEditorCustomKeyContentReference] != nil) {
                    isContentKey = YES;
                }
            }
@@ -170,7 +170,7 @@ NSString * const WKSourceEditorCustomKeyContentReference = @"WKSourceEditorCusto
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-           if (attrs[WKSourceEditorCustomKeyContentReference] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyContentReference] != nil) {
                if (unionRange.location == NSNotFound) {
                    unionRange = loopRange;
                } else {

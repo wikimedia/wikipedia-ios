@@ -13,11 +13,11 @@ struct WMFFormSelectMultiRowView: View {
     var body: some View {
         HStack {
             if let image = viewModel.image {
-                WKRoundedRectIconView(configuration: .init(icon: image, foregroundColor: \.icon, backgroundColor: \.iconBackground))
+                WMFRoundedRectIconView(configuration: .init(icon: image, foregroundColor: \.icon, backgroundColor: \.iconBackground))
                     .accessibilityHidden(true)
                     .padding(.trailing, 6)
             }
-            WKToggleView(title: viewModel.title ?? "", isSelected: $viewModel.isSelected)
+            WMFToggleView(title: viewModel.title ?? "", isSelected: $viewModel.isSelected)
         }
     }
 }

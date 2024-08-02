@@ -3,7 +3,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WKDonateViewModelTests: XCTestCase {
+final class WMFDonateViewModelTests: XCTestCase {
     
     private var paymentMethods: WMFPaymentMethods?
     private var donateConfig: WMFDonateConfig?

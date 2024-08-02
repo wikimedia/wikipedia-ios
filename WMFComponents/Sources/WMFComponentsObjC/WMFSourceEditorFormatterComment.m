@@ -13,20 +13,20 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyCommentMarkup = @"WKSourceEditorCustomKeyCommentMarkup";
-NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomKeyCommentContent";
+NSString * const WMFSourceEditorCustomKeyCommentMarkup = @"WMFSourceEditorCustomKeyCommentMarkup";
+NSString * const WMFSourceEditorCustomKeyCommentContent = @"WMFSourceEditorCustomKeyCommentContent";
 
 - (instancetype)initWithColors:(WMFSourceEditorColors *)colors fonts:(WMFSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
         _commentMarkupAttributes = @{
             NSForegroundColorAttributeName: colors.grayForegroundColor,
-            WKSourceEditorCustomKeyCommentMarkup: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyCommentMarkup: [NSNumber numberWithBool:YES]
         };
         
         _commentContentAttributes = @{
             NSForegroundColorAttributeName: colors.grayForegroundColor,
-            WKSourceEditorCustomKeyCommentContent: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyCommentContent: [NSNumber numberWithBool:YES]
         };
 
         _commentRegex = [[NSRegularExpression alloc] initWithPattern:@"(<!--)(.*?)(-->)" options:0 error:nil];
@@ -41,8 +41,8 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
        return;
     }
     
-    [attributedString removeAttribute:WKSourceEditorCustomKeyCommentMarkup range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyCommentContent range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyCommentMarkup range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyCommentContent range:range];
     
     [self.commentRegex enumerateMatchesInString:attributedString.string
                                         options:0
@@ -81,7 +81,7 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
        return;
     }
 
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyCommentMarkup
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyCommentMarkup
                                  inRange:range
                                  options:nil
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -93,7 +93,7 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyCommentContent
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyCommentContent
                                  inRange:range
                                  options:nil
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -125,14 +125,14 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
        if (attributedString.length > range.location) {
            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-           if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyCommentContent] != nil) {
                isContentKey = YES;
            } else {
                // Edge case, check previous character if we are up against closing string
                NSRange newRange = NSMakeRange(range.location - 1, 0);
-               if (attrs[WKSourceEditorCustomKeyCommentMarkup] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+               if (attrs[WMFSourceEditorCustomKeyCommentMarkup] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                    attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-                   if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+                   if (attrs[WMFSourceEditorCustomKeyCommentContent] != nil) {
                        isContentKey = YES;
                    }
                }
@@ -142,7 +142,7 @@ NSString * const WKSourceEditorCustomKeyCommentContent = @"WKSourceEditorCustomK
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-           if (attrs[WKSourceEditorCustomKeyCommentContent] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyCommentContent] != nil) {
                if (unionRange.location == NSNotFound) {
                    unionRange = loopRange;
                } else {

@@ -68,7 +68,7 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
         }
     }
     
-    private struct WKProjectViewModel {
+    private struct WMFProjectViewModel {
         let project: WMFProject
         let projectName: String?
         let icon: UIImage?
@@ -78,7 +78,7 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
     // MARK: - Properties
     
     public var localizedStrings: LocalizedStrings
-    private var projectViewModels: [WKProjectViewModel]
+    private var projectViewModels: [WMFProjectViewModel]
     @Published var formViewModel: WMFFormViewModel
     weak var loggingDelegate: WMFWatchlistLoggingDelegate?
     private let dataController = WMFWatchlistDataController()
@@ -304,9 +304,9 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
 // MARK: - Static Init Helper Methods
 
 private extension WMFWatchlistFilterViewModel {
-    private static func projectViewModels(allProjects: [WMFProject], offProjects: [WMFProject], strings: WMFWatchlistFilterViewModel.LocalizedStrings) -> [WKProjectViewModel] {
+    private static func projectViewModels(allProjects: [WMFProject], offProjects: [WMFProject], strings: WMFWatchlistFilterViewModel.LocalizedStrings) -> [WMFProjectViewModel] {
 
-        var projectViewModels: [WKProjectViewModel] = []
+        var projectViewModels: [WMFProjectViewModel] = []
         
         let wikipediaProjects = allProjects.filter {
             switch $0 {
@@ -337,17 +337,17 @@ private extension WMFWatchlistFilterViewModel {
                 break
             }
             
-            projectViewModels.append(WKProjectViewModel(project: project, projectName: strings.localizedProjectNames[project], icon: icon, isSelected: !offProjects.contains(project)))
+            projectViewModels.append(WMFProjectViewModel(project: project, projectName: strings.localizedProjectNames[project], icon: icon, isSelected: !offProjects.contains(project)))
         }
         
         for project in wikipediaProjects {
-            projectViewModels.append(WKProjectViewModel(project: project, projectName: strings.localizedProjectNames[project], icon: nil, isSelected: !offProjects.contains(project)))
+            projectViewModels.append(WMFProjectViewModel(project: project, projectName: strings.localizedProjectNames[project], icon: nil, isSelected: !offProjects.contains(project)))
         }
 
         return projectViewModels
     }
     
-    private static func section1(projectViewModels: [WKProjectViewModel], strings: WMFWatchlistFilterViewModel.LocalizedStrings) -> WMFFormSectionSelectViewModel {
+    private static func section1(projectViewModels: [WMFProjectViewModel], strings: WMFWatchlistFilterViewModel.LocalizedStrings) -> WMFFormSectionSelectViewModel {
 
         let items = projectViewModels.map { projectViewModel in
             return WMFFormItemSelectViewModel(image: projectViewModel.icon, title: projectViewModel.projectName, isSelected: projectViewModel.isSelected)
@@ -357,7 +357,7 @@ private extension WMFWatchlistFilterViewModel {
         return WMFFormSectionSelectViewModel(header: strings.wikimediaProjectsHeader, items: items, selectType: .multi)
     }
 
-	private static func section2(projectViewModels: [WKProjectViewModel], strings: WMFWatchlistFilterViewModel.LocalizedStrings, addLanguageAction: (() -> Void)?) -> WMFFormSectionSelectViewModel {
+	private static func section2(projectViewModels: [WMFProjectViewModel], strings: WMFWatchlistFilterViewModel.LocalizedStrings, addLanguageAction: (() -> Void)?) -> WMFFormSectionSelectViewModel {
 
         var items = projectViewModels.map { projectViewModel in
             return WMFFormItemSelectViewModel(image: projectViewModel.icon, title: projectViewModel.projectName, isSelected: projectViewModel.isSelected)

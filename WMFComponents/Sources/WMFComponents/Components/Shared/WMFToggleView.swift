@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKToggleView: View {
+struct WMFToggleView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKRoundedRectIconView: View {
+struct WMFRoundedRectIconView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     

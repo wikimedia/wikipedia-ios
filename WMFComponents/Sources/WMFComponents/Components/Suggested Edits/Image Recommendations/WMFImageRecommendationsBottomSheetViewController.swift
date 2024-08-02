@@ -1,19 +1,19 @@
 import UIKit
 import WMFData
 
-final public class WKImageRecommendationsBottomSheetViewController: WMFCanvasViewController {
+final public class WMFImageRecommendationsBottomSheetViewController: WMFCanvasViewController {
 
     // MARK: Properties
 
     public var viewModel: WMFImageRecommendationsViewModel
     public var tooltipViewModels: [WMFTooltipViewModel] = []
-    weak var delegate: WKImageRecommendationsDelegate?
-    weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
-    private(set) var bottomSheetView: WKImageRecommendationBottomSheetView?
+    weak var delegate: WMFImageRecommendationsDelegate?
+    weak var loggingDelegate: WMFImageRecommendationsLoggingDelegate?
+    private(set) var bottomSheetView: WMFImageRecommendationBottomSheetView?
 
     // MARK: Lifecycle
 
-    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
+    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WMFImageRecommendationsDelegate, loggingDelegate: WMFImageRecommendationsLoggingDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
@@ -27,7 +27,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WMFCanvasVie
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let bottomViewModel = populateImageSheetRecommendationViewModel(for: viewModel.currentRecommendation?.imageData) {
-            let bottomSheetView = WKImageRecommendationBottomSheetView(frame: UIScreen.main.bounds, viewModel: bottomViewModel)
+            let bottomSheetView = WMFImageRecommendationBottomSheetView(frame: UIScreen.main.bounds, viewModel: bottomViewModel)
             bottomSheetView.delegate = self
             addComponent(bottomSheetView, pinToEdges: true)
             self.bottomSheetView = bottomSheetView
@@ -41,10 +41,10 @@ final public class WKImageRecommendationsBottomSheetViewController: WMFCanvasVie
 
     // MARK: Methods
 
-    private func populateImageSheetRecommendationViewModel(for image: WMFImageRecommendationsViewModel.WMFImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
+    private func populateImageSheetRecommendationViewModel(for image: WMFImageRecommendationsViewModel.WMFImageRecommendationData?) -> WMFImageRecommendationBottomSheetViewModel? {
 
         if let image {
-            let viewModel = WKImageRecommendationBottomSheetViewModel(
+            let viewModel = WMFImageRecommendationBottomSheetViewModel(
                 pageId: image.pageId,
                 headerTitle: viewModel.localizedStrings.bottomSheetTitle,
                 imageThumbnail: image.uiImage,
@@ -63,7 +63,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WMFCanvasVie
     }
 
 }
-extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendationsToolbarViewDelegate {
+extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendationsToolbarViewDelegate {
     func goToGallery() {
         guard let currentRecommendation = viewModel.currentRecommendation else {
             return
@@ -111,7 +111,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     func didTapNoButton() {
         loggingDelegate?.logBottomSheetDidTapNo()
         
-		let surveyView = WKImageRecommendationsSurveyView(
+		let surveyView = WMFImageRecommendationsSurveyView(
 			viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
 			cancelAction: { [weak self] in
                 self?.loggingDelegate?.logRejectSurveyDidTapCancel()
@@ -169,7 +169,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
 }
 
-extension WKImageRecommendationsBottomSheetViewController: WMFTooltipPresenting {
+extension WMFImageRecommendationsBottomSheetViewController: WMFTooltipPresenting {
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }

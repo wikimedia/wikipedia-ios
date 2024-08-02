@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKImageRecommendationsSurveyView: View {
+struct WMFImageRecommendationsSurveyView: View {
 
 	// MARK: - Properties
 
@@ -48,7 +48,7 @@ struct WKImageRecommendationsSurveyView: View {
 							Text(reason.localizedPlaceholder(from: viewModel.localizedStrings))
 								.foregroundStyle(Color(theme.text))
 							Spacer()
-							WKCheckmarkView(isSelected: selectedReasons.contains(reason), configuration: WKCheckmarkView.Configuration(style: .default))
+							WMFCheckmarkView(isSelected: selectedReasons.contains(reason), configuration: WMFCheckmarkView.Configuration(style: .default))
 						}
 						.contentShape(Rectangle())
 						.onTapGesture {
@@ -71,7 +71,7 @@ struct WKImageRecommendationsSurveyView: View {
 							.focused($otherReasonTextFieldSelected)
 							.foregroundStyle(Color(theme.text))
 						Spacer()
-						WKCheckmarkView(isSelected: !otherReasonText.isEmpty, configuration: WKCheckmarkView.Configuration(style: .default))
+						WMFCheckmarkView(isSelected: !otherReasonText.isEmpty, configuration: WMFCheckmarkView.Configuration(style: .default))
 					}
 					.listRowBackground(Color(theme.paperBackground))
 				}
@@ -110,5 +110,5 @@ struct WKImageRecommendationsSurveyView: View {
 }
 
 #Preview {
-	WKImageRecommendationsSurveyView(viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: .init(reason: "Reason", cancel: "Cancel", submit: "Submit", improveSuggestions: "Improve", selectOptions: "Select", imageNotRelevant: "Image not relevant", notEnoughInformation: "Not enough info", imageIsOffensive: "Image is offensive", imageIsLowQuality: "Image is low quality", dontKnowSubject: "Dont know subject", other: "Other")))
+	WMFImageRecommendationsSurveyView(viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: .init(reason: "Reason", cancel: "Cancel", submit: "Submit", improveSuggestions: "Improve", selectOptions: "Select", imageNotRelevant: "Image not relevant", notEnoughInformation: "Not enough info", imageIsOffensive: "Image is offensive", imageIsLowQuality: "Image is low quality", dontKnowSubject: "Dont know subject", other: "Other")))
 }

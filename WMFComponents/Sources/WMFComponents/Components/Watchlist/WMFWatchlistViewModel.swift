@@ -77,11 +77,11 @@ public final class WMFWatchlistViewModel: ObservableObject {
 		}
 
 		var timestampString: String {
-			return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
+			return DateFormatter.wmfShortTimeFormatter.string(from: timestamp)
 		}
 
         var timestampStringAccessibility: String {
-            return DateFormatter.wkShortTimeFormatter.string(from: timestamp)
+            return DateFormatter.wmfShortTimeFormatter.string(from: timestamp)
         }
 
 		func bytesString(localizedStrings: LocalizedStrings) -> String {
@@ -111,7 +111,7 @@ public final class WMFWatchlistViewModel: ObservableObject {
 		let items: [ItemViewModel]
 
 		var title: String {
-			return DateFormatter.wkFullDateFormatter.string(from: date)
+			return DateFormatter.wmfFullDateFormatter.string(from: date)
 		}
 	}
     

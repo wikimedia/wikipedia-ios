@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Allows convenience initialization from WKFont to SwiftUI.Font for use in SwiftUI views
+/// Allows convenience initialization from WMFFont to SwiftUI.Font for use in SwiftUI views
 extension Font {
 
 	static func `for`(_ wmfFont: WMFFont) -> Font {

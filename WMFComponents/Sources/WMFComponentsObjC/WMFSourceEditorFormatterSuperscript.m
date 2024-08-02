@@ -12,7 +12,7 @@
 @implementation WMFSourceEditorFormatterSuperscript
 
 #pragma mark - Custom Attributed String Keys
-NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCustomKeyContentSuperscript";
+NSString * const WMFSourceEditorCustomKeyContentSuperscript = @"WMFSourceEditorCustomKeyContentSuperscript";
 
 - (instancetype)initWithColors:(WMFSourceEditorColors *)colors fonts:(WMFSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
@@ -23,7 +23,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
         };
 
         _superscriptContentAttributes = @{
-            WKSourceEditorCustomKeyContentSuperscript: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentSuperscript: [NSNumber numberWithBool:YES]
         };
 
         _superscriptRegex = [[NSRegularExpression alloc] initWithPattern:@"(<sup>)(.*?)(<\\/sup>)" options:0 error:nil];
@@ -37,7 +37,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
        return;
     }
 
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentSuperscript range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentSuperscript range:range];
 
     [self.superscriptRegex enumerateMatchesInString:attributedString.string
                                         options:0
@@ -103,13 +103,13 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
 
        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-       if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
+       if (attrs[WMFSourceEditorCustomKeyContentSuperscript] != nil) {
            isContentKey = YES;
        } else {
            NSRange newRange = NSMakeRange(range.location - 1, 0);
            if (attrs[WMFSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-               if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
+               if (attrs[WMFSourceEditorCustomKeyContentSuperscript] != nil) {
                    isContentKey = YES;
                }
            }
@@ -118,7 +118,7 @@ NSString * const WKSourceEditorCustomKeyContentSuperscript = @"WKSourceEditorCus
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-           if (attrs[WKSourceEditorCustomKeyContentSuperscript] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyContentSuperscript] != nil) {
                if (unionRange.location == NSNotFound) {
                    unionRange = loopRange;
                } else {

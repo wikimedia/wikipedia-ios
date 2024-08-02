@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import WMFData
 
-struct WKImageRecommendationsView: View {
+struct WMFImageRecommendationsView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFImageRecommendationsViewModel
@@ -19,7 +19,7 @@ struct WKImageRecommendationsView: View {
                 if let articleSummary = viewModel.currentRecommendation?.articleSummary,
                    !viewModel.debouncedLoading {
                     
-                    WKImageRecommendationsArticleSummaryView(viewModel: viewModel, articleSummary: articleSummary, viewArticleAction: viewArticleAction)
+                    WMFImageRecommendationsArticleSummaryView(viewModel: viewModel, articleSummary: articleSummary, viewArticleAction: viewArticleAction)
 
                 } else {
                     if !viewModel.debouncedLoading {
@@ -42,7 +42,7 @@ struct WKImageRecommendationsView: View {
     }
 }
 
-fileprivate struct WKImageRecommendationsArticleSummaryView: View {
+fileprivate struct WMFImageRecommendationsArticleSummaryView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject var viewModel: WMFImageRecommendationsViewModel
@@ -63,7 +63,7 @@ fileprivate struct WKImageRecommendationsArticleSummaryView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack {
                     HStack {
-                        WKArticleSummaryView(articleSummary: articleSummary)
+                        WMFArticleSummaryView(articleSummary: articleSummary)
                             .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
                     }
                     Spacer()

@@ -249,7 +249,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     // MARK: - Internal
     
     var accessibilityDonateButtonHint: String? {
-        let formatter = NumberFormatter.wkCurrencyFormatter
+        let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = currencyCode
         
         if let finalAmountString = formatter.string(from: finalAmount as NSNumber) {

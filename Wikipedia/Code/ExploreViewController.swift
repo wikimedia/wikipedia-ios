@@ -569,7 +569,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
             
-            if vc is WKImageRecommendationsViewController {
+            if vc is WMFImageRecommendationsViewController {
                 ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
             }
             
@@ -721,7 +721,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
         }
         
-        if vc is WKImageRecommendationsViewController {
+        if vc is WMFImageRecommendationsViewController {
             ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
         }
         
@@ -933,7 +933,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let viewModel = WMFFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
-                  let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+                  let imageRecommendationViewController = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
                 return
             }
             
@@ -1223,7 +1223,7 @@ extension ExploreViewController {
     }
 }
 
-extension ExploreViewController: WKImageRecommendationsDelegate {
+extension ExploreViewController: WMFImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController) {
 
@@ -1285,7 +1285,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
     
-    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController) {
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController) {
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
             return
@@ -1462,7 +1462,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         let project = imageRecommendationsViewModel.project
         
         for viewController in viewControllers {
-            if let imageRecommendationsViewController = viewController as? WKImageRecommendationsViewController {
+            if let imageRecommendationsViewController = viewController as? WMFImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
@@ -1511,7 +1511,7 @@ extension ExploreViewController: WMFFeatureAnnouncing {
     
 }
 
-extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
+extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()

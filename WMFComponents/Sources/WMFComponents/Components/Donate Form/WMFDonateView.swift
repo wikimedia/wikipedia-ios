@@ -150,8 +150,8 @@ private struct WMFDonateAmountTextfield: View {
     @ObservedObject var viewModel: WMFDonateViewModel.AmountTextFieldViewModel
     
     var body: some View {
-        let configuration = WKPriceTextField.Configuration(currencyCode: viewModel.currencyCode, focusOnAppearance: true, doneTitle: viewModel.localizedStrings.doneTitle, textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint, doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint)
-        WKPriceTextField(configuration: configuration, amount: $viewModel.amount, hasFocus: $viewModel.hasFocus)
+        let configuration = WMFPriceTextField.Configuration(currencyCode: viewModel.currencyCode, focusOnAppearance: true, doneTitle: viewModel.localizedStrings.doneTitle, textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint, doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint)
+        WMFPriceTextField(configuration: configuration, amount: $viewModel.amount, hasFocus: $viewModel.hasFocus)
     }
 }
 
@@ -187,7 +187,7 @@ private struct WMFDonateOptInView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
-            WKCheckmarkView(isSelected: viewModel.isSelected, configuration: WKCheckmarkView.Configuration(style: .checkbox))
+            WMFCheckmarkView(isSelected: viewModel.isSelected, configuration: WMFCheckmarkView.Configuration(style: .checkbox))
                 .offset(x: 0, y: 2.5)
                 .accessibilityHidden(true)
             Text(viewModel.localizedStrings.text)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKHtmlText: View {
+struct WMFHtmlText: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let html: String

@@ -51,7 +51,7 @@ struct WMFPriceButton: View {
     }
     
     private var displayAmount: String? {
-        let shortCurrencyFormatter = NumberFormatter.wkShortCurrencyFormatter
+        let shortCurrencyFormatter = NumberFormatter.wmfShortCurrencyFormatter
         shortCurrencyFormatter.currencyCode = configuration.currencyCode
         return shortCurrencyFormatter.string(from: amount as NSNumber)
     }

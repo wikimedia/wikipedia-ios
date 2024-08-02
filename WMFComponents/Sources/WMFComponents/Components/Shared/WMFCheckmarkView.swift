@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKCheckmarkView: View {
+struct WMFCheckmarkView: View {
     
     struct Configuration {
         

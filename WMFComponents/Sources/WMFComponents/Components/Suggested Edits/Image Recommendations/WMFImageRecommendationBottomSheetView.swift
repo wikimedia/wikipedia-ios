@@ -1,6 +1,6 @@
 import UIKit
 
-protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
+protocol WMFImageRecommendationsToolbarViewDelegate: AnyObject {
     func didTapYesButton()
     func didTapNoButton()
     func didTapSkipButton()
@@ -8,12 +8,12 @@ protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
     func goToGallery()
 }
 
-public class WKImageRecommendationBottomSheetView: WMFComponentView {
+public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 
     // MARK: Properties
 
-    private let viewModel: WKImageRecommendationBottomSheetViewModel
-    internal weak var delegate: WKImageRecommendationsToolbarViewDelegate?
+    private let viewModel: WMFImageRecommendationBottomSheetViewModel
+    internal weak var delegate: WMFImageRecommendationsToolbarViewDelegate?
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -160,7 +160,7 @@ public class WKImageRecommendationBottomSheetView: WMFComponentView {
 
     // MARK: Lifecycle
 
-    public init(frame: CGRect, viewModel: WKImageRecommendationBottomSheetViewModel) {
+    public init(frame: CGRect, viewModel: WMFImageRecommendationBottomSheetViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
         setup()
@@ -396,7 +396,7 @@ public class WKImageRecommendationBottomSheetView: WMFComponentView {
 
 }
 
-extension WKImageRecommendationBottomSheetView: UITextViewDelegate {
+extension WMFImageRecommendationBottomSheetView: UITextViewDelegate {
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.goToImageCommonsPage()
         return false

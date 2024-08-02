@@ -12,7 +12,7 @@
 @implementation WMFSourceEditorFormatterUnderline
 
 #pragma mark - Custom Attributed String Keys
-NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCustomKeyContentUnderline";
+NSString * const WMFSourceEditorCustomKeyContentUnderline = @"WMFSourceEditorCustomKeyContentUnderline";
 
 - (instancetype)initWithColors:(WMFSourceEditorColors *)colors fonts:(WMFSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
@@ -23,7 +23,7 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
         };
 
         _underlineContentAttributes = @{
-            WKSourceEditorCustomKeyContentUnderline: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentUnderline: [NSNumber numberWithBool:YES]
         };
 
         _underlineRegex = [[NSRegularExpression alloc] initWithPattern:@"(<u>)(.*?)(<\\/u>)" options:0 error:nil];
@@ -37,7 +37,7 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
        return;
     }
 
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentUnderline range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentUnderline range:range];
 
     [self.underlineRegex enumerateMatchesInString:attributedString.string
                                         options:0
@@ -103,13 +103,13 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
 
            NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-           if (attrs[WKSourceEditorCustomKeyContentUnderline] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyContentUnderline] != nil) {
                isContentKey = YES;
            } else {
                NSRange newRange = NSMakeRange(range.location - 1, 0);
                if (attrs[WMFSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                    attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-                   if (attrs[WKSourceEditorCustomKeyContentUnderline] != nil) {
+                   if (attrs[WMFSourceEditorCustomKeyContentUnderline] != nil) {
                        isContentKey = YES;
                    }
                }
@@ -118,7 +118,7 @@ NSString * const WKSourceEditorCustomKeyContentUnderline = @"WKSourceEditorCusto
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-           if (attrs[WKSourceEditorCustomKeyContentUnderline] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyContentUnderline] != nil) {
                if (unionRange.location == NSNotFound) {
                    unionRange = loopRange;
                } else {

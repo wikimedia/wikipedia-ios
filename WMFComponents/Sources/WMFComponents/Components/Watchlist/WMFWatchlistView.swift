@@ -132,13 +132,13 @@ fileprivate struct WMFWatchlistViewCell: View {
 					RoundedRectangle(cornerRadius: 8, style: .continuous)
 						.stroke(Color(appEnvironment.theme.border), lineWidth: 0.5)
 						.foregroundColor(.clear)
-					HStack(alignment: .wkTextBaselineAlignment) {
+					HStack(alignment: .wmfTextBaselineAlignment) {
 						VStack(alignment: .leading, spacing: 6) {
 							Text(itemViewModel.timestampString)
 								.font(Font(WMFFont.for(.subheadline)))
 								.foregroundColor(Color(appEnvironment.theme.secondaryText))
 								.frame(alignment: .topLeading)
-								.alignmentGuide(.wkTextBaselineAlignment) { context in
+								.alignmentGuide(.wmfTextBaselineAlignment) { context in
 									context[.firstTextBaseline]
 								}
                                 .accessibilityHidden(true)
@@ -157,7 +157,7 @@ fileprivate struct WMFWatchlistViewCell: View {
 									.font(Font(WMFFont.for(.headline)))
 									.foregroundColor(Color(appEnvironment.theme.text))
 									.frame(maxWidth: .infinity, alignment: .topLeading)
-									.alignmentGuide(.wkTextBaselineAlignment) { context in
+									.alignmentGuide(.wmfTextBaselineAlignment) { context in
 										context[.firstTextBaseline]
 									}
                                     .accessibilityHidden(true)
@@ -201,13 +201,13 @@ fileprivate struct WMFWatchlistViewCell: View {
 
 fileprivate extension VerticalAlignment {
 
-	private struct WKTextBaselineAlignment: AlignmentID {
+	private struct WMFTextBaselineAlignment: AlignmentID {
 		static func defaultValue(in context: ViewDimensions) -> CGFloat {
 			return context[VerticalAlignment.firstTextBaseline]
 		}
 	}
 
 	// Allow matching text baseline alignment across `VStack`s
-	static let wkTextBaselineAlignment = VerticalAlignment(WKTextBaselineAlignment.self)
+	static let wmfTextBaselineAlignment = VerticalAlignment(WMFTextBaselineAlignment.self)
 
 }

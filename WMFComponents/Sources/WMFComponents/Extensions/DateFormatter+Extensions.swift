@@ -3,7 +3,7 @@ import Foundation
 public extension DateFormatter {
 
 	/// Short time only: e.g. `2:48pm`
-	static var wkShortTimeFormatter = {
+	static var wmfShortTimeFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.timeStyle = .short
 		dateFormatter.dateStyle = .none
@@ -11,7 +11,7 @@ public extension DateFormatter {
 	}()
 
 	/// Full date only: e.g. `Tuesday, August 22, 2023`
-	static var wkFullDateFormatter = {
+	static var wmfFullDateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.timeStyle = .none
 		dateFormatter.dateStyle = .full

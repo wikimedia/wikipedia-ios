@@ -3,8 +3,8 @@ import WMFComponents
 import WMF
 import WMFData
 
-extension WKImageRecommendationsViewController {
-    static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> WKImageRecommendationsViewController? {
+extension WMFImageRecommendationsViewController {
+    static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> WMFImageRecommendationsViewController? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wmfProject,
               let imageRecDelegate,
@@ -55,7 +55,7 @@ extension WKImageRecommendationsViewController {
 
         let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isLoggedIn: dataStore.authenticationManager.isLoggedIn, localizedStrings: localizedStrings, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
 
-        let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
+        let imageRecommendationsViewController = WMFImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
     }
 }

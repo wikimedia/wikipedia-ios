@@ -12,9 +12,9 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyColorBlue = @"WKSourceEditorCustomKeyColorBlue";
-NSString * const WKSourceEditorCustomKeyLink = @"WKSourceEditorCustomKeyLink";
-NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCustomKeyLinkWithNestedLink";
+NSString * const WMFSourceEditorCustomKeyColorBlue = @"WMFSourceEditorCustomKeyColorBlue";
+NSString * const WMFSourceEditorCustomKeyLink = @"WMFSourceEditorCustomKeyLink";
+NSString * const WMFSourceEditorCustomKeyLinkWithNestedLink = @"WMFSourceEditorCustomKeyLinkWithNestedLink";
 
 @implementation WMFSourceEditorFormatterLink
 
@@ -24,17 +24,17 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
     self = [super initWithColors:colors fonts:fonts];
     if (self) {
         _simpleLinkAttributes = @{
-            WKSourceEditorCustomKeyLink: [NSNumber numberWithBool:YES],
+            WMFSourceEditorCustomKeyLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
-            WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
 
         _simpleLinkRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\[{2})([^\\[\\]\\n]*)(\\]{2})" options:0 error:nil];
         
         _linkWithNestedLinkAttributes = @{
-            WKSourceEditorCustomKeyLinkWithNestedLink: [NSNumber numberWithBool:YES],
+            WMFSourceEditorCustomKeyLinkWithNestedLink: [NSNumber numberWithBool:YES],
             NSForegroundColorAttributeName: colors.blueForegroundColor,
-            WKSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyColorBlue: [NSNumber numberWithBool:YES]
         };
         
         _linkWithNestedLinkRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[{2}[^\\[\\]\\n]*\\[{2}" options:0 error:nil];
@@ -52,9 +52,9 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyColorBlue range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyLink range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyLinkWithNestedLink range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyColorBlue range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyLink range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyLinkWithNestedLink range:range];
 
     // This section finds and highlights simple links that do NOT contain nested links, e.g. [[Cat]] and [[Dog|puppy]].
     [self.simpleLinkRegex enumerateMatchesInString:attributedString.string
@@ -116,7 +116,7 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
        return;
     }
 
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyColorBlue
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyColorBlue
                                  inRange:range
                                  options:nil
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -136,12 +136,12 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSimpleLinkInRange:(NSRange)range {
-    return [self attributedString:attributedString isKey:WKSourceEditorCustomKeyLink inRange:range];
+    return [self attributedString:attributedString isKey:WMFSourceEditorCustomKeyLink inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isLinkWithNestedLinkInRange:(NSRange)range {
     
-    return [self attributedString:attributedString isKey:WKSourceEditorCustomKeyLinkWithNestedLink inRange:range];
+    return [self attributedString:attributedString isKey:WMFSourceEditorCustomKeyLinkWithNestedLink inRange:range];
 }
 
 #pragma mark - Private
@@ -222,7 +222,7 @@ NSString * const WKSourceEditorCustomKeyLinkWithNestedLink = @"WKSourceEditorCus
            
            // Edge case, check previous character if we are up against opening markup
             NSRange newRange = NSMakeRange(range.location - 1, 0);
-           if (attrs[WKSourceEditorCustomKeyLink] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
+           if (attrs[WMFSourceEditorCustomKeyLink] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
                if (attrs[key] == nil) {
                    isKey = NO;

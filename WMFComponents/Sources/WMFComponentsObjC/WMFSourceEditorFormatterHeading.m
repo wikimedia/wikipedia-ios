@@ -28,18 +28,18 @@
 #pragma mark - Custom Attributed String Keys
 
 // Font custom keys span across entire match, i.e. "== Test ==". The entire match is a particular font. This helps us quickly seek and update fonts upon popover change.
-NSString * const WKSourceEditorCustomKeyFontHeading = @"WKSourceEditorCustomKeyFontHeading";
-NSString * const WKSourceEditorCustomKeyFontSubheading1 = @"WKSourceEditorCustomKeyFontSubheading1";
-NSString * const WKSourceEditorCustomKeyFontSubheading2 = @"WKSourceEditorCustomKeyFontSubheading2";
-NSString * const WKSourceEditorCustomKeyFontSubheading3 = @"WKSourceEditorCustomKeyFontSubheading3";
-NSString * const WKSourceEditorCustomKeyFontSubheading4 = @"WKSourceEditorCustomKeyFontSubheading4";
+NSString * const WMFSourceEditorCustomKeyFontHeading = @"WMFSourceEditorCustomKeyFontHeading";
+NSString * const WMFSourceEditorCustomKeyFontSubheading1 = @"WMFSourceEditorCustomKeyFontSubheading1";
+NSString * const WMFSourceEditorCustomKeyFontSubheading2 = @"WMFSourceEditorCustomKeyFontSubheading2";
+NSString * const WMFSourceEditorCustomKeyFontSubheading3 = @"WMFSourceEditorCustomKeyFontSubheading3";
+NSString * const WMFSourceEditorCustomKeyFontSubheading4 = @"WMFSourceEditorCustomKeyFontSubheading4";
 
 // Content custom keys span across only the content, i.e. " Test ". This helps us detect for button selection states.
-NSString * const WKSourceEditorCustomKeyContentHeading = @"WKSourceEditorCustomKeyContentHeading";
-NSString * const WKSourceEditorCustomKeyContentSubheading1 = @"WKSourceEditorCustomKeyContentSubheading1";
-NSString * const WKSourceEditorCustomKeyContentSubheading2 = @"WKSourceEditorCustomKeyContentSubheading2";
-NSString * const WKSourceEditorCustomKeyContentSubheading3 = @"WKSourceEditorCustomKeyContentSubheading3";
-NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCustomKeyContentSubheading4";
+NSString * const WMFSourceEditorCustomKeyContentHeading = @"WMFSourceEditorCustomKeyContentHeading";
+NSString * const WMFSourceEditorCustomKeyContentSubheading1 = @"WMFSourceEditorCustomKeyContentSubheading1";
+NSString * const WMFSourceEditorCustomKeyContentSubheading2 = @"WMFSourceEditorCustomKeyContentSubheading2";
+NSString * const WMFSourceEditorCustomKeyContentSubheading3 = @"WMFSourceEditorCustomKeyContentSubheading3";
+NSString * const WMFSourceEditorCustomKeyContentSubheading4 = @"WMFSourceEditorCustomKeyContentSubheading4";
 
 #pragma mark - Public
 
@@ -53,47 +53,47 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
         
         _headingFontAttributes = @{
             NSFontAttributeName: fonts.headingFont,
-            WKSourceEditorCustomKeyFontHeading: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontHeading: [NSNumber numberWithBool:YES]
         };
         
         _subheading1FontAttributes = @{
             NSFontAttributeName: fonts.subheading1Font,
-            WKSourceEditorCustomKeyFontSubheading1: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontSubheading1: [NSNumber numberWithBool:YES]
         };
         
         _subheading2FontAttributes = @{
             NSFontAttributeName: fonts.subheading2Font,
-            WKSourceEditorCustomKeyFontSubheading2: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontSubheading2: [NSNumber numberWithBool:YES]
         };
         
         _subheading3FontAttributes = @{
             NSFontAttributeName: fonts.subheading3Font,
-            WKSourceEditorCustomKeyFontSubheading3: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontSubheading3: [NSNumber numberWithBool:YES]
         };
         
         _subheading4FontAttributes = @{
             NSFontAttributeName: fonts.subheading4Font,
-            WKSourceEditorCustomKeyFontSubheading4: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyFontSubheading4: [NSNumber numberWithBool:YES]
         };
         
         _headingContentAttributes = @{
-            WKSourceEditorCustomKeyContentHeading: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentHeading: [NSNumber numberWithBool:YES]
         };
         
         _subheading1ContentAttributes = @{
-            WKSourceEditorCustomKeyContentSubheading1: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentSubheading1: [NSNumber numberWithBool:YES]
         };
         
         _subheading2ContentAttributes = @{
-            WKSourceEditorCustomKeyContentSubheading2: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentSubheading2: [NSNumber numberWithBool:YES]
         };
         
         _subheading3ContentAttributes = @{
-            WKSourceEditorCustomKeyContentSubheading3: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentSubheading3: [NSNumber numberWithBool:YES]
         };
         
         _subheading4ContentAttributes = @{
-            WKSourceEditorCustomKeyContentSubheading4: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentSubheading4: [NSNumber numberWithBool:YES]
         };
         
         _headingRegex = [[NSRegularExpression alloc] initWithPattern:@"^(={2})([^=]*)(={2})(?!=)$" options:NSRegularExpressionAnchorsMatchLines error:nil];
@@ -114,16 +114,16 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontHeading range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading1 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading2 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading3 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyFontSubheading4 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentHeading range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubheading1 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubheading2 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubheading3 range:range];
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentSubheading4 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontHeading range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontSubheading1 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontSubheading2 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontSubheading3 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyFontSubheading4 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentHeading range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentSubheading1 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentSubheading2 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentSubheading3 range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentSubheading4 range:range];
     
     [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.headingRegex fontAttributes:self.headingFontAttributes contentAttributes:self.headingContentAttributes];
     [self enumerateAndHighlightAttributedString:attributedString range:range regex:self.subheading1Regex fontAttributes:self.subheading1FontAttributes contentAttributes:self.subheading1ContentAttributes];
@@ -147,23 +147,23 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
 #pragma mark - Public
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isHeadingInRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentHeading inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentHeading inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSubheading1InRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentSubheading1 inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentSubheading1 inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSubheading2InRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentSubheading2 inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentSubheading2 inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSubheading3InRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentSubheading3 inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentSubheading3 inRange:range];
 }
 
 - (BOOL)attributedString:(NSMutableAttributedString *)attributedString isSubheading4InRange:(NSRange)range {
-    return [self attributedString:attributedString isContentKey:WKSourceEditorCustomKeyContentSubheading4 inRange:range];
+    return [self attributedString:attributedString isContentKey:WMFSourceEditorCustomKeyContentSubheading4 inRange:range];
 }
 
 #pragma mark - Private
@@ -299,7 +299,7 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
        return;
     }
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontHeading
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontHeading
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -311,7 +311,7 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontSubheading1
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontSubheading1
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -323,7 +323,7 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontSubheading2
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontSubheading2
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -335,7 +335,7 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontSubheading3
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontSubheading3
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {
@@ -347,7 +347,7 @@ NSString * const WKSourceEditorCustomKeyContentSubheading4 = @"WKSourceEditorCus
         }
     }];
     
-    [attributedString enumerateAttribute:WKSourceEditorCustomKeyFontSubheading4
+    [attributedString enumerateAttribute:WMFSourceEditorCustomKeyFontSubheading4
                                  inRange:range
                                  options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
                               usingBlock:^(id value, NSRange localRange, BOOL *stop) {

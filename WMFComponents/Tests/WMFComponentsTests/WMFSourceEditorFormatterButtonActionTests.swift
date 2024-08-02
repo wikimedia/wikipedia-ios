@@ -1,7 +1,7 @@
 import XCTest
 @testable import WMFComponents
 
-final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
+final class WMFSourceEditorFormatterButtonActionTests: XCTestCase {
     
     let mediator = {
         let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: "", localizedStrings: WMFSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)

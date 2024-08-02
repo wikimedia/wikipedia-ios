@@ -3,7 +3,7 @@ import UIKit
 import WMFData
 import Combine
 
-public protocol WKImageRecommendationsDelegate: AnyObject {
+public protocol WMFImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WMFProject, title: String)
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
     func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController)
@@ -12,10 +12,10 @@ public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
-    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WKImageRecommendationsViewController)
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController)
 }
 
-public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
+public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
     func logOnboardingDidTapPrimaryButton()
     func logOnboardingDidTapSecondaryButton()
     func logTooltipsDidTapFirstNext()
@@ -37,10 +37,10 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
 }
 
-fileprivate final class WKImageRecommendationsHostingViewController: WMFComponentHostingController<WKImageRecommendationsView> {
+fileprivate final class WMFImageRecommendationsHostingViewController: WMFComponentHostingController<WMFImageRecommendationsView> {
 
-    init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate, tooltipGeometryValues: WMFTooltipGeometryValues) {
-        let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
+    init(viewModel: WMFImageRecommendationsViewModel, delegate: WMFImageRecommendationsDelegate, loggingDelegate: WMFImageRecommendationsLoggingDelegate, tooltipGeometryValues: WMFTooltipGeometryValues) {
+        let rootView = WMFImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
             
             viewModel.tryAgainAfterLoadingError()
             
@@ -61,15 +61,15 @@ fileprivate final class WKImageRecommendationsHostingViewController: WMFComponen
     }
 }
 
-public final class WKImageRecommendationsViewController: WMFCanvasViewController {
+public final class WMFImageRecommendationsViewController: WMFCanvasViewController {
 
     // MARK: - Properties
 
-    fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
-    private weak var delegate: WKImageRecommendationsDelegate?
-    private weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
+    fileprivate let hostingViewController: WMFImageRecommendationsHostingViewController
+    private weak var delegate: WMFImageRecommendationsDelegate?
+    private weak var loggingDelegate: WMFImageRecommendationsLoggingDelegate?
     @ObservedObject private var viewModel: WMFImageRecommendationsViewModel
-    private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
+    private var imageRecommendationBottomSheetController: WMFImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
 
     private var overflowMenu: UIMenu {
@@ -98,12 +98,12 @@ public final class WKImageRecommendationsViewController: WMFCanvasViewController
     private let dataController = WMFImageRecommendationsDataController()
     private let tooltipGeometryValues = WMFTooltipGeometryValues()
 
-    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
-        self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate, tooltipGeometryValues: tooltipGeometryValues)
+    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WMFImageRecommendationsDelegate, loggingDelegate: WMFImageRecommendationsLoggingDelegate) {
+        self.hostingViewController = WMFImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate, tooltipGeometryValues: tooltipGeometryValues)
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
-        self.imageRecommendationBottomSheetController = WKImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
+        self.imageRecommendationBottomSheetController = WMFImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         super.init()
         hidesBottomBarWhenPushed = true
     }
@@ -230,7 +230,7 @@ public final class WKImageRecommendationsViewController: WMFCanvasViewController
         rightBarButtonItem.tintColor = theme.link
     }
 
-    private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WKImageRecommendationsBottomSheetViewController, force: Bool = false) {
+    private func presentTooltipsIfNecessary(onBottomSheetViewController bottomSheetViewController: WMFImageRecommendationsBottomSheetViewController, force: Bool = false) {
 
         // Do not present tooltips in empty or loading state
         if viewModel.loading || viewModel.imageRecommendations.isEmpty || viewModel.loadingError != nil {
@@ -344,7 +344,7 @@ public final class WKImageRecommendationsViewController: WMFCanvasViewController
     }
 }
 
-extension WKImageRecommendationsViewController: WMFOnboardingViewDelegate {
+extension WMFImageRecommendationsViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in

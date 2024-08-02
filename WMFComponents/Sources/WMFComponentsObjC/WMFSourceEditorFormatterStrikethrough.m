@@ -13,7 +13,7 @@
 
 #pragma mark - Custom Attributed String Keys
 
-NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorCustomKeyContentStrikethrough";
+NSString * const WMFSourceEditorCustomKeyContentStrikethrough = @"WMFSourceEditorCustomKeyContentStrikethrough";
 
 - (instancetype)initWithColors:(WMFSourceEditorColors *)colors fonts:(WMFSourceEditorFonts *)fonts {
     self = [super initWithColors:colors fonts:fonts];
@@ -24,7 +24,7 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
         };
         
         _strikethroughContentAttributes = @{
-            WKSourceEditorCustomKeyContentStrikethrough: [NSNumber numberWithBool:YES]
+            WMFSourceEditorCustomKeyContentStrikethrough: [NSNumber numberWithBool:YES]
         };
         
         _strikethroughRegex = [[NSRegularExpression alloc] initWithPattern:@"(<s>)(\\s*.*?)(<\\/s>)" options:0 error:nil];
@@ -40,7 +40,7 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
     }
     
     // Reset
-    [attributedString removeAttribute:WKSourceEditorCustomKeyContentStrikethrough range:range];
+    [attributedString removeAttribute:WMFSourceEditorCustomKeyContentStrikethrough range:range];
     
     [self.strikethroughRegex enumerateMatchesInString:attributedString.string
                                         options:0
@@ -106,14 +106,14 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
 
        NSDictionary<NSAttributedStringKey,id> *attrs = [attributedString attributesAtIndex:range.location effectiveRange:nil];
 
-       if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
+       if (attrs[WMFSourceEditorCustomKeyContentStrikethrough] != nil) {
            isContentKey = YES;
        } else {
            // Edge case, check previous character if we are up against closing string
            NSRange newRange = NSMakeRange(range.location - 1, 0);
            if (attrs[WMFSourceEditorCustomKeyColorGreen] && [self canEvaluateAttributedString:attributedString againstRange:newRange]) {
                attrs = [attributedString attributesAtIndex:newRange.location effectiveRange:nil];
-               if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
+               if (attrs[WMFSourceEditorCustomKeyContentStrikethrough] != nil) {
                    isContentKey = YES;
                }
            }
@@ -122,7 +122,7 @@ NSString * const WKSourceEditorCustomKeyContentStrikethrough = @"WKSourceEditorC
    } else {
        __block NSRange unionRange = NSMakeRange(NSNotFound, 0);
        [attributedString enumerateAttributesInRange:range options:nil usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange loopRange, BOOL * _Nonnull stop) {
-           if (attrs[WKSourceEditorCustomKeyContentStrikethrough] != nil) {
+           if (attrs[WMFSourceEditorCustomKeyContentStrikethrough] != nil) {
                if (unionRange.location == NSNotFound) {
                    unionRange = loopRange;
                } else {

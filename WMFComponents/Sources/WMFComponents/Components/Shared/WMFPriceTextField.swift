@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WKPriceTextField: View {
+struct WMFPriceTextField: View {
     
     struct Configuration {
         let currencyCode: String
