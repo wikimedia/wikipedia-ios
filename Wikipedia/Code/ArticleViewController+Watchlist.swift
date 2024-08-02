@@ -6,7 +6,7 @@ extension ArticleViewController {
         
         guard let title = articleURL.wmf_title,
         let siteURL = articleURL.wmf_site,
-        let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
+        let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             return
         }
         

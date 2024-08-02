@@ -36,16 +36,16 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 		weak var watchlistDelegate: WKWatchlistDelegate?
         weak var watchlistLoggingDelegate: WKWatchlistLoggingDelegate?
 		let menuButtonItems: [WKSmallMenuButton.MenuItem]
-		let wkProjectMetadataKey: String
+		let wmfProjectMetadataKey: String
 		let revisionIDMetadataKey: String
         let oldRevisionIDMetadataKey: String
         let articleTitleMetadataKey: String
 
-        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKSmallMenuButton.MenuItem], wkProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
+        init(watchlistDelegate: WKWatchlistDelegate? = nil, watchlistLoggingDelegate: WKWatchlistLoggingDelegate?, menuButtonItems: [WKSmallMenuButton.MenuItem], wmfProjectMetadataKey: String, revisionIDMetadataKey: String, oldRevisionIDMetadataKey: String, articleTitleMetadaKey: String) {
 			self.watchlistDelegate = watchlistDelegate
             self.watchlistLoggingDelegate = watchlistLoggingDelegate
 			self.menuButtonItems = menuButtonItems
-			self.wkProjectMetadataKey = wkProjectMetadataKey
+			self.wmfProjectMetadataKey = wmfProjectMetadataKey
 			self.revisionIDMetadataKey = revisionIDMetadataKey
             self.oldRevisionIDMetadataKey = oldRevisionIDMetadataKey
             self.articleTitleMetadataKey = articleTitleMetadaKey
@@ -53,7 +53,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
-                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WMFProject,
+                    let wmfProject = configuration.metadata[wmfProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
                   let title = configuration.metadata[articleTitleMetadataKey] as? String else {
@@ -61,7 +61,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
             }
             
             if item == nil {
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButton(project: wkProject)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButton(project: wmfProject)
             }
 
 
@@ -70,23 +70,23 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 			}
 
             if tappedTitle == menuButtonItems[0].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
-                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userPage)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
+                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userPage)
             } else if tappedTitle == menuButtonItems[1].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
-                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userTalkPage)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
+                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userTalkPage)
             } else if tappedTitle == menuButtonItems[2].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userContributions)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userContributions)
             } else if tappedTitle == menuButtonItems[3].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .thank(revisionID: revisionID))
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .thank(revisionID: revisionID))
             }
 		}
 
         func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title, 
-                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WMFProject,
+                    let wmfProject = configuration.metadata[wmfProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
                   let title = configuration.metadata[articleTitleMetadataKey] as? String else {
@@ -97,19 +97,19 @@ public final class WKWatchlistViewController: WKCanvasViewController {
                 fatalError("Unexpected number of menu button items")
             }
             if tappedTitle == menuButtonItems[0].title {
-                watchlistDelegate?.watchlistUserDidTapDiff(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId)
+                watchlistDelegate?.watchlistUserDidTapDiff(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId)
             } else if tappedTitle == menuButtonItems[1].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userPage)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userPage)
             } else if tappedTitle == menuButtonItems[2].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userTalkPage)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userTalkPage)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userTalkPage)
             } else if tappedTitle == menuButtonItems[3].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .userContributions)
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userContributions)
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .userContributions)
             } else if tappedTitle == menuButtonItems[4].title {
-                watchlistDelegate?.watchlistUserDidTapUser(project: wkProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
-                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wkProject, action: .thank(revisionID: revisionID))
+                watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
+                watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .thank(revisionID: revisionID))
             }
         }
 	}
@@ -150,7 +150,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
         self.loggingDelegate = loggingDelegate
 		self.reachabilityHandler = reachabilityHandler
 
-        let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, watchlistLoggingDelegate: loggingDelegate, menuButtonItems: viewModel.menuButtonItems, wkProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, articleTitleMetadaKey: WKWatchlistViewModel.ItemViewModel.articleMetadataKey)
+        let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, watchlistLoggingDelegate: loggingDelegate, menuButtonItems: viewModel.menuButtonItems, wmfProjectMetadataKey: WKWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey, revisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, articleTitleMetadaKey: WKWatchlistViewModel.ItemViewModel.articleMetadataKey)
 		self.buttonHandler = buttonHandler
 
         self.hostingViewController = WKWatchlistHostingViewController(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, menuButtonDelegate: buttonHandler)

@@ -179,7 +179,7 @@ fileprivate struct WKWatchlistViewCell: View {
 									primaryColor: \.link,
 									menuItems: menuItemsForRevisionAuthor,
 									metadata: [
-										WKWatchlistViewModel.ItemViewModel.wkProjectMetadataKey: itemViewModel.project,
+										WKWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey: itemViewModel.project,
 										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
                                         WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
                                         WKWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title

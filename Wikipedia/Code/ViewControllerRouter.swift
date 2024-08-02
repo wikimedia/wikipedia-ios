@@ -238,11 +238,11 @@ class ViewControllerRouter: NSObject {
         var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
             
             guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController),
-                  let wkProject = wikimediaProject.wkProject else {
+                  let wmfProject = wikimediaProject.wmfProject else {
                 return
             }
             
-            result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
         }
         localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)

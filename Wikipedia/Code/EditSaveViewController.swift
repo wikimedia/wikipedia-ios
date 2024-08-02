@@ -294,7 +294,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+           let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
             let title = pageURL?.wmf_title else {
             return
         }

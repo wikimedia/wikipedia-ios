@@ -9,17 +9,17 @@ extension ArticleViewController {
         
         guard let countryCode = Locale.current.regionCode,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
-           let wkProject = wikimediaProject.wkProject else {
+           let wmfProject = wikimediaProject.wmfProject else {
             return
         }
         
         let dataController = WMFFundraisingCampaignDataController.shared
         
         Task {
-            let isOptedIn = await dataController.isOptedIn(project: wkProject)
+            let isOptedIn = await dataController.isOptedIn(project: wmfProject)
             
             guard isOptedIn,
-            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wkProject, currentDate: .now) else {
+            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
                 return
             }
             

@@ -261,7 +261,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         
         guard let dataController,
               let wikimediaProject = WikimediaProject(siteURL: siteURL),
-                let project = wikimediaProject.wkProject else {
+                let project = wikimediaProject.wmfProject else {
             return
         }
         

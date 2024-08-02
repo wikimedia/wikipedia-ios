@@ -52,8 +52,8 @@ class DiffContainerViewController: ViewController {
     
     var animateDirection: DiffRevisionTransition.Direction?
     
-    private var wkProject: WMFProject? {
-        return wikimediaProject?.wkProject
+    private var wmfProject: WMFProject? {
+        return wikimediaProject?.wmfProject
     }
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
@@ -468,7 +468,7 @@ private extension DiffContainerViewController {
         
         // Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
-        diffToolbarView?.undoButton.isEnabled = wkProject != nil
+        diffToolbarView?.undoButton.isEnabled = wmfProject != nil
     }
     
     func setThankAndMoreState(isEnabled: Bool) {
@@ -687,11 +687,11 @@ private extension DiffContainerViewController {
     
     func fetchWatchAndRollbackStatus() {
         
-        guard let articleTitle, let wkProject else {
+        guard let articleTitle, let wmfProject else {
             return
         }
         
-        WMFWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+        WMFWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wmfProject, needsRollbackRights: true) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -1281,7 +1281,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedUndo() {
         
-        guard wkProject != nil else {
+        guard wmfProject != nil else {
             assertionFailure("WKProject must be populated before attempting undo call.")
             return
         }
@@ -1329,7 +1329,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     private func performUndo() {
-        guard let wkProject = wkProject,
+        guard let wmfProject = wmfProject,
               let title = articleTitle,
               let revisionID = toModelRevisionID,
               let username = toModel?.user,
@@ -1342,7 +1342,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
         
-        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1375,7 +1375,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     private func performRollback() {
-        guard let wkProject = wkProject,
+        guard let wmfProject = wmfProject,
               let title = articleTitle,
               let username = toModel?.user else {
             return
@@ -1386,7 +1386,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WMFWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        WMFWatchlistDataController().rollback(title: title, project: wmfProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }

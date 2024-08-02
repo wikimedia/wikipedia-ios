@@ -6,7 +6,7 @@ import WMFData
 extension WKImageRecommendationsViewController {
     static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> WKImageRecommendationsViewController? {
         guard let appLanguage = dataStore.languageLinkController.appLanguage,
-              let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wkProject,
+              let project = WikimediaProject(siteURL: appLanguage.siteURL)?.wmfProject,
               let imageRecDelegate,
               let imageRecLoggingDelegate else {
             return nil

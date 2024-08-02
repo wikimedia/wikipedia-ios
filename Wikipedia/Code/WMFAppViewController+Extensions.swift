@@ -210,7 +210,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
     }
 
     public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
             return
         }
@@ -231,7 +231,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
     }
 
     public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
         }
@@ -297,11 +297,11 @@ extension WMFAppViewController: WKWatchlistDelegate {
             let dataStore = self.dataStore
             let appLanguages = dataStore.languageLinkController.preferredLanguages
             var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
-                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wmfProject = wikimediaProject.wmfProject else {
                     return
                 }
 
-                result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+                result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
             }
             localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
             localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
@@ -350,7 +350,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         }
         
         // Wikis
-        let wikipediaProjects = onProjects.map { WikimediaProject(wkProject: $0) }.filter {
+        let wikipediaProjects = onProjects.map { WikimediaProject(wmfProject: $0) }.filter {
             switch $0 {
             case .wikipedia: return true
             default: return false
@@ -448,13 +448,13 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
     
     public func logWatchlistUserDidTapUserButton(project: WMFData.WMFProject) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
     public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WKWatchlistUserButtonAction) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
 
         switch action {
         case .userPage:

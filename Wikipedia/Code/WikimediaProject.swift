@@ -76,7 +76,7 @@ public enum WikimediaProject: Hashable {
         }
     }
     
-    public var wkProject: WMFProject? {
+    public var wmfProject: WMFProject? {
         switch self {
         case .commons:
             return WMFProject.commons
@@ -142,10 +142,10 @@ public enum WikimediaProject: Hashable {
         }
     }
 
-    public init(wkProject: WMFProject) {
-        switch wkProject {
-        case .wikipedia(let wKLanguage):
-            self = .wikipedia(wKLanguage.languageCode, "", wKLanguage.languageVariantCode)
+    public init(wmfProject: WMFProject) {
+        switch wmfProject {
+        case .wikipedia(let wmfLanguage):
+            self = .wikipedia(wmfLanguage.languageCode, "", wmfLanguage.languageVariantCode)
         case .wikidata:
             self = .wikidata
         case .commons:
