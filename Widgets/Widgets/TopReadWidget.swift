@@ -1,5 +1,5 @@
 import SwiftUI
-import Components
+import WMFComponents
 import WidgetKit
 import WMF
 

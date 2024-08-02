@@ -1,7 +1,7 @@
 import Foundation
 import WMF
 import UIKit
-import Components
+import WMFComponents
 import Combine
 
 class NotificationsCenterInboxViewModel: ObservableObject {

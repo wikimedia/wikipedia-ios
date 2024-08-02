@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 struct WMFAuthLinkLabelStrings {
     /// String containing "%1$@" substring.

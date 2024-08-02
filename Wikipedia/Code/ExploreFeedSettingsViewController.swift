@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMFData
 
 private class FeedCard: ExploreFeedSettingsItem {

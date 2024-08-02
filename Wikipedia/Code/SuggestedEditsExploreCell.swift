@@ -1,5 +1,5 @@
 import UIKit
-import Components
+import WMFComponents
 
 class SuggestedEditsExploreCell: CollectionViewCell {
     

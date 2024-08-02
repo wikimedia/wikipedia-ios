@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
     func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder)

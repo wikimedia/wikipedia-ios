@@ -6,7 +6,7 @@
 //
 //
 
-import Components
+import WMFComponents
 
 @IBDesignable
 open class SWStepSlider: UIControl {

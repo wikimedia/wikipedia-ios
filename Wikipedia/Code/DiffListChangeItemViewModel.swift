@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class DiffListChangeItemViewModel {
     let text: String

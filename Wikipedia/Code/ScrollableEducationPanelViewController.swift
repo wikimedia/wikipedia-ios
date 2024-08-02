@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)

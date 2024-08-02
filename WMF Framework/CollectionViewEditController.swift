@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public enum CollectionViewCellSwipeType {
     case primary, secondary, none

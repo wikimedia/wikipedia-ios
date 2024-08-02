@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ReferenceBackLinksViewController: ReferenceViewController {
     var index = 0

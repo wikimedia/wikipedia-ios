@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!

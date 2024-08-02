@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class OnThisDayViewControllerHeader: UICollectionReusableView {
     @IBOutlet weak var eventsLabel: UILabel!

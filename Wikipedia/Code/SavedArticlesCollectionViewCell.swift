@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)

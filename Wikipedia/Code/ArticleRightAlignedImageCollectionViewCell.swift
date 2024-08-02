@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     public var bottomSeparator = UIView()

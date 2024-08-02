@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public class CreateNewReadingListButtonView: UIView {
     @IBOutlet weak var button: AlignedImageButton!

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)

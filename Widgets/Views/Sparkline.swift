@@ -1,6 +1,6 @@
 import SwiftUI
 import WMF
-import Components
+import WMFComponents
 
 private struct SparklineShape: Shape {
 

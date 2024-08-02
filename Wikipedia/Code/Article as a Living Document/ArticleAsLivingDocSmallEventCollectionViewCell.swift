@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private let descriptionLabel = UILabel()

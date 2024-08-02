@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class PageHistoryCountsViewController: UIViewController {
     private let pageTitle: String

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol CollectionViewHeaderDelegate: AnyObject {
     func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader)

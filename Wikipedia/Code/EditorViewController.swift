@@ -1,5 +1,5 @@
 import UIKit
-import Components
+import WMFComponents
 import WMF
 import CocoaLumberjackSwift
 import WMFData
@@ -664,12 +664,12 @@ extension EditorViewController: Themeable {
 // MARK: - WKSourceEditorViewControllerDelegate
 
 extension EditorViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         navigationItemController.undoButton.isEnabled = canUndo
         navigationItemController.redoButton.isEnabled = canRedo
     }
     
-    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, didChangeText: Bool) {
         navigationItemController.progressButton.isEnabled = didChangeText
     }
     
@@ -677,7 +677,7 @@ extension EditorViewController: WKSourceEditorViewControllerDelegate {
         showFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
         hideFocusNavigationView()
     }
     

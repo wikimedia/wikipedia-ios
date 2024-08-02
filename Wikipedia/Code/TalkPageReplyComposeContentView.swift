@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 class TalkPageReplyComposeContentView: SetupView {

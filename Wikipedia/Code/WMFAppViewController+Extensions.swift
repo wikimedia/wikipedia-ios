@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 import SwiftUI
-import Components
+import WMFComponents
 import WMFData
 
 extension Notification.Name {
@@ -452,7 +452,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WKProject, action: WMFComponents.WKWatchlistUserButtonAction) {
         
         let wikimediaProject = WikimediaProject(wkProject: project)
 
@@ -594,7 +594,7 @@ extension WMFAppViewController {
     }
 }
 
-// MARK: Components App Environment Helpers
+// MARK: WMFComponents App Environment Helpers
 extension WMFAppViewController {
 
     @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {

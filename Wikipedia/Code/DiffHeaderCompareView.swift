@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class DiffHeaderCompareView: SetupView {
 
@@ -262,7 +262,7 @@ extension DiffHeaderCompareView: Themeable {
 
 extension DiffHeaderCompareView: WKSmallMenuButtonDelegate {
 
-    func wkMenuButton(_ sender: Components.WKSmallMenuButton, didTapMenuItem item: Components.WKSmallMenuButton.MenuItem) {
+    func wkMenuButton(_ sender: WMFComponents.WKSmallMenuButton, didTapMenuItem item: WMFComponents.WKSmallMenuButton.MenuItem) {
         
         guard let viewModel else {
             return

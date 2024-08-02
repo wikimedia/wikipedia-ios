@@ -1,6 +1,6 @@
 import Foundation
 import WMFData
-import Components
+import WMFComponents
 
 extension WMFSettingsViewController: WKDonateDelegate {
     

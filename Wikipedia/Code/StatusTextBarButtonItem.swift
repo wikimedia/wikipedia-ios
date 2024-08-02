@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 /// A Themeable UIBarButtonItem with status text that mimics Apple Mail
 class StatusTextBarButtonItem: UIBarButtonItem, Themeable {

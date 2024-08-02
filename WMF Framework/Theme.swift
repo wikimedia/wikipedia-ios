@@ -1,6 +1,6 @@
 import Foundation
 import SystemConfiguration
-import Components
+import WMFComponents
 
 public extension UIColor {
     @objc(initWithHexInteger:alpha:)
@@ -1009,9 +1009,9 @@ public final class ObservableTheme: ObservableObject {
 
 public extension Theme {
 
-    // Convert App `Theme` to Components framework `WKTheme`
+    // Convert App `Theme` to WMFComponents framework `WKTheme`
     static func wkTheme(from theme: Theme) -> WKTheme {
-        let wkTheme: Components.WKTheme
+        let wkTheme: WMFComponents.WKTheme
 
         switch theme {
         case .light:

@@ -119,7 +119,7 @@ fileprivate extension WMFData.WKServiceRequest {
 
 public class WKMockWatchlistMediaWikiService: WKService {
 
-    public var randomizeGetWatchStatusResponse: Bool = false // used in Components Demo app
+    public var randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
     
     public init() {
         

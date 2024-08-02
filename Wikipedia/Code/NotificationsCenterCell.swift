@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)

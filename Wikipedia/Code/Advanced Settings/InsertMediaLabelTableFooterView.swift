@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaLabelTableFooterView: SetupView, Themeable {
     private let label = UILabel()

@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import WMF
-import Components
+import WMFComponents
 import WMFData
 
 @objc(WMFAccountViewControllerDelegate)

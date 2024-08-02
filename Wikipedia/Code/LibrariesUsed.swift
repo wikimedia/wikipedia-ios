@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 public struct LibraryUsed {

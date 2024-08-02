@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     public let titleLabel = UILabel()

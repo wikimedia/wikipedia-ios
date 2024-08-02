@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaSettingsButtonView: UIView {
     @IBOutlet private weak var separatorView: UIView!

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import SwiftUI
 import WMF
 

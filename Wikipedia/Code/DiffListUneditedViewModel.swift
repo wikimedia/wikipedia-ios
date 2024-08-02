@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class DiffListUneditedViewModel: DiffListGroupViewModel {
     private(set) var height: CGFloat = 0

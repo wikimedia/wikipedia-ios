@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)

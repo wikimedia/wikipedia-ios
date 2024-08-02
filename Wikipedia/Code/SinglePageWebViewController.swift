@@ -1,7 +1,7 @@
 import WebKit
 import CocoaLumberjackSwift
 import WMF
-import Components
+import WMFComponents
 
 class SinglePageWebViewController: ViewController {
     let url: URL

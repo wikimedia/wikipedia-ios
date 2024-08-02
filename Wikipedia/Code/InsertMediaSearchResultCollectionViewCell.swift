@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     let imageView = UIImageView()

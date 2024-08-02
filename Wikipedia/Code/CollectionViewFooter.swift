@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol CollectionViewFooterDelegate: AnyObject {
     func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter)

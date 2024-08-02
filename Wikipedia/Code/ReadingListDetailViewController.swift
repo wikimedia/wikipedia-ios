@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 enum ReadingListDetailDisplayType {
     case modal, pushed

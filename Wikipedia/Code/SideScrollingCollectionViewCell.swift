@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 internal struct CellArticle {
     let articleURL: URL?

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 // MARK: - Cell
 class TableOfContentsCell: UITableViewCell {

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     @IBOutlet weak var label: UILabel!

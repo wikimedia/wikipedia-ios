@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol WMFReadingThemesControlsViewControllerDelegate: AnyObject {
     

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol ReadingListDetailUnderBarViewControllerDelegate: AnyObject {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)

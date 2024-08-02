@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {

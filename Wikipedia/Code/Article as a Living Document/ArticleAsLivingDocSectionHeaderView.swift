@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     private let titleLabel = UILabel()

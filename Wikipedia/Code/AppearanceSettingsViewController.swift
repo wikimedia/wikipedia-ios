@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol AppearanceSettingsItem {
     var title: String? { get }

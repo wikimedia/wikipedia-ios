@@ -1,6 +1,6 @@
 import WMF
 import CocoaLumberjackSwift
-import Components
+import WMFComponents
 import WMFData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {

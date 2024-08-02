@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol DiffHeaderTitleViewTapDelegate: AnyObject {
     func userDidTapTitleLabel()

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 enum WMFWelcomePageType {
     case intro

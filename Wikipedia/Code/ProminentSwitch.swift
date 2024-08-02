@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 @objc(WMFProminentSwitch)
 class ProminentSwitch: UISwitch {

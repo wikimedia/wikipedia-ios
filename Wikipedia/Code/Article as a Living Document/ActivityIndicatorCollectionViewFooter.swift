@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)

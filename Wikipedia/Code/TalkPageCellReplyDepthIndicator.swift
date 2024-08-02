@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 final class TalkPageCellReplyDepthIndicator: SetupView {

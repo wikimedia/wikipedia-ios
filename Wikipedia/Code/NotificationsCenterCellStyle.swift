@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 /// Provides image, font, and color styles based on theme and notification type
 struct NotificationsCenterCellStyle {

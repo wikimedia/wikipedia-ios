@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public protocol CardContent {
     var view: UIView! { get }

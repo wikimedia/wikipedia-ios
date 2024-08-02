@@ -1,5 +1,5 @@
 import Foundation
-import Components
+import WMFComponents
 import WMF
 import WMFData
 

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public struct Tag {
     let readingList: ReadingList

@@ -1,6 +1,6 @@
 import UIKit
 import AVKit
-import Components
+import WMFComponents
 import WMFData
 
 // Wrapper class for access in Objective-C

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class WMFWelcomePanelViewController: ThemeableViewController {
     override func apply(theme: Theme) {

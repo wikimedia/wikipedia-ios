@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class EraseSavedArticlesView: UIView {
     @IBOutlet weak var imageView: UIImageView!

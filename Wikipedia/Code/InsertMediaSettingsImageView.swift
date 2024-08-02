@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaSettingsImageView: UIView {
     @IBOutlet private weak var imageView: UIImageView!

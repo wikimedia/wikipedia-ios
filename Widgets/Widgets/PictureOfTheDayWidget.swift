@@ -1,7 +1,7 @@
 import WidgetKit
 import SwiftUI
 import WMF
-import Components
+import WMFComponents
 
 // MARK: - Widget
 

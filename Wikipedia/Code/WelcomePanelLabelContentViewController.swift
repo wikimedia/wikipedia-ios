@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class WelcomePanelLabelContentViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var titleLabel: UILabel!

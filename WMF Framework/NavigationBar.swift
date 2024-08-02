@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 @objc public enum NavigationBarDisplayType: Int {
     case backVisible

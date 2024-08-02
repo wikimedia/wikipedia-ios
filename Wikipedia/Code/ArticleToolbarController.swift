@@ -1,6 +1,6 @@
 import UIKit
 import WMF
-import Components
+import WMFComponents
 import WMFData
 
 protocol ArticleToolbarHandling: AnyObject {

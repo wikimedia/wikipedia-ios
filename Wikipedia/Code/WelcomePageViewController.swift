@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol PageViewControllerViewLifecycleDelegate: AnyObject {
     func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)

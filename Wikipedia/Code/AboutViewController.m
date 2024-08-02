@@ -4,7 +4,7 @@
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-@import Components;
+@import WMFComponents;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";

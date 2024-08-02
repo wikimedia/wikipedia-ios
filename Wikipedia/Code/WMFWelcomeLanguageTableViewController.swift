@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {

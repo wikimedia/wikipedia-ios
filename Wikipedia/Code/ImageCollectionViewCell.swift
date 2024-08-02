@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()

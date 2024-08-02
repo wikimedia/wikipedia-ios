@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell

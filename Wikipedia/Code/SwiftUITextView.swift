@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import SwiftUI
 
 struct TextView: UIViewRepresentable {

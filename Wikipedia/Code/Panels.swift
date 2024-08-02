@@ -1,5 +1,5 @@
 import WMFData
-import Components
+import WMFComponents
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
 

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ArticleAsLivingDocHeaderView: UIView {
 

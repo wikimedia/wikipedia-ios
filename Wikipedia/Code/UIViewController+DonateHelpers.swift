@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import Components
+import WMFComponents
 import WMFData
 import PassKit
 

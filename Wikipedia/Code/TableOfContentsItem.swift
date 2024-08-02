@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 // MARK: - TOC Item Types
 

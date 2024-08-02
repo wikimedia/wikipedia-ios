@@ -1,5 +1,5 @@
 import CocoaLumberjackSwift
-import Components
+import WMFComponents
 import WMFData
 
 extension ArticleViewController {

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol HintViewControllerDelegate: AnyObject {
     func hintViewControllerWillDisappear(_ hintViewController: HintViewController)

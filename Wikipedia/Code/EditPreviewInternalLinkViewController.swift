@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class EditPreviewInternalLinkViewController: UIViewController {
     @IBOutlet private weak var containerView: UIView!

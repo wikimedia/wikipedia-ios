@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!

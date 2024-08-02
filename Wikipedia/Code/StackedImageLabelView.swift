@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 /// A vertically stacked image/label group that resembles `UITableView`'s swipe actions 
 final class StackedImageLabelView: SetupView {

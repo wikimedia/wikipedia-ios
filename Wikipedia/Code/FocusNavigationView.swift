@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol FocusNavigationViewDelegate: AnyObject {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)

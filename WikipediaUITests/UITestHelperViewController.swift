@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 public class UITestHelperViewController: WKCanvasViewController {
@@ -151,11 +151,11 @@ public class UITestHelperViewController: WKCanvasViewController {
 
 
 extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
-    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         
     }
     
-    public func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+    public func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, didChangeText: Bool) {
         
     }
     
@@ -163,15 +163,15 @@ extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
         
     }
     
-    public func sourceEditorViewControllerDidTapLink(parameters: Components.WKSourceEditorFormatterLinkWizardParameters) {
+    public func sourceEditorViewControllerDidTapLink(parameters: WMFComponents.WKSourceEditorFormatterLinkWizardParameters) {
         
     }
     
-    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
         
     }
     
-    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
 
     }
     

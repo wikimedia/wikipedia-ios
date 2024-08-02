@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class PageHistoryHintViewController: HintViewController {
     override func configureSubviews() {

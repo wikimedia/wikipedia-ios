@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
  @objc public class WKFontWrapper: NSObject {
      @objc(fontFor:compatibleWithTraitCollection:) public static func font(for fontType: WMFFonts, compatibleWith traitCollection: UITraitCollection) -> UIFont {
@@ -21,7 +21,7 @@ import Components
 
 
 /// WMFFonts is the equivalent of the `WKFont` enum in components.
-/// This enum can be called directly from the Objective-C classes, without having to  import Components into them
+/// This enum can be called directly from the Objective-C classes, without having to  import WMFComponents into them
 @objc public enum WMFFonts: Int {
     case boldCallout
     case callout
