@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WKServiceRequestMethod: String {
+public enum WMFServiceRequestMethod: String {
     case GET
     case POST
     case PUT
@@ -8,9 +8,9 @@ public enum WKServiceRequestMethod: String {
     case HEAD
 }
 
-public protocol WKServiceRequest {
+public protocol WMFServiceRequest {
     var url: URL? { get }
-    var method: WKServiceRequestMethod { get }
+    var method: WMFServiceRequestMethod { get }
     var languageVariantCode: String? { get }
     var parameters: [String: Any]? { get }
 }

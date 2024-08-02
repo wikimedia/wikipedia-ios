@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKMediaWikiServiceRequest: WKServiceRequest {
+public struct WMFMediaWikiServiceRequest: WMFServiceRequest {
     
     public enum TokenType {
         case csrf
@@ -14,13 +14,13 @@ public struct WKMediaWikiServiceRequest: WKServiceRequest {
     }
 
     public let url: URL?
-    public let method: WKServiceRequestMethod
+    public let method: WMFServiceRequestMethod
     public let backend: Backend
     public var languageVariantCode: String?
     public let tokenType: TokenType?
     public let parameters: [String: Any]?
 
-    internal init(url: URL? = nil, method: WKServiceRequestMethod, backend: Backend, languageVariantCode: String? = nil, tokenType: WKMediaWikiServiceRequest.TokenType? = nil, parameters: [String : Any]? = nil) {
+    internal init(url: URL? = nil, method: WMFServiceRequestMethod, backend: Backend, languageVariantCode: String? = nil, tokenType: WMFMediaWikiServiceRequest.TokenType? = nil, parameters: [String : Any]? = nil) {
         self.url = url
         self.method = method
         self.backend = backend

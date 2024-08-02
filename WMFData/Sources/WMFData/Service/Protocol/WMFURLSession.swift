@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol WKURLSession {
+public protocol WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKURLSessionDataTask
 }
 
@@ -8,7 +8,7 @@ public protocol WKURLSessionDataTask {
     func resume()
 }
 
-extension URLSession: WKURLSession {
+extension URLSession: WMFURLSession {
     public func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKURLSessionDataTask {
         return self.dataTask(with: request, completionHandler: completionHandler)
     }

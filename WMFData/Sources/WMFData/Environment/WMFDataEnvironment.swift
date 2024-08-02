@@ -16,8 +16,8 @@ public final class WMFDataEnvironment: ObservableObject {
 
     @Published public var appData = WMFAppData(appLanguages: [])
     
-    public var mediaWikiService: WKService?
-    public internal(set) var basicService: WKService? = WKBasicService()
+    public var mediaWikiService: WMFService?
+    public internal(set) var basicService: WMFService? = WMFBasicService()
     
     public var userAgentUtility: (() -> String)?
     public var appInstallIDUtility: (() -> String?)?

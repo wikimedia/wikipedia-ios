@@ -3,7 +3,7 @@ import WMFData
 
 #if DEBUG
 
-fileprivate extension WMFData.WKServiceRequest {
+fileprivate extension WMFData.WMFServiceRequest {
     var isWatchlistGetListNoFilter: Bool {
         guard let action = parameters?["action"] as? String,
               let list = parameters?["list"] as? String,
@@ -117,7 +117,7 @@ fileprivate extension WMFData.WKServiceRequest {
     }
 }
 
-public class WKMockWatchlistMediaWikiService: WKService {
+public class WKMockWatchlistMediaWikiService: WMFService {
 
     public var randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
     
@@ -125,7 +125,7 @@ public class WKMockWatchlistMediaWikiService: WKService {
         
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WKMockError.unableToPullData))
             return
@@ -134,7 +134,7 @@ public class WKMockWatchlistMediaWikiService: WKService {
         completion(.success(jsonData))
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WKMockError.unableToPullData))
@@ -149,7 +149,7 @@ public class WKMockWatchlistMediaWikiService: WKService {
         completion(.success(jsonDict))
     }
     
-    public func performDecodableGET<R: WKServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WKMockError.unableToPullData))
@@ -166,11 +166,11 @@ public class WKMockWatchlistMediaWikiService: WKService {
         completion(.success(response))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
     }
     
-    private func jsonData(for request: WMFData.WKServiceRequest) -> Data? {
+    private func jsonData(for request: WMFData.WMFServiceRequest) -> Data? {
         if request.isWatchlistGetListNoFilter {
             guard let host = request.url?.host,
                   let index = host.firstIndex(of: "."),

@@ -1,7 +1,7 @@
 import Foundation
 
 public final class WMFArticleSummaryDataController {
-    private var service: WKService?
+    private var service: WMFService?
     
     public init() {
         self.service = WMFDataEnvironment.current.basicService
@@ -20,7 +20,7 @@ public final class WMFArticleSummaryDataController {
             return
         }
 
-        let request = WKBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
         service.performDecodableGET(request: request) { (result: Result<WMFArticleSummary, Error>) in
             completion(result)
         }

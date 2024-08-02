@@ -12,7 +12,7 @@ struct WKMockData: Codable {
     let twoString: String
 }
 
-final class WKMockSuccessURLSession: WKURLSession {
+final class WKMockSuccessURLSession: WMFURLSession {
     
     var url: URL?
     
@@ -29,7 +29,7 @@ final class WKMockSuccessURLSession: WKURLSession {
     }
 }
 
-final class WKMockServerErrorSession: WKURLSession {
+final class WKMockServerErrorSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 500, httpVersion: nil, headerFields: nil)
@@ -39,7 +39,7 @@ final class WKMockServerErrorSession: WKURLSession {
     }
 }
 
-final class WKMockNoInternetConnectionSession: WKURLSession {
+final class WKMockNoInternetConnectionSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
@@ -48,7 +48,7 @@ final class WKMockNoInternetConnectionSession: WKURLSession {
     }
 }
 
-final class WKMockMissingDataSession: WKURLSession {
+final class WKMockMissingDataSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: nil)

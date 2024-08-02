@@ -1,10 +1,10 @@
 import Foundation
 
 public final class WMFImageDataController {
-    private var service: WKService?
+    private var service: WMFService?
     private let imageCache = NSCache<NSURL, NSData>()
     
-    public init(service: WKService? = WMFDataEnvironment.current.basicService) {
+    public init(service: WMFService? = WMFDataEnvironment.current.basicService) {
         self.service = service
     }
     
@@ -20,7 +20,7 @@ public final class WMFImageDataController {
             return
         }
 
-        let request = WKBasicServiceRequest(url: url, method: .GET, acceptType: .none)
+        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .none)
 
         service.perform(request: request) { [weak self] result in
             switch result {

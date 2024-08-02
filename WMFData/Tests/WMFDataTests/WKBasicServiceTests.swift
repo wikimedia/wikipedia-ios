@@ -13,8 +13,8 @@ final class WKBasicServiceTests: XCTestCase {
 
     func testSuccessfulDictionaryGet() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, parameters: ["one": "1", "two": "2"], acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, parameters: ["one": "1", "two": "2"], acceptType: .json)
 
         service.perform(request: request) { result in
             switch result {
@@ -38,8 +38,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testSuccessfulDecodableGet() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
         service.performDecodableGET(request: request) { (result: Result<WKMockData, Error>) in
             switch result {
@@ -54,8 +54,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testServerErrorDictionaryGet() {
         
-        let service = WKBasicService(urlSession: mockServerErrorSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockServerErrorSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -71,8 +71,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testServerErrorDecodableGet() {
         
-        let service = WKBasicService(urlSession: mockServerErrorSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockServerErrorSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
         service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -86,8 +86,8 @@ final class WKBasicServiceTests: XCTestCase {
 
     func testNoInternetConnectionDictionaryGet() {
         
-        let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -104,8 +104,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testNoInternetConnectionErrorDecodableGet() {
         
-        let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
         service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -120,8 +120,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testMissingDataDictionaryGet() {
         
-        let service = WKBasicService(urlSession: mockMissingDataSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockMissingDataSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -137,8 +137,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testMissingDataDecodableGet() {
         
-        let service = WKBasicService(urlSession: mockMissingDataSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockMissingDataSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
         service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -152,8 +152,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testNilURLErrorGet() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: nil, method: .GET, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: nil, method: .GET, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -171,8 +171,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testSuccessfulDictionaryPost() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, parameters: ["one": "1", "two": "2"], acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, parameters: ["one": "1", "two": "2"], acceptType: .json)
 
         service.perform(request: request) { result in
             switch result {
@@ -196,8 +196,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testSuccessfulDecodablePost() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
         service.performDecodablePOST(request: request) { (result: Result<WKMockData, Error>) in
             switch result {
@@ -212,8 +212,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testServerErrorDictionaryPost() {
         
-        let service = WKBasicService(urlSession: mockServerErrorSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockServerErrorSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -229,8 +229,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testServerErrorDecodablePost() {
         
-        let service = WKBasicService(urlSession: mockServerErrorSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockServerErrorSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
         service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -244,8 +244,8 @@ final class WKBasicServiceTests: XCTestCase {
 
     func testNoInternetConnectionDictionaryPost() {
         
-        let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -262,8 +262,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testNoInternetConnectionErrorDecodablePost() {
         
-        let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockNoInternetConnectionSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
         service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -278,8 +278,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testMissingDataDictionaryPost() {
         
-        let service = WKBasicService(urlSession: mockMissingDataSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockMissingDataSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {
@@ -295,8 +295,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testMissingDataDecodablePost() {
         
-        let service = WKBasicService(urlSession: mockMissingDataSession)
-        let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockMissingDataSession)
+        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
         service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
@@ -310,8 +310,8 @@ final class WKBasicServiceTests: XCTestCase {
     
     func testNilURLErrorPost() {
         
-        let service = WKBasicService(urlSession: mockSuccessSession)
-        let request = WKBasicServiceRequest(url: nil, method: .POST, acceptType: .json)
+        let service = WMFBasicService(urlSession: mockSuccessSession)
+        let request = WMFBasicServiceRequest(url: nil, method: .POST, acceptType: .json)
         
         let completion: (Result<Data, Error>) -> Void = { result in
             switch result {

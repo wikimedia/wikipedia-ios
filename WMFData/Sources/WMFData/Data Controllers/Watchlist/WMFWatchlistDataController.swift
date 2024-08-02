@@ -139,7 +139,7 @@ public class WMFWatchlistDataController {
             parameters["variant"] = project.languageVariantCode
             
             group.enter()
-            let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+            let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
             service.performDecodableGET(request: request) { [weak self] (result: Result<WatchlistAPIResponse, Error>) in
                 
                 guard let self else {
@@ -332,7 +332,7 @@ public class WMFWatchlistDataController {
              return
          }
 
-         let request = WKMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
+         let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
          service.perform(request: request) { result in
              switch result {
              case .success(let response):
@@ -373,7 +373,7 @@ public class WMFWatchlistDataController {
              return
          }
 
-         let request = WKMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
+         let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
          service.perform(request: request) { result in
              switch result {
              case .success(let response):
@@ -418,7 +418,7 @@ public class WMFWatchlistDataController {
              return
          }
 
-         let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
 
          service.performDecodableGET(request: request) { (result: Result<PageWatchStatusAndRollbackResponse, Error>) in
              switch result {
@@ -470,7 +470,7 @@ public class WMFWatchlistDataController {
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .rollback, parameters: parameters)
+        let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .rollback, parameters: parameters)
         service.perform(request: request) { result in
             switch result {
             case .success(let response):
@@ -520,7 +520,7 @@ public class WMFWatchlistDataController {
                     return
                 }
 
-                let request = WKMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .csrf, parameters: parameters)
+                let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .csrf, parameters: parameters)
                 service.perform(request: request) { result in
                     switch result {
                     case .success(let response):
@@ -568,7 +568,7 @@ public class WMFWatchlistDataController {
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
 
         service.performDecodableGET(request: request) { (result: Result<UndoRevisionSummaryTextResponse, Error>) in
             switch result {

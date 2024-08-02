@@ -89,7 +89,7 @@ public class WMFImageRecommendationsDataController {
             return
         }
 
-        let request = WKMediaWikiServiceRequest(url: url, method: .PUT, backend: .mediaWikiREST, tokenType: .csrf, parameters: parameters as [String : Any])
+        let request = WMFMediaWikiServiceRequest(url: url, method: .PUT, backend: .mediaWikiREST, tokenType: .csrf, parameters: parameters as [String : Any])
         
         let completion: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {

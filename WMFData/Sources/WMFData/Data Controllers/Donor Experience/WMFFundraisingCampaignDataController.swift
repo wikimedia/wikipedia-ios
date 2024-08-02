@@ -19,9 +19,9 @@ import Foundation
     
     // MARK: - Properties
     
-    var service: WKService?
+    var service: WMFService?
     var sharedCacheStore: WKKeyValueStore?
-    var mediaWikiService: WKService?
+    var mediaWikiService: WMFService?
     
     private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
@@ -33,7 +33,7 @@ import Foundation
     
     // MARK: - Lifecycle
     
-    private init(service: WKService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WKService? = WMFDataEnvironment.current.mediaWikiService) {
+    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
         self.mediaWikiService = mediaWikiService
@@ -144,7 +144,7 @@ import Foundation
             "action": "raw"
         ]
         
-        let request = WKBasicServiceRequest(url: url, method: .GET, parameters: parameters, acceptType: .json)
+        let request = WMFBasicServiceRequest(url: url, method: .GET, parameters: parameters, acceptType: .json)
         service.performDecodableGET(request: request) { [weak self] (result: Result<WKFundraisingCampaignConfigResponse, Error>) in
             
             guard let self else {
@@ -182,7 +182,7 @@ import Foundation
             "format": "json"
         ]
         
-        let request = WKMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
         
         let completion: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {

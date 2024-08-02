@@ -1,15 +1,15 @@
 import Foundation
 
 /// Use this service for the most basic networking service calls. It does not handle authentication.
-public final class WKBasicService: WKService {
+public final class WMFBasicService: WMFService {
     
-    private let urlSession: WKURLSession
+    private let urlSession: WMFURLSession
     
-    init(urlSession: WKURLSession = URLSession.shared) {
+    init(urlSession: WMFURLSession = URLSession.shared) {
         self.urlSession = urlSession
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
         
         let completion: ((Data?, URLResponse?, Error?) -> Void) = { data, response, error in
             if let error {
@@ -36,7 +36,7 @@ public final class WKBasicService: WKService {
         }
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         let completion: ((Result<Data, any Error>) -> Void) = { result in
             switch result {
@@ -56,9 +56,9 @@ public final class WKBasicService: WKService {
         perform(request: request, completion: completion)
     }
     
-    private func performPOST<R: WKServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performPOST<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         
-        guard let basicRequest = request as? WKBasicServiceRequest,
+        guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
               request.method == .POST else {
             completion(nil, nil, WKServiceError.invalidRequest)
@@ -133,9 +133,9 @@ public final class WKBasicService: WKService {
         task.resume()
     }
     
-    private func performGET<R: WKServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
          
-        guard let basicRequest = request as? WKBasicServiceRequest,
+        guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
               request.method == .GET else {
             completion(nil, nil, WKServiceError.invalidRequest)
@@ -194,7 +194,7 @@ public final class WKBasicService: WKService {
         task.resume()
     }
     
-    public func performDecodableGET<R: WKServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         performGET(request: request) { data, response, error in
             
@@ -218,7 +218,7 @@ public final class WKBasicService: WKService {
         }
     }
     
-    public func performDecodablePOST<R: WKServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         performPOST(request: request) { data, response, error in
             
@@ -244,7 +244,7 @@ public final class WKBasicService: WKService {
 }
 
 private extension URLRequest {
-    mutating func populateCommonHeaders(request: WKBasicServiceRequest) {
+    mutating func populateCommonHeaders(request: WMFBasicServiceRequest) {
         if let userAgent = WMFDataEnvironment.current.userAgentUtility?() {
             setValue(userAgent, forHTTPHeaderField: "User-Agent")
         }

@@ -5,7 +5,7 @@ import Contacts
     
     // MARK: - Properties
     
-    var service: WKService?
+    var service: WMFService?
     var sharedCacheStore: WKKeyValueStore?
     
     private var donateConfig: WMFDonateConfig?
@@ -20,7 +20,7 @@ import Contacts
     @objc(sharedInstance)
     public static let shared = WMFDonateDataController()
     
-    private init(service: WKService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
        self.service = service
         self.sharedCacheStore = sharedCacheStore
    }
@@ -98,7 +98,7 @@ import Contacts
         var paymentMethods: WMFPaymentMethods?
         
         group.enter()
-        let paymentMethodsRequest = WKBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
+        let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
         service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
             defer {
                 group.leave()
@@ -113,7 +113,7 @@ import Contacts
         }
         
         group.enter()
-        let donateConfigRequest = WKBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
+        let donateConfigRequest = WMFBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
         service.performDecodableGET(request: donateConfigRequest) { (result: Result<WMFDonateConfigResponse, Error>) in
             
             defer {
@@ -209,7 +209,7 @@ import Contacts
             parameters["app_version"] = appVersion
         }
             
-        let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
+        let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
         service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
             case .success(let response):
