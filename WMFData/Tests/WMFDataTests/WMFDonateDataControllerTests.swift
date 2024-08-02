@@ -3,7 +3,7 @@ import Contacts
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WKDonateDataControllerTests: XCTestCase {
+final class WMFDonateDataControllerTests: XCTestCase {
     
     private let controller: WMFDonateDataController = WMFDonateDataController.shared
 

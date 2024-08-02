@@ -1,7 +1,7 @@
 import XCTest
 @testable import WMFData
 
-final class WKUserDefaultsStoreTests: XCTestCase {
+final class WMFUserDefaultsStoreTests: XCTestCase {
     
     private struct MockObject: Codable {
         let id: UUID

@@ -3,7 +3,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WKGrowthTasksDataControllerTests: XCTestCase {
+final class WMFGrowthTasksDataControllerTests: XCTestCase {
 
     private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))

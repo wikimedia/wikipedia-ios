@@ -2,7 +2,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WKBasicServiceTests: XCTestCase {
+final class WMFBasicServiceTests: XCTestCase {
 
     let mockSuccessSession = WMFMockSuccessURLSession()
     let mockServerErrorSession = WMFMockServerErrorSession()

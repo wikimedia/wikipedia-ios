@@ -2,7 +2,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WKWatchlistDataControllerTests: XCTestCase {
+final class WMFWatchlistDataControllerTests: XCTestCase {
     
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))

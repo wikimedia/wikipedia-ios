@@ -1,7 +1,7 @@
 import XCTest
 @testable import WMFData
 
-final class WKWikitextUtilsTests: XCTestCase {
+final class WMFWikitextUtilsTests: XCTestCase {
     
     override func setUp() async throws {
         
