@@ -180,13 +180,13 @@ import WKData
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var eventIntakeURI: URL = {
+    private static var eventIntakeURI: URL {
         if WKDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
         }
-    }()
+    }
 
     /**
      * MediaWiki API endpoint which returns stream configurations as JSON
