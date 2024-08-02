@@ -1282,7 +1282,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     func tappedUndo() {
         
         guard wmfProject != nil else {
-            assertionFailure("WKProject must be populated before attempting undo call.")
+            assertionFailure("WMFProject must be populated before attempting undo call.")
             return
         }
 

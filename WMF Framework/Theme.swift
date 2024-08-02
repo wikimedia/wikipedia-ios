@@ -1009,24 +1009,24 @@ public final class ObservableTheme: ObservableObject {
 
 public extension Theme {
 
-    // Convert App `Theme` to WMFComponents framework `WKTheme`
-    static func wkTheme(from theme: Theme) -> WMFTheme {
-        let wkTheme: WMFComponents.WMFTheme
+    // Convert App `Theme` to WMFComponents framework `WMFTheme`
+    static func wmfTheme(from theme: Theme) -> WMFTheme {
+        let wmfTheme: WMFComponents.WMFTheme
 
         switch theme {
         case .light:
-            wkTheme = .light
+            wmfTheme = .light
         case .dark, .darkDimmed:
-            wkTheme = .dark
+            wmfTheme = .dark
         case .black, .blackDimmed:
-            wkTheme = .black
+            wmfTheme = .black
         case .sepia:
-            wkTheme = .sepia
+            wmfTheme = .sepia
         default:
-            wkTheme = .light
+            wmfTheme = .light
         }
 
-        return wkTheme
+        return wmfTheme
     }
 
 }

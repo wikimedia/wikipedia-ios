@@ -20,7 +20,7 @@ import WMFComponents
  }
 
 
-/// WMFFonts is the equivalent of the `WKFont` enum in components.
+/// WMFFonts is the equivalent of the `WMFFont` enum in components.
 /// This enum can be called directly from the Objective-C classes, without having to  import WMFComponents into them
 @objc public enum WMFFonts: Int {
     case boldCallout

@@ -539,28 +539,28 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
     }
     
-    @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme: WMFTheme
+    @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme: WMFTheme
         switch theme.name {
         case "light":
-            wkTheme = WMFTheme.light
+            wmfTheme = WMFTheme.light
         case "sepia":
-            wkTheme = WMFTheme.sepia
+            wmfTheme = WMFTheme.sepia
         case "dark":
-            wkTheme = WMFTheme.dark
+            wmfTheme = WMFTheme.dark
         case "black":
-            wkTheme = WMFTheme.black
+            wmfTheme = WMFTheme.black
         default:
-            wkTheme = WMFTheme.light
+            wmfTheme = WMFTheme.light
         }
-        WMFAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
 }
 
 // MARK: WMFData setup
 
 extension WMFAppViewController {
-    @objc func setupWKDataEnvironment() {
+    @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         switch Configuration.current.environment {
@@ -588,7 +588,7 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
     
-    @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
+    @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
@@ -598,8 +598,8 @@ extension WMFAppViewController {
 extension WMFAppViewController {
 
     @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme = Theme.wkTheme(from: theme)
-        WMFAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+        let wmfTheme = Theme.wmfTheme(from: theme)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
     
     @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
