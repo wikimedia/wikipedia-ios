@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKWikitextUtils {
+public struct WMFWikitextUtils {
     
     // MARK: Seek range of html text in wikitext
     

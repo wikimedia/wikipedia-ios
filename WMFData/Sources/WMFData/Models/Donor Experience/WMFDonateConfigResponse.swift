@@ -43,7 +43,7 @@ public struct WMFDonateConfigResponse: Codable {
         }
         
         guard let firstValidConfig = validConfigs.first else {
-            throw WKServiceError.invalidResponseVersion
+            throw WMFServiceError.invalidResponseVersion
         }
         
         self.config = firstValidConfig

@@ -19,7 +19,7 @@ public final class WMFBasicService: WMFService {
             
             guard let data,
                   !data.isEmpty else {
-                completion(.failure(WKServiceError.missingData))
+                completion(.failure(WMFServiceError.missingData))
                 return
             }
             
@@ -61,7 +61,7 @@ public final class WMFBasicService: WMFService {
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
               request.method == .POST else {
-            completion(nil, nil, WKServiceError.invalidRequest)
+            completion(nil, nil, WMFServiceError.invalidRequest)
             return
         }
         
@@ -114,17 +114,17 @@ public final class WMFBasicService: WMFService {
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, nil, WKServiceError.invalidHttpResponse(nil))
+                completion(nil, nil, WMFServiceError.invalidHttpResponse(nil))
                 return
             }
             
             guard httpResponse.isSuccessStatusCode else {
-                completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
+                completion(nil, nil, WMFServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
             
             guard let data = data else {
-                completion(nil, nil, WKServiceError.missingData)
+                completion(nil, nil, WMFServiceError.missingData)
                 return
             }
             
@@ -138,7 +138,7 @@ public final class WMFBasicService: WMFService {
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
               request.method == .GET else {
-            completion(nil, nil, WKServiceError.invalidRequest)
+            completion(nil, nil, WMFServiceError.invalidRequest)
             return
         }
         
@@ -159,7 +159,7 @@ public final class WMFBasicService: WMFService {
         }
         
         guard let url = components?.url else {
-            completion(nil, nil, WKServiceError.invalidRequest)
+            completion(nil, nil, WMFServiceError.invalidRequest)
             return
         }
         
@@ -175,17 +175,17 @@ public final class WMFBasicService: WMFService {
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, nil, WKServiceError.invalidHttpResponse(nil))
+                completion(nil, nil, WMFServiceError.invalidHttpResponse(nil))
                 return
             }
             
             guard httpResponse.isSuccessStatusCode else {
-                completion(nil, nil, WKServiceError.invalidHttpResponse(httpResponse.statusCode))
+                completion(nil, nil, WMFServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
             
             guard let data = data else {
-                completion(nil, nil, WKServiceError.missingData)
+                completion(nil, nil, WMFServiceError.missingData)
                 return
             }
             
@@ -204,7 +204,7 @@ public final class WMFBasicService: WMFService {
             }
             
             guard let data else {
-                completion(.failure(WKServiceError.missingData))
+                completion(.failure(WMFServiceError.missingData))
                 return
             }
             
@@ -228,7 +228,7 @@ public final class WMFBasicService: WMFService {
             }
             
             guard let data else {
-                completion(.failure(WKServiceError.missingData))
+                completion(.failure(WMFServiceError.missingData))
                 return
             }
             

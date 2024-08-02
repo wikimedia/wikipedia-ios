@@ -47,7 +47,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         The '''cat''' ('''''Felis catus'''''), commonly referred to as the '''domestic cat''' or '''house cat''', is the only [[Domestication of animals|domesticated]] species in the family [[Felidae]]. Recent advances in [[archaeology]] and [[genetics]] have shown that the [[domestication of the cat]] occurred in the [[Near East]] around 7500 [[Before Christ|BC]]. It is commonly kept as a house pet and [[farm cat]], but also ranges freely as a [[feral cat]] avoiding human contact. It is valued by humans for companionship and its ability to kill [[vermin]]. Because of its retractable [[claw]]s it is adapted to killing small prey like [[mice]] and [[rat]]s. It has a strong flexible body, quick [[reflexes]], sharp teeth, and its [[night vision]] and [[sense of smell]] are well developed. It is a [[social species]], but a solitary hunter and a [[crepuscular]] [[predator]]. [[Cat communication]] includes vocalizations like [[meow]]ing, [[purr]]ing, trilling, hissing, [[growling]], and grunting as well as [[cat body language]]. It can hear sounds too faint or too high in [[frequency]] for human ears, such as those made by small mammals. It also secretes and perceives [[pheromones]].
         """
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = """
         {{Short description|Small domesticated carnivorous mammal}}
         {{About|the species commonly kept as a pet|the cat family|Felidae|other uses|Cat (disambiguation)|and|Cats (disambiguation)}}
@@ -217,7 +217,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         |ردمك=0854042652| مسار أرشيف = https://web.archive.org/web/20220712145137/https://archive.org/details/causesenvironmen0000unse | تاريخ أرشيف = 12 يوليو 2022 }}</ref>
         """
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = """
         {{عن|3=الأرض (توضيح)}}
         {{عن|كوكب الأرض|فيلم الأرض|الأرض (فيلم)}}
@@ -393,7 +393,7 @@ final class WKWikitextUtilsTests: XCTestCase {
 《'''和我老公結婚吧'''》（{{韓|諺=내 남편과 결혼해줘|漢=내 男便과 結婚해줘}}，{{lang-en|''Marry My Husband''}}），為[[韓國]][[tvN]]於2024年1月1日起播出的[[TvN月火連續劇|月火連續劇]]，改編自同名網路小說，目前已連載為網路漫畫。<ref>{{Cite web|last=신은주|title='전남친 구속' 박민영, 컴백 임박..."'내 남편과 결혼해줘' 검토 중" [공식]|url=https://entertain.naver.com/read?oid=213&aid=0001244939|access-date=2024-01-01|website=entertain.naver.com|language=ko|archive-date=2023-10-25|archive-url=https://web.archive.org/web/20231025143939/https://entertain.naver.com/read?oid=213&aid=0001244939|dead-url=no}}</ref>由《[[朝鮮精神科醫師劉世豐]]》的朴元國導演執導，《[[日與夜 (電視劇)|日與夜]]》的申儒潭編劇執筆。講述因至親與丈夫的背叛而迎來悲劇性結局的女人，回到十年前將自己悲慘的命運還給他們的「第二次人生」。<ref>{{Cite web|author=오명언|url=https://www.yna.co.kr/view/AKR20231025041400005|title=tvN 드라마 '내 남편과 결혼해줘'에 박민영·나인우|website=[[韓國聯合通訊社]]|date=2023-10-25|accessdate=2023-10-28|language=ko|dead-url=no|archive-date=2023-10-27|archive-url=https://web.archive.org/web/20231027194747/https://www.yna.co.kr/view/AKR20231025041400005}}</ref><ref>{{Cite web|author=최지윤|url=https://newsis.com/view/?id=NISX20231025_0002495374|title=박민영, 전남친 구설 딛고 복귀…'내 남편과 결혼해줘'|website=[[紐西斯]]|date=2023-10-25|accessdate=2023-10-28|language=ko|dead-url=no|archive-date=2023-10-27|archive-url=https://web.archive.org/web/20231027194752/https://www.newsis.com/view/?id=NISX20231025_0002495374}}</ref><ref>{{Cite news|url=https://www.sportsseoul.com/news/read/1385374|title=‘내 남편과 결혼해줘’ D-1…박민영·이기광, 짜릿한 인생 역전극|publisher={{lk|首爾體育報|스포츠서울}}|language=ko|date=2023-12-31|accessdate=2024-01-01|archive-date=2024-01-01|archive-url=https://web.archive.org/web/20240101073603/https://www.sportsseoul.com/news/read/1385374|dead-url=no}}</ref>
 """
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = """
 {{In-progress TV show}}
 {{Infobox Television
@@ -489,7 +489,7 @@ final class WKWikitextUtilsTests: XCTestCase {
 
         """
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = """
         {{Infobox Mühle
         |NAME = Immanuel|BILD =Marner Neuenkoogsdeich Kellerhollaendermuehle Immanuel.jpg
@@ -545,7 +545,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         
         let initialArticleWikitext = ""
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = "[[File: Cat.jpg | thumb | 220x124px | right | alt=Cat alt text | Cat caption text]]"
         XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
     }
@@ -590,7 +590,7 @@ final class WKWikitextUtilsTests: XCTestCase {
         The '''cat''' ('''''Felis catus'''''), commonly referred to as the '''domestic cat''' or '''house cat''', is the only [[Domestication of animals|domesticated]] species in the family [[Felidae]]. Recent advances in [[archaeology]] and [[genetics]] have shown that the [[domestication of the cat]] occurred in the [[Near East]] around 7500 [[Before Christ|BC]]. It is commonly kept as a house pet and [[farm cat]], but also ranges freely as a [[feral cat]] avoiding human contact. It is valued by humans for companionship and its ability to kill [[vermin]]. Because of its retractable [[claw]]s it is adapted to killing small prey like [[mice]] and [[rat]]s. It has a strong flexible body, quick [[reflexes]], sharp teeth, and its [[night vision]] and [[sense of smell]] are well developed. It is a [[social species]], but a solitary hunter and a [[crepuscular]] [[predator]]. [[Cat communication]] includes vocalizations like [[meow]]ing, [[purr]]ing, trilling, hissing, [[growling]], and grunting as well as [[cat body language]]. It can hear sounds too faint or too high in [[frequency]] for human ears, such as those made by small mammals. It also secretes and perceives [[pheromones]].
         """
         
-        let insertedArticleWikitext = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
+        let insertedArticleWikitext = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: initialArticleWikitext)
         let expectedInsertedArticleWikitext = """
         {{Short description|Small domesticated carnivorous mammal}}
         {{About|the species commonly kept as a pet|the cat family|Felidae|other uses|Cat (disambiguation)|and|Cats (disambiguation)}}

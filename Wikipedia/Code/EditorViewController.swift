@@ -332,7 +332,7 @@ final class EditorViewController: UIViewController {
                     var onloadSelectRange: NSRange?
                     if let articleSelectedInfo {
                         let htmlInfo = articleSelectedInfo.htmlInfo()
-                        onloadSelectRange = WKWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
+                        onloadSelectRange = WMFWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
                     }
                     
                     completion(.success(WikitextFetchResponse(wikitext: response.wikitext, onloadSelectRange: onloadSelectRange, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
@@ -1056,8 +1056,8 @@ extension EditorViewController: EditNoticesViewControllerDelegate {
 // MARK: - SelectedTextEditInfo extension
 
 private extension SelectedTextEditInfo {
-    func htmlInfo() -> WKWikitextUtils.HtmlInfo {
-        return WKWikitextUtils.HtmlInfo(textBeforeTargetText: selectedAndAdjacentText.textBeforeSelectedText, targetText: selectedAndAdjacentText.selectedText, textAfterTargetText: selectedAndAdjacentText.textAfterSelectedText)
+    func htmlInfo() -> WMFWikitextUtils.HtmlInfo {
+        return WMFWikitextUtils.HtmlInfo(textBeforeTargetText: selectedAndAdjacentText.textBeforeSelectedText, targetText: selectedAndAdjacentText.selectedText, textAfterTargetText: selectedAndAdjacentText.textAfterSelectedText)
     }
 }
 

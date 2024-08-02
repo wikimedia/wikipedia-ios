@@ -67,7 +67,7 @@ public class WMFImageRecommendationsDataController {
     public func sendFeedback(project: WMFProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
 
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
@@ -85,7 +85,7 @@ public class WMFImageRecommendationsDataController {
         }
 
         guard let url = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments","v0","suggestions","addimage","feedback", pageTitle.spacesToUnderscores]) else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 
@@ -96,7 +96,7 @@ public class WMFImageRecommendationsDataController {
             case .success:
                 completion(.success(()))
             case .failure(let error):
-                completion(.failure(WKDataControllerError.serviceError(error)))
+                completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
         

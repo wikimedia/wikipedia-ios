@@ -10,13 +10,13 @@ public final class WMFArticleSummaryDataController {
     public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping (Result<WMFArticleSummary, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.basicServiceUnavailable))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
 
         guard !title.isEmpty,
               let url = URL.wikimediaRestAPIURL(project: project, additionalPathComponents: ["page", "summary", title.spacesToUnderscores]) else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 

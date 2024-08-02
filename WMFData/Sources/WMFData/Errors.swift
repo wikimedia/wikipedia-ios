@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: Common
 
-public enum WKDataControllerError: LocalizedError {
+public enum WMFDataControllerError: LocalizedError {
     case mediaWikiServiceUnavailable
     case basicServiceUnavailable
     case failureCreatingRequestURL
@@ -12,7 +12,7 @@ public enum WKDataControllerError: LocalizedError {
     case paymentsWikiResponseError(String?)
 }
 
-public enum WKServiceError: Error, Equatable {
+public enum WMFServiceError: Error, Equatable {
     case invalidRequest
     case invalidHttpResponse(Int?)
     case missingData
@@ -20,13 +20,13 @@ public enum WKServiceError: Error, Equatable {
     case unexpectedResponse
 }
 
-public enum WKUserDefaultsStoreError: Error {
+public enum WMFUserDefaultsStoreError: Error {
     case unexpectedType
     case failureDecodingJSON(Error)
     case failureEncodingJSON(Error)
 }
 
-public enum WKDonateDataControllerError: LocalizedError {
+public enum WMFDonateDataControllerError: LocalizedError {
     case paymentsWikiResponseError(reason: String?, orderID: String?)
     
     public var errorDescription: String? {

@@ -16,7 +16,7 @@ public final class WMFImageDataController {
         }
         
         guard let service else {
-            completion(.failure(WKDataControllerError.basicServiceUnavailable))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
 

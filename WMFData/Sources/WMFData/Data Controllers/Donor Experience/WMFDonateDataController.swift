@@ -70,7 +70,7 @@ import Contacts
     public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.basicServiceUnavailable))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
         
@@ -78,7 +78,7 @@ import Contacts
         
         guard let paymentMethodsURL = URL.paymentMethodsAPIURL(),
               let donateConfigURL = URL.donateConfigURL() else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         
@@ -141,7 +141,7 @@ import Contacts
                 var paymentMethods else {
                 self.donateConfig = nil
                 self.paymentMethods = nil
-                completion(.failure(WKServiceError.unexpectedResponse))
+                completion(.failure(WMFServiceError.unexpectedResponse))
                 return
             }
             
@@ -161,7 +161,7 @@ import Contacts
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, bannerID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         
@@ -217,9 +217,9 @@ import Contacts
                 case "success":
                     completion(.success(()))
                 case "error":
-                    completion(.failure(WKDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)))
+                    completion(.failure(WMFDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)))
                 default:
-                    completion(.failure(WKServiceError.unexpectedResponse))
+                    completion(.failure(WMFServiceError.unexpectedResponse))
                 }
                 return
             case .failure(let error):

@@ -1373,7 +1373,7 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         currentRecommendation.localizedFileTitle = localizedFileTitle
         
         do {
-            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            let wikitextWithImage = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
             
             currentRecommendation.fullArticleWikitextWithImage = wikitextWithImage
             

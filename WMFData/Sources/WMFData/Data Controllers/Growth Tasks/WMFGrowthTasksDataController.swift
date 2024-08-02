@@ -27,7 +27,7 @@ import Foundation
 
     public func getImageRecommendationsCombined(completion: @escaping (Result<[WMFImageRecommendation.Page], Error>) -> Void) {
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
@@ -53,7 +53,7 @@ import Foundation
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 

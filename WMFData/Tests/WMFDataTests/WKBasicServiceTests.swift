@@ -62,7 +62,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidHttpResponse(500))
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidHttpResponse(500))
             }
         }
 
@@ -79,7 +79,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidHttpResponse(500))
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidHttpResponse(500))
             }
         }
     }
@@ -128,7 +128,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, .missingData)
+                XCTAssertEqual(error as? WMFServiceError, .missingData)
             }
         }
         
@@ -145,7 +145,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, .missingData)
+                XCTAssertEqual(error as? WMFServiceError, .missingData)
             }
         }
     }
@@ -160,7 +160,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidRequest)
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidRequest)
             }
         }
 
@@ -220,7 +220,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidHttpResponse(500))
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidHttpResponse(500))
             }
         }
 
@@ -237,7 +237,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidHttpResponse(500))
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidHttpResponse(500))
             }
         }
     }
@@ -286,7 +286,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, .missingData)
+                XCTAssertEqual(error as? WMFServiceError, .missingData)
             }
         }
         
@@ -303,7 +303,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, .missingData)
+                XCTAssertEqual(error as? WMFServiceError, .missingData)
             }
         }
     }
@@ -318,7 +318,7 @@ final class WKBasicServiceTests: XCTestCase {
             case .success:
                 XCTFail("Unexpected success upon server error")
             case .failure(let error):
-                XCTAssertEqual(error as? WKServiceError, WKServiceError.invalidRequest)
+                XCTAssertEqual(error as? WMFServiceError, WMFServiceError.invalidRequest)
             }
         }
 

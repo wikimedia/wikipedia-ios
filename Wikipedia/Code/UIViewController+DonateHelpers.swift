@@ -306,7 +306,7 @@ extension UIViewController {
             return
         }
         
-        if let donateDataControllerError = error as? WKDonateDataControllerError {
+        if let donateDataControllerError = error as? WMFDonateDataControllerError {
             switch donateDataControllerError {
             case .paymentsWikiResponseError(let reason, let orderID):
                 AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)

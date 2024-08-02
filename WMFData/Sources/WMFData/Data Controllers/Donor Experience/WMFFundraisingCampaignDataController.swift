@@ -131,12 +131,12 @@ import Foundation
     ///   - completion: Completion handler indicating if the fetch was successful or not.
     public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let service else {
-            completion(.failure(WKDataControllerError.basicServiceUnavailable))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
         
         guard let url = URL.fundraisingCampaignConfigURL() else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         
@@ -166,12 +166,12 @@ import Foundation
     
     public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
         guard let mediaWikiService else {
-            completion?(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion?(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion?(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         

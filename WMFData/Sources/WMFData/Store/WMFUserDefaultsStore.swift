@@ -14,13 +14,13 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
     private func load<T: Codable>(defaultsKey: String) throws -> T? {
         do {
             guard let data = UserDefaults.standard.value(forKey: defaultsKey) as? Data else {
-                throw WKUserDefaultsStoreError.unexpectedType
+                throw WMFUserDefaultsStoreError.unexpectedType
             }
             
             let value = try JSONDecoder().decode(T.self, from: data)
             return value
         } catch let error {
-            throw WKUserDefaultsStoreError.failureDecodingJSON(error)
+            throw WMFUserDefaultsStoreError.failureDecodingJSON(error)
         }
     }
     
@@ -29,7 +29,7 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
             let data = try JSONEncoder().encode(value)
             UserDefaults.standard.set(data, forKey: defaultsKey)
         } catch let error {
-            throw WKUserDefaultsStoreError.failureEncodingJSON(error)
+            throw WMFUserDefaultsStoreError.failureEncodingJSON(error)
         }
     }
 }

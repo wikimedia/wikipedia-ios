@@ -289,7 +289,7 @@ class WatchlistController {
             }
         }
         
-        guard let dataControllerError = error as? WMFData.WKDataControllerError else {
+        guard let dataControllerError = error as? WMFData.WMFDataControllerError else {
             fallback(error)
             return
         }

@@ -145,7 +145,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
                           let maximumErrorText = localizedStrings.maximumErrorText {
                     return maximumErrorText
                 }
-            } else if let donateError = error as? WKDonateDataControllerError {
+            } else if let donateError = error as? WMFDonateDataControllerError {
                 return donateError.localizedDescription
             }
             
@@ -508,7 +508,7 @@ extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                     self?.delegate?.donateDidSuccessfullySubmitPayment()
                 })
             case .failure(let error):
-                if let dataControllerError = error as? WKDonateDataControllerError {
+                if let dataControllerError = error as? WMFDonateDataControllerError {
                     switch dataControllerError {
                     case .paymentsWikiResponseError(_, let orderID):
                         DispatchQueue.main.async {

@@ -96,7 +96,7 @@ public class WMFWatchlistDataController {
     public func fetchWatchlist(completion: @escaping (Result<WMFWatchlist, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
@@ -125,7 +125,7 @@ public class WMFWatchlistDataController {
         
         let group = DispatchGroup()
         var items: [WMFWatchlist.Item] = []
-        var errors: [WMFProject: [WKDataControllerError]] = [:]
+        var errors: [WMFProject: [WMFDataControllerError]] = [:]
         projects.forEach { project in
             errors[project] = []
         }
@@ -156,13 +156,13 @@ public class WMFWatchlistDataController {
                     if let apiResponseErrors = apiResponse.errors,
                        !apiResponseErrors.isEmpty {
                         
-                        let mediaWikiResponseErrors = apiResponseErrors.map { WKDataControllerError.mediaWikiResponseError($0) }
+                        let mediaWikiResponseErrors = apiResponseErrors.map { WMFDataControllerError.mediaWikiResponseError($0) }
                         errors[project, default: []].append(contentsOf: mediaWikiResponseErrors)
                         return
                     }
                     
                     guard let query = apiResponse.query else {
-                        errors[project, default: []].append(WKDataControllerError.unexpectedResponse)
+                        errors[project, default: []].append(WMFDataControllerError.unexpectedResponse)
                         return
                     }
                     
@@ -184,7 +184,7 @@ public class WMFWatchlistDataController {
                     }
                     
                     if !usedCache {
-                        errors[project, default: []].append(WKDataControllerError.serviceError(error))
+                        errors[project, default: []].append(WMFDataControllerError.serviceError(error))
                     }
                 }
             }
@@ -313,7 +313,7 @@ public class WMFWatchlistDataController {
      public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping (Result<Void, Error>) -> Void) {
 
          guard let service else {
-             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
              return
          }
 
@@ -328,7 +328,7 @@ public class WMFWatchlistDataController {
          ]
 
          guard let url = URL.mediaWikiAPIURL(project: project) else {
-             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
              return
          }
 
@@ -338,13 +338,13 @@ public class WMFWatchlistDataController {
              case .success(let response):
                  guard let watched = (response?["watch"] as? [[String: Any]])?.first?["watched"] as? Bool,
                  watched == true else {
-                     completion(.failure(WKDataControllerError.unexpectedResponse))
+                     completion(.failure(WMFDataControllerError.unexpectedResponse))
                      return
                  }
 
                  completion(.success(()))
              case .failure(let error):
-                 completion(.failure(WKDataControllerError.serviceError(error)))
+                 completion(.failure(WMFDataControllerError.serviceError(error)))
              }
          }
      }
@@ -354,7 +354,7 @@ public class WMFWatchlistDataController {
      public func unwatch(title: String, project: WMFProject, completion: @escaping (Result<Void, Error>) -> Void) {
 
          guard let service else {
-             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
              return
          }
 
@@ -369,7 +369,7 @@ public class WMFWatchlistDataController {
          ]
 
          guard let url = URL.mediaWikiAPIURL(project: project) else {
-             completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
              return
          }
 
@@ -379,13 +379,13 @@ public class WMFWatchlistDataController {
              case .success(let response):
                  guard let unwatched = (response?["watch"] as? [[String: Any]])?.first?["unwatched"] as? Bool,
                        unwatched == true else {
-                     completion(.failure(WKDataControllerError.unexpectedResponse))
+                     completion(.failure(WMFDataControllerError.unexpectedResponse))
                      return
                  }
 
                  completion(.success(()))
              case .failure(let error):
-                 completion(.failure(WKDataControllerError.serviceError(error)))
+                 completion(.failure(WMFDataControllerError.serviceError(error)))
              }
          }
      }
@@ -394,7 +394,7 @@ public class WMFWatchlistDataController {
      
      public func fetchWatchStatus(title: String, project: WMFProject, needsRollbackRights: Bool = false, completion: @escaping (Result<WMFPageWatchStatus, Error>) -> Void) {
          guard let service else {
-             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
              return
          }
 
@@ -425,7 +425,7 @@ public class WMFWatchlistDataController {
              case .success(let response):
 
                 guard let firstPage = response.query.pages.first else {
-                 completion(.failure(WKDataControllerError.unexpectedResponse))
+                 completion(.failure(WMFDataControllerError.unexpectedResponse))
                  return
                 }
 
@@ -440,7 +440,7 @@ public class WMFWatchlistDataController {
                 let status = WMFPageWatchStatus(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights)
                  completion(.success(status))
              case .failure(let error):
-                 completion(.failure(WKDataControllerError.serviceError(error)))
+                 completion(.failure(WMFDataControllerError.serviceError(error)))
              }
          }
      }
@@ -450,7 +450,7 @@ public class WMFWatchlistDataController {
     public func rollback(title: String, project: WMFProject, username: String, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
 
@@ -466,7 +466,7 @@ public class WMFWatchlistDataController {
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 
@@ -477,13 +477,13 @@ public class WMFWatchlistDataController {
                 guard let rollback = (response?["rollback"] as? [String: Any]),
                     let newRevisionID = rollback["revid"] as? Int,
                     let oldRevisionID = rollback["old_revid"] as? Int else {
-                    completion(.failure(WKDataControllerError.unexpectedResponse))
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
                     return
                 }
 
                 completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
             case .failure(let error):
-                completion(.failure(WKDataControllerError.serviceError(error)))
+                completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
     }
@@ -493,7 +493,7 @@ public class WMFWatchlistDataController {
     public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
 
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
@@ -516,7 +516,7 @@ public class WMFWatchlistDataController {
                 ]
 
                 guard let url = URL.mediaWikiAPIURL(project: project) else {
-                    completion(.failure(WKDataControllerError.failureCreatingRequestURL))
+                    completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
                     return
                 }
 
@@ -529,18 +529,18 @@ public class WMFWatchlistDataController {
                               result == "Success",
                               let newRevisionID = edit["newrevid"] as? Int,
                               let oldRevisionID = edit["oldrevid"] as? Int else {
-                            completion(.failure(WKDataControllerError.unexpectedResponse))
+                            completion(.failure(WMFDataControllerError.unexpectedResponse))
                             return
                         }
 
                         completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
                     case .failure(let error):
-                        completion(.failure(WKDataControllerError.serviceError(error)))
+                        completion(.failure(WMFDataControllerError.serviceError(error)))
                     }
                 }
                 
             case .failure(let error):
-                completion(.failure(WKDataControllerError.serviceError(error)))
+                completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
     }
@@ -548,7 +548,7 @@ public class WMFWatchlistDataController {
     private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard let service else {
-            completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
 
@@ -577,13 +577,13 @@ public class WMFWatchlistDataController {
                 guard let undoSummaryMessage = response.query.messages.first(where: { message in
                     message.name == "undo-summary"
                 }) else {
-                    completion(.failure(WKDataControllerError.unexpectedResponse))
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
                     return
                 }
                 
                 completion(.success(undoSummaryMessage.content))
             case .failure(let error):
-                completion(.failure(WKDataControllerError.serviceError(error)))
+                completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
     }
