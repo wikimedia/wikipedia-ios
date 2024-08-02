@@ -33,7 +33,7 @@ import Foundation
     
     // MARK: - Lifecycle
     
-    private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore, mediaWikiService: WKService? = WKDataEnvironment.current.mediaWikiService) {
+    private init(service: WKService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WKService? = WMFDataEnvironment.current.mediaWikiService) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
         self.mediaWikiService = mediaWikiService

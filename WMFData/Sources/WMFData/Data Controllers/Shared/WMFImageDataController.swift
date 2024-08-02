@@ -4,7 +4,7 @@ public final class WMFImageDataController {
     private var service: WKService?
     private let imageCache = NSCache<NSURL, NSData>()
     
-    public init(service: WKService? = WKDataEnvironment.current.basicService) {
+    public init(service: WKService? = WMFDataEnvironment.current.basicService) {
         self.service = service
     }
     

@@ -8,12 +8,12 @@ final class WKDonateDataControllerTests: XCTestCase {
     private let controller: WMFDonateDataController = WMFDonateDataController.shared
 
     override func setUp() async throws {
-        WKDataEnvironment.current.basicService = WKMockBasicService()
-        WKDataEnvironment.current.serviceEnvironment = .staging
-        WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
         self.controller.reset()
-        self.controller.service = WKDataEnvironment.current.basicService
-        self.controller.sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
+        self.controller.service = WMFDataEnvironment.current.basicService
+        self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     }
     
     func testFetchDonateConfig() {
@@ -78,8 +78,8 @@ final class WKDonateDataControllerTests: XCTestCase {
     }
     
     func testFetchDonateConfigWithNoCacheAndNoInternetConnection() {
-        WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-        controller.service = WKDataEnvironment.current.basicService
+        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
         
@@ -128,8 +128,8 @@ final class WKDonateDataControllerTests: XCTestCase {
                 connectedDonateConfig = donateData.donateConfig
                 
                 // Drop Internet Connection
-                WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-                self.controller.service = WKDataEnvironment.current.basicService
+                WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+                self.controller.service = WMFDataEnvironment.current.basicService
 
                 // Fetch again
                 self.controller.fetchConfigs(for: "US") { result in
@@ -166,8 +166,8 @@ final class WKDonateDataControllerTests: XCTestCase {
     }
     
     func testDonateSubmitPaymentNoInternetConnection() {
-        WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-        controller.service = WKDataEnvironment.current.basicService
+        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Submit Payment")
         

@@ -10,7 +10,7 @@ internal enum WKMockError: Error {
 
 fileprivate extension WMFData.WKServiceRequest {
     var isDonateConfigGet: Bool {
-        switch WKDataEnvironment.current.serviceEnvironment {
+        switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
             guard let url,
                   url.host == "donate.wikimedia.org",
@@ -53,7 +53,7 @@ fileprivate extension WMFData.WKServiceRequest {
     }
     
     var isFundraisingCampaignGet: Bool {
-        switch WKDataEnvironment.current.serviceEnvironment {
+        switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
             guard let url,
                   url.host == "donate.wikimedia.org",

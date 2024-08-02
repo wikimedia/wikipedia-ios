@@ -4,7 +4,7 @@ public final class WMFArticleSummaryDataController {
     private var service: WKService?
     
     public init() {
-        self.service = WKDataEnvironment.current.basicService
+        self.service = WMFDataEnvironment.current.basicService
     }
     
     public func fetchArticleSummary(project: WKProject, title: String, completion: @escaping (Result<WKArticleSummary, Error>) -> Void) {

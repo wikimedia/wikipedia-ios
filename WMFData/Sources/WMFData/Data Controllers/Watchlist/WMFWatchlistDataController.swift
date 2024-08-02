@@ -3,16 +3,16 @@ import UIKit
 
 public class WMFWatchlistDataController {
     
-    var service = WKDataEnvironment.current.mediaWikiService
-    private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
-    private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
+    var service = WMFDataEnvironment.current.mediaWikiService
+    private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     public init() { }
     
     // MARK: Multiselect Helpers
     
     public func allWatchlistProjects() -> [WKProject] {
-        let appLanguages = WKDataEnvironment.current.appData.appLanguages
+        let appLanguages = WMFDataEnvironment.current.appData.appLanguages
         guard !appLanguages.isEmpty else {
            return []
         }

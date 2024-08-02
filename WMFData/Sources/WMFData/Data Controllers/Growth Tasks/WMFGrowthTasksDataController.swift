@@ -2,7 +2,7 @@ import Foundation
 
 @objc public final class WMFGrowthTasksDataController: NSObject {
 
-    private var service = WKDataEnvironment.current.mediaWikiService
+    private var service = WMFDataEnvironment.current.mediaWikiService
     let project: WKProject
     
     private static var currentImageRecommendations: [WKProject: [WKImageRecommendation.Page]] = [:]

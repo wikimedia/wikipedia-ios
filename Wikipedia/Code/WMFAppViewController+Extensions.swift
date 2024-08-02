@@ -561,36 +561,36 @@ extension WMFAppViewController: CreateReadingListDelegate {
 
 extension WMFAppViewController {
     @objc func setupWKDataEnvironment() {
-        WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         switch Configuration.current.environment {
         case .staging:
-            WKDataEnvironment.current.serviceEnvironment = .staging
+            WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
-            WKDataEnvironment.current.serviceEnvironment = .production
+            WMFDataEnvironment.current.serviceEnvironment = .production
         }
         
-        WKDataEnvironment.current.userAgentUtility = {
+        WMFDataEnvironment.current.userAgentUtility = {
             return WikipediaAppUtils.versionedUserAgent()
         }
         
-        WKDataEnvironment.current.appInstallIDUtility = {
+        WMFDataEnvironment.current.appInstallIDUtility = {
             return UserDefaults.standard.wmf_appInstallId
         }
         
-        WKDataEnvironment.current.acceptLanguageUtility = {
+        WMFDataEnvironment.current.acceptLanguageUtility = {
             return Locale.acceptLanguageHeaderForPreferredLanguages
         }
         
-        WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
     
     @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
 }
 

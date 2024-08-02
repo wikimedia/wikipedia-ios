@@ -245,15 +245,15 @@ public final class WKBasicService: WKService {
 
 private extension URLRequest {
     mutating func populateCommonHeaders(request: WKBasicServiceRequest) {
-        if let userAgent = WKDataEnvironment.current.userAgentUtility?() {
+        if let userAgent = WMFDataEnvironment.current.userAgentUtility?() {
             setValue(userAgent, forHTTPHeaderField: "User-Agent")
         }
         
-        if let appInstallID = WKDataEnvironment.current.appInstallIDUtility?() {
+        if let appInstallID = WMFDataEnvironment.current.appInstallIDUtility?() {
             setValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
         }
         
-        let acceptLanguage = request.languageVariantCode ?? WKDataEnvironment.current.acceptLanguageUtility?()
+        let acceptLanguage = request.languageVariantCode ?? WMFDataEnvironment.current.acceptLanguageUtility?()
         if let acceptLanguage {
             setValue(acceptLanguage, forHTTPHeaderField: "Accept-Language")
         }

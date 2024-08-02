@@ -65,7 +65,7 @@ extension URL {
         return components.url
     }
     
-    static func paymentMethodsAPIURL(environment: WKServiceEnvironment = WKDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func paymentMethodsAPIURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -75,7 +75,7 @@ extension URL {
         return components.url
     }
     
-    static func donatePaymentSubmissionURL(environment: WKServiceEnvironment = WKDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func donatePaymentSubmissionURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -85,7 +85,7 @@ extension URL {
         return components.url
     }
     
-    static func donateConfigURL(environment: WKServiceEnvironment = WKDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func donateConfigURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -100,7 +100,7 @@ extension URL {
         return components.url
     }
     
-    static func fundraisingCampaignConfigURL(environment: WKServiceEnvironment = WKDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func fundraisingCampaignConfigURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"

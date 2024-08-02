@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKAppData {
+public struct WMFAppData {
     let appLanguages: [WKLanguage]
     
     public init(appLanguages: [WKLanguage]) {
@@ -8,13 +8,13 @@ public struct WKAppData {
     }
 }
 
-public final class WKDataEnvironment: ObservableObject {
+public final class WMFDataEnvironment: ObservableObject {
 
-	public static let current = WKDataEnvironment()
+	public static let current = WMFDataEnvironment()
     
     public var serviceEnvironment: WKServiceEnvironment = .production
 
-    @Published public var appData = WKAppData(appLanguages: [])
+    @Published public var appData = WMFAppData(appLanguages: [])
     
     public var mediaWikiService: WKService?
     public internal(set) var basicService: WKService? = WKBasicService()

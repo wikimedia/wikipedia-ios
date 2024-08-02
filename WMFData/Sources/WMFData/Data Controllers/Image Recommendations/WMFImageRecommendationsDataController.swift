@@ -17,8 +17,8 @@ public class WMFImageRecommendationsDataController {
 
 	// MARK: - Properties
 
-	private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
-    private let service = WKDataEnvironment.current.mediaWikiService
+	private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    private let service = WMFDataEnvironment.current.mediaWikiService
 
 	// MARK: - Lifecycle
 

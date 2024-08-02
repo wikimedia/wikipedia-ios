@@ -6,11 +6,11 @@ import WMFDataMocks
 final class WKWatchlistFilterViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
-        WKDataEnvironment.current.appData = WKAppData(appLanguages:[
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages:[
             enLanguage,
             esLanguage
         ])
-        WKDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
     }
     
     var enLanguage: WKLanguage {

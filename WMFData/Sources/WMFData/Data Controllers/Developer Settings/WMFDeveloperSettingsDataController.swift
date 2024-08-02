@@ -4,7 +4,7 @@ import Foundation
 
     @objc public static let shared = WMFDeveloperSettingsDataController()
 
-    private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     public var doNotPostImageRecommendationsEdit: Bool {
         get {

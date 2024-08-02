@@ -11,12 +11,12 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     private var controller: WMFFundraisingCampaignDataController = WMFFundraisingCampaignDataController.shared
     
     override func setUp() async throws {
-        WKDataEnvironment.current.basicService = WKMockBasicService()
-        WKDataEnvironment.current.serviceEnvironment = .staging
-        WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
         self.controller.reset()
-        self.controller.service = WKDataEnvironment.current.basicService
-        self.controller.sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
+        self.controller.service = WMFDataEnvironment.current.basicService
+        self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     }
     
     func validFirstDayDate() -> Date {
@@ -185,8 +185,8 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     }
     
     func testFetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() {
-        WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-        controller.service = WKDataEnvironment.current.basicService
+        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Fetch Campaign Config")
         
@@ -235,8 +235,8 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
                 connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: self.nlProject, currentDate: validDate)
 
                 // Drop Internet Connection
-                WKDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
-                self.controller.service = WKDataEnvironment.current.basicService
+                WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+                self.controller.service = WMFDataEnvironment.current.basicService
 
                 // Fetch again
                 self.controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in

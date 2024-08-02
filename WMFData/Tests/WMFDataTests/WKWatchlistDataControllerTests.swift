@@ -8,13 +8,13 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     private let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
     
     override func setUp() async throws {
-        WKDataEnvironment.current.appData = WKAppData(appLanguages:[
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages:[
             WKLanguage(languageCode: "en", languageVariantCode: nil),
             WKLanguage(languageCode: "es", languageVariantCode: nil)
         ])
-        WKDataEnvironment.current.mediaWikiService = WKMockWatchlistMediaWikiService()
-        WKDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
-        WKDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.mediaWikiService = WKMockWatchlistMediaWikiService()
+        WMFDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
     }
     
     func testAllWatchlistProjects() {
@@ -249,7 +249,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithNoCacheAndNoInternetConnection() {
-        WKDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
         let controller = WMFWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Watchlist")
@@ -287,8 +287,8 @@ final class WKWatchlistDataControllerTests: XCTestCase {
                 connectedWatchlistReturned = watchlist1
                 
                 // Drop Internet Connection
-                WKDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
-                controller.service = WKDataEnvironment.current.mediaWikiService
+                WMFDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
+                controller.service = WMFDataEnvironment.current.mediaWikiService
 
                 // Fetch again, confirm it still succeeds
                 controller.fetchWatchlist { result in

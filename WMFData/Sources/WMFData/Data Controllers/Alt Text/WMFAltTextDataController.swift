@@ -30,7 +30,7 @@ public final class WMFAltTextDataController {
     
     // MARK: - Public
     
-    public init?(experimentStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore, userDefaultsStore: WKKeyValueStore? = WKDataEnvironment.current.userDefaultsStore) {
+    public init?(experimentStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WKKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         
         guard let experimentStore,
         let userDefaultsStore else {
