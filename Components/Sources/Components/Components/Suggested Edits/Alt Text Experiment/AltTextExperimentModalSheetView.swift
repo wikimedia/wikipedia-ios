@@ -5,6 +5,7 @@ final class AltTextExperimentModalSheetView: WKComponentView {
     // MARK: Properties
 
     weak var viewModel: AltTextExperimentModalSheetViewModel?
+    weak var delegate: AltTextExperimentModalSheetDelegate?
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -89,6 +90,7 @@ final class AltTextExperimentModalSheetView: WKComponentView {
     lazy var nextButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedNext), for: .touchUpInside)
         return button
     }()
 
@@ -97,8 +99,9 @@ final class AltTextExperimentModalSheetView: WKComponentView {
 
     // MARK: Lifecycle
 
-    public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel) {
+    public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel, delegate: AltTextExperimentModalSheetDelegate?) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(frame: frame)
         textView.delegate = self
         setup()
@@ -199,6 +202,16 @@ final class AltTextExperimentModalSheetView: WKComponentView {
     private func updatePlaceholderVisibility() {
         placeholder.isHidden = !textView.text.isEmpty
     }
+    
+    @objc func tappedNext() {
+        guard let altText = textView.text,
+              !altText.isEmpty else {
+            return
+        }
+        
+        nextButton.isEnabled = false
+        delegate?.didTapNext(altText: altText)
+    }
 }
 
 extension AltTextExperimentModalSheetView: UITextViewDelegate {
@@ -214,5 +227,4 @@ extension AltTextExperimentModalSheetView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         updatePlaceholderVisibility()
     }
-
 }
