@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import WMFData
 
-@objc public class WKDeveloperSettingsLocalizedStrings: NSObject {
+@objc public class WMFDeveloperSettingsLocalizedStrings: NSObject {
     let developerSettings: String
     let doNotPostImageRecommendations: String
     let enableAltTextExperiment: String
@@ -18,20 +18,20 @@ import WMFData
     }
 }
 
-@objc public class WKDeveloperSettingsViewModel: NSObject {
+@objc public class WMFDeveloperSettingsViewModel: NSObject {
     
-    let localizedStrings: WKDeveloperSettingsLocalizedStrings
-    let formViewModel: WKFormViewModel
+    let localizedStrings: WMFDeveloperSettingsLocalizedStrings
+    let formViewModel: WMFFormViewModel
     
     private var subscribers: Set<AnyCancellable> = []
     
-    @objc public init(localizedStrings: WKDeveloperSettingsLocalizedStrings) {
+    @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
-        let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
-        let enableAltTextExperimentItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperiment)
-        let enableAltTextExperimentItemForENItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
+        let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
+        let enableAltTextExperimentItem = WMFFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperiment)
+        let enableAltTextExperimentItemForENItem = WMFFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
 
-        formViewModel = WKFormViewModel(sections: [WKFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
 

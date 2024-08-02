@@ -119,7 +119,7 @@ class DescriptionHelpViewController: ViewController {
 }
 
 private extension UILabel {
-    func set(dynamicTextStyle: WKFont) {
-        font = WKFont.for(dynamicTextStyle, compatibleWith: traitCollection)
+    func set(dynamicTextStyle: WMFFont) {
+        font = WMFFont.for(dynamicTextStyle, compatibleWith: traitCollection)
     }
 }

@@ -1,8 +1,8 @@
 import Foundation
 
-public struct WKSourceEditorAccessibilityIdentifiers {
+public struct WMFSourceEditorAccessibilityIdentifiers {
 
-    static var current: WKSourceEditorAccessibilityIdentifiers?
+    static var current: WMFSourceEditorAccessibilityIdentifiers?
 
     public init(textView: String, findButton: String, showMoreButton: String, closeButton: String, formatTextButton: String, expandingToolbar: String, highlightToolbar: String, findToolbar: String, inputView: String) {
         self.textView = textView

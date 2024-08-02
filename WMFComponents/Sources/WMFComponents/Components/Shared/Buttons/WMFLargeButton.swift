@@ -1,13 +1,13 @@
 import Foundation
 import SwiftUI
 
-struct WKLargeButton: View {
+struct WMFLargeButton: View {
     
     enum Configuration {
         case primary
     }
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     let configuration: Configuration
     let title: String
@@ -16,7 +16,7 @@ struct WKLargeButton: View {
     private var foregroundColor: UIColor {
         switch configuration {
         case .primary:
-            return WKColor.white
+            return WMFColor.white
         }
     }
     
@@ -32,7 +32,7 @@ struct WKLargeButton: View {
             action?()
         }, label: {
             Text(title)
-                .font(Font(WKFont.for(.boldSubheadline)))
+                .font(Font(WMFFont.for(.boldSubheadline)))
                 .foregroundColor(Color(foregroundColor))
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)

@@ -13,9 +13,9 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
     
     public struct LocalizedStrings {
-		public typealias SurveyLocalizedStrings =  WKImageRecommendationsSurveyViewModel.LocalizedStrings
+		public typealias SurveyLocalizedStrings =  WMFImageRecommendationsSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings
-        public typealias TooltipLocalizedStrings = WKTooltipViewModel.LocalizedStrings
+        public typealias TooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings
         public typealias ErrorLocalizedStrings = WMFErrorViewModel.LocalizedStrings
 
 		public struct OnboardingStrings {
@@ -81,7 +81,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     }
 
-    public class WKImageRecommendationData {
+    public class WMFImageRecommendationData {
         public let pageId: Int
         public let pageTitle: String
         public let image: String
@@ -117,7 +117,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         let pageId: Int
         public let title: String
         @Published var articleSummary: WMFArticleSummary? = nil
-        public let imageData: WKImageRecommendationData
+        public let imageData: WMFImageRecommendationData
         public var caption: String?
         public var altText: String?
         public var imageWikitext: String?
@@ -126,7 +126,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         public var lastRevisionID: UInt64?
         public var localizedFileTitle: String?
 
-        fileprivate init(pageId: Int, title: String, articleSummary: WMFArticleSummary? = nil, imageData: WKImageRecommendationData) {
+        fileprivate init(pageId: Int, title: String, articleSummary: WMFArticleSummary? = nil, imageData: WMFImageRecommendationData) {
             self.pageId = pageId
             self.title = title
             self.articleSummary = articleSummary
@@ -342,7 +342,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    private func populateUIImage(for imageData: WKImageRecommendationData, completion: @escaping (Error?) -> Void) {
+    private func populateUIImage(for imageData: WMFImageRecommendationData, completion: @escaping (Error?) -> Void) {
         
         guard let url = URL(string: "https:\(imageData.fullUrl)") else {
             completion(ImageRecommendationsError.invalidImageFullUrl)
@@ -361,14 +361,14 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    fileprivate func getFirstImageData(for pages: [WMFImageRecommendation.Page]) -> [WKImageRecommendationData] {
+    fileprivate func getFirstImageData(for pages: [WMFImageRecommendation.Page]) -> [WMFImageRecommendationData] {
 
-        var imageData: [WKImageRecommendationData] = []
+        var imageData: [WMFImageRecommendationData] = []
         for page in pages {
             if let firstPageSuggestion = page.growthimagesuggestiondata?.first,
                let firstImage = firstPageSuggestion.images.first {
                 let metadata = firstImage.metadata
-                let imageRecommendation = WKImageRecommendationData(
+                let imageRecommendation = WMFImageRecommendationData(
                     pageId: page.pageid,
                     pageTitle: firstPageSuggestion.titleText,
                     image: firstImage.image,

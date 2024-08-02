@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public class WKSourceEditorViewModel {
+public class WMFSourceEditorViewModel {
     
     // MARK: - Nested Types
     
@@ -23,16 +23,16 @@ public class WKSourceEditorViewModel {
 
     public init(configuration: Configuration,
                 initialText: String,
-                accessibilityIdentifiers: WKSourceEditorAccessibilityIdentifiers? = nil,
-                localizedStrings: WKSourceEditorLocalizedStrings,
+                accessibilityIdentifiers: WMFSourceEditorAccessibilityIdentifiers? = nil,
+                localizedStrings: WMFSourceEditorLocalizedStrings,
                 isSyntaxHighlightingEnabled: Bool,
                 textAlignment: NSTextAlignment,
                 needsReadOnly: Bool,
                 onloadSelectRange: NSRange?) {
         self.configuration = configuration
         self.initialText = initialText
-        WKSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
-        WKSourceEditorLocalizedStrings.current = localizedStrings
+        WMFSourceEditorAccessibilityIdentifiers.current = accessibilityIdentifiers
+        WMFSourceEditorLocalizedStrings.current = localizedStrings
         self.isSyntaxHighlightingEnabled = isSyntaxHighlightingEnabled
         self.textAlignment = textAlignment
         self.needsReadOnly = needsReadOnly

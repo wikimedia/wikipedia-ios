@@ -2,9 +2,9 @@ import SwiftUI
 
 struct WKToggleView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
     

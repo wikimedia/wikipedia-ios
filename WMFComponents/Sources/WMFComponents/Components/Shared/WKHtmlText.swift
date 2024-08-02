@@ -2,11 +2,11 @@ import SwiftUI
 
 struct WKHtmlText: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let html: String
     let styles: HtmlUtils.Styles
     
-    private var theme: WKTheme {
+    private var theme: WMFTheme {
         return appEnvironment.theme
     }
     

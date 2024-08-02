@@ -2,9 +2,9 @@ import SwiftUI
 
 struct WKRoundedRectIconView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
     
@@ -12,8 +12,8 @@ struct WKRoundedRectIconView: View {
         let icon: UIImage
         let imagePadding = 6
         let cornerRadius = 6
-        let foregroundColor: KeyPath<WKTheme, UIColor>
-        let backgroundColor: KeyPath<WKTheme, UIColor>
+        let foregroundColor: KeyPath<WMFTheme, UIColor>
+        let backgroundColor: KeyPath<WMFTheme, UIColor>
     }
     
     let configuration: Configuration

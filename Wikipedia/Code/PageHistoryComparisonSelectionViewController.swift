@@ -30,7 +30,7 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button.backgroundColor = theme.colors.paperBackground
         button.imageView?.tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)
-        button.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         button.horizontalSpacing = 10
         button.contentHorizontalAlignment = .leading
         button.leftPadding = 10
@@ -55,7 +55,7 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button?.backgroundColor = theme.colors.paperBackground
         button?.borderWidth = 1
         // themeTODO: define a semantic color for this instead of checking isDark
-        button?.borderColor = theme.isDark ? WKColor.gray300 : theme.colors.border
+        button?.borderColor = theme.isDark ? WMFColor.gray300 : theme.colors.border
     }
 
     public func resetSelectionButton(_ selectionOrder: SelectionOrder) {
@@ -95,9 +95,9 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
     }
 
     private func updateFonts() {
-        compareButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        firstSelectionButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        secondSelectionButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        compareButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        firstSelectionButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        secondSelectionButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 
 }

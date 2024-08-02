@@ -1,8 +1,8 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterHeading {
-    func toggleHeadingFormatting(selectedHeading: WKEditorInputView.HeadingButtonType, currentSelectionState: WKSourceEditorSelectionState, textView: UITextView) {
+extension WMFSourceEditorFormatterHeading {
+    func toggleHeadingFormatting(selectedHeading: WMFEditorInputView.HeadingButtonType, currentSelectionState: WMFSourceEditorSelectionState, textView: UITextView) {
         
         var currentStateIsParagraph = false
         if currentSelectionState.isHeading {

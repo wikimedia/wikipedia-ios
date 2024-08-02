@@ -1,24 +1,24 @@
 import SwiftUI
 
-public struct WKFormView: View {
+public struct WMFFormView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    @ObservedObject public var viewModel: WKFormViewModel
+    @ObservedObject public var viewModel: WMFFormViewModel
 
-    public init(viewModel: WKFormViewModel) {
+    public init(viewModel: WMFFormViewModel) {
         self.viewModel = viewModel
     }
     
     public var body: some View {
         List {
             ForEach(viewModel.sections) { section in
-                if let selectSection = section as? WKFormSectionSelectViewModel {
-                    WKFormSectionSelectView(viewModel: selectSection)
+                if let selectSection = section as? WMFFormSectionSelectViewModel {
+                    WMFFormSectionSelectView(viewModel: selectSection)
                         .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
                 }
                 

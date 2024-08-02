@@ -1,17 +1,17 @@
 import Foundation
 import SwiftUI
 
-protocol WKWatchlistFilterDelegate: AnyObject {
+protocol WMFWatchlistFilterDelegate: AnyObject {
     func watchlistFilterDidChange(_ hostingController: WMFWatchlistFilterHostingController)
-	func watchlistFilterDidTapAddLanguage(_ hostingController: WMFWatchlistFilterHostingController, viewModel: WKWatchlistFilterViewModel)
+	func watchlistFilterDidTapAddLanguage(_ hostingController: WMFWatchlistFilterHostingController, viewModel: WMFWatchlistFilterViewModel)
 }
 
-class WMFWatchlistFilterHostingController: WKComponentHostingController<WKWatchlistFilterView> {
+class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatchlistFilterView> {
     
-    private let viewModel: WKWatchlistFilterViewModel
-    private weak var delegate: WKWatchlistFilterDelegate?
+    private let viewModel: WMFWatchlistFilterViewModel
+    private weak var delegate: WMFWatchlistFilterDelegate?
     
-    public init(viewModel: WKWatchlistFilterViewModel, filterView: WKWatchlistFilterView, delegate: WKWatchlistFilterDelegate) {
+    public init(viewModel: WMFWatchlistFilterViewModel, filterView: WMFWatchlistFilterView, delegate: WMFWatchlistFilterDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
         super.init(rootView: filterView)

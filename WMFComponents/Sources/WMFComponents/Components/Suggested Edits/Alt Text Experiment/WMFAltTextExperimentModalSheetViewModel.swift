@@ -1,7 +1,7 @@
 import Foundation
 
 @objc final public class WMFAltTextExperimentModalSheetViewModel: NSObject {
-    public var altTextViewModel: AltTextExperimentViewModel
+    public var altTextViewModel: WMFAltTextExperimentViewModel
     public var localizedStrings: LocalizedStrings
 
     public struct LocalizedStrings {
@@ -16,7 +16,7 @@ import Foundation
         }
     }
 
-    public init(altTextViewModel: AltTextExperimentViewModel, localizedStrings: LocalizedStrings) {
+    public init(altTextViewModel: WMFAltTextExperimentViewModel, localizedStrings: LocalizedStrings) {
         self.altTextViewModel = altTextViewModel
         self.localizedStrings = localizedStrings
     }

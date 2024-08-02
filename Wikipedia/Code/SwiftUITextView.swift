@@ -13,7 +13,7 @@ struct TextView: UIViewRepresentable {
         let textView = UIViewType()
         textView.setup(placeholder: placeholder, theme: theme)
         textView.delegate = context.coordinator
-        let font = WKFont.for(.callout, compatibleWith: textView.traitCollection)
+        let font = WMFFont.for(.callout, compatibleWith: textView.traitCollection)
         textView.font = font
         textView.placeholderLabel.font = font
         return textView

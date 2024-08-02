@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class WKEditorToolbarButton: WKComponentView {
+class WMFEditorToolbarButton: WMFComponentView {
     
     // MARK: - Properties
     

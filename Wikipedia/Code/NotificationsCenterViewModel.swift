@@ -425,7 +425,7 @@ extension NotificationsCenterViewModel {
 
         let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)
 
-        let font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        let font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         let attributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: theme.colors.secondaryText

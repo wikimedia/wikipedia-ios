@@ -29,7 +29,7 @@ class StatusTextBarButtonItem: UIBarButtonItem, Themeable {
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = WKFont.for(.caption1)
+        label.font = WMFFont.for(.caption1)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         return label

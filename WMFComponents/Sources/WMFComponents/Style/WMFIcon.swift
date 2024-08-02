@@ -29,7 +29,7 @@ public enum WMFIcon {
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
 }
 
-public enum WKSFSymbolIcon {
+public enum WMFSFSymbolIcon {
     
     case checkmark
     case checkmarkSquareFill
@@ -79,8 +79,8 @@ public enum WKSFSymbolIcon {
     case xMark
     case textBelowPhoto
 
-    public static func `for`(symbol: WKSFSymbolIcon, font: WKFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
-        let font = WKFont.for(font)
+    public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
+        let font = WMFFont.for(font)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
         var image: UIImage?

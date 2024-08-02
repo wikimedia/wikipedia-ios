@@ -1,16 +1,16 @@
 import UIKit
 
-public protocol WKSmallMenuButtonDelegate: AnyObject {
-    func wkMenuButton(_ sender: WKSmallMenuButton, didTapMenuItem item: WKSmallMenuButton.MenuItem)
-    func wkMenuButtonDidTap(_ sender: WKSmallMenuButton)
+public protocol WMFSmallMenuButtonDelegate: AnyObject {
+    func WMFMenuButton(_ sender: WMFSmallMenuButton, didTapMenuItem item: WMFSmallMenuButton.MenuItem)
+    func WMFMenuButtonDidTap(_ sender: WMFSmallMenuButton)
 
-	func wkSwiftUIMenuButtonUserDidTap(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?)
-    func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?)
+	func WMFSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?)
+    func WMFSwiftUIMenuButtonUserDidTapAccessibility(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?)
 }
 
-public extension WKSmallMenuButtonDelegate {
-	func wkMenuButton(_ sender: WKSmallMenuButton, didTapMenuItem item: WKSmallMenuButton.MenuItem) {}
-	func wkMenuButtonDidTap(_ sender: WKSmallMenuButton) {}
-	func wkSwiftUIMenuButtonUserDidTap(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {}
-    func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {}
+public extension WMFSmallMenuButtonDelegate {
+	func WMFMenuButton(_ sender: WMFSmallMenuButton, didTapMenuItem item: WMFSmallMenuButton.MenuItem) {}
+	func WMFMenuButtonDidTap(_ sender: WMFSmallMenuButton) {}
+	func WMFSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {}
+    func WMFSwiftUIMenuButtonUserDidTapAccessibility(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {}
 }

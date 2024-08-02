@@ -27,8 +27,8 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        authorizeButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        authorizeDescriptionLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        authorizeButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        authorizeDescriptionLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

@@ -1,27 +1,27 @@
 import Foundation
 import UIKit
 
-public protocol WKSourceEditorViewControllerDelegate: AnyObject {
-    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController)
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WKSourceEditorViewController)
-    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters)
+public protocol WMFSourceEditorViewControllerDelegate: AnyObject {
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFSourceEditorViewController)
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFSourceEditorViewController)
+    func sourceEditorViewControllerDidTapLink(parameters: WMFSourceEditorFormatterLinkWizardParameters)
     func sourceEditorViewControllerDidTapImage()
-    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WKSourceEditorViewController, canUndo: Bool, canRedo: Bool)
-    func sourceEditorDidChangeText(_ sourceEditorViewController: WKSourceEditorViewController, didChangeText: Bool)
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool)
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFSourceEditorViewController, didChangeText: Bool)
 }
 
 // MARK: NSNotification Names
 
 extension Notification.Name {
-    static let WKSourceEditorSelectionState = Notification.Name("WKSourceEditorSelectionState")
+    static let WMFSourceEditorSelectionState = Notification.Name("WMFSourceEditorSelectionState")
 }
 
 extension Notification {
-    static let WKSourceEditorSelectionState = Notification.Name.WKSourceEditorSelectionState
-    static let WKSourceEditorSelectionStateKey = "WKSourceEditorSelectionStateKey"
+    static let WMFSourceEditorSelectionState = Notification.Name.WMFSourceEditorSelectionState
+    static let WMFSourceEditorSelectionStateKey = "WMFSourceEditorSelectionStateKey"
 }
 
-public class WKSourceEditorViewController: WKComponentViewController {
+public class WMFSourceEditorViewController: WMFComponentViewController {
     
     // MARK: Nested Types
 
@@ -40,9 +40,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // MARK: - Properties
     
-    private let viewModel: WKSourceEditorViewModel
-    private weak var delegate: WKSourceEditorViewControllerDelegate?
-    private let textFrameworkMediator: WKSourceEditorTextFrameworkMediator
+    private let viewModel: WMFSourceEditorViewModel
+    private weak var delegate: WMFSourceEditorViewControllerDelegate?
+    private let textFrameworkMediator: WMFSourceEditorTextFrameworkMediator
     private var scrollingToMatchCount: Int? = nil
     private var preselectedTextRange: UITextRange?
     
@@ -56,24 +56,24 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // Input Accessory Views
     
-    private(set) lazy var expandingAccessoryView: WKEditorToolbarExpandingView = {
-        let view = UINib(nibName: String(describing: WKEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarExpandingView
+    private(set) lazy var expandingAccessoryView: WMFEditorToolbarExpandingView = {
+        let view = UINib(nibName: String(describing: WMFEditorToolbarExpandingView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WMFEditorToolbarExpandingView
         view.delegate = self
-        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.expandingToolbar
+        view.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.expandingToolbar
         return view
     }()
     
-    private lazy var highlightAccessoryView: WKEditorToolbarHighlightView = {
-        let view = UINib(nibName: String(describing: WKEditorToolbarHighlightView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKEditorToolbarHighlightView
+    private lazy var highlightAccessoryView: WMFEditorToolbarHighlightView = {
+        let view = UINib(nibName: String(describing: WMFEditorToolbarHighlightView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WMFEditorToolbarHighlightView
         view.delegate = self
-        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.highlightToolbar
+        view.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.highlightToolbar
         return view
     }()
     
-    private lazy var findAccessoryView: WKFindAndReplaceView = {
-        let view = UINib(nibName: String(describing: WKFindAndReplaceView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WKFindAndReplaceView
-        view.update(viewModel: WKFindAndReplaceViewModel())
-        view.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findToolbar
+    private lazy var findAccessoryView: WMFFindAndReplaceView = {
+        let view = UINib(nibName: String(describing: WMFFindAndReplaceView.self), bundle: Bundle.module).instantiate(withOwner: nil).first as! WMFFindAndReplaceView
+        view.update(viewModel: WMFFindAndReplaceViewModel())
+        view.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.findToolbar
         view.delegate = self
         return view
     }()
@@ -81,8 +81,8 @@ public class WKSourceEditorViewController: WKComponentViewController {
     // Input Views
     
     private lazy var editorInputView: UIView? = {
-        let inputView = WKEditorInputView(delegate: self)
-        inputView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.inputView
+        let inputView = WMFEditorInputView(delegate: self)
+        inputView.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.inputView
         return inputView
     }()
     
@@ -133,10 +133,10 @@ public class WKSourceEditorViewController: WKComponentViewController {
     
     // MARK: - Lifecycle
     
-    public init(viewModel: WKSourceEditorViewModel, delegate: WKSourceEditorViewControllerDelegate) {
+    public init(viewModel: WMFSourceEditorViewModel, delegate: WMFSourceEditorViewControllerDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
-        self.textFrameworkMediator = WKSourceEditorTextFrameworkMediator(viewModel: viewModel)
+        self.textFrameworkMediator = WMFSourceEditorTextFrameworkMediator(viewModel: viewModel)
         super.init()
         setup()
     }
@@ -149,7 +149,7 @@ public class WKSourceEditorViewController: WKComponentViewController {
         textView.delegate = self
         textFrameworkMediator.delegate = self
         textView.isEditable = !viewModel.needsReadOnly
-        textView.accessibilityLabel = WKSourceEditorLocalizedStrings.current.wikitextEditorAccessibility
+        textView.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.wikitextEditorAccessibility
         
         view.addSubview(textView)
         updateColorsAndFonts()
@@ -279,9 +279,9 @@ public class WKSourceEditorViewController: WKComponentViewController {
 
 // MARK: - Private
 
-private extension WKSourceEditorViewController {
+private extension WMFSourceEditorViewController {
 
-    func load(viewModel: WKSourceEditorViewModel) {
+    func load(viewModel: WMFSourceEditorViewModel) {
         textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
         textView.attributedText = NSAttributedString(string: viewModel.initialText)
         scrollToOnloadSelectRangeIfNeeded()
@@ -302,7 +302,7 @@ private extension WKSourceEditorViewController {
         }
     }
     
-    func update(viewModel: WKSourceEditorViewModel) {
+    func update(viewModel: WMFSourceEditorViewModel) {
         textFrameworkMediator.isSyntaxHighlightingEnabled = viewModel.isSyntaxHighlightingEnabled
     }
     
@@ -312,13 +312,13 @@ private extension WKSourceEditorViewController {
     }
     
     func updateColorsAndFonts() {
-        view.backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        textView.backgroundColor = WKAppEnvironment.current.theme.paperBackground
-        textView.keyboardAppearance = WKAppEnvironment.current.theme.keyboardAppearance
+        view.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+        textView.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+        textView.keyboardAppearance = WMFAppEnvironment.current.theme.keyboardAppearance
         textFrameworkMediator.updateColorsAndFonts()
     }
     
-    func selectionState() -> WKSourceEditorSelectionState {
+    func selectionState() -> WMFSourceEditorSelectionState {
         return textFrameworkMediator.selectionState(selectedDocumentRange: textView.selectedRange)
     }
     
@@ -326,17 +326,17 @@ private extension WKSourceEditorViewController {
         let selectionState = selectionState()
         if delay {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
+                NotificationCenter.default.post(name: Notification.WMFSourceEditorSelectionState, object: nil, userInfo: [Notification.WMFSourceEditorSelectionStateKey: selectionState])
             }
         } else {
-            NotificationCenter.default.post(name: Notification.WKSourceEditorSelectionState, object: nil, userInfo: [Notification.WKSourceEditorSelectionStateKey: selectionState])
+            NotificationCenter.default.post(name: Notification.WMFSourceEditorSelectionState, object: nil, userInfo: [Notification.WMFSourceEditorSelectionStateKey: selectionState])
         }
     }
     
     func presentLinkWizard(linkButtonIsSelected: Bool) {
         
-        let action: WKSourceEditorFormatterLinkButtonAction = linkButtonIsSelected ? .edit : .insert
-        
+        let action: WMFSourceEditorFormatterLinkButtonAction = linkButtonIsSelected ? .edit : .insert
+
         guard let parameters = textFrameworkMediator.linkFormatter?.linkWizardParameters(action: action, in: textView) else {
             return
         }
@@ -370,10 +370,10 @@ private extension WKSourceEditorViewController {
             let selectedMatch = findFormatter.selectedMatchIndex + 1
             let totalMatchCount = findFormatter.matchCount
             viewModel.currentMatchInfo = "\(selectedMatch) / \(totalMatchCount)"
-            viewModel.currentMatchInfoAccessibility = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoFormatAccessibility, "\(totalMatchCount)", "\(selectedMatch)")
+            viewModel.currentMatchInfoAccessibility = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.findCurrentMatchInfoFormatAccessibility, "\(totalMatchCount)", "\(selectedMatch)")
         } else if findFormatter.matchCount == 0 {
             viewModel.currentMatchInfo = "0 / 0"
-            viewModel.currentMatchInfoAccessibility = WKSourceEditorLocalizedStrings.current.findCurrentMatchInfoZeroResultsAccessibility
+            viewModel.currentMatchInfoAccessibility = WMFSourceEditorLocalizedStrings.current.findCurrentMatchInfoZeroResultsAccessibility
         } else {
             viewModel.currentMatchInfo = nil
             viewModel.currentMatchInfoAccessibility = nil
@@ -428,7 +428,7 @@ private extension WKSourceEditorViewController {
 
 // MARK: - UITextViewDelegate
 
-extension WKSourceEditorViewController: UITextViewDelegate {
+extension WMFSourceEditorViewController: UITextViewDelegate {
     public func textViewDidChangeSelection(_ textView: UITextView) {
         
         guard !viewModel.needsReadOnly else {
@@ -460,11 +460,11 @@ extension WKSourceEditorViewController: UITextViewDelegate {
     }
 }
 
-// MARK: - WKEditorToolbarExpandingViewDelegate
+// MARK: - WMFEditorToolbarExpandingViewDelegate
 
-extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
+extension WMFSourceEditorViewController: WMFEditorToolbarExpandingViewDelegate {
     
-    func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapFind(toolbarView: WMFEditorToolbarExpandingView) {
         inputAccessoryViewType = .find
         delegate?.sourceEditorViewControllerDidTapFind(self)
         
@@ -476,133 +476,133 @@ extension WKSourceEditorViewController: WKEditorToolbarExpandingViewDelegate {
         textView.isSelectable = false
     }
     
-    func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapFormatText(toolbarView: WMFEditorToolbarExpandingView) {
         editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
     
-    func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarExpandingViewDidTapTemplate(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
 
-    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarExpandingViewDidTapReference(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
 
-    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
+    func toolbarExpandingViewDidTapLink(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
     }
     
-    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapImage(toolbarView: WMFEditorToolbarExpandingView) {
         delegate?.sourceEditorViewControllerDidTapImage()
     }
     
-    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
     }
     
-    func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarExpandingViewDidTapOrderedList(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
     }
     
-    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WMFEditorToolbarExpandingView) {
         textFrameworkMediator.listFormatter?.tappedIncreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
-    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WMFEditorToolbarExpandingView) {
         textFrameworkMediator.listFormatter?.tappedDecreaseIndent(currentSelectionState: selectionState(), textView: textView)
     }
     
-    func toolbarExpandingViewDidTapCursorUp(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapCursorUp(toolbarView: WMFEditorToolbarExpandingView) {
         moveCursor(direction: .up)
     }
     
-    func toolbarExpandingViewDidTapCursorDown(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapCursorDown(toolbarView: WMFEditorToolbarExpandingView) {
         moveCursor(direction: .down)
     }
     
-    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WMFEditorToolbarExpandingView) {
         moveCursor(direction: .left)
     }
     
-    func toolbarExpandingViewDidTapCursorRight(toolbarView: WKEditorToolbarExpandingView) {
+    func toolbarExpandingViewDidTapCursorRight(toolbarView: WMFEditorToolbarExpandingView) {
         moveCursor(direction: .right)
     }
 }
 
-// MARK: - WKEditorToolbarHighlightViewDelegate
+// MARK: - WMFEditorToolbarHighlightViewDelegate
 
-extension WKSourceEditorViewController: WKEditorToolbarHighlightViewDelegate {
+extension WMFSourceEditorViewController: WMFEditorToolbarHighlightViewDelegate {
         
-    func toolbarHighlightViewDidTapBold(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarHighlightViewDidTapBold(toolbarView: WMFEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
     }
     
-    func toolbarHighlightViewDidTapItalics(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarHighlightViewDidTapItalics(toolbarView: WMFEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
     }
     
-    func toolbarHighlightViewDidTapTemplate(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarHighlightViewDidTapTemplate(toolbarView: WMFEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
 
-    func toolbarHighlightViewDidTapReference(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+    func toolbarHighlightViewDidTapReference(toolbarView: WMFEditorToolbarHighlightView, isSelected: Bool) {
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
 
-    func toolbarHighlightViewDidTapLink(toolbarView: WKEditorToolbarHighlightView, isSelected: Bool) {
+    func toolbarHighlightViewDidTapLink(toolbarView: WMFEditorToolbarHighlightView, isSelected: Bool) {
         presentLinkWizard(linkButtonIsSelected: isSelected)
 
     }
     
-    func toolbarHighlightViewDidTapShowMore(toolbarView: WKEditorToolbarHighlightView) {
+    func toolbarHighlightViewDidTapShowMore(toolbarView: WMFEditorToolbarHighlightView) {
         editorInputViewIsShowing = true
         postUpdateButtonSelectionStatesNotification(withDelay: true)
     }
 }
 
-// MARK: - WKEditorInputViewDelegate
+// MARK: - WMFEditorInputViewDelegate
 
-extension WKSourceEditorViewController: WKEditorInputViewDelegate {
-    func didTapHeading(type: WKEditorInputView.HeadingButtonType) {
+extension WMFSourceEditorViewController: WMFEditorInputViewDelegate {
+    func didTapHeading(type: WMFEditorInputView.HeadingButtonType) {
         textFrameworkMediator.headingFormatter?.toggleHeadingFormatting(selectedHeading: type, currentSelectionState: selectionState(), textView: textView)
     }
     
     func didTapBold(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
     }
     
     func didTapItalics(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
     }
     
     func didTapTemplate(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.templateFormatter?.toggleTemplateFormatting(action: action, in: textView)
     }
 
     func didTapReference(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.referenceFormatter?.toggleReferenceFormatting(action: action, in: textView)
     }
     
     func didTapBulletList(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.listFormatter?.toggleListBullet(action: action, in: textView)
     }
     
     func didTapNumberList(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.listFormatter?.toggleListNumber(action: action, in: textView)
     }
     
@@ -615,22 +615,22 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapStrikethrough(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.strikethroughFormatter?.toggleStrikethroughFormatting(action: action, in: textView)
     }
 
     func didTapUnderline(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.underlineFormatter?.toggleUnderlineFormatting(action: action, in: textView)
     }
 
     func didTapSubscript(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.subscriptFormatter?.toggleSubscriptFormatting(action: action, in: textView)
     }
 
     func didTapSuperscript(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.superscriptFormatter?.toggleSuperscriptFormatting(action: action, in: textView)
     }
     
@@ -639,7 +639,7 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
     
     func didTapComment(isSelected: Bool) {
-        let action: WKSourceEditorFormatterButtonAction = isSelected ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = isSelected ? .remove : .add
         textFrameworkMediator.commentFormatter?.toggleCommentFormatting(action: action, in: textView)
     }
 
@@ -650,40 +650,40 @@ extension WKSourceEditorViewController: WKEditorInputViewDelegate {
     }
 }
 
-// MARK: - WKFindAndReplaceViewDelegate
+// MARK: - WMFFindAndReplaceViewDelegate
 
-extension WKSourceEditorViewController: WKFindAndReplaceViewDelegate {
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String) {
+extension WMFSourceEditorViewController: WMFFindAndReplaceViewDelegate {
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didChangeFindText text: String) {
         resetFind(fromClose: false)
         textFrameworkMediator.findStart(text: text)
         updateFindViewModelState()
     }
     
-    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView) {
+    func findAndReplaceViewDidTapNext(_ view: WMFFindAndReplaceView) {
         
         textFrameworkMediator.findNext(afterRange: nil)
         updateFindViewModelState()
     }
     
-    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView) {
+    func findAndReplaceViewDidTapPrevious(_ view: WMFFindAndReplaceView) {
         textFrameworkMediator.findPrevious()
         updateFindViewModelState()
     }
     
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String) {
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceSingle replaceText: String) {
         textFrameworkMediator.replaceSingle(replaceText: replaceText)
         updateFindViewModelState()
     }
     
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String) {
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceAll replaceText: String) {
         textFrameworkMediator.replaceAll(replaceText: replaceText)
         updateFindViewModelState()
     }
 }
 
-// MARK: - WKSourceEditorFindAndReplaceScrollDelegate
+// MARK: - WMFSourceEditorFindAndReplaceScrollDelegate
 
-extension WKSourceEditorViewController: WKSourceEditorFindAndReplaceScrollDelegate {
+extension WMFSourceEditorViewController: WMFSourceEditorFindAndReplaceScrollDelegate {
     
     func scrollToCurrentMatch() {
         guard let matchRange = textFrameworkMediator.findAndReplaceFormatter?.selectedMatchRange else {

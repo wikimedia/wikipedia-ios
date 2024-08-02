@@ -2,12 +2,12 @@ import UIKit
 import Combine
 
 /// An object to communicate app environment changes to all subscribed WMFComponents
-public final class WKAppEnvironment: ObservableObject {
+public final class WMFAppEnvironment: ObservableObject {
 
 	// MARK: - Properties
 
-	public static let current = WKAppEnvironment()
-	public static let publisher = CurrentValueSubject<WKAppEnvironment, Never>(.current)
+	public static let current = WMFAppEnvironment()
+	public static let publisher = CurrentValueSubject<WMFAppEnvironment, Never>(.current)
 
     @Published public private(set) var theme = WMFTheme.light
     @Published public private(set) var traitCollection = UITraitCollection.current
@@ -19,7 +19,7 @@ public final class WKAppEnvironment: ObservableObject {
 		theme = newTheme ?? theme
         articleAndEditorTextSize = newArticleAndEditorTextSize ?? articleAndEditorTextSize
 		traitCollection = newTraitCollection ?? traitCollection
-		WKAppEnvironment.publisher.send(self)
+		WMFAppEnvironment.publisher.send(self)
 	}
 
 }

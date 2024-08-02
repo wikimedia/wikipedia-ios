@@ -133,10 +133,10 @@ class EditLinkViewController: ViewController {
     }
 
     private func updateFonts() {
-        displayTextLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
-        linkTargetLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
-        displayTextView.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
-        removeLinkButton.titleLabel?.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        displayTextLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        linkTargetLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        displayTextView.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        removeLinkButton.titleLabel?.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {

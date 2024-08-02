@@ -1,19 +1,19 @@
 import UIKit
 import WMFData
 
-final public class WKImageRecommendationsBottomSheetViewController: WKCanvasViewController {
+final public class WKImageRecommendationsBottomSheetViewController: WMFCanvasViewController {
 
     // MARK: Properties
 
-    public var viewModel: WKImageRecommendationsViewModel
-    public var tooltipViewModels: [WKTooltipViewModel] = []
+    public var viewModel: WMFImageRecommendationsViewModel
+    public var tooltipViewModels: [WMFTooltipViewModel] = []
     weak var delegate: WKImageRecommendationsDelegate?
     weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
     private(set) var bottomSheetView: WKImageRecommendationBottomSheetView?
 
     // MARK: Lifecycle
 
-    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
+    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
         self.viewModel = viewModel
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
@@ -41,7 +41,7 @@ final public class WKImageRecommendationsBottomSheetViewController: WKCanvasView
 
     // MARK: Methods
 
-    private func populateImageSheetRecommendationViewModel(for image: WKImageRecommendationsViewModel.WKImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
+    private func populateImageSheetRecommendationViewModel(for image: WMFImageRecommendationsViewModel.WMFImageRecommendationData?) -> WKImageRecommendationBottomSheetViewModel? {
 
         if let image {
             let viewModel = WKImageRecommendationBottomSheetViewModel(
@@ -112,7 +112,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
         loggingDelegate?.logBottomSheetDidTapNo()
         
 		let surveyView = WKImageRecommendationsSurveyView(
-			viewModel: WKImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
+			viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
 			cancelAction: { [weak self] in
                 self?.loggingDelegate?.logRejectSurveyDidTapCancel()
                 
@@ -152,7 +152,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
                 })
 		})
 
-		let hostedView = WKComponentHostingController(rootView: surveyView)
+		let hostedView = WMFComponentHostingController(rootView: surveyView)
 		present(hostedView, animated: true)
         
         loggingDelegate?.logRejectSurveyDidAppear()
@@ -169,7 +169,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKImageRecommendation
     }
 }
 
-extension WKImageRecommendationsBottomSheetViewController: WKTooltipPresenting {
+extension WKImageRecommendationsBottomSheetViewController: WMFTooltipPresenting {
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -181,7 +181,7 @@ extension WKImageRecommendationsBottomSheetViewController: WKTooltipPresenting {
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         
         // Tooltips are only allowed to dismiss via Next buttons
-        if presentationController.presentedViewController is WKTooltipViewController {
+        if presentationController.presentedViewController is WMFTooltipViewController {
             return false
         }
         

@@ -231,7 +231,7 @@ class ViewControllerRouter: NSObject {
         return targetNavigationController
     }
     
-    private var watchlistFilterViewModel: WKWatchlistFilterViewModel {
+    private var watchlistFilterViewModel: WMFWatchlistFilterViewModel {
         
         let dataStore = appViewController.dataStore
         let appLanguages = dataStore.languageLinkController.preferredLanguages
@@ -247,7 +247,7 @@ class ViewControllerRouter: NSObject {
         localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
         
-        let localizedStrings = WKWatchlistFilterViewModel.LocalizedStrings(
+        let localizedStrings = WMFWatchlistFilterViewModel.LocalizedStrings(
             title: CommonStrings.watchlistFilter,
             doneTitle: CommonStrings.doneTitle,
             localizedProjectNames: localizedProjectNames,
@@ -284,18 +284,18 @@ class ViewControllerRouter: NSObject {
             overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
         }
 
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
+        return WMFWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
     
     func showWatchlistOnboarding(targetNavigationController: UINavigationController?) {
-        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
-        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
-        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
-        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
+        let trackChanges = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
+        let watchArticles = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
+        let setExpiration = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
+        let viewUpdates = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
 
-        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
+        let viewModel = WMFOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
 
-        let viewController = WKOnboardingViewController(viewModel: viewModel)
+        let viewController = WMFOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
         
         WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
@@ -328,11 +328,11 @@ class ViewControllerRouter: NSObject {
             return attributedString
         }
 
-        let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
+        let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
 
-        let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+        let presentationConfiguration = WMFWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
 
-        let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
+        let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
 
         let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
 
@@ -361,7 +361,7 @@ class ViewControllerRouter: NSObject {
     }
 }
 
-extension ViewControllerRouter: WKOnboardingViewDelegate {
+extension ViewControllerRouter: WMFOnboardingViewDelegate {
     
     func onboardingViewDidClickPrimaryButton() {
         

@@ -107,10 +107,10 @@ class HintViewController: UIViewController {
     }
 
     private func updateFonts() {
-        defaultLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        confirmationLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        warningLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        warningSubtitleLabel.font = WKFont.for(.caption1, compatibleWith: traitCollection)
+        defaultLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        confirmationLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        warningLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        warningSubtitleLabel.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
     }
 }
 

@@ -81,6 +81,6 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     }
 
     private func updateFonts() {
-        moreLanguagesButton.titleLabel?.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        moreLanguagesButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 }

@@ -8,7 +8,7 @@ public struct WMFOnboardingView: View {
     var primaryButtonAction: (() -> Void)?
     var secondaryButtonAction: (() -> Void)?
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -25,7 +25,7 @@ public struct WMFOnboardingView: View {
 			ScrollView(showsIndicators: true) {
 				VStack {
 					Text(viewModel.title)
-						.font(Font(WKFont.for(.boldTitle1)))
+						.font(Font(WMFFont.for(.boldTitle1)))
 						.foregroundColor(Color(appEnvironment.theme.text))
                         .padding(.bottom, 44)
                         .padding(.top, 44 + sizeClassPadding)
@@ -41,12 +41,12 @@ public struct WMFOnboardingView: View {
                 .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
 			}
             VStack(spacing: 20) {
-                WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
                     .padding([.top], 16)
 
                 if let secondaryTitle = viewModel.secondaryButtonTitle {
-                    let configuration = WKSmallButton.Configuration(style: .quiet)
-                    WKSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
+                    let configuration = WMFSmallButton.Configuration(style: .quiet)
+                    WMFSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
                 }
             }
             .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))

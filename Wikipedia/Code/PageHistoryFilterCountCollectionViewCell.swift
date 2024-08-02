@@ -28,8 +28,8 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     }
 
     private func updateFonts() {
-        imageLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        titleLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        imageLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

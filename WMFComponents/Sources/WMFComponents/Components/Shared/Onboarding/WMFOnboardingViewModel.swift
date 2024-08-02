@@ -5,20 +5,20 @@ public struct WMFOnboardingViewModel {
     // MARK: - Properties
 
     var title: String
-    var cells: [WKOnboardingCellViewModel]
+    var cells: [WMFOnboardingCellViewModel]
     var primaryButtonTitle: String
     var secondaryButtonTitle: String?
 
     // MARK: - Lifecycle
 
-    public init(title: String, cells: [WKOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?) {
+    public init(title: String, cells: [WMFOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?) {
         self.title = title
         self.cells = cells
         self.primaryButtonTitle = primaryButtonTitle
         self.secondaryButtonTitle = secondaryButtonTitle
     }
 
-    public struct WKOnboardingCellViewModel {
+    public struct WMFOnboardingCellViewModel {
         var icon: UIImage?
         var title: String
         var subtitle: String?

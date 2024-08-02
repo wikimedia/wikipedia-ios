@@ -1,8 +1,8 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterTemplate {
-    func toggleTemplateFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterTemplate {
+    func toggleTemplateFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleFormatting(startingFormattingString: "{{", endingFormattingString: "}}", action: action, in: textView)
     }
 }

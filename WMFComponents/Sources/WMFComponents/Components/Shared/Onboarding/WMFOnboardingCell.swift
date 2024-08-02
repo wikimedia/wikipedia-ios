@@ -4,9 +4,9 @@ struct WMFOnboardingCell: View {
 
     // MARK: - Properties
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    var viewModel: WKOnboardingViewModel.WKOnboardingCellViewModel
+    var viewModel: WMFOnboardingViewModel.WMFOnboardingCellViewModel
 
     // MARK: - Lifecycle
 
@@ -33,7 +33,7 @@ struct WMFOnboardingCell: View {
             VStack {
                 Text(viewModel.title)
                     .multilineTextAlignment(.leading)
-                    .font(Font(WKFont.for(.boldCallout)))
+                    .font(Font(WMFFont.for(.boldCallout)))
                     .foregroundColor(Color(appEnvironment.theme.text))
                     .padding([.bottom], 1)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -42,7 +42,7 @@ struct WMFOnboardingCell: View {
                     Text(subtitle)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(Color(appEnvironment.theme.secondaryText))
-                        .font(Font(WKFont.for(.subheadline)))
+                        .font(Font(WMFFont.for(.subheadline)))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }

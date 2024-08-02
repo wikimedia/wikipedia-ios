@@ -1,8 +1,8 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterSubscript {
-    func toggleSubscriptFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterSubscript {
+    func toggleSubscriptFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleFormatting(startingFormattingString: "<sub>", endingFormattingString: "</sub>", action: action, in: textView)
     }
 }

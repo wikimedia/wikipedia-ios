@@ -144,7 +144,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     private var styles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WKFont.for(.mediumSubheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        return HtmlUtils.Styles(font: WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     private var subTitleLabelAttributedString: NSAttributedString {

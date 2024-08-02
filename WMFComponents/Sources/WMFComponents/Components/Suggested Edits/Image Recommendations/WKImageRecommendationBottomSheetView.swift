@@ -8,7 +8,7 @@ protocol WKImageRecommendationsToolbarViewDelegate: AnyObject {
     func goToGallery()
 }
 
-public class WKImageRecommendationBottomSheetView: WKComponentView {
+public class WKImageRecommendationBottomSheetView: WMFComponentView {
 
     // MARK: Properties
 
@@ -88,7 +88,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
 
     private lazy var iconImageView: UIImageView = {
-        let icon = WKIcon.bot
+        let icon = WMFIcon.bot
         let imageView = UIImageView(image: icon)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -104,11 +104,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         label.setContentHuggingPriority(.required, for: .vertical)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.font = WKFont.for(.boldTitle3)
+        label.font = WMFFont.for(.boldTitle3)
         return label
     }()
 
-    private let buttonFont: UIFont = WKFont.for(.boldCallout)
+    private let buttonFont: UIFont = WMFFont.for(.boldCallout)
 
     private(set) lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
@@ -117,11 +117,11 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     }()
 
     lazy var yesToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .checkmark, font: .callout), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
+        return customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .callout), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
     }()
 
     lazy var noToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WKSFSymbolIcon.for(symbol: .xMark, font: .callout), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
+        return customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .xMark, font: .callout), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
     }()
 
     lazy var notSureToolbarButton: UIBarButtonItem = {
@@ -129,7 +129,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         barButton.tintColor = theme.link
 
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: WKFont.for(.boldCallout),
+            .font: WMFFont.for(.boldCallout),
             .foregroundColor: theme.link
         ]
 
@@ -183,7 +183,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
 
         let label = UILabel()
         label.text = text
-        label.font = WKFont.for(.boldCallout)
+        label.font = WMFFont.for(.boldCallout)
         label.textColor = theme.link
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -325,7 +325,7 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         iconImageView.tintColor = theme.link
         toolbar.barTintColor = theme.midBackground
         textView.linkTextAttributes = [.foregroundColor: theme.link,
-                                       .font: WKFont.for(.boldCallout)
+                                       .font: WMFFont.for(.boldCallout)
         ]
     }
 
@@ -340,10 +340,10 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
     private func getTextViewAttributedString() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
 
-        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle, attributes: [.font: WKFont.for(.callout), .foregroundColor: theme.link])
+        let linkAttributedString = NSMutableAttributedString(string: viewModel.imageTitle, attributes: [.font: WMFFont.for(.callout), .foregroundColor: theme.link])
 
         let attachment = NSTextAttachment()
-        if let image = WKIcon.externalLink {
+        if let image = WMFIcon.externalLink {
             let tintedImage = image.withTintColor(theme.link)
             attachment.image = tintedImage
         }
@@ -359,13 +359,13 @@ public class WKImageRecommendationBottomSheetView: WKComponentView {
         }
 
         if let description = viewModel.imageDescription {
-            let descriptionAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+            let descriptionAttributes = [NSAttributedString.Key.font: WMFFont.for(.callout),
                                          NSAttributedString.Key.foregroundColor: theme.text]
             let descriptionAttributedString = NSMutableAttributedString(string: "\n\n" + description, attributes: descriptionAttributes)
             attributedString.append(descriptionAttributedString)
         }
 
-        let reasonAttributes = [NSAttributedString.Key.font: WKFont.for(.callout),
+        let reasonAttributes = [NSAttributedString.Key.font: WMFFont.for(.callout),
                                 NSAttributedString.Key.foregroundColor: theme.secondaryText]
         let reasonAttributedString = NSMutableAttributedString(string: "\n\n" + viewModel.reason + "\n\n", attributes: reasonAttributes)
         attributedString.append(reasonAttributedString)

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 /// A button that displays a `UIMenu` when triggering its primary action
-public class WKSmallMenuButton: WKComponentView {
+public class WMFSmallMenuButton: WMFComponentView {
 
     // MARK: - Nested Types
 
@@ -29,13 +29,13 @@ public class WKSmallMenuButton: WKComponentView {
 
         public var title: String?
         let image: UIImage?
-        let primaryColor: KeyPath<WKTheme, UIColor>
+        let primaryColor: KeyPath<WMFTheme, UIColor>
         public let menuItems: [MenuItem]
 		public var metadata: [String: Any] = [:]
 
 		// MARK: - Public
 
-		public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WKTheme, UIColor>,  menuItems: [MenuItem], metadata: [String: Any] = [:]) {
+		public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WMFTheme, UIColor>,  menuItems: [MenuItem], metadata: [String: Any] = [:]) {
             self.title = title
             self.image = image
             self.primaryColor = primaryColor
@@ -47,7 +47,7 @@ public class WKSmallMenuButton: WKComponentView {
 
     // MARK: - Properties
 
-    public weak var delegate: WKSmallMenuButtonDelegate?
+    public weak var delegate: WMFSmallMenuButtonDelegate?
     public private(set) var configuration: Configuration
 
     // MARK: - UI Elements
@@ -119,7 +119,7 @@ public class WKSmallMenuButton: WKComponentView {
         buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
 
         var container = AttributeContainer()
-        container.font = WKFont.for(.boldFootnote)
+        container.font = WMFFont.for(.boldFootnote)
         container.foregroundColor = theme[keyPath: configuration.primaryColor]
         if let title = configuration.title {
             buttonConfig.attributedTitle = AttributedString(title, attributes: container)
@@ -137,11 +137,11 @@ public class WKSmallMenuButton: WKComponentView {
     // MARK: - Button Actions
 
     private func userDidTapMenuItem(_ item: MenuItem) {
-        delegate?.wkMenuButton(self, didTapMenuItem: item)
+        delegate?.WMFMenuButton(self, didTapMenuItem: item)
     }
     
     @objc private func userDidTap() {
-        delegate?.wkMenuButtonDidTap(self)
+        delegate?.WMFMenuButtonDidTap(self)
     }
 
     // MARK: - Component Conformance

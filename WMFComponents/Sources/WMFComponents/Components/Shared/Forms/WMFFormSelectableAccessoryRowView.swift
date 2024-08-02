@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct WKFormSelectableAccessoryRowView: View {
+struct WMFFormSelectableAccessoryRowView: View {
 
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
+	@ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-	var theme: WKTheme {
+	var theme: WMFTheme {
 		return appEnvironment.theme
 	}
 
-	@ObservedObject var viewModel: WKFormItemSelectViewModel
+	@ObservedObject var viewModel: WMFFormItemSelectViewModel
 
 	var body: some View {
 		Button(action: {

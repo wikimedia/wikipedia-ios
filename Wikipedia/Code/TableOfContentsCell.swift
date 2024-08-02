@@ -20,9 +20,9 @@ class TableOfContentsCell: UITableViewCell {
     }
     
     private var titleHTML: String = ""
-    private var titleTextStyle: WKFont = .georgiaTitle3
+    private var titleTextStyle: WMFFont = .georgiaTitle3
     private var isTitleLabelHighlighted: Bool = false
-    func setTitleHTML(_ html: String, with textStyle: WKFont, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
+    func setTitleHTML(_ html: String, with textStyle: WMFFont, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
         isTitleLabelHighlighted = highlighted
         titleHTML = html
         titleTextStyle = textStyle
@@ -33,7 +33,7 @@ class TableOfContentsCell: UITableViewCell {
 
     private var styles: HtmlUtils.Styles {
         let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
-        return HtmlUtils.Styles(font: WKFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
     }
 
     func updateTitle() {

@@ -216,12 +216,12 @@ class DiffHeaderCompareView: SetupView {
     }
 
     fileprivate func updateFonts(with traitCollection: UITraitCollection) {
-        toHeadingLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        fromHeadingLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        toTimestampLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        fromTimestampLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        toDescriptionLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
-        fromDescriptionLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        toHeadingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        fromHeadingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        toTimestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        fromTimestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        toDescriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        fromDescriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     // MARK: Accessibility labels

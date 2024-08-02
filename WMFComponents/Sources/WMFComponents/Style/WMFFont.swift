@@ -43,7 +43,7 @@ public enum WMFFont {
     case title1
     case title3
 
-    public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WKAppEnvironment.current.traitCollection) -> UIFont {
+    public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
 
         switch font {
         case .boldCallout:

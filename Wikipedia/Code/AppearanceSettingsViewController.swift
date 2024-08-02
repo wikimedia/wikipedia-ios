@@ -126,7 +126,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             
             if let dimming = vc as? ImageDimmingExampleViewController {
                 // themeTODO: define a semantic color for this instead of checking isDark
-                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : WKColor.gray650
+                dimming.view.backgroundColor = self.theme.isDark ? self.theme.colors.paperBackground : WMFColor.gray650
                 dimming.isImageDimmed = UserDefaults.standard.wmf_isImageDimmingEnabled
             }
             
@@ -157,8 +157,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isImageDimmingEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-image-dimming"
-            cell.iconBackgroundColor = WKColor.gray400
-            cell.iconColor = WKColor.white
+            cell.iconBackgroundColor = WMFColor.gray400
+            cell.iconColor = WMFColor.white
             cell.selectionStyle = .none
         } else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
             cell.disclosureType = .switch
@@ -166,8 +166,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
-            cell.iconBackgroundColor = WKColor.blue300
-            cell.iconColor = WKColor.white
+            cell.iconBackgroundColor = WMFColor.blue300
+            cell.iconColor = WMFColor.white
             cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none

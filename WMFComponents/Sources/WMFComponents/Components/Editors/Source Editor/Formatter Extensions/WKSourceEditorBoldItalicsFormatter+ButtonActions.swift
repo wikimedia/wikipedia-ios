@@ -1,13 +1,13 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterBoldItalics {
-    func toggleBoldFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterBoldItalics {
+    func toggleBoldFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         let formattingString = "'''"
         toggleFormatting(formattingString: formattingString, action: action, in: textView)
     }
     
-    func toggleItalicsFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+    func toggleItalicsFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         let formattingString = "''"
         toggleFormatting(formattingString: formattingString, action: action, in: textView)
     }

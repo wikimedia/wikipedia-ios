@@ -1,7 +1,7 @@
 import Foundation
 
-public struct WKSourceEditorLocalizedStrings {
-    static var current: WKSourceEditorLocalizedStrings!
+public struct WMFSourceEditorLocalizedStrings {
+    static var current: WMFSourceEditorLocalizedStrings!
 
     // visible strings
     let keyboardTextFormattingTitle: String

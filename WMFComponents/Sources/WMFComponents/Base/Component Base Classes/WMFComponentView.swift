@@ -10,12 +10,12 @@ public class WMFComponentView: UIView {
 
 	// MARK: - Public Properties
 
-	var appEnvironment: WKAppEnvironment {
-		return WKAppEnvironment.current
+	var appEnvironment: WMFAppEnvironment {
+		return WMFAppEnvironment.current
 	}
 
 	var theme: WMFTheme {
-		return WKAppEnvironment.current.theme
+		return WMFAppEnvironment.current.theme
 	}
 
 	// MARK: - Public
@@ -35,7 +35,7 @@ public class WMFComponentView: UIView {
 	// MARK: - AppEnvironment Subscription
 
 	private func subscribeToAppEnvironmentChanges() {
-		WKAppEnvironment.publisher
+		WMFAppEnvironment.publisher
 			.sink(receiveValue: { [weak self] _ in self?.appEnvironmentDidChange() })
 			.store(in: &cancellables)
 	}

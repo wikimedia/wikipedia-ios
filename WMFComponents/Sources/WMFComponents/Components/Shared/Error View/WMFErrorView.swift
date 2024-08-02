@@ -1,10 +1,10 @@
 import Foundation
 import SwiftUI
 
-public struct WKErrorView: View {
+public struct WMFErrorView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    let viewModel: WKErrorViewModel
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let viewModel: WMFErrorViewModel
     let tryAgainAction: () -> Void
 
     public var body: some View {
@@ -25,19 +25,19 @@ public struct WKErrorView: View {
                         }
                         
                         Text(viewModel.localizedStrings.title)
-                            .font(Font(WKFont.for(.boldCallout)))
+                            .font(Font(WMFFont.for(.boldCallout)))
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.top], 12)
                             .padding([.bottom], 8)
                             .multilineTextAlignment(.center)
                         
                         Text(viewModel.localizedStrings.subtitle)
-                            .font(Font(WKFont.for(.footnote)))
+                            .font(Font(WMFFont.for(.footnote)))
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.bottom], 12)
                             .multilineTextAlignment(.center)
                         
-                        WKLargeButton(configuration: .primary, title: viewModel.localizedStrings.buttonTitle, action: tryAgainAction)
+                        WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.buttonTitle, action: tryAgainAction)
                         
                         Spacer()
                     }

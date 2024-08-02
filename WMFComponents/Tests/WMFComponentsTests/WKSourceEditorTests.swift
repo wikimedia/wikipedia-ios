@@ -4,53 +4,53 @@ import XCTest
 final class WKSourceEditorTests: XCTestCase {
 
     var textView: UITextView!
-    var editorViewController: WKSourceEditorViewController!
+    var editorViewController: WMFSourceEditorViewController!
 
     override func setUpWithError() throws {
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
-        self.editorViewController = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
+        let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: "Testing Wikitext", localizedStrings: WMFSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
+        self.editorViewController = WMFSourceEditorViewController(viewModel: viewModel, delegate: self)
         editorViewController.loadViewIfNeeded()
         self.textView = editorViewController.textView
     }
 
     func testSourceEditorDefaultInputAccessoryView() {
         textView.becomeFirstResponder()
-        XCTAssert(textView.inputAccessoryView is WKEditorToolbarExpandingView)
+        XCTAssert(textView.inputAccessoryView is WMFEditorToolbarExpandingView)
     }
 
     func testSourceEditorHighlightInputAccessoryView() {
         textView.becomeFirstResponder()
         textView.selectedRange = NSRange(location: 0, length: 7)
-        XCTAssert(textView.inputAccessoryView is WKEditorToolbarHighlightView)
+        XCTAssert(textView.inputAccessoryView is WMFEditorToolbarHighlightView)
     }
 
     func testSourceEditorFindInputAccessoryView() {
         textView.becomeFirstResponder()
         editorViewController.toolbarExpandingViewDidTapFind(toolbarView: editorViewController.expandingAccessoryView)
-        XCTAssert(textView.inputAccessoryView is WKFindAndReplaceView)
+        XCTAssert(textView.inputAccessoryView is WMFFindAndReplaceView)
         editorViewController.closeFind()
-        XCTAssert(textView.inputAccessoryView is WKEditorToolbarExpandingView)
+        XCTAssert(textView.inputAccessoryView is WMFEditorToolbarExpandingView)
     }
 }
 
-extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
-    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
-        
-    }
-    
-    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, didChangeText: Bool) {
-        
-    }
-    
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
-        
-    }
-    
-    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
+extension WKSourceEditorTests: WMFSourceEditorViewControllerDelegate {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
 
     }
     
-    func sourceEditorViewControllerDidTapLink(parameters: WMFComponents.WKSourceEditorFormatterLinkWizardParameters) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, didChangeText: Bool) {
+
+    }
+    
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
+
+    }
+    
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
+
+    }
+    
+    func sourceEditorViewControllerDidTapLink(parameters: WMFComponents.WMFSourceEditorFormatterLinkWizardParameters) {
         
     }
     
@@ -59,9 +59,9 @@ extension WKSourceEditorTests: WKSourceEditorViewControllerDelegate {
     }
 }
 
-extension WKSourceEditorLocalizedStrings {
-    static var emptyTestStrings: WKSourceEditorLocalizedStrings {
-        return WKSourceEditorLocalizedStrings(keyboardTextFormattingTitle: "",
+extension WMFSourceEditorLocalizedStrings {
+    static var emptyTestStrings: WMFSourceEditorLocalizedStrings {
+        return WMFSourceEditorLocalizedStrings(keyboardTextFormattingTitle: "",
                                               keyboardParagraph: "",
                                               keyboardHeading: "",
                                               keyboardSubheading1: "",

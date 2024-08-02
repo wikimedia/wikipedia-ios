@@ -1,8 +1,8 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterUnderline {
-    func toggleUnderlineFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterUnderline {
+    func toggleUnderlineFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleFormatting(startingFormattingString: "<u>", endingFormattingString: "</u>", action: action, in: textView)
     }
 }

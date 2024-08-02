@@ -15,9 +15,9 @@ class PageHistoryHintController: HintController {
 
     public func hide(_ hide: Bool, presenter: HintPresentingViewController, subview: UIView, additionalBottomSpacing: CGFloat, theme: Theme) {
         super.toggle(presenter: presenter, context: nil, theme: theme, subview: subview, additionalBottomSpacing: additionalBottomSpacing, setPrimaryColor: { (primaryColor: inout UIColor?) in
-            primaryColor = WKColor.red600
+            primaryColor = WMFColor.red600
         }) { (backgroundColor: inout UIColor?) in
-            backgroundColor = WKColor.red100
+            backgroundColor = WMFColor.red100
         }
         setHintHidden(hide)
     }

@@ -18,7 +18,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     }
 
     private func updateFonts() {
-        onLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
+        onLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, midnightUTCDate: Date) {

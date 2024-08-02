@@ -46,7 +46,7 @@ class ReferenceBackLinksViewController: ReferenceViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        countLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        countLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     // MARK: View Lifecycle

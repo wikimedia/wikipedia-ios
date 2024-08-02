@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-protocol WKEditorHeaderSelectScrollViewDelegate: AnyObject {
+protocol WMFEditorHeaderSelectScrollViewDelegate: AnyObject {
     func didSelectIndex(_ index: Int, headerSelectScrollView: WMFEditorHeaderSelectScrollView)
 }
 
@@ -9,7 +9,7 @@ final class WMFEditorHeaderSelectScrollView: WMFComponentView {
     
     // MARK: - Properties
     
-    private weak var delegate: WKEditorHeaderSelectScrollViewDelegate?
+    private weak var delegate: WMFEditorHeaderSelectScrollViewDelegate?
     private var buttons: [WMFEditorHeaderSelectButton] = []
     private let viewModels: [WMFEditorHeaderSelectButton.ViewModel]
     
@@ -32,7 +32,7 @@ final class WMFEditorHeaderSelectScrollView: WMFComponentView {
     
     // MARK: - Lifecycle
     
-    init(viewModels: [WMFEditorHeaderSelectButton.ViewModel], delegate: WKEditorHeaderSelectScrollViewDelegate?) {
+    init(viewModels: [WMFEditorHeaderSelectButton.ViewModel], delegate: WMFEditorHeaderSelectScrollViewDelegate?) {
         self.viewModels = viewModels
         self.delegate = delegate
         super.init(frame: .zero)

@@ -38,7 +38,7 @@ class SearchLanguageButton: UnderlineButton {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
-        label.font = WKFont.for(.boldSubheadline)
+        label.font = WMFFont.for(.boldSubheadline)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -163,7 +163,7 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
-        otherLanguagesButton?.titleLabel?.font = WKFont.for(.subheadline)
+        otherLanguagesButton?.titleLabel?.font = WMFFont.for(.subheadline)
 
         if let otherLanguagesButton {
             var deprecatedOtherLanguagesButton = otherLanguagesButton as DeprecatedButton

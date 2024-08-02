@@ -21,7 +21,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         if let titleHTML = _titleHTML {
             let attributedTitle = NSMutableAttributedString.mutableAttributedStringFromHtml(titleHTML, styles: styles)
             if let boldString = _titleBoldedString, let boldFont {
-                let boldUIFont = WKFont.for(boldFont, compatibleWith: traitCollection)
+                let boldUIFont = WMFFont.for(boldFont, compatibleWith: traitCollection)
                 let range = (attributedTitle.string as NSString).range(of: boldString, options: .caseInsensitive)
                 if range.location != NSNotFound {
                     attributedTitle.addAttribute(.font, value: boldUIFont, range: range)
@@ -29,7 +29,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
             titleLabel.attributedText = attributedTitle
         } else {
-            let titleFont = WKFont.for(.callout, compatibleWith: traitCollection)
+            let titleFont = WMFFont.for(.callout, compatibleWith: traitCollection)
             titleLabel.font = titleFont
         }
     }
@@ -110,7 +110,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     open func updateStyles() {
-        styles =  HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        styles =  HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     override open func updateBackgroundColorOfLabels() {
@@ -217,10 +217,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     public var styles: HtmlUtils.Styles!
-    public var boldFont: WKFont!
-    public var descriptionTextStyle: WKFont!
-    public var extractTextStyle: WKFont!
-    public var saveButtonTextStyle: WKFont!
+    public var boldFont: WMFFont!
+    public var descriptionTextStyle: WMFFont!
+    public var extractTextStyle: WMFFont!
+    public var saveButtonTextStyle: WMFFont!
 
     public var imageViewDimension: CGFloat = 0 // used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat = 3
@@ -237,9 +237,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
         updateTitleLabel()
         
-        descriptionLabel.font = WKFont.for(descriptionTextStyle, compatibleWith: traitCollection)
-        extractLabel?.font = WKFont.for(extractTextStyle, compatibleWith: traitCollection)
-        alertButton.titleLabel?.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        descriptionLabel.font = WMFFont.for(descriptionTextStyle, compatibleWith: traitCollection)
+        extractLabel?.font = WMFFont.for(extractTextStyle, compatibleWith: traitCollection)
+        alertButton.titleLabel?.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
     }
     
     // MARK: - Semantic content

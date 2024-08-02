@@ -84,8 +84,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        actionButton.titleLabel?.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
-        dismissButton.titleLabel?.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        actionButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        dismissButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
     }
     
@@ -109,7 +109,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             isCaptionHidden = true
             return
         }
-        let styles = HtmlUtils.Styles(font: WKFont.for(.footnote, compatibleWith: traitCollection), boldFont: WKFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.footnote, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
         let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
@@ -136,7 +136,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             return
         }
 
-        let styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, strongColor: messageEmphasisColor, lineSpacing: 1)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, strongColor: messageEmphasisColor, lineSpacing: 1)
         let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = messageLineHeightMultiple

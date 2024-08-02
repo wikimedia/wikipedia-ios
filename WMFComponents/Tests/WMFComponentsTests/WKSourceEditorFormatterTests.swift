@@ -4,65 +4,65 @@ import XCTest
 
 final class WKSourceEditorFormatterTests: XCTestCase {
 
-    var colors: WKSourceEditorColors!
-    var fonts: WKSourceEditorFonts!
+    var colors: WMFSourceEditorColors!
+    var fonts: WMFSourceEditorFonts!
 
-    var baseFormatter: WKSourceEditorFormatterBase!
-    var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics!
-    var templateFormatter: WKSourceEditorFormatterTemplate!
-    var referenceFormatter: WKSourceEditorFormatterReference!
-    var listFormatter: WKSourceEditorFormatterList!
-    var headingFormatter: WKSourceEditorFormatterHeading!
-    var strikethroughFormatter: WKSourceEditorFormatterStrikethrough!
-    var subscriptFormatter: WKSourceEditorFormatterSubscript!
-    var superscriptFormatter: WKSourceEditorFormatterSuperscript!
-    var underlineFormatter: WKSourceEditorFormatterUnderline!
-    var linkFormatter: WKSourceEditorFormatterLink!
-    var commentFormatter: WKSourceEditorFormatterComment!
-    var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace!
-    var formatters: [WKSourceEditorFormatter] {
+    var baseFormatter: WMFSourceEditorFormatterBase!
+    var boldItalicsFormatter: WMFSourceEditorFormatterBoldItalics!
+    var templateFormatter: WMFSourceEditorFormatterTemplate!
+    var referenceFormatter: WMFSourceEditorFormatterReference!
+    var listFormatter: WMFSourceEditorFormatterList!
+    var headingFormatter: WMFSourceEditorFormatterHeading!
+    var strikethroughFormatter: WMFSourceEditorFormatterStrikethrough!
+    var subscriptFormatter: WMFSourceEditorFormatterSubscript!
+    var superscriptFormatter: WMFSourceEditorFormatterSuperscript!
+    var underlineFormatter: WMFSourceEditorFormatterUnderline!
+    var linkFormatter: WMFSourceEditorFormatterLink!
+    var commentFormatter: WMFSourceEditorFormatterComment!
+    var findAndReplaceFormatter: WMFSourceEditorFormatterFindAndReplace!
+    var formatters: [WMFSourceEditorFormatter] {
         return [baseFormatter, templateFormatter, boldItalicsFormatter, referenceFormatter, listFormatter, headingFormatter, strikethroughFormatter, subscriptFormatter, superscriptFormatter, underlineFormatter, linkFormatter, commentFormatter, findAndReplaceFormatter]
     }
 
     override func setUpWithError() throws {
         let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
 
-        self.colors = WKSourceEditorColors()
-        self.colors.baseForegroundColor = WKTheme.light.text
-        self.colors.orangeForegroundColor = WKTheme.light.editorOrange
-        self.colors.purpleForegroundColor = WKTheme.light.editorPurple
-        self.colors.greenForegroundColor = WKTheme.light.editorGreen
-        self.colors.blueForegroundColor = WKTheme.light.editorBlue
-        self.colors.grayForegroundColor = WKTheme.light.editorGray
-        self.colors.matchForegroundColor = WKTheme.light.editorMatchForeground
-        self.colors.matchBackgroundColor = WKTheme.light.editorMatchBackground
-        self.colors.selectedMatchBackgroundColor = WKTheme.light.editorSelectedMatchBackground
-        self.colors.replacedMatchBackgroundColor = WKTheme.light.editorReplacedMatchBackground
+        self.colors = WMFSourceEditorColors()
+        self.colors.baseForegroundColor = WMFTheme.light.text
+        self.colors.orangeForegroundColor = WMFTheme.light.editorOrange
+        self.colors.purpleForegroundColor = WMFTheme.light.editorPurple
+        self.colors.greenForegroundColor = WMFTheme.light.editorGreen
+        self.colors.blueForegroundColor = WMFTheme.light.editorBlue
+        self.colors.grayForegroundColor = WMFTheme.light.editorGray
+        self.colors.matchForegroundColor = WMFTheme.light.editorMatchForeground
+        self.colors.matchBackgroundColor = WMFTheme.light.editorMatchBackground
+        self.colors.selectedMatchBackgroundColor = WMFTheme.light.editorSelectedMatchBackground
+        self.colors.replacedMatchBackgroundColor = WMFTheme.light.editorReplacedMatchBackground
 
-        self.fonts = WKSourceEditorFonts()
-        self.fonts.baseFont = WKFont.for(.callout, compatibleWith: traitCollection)
-        self.fonts.boldFont = WKFont.for(.boldCallout, compatibleWith: traitCollection)
-        self.fonts.italicsFont = WKFont.for(.italicCallout, compatibleWith: traitCollection)
-        self.fonts.boldItalicsFont = WKFont.for(.boldItalicCallout, compatibleWith: traitCollection)
-        self.fonts.headingFont = WKFont.for(.editorHeading, compatibleWith: traitCollection)
-        self.fonts.subheading1Font = WKFont.for(.editorSubheading1, compatibleWith: traitCollection)
-        self.fonts.subheading2Font = WKFont.for(.editorSubheading2, compatibleWith: traitCollection)
-        self.fonts.subheading3Font = WKFont.for(.editorSubheading3, compatibleWith: traitCollection)
-        self.fonts.subheading4Font = WKFont.for(.editorSubheading4, compatibleWith: traitCollection)
+        self.fonts = WMFSourceEditorFonts()
+        self.fonts.baseFont = WMFFont.for(.callout, compatibleWith: traitCollection)
+        self.fonts.boldFont = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
+        self.fonts.italicsFont = WMFFont.for(.italicCallout, compatibleWith: traitCollection)
+        self.fonts.boldItalicsFont = WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection)
+        self.fonts.headingFont = WMFFont.for(.editorHeading, compatibleWith: traitCollection)
+        self.fonts.subheading1Font = WMFFont.for(.editorSubheading1, compatibleWith: traitCollection)
+        self.fonts.subheading2Font = WMFFont.for(.editorSubheading2, compatibleWith: traitCollection)
+        self.fonts.subheading3Font = WMFFont.for(.editorSubheading3, compatibleWith: traitCollection)
+        self.fonts.subheading4Font = WMFFont.for(.editorSubheading4, compatibleWith: traitCollection)
 
-        self.baseFormatter = WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
-        self.boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
-        self.templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
-        self.referenceFormatter = WKSourceEditorFormatterReference(colors: colors, fonts: fonts)
-        self.listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
-        self.headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
-        self.strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
-        self.subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
-        self.superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
-        self.underlineFormatter = WKSourceEditorFormatterUnderline(colors: colors, fonts: fonts)
-        self.linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
-        self.commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
-        self.findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
+        self.baseFormatter = WMFSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
+        self.boldItalicsFormatter = WMFSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
+        self.templateFormatter = WMFSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        self.referenceFormatter = WMFSourceEditorFormatterReference(colors: colors, fonts: fonts)
+        self.listFormatter = WMFSourceEditorFormatterList(colors: colors, fonts: fonts)
+        self.headingFormatter = WMFSourceEditorFormatterHeading(colors: colors, fonts: fonts)
+        self.strikethroughFormatter = WMFSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
+        self.subscriptFormatter = WMFSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
+        self.superscriptFormatter = WMFSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
+        self.underlineFormatter = WMFSourceEditorFormatterUnderline(colors: colors, fonts: fonts)
+        self.linkFormatter = WMFSourceEditorFormatterLink(colors: colors, fonts: fonts)
+        self.commentFormatter = WMFSourceEditorFormatterComment(colors: colors, fonts: fonts)
+        self.findAndReplaceFormatter = WMFSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
     }
 
     override func tearDownWithError() throws {

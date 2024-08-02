@@ -4,7 +4,7 @@ public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
     func didTapNext(altText: String)
 }
 
-final public class WMFAltTextExperimentModalSheetViewController: WKCanvasViewController {
+final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewController {
 
     weak var viewModel: WMFAltTextExperimentModalSheetViewModel?
     weak var delegate: WMFAltTextExperimentModalSheetDelegate?

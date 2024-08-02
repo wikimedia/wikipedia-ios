@@ -1,8 +1,8 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterStrikethrough {
-    func toggleStrikethroughFormatting(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterStrikethrough {
+    func toggleStrikethroughFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleFormatting(startingFormattingString: "<s>", endingFormattingString: "</s>", action: action, in: textView)
     }
 }

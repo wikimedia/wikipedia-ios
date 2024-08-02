@@ -203,7 +203,7 @@ extension WMFAppViewController {
 
 // MARK: - Watchlist
 
-extension WMFAppViewController: WKWatchlistDelegate {
+extension WMFAppViewController: WMFWatchlistDelegate {
 
     public func emptyViewDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
@@ -230,7 +230,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         navigate(to: diffURL, userInfo: userInfo)
     }
 
-    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
+    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction) {
         let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
@@ -281,7 +281,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WMFWatchlistFilterViewModel) {
         let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
         languagesController.title = CommonStrings.wikipediaLanguages
         languagesController.apply(theme)
@@ -452,7 +452,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WMFWatchlistUserButtonAction) {
         
         let wikimediaProject = WikimediaProject(wmfProject: project)
 
@@ -540,18 +540,18 @@ extension WMFAppViewController: CreateReadingListDelegate {
     }
     
     @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme: WKTheme
+        let wkTheme: WMFTheme
         switch theme.name {
         case "light":
-            wkTheme = WKTheme.light
+            wkTheme = WMFTheme.light
         case "sepia":
-            wkTheme = WKTheme.sepia
+            wkTheme = WMFTheme.sepia
         case "dark":
-            wkTheme = WKTheme.dark
+            wkTheme = WMFTheme.dark
         case "black":
-            wkTheme = WKTheme.black
+            wkTheme = WMFTheme.black
         default:
-            wkTheme = WKTheme.light
+            wkTheme = WMFTheme.light
         }
         WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }

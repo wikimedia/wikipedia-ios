@@ -10,7 +10,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
         return label
@@ -20,7 +20,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 4
-        label.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
         return label
@@ -30,7 +30,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
-        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -117,7 +117,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
-        label.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.isAccessibilityElement = false
         return label
@@ -145,7 +145,7 @@ final class TalkPageHeaderView: SetupView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -154,7 +154,7 @@ final class TalkPageHeaderView: SetupView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .trailing
-        button.titleLabel?.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
@@ -338,9 +338,9 @@ final class TalkPageHeaderView: SetupView {
     }
 
     func updateLabelFonts() {
-        typeLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        titleLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
-        projectLanguageLabel.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        typeLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
+        projectLanguageLabel.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
 
         updateCoffeeRollText()
     }
@@ -354,7 +354,7 @@ final class TalkPageHeaderView: SetupView {
         
         let theme = viewModel.theme
 
-        let styles = HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 1)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 1)
 
         let coffeeRollAttributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(coffeeRollText, styles: styles)
 

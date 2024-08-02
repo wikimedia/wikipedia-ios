@@ -23,7 +23,7 @@ struct NotificationsCenterFilterItemView: View {
                         Spacer()
                         if itemViewModel.isSelected {
                             Image(systemName: "checkmark")
-                                .font(Font(WKFont.for(.boldCallout)))
+                                .font(Font(WMFFont.for(.boldCallout)))
                                 .foregroundColor(Color(theme.colors.link))
                         }
                     }
@@ -55,7 +55,7 @@ struct NotificationsCenterFilterItemView: View {
                 .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
             }
         }
-        .padding(.horizontal, horizontalSizeClass == .regular ? WKFont.for(.callout).pointSize : 0)
+        .padding(.horizontal, horizontalSizeClass == .regular ? WMFFont.for(.callout).pointSize : 0)
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
     
@@ -71,14 +71,14 @@ struct NotificationsCenterFilterItemView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(itemViewModel.title)
                         .foregroundColor(Color(theme.colors.primaryText))
-                        .font(Font(WKFont.for(.callout)))
+                        .font(Font(WMFFont.for(.callout)))
                     Text(subtitle)
                         .foregroundColor(Color(theme.colors.secondaryText))
-                        .font(Font(WKFont.for(.footnote)))
+                        .font(Font(WMFFont.for(.footnote)))
                 }
             default:
                 Text(itemViewModel.title)
-                    .font(Font(WKFont.for(.callout)))
+                    .font(Font(WMFFont.for(.callout)))
                     .foregroundColor(Color(theme.colors.primaryText))
             }
         }

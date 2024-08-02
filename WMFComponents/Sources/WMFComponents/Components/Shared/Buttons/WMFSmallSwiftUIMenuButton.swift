@@ -1,13 +1,13 @@
 import SwiftUI
 
-public struct WKSmallSwiftUIMenuButton: View {
+public struct WMFSmallSwiftUIMenuButton: View {
 
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
+	@ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-	public let configuration: WKSmallMenuButton.Configuration
-	public weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
+	public let configuration: WMFSmallMenuButton.Configuration
+	public weak var menuButtonDelegate: WMFSmallMenuButtonDelegate?
 
-	public init(configuration: WKSmallMenuButton.Configuration, menuButtonDelegate: WKSmallMenuButtonDelegate?) {
+	public init(configuration: WMFSmallMenuButton.Configuration, menuButtonDelegate: WMFSmallMenuButtonDelegate?) {
 		self.configuration = configuration
 		self.menuButtonDelegate = menuButtonDelegate
 	}
@@ -17,9 +17,9 @@ public struct WKSmallSwiftUIMenuButton: View {
 				ForEach(configuration.menuItems) { menuItem in
 					Button(action: {
                         if UIAccessibility.isVoiceOverRunning {
-                            menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: configuration, item: menuItem)
+                            menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTapAccessibility(configuration: configuration, item: menuItem)
                         } else {
-                            menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
+                            menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
                         }
 					}) {
 						HStack {
@@ -39,14 +39,14 @@ public struct WKSmallSwiftUIMenuButton: View {
 					Text(configuration.title ?? "")
 						.lineLimit(1)
 						.foregroundColor(Color(appEnvironment.theme[keyPath: configuration.primaryColor]))
-						.font(Font(WKFont.for(.boldFootnote)))
+						.font(Font(WMFFont.for(.boldFootnote)))
 				}
 				.padding([.leading, .trailing], 8)
 				.padding([.top, .bottom], 8)
 				.background(Color(appEnvironment.theme[keyPath: configuration.primaryColor].withAlphaComponent(0.15)))
 			})
 			.highPriorityGesture(TapGesture().onEnded {
-				menuButtonDelegate?.wkSwiftUIMenuButtonUserDidTap(configuration: configuration, item: nil)
+				menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTap(configuration: configuration, item: nil)
 			})
 			.cornerRadius(8)
 	}

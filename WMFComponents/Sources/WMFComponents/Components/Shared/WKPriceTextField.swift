@@ -12,7 +12,7 @@ struct WKPriceTextField: View {
     
     let configuration: Configuration
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Binding var amount: Decimal
     @Binding var hasFocus: Bool // Set to programmatically change focus outside of view
     
@@ -22,7 +22,7 @@ struct WKPriceTextField: View {
     var body: some View {
         TextField("", value: $amount, format: .currency(code: configuration.currencyCode))
             .keyboardType(.decimalPad)
-            .font(Font(WKFont.for(.boldTitle1)))
+            .font(Font(WMFFont.for(.boldTitle1)))
             .foregroundColor(Color(appEnvironment.theme.text))
             .padding(5)
             .background(
@@ -52,7 +52,7 @@ struct WKPriceTextField: View {
                         accessibilityFocus = true
                     }
                     .foregroundColor(Color(appEnvironment.theme.link))
-                    .font(Font(WKFont.for(.headline)))
+                    .font(Font(WMFFont.for(.headline)))
                     .accessibilityHint(configuration.doneAccessibilityHint)
                 }
             }

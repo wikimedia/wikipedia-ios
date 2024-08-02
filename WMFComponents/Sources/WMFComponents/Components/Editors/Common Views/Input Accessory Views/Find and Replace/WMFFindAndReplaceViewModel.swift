@@ -1,6 +1,6 @@
 import Foundation
 
-struct WKFindAndReplaceViewModel {
+struct WMFFindAndReplaceViewModel {
 
     enum Configuration {
         case findOnly

@@ -1,17 +1,17 @@
 import Foundation
 import WMFComponentsObjC
 
-extension WKSourceEditorFormatterList {
-    func toggleListBullet(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+extension WMFSourceEditorFormatterList {
+    func toggleListBullet(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleListItem(action: action, formattingCharacter: "*", in: textView)
     }
     
-    func toggleListNumber(action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+    func toggleListNumber(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleListItem(action: action, formattingCharacter: "#", in: textView)
     }
     
-    func tappedIncreaseIndent(currentSelectionState: WKSourceEditorSelectionState, textView: UITextView) {
-    
+    func tappedIncreaseIndent(currentSelectionState: WMFSourceEditorSelectionState, textView: UITextView) {
+
         guard currentSelectionState.isBulletSingleList ||
                 currentSelectionState.isBulletMultipleList ||
                 currentSelectionState.isNumberSingleList ||
@@ -37,7 +37,7 @@ extension WKSourceEditorFormatterList {
         }
     }
     
-    func tappedDecreaseIndent(currentSelectionState: WKSourceEditorSelectionState, textView: UITextView) {
+    func tappedDecreaseIndent(currentSelectionState: WMFSourceEditorSelectionState, textView: UITextView) {
         
         guard currentSelectionState.isBulletSingleList ||
                 currentSelectionState.isBulletMultipleList ||
@@ -65,7 +65,7 @@ extension WKSourceEditorFormatterList {
         }
     }
     
-    private func toggleListItem(action: WKSourceEditorFormatterButtonAction, formattingCharacter: Character, in textView: UITextView) {
+    private func toggleListItem(action: WMFSourceEditorFormatterButtonAction, formattingCharacter: Character, in textView: UITextView) {
         let nsString = textView.attributedText.string as NSString
         let lineRange = nsString.lineRange(for: textView.selectedRange)
         switch action {

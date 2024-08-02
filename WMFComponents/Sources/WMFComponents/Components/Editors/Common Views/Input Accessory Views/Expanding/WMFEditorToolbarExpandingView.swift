@@ -1,23 +1,23 @@
 import UIKit
 
-protocol WKEditorToolbarExpandingViewDelegate: AnyObject {
-    func toolbarExpandingViewDidTapFind(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapFormatText(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapTemplate(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapReference(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapLink(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapImage(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapOrderedList(toolbarView: WKEditorToolbarExpandingView, isSelected: Bool)
-    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapCursorUp(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapCursorDown(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WKEditorToolbarExpandingView)
-    func toolbarExpandingViewDidTapCursorRight(toolbarView: WKEditorToolbarExpandingView)
+protocol WMFEditorToolbarExpandingViewDelegate: AnyObject {
+    func toolbarExpandingViewDidTapFind(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapFormatText(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapTemplate(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapReference(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapLink(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapImage(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapUnorderedList(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapOrderedList(toolbarView: WMFEditorToolbarExpandingView, isSelected: Bool)
+    func toolbarExpandingViewDidTapIncreaseIndent(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapDecreaseIndent(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorUp(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorDown(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorLeft(toolbarView: WMFEditorToolbarExpandingView)
+    func toolbarExpandingViewDidTapCursorRight(toolbarView: WMFEditorToolbarExpandingView)
 }
 
-class WKEditorToolbarExpandingView: WKEditorToolbarView {
+class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
     
     // MARK: - Nested Types
     
@@ -49,25 +49,25 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     @IBOutlet weak var primaryContainerView: UIView!
     @IBOutlet weak var secondaryContainerView: UIView!
 
-    @IBOutlet private weak var formatTextButton: WKEditorToolbarButton!
-    @IBOutlet private weak var referenceButton: WKEditorToolbarButton!
-    @IBOutlet private weak var linkButton: WKEditorToolbarButton!
-    @IBOutlet private weak var templateButton: WKEditorToolbarButton!
-    @IBOutlet private weak var imageButton: WKEditorToolbarButton!
-    @IBOutlet private weak var findInPageButton: WKEditorToolbarButton!
+    @IBOutlet private weak var formatTextButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var referenceButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var linkButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var templateButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var imageButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var findInPageButton: WMFEditorToolbarButton!
     
-    @IBOutlet private weak var unorderedListButton: WKEditorToolbarButton!
-    @IBOutlet private weak var orderedListButton: WKEditorToolbarButton!
-    @IBOutlet private weak var decreaseIndentionButton: WKEditorToolbarButton!
-    @IBOutlet private weak var increaseIndentionButton: WKEditorToolbarButton!
-    @IBOutlet private weak var cursorUpButton: WKEditorToolbarButton!
-    @IBOutlet private weak var cursorDownButton: WKEditorToolbarButton!
-    @IBOutlet private weak var cursorLeftButton: WKEditorToolbarButton!
-    @IBOutlet private weak var cursorRightButton: WKEditorToolbarButton!
+    @IBOutlet private weak var unorderedListButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var orderedListButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var decreaseIndentionButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var increaseIndentionButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var cursorUpButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var cursorDownButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var cursorLeftButton: WMFEditorToolbarButton!
+    @IBOutlet private weak var cursorRightButton: WMFEditorToolbarButton!
     
-    @IBOutlet private weak var expandButton: WKEditorToolbarNavigatorButton!
+    @IBOutlet private weak var expandButton: WMFEditorToolbarNavigatorButton!
     
-    weak var delegate: WKEditorToolbarExpandingViewDelegate?
+    weak var delegate: WMFEditorToolbarExpandingViewDelegate?
     
     // MARK: - Lifecycle
     
@@ -82,72 +82,72 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
             stackView.addArrangedSubview(primaryContainerView)
         }
 
-        expandButton.setImage(WKSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
+        expandButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronRightCircle), for: .normal)
         expandButton.addTarget(self, action: #selector(tappedExpand), for: .touchUpInside)
-        expandButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarExpandButtonAccessibility
+        expandButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarExpandButtonAccessibility
         updateExpandButtonVisibility()
 
-        formatTextButton.setImage(WKSFSymbolIcon.for(symbol: .textFormat))
+        formatTextButton.setImage(WMFSFSymbolIcon.for(symbol: .textFormat))
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
-        formatTextButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.formatTextButton
-        formatTextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarOpenTextFormatMenuButtonAccessibility
+        formatTextButton.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.formatTextButton
+        formatTextButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarOpenTextFormatMenuButtonAccessibility
 
-        referenceButton.setImage(WKSFSymbolIcon.for(symbol: .quoteOpening))
+        referenceButton.setImage(WMFSFSymbolIcon.for(symbol: .quoteOpening))
         referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
-        referenceButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarReferenceButtonAccessibility
+        referenceButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarReferenceButtonAccessibility
 
-        linkButton.setImage(WKSFSymbolIcon.for(symbol: .link))
+        linkButton.setImage(WMFSFSymbolIcon.for(symbol: .link))
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
-        linkButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarLinkButtonAccessibility
+        linkButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarLinkButtonAccessibility
 
-        templateButton.setImage(WKSFSymbolIcon.for(symbol: .curlybraces))
+        templateButton.setImage(WMFSFSymbolIcon.for(symbol: .curlybraces))
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
-        templateButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarTemplateButtonAccessibility
+        templateButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarTemplateButtonAccessibility
 
-        imageButton.setImage(WKSFSymbolIcon.for(symbol: .photo))
+        imageButton.setImage(WMFSFSymbolIcon.for(symbol: .photo))
         imageButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
-        imageButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarImageButtonAccessibility
+        imageButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarImageButtonAccessibility
 
-        findInPageButton.setImage(WKSFSymbolIcon.for(symbol: .docTextMagnifyingGlass))
+        findInPageButton.setImage(WMFSFSymbolIcon.for(symbol: .docTextMagnifyingGlass))
         findInPageButton.addTarget(self, action: #selector(tappedFindInPage), for: .touchUpInside)
-        findInPageButton.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.findButton
-        findInPageButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarFindButtonAccessibility
+        findInPageButton.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.findButton
+        findInPageButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarFindButtonAccessibility
 
-        unorderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listBullet))
+        unorderedListButton.setImage(WMFSFSymbolIcon.for(symbol: .listBullet))
         unorderedListButton.addTarget(self, action: #selector(tappedUnorderedList), for: .touchUpInside)
-        unorderedListButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarListUnorderedButtonAccessibility
+        unorderedListButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarListUnorderedButtonAccessibility
 
-        orderedListButton.setImage(WKSFSymbolIcon.for(symbol: .listNumber))
+        orderedListButton.setImage(WMFSFSymbolIcon.for(symbol: .listNumber))
         orderedListButton.addTarget(self, action: #selector(tappedOrderedList), for: .touchUpInside)
-        orderedListButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarListOrderedButtonAccessibility
+        orderedListButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarListOrderedButtonAccessibility
 
-        decreaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .decreaseIndent))
+        decreaseIndentionButton.setImage(WMFSFSymbolIcon.for(symbol: .decreaseIndent))
         decreaseIndentionButton.addTarget(self, action: #selector(tappedDecreaseIndentation), for: .touchUpInside)
-        decreaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarIndentDecreaseButtonAccessibility
+        decreaseIndentionButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarIndentDecreaseButtonAccessibility
         decreaseIndentionButton.isEnabled = false
 
-        increaseIndentionButton.setImage(WKSFSymbolIcon.for(symbol: .increaseIndent))
+        increaseIndentionButton.setImage(WMFSFSymbolIcon.for(symbol: .increaseIndent))
         increaseIndentionButton.addTarget(self, action: #selector(tappedIncreaseIndentation), for: .touchUpInside)
-        increaseIndentionButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarIndentIncreaseButtonAccessibility
+        increaseIndentionButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarIndentIncreaseButtonAccessibility
         increaseIndentionButton.isEnabled = false
 
-        cursorUpButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp))
+        cursorUpButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronUp))
         cursorUpButton.addTarget(self, action: #selector(tappedCursorUp), for: .touchUpInside)
-        cursorUpButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarCursorUpButtonAccessibility
+        cursorUpButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarCursorUpButtonAccessibility
 
-        cursorDownButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown))
+        cursorDownButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronDown))
         cursorDownButton.addTarget(self, action: #selector(tappedCursorDown), for: .touchUpInside)
-        cursorDownButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarCursorDownButtonAccessibility
+        cursorDownButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarCursorDownButtonAccessibility
 
-        cursorLeftButton.setImage(WKSFSymbolIcon.for(symbol: .chevronBackward))
+        cursorLeftButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronBackward))
         cursorLeftButton.addTarget(self, action: #selector(tappedCursorLeft), for: .touchUpInside)
-        cursorLeftButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarCursorPreviousButtonAccessibility
+        cursorLeftButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarCursorPreviousButtonAccessibility
 
-        cursorRightButton.setImage(WKSFSymbolIcon.for(symbol: .chevronForward))
+        cursorRightButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronForward))
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
-        cursorRightButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.toolbarCursorNextButtonAccessibility
+        cursorRightButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarCursorNextButtonAccessibility
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WKSourceEditorSelectionState, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WMFSourceEditorSelectionState, object: nil)
     }
     
     // MARK: - Overrides
@@ -159,7 +159,7 @@ class WKEditorToolbarExpandingView: WKEditorToolbarView {
     // MARK: - Notifications
     
     @objc private func updateButtonSelectionState(_ notification: NSNotification) {
-        guard let selectionState = notification.userInfo?[Notification.WKSourceEditorSelectionStateKey] as? WKSourceEditorSelectionState else {
+        guard let selectionState = notification.userInfo?[Notification.WMFSourceEditorSelectionStateKey] as? WMFSourceEditorSelectionState else {
             return
         }
         

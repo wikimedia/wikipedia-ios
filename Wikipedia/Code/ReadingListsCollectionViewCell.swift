@@ -94,13 +94,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override func updateStyles() {
-        styles = HtmlUtils.Styles(font: WKFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        styles = HtmlUtils.Styles(font: WMFFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        articleCountLabel.font = WKFont.for(.caption1, compatibleWith: traitCollection)
-        defaultListTag.font = WKFont.for(.italicCaption1, compatibleWith: traitCollection)
+        articleCountLabel.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
+        defaultListTag.font = WMFFont.for(.italicCaption1, compatibleWith: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {
@@ -238,7 +238,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     override func configureForCompactList(at index: Int) {
         layoutMarginsAdditions.top = 5
         layoutMarginsAdditions.bottom = 5
-        styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
         imageViewDimension = 40

@@ -1,14 +1,14 @@
 import UIKit
 
-protocol WKFindAndReplaceViewDelegate: AnyObject {
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didChangeFindText text: String)
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceSingle replaceText: String)
-    func findAndReplaceView(_ view: WKFindAndReplaceView, didTapReplaceAll replaceText: String)
-    func findAndReplaceViewDidTapNext(_ view: WKFindAndReplaceView)
-    func findAndReplaceViewDidTapPrevious(_ view: WKFindAndReplaceView)
+protocol WMFFindAndReplaceViewDelegate: AnyObject {
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didChangeFindText text: String)
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceSingle replaceText: String)
+    func findAndReplaceView(_ view: WMFFindAndReplaceView, didTapReplaceAll replaceText: String)
+    func findAndReplaceViewDidTapNext(_ view: WMFFindAndReplaceView)
+    func findAndReplaceViewDidTapPrevious(_ view: WMFFindAndReplaceView)
 }
 
-class WKFindAndReplaceView: WKComponentView {
+class WMFFindAndReplaceView: WMFComponentView {
     
     // MARK: - Nested
     
@@ -46,8 +46,8 @@ class WKFindAndReplaceView: WKComponentView {
     @IBOutlet private var pencilImageView: UIImageView!
     @IBOutlet private weak var replaceTextfieldContainer: UIView!
     
-    weak var delegate: WKFindAndReplaceViewDelegate?
-    var viewModel: WKFindAndReplaceViewModel?
+    weak var delegate: WMFFindAndReplaceViewDelegate?
+    var viewModel: WMFFindAndReplaceViewModel?
     private var replaceType: ReplaceType = .single
     
     // MARK: - Lifecycle
@@ -57,63 +57,63 @@ class WKFindAndReplaceView: WKComponentView {
         
         maximumContentSizeCategory = .accessibilityLarge
 
-        closeButton.setImage(WKSFSymbolIcon.for(symbol: .close), for: .normal)
-        closeButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.findCloseButtonAccessibility
-        previousButton.setImage(WKSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
-        previousButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.findPreviousButtonAccessibility
+        closeButton.setImage(WMFSFSymbolIcon.for(symbol: .close), for: .normal)
+        closeButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.findCloseButtonAccessibility
+        previousButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronUp), for: .normal)
+        previousButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.findPreviousButtonAccessibility
         previousButton.imageView?.contentMode = .center
-        nextButton.setImage(WKSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
-        nextButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.findNextButtonAccessibility
+        nextButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronDown), for: .normal)
+        nextButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.findNextButtonAccessibility
         nextButton.imageView?.contentMode = .center
 
-        replaceButton.setImage(WKIcon.replace, for: .normal)
-        replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
+        replaceButton.setImage(WMFIcon.replace, for: .normal)
+        replaceButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
         
         replaceButton.imageView?.contentMode = .center
-        replaceSwitchButton.setImage(WKSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
-        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
+        replaceSwitchButton.setImage(WMFSFSymbolIcon.for(symbol: .ellipsis), for: .normal)
+        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
         replaceSwitchButton.imageView?.contentMode = .center
         
         replaceSwitchButton.showsMenuAsPrimaryAction = true
         replaceSwitchButton.menu = replaceSwitchButtonMenu()
 
-        magnifyImageView.image = WKSFSymbolIcon.for(symbol: .magnifyingGlass)
+        magnifyImageView.image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
         magnifyImageView.contentMode = .center
-        pencilImageView.image = WKIcon.pencil
+        pencilImageView.image = WMFIcon.pencil
         pencilImageView.contentMode = .center
         
-        findClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
-        findClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.findClearButtonAccessibility
+        findClearButton.setImage(WMFSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+        findClearButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.findClearButtonAccessibility
         findClearButton.imageView?.contentMode = .center
-        replaceClearButton.setImage(WKSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
-        replaceClearButton.accessibilityLabel = WKSourceEditorLocalizedStrings.current.replaceClearButtonAccessibility
+        replaceClearButton.setImage(WMFSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+        replaceClearButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.replaceClearButtonAccessibility
         replaceClearButton.imageView?.contentMode = .center
 
         findTextField.adjustsFontForContentSizeCategory = true
-        findTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        findTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.findTextFieldAccessibility
+        findTextField.font = WMFFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        findTextField.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.findTextFieldAccessibility
         findTextField.autocorrectionType = .yes
         findTextField.spellCheckingType = .yes
         findTextField.delegate = self
 
         replaceTextField.adjustsFontForContentSizeCategory = true
-        replaceTextField.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replaceTextField.accessibilityLabel = WKSourceEditorLocalizedStrings.current.replaceTextFieldAccessibility
+        replaceTextField.font = WMFFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        replaceTextField.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.replaceTextFieldAccessibility
         replaceTextField.autocorrectionType = .yes
         replaceTextField.spellCheckingType = .yes
         replaceTextField.delegate = self
 
         currentMatchInfoLabel.adjustsFontForContentSizeCategory = true
-        currentMatchInfoLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        currentMatchInfoLabel.font = WMFFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
 
         replaceTypeLabel.adjustsFontForContentSizeCategory = true
-        replaceTypeLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.replaceTypeSingle
+        replaceTypeLabel.font = WMFFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        replaceTypeLabel.text = WMFSourceEditorLocalizedStrings.current.replaceTypeSingle
         replaceTypeLabel.isAccessibilityElement = false
 
         replacePlaceholderLabel.adjustsFontForContentSizeCategory = true
-        replacePlaceholderLabel.font = WKFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
-        replacePlaceholderLabel.text = WKSourceEditorLocalizedStrings.current.replaceTextfieldPlaceholder
+        replacePlaceholderLabel.font = WMFFont.for(.caption1, compatibleWith: appEnvironment.traitCollection)
+        replacePlaceholderLabel.text = WMFSourceEditorLocalizedStrings.current.replaceTextfieldPlaceholder
         replacePlaceholderLabel.isAccessibilityElement = false
 
         updateColors()
@@ -125,7 +125,7 @@ class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - Internal
     
-    func update(viewModel: WKFindAndReplaceViewModel) {
+    func update(viewModel: WMFFindAndReplaceViewModel) {
         self.viewModel = viewModel
         
         updateConfiguration(configuration: viewModel.configuration)
@@ -237,7 +237,7 @@ class WKFindAndReplaceView: WKComponentView {
     
     // MARK: - Private Helpers
     
-    private func updateConfiguration(configuration: WKFindAndReplaceViewModel.Configuration) {
+    private func updateConfiguration(configuration: WMFFindAndReplaceViewModel.Configuration) {
         switch configuration {
         case .findOnly:
             replaceStackView.isHidden = true
@@ -257,7 +257,7 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     private func updateColors() {
-        let theme = WKAppEnvironment.current.theme
+        let theme = WMFAppEnvironment.current.theme
         
         backgroundColor = UIColor.systemGray4
         
@@ -292,29 +292,29 @@ class WKFindAndReplaceView: WKComponentView {
     }
     
     private func replaceSwitchButtonMenu() -> UIMenu {
-        let replace = UIAction(title: WKSourceEditorLocalizedStrings.current.replaceTypeSingle) { [weak self] _ in
+        let replace = UIAction(title: WMFSourceEditorLocalizedStrings.current.replaceTypeSingle) { [weak self] _ in
             self?.replaceType = .single
-            self?.replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.replaceTypeSingle
+            self?.replaceTypeLabel.text = WMFSourceEditorLocalizedStrings.current.replaceTypeSingle
             
-            self?.replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
+            self?.replaceButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
             
-            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
+            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeSingleAccessibility)
         }
         
-        let replaceAll = UIAction(title: WKSourceEditorLocalizedStrings.current.replaceTypeAll) { [weak self] _ in
+        let replaceAll = UIAction(title: WMFSourceEditorLocalizedStrings.current.replaceTypeAll) { [weak self] _ in
             self?.replaceType = .all
-            self?.replaceTypeLabel.text = WKSourceEditorLocalizedStrings.current.replaceTypeAll
+            self?.replaceTypeLabel.text = WMFSourceEditorLocalizedStrings.current.replaceTypeAll
             
-            self?.replaceButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeAll)
+            self?.replaceButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeAll)
             
-            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WKSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WKSourceEditorLocalizedStrings.current.replaceTypeAllAccessibility)
+            self?.replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(WMFSourceEditorLocalizedStrings.current.replaceTypeButtonAccessibilityFormat, WMFSourceEditorLocalizedStrings.current.replaceTypeAllAccessibility)
         }
        
-        return UIMenu(title: WKSourceEditorLocalizedStrings.current.findAndReplaceTitle, children: [replace, replaceAll])
+        return UIMenu(title: WMFSourceEditorLocalizedStrings.current.findAndReplaceTitle, children: [replace, replaceAll])
     }
 }
 
-extension WKFindAndReplaceView: UITextFieldDelegate {
+extension WMFFindAndReplaceView: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == self.findTextField {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedFindTextfieldDidChange), object: nil)

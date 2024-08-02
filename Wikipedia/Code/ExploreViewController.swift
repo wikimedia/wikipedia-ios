@@ -930,7 +930,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WKIcon.addPhoto, primaryButtonAction: { [weak self] in
+        let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
                   let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
@@ -1309,16 +1309,16 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                 let languageCode = viewModel.project.languageCode
                 let editSummary = WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
                 
-                let localizedStrings = AltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
+                let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
                 
                 let articleTitle = lastRecommendation.imageData.pageTitle
                 
-                let altTextViewModel = AltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
                 
                 let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
-                let sheetLocalizedStrings = AltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
+                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
 
-                let bottomSheetViewModel = AltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+                let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
 
                 if let siteURL = viewModel.project.siteURL,
                    let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
@@ -1706,7 +1706,7 @@ extension ExploreViewController: AltTextDelegate {
         return magicWord.replacingOccurrences(of: "$1", with: "%@")
     }
     
-    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: AltTextExperimentViewModel) {
+    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
         let articleURL = articleViewController.articleURL
         guard let siteURL = articleURL.wmf_site else {
             return

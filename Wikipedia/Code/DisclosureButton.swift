@@ -14,10 +14,10 @@ struct DisclosureButton<Element: CustomStringConvertible>: View {
                 HStack {
                     Text(item.description)
                         .foregroundColor(Color(observableTheme.theme.colors.primaryText))
-                        .font(Font(WKFont.for(.callout)))
+                        .font(Font(WMFFont.for(.callout)))
                         .fontWeight(.semibold)
                     Spacer(minLength: 12)
-                    Image(systemName: "chevron.right").font(Font(WKFont.for(.mediumFootnote)))
+                    Image(systemName: "chevron.right").font(Font(WMFFont.for(.mediumFootnote)))
                         .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
                 }
                 .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))

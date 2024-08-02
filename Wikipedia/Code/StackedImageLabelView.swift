@@ -23,7 +23,7 @@ final class StackedImageLabelView: SetupView {
         label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label

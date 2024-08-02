@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct WKFeatureAnnouncementView: View {
+struct WMFFeatureAnnouncementView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
-    let viewModel: WKFeatureAnnouncementViewModel
+    let viewModel: WMFFeatureAnnouncementViewModel
     
     var imageColor: Color? {
         Color(uiColor: appEnvironment.theme.link)
     }
     
     var closeImage: Image? {
-        if let uiImage = WKSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
+        if let uiImage = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
             return Image(uiImage: uiImage)
         }
         
@@ -40,10 +40,10 @@ struct WKFeatureAnnouncementView: View {
                                 .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
                             }
                             Text(viewModel.title)
-                                .font(Font(WKFont.for(.boldTitle3)))
+                                .font(Font(WMFFont.for(.boldTitle3)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                             Text(viewModel.body)
-                                .font(Font(WKFont.for(.callout)))
+                                .font(Font(WMFFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
                         if let image = viewModel.image {
@@ -53,7 +53,7 @@ struct WKFeatureAnnouncementView: View {
                                 .frame(width: 132, height: 118)
                                 .foregroundColor(imageColor)
                         }
-                        WKLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
+                        WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
                     .padding()
                 }
@@ -63,5 +63,5 @@ struct WKFeatureAnnouncementView: View {
 }
 
 #Preview {
-    WKFeatureAnnouncementView(viewModel: WKFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WKIcon.addPhoto, primaryButtonAction: {}, closeButtonAction: {}))
+    WMFFeatureAnnouncementView(viewModel: WMFFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WMFIcon.addPhoto, primaryButtonAction: {}, closeButtonAction: {}))
 }

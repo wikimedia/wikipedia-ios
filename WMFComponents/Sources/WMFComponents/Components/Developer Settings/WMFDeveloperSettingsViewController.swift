@@ -1,24 +1,24 @@
 import Foundation
 import UIKit
 
-fileprivate final class WKDeveloperSettingsHostingController: WKComponentHostingController<WKDeveloperSettingsView> {
+fileprivate final class WMFDeveloperSettingsHostingController: WMFComponentHostingController<WMFDeveloperSettingsView> {
     
 }
 
-@objc public final class WKDeveloperSettingsViewController: WKCanvasViewController {
+@objc public final class WMFDeveloperSettingsViewController: WMFCanvasViewController {
     
     // MARK: - Properties
 
-    private let hostingViewController: WKDeveloperSettingsHostingController
-    private let viewModel: WKDeveloperSettingsViewModel
+    private let hostingViewController: WMFDeveloperSettingsHostingController
+    private let viewModel: WMFDeveloperSettingsViewModel
     
     // MARK: - Lifecycle
     
-    @objc public init(viewModel: WKDeveloperSettingsViewModel) {
+    @objc public init(viewModel: WMFDeveloperSettingsViewModel) {
         
         self.viewModel = viewModel
-        let view = WKDeveloperSettingsView(viewModel: viewModel)
-        self.hostingViewController = WKDeveloperSettingsHostingController(rootView: view)
+        let view = WMFDeveloperSettingsView(viewModel: viewModel)
+        self.hostingViewController = WMFDeveloperSettingsHostingController(rootView: view)
         super.init()
     }
     

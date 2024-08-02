@@ -27,7 +27,7 @@ class EditPreviewInternalLinkViewController: UIViewController {
     }
 
     private func updateFonts() {
-        button.titleLabel?.font = WKFont.for(.title3, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.title3, compatibleWith: traitCollection)
     }
 
     override func viewDidLoad() {

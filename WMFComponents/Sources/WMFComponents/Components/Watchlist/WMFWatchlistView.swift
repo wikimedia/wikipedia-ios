@@ -1,16 +1,16 @@
 import SwiftUI
 import WMFData
 
-// MARK: - WKWatchlistView
+// MARK: - WMFWatchlistView
 struct WMFWatchlistView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFWatchlistViewModel
-    var emptyViewModel: WKEmptyViewModel
+    var emptyViewModel: WMFEmptyViewModel
     weak var delegate: WMFWatchlistDelegate?
-	weak var loggingDelegate: WKWatchlistLoggingDelegate?
-    weak var emptyViewDelegate: WKEmptyViewDelegate? = nil
-    weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
+	weak var loggingDelegate: WMFWatchlistLoggingDelegate?
+    weak var emptyViewDelegate: WMFEmptyViewDelegate? = nil
+    weak var menuButtonDelegate: WMFSmallMenuButtonDelegate?
     
     // MARK: - Lifecycle
     
@@ -31,11 +31,11 @@ struct WMFWatchlistView: View {
     var contentView: some View {
         if viewModel.hasPerformedInitialFetch {
             if viewModel.sections.count > 0 {
-                WKWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
+                WMFWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
             } else if viewModel.sections.count == 0 && viewModel.activeFilterCount > 0 {
-                WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
+                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
             } else {
-                WKEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
+                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
             }
         } else {
             ProgressView()
@@ -45,15 +45,15 @@ struct WMFWatchlistView: View {
     
 }
 
-// MARK: - Private: WKWatchlistContentView
+// MARK: - Private: WMFWatchlistContentView
 
-private struct WKWatchlistContentView: View {
+private struct WMFWatchlistContentView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFWatchlistViewModel
     
     weak var delegate: WMFWatchlistDelegate?
-    weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
+    weak var menuButtonDelegate: WMFSmallMenuButtonDelegate?
     
     var body: some View {
         ScrollView {
@@ -61,12 +61,12 @@ private struct WKWatchlistContentView: View {
                 ForEach(viewModel.sections) { section in
                     Group {
                         Text(section.title.localizedUppercase)
-                            .font(Font(WKFont.for(.boldFootnote)))
+                            .font(Font(WMFFont.for(.boldFootnote)))
                             .foregroundColor(Color(appEnvironment.theme.secondaryText))
                             .padding([.top, .bottom], 6)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ForEach(section.items) { item in
-                            WKWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings, menuItemConfiguration: WKWatchlistViewCell.MenuItemConfiguration(userMenuItems: viewModel.menuButtonItems, anonOrBotMenuItems: viewModel.menuButtonItemsWithoutThank), menuButtonDelegate: menuButtonDelegate)
+                            WMFWatchlistViewCell(itemViewModel: item, localizedStrings: viewModel.localizedStrings, menuItemConfiguration: WMFWatchlistViewCell.MenuItemConfiguration(userMenuItems: viewModel.menuButtonItems, anonOrBotMenuItems: viewModel.menuButtonItemsWithoutThank), menuButtonDelegate: menuButtonDelegate)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     delegate?.watchlistUserDidTapDiff(project: item.project, title: item.title, revisionID: item.revisionID, oldRevisionID: item.oldRevisionID)
@@ -95,21 +95,21 @@ private struct WKWatchlistContentView: View {
 
 }
 
-// MARK: - Private: WKWatchlistViewCell
+// MARK: - Private: WMFWatchlistViewCell
 
-fileprivate struct WKWatchlistViewCell: View {
+fileprivate struct WMFWatchlistViewCell: View {
 
 	struct MenuItemConfiguration {
-		let userMenuItems: [WKSmallMenuButton.MenuItem]
-		let anonOrBotMenuItems: [WKSmallMenuButton.MenuItem]
+		let userMenuItems: [WMFSmallMenuButton.MenuItem]
+		let anonOrBotMenuItems: [WMFSmallMenuButton.MenuItem]
 	}
 
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
+	@ObservedObject var appEnvironment = WMFAppEnvironment.current
 	let itemViewModel: WMFWatchlistViewModel.ItemViewModel
 	let localizedStrings: WMFWatchlistViewModel.LocalizedStrings
 	let menuItemConfiguration: MenuItemConfiguration
 
-	var menuItemsForRevisionAuthor: [WKSmallMenuButton.MenuItem] {
+	var menuItemsForRevisionAuthor: [WMFSmallMenuButton.MenuItem] {
 		if itemViewModel.isBot || itemViewModel.isAnonymous {
 			return menuItemConfiguration.anonOrBotMenuItems
 		} else {
@@ -117,7 +117,7 @@ fileprivate struct WKWatchlistViewCell: View {
 		}
 	}
 
-	weak var menuButtonDelegate: WKSmallMenuButtonDelegate?
+	weak var menuButtonDelegate: WMFSmallMenuButtonDelegate?
     
     var editSummaryComment: String {
         return itemViewModel.comment.isEmpty ? localizedStrings.emptyEditSummary : itemViewModel.comment
@@ -135,7 +135,7 @@ fileprivate struct WKWatchlistViewCell: View {
 					HStack(alignment: .wkTextBaselineAlignment) {
 						VStack(alignment: .leading, spacing: 6) {
 							Text(itemViewModel.timestampString)
-								.font(Font(WKFont.for(.subheadline)))
+								.font(Font(WMFFont.for(.subheadline)))
 								.foregroundColor(Color(appEnvironment.theme.secondaryText))
 								.frame(alignment: .topLeading)
 								.alignmentGuide(.wkTextBaselineAlignment) { context in
@@ -144,7 +144,7 @@ fileprivate struct WKWatchlistViewCell: View {
                                 .accessibilityHidden(true)
 
 							Text(itemViewModel.bytesString(localizedStrings: localizedStrings))
-								.font(Font(WKFont.for(.boldFootnote)))
+								.font(Font(WMFFont.for(.boldFootnote)))
 								.foregroundColor(Color(appEnvironment.theme[keyPath: itemViewModel.bytesTextColorKeyPath]))
 								.frame(alignment: .topLeading)
 						}
@@ -154,7 +154,7 @@ fileprivate struct WKWatchlistViewCell: View {
 						VStack(alignment: .leading, spacing: 6) {
 							HStack(alignment: .top) {
 								Text(itemViewModel.title)
-									.font(Font(WKFont.for(.headline)))
+									.font(Font(WMFFont.for(.headline)))
 									.foregroundColor(Color(appEnvironment.theme.text))
 									.frame(maxWidth: .infinity, alignment: .topLeading)
 									.alignmentGuide(.wkTextBaselineAlignment) { context in
@@ -162,7 +162,7 @@ fileprivate struct WKWatchlistViewCell: View {
 									}
                                     .accessibilityHidden(true)
 								Spacer()
-                                WKProjectIconView(project: itemViewModel.project)
+                                WMFProjectIconView(project: itemViewModel.project)
                                     .accessibilityHidden(true)
 							}
 
@@ -173,17 +173,17 @@ fileprivate struct WKWatchlistViewCell: View {
                                 .accessibilityHidden(true)
 
 							HStack {
-								WKSmallSwiftUIMenuButton(configuration: WKSmallMenuButton.Configuration(
+								WMFSmallSwiftUIMenuButton(configuration: WMFSmallMenuButton.Configuration(
 									title: itemViewModel.username,
 									image: WMFSFSymbolIcon.for(symbol: .personFilled),
 									primaryColor: \.link,
 									menuItems: menuItemsForRevisionAuthor,
 									metadata: [
-										WKWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey: itemViewModel.project,
-										WKWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
-                                        WKWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
-                                        WKWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title
-									]
+                                    WMFWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey: itemViewModel.project,
+                                    WMFWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
+                                    WMFWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
+                                    WMFWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title
+                                        ]
                                 ), menuButtonDelegate: menuButtonDelegate)
                                 .accessibilityAddTraits(.isButton)
 								Spacer()

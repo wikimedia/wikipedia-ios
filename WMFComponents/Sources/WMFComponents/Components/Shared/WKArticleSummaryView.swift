@@ -3,21 +3,21 @@ import WMFData
 
 struct WKArticleSummaryView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @EnvironmentObject var tooltipGeometryValues: WKTooltipGeometryValues
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @EnvironmentObject var tooltipGeometryValues: WMFTooltipGeometryValues
     
     let articleSummary: WMFArticleSummary
     
-    private var theme: WKTheme {
+    private var theme: WMFTheme {
         return appEnvironment.theme
     }
     
     private var titleStyles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.georgiaTitle1), boldFont: WKFont.for(.boldGeorgiaTitle1), italicsFont: WKFont.for(.italicGeorgiaTitle1), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle1), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle1), boldFont: WMFFont.for(.boldGeorgiaTitle1), italicsFont: WMFFont.for(.italicGeorgiaTitle1), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle1), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     private var summaryStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WKFont.for(.callout), boldFont: WKFont.for(.boldCallout), italicsFont: WKFont.for(.italicCallout), boldItalicsFont: WKFont.for(.boldItalicCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.callout), boldFont: WMFFont.for(.boldCallout), italicsFont: WMFFont.for(.italicCallout), boldItalicsFont: WMFFont.for(.boldItalicCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
@@ -28,7 +28,7 @@ struct WKArticleSummaryView: View {
             
             if let description = articleSummary.description {
                 Text(description)
-                    .font(Font(WKFont.for(.subheadline)))
+                    .font(Font(WMFFont.for(.subheadline)))
                     .foregroundStyle(Color(theme.secondaryText))
             }
             

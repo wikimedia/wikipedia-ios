@@ -1,28 +1,28 @@
 import SwiftUI
 
-struct WKFormSectionSelectView: View {
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+struct WMFFormSectionSelectView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    let viewModel: WKFormSectionSelectViewModel
+    let viewModel: WMFFormSectionSelectViewModel
 
     var body: some View {
         Section {
             ForEach(viewModel.items) { item in
                 switch viewModel.selectType {
                 case .multi:
-                    WKFormSelectMultiRowView(viewModel: item)
+                    WMFFormSelectMultiRowView(viewModel: item)
                 case .multiWithAccessoryRows:
 					if item.isAccessoryRow {
-						WKFormSelectableAccessoryRowView(viewModel: item)
+						WMFFormSelectableAccessoryRowView(viewModel: item)
 					} else {
-						WKFormSelectMultiRowView(viewModel: item)
+						WMFFormSelectMultiRowView(viewModel: item)
 					}
                 case .single:
-                    WKFormSelectSingleRowView(viewModel: item)
+                    WMFFormSelectSingleRowView(viewModel: item)
                 }
             }
         } header: {

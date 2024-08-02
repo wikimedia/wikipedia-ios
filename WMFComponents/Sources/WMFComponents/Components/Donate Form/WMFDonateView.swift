@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol WKDonateDelegate: AnyObject {
+public protocol WMFDonateDelegate: AnyObject {
     func donateDidTapProblemsDonatingLink()
     func donateDidTapOtherWaysToGive()
     func donateDidTapFrequentlyAskedQuestions()
@@ -8,16 +8,16 @@ public protocol WKDonateDelegate: AnyObject {
     func donateDidSuccessfullySubmitPayment()
 }
 
-struct WKDonateView: View {
+struct WMFDonateView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @ObservedObject var viewModel: WKDonateViewModel
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFDonateViewModel
     
-    weak var delegate: WKDonateDelegate?
+    weak var delegate: WMFDonateDelegate?
     
-    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
+    init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
     }
@@ -26,15 +26,15 @@ struct WKDonateView: View {
         ScrollView {
             VStack(spacing: 0) {
                 Group {
-                    WKDonateAmountButtonGroupView(viewModel: viewModel)
+                    WMFDonateAmountButtonGroupView(viewModel: viewModel)
                     Spacer()
                         .frame(height: 24)
                 }
                 
                 Group {
-                    WKDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
+                    WMFDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
                     if let errorViewModel = viewModel.errorViewModel {
-                        WKDonateErrorView(viewModel: errorViewModel)
+                        WMFDonateErrorView(viewModel: errorViewModel)
                     }
                     Spacer()
                         .frame(height: 24)
@@ -42,10 +42,10 @@ struct WKDonateView: View {
                 
                 Group {
                     VStack(alignment: .leading, spacing: 12) {
-                        WKDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
-                        WKDonateOptInView(viewModel: viewModel.monthlyRecurringViewModel)
+                        WMFDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
+                        WMFDonateOptInView(viewModel: viewModel.monthlyRecurringViewModel)
                         if let emailOptInViewModel = viewModel.emailOptInViewModel {
-                            WKDonateOptInView(viewModel: emailOptInViewModel)
+                            WMFDonateOptInView(viewModel: emailOptInViewModel)
                         }
                     }
                     Spacer()
@@ -53,7 +53,7 @@ struct WKDonateView: View {
                 }
                 
                 Group {
-                    WKApplePayDonateButton(configuration: WKApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
+                    WMFApplePayDonateButton(configuration: WMFApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
                         .onTapGesture {
                             viewModel.textfieldViewModel.hasFocus = false
                             viewModel.logTappedApplePayButton()
@@ -71,13 +71,13 @@ struct WKDonateView: View {
                 
                 Group {
                     VStack(alignment: .leading, spacing: 15) {
-                        WKAppleFinePrint(viewModel: viewModel)
-                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1, isAttributed: true)
-                        WKWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2, isAttributed: false)
+                        WMFAppleFinePrint(viewModel: viewModel)
+                        WMFWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint1, isAttributed: true)
+                        WMFWikimediaFinePrint(text: viewModel.localizedStrings.wikimediaFinePrint2, isAttributed: false)
                     }
                     Spacer()
                         .frame(height: 40)
-                    WKDonateHelpLinks(viewModel: viewModel, delegate: delegate)
+                    WMFDonateHelpLinks(viewModel: viewModel, delegate: delegate)
                     Spacer()
                 }
             }
@@ -95,9 +95,9 @@ struct WKDonateView: View {
     }
 }
 
-private struct WKDonateAmountButtonGroupView: View {
+private struct WMFDonateAmountButtonGroupView: View {
     
-    @ObservedObject var viewModel: WKDonateViewModel
+    @ObservedObject var viewModel: WMFDonateViewModel
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.sizeCategory) var contentSizeCategory
@@ -108,19 +108,19 @@ private struct WKDonateAmountButtonGroupView: View {
             
             if shouldDisplayVertically {
                 ForEach(viewModel.buttonViewModels) { buttonViewModel in
-                    WKDonateAmountButtonView(viewModel: buttonViewModel)
+                    WMFDonateAmountButtonView(viewModel: buttonViewModel)
                 }
             } else {
                 HStack(spacing: 12) {
                     let firstThree = viewModel.buttonViewModels.prefix(3)
                     ForEach(firstThree) { buttonViewModel in
-                        WKDonateAmountButtonView(viewModel: buttonViewModel)
+                        WMFDonateAmountButtonView(viewModel: buttonViewModel)
                     }
                 }
                 HStack(spacing: 12) {
                     let lastFour = viewModel.buttonViewModels.suffix(4)
                     ForEach(lastFour) { buttonViewModel in
-                        WKDonateAmountButtonView(viewModel: buttonViewModel)
+                        WMFDonateAmountButtonView(viewModel: buttonViewModel)
                     }
                 }
             }
@@ -135,19 +135,19 @@ private struct WKDonateAmountButtonGroupView: View {
     }
 }
 
-private struct WKDonateAmountButtonView: View {
-    @ObservedObject var viewModel: WKDonateViewModel.AmountButtonViewModel
+private struct WMFDonateAmountButtonView: View {
+    @ObservedObject var viewModel: WMFDonateViewModel.AmountButtonViewModel
     
     var body: some View {
-        let configuration = WKPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
-        WKPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
+        let configuration = WMFPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
+        WMFPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
             viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
         })
     }
 }
 
-private struct WKDonateAmountTextfield: View {
-    @ObservedObject var viewModel: WKDonateViewModel.AmountTextFieldViewModel
+private struct WMFDonateAmountTextfield: View {
+    @ObservedObject var viewModel: WMFDonateViewModel.AmountTextFieldViewModel
     
     var body: some View {
         let configuration = WKPriceTextField.Configuration(currencyCode: viewModel.currencyCode, focusOnAppearance: true, doneTitle: viewModel.localizedStrings.doneTitle, textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint, doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint)
@@ -155,10 +155,10 @@ private struct WKDonateAmountTextfield: View {
     }
 }
 
-private struct WKDonateErrorView: View {
+private struct WMFDonateErrorView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @ObservedObject var viewModel: WKDonateViewModel.ErrorViewModel
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFDonateViewModel.ErrorViewModel
     
     @AccessibilityFocusState var accessibilityFocus: Bool
     
@@ -167,7 +167,7 @@ private struct WKDonateErrorView: View {
             .frame(height: 12)
         HStack {
             Text(viewModel.displayText)
-                .font(Font(WKFont.for(.mediumSubheadline)))
+                .font(Font(WMFFont.for(.mediumSubheadline)))
                 .foregroundColor(Color(appEnvironment.theme.destructive))
                 .accessibilityFocused($accessibilityFocus)
                 .onChange(of: viewModel.hasAccessibilityFocus) {
@@ -181,9 +181,9 @@ private struct WKDonateErrorView: View {
     }
 }
 
-private struct WKDonateOptInView: View {
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @ObservedObject var viewModel: WKDonateViewModel.OptInViewModel
+private struct WMFDonateOptInView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFDonateViewModel.OptInViewModel
     
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -192,7 +192,7 @@ private struct WKDonateOptInView: View {
                 .accessibilityHidden(true)
             Text(viewModel.localizedStrings.text)
                 .foregroundColor(Color(appEnvironment.theme.text))
-                .font(Font(WKFont.for(.subheadline)))
+                .font(Font(WMFFont.for(.subheadline)))
                 .accessibilityHint(viewModel.localizedStrings.accessibilityHint)
                 .accessibilityAddTraits( viewModel.isSelected ? [.isSelected] : [])
             Spacer()
@@ -203,9 +203,9 @@ private struct WKDonateOptInView: View {
     }
 }
 
-private struct WKDonateHelpLink: View {
+private struct WMFDonateHelpLink: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let text: String
     let action: () -> Void
     
@@ -216,7 +216,7 @@ private struct WKDonateHelpLink: View {
             } label: {
                 Text(text)
                     .foregroundColor(Color(appEnvironment.theme.link))
-                    .font(Font(WKFont.for(.subheadline)))
+                    .font(Font(WMFFont.for(.subheadline)))
                     .multilineTextAlignment(.leading)
             }
             Spacer()
@@ -224,32 +224,32 @@ private struct WKDonateHelpLink: View {
     }
 }
 
-private struct WKDonateHelpLinks: View {
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    let viewModel: WKDonateViewModel
-    weak var delegate: WKDonateDelegate?
-    weak var loggingDelegate: WKDonateLoggingDelegate?
+private struct WMFDonateHelpLinks: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let viewModel: WMFDonateViewModel
+    weak var delegate: WMFDonateDelegate?
+    weak var loggingDelegate: WMFDonateLoggingDelegate?
     
-    init(viewModel: WKDonateViewModel, delegate: WKDonateDelegate?) {
+    init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
+            WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
                 viewModel.loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
                 delegate?.donateDidTapProblemsDonatingLink()
             }
-            WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
+            WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
                 viewModel.loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
                 delegate?.donateDidTapOtherWaysToGive()
             }
-            WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
+            WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
                 viewModel.loggingDelegate?.logDonateFormUserDidTapFAQLink()
                 delegate?.donateDidTapFrequentlyAskedQuestions()
             }
-            WKDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
+            WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
                 viewModel.loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
                 delegate?.donateDidTapTaxDeductibilityInformation()
             }
@@ -257,22 +257,22 @@ private struct WKDonateHelpLinks: View {
     }
 }
 
-private struct WKAppleFinePrint: View {
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    let viewModel: WKDonateViewModel
+private struct WMFAppleFinePrint: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let viewModel: WMFDonateViewModel
     
     var body: some View {
         HStack {
             Text(viewModel.localizedStrings.appleFinePrint)
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
-                .font(Font(WKFont.for(.caption1)))
+                .font(Font(WMFFont.for(.caption1)))
             Spacer()
         }
     }
 }
 
-private struct WKWikimediaFinePrint: View {
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+private struct WMFWikimediaFinePrint: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let text: String
     let isAttributed: Bool
     
@@ -299,7 +299,7 @@ private struct WKWikimediaFinePrint: View {
             
             contentView
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
-                .font(Font(WKFont.for(.caption1)))
+                .font(Font(WMFFont.for(.caption1)))
             
             Spacer()
         }

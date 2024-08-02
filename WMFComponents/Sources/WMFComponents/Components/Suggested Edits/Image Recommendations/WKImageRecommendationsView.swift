@@ -4,9 +4,9 @@ import WMFData
 
 struct WKImageRecommendationsView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @ObservedObject var viewModel: WKImageRecommendationsViewModel
-    @ObservedObject var tooltipGeometryValues: WKTooltipGeometryValues
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFImageRecommendationsViewModel
+    @ObservedObject var tooltipGeometryValues: WMFTooltipGeometryValues
     
     let errorTryAgainAction: () -> Void
     let viewArticleAction: (String) -> Void
@@ -24,9 +24,9 @@ struct WKImageRecommendationsView: View {
                 } else {
                     if !viewModel.debouncedLoading {
                         if viewModel.loadingError != nil {
-                            WKErrorView(viewModel: WKErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WKIcon.error), tryAgainAction: errorTryAgainAction)
+                            WMFErrorView(viewModel: WMFErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WMFIcon.error), tryAgainAction: errorTryAgainAction)
                         } else {
-                            WKEmptyView(viewModel: WKEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WKIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                            WMFEmptyView(viewModel: WMFEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WMFIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
                                 .onAppear {
                                     emptyViewAppearanceAction()
                                 }
@@ -45,7 +45,7 @@ struct WKImageRecommendationsView: View {
 fileprivate struct WKImageRecommendationsArticleSummaryView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @ObservedObject var viewModel: WKImageRecommendationsViewModel
+    @ObservedObject var viewModel: WMFImageRecommendationsViewModel
     
     let articleSummary: WMFArticleSummary
     let viewArticleAction: (String) -> Void
@@ -70,8 +70,8 @@ fileprivate struct WKImageRecommendationsArticleSummaryView: View {
                         .frame(height: 19)
                     HStack {
                         Spacer()
-                        let configuration = WKSmallButton.Configuration(style: .quiet, needsDisclosure: true)
-                        WKSmallButton(configuration: configuration, title: viewModel.localizedStrings.viewArticle) {
+                        let configuration = WMFSmallButton.Configuration(style: .quiet, needsDisclosure: true)
+                        WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.viewArticle) {
                             if let articleTitle = viewModel.currentRecommendation?.title {
                                 viewArticleAction(articleTitle)
                             }

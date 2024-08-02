@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WKSmallButton: View {
+public struct WMFSmallButton: View {
     
     public struct Configuration {
         public enum Style {
@@ -11,13 +11,13 @@ public struct WKSmallButton: View {
         public let style: Style
         public let needsDisclosure: Bool
         
-        public init(style: WKSmallButton.Configuration.Style, needsDisclosure: Bool = false) {
+        public init(style: WMFSmallButton.Configuration.Style, needsDisclosure: Bool = false) {
             self.style = style
             self.needsDisclosure = needsDisclosure
         }
     }
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     let configuration: Configuration
     let title: String
@@ -35,11 +35,11 @@ public struct WKSmallButton: View {
         }, label: {
             HStack(spacing: 4) {
                 Text(title)
-                    .font(Font(WKFont.for(.mediumSubheadline)))
+                    .font(Font(WMFFont.for(.mediumSubheadline)))
                     .foregroundColor(Color(appEnvironment.theme.link))
                 
                 if configuration.needsDisclosure,
-                let uiImage = WKSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
+                let uiImage = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
                     Image(uiImage: uiImage)
                         .foregroundColor(Color(appEnvironment.theme.link))
                 }
@@ -55,7 +55,7 @@ public struct WKSmallButton: View {
 
 private extension View {
     @ViewBuilder
-    func backgroundAndRadius(configuration: WKSmallButton.Configuration, theme: WKTheme) -> some View {
+    func backgroundAndRadius(configuration: WMFSmallButton.Configuration, theme: WMFTheme) -> some View {
         switch configuration.style {
         case .neutral:
             self

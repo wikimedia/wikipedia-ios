@@ -1,15 +1,15 @@
 import SwiftUI
 
 
-public protocol WKOnboardingViewDelegate: AnyObject {
+public protocol WMFOnboardingViewDelegate: AnyObject {
     func onboardingViewDidClickPrimaryButton()
     func onboardingViewDidClickSecondaryButton()
     func onboardingViewWillSwipeToDismiss()
 }
 
-public class WMFOnboardingViewController: WKCanvasViewController {
-    
-    public weak var delegate: WKOnboardingViewDelegate? {
+public class WMFOnboardingViewController: WMFCanvasViewController {
+
+    public weak var delegate: WMFOnboardingViewDelegate? {
         didSet {
             hostingController.delegate = delegate
         }
@@ -17,10 +17,10 @@ public class WMFOnboardingViewController: WKCanvasViewController {
     
    // MARK: - Properties
 
-     public var hostingController: WKOnboardingHostingViewController
+     public var hostingController: WMFOnboardingHostingViewController
 
     public init(viewModel: WMFOnboardingViewModel) {
-        self.hostingController = WKOnboardingHostingViewController(viewModel: viewModel)
+        self.hostingController = WMFOnboardingHostingViewController(viewModel: viewModel)
         super.init()
     }
 
@@ -42,15 +42,15 @@ extension WMFOnboardingViewController: UIAdaptivePresentationControllerDelegate 
 }
 
 
-public final class WKOnboardingHostingViewController: WKComponentHostingController<WKOnboardingView> {
+public final class WMFOnboardingHostingViewController: WMFComponentHostingController<WMFOnboardingView> {
 
     // MARK: - Properties
 
-    public weak var delegate: WKOnboardingViewDelegate?
+    public weak var delegate: WMFOnboardingViewDelegate?
 
     // MARK: - Properties
     init(viewModel: WMFOnboardingViewModel) {
-        super.init(rootView: WKOnboardingView(viewModel: viewModel))
+        super.init(rootView: WMFOnboardingView(viewModel: viewModel))
         self.rootView.primaryButtonAction = { [weak self] in
             self?.primaryButtonAction()
         }

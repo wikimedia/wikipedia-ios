@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import WMFComponentsObjC
 
-/// This class facilitates communication between WKSourceEditorViewController and the underlying TextKit (1 and 2) frameworks, so that WKSourceEditorViewController is unaware of which framework is used.
+/// This class facilitates communication between WMFSourceEditorViewController and the underlying TextKit (1 and 2) frameworks, so that WMFSourceEditorViewController is unaware of which framework is used.
 /// When we need to drop TextKit 1, the goal is for all the adjustments to be in this one class
 
 fileprivate var needsTextKit2: Bool {
@@ -13,16 +13,16 @@ fileprivate var needsTextKit2: Bool {
     }
 }
 
-class WKSourceEditorTextView: UITextView {
+class WMFSourceEditorTextView: UITextView {
     override func accessibilityActivate() -> Bool {
 
-        UIAccessibility.post(notification: .announcement, argument: WKSourceEditorLocalizedStrings.current.wikitextEditorLoadingAccessibility)
+        UIAccessibility.post(notification: .announcement, argument: WMFSourceEditorLocalizedStrings.current.wikitextEditorLoadingAccessibility)
         
         return super.accessibilityActivate()
     }
 }
 
-@objc final class WKSourceEditorSelectionState: NSObject {
+@objc final class WMFSourceEditorSelectionState: NSObject {
     let isBold: Bool
     let isItalics: Bool
     let isHorizontalTemplate: Bool
@@ -69,32 +69,32 @@ class WKSourceEditorTextView: UITextView {
 
 }
 
-protocol WKSourceEditorFindAndReplaceScrollDelegate: NSObject {
+protocol WMFSourceEditorFindAndReplaceScrollDelegate: NSObject {
     func scrollToCurrentMatch()
 }
 
-final class WKSourceEditorTextFrameworkMediator: NSObject {
+final class WMFSourceEditorTextFrameworkMediator: NSObject {
     
-    private let viewModel: WKSourceEditorViewModel
-    weak var delegate: WKSourceEditorFindAndReplaceScrollDelegate?
+    private let viewModel: WMFSourceEditorViewModel
+    weak var delegate: WMFSourceEditorFindAndReplaceScrollDelegate?
     
-    private let textKit1Storage: WKSourceEditorTextStorage?
+    private let textKit1Storage: WMFSourceEditorTextStorage?
     private let textKit2Storage: NSTextContentStorage?
     
     let textView: UITextView
-    private(set) var formatters: [WKSourceEditorFormatter] = []
-    private(set) var boldItalicsFormatter: WKSourceEditorFormatterBoldItalics?
-    private(set) var templateFormatter: WKSourceEditorFormatterTemplate?
-    private(set) var referenceFormatter: WKSourceEditorFormatterReference?
-    private(set) var listFormatter: WKSourceEditorFormatterList?
-    private(set) var headingFormatter: WKSourceEditorFormatterHeading?
-    private(set) var strikethroughFormatter: WKSourceEditorFormatterStrikethrough?
-    private(set) var underlineFormatter: WKSourceEditorFormatterUnderline?
-    private(set) var subscriptFormatter: WKSourceEditorFormatterSubscript?
-    private(set) var superscriptFormatter: WKSourceEditorFormatterSuperscript?
-    private(set) var linkFormatter: WKSourceEditorFormatterLink?
-    private(set) var commentFormatter: WKSourceEditorFormatterComment?
-    private(set) var findAndReplaceFormatter: WKSourceEditorFormatterFindAndReplace?
+    private(set) var formatters: [WMFSourceEditorFormatter] = []
+    private(set) var boldItalicsFormatter: WMFSourceEditorFormatterBoldItalics?
+    private(set) var templateFormatter: WMFSourceEditorFormatterTemplate?
+    private(set) var referenceFormatter: WMFSourceEditorFormatterReference?
+    private(set) var listFormatter: WMFSourceEditorFormatterList?
+    private(set) var headingFormatter: WMFSourceEditorFormatterHeading?
+    private(set) var strikethroughFormatter: WMFSourceEditorFormatterStrikethrough?
+    private(set) var underlineFormatter: WMFSourceEditorFormatterUnderline?
+    private(set) var subscriptFormatter: WMFSourceEditorFormatterSubscript?
+    private(set) var superscriptFormatter: WMFSourceEditorFormatterSuperscript?
+    private(set) var linkFormatter: WMFSourceEditorFormatterLink?
+    private(set) var commentFormatter: WMFSourceEditorFormatterComment?
+    private(set) var findAndReplaceFormatter: WMFSourceEditorFormatterFindAndReplace?
 
     var isSyntaxHighlightingEnabled: Bool = true {
         didSet {
@@ -103,22 +103,22 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     }
     
     
-    init(viewModel: WKSourceEditorViewModel) {
+    init(viewModel: WMFSourceEditorViewModel) {
 
         self.viewModel = viewModel
         
         let textView: UITextView
         if needsTextKit2 {
             if #available(iOS 16, *) {
-                textView = WKSourceEditorTextView(usingTextLayoutManager: true)
+                textView = WMFSourceEditorTextView(usingTextLayoutManager: true)
                 textKit2Storage = textView.textLayoutManager?.textContentManager as? NSTextContentStorage
             } else {
                 fatalError("iOS 15 cannot handle TextKit2")
             }
             textKit1Storage = nil
         } else {
-            textKit1Storage = WKSourceEditorTextStorage()
-            
+            textKit1Storage = WMFSourceEditorTextStorage()
+
             let layoutManager = NSLayoutManager()
             let container = NSTextContainer()
 
@@ -127,7 +127,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             layoutManager.addTextContainer(container)
             textKit1Storage?.addLayoutManager(layoutManager)
 
-            textView = WKSourceEditorTextView(frame: .zero, textContainer: container)
+            textView = WMFSourceEditorTextView(frame: .zero, textContainer: container)
             textKit2Storage = nil
         }
         
@@ -138,7 +138,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         textView.smartQuotesType = .no
         textView.smartDashesType = .no
         textView.keyboardDismissMode = .interactive
-        textView.accessibilityIdentifier = WKSourceEditorAccessibilityIdentifiers.current?.textView
+        textView.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.textView
         
         // Note: There is improved selection performance / fixed console constraint errors with these next two lines. Leaving them commented out for now.
         
@@ -161,20 +161,20 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         let colors = self.colors
         let fonts = self.fonts
         
-        let templateFormatter = WKSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
-        let referenceFormatter = WKSourceEditorFormatterReference(colors: colors, fonts: fonts)
-        let boldItalicsFormatter = WKSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
-        let listFormatter = WKSourceEditorFormatterList(colors: colors, fonts: fonts)
-        let headingFormatter = WKSourceEditorFormatterHeading(colors: colors, fonts: fonts)
-        let strikethroughFormatter = WKSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
-        let underlineFormatter = WKSourceEditorFormatterUnderline(colors: colors, fonts: fonts)
-        let subscriptFormatter = WKSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
-        let superscriptFormatter = WKSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
-        let linkFormatter = WKSourceEditorFormatterLink(colors: colors, fonts: fonts)
-        let commentFormatter = WKSourceEditorFormatterComment(colors: colors, fonts: fonts)
-        let findAndReplaceFormatter = WKSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
-        
-        self.formatters = [WKSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
+        let templateFormatter = WMFSourceEditorFormatterTemplate(colors: colors, fonts: fonts)
+        let referenceFormatter = WMFSourceEditorFormatterReference(colors: colors, fonts: fonts)
+        let boldItalicsFormatter = WMFSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
+        let listFormatter = WMFSourceEditorFormatterList(colors: colors, fonts: fonts)
+        let headingFormatter = WMFSourceEditorFormatterHeading(colors: colors, fonts: fonts)
+        let strikethroughFormatter = WMFSourceEditorFormatterStrikethrough(colors: colors, fonts: fonts)
+        let underlineFormatter = WMFSourceEditorFormatterUnderline(colors: colors, fonts: fonts)
+        let subscriptFormatter = WMFSourceEditorFormatterSubscript(colors: colors, fonts: fonts)
+        let superscriptFormatter = WMFSourceEditorFormatterSuperscript(colors: colors, fonts: fonts)
+        let linkFormatter = WMFSourceEditorFormatterLink(colors: colors, fonts: fonts)
+        let commentFormatter = WMFSourceEditorFormatterComment(colors: colors, fonts: fonts)
+        let findAndReplaceFormatter = WMFSourceEditorFormatterFindAndReplace(colors: colors, fonts: fonts)
+
+        self.formatters = [WMFSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: viewModel.textAlignment),
             templateFormatter,
             boldItalicsFormatter,
             referenceFormatter,
@@ -229,12 +229,12 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
         }
     }
     
-    func selectionState(selectedDocumentRange: NSRange) -> WKSourceEditorSelectionState {
+    func selectionState(selectedDocumentRange: NSRange) -> WMFSourceEditorSelectionState {
         
         if needsTextKit2 {
             guard let textKit2Data = textkit2SelectionData(selectedDocumentRange: selectedDocumentRange) else {
 
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isUnderline: false, isSubscript: false, isSuperscript: false, isSimpleLink: false, isLinkWithNestedLink: false, isComment: false)
+                return WMFSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isUnderline: false, isSubscript: false, isSuperscript: false, isSimpleLink: false, isLinkWithNestedLink: false, isComment: false)
 
             }
             
@@ -259,10 +259,10 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isLinkWithNestedLink = linkFormatter?.attributedString(textKit2Data.paragraphAttributedString, isLinkWithNestedLinkIn: textKit2Data.paragraphSelectedRange) ?? false
             let isComment = commentFormatter?.attributedString(textKit2Data.paragraphAttributedString, isCommentIn: textKit2Data.paragraphSelectedRange) ?? false
 
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isUnderline: isUnderline, isSubscript: isSubscript, isSuperscript: isSuperscript, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink, isComment: isComment)
+            return WMFSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList, isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isUnderline: isUnderline, isSubscript: isSubscript, isSuperscript: isSuperscript, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink, isComment: isComment)
         } else {
             guard let textKit1Storage else {
-                return WKSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isUnderline: false, isSubscript: false, isSuperscript: false, isSimpleLink: false, isLinkWithNestedLink: false, isComment: false)
+                return WMFSourceEditorSelectionState(isBold: false, isItalics: false, isHorizontalTemplate: false, isHorizontalReference: false, isBulletSingleList: false, isBulletMultipleList: false, isNumberSingleList: false, isNumberMultipleList: false, isHeading: false, isSubheading1: false, isSubheading2: false, isSubheading3: false, isSubheading4: false, isStrikethrough: false, isUnderline: false, isSubscript: false, isSuperscript: false, isSimpleLink: false, isLinkWithNestedLink: false, isComment: false)
         }
 
             let isBold = boldItalicsFormatter?.attributedString(textKit1Storage, isBoldIn: selectedDocumentRange) ?? false
@@ -286,7 +286,7 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
             let isLinkWithNestedLink = linkFormatter?.attributedString(textKit1Storage, isLinkWithNestedLinkIn: selectedDocumentRange) ?? false
             let isComment = commentFormatter?.attributedString(textKit1Storage, isCommentIn: selectedDocumentRange) ?? false
 
-            return WKSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList,  isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isUnderline: isUnderline, isSubscript: isSubscript, isSuperscript: isSuperscript, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink, isComment: isComment)
+            return WMFSourceEditorSelectionState(isBold: isBold, isItalics: isItalics, isHorizontalTemplate: isHorizontalTemplate, isHorizontalReference: isHorizontalReference, isBulletSingleList: isBulletSingleList, isBulletMultipleList: isBulletMultipleList, isNumberSingleList: isNumberSingleList, isNumberMultipleList: isNumberMultipleList,  isHeading: isHeading, isSubheading1: isSubheading1, isSubheading2: isSubheading2, isSubheading3: isSubheading3, isSubheading4: isSubheading4, isStrikethrough: isStrikethrough, isUnderline: isUnderline, isSubscript: isSubscript, isSuperscript: isSuperscript, isSimpleLink: isSimpleLink, isLinkWithNestedLink: isLinkWithNestedLink, isComment: isComment)
         }
     }
     
@@ -480,46 +480,46 @@ final class WKSourceEditorTextFrameworkMediator: NSObject {
     }
 }
 
-// MARK: WKSourceEditorStorageDelegate
+// MARK: WMFSourceEditorStorageDelegate
 
-extension WKSourceEditorTextFrameworkMediator: WKSourceEditorStorageDelegate {
-    
-    var colors: WKSourceEditorColors {
-        let colors = WKSourceEditorColors()
-        colors.baseForegroundColor = WKAppEnvironment.current.theme.text
-        colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorOrange : WKAppEnvironment.current.theme.text
-        colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorPurple : WKAppEnvironment.current.theme.text
-        colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGreen : WKAppEnvironment.current.theme.text
-        colors.blueForegroundColor = isSyntaxHighlightingEnabled ? WKAppEnvironment.current.theme.editorBlue : WKAppEnvironment.current.theme.text
-        colors.grayForegroundColor = isSyntaxHighlightingEnabled ?  WKAppEnvironment.current.theme.editorGray : WKAppEnvironment.current.theme.text
-        colors.matchForegroundColor = WKAppEnvironment.current.theme.editorMatchForeground
-        colors.matchBackgroundColor = WKAppEnvironment.current.theme.editorMatchBackground
-        colors.selectedMatchBackgroundColor = WKAppEnvironment.current.theme.editorSelectedMatchBackground
-        colors.replacedMatchBackgroundColor = WKAppEnvironment.current.theme.editorReplacedMatchBackground
+extension WMFSourceEditorTextFrameworkMediator: WMFSourceEditorStorageDelegate {
+
+    var colors: WMFSourceEditorColors {
+        let colors = WMFSourceEditorColors()
+        colors.baseForegroundColor = WMFAppEnvironment.current.theme.text
+        colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WMFAppEnvironment.current.theme.editorOrange : WMFAppEnvironment.current.theme.text
+        colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorPurple : WMFAppEnvironment.current.theme.text
+        colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorGreen : WMFAppEnvironment.current.theme.text
+        colors.blueForegroundColor = isSyntaxHighlightingEnabled ? WMFAppEnvironment.current.theme.editorBlue : WMFAppEnvironment.current.theme.text
+        colors.grayForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorGray : WMFAppEnvironment.current.theme.text
+        colors.matchForegroundColor = WMFAppEnvironment.current.theme.editorMatchForeground
+        colors.matchBackgroundColor = WMFAppEnvironment.current.theme.editorMatchBackground
+        colors.selectedMatchBackgroundColor = WMFAppEnvironment.current.theme.editorSelectedMatchBackground
+        colors.replacedMatchBackgroundColor = WMFAppEnvironment.current.theme.editorReplacedMatchBackground
         return colors
     }
     
-    var fonts: WKSourceEditorFonts {
-        let fonts = WKSourceEditorFonts()
-        let traitCollection = UITraitCollection(preferredContentSizeCategory: WKAppEnvironment.current.articleAndEditorTextSize)
-        let baseFont = WKFont.for(.callout, compatibleWith: traitCollection)
+    var fonts: WMFSourceEditorFonts {
+        let fonts = WMFSourceEditorFonts()
+        let traitCollection = UITraitCollection(preferredContentSizeCategory: WMFAppEnvironment.current.articleAndEditorTextSize)
+        let baseFont = WMFFont.for(.callout, compatibleWith: traitCollection)
         fonts.baseFont = baseFont
         
-        fonts.boldFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldCallout, compatibleWith: traitCollection) : baseFont
-        fonts.italicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.italicCallout, compatibleWith: traitCollection) : baseFont
-        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WKFont.for(.boldItalicCallout, compatibleWith: traitCollection) : baseFont
-        fonts.headingFont = isSyntaxHighlightingEnabled ? WKFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont
-        fonts.subheading1Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont
-        fonts.subheading2Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont
-        fonts.subheading3Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading3, compatibleWith: traitCollection) : baseFont
-        fonts.subheading4Font = isSyntaxHighlightingEnabled ? WKFont.for(.editorSubheading4, compatibleWith: traitCollection) : baseFont
+        fonts.boldFont = isSyntaxHighlightingEnabled ? WMFFont.for(.boldCallout, compatibleWith: traitCollection) : baseFont
+        fonts.italicsFont = isSyntaxHighlightingEnabled ? WMFFont.for(.italicCallout, compatibleWith: traitCollection) : baseFont
+        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection) : baseFont
+        fonts.headingFont = isSyntaxHighlightingEnabled ? WMFFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont
+        fonts.subheading1Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont
+        fonts.subheading2Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont
+        fonts.subheading3Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading3, compatibleWith: traitCollection) : baseFont
+        fonts.subheading4Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading4, compatibleWith: traitCollection) : baseFont
         return fonts
     }
 }
 
 // MARK: NSTextContentStorageDelegate
 
- extension WKSourceEditorTextFrameworkMediator: NSTextContentStorageDelegate {
+ extension WMFSourceEditorTextFrameworkMediator: NSTextContentStorageDelegate {
 
     func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
         

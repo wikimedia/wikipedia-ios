@@ -74,9 +74,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        let titleTextStyle: WKFont
-        let subtitleTextStyle: WKFont = .subheadline
-        let buttonTextStyle: WKFont = .subheadline
+        let titleTextStyle: WMFFont
+        let subtitleTextStyle: WMFFont = .subheadline
+        let buttonTextStyle: WMFFont = .subheadline
         switch style {
         case .detail:
             fallthrough
@@ -85,9 +85,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         default:
             titleTextStyle = .semiboldHeadline
         }
-        titleLabel.font = WKFont.for(titleTextStyle, compatibleWith: traitCollection)
-        subtitleLabel.font = WKFont.for(subtitleTextStyle, compatibleWith: traitCollection)
-        button.titleLabel?.font = WKFont.for(buttonTextStyle, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(titleTextStyle, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(subtitleTextStyle, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(buttonTextStyle, compatibleWith: traitCollection)
     }
     
     override func layoutMarginsDidChange() {

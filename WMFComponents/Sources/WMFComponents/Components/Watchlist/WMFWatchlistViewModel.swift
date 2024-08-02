@@ -137,8 +137,8 @@ public final class WMFWatchlistViewModel: ObservableObject {
     @Published public var activeFilterCount: Int = 0
 	@Published var hasPerformedInitialFetch = false
 
-	var menuButtonItems: [WKSmallMenuButton.MenuItem]
-	var menuButtonItemsWithoutThank: [WKSmallMenuButton.MenuItem]
+	var menuButtonItems: [WMFSmallMenuButton.MenuItem]
+	var menuButtonItemsWithoutThank: [WMFSmallMenuButton.MenuItem]
 
 	// MARK: - Lifecycle
 
@@ -151,15 +151,15 @@ public final class WMFWatchlistViewModel: ObservableObject {
 	}
 
     private func setupMenuItems() {
-        var menuItems: [WKSmallMenuButton.MenuItem] = [
-            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WKSFSymbolIcon.for(symbol: .person)),
-            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WKSFSymbolIcon.for(symbol: .conversation)),
-            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WKIcon.userContributions),
-            WKSmallMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WKIcon.thank)
+        var menuItems: [WMFSmallMenuButton.MenuItem] = [
+            WMFSmallMenuButton.MenuItem(title: localizedStrings.userButtonUserPage, image: WMFSFSymbolIcon.for(symbol: .person)),
+            WMFSmallMenuButton.MenuItem(title: localizedStrings.userButtonTalkPage, image: WMFSFSymbolIcon.for(symbol: .conversation)),
+            WMFSmallMenuButton.MenuItem(title: localizedStrings.userButtonContributions, image: WMFIcon.userContributions),
+            WMFSmallMenuButton.MenuItem(title: localizedStrings.userButtonThank, image: WMFIcon.thank)
         ]
 
         if UIAccessibility.isVoiceOverRunning {
-			let diffForAccessibility = WKSmallMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
+			let diffForAccessibility = WMFSmallMenuButton.MenuItem(title: localizedStrings.userAccessibilityButtonDiff, image: nil)
             menuItems.insert(diffForAccessibility, at: 0)
         }
         menuButtonItems = menuItems

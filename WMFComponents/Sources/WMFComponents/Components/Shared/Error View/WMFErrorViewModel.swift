@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public final class WKErrorViewModel {
+public final class WMFErrorViewModel {
 
     public struct LocalizedStrings {
         let title: String

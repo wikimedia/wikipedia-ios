@@ -1,6 +1,6 @@
 import UIKit
 
-public class WKEmptyViewModel: ObservableObject {
+public class WMFEmptyViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         public var title: String
@@ -39,7 +39,7 @@ public class WKEmptyViewModel: ObservableObject {
 }
 
 
-public enum WKEmptyViewStateType {
+public enum WMFEmptyViewStateType {
     case noItems
     case filter
 }

@@ -1,13 +1,13 @@
 import Foundation
 import UIKit
 
-class WKEditorToolbarView: WKComponentView {
+class WMFEditorToolbarView: WMFComponentView {
     
     // MARK: - Properties
     
     @IBOutlet var separatorImageViews: [UIImageView] = []
     @IBOutlet var separatorImageWidthConstraints: [NSLayoutConstraint] = []
-    @IBOutlet var buttons: [WKEditorToolbarButton] = []
+    @IBOutlet var buttons: [WMFEditorToolbarButton] = []
     
     // MARK: - Lifecycle
     
@@ -44,7 +44,7 @@ class WKEditorToolbarView: WKComponentView {
     // MARK: - Private Helpers
     
     private func updateColors() {
-        backgroundColor = WKAppEnvironment.current.theme.paperBackground
+        backgroundColor = WMFAppEnvironment.current.theme.paperBackground
         
         layer.shadowOffset = CGSize(width: 0, height: -2)
         layer.shadowRadius = 10

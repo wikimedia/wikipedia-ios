@@ -20,6 +20,6 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     }
 
     private func updateFonts() {
-        label.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
     }
 }

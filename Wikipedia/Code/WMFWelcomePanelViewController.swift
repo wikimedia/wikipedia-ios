@@ -30,7 +30,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         
         // For iPhone 5 a smaller size is used.
         if view.bounds.size.height <= 568 {
-            titleLabel.font = WKFont.for(.title1, compatibleWith: traitCollection)
+            titleLabel.font = WMFFont.for(.title1, compatibleWith: traitCollection)
         }
         
         embedContainerControllerView()

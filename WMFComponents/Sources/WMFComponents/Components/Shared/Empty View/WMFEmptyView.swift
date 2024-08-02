@@ -1,17 +1,17 @@
 import SwiftUI
 
-public protocol WKEmptyViewDelegate: AnyObject {
+public protocol WMFEmptyViewDelegate: AnyObject {
     func emptyViewDidTapSearch()
     func emptyViewDidTapFilters()
-    func emptyViewDidShow(type: WKEmptyViewStateType)
+    func emptyViewDidShow(type: WMFEmptyViewStateType)
 }
 
-public struct WKEmptyView: View {
+public struct WMFEmptyView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    @ObservedObject var viewModel: WKEmptyViewModel
-    weak var delegate: WKEmptyViewDelegate?
-    var type: WKEmptyViewStateType
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFEmptyViewModel
+    weak var delegate: WMFEmptyViewDelegate?
+    var type: WMFEmptyViewStateType
     
     var foregroundColor: Color? {
         if let imageColor = viewModel.imageColor {
@@ -38,24 +38,24 @@ public struct WKEmptyView: View {
                                 .foregroundColor(foregroundColor)
                         }
                         Text(viewModel.localizedStrings.title)
-                            .font(Font(WKFont.for(.boldCallout)))
+                            .font(Font(WMFFont.for(.boldCallout)))
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.top], 12)
                             .padding([.bottom], 8)
                             .multilineTextAlignment(.center)
                         if let attributedString = viewModel.filterString(localizedStrings: viewModel.localizedStrings),
                            type == .filter {
-                            WKEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
+                            WMFEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
                         } else {
                             Text(viewModel.localizedStrings.subtitle)
-                                .font(Font(WKFont.for(.subheadline)))
+                                .font(Font(WMFFont.for(.subheadline)))
                                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                                 .multilineTextAlignment(.center)
                         }
                         if let buttonTitle = viewModel.localizedStrings.buttonTitle,
                            type == .noItems {
-                            let configuration = WKSmallButton.Configuration(style: .neutral)
-                            WKSmallButton(configuration: configuration, title: buttonTitle, action: delegate?.emptyViewDidTapSearch)
+                            let configuration = WMFSmallButton.Configuration(style: .neutral)
+                            WMFSmallButton(configuration: configuration, title: buttonTitle, action: delegate?.emptyViewDidTapSearch)
                                 .padding(EdgeInsets(top: 8, leading: 32, bottom: 0, trailing: 32))
                         }
                         Spacer()
@@ -72,16 +72,16 @@ public struct WKEmptyView: View {
 
 }
 
-struct WKEmptyViewFilterView: View {
+struct WMFEmptyViewFilterView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
-    weak var delegate: WKEmptyViewDelegate?
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    weak var delegate: WMFEmptyViewDelegate?
     let attributedString: AttributedString
 
     var body: some View {
         
         Text(attributedString)
-            .font(Font(WKFont.for(.subheadline)))
+            .font(Font(WMFFont.for(.subheadline)))
             .padding(2)
             .foregroundColor(Color(appEnvironment.theme.secondaryText))
             .frame(height: 30)

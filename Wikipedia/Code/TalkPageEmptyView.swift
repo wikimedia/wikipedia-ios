@@ -17,9 +17,9 @@ final class TalkPageEmptyView: SetupView {
 
     // MARK: - Properties
 
-    fileprivate var headerLabelPrimaryFont = WKFont.for(.boldTitle1)
-    fileprivate var bodyLabelPrimaryFont = WKFont.for(.callout)
-    fileprivate var bodyLabelHighlightedFont = WKFont.for(.boldCallout)
+    fileprivate var headerLabelPrimaryFont = WMFFont.for(.boldTitle1)
+    fileprivate var bodyLabelPrimaryFont = WMFFont.for(.callout)
+    fileprivate var bodyLabelHighlightedFont = WMFFont.for(.boldCallout)
 
     lazy var headerLineHeightAttribute: NSMutableParagraphStyle = {
         let style = NSMutableParagraphStyle()
@@ -81,7 +81,7 @@ final class TalkPageEmptyView: SetupView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.cornerRadius = 8
         button.masksToBounds = true
-        button.titleLabel?.font = WKFont.for(.boldCallout)
+        button.titleLabel?.font = WMFFont.for(.boldCallout)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()

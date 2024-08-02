@@ -107,7 +107,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private let wikiTextSectionUploader = WikiTextSectionUploader()
 
     private var styles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
     }
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {

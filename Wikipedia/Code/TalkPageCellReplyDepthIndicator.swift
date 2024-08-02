@@ -28,7 +28,7 @@ final class TalkPageCellReplyDepthIndicator: SetupView {
 
     lazy var depthLabel: UILabel = {
         let label = UILabel()
-        label.font = WKFont.for(.footnote)
+        label.font = WMFFont.for(.footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

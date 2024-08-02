@@ -72,7 +72,7 @@ private extension DiffHeaderSummaryView {
     }
 
     func updateFonts(with traitCollection: UITraitCollection) {
-        headingLabel.font = WKFont.for(.boldFootnote, compatibleWith: traitCollection)
-        summaryLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        headingLabel.font = WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
+        summaryLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 }

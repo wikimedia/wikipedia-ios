@@ -51,7 +51,7 @@ final class DiffListUneditedViewModel: DiffListGroupViewModel {
     }
     
     private static func calculateTextLabelFont(traitCollection: UITraitCollection) -> UIFont {
-        return WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        return WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
     
     private static func calculateHeight(text: String, availableWidth: CGFloat, innerPadding: NSDirectionalEdgeInsets, font: UIFont) -> CGFloat {

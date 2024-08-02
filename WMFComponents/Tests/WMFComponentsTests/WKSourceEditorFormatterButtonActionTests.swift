@@ -4,8 +4,8 @@ import XCTest
 final class WKSourceEditorFormatterButtonActionTests: XCTestCase {
     
     let mediator = {
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "", localizedStrings: WKSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
-        let mediator = WKSourceEditorTextFrameworkMediator(viewModel: viewModel)
+        let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: "", localizedStrings: WMFSourceEditorLocalizedStrings.emptyTestStrings, isSyntaxHighlightingEnabled: true, textAlignment: .left, needsReadOnly: false, onloadSelectRange: nil)
+        let mediator = WMFSourceEditorTextFrameworkMediator(viewModel: viewModel)
         mediator.updateColorsAndFonts()
         return mediator
     }()

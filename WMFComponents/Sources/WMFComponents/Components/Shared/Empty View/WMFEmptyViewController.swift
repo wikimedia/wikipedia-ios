@@ -1,12 +1,12 @@
 import SwiftUI
 
-final public class WKEmptyViewController: WKCanvasViewController {
+final public class WMFEmptyViewController: WMFCanvasViewController {
 
-    var hostingController: WKEmptyViewHostingController
-    weak var delegate: WKEmptyViewDelegate?
+    var hostingController: WMFEmptyViewHostingController
+    weak var delegate: WMFEmptyViewDelegate?
 
-    public init(viewModel: WKEmptyViewModel, type: WKEmptyViewStateType, delegate: WKEmptyViewDelegate?) {
-        self.hostingController = WKEmptyViewHostingController(viewModel: viewModel, type: type, delegate: delegate)
+    public init(viewModel: WMFEmptyViewModel, type: WMFEmptyViewStateType, delegate: WMFEmptyViewDelegate?) {
+        self.hostingController = WMFEmptyViewHostingController(viewModel: viewModel, type: type, delegate: delegate)
         super.init()
     }
 
@@ -20,10 +20,10 @@ final public class WKEmptyViewController: WKCanvasViewController {
     }
 }
 
-final class WKEmptyViewHostingController: WKComponentHostingController<WKEmptyView> {
+final class WMFEmptyViewHostingController: WMFComponentHostingController<WMFEmptyView> {
 
-    init(viewModel: WKEmptyViewModel, type: WKEmptyViewStateType, delegate: WKEmptyViewDelegate?) {
-        super.init(rootView: WKEmptyView(viewModel: viewModel, delegate: delegate, type: type))
+    init(viewModel: WMFEmptyViewModel, type: WMFEmptyViewStateType, delegate: WMFEmptyViewDelegate?) {
+        super.init(rootView: WMFEmptyView(viewModel: viewModel, delegate: delegate, type: type))
 
     }
 

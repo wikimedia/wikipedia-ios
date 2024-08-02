@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public class WKFeatureAnnouncementViewModel {
+public class WMFFeatureAnnouncementViewModel {
     let title: String
     let body: String
     let primaryButtonTitle: String

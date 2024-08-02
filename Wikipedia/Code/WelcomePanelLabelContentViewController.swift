@@ -26,7 +26,7 @@ class WelcomePanelLabelContentViewController: UIViewController {
     }
 
     private func updateFonts() {
-        label.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 }
 

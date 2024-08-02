@@ -12,20 +12,20 @@ struct WKCheckmarkView: View {
         let style: Style
     }
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let isSelected: Bool
     let configuration: Configuration
     
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
     
     private var uiImage: UIImage? {
         switch configuration.style {
         case .checkbox:
-            return isSelected ? WKSFSymbolIcon.for(symbol: .checkmarkSquareFill) : WKSFSymbolIcon.for(symbol: .square)
+            return isSelected ? WMFSFSymbolIcon.for(symbol: .checkmarkSquareFill) : WMFSFSymbolIcon.for(symbol: .square)
         case .`default`:
-            return isSelected ? WKSFSymbolIcon.for(symbol: .checkmark, font: .boldFootnote) : nil
+            return isSelected ? WMFSFSymbolIcon.for(symbol: .checkmark, font: .boldFootnote) : nil
         }
     }
     

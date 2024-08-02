@@ -58,7 +58,7 @@ final class NotificationsCenterView: SetupView {
     private lazy var emptyOverlayHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -68,7 +68,7 @@ final class NotificationsCenterView: SetupView {
     private lazy var emptyOverlaySubheaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -82,8 +82,8 @@ final class NotificationsCenterView: SetupView {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            emptyOverlayHeaderLabel.font = WKFont.for(.boldCallout, compatibleWith: traitCollection)
-            emptyOverlaySubheaderLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+            emptyOverlayHeaderLabel.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
+            emptyOverlaySubheaderLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
             calculatedCellHeight = nil
         }
 

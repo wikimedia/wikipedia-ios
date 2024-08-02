@@ -6,7 +6,7 @@ public enum TableOfContentsItemType {
     case primary
     case secondary
     
-    var titleTextStyle: WKFont {
+    var titleTextStyle: WMFFont {
         switch self {
         case .primary:
             return .georgiaTitle3

@@ -291,7 +291,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         navigationBar.isExtendedViewHidingEnabled = true
     }
     
-    func textStyle(for button: UIButton) -> WKFont {
+    func textStyle(for button: UIButton) -> WMFFont {
         return .caption1
     }
     

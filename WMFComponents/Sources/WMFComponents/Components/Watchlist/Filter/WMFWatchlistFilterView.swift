@@ -2,18 +2,18 @@ import SwiftUI
 
 struct WMFWatchlistFilterView: View {
     
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-	@ObservedObject var viewModel: WKWatchlistFilterViewModel
+	@ObservedObject var viewModel: WMFWatchlistFilterViewModel
     let doneAction: () -> Void
 
     var body: some View {
         NavigationView {
-            WKFormView(viewModel: viewModel.formViewModel)
+            WMFFormView(viewModel: viewModel.formViewModel)
                 .navigationTitle(viewModel.localizedStrings.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
@@ -22,7 +22,7 @@ struct WMFWatchlistFilterView: View {
                             doneAction()
                         }) {
                             Text(viewModel.localizedStrings.doneTitle)
-                                .font(Font(WKFont.for(.headline)))
+                                .font(Font(WMFFont.for(.headline)))
                                 .foregroundColor(Color(theme.link))
                             }
                 )

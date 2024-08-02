@@ -1,20 +1,20 @@
 import Foundation
 import WMFComponentsObjC
 
-enum WKSourceEditorFormatterButtonAction {
+enum WMFSourceEditorFormatterButtonAction {
     case add
     case remove
 }
 
-extension WKSourceEditorFormatter {
+extension WMFSourceEditorFormatter {
     
     // MARK: - Entry points to adding/removing formatting strings
     
-    func toggleFormatting(formattingString: String, action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+    func toggleFormatting(formattingString: String, action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleFormatting(startingFormattingString: formattingString, endingFormattingString: formattingString, action: action, in: textView)
     }
     
-    func toggleFormatting(startingFormattingString: String, wildcardStartingFormattingString: String? = nil, endingFormattingString: String, action: WKSourceEditorFormatterButtonAction, in textView: UITextView) {
+    func toggleFormatting(startingFormattingString: String, wildcardStartingFormattingString: String? = nil, endingFormattingString: String, action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
                 
         var resolvedStartingFormattingString = startingFormattingString
         if let wildcardStartingFormattingString {

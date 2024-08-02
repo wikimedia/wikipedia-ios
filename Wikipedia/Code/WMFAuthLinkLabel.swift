@@ -24,11 +24,11 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     public var strings: WMFAuthLinkLabelStrings?
 
     fileprivate var boldSubheadlineFont: UIFont? {
-        return WKFont.for(.mediumSubheadline, compatibleWith: self.traitCollection)
+        return WMFFont.for(.mediumSubheadline, compatibleWith: self.traitCollection)
     }
 
     fileprivate var subheadlineFont: UIFont? {
-        return WKFont.for(.subheadline, compatibleWith: self.traitCollection)
+        return WMFFont.for(.subheadline, compatibleWith: self.traitCollection)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -6,8 +6,8 @@ import Combine
 public protocol WKImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsUserDidTapViewArticle(project: WMFProject, title: String)
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
-    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
-    func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
+    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController)
+    func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData)
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
     func imageRecommendationsDidTriggerError(_ error: Error)
@@ -37,9 +37,9 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
 }
 
-fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
+fileprivate final class WKImageRecommendationsHostingViewController: WMFComponentHostingController<WKImageRecommendationsView> {
 
-    init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate, tooltipGeometryValues: WKTooltipGeometryValues) {
+    init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate, tooltipGeometryValues: WMFTooltipGeometryValues) {
         let rootView = WKImageRecommendationsView(viewModel: viewModel, tooltipGeometryValues: tooltipGeometryValues, errorTryAgainAction: {
             
             viewModel.tryAgainAfterLoadingError()
@@ -61,14 +61,14 @@ fileprivate final class WKImageRecommendationsHostingViewController: WKComponent
     }
 }
 
-public final class WKImageRecommendationsViewController: WKCanvasViewController {
+public final class WKImageRecommendationsViewController: WMFCanvasViewController {
 
     // MARK: - Properties
 
     fileprivate let hostingViewController: WKImageRecommendationsHostingViewController
     private weak var delegate: WKImageRecommendationsDelegate?
     private weak var loggingDelegate: WKImageRecommendationsLoggingDelegate?
-    @ObservedObject private var viewModel: WKImageRecommendationsViewModel
+    @ObservedObject private var viewModel: WMFImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WKImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
 
@@ -96,9 +96,9 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     // MARK: Lifecycle
 
     private let dataController = WMFImageRecommendationsDataController()
-    private let tooltipGeometryValues = WKTooltipGeometryValues()
+    private let tooltipGeometryValues = WMFTooltipGeometryValues()
 
-    public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
+    public init(viewModel: WMFImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
         self.hostingViewController = WKImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate, tooltipGeometryValues: tooltipGeometryValues)
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
@@ -120,7 +120,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
         addComponent(hostingViewController, pinToEdges: true)
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let image = WKSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
+        let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 
@@ -258,15 +258,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             articleSummaryDivSourceRect = divGlobalFrame
         }
 
-        let viewModel1 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
+        let viewModel1 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapFirstNext()
         }
 
-        let viewModel2 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
+        let viewModel2 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapSecondNext()
         }
 
-        let viewModel3 = WKTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
+        let viewModel3 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
             self?.loggingDelegate?.logTooltipsDidTapThirdOK()
         }
 
@@ -282,15 +282,15 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
             return
         }
 
-        let firstItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: viewModel.localizedStrings.onboardingStrings.firstItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.firstItemBody, fillIconBackground: true)
 
-        let secondItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
 
-        let thirdItem = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: WKIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
 
-        let onboardingViewModel = WKOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
+        let onboardingViewModel = WMFOnboardingViewModel(title: viewModel.localizedStrings.onboardingStrings.title, cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: viewModel.localizedStrings.onboardingStrings.continueButton, secondaryButtonTitle: viewModel.localizedStrings.onboardingStrings.learnMoreButton)
 
-        let onboardingController = WKOnboardingViewController(viewModel: onboardingViewModel)
+        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
@@ -344,7 +344,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
     }
 }
 
-extension WKImageRecommendationsViewController: WKOnboardingViewDelegate {
+extension WKImageRecommendationsViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in

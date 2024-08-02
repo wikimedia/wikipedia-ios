@@ -4,8 +4,8 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
     // MARK: Properties
 
-    weak var viewModel: AltTextExperimentModalSheetViewModel?
-    weak var delegate: AltTextExperimentModalSheetDelegate?
+    weak var viewModel: WMFAltTextExperimentModalSheetViewModel?
+    weak var delegate: WMFAltTextExperimentModalSheetDelegate?
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -99,7 +99,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
     // MARK: Lifecycle
 
-    public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel, delegate: AltTextExperimentModalSheetDelegate?) {
+    public init(frame: CGRect, viewModel: WMFAltTextExperimentModalSheetViewModel, delegate: WMFAltTextExperimentModalSheetDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
         super.init(frame: frame)

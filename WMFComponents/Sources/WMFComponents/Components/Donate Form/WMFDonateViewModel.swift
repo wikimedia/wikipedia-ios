@@ -4,7 +4,7 @@ import Combine
 import UIKit
 import PassKit
 
-public final class WKDonateViewModel: NSObject, ObservableObject {
+public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Nested Types
     
@@ -66,7 +66,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     }
     
     public final class AmountButtonViewModel: ObservableObject, Equatable, Identifiable {
-        public static func == (lhs: WKDonateViewModel.AmountButtonViewModel, rhs: WKDonateViewModel.AmountButtonViewModel) -> Bool {
+        public static func == (lhs: WMFDonateViewModel.AmountButtonViewModel, rhs: WMFDonateViewModel.AmountButtonViewModel) -> Bool {
             return lhs.amount == rhs.amount
         }
         
@@ -75,9 +75,9 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         
         let currencyCode: String
         let accessibilityHint: String
-        weak var loggingDelegate: WKDonateLoggingDelegate?
+        weak var loggingDelegate: WMFDonateLoggingDelegate?
         
-        internal init(amount: Decimal, isSelected: Bool = false, currencyCode: String, accessibilityHint: String, loggingDelegate: WKDonateLoggingDelegate?) {
+        internal init(amount: Decimal, isSelected: Bool = false, currencyCode: String, accessibilityHint: String, loggingDelegate: WMFDonateLoggingDelegate?) {
             self.amount = amount
             self.isSelected = isSelected
             self.currencyCode = currencyCode
@@ -138,10 +138,10 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         let orderID: String?
         
         var displayText: String {
-            if let viewModelError = error as? WKDonateViewModel.Error {
-                if viewModelError == WKDonateViewModel.Error.validationAmountMinimum {
+            if let viewModelError = error as? WMFDonateViewModel.Error {
+                if viewModelError == WMFDonateViewModel.Error.validationAmountMinimum {
                     return localizedStrings.minimumErrorText
-                } else if viewModelError == WKDonateViewModel.Error.validationAmountMaximum,
+                } else if viewModelError == WMFDonateViewModel.Error.validationAmountMaximum,
                           let maximumErrorText = localizedStrings.maximumErrorText {
                     return maximumErrorText
                 }
@@ -187,12 +187,12 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     private var buttonSubscribers: Set<AnyCancellable> = []
     private var transactionFeeSubscribers: Set<AnyCancellable> = []
     
-    private weak var delegate: WKDonateDelegate?
-    private(set) weak var loggingDelegate: WKDonateLoggingDelegate?
+    private weak var delegate: WMFDonateDelegate?
+    private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -284,7 +284,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         }
         
         if finalAmount < minimum {
-            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMinimum, orderID: nil)
+            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMinimum, orderID: nil)
             self.errorViewModel = errorViewModel
             loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
             return
@@ -292,7 +292,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
         
         if let maximum = donateConfig.currencyMaximumDonation[currencyCode],
         finalAmount > maximum {
-            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WKDonateViewModel.Error.validationAmountMaximum, orderID: nil)
+            let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMaximum, orderID: nil)
             self.errorViewModel = errorViewModel
             loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
             return
@@ -461,7 +461,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
 
 // MARK: - PKPaymentAuthorizationControllerDelegate
 
-extension WKDonateViewModel: PKPaymentAuthorizationControllerDelegate {
+extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
 
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         

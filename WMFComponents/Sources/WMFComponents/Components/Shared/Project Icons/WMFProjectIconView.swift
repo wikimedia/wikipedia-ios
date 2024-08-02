@@ -3,7 +3,7 @@ import WMFData
 
 public struct WMFProjectIconView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private let project: WMFProject
 
     public init(project: WMFProject) {

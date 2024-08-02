@@ -1,14 +1,14 @@
 import SwiftUI
 
-struct WKFormSelectMultiRowView: View {
+struct WMFFormSelectMultiRowView: View {
 
-    @ObservedObject var appEnvironment = WKAppEnvironment.current
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    var theme: WKTheme {
+    var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    @ObservedObject var viewModel: WKFormItemSelectViewModel
+    @ObservedObject var viewModel: WMFFormItemSelectViewModel
 
     var body: some View {
         HStack {

@@ -37,7 +37,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD",  languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD",  languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -95,7 +95,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("UYU"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "UY", currencyCode: "UYU", languageCode: "ES", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("UYU"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "UY", currencyCode: "UYU", languageCode: "ES", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -153,7 +153,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -186,7 +186,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -221,7 +221,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -257,7 +257,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -282,7 +282,7 @@ final class WKDonateViewModelTests: XCTestCase {
             return
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, bannerID: "app_2023_enNL_iOS_control", metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", delegate: nil, loggingDelegate: nil) else {
             XCTFail("View model failed to instantiate")
             return
         }
@@ -301,9 +301,9 @@ final class WKDonateViewModelTests: XCTestCase {
     }
 }
 
-private extension WKDonateViewModel.LocalizedStrings {
-    static func demoStringsForCurrencyCode(_ currencyCode: String) -> WKDonateViewModel.LocalizedStrings {
-        
+private extension WMFDonateViewModel.LocalizedStrings {
+    static func demoStringsForCurrencyCode(_ currencyCode: String) -> WMFDonateViewModel.LocalizedStrings {
+
         let title = "Select an amount"
         let doneTitle = "Done"
         
@@ -343,7 +343,7 @@ private extension WKDonateViewModel.LocalizedStrings {
         let monthlyRecurring = "Make this a monthly recurring donation."
         let accessibilityMonthlyRecurringHint = "Double tap to enable automatic monthly donations of this amount."
         
-        return WKDonateViewModel.LocalizedStrings(title: title, doneTitle: doneTitle, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximumString, minimumErrorText: minimumString, genericErrorTextFormat: genericError, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
+        return WMFDonateViewModel.LocalizedStrings(title: title, doneTitle: doneTitle, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximumString, minimumErrorText: minimumString, genericErrorTextFormat: genericError, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
     }
     
     static var usdMinimumString: String {

@@ -4,9 +4,9 @@ struct WKImageRecommendationsSurveyView: View {
 
 	// MARK: - Properties
 
-	@ObservedObject var appEnvironment = WKAppEnvironment.current
+	@ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-	private var theme: WKTheme {
+	private var theme: WMFTheme {
 		return appEnvironment.theme
 	}
 
@@ -17,12 +17,12 @@ struct WKImageRecommendationsSurveyView: View {
 	@FocusState var otherReasonTextFieldSelected: Bool
 
 	@State var otherReasonText = ""
-	@State var selectedReasons: Set<WKImageRecommendationsSurveyViewModel.Reason> = []
+	@State var selectedReasons: Set<WMFImageRecommendationsSurveyViewModel.Reason> = []
 
-	let viewModel: WKImageRecommendationsSurveyViewModel
+	let viewModel: WMFImageRecommendationsSurveyViewModel
 
 	var cancelAction: (() -> Void)?
-	var submitAction: (([WKImageRecommendationsSurveyViewModel.Reason]) -> Void)?
+	var submitAction: (([WMFImageRecommendationsSurveyViewModel.Reason]) -> Void)?
 
 	// MARK: - View
 
@@ -32,9 +32,9 @@ struct WKImageRecommendationsSurveyView: View {
 				Section {
 					VStack(alignment: .leading) {
 						Text(viewModel.localizedStrings.improveSuggestions)
-							.font(Font(WKFont.for(.callout)))
+							.font(Font(WMFFont.for(.callout)))
 						Text(viewModel.localizedStrings.selectOptions)
-							.font(Font(WKFont.for(.italicCallout)))
+							.font(Font(WMFFont.for(.italicCallout)))
 					}
 				}
 				.foregroundColor(Color(theme.secondaryText))
@@ -93,7 +93,7 @@ struct WKImageRecommendationsSurveyView: View {
 				ToolbarItem(placement: .topBarTrailing) {
 					Button(viewModel.localizedStrings.submit) {
 						if !otherReasonText.isEmpty {
-							let otherReason = WKImageRecommendationsSurveyViewModel.Reason.other(reason: otherReasonText)
+							let otherReason = WMFImageRecommendationsSurveyViewModel.Reason.other(reason: otherReasonText)
 							selectedReasons.insert(otherReason)
 						}
 						submitAction?(Array(selectedReasons))
@@ -110,5 +110,5 @@ struct WKImageRecommendationsSurveyView: View {
 }
 
 #Preview {
-	WKImageRecommendationsSurveyView(viewModel: WKImageRecommendationsSurveyViewModel(localizedStrings: .init(reason: "Reason", cancel: "Cancel", submit: "Submit", improveSuggestions: "Improve", selectOptions: "Select", imageNotRelevant: "Image not relevant", notEnoughInformation: "Not enough info", imageIsOffensive: "Image is offensive", imageIsLowQuality: "Image is low quality", dontKnowSubject: "Dont know subject", other: "Other")))
+	WKImageRecommendationsSurveyView(viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: .init(reason: "Reason", cancel: "Cancel", submit: "Submit", improveSuggestions: "Improve", selectOptions: "Select", imageNotRelevant: "Image not relevant", notEnoughInformation: "Not enough info", imageIsOffensive: "Image is offensive", imageIsLowQuality: "Image is low quality", dontKnowSubject: "Dont know subject", other: "Other")))
 }

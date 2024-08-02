@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-protocol WKEditorMultiSelectButtonDelegate: AnyObject {
+protocol WMFEditorMultiSelectButtonDelegate: AnyObject {
     func didSelectIndex(_ index: Int, isSelected: Bool, multiSelectButton: WMFEditorMultiButton)
 }
 
@@ -18,7 +18,7 @@ final class WMFEditorMultiButton: WMFComponentView {
     
     private let viewModels: [ViewModel]
     private var buttons: [UIButton] = []
-    private weak var delegate: WKEditorMultiSelectButtonDelegate?
+    private weak var delegate: WMFEditorMultiSelectButtonDelegate?
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -32,7 +32,7 @@ final class WMFEditorMultiButton: WMFComponentView {
     
     // MARK: - Lifecycle
     
-    init(viewModels: [ViewModel], delegate: WKEditorMultiSelectButtonDelegate) {
+    init(viewModels: [ViewModel], delegate: WMFEditorMultiSelectButtonDelegate) {
         self.viewModels = viewModels
         self.delegate = delegate
         super.init(frame: .zero)

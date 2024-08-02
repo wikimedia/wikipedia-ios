@@ -3,7 +3,7 @@ import SwiftUI
 import PassKit
 import UIKit
 
-struct WKApplePayDonateButton: UIViewRepresentable {
+struct WMFApplePayDonateButton: UIViewRepresentable {
     
     struct Configuration {
         let paymentButtonStyle: PKPaymentButtonStyle
@@ -15,7 +15,7 @@ struct WKApplePayDonateButton: UIViewRepresentable {
         return PKPaymentButton(paymentButtonType: .donate, paymentButtonStyle: configuration.paymentButtonStyle)
     }
 
-    func updateUIView(_ uiView: PKPaymentButton, context: UIViewRepresentableContext<WKApplePayDonateButton>) {
+    func updateUIView(_ uiView: PKPaymentButton, context: UIViewRepresentableContext<WMFApplePayDonateButton>) {
         
     }
 }

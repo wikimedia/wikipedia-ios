@@ -317,7 +317,7 @@
                 <outletCollection property="separatorImageWidthConstraints" destination="li3-OD-31r" collectionClass="NSMutableArray" id="oDV-zH-rQW"/>
                 <outletCollection property="separatorImageWidthConstraints" destination="KWY-7m-geZ" collectionClass="NSMutableArray" id="Uog-iI-D7v"/>
             </connections>
-            <point key="canvasLocation" x="248.27586206896552" y="-100.8"/>
+            <point key="canvasLocation" x="31" y="88"/>
         </view>
     </objects>
     <resources>

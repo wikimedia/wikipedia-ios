@@ -3,13 +3,13 @@ import UIKit
 
 /// A protocol meant for UIViewControllers to present tooltips. It is set up to handle the dismiss and presentation cycle through the tooltip view models via default protocol implementions.
 public protocol WMFTooltipPresenting: UIAdaptivePresentationControllerDelegate {
-    var tooltipViewModels: [WKTooltipViewModel] { get set }
-    func displayTooltips(tooltipViewModels: [WKTooltipViewModel])
+    var tooltipViewModels: [WMFTooltipViewModel] { get set }
+    func displayTooltips(tooltipViewModels: [WMFTooltipViewModel])
 }
 
-// Note: WKTooltipPresenting VC must also implement UIAdaptivePresentationControllerDelegate adaptivePresentationStyle methods (returning .none) for proper tooltip display. Unfortunately this implementation cannot be handled via a protocol extension.
+// Note: WMFTooltipPresenting VC must also implement UIAdaptivePresentationControllerDelegate adaptivePresentationStyle methods (returning .none) for proper tooltip display. Unfortunately this implementation cannot be handled via a protocol extension.
 public extension WMFTooltipPresenting where Self: UIViewController {
-    func displayTooltips(tooltipViewModels: [WKTooltipViewModel]) {
+    func displayTooltips(tooltipViewModels: [WMFTooltipViewModel]) {
         self.tooltipViewModels = tooltipViewModels
         for tooltipViewModel in self.tooltipViewModels {
             let oldAction = tooltipViewModel.buttonAction
@@ -32,7 +32,7 @@ public extension WMFTooltipPresenting where Self: UIViewController {
             return
         }
         
-        let tooltip = WKTooltipViewController(viewModel: viewModel)
+        let tooltip = WMFTooltipViewController(viewModel: viewModel)
         tooltip.modalPresentationStyle = .popover
         if let presentationController = tooltip.presentationController {
             presentationController.delegate = self

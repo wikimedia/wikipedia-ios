@@ -1,21 +1,21 @@
 import Foundation
 import WMFComponentsObjC
 
-enum WKSourceEditorFormatterLinkButtonAction {
+enum WMFSourceEditorFormatterLinkButtonAction {
     case edit
     case insert
 }
 
-public struct WKSourceEditorFormatterLinkWizardParameters {
+public struct WMFSourceEditorFormatterLinkWizardParameters {
     public let editPageTitle: String?
     public let editPageLabel: String?
     public let insertSearchTerm: String?
     let preselectedTextRange: UITextRange
 }
 
-extension WKSourceEditorFormatterLink {
-    
-    func linkWizardParameters(action: WKSourceEditorFormatterLinkButtonAction, in textView: UITextView) -> WKSourceEditorFormatterLinkWizardParameters? {
+extension WMFSourceEditorFormatterLink {
+
+    func linkWizardParameters(action: WMFSourceEditorFormatterLinkButtonAction, in textView: UITextView) -> WMFSourceEditorFormatterLinkWizardParameters? {
         
         switch action {
         case .edit:
@@ -30,9 +30,9 @@ extension WKSourceEditorFormatterLink {
             
             switch splitText.count {
             case 1:
-                return WKSourceEditorFormatterLinkWizardParameters(editPageTitle: splitText[0], editPageLabel: nil, insertSearchTerm: nil, preselectedTextRange: selectedTextRange)
+                return WMFSourceEditorFormatterLinkWizardParameters(editPageTitle: splitText[0], editPageLabel: nil, insertSearchTerm: nil, preselectedTextRange: selectedTextRange)
             case 2:
-                return WKSourceEditorFormatterLinkWizardParameters(editPageTitle: splitText[0], editPageLabel: splitText[1], insertSearchTerm: nil, preselectedTextRange: selectedTextRange)
+                return WMFSourceEditorFormatterLinkWizardParameters(editPageTitle: splitText[0], editPageLabel: splitText[1], insertSearchTerm: nil, preselectedTextRange: selectedTextRange)
             default:
                 return nil
             }
@@ -44,7 +44,7 @@ extension WKSourceEditorFormatterLink {
                 return nil
             }
             
-            return WKSourceEditorFormatterLinkWizardParameters(editPageTitle: nil, editPageLabel: nil, insertSearchTerm: selectedText, preselectedTextRange: selectedTextRange)
+            return WMFSourceEditorFormatterLinkWizardParameters(editPageTitle: nil, editPageLabel: nil, insertSearchTerm: selectedText, preselectedTextRange: selectedTextRange)
         }
         
         

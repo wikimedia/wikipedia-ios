@@ -93,7 +93,7 @@ class SinglePageWebViewController: ViewController {
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = WKFont.for(.headline, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
         button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()

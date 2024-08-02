@@ -6,7 +6,7 @@ class SuggestedEditsExploreCell: CollectionViewCell {
     private let titleLabel: UILabel = UILabel()
     private let bodyLabel: UILabel = UILabel()
     private let imageView: UIImageView? = {
-        return UIImageView(image: WKSFSymbolIcon.for(symbol: .addPhoto, font: WKFont.title1))
+        return UIImageView(image: WMFSFSymbolIcon.for(symbol: .addPhoto, font: WMFFont.title1))
     }()
 
     var title: String? {
@@ -60,8 +60,8 @@ class SuggestedEditsExploreCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        bodyLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        bodyLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
