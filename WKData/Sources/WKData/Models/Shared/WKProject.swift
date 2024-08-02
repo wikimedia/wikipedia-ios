@@ -52,7 +52,7 @@ public enum WKProject: Equatable, Hashable, Identifiable, Codable {
         return nil
     }
     
-    var languageCode: String? {
+    public var languageCode: String? {
         switch self {
         case .wikipedia(let language):
             return language.languageCode

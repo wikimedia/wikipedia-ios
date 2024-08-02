@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import Components
 import WKData
 
 extension ArticleViewController {
@@ -305,6 +306,18 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
                 break
             }
         }
+    }
+}
+
+extension ArticleViewController: AltTextExperimentModalSheetDelegate {
+    
+    func didTapNext(altText: String) {
+        
+        guard let altTextExperimentViewModel else {
+            return
+        }
+        
+        altTextDelegate?.didTapPublish(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
     }
 }
 

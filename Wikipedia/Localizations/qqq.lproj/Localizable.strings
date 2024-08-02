@@ -106,6 +106,7 @@
 "advanced-settings-title" = "Title for advanced settings screen";
 "alt-text-add-button-title" = "Title for the Add button on the alt text modal";
 "alt-text-do-not-add-button-title" = "Title for the Do Not Add button on the alt text modal";
+"alt-text-experiment-edit-summary" = "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.";
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
