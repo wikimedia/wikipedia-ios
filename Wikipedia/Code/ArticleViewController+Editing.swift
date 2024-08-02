@@ -257,7 +257,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        let dataController = WKAltTextDataController.shared
+        let dataController = WMFAltTextDataController.shared
         
         guard let dataController,
               let wikimediaProject = WikimediaProject(siteURL: siteURL),

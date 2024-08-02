@@ -95,7 +95,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
     // MARK: Lifecycle
 
-    private let dataController = WKImageRecommendationsDataController()
+    private let dataController = WMFImageRecommendationsDataController()
     private let tooltipGeometryValues = WKTooltipGeometryValues()
 
     public init(viewModel: WKImageRecommendationsViewModel, delegate: WKImageRecommendationsDelegate, loggingDelegate: WKImageRecommendationsLoggingDelegate) {
@@ -192,7 +192,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
            return false
         }
 
-        let dataController = WKAltTextDataController.shared
+        let dataController = WMFAltTextDataController.shared
 
         guard let dataController else {
             return false

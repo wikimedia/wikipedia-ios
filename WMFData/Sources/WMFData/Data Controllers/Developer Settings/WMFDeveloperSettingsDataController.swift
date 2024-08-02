@@ -1,8 +1,8 @@
 import Foundation
 
-@objc public final class WKDeveloperSettingsDataController: NSObject {
+@objc public final class WMFDeveloperSettingsDataController: NSObject {
 
-    @objc public static let shared = WKDeveloperSettingsDataController()
+    @objc public static let shared = WMFDeveloperSettingsDataController()
 
     private let userDefaultsStore = WKDataEnvironment.current.userDefaultsStore
     

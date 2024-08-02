@@ -10,7 +10,7 @@ extension ArticleViewController {
             return
         }
         
-        WKWatchlistDataController().fetchWatchStatus(title: title, project: project) { result in
+        WMFWatchlistDataController().fetchWatchStatus(title: title, project: project) { result in
             
             DispatchQueue.main.async { [weak self] in
                 

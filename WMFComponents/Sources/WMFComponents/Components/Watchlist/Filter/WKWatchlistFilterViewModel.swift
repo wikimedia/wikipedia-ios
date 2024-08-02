@@ -81,7 +81,7 @@ public final class WKWatchlistFilterViewModel: ObservableObject {
     private var projectViewModels: [WKProjectViewModel]
     @Published var formViewModel: WKFormViewModel
     weak var loggingDelegate: WKWatchlistLoggingDelegate?
-    private let dataController = WKWatchlistDataController()
+    private let dataController = WMFWatchlistDataController()
     let overrideUserInterfaceStyle: UIUserInterfaceStyle
 	var addLanguageAction: (() -> Void)? {
 		didSet {

@@ -916,7 +916,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let imageRecommendationsDataController = WKImageRecommendationsDataController()
+        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
         guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
             return
         }
@@ -1351,7 +1351,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
         let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
         imageRecommendationsViewController.present(panel, animated: true)
-        let dataController = WKAltTextDataController.shared
+        let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
     }
 }
@@ -1404,7 +1404,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
-        saveVC.needsSuppressPosting = WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
+        saveVC.needsSuppressPosting = WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
         saveVC.editTags = [.appSuggestedEdit, .appImageAddTop]
 
         saveVC.delegate = self
@@ -1732,7 +1732,7 @@ extension ExploreViewController: AltTextDelegate {
             finalWikitext.replaceSubrange(range, with: finalImageWikitext)
         }
         
-        let developerSettings = WKDeveloperSettingsDataController()
+        let developerSettings = WMFDeveloperSettingsDataController()
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
             navigationController?.popViewController(animated: true)

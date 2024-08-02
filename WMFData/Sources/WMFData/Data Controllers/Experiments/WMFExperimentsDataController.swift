@@ -1,6 +1,6 @@
 import Foundation
 
-final class WKExperimentsDataController {
+final class WMFExperimentsDataController {
     
     // MARK: - Nested Types
     
@@ -24,11 +24,11 @@ final class WKExperimentsDataController {
         var config: ExperimentConfig {
             switch self {
             case .articleAsLivingDoc:
-                return WKExperimentsDataController.articleAsLivingDocConfig
+                return WMFExperimentsDataController.articleAsLivingDocConfig
             case .altTextImageRecommendations:
-                return WKExperimentsDataController.altTextImageRecommendationsConfig
+                return WMFExperimentsDataController.altTextImageRecommendationsConfig
             case .altTextArticleEditor:
-                return WKExperimentsDataController.altTextArticleEditorConfig
+                return WMFExperimentsDataController.altTextArticleEditorConfig
             }
         }
     }

@@ -5,7 +5,7 @@
 @interface WMFSuggestedEditsContentSource ()
 
 @property (readwrite, nonatomic) MWKDataStore *dataStore;
-@property (readwrite, nonatomic, strong) WKGrowthTasksDataController *growthTasksDataController;
+@property (readwrite, nonatomic, strong) WMFGrowthTasksDataController *growthTasksDataController;
 
 @end
 
@@ -17,7 +17,7 @@
     if (self) {
         self.dataStore = dataStore;
         NSString *languageCode = dataStore.languageLinkController.appLanguage.languageCode;
-        self.growthTasksDataController = [[WKGrowthTasksDataController alloc] initWithLanguageCode:languageCode];
+        self.growthTasksDataController = [[WMFGrowthTasksDataController alloc] initWithLanguageCode:languageCode];
     }
     return self;
 }
@@ -61,8 +61,8 @@
 
 - (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
-    BOOL enableAltTextExperiment = [[WKDeveloperSettingsDataController shared] enableAltTextExperiment];
-    BOOL enableAltTextExperimentForEN = [[WKDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
+    BOOL enableAltTextExperiment = [[WMFDeveloperSettingsDataController shared] enableAltTextExperiment];
+    BOOL enableAltTextExperimentForEN = [[WMFDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
     NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
     BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
 

@@ -150,10 +150,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     private let needsSuppressPosting: Bool
 
-    let growthTasksDataController: WKGrowthTasksDataController
-    let articleSummaryDataController: WKArticleSummaryDataController
+    let growthTasksDataController: WMFGrowthTasksDataController
+    let articleSummaryDataController: WMFArticleSummaryDataController
     let imageDataController: WKImageDataController
-    let imageRecommendationsDataController: WKImageRecommendationsDataController
+    let imageRecommendationsDataController: WMFImageRecommendationsDataController
     let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
 
     private(set) public var startTime: Date?
@@ -166,10 +166,10 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
         self.needsSuppressPosting = needsSuppressPosting
-        self.growthTasksDataController = WKGrowthTasksDataController(project: project)
-        self.articleSummaryDataController = WKArticleSummaryDataController()
+        self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
+        self.articleSummaryDataController = WMFArticleSummaryDataController()
         self.imageDataController = WKImageDataController()
-        self.imageRecommendationsDataController = WKImageRecommendationsDataController()
+        self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
         $loading
             .removeDuplicates()

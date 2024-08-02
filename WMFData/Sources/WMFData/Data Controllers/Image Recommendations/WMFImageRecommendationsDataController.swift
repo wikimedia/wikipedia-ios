@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public class WKImageRecommendationsDataController {
+public class WMFImageRecommendationsDataController {
 
 	// MARK: - Nested Types
 

@@ -563,7 +563,7 @@ extension UIViewController {
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
             if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {
                 announcementVC.isLoading = true
-                let dataController = WKDonateDataController.shared
+                let dataController = WMFDonateDataController.shared
                 dataController.fetchConfigs(for: asset.countryCode) { result in
                     DispatchQueue.main.async {
                         announcementVC.isLoading = false

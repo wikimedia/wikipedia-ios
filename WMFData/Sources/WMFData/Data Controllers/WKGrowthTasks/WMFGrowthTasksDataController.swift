@@ -1,6 +1,6 @@
 import Foundation
 
-@objc public final class WKGrowthTasksDataController: NSObject {
+@objc public final class WMFGrowthTasksDataController: NSObject {
 
     private var service = WKDataEnvironment.current.mediaWikiService
     let project: WKProject
@@ -156,7 +156,7 @@ public enum WKGrowthTaskType: String {
 
 // MARK: Objective-C Helpers
 
-public extension WKGrowthTasksDataController {
+public extension WMFGrowthTasksDataController {
     
     @objc convenience init(languageCode: String) {
         let language = WKLanguage(languageCode: languageCode, languageVariantCode: nil)

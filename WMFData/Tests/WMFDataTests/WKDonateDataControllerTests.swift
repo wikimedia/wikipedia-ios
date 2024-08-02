@@ -5,7 +5,7 @@ import Contacts
 
 final class WKDonateDataControllerTests: XCTestCase {
     
-    private let controller: WKDonateDataController = WKDonateDataController.shared
+    private let controller: WMFDonateDataController = WMFDonateDataController.shared
 
     override func setUp() async throws {
         WKDataEnvironment.current.basicService = WKMockBasicService()

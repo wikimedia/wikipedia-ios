@@ -27,24 +27,24 @@ import WMFData
     
     @objc public init(localizedStrings: WKDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
-        let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
-        let enableAltTextExperimentItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WKDeveloperSettingsDataController.shared.enableAltTextExperiment)
-        let enableAltTextExperimentItemForENItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WKDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
+        let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
+        let enableAltTextExperimentItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperiment)
+        let enableAltTextExperimentItemForENItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
 
         formViewModel = WKFormViewModel(sections: [WKFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
 
-            WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
+            WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
 
         }.store(in: &subscribers)
 
         enableAltTextExperimentItem.$isSelected.sink { isSelected in
-            WKDeveloperSettingsDataController.shared.enableAltTextExperiment = isSelected
+            WMFDeveloperSettingsDataController.shared.enableAltTextExperiment = isSelected
         }.store(in: &subscribers)
         
         enableAltTextExperimentItemForENItem.$isSelected.sink { isSelected in
-            WKDeveloperSettingsDataController.shared.enableAltTextExperimentForEN = isSelected
+            WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN = isSelected
         }.store(in: &subscribers)
 
     }

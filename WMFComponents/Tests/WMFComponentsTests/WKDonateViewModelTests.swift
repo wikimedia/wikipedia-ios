@@ -14,7 +14,7 @@ final class WKDonateViewModelTests: XCTestCase {
         WKDataEnvironment.current.basicService = WKMockBasicService()
         WKDataEnvironment.current.serviceEnvironment = .staging
         
-        let controller = WKDonateDataController.shared
+        let controller = WMFDonateDataController.shared
         
         controller.fetchConfigs(for: "US") { result in
             switch result {

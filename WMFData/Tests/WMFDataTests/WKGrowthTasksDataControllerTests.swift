@@ -15,7 +15,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
     
     func testFetchImageRecommendationCombinedForTasks() {
 
-        let controller = WKGrowthTasksDataController(project: csProject)
+        let controller = WMFGrowthTasksDataController(project: csProject)
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
 
         var imageRecsToTest: [WKImageRecommendation.Page]?
@@ -37,7 +37,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
     
     func testParseImageRecommendationsCombined() {
 
-        let controller = WKGrowthTasksDataController(project: enProject)
+        let controller = WMFGrowthTasksDataController(project: enProject)
         var imageRecsToTest: [WKImageRecommendation.Page]?
 
         controller.getImageRecommendationsCombined(completion: { result in
@@ -91,7 +91,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Article Summary")
         
-        let controller = WKArticleSummaryDataController()
+        let controller = WMFArticleSummaryDataController()
         
         var articleSummaryToTest: WKArticleSummary?
         controller.fetchArticleSummary(project: csProject, title: "Novela (právo)") { result in

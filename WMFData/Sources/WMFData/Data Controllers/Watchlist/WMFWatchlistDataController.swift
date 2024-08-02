@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public class WKWatchlistDataController {
+public class WMFWatchlistDataController {
     
     var service = WKDataEnvironment.current.mediaWikiService
     private let sharedCacheStore = WKDataEnvironment.current.sharedCacheStore
@@ -591,7 +591,7 @@ public class WKWatchlistDataController {
 
 // MARK: - Private Models
 
-private extension WKWatchlistDataController {
+private extension WMFWatchlistDataController {
     struct WatchlistAPIResponse: Codable {
         
         struct Query: Codable {

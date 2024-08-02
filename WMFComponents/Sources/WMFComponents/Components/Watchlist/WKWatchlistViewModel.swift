@@ -130,7 +130,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 	var localizedStrings: LocalizedStrings
     let presentationConfiguration: PresentationConfiguration
 
-	private let dataController = WKWatchlistDataController()
+	private let dataController = WMFWatchlistDataController()
 	private var items: [ItemViewModel] = []
 
 	@Published var sections: [SectionViewModel] = []

@@ -136,7 +136,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
     func testFilterViewModelInstantiatesWithCorrectSavedSettings() throws {
         
         // First save some settings
-        let dataController = WKWatchlistDataController()
+        let dataController = WMFWatchlistDataController()
         let filterSettings = WKWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
         dataController.saveFilterSettings(filterSettings)
         
@@ -281,7 +281,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         filterViewModel.saveNewFilterSettings()
         
         // Load from data framework, confirm values are as expected
-        let dataController = WKWatchlistDataController()
+        let dataController = WMFWatchlistDataController()
         let filterSettings = dataController.loadFilterSettings()
         
         XCTAssertEqual(filterSettings.offProjects, [.commons, enProject])

@@ -299,7 +299,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let dataController = WKWatchlistDataController()
+        let dataController = WMFWatchlistDataController()
         dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

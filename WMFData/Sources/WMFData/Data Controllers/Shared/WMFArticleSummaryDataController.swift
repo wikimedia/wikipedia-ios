@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WKArticleSummaryDataController {
+public final class WMFArticleSummaryDataController {
     private var service: WKService?
     
     public init() {

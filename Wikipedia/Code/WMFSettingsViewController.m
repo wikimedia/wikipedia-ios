@@ -28,7 +28,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
-@property (readwrite, nonatomic, strong) WKDonateDataController *donateDataController;
+@property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
 
 @end
 
@@ -38,7 +38,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
-    vc.donateDataController = [WKDonateDataController sharedInstance];
+    vc.donateDataController = [WMFDonateDataController sharedInstance];
     
     return vc;
 }

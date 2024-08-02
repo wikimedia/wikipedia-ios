@@ -16,7 +16,7 @@ class WatchlistController {
         case article
     }
     
-    private let dataController = WKWatchlistDataController()
+    private let dataController = WMFWatchlistDataController()
     let context: Context
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?

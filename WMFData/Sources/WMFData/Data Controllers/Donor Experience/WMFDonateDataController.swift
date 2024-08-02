@@ -1,7 +1,7 @@
 import Foundation
 import Contacts
 
-@objc final public class WKDonateDataController: NSObject {
+@objc final public class WMFDonateDataController: NSObject {
     
     // MARK: - Properties
     
@@ -18,7 +18,7 @@ import Contacts
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
-    public static let shared = WKDonateDataController()
+    public static let shared = WMFDonateDataController()
     
     private init(service: WKService? = WKDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WKDataEnvironment.current.sharedCacheStore) {
        self.service = service

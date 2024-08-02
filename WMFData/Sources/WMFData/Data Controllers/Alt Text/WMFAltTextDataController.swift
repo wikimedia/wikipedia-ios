@@ -1,9 +1,9 @@
 import Foundation
 import UIKit
 
-public final class WKAltTextDataController {
+public final class WMFAltTextDataController {
     
-    public static let shared = WKAltTextDataController()
+    public static let shared = WMFAltTextDataController()
     
     public lazy var experimentStopDate: Date? = {
         var dateComponents = DateComponents()
@@ -23,8 +23,8 @@ public final class WKAltTextDataController {
         case alreadyAssignedOtherExperiment
     }
     
-    let experimentsDataController: WKExperimentsDataController
-    let developerSettingsDataController: WKDeveloperSettingsDataController
+    let experimentsDataController: WMFExperimentsDataController
+    let developerSettingsDataController: WMFDeveloperSettingsDataController
     let userDefaultsStore: WKKeyValueStore
     static let experimentPercentage = 50 // must be between 1 and 100
     
@@ -37,8 +37,8 @@ public final class WKAltTextDataController {
             return nil
         }
         
-        self.experimentsDataController = WKExperimentsDataController(store: experimentStore)
-        self.developerSettingsDataController = WKDeveloperSettingsDataController.shared
+        self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        self.developerSettingsDataController = WMFDeveloperSettingsDataController.shared
         self.userDefaultsStore = userDefaultsStore
     }
     
@@ -284,7 +284,7 @@ public final class WKAltTextDataController {
 }
 
 private extension WKProject {
-    func qualifiesForAltTextExperiments(developerSettingsDataController: WKDeveloperSettingsDataController) -> Bool {
+    func qualifiesForAltTextExperiments(developerSettingsDataController: WMFDeveloperSettingsDataController) -> Bool {
         switch self {
         case .wikipedia(let language):
             switch language.languageCode {

@@ -691,7 +691,7 @@ private extension DiffContainerViewController {
             return
         }
         
-        WKWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+        WMFWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -1342,7 +1342,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
         
-        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1386,7 +1386,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        WMFWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }

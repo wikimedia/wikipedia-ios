@@ -18,13 +18,13 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testAllWatchlistProjects() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let allProjects = controller.allWatchlistProjects()
         XCTAssertEqual([enProject, esProject, .commons, .wikidata], allProjects)
     }
     
     func testSavingAndLoadingFilterSettings() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .latestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .loggedActions])
         controller.saveFilterSettings(filterSettingsToSave)
         let loadedFilterSettings = controller.loadFilterSettings()
@@ -32,7 +32,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testOnOffWatchlistProjects() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
         controller.saveFilterSettings(filterSettingsToSave)
         XCTAssertEqual(controller.onWatchlistProjects(), [enProject, esProject])
@@ -40,7 +40,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testAllOffChangeTypes() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges, .pageCreations])
         controller.saveFilterSettings(filterSettingsToSave)
         XCTAssertEqual(controller.allChangeTypes(), [.pageEdits, .pageCreations, .categoryChanges, .wikidataEdits, .loggedActions])
@@ -48,28 +48,28 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testActiveFilterCount1() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [.commons, .wikidata], latestRevisions: .notTheLatestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [])
         controller.saveFilterSettings(filterSettingsToSave)
         XCTAssertEqual(controller.activeFilterCount(), 6)
     }
     
     func testActiveFilterCount2() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges])
         controller.saveFilterSettings(filterSettingsToSave)
         XCTAssertEqual(controller.activeFilterCount(), 2)
     }
     
     func testActiveFilterCount3() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [.commons, .wikidata, enProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .human, significance: .nonMinorEdits, userRegistration: .unregistered, offTypes: [.categoryChanges, .loggedActions, .pageCreations, .pageEdits, .wikidataEdits])
         controller.saveFilterSettings(filterSettingsToSave)
         XCTAssertEqual(controller.activeFilterCount(), 13)
     }
     
     func testFetchWatchlistWithDefaultFilter() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Watchlist")
         
@@ -138,7 +138,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithProjectFilter() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [enProject, esProject], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
         controller.saveFilterSettings(filterSettingsToSave)
@@ -181,7 +181,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithAllProjectsPlusOneFilter() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [enProject, esProject, .wikidata, .commons], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
         controller.saveFilterSettings(filterSettingsToSave)
@@ -213,7 +213,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithBotsFilter() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let filterSettingsToSave = WKWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .bot, significance: .all, userRegistration: .all, offTypes: [])
         controller.saveFilterSettings(filterSettingsToSave)
@@ -250,7 +250,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     
     func testFetchWatchlistWithNoCacheAndNoInternetConnection() {
         WKDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Watchlist")
         
@@ -273,7 +273,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     func testFetchWatchlistWithCacheAndNoInternetConnection() {
         
         // First fetch successfully to populate cache
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let expectation1 = XCTestExpectation(description: "Fetch Watchlist with Internet Connection")
         let expectation2 = XCTestExpectation(description: "Fetch Watchlist without Internet Connection")
@@ -316,7 +316,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testPostWatchArticleExpiryNever() {
-         let controller = WKWatchlistDataController()
+         let controller = WMFWatchlistDataController()
 
          let expectation = XCTestExpectation(description: "Post Watch Article Expiry Never")
 
@@ -334,7 +334,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
      }
 
      func testPostWatchArticleExpiryDate() {
-         let controller = WKWatchlistDataController()
+         let controller = WMFWatchlistDataController()
 
          let expectation = XCTestExpectation(description: "Post Watch Article Expiry Date")
 
@@ -352,7 +352,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
      }
 
      func testPostUnwatchArticle() {
-         let controller = WKWatchlistDataController()
+         let controller = WMFWatchlistDataController()
 
          let expectation = XCTestExpectation(description: "Post Watch Unwatch Article")
 
@@ -370,7 +370,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
      }
     
     func testFetchWatchStatus() {
-         let controller = WKWatchlistDataController()
+         let controller = WMFWatchlistDataController()
 
          let expectation = XCTestExpectation(description: "Fetch Watch Status")
          var statusToTest: WKPageWatchStatus?
@@ -394,7 +394,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
      }
 
      func testFetchWatchStatusWithRollbackRights() {
-         let controller = WKWatchlistDataController()
+         let controller = WMFWatchlistDataController()
 
          let expectation = XCTestExpectation(description: "Fetch Watch Status")
          var statusToTest: WKPageWatchStatus?
@@ -418,7 +418,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
      }
     
     func testPostRollbackArticle() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
 
         let expectation = XCTestExpectation(description: "Post Rollback Article")
 
@@ -444,7 +444,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testPostUndoArticle() {
-        let controller = WKWatchlistDataController()
+        let controller = WMFWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Post Undo Article")
 
