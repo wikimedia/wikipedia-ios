@@ -48,7 +48,7 @@ final class EditorViewController: UIViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var sourceEditor: WKSourceEditorViewController?
+    private var sourceEditor: WMFSourceEditorViewController?
     private var editorTopConstraint: NSLayoutConstraint?
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
@@ -439,7 +439,7 @@ final class EditorViewController: UIViewController {
     }
     
     private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
-        let localizedStrings = WKSourceEditorLocalizedStrings(
+        let localizedStrings = WMFSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
             keyboardHeading: CommonStrings.editorKeyboardHeadingButton,
@@ -502,9 +502,9 @@ final class EditorViewController: UIViewController {
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
+        let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
 
-        let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
+        let sourceEditor = WMFSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)
         sourceEditor.view.translatesAutoresizingMaskIntoConstraints = false
@@ -547,7 +547,7 @@ final class EditorViewController: UIViewController {
     
     private func setTextSizeInAppEnvironment() {
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
-        WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
+        WMFAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
     
 
@@ -663,25 +663,25 @@ extension EditorViewController: Themeable {
 
 // MARK: - WKSourceEditorViewControllerDelegate
 
-extension EditorViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+extension EditorViewController: WMFSourceEditorViewControllerDelegate {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         navigationItemController.undoButton.isEnabled = canUndo
         navigationItemController.redoButton.isEnabled = canRedo
     }
     
-    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, didChangeText: Bool) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, didChangeText: Bool) {
         navigationItemController.progressButton.isEnabled = didChangeText
     }
     
-    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFSourceEditorViewController) {
         showFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
         hideFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters) {
+    func sourceEditorViewControllerDidTapLink(parameters: WMFSourceEditorFormatterLinkWizardParameters) {
         guard let siteURL = pageURL.wmf_site else {
             return
         }

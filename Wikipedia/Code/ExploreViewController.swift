@@ -11,7 +11,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
-    private weak var imageRecommendationsViewModel: WKImageRecommendationsViewModel?
+    private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
     // MARK: - UIViewController
     
@@ -930,7 +930,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
                   let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
@@ -1225,7 +1225,7 @@ extension ExploreViewController {
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
 
-    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
+    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
@@ -1256,7 +1256,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
-    func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
+    func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData) {
 
         guard let image = imageData.uiImage,
         let siteURL = viewModel.project.siteURL else {
@@ -1507,7 +1507,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
     }
 }
 
-extension ExploreViewController: WKFeatureAnnouncing {
+extension ExploreViewController: WMFFeatureAnnouncing {
     
 }
 

@@ -17,9 +17,9 @@ public struct WMFSmallSwiftUIMenuButton: View {
 				ForEach(configuration.menuItems) { menuItem in
 					Button(action: {
                         if UIAccessibility.isVoiceOverRunning {
-                            menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTapAccessibility(configuration: configuration, item: menuItem)
+                            menuButtonDelegate?.wmfSwiftUIMenuButtonUserDidTapAccessibility(configuration: configuration, item: menuItem)
                         } else {
-                            menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
+                            menuButtonDelegate?.wmfSwiftUIMenuButtonUserDidTap(configuration: configuration, item: menuItem)
                         }
 					}) {
 						HStack {
@@ -46,7 +46,7 @@ public struct WMFSmallSwiftUIMenuButton: View {
 				.background(Color(appEnvironment.theme[keyPath: configuration.primaryColor].withAlphaComponent(0.15)))
 			})
 			.highPriorityGesture(TapGesture().onEnded {
-				menuButtonDelegate?.WMFSwiftUIMenuButtonUserDidTap(configuration: configuration, item: nil)
+				menuButtonDelegate?.wmfSwiftUIMenuButtonUserDidTap(configuration: configuration, item: nil)
 			})
 			.cornerRadius(8)
 	}

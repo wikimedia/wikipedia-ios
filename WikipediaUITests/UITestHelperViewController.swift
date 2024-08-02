@@ -1,7 +1,7 @@
 import WMFComponents
 import WMF
 
-public class UITestHelperViewController: WKCanvasViewController {
+public class UITestHelperViewController: WMFCanvasViewController {
 
     var theme: Theme
 
@@ -40,7 +40,7 @@ public class UITestHelperViewController: WKCanvasViewController {
 
     @objc func tappedSourceEditor() {
 
-        let localizedStrings = WKSourceEditorLocalizedStrings(
+        let localizedStrings = WMFSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
             keyboardHeading: CommonStrings.editorKeyboardHeadingButton,
@@ -101,7 +101,7 @@ public class UITestHelperViewController: WKCanvasViewController {
             replaceTypeSingleAccessibility: CommonStrings.editorReplaceTypeSingleAccessibility,
             replaceTypeAllAccessibility: CommonStrings.editorReplaceTypeAllAccessibility)
 
-        let accessibilityId = WKSourceEditorAccessibilityIdentifiers(
+        let accessibilityId = WMFSourceEditorAccessibilityIdentifiers(
             textView: SourceEditorAccessibilityIdentifiers.textView.rawValue,
             findButton: SourceEditorAccessibilityIdentifiers.findButton.rawValue,
             showMoreButton: SourceEditorAccessibilityIdentifiers.showMoreButton.rawValue,
@@ -114,8 +114,8 @@ public class UITestHelperViewController: WKCanvasViewController {
           )
 
         let textAlignment: NSTextAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: true, textAlignment: textAlignment, needsReadOnly: false, onloadSelectRange: nil)
-        let editor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
+        let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: "UITest", accessibilityIdentifiers: accessibilityId, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: true, textAlignment: textAlignment, needsReadOnly: false, onloadSelectRange: nil)
+        let editor = WMFSourceEditorViewController(viewModel: viewModel, delegate: self)
 
         present(editor, animated: false)
     }
@@ -150,12 +150,12 @@ public class UITestHelperViewController: WKCanvasViewController {
 }
 
 
-extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
-    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+extension UITestHelperViewController: WMFSourceEditorViewControllerDelegate {
+    public func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         
     }
     
-    public func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController, didChangeText: Bool) {
+    public func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, didChangeText: Bool) {
         
     }
     
@@ -163,15 +163,15 @@ extension UITestHelperViewController: WKSourceEditorViewControllerDelegate {
         
     }
     
-    public func sourceEditorViewControllerDidTapLink(parameters: WMFComponents.WKSourceEditorFormatterLinkWizardParameters) {
+    public func sourceEditorViewControllerDidTapLink(parameters: WMFComponents.WMFSourceEditorFormatterLinkWizardParameters) {
         
     }
     
-    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
         
     }
     
-    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFComponents.WKSourceEditorViewController) {
+    public func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
 
     }
     

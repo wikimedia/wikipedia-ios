@@ -294,12 +294,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
     
     public override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = WKFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
-        subtitleLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
-        footerButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        undoLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
-        undoButton.titleLabel?.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        customizationButton.titleLabel?.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        footerButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        undoLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        undoButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        customizationButton.titleLabel?.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
     private var cardShadowColor: UIColor = .black {

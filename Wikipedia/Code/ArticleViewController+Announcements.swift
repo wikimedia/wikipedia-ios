@@ -114,7 +114,7 @@ extension ArticleViewController {
     }
 }
 
-extension ArticleViewController: WKDonateDelegate {
+extension ArticleViewController: WMFDonateDelegate {
     public func donateDidTapProblemsDonatingLink() {
         sharedDonateDidTapProblemsDonatingLink()
     }
@@ -136,7 +136,7 @@ extension ArticleViewController: WKDonateDelegate {
     }
 }
 
-extension ArticleViewController: WKDonateLoggingDelegate {
+extension ArticleViewController: WMFDonateLoggingDelegate {
     
     func logDonateFormDidAppear() {
         guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {

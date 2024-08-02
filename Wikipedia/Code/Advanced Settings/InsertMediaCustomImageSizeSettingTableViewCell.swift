@@ -23,9 +23,9 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
     }
 
     private func updateFonts() {
-        titleLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        textFieldLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        textField.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        textFieldLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        textField.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 
     override var isUserInteractionEnabled: Bool {

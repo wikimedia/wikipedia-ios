@@ -281,17 +281,17 @@ class ViewControllerRouter: NSObject {
         var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
         let themeName = UserDefaults.standard.themeName
         if !Theme.isDefaultThemeName(themeName) {
-            overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
+            overrideUserInterfaceStyle = WMFAppEnvironment.current.theme.userInterfaceStyle
         }
 
         return WMFWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
     
     func showWatchlistOnboarding(targetNavigationController: UINavigationController?) {
-        let trackChanges = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
-        let watchArticles = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
-        let setExpiration = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
-        let viewUpdates = WMFOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
+        let trackChanges = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
+        let watchArticles = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
+        let setExpiration = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
+        let viewUpdates = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
 
         let viewModel = WMFOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
 
@@ -334,7 +334,7 @@ class ViewControllerRouter: NSObject {
 
         let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
 
-        let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
+        let localizedStringsEmptyView = WMFEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
 
         let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
             if reachable {
@@ -344,7 +344,7 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        let reachabilityHandler: WKWatchlistViewController.ReachabilityHandler = { state in
+        let reachabilityHandler: WMFWatchlistViewController.ReachabilityHandler = { state in
             switch state {
             case .appearing:
                 reachabilityNotifier.start()
@@ -353,9 +353,9 @@ class ViewControllerRouter: NSObject {
             }
         }
         
-        let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
+        let emptyViewModel = WMFEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
 
-        let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
+        let watchlistViewController = WMFWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
 
         targetNavigationController?.pushViewController(watchlistViewController, animated: true)
     }

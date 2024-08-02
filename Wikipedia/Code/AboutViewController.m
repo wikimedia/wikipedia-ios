@@ -208,10 +208,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *enableAltTextExperiment = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment", nil, nil, @"Enable Alt Text experiment.", @"Title for setting to enable alt text experiment. Displayed on the developer settings view.");
     
     NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
-    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN close:[WMFCommonStrings closeButtonAccessibilityLabel]];
-    WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
-    WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
+    WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController: viewController theme: self.theme];
     [self presentViewController:navVC animated:YES completion:nil];
 }

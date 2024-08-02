@@ -25,7 +25,7 @@ struct NotificationsCenterInboxView: View {
     let doneAction: () -> Void
     
     var body: some View {
-        WKFormView(viewModel: viewModel.formViewModel)
+        WMFFormView(viewModel: viewModel.formViewModel)
             .navigationBarItems(
                 trailing:
                     Button(action: {

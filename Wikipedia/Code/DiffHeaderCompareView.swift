@@ -63,22 +63,22 @@ class DiffHeaderCompareView: SetupView {
         return label
     }()
 
-    lazy var userButtonMenuItems: [WKSmallMenuButton.MenuItem] = {
+    lazy var userButtonMenuItems: [WMFSmallMenuButton.MenuItem] = {
         [
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
         ]
     }()
 
     lazy var fromMenuButton = {
-        let button = WKSmallMenuButton(configuration: WKSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
+        let button = WMFSmallMenuButton(configuration: WMFSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
 
     lazy var toMenuButton = {
-        let button = WKSmallMenuButton(configuration: WKSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
+        let button = WMFSmallMenuButton(configuration: WMFSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
@@ -260,9 +260,9 @@ extension DiffHeaderCompareView: Themeable {
     }
 }
 
-extension DiffHeaderCompareView: WKSmallMenuButtonDelegate {
+extension DiffHeaderCompareView: WMFSmallMenuButtonDelegate {
 
-    func wkMenuButton(_ sender: WMFComponents.WKSmallMenuButton, didTapMenuItem item: WMFComponents.WKSmallMenuButton.MenuItem) {
+    func wmfMenuButton(_ sender: WMFComponents.WMFSmallMenuButton, didTapMenuItem item: WMFComponents.WMFSmallMenuButton.MenuItem) {
         
         guard let viewModel else {
             return
@@ -286,7 +286,7 @@ extension DiffHeaderCompareView: WKSmallMenuButtonDelegate {
         }
     }
     
-    func wkMenuButtonDidTap(_ sender: WKSmallMenuButton) {
+    func wmfMenuButtonDidTap(_ sender: WMFSmallMenuButton) {
         if sender == fromMenuButton {
             WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: viewModel?.project)
         } else if sender == toMenuButton {

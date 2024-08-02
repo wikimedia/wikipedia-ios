@@ -36,38 +36,38 @@ public extension UIColor {
     
     // Make colors accessible to @objc
     @objc static var wmf_blue_700: UIColor {
-        return WKColor.blue700
+        return WMFColor.blue700
     }
 
     @objc static var wmf_blue_300: UIColor {
-        return WKColor.blue300
+        return WMFColor.blue300
     }
 
     @objc static var wmf_blue_600: UIColor {
-        return WKColor.blue600
+        return WMFColor.blue600
     }
 
     @objc static var wmf_yellow_600: UIColor {
-        return WKColor.yellow600
+        return WMFColor.yellow600
     }
     @objc static var wmf_red_600: UIColor {
-        return WKColor.red600
+        return WMFColor.red600
     }
 
     @objc static var wmf_gray_400: UIColor {
-        return WKColor.gray400
+        return WMFColor.gray400
     }
 
     @objc static var wmf_green_600: UIColor {
-        return WKColor.green600
+        return WMFColor.green600
     }
 
     @objc static var wmf_purple: UIColor {
-        return WKColor.purple600
+        return WMFColor.purple600
     }
 
     @objc static var wmf_orange: UIColor {
-        return WKColor.orange600
+        return WMFColor.orange600
     }
 
     @objc func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
@@ -110,33 +110,33 @@ public class Colors: NSObject {
     @objc public var baseBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray200
+            return WMFColor.gray200
         case .sepia:
-            return WKColor.beige400
+            return WMFColor.beige400
         case .dark, .black, .widgetDark:
-            return WKColor.gray800
+            return WMFColor.gray800
         }
     }
 
     @objc public var midBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black, .widgetDark:
-            return WKColor.gray700
+            return WMFColor.gray700
         }
     }
 
     @objc public var subCellBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.white
+            return WMFColor.white
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .widgetLight, .widgetDark:
             return .clear
         }
@@ -145,24 +145,24 @@ public class Colors: NSObject {
     @objc public var paperBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.white
+            return WMFColor.white
         case .sepia:
-            return WKColor.beige100
+            return WMFColor.beige100
         case .dark:
-            return WKColor.gray675
+            return WMFColor.gray675
         case .black, .widgetDark:
-            return WKColor.black
+            return WMFColor.black
         }
     }
 
     @objc public var popoverBackground: UIColor {
         switch identifier {
         case .light, .sepia:
-            return WKColor.white
+            return WMFColor.white
         case .dark:
-            return WKColor.gray800
+            return WMFColor.gray800
         case .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .widgetLight, .widgetDark:
             return .clear
         }
@@ -171,13 +171,13 @@ public class Colors: NSObject {
     @objc public var chromeBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.white
+            return WMFColor.white
         case .sepia:
-            return WKColor.beige100
+            return WMFColor.beige100
         case .dark:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .widgetLight, .widgetDark:
             return .clear
         }
@@ -186,33 +186,33 @@ public class Colors: NSObject {
     @objc public var chromeShadow: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray400
+            return WMFColor.gray400
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
 
     @objc public var overlayBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.black.withAlphaComponent(0.5)
+            return WMFColor.black.withAlphaComponent(0.5)
         case .sepia:
-            return WKColor.taupe600.withAlphaComponent(0.6)
+            return WMFColor.taupe600.withAlphaComponent(0.6)
         default:
-            return WKColor.black.withAlphaComponent(0.75)
+            return WMFColor.black.withAlphaComponent(0.75)
         }
     }
 
     @objc public var batchSelectionBackground: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.blue100
+            return WMFColor.blue100
         case .dark, .black, .widgetDark:
-            return WKColor.blue700
+            return WMFColor.blue700
 
         }
     }
@@ -222,36 +222,36 @@ public class Colors: NSObject {
         case .light, .sepia, .dark, .widgetLight:
             return .clear
         case .black, .widgetDark:
-            return WKColor.white.withAlphaComponent(0.2)
+            return WMFColor.white.withAlphaComponent(0.2)
         }
     }
 
     @objc public var hintBackground: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.blue100
+            return WMFColor.blue100
         case .dark, .widgetDark:
-            return WKColor.gray800
+            return WMFColor.gray800
         case .black:
-            return WKColor.gray650
+            return WMFColor.gray650
         }
     }
 
     @objc public var hintWarningText: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .dark, .black, .widgetDark:
-            return WKColor.yellow600
+            return WMFColor.yellow600
         }
     }
 
     @objc public var hintWarningBackground: UIColor {
         switch identifier {
         case .light, .sepia:
-            return WKColor.orange600
+            return WMFColor.orange600
         case .dark, .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         default:
             return .clear
         }
@@ -260,44 +260,44 @@ public class Colors: NSObject {
     @objc public var animationBackground: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray150
+            return WMFColor.gray150
         case .dark, .black, .widgetDark:
-            return WKColor.gray700
+            return WMFColor.gray700
         }
     }
     
     @objc public var overlayText: UIColor {
-        return WKColor.gray600
+        return WMFColor.gray600
     }
     
     @objc public var primaryText: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .dark, .black, .widgetDark:
-            return WKColor.gray100
+            return WMFColor.gray100
         }
     }
 
     @objc public var secondaryText: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray500
+            return WMFColor.gray500
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         default:
-            return WKColor.gray300
+            return WMFColor.gray300
         }
     }
 
     @objc public var tertiaryText: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray500
+            return WMFColor.gray500
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         default:
-            return WKColor.gray300
+            return WMFColor.gray300
 
         }
     }
@@ -305,136 +305,136 @@ public class Colors: NSObject {
     @objc public var disabledText: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray500
+            return WMFColor.gray500
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         default:
-            return WKColor.gray300
+            return WMFColor.gray300
         }
     }
 
     @objc public var disabledLink: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray600
+            return WMFColor.gray600
         case .sepia:
-            return WKColor.gray500
+            return WMFColor.gray500
         case .dark, .black, .widgetDark:
-            return WKColor.gray400
+            return WMFColor.gray400
         }
     }
     
     @objc public var chromeText: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .dark, .black, .widgetDark:
-            return WKColor.gray100
+            return WMFColor.gray100
         }
     }
     
     @objc public var link: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.blue600
+            return WMFColor.blue600
         case .dark, .black, .widgetDark:
-            return WKColor.blue300
+            return WMFColor.blue300
         }
     }
 
     @objc public var accent: UIColor {
         switch identifier {
         default:
-            return WKColor.green600
+            return WMFColor.green600
         }
     }
 
     @objc public var secondaryAction: UIColor {
-        return WKColor.blue700
+        return WMFColor.blue700
     }
 
     @objc public var destructive: UIColor {
         switch identifier {
         case .sepia:
-            return WKColor.red700
+            return WMFColor.red700
         default:
-            return WKColor.red600
+            return WMFColor.red600
         }
     }
     @objc public var warning: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.orange600
+            return WMFColor.orange600
         case .dark, .black, .widgetDark:
-            return WKColor.yellow600
+            return WMFColor.yellow600
         }
     }
     @objc public var error: UIColor {
         switch identifier {
         case .sepia:
-            return WKColor.red700
+            return WMFColor.red700
         default:
-            return WKColor.red600
+            return WMFColor.red600
         }
     }
     @objc public var unselected: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray400
+            return WMFColor.gray400
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         case .dark, .black, .widgetDark:
-            return WKColor.gray300
+            return WMFColor.gray300
         }
     }
     
     @objc public var border: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray400
+            return WMFColor.gray400
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
     
     public var newBorder: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray300
+            return WMFColor.gray300
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray500
+            return WMFColor.gray500
         case .black:
-            return WKColor.gray500
+            return WMFColor.gray500
         }
     }
 
     @objc public var shadow: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray200
+            return WMFColor.gray200
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray800
+            return WMFColor.gray800
         case .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         }
     }
 
     public var cardBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.white
+            return WMFColor.white
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .widgetLight, .widgetDark:
             return .clear
         }
@@ -443,46 +443,46 @@ public class Colors: NSObject {
     public var selectedCardBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.beige400
+            return WMFColor.beige400
         case .dark, .widgetDark:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
     
     @objc public var cardBorder: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
 
     @objc public var midCardBorder: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray200
+            return WMFColor.gray200
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
 
     @objc public var cardShadow: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray700
+            return WMFColor.gray700
         default:
             return .clear
         }
@@ -491,33 +491,33 @@ public class Colors: NSObject {
     @objc public var cardButtonBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         }
     }
 
     @objc public var cardButtonSelectedBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
     
     @objc public var icon: UIColor? {
         switch identifier {
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         case .dark, .black:
-            return WKColor.gray300
+            return WMFColor.gray300
         default:
             return nil
         }
@@ -526,38 +526,38 @@ public class Colors: NSObject {
     @objc public var iconBackground: UIColor? {
         switch identifier {
         case .sepia:
-            return WKColor.beige400
+            return WMFColor.beige400
         case .dark, .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         default:
             return nil
         }
     }
     
     @objc public var searchFieldBackground: UIColor {
-        return WKColor.darkSearchFieldBackground
+        return WMFColor.darkSearchFieldBackground
     }
 
     @objc public var keyboardBarSearchFieldBackground: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray200
+            return WMFColor.gray200
         case .dark, .black, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         }
     }
     
     @objc public var rankGradientStart: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.blue600
+            return WMFColor.blue600
         case .dark, .black, .widgetDark:
-            return WKColor.blue300
+            return WMFColor.blue300
         }
     }
 
     @objc public var rankGradientEnd: UIColor {
-        return WKColor.green600
+        return WMFColor.green600
     }
 
     @objc public var rankGradient: Gradient {
@@ -576,7 +576,7 @@ public class Colors: NSObject {
     @objc public var blurEffectBackground: UIColor {
         switch identifier {
         case .black, .dark, .widgetDark:
-            return WKColor.gray300.withAlphaComponent(0.55)
+            return WMFColor.gray300.withAlphaComponent(0.55)
         default:
             return .clear
         }
@@ -585,18 +585,18 @@ public class Colors: NSObject {
     @objc public var tagText: UIColor {
         switch identifier {
         case .light:
-            return WKColor.blue600
+            return WMFColor.blue600
         default:
-            return WKColor.white
+            return WMFColor.white
         }
     }
 
     @objc public var tagBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.blue600.withAlphaComponent(0.1)
+            return WMFColor.blue600.withAlphaComponent(0.1)
         default:
-            return WKColor.blue300
+            return WMFColor.blue300
 
         }
     }
@@ -604,9 +604,9 @@ public class Colors: NSObject {
     @objc public var tagSelectedBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.blue600.withAlphaComponent(0.25)
+            return WMFColor.blue600.withAlphaComponent(0.25)
         default:
-            return WKColor.blue600
+            return WMFColor.blue600
 
         }
     }
@@ -614,49 +614,49 @@ public class Colors: NSObject {
     @objc public var  distanceBorder: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray400
+            return WMFColor.gray400
         case .sepia:
-            return WKColor.taupe600
+            return WMFColor.taupe600
         case .dark, .black, .widgetDark:
-            return WKColor.gray300
+            return WMFColor.gray300
         }
     }
 
     @objc public var descriptionBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.yellow600
+            return WMFColor.yellow600
         case .sepia, .widgetLight:
-            return WKColor.orange600
+            return WMFColor.orange600
         case .dark, .black, .widgetDark:
-            return WKColor.blue300
+            return WMFColor.blue300
         }
     }
 
     @objc public var descriptionWarning: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.orange600
+            return WMFColor.orange600
         case .dark, .black, .widgetDark:
-            return WKColor.yellow600
+            return WMFColor.yellow600
         }
     }
     
     @objc public var pageIndicator: UIColor {
-        return WKColor.blue100
+        return WMFColor.blue100
     }
 
     @objc public var pageIndicatorCurrent: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.blue600
+            return WMFColor.blue600
         case .dark, .black, .widgetDark:
-            return WKColor.blue300
+            return WMFColor.blue300
         }
     }
     
     @objc public var unreadIndicator: UIColor {
-        return WKColor.green600
+        return WMFColor.green600
     }
     
     @objc public var refreshControlTint: UIColor {
@@ -666,11 +666,11 @@ public class Colors: NSObject {
     @objc public var inputAccessoryBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.white
+            return WMFColor.white
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .widgetLight, .widgetDark:
             return .clear
         }
@@ -679,9 +679,9 @@ public class Colors: NSObject {
     @objc public var inputAccessoryButtonTint: UIColor {
         switch identifier {
         case .light, .sepia, .widgetLight:
-            return WKColor.gray600
+            return WMFColor.gray600
         case .dark, .black, .widgetDark:
-            return WKColor.gray100
+            return WMFColor.gray100
         }
     }
 
@@ -696,20 +696,20 @@ public class Colors: NSObject {
     public var diffTextAdd: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray700
+            return WMFColor.gray700
         default:
-            return WKColor.green600
+            return WMFColor.green600
         }
     }
 
     public var diffTextDelete: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .sepia:
-            return WKColor.red700
+            return WMFColor.red700
         case .dark, .black:
-            return WKColor.red600
+            return WMFColor.red600
         default:
             return .clear
         }
@@ -718,7 +718,7 @@ public class Colors: NSObject {
     public var diffHighlightAdd: UIColor? {
         switch identifier {
         case .light:
-            return WKColor.green100
+            return WMFColor.green100
         default:
             return nil
         }
@@ -727,7 +727,7 @@ public class Colors: NSObject {
     public var diffHighlightDelete: UIColor? {
         switch identifier {
         case .light:
-            return WKColor.red100
+            return WMFColor.red100
         default:
             return nil
         }
@@ -736,11 +736,11 @@ public class Colors: NSObject {
     public var diffStrikethroughColor: UIColor {
         switch identifier {
         case .light:
-            return WKColor.gray700
+            return WMFColor.gray700
         case .sepia:
-            return WKColor.red700
+            return WMFColor.red700
         case .dark, .black:
-            return WKColor.red600
+            return WMFColor.red600
         default:
             return .clear
         }
@@ -749,40 +749,40 @@ public class Colors: NSObject {
     public var  diffContextItemBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black, .widgetDark:
-            return WKColor.gray700
+            return WMFColor.gray700
         }
     }
 
     public var diffContextItemBorder: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray400
+            return WMFColor.gray400
         case .sepia:
-            return WKColor.taupe200
+            return WMFColor.taupe200
         case .dark, .widgetDark:
-            return WKColor.gray650
+            return WMFColor.gray650
         case .black:
-            return WKColor.gray675
+            return WMFColor.gray675
         }
     }
 
     public var diffMoveParagraphBackground: UIColor {
         switch identifier {
         case .light, .widgetLight:
-            return WKColor.gray100
+            return WMFColor.gray100
         case .sepia:
-            return WKColor.beige300
+            return WMFColor.beige300
         case .dark, .black, .widgetDark:
-            return WKColor.gray700
+            return WMFColor.gray700
         }
     }
 
     public var diffCompareAccent: UIColor {
-        return WKColor.orange600
+        return WMFColor.orange600
     }
 
     public var diffCompareChangeHeading: UIColor {
@@ -792,11 +792,11 @@ public class Colors: NSObject {
     public var talkPageCoffeRollBackground: UIColor {
         switch identifier {
         case .light:
-            return WKColor.beige100
+            return WMFColor.beige100
         case .sepia:
-            return WKColor.beige400
+            return WMFColor.beige400
         case .dark, .black:
-            return WKColor.gray800
+            return WMFColor.gray800
         default:
             return .clear
         }
@@ -871,7 +871,7 @@ public class Theme: NSObject {
     }()
     
     static let tabBarItemFont: UIFont = {
-        return WKFont.for(.caption1)
+        return WMFFont.for(.caption1)
     }()
     
     public lazy var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] = {
@@ -1010,8 +1010,8 @@ public final class ObservableTheme: ObservableObject {
 public extension Theme {
 
     // Convert App `Theme` to WMFComponents framework `WKTheme`
-    static func wkTheme(from theme: Theme) -> WKTheme {
-        let wkTheme: WMFComponents.WKTheme
+    static func wkTheme(from theme: Theme) -> WMFTheme {
+        let wkTheme: WMFComponents.WMFTheme
 
         switch theme {
         case .light:

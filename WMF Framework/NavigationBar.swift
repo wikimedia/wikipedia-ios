@@ -201,7 +201,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             let navigationTitleLabel = UILabel()
             navigationTitleLabel.text = title
             navigationTitleLabel.sizeToFit()
-            navigationTitleLabel.font = WKFont.for(.boldTitle1)
+            navigationTitleLabel.font = WMFFont.for(.boldTitle1)
             titleView = navigationTitleLabel
             let titleItem = UIBarButtonItem(customView: navigationTitleLabel)
             extractedTitleBarButtonItem = titleItem

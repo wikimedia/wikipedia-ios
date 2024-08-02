@@ -198,7 +198,7 @@ struct PictureOfTheDayView: View {
             Spacer().frame(height: padding)
             GeometryReader { proxy in
                 Text(entry.imageDescription ?? "")
-                    .font(Font(WKFont.for(.caption1)))
+                    .font(Font(WMFFont.for(.caption1)))
                     .fontWeight(.medium)
                     .frame(width: proxy.size.width, alignment: .leading)
                     .lineLimit(3)

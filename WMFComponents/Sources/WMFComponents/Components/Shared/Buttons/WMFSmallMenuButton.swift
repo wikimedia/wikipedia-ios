@@ -137,11 +137,11 @@ public class WMFSmallMenuButton: WMFComponentView {
     // MARK: - Button Actions
 
     private func userDidTapMenuItem(_ item: MenuItem) {
-        delegate?.WMFMenuButton(self, didTapMenuItem: item)
+        delegate?.wmfMenuButton(self, didTapMenuItem: item)
     }
     
     @objc private func userDidTap() {
-        delegate?.WMFMenuButtonDidTap(self)
+        delegate?.wmfMenuButtonDidTap(self)
     }
 
     // MARK: - Component Conformance

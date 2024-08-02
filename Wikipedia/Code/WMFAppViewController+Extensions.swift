@@ -325,7 +325,7 @@ extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
 
 }
 
-extension WMFAppViewController: WKWatchlistLoggingDelegate {
+extension WMFAppViewController: WMFWatchlistLoggingDelegate {
     public func logWatchlistDidLoad(itemCount: Int) {
         WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
     }
@@ -431,7 +431,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
     }
     
-    public func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType) {
+    public func logWatchlistEmptyViewDidShow(type: WMFEmptyViewStateType) {
         switch type {
         case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
         case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
@@ -553,7 +553,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         default:
             wkTheme = WMFTheme.light
         }
-        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+        WMFAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }
 }
 
@@ -599,11 +599,11 @@ extension WMFAppViewController {
 
     @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
         let wkTheme = Theme.wkTheme(from: theme)
-        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+        WMFAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
     }
     
     @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
-        return WKAppEnvironment.current.traitCollection != traitCollection
+        return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
 }

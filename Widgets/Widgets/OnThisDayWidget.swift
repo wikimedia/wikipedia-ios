@@ -71,9 +71,9 @@ final class OnThisDayData {
         var errorColor: Color {
             switch self {
             case .featureNotSupportedInLanguage:
-                return Color(WKColor.gray500)
+                return Color(WMFColor.gray500)
             case .noInternet:
-                return Color(WKColor.gray800)
+                return Color(WMFColor.gray800)
             }
         }
 

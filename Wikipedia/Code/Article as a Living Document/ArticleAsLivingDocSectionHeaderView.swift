@@ -47,8 +47,8 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        subtitleLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         setNeedsLayout()
     }
 }
