@@ -2,7 +2,7 @@
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
 #import <WMF/WMF-Swift.h>
-@import WKData;
+@import WMFData;
 
 @interface WMFAnnouncementsContentSource ()
 

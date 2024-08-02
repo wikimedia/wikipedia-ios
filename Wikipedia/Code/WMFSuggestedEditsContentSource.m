@@ -1,6 +1,6 @@
 #import "WMFSuggestedEditsContentSource.h"
 #import <WMF/WMF-Swift.h>
-@import WKData;
+@import WMFData;
 
 @interface WMFSuggestedEditsContentSource ()
 

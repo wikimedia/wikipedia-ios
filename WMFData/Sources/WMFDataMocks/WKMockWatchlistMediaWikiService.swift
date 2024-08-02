@@ -1,9 +1,9 @@
 import Foundation
-import WKData
+import WMFData
 
 #if DEBUG
 
-fileprivate extension WKData.WKServiceRequest {
+fileprivate extension WMFData.WKServiceRequest {
     var isWatchlistGetListNoFilter: Bool {
         guard let action = parameters?["action"] as? String,
               let list = parameters?["list"] as? String,
@@ -166,11 +166,11 @@ public class WKMockWatchlistMediaWikiService: WKService {
         completion(.success(response))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WKServiceRequest, T : Decodable {
         
     }
     
-    private func jsonData(for request: WKData.WKServiceRequest) -> Data? {
+    private func jsonData(for request: WMFData.WKServiceRequest) -> Data? {
         if request.isWatchlistGetListNoFilter {
             guard let host = request.url?.host,
                   let index = host.firstIndex(of: "."),

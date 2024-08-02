@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 public enum WikimediaProject: Hashable {
     public typealias LanguageCode = String

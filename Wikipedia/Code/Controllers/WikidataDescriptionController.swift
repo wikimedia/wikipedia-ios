@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 class WikidataDescriptionController: ArticleDescriptionControlling {
 

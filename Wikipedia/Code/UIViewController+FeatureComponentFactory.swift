@@ -1,7 +1,7 @@
 import Foundation
 import Components
 import WMF
-import WKData
+import WMFData
 
 extension WKImageRecommendationsViewController {
     static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WKImageRecommendationsDelegate?, imageRecLoggingDelegate: WKImageRecommendationsLoggingDelegate?) -> WKImageRecommendationsViewController? {

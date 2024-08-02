@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 #if DEBUG
 
@@ -8,7 +8,7 @@ internal enum WKMockError: Error {
     case unableToDeserialize
 }
 
-fileprivate extension WKData.WKServiceRequest {
+fileprivate extension WMFData.WKServiceRequest {
     var isDonateConfigGet: Bool {
         switch WKDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -132,7 +132,7 @@ public class WKMockBasicService: WKService {
         completion(.success(response))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WKServiceRequest, T : Decodable {
         
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WKMockError.unableToPullData))
@@ -149,7 +149,7 @@ public class WKMockBasicService: WKService {
         completion(.success(response))
     }
     
-    private func jsonData(for request: WKData.WKServiceRequest) -> Data? {
+    private func jsonData(for request: WMFData.WKServiceRequest) -> Data? {
         if request.isDonateConfigGet {
             let resourceName = "donate-get-config"
              

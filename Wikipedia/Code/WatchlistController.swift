@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController)
@@ -289,7 +289,7 @@ class WatchlistController {
             }
         }
         
-        guard let dataControllerError = error as? WKData.WKDataControllerError else {
+        guard let dataControllerError = error as? WMFData.WKDataControllerError else {
             fallback(error)
             return
         }

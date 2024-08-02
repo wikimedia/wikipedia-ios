@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 import UIKit
 
 public final class WKWatchlistFilterViewModel: ObservableObject {

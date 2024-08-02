@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanelViewController {
 

@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 private extension WKMediaWikiServiceRequest.TokenType {
     var wmfTokenType: TokenType {
@@ -40,7 +40,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         }
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) where R : WKData.WKServiceRequest {
+    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) where R : WMFData.WKServiceRequest {
         assertionFailure("Not implemented")
         completion(.failure(MediaWikiFetcherError.invalidRequest))
     }
@@ -153,7 +153,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         performDecodableMediaWikiAPIGET(for: url, with: request.parameters, completionHandler: completion)
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WKServiceRequest, T : Decodable {
         assertionFailure("Not implemented")
         completion(.failure(MediaWikiFetcherError.invalidRequest))
     }

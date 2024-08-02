@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -1454,7 +1454,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 }
             }
             
-            guard let dataControllerError = error as? WKData.WKDataControllerError else {
+            guard let dataControllerError = error as? WMFData.WKDataControllerError else {
                 fallback(error)
                 return
             }

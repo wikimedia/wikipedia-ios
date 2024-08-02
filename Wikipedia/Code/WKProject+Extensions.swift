@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 extension WKProject {
     var siteURL: URL? {

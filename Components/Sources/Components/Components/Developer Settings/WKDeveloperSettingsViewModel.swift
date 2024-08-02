@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import WKData
+import WMFData
 
 @objc public class WKDeveloperSettingsLocalizedStrings: NSObject {
     let developerSettings: String

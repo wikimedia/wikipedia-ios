@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 import SwiftUI
 
 public final class WKWatchlistViewModel: ObservableObject {

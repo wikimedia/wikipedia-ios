@@ -1,5 +1,5 @@
 import Components
-import WKData
+import WMFData
 
 private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind

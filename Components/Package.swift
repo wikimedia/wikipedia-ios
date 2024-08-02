@@ -13,7 +13,7 @@ let package = Package(
             targets: ["Components"])
     ],
     dependencies: [
-        .package(name: "WKData", path: "../WKData/")
+        .package(name: "WMFData", path: "../WMFData/")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,13 +26,13 @@ let package = Package(
             name: "Components",
             dependencies: [
                 "ComponentsObjC",
-                .product(name: "WKData", package: "WKData"),
-                .product(name: "WKDataMocks", package: "WKData")
+                .product(name: "WMFData", package: "WMFData"),
+                .product(name: "WMFDataMocks", package: "WMFData")
             ],
             path: "Sources/Components"),
         .testTarget(
             name: "ComponentsTests",
             dependencies: ["Components",
-                           .product(name: "WKDataMocks", package: "WKData")])
+                           .product(name: "WMFDataMocks", package: "WMFData")])
     ]
 )

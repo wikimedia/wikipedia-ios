@@ -1,7 +1,7 @@
 import SwiftUI
 import WMF
 import Components
-import WKData
+import WMFData
 
 struct EditorChanges {
     let newRevisionID: UInt64

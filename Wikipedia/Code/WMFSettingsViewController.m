@@ -7,7 +7,7 @@
 #import "AboutViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-@import WKData;
+@import WMFData;
 
 #pragma mark - Static URLs
 

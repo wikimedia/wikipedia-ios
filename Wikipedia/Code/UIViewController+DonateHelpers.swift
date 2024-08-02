@@ -1,7 +1,7 @@
 import Foundation
 import WMF
 import Components
-import WKData
+import WMFData
 import PassKit
 
 @objc enum DonateSource: Int {

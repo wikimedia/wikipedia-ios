@@ -1,7 +1,7 @@
 import XCTest
 @testable import Components
-@testable import WKData
-@testable import WKDataMocks
+@testable import WMFData
+@testable import WMFDataMocks
 
 final class WKDonateViewModelTests: XCTestCase {
     

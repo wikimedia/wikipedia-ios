@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import WKData
+import WMFData
 
 struct WKImageRecommendationsView: View {
 

@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 struct TalkPageAPIResponse: Codable {
     let threads: TalkPageThreadItems?

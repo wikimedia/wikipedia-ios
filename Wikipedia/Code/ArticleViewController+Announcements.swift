@@ -1,6 +1,6 @@
 import WMF
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 import Components
 
 extension ArticleViewController {

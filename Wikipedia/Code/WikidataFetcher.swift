@@ -1,4 +1,4 @@
-import WKData
+import WMFData
 
 public enum ArticleDescriptionSource: String {
     case none

@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 final class WKMockURLSessionDataTask: WKURLSessionDataTask {
     func resume() {
@@ -16,7 +16,7 @@ final class WKMockSuccessURLSession: WKURLSession {
     
     var url: URL?
     
-    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKData.WKURLSessionDataTask {
+    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
         self.url = request.url
         
         let encoder = JSONEncoder()
@@ -30,7 +30,7 @@ final class WKMockSuccessURLSession: WKURLSession {
 }
 
 final class WKMockServerErrorSession: WKURLSession {
-    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKData.WKURLSessionDataTask {
+    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 500, httpVersion: nil, headerFields: nil)
         
@@ -40,7 +40,7 @@ final class WKMockServerErrorSession: WKURLSession {
 }
 
 final class WKMockNoInternetConnectionSession: WKURLSession {
-    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKData.WKURLSessionDataTask {
+    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completionHandler(nil, nil, error)
@@ -49,7 +49,7 @@ final class WKMockNoInternetConnectionSession: WKURLSession {
 }
 
 final class WKMockMissingDataSession: WKURLSession {
-    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKData.WKURLSessionDataTask {
+    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: nil)
         

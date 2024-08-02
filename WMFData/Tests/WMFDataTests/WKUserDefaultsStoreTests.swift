@@ -1,5 +1,5 @@
 import XCTest
-@testable import WKData
+@testable import WMFData
 
 final class WKUserDefaultsStoreTests: XCTestCase {
     

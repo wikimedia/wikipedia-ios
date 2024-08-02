@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
-import WKData
+import WMFData
 
 struct WKDeveloperSettingsView: View {
     

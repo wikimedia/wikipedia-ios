@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import WKData
+import WMFData
 
 public protocol WKWatchlistDelegate: AnyObject {
 	func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt)

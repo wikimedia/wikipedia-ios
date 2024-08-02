@@ -1,7 +1,7 @@
 import XCTest
 
-@testable import WKData
-@testable import WKDataMocks
+@testable import WMFData
+@testable import WMFDataMocks
 
 final class WKGrowthTasksDataControllerTests: XCTestCase {
 

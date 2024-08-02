@@ -1,7 +1,7 @@
 import XCTest
 import Contacts
-@testable import WKData
-@testable import WKDataMocks
+@testable import WMFData
+@testable import WMFDataMocks
 
 final class WKDonateDataControllerTests: XCTestCase {
     

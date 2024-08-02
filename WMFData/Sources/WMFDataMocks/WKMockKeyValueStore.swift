@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 public final class WKMockKeyValueStore: WKKeyValueStore {
     

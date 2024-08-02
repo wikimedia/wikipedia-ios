@@ -1,6 +1,6 @@
 import SwiftUI
 import UIKit
-import WKData
+import WMFData
 import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {

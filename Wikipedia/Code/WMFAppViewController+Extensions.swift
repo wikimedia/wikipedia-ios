@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import Components
-import WKData
+import WMFData
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -446,13 +446,13 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
     }
     
-    public func logWatchlistUserDidTapUserButton(project: WKData.WKProject) {
+    public func logWatchlistUserDidTapUserButton(project: WMFData.WKProject) {
         
         let wikimediaProject = WikimediaProject(wkProject: project)
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WKData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WKProject, action: Components.WKWatchlistUserButtonAction) {
         
         let wikimediaProject = WikimediaProject(wkProject: project)
 
@@ -557,7 +557,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
     }
 }
 
-// MARK: WKData setup
+// MARK: WMFData setup
 
 extension WMFAppViewController {
     @objc func setupWKDataEnvironment() {

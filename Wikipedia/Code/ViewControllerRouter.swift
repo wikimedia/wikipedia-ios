@@ -1,7 +1,7 @@
 import UIKit
 import AVKit
 import Components
-import WKData
+import WMFData
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {

@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 #if DEBUG
 
@@ -24,7 +24,7 @@ public class WKMockServiceNoInternetConnection: WKService {
         completion(.failure(error))
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WKServiceRequest, T : Decodable {
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completion(.failure(error))
     }

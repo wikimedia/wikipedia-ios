@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 extension WMFAnnouncementsContentSource {
     @objc func fetchMediaWikiBannerOptInForSiteURL(_ siteURL: URL) {

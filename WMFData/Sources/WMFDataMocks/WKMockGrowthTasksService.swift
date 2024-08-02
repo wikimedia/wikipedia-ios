@@ -1,9 +1,9 @@
 import Foundation
-import WKData
+import WMFData
 
 #if DEBUG
 
-fileprivate extension WKData.WKServiceRequest {
+fileprivate extension WMFData.WKServiceRequest {
 
     var isGrowthTasksGet: Bool {
 
@@ -50,7 +50,7 @@ public final class WKMockGrowthTasksService: WKService {
 
     public init() {}
 
-    private func jsonData(for request: WKData.WKServiceRequest) -> Data? {
+    private func jsonData(for request: WMFData.WKServiceRequest) -> Data? {
 
         if request.isGrowthTasksGet {
             let resourceName = "growth-task-get"

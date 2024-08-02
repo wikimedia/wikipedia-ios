@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 import Components
-import WKData
+import WMFData
 
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?) {

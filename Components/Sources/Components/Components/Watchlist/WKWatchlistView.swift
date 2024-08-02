@@ -1,5 +1,5 @@
 import SwiftUI
-import WKData
+import WMFData
 
 // MARK: - WKWatchlistView
 struct WKWatchlistView: View {

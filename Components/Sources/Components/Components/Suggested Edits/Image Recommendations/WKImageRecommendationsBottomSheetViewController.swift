@@ -1,5 +1,5 @@
 import UIKit
-import WKData
+import WMFData
 
 final public class WKImageRecommendationsBottomSheetViewController: WKCanvasViewController {
 

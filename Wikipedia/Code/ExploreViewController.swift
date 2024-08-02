@@ -1,7 +1,7 @@
 import WMF
 import CocoaLumberjackSwift
 import Components
-import WKData
+import WMFData
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -1239,7 +1239,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         presentingVC.present(gallery, animated: true)
     }
 
-    func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
+    func imageRecommendationsUserDidTapViewArticle(project: WMFData.WKProject, title: String) {
         
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title),

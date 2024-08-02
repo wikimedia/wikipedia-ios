@@ -1,4 +1,4 @@
-import WKData
+import WMFData
 import Components
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {

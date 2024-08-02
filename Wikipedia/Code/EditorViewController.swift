@@ -2,7 +2,7 @@ import UIKit
 import Components
 import WMF
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 
 protocol EditorViewControllerDelegate: AnyObject {
     func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?)

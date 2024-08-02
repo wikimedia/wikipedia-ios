@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 import Components
-import WKData
+import WMFData
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
