@@ -208,7 +208,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *enableAltTextExperiment = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment", nil, nil, @"Enable Alt Text experiment.", @"Title for setting to enable alt text experiment. Displayed on the developer settings view.");
     
     NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
-    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    
+    
+    NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
+    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs close:[WMFCommonStrings closeButtonAccessibilityLabel]];
     WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
     WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
