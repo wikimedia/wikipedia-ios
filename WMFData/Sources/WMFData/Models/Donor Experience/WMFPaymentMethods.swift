@@ -1,7 +1,7 @@
 import Foundation
 import PassKit
 
-public struct WKPaymentMethods: Codable {
+public struct WMFPaymentMethods: Codable {
     
     struct Response: Codable {
         

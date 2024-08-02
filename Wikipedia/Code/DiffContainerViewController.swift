@@ -52,7 +52,7 @@ class DiffContainerViewController: ViewController {
     
     var animateDirection: DiffRevisionTransition.Direction?
     
-    private var wkProject: WKProject? {
+    private var wkProject: WMFProject? {
         return wikimediaProject?.wkProject
     }
     
@@ -1393,7 +1393,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         }
     }
     
-    private func completeRollbackOrUndo(result: Result<WKUndoOrRollbackResult, Error>, isRollback: Bool) {
+    private func completeRollbackOrUndo(result: Result<WMFUndoOrRollbackResult, Error>, isRollback: Bool) {
         fakeProgressController.stop()
         
         switch result {

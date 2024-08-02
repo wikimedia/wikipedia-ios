@@ -7,7 +7,7 @@ public final class WMFArticleSummaryDataController {
         self.service = WMFDataEnvironment.current.basicService
     }
     
-    public func fetchArticleSummary(project: WKProject, title: String, completion: @escaping (Result<WKArticleSummary, Error>) -> Void) {
+    public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping (Result<WMFArticleSummary, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.basicServiceUnavailable))
@@ -21,7 +21,7 @@ public final class WMFArticleSummaryDataController {
         }
 
         let request = WKBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
-        service.performDecodableGET(request: request) { (result: Result<WKArticleSummary, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<WMFArticleSummary, Error>) in
             completion(result)
         }
     }

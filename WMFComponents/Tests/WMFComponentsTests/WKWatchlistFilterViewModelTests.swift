@@ -13,19 +13,19 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         WMFDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
     }
     
-    var enLanguage: WKLanguage {
-        return WKLanguage(languageCode: "en", languageVariantCode: nil)
+    var enLanguage: WMFLanguage {
+        return WMFLanguage(languageCode: "en", languageVariantCode: nil)
     }
     
-    var enProject: WKProject {
+    var enProject: WMFProject {
         return .wikipedia(enLanguage)
     }
     
-    var esLanguage: WKLanguage {
-        return WKLanguage(languageCode: "es", languageVariantCode: nil)
+    var esLanguage: WMFLanguage {
+        return WMFLanguage(languageCode: "es", languageVariantCode: nil)
     }
                           
-    var esProject: WKProject {
+    var esProject: WMFProject {
         return .wikipedia(esLanguage)
     }
 
@@ -137,7 +137,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
         
         // First save some settings
         let dataController = WMFWatchlistDataController()
-        let filterSettings = WKWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
         dataController.saveFilterSettings(filterSettings)
         
         let filterViewModel = WKWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
@@ -297,11 +297,11 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
 
  private extension WKWatchlistFilterViewModel.LocalizedStrings {
      static var demoStrings: WKWatchlistFilterViewModel.LocalizedStrings {
-         let localizedProjectNames: [WKProject: String] = [
-                     WKProject.commons: "Wikimedia Commons",
-                     WKProject.wikidata: "Wikidata",
-                     WKProject.wikipedia(WKLanguage(languageCode: "en", languageVariantCode: nil)): "English Wikipedia",
-                     WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil)): "Spanish Wikipedia"
+         let localizedProjectNames: [WMFProject: String] = [
+                     WMFProject.commons: "Wikimedia Commons",
+                     WMFProject.wikidata: "Wikidata",
+                     WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)): "English Wikipedia",
+                     WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil)): "Spanish Wikipedia"
                  ]
          return WKWatchlistFilterViewModel.LocalizedStrings(title: "Filter",
                                          doneTitle: "Done",

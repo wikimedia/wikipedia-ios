@@ -162,8 +162,8 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     // MARK: - Properties
     
     let localizedStrings: LocalizedStrings
-    private let donateConfig: WKDonateConfig
-    private let paymentMethods: WKPaymentMethods
+    private let donateConfig: WMFDonateConfig
+    private let paymentMethods: WMFPaymentMethods
     private let countryCode: String
     private let currencyCode: String
     private let languageCode: String
@@ -192,7 +192,7 @@ public final class WKDonateViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WKDonateConfig, paymentMethods: WKPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WKDonateDelegate?, loggingDelegate: WKDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods

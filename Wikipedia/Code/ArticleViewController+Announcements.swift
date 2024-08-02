@@ -27,7 +27,7 @@ extension ArticleViewController {
         }
     }
     
-    private func showNewDonateExperienceCampaignModal(asset: WKFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
+    private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
         
         AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
@@ -71,7 +71,7 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    private func pushToDonateForm(asset: WKFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
+    private func pushToDonateForm(asset: WMFFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
         
         let utmSource = asset.utmSource
@@ -221,7 +221,7 @@ extension ArticleViewController: WKDonateLoggingDelegate {
     
 }
 
-extension WKFundraisingCampaignConfig.WKAsset {
+extension WMFFundraisingCampaignConfig.WKAsset {
     
     var utmSource: String? {
         

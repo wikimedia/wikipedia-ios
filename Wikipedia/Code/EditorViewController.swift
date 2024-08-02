@@ -40,7 +40,7 @@ final class EditorViewController: UIViewController {
     private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
-    private let editTag: WKEditTag
+    private let editTag: WMFEditTag
     private weak var delegate: EditorViewControllerDelegate?
     private var theme: Theme
     
@@ -77,7 +77,7 @@ final class EditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WKEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WMFEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
 
         self.pageURL = pageURL
         self.sectionID = sectionID

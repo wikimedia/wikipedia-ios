@@ -209,7 +209,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
+    public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
             return
@@ -230,7 +230,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         navigate(to: diffURL, userInfo: userInfo)
     }
 
-    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
+    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
         let wikimediaProject = WikimediaProject(wkProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
@@ -296,7 +296,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
             // From `ViewControllerRouter`
             let dataStore = self.dataStore
             let appLanguages = dataStore.languageLinkController.preferredLanguages
-            var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+            var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
                 guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
                     return
                 }
@@ -334,7 +334,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logOpenFilterSettings()
     }
     
-    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WMFWatchlistFilterSettings, onProjects: [WMFProject]) {
         
         // Projects
         let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
@@ -414,7 +414,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         
         // Type Change
         var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
-        for changeType in WKWatchlistFilterSettings.ChangeType.allCases {
+        for changeType in WMFWatchlistFilterSettings.ChangeType.allCases {
             if !filterSettings.offTypes.contains(changeType) {
                 switch changeType {
                 case .categoryChanges: onTypeChanges.append(.categoryChanges)
@@ -446,13 +446,13 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
     }
     
-    public func logWatchlistUserDidTapUserButton(project: WMFData.WKProject) {
+    public func logWatchlistUserDidTapUserButton(project: WMFData.WMFProject) {
         
         let wikimediaProject = WikimediaProject(wkProject: project)
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WKProject, action: WMFComponents.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WKWatchlistUserButtonAction) {
         
         let wikimediaProject = WikimediaProject(wkProject: project)
 
@@ -584,12 +584,12 @@ extension WMFAppViewController {
         
         WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
     
     @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
 }

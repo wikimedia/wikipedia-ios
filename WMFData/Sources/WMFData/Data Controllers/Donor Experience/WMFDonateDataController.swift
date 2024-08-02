@@ -8,8 +8,8 @@ import Contacts
     var service: WKService?
     var sharedCacheStore: WKKeyValueStore?
     
-    private var donateConfig: WKDonateConfig?
-    private var paymentMethods: WKPaymentMethods?
+    private var donateConfig: WMFDonateConfig?
+    private var paymentMethods: WMFPaymentMethods?
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
@@ -27,7 +27,7 @@ import Contacts
     
     // MARK: - Public
     
-    public func loadConfigs() -> (donateConfig: WKDonateConfig?, paymentMethods: WKPaymentMethods?) {
+    public func loadConfigs() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
         
         // First pull from memory
         guard donateConfig == nil,
@@ -36,8 +36,8 @@ import Contacts
         }
         
         // Fall back to persisted objects if within seven days
-        let donateConfig: WKDonateConfig? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigContainerFileName)
-        let paymentMethods: WKPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsResponseFileName)
+        let donateConfig: WMFDonateConfig? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigContainerFileName)
+        let paymentMethods: WMFPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsResponseFileName)
         
         guard let donateConfigCachedDate = donateConfig?.cachedDate,
               let paymentMethodsCachedDate = paymentMethods?.cachedDate else {
@@ -94,12 +94,12 @@ import Contacts
         
         var errors: [Error] = []
         
-        var donateConfig: WKDonateConfig?
-        var paymentMethods: WKPaymentMethods?
+        var donateConfig: WMFDonateConfig?
+        var paymentMethods: WMFPaymentMethods?
         
         group.enter()
         let paymentMethodsRequest = WKBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
-        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
             defer {
                 group.leave()
             }
@@ -114,7 +114,7 @@ import Contacts
         
         group.enter()
         let donateConfigRequest = WKBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
-        service.performDecodableGET(request: donateConfigRequest) { (result: Result<WKDonateConfigResponse, Error>) in
+        service.performDecodableGET(request: donateConfigRequest) { (result: Result<WMFDonateConfigResponse, Error>) in
             
             defer {
                 group.leave()
@@ -210,7 +210,7 @@ import Contacts
         }
             
         let request = WKBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
-        service?.performDecodablePOST(request: request, completion: { (result: Result<WKPaymentSubmissionResponse, Error>) in
+        service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
             case .success(let response):
                 switch response.response.status.lowercased() {

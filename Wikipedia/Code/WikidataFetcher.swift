@@ -137,7 +137,7 @@ public enum ArticleDescriptionSource: String {
     ///   - languageCode: language code of the page's wiki, e.g., "en".
     ///   - completion: completion block called when operation is completed.
 
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editTags: [WKEditTag]?, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, editTags: [WMFEditTag]?, completion: @escaping (Error?) -> Void) {
         guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKImageRecommendation {
+public struct WMFImageRecommendation {
     
     let page: Page
 

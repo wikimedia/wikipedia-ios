@@ -1,9 +1,9 @@
 import Foundation
 
-public struct WKDonateConfigResponse: Codable {
+public struct WMFDonateConfigResponse: Codable {
     
     static var currentVersion = 1
-    var config: WKDonateConfig
+    var config: WMFDonateConfig
     
     public init(from decoder: Decoder) throws {
         
@@ -12,13 +12,13 @@ public struct WKDonateConfigResponse: Codable {
         var versionContainer = try decoder.unkeyedContainer()
         var donateContainer = try decoder.unkeyedContainer()
         
-        var validConfigs: [WKDonateConfig] = []
+        var validConfigs: [WMFDonateConfig] = []
         while !versionContainer.isAtEnd {
             
-            let wkVersion: WKConfigVersion
-            let config: WKDonateConfig
+            let wkVersion: WMFConfigVersion
+            let config: WMFDonateConfig
             do {
-                wkVersion = try versionContainer.decode(WKConfigVersion.self)
+                wkVersion = try versionContainer.decode(WMFConfigVersion.self)
             } catch {
                 // Skip
                 _ = try? versionContainer.decode(DiscardedElement.self)
@@ -32,7 +32,7 @@ public struct WKDonateConfigResponse: Codable {
             }
                 
             do {
-                config = try donateContainer.decode(WKDonateConfig.self)
+                config = try donateContainer.decode(WMFDonateConfig.self)
             } catch {
                 // Skip
                 _ = try? donateContainer.decode(DiscardedElement.self)

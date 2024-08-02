@@ -74,7 +74,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockServerErrorSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
-        service.performDecodableGET(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")
@@ -107,7 +107,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
-        service.performDecodableGET(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -140,7 +140,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockMissingDataSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
-        service.performDecodableGET(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -232,7 +232,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockServerErrorSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
-        service.performDecodablePOST(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon server error")
@@ -265,7 +265,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockNoInternetConnectionSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
-        service.performDecodablePOST(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")
@@ -298,7 +298,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WKBasicService(urlSession: mockMissingDataSession)
         let request = WKBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
-        service.performDecodablePOST(request: request) { (result: Result<WKPaymentMethods, Error>) in
+        service.performDecodablePOST(request: request) { (result: Result<WMFPaymentMethods, Error>) in
             switch result {
             case .success:
                 XCTFail("Unexpected success upon no internet connection")

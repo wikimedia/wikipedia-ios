@@ -61,7 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
-    var editTags: [WKEditTag]?
+    var editTags: [WMFEditTag]?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
     weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?

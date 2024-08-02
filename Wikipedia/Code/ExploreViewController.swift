@@ -1225,7 +1225,7 @@ extension ExploreViewController {
 
 extension ExploreViewController: WKImageRecommendationsDelegate {
 
-    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
+    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
@@ -1239,7 +1239,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         presentingVC.present(gallery, animated: true)
     }
 
-    func imageRecommendationsUserDidTapViewArticle(project: WMFData.WKProject, title: String) {
+    func imageRecommendationsUserDidTapViewArticle(project: WMFData.WMFProject, title: String) {
         
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title),

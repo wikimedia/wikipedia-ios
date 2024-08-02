@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKArticleSummary: Decodable {
+public struct WMFArticleSummary: Decodable {
     public let displayTitle: String
     public let description: String?
     public let extractHtml: String

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKDonateConfig: Codable {
+public struct WMFDonateConfig: Codable {
     let version: Int
     public let currencyMinimumDonation: [String: Decimal]
     public let currencyMaximumDonation: [String: Decimal]

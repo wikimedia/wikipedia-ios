@@ -1,6 +1,6 @@
 import Foundation
 
-internal struct WKImageRecommendationAPIResponse: Codable {
+internal struct WMFImageRecommendationAPIResponse: Codable {
 
     let batchcomplete: Bool
     let query: Query

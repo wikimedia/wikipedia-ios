@@ -1,7 +1,7 @@
 import Foundation
 
 /// Edit tags added to all MediaWiki API edit calls
-public enum WKEditTag: String {
+public enum WMFEditTag: String {
     case appSuggestedEdit = "app-suggestededit"
     case appImageAddTop = "app-image-add-top"
     case appUndo = "app-undo"

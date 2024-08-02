@@ -116,7 +116,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         
         let pageId: Int
         public let title: String
-        @Published var articleSummary: WKArticleSummary? = nil
+        @Published var articleSummary: WMFArticleSummary? = nil
         public let imageData: WKImageRecommendationData
         public var caption: String?
         public var altText: String?
@@ -126,7 +126,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         public var lastRevisionID: UInt64?
         public var localizedFileTitle: String?
 
-        fileprivate init(pageId: Int, title: String, articleSummary: WKArticleSummary? = nil, imageData: WKImageRecommendationData) {
+        fileprivate init(pageId: Int, title: String, articleSummary: WMFArticleSummary? = nil, imageData: WKImageRecommendationData) {
             self.pageId = pageId
             self.title = title
             self.articleSummary = articleSummary
@@ -136,7 +136,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Properties
 
-    public let project: WKProject
+    public let project: WMFProject
     public let semanticContentAttribute: UISemanticContentAttribute
     public let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
@@ -160,7 +160,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WKProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
         self.isLoggedIn = isLoggedIn
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
@@ -361,7 +361,7 @@ public final class WKImageRecommendationsViewModel: ObservableObject {
         }
     }
 
-    fileprivate func getFirstImageData(for pages: [WKImageRecommendation.Page]) -> [WKImageRecommendationData] {
+    fileprivate func getFirstImageData(for pages: [WMFImageRecommendation.Page]) -> [WKImageRecommendationData] {
 
         var imageData: [WKImageRecommendationData] = []
         for page in pages {

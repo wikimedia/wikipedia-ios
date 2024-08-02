@@ -5,8 +5,8 @@ import XCTest
 
 final class WKGrowthTasksDataControllerTests: XCTestCase {
 
-    private let csProject = WKProject.wikipedia(WKLanguage(languageCode: "cs", languageVariantCode: nil))
-    private let enProject = WKProject.wikipedia(WKLanguage(languageCode: "en", languageVariantCode: nil))
+    private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
+    private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
     override func setUp() async throws {
         WMFDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
@@ -18,7 +18,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         let controller = WMFGrowthTasksDataController(project: csProject)
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
 
-        var imageRecsToTest: [WKImageRecommendation.Page]?
+        var imageRecsToTest: [WMFImageRecommendation.Page]?
 
         controller.getImageRecommendationsCombined(completion: { result in
             switch result {
@@ -38,7 +38,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
     func testParseImageRecommendationsCombined() {
 
         let controller = WMFGrowthTasksDataController(project: enProject)
-        var imageRecsToTest: [WKImageRecommendation.Page]?
+        var imageRecsToTest: [WMFImageRecommendation.Page]?
 
         controller.getImageRecommendationsCombined(completion: { result in
             switch result {
@@ -93,7 +93,7 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
         
         let controller = WMFArticleSummaryDataController()
         
-        var articleSummaryToTest: WKArticleSummary?
+        var articleSummaryToTest: WMFArticleSummary?
         controller.fetchArticleSummary(project: csProject, title: "Novela (právo)") { result in
             switch result {
             case .success(let articleSummary):

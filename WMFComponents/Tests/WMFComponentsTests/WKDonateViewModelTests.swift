@@ -5,8 +5,8 @@ import XCTest
 
 final class WKDonateViewModelTests: XCTestCase {
     
-    private var paymentMethods: WKPaymentMethods?
-    private var donateConfig: WKDonateConfig?
+    private var paymentMethods: WMFPaymentMethods?
+    private var donateConfig: WMFDonateConfig?
     
     private let merchantID = "merchant.id"
     

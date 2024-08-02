@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKWatchlist {
+public struct WMFWatchlist {
     
     public struct Item {
         public let title: String
@@ -14,7 +14,7 @@ public struct WKWatchlist {
         public let commentHtml: String
         public let byteLength: UInt
         public let oldByteLength: UInt
-        public let project: WKProject
+        public let project: WMFProject
     }
     
     public let items: [Item]

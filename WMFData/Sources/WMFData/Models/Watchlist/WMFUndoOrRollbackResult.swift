@@ -1,4 +1,4 @@
-public struct WKUndoOrRollbackResult: Codable {
+public struct WMFUndoOrRollbackResult: Codable {
     public let newRevisionID: Int
     public let oldRevisionID: Int
 }

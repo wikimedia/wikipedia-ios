@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKPageWatchStatus {
+public struct WMFPageWatchStatus {
     public let watched: Bool
     public let watchlistExpiry: Date?
     public let userHasRollbackRights: Bool?

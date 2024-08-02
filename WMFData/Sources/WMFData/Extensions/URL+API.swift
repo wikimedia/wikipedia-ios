@@ -12,7 +12,7 @@ extension URL {
     // https://www.mediawiki.org/wiki/API:REST_API
     private static let baseMediaWikiRestAPIPathComponents = "/w/rest.php/"
     
-    static func mediaWikiAPIURL(project: WKProject) -> URL? {
+    static func mediaWikiAPIURL(project: WMFProject) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.path = baseMediaWikiAPIPathComponents
@@ -29,7 +29,7 @@ extension URL {
         return components.url
     }
     
-    static func wikimediaRestAPIURL(project: WKProject, additionalPathComponents: [String]) -> URL? {
+    static func wikimediaRestAPIURL(project: WMFProject, additionalPathComponents: [String]) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         
@@ -47,7 +47,7 @@ extension URL {
         return components.url
     }
     
-    static func mediaWikiRestAPIURL(project: WKProject, additionalPathComponents: [String]) -> URL? {
+    static func mediaWikiRestAPIURL(project: WMFProject, additionalPathComponents: [String]) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         
@@ -65,7 +65,7 @@ extension URL {
         return components.url
     }
     
-    static func paymentMethodsAPIURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func paymentMethodsAPIURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -75,7 +75,7 @@ extension URL {
         return components.url
     }
     
-    static func donatePaymentSubmissionURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func donatePaymentSubmissionURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -85,7 +85,7 @@ extension URL {
         return components.url
     }
     
-    static func donateConfigURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func donateConfigURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"
@@ -100,7 +100,7 @@ extension URL {
         return components.url
     }
     
-    static func fundraisingCampaignConfigURL(environment: WKServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
+    static func fundraisingCampaignConfigURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"

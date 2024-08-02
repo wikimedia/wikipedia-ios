@@ -235,7 +235,7 @@ class ViewControllerRouter: NSObject {
         
         let dataStore = appViewController.dataStore
         let appLanguages = dataStore.languageLinkController.preferredLanguages
-        var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+        var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
             
             guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController),
                   let wkProject = wikimediaProject.wkProject else {

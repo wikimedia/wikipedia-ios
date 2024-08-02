@@ -1,9 +1,9 @@
 import Foundation
 
 public struct WMFAppData {
-    let appLanguages: [WKLanguage]
+    let appLanguages: [WMFLanguage]
     
-    public init(appLanguages: [WKLanguage]) {
+    public init(appLanguages: [WMFLanguage]) {
         self.appLanguages = appLanguages
     }
 }
@@ -12,7 +12,7 @@ public final class WMFDataEnvironment: ObservableObject {
 
 	public static let current = WMFDataEnvironment()
     
-    public var serviceEnvironment: WKServiceEnvironment = .production
+    public var serviceEnvironment: WMFServiceEnvironment = .production
 
     @Published public var appData = WMFAppData(appLanguages: [])
     

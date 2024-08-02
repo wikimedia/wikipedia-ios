@@ -23,9 +23,9 @@ import Foundation
     var sharedCacheStore: WKKeyValueStore?
     var mediaWikiService: WKService?
     
-    private var activeCountryConfigs: [WKFundraisingCampaignConfig] = []
+    private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
-    private var preferencesBannerOptIns: SafeDictionary<WKProject, Bool> = SafeDictionary<WKProject, Bool>()
+    private var preferencesBannerOptIns: SafeDictionary<WMFProject, Bool> = SafeDictionary<WMFProject, Bool>()
     
     private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -44,7 +44,7 @@ import Foundation
     
     // MARK: - Public
     
-    public func isOptedIn(project: WKProject) async -> Bool {
+    public func isOptedIn(project: WMFProject) async -> Bool {
         return await preferencesBannerOptIns.getValue(forKey: project) ?? true
     }
     
@@ -52,7 +52,7 @@ import Foundation
     /// - Parameters:
     ///   - asset: WKAsset to mark as maybe later
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
-    public func markAssetAsMaybeLater(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) {
+    public func markAssetAsMaybeLater(asset: WMFFundraisingCampaignConfig.WKAsset, currentDate: Date) {
         guard let oneDayLater = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) else {
             return
         }
@@ -68,7 +68,7 @@ import Foundation
     ///   - asset: WKAsset displayed
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: Bool
-    public func showShowMaybeLaterOption(asset: WKFundraisingCampaignConfig.WKAsset, currentDate: Date) -> Bool {
+    public func showShowMaybeLaterOption(asset: WMFFundraisingCampaignConfig.WKAsset, currentDate: Date) -> Bool {
 
         let calendar = Calendar.current
         let endDateComponents = calendar.dateComponents([.year, .month, .day], from: asset.endDate)
@@ -79,7 +79,7 @@ import Foundation
 
     /// Set asset as permanently hidden in persistence, so that it cannot be loaded and displayed on subsequent attempts.
     /// - Parameter asset: WKAsset to mark as hidden
-    public func markAssetAsPermanentlyHidden(asset: WKFundraisingCampaignConfig.WKAsset) {
+    public func markAssetAsPermanentlyHidden(asset: WMFFundraisingCampaignConfig.WKAsset) {
         let promptState = WKFundraisingCampaignPromptState(campaignID: asset.id, isHidden: true, maybeLaterDate: nil)
         try? sharedCacheStore?.save(key: cacheDirectoryName, cachePromptStateFileName, value: promptState)
         self.promptState = promptState
@@ -96,7 +96,7 @@ import Foundation
     ///   - wkProject: wkProject to pull translated campaign text against. Send in the article view project if displaying campaign text on article.
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: WKAsset containing information to display in campaign modal.
-    public func loadActiveCampaignAsset(countryCode: String, wkProject: WKProject, currentDate: Date) -> WKFundraisingCampaignConfig.WKAsset? {
+    public func loadActiveCampaignAsset(countryCode: String, wkProject: WMFProject, currentDate: Date) -> WMFFundraisingCampaignConfig.WKAsset? {
         
         guard activeCountryConfigs.isEmpty else {
             
@@ -164,7 +164,7 @@ import Foundation
         }
     }
     
-    public func fetchMediaWikiBannerOptIn(project: WKProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
         guard let mediaWikiService else {
             completion?(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -228,13 +228,13 @@ import Foundation
     
     // MARK: - Private
     
-    private func queuedActiveLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?, currentDate: Date) -> WKFundraisingCampaignConfig.WKAsset? {
+    private func queuedActiveLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?, currentDate: Date) -> WMFFundraisingCampaignConfig.WKAsset? {
         
         guard let asset = activeLanguageSpecificAsset(languageCode: languageCode, languageVariantCode: languageVariantCode) else {
             return nil
         }
         
-        let validateAsset: ((WKFundraisingCampaignConfig.WKAsset, WKFundraisingCampaignPromptState) -> WKFundraisingCampaignConfig.WKAsset?) = { asset, promptState in
+        let validateAsset: ((WMFFundraisingCampaignConfig.WKAsset, WKFundraisingCampaignPromptState) -> WMFFundraisingCampaignConfig.WKAsset?) = { asset, promptState in
             guard promptState.campaignID == asset.id else {
                 return asset
             }
@@ -265,7 +265,7 @@ import Foundation
         }
     }
     
-    private func activeLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?) -> WKFundraisingCampaignConfig.WKAsset? {
+    private func activeLanguageSpecificAsset(languageCode: String?, languageVariantCode: String?) -> WMFFundraisingCampaignConfig.WKAsset? {
         
         guard let languageCode else {
             return nil
@@ -283,9 +283,9 @@ import Foundation
         return nil
     }
     
-    private func activeCountryConfigs(from currentConfigs: [WKFundraisingCampaignConfig], currentDate: Date) -> [WKFundraisingCampaignConfig] {
+    private func activeCountryConfigs(from currentConfigs: [WMFFundraisingCampaignConfig], currentDate: Date) -> [WMFFundraisingCampaignConfig] {
         
-        var configs: [WKFundraisingCampaignConfig] = []
+        var configs: [WMFFundraisingCampaignConfig] = []
         currentConfigs.forEach { config in
             
             guard let firstAsset = config.assets.values.first else {
@@ -303,9 +303,9 @@ import Foundation
         return configs
     }
     
-    private func activeCountryConfigs(from response: WKFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WKFundraisingCampaignConfig] {
+    private func activeCountryConfigs(from response: WKFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WMFFundraisingCampaignConfig] {
         
-        var configs: [WKFundraisingCampaignConfig] = []
+        var configs: [WMFFundraisingCampaignConfig] = []
         
         response.configs.forEach({ config in
             
@@ -323,24 +323,24 @@ import Foundation
                 return
             }
             
-            var assets: [String: WKFundraisingCampaignConfig.WKAsset] = [:]
+            var assets: [String: WMFFundraisingCampaignConfig.WKAsset] = [:]
             for (key, value) in config.assets {
                 
-                let actions: [WKFundraisingCampaignConfig.WKAsset.WKAction] = value.actions.map { action in
+                let actions: [WMFFundraisingCampaignConfig.WKAsset.WKAction] = value.actions.map { action in
                     
                     guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
                        let url = URL(string: urlString) else {
-                        return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: nil)
+                        return WMFFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: nil)
                     }
                     
-                    return WKFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
+                    return WMFFundraisingCampaignConfig.WKAsset.WKAction(title: action.title, url: url)
                 }
 
-                let asset = WKFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
+                let asset = WMFFundraisingCampaignConfig.WKAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
                 assets[key] = asset
             }
             
-            configs.append(WKFundraisingCampaignConfig(id: config.id, assets: assets))
+            configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: assets))
         })
         
         return configs
@@ -418,10 +418,10 @@ private struct WKFundraisingCampaignConfigResponse: Codable {
         var validVersionConfigs: [FundraisingCampaignConfig] = []
         while !versionContainer.isAtEnd {
             
-            let wkVersion: WKConfigVersion
+            let wkVersion: WMFConfigVersion
             let config: FundraisingCampaignConfig
             do {
-                wkVersion = try versionContainer.decode(WKConfigVersion.self)
+                wkVersion = try versionContainer.decode(WMFConfigVersion.self)
             } catch {
                 // Skip
                 _ = try? versionContainer.decode(DiscardedElement.self)

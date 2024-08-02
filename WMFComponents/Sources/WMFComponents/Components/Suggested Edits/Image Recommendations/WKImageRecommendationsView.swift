@@ -47,7 +47,7 @@ fileprivate struct WKImageRecommendationsArticleSummaryView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject var viewModel: WKImageRecommendationsViewModel
     
-    let articleSummary: WKArticleSummary
+    let articleSummary: WMFArticleSummary
     let viewArticleAction: (String) -> Void
     
     var isRTL: Bool {

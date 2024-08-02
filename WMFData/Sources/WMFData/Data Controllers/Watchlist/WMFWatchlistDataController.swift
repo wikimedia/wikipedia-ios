@@ -11,48 +11,48 @@ public class WMFWatchlistDataController {
     
     // MARK: Multiselect Helpers
     
-    public func allWatchlistProjects() -> [WKProject] {
+    public func allWatchlistProjects() -> [WMFProject] {
         let appLanguages = WMFDataEnvironment.current.appData.appLanguages
         guard !appLanguages.isEmpty else {
            return []
         }
         
-        var projects = WKProject.projectsFromLanguages(languages:appLanguages)
+        var projects = WMFProject.projectsFromLanguages(languages:appLanguages)
         projects.append(.commons)
         projects.append(.wikidata)
         
         return projects
     }
     
-    public func onWatchlistProjects() -> [WKProject] {
+    public func onWatchlistProjects() -> [WMFProject] {
         let allProjects = allWatchlistProjects()
         let filterSettings = loadFilterSettings()
         return allProjects.filter { !filterSettings.offProjects.contains($0) }
     }
     
-    public func offWatchlistProjects() -> [WKProject] {
+    public func offWatchlistProjects() -> [WMFProject] {
         let allProjects = allWatchlistProjects()
         let filterSettings = loadFilterSettings()
         return filterSettings.offProjects.filter { allProjects.contains($0) }
     }
     
-    public func allChangeTypes() -> [WKWatchlistFilterSettings.ChangeType] {
-        return WKWatchlistFilterSettings.ChangeType.allCases
+    public func allChangeTypes() -> [WMFWatchlistFilterSettings.ChangeType] {
+        return WMFWatchlistFilterSettings.ChangeType.allCases
     }
     
-    public func offChangeTypes() -> [WKWatchlistFilterSettings.ChangeType] {
+    public func offChangeTypes() -> [WMFWatchlistFilterSettings.ChangeType] {
         let filterSettings = loadFilterSettings()
         return filterSettings.offTypes.filter { allChangeTypes().contains($0) }
     }
     
     // MARK: Filter Settings
     
-    public func loadFilterSettings() -> WKWatchlistFilterSettings {
+    public func loadFilterSettings() -> WMFWatchlistFilterSettings {
         let key = WKUserDefaultsKey.watchlistFilterSettings.rawValue
-        return (try? userDefaultsStore?.load(key: key)) ?? WKWatchlistFilterSettings()
+        return (try? userDefaultsStore?.load(key: key)) ?? WMFWatchlistFilterSettings()
     }
     
-    public func saveFilterSettings(_ filterSettings: WKWatchlistFilterSettings) {
+    public func saveFilterSettings(_ filterSettings: WMFWatchlistFilterSettings) {
         let key = WKUserDefaultsKey.watchlistFilterSettings.rawValue
         try? userDefaultsStore?.save(key: key, value: filterSettings)
     }
@@ -84,7 +84,7 @@ public class WMFWatchlistDataController {
             numFilters += 1
         }
         
-        let allTypes = WKWatchlistFilterSettings.ChangeType.allCases
+        let allTypes = WMFWatchlistFilterSettings.ChangeType.allCases
         let offTypes = filterSettings.offTypes.filter { allTypes.contains($0) }
         numFilters += offTypes.count
         
@@ -93,7 +93,7 @@ public class WMFWatchlistDataController {
     
     // MARK: GET Watchlist Items
 
-    public func fetchWatchlist(completion: @escaping (Result<WKWatchlist, Error>) -> Void) {
+    public func fetchWatchlist(completion: @escaping (Result<WMFWatchlist, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -104,7 +104,7 @@ public class WMFWatchlistDataController {
         
         let projects = onWatchlistProjects()
         guard !projects.isEmpty else {
-            completion(.success(WKWatchlist(items: [], activeFilterCount: activeFilterCount)))
+            completion(.success(WMFWatchlist(items: [], activeFilterCount: activeFilterCount)))
             return
         }
         
@@ -124,8 +124,8 @@ public class WMFWatchlistDataController {
         apply(filterSettings: filterSettings, to: &parameters)
         
         let group = DispatchGroup()
-        var items: [WKWatchlist.Item] = []
-        var errors: [WKProject: [WKDataControllerError]] = [:]
+        var items: [WMFWatchlist.Item] = []
+        var errors: [WMFProject: [WKDataControllerError]] = [:]
         projects.forEach { project in
             errors[project] = []
         }
@@ -196,7 +196,7 @@ public class WMFWatchlistDataController {
             let failureProjects = errors.filter { !$0.value.isEmpty }
             
             if !successProjects.isEmpty {
-                completion(.success(WKWatchlist(items: items, activeFilterCount: activeFilterCount)))
+                completion(.success(WMFWatchlist(items: items, activeFilterCount: activeFilterCount)))
                 return
             }
             
@@ -205,20 +205,20 @@ public class WMFWatchlistDataController {
                 return
             }
             
-            completion(.success(WKWatchlist(items: items, activeFilterCount: activeFilterCount)))
+            completion(.success(WMFWatchlist(items: items, activeFilterCount: activeFilterCount)))
         }
     }
     
-    private func watchlistItems(from apiResponseQuery: WatchlistAPIResponse.Query, project: WKProject) -> [WKWatchlist.Item] {
+    private func watchlistItems(from apiResponseQuery: WatchlistAPIResponse.Query, project: WMFProject) -> [WMFWatchlist.Item] {
         
-        var items: [WKWatchlist.Item] = []
+        var items: [WMFWatchlist.Item] = []
         for item in apiResponseQuery.watchlist {
             
             guard let timestamp = DateFormatter.mediaWikiAPIDateFormatter.date(from: item.timestampString) else {
                 continue
             }
             
-            let item = WKWatchlist.Item(
+            let item = WMFWatchlist.Item(
                 title: item.title,
                 revisionID: item.revisionID,
                 oldRevisionID: item.oldRevisionID,
@@ -237,7 +237,7 @@ public class WMFWatchlistDataController {
         return items
     }
     
-    private func apply(filterSettings: WKWatchlistFilterSettings, to parameters: inout [String: String]) {
+    private func apply(filterSettings: WMFWatchlistFilterSettings, to parameters: inout [String: String]) {
         switch filterSettings.latestRevisions {
         case .notTheLatestRevision:
             parameters["wlallrev"] = "1"
@@ -310,7 +310,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Watch Item
      
-     public func watch(title: String, project: WKProject, expiry: WKWatchlistExpiryType, completion: @escaping (Result<Void, Error>) -> Void) {
+     public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping (Result<Void, Error>) -> Void) {
 
          guard let service else {
              completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -351,7 +351,7 @@ public class WMFWatchlistDataController {
 
      // MARK: POST Unwatch Item
      
-     public func unwatch(title: String, project: WKProject, completion: @escaping (Result<Void, Error>) -> Void) {
+     public func unwatch(title: String, project: WMFProject, completion: @escaping (Result<Void, Error>) -> Void) {
 
          guard let service else {
              completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -392,7 +392,7 @@ public class WMFWatchlistDataController {
     
     // MARK: GET Watch Status and Rollback Rights
      
-     public func fetchWatchStatus(title: String, project: WKProject, needsRollbackRights: Bool = false, completion: @escaping (Result<WKPageWatchStatus, Error>) -> Void) {
+     public func fetchWatchStatus(title: String, project: WMFProject, needsRollbackRights: Bool = false, completion: @escaping (Result<WMFPageWatchStatus, Error>) -> Void) {
          guard let service else {
              completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
              return
@@ -437,7 +437,7 @@ public class WMFWatchlistDataController {
                   watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
                 }
 
-                let status = WKPageWatchStatus(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights)
+                let status = WMFPageWatchStatus(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights)
                  completion(.success(status))
              case .failure(let error):
                  completion(.failure(WKDataControllerError.serviceError(error)))
@@ -447,7 +447,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Rollback Page
     
-    public func rollback(title: String, project: WKProject, username: String, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
+    public func rollback(title: String, project: WMFProject, username: String, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -458,7 +458,7 @@ public class WMFWatchlistDataController {
             "action": "rollback",
             "title": title,
             "user": username,
-            "matags": WKEditTag.appRollback.rawValue,
+            "matags": WMFEditTag.appRollback.rawValue,
             "format": "json",
             "formatversion": "2",
             "errorformat": "html",
@@ -481,7 +481,7 @@ public class WMFWatchlistDataController {
                     return
                 }
 
-                completion(.success(WKUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
+                completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
             case .failure(let error):
                 completion(.failure(WKDataControllerError.serviceError(error)))
             }
@@ -490,7 +490,7 @@ public class WMFWatchlistDataController {
     
     // MARK: POST Undo Revision
     
-    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WKProject, completion: @escaping (Result<WKUndoOrRollbackResult, Error>) -> Void) {
+    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -508,7 +508,7 @@ public class WMFWatchlistDataController {
                     "title": title,
                     "summary": finalSummary,
                     "undo": String(revisionID),
-                    "matags": WKEditTag.appUndo.rawValue,
+                    "matags": WMFEditTag.appUndo.rawValue,
                     "format": "json",
                     "formatversion": "2",
                     "errorformat": "html",
@@ -533,7 +533,7 @@ public class WMFWatchlistDataController {
                             return
                         }
 
-                        completion(.success(WKUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
+                        completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
                     case .failure(let error):
                         completion(.failure(WKDataControllerError.serviceError(error)))
                     }
@@ -545,7 +545,7 @@ public class WMFWatchlistDataController {
         }
     }
     
-    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WKProject, completion: @escaping (Result<String, Error>) -> Void) {
+    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject, completion: @escaping (Result<String, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
@@ -628,7 +628,7 @@ private extension WMFWatchlistDataController {
         }
         
         let query: Query?
-        let errors: [WKMediaWikiError]?
+        let errors: [WMFMediaWikiError]?
     }
 
     struct PageWatchStatusAndRollbackResponse: Codable {

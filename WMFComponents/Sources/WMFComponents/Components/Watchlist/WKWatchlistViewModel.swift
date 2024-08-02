@@ -17,12 +17,12 @@ public final class WKWatchlistViewModel: ObservableObject {
         public var userAccessibility: String
         public var summaryAccessibility: String
         public var userAccessibilityButtonDiff: String
-        public var localizedProjectNames: [WKProject: String]
+        public var localizedProjectNames: [WMFProject: String]
 
 		public var byteChange: ((Int) -> String) // for injecting localized plurals via client app
 		public let htmlStripped: ((String) -> String) // use client app logic to strip HTML tags
 
-        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, emptyEditSummary: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WKProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
+        public init(title: String, filter: String, userButtonUserPage: String, userButtonTalkPage: String, userButtonContributions: String, userButtonThank: String, emptyEditSummary: String, userAccessibility: String, summaryAccessibility: String, userAccessibilityButtonDiff: String, localizedProjectNames: [WMFProject: String], byteChange: @escaping ((Int) -> String), htmlStripped: @escaping ((String) -> String)) {
 
 			self.title = title
 			self.filter = filter
@@ -41,7 +41,7 @@ public final class WKWatchlistViewModel: ObservableObject {
 	}
 
 	public struct ItemViewModel: Identifiable {
-		public static let wkProjectMetadataKey = String(describing: WKProject.self)
+		public static let wkProjectMetadataKey = String(describing: WMFProject.self)
 		public static let revisionIDMetadataKey = "RevisionID"
         public static let oldRevisionIDMetadataKey = "OldRevisionID"
         public static let articleMetadataKey = "ArticleTitle"
@@ -58,10 +58,10 @@ public final class WKWatchlistViewModel: ObservableObject {
 		let revisionID: UInt
 		let oldRevisionID: UInt
 		let byteChange: Int
-		let project: WKProject
+		let project: WMFProject
 		private let htmlStripped: ((String) -> String)
 
-		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WKProject, htmlStripped: @escaping ((String) -> String)) {
+		public init(title: String, commentHTML: String, commentWikitext: String, timestamp: Date, username: String, isAnonymous: Bool, isBot: Bool, revisionID: UInt, oldRevisionID: UInt, byteChange: Int, project: WMFProject, htmlStripped: @escaping ((String) -> String)) {
 			self.title = title
 			self.commentHTML = commentHTML
 			self.commentWikitext = commentWikitext

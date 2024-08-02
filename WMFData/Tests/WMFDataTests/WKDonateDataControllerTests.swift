@@ -112,10 +112,10 @@ final class WKDonateDataControllerTests: XCTestCase {
         let expectation1 = XCTestExpectation(description: "Fetch Donate Configs with Internet Connection")
         let expectation2 = XCTestExpectation(description: "Fetch Donate Configs without Internet Connection")
 
-        var connectedPaymentMethods: WKPaymentMethods?
-        var connectedDonateConfig: WKDonateConfig?
-        var notConnectedPaymentMethods: WKPaymentMethods?
-        var notConnectedDonateConfig: WKDonateConfig?
+        var connectedPaymentMethods: WMFPaymentMethods?
+        var connectedDonateConfig: WMFDonateConfig?
+        var notConnectedPaymentMethods: WMFPaymentMethods?
+        var notConnectedDonateConfig: WMFDonateConfig?
         
         // First fetch successfully to populate cache
         controller.fetchConfigs(for: "US") { result in

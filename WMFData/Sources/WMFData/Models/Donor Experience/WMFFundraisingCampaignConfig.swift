@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKFundraisingCampaignConfig {
+public struct WMFFundraisingCampaignConfig {
  
  public struct WKAsset {
      

@@ -3,17 +3,17 @@ import Foundation
 @objc public final class WMFGrowthTasksDataController: NSObject {
 
     private var service = WMFDataEnvironment.current.mediaWikiService
-    let project: WKProject
+    let project: WMFProject
     
-    private static var currentImageRecommendations: [WKProject: [WKImageRecommendation.Page]] = [:]
+    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
 
-    public init (project: WKProject) {
+    public init (project: WMFProject) {
         self.project = project
     }
 
     // MARK: GET Methods
     
-    public func remove(pageId: Int, from project: WKProject) {
+    public func remove(pageId: Int, from project: WMFProject) {
         guard let recommendations = Self.currentImageRecommendations[project] else {
             return
         }
@@ -21,11 +21,11 @@ import Foundation
         Self.currentImageRecommendations[project] = recommendations.filter { $0.pageid != pageId }
     }
     
-    public func reset(for project: WKProject) {
+    public func reset(for project: WMFProject) {
         Self.currentImageRecommendations[project] = []
     }
 
-    public func getImageRecommendationsCombined(completion: @escaping (Result<[WKImageRecommendation.Page], Error>) -> Void) {
+    public func getImageRecommendationsCombined(completion: @escaping (Result<[WMFImageRecommendation.Page], Error>) -> Void) {
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -58,7 +58,7 @@ import Foundation
         }
 
         let request = WKMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
-        service.performDecodableGET(request: request) { [weak self] (result: Result<WKImageRecommendationAPIResponse, Error>) in
+        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFImageRecommendationAPIResponse, Error>) in
             
             guard let self else {
                 return
@@ -76,8 +76,8 @@ import Foundation
 
     // MARK: Private methods
 
-    fileprivate func getImageSuggestions(from response: WKImageRecommendationAPIResponse) -> [WKImageRecommendation.Page] {
-        var recommendationsPerPage:[WKImageRecommendation.Page] = []
+    fileprivate func getImageSuggestions(from response: WMFImageRecommendationAPIResponse) -> [WMFImageRecommendation.Page] {
+        var recommendationsPerPage:[WMFImageRecommendation.Page] = []
 
         for page in response.query.pages {
             
@@ -85,7 +85,7 @@ import Foundation
                 continue
             }
 
-            let page = WKImageRecommendation.Page(
+            let page = WMFImageRecommendation.Page(
                 pageid: page.pageid,
                 title: page.title,
                 growthimagesuggestiondata: getGrowthAPIImageSuggestions(for: page),
@@ -98,12 +98,12 @@ import Foundation
 
     }
 
-   fileprivate func getGrowthAPIImageSuggestions(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.GrowthImageSuggestionData] {
+   fileprivate func getGrowthAPIImageSuggestions(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.GrowthImageSuggestionData] {
        
-        var suggestions: [WKImageRecommendation.GrowthImageSuggestionData] = []
+        var suggestions: [WMFImageRecommendation.GrowthImageSuggestionData] = []
 
         for item in page.growthimagesuggestiondata ?? [] {
-            let item = WKImageRecommendation.GrowthImageSuggestionData(
+            let item = WMFImageRecommendation.GrowthImageSuggestionData(
                 titleNamespace: item.titleNamespace,
                 titleText: item.titleText,
                 images: getImageSuggestionData(from: item))
@@ -114,21 +114,21 @@ import Foundation
         return suggestions
     }
 
-    fileprivate func getImageSuggestionRevisionData(for page: WKImageRecommendationAPIResponse.Page) -> [WKImageRecommendation.Revision] {
-        var revisions: [WKImageRecommendation.Revision] = []
+    fileprivate func getImageSuggestionRevisionData(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.Revision] {
+        var revisions: [WMFImageRecommendation.Revision] = []
 
         for item in page.revisions {
-            let item = WKImageRecommendation.Revision(revID: item.revid, wikitext: item.wikitext.main.content)
+            let item = WMFImageRecommendation.Revision(revID: item.revid, wikitext: item.wikitext.main.content)
             revisions.append(item)
         }
         return revisions
     }
 
-    fileprivate func getImageSuggestionData(from suggestion: WKImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WKImageRecommendation.ImageSuggestion] {
-        var images: [WKImageRecommendation.ImageSuggestion] = []
+    fileprivate func getImageSuggestionData(from suggestion: WMFImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WMFImageRecommendation.ImageSuggestion] {
+        var images: [WMFImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {
-            let imageSuggestion = WKImageRecommendation.ImageSuggestion(
+            let imageSuggestion = WMFImageRecommendation.ImageSuggestion(
                 image: image.image,
                 displayFilename: image.displayFilename,
                 source: image.source,
@@ -140,8 +140,8 @@ import Foundation
         return images
     }
 
-    fileprivate func getMetadataObject(from image: WKImageRecommendationAPIResponse.ImageMetadata) -> WKImageRecommendation.ImageMetadata {
-        let metadata = WKImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName, sectionNumber: image.sectionNumber)
+    fileprivate func getMetadataObject(from image: WMFImageRecommendationAPIResponse.ImageMetadata) -> WMFImageRecommendation.ImageMetadata {
+        let metadata = WMFImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName, sectionNumber: image.sectionNumber)
 
         return metadata
     }
@@ -159,8 +159,8 @@ public enum WKGrowthTaskType: String {
 public extension WMFGrowthTasksDataController {
     
     @objc convenience init(languageCode: String) {
-        let language = WKLanguage(languageCode: languageCode, languageVariantCode: nil)
-        self.init(project: WKProject.wikipedia(language))
+        let language = WMFLanguage(languageCode: languageCode, languageVariantCode: nil)
+        self.init(project: WMFProject.wikipedia(language))
     }
     
     @objc func hasImageRecommendations(completion: @escaping (Bool) -> Void) {

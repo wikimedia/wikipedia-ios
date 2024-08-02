@@ -8,7 +8,7 @@ public enum WKDataControllerError: LocalizedError {
     case failureCreatingRequestURL
     case unexpectedResponse
     case serviceError(Error)
-    case mediaWikiResponseError(WKMediaWikiError)
+    case mediaWikiResponseError(WMFMediaWikiError)
     case paymentsWikiResponseError(String?)
 }
 

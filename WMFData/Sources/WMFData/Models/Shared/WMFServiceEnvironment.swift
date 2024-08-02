@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WKServiceEnvironment {
+public enum WMFServiceEnvironment {
     case production
     case staging
 }

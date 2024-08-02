@@ -4,9 +4,9 @@ import XCTest
 
 final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     
-    private let enProject = WKProject.wikipedia(WKLanguage(languageCode: "en", languageVariantCode: nil))
-    private let esProject = WKProject.wikipedia(WKLanguage(languageCode: "es", languageVariantCode: nil))
-    private let nlProject = WKProject.wikipedia(WKLanguage(languageCode: "nl", languageVariantCode: nil))
+    private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+    private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+    private let nlProject = WMFProject.wikipedia(WMFLanguage(languageCode: "nl", languageVariantCode: nil))
 
     private var controller: WMFFundraisingCampaignDataController = WMFFundraisingCampaignDataController.shared
     
@@ -219,8 +219,8 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
         let expectation1 = XCTestExpectation(description: "Fetch Config with Internet Connection")
         let expectation2 = XCTestExpectation(description: "Fetch Config without Internet Connection")
 
-        var connectedAsset: WKFundraisingCampaignConfig.WKAsset?
-        var notConnectedAsset: WKFundraisingCampaignConfig.WKAsset?
+        var connectedAsset: WMFFundraisingCampaignConfig.WKAsset?
+        var notConnectedAsset: WMFFundraisingCampaignConfig.WKAsset?
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()

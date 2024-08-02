@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKLanguage: Equatable, Codable {
+public struct WMFLanguage: Equatable, Codable {
     public let languageCode: String
     public let languageVariantCode: String?
     

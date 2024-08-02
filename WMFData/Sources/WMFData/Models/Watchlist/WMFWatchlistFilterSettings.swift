@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKWatchlistFilterSettings: Codable, Equatable {
+public struct WMFWatchlistFilterSettings: Codable, Equatable {
 
     public enum LatestRevisions: Int, Codable {
         case latestRevision
@@ -39,7 +39,7 @@ public struct WKWatchlistFilterSettings: Codable, Equatable {
         case loggedActions
     }
     
-    public let offProjects: [WKProject]
+    public let offProjects: [WMFProject]
     public let latestRevisions: LatestRevisions
     public let activity: Activity
     public let automatedContributions: AutomatedContributions
@@ -47,7 +47,7 @@ public struct WKWatchlistFilterSettings: Codable, Equatable {
     public let userRegistration: UserRegistration
     public let offTypes: [ChangeType]
     
-    public init(offProjects: [WKProject], latestRevisions: WKWatchlistFilterSettings.LatestRevisions, activity: WKWatchlistFilterSettings.Activity, automatedContributions: WKWatchlistFilterSettings.AutomatedContributions, significance: WKWatchlistFilterSettings.Significance, userRegistration: WKWatchlistFilterSettings.UserRegistration, offTypes: [WKWatchlistFilterSettings.ChangeType]) {
+    public init(offProjects: [WMFProject], latestRevisions: WMFWatchlistFilterSettings.LatestRevisions, activity: WMFWatchlistFilterSettings.Activity, automatedContributions: WMFWatchlistFilterSettings.AutomatedContributions, significance: WMFWatchlistFilterSettings.Significance, userRegistration: WMFWatchlistFilterSettings.UserRegistration, offTypes: [WMFWatchlistFilterSettings.ChangeType]) {
         
         self.offProjects = offProjects
         self.latestRevisions = latestRevisions
@@ -58,7 +58,7 @@ public struct WKWatchlistFilterSettings: Codable, Equatable {
         self.offTypes = offTypes
     }
     
-    init(latestRevisions: WKWatchlistFilterSettings.LatestRevisions = .notTheLatestRevision, activity: WKWatchlistFilterSettings.Activity = .all, automatedContributions: WKWatchlistFilterSettings.AutomatedContributions = .all, significance: WKWatchlistFilterSettings.Significance = .all, userRegistration: WKWatchlistFilterSettings.UserRegistration = .all, offTypes: [WKWatchlistFilterSettings.ChangeType] = []) {
+    init(latestRevisions: WMFWatchlistFilterSettings.LatestRevisions = .notTheLatestRevision, activity: WMFWatchlistFilterSettings.Activity = .all, automatedContributions: WMFWatchlistFilterSettings.AutomatedContributions = .all, significance: WMFWatchlistFilterSettings.Significance = .all, userRegistration: WMFWatchlistFilterSettings.UserRegistration = .all, offTypes: [WMFWatchlistFilterSettings.ChangeType] = []) {
 
         self.offProjects = []
         self.latestRevisions = latestRevisions

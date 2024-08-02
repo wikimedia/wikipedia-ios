@@ -4,9 +4,9 @@ import WMFData
 public struct WKProjectIconView: View {
 
     @ObservedObject var appEnvironment = WKAppEnvironment.current
-    private let project: WKProject
+    private let project: WMFProject
 
-    public init(project: WKProject) {
+    public init(project: WMFProject) {
         self.project = project
     }
 

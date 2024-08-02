@@ -1,6 +1,6 @@
 import Foundation
 
-final public class WKPaymentSubmissionResponse: Codable {
+final public class WMFPaymentSubmissionResponse: Codable {
     public class Response: Codable {
         let status: String
         let errorMessage: String?

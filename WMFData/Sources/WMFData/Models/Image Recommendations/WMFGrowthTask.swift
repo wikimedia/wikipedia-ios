@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WKGrowthTask {
+public struct WMFGrowthTask {
 
     public let pages: [Page]
 

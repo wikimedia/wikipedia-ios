@@ -1,5 +1,5 @@
 import Foundation
 
-public struct WKConfigVersion: Codable {
+public struct WMFConfigVersion: Codable {
     let version: Int
 }

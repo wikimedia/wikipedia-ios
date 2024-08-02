@@ -42,7 +42,7 @@ public final class WMFAltTextDataController {
         self.userDefaultsStore = userDefaultsStore
     }
     
-    public func assignImageRecsExperiment(isLoggedIn: Bool, project: WKProject) throws {
+    public func assignImageRecsExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             throw WKAltTextDataControllerError.featureFlagIsOff
@@ -80,7 +80,7 @@ public final class WMFAltTextDataController {
         
     }
     
-    public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WKProject) throws {
+    public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             throw WKAltTextDataControllerError.featureFlagIsOff
@@ -126,7 +126,7 @@ public final class WMFAltTextDataController {
         self.sawAltTextImageRecommendationsPrompt = true
     }
     
-    public func shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: Bool, project: WKProject) -> Bool {
+    public func shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             return false
@@ -173,7 +173,7 @@ public final class WMFAltTextDataController {
         self.sawAltTextArticleEditorPrompt = true
     }
     
-    public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WKProject) -> Bool {
+    public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             return false
@@ -283,7 +283,7 @@ public final class WMFAltTextDataController {
     
 }
 
-private extension WKProject {
+private extension WMFProject {
     func qualifiesForAltTextExperiments(developerSettingsDataController: WMFDeveloperSettingsDataController) -> Bool {
         switch self {
         case .wikipedia(let language):

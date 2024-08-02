@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WKProject: Equatable, Hashable, Identifiable, Codable {
+public enum WMFProject: Equatable, Hashable, Identifiable, Codable {
     public var id: String {
         switch self {
         case .commons:
@@ -16,7 +16,7 @@ public enum WKProject: Equatable, Hashable, Identifiable, Codable {
         }
     }
     
-    public static func == (lhs: WKProject, rhs: WKProject) -> Bool {
+    public static func == (lhs: WMFProject, rhs: WMFProject) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -33,11 +33,11 @@ public enum WKProject: Equatable, Hashable, Identifiable, Codable {
         }
     }
     
-    case wikipedia(WKLanguage)
+    case wikipedia(WMFLanguage)
     case wikidata
     case commons
     
-    static func projectsFromLanguages(languages: [WKLanguage]) -> [WKProject] {
+    static func projectsFromLanguages(languages: [WMFLanguage]) -> [WMFProject] {
         return languages.map { .wikipedia($0) }
     }
     

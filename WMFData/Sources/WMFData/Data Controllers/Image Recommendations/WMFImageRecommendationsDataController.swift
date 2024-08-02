@@ -64,7 +64,7 @@ public class WMFImageRecommendationsDataController {
     
     // MARK: - PUT Send Feedback
     
-    public func sendFeedback(project: WKProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func sendFeedback(project: WMFProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WKDataControllerError.mediaWikiServiceUnavailable))

@@ -4,17 +4,17 @@ import Combine
 import WMFData
 
 public protocol WKWatchlistDelegate: AnyObject {
-	func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt)
-	func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction)
+	func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt)
+	func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction)
     func watchlistEmptyViewUserDidTapSearch()
 	func watchlistUserDidTapAddLanguage(from: UIViewController, viewModel: WKWatchlistFilterViewModel)
 }
 
 public protocol WKWatchlistLoggingDelegate: AnyObject {
     func logWatchlistUserDidTapNavBarFilterButton()
-    func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject])
-    func logWatchlistUserDidTapUserButton(project: WKProject)
-    func logWatchlistUserDidTapUserButtonAction(project: WKProject, action: WKWatchlistUserButtonAction)
+    func logWatchlistUserDidSaveFilterSettings(filterSettings: WMFWatchlistFilterSettings, onProjects: [WMFProject])
+    func logWatchlistUserDidTapUserButton(project: WMFProject)
+    func logWatchlistUserDidTapUserButtonAction(project: WMFProject, action: WKWatchlistUserButtonAction)
     func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType)
     func logWatchlistEmptyViewUserDidTapSearch()
     func logWatchlistEmptyViewUserDidTapModifyFilters()
@@ -53,7 +53,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 
 		func wkSwiftUIMenuButtonUserDidTap(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
-                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
+                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
                   let title = configuration.metadata[articleTitleMetadataKey] as? String else {
@@ -86,7 +86,7 @@ public final class WKWatchlistViewController: WKCanvasViewController {
 
         func wkSwiftUIMenuButtonUserDidTapAccessibility(configuration: WKSmallMenuButton.Configuration, item: WKSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title, 
-                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WKProject,
+                    let wkProject = configuration.metadata[wkProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
                   let oldRevisionId = configuration.metadata[oldRevisionIDMetadataKey] as? UInt,
                   let title = configuration.metadata[articleTitleMetadataKey] as? String else {

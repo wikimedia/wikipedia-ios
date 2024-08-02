@@ -6,7 +6,7 @@ struct WKArticleSummaryView: View {
     @ObservedObject var appEnvironment = WKAppEnvironment.current
     @EnvironmentObject var tooltipGeometryValues: WKTooltipGeometryValues
     
-    let articleSummary: WKArticleSummary
+    let articleSummary: WMFArticleSummary
     
     private var theme: WKTheme {
         return appEnvironment.theme

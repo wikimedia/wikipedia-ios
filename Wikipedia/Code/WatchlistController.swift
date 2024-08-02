@@ -39,7 +39,7 @@ class WatchlistController {
         
     }
     
-    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    func watch(pageTitle: String, siteURL: URL, expiry: WMFWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         guard authenticationManager.isLoggedIn else {
             performAfterLoginBlock = { [weak self] in
@@ -65,7 +65,7 @@ class WatchlistController {
         presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, siteURL: URL, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WMFProject, siteURL: URL, expiry: WMFWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
         let image = expiry == .never ? UIImage(systemName: "star.fill") : UIImage(systemName: "star.leadinghalf.filled")
         switch expiry {
@@ -123,7 +123,7 @@ class WatchlistController {
         }
     }
     
-    private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
+    private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WMFProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
         
         WMFAlertManager.sharedInstance.dismissAllAlerts()
         
@@ -145,7 +145,7 @@ class WatchlistController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths, expiryOptionOneYear]
-        let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
+        let expirys: [WMFWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
         
         let wikimediaProject = WikimediaProject(wkProject: wkProject)
         for (title, expiry) in zip(titles, expirys) {

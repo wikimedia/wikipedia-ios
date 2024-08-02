@@ -4,9 +4,9 @@ import WMFData
 import Combine
 
 public protocol WKImageRecommendationsDelegate: AnyObject {
-    func imageRecommendationsUserDidTapViewArticle(project: WKProject, title: String)
+    func imageRecommendationsUserDidTapViewArticle(project: WMFProject, title: String)
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL)
-    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
+    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController)
     func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData)
     func imageRecommendationsUserDidTapLearnMore(url: URL?)
     func imageRecommendationsUserDidTapReportIssue()
