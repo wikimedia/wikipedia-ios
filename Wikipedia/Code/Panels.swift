@@ -558,7 +558,7 @@ extension UIViewController {
     ///   - primaryButtonTapHandler: Goes to donation
     ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
     ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
-    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
+    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
 
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
             if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {

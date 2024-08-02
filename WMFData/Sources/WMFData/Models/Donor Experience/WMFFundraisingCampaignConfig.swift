@@ -2,9 +2,9 @@ import Foundation
 
 public struct WMFFundraisingCampaignConfig {
  
- public struct WKAsset {
+ public struct WMFAsset {
      
-     public struct WKAction {
+     public struct WMFAction {
          public let title: String
          public let url: URL?
      }
@@ -12,7 +12,7 @@ public struct WMFFundraisingCampaignConfig {
      public let id: String // Matches parent id
      public let textHtml: String
      public let footerHtml: String
-     public let actions: [WKAction]
+     public let actions: [WMFAction]
      public let countryCode: String
      public let currencyCode: String
      public let startDate: Date
@@ -21,5 +21,5 @@ public struct WMFFundraisingCampaignConfig {
  }
  
  public let id: String
- public let assets: [String: WKAsset]
+ public let assets: [String: WMFAsset]
 }

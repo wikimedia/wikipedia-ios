@@ -1,19 +1,19 @@
 import Foundation
 
 public protocol WMFURLSession {
-    func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKURLSessionDataTask
+    func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFURLSessionDataTask
 }
 
-public protocol WKURLSessionDataTask {
+public protocol WMFURLSessionDataTask {
     func resume()
 }
 
 extension URLSession: WMFURLSession {
-    public func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WKURLSessionDataTask {
+    public func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFURLSessionDataTask {
         return self.dataTask(with: request, completionHandler: completionHandler)
     }
 }
 
-extension URLSessionDataTask: WKURLSessionDataTask {
+extension URLSessionDataTask: WMFURLSessionDataTask {
 
 }

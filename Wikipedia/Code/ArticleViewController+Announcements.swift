@@ -19,7 +19,7 @@ extension ArticleViewController {
             let isOptedIn = await dataController.isOptedIn(project: wkProject)
             
             guard isOptedIn,
-            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wkProject: wkProject, currentDate: .now) else {
+            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wkProject, currentDate: .now) else {
                 return
             }
             
@@ -27,7 +27,7 @@ extension ArticleViewController {
         }
     }
     
-    private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WKAsset, project: WikimediaProject) {
+    private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
         
         AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
@@ -71,7 +71,7 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    private func pushToDonateForm(asset: WMFFundraisingCampaignConfig.WKAsset, sourceView: UIView?) {
+    private func pushToDonateForm(asset: WMFFundraisingCampaignConfig.WMFAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
         
         let utmSource = asset.utmSource
@@ -221,7 +221,7 @@ extension ArticleViewController: WKDonateLoggingDelegate {
     
 }
 
-extension WMFFundraisingCampaignConfig.WKAsset {
+extension WMFFundraisingCampaignConfig.WMFAsset {
     
     var utmSource: String? {
         

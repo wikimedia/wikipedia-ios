@@ -13,7 +13,7 @@ public final class WMFAltTextDataController {
         return Calendar.current.date(from: dateComponents)
     }()
     
-    public enum WKAltTextDataControllerError: Error {
+    public enum WMFAltTextDataControllerError: Error {
         case featureFlagIsOff
         case notLoggedIn
         case invalidProject
@@ -45,34 +45,34 @@ public final class WMFAltTextDataController {
     public func assignImageRecsExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
-            throw WKAltTextDataControllerError.featureFlagIsOff
+            throw WMFAltTextDataControllerError.featureFlagIsOff
         }
         
         guard isLoggedIn else {
-            throw WKAltTextDataControllerError.notLoggedIn
+            throw WMFAltTextDataControllerError.notLoggedIn
         }
         
         guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
-            throw WKAltTextDataControllerError.invalidProject
+            throw WMFAltTextDataControllerError.invalidProject
         }
         
         guard isValidDeviceAndOS else {
-            throw WKAltTextDataControllerError.invalidDeviceOrOS
+            throw WMFAltTextDataControllerError.invalidDeviceOrOS
         }
         
         guard isBeforeEndDate else {
-            throw WKAltTextDataControllerError.invalidDate
+            throw WMFAltTextDataControllerError.invalidDate
         }
         
         if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
             
             switch articleEditorExperimentBucket {
             case .altTextArticleEditorTest:
-                throw WKAltTextDataControllerError.alreadyAssignedOtherExperiment
+                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
             case .altTextArticleEditorControl:
                 break
             default:
-                throw WKAltTextDataControllerError.unexpectedBucketValue
+                throw WMFAltTextDataControllerError.unexpectedBucketValue
             }
         }
         
@@ -83,34 +83,34 @@ public final class WMFAltTextDataController {
     public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
-            throw WKAltTextDataControllerError.featureFlagIsOff
+            throw WMFAltTextDataControllerError.featureFlagIsOff
         }
         
         guard isLoggedIn else {
-            throw WKAltTextDataControllerError.notLoggedIn
+            throw WMFAltTextDataControllerError.notLoggedIn
         }
         
         guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
-            throw WKAltTextDataControllerError.invalidProject
+            throw WMFAltTextDataControllerError.invalidProject
         }
         
         guard isValidDeviceAndOS else {
-            throw WKAltTextDataControllerError.invalidDeviceOrOS
+            throw WMFAltTextDataControllerError.invalidDeviceOrOS
         }
         
         guard isBeforeEndDate else {
-            throw WKAltTextDataControllerError.invalidDate
+            throw WMFAltTextDataControllerError.invalidDate
         }
         
         if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
             
             switch imageRecommendationsExperimentBucket {
             case .altTextImageRecommendationsTest:
-                throw WKAltTextDataControllerError.alreadyAssignedOtherExperiment
+                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
             case .altTextImageRecommendationsControl:
                 break
             default:
-                throw WKAltTextDataControllerError.unexpectedBucketValue
+                throw WMFAltTextDataControllerError.unexpectedBucketValue
             }
         }
         

@@ -75,8 +75,8 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
         
-        guard let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validENProject, currentDate: validDate),
-              let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate) else {
+        guard let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: validDate),
+              let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate) else {
             XCTFail("Missing assets")
             return
         }
@@ -125,8 +125,8 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
         
-        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wkProject: validENProject, currentDate: validDate)
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wkProject: validNLProject, currentDate: validDate)
+        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validENProject, currentDate: validDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validNLProject, currentDate: validDate)
     
         XCTAssertNil(enWikiAsset, "Expected EN Asset to be nil for invalid country")
         XCTAssertNil(nlWikiAsset, "Expected NL Asset to be nil for invalid country")
@@ -153,8 +153,8 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
         
-        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validENProject, currentDate: invalidDate)
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: invalidDate)
+        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: invalidDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: invalidDate)
     
         XCTAssertNil(enWikiAsset, "Expected EN Asset to be nil for invalid date")
         XCTAssertNil(nlWikiAsset, "Expected NL Asset to be nil for invalid date")
@@ -180,7 +180,7 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
         
-        let esWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: invalidESProject, currentDate: validDate)
+        let esWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: invalidESProject, currentDate: validDate)
         XCTAssertNil(esWikiAsset, "ES asset should be nil")
     }
     
@@ -209,7 +209,7 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 10.0)
         
-        let asset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let asset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         
         XCTAssertNil(asset, "Expected Nil Asset")
     }
@@ -219,8 +219,8 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         let expectation1 = XCTestExpectation(description: "Fetch Config with Internet Connection")
         let expectation2 = XCTestExpectation(description: "Fetch Config without Internet Connection")
 
-        var connectedAsset: WMFFundraisingCampaignConfig.WKAsset?
-        var notConnectedAsset: WMFFundraisingCampaignConfig.WKAsset?
+        var connectedAsset: WMFFundraisingCampaignConfig.WMFAsset?
+        var notConnectedAsset: WMFFundraisingCampaignConfig.WMFAsset?
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
@@ -232,7 +232,7 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
             switch result {
             case .success:
                 
-                connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: self.nlProject, currentDate: validDate)
+                connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: self.nlProject, currentDate: validDate)
 
                 // Drop Internet Connection
                 WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
@@ -248,7 +248,7 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
                     case .failure:
                         
                         // Despite failure, we still expect to be able to load configs from cache
-                        notConnectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+                        notConnectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
                         
                     }
                     
@@ -291,14 +291,14 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as dissmissed
         controller.markAssetAsPermanentlyHidden(asset: nlWikiAsset!)
         
         // Now try to load again
-        let hiddenNLWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let hiddenNLWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNil(hiddenNLWikiAsset, "Hidden NL asset should be nil")
     }
     
@@ -324,14 +324,14 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Six Hours later
-        let nlWikiAssetSixHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
+        let nlWikiAssetSixHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
         
         XCTAssertNil(nlWikiAssetSixHoursLater, "NL asset marked as maybe later, then loaded 6 hours later should be nil")
     }
@@ -358,14 +358,14 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Thirty Hours later
-        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
         
         XCTAssertNotNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded 30 hours later should not be nil")
     }
@@ -392,14 +392,14 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
         controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load next day after campaign ends
-        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
         
         XCTAssertNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded after last day of campaign should be nil")
     }

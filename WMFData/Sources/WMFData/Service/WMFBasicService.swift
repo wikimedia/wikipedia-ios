@@ -106,7 +106,7 @@ public final class WMFBasicService: WMFService {
             }
         }
         
-        let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
+        let task = urlSession.wmfDataTask(with: urlRequest) { data, response, error in
             
             if let error {
                 completion(nil, nil, error)
@@ -167,7 +167,7 @@ public final class WMFBasicService: WMFService {
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.populateCommonHeaders(request: basicRequest)
         
-        let task = urlSession.wkDataTask(with: urlRequest) { data, response, error in
+        let task = urlSession.wmfDataTask(with: urlRequest) { data, response, error in
             
             if let error {
                 completion(nil, nil, error)

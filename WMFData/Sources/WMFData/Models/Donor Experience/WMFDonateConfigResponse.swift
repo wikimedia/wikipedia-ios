@@ -15,10 +15,10 @@ public struct WMFDonateConfigResponse: Codable {
         var validConfigs: [WMFDonateConfig] = []
         while !versionContainer.isAtEnd {
             
-            let wkVersion: WMFConfigVersion
+            let wmfVersion: WMFConfigVersion
             let config: WMFDonateConfig
             do {
-                wkVersion = try versionContainer.decode(WMFConfigVersion.self)
+                wmfVersion = try versionContainer.decode(WMFConfigVersion.self)
             } catch {
                 // Skip
                 _ = try? versionContainer.decode(DiscardedElement.self)
@@ -26,7 +26,7 @@ public struct WMFDonateConfigResponse: Codable {
                 continue
             }
             
-            guard wkVersion.version == Self.currentVersion else {
+            guard wmfVersion.version == Self.currentVersion else {
                 _ = try? donateContainer.decode(DiscardedElement.self)
                 continue
             }

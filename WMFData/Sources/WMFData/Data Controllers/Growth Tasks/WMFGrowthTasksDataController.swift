@@ -150,7 +150,7 @@ import Foundation
 
 // MARK: Types
 
-public enum WKGrowthTaskType: String {
+public enum WMFGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
 }
 
