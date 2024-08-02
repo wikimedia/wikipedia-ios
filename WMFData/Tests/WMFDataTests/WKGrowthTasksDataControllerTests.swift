@@ -9,8 +9,8 @@ final class WKGrowthTasksDataControllerTests: XCTestCase {
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
     override func setUp() async throws {
-        WMFDataEnvironment.current.mediaWikiService = WKMockGrowthTasksService()
-        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
     }
     
     func testFetchImageRecommendationCombinedForTasks() {

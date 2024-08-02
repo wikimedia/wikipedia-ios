@@ -12,9 +12,9 @@ final class WKWatchlistDataControllerTests: XCTestCase {
             WMFLanguage(languageCode: "en", languageVariantCode: nil),
             WMFLanguage(languageCode: "es", languageVariantCode: nil)
         ])
-        WMFDataEnvironment.current.mediaWikiService = WKMockWatchlistMediaWikiService()
-        WMFDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
-        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
     
     func testAllWatchlistProjects() {
@@ -249,7 +249,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
     }
     
     func testFetchWatchlistWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
         let controller = WMFWatchlistDataController()
         
         let expectation = XCTestExpectation(description: "Fetch Watchlist")
@@ -287,7 +287,7 @@ final class WKWatchlistDataControllerTests: XCTestCase {
                 connectedWatchlistReturned = watchlist1
                 
                 // Drop Internet Connection
-                WMFDataEnvironment.current.mediaWikiService = WKMockServiceNoInternetConnection()
+                WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
                 controller.service = WMFDataEnvironment.current.mediaWikiService
 
                 // Fetch again, confirm it still succeeds

@@ -11,9 +11,9 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     private var controller: WMFFundraisingCampaignDataController = WMFFundraisingCampaignDataController.shared
     
     override func setUp() async throws {
-        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
-        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         self.controller.reset()
         self.controller.service = WMFDataEnvironment.current.basicService
         self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
@@ -185,7 +185,7 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
     }
     
     func testFetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
         controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Fetch Campaign Config")
@@ -235,7 +235,7 @@ final class WKFundraisingCampaignDataControllerTests: XCTestCase {
                 connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wkProject: self.nlProject, currentDate: validDate)
 
                 // Drop Internet Connection
-                WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+                WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
                 self.controller.service = WMFDataEnvironment.current.basicService
 
                 // Fetch again

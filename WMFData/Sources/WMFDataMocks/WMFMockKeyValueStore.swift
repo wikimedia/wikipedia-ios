@@ -1,7 +1,7 @@
 import Foundation
 import WMFData
 
-public final class WKMockKeyValueStore: WMFKeyValueStore {
+public final class WMFMockKeyValueStore: WMFKeyValueStore {
     
     public init() {
         self.savedObjects = [:]

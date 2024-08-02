@@ -4,10 +4,10 @@ import XCTest
 
 final class WKBasicServiceTests: XCTestCase {
 
-    let mockSuccessSession = WKMockSuccessURLSession()
-    let mockServerErrorSession = WKMockServerErrorSession()
-    let mockNoInternetConnectionSession = WKMockNoInternetConnectionSession()
-    let mockMissingDataSession = WKMockMissingDataSession()
+    let mockSuccessSession = WMFMockSuccessURLSession()
+    let mockServerErrorSession = WMFMockServerErrorSession()
+    let mockNoInternetConnectionSession = WMFMockNoInternetConnectionSession()
+    let mockMissingDataSession = WMFMockMissingDataSession()
     
     // MARK: - GET Tests
 
@@ -41,7 +41,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
 
-        service.performDecodableGET(request: request) { (result: Result<WKMockData, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<WMFMockData, Error>) in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.oneInt, 1, "Unexpected deserialized data")
@@ -199,7 +199,7 @@ final class WKBasicServiceTests: XCTestCase {
         let service = WMFBasicService(urlSession: mockSuccessSession)
         let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
 
-        service.performDecodablePOST(request: request) { (result: Result<WKMockData, Error>) in
+        service.performDecodablePOST(request: request) { (result: Result<WMFMockData, Error>) in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.oneInt, 1, "Unexpected deserialized data")

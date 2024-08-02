@@ -10,7 +10,7 @@ final class WKWatchlistFilterViewModelTests: XCTestCase {
             enLanguage,
             esLanguage
         ])
-        WMFDataEnvironment.current.userDefaultsStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
     
     var enLanguage: WMFLanguage {

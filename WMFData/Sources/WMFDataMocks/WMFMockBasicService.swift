@@ -3,7 +3,7 @@ import WMFData
 
 #if DEBUG
 
-internal enum WKMockError: Error {
+internal enum WMFMockError: Error {
     case unableToPullData
     case unableToDeserialize
 }
@@ -85,7 +85,7 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public class WKMockBasicService: WMFService {
+public class WMFMockBasicService: WMFService {
     
     public init() {
         
@@ -93,7 +93,7 @@ public class WKMockBasicService: WMFService {
     
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
@@ -103,12 +103,12 @@ public class WKMockBasicService: WMFService {
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
         guard let jsonDict = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else {
-            completion(.failure(WKMockError.unableToDeserialize))
+            completion(.failure(WMFMockError.unableToDeserialize))
             return
         }
         
@@ -118,14 +118,14 @@ public class WKMockBasicService: WMFService {
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
         let decoder = JSONDecoder()
         
         guard let response = try? decoder.decode(T.self, from: jsonData) else {
-            completion(.failure(WKMockError.unableToDeserialize))
+            completion(.failure(WMFMockError.unableToDeserialize))
             return
         }
         
@@ -135,14 +135,14 @@ public class WKMockBasicService: WMFService {
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
         let decoder = JSONDecoder()
         
         guard let response = try? decoder.decode(T.self, from: jsonData) else {
-            completion(.failure(WKMockError.unableToDeserialize))
+            completion(.failure(WMFMockError.unableToDeserialize))
             return
         }
         

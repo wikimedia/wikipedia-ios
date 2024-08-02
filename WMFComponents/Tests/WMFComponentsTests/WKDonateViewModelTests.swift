@@ -11,7 +11,7 @@ final class WKDonateViewModelTests: XCTestCase {
     private let merchantID = "merchant.id"
     
     override func setUp(completion: @escaping (Error?) -> Void) {
-        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         
         let controller = WMFDonateDataController.shared

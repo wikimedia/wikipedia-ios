@@ -117,7 +117,7 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public class WKMockWatchlistMediaWikiService: WMFService {
+public class WMFMockWatchlistMediaWikiService: WMFService {
 
     public var randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
     
@@ -127,7 +127,7 @@ public class WKMockWatchlistMediaWikiService: WMFService {
     
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
@@ -137,12 +137,12 @@ public class WKMockWatchlistMediaWikiService: WMFService {
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
         guard let jsonDict = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else {
-            completion(.failure(WKMockError.unableToDeserialize))
+            completion(.failure(WMFMockError.unableToDeserialize))
             return
         }
         
@@ -152,14 +152,14 @@ public class WKMockWatchlistMediaWikiService: WMFService {
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
-            completion(.failure(WKMockError.unableToPullData))
+            completion(.failure(WMFMockError.unableToPullData))
             return
         }
         
         let decoder = JSONDecoder()
         
         guard let response = try? decoder.decode(T.self, from: jsonData) else {
-            completion(.failure(WKMockError.unableToDeserialize))
+            completion(.failure(WMFMockError.unableToDeserialize))
             return
         }
         

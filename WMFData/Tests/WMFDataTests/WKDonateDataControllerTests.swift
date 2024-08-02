@@ -8,9 +8,9 @@ final class WKDonateDataControllerTests: XCTestCase {
     private let controller: WMFDonateDataController = WMFDonateDataController.shared
 
     override func setUp() async throws {
-        WMFDataEnvironment.current.basicService = WKMockBasicService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
-        WMFDataEnvironment.current.sharedCacheStore = WKMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         self.controller.reset()
         self.controller.service = WMFDataEnvironment.current.basicService
         self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
@@ -78,7 +78,7 @@ final class WKDonateDataControllerTests: XCTestCase {
     }
     
     func testFetchDonateConfigWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
         controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Fetch Donate Configs")
@@ -128,7 +128,7 @@ final class WKDonateDataControllerTests: XCTestCase {
                 connectedDonateConfig = donateData.donateConfig
                 
                 // Drop Internet Connection
-                WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+                WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
                 self.controller.service = WMFDataEnvironment.current.basicService
 
                 // Fetch again
@@ -166,7 +166,7 @@ final class WKDonateDataControllerTests: XCTestCase {
     }
     
     func testDonateSubmitPaymentNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WKMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
         controller.service = WMFDataEnvironment.current.basicService
         
         let expectation = XCTestExpectation(description: "Submit Payment")

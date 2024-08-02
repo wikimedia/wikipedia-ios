@@ -1,18 +1,18 @@
 import Foundation
 import WMFData
 
-final class WKMockURLSessionDataTask: WKURLSessionDataTask {
+final class WMFMockURLSessionDataTask: WKURLSessionDataTask {
     func resume() {
         
     }
 }
 
-struct WKMockData: Codable {
+struct WMFMockData: Codable {
     let oneInt: Int
     let twoString: String
 }
 
-final class WKMockSuccessURLSession: WMFURLSession {
+final class WMFMockSuccessURLSession: WMFURLSession {
     
     var url: URL?
     
@@ -21,39 +21,39 @@ final class WKMockSuccessURLSession: WMFURLSession {
         
         let encoder = JSONEncoder()
 
-        let data = try? encoder.encode(WKMockData(oneInt: 1, twoString: "two"))
+        let data = try? encoder.encode(WMFMockData(oneInt: 1, twoString: "two"))
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: nil)
         
         completionHandler(data, response, nil)
-        return WKMockURLSessionDataTask()
+        return WMFMockURLSessionDataTask()
     }
 }
 
-final class WKMockServerErrorSession: WMFURLSession {
+final class WMFMockServerErrorSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 500, httpVersion: nil, headerFields: nil)
         
         completionHandler(nil, response, nil)
-        return WKMockURLSessionDataTask()
+        return WMFMockURLSessionDataTask()
     }
 }
 
-final class WKMockNoInternetConnectionSession: WMFURLSession {
+final class WMFMockNoInternetConnectionSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completionHandler(nil, nil, error)
-        return WKMockURLSessionDataTask()
+        return WMFMockURLSessionDataTask()
     }
 }
 
-final class WKMockMissingDataSession: WMFURLSession {
+final class WMFMockMissingDataSession: WMFURLSession {
     func wkDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WKURLSessionDataTask {
 
         let response = HTTPURLResponse(url: URL(string: "http://wikipedia.org")!, statusCode: 200, httpVersion: nil, headerFields: nil)
         
         completionHandler(nil, response, nil)
-        return WKMockURLSessionDataTask()
+        return WMFMockURLSessionDataTask()
     }
 }
