@@ -20,20 +20,20 @@ import Foundation
     // MARK: - Properties
     
     var service: WMFService?
-    var sharedCacheStore: WKKeyValueStore?
+    var sharedCacheStore: WMFKeyValueStore?
     var mediaWikiService: WMFService?
     
     private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
     private var promptState: WKFundraisingCampaignPromptState?
     private var preferencesBannerOptIns: SafeDictionary<WMFProject, Bool> = SafeDictionary<WMFProject, Bool>()
     
-    private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
+    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WKFundraisingCampaignPromptState"
     
     // MARK: - Lifecycle
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
+    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
         self.mediaWikiService = mediaWikiService

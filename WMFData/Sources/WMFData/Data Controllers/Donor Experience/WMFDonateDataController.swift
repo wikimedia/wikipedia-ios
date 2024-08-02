@@ -6,12 +6,12 @@ import Contacts
     // MARK: - Properties
     
     var service: WMFService?
-    var sharedCacheStore: WKKeyValueStore?
+    var sharedCacheStore: WMFKeyValueStore?
     
     private var donateConfig: WMFDonateConfig?
     private var paymentMethods: WMFPaymentMethods?
     
-    private let cacheDirectoryName = WKSharedCacheDirectoryNames.donorExperience.rawValue
+    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
     
@@ -20,7 +20,7 @@ import Contacts
     @objc(sharedInstance)
     public static let shared = WMFDonateDataController()
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
        self.service = service
         self.sharedCacheStore = sharedCacheStore
    }

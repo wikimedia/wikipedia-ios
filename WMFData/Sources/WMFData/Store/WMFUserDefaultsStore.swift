@@ -1,6 +1,6 @@
 import Foundation
 
-class WKUserDefaultsStore: WKKeyValueStore {
+class WMFUserDefaultsStore: WMFKeyValueStore {
     func load<T: Codable>(key: String...) throws -> T? {
         let defaultsKey = key.joined(separator: ".")
         return try load(defaultsKey: defaultsKey)

@@ -5,7 +5,7 @@ public enum SharedContainerCacheStoreError: Error {
     case unexpectedKeyCount
 }
 
-public final class SharedContainerCacheStore: WKKeyValueStore {
+public final class SharedContainerCacheStore: WMFKeyValueStore {
     
     public init() {
         

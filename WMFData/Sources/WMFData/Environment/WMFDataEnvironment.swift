@@ -23,6 +23,6 @@ public final class WMFDataEnvironment: ObservableObject {
     public var appInstallIDUtility: (() -> String?)?
     public var acceptLanguageUtility: (() -> String)?
     
-    public internal(set) var userDefaultsStore: WKKeyValueStore? = WKUserDefaultsStore()
-    public var sharedCacheStore: WKKeyValueStore?
+    public internal(set) var userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
+    public var sharedCacheStore: WMFKeyValueStore?
 }

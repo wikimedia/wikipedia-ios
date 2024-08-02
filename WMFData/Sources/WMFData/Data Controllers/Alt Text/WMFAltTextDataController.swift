@@ -25,12 +25,12 @@ public final class WMFAltTextDataController {
     
     let experimentsDataController: WMFExperimentsDataController
     let developerSettingsDataController: WMFDeveloperSettingsDataController
-    let userDefaultsStore: WKKeyValueStore
+    let userDefaultsStore: WMFKeyValueStore
     static let experimentPercentage = 50 // must be between 1 and 100
     
     // MARK: - Public
     
-    public init?(experimentStore: WKKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WKKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
+    public init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         
         guard let experimentStore,
         let userDefaultsStore else {
@@ -267,17 +267,17 @@ public final class WMFAltTextDataController {
     
     private var sawAltTextImageRecommendationsPrompt: Bool {
         get {
-            return (try? userDefaultsStore.load(key: WKUserDefaultsKey.sawAltTextImageRecommendationsPrompt.rawValue)) ?? false
+            return (try? userDefaultsStore.load(key: WMFUserDefaultsKey.sawAltTextImageRecommendationsPrompt.rawValue)) ?? false
         } set {
-            try? userDefaultsStore.save(key: WKUserDefaultsKey.sawAltTextImageRecommendationsPrompt.rawValue, value: newValue)
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.sawAltTextImageRecommendationsPrompt.rawValue, value: newValue)
         }
     }
     
     private var sawAltTextArticleEditorPrompt: Bool {
         get {
-            return (try? userDefaultsStore.load(key: WKUserDefaultsKey.sawAltTextArticleEditorPrompt.rawValue)) ?? false
+            return (try? userDefaultsStore.load(key: WMFUserDefaultsKey.sawAltTextArticleEditorPrompt.rawValue)) ?? false
         } set {
-            try? userDefaultsStore.save(key: WKUserDefaultsKey.sawAltTextArticleEditorPrompt.rawValue, value: newValue)
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.sawAltTextArticleEditorPrompt.rawValue, value: newValue)
         }
     }
     

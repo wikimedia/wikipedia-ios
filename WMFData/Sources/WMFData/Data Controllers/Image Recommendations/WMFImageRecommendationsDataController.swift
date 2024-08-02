@@ -29,7 +29,7 @@ public class WMFImageRecommendationsDataController {
 	// MARK: - Onboarding
 
 	private var onboardingStatus: OnboardingStatus {
-		return (try? userDefaultsStore?.load(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue)) ?? OnboardingStatus.default
+		return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue)) ?? OnboardingStatus.default
 	}
 
 	public var hasPresentedOnboardingModal: Bool {
@@ -38,7 +38,7 @@ public class WMFImageRecommendationsDataController {
 		} set {
 			var currentOnboardingStatus = onboardingStatus
 			currentOnboardingStatus.hasPresentedOnboardingModal = newValue
-			try? userDefaultsStore?.save(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+			try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
 		}
 	}
     
@@ -48,7 +48,7 @@ public class WMFImageRecommendationsDataController {
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
-            try? userDefaultsStore?.save(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }
 
@@ -58,7 +58,7 @@ public class WMFImageRecommendationsDataController {
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue
-            try? userDefaultsStore?.save(key: WKUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }
     

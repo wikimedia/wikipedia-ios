@@ -15,7 +15,7 @@ final class WKUserDefaultsStoreTests: XCTestCase {
         }
     }
 
-    let userDefaultsStore = WKUserDefaultsStore()
+    let userDefaultsStore = WMFUserDefaultsStore()
     
     func testLoadAndSaveSingleKeyString() throws {
         let testStringToSave = "String Test"

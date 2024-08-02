@@ -56,7 +56,7 @@ final class WMFExperimentsDataController {
     
     // MARK: Properties
     
-    private let cacheDirectoryName = WKSharedCacheDirectoryNames.experiments.rawValue
+    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
     
     private static let articleAsLivingDocConfig = ExperimentConfig(experiment: .articleAsLivingDoc, percentageFileName: .articleAsLivingDocPercent, bucketFileName: .articleAsLivingDocBucket, bucketValueControl: .articleAsLivingDocControl, bucketValueTest: .articleAsLivingDocTest)
     
@@ -64,11 +64,11 @@ final class WMFExperimentsDataController {
     
     private static let altTextArticleEditorConfig = ExperimentConfig(experiment: .altTextArticleEditor, percentageFileName: .altTextArticleEditorPercent, bucketFileName: .altTextArticleEditorBucket, bucketValueControl: .altTextArticleEditorControl, bucketValueTest: .altTextArticleEditorTest)
     
-    private let store: WKKeyValueStore
+    private let store: WMFKeyValueStore
     
     // MARK: Lifecycle
     
-    public init(store: WKKeyValueStore) {
+    public init(store: WMFKeyValueStore) {
         self.store = store
     }
     

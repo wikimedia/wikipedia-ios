@@ -48,12 +48,12 @@ public class WMFWatchlistDataController {
     // MARK: Filter Settings
     
     public func loadFilterSettings() -> WMFWatchlistFilterSettings {
-        let key = WKUserDefaultsKey.watchlistFilterSettings.rawValue
+        let key = WMFUserDefaultsKey.watchlistFilterSettings.rawValue
         return (try? userDefaultsStore?.load(key: key)) ?? WMFWatchlistFilterSettings()
     }
     
     public func saveFilterSettings(_ filterSettings: WMFWatchlistFilterSettings) {
-        let key = WKUserDefaultsKey.watchlistFilterSettings.rawValue
+        let key = WMFUserDefaultsKey.watchlistFilterSettings.rawValue
         try? userDefaultsStore?.save(key: key, value: filterSettings)
     }
     
@@ -168,14 +168,14 @@ public class WMFWatchlistDataController {
                     
                     items.append(contentsOf: self.watchlistItems(from: query, project: project))
                     
-                    try? sharedCacheStore?.save(key: WKSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
+                    try? sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
                     
                 case .failure(let error):
                     var usedCache = false
                     
                     if (error as NSError).isInternetConnectionError {
                         
-                        let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: WKSharedCacheDirectoryNames.watchlists.rawValue, project.id)
+                        let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id)
                         
                         if let query = cachedResult?.query {
                             items.append(contentsOf: self.watchlistItems(from: query, project: project))
