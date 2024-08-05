@@ -1512,7 +1512,17 @@ extension ExploreViewController: WKFeatureAnnouncing {
 }
 
 extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
-    
+    func logAltTextExperimentDidAssignGroup() {
+        
+        guard let imageRecommendationsViewModel else {
+            return
+        }
+        
+        let project = WikimediaProject(wkProject: imageRecommendationsViewModel.project)
+        
+        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(project: project)
+    }
+
     func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
     }

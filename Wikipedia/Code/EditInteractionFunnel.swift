@@ -1,4 +1,5 @@
 import Foundation
+import WKData
 
 final class EditInteractionFunnel {
     
@@ -254,13 +255,22 @@ final class EditInteractionFunnel {
     
     // MARK: Alt-Text-Experiment
     
-    func logAltTextDidAssignGroupA(project: WikimediaProject) {
-        let actionData = ["exp_b_group": "a"]
-        logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
-    }
-    
-    func logAltTextDidAssignGroupB(project: WikimediaProject) {
-        let actionData = ["exp_b_group": "b"]
+    func logAltTextDidAssignImageRecsGroup(project: WikimediaProject) {
+        
+        guard let group = WKAltTextDataController.shared?.assignedAltTextImageRecommendationsGroupForLogging() else {
+            return
+        }
+        
+        var actionData: [String: String] = [:]
+        switch group {
+        case "A":
+            actionData["exp_b_group"] = "a"
+        case "B":
+            actionData["exp_b_group"] = "b"
+        default:
+            assertionFailure("Unexpected experiment group")
+        }
+        
         logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
     }
     

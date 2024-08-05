@@ -20,6 +20,7 @@ public final class WKAltTextDataController {
         case invalidDeviceOrOS
         case invalidDate
         case unexpectedBucketValue
+        case alreadyAssignedThisExperiment
         case alreadyAssignedOtherExperiment
     }
     
@@ -62,6 +63,10 @@ public final class WKAltTextDataController {
         
         guard isBeforeEndDate else {
             throw WKAltTextDataControllerError.invalidDate
+        }
+        
+        if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
+            throw WKAltTextDataControllerError.alreadyAssignedThisExperiment
         }
         
         if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {

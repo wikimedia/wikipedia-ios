@@ -35,6 +35,7 @@ public protocol WKImageRecommendationsLoggingDelegate: AnyObject {
     func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
+    func logAltTextExperimentDidAssignGroup()
 }
 
 fileprivate final class WKImageRecommendationsHostingViewController: WKComponentHostingController<WKImageRecommendationsView> {
@@ -202,6 +203,7 @@ public final class WKImageRecommendationsViewController: WKCanvasViewController 
 
         do {
             try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+            loggingDelegate?.logAltTextExperimentDidAssignGroup()
         } catch let error {
             debugPrint(error)
             return false
