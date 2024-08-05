@@ -29,4 +29,12 @@ import Foundation
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue, value: newValue)
         }
     }
+    
+    @objc public var sendAnalyticsToWMFLabs: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue)
+        }
+    }
 }
