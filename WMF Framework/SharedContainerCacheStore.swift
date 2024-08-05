@@ -1,11 +1,11 @@
 import Foundation
-import WKData
+import WMFData
 
 public enum SharedContainerCacheStoreError: Error {
     case unexpectedKeyCount
 }
 
-public final class SharedContainerCacheStore: WKKeyValueStore {
+public final class SharedContainerCacheStore: WMFKeyValueStore {
     
     public init() {
         

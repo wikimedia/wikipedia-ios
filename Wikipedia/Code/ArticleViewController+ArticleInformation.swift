@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 extension ArticleViewController {
     func showLanguages() {

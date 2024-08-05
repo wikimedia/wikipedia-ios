@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class InsertMediaImageInfoView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
@@ -47,9 +47,9 @@ final class InsertMediaImageInfoView: UIView {
     }
 
     private func updateFonts() {
-        titleLabel.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        descriptionLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
-        licenseLabel.font = WKFont.for(.boldCaption1, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        descriptionLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        licenseLabel.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
     }
 
     @IBAction private func showMoreInformation(_ sender: Any) {

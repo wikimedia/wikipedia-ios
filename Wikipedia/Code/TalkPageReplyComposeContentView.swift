@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 class TalkPageReplyComposeContentView: SetupView {
@@ -257,9 +257,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func updateFonts() {
-        publishButton.titleLabel?.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
-        replyTextView.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        placeholderLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        publishButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        replyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        placeholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     // MARK: Actions
@@ -298,7 +298,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
 
     private var styles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     private func evaluatePublishButtonEnabledState() {

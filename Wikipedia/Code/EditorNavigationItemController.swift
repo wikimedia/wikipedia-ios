@@ -1,5 +1,5 @@
 import WMF
-import Components
+import WMFComponents
 
 protocol EditorNavigationItemControllerDelegate: AnyObject {
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
@@ -36,7 +36,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     weak var delegate: EditorNavigationItemControllerDelegate?
     
     private(set) lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
+        let closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         return closeButton
     }()
@@ -47,25 +47,25 @@ class EditorNavigationItemController: NSObject, Themeable {
     }()
 
     private(set) lazy var redoButton: UIBarButtonItem = {
-        let redoButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .redo), style: .plain, target: self, action: #selector(redo(_ :)))
+        let redoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .redo), style: .plain, target: self, action: #selector(redo(_ :)))
         redoButton.accessibilityLabel = CommonStrings.redo
         return redoButton
     }()
 
     private(set) lazy var undoButton: UIBarButtonItem = {
-        let undoButton = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .undo), style: .plain, target: self, action: #selector(undo(_ :)))
+        let undoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .undo), style: .plain, target: self, action: #selector(undo(_ :)))
         undoButton.accessibilityLabel = CommonStrings.undo
         return undoButton
     }()
 
     private lazy var editNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
     
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WKSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
         button.accessibilityLabel = CommonStrings.readingThemesControls
         return button
     }()

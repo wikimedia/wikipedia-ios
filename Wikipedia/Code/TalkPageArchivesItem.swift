@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 struct TalkPageArchivesItem: Equatable, Identifiable, CustomStringConvertible {
     

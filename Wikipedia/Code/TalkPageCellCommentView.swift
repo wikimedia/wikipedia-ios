@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 final class TalkPageCellCommentView: SetupView {
@@ -29,7 +29,7 @@ final class TalkPageCellCommentView: SetupView {
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        button.titleLabel?.font = WKFont.for(.boldCallout)
+        button.titleLabel?.font = WMFFont.for(.boldCallout)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         
         button.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
@@ -127,7 +127,7 @@ final class TalkPageCellCommentView: SetupView {
     // MARK: - Find in page
 
     private func applyTextHighlightIfNecessary(theme: Theme) {
-        let activeHighlightBackgroundColor: UIColor = WKColor.yellow600
+        let activeHighlightBackgroundColor: UIColor = WMFColor.yellow600
         let backgroundHighlightColor: UIColor
         let foregroundHighlightColor: UIColor
 

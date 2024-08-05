@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
@@ -354,9 +354,9 @@ class TalkPageTopicComposeViewController: ViewController {
     // MARK: Private
 
     private func updateFonts() {
-        titleTextField.font = WKFont.for(.headline, compatibleWith: traitCollection)
-        bodyTextView.font = WKFont.for(.callout, compatibleWith: traitCollection)
-        bodyPlaceholderLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        titleTextField.font = WMFFont.for(.headline, compatibleWith: traitCollection)
+        bodyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        bodyPlaceholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         finePrintTextView.attributedText = licenseTitleTextViewAttributedString
     }
     
@@ -373,7 +373,7 @@ class TalkPageTopicComposeViewController: ViewController {
             "</a>"
         )
 
-        let styles = HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
 
         return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
     }
