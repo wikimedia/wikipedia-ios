@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "E7908C20-55B3-4B11-B1BA-D67313F9BD96",
+      "id" : "E75A34A3-2195-43D9-9533-9893685F783C",
       "name" : "Configuration 1",
       "options" : {
 
@@ -15,8 +15,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "WKDataTests",
-        "name" : "WKDataTests"
+        "identifier" : "WMFComponentsTests",
+        "name" : "WMFComponentsTests"
       }
     }
   ],
