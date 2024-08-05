@@ -7,13 +7,15 @@ import WKData
     let doNotPostImageRecommendations: String
     let enableAltTextExperiment: String
     let enableAltTextExperimentForEN: String
+    let sendAnalyticsToWMFLabs: String
     let close: String
     
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, enableAltTextExperiment: String, enableAltTextExperimentForEN: String, close: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, enableAltTextExperiment: String, enableAltTextExperimentForEN: String, sendAnalyticsToWMFLabs: String, close: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.enableAltTextExperiment = enableAltTextExperiment
         self.enableAltTextExperimentForEN = enableAltTextExperimentForEN
+        self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
         self.close = close
     }
 }
@@ -30,8 +32,9 @@ import WKData
         let doNotPostImageRecommendationsEditItem = WKFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WKDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let enableAltTextExperimentItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WKDeveloperSettingsDataController.shared.enableAltTextExperiment)
         let enableAltTextExperimentItemForENItem = WKFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WKDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
+        let sendAnalyticsToWMFLabsItem = WKFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WKDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
 
-        formViewModel = WKFormViewModel(sections: [WKFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem], selectType: .multi)])
+        formViewModel = WKFormViewModel(sections: [WKFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem, sendAnalyticsToWMFLabsItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
 
@@ -46,7 +49,9 @@ import WKData
         enableAltTextExperimentItemForENItem.$isSelected.sink { isSelected in
             WKDeveloperSettingsDataController.shared.enableAltTextExperimentForEN = isSelected
         }.store(in: &subscribers)
-
+        
+        sendAnalyticsToWMFLabsItem.$isSelected.sink { isSelected in
+            WKDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs = isSelected
+        }.store(in: &subscribers)
     }
-
 }
