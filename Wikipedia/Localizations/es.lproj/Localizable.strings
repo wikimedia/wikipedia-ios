@@ -161,6 +161,13 @@
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "advanced-settings-title" = "Ajustes avanzados";
+"alt-text-add-button-title" = "Añadir";
+"alt-text-do-not-add-button-title" = "No añadir";
+"alt-text-experiment-text-field-placholder" = "Describir la imagen";
+"alt-text-experiment-view-title" = "Añadir texto alternativo";
+"alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
+"alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
+"alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
 "app-store-release-notes" = "Canal Explorar completamente personalizable y fácil de leer. Localización, mejoras de rendimiento y corrección de fallos.";
