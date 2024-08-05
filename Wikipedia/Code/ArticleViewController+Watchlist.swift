@@ -1,16 +1,16 @@
 import Foundation
-import WKData
+import WMFData
 
 extension ArticleViewController {
     func loadWatchStatusAndUpdateToolbar() {
         
         guard let title = articleURL.wmf_title,
         let siteURL = articleURL.wmf_site,
-        let project = WikimediaProject(siteURL: siteURL)?.wkProject else {
+        let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             return
         }
         
-        WKWatchlistDataController().fetchWatchStatus(title: title, project: project) { result in
+        WMFWatchlistDataController().fetchWatchStatus(title: title, project: project) { result in
             
             DispatchQueue.main.async { [weak self] in
                 

@@ -1,7 +1,7 @@
 import SwiftUI
 import WMF
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 struct EditorChanges {
     let newRevisionID: UInt64
@@ -61,7 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
-    var editTags: [WKEditTag]?
+    var editTags: [WMFEditTag]?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
     weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
@@ -97,7 +97,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var summaryText = ""
     
     @IBOutlet weak var showWebPreviewContainerView: UIView!
-    private var showWebPreviewButtonHostingController: UIHostingController<WKSmallButton>?
+    private var showWebPreviewButtonHostingController: UIHostingController<WMFSmallButton>?
 
     private var mode: NavigationMode = .preview {
         didSet {
@@ -107,7 +107,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private let wikiTextSectionUploader = WikiTextSectionUploader()
 
     private var styles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
     }
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {
@@ -272,8 +272,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let configuration = WKSmallButton.Configuration(style: .quiet)
-        let rootView = WKSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+        let configuration = WMFSmallButton.Configuration(style: .quiet)
+        let rootView = WMFSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
             self?.editorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
         }
@@ -294,12 +294,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+           let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
             let title = pageURL?.wmf_title else {
             return
         }
         
-        let dataController = WKWatchlistDataController()
+        let dataController = WMFWatchlistDataController()
         dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

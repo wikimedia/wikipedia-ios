@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class DiffHeaderEditorView: UIView {
 
@@ -89,9 +89,9 @@ private extension DiffHeaderEditorView {
     
     func updateFonts(with traitCollection: UITraitCollection) {
     
-        headingLabel.font = WKFont.for(.boldFootnote, compatibleWith: traitCollection)
-        usernameLabel.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
-        numberOfEditsLabel.font = WKFont.for(.callout, compatibleWith: traitCollection)
+        headingLabel.font = WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
+        usernameLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        numberOfEditsLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 }
 

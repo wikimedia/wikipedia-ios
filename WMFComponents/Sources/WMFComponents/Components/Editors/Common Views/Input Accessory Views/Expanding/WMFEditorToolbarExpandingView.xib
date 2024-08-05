@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="iN0-l3-epB" userLabel="Expanding Edit Toolbar View" customClass="WMFEditorToolbarExpandingView" customModule="WMFComponents">
+            <rect key="frame" x="0.0" y="0.0" width="954" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en8-Lh-EYg" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="-15" width="954" height="65"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnR-ux-s6T">
+                            <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="44" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
+                                    <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik">
+                                            <rect key="frame" x="0.0" y="0.0" width="954" height="44"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64" userLabel="Primary Container View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="467" height="44"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Primary Stack View">
+                                                            <rect key="frame" x="66" y="0.0" width="393" height="44"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-cw-4pq" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="0.0" y="4" width="54.333333333333336" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="xok-qq-r6J">
+                                                                    <rect key="frame" x="60.333333333333329" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="KWY-7m-geZ"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Ep4-cb-vlw" userLabel="Citation Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="67.333333333333343" y="4" width="54.666666666666657" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="lOp-Bv-UED" userLabel="Link Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="127.66666666666667" y="4" width="54.666666666666671" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="2n5-hY-lF5" userLabel="Template Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="188.33333333333334" y="4" width="54.333333333333343" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Oyz-BA-g0g" userLabel="Media Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="248.66666666666671" y="4" width="54.333333333333343" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="oQP-nn-FbX">
+                                                                    <rect key="frame" x="309" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="li3-OD-31r"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="ysd-bl-nOt" userLabel="Find in Page Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="316" y="4" width="77" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="g2p-oh-oje" secondAttribute="trailing" id="F9b-D8-U5d"/>
+                                                        <constraint firstItem="g2p-oh-oje" firstAttribute="top" secondItem="BWO-2h-I64" secondAttribute="top" id="Thd-My-zCm"/>
+                                                        <constraint firstAttribute="bottom" secondItem="g2p-oh-oje" secondAttribute="bottom" id="gr8-Ry-dCX"/>
+                                                        <constraint firstItem="g2p-oh-oje" firstAttribute="leading" secondItem="BWO-2h-I64" secondAttribute="leadingMargin" constant="8" id="jca-4R-uZt"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51i-1d-Lli" userLabel="Secondary Container View">
+                                                    <rect key="frame" x="487" y="0.0" width="467" height="44"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
+                                                            <rect key="frame" x="16" y="0.0" width="393" height="44"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="6o2-fI-FeG" userLabel="Unordered List Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="0.0" y="4" width="41" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Usg-R3-2O9" userLabel="Ordered List Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="47" y="4" width="41.333333333333343" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="fXx-Ar-LUR">
+                                                                    <rect key="frame" x="94.333333333333371" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="Zti-tk-EM4"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="yOi-nA-z5s" userLabel="Decrease Indention Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="101.33333333333337" y="4" width="41" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="YcQ-k6-ZuB" userLabel="Increase Indention Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="148.33333333333337" y="4" width="41.333333333333343" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="1U7-q7-2pT">
+                                                                    <rect key="frame" x="195.66666666666663" y="0.0" width="1" height="44"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="1" id="cSl-ZD-jie"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="kgt-gx-B2i" userLabel="Cursor Up Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="202.66666666666663" y="4" width="41" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="R3Q-hM-v0V" userLabel="Cursor Down Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="249.66666666666663" y="4" width="41" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="Vh2-x6-dCr" userLabel="Cursor Left Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="296.66666666666663" y="4" width="41.333333333333314" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="36" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="q6d-fY-Su5" userLabel="Cursor Right Button" customClass="WMFEditorToolbarButton" customModule="WMFComponents">
+                                                                    <rect key="frame" x="344" y="4" width="49" height="36"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                </view>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="1bz-lo-Qsh" secondAttribute="trailing" id="T4O-5G-3UW"/>
+                                                        <constraint firstItem="1bz-lo-Qsh" firstAttribute="leading" secondItem="51i-1d-Lli" secondAttribute="leadingMargin" constant="8" id="X6D-nk-Fmx"/>
+                                                        <constraint firstItem="1bz-lo-Qsh" firstAttribute="top" secondItem="51i-1d-Lli" secondAttribute="top" id="XrA-Pr-gEr"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1bz-lo-Qsh" secondAttribute="bottom" id="cHy-g6-O3B"/>
+                                                    </constraints>
+                                                    <variation key="heightClass=compact-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="X6D-nk-Fmx"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
+                                            </subviews>
+                                            <gestureRecognizers/>
+                                            <variation key="heightClass=compact-widthClass=compact" distribution="fillEqually" spacing="20"/>
+                                            <variation key="heightClass=compact-widthClass=regular" distribution="fillEqually" spacing="20"/>
+                                            <variation key="heightClass=regular-widthClass=regular" distribution="fillEqually" spacing="20"/>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="ajR-7a-Sik" secondAttribute="bottom" id="24Z-8o-CkO"/>
+                                        <constraint firstAttribute="trailing" secondItem="ajR-7a-Sik" secondAttribute="trailing" id="J5g-me-4g4"/>
+                                        <constraint firstItem="ajR-7a-Sik" firstAttribute="top" secondItem="vhM-bx-p7p" secondAttribute="top" id="dzU-Tm-IPJ"/>
+                                        <constraint firstItem="ajR-7a-Sik" firstAttribute="leading" secondItem="vhM-bx-p7p" secondAttribute="leading" id="tfq-kw-aLq"/>
+                                        <constraint firstAttribute="height" constant="44" id="wwE-a6-akA"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="vhM-bx-p7p" firstAttribute="leading" secondItem="ZnR-ux-s6T" secondAttribute="leading" id="1fc-d9-1xT"/>
+                                <constraint firstAttribute="height" constant="44" id="5Ch-uG-YT0"/>
+                                <constraint firstAttribute="bottom" secondItem="vhM-bx-p7p" secondAttribute="bottom" id="8LC-Tk-hIp"/>
+                                <constraint firstItem="vhM-bx-p7p" firstAttribute="top" secondItem="ZnR-ux-s6T" secondAttribute="top" id="J5N-SR-GMb"/>
+                                <constraint firstItem="BWO-2h-I64" firstAttribute="width" secondItem="ZnR-ux-s6T" secondAttribute="width" id="UqM-eZ-wld"/>
+                                <constraint firstAttribute="trailing" secondItem="vhM-bx-p7p" secondAttribute="trailing" id="qOK-en-LNn"/>
+                                <constraint firstItem="51i-1d-Lli" firstAttribute="width" secondItem="ZnR-ux-s6T" secondAttribute="width" id="yH6-Nh-KTL"/>
+                            </constraints>
+                            <variation key="heightClass=compact-widthClass=compact">
+                                <mask key="constraints">
+                                    <exclude reference="UqM-eZ-wld"/>
+                                    <include reference="qOK-en-LNn"/>
+                                    <exclude reference="yH6-Nh-KTL"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular">
+                                <mask key="constraints">
+                                    <exclude reference="UqM-eZ-wld"/>
+                                    <exclude reference="yH6-Nh-KTL"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <mask key="constraints">
+                                    <exclude reference="UqM-eZ-wld"/>
+                                    <exclude reference="yH6-Nh-KTL"/>
+                                </mask>
+                            </variation>
+                        </scrollView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLt-zh-HFv" customClass="WMFEditorToolbarNavigatorButton" customModule="WMFComponents">
+                            <rect key="frame" x="884" y="10" width="0.0" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="Nuv-a3-wfO"/>
+                                <constraint firstAttribute="height" constant="24" id="aAg-JB-QWf"/>
+                                <constraint firstAttribute="width" constant="30" id="w0g-0W-Kkw"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="Nuv-a3-wfO"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=compact" hidden="YES">
+                                <mask key="constraints">
+                                    <include reference="Nuv-a3-wfO"/>
+                                    <exclude reference="w0g-0W-Kkw"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular" hidden="YES">
+                                <mask key="constraints">
+                                    <include reference="Nuv-a3-wfO"/>
+                                    <exclude reference="w0g-0W-Kkw"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <mask key="constraints">
+                                    <include reference="Nuv-a3-wfO"/>
+                                    <exclude reference="w0g-0W-Kkw"/>
+                                </mask>
+                            </variation>
+                        </view>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="ILl-o6-Fsg"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="ILl-o6-Fsg" firstAttribute="bottom" secondItem="ZnR-ux-s6T" secondAttribute="bottom" id="01O-VZ-INN"/>
+                        <constraint firstItem="ZnR-ux-s6T" firstAttribute="top" secondItem="en8-Lh-EYg" secondAttribute="top" id="3RE-uu-Ul3"/>
+                        <constraint firstItem="ZnR-ux-s6T" firstAttribute="leading" secondItem="en8-Lh-EYg" secondAttribute="leading" id="8Ur-42-9gS"/>
+                        <constraint firstItem="jLt-zh-HFv" firstAttribute="centerY" secondItem="ZnR-ux-s6T" secondAttribute="centerY" id="PlY-Tv-TRN"/>
+                        <constraint firstAttribute="trailing" secondItem="ZnR-ux-s6T" secondAttribute="trailing" id="Zlo-fb-zDB"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="jLt-zh-HFv" secondAttribute="trailing" id="bkH-4V-git"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="width" secondItem="en8-Lh-EYg" secondAttribute="width" id="gEH-3O-D4m"/>
+                        <constraint firstItem="jLt-zh-HFv" firstAttribute="leading" secondItem="ZnR-ux-s6T" secondAttribute="trailing" id="thk-Qj-LP5"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Zlo-fb-zDB"/>
+                            <exclude reference="gEH-3O-D4m"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="Zlo-fb-zDB"/>
+                            <include reference="gEH-3O-D4m"/>
+                            <exclude reference="thk-Qj-LP5"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="Zlo-fb-zDB"/>
+                            <include reference="gEH-3O-D4m"/>
+                            <exclude reference="thk-Qj-LP5"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="Zlo-fb-zDB"/>
+                            <include reference="gEH-3O-D4m"/>
+                            <exclude reference="thk-Qj-LP5"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="en8-Lh-EYg" secondAttribute="bottom" id="I11-7J-31K"/>
+                <constraint firstItem="en8-Lh-EYg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" id="cgS-Fu-uNn"/>
+                <constraint firstAttribute="trailing" secondItem="en8-Lh-EYg" secondAttribute="trailing" id="pL3-fC-QLl"/>
+                <constraint firstItem="en8-Lh-EYg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qJ1-0W-8aR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cursorDownButton" destination="R3Q-hM-v0V" id="Dfl-e6-eBm"/>
+                <outlet property="cursorLeftButton" destination="Vh2-x6-dCr" id="W62-wK-a2b"/>
+                <outlet property="cursorRightButton" destination="q6d-fY-Su5" id="TBr-Z2-IEa"/>
+                <outlet property="cursorUpButton" destination="kgt-gx-B2i" id="C11-9d-Kj6"/>
+                <outlet property="decreaseIndentionButton" destination="yOi-nA-z5s" id="BwM-JV-w7e"/>
+                <outlet property="expandButton" destination="jLt-zh-HFv" id="LkK-4N-EDh"/>
+                <outlet property="findInPageButton" destination="ysd-bl-nOt" id="YnS-6B-WJp"/>
+                <outlet property="formatTextButton" destination="q5y-cw-4pq" id="EVV-8g-wME"/>
+                <outlet property="imageButton" destination="Oyz-BA-g0g" id="Gxu-b5-3Sp"/>
+                <outlet property="increaseIndentionButton" destination="YcQ-k6-ZuB" id="phQ-vm-eKH"/>
+                <outlet property="linkButton" destination="lOp-Bv-UED" id="I7F-zV-jom"/>
+                <outlet property="orderedListButton" destination="Usg-R3-2O9" id="8Qf-xg-gjD"/>
+                <outlet property="primaryContainerView" destination="BWO-2h-I64" id="8BW-Xe-ftH"/>
+                <outlet property="referenceButton" destination="Ep4-cb-vlw" id="yG8-Jl-eDx"/>
+                <outlet property="scrollView" destination="ZnR-ux-s6T" id="cvF-Ya-s9R"/>
+                <outlet property="secondaryContainerView" destination="51i-1d-Lli" id="RSM-Cp-gEO"/>
+                <outlet property="stackView" destination="ajR-7a-Sik" id="xc8-7a-mMJ"/>
+                <outlet property="templateButton" destination="2n5-hY-lF5" id="diI-p3-Td9"/>
+                <outlet property="unorderedListButton" destination="6o2-fI-FeG" id="Vvj-hr-OPm"/>
+                <outletCollection property="buttons" destination="q5y-cw-4pq" collectionClass="NSMutableArray" id="93a-IX-ieH"/>
+                <outletCollection property="buttons" destination="Ep4-cb-vlw" collectionClass="NSMutableArray" id="2vE-dm-JfA"/>
+                <outletCollection property="buttons" destination="lOp-Bv-UED" collectionClass="NSMutableArray" id="t3Q-06-6qC"/>
+                <outletCollection property="buttons" destination="2n5-hY-lF5" collectionClass="NSMutableArray" id="W2i-Dq-Dag"/>
+                <outletCollection property="buttons" destination="Oyz-BA-g0g" collectionClass="NSMutableArray" id="9bL-H9-ERF"/>
+                <outletCollection property="buttons" destination="ysd-bl-nOt" collectionClass="NSMutableArray" id="T7G-Zd-6h5"/>
+                <outletCollection property="buttons" destination="6o2-fI-FeG" collectionClass="NSMutableArray" id="7Q1-k0-btK"/>
+                <outletCollection property="buttons" destination="Usg-R3-2O9" collectionClass="NSMutableArray" id="yDE-UL-41h"/>
+                <outletCollection property="buttons" destination="yOi-nA-z5s" collectionClass="NSMutableArray" id="km2-Wc-4ke"/>
+                <outletCollection property="buttons" destination="YcQ-k6-ZuB" collectionClass="NSMutableArray" id="ogR-au-rG6"/>
+                <outletCollection property="buttons" destination="kgt-gx-B2i" collectionClass="NSMutableArray" id="kSB-nl-6DL"/>
+                <outletCollection property="buttons" destination="R3Q-hM-v0V" collectionClass="NSMutableArray" id="CxY-YE-n4s"/>
+                <outletCollection property="buttons" destination="Vh2-x6-dCr" collectionClass="NSMutableArray" id="ZE0-79-Luo"/>
+                <outletCollection property="buttons" destination="q6d-fY-Su5" collectionClass="NSMutableArray" id="YJ0-0S-wyw"/>
+                <outletCollection property="separatorImageViews" destination="xok-qq-r6J" collectionClass="NSMutableArray" id="xY1-Ku-NLh"/>
+                <outletCollection property="separatorImageViews" destination="oQP-nn-FbX" collectionClass="NSMutableArray" id="tN4-m1-TSb"/>
+                <outletCollection property="separatorImageViews" destination="fXx-Ar-LUR" collectionClass="NSMutableArray" id="0wt-Rr-NJu"/>
+                <outletCollection property="separatorImageViews" destination="1U7-q7-2pT" collectionClass="NSMutableArray" id="D4F-oj-1aJ"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="cSl-ZD-jie" collectionClass="NSMutableArray" id="b3G-e3-QAX"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="Zti-tk-EM4" collectionClass="NSMutableArray" id="UAO-A9-7PY"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="li3-OD-31r" collectionClass="NSMutableArray" id="oDV-zH-rQW"/>
+                <outletCollection property="separatorImageWidthConstraints" destination="KWY-7m-geZ" collectionClass="NSMutableArray" id="Uog-iI-D7v"/>
+            </connections>
+            <point key="canvasLocation" x="31" y="88"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

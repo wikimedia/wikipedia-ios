@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 @IBDesignable
@@ -24,7 +24,7 @@ class UnderlineButton: AutoLayoutSafeMultiLineButton {
 
     private func configureStyle() {
         if useDefaultFont {
-            titleLabel?.font = WKFont.for(.subheadline)
+            titleLabel?.font = WMFFont.for(.subheadline)
         }
         addUnderline()
         setTitleColor(tintColor, for: .selected)

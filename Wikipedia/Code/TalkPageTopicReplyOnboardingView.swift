@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -46,8 +46,8 @@ struct TalkPageTopicReplyOnboardingView: View {
         }
     }
 
-    private let titleFont = WKFont.for(.title1)
-    private let callout = WKFont.for(.callout)
+    private let titleFont = WMFFont.for(.title1)
+    private let callout = WMFFont.for(.callout)
 
     // MARK: - Content
 

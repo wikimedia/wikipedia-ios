@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private let descriptionLabel = UILabel()
@@ -71,7 +71,7 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         
-        descriptionLabel.font = WKFont.for(.italicSubheadline, compatibleWith: traitCollection)
+        descriptionLabel.font = WMFFont.for(.italicSubheadline, compatibleWith: traitCollection)
     }
     
     @objc private func tappedSmallChanges() {

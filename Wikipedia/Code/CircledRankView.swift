@@ -1,10 +1,10 @@
-import Components
+import WMFComponents
 
 class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
     
-    public var rankColor: UIColor = WKColor.blue600 {
+    public var rankColor: UIColor = WMFColor.blue600 {
         didSet {
             guard !label.textColor.isEqual(rankColor) else {
                 return
@@ -41,7 +41,7 @@ class CircledRankView: SizeThatFitsView {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

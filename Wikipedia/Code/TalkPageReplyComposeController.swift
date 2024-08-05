@@ -1,5 +1,5 @@
 import Foundation
-import Components
+import WMFComponents
 import WMF
 
 protocol TalkPageReplyComposeDelegate: AnyObject {
@@ -432,7 +432,7 @@ extension TalkPageReplyComposeController: Themeable {
     func apply(theme: Theme) {
         containerView?.backgroundColor = theme.colors.paperBackground
         containerView?.layer.shadowColor = theme.colors.shadow.cgColor
-        dragHandleView?.backgroundColor = WKColor.gray675
+        dragHandleView?.backgroundColor = WMFColor.gray675
         contentView?.apply(theme: theme)
     }
 }

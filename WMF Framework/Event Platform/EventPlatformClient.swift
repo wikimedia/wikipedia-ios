@@ -38,6 +38,7 @@
 
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 /**
  * Event Platform Client (EPC)
@@ -179,7 +180,13 @@ import CocoaLumberjackSwift
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static let eventIntakeURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+    private static var eventIntakeURI: URL {
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
+            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
+        } else {
+            URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+        }
+    }
 
     /**
      * MediaWiki API endpoint which returns stream configurations as JSON

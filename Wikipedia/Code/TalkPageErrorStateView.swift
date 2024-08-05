@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 final class TalkPageErrorStateView: SetupView {
@@ -6,9 +6,9 @@ final class TalkPageErrorStateView: SetupView {
     fileprivate var titleText = WMFLocalizedString("talk-page-error-loading-title", value: "Unable to load talk page", comment: "Title text for error page on talk pages")
     fileprivate var subtitleText = WMFLocalizedString("talk-page-error-loading-subtitle", value: "Something went wrong.", comment: "Subtitle text for error page on talk pages")
 
-    fileprivate var titleFont = WKFont.for(.headline)
-    fileprivate var subtitleFont = WKFont.for(.footnote)
-    fileprivate var buttonFont = WKFont.for(.boldCallout)
+    fileprivate var titleFont = WMFFont.for(.headline)
+    fileprivate var subtitleFont = WMFFont.for(.footnote)
+    fileprivate var buttonFont = WMFFont.for(.boldCallout)
 
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "talk-page-error-message"))

@@ -106,6 +106,7 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
+"alt-text-experiment-edit-summary" = "Added alt text";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";
@@ -205,6 +206,7 @@
 "developer-settings" = "Developer Settings";
 "developer-settings-enable-alt-text-experiment" = "Enable Alt Text experiment.";
 "developer-settings-enable-alt-text-experiment-en" = "Enable Alt Text experiment for English Wikipedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
