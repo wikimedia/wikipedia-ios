@@ -3286,8 +3286,6 @@
 		674711822507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
 		674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
-		674C176E2AAA9414007DC6CC /* Components.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Components.xctestplan; sourceTree = "<group>"; };
-		674C176F2AAA941F007DC6CC /* WKData.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WKData.xctestplan; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
@@ -3309,6 +3307,8 @@
 		67623E0C2AFD288B007488C7 /* WikipediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67623E102AFD2897007488C7 /* WKSourceEditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKSourceEditorUITests.swift; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
+		676AB5BE2C615C52003408C3 /* WMFComponents.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WMFComponents.xctestplan; sourceTree = "<group>"; };
+		676AB5BF2C615C68003408C3 /* WMFData.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WMFData.xctestplan; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		676C864826D40AEB00A704C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -6205,8 +6205,8 @@
 			children = (
 				674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */,
 				675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */,
-				674C176E2AAA9414007DC6CC /* Components.xctestplan */,
-				674C176F2AAA941F007DC6CC /* WKData.xctestplan */,
+				676AB5BE2C615C52003408C3 /* WMFComponents.xctestplan */,
+				676AB5BF2C615C68003408C3 /* WMFData.xctestplan */,
 			);
 			path = "Test Plans";
 			sourceTree = "<group>";
