@@ -109,6 +109,10 @@
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
 "advanced-settings-title" = "Ешартыш тӧрлымаш";
+"alt-text-add-button-title" = "Ешараш";
+"alt-text-do-not-add-button-title" = "Ит ешаре";
+"alt-text-experiment-text-field-placholder" = "Тиде сӱрет нерген каласкале";
+"alt-text-experiment-view-title" = "alt текстым ешаре";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-release-notes" = "Explore ленте тичмашнек тӧрлаташ лийше да лудаш йӧнанрак. Локализаций, паша лектышым саемдымаш да йоҥылышым тӧрлымаш.";
