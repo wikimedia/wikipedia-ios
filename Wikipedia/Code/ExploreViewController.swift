@@ -1353,6 +1353,9 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         }
 
         let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+        
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: WikimediaProject(wkProject: viewModel.project))
+        
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WKAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()

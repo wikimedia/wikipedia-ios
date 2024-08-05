@@ -6,6 +6,7 @@ final class AltTextExperimentModalSheetView: WKComponentView {
 
     weak var viewModel: AltTextExperimentModalSheetViewModel?
     weak var delegate: AltTextExperimentModalSheetDelegate?
+    weak var loggingDelegate: AltTextExperimentModalSheetLoggingDelegate?
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -99,9 +100,10 @@ final class AltTextExperimentModalSheetView: WKComponentView {
 
     // MARK: Lifecycle
 
-    public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel, delegate: AltTextExperimentModalSheetDelegate?) {
+    public init(frame: CGRect, viewModel: AltTextExperimentModalSheetViewModel, delegate: AltTextExperimentModalSheetDelegate?, loggingDelegate: AltTextExperimentModalSheetLoggingDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
         super.init(frame: frame)
         textView.delegate = self
         setup()
@@ -222,6 +224,7 @@ extension AltTextExperimentModalSheetView: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         placeholder.isHidden = true
+        loggingDelegate?.didFocusTextView()
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
