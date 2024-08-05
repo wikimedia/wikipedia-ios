@@ -110,8 +110,8 @@
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";
+"alt-text-modal-subtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
 "alt-text-modal-title" = "Add missing image alt text?";
-"alt-text-modalsubtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";

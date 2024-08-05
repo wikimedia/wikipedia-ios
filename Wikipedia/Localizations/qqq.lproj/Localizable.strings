@@ -110,8 +110,8 @@
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
+"alt-text-modal-subtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "alt-text-modal-title" = "Title text for the alt text suggested edit prompt modal";
-"alt-text-modalsubtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";

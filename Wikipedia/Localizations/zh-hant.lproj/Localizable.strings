@@ -152,9 +152,11 @@
 "advanced-settings-title" = "進階設定";
 "alt-text-add-button-title" = "新增";
 "alt-text-do-not-add-button-title" = "不要新增";
+"alt-text-experiment-view-title" = "新增替代文字";
+"alt-text-experiment-text-field-placholder" = "描述影像";
 "alt-text-modal-subtitle-image-recommendation" = "前一張圖片缺少替代文字，您要幫視覺障礙讀者們新增一個圖片描述嗎？";
 "alt-text-modal-title" = "新增缺少的圖片替代文字？";
-"alt-text-modalsubtitle-regular-edit" = "此條目的圖片缺少替代文字，您要幫視覺障礙讀者們新增圖片的描述嗎？";
+"alt-text-modal-subtitle-regular-edit" = "此條目的圖片缺少替代文字，您要幫視覺障礙讀者們新增圖片的描述嗎？";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
