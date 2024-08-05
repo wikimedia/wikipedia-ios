@@ -174,6 +174,9 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";
+"alt-text-add-button-title" = "添加";
+"alt-text-do-not-add-button-title" = "不要添加";
+"alt-text-experiment-text-field-placholder" = "描述图片";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";
@@ -271,6 +274,8 @@
 "diff-compare-header-heading" = "对比修订";
 "diff-compare-header-to-info-heading" = "展示的编辑";
 "diff-compare-title" = "对比修订";
+"diff-context-cell-collapse-section" = "折叠$1";
+"diff-context-cell-expand-section" = "展开$1";
 "diff-context-lines-collapsed-button-title" = "显示";
 "diff-context-lines-expanded-button-title" = "隐藏";
 "diff-header-revision-accessibility-text" = "修订日期";
@@ -356,6 +361,8 @@
 "edit-summary-choice-fixed-typos" = "修正笔误";
 "edit-summary-choice-linked-words" = "添加链接";
 "edit-summary-placeholder-text" = "您是如何改进条目的？";
+"edit-summary-short-description-added" = "已添加简短描述";
+"edit-summary-short-description-updated" = "已更新简短描述";
 "edit-watch-list-learn-more-text" = "了解有关您监视列表的更多信息";
 "edit-watch-this-page-text" = "监视本页";
 "editing-welcome-be-bold-subtitle" = "在更新条目的时候可以大胆但不要鲁莽。不要为犯错而苦恼：页面过去的所有版本都会保存下来，所以错误会很容易被我们的社区纠正。";
@@ -427,6 +434,7 @@
 "editor-wikitext-textview-accessibility" = "Wikitext编辑器";
 "empty-diff-compare-title" = "版本间无差异";
 "empty-diff-single-title" = "没有可以观察到的变化";
+"empty-edit-summary" = "空编辑摘要";
 "empty-insert-media-title" = "从维基共享资源中选择文件";
 "empty-no-article-message" = "对不起，无法加载条目";
 "empty-no-feed-action-message" = "您仍然可以阅读已保存的页面";
@@ -497,6 +505,7 @@
 "explore-feed-preferences-show-related-pages-title" = "显示“因你而读”卡片";
 "explore-feed-preferences-show-top-read-footer-text" = "关闭“热门阅读”将对所有可用语言关闭此卡片。";
 "explore-feed-preferences-show-top-read-title" = "显示“热门阅读”卡片";
+"explore-feed-preferences-suggested-edits-description" = "向维基百科添加内容的建议";
 "explore-feed-preferences-top-read-description" = "每日阅读量最多的条目";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "关闭探索订阅源";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "隐藏所有探索订阅源卡片将关闭探索标签页，并替换为设置标签页";
@@ -605,6 +614,8 @@
 "image-rec-add-image-title" = "添加此图片？";
 "image-rec-empty-subtitle" = "请稍后回来重试。";
 "image-rec-empty-title" = "目前，您没有其他可用的建议图片。";
+"image-rec-error-subtitle" = "发生了一些错误。";
+"image-rec-error-title" = "无法加载页面";
 "image-rec-feature-announce-body" = "决定是否将图片添加到维基百科条目中。您可以在“探索 Feed”中找到“添加图片”卡片。";
 "image-rec-feature-announce-title" = "尝试“添加图片”";
 "image-rec-onboarding-item-1-body" = "决定是否应该将建议的图片添加至维基百科条目中。";
@@ -641,6 +652,7 @@
 "image-recommendations-email-title" = "报告问题——添加图片功能";
 "image-recs-no-title" = "否";
 "image-recs-not-sure-title" = "不确定";
+"image-recs-time-warning-message" = "请查看条目以了解其主题，并检查图片";
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
 "import-shared-reading-list-survey-prompt-button-cancel" = "现在不要";
@@ -670,12 +682,16 @@
 "insert-media-image-preview-select-image-action-title" = "选择图像";
 "insert-media-image-size-setting-custom" = "自订";
 "insert-media-image-size-setting-default" = "默认";
+"insert-media-image-size-settings-measure-height" = "高度";
+"insert-media-image-size-settings-measure-width" = "宽度";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "图片大小";
+"insert-media-image-text-wrapping-setting" = "在图像周围环绕文本";
 "insert-media-image-type-setting-basic" = "基本";
 "insert-media-image-type-setting-frame" = "有框";
 "insert-media-image-type-setting-frameless" = "无框";
 "insert-media-image-type-setting-thumbnail" = "缩略图";
+"insert-media-image-type-settings-footer-title" = "您可以设置在页面上如何呈现媒体项目。这应该是缩略图格式以与几乎所有情况下的其他页面保持一致。";
 "insert-media-image-type-settings-title" = "图片类型";
 "insert-media-media-settings-title" = "媒体设定";
 "insert-media-title" = "插入媒体";
@@ -1161,7 +1177,6 @@
 "talk-page-reply-button-accessibility-label" = "回复$1";
 "talk-page-reply-depth-accessibility-label" = "回复深度：$1";
 "talk-page-reply-placeholder-format" = "回复$1";
-// Fuzzy
 "talk-page-reply-terms-and-licenses-ccsa4" = "请注意，您的回复会自动以您的用户名签名。保存更改即表明您同意$1使用条款$2，并且同意通过$3CC BY-SA 4.0$4和$5GFDL$6协议发布您的贡献。";
 "talk-page-revision-history" = "版本历史";
 "talk-page-rply-close-button-accessibility-hint" = "关闭回复视图";
@@ -1173,7 +1188,6 @@
 "talk-page-title-article-talk" = "条目讨论";
 "talk-page-title-user-talk" = "用户讨论";
 "talk-page-topic-close-button-hint" = "关闭新话题";
-// Fuzzy
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "发布更改即表明您同意$1使用条款$2，并且不可撤回地同意通过$3CC BY-SA 4.0$4和$5GFDL$6协议发布您的贡献。";
 "talk-page-unsubscribe-to-topic" = "取消订阅";
 "talk-page-unsubscribed-alert-subtitle" = "您将不再收到对于此话题的新留言的通知。";
@@ -1246,6 +1260,8 @@
 "watchlist-change-expiry-option-permanent" = "永久";
 "watchlist-change-expiry-option-six-months" = "6个月";
 "watchlist-change-expiry-option-three-months" = "3个月";
+"watchlist-change-expiry-title" = "监视列表有效期限";
+"watchlist-diff-action-button-title" = "跳转到差异";
 "watchlist-edit-summary-accessibility" = "编辑摘要";
 "watchlist-empty-view-button-title" = "搜索条目";
 "watchlist-empty-view-filter-title" = "您没有监视列表项目";
