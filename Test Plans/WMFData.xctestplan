@@ -1,8 +1,8 @@
 {
   "configurations" : [
     {
-      "id" : "4663843E-07AC-4FED-B0D2-EDEE400B1ABE",
-      "name" : "Default (Light)",
+      "id" : "BAD75B0C-AB52-4988-86B4-ECD18DA1424E",
+      "name" : "Configuration 1",
       "options" : {
 
       }
@@ -14,9 +14,9 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:",
-        "identifier" : "ComponentsTests",
-        "name" : "ComponentsTests"
+        "containerPath" : "container:..\/WMFData",
+        "identifier" : "WMFDataTests",
+        "name" : "WMFDataTests"
       }
     }
   ],
