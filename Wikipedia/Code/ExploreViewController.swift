@@ -1319,6 +1319,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
                 let sheetLocalizedStrings = AltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
 
                 let bottomSheetViewModel = AltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wkProject: viewModel.project))
 
                 if let siteURL = viewModel.project.siteURL,
                    let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
@@ -1326,14 +1328,14 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
                     self.navigationController?.pushViewController(articleViewController, animated: true)
                 }
-                
-                // todo: once alt text is published, bring back up this bottom sheet
-                // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
 
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             imageRecommendationsViewController.dismiss(animated: true) {
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wkProject: viewModel.project))
+                
                 // show survey
                 // once survey is done, bring back up next recommendation
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
@@ -1345,6 +1347,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
             case .tappedPrimary, .tappedSecondary:
                 break
             default:
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wkProject: viewModel.project))
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
