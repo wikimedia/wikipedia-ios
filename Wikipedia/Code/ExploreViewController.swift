@@ -1320,6 +1320,8 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
 
                 let bottomSheetViewModel = AltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
                 
+                lastRecommendation.altTextExperimentAcceptDate = Date()
+                
                 EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wkProject: viewModel.project))
 
                 if let siteURL = viewModel.project.siteURL,
@@ -1749,13 +1751,15 @@ extension ExploreViewController: AltTextDelegate {
         }
         
         let developerSettings = WKDeveloperSettingsDataController()
+                
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
             navigationController?.popViewController(animated: true)
             
             // wait for animation to complete
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.presentAltTextEditPublishedToast()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.presentAltTextEditPublishedToast()
+                self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
             }
             
             return
@@ -1775,17 +1779,40 @@ extension ExploreViewController: AltTextDelegate {
                     
                     self.navigationController?.popViewController(animated: true)
                     
-                    // wait for animation to complete
+                    guard let fetchedData = result as? [String: Any],
+                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                        return
+                    }
+                    
                     if error == nil {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.presentAltTextEditPublishedToast()
+                        // wait for animation to complete
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                            self?.presentAltTextEditPublishedToast()
+                            self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
                         }
                     }
                 }
             }
         }
+    }
+    
+    private func logAltTextEditSuccess(altText: String, revisionID: UInt64) {
         
-
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation, let acceptDate = lastRecommendation.altTextExperimentAcceptDate,
+        let siteURL = imageRecommendationsViewModel.project.siteURL else {
+            return
+        }
+        
+        let articleTitle = lastRecommendation.title
+        let image = lastRecommendation.imageData.filename
+        let timeSpent = Int(Date().timeIntervalSince(acceptDate))
+        
+        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wkProject: imageRecommendationsViewModel.project))
     }
     
     private func presentAltTextEditPublishedToast() {
