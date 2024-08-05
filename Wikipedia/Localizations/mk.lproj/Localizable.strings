@@ -118,6 +118,9 @@
 "advanced-settings-title" = "Напредни нагодувања";
 "alt-text-add-button-title" = "Додај";
 "alt-text-do-not-add-button-title" = "Не додавај";
+"alt-text-experiment-edit-summary" = "Додаден алтернативен текст";
+"alt-text-experiment-text-field-placholder" = "Опишете ја сликата";
+"alt-text-experiment-view-title" = "Додајте алтернативен текст";
 "alt-text-modal-subtitle-image-recommendation" = "Претходната слика нема алтернативен текст. Да се стави опис на сликата за читатели со попречен вид?";
 "alt-text-modal-title" = "Да додадам алтернативен текст на сликата?";
 "alt-text-modalsubtitle-regular-edit" = "Во статијава има слика без алтернативен текст. Дали да ставиме опис за читатели со попречен вид?";
