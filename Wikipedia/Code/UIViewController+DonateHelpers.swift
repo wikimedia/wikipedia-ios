@@ -152,9 +152,9 @@ import PassKit
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapCancel(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapCancel(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapCancel()
+                DonateFunnel.shared.logSettingDidTapCancel()
             }
         }))
         
@@ -162,9 +162,9 @@ import PassKit
             
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapDonateWithApplePay(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapApplePay()
+                DonateFunnel.shared.logSettingDidTapApplePay()
             }
             
             if donateSource == .articleCampaignModal {
@@ -181,9 +181,9 @@ import PassKit
             
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapOtherPaymentMethod(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapOtherPaymentMethod()
+                DonateFunnel.shared.logSettingDidTapOtherPaymentMethod()
             }
             
             if donateSource == .articleCampaignModal,
@@ -272,11 +272,11 @@ extension UIViewController {
             
             switch source {
             case .settings:
-                AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
             case .articleCampaignModal:
                 if let articleURL,
                    let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
+                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
                 }
                 
             }
@@ -284,7 +284,7 @@ extension UIViewController {
     }
     
     func sharedLogDonateFormDidAppear(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayImpression(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayImpression(project: project)
     }
     
     func sharedLogDonateFormUserDidTriggerError(error: Error, project: WikimediaProject? = nil) {
@@ -295,13 +295,13 @@ extension UIViewController {
         if let viewModelError = error as? WMFDonateViewModel.Error {
             switch viewModelError {
             case .invalidToken:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
             case .missingDonorInfo:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
             case .validationAmountMinimum:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
             case .validationAmountMaximum:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
             }
             return
         }
@@ -309,43 +309,43 @@ extension UIViewController {
         if let donateDataControllerError = error as? WMFDonateDataControllerError {
             switch donateDataControllerError {
             case .paymentsWikiResponseError(let reason, let orderID):
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)
             }
             return
         }
         
-        AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
     }
     
     func sharedLogDonateFormUserDidTapAmountPresetButton(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: project)
     }
     
     func sharedLogDonateFormUserDidEnterAmountInTextfield(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: project)
     }
     
     func sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool?, project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
     }
     
     func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, metricsID: String? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: project)
     }
     
     func sharedLogDonateFormUserDidTapProblemsDonatingLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapOtherWaysToGiveLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapFAQLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapTaxInfoLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: project)
     }
 }

@@ -1,9 +1,9 @@
 import Foundation
 import WMF
 
-@objc(WMFAppInteractionFunnel) final class AppInteractionFunnel: NSObject {
+@objc(WMFDonateFunnel) final class DonateFunnel: NSObject {
    
-    @objc static let shared = AppInteractionFunnel()
+    @objc static let shared = DonateFunnel()
     
     private enum ActiveInterface: String {
         case setting = "setting"
@@ -78,7 +78,7 @@ import WMF
             }
         }
         
-        let event: AppInteractionFunnel.Event = AppInteractionFunnel.Event(activeInterface: activeInterface?.rawValue, action: action?.rawValue, actionData: actionDataString, platform: "ios", wikiID: project?.notificationsApiWikiIdentifier)
+        let event: DonateFunnel.Event = DonateFunnel.Event(activeInterface: activeInterface?.rawValue, action: action?.rawValue, actionData: actionDataString, platform: "ios", wikiID: project?.notificationsApiWikiIdentifier)
         EventPlatformClient.shared.submit(stream: .appDonorExperience, event: event)
     }
     

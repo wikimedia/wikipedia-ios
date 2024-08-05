@@ -152,7 +152,7 @@ class SinglePageWebViewController: ViewController {
         super.viewDidAppear(animated)
         
         if url.isDonationURL {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
+            DonateFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
         }
     }
 
@@ -194,7 +194,7 @@ class SinglePageWebViewController: ViewController {
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
             setupBottomView()
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, metricsID: campaignMetricsID)
+            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, metricsID: campaignMetricsID)
         }
         
         return true
@@ -218,9 +218,9 @@ class SinglePageWebViewController: ViewController {
 
     @objc func didTapReturnButton() {
         if let project = campaignProject {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
         } else {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
         }
         
         navigationController?.popViewController(animated: true)
@@ -234,9 +234,9 @@ class SinglePageWebViewController: ViewController {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
                 
                 if let project {
-                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
+                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
                 } else {
-                    AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                    DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
                 }
             }
         }

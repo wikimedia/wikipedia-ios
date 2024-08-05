@@ -188,7 +188,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapSettings() {
-        AppInteractionFunnel.shared.logSettingsDidTapSettingsIcon()
+        DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
         settingsPresentationDelegate?.userDidTapSettings(from: self)
 

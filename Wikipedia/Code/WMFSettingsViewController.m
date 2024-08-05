@@ -271,7 +271,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support: {
-            [[WMFAppInteractionFunnel shared] logSettingsDidTapDonateCell];
+            [[WMFDonateFunnel shared] logSettingsDidTapDonateCell];
             
             if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
                 WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;

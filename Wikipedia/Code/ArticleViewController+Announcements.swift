@@ -29,7 +29,7 @@ extension ArticleViewController {
     
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
         
-        AppInteractionFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
+        DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
         let dataController = WMFFundraisingCampaignDataController.shared
         
@@ -37,35 +37,35 @@ extension ArticleViewController {
         
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
             
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, campaignID: asset.utmSource)
             self.pushToDonateForm(asset: asset, sourceView: button)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, secondaryButtonTapHandler: { _, _ in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, campaignID: asset.utmSource)
             
             
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
                 self.donateDidSetMaybeLater()
             } else {
-                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
                 self.donateAlreadyDonated()
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
             
         }, optionalButtonTapHandler: { _, _ in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, footerLinkAction: { url in
-            AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
             self.navigate(to: url, useSafari: true)
         }, traceableDismissHandler: { action in
             
             if action == .tappedClose {
-                AppInteractionFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, campaignID: asset.utmSource)
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, campaignID: asset.utmSource)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
         }, showMaybeLater: shouldShowMaybeLater)
@@ -98,7 +98,7 @@ extension ArticleViewController {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
-                AppInteractionFunnel.shared.logArticleDidSeeReminderToast(project: project)
+                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project)
             }
             
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
