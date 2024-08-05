@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class WelcomePanelLabelContentViewController: UIViewController {
     @IBOutlet private weak var label: UILabel!
@@ -26,7 +26,7 @@ class WelcomePanelLabelContentViewController: UIViewController {
     }
 
     private func updateFonts() {
-        label.font = WKFont.for(.subheadline, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 }
 

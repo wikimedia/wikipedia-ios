@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 /// Provides image, font, and color styles based on theme and notification type
 struct NotificationsCenterCellStyle {
@@ -55,42 +55,42 @@ struct NotificationsCenterCellStyle {
 
     func headerFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return WKFont.for(.subheadline, compatibleWith: traitCollection)
+            return WMFFont.for(.subheadline, compatibleWith: traitCollection)
         }
 
-        return WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        return WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
     }
 
     func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return WKFont.for(.footnote, compatibleWith: traitCollection)
+            return WMFFont.for(.footnote, compatibleWith: traitCollection)
         }
 
-        return WKFont.for(.boldFootnote, compatibleWith: traitCollection)
+        return WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
     }
 
     var messageFont: UIFont {
-        return WKFont.for(.footnote, compatibleWith: traitCollection)
+        return WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
 
     func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return WKFont.for(.footnote, compatibleWith: traitCollection)
+            return WMFFont.for(.footnote, compatibleWith: traitCollection)
         }
 
-        return WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        return WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 
     func relativeTimeAgoFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return WKFont.for(.footnote, compatibleWith: traitCollection)
+            return WMFFont.for(.footnote, compatibleWith: traitCollection)
         }
 
-        return WKFont.for(.boldFootnote, compatibleWith: traitCollection)
+        return WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
     }
 
     var projectSourceFont: UIFont {
-        return WKFont.for(.caption1, compatibleWith: traitCollection)
+        return WMFFont.for(.caption1, compatibleWith: traitCollection)
     }
 
     // MARK: - Images

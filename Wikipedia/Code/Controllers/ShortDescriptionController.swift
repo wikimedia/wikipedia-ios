@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression
@@ -151,7 +151,7 @@ private extension ShortDescriptionController {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
-        let editTag = editType == .add ? WKEditTag.appDescriptionAdd.rawValue : WKEditTag.appDescriptionChange.rawValue
+        let editTag = editType == .add ? WMFEditTag.appDescriptionAdd.rawValue : WMFEditTag.appDescriptionChange.rawValue
 
         sectionUploader.prepend(
             toSectionID: "\(sectionID)",
@@ -190,7 +190,7 @@ private extension ShortDescriptionController {
             
             let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
             
-            let editTag = editType == .add ? WKEditTag.appDescriptionAdd.rawValue : WKEditTag.appDescriptionChange.rawValue
+            let editTag = editType == .add ? WMFEditTag.appDescriptionAdd.rawValue : WMFEditTag.appDescriptionChange.rawValue
             
             sectionUploader.uploadWikiText(
                 updatedWikitext,

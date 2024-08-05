@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     @IBOutlet weak var label: UILabel!
@@ -20,6 +20,6 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     }
 
     private func updateFonts() {
-        label.font = WKFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        label.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
     }
 }

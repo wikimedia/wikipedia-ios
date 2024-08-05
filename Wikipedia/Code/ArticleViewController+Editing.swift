@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?) {
@@ -33,7 +33,7 @@ extension ArticleViewController {
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         cancelWIconPopoverDisplay()
         
-        let editTag: WKEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
+        let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
         let editorViewController = EditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editTag: editTag, delegate: self, theme: theme)
         
@@ -257,11 +257,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        let dataController = WKAltTextDataController.shared
+        let dataController = WMFAltTextDataController.shared
         
         guard let dataController,
               let wikimediaProject = WikimediaProject(siteURL: siteURL),
-                let project = wikimediaProject.wkProject else {
+                let project = wikimediaProject.wmfProject else {
             return
         }
         
@@ -309,7 +309,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
     }
 }
 
-extension ArticleViewController: AltTextExperimentModalSheetDelegate {
+extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
     
     func didTapNext(altText: String) {
         

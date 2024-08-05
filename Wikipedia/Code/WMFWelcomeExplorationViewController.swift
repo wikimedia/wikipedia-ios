@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class WMFWelcomeExplorationViewController: ThemeableViewController {
 
@@ -33,8 +33,8 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        exploreTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        placesTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        onThisDayTitleLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        exploreTitleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        placesTitleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        onThisDayTitleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 }

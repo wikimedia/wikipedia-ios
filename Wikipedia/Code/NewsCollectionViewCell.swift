@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
 
@@ -13,7 +13,7 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     }
 
     private var styles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.callout, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 3)
+        HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: nil, lineSpacing: 3)
     }
 
     func updateDescriptionHTMLStyle() {

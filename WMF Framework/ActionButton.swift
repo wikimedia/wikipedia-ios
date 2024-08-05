@@ -1,8 +1,8 @@
-import Components
+import WMFComponents
 
 class ActionButton: SetupButton {
     
-    var titleLabelFont = WKFont.mediumSubheadline
+    var titleLabelFont = WMFFont.mediumSubheadline
 
     override func setup() {
         super.setup()
@@ -31,7 +31,7 @@ class ActionButton: SetupButton {
     
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel?.font = WKFont.for(titleLabelFont, compatibleWith: traitCollection)
+        titleLabel?.font = WMFFont.for(titleLabelFont, compatibleWith: traitCollection)
     }
 }
 
