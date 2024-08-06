@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class ArticleAsLivingDocHeaderView: UIView {
 
@@ -84,9 +84,9 @@ class ArticleAsLivingDocHeaderView: UIView {
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        headerLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        titleLabel.font = WKFont.for(.boldTitle1, compatibleWith: traitCollection)
-        summaryLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        headerLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
+        summaryLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         viewFullHistoryButton.updateFonts(with: traitCollection)
     }
 }

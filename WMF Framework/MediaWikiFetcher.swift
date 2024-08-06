@@ -1,7 +1,7 @@
 import Foundation
-import WKData
+import WMFData
 
-private extension WKMediaWikiServiceRequest.TokenType {
+private extension WMFMediaWikiServiceRequest.TokenType {
     var wmfTokenType: TokenType {
         switch self {
         case .csrf:
@@ -14,7 +14,7 @@ private extension WKMediaWikiServiceRequest.TokenType {
     }
 }
 
-public final class MediaWikiFetcher: Fetcher, WKService {
+public final class MediaWikiFetcher: Fetcher, WMFService {
 
     public enum MediaWikiFetcherError: LocalizedError {
         case invalidRequest
@@ -40,13 +40,13 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         }
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) where R : WKData.WKServiceRequest {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) where R : WMFData.WMFServiceRequest {
         assertionFailure("Not implemented")
         completion(.failure(MediaWikiFetcherError.invalidRequest))
     }
     
-    public func perform<R: WKServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
-        guard let mediaWikiRequest = request as? WKMediaWikiServiceRequest,
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        guard let mediaWikiRequest = request as? WMFMediaWikiServiceRequest,
               let url = request.url else {
             completion(.failure(MediaWikiFetcherError.invalidRequest))
             return
@@ -142,7 +142,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         task?.resume()
     }
     
-    public func performDecodableGET<R: WKServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let url = request.url,
               request.method == .GET else {
@@ -153,7 +153,7 @@ public final class MediaWikiFetcher: Fetcher, WKService {
         performDecodableMediaWikiAPIGET(for: url, with: request.parameters, completionHandler: completion)
     }
     
-    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WKData.WKServiceRequest, T : Decodable {
+    public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         assertionFailure("Not implemented")
         completion(.failure(MediaWikiFetcherError.invalidRequest))
     }

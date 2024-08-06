@@ -134,6 +134,9 @@
 "advanced-settings-title" = "הגדרות מתקדמות";
 "alt-text-add-button-title" = "להוסיף";
 "alt-text-do-not-add-button-title" = "לא להוסיף";
+"alt-text-experiment-edit-summary" = "נוסף טקסט חלופי";
+"alt-text-experiment-text-field-placholder" = "נא לתאר את התמונה";
+"alt-text-experiment-view-title" = "נא להוסיף טקסט חלופי";
 "alt-text-modal-subtitle-image-recommendation" = "בתמונה הקודמת חסר טקסט חלופי. האם להוסיף תיאור לתמונה בשביל קוראים כבדי ראייה?";
 "alt-text-modal-title" = "להוסיף טקסט חלופי לתמונה?";
 "alt-text-modalsubtitle-regular-edit" = "יש תמונה במאמר הזה שחסר בה טקסט חלופי. האם להוסיף תיאור לתמונה בשביל קוראים כבדי ראייה?";

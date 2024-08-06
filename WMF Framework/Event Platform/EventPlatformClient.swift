@@ -38,7 +38,7 @@
 
 import Foundation
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 
 /**
  * Event Platform Client (EPC)
@@ -181,7 +181,7 @@ import WKData
      * configurations from Meta wiki as its source of truth.
      */
     private static var eventIntakeURI: URL {
-        if WKDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!

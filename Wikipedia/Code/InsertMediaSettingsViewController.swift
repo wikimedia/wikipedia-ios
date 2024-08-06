@@ -1,5 +1,5 @@
 import UIKit
-import WKData
+import WMFData
 import WMF
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings

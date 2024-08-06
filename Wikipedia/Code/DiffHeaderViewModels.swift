@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 final class DiffHeaderViewModel: Themeable {
@@ -105,10 +105,10 @@ final class DiffHeaderTitleViewModel {
     let heading: String? // tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
     let title: String?
     let subtitle: String?
-    let subtitleTextStyle: WKFont
+    let subtitleTextStyle: WMFFont
     var subtitleColor: UIColor?
 
-    init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: WKFont, subtitleColor: UIColor?) {
+    init(heading: String?, title: String?, subtitle: String?, subtitleTextStyle: WMFFont, subtitleColor: UIColor?) {
         self.heading = heading?.localizedUppercase
         self.title = title
         self.subtitle = subtitle
