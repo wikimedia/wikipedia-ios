@@ -1322,7 +1322,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 
                 lastRecommendation.altTextExperimentAcceptDate = Date()
                 
-                EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wkProject: viewModel.project))
+                EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
 
                 if let siteURL = viewModel.project.siteURL,
                    let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
@@ -1336,7 +1336,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             imageRecommendationsViewController.dismiss(animated: true) {
                 
-                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wkProject: viewModel.project))
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wmfProject: viewModel.project))
                 
                 // show survey
                 // once survey is done, bring back up next recommendation
@@ -1349,14 +1349,14 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             case .tappedPrimary, .tappedSecondary:
                 break
             default:
-                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wkProject: viewModel.project))
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wmfProject: viewModel.project))
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
 
         let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
         
-        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: WikimediaProject(wkProject: viewModel.project))
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: WikimediaProject(wmfProject: viewModel.project))
         
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
@@ -1526,7 +1526,7 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
             return
         }
         
-        let project = WikimediaProject(wkProject: imageRecommendationsViewModel.project)
+        let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
         
         EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(project: project)
     }
@@ -1812,7 +1812,7 @@ extension ExploreViewController: AltTextDelegate {
             return
         }
         
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wkProject: imageRecommendationsViewModel.project))
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
     
     private func presentAltTextEditPublishedToast() {

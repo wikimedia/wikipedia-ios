@@ -66,7 +66,7 @@ public final class WMFAltTextDataController {
         }
         
         if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
-            throw WKAltTextDataControllerError.alreadyAssignedThisExperiment
+            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
         }
         
         if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {

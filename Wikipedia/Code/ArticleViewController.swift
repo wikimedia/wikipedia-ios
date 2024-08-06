@@ -1405,7 +1405,7 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
     }
 }
 
-extension ArticleViewController: AltTextExperimentModalSheetLoggingDelegate {
+extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
     func didAppear() {
         
         guard let siteURL = articleURL.wmf_site,

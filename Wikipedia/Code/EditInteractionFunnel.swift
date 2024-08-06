@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 final class EditInteractionFunnel {
     
@@ -257,7 +257,7 @@ final class EditInteractionFunnel {
     
     func logAltTextDidAssignImageRecsGroup(project: WikimediaProject) {
         
-        guard let group = WKAltTextDataController.shared?.assignedAltTextImageRecommendationsGroupForLogging() else {
+        guard let group = WMFAltTextDataController.shared?.assignedAltTextImageRecommendationsGroupForLogging() else {
             return
         }
         
