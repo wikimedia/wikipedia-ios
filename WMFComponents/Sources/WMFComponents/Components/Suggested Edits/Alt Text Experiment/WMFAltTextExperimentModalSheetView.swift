@@ -35,35 +35,6 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         return stackView
     }()
 
-    private lazy var imageAndTitleStackView:  UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.setContentHuggingPriority(.required, for: .vertical)
-        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
-        stackView.distribution = .fill
-        stackView.spacing = basePadding
-        stackView.alignment = .fill
-        stackView.axis = .horizontal
-        return stackView
-    }()
-
-    private lazy var iconImageContainerView: UIView = {
-       let view = UIView()
-        view.setContentCompressionResistancePriority(.required, for: .vertical)
-        view.setContentHuggingPriority(.required, for: .vertical)
-        return view
-    }()
-
-    private lazy var iconImageView: UIImageView = {
-        let icon = WMFSFSymbolIcon.for(symbol: .plusCircleFill) // temp waiting for design
-        let imageView = UIImageView(image: icon)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
-        imageView.setContentHuggingPriority(.required, for: .vertical)
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +93,6 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         backgroundColor = theme.midBackground
         titleLabel.textColor = theme.text
         textView.backgroundColor = theme.paperBackground
-        iconImageView.tintColor = theme.link
         nextButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
@@ -149,12 +119,8 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         configure()
 
         textView.addSubview(placeholder)
-        iconImageContainerView.addSubview(iconImageView)
 
-        imageAndTitleStackView.addArrangedSubview(iconImageContainerView)
-        imageAndTitleStackView.addArrangedSubview(titleLabel)
-
-        headerStackView.addArrangedSubview(imageAndTitleStackView)
+        headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(nextButton)
 
         stackView.addArrangedSubview(headerStackView)
@@ -183,15 +149,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             nextButton.heightAnchor.constraint(equalToConstant:44),
 
             placeholder.topAnchor.constraint(equalTo: textView.topAnchor, constant: basePadding),
-            placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding),
-
-
-            iconImageContainerView.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: iconImageContainerView.leadingAnchor),
-            iconImageView.trailingAnchor.constraint(equalTo: iconImageContainerView.trailingAnchor),
-            iconImageView.topAnchor.constraint(equalTo: iconImageContainerView.topAnchor),
-            iconImageView.bottomAnchor.constraint(equalTo: iconImageContainerView.bottomAnchor),
-            iconImageContainerView.topAnchor.constraint(equalTo: titleLabel.topAnchor)
+            placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding)
         ])
     }
 
