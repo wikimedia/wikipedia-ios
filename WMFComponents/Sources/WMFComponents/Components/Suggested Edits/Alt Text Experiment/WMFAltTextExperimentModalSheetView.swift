@@ -204,6 +204,8 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedNext() {
+        textView.resignFirstResponder()
+        
         guard let altText = textView.text,
               !altText.isEmpty else {
             return
