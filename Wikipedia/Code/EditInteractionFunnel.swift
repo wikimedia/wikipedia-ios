@@ -274,6 +274,25 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
     }
     
+    func logAltTextDidAssignArticleEditorGroup(project: WikimediaProject) {
+        
+        guard let group = WMFAltTextDataController.shared?.assignedAltTextArticleEditorGroupForLogging() else {
+            return
+        }
+        
+        var actionData: [String: String] = [:]
+        switch group {
+        case "C":
+            actionData["exp_c_group"] = "c"
+        case "D":
+            actionData["exp_c_group"] = "d"
+        default:
+            assertionFailure("Unexpected experiment group")
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
+    }
+    
     func logAltTextPromptDidAppear(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .launchImpression, project: project)
     }

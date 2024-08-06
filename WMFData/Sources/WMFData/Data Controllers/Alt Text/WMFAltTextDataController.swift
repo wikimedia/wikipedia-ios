@@ -107,6 +107,10 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
+        if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
+            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        }
+        
         if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
             
             switch imageRecommendationsExperimentBucket {
