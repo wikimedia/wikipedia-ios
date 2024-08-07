@@ -16,7 +16,7 @@ public struct WMFAltTextExperimentViewModel {
     public let articleTitle: String
     public let caption: String?
     public let imageFullURL: String
-    public let imageThumbURL: String
+    public let imageThumbURLString: String
     public let filename: String
     public let imageWikitext: String
     public let fullArticleWikitextWithImage: String
@@ -29,13 +29,17 @@ public struct WMFAltTextExperimentViewModel {
         self.articleTitle = articleTitle
         self.caption = caption
         self.imageFullURL = imageFullURL
-        self.imageThumbURL = imageThumbURL
+        self.imageThumbURLString = imageThumbURL
         self.filename = filename
         self.imageWikitext = imageWikitext
         self.fullArticleWikitextWithImage = fullArticleWikitextWithImage
         self.lastRevisionID = lastRevisionID
         self.sectionID = sectionID
         self.isFlowB = isFlowB
+    }
+    
+    var imageThumbURL: URL? {
+        return URL(string: "https:\(imageThumbURLString)")
     }
 }
 

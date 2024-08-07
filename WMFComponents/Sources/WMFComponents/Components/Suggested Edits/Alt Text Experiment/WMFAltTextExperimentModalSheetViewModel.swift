@@ -42,5 +42,25 @@ import WMFData
             }
         }
     }
+    
+    public var fileNameForDisplay: String {
+        return altTextViewModel.filename.removingNamespace().underscoresToSpaces
+    }
 
+}
+
+private extension String {
+    func removingNamespace() -> String {
+        guard let firstColon = self.firstIndex(of: ":") else {
+            return self
+        }
+        
+        guard firstColon != self.endIndex else {
+            return self
+        }
+        
+        let nextIndex = self.index(after: firstColon)
+        
+        return String(self.suffix(from: nextIndex))
+    }
 }

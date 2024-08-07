@@ -41,6 +41,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         stackView.setContentHuggingPriority(.required, for: .vertical)
         stackView.setContentCompressionResistancePriority(.required, for: .vertical)
         stackView.axis = .horizontal
+        stackView.alignment = .top
         return stackView
     }()
     
@@ -52,16 +53,30 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
+        imageView.layer.cornerRadius = 10
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedImage))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
     }()
     
-    lazy var fileNameButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(tappedFileName), for: .touchUpInside)
-        return button
+    private lazy var imageContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var fileNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedFileName))
+        label.addGestureRecognizer(tapGestureRecognizer)
+        return label
     }()
 
     private lazy var titleLabel: UILabel = {
@@ -122,7 +137,6 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         backgroundColor = theme.midBackground
         titleLabel.textColor = theme.text
         textView.backgroundColor = theme.paperBackground
-        fileNameButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
@@ -136,8 +150,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
         titleLabel.text = viewModel?.localizedStrings.title
         nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
-        
-        fileNameButton.setTitle(viewModel?.altTextViewModel.filename, for: .normal)
+        fileNameLabel.attributedText = fileNameAttributedString()
         
         placeholder.text = viewModel?.localizedStrings.textViewPlaceholder
         
@@ -156,8 +169,11 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(nextButton)
         
-        imageFileNameStackView.addArrangedSubview(imageView)
-        imageFileNameStackView.addArrangedSubview(fileNameButton)
+        imageContainerView.addSubview(imageView)
+        
+        imageFileNameStackView.addArrangedSubview(imageContainerView)
+        imageFileNameStackView.addArrangedSubview(fileNameLabel)
+        imageFileNameStackView.setCustomSpacing(12, after: imageContainerView)
 
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(imageFileNameStackView)
@@ -167,6 +183,11 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         addSubview(scrollView)
 
         NSLayoutConstraint.activate([
+            
+            imageContainerView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            imageContainerView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            imageContainerView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            imageContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: imageView.bottomAnchor),
 
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -192,13 +213,37 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding)
         ])
         
-        if let imageURLString = viewModel?.altTextViewModel.imageThumbURL,
-           let imageURL = URL(string: imageURLString) {
+        if let imageURL = viewModel?.altTextViewModel.imageThumbURL {
             viewModel?.populateUIImage(for: imageURL) { [weak self] error in
                 self?.imageView.image = self?.viewModel?.uiImage
             }
         }
         
+    }
+    
+    private func fileNameAttributedString() -> NSAttributedString? {
+        
+        guard let fileName = viewModel?.fileNameForDisplay else {
+            return nil
+        }
+        
+        let attributedString = NSMutableAttributedString()
+
+        let linkAttributedString = NSMutableAttributedString(string: fileName, attributes: [.font: WMFFont.for(.boldCallout, compatibleWith: traitCollection), .foregroundColor: theme.link])
+
+        let attachment = NSTextAttachment()
+        if let image = WMFIcon.externalLink {
+            let tintedImage = image.withTintColor(theme.link)
+            attachment.image = tintedImage
+        }
+        let attachmentAttributedString = NSMutableAttributedString(string: " ")
+        attachmentAttributedString.append(NSAttributedString(attachment: attachment))
+        attachmentAttributedString.addAttributes([.foregroundColor: theme.link], range: NSRange(location: 0, length: attachmentAttributedString.length))
+
+        attributedString.append(linkAttributedString)
+        attributedString.append(attachmentAttributedString)
+        
+        return NSAttributedString(attributedString: attributedString)
     }
 
     private func updateNextButtonState() {
