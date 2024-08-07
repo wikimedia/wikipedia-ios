@@ -485,7 +485,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private func setupForAltTextExperiment() {
 
         guard let altTextExperimentViewModel,
-         let altTextBottomSheetViewModel else {
+         altTextBottomSheetViewModel != nil else {
             return
         }
         
@@ -499,7 +499,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     func presentAltTextModalSheet() {
         
-        guard let altTextExperimentViewModel,
+        guard altTextExperimentViewModel != nil,
          let altTextBottomSheetViewModel else {
             return
         }

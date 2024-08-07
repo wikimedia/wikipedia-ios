@@ -1473,10 +1473,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
             return
         }
         
-        let project = imageRecommendationsViewModel.project
-        
         for viewController in viewControllers {
-            if let imageRecommendationsViewController = viewController as? WMFImageRecommendationsViewController {
+            if viewController is WMFImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
@@ -1486,13 +1484,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 currentRecommendation.lastRevisionID = revID
                 
                 // Go to next recommendation and display success alert
-                imageRecommendationsViewModel.next { [weak self] in
+                imageRecommendationsViewModel.next {
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                        
-                        guard let self else {
-                            return
-                        }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
