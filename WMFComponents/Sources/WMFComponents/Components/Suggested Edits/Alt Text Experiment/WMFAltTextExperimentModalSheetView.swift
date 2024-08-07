@@ -129,6 +129,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         let textfield = UITextView(frame: .zero)
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.layer.cornerRadius = 10
+        textfield.returnKeyType = .done
         return textfield
     }()
 
@@ -389,6 +390,16 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 }
 
 extension WMFAltTextExperimentModalSheetView: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         updateNextButtonState()
         updatePlaceholderVisibility()
