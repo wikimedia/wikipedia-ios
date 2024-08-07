@@ -504,7 +504,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self)
+        let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
 
         if #available(iOS 16.0, *) {
             if let sheet = bottomSheetViewController.sheetPresentationController {

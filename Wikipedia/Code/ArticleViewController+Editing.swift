@@ -321,6 +321,16 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
     }
 }
 
+extension ArticleViewController: WMFAltTextExperimentLoggingDelegate {
+    func didTriggerCharacterWarning() {
+        // TODO: Log in EditInteractionFunnel
+    }
+    
+    func didTapFileName() {
+        // TODO: Log in EditInteractionFunnel
+    }
+}
+
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit
 // WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
 // WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.")
