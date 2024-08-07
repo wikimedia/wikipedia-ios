@@ -6,6 +6,7 @@ import WMFData
     public let altTextViewModel: WMFAltTextExperimentViewModel
     public let localizedStrings: LocalizedStrings
     public var uiImage: UIImage?
+    public var currentAltText: String?
 
     public struct LocalizedStrings {
         public let title: String

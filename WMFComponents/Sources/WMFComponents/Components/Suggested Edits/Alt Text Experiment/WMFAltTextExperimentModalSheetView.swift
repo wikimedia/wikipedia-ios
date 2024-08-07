@@ -309,6 +309,10 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             }
         }
         
+        if let currentAltText = viewModel?.currentAltText {
+            textView.text = currentAltText
+            placeholder.isHidden = true
+        }
     }
     
     private func fileNameAttributedString() -> NSAttributedString? {
@@ -401,6 +405,7 @@ extension WMFAltTextExperimentModalSheetView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        viewModel?.currentAltText = textView.text
         updateNextButtonState()
         updatePlaceholderVisibility()
         updateInfoLabelState()
