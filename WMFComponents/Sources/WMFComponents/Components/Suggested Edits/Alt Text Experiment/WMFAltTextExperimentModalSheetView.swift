@@ -34,6 +34,35 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         stackView.axis = .horizontal
         return stackView
     }()
+    
+    private lazy var imageFileNameStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.axis = .horizontal
+        return stackView
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedImage))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        return imageView
+    }()
+    
+    lazy var fileNameButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedFileName), for: .touchUpInside)
+        return button
+    }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -93,6 +122,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         backgroundColor = theme.midBackground
         titleLabel.textColor = theme.text
         textView.backgroundColor = theme.paperBackground
+        fileNameButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
@@ -106,6 +136,9 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
         titleLabel.text = viewModel?.localizedStrings.title
         nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
+        
+        fileNameButton.setTitle(viewModel?.altTextViewModel.filename, for: .normal)
+        
         placeholder.text = viewModel?.localizedStrings.textViewPlaceholder
         
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
@@ -122,8 +155,12 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(nextButton)
+        
+        imageFileNameStackView.addArrangedSubview(imageView)
+        imageFileNameStackView.addArrangedSubview(fileNameButton)
 
         stackView.addArrangedSubview(headerStackView)
+        stackView.addArrangedSubview(imageFileNameStackView)
         stackView.addArrangedSubview(textView)
 
         scrollView.addSubview(stackView)
@@ -141,6 +178,9 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -padding),
             stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: basePadding),
             stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -padding),
+            
+            imageView.heightAnchor.constraint(equalToConstant: 65),
+            imageView.widthAnchor.constraint(equalToConstant: 65),
 
             textView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
@@ -151,6 +191,14 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             placeholder.topAnchor.constraint(equalTo: textView.topAnchor, constant: basePadding),
             placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding)
         ])
+        
+        if let imageURLString = viewModel?.altTextViewModel.imageThumbURL,
+           let imageURL = URL(string: imageURLString) {
+            viewModel?.populateUIImage(for: imageURL) { [weak self] error in
+                self?.imageView.image = self?.viewModel?.uiImage
+            }
+        }
+        
     }
 
     private func updateNextButtonState() {
@@ -169,6 +217,14 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         
         nextButton.isEnabled = false
         delegate?.didTapNext(altText: altText)
+    }
+    
+    @objc func tappedImage() {
+        // TODO: Go to gallery view
+    }
+    
+    @objc func tappedFileName() {
+        // TODO: Go to commons web view
     }
 }
 

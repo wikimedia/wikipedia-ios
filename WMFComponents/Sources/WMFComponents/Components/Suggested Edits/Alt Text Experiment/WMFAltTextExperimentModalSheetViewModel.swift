@@ -1,8 +1,11 @@
 import Foundation
+import UIKit
+import WMFData
 
 @objc final public class WMFAltTextExperimentModalSheetViewModel: NSObject {
     public var altTextViewModel: WMFAltTextExperimentViewModel
     public var localizedStrings: LocalizedStrings
+    public var uiImage: UIImage?
 
     public struct LocalizedStrings {
         public var title: String
@@ -19,6 +22,25 @@ import Foundation
     public init(altTextViewModel: WMFAltTextExperimentViewModel, localizedStrings: LocalizedStrings) {
         self.altTextViewModel = altTextViewModel
         self.localizedStrings = localizedStrings
+    }
+    
+    public func populateUIImage(for imageURL: URL, completion: @escaping (Error?) -> Void) {
+        
+        let imageDataController = WMFImageDataController()
+        imageDataController.fetchImageData(url: imageURL) { [weak self] result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                    self?.uiImage = image
+                    completion(nil)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
+        }
     }
 
 }
