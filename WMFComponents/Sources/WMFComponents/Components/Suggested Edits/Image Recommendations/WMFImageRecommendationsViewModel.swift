@@ -123,6 +123,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         public var imageWikitext: String?
         public var fullArticleWikitextWithImage: String?
         public var suggestionAcceptDate: Date?
+        public var altTextExperimentAcceptDate: Date?
         public var lastRevisionID: UInt64?
         public var localizedFileTitle: String?
 

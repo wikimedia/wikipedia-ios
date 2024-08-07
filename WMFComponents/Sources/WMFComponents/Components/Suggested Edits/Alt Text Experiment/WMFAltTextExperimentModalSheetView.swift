@@ -6,6 +6,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
     weak var viewModel: WMFAltTextExperimentModalSheetViewModel?
     weak var delegate: WMFAltTextExperimentModalSheetDelegate?
+    weak var loggingDelegate: WMFAltTextExperimentModalSheetLoggingDelegate?
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -99,9 +100,10 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
 
     // MARK: Lifecycle
 
-    public init(frame: CGRect, viewModel: WMFAltTextExperimentModalSheetViewModel, delegate: WMFAltTextExperimentModalSheetDelegate?) {
+    public init(frame: CGRect, viewModel: WMFAltTextExperimentModalSheetViewModel, delegate: WMFAltTextExperimentModalSheetDelegate?, loggingDelegate: WMFAltTextExperimentModalSheetLoggingDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
+        self.loggingDelegate = loggingDelegate
         super.init(frame: frame)
         textView.delegate = self
         setup()
@@ -224,6 +226,7 @@ extension WMFAltTextExperimentModalSheetView: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         placeholder.isHidden = true
+        loggingDelegate?.didFocusTextView()
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {

@@ -275,6 +275,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         
         do {
             try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
+            EditInteractionFunnel.shared.logAltTextDidAssignArticleEditorGroup(project: WikimediaProject(wmfProject: project))
         } catch let error {
             DDLogWarn("Error assigning alt text article editor experiment: \(error)")
         }
