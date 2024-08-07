@@ -312,6 +312,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         if let currentAltText = viewModel?.currentAltText {
             textView.text = currentAltText
             placeholder.isHidden = true
+            updateNextButtonState()
         }
     }
     
