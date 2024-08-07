@@ -163,6 +163,10 @@
 "advanced-settings-title" = "Ajustes avanzados";
 "alt-text-add-button-title" = "Añadir";
 "alt-text-do-not-add-button-title" = "No añadir";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "Procure que el texto alternativo sea breve para que los usuarios puedan entender fácilmente el contenido de la imagen";
+"alt-text-experiment-guidance-button" = "Guía para redactar el texto alternativo";
+"alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
 "alt-text-experiment-text-field-placholder" = "Describir la imagen";
 "alt-text-experiment-view-title" = "Añadir texto alternativo";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
