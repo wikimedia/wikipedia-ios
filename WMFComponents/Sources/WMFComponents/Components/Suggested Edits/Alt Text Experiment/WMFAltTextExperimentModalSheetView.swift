@@ -362,9 +362,10 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         characterCounterLabel.text = String.localizedStringWithFormat(format, characterCount, 125)
         characterCounterLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         
+        let oldColor = characterCounterLabel.textColor
         characterCounterLabel.textColor = characterCount <= 125 ? theme.secondaryText : theme.warning
         
-        if characterCount > 125 {
+        if characterCounterLabel.textColor != oldColor && characterCount > 125 {
             loggingDelegate?.didTriggerCharacterWarning()
         }
     }
