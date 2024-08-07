@@ -34,6 +34,16 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         stackView.axis = .horizontal
         return stackView
     }()
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
     
     private lazy var imageFileNameStackView: UIStackView = {
         let stackView = UIStackView()
@@ -78,14 +88,38 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         label.addGestureRecognizer(tapGestureRecognizer)
         return label
     }()
-
-    private lazy var titleLabel: UILabel = {
+    
+    private lazy var infoLabelCharacterCounterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.axis = .horizontal
+        stackView.alignment = .top
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.required, for: .vertical)
-        label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var characterCounterLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.numberOfLines = 1
         return label
     }()
 
@@ -152,6 +186,9 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
         fileNameLabel.attributedText = fileNameAttributedString()
         
+        updateInfoLabelState()
+        updateCharacterCounterLabelState()
+        
         placeholder.text = viewModel?.localizedStrings.textViewPlaceholder
         
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
@@ -174,10 +211,14 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         imageFileNameStackView.addArrangedSubview(imageContainerView)
         imageFileNameStackView.addArrangedSubview(fileNameLabel)
         imageFileNameStackView.setCustomSpacing(12, after: imageContainerView)
+        
+        infoLabelCharacterCounterStackView.addArrangedSubview(infoLabel)
+        infoLabelCharacterCounterStackView.addArrangedSubview(characterCounterLabel)
 
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(imageFileNameStackView)
         stackView.addArrangedSubview(textView)
+        stackView.addArrangedSubview(infoLabelCharacterCounterStackView)
 
         scrollView.addSubview(stackView)
         addSubview(scrollView)
@@ -245,6 +286,28 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         
         return NSAttributedString(attributedString: attributedString)
     }
+    
+    private var characterCount: Int {
+        return textView.text.count
+    }
+    
+    private func updateInfoLabelState() {
+        infoLabel.text = characterCount <= 125 ? viewModel?.localizedStrings.textViewBottomDescription : viewModel?.localizedStrings.characterCounterWarningLabel
+        infoLabel.textColor = characterCount <= 125 ? theme.secondaryText : theme.warning
+        infoLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+    }
+    
+    private func updateCharacterCounterLabelState() {
+        
+        guard let format = viewModel?.localizedStrings.characterCounterFormat else {
+            return
+        }
+        
+        characterCounterLabel.text = String.localizedStringWithFormat(format, characterCount, 125)
+        characterCounterLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        
+        characterCounterLabel.textColor = characterCount <= 125 ? theme.secondaryText : theme.warning
+    }
 
     private func updateNextButtonState() {
         nextButton.isEnabled = !textView.text.isEmpty
@@ -277,6 +340,8 @@ extension WMFAltTextExperimentModalSheetView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         updateNextButtonState()
         updatePlaceholderVisibility()
+        updateInfoLabelState()
+        updateCharacterCounterLabelState()
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {

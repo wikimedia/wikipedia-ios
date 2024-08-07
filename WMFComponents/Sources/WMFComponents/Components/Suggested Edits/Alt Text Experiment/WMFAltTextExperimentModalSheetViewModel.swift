@@ -3,19 +3,25 @@ import UIKit
 import WMFData
 
 @objc final public class WMFAltTextExperimentModalSheetViewModel: NSObject {
-    public var altTextViewModel: WMFAltTextExperimentViewModel
-    public var localizedStrings: LocalizedStrings
+    public let altTextViewModel: WMFAltTextExperimentViewModel
+    public let localizedStrings: LocalizedStrings
     public var uiImage: UIImage?
 
     public struct LocalizedStrings {
-        public var title: String
-        public var buttonTitle: String
-        public var textViewPlaceholder: String
+        public let title: String
+        public let buttonTitle: String
+        public let textViewPlaceholder: String
+        public let textViewBottomDescription: String
+        public let characterCounterWarningLabel: String
+        public let characterCounterFormat: String
 
-        public init(title: String, buttonTitle: String, textViewPlaceholder: String) {
+        public init(title: String, buttonTitle: String, textViewPlaceholder: String, textViewBottomDescription: String, characterCounterWarningLabel: String, characterCounterFormat: String) {
             self.title = title
             self.buttonTitle = buttonTitle
             self.textViewPlaceholder = textViewPlaceholder
+            self.textViewBottomDescription = textViewBottomDescription
+            self.characterCounterWarningLabel = characterCounterWarningLabel
+            self.characterCounterFormat = characterCounterFormat
         }
     }
 
