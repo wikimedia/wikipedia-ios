@@ -64,6 +64,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 10
+        imageView.isUserInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedImage))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
@@ -84,6 +85,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedFileName))
         label.addGestureRecognizer(tapGestureRecognizer)
         return label
@@ -135,6 +137,42 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private lazy var guidanceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.axis = .horizontal
+        stackView.alignment = .top
+        stackView.spacing = 5
+        stackView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedGuidance))
+        stackView.addGestureRecognizer(tapGestureRecognizer)
+        return stackView
+    }()
+    
+    private lazy var guidanceIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        return imageView
+    }()
+    
+    private lazy var guidanceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
 
     lazy var nextButton: UIButton = {
         let button = UIButton()
@@ -174,6 +212,8 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         nextButton.setTitleColor(theme.link, for: .normal)
         nextButton.setTitleColor(theme.secondaryText, for: .disabled)
         placeholder.textColor = theme.secondaryText
+        guidanceIconImageView.tintColor = theme.link
+        guidanceLabel.textColor = theme.link
         textView.textColor = theme.text
     }
 
@@ -183,7 +223,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         updatePlaceholderVisibility()
 
         titleLabel.text = viewModel?.localizedStrings.title
-        nextButton.setTitle(viewModel?.localizedStrings.buttonTitle, for: .normal)
+        nextButton.setTitle(viewModel?.localizedStrings.nextButton, for: .normal)
         fileNameLabel.attributedText = fileNameAttributedString()
         
         updateInfoLabelState()
@@ -196,6 +236,10 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         titleLabel.font = WMFFont.for(.boldTitle3, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         placeholder.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        
+        guidanceIconImageView.image = WMFSFSymbolIcon.for(symbol: .infoCircle, font: .callout, compatibleWith: traitCollection)
+        guidanceLabel.text = viewModel?.localizedStrings.guidance
+        guidanceLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 
     func setup() {
@@ -214,11 +258,15 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         
         infoLabelCharacterCounterStackView.addArrangedSubview(infoLabel)
         infoLabelCharacterCounterStackView.addArrangedSubview(characterCounterLabel)
+        
+        guidanceStackView.addArrangedSubview(guidanceIconImageView)
+        guidanceStackView.addArrangedSubview(guidanceLabel)
 
         stackView.addArrangedSubview(headerStackView)
         stackView.addArrangedSubview(imageFileNameStackView)
         stackView.addArrangedSubview(textView)
         stackView.addArrangedSubview(infoLabelCharacterCounterStackView)
+        stackView.addArrangedSubview(guidanceStackView)
 
         scrollView.addSubview(stackView)
         addSubview(scrollView)
@@ -292,7 +340,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     private func updateInfoLabelState() {
-        infoLabel.text = characterCount <= 125 ? viewModel?.localizedStrings.textViewBottomDescription : viewModel?.localizedStrings.characterCounterWarningLabel
+        infoLabel.text = characterCount <= 125 ? viewModel?.localizedStrings.textViewBottomDescription : viewModel?.localizedStrings.characterCounterWarning
         infoLabel.textColor = characterCount <= 125 ? theme.secondaryText : theme.warning
         infoLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
@@ -328,11 +376,15 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedImage() {
-        // TODO: Go to gallery view
+        print("TODO: Go to gallery view")
     }
     
     @objc func tappedFileName() {
-        // TODO: Go to commons web view
+        print("TODO: Go to commons web view")
+    }
+    
+    @objc func tappedGuidance() {
+        print("TODO: Present onboarding again")
     }
 }
 

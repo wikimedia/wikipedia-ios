@@ -109,6 +109,7 @@
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Try to keep alt text short so users can easily understand the image content";
 "alt-text-experiment-edit-summary" = "Added alt text";
+"alt-text-experiment-guidance-button" = "Guidance for writing alt text";
 "alt-text-experiment-text-field-description" = "Text description for readers who cannot see the image";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";

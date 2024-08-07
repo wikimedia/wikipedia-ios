@@ -9,19 +9,21 @@ import WMFData
 
     public struct LocalizedStrings {
         public let title: String
-        public let buttonTitle: String
+        public let nextButton: String
         public let textViewPlaceholder: String
         public let textViewBottomDescription: String
-        public let characterCounterWarningLabel: String
+        public let characterCounterWarning: String
         public let characterCounterFormat: String
+        public let guidance: String
 
-        public init(title: String, buttonTitle: String, textViewPlaceholder: String, textViewBottomDescription: String, characterCounterWarningLabel: String, characterCounterFormat: String) {
+        public init(title: String, nextButton: String, textViewPlaceholder: String, textViewBottomDescription: String, characterCounterWarning: String, characterCounterFormat: String, guidance: String) {
             self.title = title
-            self.buttonTitle = buttonTitle
+            self.nextButton = nextButton
             self.textViewPlaceholder = textViewPlaceholder
             self.textViewBottomDescription = textViewBottomDescription
-            self.characterCounterWarningLabel = characterCounterWarningLabel
+            self.characterCounterWarning = characterCounterWarning
             self.characterCounterFormat = characterCounterFormat
+            self.guidance = guidance
         }
     }
 
