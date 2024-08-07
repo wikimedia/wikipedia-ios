@@ -4,7 +4,9 @@ public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
     func didTapNext(altText: String)
 }
 
-public protocol WMFAltTextExperimentLoggingDelegate: AnyObject {
+public protocol WMFAltTextExperimentModalSheetLoggingDelegate: AnyObject {
+    func didAppear()
+    func didFocusTextView()
     func didTriggerCharacterWarning()
     func didTapFileName()
 }
@@ -13,9 +15,9 @@ final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewCo
 
     weak var viewModel: WMFAltTextExperimentModalSheetViewModel?
     weak var delegate: WMFAltTextExperimentModalSheetDelegate?
-    weak var loggingDelegate: WMFAltTextExperimentLoggingDelegate?
+    weak var loggingDelegate: WMFAltTextExperimentModalSheetLoggingDelegate?
 
-    public init(viewModel: WMFAltTextExperimentModalSheetViewModel?, delegate: WMFAltTextExperimentModalSheetDelegate?, loggingDelegate: WMFAltTextExperimentLoggingDelegate?) {
+    public init(viewModel: WMFAltTextExperimentModalSheetViewModel?, delegate: WMFAltTextExperimentModalSheetDelegate?, loggingDelegate: WMFAltTextExperimentModalSheetLoggingDelegate?) {
         self.viewModel = viewModel
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
@@ -33,5 +35,9 @@ final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewCo
         addComponent(view, pinToEdges: true)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggingDelegate?.didAppear()
+    }
 }
 

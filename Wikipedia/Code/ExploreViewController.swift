@@ -1325,6 +1325,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
 
                 let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+                
+                lastRecommendation.altTextExperimentAcceptDate = Date()
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
 
                 if let siteURL = viewModel.project.siteURL,
                    let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
@@ -1332,14 +1336,14 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
 
                     self.navigationController?.pushViewController(articleViewController, animated: true)
                 }
-                
-                // todo: once alt text is published, bring back up this bottom sheet
-                // imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
 
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             imageRecommendationsViewController.dismiss(animated: true) {
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wmfProject: viewModel.project))
+                
                 // show survey
                 // once survey is done, bring back up next recommendation
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
@@ -1351,11 +1355,15 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             case .tappedPrimary, .tappedSecondary:
                 break
             default:
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wmfProject: viewModel.project))
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
 
         let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+        
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: WikimediaProject(wmfProject: viewModel.project))
+        
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
@@ -1518,7 +1526,17 @@ extension ExploreViewController: WMFFeatureAnnouncing {
 }
 
 extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
-    
+    func logAltTextExperimentDidAssignGroup() {
+        
+        guard let imageRecommendationsViewModel else {
+            return
+        }
+        
+        let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
+        
+        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(project: project)
+    }
+
     func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
     }
@@ -1739,13 +1757,15 @@ extension ExploreViewController: AltTextDelegate {
         }
         
         let developerSettings = WMFDeveloperSettingsDataController()
+                
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
             navigationController?.popViewController(animated: true)
             
             // wait for animation to complete
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.presentAltTextEditPublishedToast()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.presentAltTextEditPublishedToast()
+                self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
             }
             
             return
@@ -1765,17 +1785,40 @@ extension ExploreViewController: AltTextDelegate {
                     
                     self.navigationController?.popViewController(animated: true)
                     
-                    // wait for animation to complete
+                    guard let fetchedData = result as? [String: Any],
+                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                        return
+                    }
+                    
                     if error == nil {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.presentAltTextEditPublishedToast()
+                        // wait for animation to complete
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                            self?.presentAltTextEditPublishedToast()
+                            self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
                         }
                     }
                 }
             }
         }
+    }
+    
+    private func logAltTextEditSuccess(altText: String, revisionID: UInt64) {
         
-
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation, let acceptDate = lastRecommendation.altTextExperimentAcceptDate,
+        let siteURL = imageRecommendationsViewModel.project.siteURL else {
+            return
+        }
+        
+        let articleTitle = lastRecommendation.title
+        let image = lastRecommendation.imageData.filename
+        let timeSpent = Int(Date().timeIntervalSince(acceptDate))
+        
+        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
     
     private func presentAltTextEditPublishedToast() {

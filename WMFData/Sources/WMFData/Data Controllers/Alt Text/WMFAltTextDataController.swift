@@ -20,6 +20,7 @@ public final class WMFAltTextDataController {
         case invalidDeviceOrOS
         case invalidDate
         case unexpectedBucketValue
+        case alreadyAssignedThisExperiment
         case alreadyAssignedOtherExperiment
     }
     
@@ -64,6 +65,10 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
+        if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
+            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        }
+        
         if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
             
             switch articleEditorExperimentBucket {
@@ -100,6 +105,10 @@ public final class WMFAltTextDataController {
         
         guard isBeforeEndDate else {
             throw WMFAltTextDataControllerError.invalidDate
+        }
+        
+        if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
+            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
         }
         
         if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
