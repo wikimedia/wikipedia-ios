@@ -62,8 +62,21 @@ extension ArticleViewController {
     }
     
     func showImage(in mediaList: MediaList, item: MediaListItem?) {
-        let gallery = getGalleryViewController(for: item, in: mediaList)
-        present(gallery, animated: true)
+        
+        if altTextExperimentViewModel != nil {
+            dismiss(animated: true) { [weak self] in
+                guard let self else {
+                    return
+                }
+                
+                let gallery = getGalleryViewController(for: item, in: mediaList)
+                self.wasPresentingGalleryWhileInAltTextMode = true
+                self.present(gallery, animated: true)
+            }
+        } else {
+            let gallery = getGalleryViewController(for: item, in: mediaList)
+            present(gallery, animated: true)
+        }
     }
 
     func fetchAndDisplayGalleryViewController() {
@@ -97,6 +110,17 @@ extension ArticleViewController {
     }
 
     func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
-        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
+        let delegate = altTextExperimentViewModel != nil ? self : nil
+        return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme, dismissDelegate: self)
+    }
+}
+
+extension ArticleViewController: WMFImageGalleryViewControllerDismissDelegate {
+    func galleryDidDismiss(_ gallery: WMFImageGalleryViewController) {
+        if altTextExperimentViewModel != nil && wasPresentingGalleryWhileInAltTextMode {
+            // Need to present half sheet modal again
+            presentAltTextModalSheet()
+            wasPresentingGalleryWhileInAltTextMode = false
+        }
     }
 }

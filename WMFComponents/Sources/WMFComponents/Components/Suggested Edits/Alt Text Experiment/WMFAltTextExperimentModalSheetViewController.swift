@@ -7,6 +7,8 @@ public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
 public protocol WMFAltTextExperimentModalSheetLoggingDelegate: AnyObject {
     func didAppear()
     func didFocusTextView()
+    func didTriggerCharacterWarning()
+    func didTapFileName()
 }
 
 final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewController {

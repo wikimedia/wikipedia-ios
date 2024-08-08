@@ -192,7 +192,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Actions
 
 - (void)didTapCloseButton {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.dismissDelegate respondsToSelector:@selector(galleryDidDismiss:)]) {
+            [self.dismissDelegate galleryDidDismiss:self];
+        }
+    }];
 }
 
 - (void)didTapShareButton {
@@ -300,6 +304,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
     WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView *)maybeDetailOverlayView;
     detailOverlayView.maximumDescriptionHeight = size.height;
+}
+
+- (void)photosViewControllerDidDismiss:(NYTPhotosViewController *)photosViewController {
+    if ([self.dismissDelegate respondsToSelector:@selector(galleryDidDismiss:)]) {
+        [self.dismissDelegate galleryDidDismiss:self];
+    }
 }
 
 #pragma mark - WMFThemeable
