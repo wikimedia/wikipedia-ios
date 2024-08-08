@@ -35,6 +35,7 @@ public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
     func logEmptyStateDidAppear()
     func logEmptyStateDidTapBack()
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
+    func logAltTextExperimentDidAssignGroup()
 }
 
 fileprivate final class WMFImageRecommendationsHostingViewController: WMFComponentHostingController<WMFImageRecommendationsView> {
@@ -202,6 +203,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
         do {
             try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+            loggingDelegate?.logAltTextExperimentDidAssignGroup()
         } catch let error {
             debugPrint(error)
             return false
