@@ -126,12 +126,12 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         return label
     }()
 
-    private lazy var textView: UITextView = {
-        let textfield = UITextView(frame: .zero)
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.layer.cornerRadius = 10
-        textfield.returnKeyType = .done
-        return textfield
+    private lazy var textView: UIPastelessTextView = {
+        let textView = UIPastelessTextView(frame: .zero)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.layer.cornerRadius = 10
+        textView.returnKeyType = .done
+        return textView
     }()
 
     private lazy var placeholder: UILabel = {
@@ -429,5 +429,14 @@ extension WMFAltTextExperimentModalSheetView: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         updatePlaceholderVisibility()
+    }
+}
+
+private final class UIPastelessTextView: UITextView {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 }
