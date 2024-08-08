@@ -13,29 +13,27 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>merkki</string>
+			<string>mearka</string>
 			<key>other</key>
-			<string>merkkiä</string>
+			<string>mearkka</string>
 			<key>zero</key>
-			<string>merkkiä</string>
+			<string>Ii oktage mearka</string>
 		</dict>
 	</dict>
 	<key>aaald-numerical-multiple-references-added-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ added</string>
+		<string>%#@v1@ lasihuvvon</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d viite</string>
 			<key>other</key>
-			<string>%1$d viitettä</string>
+			<string>%1$d gáldu</string>
 			<key>zero</key>
-			<string>0 viitettä</string>
+			<string>Ii oktage gáldu</string>
 		</dict>
 	</dict>
 	<key>aaald-small-change-description</key>
@@ -49,29 +47,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d pieni muutos tehty</string>
+			<string>%1$d unna rievdadus dahkkojuvvon</string>
 			<key>other</key>
-			<string>%1$d pientä muutosta tehty</string>
+			<string>%1$d unna rievdadusa dahkkojuvvon</string>
 			<key>zero</key>
-			<string>Ei tehty pieniä muutoksia</string>
+			<string>Ii oktage unna rievdadus leat dahkkojuvvon</string>
 		</dict>
 	</dict>
 	<key>aaald-summary-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ %#@v2@ %#@v3@</string>
+		<string>%1$d %#@v1@ dahkkojuvvon %2$d %#@v2@ %3$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d muutos</string>
 			<key>other</key>
-			<string>%1$d muutosta</string>
-			<key>zero</key>
-			<string>0 muutosta</string>
+			<string>beaivvis</string>
 		</dict>
 		<key>v2</key>
 		<dict>
@@ -80,46 +74,29 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d käyttäjältä</string>
+			<string>čállis</string>
 			<key>other</key>
-			<string>%2$d käyttäjältä</string>
-			<key>zero</key>
-			<string>0 käyttäjältä</string>
-		</dict>
-		<key>v3</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%3$d päivässä</string>
-			<key>other</key>
-			<string>%3$d päivässä</string>
-			<key>zero</key>
-			<string>0 päivässä</string>
+			<string>čálliin</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Lisää %#@v1@ lukulistaan</string>
+		<string>Lasit  %#@v1@ lohkanlistui</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d artikkeli</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>%1$d artihkkala</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ poistettu</string>
+		<string>%#@v1@ sihkkojuvvon</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -127,9 +104,37 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikkeli</string>
+			<string>artihkal</string>
 			<key>other</key>
-			<string>artikkelia</string>
+			<string>artihkkala</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Teakstabihttá sirdojuvvui %1$d %#@v1@ vulos. Mana ođđa sajusteapmái.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>linnjá</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Teakstabihttá sirdojuvvui %1$d %#@v1@ bajás. Mana ođđa sajusteapmái.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>linnjá</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -143,15 +148,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d rivi</string>
+			<string>%1$d gurgadas</string>
 			<key>other</key>
-			<string>%1$d riviä</string>
+			<string>%1$d gurgadasa</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -159,9 +164,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d kappale</string>
+			<string>oassi</string>
 			<key>other</key>
-			<string>%1$d kappaletta</string>
+			<string>oasi</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -175,63 +180,57 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d muokkaus</string>
+			<string>%1$d rievdadus</string>
 			<key>other</key>
-			<string>%1$d muokkausta</string>
+			<string>%1$d rievdadusa</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@ lasihuvvon</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d tavu lisätty</string>
 			<key>other</key>
-			<string>%1$d tavua lisätty</string>
+			<string>byte</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@ sihkkojuvvon</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d tavu poistettu</string>
 			<key>other</key>
-			<string>%1$d tavua poistettu</string>
+			<string>stávvala</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d rievdakeahtes %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d rivi ilman muutoksia</string>
 			<key>other</key>
-			<string>%1$d riviä ilman muutoksia</string>
+			<string>linnjá</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Siirrä %#@v1@ lukulistaan</string>
+		<string>Sirdde %#@v1@ lohkanlistui</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -239,9 +238,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikkeli</string>
+			<string>%1$d artihkkala</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>%1$d artihkkaliid</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
@@ -254,16 +253,30 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d suodatin</string>
 			<key>other</key>
-			<string>%1$d suodatinta</string>
+			<string>%1$d silli</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Háliidat go duođaid merket %#@v1@ du almmuhusain, lohkkojuvvon? Almmuhusat merkejuvvojit lohkkojuvvon visot iežat ovttadagain.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>dan ovtta dieđu</string>
+			<key>other</key>
+			<string>buot %1$d dieđu</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -271,31 +284,29 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d ilmoitus</string>
+			<string>dieđáhus</string>
 			<key>other</key>
-			<string>%1$d ilmoitusta</string>
+			<string>dieđáhusa</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>Yhdessä projektissa</string>
 			<key>other</key>
-			<string>%1$d projektissa</string>
+			<string>prošeavttas</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -303,15 +314,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>1 projekti</string>
+			<string>prošeakta</string>
 			<key>other</key>
-			<string>%1$d projektia</string>
+			<string>prošeavttat</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -319,15 +330,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>1 tyyppi</string>
+			<string>šládja</string>
 			<key>other</key>
-			<string>%1$d tyyppiä</string>
+			<string>šlája</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ sivulla %2$@</string>
+		<string>%#@v1@ %2$@:s</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -335,9 +346,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d uusi viesti</string>
+			<string>%1$d ođđa dieđáhus</string>
 			<key>other</key>
-			<string>%1$d uutta viestiä</string>
+			<string>%1$d ođđa dieđáhusa</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-title-format</key>
@@ -351,9 +362,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Uusi viesti</string>
+			<string>Ođđa dieđáhus</string>
 			<key>other</key>
-			<string>Uusia viestejä</string>
+			<string>Ođđa dieđáhusat</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -367,15 +378,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d historiallinen tapahtuma</string>
+			<string>%1$d historjjálaš dáhpáhus</string>
 			<key>other</key>
-			<string>%1$d historiallista tapahtumaa</string>
+			<string>%1$d historjjálaš dáhpáhusat</string>
 		</dict>
 	</dict>
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ lisää tänä päivänä</string>
+		<string>%1$d %#@v1@ vel otná beaivái</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -383,47 +394,43 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d historiallinen tapahtuma</string>
+			<string>historjjálaš dáhpáhus</string>
 			<key>other</key>
-			<string>%1$d historiallista tapahtumaa</string>
+			<string>historjjálaš dáhpáhusa</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Lisätty %#@v1@</string>
+		<string>Lasihii %1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d tavu</string>
 			<key>other</key>
-			<string>%1$d tavua</string>
+			<string>ceahki</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Poistettu %#@v1@</string>
+		<string>Sihkkon %1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d tavu</string>
 			<key>other</key>
-			<string>%1$d tavua</string>
+			<string>ceahki</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ vuoden %2$@ jälkeen</string>
+		<string>%1$d %#@v1@ %2$@ rájes</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -431,9 +438,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d muokkaus</string>
+			<string>rievdadeapmi</string>
 			<key>other</key>
-			<string>%1$d muokkausta</string>
+			<string>rievdadeami</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -447,15 +454,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikkeli</string>
+			<string>%1$d artihkal</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>%1$d artihkkala</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %#@v1@ tunnusta kohden.</string>
+		<string>Don leat rihkkon ráji mii lea %#@v1@ juohke geavaheaddjidovddaldaga namas.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -463,15 +470,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikkeli</string>
+			<string>%1$d artihkal</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>%1$d artihkkala</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ei voitu lisätä listaan. Olet kohdannut %2$d artikkelin rajan listassa "%3$@"</string>
+		<string>%#@v1@ eai sáhttán lasihuvvot listui. Don leat olahan ráji mii lea %2$d artihkkala juohke lohkanlisttu nammii %3$@:s</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -479,15 +486,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikkelia</string>
+			<string>Artihkal</string>
 			<key>other</key>
-			<string>Artikkeleita</string>
+			<string>Artihkkala</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Olet ylittänyt tunnuskohtaisen rajoituksen, joka on %#@v1@ tunnusta kohden.</string>
+		<string>Don leat rasttildan ráji mii lea %#@v1@ juohke geavaheaddjidovddaldaga namas.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -495,9 +502,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d lukulista</string>
+			<string>%1$d lohkanlistu</string>
 			<key>other</key>
-			<string>%1$d lukulistaa</string>
+			<string>%1$d lohkanlisttu</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -511,15 +518,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d lukulista</string>
+			<string>%1$d lohkanlistu</string>
 			<key>other</key>
-			<string>%1$d lukulistaa</string>
+			<string>%1$d lohkanlisttu</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain %#@v1@ ei tallenneta.</string>
+		<string>Dán dagu it sáhte gáhtat. Artihkkalat mat leat vurkejuvvon dušše %#@v1@ sihkkojuvvojit.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -527,31 +534,29 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>tähän listaan</string>
+			<string>dán listui</string>
 			<key>other</key>
-			<string>näihin listoihin</string>
+			<string>dáidda listtuide</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Poista %#@v1@?</string>
+		<string>Sihko%#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>lista</string>
 			<key>other</key>
-			<string>listaa</string>
+			<string>listtu</string>
 		</dict>
 	</dict>
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ja %#@v2@ synkronoitu tililtäsi</string>
+		<string>%1$d %#@v1@ ja %2$d %#@v2@ synkroniserejuvvon du geavaheaddjidovddaldagas</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -559,9 +564,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikkeli</string>
+			<string>artihkal</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>artihkkala</string>
 		</dict>
 		<key>v2</key>
 		<dict>
@@ -570,9 +575,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d lukulista</string>
+			<string>lohkanlistu</string>
 			<key>other</key>
-			<string>%2$d lukulistaa</string>
+			<string>lohkanlisttu</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -586,70 +591,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Eilen</string>
+			<string>Ikte</string>
 			<key>other</key>
-			<string>%1$d päivää sitten</string>
+			<string>%1$d beaivve áige</string>
 			<key>zero</key>
-			<string>Tänään</string>
-		</dict>
-	</dict>
-	<key>relative-date-hours-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d tunti sitten</string>
-			<key>other</key>
-			<string>%1$d tuntia sitten</string>
-			<key>zero</key>
-			<string>Äskettäin</string>
-		</dict>
-	</dict>
-	<key>relative-date-hrs-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d tunti sitten</string>
-			<key>other</key>
-			<string>%1$d tuntia sitten</string>
-			<key>zero</key>
-			<string>Äskettäin</string>
-		</dict>
-	</dict>
-	<key>relative-date-min-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string></string>
-	</dict>
-	<key>relative-date-minutes-ago</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d minuutti sitten</string>
-			<key>other</key>
-			<string>%1$d minuuttia sitten</string>
-			<key>zero</key>
-			<string>Juuri nyt</string>
+			<string>Odne</string>
 		</dict>
 	</dict>
 	<key>relative-date-months-ago</key>
@@ -663,11 +609,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Viime kuussa</string>
+			<string>Ovddit mánu</string>
 			<key>other</key>
-			<string>%1$d kuukautta sitten</string>
+			<string>%1$d mánu áige</string>
 			<key>zero</key>
-			<string>Tässä kuussa</string>
+			<string>Dán mánu</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
@@ -681,17 +627,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Viime vuonna</string>
+			<string>Diibmá</string>
 			<key>other</key>
-			<string>%1$d vuotta sitten</string>
+			<string>%1$d jagi áige</string>
 			<key>zero</key>
-			<string>Tänä vuonna</string>
+			<string>Dán jagi</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ kaikista niihin liittyvistä lukulistoista</string>
+		<string>Jus sihkut %#@v1@ buot lohkanlisttuin main dat ležžet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -699,15 +645,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tämän artikkelin tallentamattomaksi jättäminen poistaa sen</string>
+			<string>dán artihkkala de dat sihkkojuvvo</string>
 			<key>other</key>
-			<string>Näiden artikkelien tallentamattomaksi jättäminen poistaa ne</string>
+			<string>dáid artihkkaliid de dat sihkkojuvvojit</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Poista %#@v1@?</string>
+		<string>Sihko %#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -715,9 +661,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikkeli</string>
+			<string>artihkkala</string>
 			<key>other</key>
-			<string>artikkelia</string>
+			<string>artihkkaliid</string>
 		</dict>
 	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
@@ -730,10 +676,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d aktiivinen käyttäjä</string>
 			<key>other</key>
-			<string>%1$d aktiivista käyttäjää</string>
+			<string>%1$d aktiivvalaš geavaheaddji</string>
 		</dict>
 	</dict>
 	<key>talk-page-replies-count-accessibilty-label</key>
@@ -746,10 +690,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d vastaus</string>
 			<key>other</key>
-			<string>%1$d vastausta</string>
+			<string>%1$d vástádusa</string>
 		</dict>
 	</dict>
 	<key>watchlist-byte-change</key>
@@ -762,10 +704,25 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>1 tavu</string>
 			<key>other</key>
-			<string>%1$d tavua</string>
+			<string>%1$d stávvalat</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Rievdat [%#@v1@](wikipedia
+://watchlist/silli) oaidnit eanet čuovvunlistoelemeanttaid</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d silli</string>
+			<key>other</key>
+			<string>%1$d silliid</string>
 		</dict>
 	</dict>
 </dict>
