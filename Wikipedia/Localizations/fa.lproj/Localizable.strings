@@ -150,6 +150,9 @@
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
 "action-update" = "روزآمدسازی";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
+"alt-text-experiment-edit-summary" = "افزودن متن جایگزین";
+"alt-text-experiment-text-field-placholder" = "تصویر را توصیف کنید";
+"alt-text-experiment-view-title" = "افزودن متن جایگزین";
 "announcements-dismiss" = "پنهان‌سازی";
 "app-store-keywords" = "ویکی‌پدیا، منبع، ویکی، دانشنامه، اطلاعات، دانش، پژوهش، اطلاعات، کاوش، یادگیری";
 "app-store-release-notes" = "خوراک بازدید با قابلیت شخصی‌سازی کامل و خواندن آسان‌تر. بومی‌سازی، بهبود عملکرد و رفع مشکلات.";
@@ -241,6 +244,7 @@
 "description-welcome-descriptions-title" = "توضیحات مقاله";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
+"developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
 "diff-change-paragraph-lines-moved-down" = "بند به میزان {{PLURAL:$1|0=۰ سطر|$1 سطر}} به پایین منتقل شد. به موقعیت جدید بروید.";

@@ -250,8 +250,8 @@
 "diff-rollback-success" = "Muokkaukset kumottu.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}}";
 "diff-single-header-editor-title" = "Muokkaajan tiedot";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 merkki lisätty|$1 merkkiä lisätty}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 merkki poistettu|$1 merkkiä poistettu}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 tavu lisätty|$1 tavua lisätty}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 tavu poistettu|$1 tavua poistettu}}";
 "diff-single-header-summary-heading" = "Muokkausyhteenveto";
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Rivi $1";

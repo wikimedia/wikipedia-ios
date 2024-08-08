@@ -156,8 +156,8 @@
 "alt-text-experiment-text-field-placholder" = "صف هذه الصورة";
 "alt-text-experiment-view-title" = "الإضافة كل شئ نص";
 "alt-text-modal-subtitle-image-recommendation" = "الصورة السابقة تفتقر إلى نص بديل وهي تبقي إضافة وصف للصورة للقراء الذي يبقي عنده إعاقة بصرية؟";
+"alt-text-modal-subtitle-regular-edit" = "يوجد في المقالة صورة لا تحتوي على نص بديل انت عايز إضافة وصف للقراء اللذين لهم إعاقة بصرية؟";
 "alt-text-modal-title" = "اوضع نص بديل للصورة المفقودة؟";
-"alt-text-modalsubtitle-regular-edit" = "يوجد في المقالة صورة لا تحتوي على نص بديل انت عايز إضافة وصف للقراء اللذين لهم إعاقة بصرية؟";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";

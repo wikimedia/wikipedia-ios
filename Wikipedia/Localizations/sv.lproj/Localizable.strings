@@ -137,8 +137,8 @@
 "alt-text-add-button-title" = "Lägg till";
 "alt-text-do-not-add-button-title" = "Lägg inte till";
 "alt-text-modal-subtitle-image-recommendation" = "Den förra bilden saknade alt-text. Lägga till en beskrivning till bilden för synskadade läsare?";
+"alt-text-modal-subtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
 "alt-text-modal-title" = "Lägga till alt-text till bilden?";
-"alt-text-modalsubtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
