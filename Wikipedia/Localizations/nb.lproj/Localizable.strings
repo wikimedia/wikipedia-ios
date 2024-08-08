@@ -129,6 +129,10 @@
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "advanced-settings-title" = "Avanserte innstillinger";
+"alt-text-add-button-title" = "Legg til";
+"alt-text-do-not-add-button-title" = "Ikke legg til";
+"alt-text-experiment-edit-summary" = "La til alternativ tekst";
+"alt-text-experiment-text-field-placholder" = "Beskriv bildet";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
