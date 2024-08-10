@@ -171,7 +171,7 @@ final class InsertMediaSettingsViewController: ViewController {
 
     private lazy var buttonView: InsertMediaSettingsButtonView = {
         let buttonView = InsertMediaSettingsButtonView.wmf_viewFromClassNib()!
-        let isRTL = UIApplication.shared.wmf_isRTL
+        let isRTL = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: siteURL.wmf_contentLanguageCode)
         buttonView.buttonTitle = InsertMediaAdvancedSettingsViewController.title
         buttonView.buttonAction = { [weak self] _ in
             guard let self = self else {
@@ -179,6 +179,7 @@ final class InsertMediaSettingsViewController: ViewController {
             }
             imageRecLoggingDelegate?.logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
             self.insertMediaAdvancedSettingsViewController.apply(theme: self.theme)
+            self.insertMediaAdvancedSettingsViewController.isRTL = isRTL
             self.navigationController?.pushViewController(self.insertMediaAdvancedSettingsViewController, animated: true)
         }
         return buttonView
