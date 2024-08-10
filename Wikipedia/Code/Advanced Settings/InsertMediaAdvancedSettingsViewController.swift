@@ -5,6 +5,8 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
     private let tableView = UITableView()
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
+    
+    var isRTL: Bool?
 
     var advancedSettings: AdvancedSettings {
         return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsViewController.selectedImageType, imageSize: imageSizeSettingsViewController.selectedImageSize)
