@@ -28,7 +28,7 @@ public final class WMFAltTextDataController {
     let developerSettingsDataController: WMFDeveloperSettingsDataController
     let userDefaultsStore: WMFKeyValueStore
     private var experimentPercentage: Int {
-        developerSettingsDataController.forceAltTextEntryPoint ? 100 : 50
+        developerSettingsDataController.setAltTextExperimentPercentage100 ? 100 : 50
     }
     
     // MARK: - Public
@@ -143,10 +143,8 @@ public final class WMFAltTextDataController {
             return false
         }
         
-        if !developerSettingsDataController.forceAltTextEntryPoint {
-            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-                return false
-            }
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+            return false
         }
         
         guard isLoggedIn else {
@@ -192,10 +190,8 @@ public final class WMFAltTextDataController {
             return false
         }
         
-        if !developerSettingsDataController.forceAltTextEntryPoint {
-            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-                return false
-            }
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+            return false
         }
         
         guard isLoggedIn else {
