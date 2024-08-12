@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 final class DiffListContextItemViewModel {
     private let text: String    
@@ -102,12 +102,12 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     var traitCollection: UITraitCollection {
         didSet {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
-            contextFont = WKFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
-            headingFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+            contextFont = WMFFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+            headingFont = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         }
     }
     
-    private let contextDynamicTextStyle = WKFont.subheadline
+    private let contextDynamicTextStyle = WMFFont.subheadline
     private(set) var height: CGFloat = 0
     private(set) var expandedHeight: CGFloat = 0
     private(set) var innerPadding: NSDirectionalEdgeInsets
@@ -144,7 +144,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             self.heading = "" // tonitodo: optional would be better
         }
         
-        let contextFont = WKFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+        let contextFont = WMFFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
 
         self.items = diffItems.map({ (item) -> DiffListContextItemViewModel? in
             if item.text.isEmpty {
@@ -155,7 +155,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         })
         
         self.contextFont = contextFont
-        self.headingFont = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        self.headingFont = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
 
         innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
         

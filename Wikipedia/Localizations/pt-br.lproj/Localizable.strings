@@ -149,6 +149,13 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
+"alt-text-add-button-title" = "Adicionar";
+"alt-text-do-not-add-button-title" = "Não adicionar";
+"alt-text-experiment-text-field-placholder" = "Descreva a imagem";
+"alt-text-experiment-view-title" = "Adicionar texto alternativo";
+"alt-text-modal-title" = "Adicionar o texto alternativo que está faltando da imagem?";
+"alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
+"alt-text-modal-subtitle-image-recommendation" = "A imagem anterior está sem texto alternativo. Adicionar uma descrição à imagem para leitores com deficiência visual?";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";

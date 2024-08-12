@@ -1,5 +1,5 @@
 import Foundation
-import WKData
+import WMFData
 
 public enum WikimediaProject: Hashable {
     public typealias LanguageCode = String
@@ -76,14 +76,14 @@ public enum WikimediaProject: Hashable {
         }
     }
     
-    public var wkProject: WKProject? {
+    public var wmfProject: WMFProject? {
         switch self {
         case .commons:
-            return WKProject.commons
+            return WMFProject.commons
         case .wikidata:
-            return WKProject.wikidata
+            return WMFProject.wikidata
         case .wikipedia(let languageCode, _, let languageVariantCode):
-            return WKProject.wikipedia(WKLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            return WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
         default:
             return nil
         }
@@ -142,10 +142,10 @@ public enum WikimediaProject: Hashable {
         }
     }
 
-    public init(wkProject: WKProject) {
-        switch wkProject {
-        case .wikipedia(let wKLanguage):
-            self = .wikipedia(wKLanguage.languageCode, "", wKLanguage.languageVariantCode)
+    public init(wmfProject: WMFProject) {
+        switch wmfProject {
+        case .wikipedia(let wmfLanguage):
+            self = .wikipedia(wmfLanguage.languageCode, "", wmfLanguage.languageVariantCode)
         case .wikidata:
             self = .wikidata
         case .commons:

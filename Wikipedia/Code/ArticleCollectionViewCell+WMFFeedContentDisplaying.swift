@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)
@@ -53,7 +53,7 @@ public extension ArticleCollectionViewCell {
                 cell.bottomSeparator.isHidden = true
             }
         case .mainPage:
-            styles =  HtmlUtils.Styles(font: WKFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WKFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+            styles =  HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")

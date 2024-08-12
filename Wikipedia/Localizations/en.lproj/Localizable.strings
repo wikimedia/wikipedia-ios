@@ -106,9 +106,12 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
+"alt-text-experiment-edit-summary" = "Added alt text";
+"alt-text-experiment-text-field-placholder" = "Describe the image";
+"alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";
+"alt-text-modal-subtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
 "alt-text-modal-title" = "Add missing image alt text?";
-"alt-text-modalsubtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
 "app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
@@ -203,6 +206,7 @@
 "developer-settings" = "Developer Settings";
 "developer-settings-enable-alt-text-experiment" = "Enable Alt Text experiment.";
 "developer-settings-enable-alt-text-experiment-en" = "Enable Alt Text experiment for English Wikipedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";

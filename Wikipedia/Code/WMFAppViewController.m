@@ -373,6 +373,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.currentTabNavigationController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return self.currentTabNavigationController.preferredInterfaceOrientationForPresentation;
+}
+
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
@@ -441,7 +449,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
-    [self updateWKDataEnvironmentFromLanguagesDidChange];
+    [self updateWMFDataEnvironmentFromLanguagesDidChange];
 }
 
 /**
@@ -883,7 +891,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     [self endMigrationBackgroundTask];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
-                    [self setupWKDataEnvironment];
+                    [self setupWMFDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }

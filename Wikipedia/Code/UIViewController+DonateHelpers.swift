@@ -1,7 +1,7 @@
 import Foundation
 import WMF
-import Components
-import WKData
+import WMFComponents
+import WMFData
 import PassKit
 
 @objc enum DonateSource: Int {
@@ -22,9 +22,9 @@ import PassKit
         return nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: nil) != nil
     }
     
-    private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) -> WKDonateViewModel? {
+    private func nativeDonateFormViewModel(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WMFDonateLoggingDelegate?) -> WMFDonateViewModel? {
         
-        let donateDataController = WKDonateDataController.shared
+        let donateDataController = WMFDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
         
         guard let donateConfig = donateData.donateConfig,
@@ -37,7 +37,7 @@ import PassKit
             return nil
         }
         
-        let formatter = NumberFormatter.wkCurrencyFormatter
+        let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = currencyCode
         
         guard let merchantID = Bundle.main.wmf_merchantID() else {
@@ -103,34 +103,34 @@ import PassKit
         
         let accessibilityDonateHintButtonFormat = WMFLocalizedString("donate-accessibility-donate-hint-format", value: "Double tap to donate %1$@ to the Wikimedia Foundation.", comment: "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * %1$@ - the donation amount entered by the user.")
         
-        let localizedStrings = WKDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
+        let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInText: transactionFeeOptIn, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
         
-        guard let delegate = self as? WKDonateDelegate else {
+        guard let delegate = self as? WMFDonateDelegate else {
             return nil
         }
         
-        guard let viewModel = WKDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, delegate: delegate, loggingDelegate: loggingDelegate) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, delegate: delegate, loggingDelegate: loggingDelegate) else {
             return nil
         }
         
         return viewModel
     }
     
-    func pushToNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WKDonateLoggingDelegate?) {
+    func pushToNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?, loggingDelegate: WMFDonateLoggingDelegate?) {
         
         guard let viewModel = nativeDonateFormViewModel(countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, bannerID: bannerID, metricsID: metricsID, appVersion: appVersion, loggingDelegate: loggingDelegate) else {
             return
         }
         
-        guard let delegate = self as? WKDonateDelegate else {
+        guard let delegate = self as? WMFDonateDelegate else {
             return
         }
         
-        let donateViewController = WKDonateViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
+        let donateViewController = WMFDonateViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         navigationController?.pushViewController(donateViewController, animated: true)
     }
     
-    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, metricsID: String?, appVersion: String?, articleURL: URL?, sourceView: UIView?, loggingDelegate: WKDonateLoggingDelegate?) {
+    @objc func presentNewDonorExperiencePaymentMethodActionSheet(donateSource: DonateSource, countryCode: String, currencyCode: String, languageCode: String, donateURL: URL, bannerID: String?, metricsID: String?, appVersion: String?, articleURL: URL?, sourceView: UIView?, loggingDelegate: WMFDonateLoggingDelegate?) {
         
         let wikimediaProject: WikimediaProject?
         if let articleURL {
@@ -152,9 +152,9 @@ import PassKit
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapCancel(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapCancel(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapCancel()
+                DonateFunnel.shared.logSettingDidTapCancel()
             }
         }))
         
@@ -162,9 +162,9 @@ import PassKit
             
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapDonateWithApplePay(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapApplePay()
+                DonateFunnel.shared.logSettingDidTapApplePay()
             }
             
             if donateSource == .articleCampaignModal {
@@ -181,9 +181,9 @@ import PassKit
             
             if donateSource == .articleCampaignModal,
                let wikimediaProject {
-                AppInteractionFunnel.shared.logArticleDidTapOtherPaymentMethod(project: wikimediaProject)
+                DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: wikimediaProject)
             } else if donateSource == .settings {
-                AppInteractionFunnel.shared.logSettingDidTapOtherPaymentMethod()
+                DonateFunnel.shared.logSettingDidTapOtherPaymentMethod()
             }
             
             if donateSource == .articleCampaignModal,
@@ -272,11 +272,11 @@ extension UIViewController {
             
             switch source {
             case .settings:
-                AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
             case .articleCampaignModal:
                 if let articleURL,
                    let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
+                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
                 }
                 
             }
@@ -284,7 +284,7 @@ extension UIViewController {
     }
     
     func sharedLogDonateFormDidAppear(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayImpression(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayImpression(project: project)
     }
     
     func sharedLogDonateFormUserDidTriggerError(error: Error, project: WikimediaProject? = nil) {
@@ -292,60 +292,60 @@ extension UIViewController {
         let errorReason = (error as NSError).description
         let errorCode = String((error as NSError).code)
         
-        if let viewModelError = error as? WKDonateViewModel.Error {
+        if let viewModelError = error as? WMFDonateViewModel.Error {
             switch viewModelError {
             case .invalidToken:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
             case .missingDonorInfo:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
             case .validationAmountMinimum:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
             case .validationAmountMaximum:
-                AppInteractionFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePayEntryError(project: project)
             }
             return
         }
         
-        if let donateDataControllerError = error as? WKDonateDataControllerError {
+        if let donateDataControllerError = error as? WMFDonateDataControllerError {
             switch donateDataControllerError {
             case .paymentsWikiResponseError(let reason, let orderID):
-                AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)
+                DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: reason, errorCode: errorCode, orderID: orderID, project: project)
             }
             return
         }
         
-        AppInteractionFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: project)
     }
     
     func sharedLogDonateFormUserDidTapAmountPresetButton(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: project)
     }
     
     func sharedLogDonateFormUserDidEnterAmountInTextfield(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: project)
     }
     
     func sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool?, project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected, project: project)
     }
     
     func sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, project: WikimediaProject? = nil, metricsID: String? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: project)
     }
     
     func sharedLogDonateFormUserDidTapProblemsDonatingLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapOtherWaysToGiveLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapFAQLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: project)
     }
     
     func sharedLogDonateFormUserDidTapTaxInfoLink(project: WikimediaProject? = nil) {
-        AppInteractionFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: project)
+        DonateFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: project)
     }
 }

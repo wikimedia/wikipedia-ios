@@ -1,6 +1,6 @@
 import WMF
 import CocoaLumberjackSwift
-import Components
+import WMFComponents
 
 public enum InputAccessoryViewType {
     case format
@@ -138,7 +138,7 @@ class TalkPageViewController: ViewController {
             self?.pushToRevisionHistory()
         })
         
-        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
+        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WMFIcon.pencil, handler: { [weak self] _ in
             
             guard let self else {
                 return

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -40,9 +40,9 @@ struct NotificationsCenterOnboardingView: View {
         }
     }
 
-    private let titleFont = WKFont.for(.boldTitle3)
-    private let primaryButtonFont = WKFont.for(.boldCallout)
-    private let secondaryButtonFont = WKFont.for(.boldCallout)
+    private let titleFont = WMFFont.for(.boldTitle3)
+    private let primaryButtonFont = WMFFont.for(.boldCallout)
+    private let secondaryButtonFont = WMFFont.for(.boldCallout)
 
     // MARK: - Content
 
@@ -115,8 +115,8 @@ fileprivate struct NotificationsCenterOnboardingRowView: View {
     var header: String
     var message: String
 
-    private let headerFont = WKFont.for(.semiboldHeadline)
-    private let bodyFont = WKFont.for(.footnote)
+    private let headerFont = WMFFont.for(.semiboldHeadline)
+    private let bodyFont = WMFFont.for(.footnote)
 
     // MARK: - Content
 

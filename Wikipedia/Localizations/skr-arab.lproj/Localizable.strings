@@ -67,6 +67,8 @@
 "action-update" = "اپ ݙیٹ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
+"alt-text-add-button-title" = "شامل کرو";
+"alt-text-do-not-add-button-title" = "شامل نہ کرو";
 "announcements-dismiss" = "مکاؤ";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
 "appearance-settings-expand-tables" = "ٹیبل ودھاؤ";

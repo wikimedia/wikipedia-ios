@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class WMFWelcomeAnalyticsViewController: ThemeableViewController {
 
@@ -29,7 +29,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        learnMoreButton.titleLabel?.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 
     @IBAction func showPrivacyAndTermsActionSheet(_ sender: AnyObject) {
