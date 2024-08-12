@@ -7,14 +7,16 @@ import WMFData
     let doNotPostImageRecommendations: String
     let enableAltTextExperiment: String
     let enableAltTextExperimentForEN: String
+    let forceAltTextEntryPoint: String
     let sendAnalyticsToWMFLabs: String
     let close: String
     
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, enableAltTextExperiment: String, enableAltTextExperimentForEN: String, sendAnalyticsToWMFLabs: String, close: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, enableAltTextExperiment: String, enableAltTextExperimentForEN: String, forceAltTextEntryPoint: String, sendAnalyticsToWMFLabs: String, close: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.enableAltTextExperiment = enableAltTextExperiment
         self.enableAltTextExperimentForEN = enableAltTextExperimentForEN
+        self.forceAltTextEntryPoint = forceAltTextEntryPoint
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
         self.close = close
     }
@@ -32,9 +34,10 @@ import WMFData
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let enableAltTextExperimentItem = WMFFormItemSelectViewModel(title: localizedStrings.enableAltTextExperiment, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperiment)
         let enableAltTextExperimentItemForENItem = WMFFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
+        let forceAltTextEntryPointItem = WMFFormItemSelectViewModel(title: localizedStrings.forceAltTextEntryPoint, isSelected: WMFDeveloperSettingsDataController.shared.forceAltTextEntryPoint)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem, sendAnalyticsToWMFLabsItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItem, enableAltTextExperimentItemForENItem, forceAltTextEntryPointItem, sendAnalyticsToWMFLabsItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
 
@@ -48,6 +51,10 @@ import WMFData
         
         enableAltTextExperimentItemForENItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN = isSelected
+        }.store(in: &subscribers)
+        
+        forceAltTextEntryPointItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.forceAltTextEntryPoint = isSelected
         }.store(in: &subscribers)
         
         sendAnalyticsToWMFLabsItem.$isSelected.sink { isSelected in

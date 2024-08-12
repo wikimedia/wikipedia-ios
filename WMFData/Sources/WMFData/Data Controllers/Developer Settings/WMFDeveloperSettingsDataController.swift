@@ -30,6 +30,14 @@ import Foundation
         }
     }
     
+    @objc public var forceAltTextEntryPoint: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceAltTextEntryPoint.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceAltTextEntryPoint.rawValue, value: newValue)
+        }
+    }
+    
     @objc public var sendAnalyticsToWMFLabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false
