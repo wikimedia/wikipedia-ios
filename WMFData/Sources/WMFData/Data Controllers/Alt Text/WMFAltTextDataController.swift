@@ -27,7 +27,9 @@ public final class WMFAltTextDataController {
     let experimentsDataController: WMFExperimentsDataController
     let developerSettingsDataController: WMFDeveloperSettingsDataController
     let userDefaultsStore: WMFKeyValueStore
-    static let experimentPercentage = 50 // must be between 1 and 100
+    private var experimentPercentage: Int {
+        developerSettingsDataController.setAltTextExperimentPercentage100 ? 100 : 50
+    }
     
     // MARK: - Public
     
@@ -81,7 +83,7 @@ public final class WMFAltTextDataController {
             }
         }
         
-        try experimentsDataController.determineBucketForExperiment(.altTextImageRecommendations, withPercentage: Self.experimentPercentage)
+        try experimentsDataController.determineBucketForExperiment(.altTextImageRecommendations, withPercentage: experimentPercentage)
         
     }
     
@@ -123,7 +125,7 @@ public final class WMFAltTextDataController {
             }
         }
         
-        try experimentsDataController.determineBucketForExperiment(.altTextArticleEditor, withPercentage: Self.experimentPercentage)
+        try experimentsDataController.determineBucketForExperiment(.altTextArticleEditor, withPercentage: experimentPercentage)
     }
     
     public func markSawAltTextImageRecommendationsPrompt() {

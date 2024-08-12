@@ -30,6 +30,14 @@ import Foundation
         }
     }
     
+    @objc public var setAltTextExperimentPercentage100: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue, value: newValue)
+        }
+    }
+    
     @objc public var sendAnalyticsToWMFLabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false

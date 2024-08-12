@@ -207,6 +207,7 @@
 "developer-settings-enable-alt-text-experiment" = "Title for setting to enable alt text experiment. Displayed on the developer settings view.";
 "developer-settings-enable-alt-text-experiment-en" = "Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
+"developer-settings-set-alt-text-experiment-100" = "Title for setting the alt text experiment to 100%. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-change-added" = "Accessibility text announced in VoiceOver when content additions are announced in a diff. $1 is replaced with the added content.";
