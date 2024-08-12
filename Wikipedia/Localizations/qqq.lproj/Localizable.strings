@@ -106,9 +106,12 @@
 "advanced-settings-title" = "Title for advanced settings screen";
 "alt-text-add-button-title" = "Title for the Add button on the alt text modal";
 "alt-text-do-not-add-button-title" = "Title for the Do Not Add button on the alt text modal";
+"alt-text-experiment-edit-summary" = "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.";
+"alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
+"alt-text-experiment-view-title" = "Title text for alt text experiment view";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
+"alt-text-modal-subtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "alt-text-modal-title" = "Title text for the alt text suggested edit prompt modal";
-"alt-text-modalsubtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
 "app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
@@ -203,6 +206,8 @@
 "developer-settings" = "Title for developer settings view.";
 "developer-settings-enable-alt-text-experiment" = "Title for setting to enable alt text experiment. Displayed on the developer settings view.";
 "developer-settings-enable-alt-text-experiment-en" = "Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.";
+"developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
+"developer-settings-set-alt-text-experiment-100" = "Title for setting the alt text experiment to 100%. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-change-added" = "Accessibility text announced in VoiceOver when content additions are announced in a diff. $1 is replaced with the added content.";

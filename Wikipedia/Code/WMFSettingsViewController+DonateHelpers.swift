@@ -1,8 +1,8 @@
 import Foundation
-import WKData
-import Components
+import WMFData
+import WMFComponents
 
-extension WMFSettingsViewController: WKDonateDelegate {
+extension WMFSettingsViewController: WMFDonateDelegate {
     
     public func donateDidTapProblemsDonatingLink() {
         sharedDonateDidTapProblemsDonatingLink()
@@ -25,7 +25,7 @@ extension WMFSettingsViewController: WKDonateDelegate {
     }
 }
 
-extension WMFSettingsViewController: WKDonateLoggingDelegate {
+extension WMFSettingsViewController: WMFDonateLoggingDelegate {
     public func logDonateFormDidAppear() {
         sharedLogDonateFormDidAppear()
     }

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -91,7 +91,7 @@ struct TalkPageArchivesView: View {
     // MARK: Private Helpers
     
     private var itemFont: UIFont {
-        return WKFont.for(.boldCallout)
+        return WMFFont.for(.boldCallout)
     }
     
     private func itemIsLast(_ item: TalkPageArchivesItem) -> Bool {
@@ -121,6 +121,6 @@ private struct TalkPageArchivesInfoText: View {
     }
     
     private var infoFont: UIFont {
-        return WKFont.for(.callout)
+        return WMFFont.for(.callout)
     }
 }

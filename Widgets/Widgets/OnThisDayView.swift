@@ -1,17 +1,17 @@
 import WidgetKit
 import SwiftUI
 import WMF
-import Components
+import WMFComponents
 
 // MARK: - Views
 
 struct OnThisDayColors {
     static func blueColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(WKColor.blue600) : Color(WKColor.blue300)
+        return colorScheme == .light ? Color(WMFColor.blue600) : Color(WMFColor.blue300)
     }
 
     static func grayColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(WKColor.gray500) : Color(WKColor.gray300)
+        return colorScheme == .light ? Color(WMFColor.gray500) : Color(WMFColor.gray300)
     }
 
     static func widgetBackgroundColor(_ colorScheme: ColorScheme) -> Color {
@@ -19,11 +19,11 @@ struct OnThisDayColors {
     }
 
     static func boxShadowColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? Color(WKColor.gray300.withAlphaComponent(0.55)) : .clear
+        return colorScheme == .light ? Color(WMFColor.gray300.withAlphaComponent(0.55)) : .clear
     }
 
     static func boxBackgroundColor(_ colorScheme: ColorScheme) -> Color {
-        return colorScheme == .light ? .white : Color(WKColor.gray700)
+        return colorScheme == .light ? .white : Color(WMFColor.gray700)
     }
 }
 
@@ -105,7 +105,7 @@ struct ErrorSquare: View {
         Rectangle().foregroundColor(error.errorColor)
             .overlay(
                 Text(error.errorText)
-                    .font(Font(WKFont.for(.boldCaption1)))
+                    .font(Font(WMFFont.for(.boldCaption1)))
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                     .foregroundColor(.white)
@@ -248,18 +248,18 @@ struct OnThisDayHeaderElement: View {
         VStack(spacing: 0) {
             Text(widgetTitle)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                .font(Font(WKFont.for(.boldSubheadline)))
+                .font(Font(WMFFont.for(.boldSubheadline)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(monthDay)
-                .font(Font(WKFont.for(.boldTitle3)))
+                .font(Font(WMFFont.for(.boldTitle3)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, needsVerticalCompression ? 2 : 5)
                 .padding(.bottom, needsVerticalCompression ? 2 : 7)
             Text(yearRange)
                 .foregroundColor(OnThisDayColors.grayColor(colorScheme))
-                .font(Font(WKFont.for(.boldSubheadline)))
+                .font(Font(WMFFont.for(.boldSubheadline)))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -283,7 +283,7 @@ struct MainOnThisDayElement: View {
             if let snippet = snippet {
                 TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: widgetSize == .systemSmall, mainView:
                 Text(snippet)
-                    .font(Font(WKFont.for(.caption1)))
+                    .font(Font(WMFFont.for(.caption1)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 9)
                     .padding(.bottom, (widgetSize == .systemMedium ? 4 : 8))
@@ -323,7 +323,7 @@ struct MainOnThisDayTopElement: View {
         if let secondLineText = secondLineText {
             TimelineView(dotStyle: .large, isLineTopFaded: true, isLineBottomFaded: false, mainView:
                     Text(firstLineText)
-                        .font(Font(WKFont.for(.subheadline)))
+                        .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .overlay(
@@ -336,7 +336,7 @@ struct MainOnThisDayTopElement: View {
             )
             TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
                     Text(secondLineText)
-                        .font(Font(WKFont.for(.caption1)))
+                        .font(Font(WMFFont.for(.caption1)))
                         .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 3)
@@ -356,7 +356,7 @@ struct LargeWidgetMiddleSection: View {
         TimelineView(dotStyle: .none, isLineTopFaded: false, isLineBottomFaded: false, mainView:
             VStack(alignment: .leading, spacing: 0) {
                 Text(eventSnippet)
-                    .font(Font(WKFont.for(.caption1)))
+                    .font(Font(WMFFont.for(.caption1)))
                 if let link = link {
                     Link(destination: link) {
                         ArticleRectangleBox(title: title, description: description, image: image)
@@ -381,10 +381,10 @@ struct ArticleRectangleBox: View {
         HStack(spacing: 9) {
             VStack {
                 Text(title)
-                    .font(Font(WKFont.for(.boldCaption1)))
+                    .font(Font(WMFFont.for(.boldCaption1)))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(description)
-                    .font(Font(WKFont.for(.caption1)))
+                    .font(Font(WMFFont.for(.caption1)))
                     .lineLimit(1)
                     .foregroundColor(OnThisDayColors.grayColor(colorScheme))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -416,7 +416,7 @@ struct OnThisDayAdditionalEventsElement: View {
     var body: some View {
         TimelineView(dotStyle: .small, isLineTopFaded: false, isLineBottomFaded: true, mainView:
             Text(otherEventsText)
-                .font(Font(WKFont.for(.boldFootnote)))
+                .font(Font(WMFFont.for(.boldFootnote)))
                 .lineLimit(1)
                 .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 .frame(maxWidth: .infinity, alignment: .topLeading)

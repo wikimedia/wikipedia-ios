@@ -63,6 +63,13 @@ import CocoaLumberjackSwift
     private var isAnonCache: [String: Bool] = [:]
     private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
     
+    public func getLoggedInUserCache(for siteURL: URL) -> WMFCurrentlyLoggedInUser? {
+        guard let host = siteURL.host else {
+            return nil
+        }
+        return loggedInUserCache[host]
+    }
+    
     @objc func getLoggedInUser(for siteURL: URL, completion: @escaping (WMFCurrentlyLoggedInUser?) -> Void) {
         getLoggedInUser(for: siteURL) { result in
             switch result {

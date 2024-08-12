@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 final class EditInteractionFunnel {
     
@@ -28,6 +29,10 @@ final class EditInteractionFunnel {
         case articleEditPreview = "article_edit_preview"
         case articleEditSummary = "article_edit_summary"
         case talkEditSummary = "talk_edit_summary"
+        
+        // Alt-Text-Experiment Items
+        case altTextEditingOnboarding = "alt_text_editing_onboarding"
+        case altTextEditingInterface = "alt_text_editing_interface"
     }
     
     private enum Action: String {
@@ -42,6 +47,17 @@ final class EditInteractionFunnel {
         case saveAttempt = "save_attempt"
         case saveSuccess = "save_success"
         case saveFailure = "save_failure"
+        
+        // Alt-Text-Experiment Items
+        case groupAssignment = "group_assignment"
+        case launchImpression = "launch_impression"
+        case launchCloseClick = "launch_close_click"
+        case addClick = "add_click"
+        case doNotAddClick = "do_not_add_click"
+        case addAltTextImpression = "add_alt_text_impression"
+        case addAltTextInput = "add_alt_text_input"
+        case altTextEditSuccess = "alt_text_edit_success"
+        case minimizedImpression = "minimized_impression"
     }
     
     private struct Event: EventInterface {
@@ -236,4 +252,90 @@ final class EditInteractionFunnel {
         let actionData = ["abort_source": ProblemSource.blockedMessageLink.rawValue]
         logEvent(activeInterface: .talkEditSummary, action: .editCancel, actionData: actionData, project: project)
     }
+    
+    // MARK: Alt-Text-Experiment
+    
+    func logAltTextDidAssignImageRecsGroup(project: WikimediaProject) {
+        
+        guard let group = WMFAltTextDataController.shared?.assignedAltTextImageRecommendationsGroupForLogging() else {
+            return
+        }
+        
+        var actionData: [String: String] = [:]
+        switch group {
+        case "A":
+            actionData["exp_b_group"] = "a"
+        case "B":
+            actionData["exp_b_group"] = "b"
+        default:
+            assertionFailure("Unexpected experiment group")
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
+    }
+    
+    func logAltTextDidAssignArticleEditorGroup(project: WikimediaProject) {
+        
+        guard let group = WMFAltTextDataController.shared?.assignedAltTextArticleEditorGroupForLogging() else {
+            return
+        }
+        
+        var actionData: [String: String] = [:]
+        switch group {
+        case "C":
+            actionData["exp_c_group"] = "c"
+        case "D":
+            actionData["exp_c_group"] = "d"
+        default:
+            assertionFailure("Unexpected experiment group")
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
+    }
+    
+    func logAltTextPromptDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .launchImpression, project: project)
+    }
+    
+    func logAltTextPromptDidTapClose(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .launchCloseClick, project: project)
+    }
+    
+    func logAltTextPromptDidTapAdd(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .addClick, project: project)
+    }
+    
+    func logAltTextPromptDidTapDoNotAdd(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .doNotAddClick, project: project)
+    }
+    
+    func logAltTextInputDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .addAltTextImpression, project: project)
+    }
+    
+    func logAltTextInputDidFocus(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .addAltTextInput, project: project)
+    }
+    
+    func logAltTextInputDidMinimize(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .minimizedImpression, project: project)
+    }
+    
+    func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
+        
+        var actionData = ["time_spent": String(timeSpent),
+                          "revision_id": String(revisionID),
+                          "alt_text": altText,
+                          "article_title": articleTitle,
+                          "image": image,
+                          "username": username,
+                          "event_user_revision_count": String(userEditCount)]
+        
+        if let registrationDate {
+            actionData["user_create_date"] = registrationDate
+        }
+        
+        logEvent(activeInterface: .altTextEditingInterface, action: .altTextEditSuccess, actionData: actionData, project: project)
+    }
 }
+
