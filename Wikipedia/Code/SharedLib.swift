@@ -11,6 +11,12 @@ public struct MissingAltTextLink {
     public var length: Int
 }
 
+public enum MissingAltTextLinkExtractCaptionError: Error {
+    case failureSettingUpRegex
+    case errorStrippingTemplates
+    case emptyContent
+}
+
 public class AltText {
     var context: JSContext
 
