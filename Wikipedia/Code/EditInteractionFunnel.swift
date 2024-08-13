@@ -321,7 +321,7 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingInterface, action: .minimizedImpression, project: project)
     }
     
-    func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
+    func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
         
         var actionData = ["time_spent": String(timeSpent),
                           "revision_id": String(revisionID),
@@ -333,6 +333,10 @@ final class EditInteractionFunnel {
         
         if let registrationDate {
             actionData["user_create_date"] = registrationDate
+        }
+        
+        if let caption {
+            actionData["caption"] = caption
         }
         
         logEvent(activeInterface: .altTextEditingInterface, action: .altTextEditSuccess, actionData: actionData, project: project)

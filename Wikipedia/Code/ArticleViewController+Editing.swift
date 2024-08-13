@@ -306,6 +306,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextPromptModal(missingAltTextLink: MissingAltTextLink, filename: String, articleTitle: String, postedWikitext: String, lastRevisionID: UInt64, sectionID: Int?) {
         
         let siteURL = articleURL.wmf_site
+        guard let languageCode = siteURL?.wmf_languageCode else {
+            return
+        }
         
         let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
             
@@ -319,9 +322,14 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 let editSummary = CommonStrings.altTextEditSummary(with: articleURL.wmf_languageCode)
                 let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
                 
-                // TODO: Extract and populate caption
+                var caption: String? = nil
+                if #available(iOS 16.0, *) {
+                    caption = try? missingAltTextLink.extractCaptionForDisplay(languageCode: languageCode)
+                } else {
+                    caption = nil
+                }
                 // MAYBETODO: Figure out imageFullURL and imageThumbURL
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: nil, imageFullURL: nil, imageThumbURL: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: postedWikitext, lastRevisionID: lastRevisionID, sectionID: sectionID, isFlowB: false)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURL: nil, imageThumbURL: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: postedWikitext, lastRevisionID: lastRevisionID, sectionID: sectionID, isFlowB: false)
                 
                 let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: CommonStrings.altTextViewPlaceholder)
 
