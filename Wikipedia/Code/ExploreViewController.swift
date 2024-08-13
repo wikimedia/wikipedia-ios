@@ -1806,13 +1806,14 @@ extension ExploreViewController: AltTextDelegate {
         
         let articleTitle = lastRecommendation.title
         let image = lastRecommendation.imageData.filename
+        let caption = lastRecommendation.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
         
         guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
             return
         }
         
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
     
     private func presentAltTextEditPublishedToast() {

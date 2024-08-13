@@ -496,6 +496,7 @@ extension ArticleViewController: AltTextDelegate {
         }
         
         let image = viewModel.filename
+        let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
         
         guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
@@ -503,7 +504,7 @@ extension ArticleViewController: AltTextDelegate {
             return
         }
         
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
         
         altTextExperimentAcceptDate = nil
     }
