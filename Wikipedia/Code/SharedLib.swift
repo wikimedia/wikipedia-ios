@@ -55,7 +55,8 @@ public class AltText {
 extension MissingAltTextLink {
     @available(iOS 16.0, *)
     
-    func extractCaption(languageCode: String) throws -> String? {
+    // Extracts a caption for display only. Note this strips out embedded links, templates, and html tags from caption, so it may not exactly match the original caption.
+    func extractCaptionForDisplay(languageCode: String) throws -> String? {
         
         do {
             let onlyFilenameContentRegex = try Regex("^\\[\\[\\s*([^|]+\\s*)]]$")
@@ -71,15 +72,15 @@ extension MissingAltTextLink {
         // strip filename from text
         var finalText = text.replacingOccurrences(of: file, with: "")
         
-//        // strip any templates
-//        do {
-//            try stripTemplateRecursive(text: &finalText)
-//        } catch {
-//            throw MissingAltTextLinkExtractCaptionError.errorStrippingTemplates
-//        }
-//        
-//        // strip html
-//        finalText = finalText.removingHTML
+        // strip any templates
+        do {
+            try stripTemplateRecursive(text: &finalText)
+        } catch {
+            throw MissingAltTextLinkExtractCaptionError.errorStrippingTemplates
+        }
+        
+        // strip html
+        finalText = finalText.removingHTML
         
         // strip params equal signs
         do {
@@ -135,16 +136,16 @@ extension MissingAltTextLink {
             throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
-//        // strip embedded links
-//        do {
-//            let paramsWithMagicWordsRegex = try Regex("\\|\\s*(\(allMagicWords))\\s*")
-//            let ranges = finalText.ranges(of: paramsWithMagicWordsRegex)
-//            for range in ranges {
-//                finalText.replaceSubrange(range, with: "")
-//            }
-//        } catch {
-//            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
-//        }
+        // strip embedded links
+        do {
+            let paramsWithMagicWordsRegex = try Regex("\\|\\s*(\(allMagicWords))\\s*")
+            let ranges = finalText.ranges(of: paramsWithMagicWordsRegex)
+            for range in ranges {
+                finalText.replaceSubrange(range, with: "")
+            }
+        } catch {
+            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+        }
         
         // strip the beginning and trailing links
         if finalText.prefix(2) == "[[" {
@@ -180,29 +181,29 @@ extension MissingAltTextLink {
         return finalText
     }
     
-//    @available(iOS 16.0, *)
-//    private func stripTemplateRecursive(text: inout String) throws {
-//        do {
-//            let templateContentRegex = try Regex("\\{\\{\\s*[^\\{\\}]+\\s*\\}\\}")
-//            let ranges = text.ranges(of: templateContentRegex)
-//            
-//            guard ranges.count > 0 else {
-//                return
-//            }
-//            
-//            for range in ranges {
-//                text.replaceSubrange(range, with: "")
-//            }
-//            
-//            // try again
-//            do {
-//                try stripTemplateRecursive(text: &text)
-//            } catch {
-//                
-//            }
-//            
-//        } catch {
-//            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
-//        }
-//    }
+    @available(iOS 16.0, *)
+    private func stripTemplateRecursive(text: inout String) throws {
+        do {
+            let templateContentRegex = try Regex("\\{\\{\\s*[^\\{\\}]+\\s*\\}\\}")
+            let ranges = text.ranges(of: templateContentRegex)
+            
+            guard ranges.count > 0 else {
+                return
+            }
+            
+            for range in ranges {
+                text.replaceSubrange(range, with: "")
+            }
+            
+            // try again
+            do {
+                try stripTemplateRecursive(text: &text)
+            } catch {
+                
+            }
+            
+        } catch {
+            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+        }
+    }
 }

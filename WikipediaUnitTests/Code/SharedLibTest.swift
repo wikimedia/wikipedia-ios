@@ -35,7 +35,7 @@ final class SharedLibTest: XCTestCase {
         
         if #available(iOS 16.0, *) {
             do {
-                let caption = try missingLink.extractCaption(languageCode: "en")
+                let caption = try missingLink.extractCaptionForDisplay(languageCode: "en")
                 XCTAssertEqual(caption, "caption here")
             } catch {
                 XCTFail("Failure extracting caption")
@@ -51,7 +51,7 @@ final class SharedLibTest: XCTestCase {
         
         if #available(iOS 16.0, *) {
             do {
-                let caption = try missingLink.extractCaption(languageCode: "en")
+                let caption = try missingLink.extractCaptionForDisplay(languageCode: "en")
                 XCTAssertEqual(caption, "Location of a dog's carnassials; the inside of the 4th upper premolar aligns with the outside of the 1st lower molar, working like scissor blades.")
             } catch {
                 XCTFail("Failure extracting caption")
@@ -67,7 +67,7 @@ final class SharedLibTest: XCTestCase {
         
         if #available(iOS 16.0, *) {
             do {
-                let caption = try missingLink.extractCaption(languageCode: "en")
+                let caption = try missingLink.extractCaptionForDisplay(languageCode: "en")
                 XCTAssertEqual(caption, "Cat skull")
             } catch {
                 XCTFail("Failure extracting caption")
@@ -83,7 +83,7 @@ final class SharedLibTest: XCTestCase {
         
         if #available(iOS 16.0, *) {
             do {
-                let caption = try missingLink.extractCaption(languageCode: "en")
+                let caption = try missingLink.extractCaptionForDisplay(languageCode: "en")
                 XCTAssertEqual(caption, "Obama (right) with grandfather Stanley Armour Dunham, mother Ann Dunham, and half-sister Maya Soetoro, mid-1970s in Honolulu")
             } catch {
                 XCTFail("Failure extracting caption")
@@ -99,7 +99,7 @@ final class SharedLibTest: XCTestCase {
         
         if #available(iOS 16.0, *) {
             do {
-                let caption = try missingLink.extractCaption(languageCode: "en")
+                let caption = try missingLink.extractCaptionForDisplay(languageCode: "en")
                 XCTAssertEqual(caption, "Obama's Indonesian school record in St. Francis of Assisi Catholic Elementary School. Obama was enrolled as \"Barry Soetoro\" (no. 1), and was wrongly recorded as an Indonesian citizen (no. 3) and a Muslim (no. 4).")
             } catch {
                 XCTFail("Failure extracting caption")
