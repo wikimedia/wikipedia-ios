@@ -214,6 +214,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         }
         
         nextButton.isEnabled = false
+        
         delegate?.didTapNext(altText: altText)
     }
 }

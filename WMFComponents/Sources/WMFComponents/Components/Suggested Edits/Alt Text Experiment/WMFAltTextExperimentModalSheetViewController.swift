@@ -39,3 +39,9 @@ final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewCo
     }
 }
 
+extension WMFAltTextExperimentModalSheetViewController: WMFAltTextExperimentModalSheetDelegate {
+    public func didTapNext(altText: String) {
+        self.dismiss(animated: true)
+    }
+}
+

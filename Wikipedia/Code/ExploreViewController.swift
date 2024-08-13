@@ -1723,77 +1723,28 @@ extension ExploreViewController: AltTextDelegate {
              
         return magicWord.replacingOccurrences(of: "$1", with: "%@")
     }
-    
-    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
+
+    func didTapNext(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
+
         let articleURL = articleViewController.articleURL
-        guard let siteURL = articleURL.wmf_site else {
-            return
+
+        let image = UIImage()
+        let captionTitle = WMFLocalizedString("alt-text-experimet-caption-title", value: "Image caption", comment: "title for image caption field on alt text preview")
+        let reviewTitle = WMFLocalizedString("alt-text-review-title", value: "Review", comment: "Title for the review stpe of the alt text experiment")
+
+        let footerTextFormat = WMFLocalizedString("alt-text-license", value:"By publishing, you agree to the [Terms of Use](%1$@), and to irrevocably release your contributions under the [CC BY-SA 3.0](%2$@) license.", comment: "Text for information about the Terms of Use and edit licenses. Do not translate url. %1$@ and %1$@ are replaced by the terms of use and license links.")
+
+        let terms = "\(Licenses.saveTermsURL?.absoluteString ?? String())"
+        let license = "\(Licenses.CCBYSA4URL?.absoluteString ?? String())"
+        let footerText = String.localizedStringWithFormat(footerTextFormat, terms, license)
+
+        let localizedStrings = WMFAltTextExperimentPreviewViewModel.LocalizedStrings(altTextTitle: CommonStrings.altTextTitle, captionTitle: captionTitle, title: reviewTitle, footerText: footerText, publishTitle: CommonStrings.publishTitle)
+        let previewViewModel = WMFAltTextExperimentPreviewViewModel(image: image, altText: altText, caption: viewModel.caption, localizedStrings: localizedStrings, articleURL: articleURL, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage, originalImageWikitext: viewModel.imageWikitext, isFlowB: viewModel.isFlowB, sectionID: viewModel.sectionID, lastRevisionID: viewModel.lastRevisionID, localizedEditSummary: viewModel.localizedStrings.editSummary)
+        let previewViewController = WMFAltTextExperimentPreviewViewController(viewModel: previewViewModel, delegate: self)
+        articleViewController.dismiss(animated: true) {
+            self.navigationController?.pushViewController(previewViewController, animated: true)
         }
-        
-        let originalFullArticleWikitext = viewModel.fullArticleWikitextWithImage
-        let originalImageWikitext = viewModel.imageWikitext
-        let originalCaption = viewModel.caption
-        
-        var finalImageWikitext = originalImageWikitext
-        var finalWikitext = originalFullArticleWikitext
-        
-        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
-        
-        if let originalCaption,
-           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
-        } else if let range = originalImageWikitext.range(of: "]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
-        }
-        
-        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
-            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
-        }
-        
-        let developerSettings = WMFDeveloperSettingsDataController()
-                
-        if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
-            
-            navigationController?.popViewController(animated: true)
-            
-            // wait for animation to complete
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                self?.presentAltTextEditPublishedToast()
-                self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
-            }
-            
-            return
-        } else {
-            
-            let section: String?
-            if let sectionID = viewModel.sectionID {
-                section = "\(sectionID)"
-            } else {
-                section = nil
-            }
-            
-            let fetcher = WikiTextSectionUploader()
-            fetcher.uploadWikiText(finalWikitext, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
-                
-                DispatchQueue.main.async {
-                    
-                    self.navigationController?.popViewController(animated: true)
-                    
-                    guard let fetchedData = result as? [String: Any],
-                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
-                        return
-                    }
-                    
-                    if error == nil {
-                        // wait for animation to complete
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                            self?.presentAltTextEditPublishedToast()
-                            self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
-                        }
-                    }
-                }
-            }
-        }
+
     }
     
     private func logAltTextEditSuccess(altText: String, revisionID: UInt64) {
@@ -1827,4 +1778,79 @@ extension ExploreViewController: AltTextDelegate {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
         }
     }
+}
+
+extension ExploreViewController: WMFAltTextPreviewDelegate {
+    func didTapPublish(viewModel: WMFAltTextExperimentPreviewViewModel) {
+
+        guard let siteURL = viewModel.articleURL.wmf_site else {
+            return
+        }
+        let originalFullArticleWikitext = viewModel.fullArticleWikitextWithImage
+        let originalImageWikitext = viewModel.originalImageWikitext
+        let originalCaption = viewModel.caption
+
+        var finalImageWikitext = originalImageWikitext
+        var finalWikitext = originalFullArticleWikitext
+
+        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), viewModel.altText)
+
+        if let originalCaption,
+           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
+        } else if let range = originalImageWikitext.range(of: "]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
+        }
+
+        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
+            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
+        }
+
+        let developerSettings = WMFDeveloperSettingsDataController()
+
+        if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
+
+            navigationController?.popViewController(animated: true)
+
+            // wait for animation to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.presentAltTextEditPublishedToast()
+                self?.logAltTextEditSuccess(altText: viewModel.altText, revisionID: 0)
+            }
+
+            return
+        } else {
+
+            let section: String?
+            if let sectionID = viewModel.sectionID {
+                section = "\(sectionID)"
+            } else {
+                section = nil
+            }
+
+            let fetcher = WikiTextSectionUploader()
+            fetcher.uploadWikiText(finalWikitext, forArticleURL: viewModel.articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+
+                DispatchQueue.main.async {
+
+                    self.navigationController?.popViewController(animated: true)
+
+                    guard let fetchedData = result as? [String: Any],
+                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                        return
+                    }
+
+                    if error == nil {
+                        // wait for animation to complete
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                            self?.presentAltTextEditPublishedToast()
+                            self?.logAltTextEditSuccess(altText: viewModel.altText, revisionID: newRevID)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+
 }

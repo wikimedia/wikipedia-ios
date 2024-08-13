@@ -3,7 +3,7 @@ import WMF
 import CocoaLumberjackSwift
 
 protocol AltTextDelegate: AnyObject {
-    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
+    func didTapNext(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
 }
 
 @objc(WMFArticleViewController)

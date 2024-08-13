@@ -317,8 +317,8 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
         guard let altTextExperimentViewModel else {
             return
         }
-        
-        altTextDelegate?.didTapPublish(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
+
+        altTextDelegate?.didTapNext(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
     }
 }
 
