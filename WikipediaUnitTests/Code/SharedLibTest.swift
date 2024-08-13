@@ -14,7 +14,7 @@ final class SharedLibTest: XCTestCase {
     func testCaptionNoAlt() throws {
         let text = "[[File:Test no alt.jpg|caption here]]"
         let wikitext = "text text " + text + " text text"
-        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en")
+        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["File"], targetAltParams: ["alt"])
         XCTAssertEqual(result?.count, 1)
         let link = result?[0]
         XCTAssertEqual(link?.text, text)
@@ -22,11 +22,30 @@ final class SharedLibTest: XCTestCase {
         XCTAssertEqual(link?.offset, "text text ".count)
         XCTAssertEqual(link?.length, text.count)
     }
+    
+    func testCaptionNoAltDE() throws {
+        let text = "[[Datei:Test no alt.jpg|caption here]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["Datei"], targetAltParams: ["alternativtext", "alt"])
+        XCTAssertEqual(result?.count, 1)
+        let link = result?[0]
+        XCTAssertEqual(link?.text, text)
+        XCTAssertEqual(link?.file, "Datei:Test no alt.jpg")
+        XCTAssertEqual(link?.offset, "text text ".count)
+        XCTAssertEqual(link?.length, text.count)
+    }
 
     func testCaptionWithAlt() throws {
         let text = "[[File:Test with alt.jpg|caption here|alt=Cool picture]]"
         let wikitext = "text text " + text + " text text"
-        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en")
+        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["File"], targetAltParams: ["alt"])
+        XCTAssertEqual(result?.count, 0)
+    }
+    
+    func testCaptionWithAltDE() throws {
+        let text = "[[Datei:Test with alt.jpg|caption here|alternativtext=Cool picture]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try alt?.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["Datei"], targetAltParams: ["alternativtext", "alt"])
         XCTAssertEqual(result?.count, 0)
     }
     

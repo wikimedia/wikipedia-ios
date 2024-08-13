@@ -30,9 +30,9 @@ public class AltText {
         context.evaluateScript(alt)
     }
 
-    public func missingAltTextLinks(text: String, language: String) throws -> [MissingAltTextLink] {
+    public func missingAltTextLinks(text: String, language: String, targetNamespaces: [String], targetAltParams: [String]) throws -> [MissingAltTextLink] {
         let f = context.globalObject.objectForKeyedSubscript("missingAltTextLinks")!
-        let ret = f.call(withArguments:[text, language])
+        let ret = f.call(withArguments:[text, language, targetNamespaces, targetAltParams])
         var arr = [MissingAltTextLink]()
         let len = Int(ret?.objectForKeyedSubscript("length").toInt32() ?? 0)
         for i in 0..<len {

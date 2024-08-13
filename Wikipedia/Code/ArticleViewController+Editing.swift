@@ -275,7 +275,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
         var missingAltTextLink: MissingAltTextLink?
         do {
             let jsAltTextDetector = try AltText()
-            missingAltTextLink = try jsAltTextDetector.missingAltTextLinks(text: postedWikitext, language: languageCode).first
+            let fileMagicWords = MagicWordUtils.getMagicWordsForKey(.fileNamespace, languageCode: languageCode)
+            let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode)
+            missingAltTextLink = try jsAltTextDetector.missingAltTextLinks(text: postedWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
         } catch {
             DDLogError("Error extracting missing alt text link: \(error)")
         }
