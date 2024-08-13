@@ -131,6 +131,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
         textView.returnKeyType = .done
+        textView.textContainer.lineFragmentPadding = 10
         return textView
     }()
 
