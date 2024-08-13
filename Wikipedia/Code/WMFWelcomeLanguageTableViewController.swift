@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {
@@ -81,6 +81,6 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     }
 
     private func updateFonts() {
-        moreLanguagesButton.titleLabel?.font = WKFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        moreLanguagesButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 }

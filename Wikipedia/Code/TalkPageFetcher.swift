@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 struct TalkPageAPIResponse: Codable {
     let threads: TalkPageThreadItems?
@@ -195,7 +195,7 @@ class TalkPageFetcher: Fetcher {
         let params = ["action": "discussiontoolsedit",
                       "paction": "addcomment",
                       "page": title,
-                      "matags": WKEditTag.appTalkReply.rawValue,
+                      "matags": WMFEditTag.appTalkReply.rawValue,
                       "format": "json",
                       "formatversion" : "2",
                       "commentid": commentId,
@@ -218,7 +218,7 @@ class TalkPageFetcher: Fetcher {
         let params = ["action": "discussiontoolsedit",
                       "paction": "addtopic",
                       "page": title,
-                      "matags": WKEditTag.appTalkTopic.rawValue,
+                      "matags": WMFEditTag.appTalkTopic.rawValue,
                       "format": "json",
                       "formatversion" : "2",
                       "sectiontitle": topicTitle,

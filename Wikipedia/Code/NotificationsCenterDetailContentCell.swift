@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class NotificationsCenterDetailContentCell: UITableViewCell, ReusableCell {
 
@@ -43,11 +43,11 @@ class NotificationsCenterDetailContentCell: UITableViewCell, ReusableCell {
 
         let bodyContent = viewModel.contentBody != nil ? "\n\n\(viewModel.contentBody!)" : ""
 
-        let boldAttribute = [NSAttributedString.Key.font: WKFont.for(.boldCallout, compatibleWith: traitCollection)]
+        let boldAttribute = [NSAttributedString.Key.font: WMFFont.for(.boldCallout, compatibleWith: traitCollection)]
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.7
         let bodyTextAttributes = [
-            NSAttributedString.Key.font: WKFont.for(.callout, compatibleWith: traitCollection),
+            NSAttributedString.Key.font: WMFFont.for(.callout, compatibleWith: traitCollection),
             NSAttributedString.Key.paragraphStyle: paragraphStyle
         ]
 

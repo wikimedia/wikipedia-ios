@@ -132,6 +132,14 @@
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
 "advanced-settings-title" = "הגדרות מתקדמות";
+"alt-text-add-button-title" = "להוסיף";
+"alt-text-do-not-add-button-title" = "לא להוסיף";
+"alt-text-experiment-edit-summary" = "נוסף טקסט חלופי";
+"alt-text-experiment-text-field-placholder" = "נא לתאר את התמונה";
+"alt-text-experiment-view-title" = "נא להוסיף טקסט חלופי";
+"alt-text-modal-subtitle-image-recommendation" = "בתמונה הקודמת חסר טקסט חלופי. האם להוסיף תיאור לתמונה בשביל קוראים כבדי ראייה?";
+"alt-text-modal-title" = "להוסיף טקסט חלופי לתמונה?";
+"alt-text-modalsubtitle-regular-edit" = "יש תמונה במאמר הזה שחסר בה טקסט חלופי. האם להוסיף תיאור לתמונה בשביל קוראים כבדי ראייה?";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
 "app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
@@ -225,6 +233,7 @@
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "developer-settings" = "הגדרות מפתחים";
 "developer-settings-enable-alt-text-experiment" = "להפעיל את הניסוי בטקסט חלופי.";
+"developer-settings-enable-alt-text-experiment-en" = "הפעלת ניסוי טקסט חלופי לוויקיפדיה האנגלית.";
 "developer-settings-suppress-image-rec-post" = "לא לשלוח את עריכת הצעות התמונה.";
 "diff-article-revision-history" = "היסטוריית גרסאות של ערך";
 "diff-change-added" = "הוספה, $1, סוף הוספה.";

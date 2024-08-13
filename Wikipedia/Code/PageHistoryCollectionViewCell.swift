@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()
@@ -151,14 +151,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        timeLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        sizeDiffLabel.font = WKFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        authorButton.titleLabel?.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+        timeLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        sizeDiffLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        authorButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         if let comment,
            !comment.isEmpty {
-            commentLabel.font = WKFont.for(.footnote, compatibleWith: traitCollection)
+            commentLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         } else {
-            commentLabel.font = WKFont.for(.italicFootnote, compatibleWith: traitCollection)
+            commentLabel.font = WMFFont.for(.italicFootnote, compatibleWith: traitCollection)
         }
         
     }
@@ -293,7 +293,7 @@ extension PageHistoryCollectionViewCell: Themeable {
             }
         } else {
             // themeTODO: define a semantic color for this instead of checking isDark
-            roundedContent.layer.borderColor = theme.isDark ? WKColor.gray300.cgColor : theme.colors.border.cgColor
+            roundedContent.layer.borderColor = theme.isDark ? WMFColor.gray300.cgColor : theme.colors.border.cgColor
             roundedContent.backgroundColor = theme.colors.paperBackground
             authorButton.setTitleColor(theme.colors.link, for: .normal)
             authorButton.tintColor = theme.colors.link

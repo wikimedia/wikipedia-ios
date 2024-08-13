@@ -1,5 +1,5 @@
-import WKData
-import Components
+import WMFData
+import WMFComponents
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 
@@ -507,8 +507,8 @@ class AltTextExperimentPanelViewController: ScrollableEducationPanelViewControll
         super.viewDidLoad()
 
         let imageRecsSubtitle = WMFLocalizedString("alt-text-modal-subtitle-image-recommendation", value: "The previous image is missing alt text. Add a description to the image for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task")
-        let regularEditSubtitle =  WMFLocalizedString("alt-text-modalsubtitle-regular-edit", value: "There is an image in this article that is missing alt text. Add a description for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article")
-        image = WKSFSymbolIcon.for(symbol: .textBelowPhoto, font: .title1, paletteColors: [theme.colors.link])
+        let regularEditSubtitle =  WMFLocalizedString("alt-text-modal-subtitle-regular-edit", value: "There is an image in this article that is missing alt text. Add a description for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article")
+        image = WMFSFSymbolIcon.for(symbol: .textBelowPhoto, font: .title1, paletteColors: [theme.colors.link])
         heading = WMFLocalizedString("alt-text-modal-title", value: "Add missing image alt text?", comment: "Title text for the alt text suggested edit prompt modal")
         subheading = isFlowB ? imageRecsSubtitle : regularEditSubtitle
         primaryButtonTitle = WMFLocalizedString("alt-text-add-button-title", value: "Add", comment: "Title for the Add button on the alt text modal")
@@ -558,12 +558,12 @@ extension UIViewController {
     ///   - primaryButtonTapHandler: Goes to donation
     ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
     ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
-    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
+    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
 
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
             if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {
                 announcementVC.isLoading = true
-                let dataController = WKDonateDataController.shared
+                let dataController = WMFDonateDataController.shared
                 dataController.fetchConfigs(for: asset.countryCode) { result in
                     DispatchQueue.main.async {
                         announcementVC.isLoading = false

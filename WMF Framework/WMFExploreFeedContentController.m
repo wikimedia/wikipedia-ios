@@ -9,7 +9,7 @@
 #import <WMF/WMFSuggestedEditsContentSource.h>
 #import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
-@import WKData;
+@import WMFData;
 
 NSString *const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;

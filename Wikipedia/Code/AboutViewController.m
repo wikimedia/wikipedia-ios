@@ -4,7 +4,7 @@
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-@import Components;
+@import WMFComponents;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -208,10 +208,14 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *enableAltTextExperiment = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment", nil, nil, @"Enable Alt Text experiment.", @"Title for setting to enable alt text experiment. Displayed on the developer settings view.");
     
     NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
-    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN close:[WMFCommonStrings closeButtonAccessibilityLabel]];
-    WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
-    WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
+    NSString *setAltTextExperimentPercentage100 = WMFLocalizedStringWithDefaultValue(@"developer-settings-set-alt-text-experiment-100", nil, nil, @"Set alt text experiment percentage to 100.", @"Title for setting the alt text experiment to 100%. Displayed on the developer settings view.");
+
+    NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN setAltTextExperimentPercentage100:setAltTextExperimentPercentage100 sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
+    
+    WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController: viewController theme: self.theme];
     [self presentViewController:navVC animated:YES completion:nil];
 }
