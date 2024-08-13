@@ -1,6 +1,33 @@
 [
   {
     "aliases" : [
+      "linha_de_basa",
+      "baseline",
+      "línia de base",
+      "base",
+      "ligne-de-base"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bordadura",
+      "border",
+      "vora",
+      "bordure"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bas",
+      "bottom",
+      "baix"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centrat",
       "center",
       "centre",
@@ -46,6 +73,15 @@
   },
   {
     "aliases" : [
+      "mitan",
+      "middle",
+      "mitjà",
+      "milieu"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "neant",
       "nonrés",
       "none",
@@ -65,6 +101,45 @@
   },
   {
     "aliases" : [
+      "indici",
+      "ind",
+      "sub",
+      "indice"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "exp",
+      "super",
+      "sup",
+      "exposant"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "bas-tèxte",
+      "bas-txt",
+      "text-bottom",
+      "baix-text",
+      "bas-texte"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "naut-tèxte",
+      "naut-txt",
+      "text-top",
+      "dalt-text",
+      "haut-texte",
+      "haut-txt"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "vinheta",
       "thumb",
       "thumbnail",
@@ -72,6 +147,32 @@
       "vignette"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "naut",
+      "top",
+      "dalt",
+      "haut"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redreça",
+      "redreça$1",
+      "redreça $1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "redreçat",
+      "redreçat=$1",
+      "redreçat $1",
+      "redresse",
+      "redresse=$1",
+      "redresse_$1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

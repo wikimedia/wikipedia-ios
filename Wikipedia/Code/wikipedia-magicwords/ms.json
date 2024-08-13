@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "bingkai",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "tengah",
       "center",
       "centre"
@@ -36,6 +43,18 @@
   },
   {
     "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "frame",
       "framed",
       "enframed"
@@ -50,10 +69,55 @@
   },
   {
     "aliases" : [
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

@@ -1,11 +1,33 @@
 [
   {
     "aliases" : [
+      "röun",
+      "ääris",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "ala",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "hura",
       "vasakul",
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "kesk",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -22,6 +44,13 @@
       "right"
     ],
     "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "üläh",
+      "top"
+    ],
+    "name" : "img_top"
   },
   {
     "aliases" : [
@@ -58,9 +87,50 @@
   },
   {
     "aliases" : [
+      "püsti",
+      "püsti=$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
   },
   {
     "aliases" : [

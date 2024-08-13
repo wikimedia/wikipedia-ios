@@ -8,6 +8,31 @@
   },
   {
     "aliases" : [
+      "основа",
+      "основание",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "межа",
+      "границя",
+      "граница",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "знизу",
+      "снизу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "центр",
       "center",
       "centre"
@@ -42,6 +67,14 @@
   },
   {
     "aliases" : [
+      "посередині",
+      "посередине",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "без",
       "none"
     ],
@@ -57,6 +90,38 @@
   },
   {
     "aliases" : [
+      "під",
+      "под",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "над",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "текст-знизу",
+      "текст-снизу",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "текст-зверху",
+      "текст-сверху",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "міні",
       "мини",
       "мініатюра",
@@ -65,6 +130,28 @@
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "зверху",
+      "сверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "зверхуправоруч",
+      "зверхуправоруч=$1",
+      "зверхуправоруч_$1",
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

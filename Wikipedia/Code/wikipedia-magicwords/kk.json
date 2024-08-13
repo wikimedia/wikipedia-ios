@@ -1,6 +1,27 @@
 [
   {
     "aliases" : [
+      "тірекжол",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "жиекті",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "астына",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "ортаға",
       "орта",
       "center",
@@ -34,6 +55,13 @@
   },
   {
     "aliases" : [
+      "аралығына",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ешқандай",
       "жоқ",
       "none"
@@ -50,11 +78,60 @@
   },
   {
     "aliases" : [
+      "астылығы",
+      "аст",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "үстілігі",
+      "үст",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "мәтін-астында",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "мәтін-үстінде",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "нобай",
       "thumbnail",
       "thumb"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "үстіне",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "тікті",
+      "тіктік=$1",
+      "тіктік $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

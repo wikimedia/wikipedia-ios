@@ -8,6 +8,30 @@
   },
   {
     "aliases" : [
+      "бух",
+      "основание",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "доза",
+      "граница",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "бухар",
+      "снизу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "центр",
       "юккъ",
       "center",
@@ -43,6 +67,14 @@
   },
   {
     "aliases" : [
+      "юккъе",
+      "посередине",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "йоцуш",
       "без",
       "none"
@@ -59,6 +91,39 @@
   },
   {
     "aliases" : [
+      "под",
+      "буха",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "тӀе",
+      "над",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "бухара-йоза",
+      "текст-снизу",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "лакххьара-йоза",
+      "текст-сверху",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "мини",
       "жима",
       "жимо",
@@ -67,6 +132,30 @@
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "лакхахь",
+      "сверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "бакъхьалакхо",
+      "бакъхьалакхо=$1",
+      "бакъхьалакхо_$1",
+      "upright_$1",
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа_$1",
+      "сверхусправа $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

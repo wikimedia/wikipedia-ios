@@ -89,7 +89,17 @@ class WikipediaLanguageCommandLineUtility {
             $0.name == "img_left" ||
             $0.name == "img_center" ||
             $0.name == "img_none" ||
-            $0.name == "img_alt"
+            $0.name == "img_alt" ||
+            $0.name == "img_baseline" ||
+            $0.name == "img_border" ||
+            $0.name == "img_bottom" ||
+            $0.name == "img_middle" ||
+            $0.name == "img_sub" ||
+            $0.name == "img_super" ||
+            $0.name == "img_text_bottom" ||
+            $0.name == "img_text_top" ||
+            $0.name == "img_top" ||
+            $0.name == "img_upright"
         }
         if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
             recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))

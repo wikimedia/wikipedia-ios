@@ -1,6 +1,30 @@
 [
   {
     "aliases" : [
+      "tirekjol",
+      "тірекжол",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "jïekti",
+      "жиекті",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "astına",
+      "астына",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "ortağa",
       "orta",
       "ортаға",
@@ -40,6 +64,14 @@
   },
   {
     "aliases" : [
+      "aralığına",
+      "аралығына",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "eşqandaý",
       "joq",
       "ешқандай",
@@ -60,12 +92,71 @@
   },
   {
     "aliases" : [
+      "astılığı",
+      "ast",
+      "астылығы",
+      "аст",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "üstiligi",
+      "üst",
+      "үстілігі",
+      "үст",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "mätin-astında",
+      "мәтін-астында",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "mätin-üstinde",
+      "мәтін-үстінде",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "nobaý",
       "нобай",
       "thumbnail",
       "thumb"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "üstine",
+      "үстіне",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "tikti",
+      "tiktik=$1",
+      "tiktik $1",
+      "тікті",
+      "тіктік=$1",
+      "тіктік $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

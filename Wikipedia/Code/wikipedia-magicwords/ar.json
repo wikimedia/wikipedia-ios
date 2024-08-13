@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "خط_أساسي",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "حدود",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "أسفل",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "مركز",
       "center",
       "centre"
@@ -40,6 +61,13 @@
   },
   {
     "aliases" : [
+      "وسط",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "بدون",
       "بلا",
       "none"
@@ -55,11 +83,59 @@
   },
   {
     "aliases" : [
+      "فرعي",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "سوبر",
+      "سب",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "نص_أسفل",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "نص_أعلى",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "تصغير",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "أعلى",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "معدول",
+      "معدول=$1",
+      "معدول_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

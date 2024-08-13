@@ -8,6 +8,28 @@
   },
   {
     "aliases" : [
+      "आधार_रेखा",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "बॉर्डर",
+      "किनारा",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "तल",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "केंद्र",
       "केन्द्र",
       "केन्द्रित",
@@ -46,6 +68,13 @@
   },
   {
     "aliases" : [
+      "मध्य",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "कोई_नहीं",
       "none"
     ],
@@ -62,12 +91,59 @@
   },
   {
     "aliases" : [
+      "पद",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "मूर्ध",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "पाठ-तल",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "पाठ-शीर्ष",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "अंगूठाकार",
       "अंगूठा",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "शीर्ष",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "खड़ी",
+      "खड़ी=$1",
+      "खड़ी_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

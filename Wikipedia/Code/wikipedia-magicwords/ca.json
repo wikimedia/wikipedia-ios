@@ -7,6 +7,30 @@
   },
   {
     "aliases" : [
+      "línia de base",
+      "baseline",
+      "linha_de_basa"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "vora",
+      "border",
+      "bordadura"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "baix",
+      "bottom",
+      "bas"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "center",
       "centre",
       "centrat"
@@ -44,6 +68,14 @@
   },
   {
     "aliases" : [
+      "mitjà",
+      "middle",
+      "mitan"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "cap",
       "none",
       "neant",
@@ -61,12 +93,68 @@
   },
   {
     "aliases" : [
+      "sub",
+      "indici",
+      "ind"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup",
+      "exp"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "baix-text",
+      "text-bottom",
+      "bas-tèxte",
+      "bas-txt"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "dalt-text",
+      "text-top",
+      "naut-tèxte",
+      "naut-txt"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "miniatura",
       "thumb",
       "thumbnail",
       "vinheta"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "dalt",
+      "top",
+      "naut"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redreçat",
+      "upright",
+      "redreçat=$1",
+      "upright=$1",
+      "redreçat $1",
+      "upright $1",
+      "redreça",
+      "redreça$1",
+      "redreça $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

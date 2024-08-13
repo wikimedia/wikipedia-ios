@@ -22,6 +22,20 @@
   },
   {
     "aliases" : [
+      "borde",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "abajo",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centro",
       "centrado",
       "centrada",
@@ -53,6 +67,13 @@
   },
   {
     "aliases" : [
+      "medio",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "no",
       "ninguna",
       "ninguno",
@@ -73,9 +94,55 @@
   },
   {
     "aliases" : [
+      "arriba",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [
