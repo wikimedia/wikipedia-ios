@@ -13,21 +13,20 @@ complex cases with templates and such but should handle
 all common hand-written links and generally ignore others.
 
 The `missingAltTextLinks()` function takes a string with
-wikitext, and the language name, and returns an array of
+wikitext, the wiki language code, as well as the targetNamespaces (e.g. ["File", "Image"]) and targetAltParameters (e.g. ["alt"]) and returns an array of
 detected links that don't appear to have an alt text marking.
 
 ## Internationalization
 
-Currently it's hardcoded to the English namespace and alt
-keyword names, this needs to be expanded with a list of each
-language's overrides so it can build the appropriate regexes.
+Pass in your localized namespace and alt parameters into the targetNamespaces and targetAltParameters parameters.
+
+```
+    let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "de", targetNamespaces: ["Datei", "Bild", "Image"], targetAltParams: ["alternativtext", "alt"])
+```
 
 ## Calling from Swift
 
-`SharedLib.swift` in `Utilities` has the wrapper interfaces
-on the Swift side; `AltText` encapsulates a JSC VM and can
-have its `missingAltTextLinks()` method called to return a
-Swift array of `MissingAltTextLink` structs, each with:
+This logic can be accessed through the public static `missingAltTextLinks` method under WMFWikitextUtils. This utility struct resides in the WMFData package. Under-the-hood this method leans on `WMFAltTextDetector`, which is a helper class that is responsible for pulling the javascript library from the WMFData bundle and calling into it with JavaScriptCore. The `missingAltTextLinks` returns an array of `MissingAltTextLink` structs, each with:
 
 * `text` - string of the full link
 * `offset`, `length` - UTF-16 offset and length of the full link within the input wikitext
@@ -39,10 +38,12 @@ It should be safe to insert an `alt=blah` before the final "`]]`" in the link st
 
 There's a node CLI test under `tests/`
 
-Run `npm test` inside `sharedlib` dir to run them.
+Run `npm test` inside the `sharedlib` dir to run them.
 
 A swift-side unit test confirms the JSC bridge works as expected and will run automatically.
 
 ## The files
 
-The `sharedlib` subdirectory is included in the output bundle alongside the `assets`, and `.js` is loaded out of it when instantiating the wrapper class.
+Javascript files (library and node tests) reside in the `WMFData` > `Sources` > `WMFData` > `Resources` > `sharedlib` subdirectory.
+The Swift utility method resides in `WMFData` > `Utility` > `WMFWikitextUtils+AltText.swift`.  
+Swift tests are in `WMFData` > `Tests` > `WMFDataTests` > `WMFWikitextUtilsTests.swift`
