@@ -272,12 +272,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        var missingAltTextLink: MissingAltTextLink?
+        var missingAltTextLink: WMFMissingAltTextLink?
         do {
-            let jsAltTextDetector = try AltText()
             let fileMagicWords = MagicWordUtils.getMagicWordsForKey(.fileNamespace, languageCode: languageCode)
             let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode)
-            missingAltTextLink = try jsAltTextDetector.missingAltTextLinks(text: fullArticleWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
+            missingAltTextLink = try WMFWikitextUtils.missingAltTextLinks(text: fullArticleWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
         } catch {
             DDLogError("Error extracting missing alt text link: \(error)")
         }
@@ -305,7 +304,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
     }
     
-    private func presentAltTextPromptModal(missingAltTextLink: MissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
+    private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         let siteURL = articleURL.wmf_site
         guard let languageCode = siteURL?.wmf_languageCode else {

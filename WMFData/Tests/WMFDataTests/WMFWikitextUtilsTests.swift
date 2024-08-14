@@ -629,6 +629,8 @@ final class WMFWikitextUtilsTests: XCTestCase {
         XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
     }
     
+    // MARK: - Alt Text Tests
+    
     func testInsertAltText() {
         let articleWikitext = """
             [[File:Dog (Canis lupus familiaris) (5).JPG|thumb|Canis lupus familiaris]]
@@ -647,5 +649,43 @@ final class WMFWikitextUtilsTests: XCTestCase {
         } else {
             // Fallback on earlier versions
         }
+    }
+    
+    func testAltTextDetectorCaptionNoAlt() throws {
+        let text = "[[File:Test no alt.jpg|caption here]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["File"], targetAltParams: ["alt"])
+        XCTAssertEqual(result.count, 1)
+        let link = result[0]
+        XCTAssertEqual(link.text, text)
+        XCTAssertEqual(link.file, "File:Test no alt.jpg")
+        XCTAssertEqual(link.offset, "text text ".count)
+        XCTAssertEqual(link.length, text.count)
+    }
+    
+    func testAltTextDetectorCaptionNoAltDE() throws {
+        let text = "[[Datei:Test no alt.jpg|caption here]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["Datei"], targetAltParams: ["alternativtext", "alt"])
+        XCTAssertEqual(result.count, 1)
+        let link = result[0]
+        XCTAssertEqual(link.text, text)
+        XCTAssertEqual(link.file, "Datei:Test no alt.jpg")
+        XCTAssertEqual(link.offset, "text text ".count)
+        XCTAssertEqual(link.length, text.count)
+    }
+
+    func testAltTextDetectorCaptionWithAlt() throws {
+        let text = "[[File:Test with alt.jpg|caption here|alt=Cool picture]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["File"], targetAltParams: ["alt"])
+        XCTAssertEqual(result.count, 0)
+    }
+    
+    func testAltTextDetectorCaptionWithAltDE() throws {
+        let text = "[[Datei:Test with alt.jpg|caption here|alternativtext=Cool picture]]"
+        let wikitext = "text text " + text + " text text"
+        let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "en", targetNamespaces: ["Datei"], targetAltParams: ["alternativtext", "alt"])
+        XCTAssertEqual(result.count, 0)
     }
 }

@@ -1,58 +1,13 @@
-// Wrapper for JS sharedlib for the iOS and Android apps
-// Experimental as of 2024-07-29
+import WMFData
 
-import Foundation
-import JavaScriptCore
-
-public struct MissingAltTextLink {
-    public var text: String
-    public var file: String
-    public var offset: Int
-    public var length: Int
-}
-
-public enum MissingAltTextLinkExtractCaptionError: Error {
+public enum WMFMissingAltTextLinkExtractCaptionError: Error {
     case failureSettingUpRegex
     case errorStrippingTemplates
     case emptyContent
 }
 
-public class AltText {
-    var context: JSContext
-
-    public init() throws {
-        context = JSContext()
-
-        let altPath = Bundle.main.path(forResource: "alt-text", ofType: "js", inDirectory: "sharedlib")!
-
-        let alt = try String(contentsOfFile: altPath)
-
-        context.evaluateScript(alt)
-    }
-
-    public func missingAltTextLinks(text: String, language: String, targetNamespaces: [String], targetAltParams: [String]) throws -> [MissingAltTextLink] {
-        let f = context.globalObject.objectForKeyedSubscript("missingAltTextLinks")!
-        let ret = f.call(withArguments:[text, language, targetNamespaces, targetAltParams])
-        var arr = [MissingAltTextLink]()
-        let len = Int(ret?.objectForKeyedSubscript("length").toInt32() ?? 0)
-        for i in 0..<len {
-            let link = ret?.objectAtIndexedSubscript(i)
-            let text = link?.objectForKeyedSubscript("text")?.toString()
-            let file = link?.objectForKeyedSubscript("file")?.toString()
-            let offset = link?.objectForKeyedSubscript("offset")?.toInt32()
-            let length = link?.objectForKeyedSubscript("length")?.toInt32()
-            arr.append(MissingAltTextLink(
-                text: text!,
-                file: file!,
-                offset: Int(offset!),
-                length: Int(length!)
-            ))
-        }
-        return arr
-    }
-}
-
-extension MissingAltTextLink {
+// Note: Ideally this would live in WMFData, but we can't move it there until we get magic words logic bundled there as well.
+extension WMFMissingAltTextLink {
     @available(iOS 16.0, *)
     
     // Extracts a caption for display only. Note this strips out embedded links, templates, and html tags from caption, so it may not exactly match the original caption.
@@ -65,7 +20,7 @@ extension MissingAltTextLink {
                 return nil
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         
@@ -76,7 +31,7 @@ extension MissingAltTextLink {
         do {
             try stripTemplateRecursive(text: &finalText)
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.errorStrippingTemplates
+            throw WMFMissingAltTextLinkExtractCaptionError.errorStrippingTemplates
         }
         
         // strip html
@@ -90,7 +45,7 @@ extension MissingAltTextLink {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         // strip params with px
@@ -101,7 +56,7 @@ extension MissingAltTextLink {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         // gather up all magic words
@@ -133,7 +88,7 @@ extension MissingAltTextLink {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         // strip embedded links
@@ -144,7 +99,7 @@ extension MissingAltTextLink {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         // strip the beginning and trailing links
@@ -169,7 +124,7 @@ extension MissingAltTextLink {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
         
         // strip remaining |, ], [ and spaces
@@ -203,7 +158,7 @@ extension MissingAltTextLink {
             }
             
         } catch {
-            throw MissingAltTextLinkExtractCaptionError.failureSettingUpRegex
+            throw WMFMissingAltTextLinkExtractCaptionError.failureSettingUpRegex
         }
     }
 }
