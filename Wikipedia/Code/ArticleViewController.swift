@@ -1147,7 +1147,7 @@ private extension ArticleViewController {
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
-        let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 
