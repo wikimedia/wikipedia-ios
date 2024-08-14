@@ -49,9 +49,7 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
     }
 
     @objc private func publishWikitext() {
-        self.dismiss(animated: true) {
-            self.delegate?.didTapPublish(viewModel: self.viewModel)
-        }
+        self.delegate?.didTapPublish(viewModel: self.viewModel)
 
     }
 }

@@ -175,12 +175,15 @@
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";
 "alt-text-add-button-title" = "添加";
+"alt-text-experiment-review-title" = "审查";
 "alt-text-do-not-add-button-title" = "不要添加";
 "alt-text-experiment-text-field-placholder" = "描述图片";
 "alt-text-experiment-view-title" = "添加替代文字";
+"alt-text-license" = "发布更改即表示您同意相关[使用条款]($1)，同时，您同意依据 [CC BY-SA 3.0]($2) 许可协议及 [GFDL]($#) 授权您的贡献，并在 Creative Commons 许可协议下以超链接或网址 (URL) 等方式署名。";
 "alt-text-modal-title" = "添加缺失的图像替代文字？";
 "alt-text-modal-subtitle-regular-edit" = "本文中有一张缺少替代文字的图像。为视障读者添加描述？";
 "alt-text-modal-subtitle-image-recommendation" = "上一个​​图像缺少替代文字。为视障读者添加图像描述";
+"alt-text-title" = "替代文字";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
 "app-store-release-notes" = "完全可以自定义，并更容易阅读探索订阅源。本地化、性能改进与错误修复。";

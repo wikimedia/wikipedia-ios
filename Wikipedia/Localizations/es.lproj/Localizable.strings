@@ -163,11 +163,16 @@
 "advanced-settings-title" = "Ajustes avanzados";
 "alt-text-add-button-title" = "Añadir";
 "alt-text-do-not-add-button-title" = "No añadir";
+"alt-text-experiment-caption-title" = "Subtítulo da imagem";
+"alt-text-experiment-edit-summary" = "Texto alternativo añadido";
+"alt-text-experiment-review-title" = "Revisar";
 "alt-text-experiment-text-field-placholder" = "Describir la imagen";
 "alt-text-experiment-view-title" = "Añadir texto alternativo";
+"alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
 "alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
 "alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
+"alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
 "app-store-release-notes" = "Canal Explorar completamente personalizable y fácil de leer. Localización, mejoras de rendimiento y corrección de fallos.";
