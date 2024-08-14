@@ -19,7 +19,6 @@ final fileprivate class WMFAltTextExperimentPreviewHostingViewController: WMFCom
 final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewController {
 
     private let hostingViewController: WMFAltTextExperimentPreviewHostingViewController
-    // add logging delegate
     private var viewModel: WMFAltTextExperimentPreviewViewModel
     public weak var delegate: WMFAltTextPreviewDelegate?
 
@@ -27,7 +26,6 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         self.hostingViewController = WMFAltTextExperimentPreviewHostingViewController(viewModel: viewModel)
         self.delegate = delegate
         self.viewModel = viewModel
-
         super.init()
     }
     
@@ -42,14 +40,18 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.localizedStrings.title
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
+        navigationItem.backButtonDisplayMode = .generic
+        let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .plain, target: self, action: #selector(publishWikitext))
         addComponent(hostingViewController, pinToEdges: true)
-
     }
 
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
+    }
 
+    @objc private func tappedBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
