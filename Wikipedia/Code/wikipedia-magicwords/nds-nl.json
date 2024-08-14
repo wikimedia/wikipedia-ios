@@ -145,10 +145,10 @@
   },
   {
     "aliases" : [
+      "Bestaand",
       "Afbeelding",
       "Image",
-      "Ofbeelding",
-      "Bestaand"
+      "Ofbeelding"
     ],
     "name" : "file_namespace"
   }

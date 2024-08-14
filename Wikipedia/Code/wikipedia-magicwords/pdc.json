@@ -140,10 +140,10 @@
   },
   {
     "aliases" : [
+      "Feil",
       "Bild",
       "Datei",
-      "Image",
-      "Feil"
+      "Image"
     ],
     "name" : "file_namespace"
   }

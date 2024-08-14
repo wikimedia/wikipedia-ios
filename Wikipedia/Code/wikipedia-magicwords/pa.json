@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "ਤਸਵੀਰ"
+      "ਤਸਵੀਰ",
+      "Image"
     ],
     "name" : "file_namespace"
   }

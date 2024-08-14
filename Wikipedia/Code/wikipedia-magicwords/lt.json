@@ -120,8 +120,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Vaizdas"
+      "Vaizdas",
+      "Image"
     ],
     "name" : "file_namespace"
   }

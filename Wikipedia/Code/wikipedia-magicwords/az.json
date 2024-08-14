@@ -116,10 +116,10 @@
   },
   {
     "aliases" : [
+      "Fayl",
       "FL",
       "Image",
-      "Şəkil",
-      "Fayl"
+      "Şəkil"
     ],
     "name" : "file_namespace"
   }

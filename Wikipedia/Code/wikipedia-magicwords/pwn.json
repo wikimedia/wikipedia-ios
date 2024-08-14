@@ -150,6 +150,7 @@
   },
   {
     "aliases" : [
+      "sineqetj a vecik",
       "Image",
       "图像",
       "图片",
@@ -157,8 +158,7 @@
       "圖片",
       "文件",
       "档案",
-      "檔案",
-      "sineqetj a vecik"
+      "檔案"
     ],
     "name" : "file_namespace"
   }

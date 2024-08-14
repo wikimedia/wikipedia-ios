@@ -124,9 +124,9 @@
   },
   {
     "aliases" : [
+      "Restr",
       "Image",
-      "Skeudenn",
-      "Restr"
+      "Skeudenn"
     ],
     "name" : "file_namespace"
   }

@@ -158,8 +158,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "চিত্র"
+      "চিত্র",
+      "Image"
     ],
     "name" : "file_namespace"
   }

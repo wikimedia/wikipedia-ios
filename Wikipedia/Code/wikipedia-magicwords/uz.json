@@ -116,10 +116,10 @@
   },
   {
     "aliases" : [
+      "Fayl",
       "File",
       "Image",
-      "Tasvir",
-      "Fayl"
+      "Tasvir"
     ],
     "name" : "file_namespace"
   }

@@ -127,8 +127,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Pilt"
+      "Pilt",
+      "Image"
     ],
     "name" : "file_namespace"
   }

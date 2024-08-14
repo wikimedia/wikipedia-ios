@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Dosiye"
+      "Dosiye",
+      "Image"
     ],
     "name" : "file_namespace"
   }

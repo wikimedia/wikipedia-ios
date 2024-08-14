@@ -141,8 +141,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "चित्र"
+      "चित्र",
+      "Image"
     ],
     "name" : "file_namespace"
   }

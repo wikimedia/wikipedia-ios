@@ -151,9 +151,9 @@
   },
   {
     "aliases" : [
+      "Fichier",
       "Bild",
-      "Image",
-      "Fichier"
+      "Image"
     ],
     "name" : "file_namespace"
   }

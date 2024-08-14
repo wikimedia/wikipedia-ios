@@ -123,9 +123,9 @@
   },
   {
     "aliases" : [
+      "فائل",
       "Image",
-      "عڪس",
-      "فائل"
+      "عڪس"
     ],
     "name" : "file_namespace"
   }

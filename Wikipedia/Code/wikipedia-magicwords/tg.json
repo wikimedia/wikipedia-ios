@@ -139,9 +139,9 @@
   },
   {
     "aliases" : [
+      "Акс",
       "File",
-      "Image",
-      "Акс"
+      "Image"
     ],
     "name" : "file_namespace"
   }

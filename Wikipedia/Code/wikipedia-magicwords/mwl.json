@@ -138,11 +138,11 @@
   },
   {
     "aliases" : [
+      "Fexeiro",
       "Arquivo",
       "Ficheiro",
       "Image",
-      "Imagem",
-      "Fexeiro"
+      "Imagem"
     ],
     "name" : "file_namespace"
   }

@@ -146,11 +146,11 @@
   },
   {
     "aliases" : [
+      "Dosya",
       "Archivo",
       "Dossia",
       "Image",
-      "Imagen",
-      "Dosya"
+      "Imagen"
     ],
     "name" : "file_namespace"
   }

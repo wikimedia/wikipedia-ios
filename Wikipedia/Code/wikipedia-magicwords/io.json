@@ -147,9 +147,9 @@
   },
   {
     "aliases" : [
+      "Arkivo",
       "Image",
-      "Imajo",
-      "Arkivo"
+      "Imajo"
     ],
     "name" : "file_namespace"
   }

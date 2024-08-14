@@ -135,10 +135,10 @@
   },
   {
     "aliases" : [
+      "Imajen",
       "Arquivo",
       "Image",
-      "Imagem",
-      "Imajen"
+      "Imagem"
     ],
     "name" : "file_namespace"
   }

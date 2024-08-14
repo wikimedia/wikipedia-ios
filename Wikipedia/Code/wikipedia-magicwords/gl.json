@@ -152,11 +152,11 @@
   },
   {
     "aliases" : [
+      "Ficheiro",
       "Arquivo",
       "Image",
       "Imagem",
-      "Imaxe",
-      "Ficheiro"
+      "Imaxe"
     ],
     "name" : "file_namespace"
   }

@@ -163,10 +163,10 @@
   },
   {
     "aliases" : [
+      "Fiila",
       "Bilde",
       "Image",
-      "Kuva",
-      "Fiila"
+      "Kuva"
     ],
     "name" : "file_namespace"
   }

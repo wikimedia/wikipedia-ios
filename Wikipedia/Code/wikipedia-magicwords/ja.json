@@ -137,9 +137,9 @@
   },
   {
     "aliases" : [
+      "ファイル",
       "Image",
-      "画像",
-      "ファイル"
+      "画像"
     ],
     "name" : "file_namespace"
   }

@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Ofbyld"
+      "Ofbyld",
+      "Image"
     ],
     "name" : "file_namespace"
   }

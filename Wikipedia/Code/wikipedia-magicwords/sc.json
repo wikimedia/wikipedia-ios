@@ -116,9 +116,9 @@
   },
   {
     "aliases" : [
+      "File",
       "Image",
-      "Immàgini",
-      "File"
+      "Immàgini"
     ],
     "name" : "file_namespace"
   }

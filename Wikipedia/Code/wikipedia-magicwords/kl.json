@@ -116,10 +116,10 @@
   },
   {
     "aliases" : [
+      "Fiileq",
       "Billede",
       "Fil",
-      "Image",
-      "Fiileq"
+      "Image"
     ],
     "name" : "file_namespace"
   }

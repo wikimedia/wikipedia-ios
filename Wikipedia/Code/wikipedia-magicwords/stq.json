@@ -140,9 +140,9 @@
   },
   {
     "aliases" : [
+      "Bielde",
       "Bild",
-      "Image",
-      "Bielde"
+      "Image"
     ],
     "name" : "file_namespace"
   }

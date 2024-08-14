@@ -158,8 +158,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "ছবি"
+      "ছবি",
+      "Image"
     ],
     "name" : "file_namespace"
   }

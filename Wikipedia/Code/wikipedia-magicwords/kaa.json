@@ -166,12 +166,12 @@
   },
   {
     "aliases" : [
+      "Fayl",
       "Image",
       "Su'wret",
       "Swret",
       "Сурет",
-      "سۋرەت",
-      "Fayl"
+      "سۋرەت"
     ],
     "name" : "file_namespace"
   }

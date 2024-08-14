@@ -141,10 +141,10 @@
   },
   {
     "aliases" : [
+      "Dosye",
       "Dosya",
       "Image",
-      "Resim",
-      "Dosye"
+      "Resim"
     ],
     "name" : "file_namespace"
   }

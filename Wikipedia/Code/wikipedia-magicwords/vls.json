@@ -133,9 +133,9 @@
   },
   {
     "aliases" : [
+      "Ofbeeldienge",
       "Afbeelding",
-      "Image",
-      "Ofbeeldienge"
+      "Image"
     ],
     "name" : "file_namespace"
   }

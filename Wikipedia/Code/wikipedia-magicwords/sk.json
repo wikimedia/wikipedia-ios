@@ -129,9 +129,9 @@
   },
   {
     "aliases" : [
+      "Súbor",
       "Image",
-      "Obrázok",
-      "Súbor"
+      "Obrázok"
     ],
     "name" : "file_namespace"
   }

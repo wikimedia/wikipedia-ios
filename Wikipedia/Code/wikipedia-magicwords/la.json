@@ -116,9 +116,9 @@
   },
   {
     "aliases" : [
+      "Fasciculus",
       "Image",
-      "Imago",
-      "Fasciculus"
+      "Imago"
     ],
     "name" : "file_namespace"
   }

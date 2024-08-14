@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Wepo"
+      "Wepo",
+      "Image"
     ],
     "name" : "file_namespace"
   }

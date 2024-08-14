@@ -150,9 +150,9 @@
   },
   {
     "aliases" : [
+      "Fájl",
       "Image",
-      "Kép",
-      "Fájl"
+      "Kép"
     ],
     "name" : "file_namespace"
   }

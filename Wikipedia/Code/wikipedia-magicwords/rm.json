@@ -144,9 +144,9 @@
   },
   {
     "aliases" : [
+      "Datoteca",
       "Bild",
-      "Image",
-      "Datoteca"
+      "Image"
     ],
     "name" : "file_namespace"
   }

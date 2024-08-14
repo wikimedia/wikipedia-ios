@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "ຮູບ"
+      "ຮູບ",
+      "Image"
     ],
     "name" : "file_namespace"
   }

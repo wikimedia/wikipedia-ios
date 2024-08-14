@@ -170,13 +170,13 @@
   },
   {
     "aliases" : [
+      "Datoteka",
       "DT",
       "Fotografija",
       "Image",
       "Slika",
       "ДТ",
-      "Датотека",
-      "Datoteka"
+      "Датотека"
     ],
     "name" : "file_namespace"
   }

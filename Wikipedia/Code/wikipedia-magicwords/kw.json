@@ -128,8 +128,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Restren"
+      "Restren",
+      "Image"
     ],
     "name" : "file_namespace"
   }

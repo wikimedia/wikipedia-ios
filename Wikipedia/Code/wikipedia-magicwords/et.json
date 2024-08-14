@@ -127,9 +127,9 @@
   },
   {
     "aliases" : [
+      "Fail",
       "Image",
-      "Pilt",
-      "Fail"
+      "Pilt"
     ],
     "name" : "file_namespace"
   }

@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "datnyvei"
+      "datnyvei",
+      "Image"
     ],
     "name" : "file_namespace"
   }

@@ -116,8 +116,8 @@
   },
   {
     "aliases" : [
-      "Image",
-      "Mynd"
+      "Mynd",
+      "Image"
     ],
     "name" : "file_namespace"
   }

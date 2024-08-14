@@ -144,11 +144,11 @@
   },
   {
     "aliases" : [
+      "Datei",
       "Beld",
       "Belld",
       "Bild",
-      "Image",
-      "Datei"
+      "Image"
     ],
     "name" : "file_namespace"
   }

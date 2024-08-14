@@ -137,9 +137,9 @@
   },
   {
     "aliases" : [
+      "Tập tin",
       "Hình",
-      "Image",
-      "Tập tin"
+      "Image"
     ],
     "name" : "file_namespace"
   }

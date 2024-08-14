@@ -139,10 +139,10 @@
   },
   {
     "aliases" : [
+      "Archivi",
       "Image",
       "Immagine",
-      "Imàjine",
-      "Archivi"
+      "Imàjine"
     ],
     "name" : "file_namespace"
   }
