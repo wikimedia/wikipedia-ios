@@ -628,4 +628,24 @@ final class WMFWikitextUtilsTests: XCTestCase {
         """
         XCTAssertEqual(insertedArticleWikitext, expectedInsertedArticleWikitext)
     }
+    
+    func testInsertAltText() {
+        let articleWikitext = """
+            [[File:Dog (Canis lupus familiaris) (5).JPG|thumb|Canis lupus familiaris]]
+            The '''dog''' or '''domestic dog''' (''Canis familiaris'' or ''Canis lupus familiaris'') is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf, and the modern wolf is the dog's nearest living relative. The dog was the first species to be domesticated, by hunter-gatherers over 15,000 years ago, before the development of agriculture. Due to their long association with humans, dogs have expanded to a large number of domestic individuals and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.
+            The dog has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes. Dog breeds vary widely in shape, size, and color. They perform many roles for humans, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, therapy, and aiding disabled people. Over the millennia, dogs became uniquely adapted to human behavior, and the human-canine bond has been a topic of frequent study. This influence on human society has given them the sobriquet of "man's best friend".
+        """
+        let expectedArticleWikitext = """
+            [[File:Dog (Canis lupus familiaris) (5).JPG|thumb| alt=Testing alt text. | Canis lupus familiaris]]
+            The '''dog''' or '''domestic dog''' (''Canis familiaris'' or ''Canis lupus familiaris'') is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf, and the modern wolf is the dog's nearest living relative. The dog was the first species to be domesticated, by hunter-gatherers over 15,000 years ago, before the development of agriculture. Due to their long association with humans, dogs have expanded to a large number of domestic individuals and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.
+            The dog has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes. Dog breeds vary widely in shape, size, and color. They perform many roles for humans, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, therapy, and aiding disabled people. Over the millennia, dogs became uniquely adapted to human behavior, and the human-canine bond has been a topic of frequent study. This influence on human society has given them the sobriquet of "man's best friend".
+        """
+        
+        if #available(iOS 16.0, *) {
+            let result = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: "alt=Testing alt text.", caption: "Canis lupus familiaris", imageWikitext: "[[File:Dog (Canis lupus familiaris) (5).JPG|thumb|Canis lupus familiaris]]", fullArticleWikitextWithImage: articleWikitext)
+            XCTAssertEqual(result, expectedArticleWikitext, "Unexpected article wikitext after inserting alt text.")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 }

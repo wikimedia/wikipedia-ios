@@ -226,6 +226,25 @@ public struct WMFWikitextUtils {
         insertedArticleWikitext.insert(contentsOf: finalImageWikitext, at: finalIndex)
         return insertedArticleWikitext
     }
+    
+    @available(iOS 16.0, *)
+    public static func insertAltTextIntoImageWikitext(altText: String, caption: String?, imageWikitext: String, fullArticleWikitextWithImage: String) -> String {
+        var finalImageWikitext = imageWikitext
+        if let caption,
+           let captionRegex = try? Regex("\\|\\s*\(caption)\\s*]]"),
+           let range = imageWikitext.ranges(of: captionRegex).first {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altText) | \(caption)]]")
+        } else if let range = imageWikitext.range(of: "]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altText)]]")
+        }
+        
+        var finalFullArticleWikitextWithImage = fullArticleWikitextWithImage
+        if let range = finalFullArticleWikitextWithImage.range(of: imageWikitext) {
+            finalFullArticleWikitextWithImage.replaceSubrange(range, with: finalImageWikitext)
+        }
+        
+        return finalFullArticleWikitextWithImage
+    }
 }
 
 fileprivate extension String {

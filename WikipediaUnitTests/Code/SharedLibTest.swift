@@ -127,5 +127,4 @@ final class SharedLibTest: XCTestCase {
             // Fallback on earlier versions
         }
     }
-
 }

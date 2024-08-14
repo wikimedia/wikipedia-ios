@@ -184,6 +184,46 @@ public final class WMFAltTextDataController {
         self.sawAltTextArticleEditorPrompt = true
     }
     
+    public func shouldFetchFullArticleWikitextFromArticleEditor(isLoggedIn: Bool, project: WMFProject) -> Bool {
+        
+        // feature flag enabled
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return false
+        }
+        
+        // haven't already seen the prompt elsewhere
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+            return false
+        }
+        
+        // is logged in
+        guard isLoggedIn else {
+            return false
+        }
+        
+        // is looking at the target experiment wikis
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
+            return false
+        }
+        
+        // iPhone, iOS 16+
+        guard isValidDeviceAndOS else {
+            return false
+        }
+        
+        // Before Oct 10
+        guard isBeforeEndDate else {
+            return false
+        }
+        
+        // Hasn't already been assigned the alt text editor experiment
+        guard experimentsDataController.bucketForExperiment(.altTextArticleEditor) == nil else {
+            return false
+        }
+        
+        return true
+    }
+    
     public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
         
         guard developerSettingsDataController.enableAltTextExperiment else {

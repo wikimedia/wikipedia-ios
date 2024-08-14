@@ -231,7 +231,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true) {
                 
-                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: changes.postedWikitext, lastRevisionID: changes.newRevisionID, sectionID: editor.sectionID)
+                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(fullArticleWikitext: changes.fullArticleWikitextForAltTextExperiment, lastRevisionID: changes.newRevisionID)
                 
                 let title = CommonStrings.editPublishedToastTitle
                 let image = UIImage(systemName: "checkmark.circle.fill")
@@ -250,11 +250,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
     }
     
-    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: String?, lastRevisionID: UInt64, sectionID: Int?) {
+    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(fullArticleWikitext: String?, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
               let languageCode = siteURL.wmf_languageCode,
-        let postedWikitext else {
+        let fullArticleWikitext else {
             return
         }
         
@@ -277,7 +277,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
             let jsAltTextDetector = try AltText()
             let fileMagicWords = MagicWordUtils.getMagicWordsForKey(.fileNamespace, languageCode: languageCode)
             let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode)
-            missingAltTextLink = try jsAltTextDetector.missingAltTextLinks(text: postedWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
+            missingAltTextLink = try jsAltTextDetector.missingAltTextLinks(text: fullArticleWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
         } catch {
             DDLogError("Error extracting missing alt text link: \(error)")
         }
@@ -300,12 +300,12 @@ extension ArticleViewController: EditorViewControllerDelegate {
         DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
         
         if dataController.shouldEnterAltTextArticleEditorFlow(isLoggedIn: isLoggedIn, project: project) {
-            presentAltTextPromptModal(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, postedWikitext: postedWikitext, lastRevisionID: lastRevisionID, sectionID: sectionID)
+            presentAltTextPromptModal(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID)
             dataController.markSawAltTextArticleEditorPrompt()
         }
     }
     
-    private func presentAltTextPromptModal(missingAltTextLink: MissingAltTextLink, filename: String, articleTitle: String, postedWikitext: String, lastRevisionID: UInt64, sectionID: Int?) {
+    private func presentAltTextPromptModal(missingAltTextLink: MissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         let siteURL = articleURL.wmf_site
         guard let languageCode = siteURL?.wmf_languageCode else {
@@ -330,8 +330,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 } else {
                     caption = nil
                 }
+                
                 // MAYBETODO: Figure out imageFullURL and imageThumbURL
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURL: nil, imageThumbURL: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: postedWikitext, lastRevisionID: lastRevisionID, sectionID: sectionID, isFlowB: false)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURL: nil, imageThumbURL: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false)
                 
                 let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: CommonStrings.altTextViewPlaceholder)
 
@@ -439,24 +440,12 @@ extension ArticleViewController: AltTextDelegate {
             return
         }
         
-        let originalFullArticleWikitext = viewModel.fullArticleWikitextWithImage
-        let originalImageWikitext = viewModel.imageWikitext
-        let originalCaption = viewModel.caption
-        
-        var finalImageWikitext = originalImageWikitext
-        var finalWikitext = originalFullArticleWikitext
-        
-        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
-        
-        if let originalCaption,
-           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
-        } else if let range = originalImageWikitext.range(of: "]]") {
-            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
-        }
-        
-        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
-            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
+        var finalWikitextToPublish: String?
+        if #available(iOS 16.0, *) {
+            let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
+            finalWikitextToPublish = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: altTextToInsert, caption: viewModel.caption, imageWikitext: viewModel.imageWikitext, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage)
+        } else {
+            return
         }
                 
         let section: String?
@@ -467,7 +456,7 @@ extension ArticleViewController: AltTextDelegate {
         }
         
         let fetcher = WikiTextSectionUploader()
-        fetcher.uploadWikiText(finalWikitext, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+        fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
             
             DispatchQueue.main.async {
                 
