@@ -227,7 +227,16 @@ public struct WMFWikitextUtils {
         return insertedArticleWikitext
     }
     
+    // MARK: - Insert Alt text Into Image Wikitext
+    
     @available(iOS 16.0, *)
+    /// Given full article wikitext, image wikitext within full article wikitext, caption within image wikitext, and new alt text, this method inserts the alt text in the correct spot and returns the new full article wikitext for posting.
+    /// - Parameters:
+    ///   - altText: Alt text to insert into imageWikitext
+    ///   - caption: Caption that resides in the image wikitext
+    ///   - imageWikitext: image wikitext ([[File: Test.jpg | thumb | Caption text.]])
+    ///   - fullArticleWikitextWithImage: Full article wikitext, which must already contain imageWikitext.
+    /// - Returns: Full article wikitext with alt text inserted into the correct spot within imageWikitext
     public static func insertAltTextIntoImageWikitext(altText: String, caption: String?, imageWikitext: String, fullArticleWikitextWithImage: String) -> String {
         var finalImageWikitext = imageWikitext
         if let caption,
