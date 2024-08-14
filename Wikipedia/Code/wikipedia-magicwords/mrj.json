@@ -1,11 +1,35 @@
 [
   {
     "aliases" : [
+      "чек",
+      "граница",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "ӱлычын",
+      "снизу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "шола",
       "слева",
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "покшелне",
+      "посередине",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -17,10 +41,42 @@
   },
   {
     "aliases" : [
+      "йымалне",
+      "под",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "ӱмбалне",
+      "над",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "кӱшычын",
+      "сверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "альт=$1",
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "основание",
+      "baseline"
+    ],
+    "name" : "img_baseline"
   },
   {
     "aliases" : [
@@ -55,6 +111,20 @@
   },
   {
     "aliases" : [
+      "текст-снизу",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "текст-сверху",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "мини",
       "миниатюра",
       "thumb",
@@ -64,6 +134,19 @@
   },
   {
     "aliases" : [
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
+      "Изображение",
       "Файл"
     ],
     "name" : "file_namespace"

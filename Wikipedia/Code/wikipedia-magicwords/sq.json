@@ -141,6 +141,8 @@
   },
   {
     "aliases" : [
+      "Figura",
+      "Image",
       "Skeda"
     ],
     "name" : "file_namespace"

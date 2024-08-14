@@ -1,6 +1,33 @@
 [
   {
     "aliases" : [
+      "base",
+      "ligne-de-base",
+      "baseline",
+      "основание"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bordure",
+      "border",
+      "borde",
+      "граница"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bas",
+      "bottom",
+      "abajo",
+      "снизу"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centré",
       "center",
       "centre",
@@ -53,6 +80,15 @@
   },
   {
     "aliases" : [
+      "milieu",
+      "middle",
+      "medio",
+      "посередине"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "néant",
       "neant",
       "none",
@@ -77,6 +113,43 @@
   },
   {
     "aliases" : [
+      "indice",
+      "ind",
+      "sub",
+      "под"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "exposant",
+      "exp",
+      "super",
+      "sup",
+      "над"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "bas-texte",
+      "bas-txt",
+      "text-bottom",
+      "текст-снизу"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "haut-texte",
+      "haut-txt",
+      "text-top",
+      "текст-сверху"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "vignette",
       "thumb",
       "thumbnail",
@@ -90,6 +163,29 @@
   },
   {
     "aliases" : [
+      "haut",
+      "top",
+      "arriba",
+      "сверху"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redresse",
+      "redresse=$1",
+      "redresse_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "альт=$1",
       "alt=$1"
     ],
@@ -97,6 +193,10 @@
   },
   {
     "aliases" : [
+      "Ewava",
+      "Image",
+      "Imagen",
+      "Изображение",
       "Iyeltak"
     ],
     "name" : "file_namespace"

@@ -140,6 +140,9 @@
   },
   {
     "aliases" : [
+      "Bild",
+      "Image",
+      "Wobraz",
       "Dataja"
     ],
     "name" : "file_namespace"

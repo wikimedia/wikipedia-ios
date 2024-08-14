@@ -136,6 +136,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "រូបភាព",
       "ឯកសារ"
     ],
     "name" : "file_namespace"

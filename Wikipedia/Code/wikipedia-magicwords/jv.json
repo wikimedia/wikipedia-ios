@@ -152,6 +152,8 @@
   },
   {
     "aliases" : [
+      "Gambar",
+      "Image",
       "Barkas"
     ],
     "name" : "file_namespace"

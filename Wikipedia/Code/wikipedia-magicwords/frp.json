@@ -169,6 +169,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Émâge",
       "Fichiér"
     ],
     "name" : "file_namespace"

@@ -146,6 +146,10 @@
   },
   {
     "aliases" : [
+      "Archivo",
+      "Dossia",
+      "Image",
+      "Imagen",
       "Dosya"
     ],
     "name" : "file_namespace"

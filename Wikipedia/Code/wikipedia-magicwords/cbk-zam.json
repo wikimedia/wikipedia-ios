@@ -143,6 +143,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imagen",
       "Archivo"
     ],
     "name" : "file_namespace"

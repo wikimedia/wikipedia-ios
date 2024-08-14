@@ -137,6 +137,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Зург",
+      "Изображение",
       "Боомг"
     ],
     "name" : "file_namespace"
