@@ -111,7 +111,7 @@
 "alt-text-experiment-review-title" = "Title for the review stpe of the alt text experiment";
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";
-"alt-text-license" = "Text for information about the Terms of Use and edit licenses. Do not translate url. $1 and $1 are replaced by the terms of use and license links.";
+"alt-text-license" = "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. $1, $2 and $3 are replaced by the terms of use and license links.";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
 "alt-text-modal-subtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "alt-text-modal-title" = "Title text for the alt text suggested edit prompt modal";
