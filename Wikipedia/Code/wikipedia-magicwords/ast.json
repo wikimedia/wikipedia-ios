@@ -143,6 +143,11 @@
   },
   {
     "aliases" : [
+      "Archivu",
+      "Image",
+      "Imagen",
+      "Imaxe",
+      "Imaxen",
       "Ficheru"
     ],
     "name" : "file_namespace"

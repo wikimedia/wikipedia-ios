@@ -138,6 +138,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "تصویر",
+      "ملف",
       "فائل"
     ],
     "name" : "file_namespace"

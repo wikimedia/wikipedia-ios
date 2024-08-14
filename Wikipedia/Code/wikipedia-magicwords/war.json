@@ -116,6 +116,8 @@
   },
   {
     "aliases" : [
+      "Fayl",
+      "Image",
       "Paypay"
     ],
     "name" : "file_namespace"

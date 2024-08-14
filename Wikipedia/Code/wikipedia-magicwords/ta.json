@@ -123,6 +123,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "படிமம்"
     ],
     "name" : "file_namespace"

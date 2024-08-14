@@ -1,6 +1,28 @@
 [
   {
     "aliases" : [
+      "tabançizgisi",
+      "altçizgi",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sınır",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "taban",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "orta",
       "center",
       "centre"
@@ -33,6 +55,13 @@
   },
   {
     "aliases" : [
+      "merkez",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "yok",
       "none"
     ],
@@ -47,6 +76,37 @@
   },
   {
     "aliases" : [
+      "alt",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "üst",
+      "üs",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "metin-taban",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "metin-tavan",
+      "metin-tepe",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "küçükresim",
       "küçük",
       "thumb",
@@ -56,12 +116,33 @@
   },
   {
     "aliases" : [
+      "tepe",
+      "tavan",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "dikey",
+      "dikey=$1",
+      "dikey $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
+      "Image",
+      "Resim",
       "Dosya"
     ],
     "name" : "file_namespace"

@@ -43,6 +43,23 @@
   },
   {
     "aliases" : [
+      "grunnlinje",
+      "baseline",
+      "perustaso"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bunn",
+      "bottom",
+      "alas",
+      "alhaalla"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "ramme",
       "framed",
       "enframed",
@@ -63,11 +80,74 @@
   },
   {
     "aliases" : [
+      "midt",
+      "middle",
+      "keskellä"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ingen",
       "none",
       "tyhjä"
     ],
     "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "tekst-bunn",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "topp",
+      "top",
+      "ylös",
+      "ylhäällä"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "portrett",
+      "portrett=$1",
+      "portrett_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "pysty",
+      "pysty=$1",
+      "pysty_$1",
+      "yläoikea",
+      "yläoikea=$1",
+      "yläoikea_$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "reunus",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "alaindeksi",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "yläindeksi",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
   },
   {
     "aliases" : [
@@ -77,6 +157,15 @@
   },
   {
     "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "Bilde",
+      "Image",
+      "Kuva",
       "Fiila"
     ],
     "name" : "file_namespace"

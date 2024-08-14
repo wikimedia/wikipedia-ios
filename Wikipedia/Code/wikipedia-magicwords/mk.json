@@ -149,6 +149,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Слика",
       "Податотека"
     ],
     "name" : "file_namespace"

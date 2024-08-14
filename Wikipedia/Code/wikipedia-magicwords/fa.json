@@ -140,6 +140,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "تصویر",
       "پرونده"
     ],
     "name" : "file_namespace"

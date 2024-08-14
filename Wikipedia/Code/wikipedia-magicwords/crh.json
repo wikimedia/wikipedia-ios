@@ -116,6 +116,10 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Resim",
+      "Ресим",
+      "Файл",
       "Fayl"
     ],
     "name" : "file_namespace"

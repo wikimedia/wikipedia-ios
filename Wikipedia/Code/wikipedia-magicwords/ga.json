@@ -124,6 +124,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Íomhá"
     ],
     "name" : "file_namespace"

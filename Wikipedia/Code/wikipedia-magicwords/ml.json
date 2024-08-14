@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "താഴെയുള്ളവര",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "അതിർവര",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "താഴെ",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "നടുവിൽ",
       "നടുക്ക്‌",
       "center",
@@ -42,6 +63,13 @@
   },
   {
     "aliases" : [
+      "മദ്ധ്യം",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ശൂന്യം",
       "none"
     ],
@@ -57,6 +85,35 @@
   },
   {
     "aliases" : [
+      "കീഴെയെഴുത്ത്",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "മേലേയെഴുത്ത്",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "എഴുത്ത്-താഴെ",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "എഴുത്ത്-മേലെ",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "ലഘുചിത്രം",
       "ലഘു",
       "thumb",
@@ -66,6 +123,28 @@
   },
   {
     "aliases" : [
+      "മേലെ",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "നേരേകുത്തനെ",
+      "നേരേകുത്തനെ=$1",
+      "നേരേകുത്തനെ_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
+      "ചി",
+      "ചിത്രം",
+      "പ്ര",
       "പ്രമാണം"
     ],
     "name" : "file_namespace"

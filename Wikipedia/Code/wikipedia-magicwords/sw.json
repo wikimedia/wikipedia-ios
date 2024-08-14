@@ -116,6 +116,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Picha",
       "Faili"
     ],
     "name" : "file_namespace"

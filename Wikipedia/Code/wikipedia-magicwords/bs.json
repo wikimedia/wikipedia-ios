@@ -141,6 +141,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Slika",
       "Datoteka"
     ],
     "name" : "file_namespace"

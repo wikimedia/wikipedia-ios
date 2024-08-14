@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "γραμμήβάσης",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "πλαίσιο",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "κάτω",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "κέντρο",
       "center",
       "centre"
@@ -39,6 +60,13 @@
   },
   {
     "aliases" : [
+      "μέσο",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "καθόλου",
       "none"
     ],
@@ -53,6 +81,35 @@
   },
   {
     "aliases" : [
+      "δείκτης",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "εκθέτης",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "κάτω-από-το-κείμενο",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "πάνω-από-το-κείμενο",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "μικρογραφία",
       "μινιατούρα",
       "thumb",
@@ -62,6 +119,26 @@
   },
   {
     "aliases" : [
+      "άνω",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "κατακόρυφα",
+      "κατακόρυφα=$1",
+      "κατακόρυφα_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
+      "Εικόνα",
       "Αρχείο"
     ],
     "name" : "file_namespace"

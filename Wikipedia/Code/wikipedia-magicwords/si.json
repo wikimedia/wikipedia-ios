@@ -123,6 +123,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "රූපය",
       "ගොනුව"
     ],
     "name" : "file_namespace"

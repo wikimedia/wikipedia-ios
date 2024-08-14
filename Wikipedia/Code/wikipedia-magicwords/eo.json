@@ -147,6 +147,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Dosiero"
     ],
     "name" : "file_namespace"

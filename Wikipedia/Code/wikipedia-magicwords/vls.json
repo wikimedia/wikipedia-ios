@@ -133,6 +133,8 @@
   },
   {
     "aliases" : [
+      "Afbeelding",
+      "Image",
       "Ofbeeldienge"
     ],
     "name" : "file_namespace"

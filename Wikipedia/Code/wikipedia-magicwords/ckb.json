@@ -123,6 +123,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "پەڕگە"
     ],
     "name" : "file_namespace"

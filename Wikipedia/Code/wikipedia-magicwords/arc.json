@@ -1,6 +1,20 @@
 [
   {
     "aliases" : [
+      "ܣܪܛܐ_ܫܪܫܝܐ",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "ܬܚܘܡܐ",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "ܡܨܥܐ",
       "center",
       "centre"
@@ -30,6 +44,13 @@
   },
   {
     "aliases" : [
+      "ܦܪܥܝܐ",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
       "ܙܥܘܪܬܐ",
       "thumb",
       "thumbnail"
@@ -41,6 +62,12 @@
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
   },
   {
     "aliases" : [
@@ -58,6 +85,46 @@
   },
   {
     "aliases" : [
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
       "ܠܦܦܐ"
     ],
     "name" : "file_namespace"

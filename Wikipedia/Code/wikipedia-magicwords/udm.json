@@ -137,6 +137,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Изображение",
+      "Суред",
       "Файл"
     ],
     "name" : "file_namespace"

@@ -123,6 +123,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "عڪس",
       "فائل"
     ],
     "name" : "file_namespace"

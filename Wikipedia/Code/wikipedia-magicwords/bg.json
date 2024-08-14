@@ -132,6 +132,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Картинка",
       "Файл"
     ],
     "name" : "file_namespace"

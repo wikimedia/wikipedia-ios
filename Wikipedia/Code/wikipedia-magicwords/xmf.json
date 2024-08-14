@@ -130,6 +130,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "სურათი",
       "ფაილი"
     ],
     "name" : "file_namespace"

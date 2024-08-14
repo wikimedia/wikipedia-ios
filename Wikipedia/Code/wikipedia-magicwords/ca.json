@@ -158,6 +158,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imatge",
       "Fitxer"
     ],
     "name" : "file_namespace"

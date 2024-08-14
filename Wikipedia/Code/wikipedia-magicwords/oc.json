@@ -182,6 +182,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imatge",
       "Fichièr"
     ],
     "name" : "file_namespace"

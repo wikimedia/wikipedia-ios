@@ -136,6 +136,9 @@
   },
   {
     "aliases" : [
+      "Fişier",
+      "Image",
+      "Imagine",
       "Chitro"
     ],
     "name" : "file_namespace"

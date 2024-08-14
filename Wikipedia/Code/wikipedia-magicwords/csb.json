@@ -134,6 +134,8 @@
   },
   {
     "aliases" : [
+      "Grafika",
+      "Image",
       "Òbrôzk"
     ],
     "name" : "file_namespace"

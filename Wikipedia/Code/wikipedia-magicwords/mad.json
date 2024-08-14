@@ -152,6 +152,8 @@
   },
   {
     "aliases" : [
+      "Gambar",
+      "Image",
       "Bhengkek"
     ],
     "name" : "file_namespace"

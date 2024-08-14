@@ -141,6 +141,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Swret",
+      "سۋرەت",
       "Сурет"
     ],
     "name" : "file_namespace"

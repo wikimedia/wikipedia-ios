@@ -170,6 +170,12 @@
   },
   {
     "aliases" : [
+      "DT",
+      "Fotografija",
+      "Image",
+      "Slika",
+      "ДТ",
+      "Датотека",
       "Datoteka"
     ],
     "name" : "file_namespace"

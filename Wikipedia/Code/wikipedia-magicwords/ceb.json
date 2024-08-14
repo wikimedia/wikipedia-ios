@@ -116,6 +116,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imahen",
       "Payl"
     ],
     "name" : "file_namespace"

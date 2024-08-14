@@ -8,6 +8,29 @@
   },
   {
     "aliases" : [
+      "tiksisiqi",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "saywa",
+      "borde",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "sikipi",
+      "bottom",
+      "abajo"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "chawpi",
       "centro",
       "centrado",
@@ -55,6 +78,14 @@
   },
   {
     "aliases" : [
+      "ukhupi",
+      "middle",
+      "medio"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "manaima",
       "mana",
       "ninguna",
@@ -78,6 +109,35 @@
   },
   {
     "aliases" : [
+      "uran",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "hanan",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "qillqasiki",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "qillqahawa",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "rikchacha",
       "miniaturadeimagen",
       "mini",
@@ -89,6 +149,26 @@
   },
   {
     "aliases" : [
+      "hawa",
+      "top",
+      "arriba"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "sayaq",
+      "sayaq=$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
+      "Imagen",
       "Rikcha"
     ],
     "name" : "file_namespace"

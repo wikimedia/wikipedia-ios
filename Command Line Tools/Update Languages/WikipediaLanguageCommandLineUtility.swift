@@ -101,9 +101,14 @@ class WikipediaLanguageCommandLineUtility {
             $0.name == "img_top" ||
             $0.name == "img_upright"
         }
+
+        let namespaceAliases = siteInfo.query.namespacealiases
+        var fileNamespaceMagicWords = namespaceAliases.filter { $0.id == 6 }.map { $0.alias }
         if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
-            recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))
+            fileNamespaceMagicWords.append(fileNamespaceMagicWord)
         }
+        recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: fileNamespaceMagicWords))
+        
         let namespaceInfo = WikipediaSiteInfoLookup.NamespaceInfo(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
         return WikipediaSiteInfoLookup(namespaceInfo: namespaceInfo, magicWordInfo: recognizedMagicWords)
     }

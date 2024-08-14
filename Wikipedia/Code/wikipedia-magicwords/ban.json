@@ -152,6 +152,9 @@
   },
   {
     "aliases" : [
+      "File",
+      "Gambar",
+      "Image",
       "Berkas"
     ],
     "name" : "file_namespace"

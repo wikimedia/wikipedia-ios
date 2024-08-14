@@ -136,6 +136,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Immagine",
+      "Mmàggini",
       "File"
     ],
     "name" : "file_namespace"

@@ -121,6 +121,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imej",
       "Fail"
     ],
     "name" : "file_namespace"

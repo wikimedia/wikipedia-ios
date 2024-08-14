@@ -124,6 +124,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Ladawan"
     ],
     "name" : "file_namespace"

@@ -116,6 +116,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Coadan"
     ],
     "name" : "file_namespace"

@@ -145,6 +145,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Fiché"
     ],
     "name" : "file_namespace"

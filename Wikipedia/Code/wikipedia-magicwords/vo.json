@@ -116,6 +116,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Magod",
       "Ragiv"
     ],
     "name" : "file_namespace"

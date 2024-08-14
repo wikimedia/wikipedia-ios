@@ -121,6 +121,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "انځور",
       "دوتنه"
     ],
     "name" : "file_namespace"

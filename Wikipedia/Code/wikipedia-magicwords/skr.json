@@ -116,6 +116,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "فائل"
     ],
     "name" : "file_namespace"

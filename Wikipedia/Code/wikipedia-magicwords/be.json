@@ -123,6 +123,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Выява",
       "Файл"
     ],
     "name" : "file_namespace"

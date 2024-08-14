@@ -150,6 +150,14 @@
   },
   {
     "aliases" : [
+      "Image",
+      "图像",
+      "图片",
+      "圖像",
+      "圖片",
+      "文件",
+      "档案",
+      "檔案",
       "tangan"
     ],
     "name" : "file_namespace"

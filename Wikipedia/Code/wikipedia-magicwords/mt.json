@@ -140,6 +140,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Stampa"
     ],
     "name" : "file_namespace"

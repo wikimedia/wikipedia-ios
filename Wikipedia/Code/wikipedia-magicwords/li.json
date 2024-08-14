@@ -133,6 +133,9 @@
   },
   {
     "aliases" : [
+      "Aafbeilding",
+      "Afbeelding",
+      "Image",
       "Plaetje"
     ],
     "name" : "file_namespace"

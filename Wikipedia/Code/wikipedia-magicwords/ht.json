@@ -145,6 +145,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imaj",
       "Fichye"
     ],
     "name" : "file_namespace"

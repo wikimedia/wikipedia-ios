@@ -116,6 +116,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "ስዕል"
     ],
     "name" : "file_namespace"

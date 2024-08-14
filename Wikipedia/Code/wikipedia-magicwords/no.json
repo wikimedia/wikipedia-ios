@@ -1,6 +1,20 @@
 [
   {
     "aliases" : [
+      "grunnlinje",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bunn",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "sentrer",
       "senter",
       "midtstilt",
@@ -38,6 +52,13 @@
   },
   {
     "aliases" : [
+      "midt",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ingen",
       "none"
     ],
@@ -53,6 +74,13 @@
   },
   {
     "aliases" : [
+      "tekst-bunn",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
       "miniatyr",
       "mini",
       "thumbnail",
@@ -62,12 +90,57 @@
   },
   {
     "aliases" : [
+      "topp",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "portrett",
+      "portrett=$1",
+      "portrett_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "Bilde",
+      "Image",
       "Fil"
     ],
     "name" : "file_namespace"

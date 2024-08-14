@@ -116,6 +116,8 @@
   },
   {
     "aliases" : [
+      "Billede",
+      "Image",
       "Fil"
     ],
     "name" : "file_namespace"

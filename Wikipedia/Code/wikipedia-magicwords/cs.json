@@ -129,6 +129,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Obrázok",
       "Soubor"
     ],
     "name" : "file_namespace"

@@ -146,6 +146,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Imagen",
       "Imachen"
     ],
     "name" : "file_namespace"

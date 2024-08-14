@@ -137,6 +137,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Изображение",
       "Сурат"
     ],
     "name" : "file_namespace"

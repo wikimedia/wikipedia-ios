@@ -152,6 +152,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Gambar"
     ],
     "name" : "file_namespace"

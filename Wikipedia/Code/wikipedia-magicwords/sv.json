@@ -1,6 +1,27 @@
 [
   {
     "aliases" : [
+      "baslinje",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "kantlinje",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "botten",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centrerad",
       "center",
       "centre"
@@ -33,6 +54,13 @@
   },
   {
     "aliases" : [
+      "mitten",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ingen",
       "none"
     ],
@@ -47,6 +75,35 @@
   },
   {
     "aliases" : [
+      "ned",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "upp",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-botten",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-topp",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "miniatyr",
       "mini",
       "thumb",
@@ -56,12 +113,32 @@
   },
   {
     "aliases" : [
+      "topp",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "stående",
+      "stående=$1",
+      "stående $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
+      "Bild",
+      "Image",
       "Fil"
     ],
     "name" : "file_namespace"

@@ -122,6 +122,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Պատկեր"
     ],
     "name" : "file_namespace"

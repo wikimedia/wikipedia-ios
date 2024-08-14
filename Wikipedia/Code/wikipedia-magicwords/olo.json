@@ -141,6 +141,8 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Kuva",
       "Failu"
     ],
     "name" : "file_namespace"

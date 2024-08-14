@@ -150,6 +150,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "בילד",
+      "תמונה",
       "טעקע"
     ],
     "name" : "file_namespace"

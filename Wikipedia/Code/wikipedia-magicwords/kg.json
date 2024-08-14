@@ -116,6 +116,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Fisye"
     ],
     "name" : "file_namespace"

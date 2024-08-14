@@ -136,6 +136,9 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Immagine",
+      "Imàjine",
       "File"
     ],
     "name" : "file_namespace"

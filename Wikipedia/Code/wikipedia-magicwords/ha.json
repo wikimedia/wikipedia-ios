@@ -116,6 +116,7 @@
   },
   {
     "aliases" : [
+      "Image",
       "Fayil"
     ],
     "name" : "file_namespace"

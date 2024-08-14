@@ -10,6 +10,29 @@
   },
   {
     "aliases" : [
+      "baseline",
+      "基线"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border",
+      "边框",
+      "邊框"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bottom",
+      "底部",
+      "垂直置底"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "center",
       "centre",
       "居中",
@@ -43,6 +66,14 @@
   },
   {
     "aliases" : [
+      "middle",
+      "中间",
+      "垂直置中"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "none",
       "无",
       "無"
@@ -58,6 +89,39 @@
   },
   {
     "aliases" : [
+      "sub",
+      "子",
+      "下標"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup",
+      "超",
+      "上標"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom",
+      "文字底部",
+      "文字置底"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top",
+      "文字顶部",
+      "文字置頂"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail",
       "缩略图",
@@ -67,6 +131,33 @@
   },
   {
     "aliases" : [
+      "top",
+      "顶部",
+      "垂直置頂"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "右上",
+      "右上=$1",
+      "右上$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
+      "图像",
+      "图片",
+      "圖像",
+      "圖片",
+      "文件",
+      "档案",
+      "檔案",
       "File"
     ],
     "name" : "file_namespace"

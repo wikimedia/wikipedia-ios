@@ -141,6 +141,10 @@
   },
   {
     "aliases" : [
+      "Image",
+      "Räsem",
+      "Изображение",
+      "Рәсем",
       "Файл"
     ],
     "name" : "file_namespace"

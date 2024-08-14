@@ -116,6 +116,9 @@
   },
   {
     "aliases" : [
+      "Billede",
+      "Fil",
+      "Image",
       "Fiileq"
     ],
     "name" : "file_namespace"
