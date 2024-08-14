@@ -88,10 +88,11 @@ public extension WMFWikitextUtils {
     static func insertAltTextIntoImageWikitext(altText: String, caption: String?, imageWikitext: String, fullArticleWikitextWithImage: String) -> String {
         var finalImageWikitext = imageWikitext
         if let caption,
-           let captionRegex = try? Regex("\\|\\s*\(caption)\\s*]]"),
+           let captionRegex = try? Regex("\\|\\s*\(caption)\\s*]]$"),
            let range = imageWikitext.ranges(of: captionRegex).first {
             finalImageWikitext.replaceSubrange(range, with: "| \(altText) | \(caption)]]")
-        } else if let range = imageWikitext.range(of: "]]") {
+        } else if let finalLinkRegex = try? Regex("]]$"),
+                  let range = imageWikitext.ranges(of: finalLinkRegex).first {
             finalImageWikitext.replaceSubrange(range, with: "| \(altText)]]")
         }
         

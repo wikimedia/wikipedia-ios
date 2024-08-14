@@ -651,6 +651,24 @@ final class WMFWikitextUtilsTests: XCTestCase {
         }
     }
     
+    func testInsertAltText2() {
+        let articleWikitext = """
+        {{Expand section|date=April 2013}}
+        [[File:KiraMuratova OdFest.jpg|thumb|Muratova in 2010 conducting her personal master class at the [[Odessa International Film Festival]].]]
+        """
+        let expectedArticleWikitext = """
+        {{Expand section|date=April 2013}}
+        [[File:KiraMuratova OdFest.jpg|thumb|Muratova in 2010 conducting her personal master class at the [[Odessa International Film Festival]].| alt=Testing alt text.]]
+        """
+        
+        if #available(iOS 16.0, *) {
+            let result = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: "alt=Testing alt text.", caption: "Muratova in 2010 conducting her personal master class at the Odessa International Film Festival.", imageWikitext: "[[File:KiraMuratova OdFest.jpg|thumb|Muratova in 2010 conducting her personal master class at the [[Odessa International Film Festival]].]]", fullArticleWikitextWithImage: articleWikitext)
+            XCTAssertEqual(result, expectedArticleWikitext, "Unexpected article wikitext after inserting alt text.")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     func testAltTextDetectorCaptionNoAlt() throws {
         let text = "[[File:Test no alt.jpg|caption here]]"
         let wikitext = "text text " + text + " text text"
