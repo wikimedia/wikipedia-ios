@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // scene(_ scene: UIScene, continue userActivity: NSUserActivity) and
         // scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
         // windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
-        // are not called upon cold launch, so we need to handle them explicitly here.
+        // are not called upon terminated state, so we need to handle them explicitly here.
         if let userActivity = connectionOptions.userActivities.first {
             processUserActivity(userActivity)
         } else if !connectionOptions.urlContexts.isEmpty {
