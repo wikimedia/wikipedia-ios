@@ -142,6 +142,11 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
 
+        if let altText = viewModel?.altText {
+            placeholder.isHidden = true
+            textView.text = altText
+        }
+
         titleLabel.font = WMFFont.for(.boldTitle3, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         placeholder.font = WMFFont.for(.callout, compatibleWith: traitCollection)
@@ -212,7 +217,9 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
               !altText.isEmpty else {
             return
         }
-        
+
+        viewModel?.altText = altText
+
         nextButton.isEnabled = false
         
         delegate?.didTapNext(altText: altText)

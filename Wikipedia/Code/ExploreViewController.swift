@@ -1805,8 +1805,14 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
                 DispatchQueue.main.async {
 
-                    self.navigationController?.popViewController(animated: true) // not dismissing article view
-
+                    if let navigationController = self.navigationController {
+                        for viewController in navigationController.viewControllers {
+                            if viewController is WMFImageRecommendationsViewController {
+                                navigationController.popToViewController(viewController, animated: true)
+                                break
+                            }
+                        }
+                    }
                     guard let fetchedData = result as? [String: Any],
                           let newRevID = fetchedData["newrevid"] as? UInt64 else {
                         return

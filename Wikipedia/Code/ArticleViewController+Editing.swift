@@ -313,12 +313,13 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
     
     func didTapNext(altText: String) {
-        
+
         guard let altTextExperimentViewModel else {
             return
         }
 
         altTextDelegate?.didTapNext(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
+        self.didTapPreview = true
     }
 }
 

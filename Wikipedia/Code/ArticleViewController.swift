@@ -30,7 +30,10 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Use separate properties for URL and language code since they're optional on WMFArticle and to save having to re-calculate them
     @objc public var articleURL: URL
     let articleLanguageCode: String
-    
+
+    /// Set when coming back from alt text preview
+    var didTapPreview: Bool = false
+
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
@@ -385,7 +388,12 @@ class ArticleViewController: ViewController, HintPresenting {
         if altTextExperimentViewModel == nil {
             setupWButton()
         }
-        
+
+        if didTapPreview {
+            presentAltTextModalSheet()
+            didTapPreview = false
+        }
+
         guard isFirstAppearance else {
             return
         }
@@ -481,20 +489,14 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    private func setupForAltTextExperiment() {
-
-        guard let altTextExperimentViewModel,
-         let altTextBottomSheetViewModel else {
-            return
-        }
-        
-        let oldContentInset = webView.scrollView.contentInset
-        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
-        messagingController.hideEditPencils()
-        messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
-        
+   private func presentAltTextModalSheet() {
+       // from bottom sheet PR
+       guard let altTextExperimentViewModel,
+             let altTextBottomSheetViewModel else {
+           return
+       }
         let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
-
+        
         if #available(iOS 16.0, *) {
             if let sheet = bottomSheetViewController.sheetPresentationController {
                 sheet.delegate = self
@@ -508,9 +510,24 @@ class ArticleViewController: ViewController, HintPresenting {
                 sheet.prefersGrabberVisible = true
             }
             bottomSheetViewController.isModalInPresentation = true
-
+            
             present(bottomSheetViewController, animated: true, completion: nil)
         }
+    }
+    
+    private func setupForAltTextExperiment() {
+
+        guard let altTextExperimentViewModel,
+         let altTextBottomSheetViewModel else {
+            return
+        }
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+        messagingController.hideEditPencils()
+        messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
+        
+        presentAltTextModalSheet()
     }
     
     internal func loadSummary(oldState: ViewState) {
