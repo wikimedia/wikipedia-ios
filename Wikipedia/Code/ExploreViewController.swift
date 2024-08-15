@@ -1754,12 +1754,21 @@ extension ExploreViewController: AltTextDelegate {
                 
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
-            navigationController?.popViewController(animated: true)
-            
-            // wait for animation to complete
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                self?.presentAltTextEditPublishedToast()
-                self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
+            // dismisses half sheet modal
+            articleViewController.dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                // pops off Article VC, back to Image Recs.
+                navigationController?.popViewController(animated: true)
+                
+                // wait for pop animation to complete
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                    self?.presentAltTextEditPublishedToast()
+                    self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
+                }
             }
             
             return
@@ -1777,18 +1786,27 @@ extension ExploreViewController: AltTextDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    self.navigationController?.popViewController(animated: true)
-                    
-                    guard let fetchedData = result as? [String: Any],
-                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
-                        return
-                    }
-                    
-                    if error == nil {
-                        // wait for animation to complete
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                            self?.presentAltTextEditPublishedToast()
-                            self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
+                    // dismisses half sheet modal
+                    articleViewController.dismiss(animated: true) { [weak self] in
+                        
+                        guard let self else {
+                            return
+                        }
+                        
+                        // pops off Article VC, back to Image Recs.
+                        self.navigationController?.popViewController(animated: true)
+                        
+                        guard let fetchedData = result as? [String: Any],
+                              let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                            return
+                        }
+                        
+                        if error == nil {
+                            // wait for animation to complete
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                                self?.presentAltTextEditPublishedToast()
+                                self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
+                            }
                         }
                     }
                 }
