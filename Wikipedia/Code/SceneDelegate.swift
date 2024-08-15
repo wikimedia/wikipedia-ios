@@ -33,6 +33,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        // scene(_ scene: UIScene, continue userActivity: NSUserActivity) and
+        // scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
+        // windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
+        // are not called upon cold launch, so we need to handle them explicitly here.
+        if let userActivity = connectionOptions.userActivities.first {
+            processUserActivity(userActivity)
+        } else if !connectionOptions.urlContexts.isEmpty {
+            openURLContexts(connectionOptions.urlContexts)
+        } else if let shortcutItem = connectionOptions.shortcutItem {
+            processShortcutItem(shortcutItem)
+        }
+        
         UNUserNotificationCenter.current().delegate = appViewController
         appViewController.launchApp(in: window, waitToResumeApp: appNeedsResume)
     }
@@ -63,10 +75,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        appViewController?.processShortcutItem(shortcutItem, completion: completionHandler)
+        processShortcutItem(shortcutItem, completionHandler: completionHandler)
+    }
+    
+    private func processShortcutItem(_ shortcutItem: UIApplicationShortcutItem, completionHandler: ((Bool) -> Void)? = nil) {
+        appViewController?.processShortcutItem(shortcutItem) { handled in
+            completionHandler?(handled)
+        }
     }
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        processUserActivity(userActivity)
+    }
+    
+    private func processUserActivity(_ userActivity: NSUserActivity) {
         guard let appViewController else {
             return
         }
@@ -99,7 +121,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        
+        openURLContexts(URLContexts)
+    }
+    
+    private func openURLContexts(_ URLContexts: Set<UIOpenURLContext>) {
         guard let appViewController else {
             return
         }
