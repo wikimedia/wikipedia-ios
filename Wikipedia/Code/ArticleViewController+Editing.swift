@@ -331,9 +331,15 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 }
                 
                 // MAYBETODO: Figure out imageFullURL and imageThumbURL
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURL: nil, imageThumbURL: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false)
                 
-                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: CommonStrings.altTextViewPlaceholder)
+                let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
+                let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
+                let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
+                let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
+                let guidanceText = CommonStrings.altGuidanceButtonTitle
+                
+                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
 
                 let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
                 
