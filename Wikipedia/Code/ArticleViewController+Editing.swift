@@ -333,7 +333,6 @@ extension ArticleViewController: EditorViewControllerDelegate {
                     caption = nil
                 }
                 
-                // MAYBETODO: Figure out imageFullURL and imageThumbURL
                 let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false, project: wmfProject)
                 
                 let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
