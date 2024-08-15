@@ -106,7 +106,11 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "Try to keep alt text short so users can easily understand the image content";
 "alt-text-experiment-edit-summary" = "Added alt text";
+"alt-text-experiment-guidance-button" = "Guidance for writing alt text";
+"alt-text-experiment-text-field-description" = "Text description for readers who cannot see the image";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";

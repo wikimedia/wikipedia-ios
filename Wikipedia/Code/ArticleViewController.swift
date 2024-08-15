@@ -102,6 +102,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
     var altTextExperimentAcceptDate: Date?
+    var wasPresentingGalleryWhileInAltTextMode = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -485,7 +486,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private func setupForAltTextExperiment() {
 
         guard let altTextExperimentViewModel,
-         let altTextBottomSheetViewModel else {
+         altTextBottomSheetViewModel != nil else {
             return
         }
         
@@ -493,6 +494,16 @@ class ArticleViewController: ViewController, HintPresenting {
         webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
         messagingController.hideEditPencils()
         messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
+        
+        presentAltTextModalSheet()
+    }
+    
+    func presentAltTextModalSheet() {
+        
+        guard altTextExperimentViewModel != nil,
+         let altTextBottomSheetViewModel else {
+            return
+        }
         
         let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
 
@@ -1407,6 +1418,24 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+    func didTriggerCharacterWarning() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
+    }
+    
+    func didTapFileName() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
+    }
+    
     func didAppear() {
         
         guard let siteURL = articleURL.wmf_site,

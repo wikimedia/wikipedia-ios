@@ -58,6 +58,8 @@ final class EditInteractionFunnel {
         case addAltTextInput = "add_alt_text_input"
         case altTextEditSuccess = "alt_text_edit_success"
         case minimizedImpression = "minimized_impression"
+        case characterWarning = "character_warning"
+        case imageDetailViewClick = "image_detail_view_click"
     }
     
     private struct Event: EventInterface {
@@ -319,6 +321,14 @@ final class EditInteractionFunnel {
     
     func logAltTextInputDidMinimize(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .minimizedImpression, project: project)
+    }
+    
+    func logAltTextInputDidTriggerWarning(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .characterWarning, project: project)
+    }
+    
+    func logAltTextInputDidTapFileName(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
     }
     
     func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {

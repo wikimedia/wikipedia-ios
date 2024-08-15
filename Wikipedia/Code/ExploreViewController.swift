@@ -1235,7 +1235,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         let item = MediaListItem(title: "File:\(data.filename)", sectionID: 0, type: .image, showInGallery: true, isLeadImage: false, sources: nil)
         let mediaList = MediaList(items: [item])
 
-        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
+        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme, dismissDelegate: nil)
         presentingVC.present(gallery, animated: true)
     }
 
@@ -1316,7 +1316,13 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
                 
                 let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
-                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, buttonTitle: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder)
+                let textViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
+                let characterCounterWarningText = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
+                let characterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
+                
+                let guidanceText = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
+                
+                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
 
                 let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
                 
@@ -1467,10 +1473,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
             return
         }
         
-        let project = imageRecommendationsViewModel.project
-        
         for viewController in viewControllers {
-            if let imageRecommendationsViewController = viewController as? WMFImageRecommendationsViewController {
+            if viewController is WMFImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
@@ -1480,13 +1484,9 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 currentRecommendation.lastRevisionID = revID
                 
                 // Go to next recommendation and display success alert
-                imageRecommendationsViewModel.next { [weak self] in
+                imageRecommendationsViewModel.next {
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                        
-                        guard let self else {
-                            return
-                        }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
@@ -1754,12 +1754,21 @@ extension ExploreViewController: AltTextDelegate {
                 
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
-            navigationController?.popViewController(animated: true)
-            
-            // wait for animation to complete
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                self?.presentAltTextEditPublishedToast()
-                self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
+            // dismisses half sheet modal
+            articleViewController.dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                // pops off Article VC, back to Image Recs.
+                navigationController?.popViewController(animated: true)
+                
+                // wait for pop animation to complete
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                    self?.presentAltTextEditPublishedToast()
+                    self?.logAltTextEditSuccess(altText: altText, revisionID: 0)
+                }
             }
             
             return
@@ -1777,18 +1786,27 @@ extension ExploreViewController: AltTextDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    self.navigationController?.popViewController(animated: true)
-                    
-                    guard let fetchedData = result as? [String: Any],
-                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
-                        return
-                    }
-                    
-                    if error == nil {
-                        // wait for animation to complete
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                            self?.presentAltTextEditPublishedToast()
-                            self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
+                    // dismisses half sheet modal
+                    articleViewController.dismiss(animated: true) { [weak self] in
+                        
+                        guard let self else {
+                            return
+                        }
+                        
+                        // pops off Article VC, back to Image Recs.
+                        self.navigationController?.popViewController(animated: true)
+                        
+                        guard let fetchedData = result as? [String: Any],
+                              let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                            return
+                        }
+                        
+                        if error == nil {
+                            // wait for animation to complete
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                                self?.presentAltTextEditPublishedToast()
+                                self?.logAltTextEditSuccess(altText: altText, revisionID: newRevID)
+                            }
                         }
                     }
                 }
