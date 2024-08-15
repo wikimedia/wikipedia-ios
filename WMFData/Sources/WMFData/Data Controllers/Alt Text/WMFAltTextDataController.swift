@@ -67,19 +67,24 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
-        if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
-            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        if !developerSettingsDataController.setAltTextExperimentPercentage100 {
+            if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
+                throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+            }
         }
+
         
-        if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
-            
-            switch articleEditorExperimentBucket {
-            case .altTextArticleEditorTest:
-                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
-            case .altTextArticleEditorControl:
-                break
-            default:
-                throw WMFAltTextDataControllerError.unexpectedBucketValue
+        if !developerSettingsDataController.setAltTextExperimentPercentage100 {
+            if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
+                
+                switch articleEditorExperimentBucket {
+                case .altTextArticleEditorTest:
+                    throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
+                case .altTextArticleEditorControl:
+                    break
+                default:
+                    throw WMFAltTextDataControllerError.unexpectedBucketValue
+                }
             }
         }
         
@@ -143,8 +148,10 @@ public final class WMFAltTextDataController {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-            return false
+        if !developerSettingsDataController.setAltTextExperimentPercentage100 {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         guard isLoggedIn else {

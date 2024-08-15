@@ -1311,7 +1311,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 
                 let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
                 
-                let articleTitle = lastRecommendation.imageData.pageTitle
+                let articleTitle = "Mejía_District" // lastRecommendation.imageData.pageTitle
                 
                 let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
                 
@@ -1751,6 +1751,8 @@ extension ExploreViewController: AltTextDelegate {
         }
         
         let developerSettings = WMFDeveloperSettingsDataController()
+        
+        imageRecommendationsViewModel?.lastRecommendation?.altText = altText
                 
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
