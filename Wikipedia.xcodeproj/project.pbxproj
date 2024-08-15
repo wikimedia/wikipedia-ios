@@ -3707,6 +3707,11 @@
 		8361474A24223689003E49D3 /* ArticleViewController+Announcements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Announcements.swift"; sourceTree = "<group>"; };
 		8361AEC621949665006B00B0 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ga; path = ga.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8361AEC721949670006B00B0 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ga; path = ga.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		8361F6352C6E4C23009D87F1 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		8361F6362C6E4C23009D87F1 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8361F6372C6E4C23009D87F1 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8361F6382C6E4C23009D87F1 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8361F6392C6E4C23009D87F1 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = se; path = se.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticleErrorHandling.swift"; sourceTree = "<group>"; };
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
@@ -9288,6 +9293,7 @@
 				bg,
 				ia,
 				lmo,
+				se,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -12193,6 +12199,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0E83806B1D64989F0076EDE4 /* Base */,
+				8361F6352C6E4C23009D87F1 /* se */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -12291,6 +12298,7 @@
 				67D4AD602A03EF7600F3D066 /* bg */,
 				676E08142A7DA0DA00F7632D /* ia */,
 				678B3E362B98D76900F4DF03 /* lmo */,
+				8361F6372C6E4C23009D87F1 /* se */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12397,6 +12405,7 @@
 				67D4AD612A03EFA700F3D066 /* bg */,
 				676E08152A7DA10900F7632D /* ia */,
 				678B3E372B98D76A00F4DF03 /* lmo */,
+				8361F6382C6E4C23009D87F1 /* se */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12509,6 +12518,7 @@
 				FF338A0B258D572900292602 /* nqo */,
 				FF19C1AC26054909000AC20B /* kcg */,
 				678B3E382B98D76A00F4DF03 /* lmo */,
+				8361F6392C6E4C23009D87F1 /* se */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -12518,6 +12528,7 @@
 			children = (
 				D890C85C1D772ED3007132C9 /* Base */,
 				D890C85E1D772EE7007132C9 /* en */,
+				8361F6362C6E4C23009D87F1 /* se */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
