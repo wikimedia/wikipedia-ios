@@ -306,8 +306,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
     
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
-        let siteURL = articleURL.wmf_site
-        guard let languageCode = siteURL?.wmf_languageCode else {
+        
+        guard let siteURL = articleURL.wmf_site,
+              let languageCode = siteURL.wmf_languageCode,
+              let project = WikimediaProject(siteURL: siteURL),
+              let wmfProject = project.wmfProject else {
             return
         }
         
@@ -331,7 +334,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 }
                 
                 // MAYBETODO: Figure out imageFullURL and imageThumbURL
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false, project: wmfProject)
                 
                 let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
                 let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
@@ -345,13 +348,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 
                 self.altTextExperimentAcceptDate = Date()
                 
-                if let siteURL,
-                   let project = WikimediaProject(siteURL: siteURL) {
+                if let project = WikimediaProject(siteURL: siteURL) {
                     EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: project)
                 }
                 
-                if let siteURL,
-                   let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+                if let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
                    let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
                     
                     self.navigationController?.pushViewController(articleViewController, animated: true)
@@ -362,10 +363,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
             self?.dismiss(animated: true) {
                 
-                if let siteURL,
-                let project = WikimediaProject(siteURL: siteURL) {
-                    EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: project)
-                }
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: project)
                 
                 // todo: show survey
             }
@@ -376,19 +374,13 @@ extension ArticleViewController: EditorViewControllerDelegate {
             case .tappedPrimary, .tappedSecondary:
                 break
             default:
-                if let siteURL,
-                   let project = WikimediaProject(siteURL: siteURL) {
-                    EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: project)
-                }
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: project)
             }
         }
 
         let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: false)
         
-        if let siteURL,
-           let project = WikimediaProject(siteURL: siteURL) {
-            EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: project)
-        }
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: project)
         
         present(panel, animated: true)
     }

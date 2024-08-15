@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 public struct WMFAltTextExperimentViewModel {
     
@@ -23,8 +24,9 @@ public struct WMFAltTextExperimentViewModel {
     public let lastRevisionID: UInt64
     public let sectionID: Int?
     public let isFlowB: Bool
+    public let project: WMFProject
 
-    public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool) {
+    public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool, project: WMFProject) {
         self.localizedStrings = localizedStrings
         self.articleTitle = articleTitle
         self.caption = caption
@@ -36,6 +38,7 @@ public struct WMFAltTextExperimentViewModel {
         self.lastRevisionID = lastRevisionID
         self.sectionID = sectionID
         self.isFlowB = isFlowB
+        self.project = project
     }
     
     var imageThumbURL: URL? {

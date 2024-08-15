@@ -1313,7 +1313,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 
                 let articleTitle = lastRecommendation.imageData.pageTitle
                 
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: viewModel.project)
                 
                 let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
                 let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
