@@ -13,6 +13,7 @@ public struct WMFTheme: Equatable {
     public let link: UIColor
     public let accent: UIColor
     public let destructive: UIColor
+    public let warning: UIColor
     public let border: UIColor
     public let newBorder: UIColor
     public let paperBackground: UIColor
@@ -53,6 +54,7 @@ public struct WMFTheme: Equatable {
         link: WMFColor.blue600,
         accent: WMFColor.green600,
         destructive: WMFColor.red600,
+        warning: WMFColor.orange600,
         border: WMFColor.gray400,
         newBorder: WMFColor.gray300,
         paperBackground: WMFColor.white,
@@ -90,6 +92,7 @@ public struct WMFTheme: Equatable {
         link: WMFColor.blue600,
         accent: WMFColor.green600,
         destructive: WMFColor.red700,
+        warning: WMFColor.orange600,
         border: WMFColor.taupe200,
         newBorder: WMFColor.taupe200,
         paperBackground: WMFColor.beige100,
@@ -127,6 +130,7 @@ public struct WMFTheme: Equatable {
         link: WMFColor.blue300,
         accent: WMFColor.green600,
         destructive: WMFColor.red600,
+        warning: WMFColor.yellow600,
         border: WMFColor.gray650,
         newBorder: WMFColor.gray500,
         paperBackground: WMFColor.gray675,
@@ -164,6 +168,7 @@ public struct WMFTheme: Equatable {
         link: WMFColor.blue300,
         accent: WMFColor.green600,
         destructive: WMFColor.red600,
+        warning: WMFColor.yellow600,
         border: WMFColor.gray675,
         newBorder: WMFColor.gray500,
         paperBackground: WMFColor.black,

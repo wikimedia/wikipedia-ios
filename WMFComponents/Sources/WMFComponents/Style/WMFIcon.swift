@@ -78,9 +78,10 @@ public enum WMFSFSymbolIcon {
 	case photoOnRectangleAngled
     case xMark
     case textBelowPhoto
+    case infoCircle
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
-        let font = WMFFont.for(font)
+        let font = WMFFont.for(font, compatibleWith: traitCollection)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
         var image: UIImage?
@@ -179,6 +180,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "xmark", withConfiguration: configuration)
         case .textBelowPhoto:
             image = UIImage(systemName: "text.below.photo", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
+        case .infoCircle:
+            image = UIImage(systemName: "info.circle", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
