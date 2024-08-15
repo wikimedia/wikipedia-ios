@@ -396,6 +396,11 @@
 		53A575FA2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
 		53A575FB2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
 		53A575FC2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
+		5F5E96E52C57E4D6006FDE95 /* SharedLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E96E42C57E4D6006FDE95 /* SharedLib.swift */; };
+		5F5E96E62C57E4D6006FDE95 /* SharedLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E96E42C57E4D6006FDE95 /* SharedLib.swift */; };
+		5FF60E702C59350600306D6E /* sharedlib in Resources */ = {isa = PBXBuildFile; fileRef = 5FF60E6F2C59350600306D6E /* sharedlib */; };
+		5FF60E712C59350600306D6E /* sharedlib in Resources */ = {isa = PBXBuildFile; fileRef = 5FF60E6F2C59350600306D6E /* sharedlib */; };
+		5FF60E732C59376900306D6E /* SharedLibTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF60E722C59376900306D6E /* SharedLibTest.swift */; };
 		67033E142A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
 		67033E152A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
 		67033E162A61B24800896852 /* WatchlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E132A61B24800896852 /* WatchlistController.swift */; };
@@ -3241,6 +3246,9 @@
 		535F16D525CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKDataStore+LanguageVariantMigration.swift"; sourceTree = "<group>"; };
 		53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAppViewController+Extensions.swift"; sourceTree = "<group>"; };
 		53BAB79925DDDEE100A5ED4E /* Wikipedia 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 6.xcdatamodel"; sourceTree = "<group>"; };
+		5F5E96E42C57E4D6006FDE95 /* SharedLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLib.swift; sourceTree = "<group>"; };
+		5FF60E6F2C59350600306D6E /* sharedlib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sharedlib; sourceTree = SOURCE_ROOT; };
+		5FF60E722C59376900306D6E /* SharedLibTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLibTest.swift; sourceTree = "<group>"; };
 		67033E132A61B24800896852 /* WatchlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistController.swift; sourceTree = "<group>"; };
 		67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Watchlist.swift"; sourceTree = "<group>"; };
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
@@ -7521,6 +7529,7 @@
 				67BEFFD928AEDF3600606B38 /* WikimediaProject.swift */,
 				673DE3112BAE2C9400E4D431 /* WKProject+Extensions.swift */,
 				67F42EE22AA0E39C003BDCB6 /* UINavigationItem+Extensions.swift */,
+				5F5E96E42C57E4D6006FDE95 /* SharedLib.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -7851,6 +7860,7 @@
 				00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */,
 				FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
+				5FF60E722C59376900306D6E /* SharedLibTest.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -7961,6 +7971,7 @@
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC7C3A371C0FF94A0057F023 /* Code */,
 				BCF012321AD2FA38008D3675 /* assets */,
+				5FF60E6F2C59350600306D6E /* sharedlib */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
 			);
 			path = Wikipedia;
@@ -9339,6 +9350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF60E712C59350600306D6E /* sharedlib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9437,6 +9449,7 @@
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
+				5FF60E702C59350600306D6E /* sharedlib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE171D2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
@@ -9923,6 +9936,7 @@
 				D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
 				B39427441E71F79700D3146D /* NSDictionaryBlocksKitTest.m in Sources */,
+				5FF60E732C59376900306D6E /* SharedLibTest.swift in Sources */,
 				67DAEDF027E8FB63005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				004281BC25E6EFC4004945B3 /* LSASIHTTPRequestHook.m in Sources */,
@@ -10003,6 +10017,7 @@
 				004281C025E6EFC4004945B3 /* NSString+Matcheable.m in Sources */,
 				004281C425E6EFC4004945B3 /* LSRegexMatcher.m in Sources */,
 				004281C225E6EFC4004945B3 /* LSDataMatcher.m in Sources */,
+				5F5E96E62C57E4D6006FDE95 /* SharedLib.swift in Sources */,
 				004281C625E6EFC4004945B3 /* NSString+Nocilla.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10391,6 +10406,7 @@
 				7AF8CEED22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				838790B32858009000067B1D /* TalkPageFetcher.swift in Sources */,
 				67BF28542C3DEC5300C9F5DE /* AppDelegate.swift in Sources */,
+				5F5E96E52C57E4D6006FDE95 /* SharedLib.swift in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				6782DBAF2343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
