@@ -428,6 +428,13 @@ class ArticleViewController: ViewController, HintPresenting {
         return super.preferredInterfaceOrientationForPresentation
     }
     
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+    }
+    
     // MARK: Article load
     
     var articleLoadWaitGroup: DispatchGroup?
