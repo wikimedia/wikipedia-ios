@@ -71,8 +71,11 @@ class WikitextFetcher: Fetcher {
         let groups: [String]?
     }
     
-    func fetchSection(with sectionID: Int?, articleURL: URL, completion: @escaping (Result<Response, Error>) -> Void) {
-        guard let title = articleURL.wmf_title else {
+    func fetchSection(with sectionID: Int?, articleURL: URL, revisionID: UInt64? = nil, completion: @escaping (Result<Response, Error>) -> Void) {
+        
+        let title = articleURL.wmf_title
+        
+        guard title != nil || revisionID != nil else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
@@ -80,9 +83,7 @@ class WikitextFetcher: Fetcher {
             "action": "query",
             "prop": "revisions|info",
             "rvprop": "content|ids",
-            "rvlimit": 1,
             "rvslots": "main",
-            "titles": title,
             "inprop": "protection",
             "meta": "userinfo", // we need the local user ID for event logging
             "uiprop": "groups",
@@ -95,8 +96,18 @@ class WikitextFetcher: Fetcher {
             "intestactionsdetail": "full" // needed for fully resolved protection error.
         ]
         
+        if let title,
+           revisionID == nil {
+            parameters["titles"] = title
+            parameters["rvlimit"] = 1
+        }
+        
         if let sectionID {
             parameters["rvsection"] = sectionID
+        }
+        
+        if let revisionID {
+            parameters["revids"] = revisionID
         }
 
         performDecodableMediaWikiAPIGET(for: articleURL, with: parameters) { [weak self] (result: Result<APIResponse, Error>) in

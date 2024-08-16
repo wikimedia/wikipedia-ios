@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "همکف",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "حاشیه",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "پایین",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "وسط",
       "center",
       "centre"
@@ -41,6 +62,13 @@
   },
   {
     "aliases" : [
+      "میانه",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "هیچ",
       "none"
     ],
@@ -55,6 +83,35 @@
   },
   {
     "aliases" : [
+      "زیر",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "زبر",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "متن-پایین",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "متن-بالا",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "بندانگشتی",
       "انگشتی",
       "انگشتدان",
@@ -65,7 +122,28 @@
   },
   {
     "aliases" : [
-      "فاىل"
+      "بالا",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "ایستاده",
+      "ایستاده=$1",
+      "ایستاده_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "فاىل",
+      "Image",
+      "تصویر",
+      "پرونده"
     ],
     "name" : "file_namespace"
   }

@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "سنوور",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "ناوەڕاست",
       "center",
       "centre"
@@ -53,13 +60,71 @@
   },
   {
     "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "none"
     ],
     "name" : "img_none"
   },
   {
     "aliases" : [
-      "پەڕگە"
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "پەڕگە",
+      "Image"
     ],
     "name" : "file_namespace"
   }

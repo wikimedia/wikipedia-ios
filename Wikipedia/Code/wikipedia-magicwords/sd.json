@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "تَرُ",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "مرڪز",
       "center",
       "centre"
@@ -13,6 +20,13 @@
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "وچ",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -30,9 +44,28 @@
   },
   {
     "aliases" : [
+      "سِرُ",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
   },
   {
     "aliases" : [
@@ -50,6 +83,31 @@
   },
   {
     "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail"
     ],
@@ -57,7 +115,17 @@
   },
   {
     "aliases" : [
-      "فائل"
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "فائل",
+      "Image",
+      "عڪس"
     ],
     "name" : "file_namespace"
   }

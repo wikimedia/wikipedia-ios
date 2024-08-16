@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "зьнізу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "цэнтар",
       "цэнтр",
       "center",
@@ -28,6 +35,13 @@
   },
   {
     "aliases" : [
+      "пасярэдзіне",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "няма",
       "none"
     ],
@@ -52,15 +66,67 @@
   },
   {
     "aliases" : [
+      "зьверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "frameless"
     ],
     "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [

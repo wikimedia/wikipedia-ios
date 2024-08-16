@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "traoñ",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "kreizenn",
       "center",
       "centre"
@@ -13,6 +20,13 @@
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "kreiz",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -30,9 +44,35 @@
   },
   {
     "aliases" : [
+      "is",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "krec'h",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
   },
   {
     "aliases" : [
@@ -50,6 +90,25 @@
   },
   {
     "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail"
     ],
@@ -57,7 +116,17 @@
   },
   {
     "aliases" : [
-      "Restr"
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Restr",
+      "Image",
+      "Skeudenn"
     ],
     "name" : "file_namespace"
   }

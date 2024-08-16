@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 public struct WMFAltTextExperimentViewModel {
     
@@ -15,30 +16,36 @@ public struct WMFAltTextExperimentViewModel {
     public let localizedStrings: LocalizedStrings
     public let articleTitle: String
     public let caption: String?
-    public let imageFullURL: String
-    public let imageThumbURLString: String
+    public let imageFullURLString: String?
+    public let imageThumbURLString: String?
     public let filename: String
     public let imageWikitext: String
     public let fullArticleWikitextWithImage: String
     public let lastRevisionID: UInt64
     public let sectionID: Int?
     public let isFlowB: Bool
+    public let project: WMFProject
 
-    public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURL: String, imageThumbURL: String, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool) {
+    public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool, project: WMFProject) {
         self.localizedStrings = localizedStrings
         self.articleTitle = articleTitle
         self.caption = caption
-        self.imageFullURL = imageFullURL
-        self.imageThumbURLString = imageThumbURL
+        self.imageFullURLString = imageFullURLString
+        self.imageThumbURLString = imageThumbURLString
         self.filename = filename
         self.imageWikitext = imageWikitext
         self.fullArticleWikitextWithImage = fullArticleWikitextWithImage
         self.lastRevisionID = lastRevisionID
         self.sectionID = sectionID
         self.isFlowB = isFlowB
+        self.project = project
     }
     
     var imageThumbURL: URL? {
+        guard let imageThumbURLString else {
+            return nil
+        }
+        
         return URL(string: "https:\(imageThumbURLString)")
     }
 }
