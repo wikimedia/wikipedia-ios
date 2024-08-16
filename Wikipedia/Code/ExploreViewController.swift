@@ -1750,7 +1750,9 @@ extension ExploreViewController: AltTextDelegate {
         }
         
         let developerSettings = WMFDeveloperSettingsDataController()
-                
+            
+        imageRecommendationsViewModel?.lastRecommendation?.altText = altText
+        
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
             
             // dismisses half sheet modal
