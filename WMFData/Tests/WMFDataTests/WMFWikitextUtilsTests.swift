@@ -706,4 +706,13 @@ final class WMFWikitextUtilsTests: XCTestCase {
         let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "de", targetNamespaces: ["Datei"], targetAltParams: ["alternativtext", "alt"])
         XCTAssertEqual(result.count, 0)
     }
+    
+    func testAltTextDetectorNoCaptionWithAlt() throws {
+        let text = """
+        [[File:BAPMoN opening ceremony.jpg|thumb|The opening of the [[Dr. Neil Trivett Global]] Atmosphere Watch Observatory|Alert Background Air Pollution Monitoring Network in 1986.]]
+        """
+        let wikitext = "text text " + text + " text text"
+        let result = try WMFWikitextUtils.missingAltTextLinks(text: wikitext, language: "test", targetNamespaces: ["Image", "File"], targetAltParams: ["alt"])
+        XCTAssertEqual(result.count, 0)
+    }
 }
