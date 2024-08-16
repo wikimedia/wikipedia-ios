@@ -373,5 +373,9 @@ extension WMFImageRecommendationsViewController: WMFOnboardingViewDelegate {
 
         }
     }
+    
+    public func onboardingDidSwipeToDismiss() {
+        
+    }
 }
 

@@ -110,6 +110,16 @@
 "alt-text-experiment-character-counter-warning" = "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.";
 "alt-text-experiment-edit-summary" = "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.";
 "alt-text-experiment-guidance-button" = "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.";
+"alt-text-experiment-onboarding-item-1-subtitle" = "Item 1 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-1-title" = "Item 1 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-2-subtitle" = "Item 2 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-2-title" = "Item 2 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-3-subtitle" = "Item 3 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-3-title" = "Item 3 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-4-subtitle" = "Item 4 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-item-4-title" = "Item 4 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-secondary-button-title" = "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.";
+"alt-text-experiment-onboarding-title" = "Title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
 "alt-text-experiment-text-field-description" = "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.";
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";

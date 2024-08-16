@@ -110,6 +110,16 @@
 "alt-text-experiment-character-counter-warning" = "Try to keep alt text short so users can easily understand the image content";
 "alt-text-experiment-edit-summary" = "Added alt text";
 "alt-text-experiment-guidance-button" = "Guidance for writing alt text";
+"alt-text-experiment-onboarding-item-1-subtitle" = "1-2 lines of plain text with no acronyms, abbreviations, or jargon.";
+"alt-text-experiment-onboarding-item-1-title" = "Keep it short and clear";
+"alt-text-experiment-onboarding-item-2-subtitle" = "Don’t add your own research, interpretation, or point of view.";
+"alt-text-experiment-onboarding-item-2-title" = "Describe what can be seen";
+"alt-text-experiment-onboarding-item-3-subtitle" = "But don’t repeat text that is already in the caption.";
+"alt-text-experiment-onboarding-item-3-title" = "Focus on what is relevant to the article";
+"alt-text-experiment-onboarding-item-4-subtitle" = "Do not start with ‘This is an image of...’ but describe the medium or style, if relevant";
+"alt-text-experiment-onboarding-item-4-title" = "Type of image";
+"alt-text-experiment-onboarding-secondary-button-title" = "View examples";
+"alt-text-experiment-onboarding-title" = "How to write alt text for images";
 "alt-text-experiment-text-field-description" = "Text description for readers who cannot see the image";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";

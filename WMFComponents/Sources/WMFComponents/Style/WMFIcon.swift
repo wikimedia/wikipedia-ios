@@ -79,6 +79,9 @@ public enum WMFSFSymbolIcon {
     case xMark
     case textBelowPhoto
     case infoCircle
+    case docTextImage
+    case eye
+    case ellipsisBubble
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -182,6 +185,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "text.below.photo", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .infoCircle:
             image = UIImage(systemName: "info.circle", withConfiguration: configuration)
+        case .docTextImage:
+            image = UIImage(systemName: "doc.text.image", withConfiguration: configuration)
+        case .eye:
+            image = UIImage(systemName: "eye", withConfiguration: configuration)
+        case.ellipsisBubble:
+            image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
