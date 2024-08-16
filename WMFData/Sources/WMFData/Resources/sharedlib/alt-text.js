@@ -14,13 +14,19 @@ const linksRegEx = new RegExp(
     "dmg"
 );
 
-// @fixme we need to support localized variants;
-// fetch them into a .json for use here, or pass
-// them in from the Swift side maybe?
-const fileRegEx = /^\s*(?:Image|File):.*/i;
-const altRegEx = /^\s*alt\s*=\s*(?:[^\|\]]*)$/i;
+function fileRegEx(targetNamespaces) {
+    let joinedNamespaces = targetNamespaces.join("|")
+    const regexPattern = `^\\s*(?:${joinedNamespaces}):.*`;
+    return new RegExp(regexPattern, 'idmg');
+}
 
-function parseLink(offset, length, text, language) {
+function altRegEx(targetAltParams) {
+    let joinedAltParams = targetAltParams.join("|")
+    const regexPattern = `^\\s*(?:${joinedAltParams})\\s*=\\s*[^|]*$`;
+    return new RegExp(regexPattern, 'dmg');
+}
+
+function parseLink(offset, length, text, language, targetNamespaces, targetAltParams) {
     let bits = text.split( /\|/ );
     let link = {
         text: '[[' + text + ']]',
@@ -30,21 +36,23 @@ function parseLink(offset, length, text, language) {
         alt: null,
     };
     for (let bit of bits) {
-        if (bit.match(fileRegEx)) {
+        var fileRegex = fileRegEx(targetNamespaces);
+        var altRegex = altRegEx(targetAltParams);
+        if (bit.match(fileRegex)) {
             link.file = bit;
-        } else if (bit.match(altRegEx)) {
+        } else if (bit.match(altRegex)) {
             link.alt = bit;
         }
     }
     return link;
 }
 
-function parseLinks(text, language) {
+function parseLinks(text, language, targetNamespaces, targetAltParams) {
     let matches = text.matchAll(linksRegEx);
     let bits = [];
     for (let m of matches) {
         let offset = m.indices[0][0];
-        let link = parseLink(offset, m[0].length, m[1], language);
+        let link = parseLink(offset, m[0].length, m[1], language, targetNamespaces, targetAltParams);
         bits.push(link);
     }
     return bits;
@@ -55,10 +63,12 @@ function parseLinks(text, language) {
  *
  * @param {string} text input wikitext
  * @param {string} language code
+ * @param {string} targetNamespaces Namespaces to look for (File, Image, etc.)
+ * @param {string} targetAltParams Alt parameters to look for (alt, alternativtext, etc.)
  * @returns {Array} list of {text, offset, length, file, alt} of matching links
  */
-function missingAltTextLinks(text, language) {
-    return parseLinks(text, language).filter((link) => {
+function missingAltTextLinks(text, language, targetNamespaces, targetAltParams) {
+    return parseLinks(text, language, targetNamespaces, targetAltParams).filter((link) => {
         if (link.file === null) {
             // Not a file link.
             return false;

@@ -231,7 +231,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         case .success(let changes):
             dismiss(animated: true) {
                 
-                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: changes.postedWikitext)
+                self.assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(fullArticleWikitext: changes.fullArticleWikitextForAltTextExperiment, lastRevisionID: changes.newRevisionID)
                 
                 let title = CommonStrings.editPublishedToastTitle
                 let image = UIImage(systemName: "checkmark.circle.fill")
@@ -250,10 +250,11 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
     }
     
-    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(postedWikitext: String?) {
+    private func assignAltTextArticleEditorExperimentAndPresentModalIfNeeded(fullArticleWikitext: String?, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
-        let postedWikitext else {
+              let languageCode = siteURL.wmf_languageCode,
+        let fullArticleWikitext else {
             return
         }
         
@@ -271,7 +272,20 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        // TODO: Evaluate postedWikitext here, confirm it qualifies for alt text experiment before assigning experiment values https://phabricator.wikimedia.org/T367908
+        var missingAltTextLink: WMFMissingAltTextLink?
+        do {
+            let fileMagicWords = MagicWordUtils.getMagicWordsForKey(.fileNamespace, languageCode: languageCode)
+            let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode)
+            missingAltTextLink = try WMFWikitextUtils.missingAltTextLinks(text: fullArticleWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
+        } catch {
+            DDLogError("Error extracting missing alt text link: \(error)")
+        }
+        
+        guard let missingAltTextLink,
+              let articleTitle = articleURL.wmf_title,
+            let filename = missingAltTextLink.file.denormalizedPageTitle else {
+            return
+        }
         
         do {
             try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
@@ -285,9 +299,89 @@ extension ArticleViewController: EditorViewControllerDelegate {
         DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
         
         if dataController.shouldEnterAltTextArticleEditorFlow(isLoggedIn: isLoggedIn, project: project) {
-            print("TODO: PRESENT MODAL")
+            presentAltTextPromptModal(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID)
             dataController.markSawAltTextArticleEditorPrompt()
         }
+    }
+    
+    private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
+        
+        
+        guard let siteURL = articleURL.wmf_site,
+              let languageCode = siteURL.wmf_languageCode,
+              let project = WikimediaProject(siteURL: siteURL),
+              let wmfProject = project.wmfProject else {
+            return
+        }
+        
+        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            
+            self?.dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                let addAltTextTitle = CommonStrings.altTextArticleNavBarTitle
+                let editSummary = CommonStrings.altTextEditSummary(with: articleURL.wmf_languageCode)
+                let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
+                
+                var caption: String? = nil
+                if #available(iOS 16.0, *) {
+                    caption = try? missingAltTextLink.extractCaptionForDisplay(languageCode: languageCode)
+                } else {
+                    caption = nil
+                }
+                
+                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false, project: wmfProject)
+                
+                let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
+                let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
+                let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
+                let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
+                let guidanceText = CommonStrings.altGuidanceButtonTitle
+                
+                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
+
+                let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+                
+                self.altTextExperimentAcceptDate = Date()
+                
+                if let project = WikimediaProject(siteURL: siteURL) {
+                    EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: project)
+                }
+                
+                if let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
+                    
+                    self.navigationController?.pushViewController(articleViewController, animated: true)
+                }
+            }
+        }
+
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            self?.dismiss(animated: true) {
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: project)
+                
+                // todo: show survey
+            }
+        }
+
+        let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
+            switch lastAction {
+            case .tappedPrimary, .tappedSecondary:
+                break
+            default:
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: project)
+            }
+        }
+
+        let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: false)
+        
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: project)
+        
+        present(panel, animated: true)
     }
 }
 
@@ -319,6 +413,100 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
         }
         
         altTextDelegate?.didTapPublish(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
+    }
+}
+
+extension ArticleViewController: AltTextDelegate {
+    private func localizedAltTextFormat(siteURL: URL) -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
+    }
+    
+    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
+        let articleURL = articleViewController.articleURL
+        guard let siteURL = articleURL.wmf_site else {
+            return
+        }
+        
+        var finalWikitextToPublish: String?
+        if #available(iOS 16.0, *) {
+            let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
+            finalWikitextToPublish = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: altTextToInsert, caption: viewModel.caption, imageWikitext: viewModel.imageWikitext, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage)
+        } else {
+            return
+        }
+                
+        let section: String?
+        if let sectionID = viewModel.sectionID {
+            section = "\(sectionID)"
+        } else {
+            section = nil
+        }
+        
+        let fetcher = WikiTextSectionUploader()
+        fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+            
+            DispatchQueue.main.async {
+                
+                self.navigationController?.popViewController(animated: true)
+                
+                guard let fetchedData = result as? [String: Any],
+                      let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                    return
+                }
+                
+                if error == nil {
+                    // wait for animation to complete
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                        self?.presentAltTextEditPublishedToast()
+                        self?.logAltTextEditSuccess(viewModel: viewModel, altText: altText, revisionID: newRevID)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func logAltTextEditSuccess(viewModel: WMFAltTextExperimentViewModel, altText: String, revisionID: UInt64) {
+        
+        guard let acceptDate = altTextExperimentAcceptDate,
+        let siteURL = articleURL.wmf_site,
+        let articleTitle = articleURL.wmf_title else {
+            return
+        }
+        
+        let image = viewModel.filename
+        let caption = viewModel.caption
+        let timeSpent = Int(Date().timeIntervalSince(acceptDate))
+        
+        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+        let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
+        
+        altTextExperimentAcceptDate = nil
+    }
+    
+    private func presentAltTextEditPublishedToast() {
+        let title = CommonStrings.editPublishedToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        }
     }
 }
 

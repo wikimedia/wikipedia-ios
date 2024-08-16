@@ -8,6 +8,29 @@
   },
   {
     "aliases" : [
+      "ベースライン",
+      "下線",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "境界",
+      "ボーダー",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "下端",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "中央",
       "center",
       "centre"
@@ -39,6 +62,13 @@
   },
   {
     "aliases" : [
+      "中心",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "なし",
       "無し",
       "none"
@@ -54,6 +84,35 @@
   },
   {
     "aliases" : [
+      "下付き",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "上付き",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "文下端",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "文上端",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "サムネイル",
       "thumb",
       "thumbnail"
@@ -62,7 +121,25 @@
   },
   {
     "aliases" : [
-      "ファイル"
+      "上端",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "右上",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "ファイル",
+      "Image",
+      "画像"
     ],
     "name" : "file_namespace"
   }

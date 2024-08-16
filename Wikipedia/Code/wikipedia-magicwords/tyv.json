@@ -33,6 +33,27 @@
   },
   {
     "aliases" : [
+      "основание",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "граница",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "снизу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "обрамить",
       "frame",
       "framed",
@@ -49,10 +70,46 @@
   },
   {
     "aliases" : [
+      "посередине",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "без",
       "none"
     ],
     "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "под",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "над",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "текст-снизу",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "текст-сверху",
+      "text-top"
+    ],
+    "name" : "img_text_top"
   },
   {
     "aliases" : [
@@ -65,7 +122,27 @@
   },
   {
     "aliases" : [
-      "Файл"
+      "сверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Файл",
+      "Image",
+      "Изображение"
     ],
     "name" : "file_namespace"
   }

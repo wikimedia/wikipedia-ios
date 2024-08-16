@@ -1,6 +1,20 @@
 [
   {
     "aliases" : [
+      "tło",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "dół",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centruj",
       "center",
       "centre"
@@ -33,6 +47,13 @@
   },
   {
     "aliases" : [
+      "środek",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "brak",
       "none"
     ],
@@ -55,13 +76,67 @@
   },
   {
     "aliases" : [
+      "góra",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "skala",
+      "skala=$1",
+      "skala $1",
+      "skaluj",
+      "skaluj=$1",
+      "skaluj $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
-      "Plik"
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "Plik",
+      "Grafika",
+      "Image"
     ],
     "name" : "file_namespace"
   }

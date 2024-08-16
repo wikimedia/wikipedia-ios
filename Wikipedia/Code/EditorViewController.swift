@@ -35,7 +35,7 @@ final class EditorViewController: UIViewController {
     // MARK: - Properties
     
     private let pageURL: URL
-    private let sectionID: Int?
+    let sectionID: Int?
     private let editFlow: EditFlow
     private let source: Source
     private let dataStore: MWKDataStore

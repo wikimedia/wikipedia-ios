@@ -8,6 +8,29 @@
   },
   {
     "aliases" : [
+      "तळरेषा",
+      "आधाररेषा",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "सीमा",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "तळ",
+      "बूड",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "मध्यवर्ती",
       "center",
       "centre"
@@ -41,6 +64,13 @@
   },
   {
     "aliases" : [
+      "मध्य",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "कोणतेचनाही",
       "नन्ना",
       "none"
@@ -56,6 +86,36 @@
   },
   {
     "aliases" : [
+      "अधो",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "उर्ध्व",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "मजकुरतळ",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "मजकूर-शीर्ष",
+      "शीर्ष-मजकूर",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "इवलेसे",
       "thumb",
       "thumbnail"
@@ -64,6 +124,25 @@
   },
   {
     "aliases" : [
+      "अत्यूच्च",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "उभा",
+      "उभा=$1",
+      "उभा_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Image",
       "चित्र"
     ],
     "name" : "file_namespace"

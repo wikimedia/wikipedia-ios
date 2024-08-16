@@ -7,6 +7,24 @@
   },
   {
     "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "center",
       "centre"
     ],
@@ -34,6 +52,12 @@
   },
   {
     "aliases" : [
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "none"
     ],
     "name" : "img_none"
@@ -46,6 +70,31 @@
   },
   {
     "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail"
     ],
@@ -53,7 +102,23 @@
   },
   {
     "aliases" : [
-      "ไฟล์"
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "ไฟล์",
+      "Image",
+      "ภาพ"
     ],
     "name" : "file_namespace"
   }
