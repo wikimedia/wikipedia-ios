@@ -1286,6 +1286,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
     
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
             return
@@ -1305,37 +1306,12 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                     return
                 }
                 
-                let addAltTextTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
-                let languageCode = viewModel.project.languageCode
-                let editSummary = WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
-                
-                let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
-                
-                let articleTitle = lastRecommendation.imageData.pageTitle
-                
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
-                
-                let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
-                let textViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
-                let characterCounterWarningText = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
-                let characterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
-                
-                let guidanceText = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
-                
-                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
-
-                let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-                
                 lastRecommendation.altTextExperimentAcceptDate = Date()
                 
                 EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
 
-                if let siteURL = viewModel.project.siteURL,
-                   let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
-
-                    self.navigationController?.pushViewController(articleViewController, animated: true)
-                }
+                
+                self.enterAltTextFlow(imageRecommendationsViewController: imageRecommendationsViewController)
             }
         }
 
@@ -1367,6 +1343,78 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
+    }
+    
+    private func enterAltTextFlow(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        
+        guard let dataController = WMFAltTextDataController.shared else {
+            return
+        }
+        if !dataController.hasPresentedOnboardingModal {
+            presentAltTextOnboarding(imageRecommendationsViewController: imageRecommendationsViewController)
+            dataController.hasPresentedOnboardingModal = true
+        } else {
+            pushOnAltText()
+        }
+    }
+    
+    private func pushOnAltText() {
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
+            return
+        }
+        
+        guard let imageWikitext = lastRecommendation.imageWikitext,
+              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
+            let lastRevisionID = lastRecommendation.lastRevisionID,
+            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
+            return
+        }
+        
+        let addAltTextTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+        let languageCode = viewModel.project.languageCode
+        let editSummary = WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
+        
+        let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
+        
+        let articleTitle = lastRecommendation.imageData.pageTitle
+        
+        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURL: lastRecommendation.imageData.fullUrl, imageThumbURL: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true)
+        
+        let textViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
+        let textViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
+        let characterCounterWarningText = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
+        let characterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
+        
+        let guidanceText = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
+        
+        let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
+
+        let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
+        
+        if let siteURL = viewModel.project.siteURL,
+           let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
+           let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
+
+            self.navigationController?.pushViewController(articleViewController, animated: true)
+        }
+    }
+    
+    private func presentAltTextOnboarding(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: "Title", subtitle: "Subtitle", fillIconBackground: true)
+
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: "Title", subtitle: "SubTitle", fillIconBackground: true)
+
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFIcon.commons, title: "Title", subtitle: "SubTitle", fillIconBackground: true)
+
+        let onboardingViewModel = WMFOnboardingViewModel(title: "Overall Title", cells: [firstItem, secondItem, thirdItem], primaryButtonTitle: "Primary Button", secondaryButtonTitle: "Secondary button")
+
+        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
+        onboardingController.delegate = self
+        imageRecommendationsViewController.present(onboardingController, animated: true, completion: {
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        })
     }
 }
 
@@ -1846,5 +1894,22 @@ extension ExploreViewController: AltTextDelegate {
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
         }
+    }
+}
+
+extension ExploreViewController: WMFOnboardingViewDelegate {
+    func onboardingViewDidClickPrimaryButton() {
+        dismiss(animated: true) {
+            self.pushOnAltText()
+        }
+        
+    }
+    
+    func onboardingViewDidClickSecondaryButton() {
+        
+    }
+    
+    func onboardingViewWillSwipeToDismiss() {
+        
     }
 }

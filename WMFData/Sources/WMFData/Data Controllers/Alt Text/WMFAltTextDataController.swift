@@ -3,6 +3,14 @@ import UIKit
 
 public final class WMFAltTextDataController {
     
+    struct OnboardingStatus: Codable {
+        var hasPresentedOnboardingModal: Bool
+
+        static var `default`: OnboardingStatus {
+            return OnboardingStatus(hasPresentedOnboardingModal: false)
+        }
+    }
+    
     public static let shared = WMFAltTextDataController()
     
     public lazy var experimentStopDate: Date? = {
@@ -24,9 +32,9 @@ public final class WMFAltTextDataController {
         case alreadyAssignedOtherExperiment
     }
     
-    let experimentsDataController: WMFExperimentsDataController
-    let developerSettingsDataController: WMFDeveloperSettingsDataController
-    let userDefaultsStore: WMFKeyValueStore
+    private let experimentsDataController: WMFExperimentsDataController
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
+    private let userDefaultsStore: WMFKeyValueStore
     private var experimentPercentage: Int {
         developerSettingsDataController.alwaysShowAltTextEntryPoint ? 100 : 50
     }
@@ -267,6 +275,22 @@ public final class WMFAltTextDataController {
         }
         
         return nil
+    }
+    
+    // MARK: - Onboarding
+    
+    private var onboardingStatus: OnboardingStatus {
+        return (try? userDefaultsStore.load(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue)) ?? OnboardingStatus.default
+    }
+
+    public var hasPresentedOnboardingModal: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingModal
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingModal = newValue
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
+        }
     }
     
     // MARK: - Private

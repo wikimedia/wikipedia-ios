@@ -25,7 +25,7 @@ public enum WMFIcon {
     public static let error = UIImage(named: "error", in: .module, with: nil)
 
     // Project icons
-    static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
+    public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
 }
 
