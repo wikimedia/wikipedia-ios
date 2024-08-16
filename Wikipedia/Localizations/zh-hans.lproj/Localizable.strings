@@ -177,6 +177,10 @@
 "alt-text-add-button-title" = "添加";
 "alt-text-experiment-review-title" = "审查";
 "alt-text-do-not-add-button-title" = "不要添加";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "尽量让替代文字保持简短，以便用户能够轻松理解图像内容";
+"alt-text-experiment-guidance-button" = "替代文字撰写指南";
+"alt-text-experiment-text-field-description" = "为看不到图像的读者提供文字描述";
 "alt-text-experiment-text-field-placholder" = "描述图片";
 "alt-text-experiment-view-title" = "添加替代文字";
 "alt-text-license" = "发布更改即表示您同意相关[使用条款]($1)，同时，您同意依据 [CC BY-SA 3.0]($2) 许可协议及 [GFDL]($#) 授权您的贡献，并在 Creative Commons 许可协议下以超链接或网址 (URL) 等方式署名。";

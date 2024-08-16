@@ -152,8 +152,15 @@
 "advanced-settings-title" = "進階設定";
 "alt-text-add-button-title" = "新增";
 "alt-text-do-not-add-button-title" = "不要新增";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "請盡量使替代文字保持簡短，讓使用者容易理解影像內容";
 "alt-text-experiment-edit-summary" = "已新增替代文字";
+<<<<<<< HEAD
 "alt-text-experiment-review-title" = "審閱";
+=======
+"alt-text-experiment-guidance-button" = "替代文字撰寫指南";
+"alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
+>>>>>>> ea65051262ccaa8d0e464212080a398c3a416563
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";
 "alt-text-license" = "發佈變更即表示您同意[使用條款]($1)，且您不可撤銷地同意根據 [CC BY-SA 3.0]($2) 授權和 [GFDL]($3) 發佈您的貢獻。您同意，根據創用 CC 授權，超連結或 URL 即為充分的姓名標示。";

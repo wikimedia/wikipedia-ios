@@ -104,6 +104,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
+    var wasPresentingGalleryWhileInAltTextMode = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -488,13 +489,29 @@ class ArticleViewController: ViewController, HintPresenting {
             self.articleLoadWaitGroup = nil
         }
     }
+
+    private func setupForAltTextExperiment() {
+
+        guard let altTextExperimentViewModel,
+         altTextBottomSheetViewModel != nil else {
+            return
+        }
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+        messagingController.hideEditPencils()
+        messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
+        
+        presentAltTextModalSheet()
+    }
     
-   private func presentAltTextModalSheet() {
-       // from bottom sheet PR
-       guard let altTextExperimentViewModel,
-             let altTextBottomSheetViewModel else {
-           return
-       }
+    func presentAltTextModalSheet() {
+        
+        guard altTextExperimentViewModel != nil,
+         let altTextBottomSheetViewModel else {
+            return
+        }
+
         let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
         
         if #available(iOS 16.0, *) {
@@ -513,21 +530,6 @@ class ArticleViewController: ViewController, HintPresenting {
             
             present(bottomSheetViewController, animated: true, completion: nil)
         }
-    }
-    
-    private func setupForAltTextExperiment() {
-
-        guard let altTextExperimentViewModel,
-         let altTextBottomSheetViewModel else {
-            return
-        }
-        
-        let oldContentInset = webView.scrollView.contentInset
-        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
-        messagingController.hideEditPencils()
-        messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
-        
-        presentAltTextModalSheet()
     }
     
     internal func loadSummary(oldState: ViewState) {
@@ -1423,6 +1425,24 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+    func didTriggerCharacterWarning() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
+    }
+    
+    func didTapFileName() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
+    }
+    
     func didAppear() {
         
         guard let siteURL = articleURL.wmf_site,

@@ -151,9 +151,16 @@
 "advanced-settings-title" = "Configurações avançadas";
 "alt-text-add-button-title" = "Adicionar";
 "alt-text-do-not-add-button-title" = "Não adicionar";
+<<<<<<< HEAD
 "alt-text-experiment-caption-title" = "Legenda da imagem";
 "alt-text-experiment-edit-summary" = "Texto alternativo adicionado";
 "alt-text-experiment-review-title" = "Revise";
+=======
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "Tente manter o texto alternativo curto para que os usuários possam entender facilmente o conteúdo da imagem";
+"alt-text-experiment-guidance-button" = "Orientação para escrever texto alternativo";
+"alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
+>>>>>>> ea65051262ccaa8d0e464212080a398c3a416563
 "alt-text-experiment-text-field-placholder" = "Descreva a imagem";
 "alt-text-experiment-view-title" = "Adicionar texto alternativo";
 "alt-text-license" = "Ao publicar alterações, você concorda com os [Termos de Uso]($1) e concorda irrevogavelmente em liberar sua contribuição sob a Licença [CC BY-SA 3.0]($2) e a [GFDL]($3). Você concorda que um hiperlink ou URL é atribuição suficiente sob a licença Creative Commons.";
