@@ -311,7 +311,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding)
         ])
         
-        if let imageURL = viewModel?.altTextViewModel.imageThumbURL {
+        if let imageURL = viewModel?.altTextViewModel.imageFullURL {
             viewModel?.populateUIImage(for: imageURL) { [weak self] error in
                 self?.imageView.image = self?.viewModel?.uiImage
             }

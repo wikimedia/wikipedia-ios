@@ -314,11 +314,11 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
     
     func didTapNext(altText: String) {
 
-        guard let altTextExperimentViewModel else {
+        guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
             return
         }
 
-        altTextDelegate?.didTapNext(altText: altText, articleViewController: self, viewModel: altTextExperimentViewModel)
+        altTextDelegate?.didTapNext(altText: altText, uiImage: altTextBottomSheetViewModel.uiImage,  articleViewController: self, viewModel: altTextExperimentViewModel)
         self.didTapPreview = true
     }
 }

@@ -43,7 +43,7 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationItem.backButtonDisplayMode = .generic
         let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .plain, target: self, action: #selector(publishWikitext))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
         addComponent(hostingViewController, pinToEdges: true)
     }
 

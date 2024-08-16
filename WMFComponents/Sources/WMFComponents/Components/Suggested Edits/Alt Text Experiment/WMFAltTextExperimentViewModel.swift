@@ -15,7 +15,7 @@ public struct WMFAltTextExperimentViewModel {
     public let localizedStrings: LocalizedStrings
     public let articleTitle: String
     public let caption: String?
-    public let imageFullURL: String
+    public let imageFullURLString: String
     public let imageThumbURLString: String
     public let filename: String
     public let imageWikitext: String
@@ -28,7 +28,7 @@ public struct WMFAltTextExperimentViewModel {
         self.localizedStrings = localizedStrings
         self.articleTitle = articleTitle
         self.caption = caption
-        self.imageFullURL = imageFullURL
+        self.imageFullURLString = imageFullURL
         self.imageThumbURLString = imageThumbURL
         self.filename = filename
         self.imageWikitext = imageWikitext
@@ -38,8 +38,8 @@ public struct WMFAltTextExperimentViewModel {
         self.isFlowB = isFlowB
     }
     
-    var imageThumbURL: URL? {
-        return URL(string: "https:\(imageThumbURLString)")
+    var imageFullURL: URL? {
+        return URL(string: "https:\(imageFullURLString)")
     }
 }
 

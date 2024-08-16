@@ -3,7 +3,7 @@ import WMF
 import CocoaLumberjackSwift
 
 protocol AltTextDelegate: AnyObject {
-    func didTapNext(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
+    func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
 }
 
 @objc(WMFArticleViewController)
@@ -100,7 +100,7 @@ class ArticleViewController: ViewController, HintPresenting {
 
     // MARK: Alt-text experiment Properties
 
-    private var altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?
+    private(set) var altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?
     private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
