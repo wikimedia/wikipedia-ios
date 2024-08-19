@@ -26,12 +26,12 @@ final class AltTextArticleEditorOnboardingPresenter {
             return
         }
         
-        // if !dataController.hasPresentedOnboardingModal {
+        if !dataController.hasPresentedOnboardingModal {
             presentAltTextOnboarding()
-        //    dataController.hasPresentedOnboardingModal = true
-        // } else {
-        //    pushOnAltText(info: altTextInfo)
-        // }
+            dataController.hasPresentedOnboardingModal = true
+        } else {
+            pushOnAltText(info: altTextInfo)
+        }
     }
     
     private func presentAltTextOnboarding() {
