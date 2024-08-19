@@ -1419,6 +1419,7 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+
     func didTriggerCharacterWarning() {
         guard let siteURL = articleURL.wmf_site,
               let project = WikimediaProject(siteURL: siteURL) else {

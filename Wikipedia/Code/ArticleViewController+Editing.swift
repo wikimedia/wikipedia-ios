@@ -445,6 +445,9 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
+    func didTapGuidance() {
+        
+    }
     
     func didTapNext(altText: String) {
         

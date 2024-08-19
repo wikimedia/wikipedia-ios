@@ -398,7 +398,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedGuidance() {
-        print("TODO: Present onboarding again")
+        delegate?.didTapGuidance()
     }
 }
 
