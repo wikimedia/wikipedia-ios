@@ -4,9 +4,9 @@ import WMFData
 
 final class AltTextImageRecommendationsOnboardingPresenter {
     
-    private let imageRecommendationsViewModel: WMFImageRecommendationsViewModel
-    private let imageRecommendationsViewController: WMFImageRecommendationsViewController
-    private let exploreViewController: ExploreViewController
+    private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
+    private weak var imageRecommendationsViewController: WMFImageRecommendationsViewController?
+    private weak var exploreViewController: ExploreViewController?
     
     internal init(imageRecommendationsViewModel: WMFImageRecommendationsViewModel, imageRecommendationsViewController: WMFImageRecommendationsViewController, exploreViewController: ExploreViewController) {
         self.imageRecommendationsViewModel = imageRecommendationsViewModel
@@ -16,7 +16,8 @@ final class AltTextImageRecommendationsOnboardingPresenter {
     
     func enterAltTextFlow() {
         
-        guard let dataController = WMFAltTextDataController.shared else {
+        guard let dataController = WMFAltTextDataController.shared,
+        let imageRecommendationsViewController else {
             return
         }
         if !dataController.hasPresentedOnboardingModal {
@@ -28,7 +29,10 @@ final class AltTextImageRecommendationsOnboardingPresenter {
     }
     
     private func pushOnAltText() {
-        guard let lastRecommendation = imageRecommendationsViewModel.lastRecommendation else {
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
+              let exploreViewController,
+              let imageRecommendationsViewController else {
             return
         }
         
@@ -68,6 +72,10 @@ final class AltTextImageRecommendationsOnboardingPresenter {
     }
     
     private func presentAltTextOnboarding(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        
+        guard let imageRecommendationsViewModel else {
+            return
+        }
 
         let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.continueButton, delegate: self)
         imageRecommendationsViewController.present(onboardingController, animated: true, completion: {
@@ -82,6 +90,11 @@ final class AltTextImageRecommendationsOnboardingPresenter {
 extension AltTextImageRecommendationsOnboardingPresenter: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         
+        guard let imageRecommendationsViewModel,
+              let imageRecommendationsViewController else {
+            return
+        }
+        
         EditInteractionFunnel.shared.logAltTextOnboardingDidTapPrimaryButton(project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
         
         imageRecommendationsViewController.dismiss(animated: true) {
@@ -91,6 +104,11 @@ extension AltTextImageRecommendationsOnboardingPresenter: WMFOnboardingViewDeleg
     }
     
     func onboardingViewDidClickSecondaryButton() {
+        
+        guard let imageRecommendationsViewModel,
+        let imageRecommendationsViewController else {
+            return
+        }
 
         EditInteractionFunnel.shared.logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
         

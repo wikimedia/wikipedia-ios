@@ -3,17 +3,23 @@ import WMFComponents
 import WMFData
 
 final class AltTextGuidancePresenter {
-    let articleViewController: ArticleViewController
+    private weak var articleViewController: ArticleViewController?
     
     internal init(articleViewController: ArticleViewController) {
         self.articleViewController = articleViewController
     }
     
     func presentAltTextGuidance() {
+        
+        guard let articleViewController else {
+            return
+        }
+        
         // dismiss alt text input  half sheet modal
         articleViewController.dismiss(animated: true) {
+            
             let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.doneTitle, delegate: self)
-            self.articleViewController.present(onboardingController, animated: true, completion: {
+            self.articleViewController?.present(onboardingController, animated: true, completion: {
                 UIAccessibility.post(notification: .layoutChanged, argument: nil)
             })
         }
@@ -22,8 +28,13 @@ final class AltTextGuidancePresenter {
 
 extension AltTextGuidancePresenter: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
+        
+        guard let articleViewController else {
+            return
+        }
+        
         articleViewController.dismiss(animated: true) {
-            self.articleViewController.presentAltTextModalSheet()
+            self.articleViewController?.presentAltTextModalSheet()
         }
         
         if let siteURL = articleViewController.articleURL.wmf_site,
@@ -33,6 +44,11 @@ extension AltTextGuidancePresenter: WMFOnboardingViewDelegate {
     }
     
     func onboardingViewDidClickSecondaryButton() {
+        
+        guard let articleViewController else {
+            return
+        }
+        
         guard let siteURL = articleViewController.articleURL.wmf_site,
               let wikimediaProject = WikimediaProject(siteURL: siteURL),
         let wmfProject = wikimediaProject.wmfProject else {
@@ -74,6 +90,11 @@ extension AltTextGuidancePresenter: WMFOnboardingViewDelegate {
     }
     
     func onboardingDidSwipeToDismiss() {
-        self.articleViewController.presentAltTextModalSheet()
+        
+        guard let articleViewController else {
+            return
+        }
+        
+        articleViewController.presentAltTextModalSheet()
     }
 }

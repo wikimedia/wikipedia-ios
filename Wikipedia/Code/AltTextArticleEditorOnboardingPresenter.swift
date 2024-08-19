@@ -13,7 +13,7 @@ struct ArticleAltTextInfo {
 
 final class AltTextArticleEditorOnboardingPresenter {
     
-    let articleViewController: ArticleViewController
+    private weak var articleViewController: ArticleViewController?
     let altTextInfo: ArticleAltTextInfo
     
     internal init(articleViewController: ArticleViewController, altTextInfo: ArticleAltTextInfo) {
@@ -35,6 +35,10 @@ final class AltTextArticleEditorOnboardingPresenter {
     }
     
     private func presentAltTextOnboarding() {
+        
+        guard let articleViewController else {
+            return
+        }
 
         let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.continueButton, delegate: self)
         articleViewController.present(onboardingController, animated: true, completion: {
@@ -45,6 +49,10 @@ final class AltTextArticleEditorOnboardingPresenter {
     }
     
     private func pushOnAltText(info: ArticleAltTextInfo) {
+        
+        guard let articleViewController else {
+            return
+        }
         
         guard let languageCode = articleViewController.articleURL.wmf_languageCode else {
             return
@@ -75,13 +83,18 @@ final class AltTextArticleEditorOnboardingPresenter {
         
         if let articleViewController = ArticleViewController(articleURL: articleViewController.articleURL, dataStore: articleViewController.dataStore, theme: articleViewController.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: articleViewController) {
             
-            self.articleViewController.navigationController?.pushViewController(articleViewController, animated: true)
+            self.articleViewController?.navigationController?.pushViewController(articleViewController, animated: true)
         }
     }
 }
 
 extension AltTextArticleEditorOnboardingPresenter: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
+        
+        guard let articleViewController else {
+            return
+        }
+        
         articleViewController.dismiss(animated: true) {
             self.pushOnAltText(info: self.altTextInfo)
         }
@@ -93,6 +106,11 @@ extension AltTextArticleEditorOnboardingPresenter: WMFOnboardingViewDelegate {
     }
     
     func onboardingViewDidClickSecondaryButton() {
+        
+        guard let articleViewController else {
+            return
+        }
+        
         guard let siteURL = articleViewController.articleURL.wmf_site,
               let wikimediaProject = WikimediaProject(siteURL: siteURL),
         let wmfProject = wikimediaProject.wmfProject else {
