@@ -12,7 +12,7 @@ final class AltTextGuidancePresenter {
     func presentAltTextGuidance() {
         // dismiss alt text input  half sheet modal
         articleViewController.dismiss(animated: true) {
-            let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(delegate: self)
+            let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.doneTitle, delegate: self)
             self.articleViewController.present(onboardingController, animated: true, completion: {
                 UIAccessibility.post(notification: .layoutChanged, argument: nil)
             })

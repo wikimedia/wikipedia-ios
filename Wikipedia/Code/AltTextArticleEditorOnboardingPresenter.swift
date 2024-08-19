@@ -36,7 +36,7 @@ final class AltTextArticleEditorOnboardingPresenter {
     
     private func presentAltTextOnboarding() {
 
-        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(delegate: self)
+        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.continueButton, delegate: self)
         articleViewController.present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })

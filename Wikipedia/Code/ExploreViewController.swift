@@ -1401,7 +1401,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     
     private func presentAltTextOnboarding(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
 
-        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(delegate: self)
+        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.continueButton, delegate: self)
         imageRecommendationsViewController.present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
