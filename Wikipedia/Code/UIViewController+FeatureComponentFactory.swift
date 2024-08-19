@@ -59,3 +59,21 @@ extension WMFImageRecommendationsViewController {
         return imageRecommendationsViewController
     }
 }
+
+extension WMFOnboardingViewController {
+    static func altTextOnboardingViewController(delegate: WMFOnboardingViewDelegate) -> WMFOnboardingViewController {
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .ellipsisBubble), title: CommonStrings.altTextOnboardingItem1Title, subtitle: CommonStrings.altTextOnboardingItem1Subtitle, fillIconBackground: true)
+
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .eye), title: CommonStrings.altTextOnboardingItem2Title, subtitle: CommonStrings.altTextOnboardingItem2Subtitle, fillIconBackground: true)
+
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .docTextImage), title: CommonStrings.altTextOnboardingItem3Title, subtitle: CommonStrings.altTextOnboardingItem3Subtitle, fillIconBackground: true)
+        
+        let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photo), title: CommonStrings.altTextOnboardingItem4Title, subtitle: CommonStrings.altTextOnboardingItem4Subtitle, fillIconBackground: true)
+
+        let onboardingViewModel = WMFOnboardingViewModel(title: CommonStrings.altTextOnboardingTitle, cells: [firstItem, secondItem, thirdItem, fourthItem], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.altTextOnboardingSecondaryButtonTitle)
+
+        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
+        onboardingController.delegate = delegate
+        return onboardingController
+    }
+}
