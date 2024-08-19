@@ -12,6 +12,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
+    private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
     // MARK: - UIViewController
     
@@ -1310,8 +1311,9 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 
                 EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
 
-                
-                self.enterAltTextFlow(imageRecommendationsViewController: imageRecommendationsViewController)
+                let altTextImageRecommendationsOnboardingPresenter = AltTextImageRecommendationsOnboardingPresenter(imageRecommendationsViewModel: viewModel, imageRecommendationsViewController: imageRecommendationsViewController, exploreViewController: self)
+                self.altTextImageRecommendationsOnboardingPresenter = altTextImageRecommendationsOnboardingPresenter
+                altTextImageRecommendationsOnboardingPresenter.enterAltTextFlow()
             }
         }
 
@@ -1343,72 +1345,6 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
-    }
-    
-    private func enterAltTextFlow(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
-        
-        guard let dataController = WMFAltTextDataController.shared else {
-            return
-        }
-        if !dataController.hasPresentedOnboardingModal {
-            presentAltTextOnboarding(imageRecommendationsViewController: imageRecommendationsViewController)
-            dataController.hasPresentedOnboardingModal = true
-        } else {
-            pushOnAltText()
-        }
-    }
-    
-    private func pushOnAltText() {
-        guard let viewModel = imageRecommendationsViewModel,
-              let lastRecommendation = viewModel.lastRecommendation else {
-            return
-        }
-        
-        guard let imageWikitext = lastRecommendation.imageWikitext,
-              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
-            let lastRevisionID = lastRecommendation.lastRevisionID,
-            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
-            return
-        }
-        
-        let addAltTextTitle = CommonStrings.altTextArticleNavBarTitle
-        let languageCode = viewModel.project.languageCode
-        let editSummary = CommonStrings.altTextEditSummary(with: languageCode)
-        
-        let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
-        
-        let articleTitle = lastRecommendation.imageData.pageTitle
-        
-        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: viewModel.project)
-        
-        let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
-        let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
-        let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
-        let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
-        let guidanceText = CommonStrings.altGuidanceButtonTitle
-        
-        let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
-
-        let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-        
-        if let siteURL = viewModel.project.siteURL,
-           let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-           let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
-
-            self.navigationController?.pushViewController(articleViewController, animated: true)
-        }
-    }
-    
-    private func presentAltTextOnboarding(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
-
-        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(primaryButtonTitle: CommonStrings.continueButton, delegate: self)
-        imageRecommendationsViewController.present(onboardingController, animated: true, completion: {
-            UIAccessibility.post(notification: .layoutChanged, argument: nil)
-        })
-        
-        if let wmfProject = imageRecommendationsViewModel?.project {
-            EditInteractionFunnel.shared.logAltTextOnboardingDidAppear(project: WikimediaProject(wmfProject: wmfProject))
-        }
     }
 }
 
@@ -1889,64 +1825,5 @@ extension ExploreViewController: AltTextDelegate {
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
         }
-    }
-}
-
-extension ExploreViewController: WMFOnboardingViewDelegate {
-    func onboardingViewDidClickPrimaryButton() {
-        
-        if let wmfProject = imageRecommendationsViewModel?.project {
-            EditInteractionFunnel.shared.logAltTextOnboardingDidTapPrimaryButton(project: WikimediaProject(wmfProject: wmfProject))
-        }
-        
-        dismiss(animated: true) {
-            self.pushOnAltText()
-        }
-        
-    }
-    
-    func onboardingViewDidClickSecondaryButton() {
-        guard let wmfProject = imageRecommendationsViewModel?.project else {
-            return
-        }
-        
-        if let wmfProject = imageRecommendationsViewModel?.project {
-            EditInteractionFunnel.shared.logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject(wmfProject: wmfProject))
-        }
-        
-        var url: URL?
-        switch wmfProject {
-        case .wikipedia(let language):
-            switch language.languageCode {
-            case "en", "test":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/en#Alt_Text_Examples")!
-            case "pt":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/pt-br#Exemplos_de_texto_alternativo")
-            case "es":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/es#Ejemplos_de_texto_alternativo")
-            case "zh":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/zh#%E6%9B%BF%E4%BB%A3%E6%96%87%E6%9C%AC%E7%AF%84%E4%BE%8B")
-            case "fr":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/fr#Exemples_de_texte_alternatif")
-            default:
-                return
-            }
-        default:
-            return
-        }
-        
-        guard let url else {
-            return
-        }
-        
-        navigate(to: url, useSafari: true)
-    }
-    
-    func onboardingViewWillSwipeToDismiss() {
-        
-    }
-    
-    func onboardingDidSwipeToDismiss() {
-        pushOnAltText()
     }
 }

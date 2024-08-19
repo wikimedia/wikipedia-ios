@@ -516,6 +516,9 @@
 		675845192C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
 		6758451A2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
 		6758451B2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
+		6758451D2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6758451C2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift */; };
+		6758451E2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6758451C2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift */; };
+		6758451F2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6758451C2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */; };
@@ -3303,6 +3306,7 @@
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextArticleEditorOnboardingPresenter.swift; sourceTree = "<group>"; };
 		675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextGuidancePresenter.swift; sourceTree = "<group>"; };
+		6758451C2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextImageRecommendationsOnboardingPresenter.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
@@ -6228,6 +6232,7 @@
 		675845132C73A71300F1A4A5 /* Alt Text Experiment */ = {
 			isa = PBXGroup;
 			children = (
+				6758451C2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift */,
 				675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */,
 				675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */,
 			);
@@ -10110,6 +10115,7 @@
 				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
+				6758451D2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				6780CF282967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
@@ -11248,6 +11254,7 @@
 				676F392A2745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */,
 				0042813725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				6782DBC22343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
+				6758451F2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+Animations.swift in Sources */,
 				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				832093332A61CA2200A43BAB /* DiffHeaderView.swift in Sources */,
@@ -11812,6 +11819,7 @@
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
 				676F39292745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */,
 				0042813625E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
+				6758451E2C73B36B00F1A4A5 /* AltTextImageRecommendationsOnboardingPresenter.swift in Sources */,
 				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
 				D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */,
