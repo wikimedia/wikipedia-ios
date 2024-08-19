@@ -97,7 +97,7 @@
 - (UILabel *)newLicenseLabel {
     UILabel *label = [[UILabel alloc] init];
     [label wmf_configureSubviewsForDynamicType];
-    label.font = [WKFontWrapper fontFor: WMFFontsSubheadline compatibleWithTraitCollection:self.traitCollection]; 
+    label.font = [WMFFontWrapper fontFor: WMFFontsSubheadline compatibleWithTraitCollection:self.traitCollection]; 
     label.textColor = [UIColor whiteColor];
     return label;
 }
