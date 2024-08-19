@@ -18,7 +18,7 @@ public enum WMFIcon {
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
-    static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
+    public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
     public static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+

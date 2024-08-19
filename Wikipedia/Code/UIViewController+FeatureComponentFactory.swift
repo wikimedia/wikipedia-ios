@@ -70,7 +70,8 @@ extension WMFOnboardingViewController {
         
         let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photo), title: CommonStrings.altTextOnboardingItem4Title, subtitle: CommonStrings.altTextOnboardingItem4Subtitle, fillIconBackground: true)
 
-        let onboardingViewModel = WMFOnboardingViewModel(title: CommonStrings.altTextOnboardingTitle, cells: [firstItem, secondItem, thirdItem, fourthItem], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.altTextOnboardingSecondaryButtonTitle)
+        let secondaryButtonTrailingIcon = WMFIcon.externalLink
+        let onboardingViewModel = WMFOnboardingViewModel(title: CommonStrings.altTextOnboardingTitle, cells: [firstItem, secondItem, thirdItem, fourthItem], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.altTextOnboardingSecondaryButtonTitle, secondaryButtonTrailingIcon: secondaryButtonTrailingIcon)
 
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = delegate

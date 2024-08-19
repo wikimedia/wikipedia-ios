@@ -67,7 +67,7 @@ public struct WMFOnboardingView: View {
                     .padding([.top], 16)
 
                 if let secondaryTitle = viewModel.secondaryButtonTitle {
-                    let configuration = WMFSmallButton.Configuration(style: .quiet)
+                    let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: viewModel.secondaryButtonTrailingIcon)
                     WMFSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
                 }
             }

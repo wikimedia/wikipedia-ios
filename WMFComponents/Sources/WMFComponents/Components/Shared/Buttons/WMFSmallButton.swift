@@ -9,11 +9,11 @@ public struct WMFSmallButton: View {
         }
         
         public let style: Style
-        public let needsDisclosure: Bool
+        public let trailingIcon: UIImage?
         
-        public init(style: WMFSmallButton.Configuration.Style, needsDisclosure: Bool = false) {
+        public init(style: WMFSmallButton.Configuration.Style, trailingIcon: UIImage? = nil) {
             self.style = style
-            self.needsDisclosure = needsDisclosure
+            self.trailingIcon = trailingIcon
         }
     }
 
@@ -38,9 +38,8 @@ public struct WMFSmallButton: View {
                     .font(Font(WMFFont.for(.mediumSubheadline)))
                     .foregroundColor(Color(appEnvironment.theme.link))
                 
-                if configuration.needsDisclosure,
-                let uiImage = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
-                    Image(uiImage: uiImage)
+                if let trailingIcon = configuration.trailingIcon {
+                    Image(uiImage: trailingIcon)
                         .foregroundColor(Color(appEnvironment.theme.link))
                 }
             }
