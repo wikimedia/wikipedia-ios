@@ -166,6 +166,16 @@
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Procure que el texto alternativo sea breve para que los usuarios puedan entender fácilmente el contenido de la imagen";
 "alt-text-experiment-guidance-button" = "Guía para redactar el texto alternativo";
+"alt-text-experiment-onboarding-item-1-subtitle" = "1 o 2 líneas de texto sin acrónimos, abreviaturas o tecnicismos.";
+"alt-text-experiment-onboarding-item-1-title" = "Que sea breve y claro";
+"alt-text-experiment-onboarding-item-2-subtitle" = "No añada su propio análisis, interpretación u opinión.";
+"alt-text-experiment-onboarding-item-2-title" = "Describa lo que se ve";
+"alt-text-experiment-onboarding-item-3-subtitle" = "No repita texto que ya esté en el pie de foto.";
+"alt-text-experiment-onboarding-item-3-title" = "Céntrese en lo que es relevante para el artículo";
+"alt-text-experiment-onboarding-item-4-subtitle" = "No empiece con: \"Esta es una imagen de...\", sino describa el medio o el estilo, si procede";
+"alt-text-experiment-onboarding-item-4-title" = "Tipo de imagen";
+"alt-text-experiment-onboarding-secondary-button-title" = "Ver ejemplos";
+"alt-text-experiment-onboarding-title" = "Cómo escribir el texto alternativo de las imágenes";
 "alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
 "alt-text-experiment-text-field-placholder" = "Describir la imagen";
 "alt-text-experiment-view-title" = "Añadir texto alternativo";
