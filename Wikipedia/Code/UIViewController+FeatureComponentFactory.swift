@@ -66,7 +66,7 @@ extension WMFOnboardingViewController {
 
         let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .eye), title: CommonStrings.altTextOnboardingItem2Title, subtitle: CommonStrings.altTextOnboardingItem2Subtitle, fillIconBackground: true)
 
-        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .docTextImage), title: CommonStrings.altTextOnboardingItem3Title, subtitle: CommonStrings.altTextOnboardingItem3Subtitle, fillIconBackground: true)
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .squareTextSquare), title: CommonStrings.altTextOnboardingItem3Title, subtitle: CommonStrings.altTextOnboardingItem3Subtitle, fillIconBackground: true)
         
         let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photo), title: CommonStrings.altTextOnboardingItem4Title, subtitle: CommonStrings.altTextOnboardingItem4Subtitle, fillIconBackground: true)
 
