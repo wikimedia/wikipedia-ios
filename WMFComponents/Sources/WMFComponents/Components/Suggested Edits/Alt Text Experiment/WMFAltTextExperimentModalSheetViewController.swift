@@ -1,7 +1,8 @@
 import UIKit
 
 public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
-   func didTapNext(altText: String)
+    func didTapNext(altText: String)
+    func didTapFileName(fileName: String)
 }
 
 public protocol WMFAltTextExperimentModalSheetLoggingDelegate: AnyObject {

@@ -414,6 +414,28 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
         altTextDelegate?.didTapNext(altText: altText, uiImage: altTextBottomSheetViewModel.uiImage,  articleViewController: self, viewModel: altTextExperimentViewModel)
         self.didTapPreview = true
     }
+    
+    func didTapFileName(fileName: String) {
+        
+        guard let denormalizedFileName = fileName.denormalizedPageTitle else {
+            return
+        }
+        
+        guard let url = articleURL.wmf_site?.wmf_URL(withTitle: denormalizedFileName) else {
+            return
+        }
+        
+        // Dismiss alt half sheet modal
+        dismiss(animated: true) { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            self.didTapAltTextFileName = true
+            let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
+            self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
+        }
+    }
 }
 
 extension ArticleViewController: AltTextDelegate {
