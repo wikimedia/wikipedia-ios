@@ -283,7 +283,7 @@
 }
 
 - (void)updateFonts {
-    self.button.titleLabel.font = [WKFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
+    self.button.titleLabel.font = [WMFFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)updateImageView {

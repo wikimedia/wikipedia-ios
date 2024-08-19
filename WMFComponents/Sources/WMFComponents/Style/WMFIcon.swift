@@ -27,6 +27,11 @@ public enum WMFIcon {
     // Project icons
     static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
+
+    // License
+
+    static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
+
 }
 
 public enum WMFSFSymbolIcon {
