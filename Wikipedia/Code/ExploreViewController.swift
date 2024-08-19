@@ -1783,7 +1783,14 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
 
-            navigationController?.popViewController(animated: true)
+            if let navigationController = self.navigationController {
+                for viewController in navigationController.viewControllers {
+                    if viewController is WMFImageRecommendationsViewController {
+                        navigationController.popToViewController(viewController, animated: true)
+                        break
+                    }
+                }
+            }
 
             // wait for animation to complete
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in

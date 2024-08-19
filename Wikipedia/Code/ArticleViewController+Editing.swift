@@ -483,7 +483,14 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
             DispatchQueue.main.async {
 
-                self.navigationController?.popViewController(animated: true)
+                if let navigationController = self.navigationController,
+                   navigationController.viewControllers.count > 2 {
+                    // pop back two view controllers. 
+                    let index = (navigationController.viewControllers.count-1) - 2
+                    if let _ = navigationController.viewControllers[index] as? ArticleViewController {
+                        navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
+                    }
+                }
 
                 guard let fetchedData = result as? [String: Any],
                       let newRevID = fetchedData["newrevid"] as? UInt64 else {
