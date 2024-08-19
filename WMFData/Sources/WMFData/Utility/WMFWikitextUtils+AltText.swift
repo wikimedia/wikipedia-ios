@@ -68,8 +68,14 @@ final class WMFAltTextDetector {
 }
 
 public extension WMFWikitextUtils {
-    
-    // MARK: - Detect image links with missing alt text
+
+    /// Detect image links with missing alt text
+    /// - Parameters:
+    ///   - text: Text to evaluate
+    ///   - language: Language code
+    ///   - targetNamespaces: Namespaces to target ("File", "Image")
+    ///   - targetAltParams: Alt parameter names to target ("alt", "alternativtext")
+    /// - Returns: Array of MissingAltTextLinks representing file links missing alt text.
     static func missingAltTextLinks(text: String, language: String, targetNamespaces: [String], targetAltParams: [String]) throws -> [WMFMissingAltTextLink] {
         let altTextDetector = try WMFAltTextDetector()
         return try altTextDetector.missingAltTextLinks(text: text, language: language, targetNamespaces: targetNamespaces, targetAltParams: targetAltParams)

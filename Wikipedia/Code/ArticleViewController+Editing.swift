@@ -275,7 +275,14 @@ extension ArticleViewController: EditorViewControllerDelegate {
         var missingAltTextLink: WMFMissingAltTextLink?
         do {
             let fileMagicWords = MagicWordUtils.getMagicWordsForKey(.fileNamespace, languageCode: languageCode)
-            let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode)
+            
+            let altMagicWords = MagicWordUtils.getMagicWordsForKey(.imageAlt, languageCode: languageCode).map { altFormat in
+                if let equalIndex = altFormat.firstIndex(of: "=") {
+                    return String(altFormat.prefix(upTo: equalIndex))
+                }
+                return altFormat
+            }
+            
             missingAltTextLink = try WMFWikitextUtils.missingAltTextLinks(text: fullArticleWikitext, language: languageCode, targetNamespaces: fileMagicWords, targetAltParams: altMagicWords).first
         } catch {
             DDLogError("Error extracting missing alt text link: \(error)")
