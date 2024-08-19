@@ -41,7 +41,7 @@ extension WMFMissingAltTextLink {
         do {
             let paramsWithEqualSignsRegex = try Regex("\\|\\s*[^\\|\\=\\]]+=[^\\|\\=\\]]+\\s*")
             let ranges = finalText.ranges(of: paramsWithEqualSignsRegex)
-            for range in ranges {
+            for range in ranges.reversed() {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
@@ -52,7 +52,7 @@ extension WMFMissingAltTextLink {
         do {
             let paramsWithSizeRegex = try Regex("\\|\\s*(?:\\d+)?x?\\d+px\\s*")
             let ranges = finalText.ranges(of: paramsWithSizeRegex)
-            for range in ranges {
+            for range in ranges.reversed() {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
@@ -95,7 +95,7 @@ extension WMFMissingAltTextLink {
         do {
             let paramsWithMagicWordsRegex = try Regex("\\|\\s*(\(allMagicWords))\\s*")
             let ranges = finalText.ranges(of: paramsWithMagicWordsRegex)
-            for range in ranges {
+            for range in ranges.reversed() {
                 finalText.replaceSubrange(range, with: "")
             }
         } catch {
@@ -115,7 +115,7 @@ extension WMFMissingAltTextLink {
         do {
             let linksRegex = try Regex("\\[\\[([^|\\[\\]]+\\|)[^|\\[\\]]+\\]\\]")
             let matches = finalText.matches(of: linksRegex)
-            for match in matches {
+            for match in matches.reversed() {
                 guard match.count == 2,
                       let range = match[1].range else {
                     continue
@@ -146,7 +146,7 @@ extension WMFMissingAltTextLink {
                 return
             }
             
-            for range in ranges {
+            for range in ranges.reversed() {
                 text.replaceSubrange(range, with: "")
             }
             
