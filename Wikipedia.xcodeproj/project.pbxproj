@@ -513,6 +513,9 @@
 		675845152C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */; };
 		675845162C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */; };
 		675845172C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */; };
+		675845192C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
+		6758451A2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
+		6758451B2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */; };
@@ -3299,6 +3302,7 @@
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextArticleEditorOnboardingPresenter.swift; sourceTree = "<group>"; };
+		675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltTextGuidancePresenter.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
@@ -6225,6 +6229,7 @@
 			isa = PBXGroup;
 			children = (
 				675845142C73A73600F1A4A5 /* AltTextArticleEditorOnboardingPresenter.swift */,
+				675845182C73B03900F1A4A5 /* AltTextGuidancePresenter.swift */,
 			);
 			name = "Alt Text Experiment";
 			sourceTree = "<group>";
@@ -10308,6 +10313,7 @@
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
+				675845192C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				67CA5EFF2AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
 				83F1097323D0F115003F3E9E /* HelpViewController.swift in Sources */,
@@ -11534,6 +11540,7 @@
 				671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				67C8E8042AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */,
+				6758451B2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
@@ -12097,6 +12104,7 @@
 				671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				67C8E8032AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */,
+				6758451A2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
