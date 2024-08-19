@@ -79,7 +79,7 @@ public enum WMFSFSymbolIcon {
     case xMark
     case textBelowPhoto
     case infoCircle
-    case docTextImage
+    case squareTextSquare
     case eye
     case ellipsisBubble
 
@@ -185,8 +185,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "text.below.photo", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         case .infoCircle:
             image = UIImage(systemName: "info.circle", withConfiguration: configuration)
-        case .docTextImage:
-            image = UIImage(systemName: "doc.text.image", withConfiguration: configuration)
+        case .squareTextSquare:
+            image = UIImage(systemName: "square.text.square", withConfiguration: configuration)
         case .eye:
             image = UIImage(systemName: "eye", withConfiguration: configuration)
         case.ellipsisBubble:
