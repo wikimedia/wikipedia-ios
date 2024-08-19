@@ -421,7 +421,9 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
             return
         }
         
-        guard let url = articleURL.wmf_site?.wmf_URL(withTitle: denormalizedFileName) else {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL),
+              let url = siteURL.wmf_URL(withTitle: denormalizedFileName) else {
             return
         }
         
@@ -434,6 +436,7 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
             self.didTapAltTextFileName = true
             let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
             self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
+            EditInteractionFunnel.shared.logAltTextDidPushCommonsView(project: project)
         }
     }
 }
