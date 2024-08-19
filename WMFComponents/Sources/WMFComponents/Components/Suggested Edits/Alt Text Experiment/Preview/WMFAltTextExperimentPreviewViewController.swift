@@ -46,6 +46,11 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
         addComponent(hostingViewController, pinToEdges: true)
     }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
