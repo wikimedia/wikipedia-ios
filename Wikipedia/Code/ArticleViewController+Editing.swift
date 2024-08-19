@@ -405,7 +405,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
-    func didTapNext(altText: String) { // rethibk signature
+    func didTapNext(altText: String) {
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
             return
