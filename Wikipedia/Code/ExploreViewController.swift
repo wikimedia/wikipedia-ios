@@ -1897,7 +1897,36 @@ extension ExploreViewController: WMFOnboardingViewDelegate {
     }
     
     func onboardingViewDidClickSecondaryButton() {
+        guard let project = imageRecommendationsViewModel?.project else {
+            return
+        }
         
+        var url: URL?
+        switch project {
+        case .wikipedia(let language):
+            switch language.languageCode {
+            case "en", "test":
+                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/en#Alt_Text_Examples")!
+            case "pt":
+                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/pt-br#Exemplos_de_texto_alternativo")
+            case "es":
+                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/es#Ejemplos_de_texto_alternativo")
+            case "zh":
+                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/zh#%E6%9B%BF%E4%BB%A3%E6%96%87%E6%9C%AC%E7%AF%84%E4%BE%8B")
+            case "fr":
+                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/fr#Exemples_de_texte_alternatif")
+            default:
+                return
+            }
+        default:
+            return
+        }
+        
+        guard let url else {
+            return
+        }
+        
+        navigate(to: url, useSafari: true)
     }
     
     func onboardingViewWillSwipeToDismiss() {
