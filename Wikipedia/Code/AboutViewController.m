@@ -173,7 +173,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - Navigation Bar Configuration
 
 - (void)setupNavigationBar {
-    self.navigationTitleLabel.font = [WKFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
+    self.navigationTitleLabel.font = [WMFFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
     self.navigationTitleLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitleViewWithGestureRecognizer:)];
     [self.navigationTitleLabel addGestureRecognizer:tapGestureRecognizer];

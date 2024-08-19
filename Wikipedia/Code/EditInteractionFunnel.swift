@@ -58,6 +58,7 @@ final class EditInteractionFunnel {
         case addAltTextInput = "add_alt_text_input"
         case altTextEditSuccess = "alt_text_edit_success"
         case minimizedImpression = "minimized_impression"
+        case publishClick = "alt_text_publish_click"
         case characterWarning = "character_warning"
         case imageDetailViewClick = "image_detail_view_click"
         case onboardImpression = "onboard_impression"
@@ -326,6 +327,10 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingInterface, action: .minimizedImpression, project: project)
     }
     
+    func logAltTextDidTapPublish(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .publishClick, project: project)
+    }
+
     func logAltTextInputDidTriggerWarning(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .characterWarning, project: project)
     }
@@ -333,7 +338,7 @@ final class EditInteractionFunnel {
     func logAltTextInputDidTapFileName(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
     }
-    
+
     func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
         
         var actionData = ["time_spent": String(timeSpent),

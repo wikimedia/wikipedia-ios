@@ -41,12 +41,9 @@ public struct WMFAltTextExperimentViewModel {
         self.project = project
     }
     
-    var imageThumbURL: URL? {
-        guard let imageThumbURLString else {
-            return nil
-        }
-        
-        return URL(string: "https:\(imageThumbURLString)")
+    var imageFullURL: URL? {
+        guard let imageFullURLString else { return nil }
+        return URL(string: "https:\(imageFullURLString)")
     }
 }
 

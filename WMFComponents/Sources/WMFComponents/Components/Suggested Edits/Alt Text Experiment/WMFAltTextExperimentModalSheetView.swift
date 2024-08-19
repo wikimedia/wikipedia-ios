@@ -237,6 +237,11 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
 
+        if let altText = viewModel?.currentAltText {
+            placeholder.isHidden = true
+            textView.text = altText
+        }
+
         titleLabel.font = WMFFont.for(.boldTitle3, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         placeholder.font = WMFFont.for(.callout, compatibleWith: traitCollection)
@@ -306,11 +311,15 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
             placeholder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: basePadding)
         ])
         
-        viewModel?.populateUIImage(for: viewModel?.altTextViewModel.imageThumbURL) { [weak self] error in
-            self?.imageView.image = self?.viewModel?.uiImage
+        guard let viewModel else {
+            return
         }
         
-        if let currentAltText = viewModel?.currentAltText {
+        viewModel.populateUIImage(for: viewModel.altTextViewModel.imageFullURL) { [weak self] error in
+            self?.imageView.image = self?.viewModel?.uiImage
+        }
+
+        if let currentAltText = viewModel.currentAltText {
             textView.text = currentAltText
             placeholder.isHidden = true
             updateNextButtonState()
@@ -384,8 +393,11 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
               !altText.isEmpty else {
             return
         }
-        
+
+        viewModel?.currentAltText = altText
+
         nextButton.isEnabled = false
+        
         delegate?.didTapNext(altText: altText)
     }
     
