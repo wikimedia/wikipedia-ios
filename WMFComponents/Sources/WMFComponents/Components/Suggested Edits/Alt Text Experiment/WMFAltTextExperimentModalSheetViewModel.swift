@@ -3,6 +3,7 @@ import UIKit
 import WMFData
 
 @objc final public class WMFAltTextExperimentModalSheetViewModel: NSObject {
+
     public let altTextViewModel: WMFAltTextExperimentViewModel
     public let localizedStrings: LocalizedStrings
     public var uiImage: UIImage?

@@ -155,13 +155,16 @@
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "請盡量使替代文字保持簡短，讓使用者容易理解影像內容";
 "alt-text-experiment-edit-summary" = "已新增替代文字";
+"alt-text-experiment-review-title" = "審閱";
 "alt-text-experiment-guidance-button" = "替代文字撰寫指南";
 "alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";
+"alt-text-license" = "發佈變更即表示您同意[使用條款]($1)，且您不可撤銷地同意根據 [CC BY-SA 3.0]($2) 授權和 [GFDL]($3) 發佈您的貢獻。您同意，根據創用 CC 授權，超連結或 URL 即為充分的姓名標示。";
 "alt-text-modal-subtitle-image-recommendation" = "前一張圖片缺少替代文字，您要幫視覺障礙讀者們新增一個圖片描述嗎？";
 "alt-text-modal-title" = "新增缺少的圖片替代文字？";
 "alt-text-modal-subtitle-regular-edit" = "此條目的圖片缺少替代文字，您要幫視覺障礙讀者們新增圖片的描述嗎？";
+"alt-text-title" = "替代文字";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
