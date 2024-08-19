@@ -377,6 +377,8 @@ extension ArticleViewController: EditorViewControllerDelegate {
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
+        
+        EditInteractionFunnel.shared.logAltTextOnboardingDidAppear(project: WikimediaProject(wmfProject: info.wmfProject))
     }
     
     struct ArticleAltTextInfo {
@@ -558,6 +560,11 @@ extension ArticleViewController: WMFOnboardingViewDelegate {
             self.pushOnAltText(info: info)
             self.altTextInfo = nil
         }
+        
+        if let siteURL = articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL) {
+            EditInteractionFunnel.shared.logAltTextOnboardingDidTapPrimaryButton(project: project)
+        }
     }
     
     func onboardingViewDidClickSecondaryButton() {
@@ -566,6 +573,8 @@ extension ArticleViewController: WMFOnboardingViewDelegate {
         let wmfProject = wikimediaProject.wmfProject else {
             return
         }
+        
+        EditInteractionFunnel.shared.logAltTextOnboardingDidTapSecondaryButton(project: wikimediaProject)
         
         var url: URL?
         switch wmfProject {

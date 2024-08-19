@@ -60,6 +60,9 @@ final class EditInteractionFunnel {
         case minimizedImpression = "minimized_impression"
         case characterWarning = "character_warning"
         case imageDetailViewClick = "image_detail_view_click"
+        case onboardImpression = "onboard_impression"
+        case continueClick = "continue_click"
+        case examplesClick = "examples_click"
     }
     
     private struct Event: EventInterface {
@@ -350,6 +353,18 @@ final class EditInteractionFunnel {
         }
         
         logEvent(activeInterface: .altTextEditingInterface, action: .altTextEditSuccess, actionData: actionData, project: project)
+    }
+    
+    func logAltTextOnboardingDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .onboardImpression, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapPrimaryButton(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .continueClick, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
     }
 }
 

@@ -1405,6 +1405,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
+        
+        if let wmfProject = imageRecommendationsViewModel?.project {
+            EditInteractionFunnel.shared.logAltTextOnboardingDidAppear(project: WikimediaProject(wmfProject: wmfProject))
+        }
     }
 }
 
@@ -1890,6 +1894,11 @@ extension ExploreViewController: AltTextDelegate {
 
 extension ExploreViewController: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
+        
+        if let wmfProject = imageRecommendationsViewModel?.project {
+            EditInteractionFunnel.shared.logAltTextOnboardingDidTapPrimaryButton(project: WikimediaProject(wmfProject: wmfProject))
+        }
+        
         dismiss(animated: true) {
             self.pushOnAltText()
         }
@@ -1897,12 +1906,16 @@ extension ExploreViewController: WMFOnboardingViewDelegate {
     }
     
     func onboardingViewDidClickSecondaryButton() {
-        guard let project = imageRecommendationsViewModel?.project else {
+        guard let wmfProject = imageRecommendationsViewModel?.project else {
             return
         }
         
+        if let wmfProject = imageRecommendationsViewModel?.project {
+            EditInteractionFunnel.shared.logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject(wmfProject: wmfProject))
+        }
+        
         var url: URL?
-        switch project {
+        switch wmfProject {
         case .wikipedia(let language):
             switch language.languageCode {
             case "en", "test":
