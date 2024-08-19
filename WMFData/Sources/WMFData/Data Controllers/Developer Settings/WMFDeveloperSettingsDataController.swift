@@ -30,11 +30,11 @@ import Foundation
         }
     }
     
-    @objc public var setAltTextExperimentPercentage100: Bool {
+    @objc public var alwaysShowAltTextEntryPoint: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue, value: newValue)
         }
     }
     

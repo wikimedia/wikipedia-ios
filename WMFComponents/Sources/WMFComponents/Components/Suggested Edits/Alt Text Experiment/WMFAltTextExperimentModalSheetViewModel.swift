@@ -8,6 +8,7 @@ import WMFData
     public let localizedStrings: LocalizedStrings
     public var uiImage: UIImage?
     public var currentAltText: String?
+    private let imageDataController = WMFImageDataController()
 
     public struct LocalizedStrings {
         public let title: String
@@ -34,9 +35,33 @@ import WMFData
         self.localizedStrings = localizedStrings
     }
     
-    public func populateUIImage(for imageURL: URL, completion: @escaping (Error?) -> Void) {
+    public func populateUIImage(for imageURL: URL?, completion: @escaping (Error?) -> Void) {
+
+        guard let imageURL else {
+            
+            // If imageURL is nil (i.e. in flow C), try fetching image info first from MW API
+            imageDataController.fetchImageInfo(title: altTextViewModel.filename, thumbnailWidth: 320, project: altTextViewModel.project) { [weak self] result in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let imageInfo):
+                    fetchImageData(imageURL: imageInfo.thumbURL, completion: completion)
+                    return
+                case .failure(let error):
+                    completion(error)
+                }
+            }
+            return
+        }
+       
+        fetchImageData(imageURL: imageURL, completion: completion)
         
-        let imageDataController = WMFImageDataController()
+    }
+    
+    private func fetchImageData(imageURL: URL, completion: @escaping (Error?) -> Void) {
         imageDataController.fetchImageData(url: imageURL) { [weak self] result in
             switch result {
             case .success(let data):

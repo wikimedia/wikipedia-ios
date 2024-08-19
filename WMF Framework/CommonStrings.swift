@@ -674,7 +674,26 @@ public class CommonStrings: NSObject {
 
     public static let altTextTitle  = WMFLocalizedString("alt-text-title", value: "Alt text", comment: "Title for alt text")
 
+    public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
 
+    public static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
+    
+    public static let altTextArticleNavBarTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+    
+    public static func altTextEditSummary(with languageCode: String?) -> String {
+        WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
+    }
+    
+    public static let altTextViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
+    
+    public static let altTextViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
+    
+    public static let altTextViewCharacterCounterWarning = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
+    
+    public static let altTextViewCharacterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
+    
+    public static let altGuidanceButtonTitle = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
+    
 }
 // Language variant strings
 public extension CommonStrings {
@@ -744,8 +763,4 @@ public extension CommonStrings {
 	static let tachelhitVariantsAlertTitle =  WMFLocalizedString("tachelhit-variants-alert-title", value: "Updates to Tachelhit variant support", comment: "Title of alert used to inform users about Tachelhit variant support.")
 
 	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
-
-    static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
-
-    static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
 }

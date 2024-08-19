@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "goles",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "kresel",
       "center",
       "centre"
@@ -32,6 +39,13 @@
   },
   {
     "aliases" : [
+      "kres",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "nagonan",
       "none"
     ],
@@ -46,11 +60,32 @@
   },
   {
     "aliases" : [
+      "tekst-goles",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "tekst-gwartha",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "skeusennik",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "gwartha",
+      "top"
+    ],
+    "name" : "img_top"
   },
   {
     "aliases" : [
@@ -60,7 +95,41 @@
   },
   {
     "aliases" : [
-      "Restren"
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Restren",
+      "Image"
     ],
     "name" : "file_namespace"
   }

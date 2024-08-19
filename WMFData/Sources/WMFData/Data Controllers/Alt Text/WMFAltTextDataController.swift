@@ -28,7 +28,7 @@ public final class WMFAltTextDataController {
     let developerSettingsDataController: WMFDeveloperSettingsDataController
     let userDefaultsStore: WMFKeyValueStore
     private var experimentPercentage: Int {
-        developerSettingsDataController.setAltTextExperimentPercentage100 ? 100 : 50
+        developerSettingsDataController.alwaysShowAltTextEntryPoint ? 100 : 50
     }
     
     // MARK: - Public
@@ -67,19 +67,23 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
-        if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
-            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
+                throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+            }
         }
         
-        if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
-            
-            switch articleEditorExperimentBucket {
-            case .altTextArticleEditorTest:
-                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
-            case .altTextArticleEditorControl:
-                break
-            default:
-                throw WMFAltTextDataControllerError.unexpectedBucketValue
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
+                
+                switch articleEditorExperimentBucket {
+                case .altTextArticleEditorTest:
+                    throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
+                case .altTextArticleEditorControl:
+                    break
+                default:
+                    throw WMFAltTextDataControllerError.unexpectedBucketValue
+                }
             }
         }
         
@@ -109,19 +113,23 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
-        if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
-            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
+                throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+            }
         }
         
-        if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
-            
-            switch imageRecommendationsExperimentBucket {
-            case .altTextImageRecommendationsTest:
-                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
-            case .altTextImageRecommendationsControl:
-                break
-            default:
-                throw WMFAltTextDataControllerError.unexpectedBucketValue
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
+                
+                switch imageRecommendationsExperimentBucket {
+                case .altTextImageRecommendationsTest:
+                    throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
+                case .altTextImageRecommendationsControl:
+                    break
+                default:
+                    throw WMFAltTextDataControllerError.unexpectedBucketValue
+                }
             }
         }
         
@@ -143,8 +151,10 @@ public final class WMFAltTextDataController {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-            return false
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         guard isLoggedIn else {
@@ -184,14 +194,56 @@ public final class WMFAltTextDataController {
         self.sawAltTextArticleEditorPrompt = true
     }
     
+    public func shouldFetchFullArticleWikitextFromArticleEditor(isLoggedIn: Bool, project: WMFProject) -> Bool {
+        
+        // feature flag enabled
+        guard developerSettingsDataController.enableAltTextExperiment else {
+            return false
+        }
+        
+        // haven't already seen the prompt elsewhere
+        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+            return false
+        }
+        
+        // is logged in
+        guard isLoggedIn else {
+            return false
+        }
+        
+        // is looking at the target experiment wikis
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
+            return false
+        }
+        
+        // iPhone, iOS 16+
+        guard isValidDeviceAndOS else {
+            return false
+        }
+        
+        // Before Oct 10
+        guard isBeforeEndDate else {
+            return false
+        }
+        
+        // Hasn't already been assigned the alt text editor experiment
+        guard experimentsDataController.bucketForExperiment(.altTextArticleEditor) == nil else {
+            return false
+        }
+        
+        return true
+    }
+    
     public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
         
         guard developerSettingsDataController.enableAltTextExperiment else {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-            return false
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         guard isLoggedIn else {

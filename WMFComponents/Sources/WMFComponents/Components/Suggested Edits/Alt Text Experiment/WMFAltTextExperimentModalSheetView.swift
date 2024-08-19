@@ -316,7 +316,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
                 self?.imageView.image = self?.viewModel?.uiImage
             }
         }
-        
+
         if let currentAltText = viewModel?.currentAltText {
             textView.text = currentAltText
             placeholder.isHidden = true

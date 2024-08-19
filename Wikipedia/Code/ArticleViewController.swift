@@ -104,6 +104,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
+    var altTextExperimentAcceptDate: Date?
     var wasPresentingGalleryWhileInAltTextMode = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
@@ -1165,7 +1166,7 @@ private extension ArticleViewController {
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
-        let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 

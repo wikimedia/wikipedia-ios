@@ -167,6 +167,7 @@
 "alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
 "alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";
+"alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
 "alt-text-modalsubtitle-regular-edit" = "Il y a une image dans cet article qui manque de texte alternatif. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-title" = "Texte complémentaire";

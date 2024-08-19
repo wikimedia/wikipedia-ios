@@ -1,6 +1,22 @@
 [
   {
     "aliases" : [
+      "rand",
+      "bord",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "ënnen",
+      "unten",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "zentréiert",
       "zentriert",
       "center",
@@ -36,6 +52,14 @@
   },
   {
     "aliases" : [
+      "mëtt",
+      "mitte",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ohne",
       "ouni",
       "none"
@@ -62,6 +86,14 @@
   },
   {
     "aliases" : [
+      "uewen",
+      "oben",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "alternativtext=$1",
       "alt=$1"
     ],
@@ -69,7 +101,59 @@
   },
   {
     "aliases" : [
-      "Fichier"
+      "grundlinie",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "tief",
+      "tiefgestellt",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "hoch",
+      "hochgestellt",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-unten",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-oben",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "hochkant",
+      "hochkant=$1",
+      "hochkant $1",
+      "hochkant_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Fichier",
+      "Bild",
+      "Image"
     ],
     "name" : "file_namespace"
   }
