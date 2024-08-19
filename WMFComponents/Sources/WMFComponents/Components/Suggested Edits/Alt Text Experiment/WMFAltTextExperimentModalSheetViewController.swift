@@ -1,7 +1,7 @@
 import UIKit
 
 public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
-    func didTapNext(altText: String)
+   func didTapNext(altText: String)
 }
 
 public protocol WMFAltTextExperimentModalSheetLoggingDelegate: AnyObject {
@@ -38,12 +38,6 @@ final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewCo
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loggingDelegate?.didAppear()
-    }
-}
-
-extension WMFAltTextExperimentModalSheetViewController: WMFAltTextExperimentModalSheetDelegate {
-    public func didTapNext(altText: String) {
-        self.dismiss(animated: true)
     }
 }
 

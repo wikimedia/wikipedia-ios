@@ -405,8 +405,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
-    
-    func didTapNext(altText: String) {
+    func didTapNext(altText: String) { // rethibk signature
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
             return
@@ -418,89 +417,116 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
 }
 
 extension ArticleViewController: AltTextDelegate {
+    func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
+
+        guard let uiImage else { return }
+
+        let captionTitle = WMFLocalizedString("alt-text-experiment-caption-title", value: "Image caption", comment: "title for image caption field on alt text preview")
+        let reviewTitle = WMFLocalizedString("alt-text-experiment-review-title", value: "Review", comment: "Title for the review stpe of the alt text experiment")
+
+        let footerTextFormat = WMFLocalizedString("alt-text-license", value:"By publishing changes, you agree to the [Terms of Use](%1$@),  and you irrevocably agree to release your contribution under the [CC BY-SA 3.0](%2$@) license  and the [GFDL](%3$@). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. %1$@, %2$@ and %3$@ are replaced by the terms of use and license links.")
+
+        let terms = "\(Licenses.saveTermsURL?.absoluteString ?? String())"
+        let license = "\(Licenses.CCBYSA4URL?.absoluteString ?? String())"
+        let gdfl = "\(Licenses.GFDLURL?.absoluteString ?? String())"
+        let footerText = String.localizedStringWithFormat(footerTextFormat, terms, license, gdfl)
+
+        let localizedStrings = WMFAltTextExperimentPreviewViewModel.LocalizedStrings(altTextTitle: CommonStrings.altTextTitle, captionTitle: captionTitle, title: reviewTitle, footerText: footerText, publishTitle: CommonStrings.publishTitle)
+        let previewViewModel = WMFAltTextExperimentPreviewViewModel(image: uiImage, altText: altText, caption: viewModel.caption, localizedStrings: localizedStrings, articleURL: articleURL, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage, originalImageWikitext: viewModel.imageWikitext, isFlowB: viewModel.isFlowB, sectionID: viewModel.sectionID, lastRevisionID: viewModel.lastRevisionID, localizedEditSummary: viewModel.localizedStrings.editSummary, filename: viewModel.filename, project: viewModel.project)
+        let previewViewController = WMFAltTextExperimentPreviewViewController(viewModel: previewViewModel, delegate: self)
+        articleViewController.dismiss(animated: true) {
+            self.navigationController?.pushViewController(previewViewController, animated: true)
+        }
+    }
+}
+
+extension ArticleViewController: WMFAltTextPreviewDelegate {
     private func localizedAltTextFormat(siteURL: URL) -> String {
         let enFormat = "alt=%@"
         guard let languageCode = siteURL.wmf_languageCode else {
             return enFormat
         }
-        
+
         guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
             return enFormat
         }
-             
+
         return magicWord.replacingOccurrences(of: "$1", with: "%@")
     }
-    
-    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel) {
-        let articleURL = articleViewController.articleURL
+
+    func didTapPublish(viewModel: WMFAltTextExperimentPreviewViewModel) {
+
+        logAltTextDidTapPublish(project: viewModel.project)
+
+        let articleURL = viewModel.articleURL
         guard let siteURL = articleURL.wmf_site else {
             return
         }
-        
+
         var finalWikitextToPublish: String?
         if #available(iOS 16.0, *) {
-            let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), altText)
-            finalWikitextToPublish = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: altTextToInsert, caption: viewModel.caption, imageWikitext: viewModel.imageWikitext, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage)
+            let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), viewModel.altText)
+            finalWikitextToPublish = WMFWikitextUtils.insertAltTextIntoImageWikitext(altText: altTextToInsert, caption: viewModel.caption, imageWikitext: viewModel.originalImageWikitext, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage)
         } else {
             return
         }
-                
+
         let section: String?
         if let sectionID = viewModel.sectionID {
             section = "\(sectionID)"
         } else {
             section = nil
         }
-        
+
         let fetcher = WikiTextSectionUploader()
-        fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedStrings.editSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
-            
+        fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+
             DispatchQueue.main.async {
-                
+
                 self.navigationController?.popViewController(animated: true)
-                
+
                 guard let fetchedData = result as? [String: Any],
                       let newRevID = fetchedData["newrevid"] as? UInt64 else {
                     return
                 }
-                
+
                 if error == nil {
                     // wait for animation to complete
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                         self?.presentAltTextEditPublishedToast()
-                        self?.logAltTextEditSuccess(viewModel: viewModel, altText: altText, revisionID: newRevID)
+                        self?.logAltTextEditSuccess(viewModel: viewModel, altText: viewModel.altText, revisionID: newRevID)
                     }
                 }
             }
         }
     }
-    
-    private func logAltTextEditSuccess(viewModel: WMFAltTextExperimentViewModel, altText: String, revisionID: UInt64) {
-        
+
+    private func logAltTextEditSuccess(viewModel: WMFAltTextExperimentPreviewViewModel, altText: String, revisionID: UInt64) {
+
         guard let acceptDate = altTextExperimentAcceptDate,
-        let siteURL = articleURL.wmf_site,
-        let articleTitle = articleURL.wmf_title else {
+              let siteURL = articleURL.wmf_site,
+              let articleTitle = articleURL.wmf_title else {
             return
         }
-        
+
         let image = viewModel.filename
         let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
-        
+
         guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
-        let project = WikimediaProject(siteURL: siteURL) else {
+              let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
-        
+
         EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
-        
+
         altTextExperimentAcceptDate = nil
     }
-    
+
     private func presentAltTextEditPublishedToast() {
         let title = CommonStrings.editPublishedToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
-        
+
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
@@ -509,6 +535,11 @@ extension ArticleViewController: AltTextDelegate {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
         }
     }
+
+    private func logAltTextDidTapPublish(project: WMFProject) {
+        EditInteractionFunnel.shared.logAltTextDidTapPublish(project: WikimediaProject(wmfProject: project))
+    }
+
 }
 
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit

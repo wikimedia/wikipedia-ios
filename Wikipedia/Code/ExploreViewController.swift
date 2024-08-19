@@ -1739,7 +1739,7 @@ extension ExploreViewController: AltTextDelegate {
         let footerText = String.localizedStringWithFormat(footerTextFormat, terms, license, gdfl)
 
         let localizedStrings = WMFAltTextExperimentPreviewViewModel.LocalizedStrings(altTextTitle: CommonStrings.altTextTitle, captionTitle: captionTitle, title: reviewTitle, footerText: footerText, publishTitle: CommonStrings.publishTitle)
-        let previewViewModel = WMFAltTextExperimentPreviewViewModel(image: uiImage, altText: altText, caption: viewModel.caption, localizedStrings: localizedStrings, articleURL: articleURL, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage, originalImageWikitext: viewModel.imageWikitext, isFlowB: viewModel.isFlowB, sectionID: viewModel.sectionID, lastRevisionID: viewModel.lastRevisionID, localizedEditSummary: viewModel.localizedStrings.editSummary)
+        let previewViewModel = WMFAltTextExperimentPreviewViewModel(image: uiImage, altText: altText, caption: viewModel.caption, localizedStrings: localizedStrings, articleURL: articleURL, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage, originalImageWikitext: viewModel.imageWikitext, isFlowB: viewModel.isFlowB, sectionID: viewModel.sectionID, lastRevisionID: viewModel.lastRevisionID, localizedEditSummary: viewModel.localizedStrings.editSummary, filename: viewModel.filename, project: viewModel.project)
         let previewViewController = WMFAltTextExperimentPreviewViewController(viewModel: previewViewModel, delegate: self)
         articleViewController.dismiss(animated: true) {
             self.navigationController?.pushViewController(previewViewController, animated: true)
@@ -1752,7 +1752,7 @@ extension ExploreViewController: AltTextDelegate {
 extension ExploreViewController: WMFAltTextPreviewDelegate {
     func didTapPublish(viewModel: WMFAltTextExperimentPreviewViewModel) {
 
-        logAltTextPublishClick()
+        logAltTextDidTapPublish()
 
         guard let siteURL = viewModel.articleURL.wmf_site else {
             return
@@ -1832,7 +1832,7 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         }
     }
 
-    private func logAltTextPublishClick() {
+    private func logAltTextDidTapPublish() {
         guard let imageRecommendationsViewModel else {
             return
         }

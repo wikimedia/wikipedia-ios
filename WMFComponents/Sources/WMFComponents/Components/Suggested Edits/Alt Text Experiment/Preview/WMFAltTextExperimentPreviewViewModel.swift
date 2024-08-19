@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public struct WMFAltTextExperimentPreviewViewModel {
     public let image: UIImage 
@@ -12,6 +13,8 @@ public struct WMFAltTextExperimentPreviewViewModel {
     public let sectionID: Int?
     public let lastRevisionID: UInt64
     public let localizedEditSummary: String
+    public let filename: String
+    public let project: WMFProject
 
     public struct LocalizedStrings {
         public let altTextTitle: String
@@ -29,7 +32,7 @@ public struct WMFAltTextExperimentPreviewViewModel {
         }
     }
 
-    public init(image: UIImage, altText: String, caption: String?, localizedStrings: LocalizedStrings, articleURL: URL, fullArticleWikitextWithImage: String, originalImageWikitext: String, isFlowB: Bool, sectionID: Int?, lastRevisionID: UInt64, localizedEditSummary: String) {
+    public init(image: UIImage, altText: String, caption: String?, localizedStrings: LocalizedStrings, articleURL: URL, fullArticleWikitextWithImage: String, originalImageWikitext: String, isFlowB: Bool, sectionID: Int?, lastRevisionID: UInt64, localizedEditSummary: String, filename: String, project: WMFProject) {
         self.image = image
         self.altText = altText
         self.caption = caption
@@ -41,6 +44,8 @@ public struct WMFAltTextExperimentPreviewViewModel {
         self.sectionID = sectionID
         self.lastRevisionID = lastRevisionID
         self.localizedEditSummary = localizedEditSummary
+        self.filename = filename
+        self.project = project
     }
 
 }
