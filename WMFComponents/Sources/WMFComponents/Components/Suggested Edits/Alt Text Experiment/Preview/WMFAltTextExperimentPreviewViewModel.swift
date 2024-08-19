@@ -1,7 +1,7 @@
 import UIKit
 
 public struct WMFAltTextExperimentPreviewViewModel {
-    public let image: UIImage // check image or url and download here
+    public let image: UIImage 
     public let altText: String
     public let caption: String?
     public let localizedStrings: LocalizedStrings

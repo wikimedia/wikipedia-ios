@@ -1779,7 +1779,7 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
         let developerSettings = WMFDeveloperSettingsDataController()
 
-        imageRecommendationsViewModel?.lastRecommendation?.altText = altText
+        imageRecommendationsViewModel?.lastRecommendation?.altText = viewModel.altText
 
         if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
 

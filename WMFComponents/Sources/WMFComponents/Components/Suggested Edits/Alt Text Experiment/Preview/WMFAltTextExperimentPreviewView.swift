@@ -15,22 +15,30 @@ public struct WMFAltTextExperimentPreviewView: View {
     public var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .center) {
                     Image(uiImage: viewModel.image)
-                        .frame(width: UIScreen.main.bounds.size.width, height: 300)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: UIScreen.main.bounds.width)
+                        .frame(maxHeight: 300)
                         .aspectRatio(contentMode: .fit)
+                }
+                .padding(0)
+                VStack(alignment: .leading) {
                     WMFAltTextPreviewCell(title: viewModel.localizedStrings.altTextTitle, subtitle: viewModel.altText, theme: appEnvironment.theme)
                     if let caption = viewModel.caption {
-                        WMFAltTextPreviewCell(title: viewModel.localizedStrings.altTextTitle, subtitle: caption, theme: appEnvironment.theme)
+                        WMFAltTextPreviewCell(title: viewModel.localizedStrings.captionTitle, subtitle: caption, theme: appEnvironment.theme)
                     }
-                }
+
                 Spacer()
                     .frame(idealHeight: geometry.size.height/5)
                 HStack {
-                    Image("license-cc")
-                        .renderingMode(.template)
-                        .colorMultiply(Color(appEnvironment.theme.secondaryText))
-                        .padding([.trailing], 12)
+                    if let image = WMFIcon.ccLicense {
+                        Image(uiImage: image)
+                            .renderingMode(.template)
+                            .colorMultiply(Color(appEnvironment.theme.secondaryText))
+                            .padding([.trailing], 12)
+                    }
                     if let attributedString {
                         Text(attributedString)
                             .font(Font(WMFFont.for(.footnote)))
@@ -44,6 +52,8 @@ public struct WMFAltTextExperimentPreviewView: View {
                     }
                 }
                 .padding(16)
+                }
+                .padding(0)
             }
         }
     }
