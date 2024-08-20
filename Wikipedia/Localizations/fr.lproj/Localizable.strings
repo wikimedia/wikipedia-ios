@@ -159,6 +159,16 @@
 "alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
 "alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
 "alt-text-experiment-guidance-button" = "Conseils pour la rédaction d'un texte alternatif";
+"alt-text-experiment-onboarding-item-1-subtitle" = "Une à deux lignes de texte simple, sans acronymes, abréviations ou jargon.";
+"alt-text-experiment-onboarding-item-1-title" = "Soyez bref et clair";
+"alt-text-experiment-onboarding-item-2-subtitle" = "N'ajoutez pas vos propres recherches, interprétations ou points de vue.";
+"alt-text-experiment-onboarding-item-2-title" = "Décrivez ce qui peut être vu";
+"alt-text-experiment-onboarding-item-3-subtitle" = "Mais ne répétez pas le texte qui se trouve déjà dans la légende.";
+"alt-text-experiment-onboarding-item-3-title" = "Concentrez-vous sur ce qui est pertinent pour l'article";
+"alt-text-experiment-onboarding-item-4-subtitle" = "Ne commencez pas par « Il s'agit d'une image de... », mais décrivez le support ou le style, le cas échéant.";
+"alt-text-experiment-onboarding-item-4-title" = "Type d'image";
+"alt-text-experiment-onboarding-secondary-button-title" = "Voir les exemples";
+"alt-text-experiment-onboarding-title" = "Comment rédiger un texte alternatif pour les images";
 "alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
 "alt-text-experiment-text-field-placholder" = "Décrire cette image";
 "alt-text-experiment-view-title" = "Ajoutez un texte alternatif";

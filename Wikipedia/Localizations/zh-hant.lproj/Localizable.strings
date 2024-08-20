@@ -157,6 +157,16 @@
 "alt-text-experiment-edit-summary" = "已新增替代文字";
 "alt-text-experiment-review-title" = "審閱";
 "alt-text-experiment-guidance-button" = "替代文字撰寫指南";
+"alt-text-experiment-onboarding-item-1-subtitle" = "1-2 行純文字，不含縮寫或專業用語。";
+"alt-text-experiment-onboarding-item-1-title" = "保持簡短明確";
+"alt-text-experiment-onboarding-item-2-subtitle" = "勿加入您個人的研究、解釋或觀點。";
+"alt-text-experiment-onboarding-item-2-title" = "描述可以看到的東西";
+"alt-text-experiment-onboarding-item-3-subtitle" = "但不要重複已在標題中的文字。";
+"alt-text-experiment-onboarding-item-3-title" = "聚焦於與文章相關的內容";
+"alt-text-experiment-onboarding-item-4-subtitle" = "不要寫「這是…的影像」，而是描述相關的媒介或風格";
+"alt-text-experiment-onboarding-item-4-title" = "影像類型";
+"alt-text-experiment-onboarding-secondary-button-title" = "檢視範例";
+"alt-text-experiment-onboarding-title" = "如何為影像撰寫替代文字";
 "alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";

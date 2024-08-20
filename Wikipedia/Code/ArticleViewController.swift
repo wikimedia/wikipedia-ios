@@ -106,6 +106,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private var needsAltTextExperimentSheet: Bool = false
     var altTextExperimentAcceptDate: Date?
     var wasPresentingGalleryWhileInAltTextMode = false
+    var altTextInfo: ArticleAltTextInfo?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)

@@ -8,14 +8,16 @@ public struct WMFOnboardingViewModel {
     var cells: [WMFOnboardingCellViewModel]
     var primaryButtonTitle: String
     var secondaryButtonTitle: String?
+    var secondaryButtonTrailingIcon: UIImage?
 
     // MARK: - Lifecycle
 
-    public init(title: String, cells: [WMFOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?) {
+    public init(title: String, cells: [WMFOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?, secondaryButtonTrailingIcon: UIImage? = nil) {
         self.title = title
         self.cells = cells
         self.primaryButtonTitle = primaryButtonTitle
         self.secondaryButtonTitle = secondaryButtonTitle
+        self.secondaryButtonTrailingIcon = secondaryButtonTrailingIcon
     }
 
     public struct WMFOnboardingCellViewModel {

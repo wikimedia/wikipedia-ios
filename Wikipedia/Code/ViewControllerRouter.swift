@@ -395,4 +395,8 @@ extension ViewControllerRouter: WMFOnboardingViewDelegate {
     func onboardingViewWillSwipeToDismiss() {
         
     }
+    
+    func onboardingDidSwipeToDismiss() {
+        
+    }
 }

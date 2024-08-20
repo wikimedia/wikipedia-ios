@@ -8,4 +8,5 @@ enum WMFUserDefaultsKey: String {
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case sawAltTextImageRecommendationsPrompt = "saw-alt-text-image-recommendations-prompt"
     case sawAltTextArticleEditorPrompt = "saw-alt-text-article-editor-prompt"
+    case altTextExperimentOnboarding = "alt-text-experiment-onboarding"
 }
