@@ -106,7 +106,8 @@ class ArticleViewController: ViewController, HintPresenting {
     private var needsAltTextExperimentSheet: Bool = false
     var altTextExperimentAcceptDate: Date?
     var wasPresentingGalleryWhileInAltTextMode = false
-    var altTextInfo: ArticleAltTextInfo?
+    var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
+    var altTextGuidancePresenter: AltTextGuidancePresenter?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -1428,6 +1429,7 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+
     func didTriggerCharacterWarning() {
         guard let siteURL = articleURL.wmf_site,
               let project = WikimediaProject(siteURL: siteURL) else {
