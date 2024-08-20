@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct WMFSurveyView: View {
+public struct WMFSurveyView: View {
     
-    typealias OptionAPIIdentifier = String
-    typealias OtherText = String
+    public typealias OptionAPIIdentifier = String
+    public typealias OtherText = String
 
 	// MARK: - Properties
 
@@ -26,10 +26,17 @@ struct WMFSurveyView: View {
 
 	var cancelAction: (() -> Void)?
 	var submitAction: (([OptionAPIIdentifier], OtherText) -> Void)?
+    
+    public init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, viewModel: WMFSurveyViewModel, cancelAction: (() -> Void)? = nil, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)? = nil) {
+        self.appEnvironment = appEnvironment
+        self.viewModel = viewModel
+        self.cancelAction = cancelAction
+        self.submitAction = submitAction
+    }
 
 	// MARK: - View
 
-	var body: some View {
+	public var body: some View {
 		NavigationView {
 			List {
 				Section {

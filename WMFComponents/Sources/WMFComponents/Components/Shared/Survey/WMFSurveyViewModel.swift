@@ -44,7 +44,7 @@ public final class WMFSurveyViewModel {
 	let localizedStrings: LocalizedStrings
     let options: [OptionViewModel]
 
-    init(localizedStrings: LocalizedStrings, options: [OptionViewModel]) {
+    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel]) {
 		self.localizedStrings = localizedStrings
         self.options = options
 	}
