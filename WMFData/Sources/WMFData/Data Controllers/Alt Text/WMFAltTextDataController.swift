@@ -210,8 +210,10 @@ public final class WMFAltTextDataController {
         }
         
         // haven't already seen the prompt elsewhere
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-            return false
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         // is logged in
@@ -235,8 +237,10 @@ public final class WMFAltTextDataController {
         }
         
         // Hasn't already been assigned the alt text editor experiment
-        guard experimentsDataController.bucketForExperiment(.altTextArticleEditor) == nil else {
-            return false
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard experimentsDataController.bucketForExperiment(.altTextArticleEditor) == nil else {
+                return false
+            }
         }
         
         return true
