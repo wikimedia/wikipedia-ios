@@ -147,10 +147,6 @@ extension AltTextArticleEditorOnboardingPresenter: WMFOnboardingViewDelegate {
         articleViewController.navigate(to: url, useSafari: true)
     }
     
-    func onboardingViewWillSwipeToDismiss() {
-        
-    }
-    
     func onboardingDidSwipeToDismiss() {
         self.pushOnAltText(info: altTextInfo)
     }

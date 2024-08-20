@@ -140,10 +140,6 @@ extension AltTextImageRecommendationsOnboardingPresenter: WMFOnboardingViewDeleg
         imageRecommendationsViewController.navigate(to: url, useSafari: true)
     }
     
-    func onboardingViewWillSwipeToDismiss() {
-        
-    }
-    
     func onboardingDidSwipeToDismiss() {
         pushOnAltText()
     }
