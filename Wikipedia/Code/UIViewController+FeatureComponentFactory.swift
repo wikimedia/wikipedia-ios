@@ -13,17 +13,12 @@ extension WMFImageRecommendationsViewController {
         }
 
         let surveyLocalizedStrings = WMFImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(
-            reason: WMFLocalizedString("image-rec-survey-title", value: "Reason", comment: "Title of the image recommendations survey view. Displayed in the navigation bar as title of view."),
+            title: WMFLocalizedString("image-rec-survey-title", value: "Reason", comment: "Title of the image recommendations survey view. Displayed in the navigation bar as title of view."),
             cancel: CommonStrings.cancelActionTitle,
             submit: WMFLocalizedString("image-rec-survey-submit-button", value: "Submit", comment: "Title of the image recommendations survey view submit button."),
-            improveSuggestions: WMFLocalizedString("image-rec-survey-instructions-1", value: "Your answers improve future suggestions.", comment: "Instructions displayed on the image recommendations survey view."),
-            selectOptions: WMFLocalizedString("image-rec-survey-instructions-2", value: "Select one or more options", comment: "Instructions displayed on the image recommendations survey view."),
-            imageNotRelevant: WMFLocalizedString("image-rec-survey-option-1", value: "Image is not relevant", comment: "Title of available option displayed on the image recommendations survey view."),
-            notEnoughInformation: WMFLocalizedString("image-rec-survey-option-2", value: "Not enough information to decide", comment: "Title of available option displayed on the image recommendations survey view."),
-            imageIsOffensive: WMFLocalizedString("image-rec-survey-option-3", value: "Image is offensive", comment: "Title of available option displayed on the image recommendations survey view."),
-            imageIsLowQuality: WMFLocalizedString("image-rec-survey-option-4", value: "Image is low quality", comment: "Title of available option displayed on the image recommendations survey view."),
-            dontKnowSubject: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."),
-            other: WMFLocalizedString("image-rec-survey-option-6", value: "Other", comment: "Title of available option displayed on the image recommendations survey view.")
+            subtitle: WMFLocalizedString("image-rec-survey-instructions-1", value: "Your answers improve future suggestions.", comment: "Instructions displayed on the image recommendations survey view."),
+            instructions: WMFLocalizedString("image-rec-survey-instructions-2", value: "Select one or more options", comment: "Instructions displayed on the image recommendations survey view."),
+            otherPlaceholder: WMFLocalizedString("image-rec-survey-option-6", value: "Other", comment: "Title of available option displayed on the image recommendations survey view.")
         )
 
         let contentLanguageCode = appLanguage.contentLanguageCode
@@ -52,8 +47,16 @@ extension WMFImageRecommendationsViewController {
         let thirdTooltipStrings = WMFTooltipViewModel.LocalizedStrings(title: WMFLocalizedString("image-rec-tooltip-3-title", value: "Decide", comment: "Title of second tooltip displayed when landing on image recommendations feature for the first time."), body: WMFLocalizedString("image-rec-tooltip-3-body", value: "Decide if the image helps readers understand this topic better.", comment: "Body of second tooltip displayed when landing on image recommendations feature for the first time."), buttonTitle: CommonStrings.okTitle)
 
         let localizedStrings = WMFImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, errorLocalizedStrings: errorStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
+        
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-1", value: "Image is not relevant", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "notrelevant"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-2", value: "Not enough information to decide", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "noinfo"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-3", value: "Image is offensive", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "offensive"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-4", value: "Image is low quality", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "lowquality"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "unfamiliar")
+        ]
 
-        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isLoggedIn: dataStore.authenticationManager.isLoggedIn, localizedStrings: localizedStrings, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
+        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isLoggedIn: dataStore.authenticationManager.isLoggedIn, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
 
         let imageRecommendationsViewController = WMFImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
