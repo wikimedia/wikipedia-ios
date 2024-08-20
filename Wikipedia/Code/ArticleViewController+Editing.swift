@@ -346,7 +346,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 
                 EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: project)
                 
-                // todo: show survey
+                self?.presentAltTextRejectionSurvey()
             }
         }
 
@@ -364,6 +364,29 @@ extension ArticleViewController: EditorViewControllerDelegate {
         EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: project)
         
         present(panel, animated: true)
+    }
+    
+    private func presentAltTextRejectionSurvey() {
+        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+            
+            // TODO: Log in edit interaction funnel
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: {
+                
+            })
+            
+        }, submitAction: { [weak self] options, otherText in
+            
+            // TODO: Log in edit interaction funnel
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: {
+                
+            })
+        })
+        
+        present(surveyView, animated: true)
     }
 }
 

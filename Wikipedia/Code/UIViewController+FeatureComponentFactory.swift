@@ -81,3 +81,31 @@ extension WMFOnboardingViewController {
         return onboardingController
     }
 }
+
+extension WMFSurveyView {
+    static func surveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: WMFLocalizedString("image-rec-survey-title", value: "Reason", comment: "Title of the image recommendations survey view. Displayed in the navigation bar as title of view."),
+            cancel: CommonStrings.cancelActionTitle,
+            submit: WMFLocalizedString("image-rec-survey-submit-button", value: "Submit", comment: "Title of the image recommendations survey view submit button."),
+            subtitle: WMFLocalizedString("image-rec-survey-instructions-1", value: "Your answers improve future suggestions.", comment: "Instructions displayed on the image recommendations survey view."),
+            instructions: WMFLocalizedString("image-rec-survey-instructions-2", value: "Select one or more options", comment: "Instructions displayed on the image recommendations survey view."),
+            otherPlaceholder: WMFLocalizedString("image-rec-survey-option-6", value: "Other", comment: "Title of available option displayed on the image recommendations survey view.")
+        )
+        
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-1", value: "Image is not relevant", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "notrelevant"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-2", value: "Not enough information to decide", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "noinfo"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-3", value: "Image is offensive", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "offensive"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-4", value: "Image is low quality", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "lowquality"),
+            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "unfamiliar")
+        ]
+        
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions),
+            cancelAction: cancelAction,
+            submitAction: submitAction)
+
+        let hostedView = WMFComponentHostingController(rootView: surveyView)
+        return hostedView
+    }
+}
