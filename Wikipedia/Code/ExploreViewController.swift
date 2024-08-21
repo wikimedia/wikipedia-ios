@@ -1776,9 +1776,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
             if let navigationController = self.navigationController {
                 for viewController in navigationController.viewControllers {
-                    if viewController is WMFImageRecommendationsViewController {
-                        navigationController.popToViewController(viewController, animated: true)
-                        break
+                    if let vc =  viewController as? WMFImageRecommendationsViewController {
+                      vc.isBackFromAltText = true
+                      navigationController.popToViewController(vc, animated: true)
+                      break
                     }
                 }
             }
