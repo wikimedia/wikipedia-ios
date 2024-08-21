@@ -125,7 +125,14 @@
 "alt-text-experiment-text-field-description" = "Text description for readers who cannot see the image";
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
-"alt-text-license" = "By publishing changes, you agree to the [Terms of Use]($1), and you irrevocably agree to release your contribution under the [CC BY-SA 3.0]($2) license and the [GFDL]($3). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
+"alt-text-feedback-alert-subtitle" = "Would you use a feature that provided a feed of images in need of alt text?";
+"alt-text-feedback-alert-title" = "We want your feedback";
+"alt-text-feedback-survey-neutral" = "Neutral";
+"alt-text-feedback-survey-satisfied" = "Satisfied";
+"alt-text-feedback-survey-subtitle" = "Are you satisfied with this feature?";
+"alt-text-feedback-survey-title" = "Help improve the feature";
+"alt-text-feedback-survey-unsatisfied" = "Unsatisfied";
+"alt-text-license" = "By publishing changes, you agree to the [Terms of Use]($1),  and you irrevocably agree to release your contribution under the [CC BY-SA 3.0]($2) license  and the [GFDL]($3). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";
 "alt-text-modal-subtitle-regular-edit" = "There is an image in this article that is missing alt text. Add a description for visually impaired readers?";
 "alt-text-modal-title" = "Add missing image alt text?";

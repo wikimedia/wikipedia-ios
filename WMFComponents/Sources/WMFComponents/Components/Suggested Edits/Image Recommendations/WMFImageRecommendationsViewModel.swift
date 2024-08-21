@@ -41,6 +41,20 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 				self.learnMoreButton = learnMoreButton
 			}
 		}
+        
+        public struct AltTextFeedbackStrings {
+            let feedbackTitle: String
+            let feedbackSubtitle: String
+            let yesButton: String
+            let noButton: String
+
+            public init(feedbackTitle: String, feedbackSubtitle: String, yesButton: String, noButton: String) {
+                self.feedbackTitle = feedbackTitle
+                self.feedbackSubtitle = feedbackSubtitle
+                self.yesButton = yesButton
+                self.noButton = noButton
+            }
+        }
 
         let title: String
         let viewArticle: String
@@ -51,6 +65,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         let firstTooltipStrings: TooltipLocalizedStrings
         let secondTooltipStrings: TooltipLocalizedStrings
         let thirdTooltipStrings: TooltipLocalizedStrings
+        let altTextFeedbackStrings: AltTextFeedbackStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
@@ -59,17 +74,17 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         let tutorialButtonTitle: String
         let problemWithFeatureButtonTitle: String
 
-
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, altTextFeedbackStrings: AltTextFeedbackStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
-			self.surveyLocalizedStrings = surveyLocalizedStrings
+            self.surveyLocalizedStrings = surveyLocalizedStrings
             self.emptyLocalizedStrings = emptyLocalizedStrings
             self.errorLocalizedStrings = errorLocalizedStrings
             self.firstTooltipStrings = firstTooltipStrings
             self.secondTooltipStrings = secondTooltipStrings
             self.thirdTooltipStrings = thirdTooltipStrings
+            self.altTextFeedbackStrings = altTextFeedbackStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle

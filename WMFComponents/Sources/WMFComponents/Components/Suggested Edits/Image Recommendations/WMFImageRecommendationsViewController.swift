@@ -36,6 +36,8 @@ public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
     func logEmptyStateDidTapBack()
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
     func logAltTextExperimentDidAssignGroup()
+    func logAltTextFeedbackDidClickYes()
+    func logAltTextFeedbackDidClickNo()
 }
 
 fileprivate final class WMFImageRecommendationsHostingViewController: WMFComponentHostingController<WMFImageRecommendationsView> {
@@ -72,6 +74,8 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     @ObservedObject private var viewModel: WMFImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WMFImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
+
+    public var isBackFromAltText: Bool = false
 
     private var overflowMenu: UIMenu {
 
@@ -142,6 +146,11 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         bindViewModel()
+
+        if isBackFromAltText {
+            presentAltTextPostPublishFeedbackAlert()
+            isBackFromAltText = false
+        }
 
         if !dataController.hasPresentedOnboardingModal {
             presentOnboardingIfNecessary()
@@ -337,12 +346,33 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         presentTooltipsIfNecessary(onBottomSheetViewController: imageRecommendationBottomSheetController, force: true)
     }
 
+
     private func goToFAQ() {
         delegate?.imageRecommendationsUserDidTapLearnMore(url: viewModel.learnMoreURL)
     }
 
     private func reportIssue() {
         delegate?.imageRecommendationsUserDidTapReportIssue()
+    }
+
+    private func presentAltTextPostPublishFeedbackAlert() {
+
+        let alert = UIAlertController(title: viewModel.localizedStrings.altTextFeedbackStrings.feedbackTitle, message: viewModel.localizedStrings.altTextFeedbackStrings.feedbackSubtitle, preferredStyle: .alert)
+
+        let yesAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.yesButton, style: .default) { _ in
+            self.loggingDelegate?.logAltTextFeedbackDidClickYes()
+            self.presentImageRecommendationBottomSheet()
+        }
+
+        let noAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.noButton, style: .default) { _ in
+            self.loggingDelegate?.logAltTextFeedbackDidClickNo()
+            self.presentImageRecommendationBottomSheet()
+        }
+
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+
+        self.navigationController?.present(alert, animated: true)
     }
 }
 

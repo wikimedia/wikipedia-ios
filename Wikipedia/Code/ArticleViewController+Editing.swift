@@ -488,6 +488,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
                     // wait for animation to complete
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                         self?.presentAltTextEditPublishedToast()
+                        self?.presentAltTextPostPublishFeedbackSurvey()
                         self?.logAltTextEditSuccess(viewModel: viewModel, altText: viewModel.altText, revisionID: newRevID)
                     }
                 }
@@ -532,6 +533,62 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
     private func logAltTextDidTapPublish(project: WMFProject) {
         EditInteractionFunnel.shared.logAltTextDidTapPublish(project: WikimediaProject(wmfProject: project))
+    }
+
+    private func presentAltTextPostPublishFeedbackSurvey() {
+        guard let siteURL = articleURL.wmf_site,
+              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+
+        let alert = UIAlertController(title: CommonStrings.altTextFeedbackSurveyTitle, message: CommonStrings.altTextFeedbackSurveySubtitle, preferredStyle: .alert)
+
+        let neutralAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveyNeutral, style: .default) { _ in
+            self.presentAltTextPostPublishFeedbackAlert()
+            EditInteractionFunnel.shared.logALtTextFeedbackSurveyNeutral(project: project)
+        }
+
+        let satisfiedAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveySatisfied, style: .default) { _ in
+            self.presentAltTextPostPublishFeedbackAlert()
+            EditInteractionFunnel.shared.logALtTextFeedbackSurveySatisfied(project: project)
+        }
+
+        let unsatisfiedAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveyUnsatisfied, style: .default) { _ in
+            self.presentAltTextPostPublishFeedbackAlert()
+            EditInteractionFunnel.shared.logALtTextFeedbackSurveyUnsatisfied(project: project)
+        }
+
+        alert.addAction(neutralAction)
+        alert.addAction(satisfiedAction)
+        alert.addAction(unsatisfiedAction)
+
+        self.navigationController?.present(alert, animated: true)
+
+    }
+
+    private func presentAltTextPostPublishFeedbackAlert() {
+
+        guard let siteURL = articleURL.wmf_site,
+              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+
+        let alert = UIAlertController(title: CommonStrings.altTextFeedbackAlertTitle, message: CommonStrings.altTextFeedbackAlertMessage, preferredStyle: .alert)
+
+        let yesAction = UIAlertAction(title: CommonStrings.yesButtonTitle, style: .default) { _ in
+            EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: project)
+        }
+
+        let noAction = UIAlertAction(title: CommonStrings.noButtonTitle, style: .default) { _ in
+            EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: project)
+        }
+
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+
+        self.navigationController?.present(alert, animated: true)
     }
 
 }

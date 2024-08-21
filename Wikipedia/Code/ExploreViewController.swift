@@ -1498,6 +1498,8 @@ extension ExploreViewController: WMFFeatureAnnouncing {
 }
 
 extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
+
+    
     func logAltTextExperimentDidAssignGroup() {
         
         guard let imageRecommendationsViewModel else {
@@ -1593,6 +1595,16 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+
+    func logAltTextFeedbackDidClickYes() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: WikimediaProject(wmfProject:  viewModel.project))
+    }
+
+    func logAltTextFeedbackDidClickNo() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: WikimediaProject(wmfProject:  viewModel.project))
     }
 }
 
@@ -1796,7 +1808,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
                     if let navigationController = self.navigationController {
                         for viewController in navigationController.viewControllers {
                             if viewController is WMFImageRecommendationsViewController {
-                                navigationController.popToViewController(viewController, animated: true)
+                              let vc =  viewController as? WMFImageRecommendationsViewController
+                                guard let vc else { return }
+                                vc.isBackFromAltText = true
+                                navigationController.popToViewController(vc, animated: true)
                                 break
                             }
                         }
