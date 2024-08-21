@@ -129,6 +129,14 @@
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
 "alt-text-modal-subtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
 "alt-text-modal-title" = "Title text for the alt text suggested edit prompt modal";
+"alt-text-survey-option-1" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-2" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-3" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-4" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-5" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-6" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-option-7" = "Title of available option displayed on the alt text survey view.";
+"alt-text-survey-subtitle" = "Subtitle displayed on the alt text survey view.";
 "alt-text-title" = "Title for alt text";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
@@ -1121,6 +1129,10 @@
 "sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
 "sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
 "suggested-edits-title" = "Title for the 'Suggested Edits' explore feed card";
+"survey-instructions" = "Instructions displayed on survey views.";
+"survey-other-placeholder" = "Title of other textfield placeholder option in survey view.";
+"survey-submit" = "Title of the submit button. Displayed in survey views to submit answers.";
+"survey-title" = "Title of the survey view. Displayed in the navigation bar as title of view.";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
