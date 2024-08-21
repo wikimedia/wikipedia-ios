@@ -1346,15 +1346,17 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
         let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
             
-            // TODO: Log in edit interaction funnel
-            
             // Dismisses Survey View
             self?.dismiss(animated: true, completion: {
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             })
         }, submitAction: { [weak self] options, otherText in
             
-            // TODO: Log in edit interaction funnel
+            if let wmfProject = self?.imageRecommendationsViewModel?.project {
+                let project = WikimediaProject(wmfProject: wmfProject)
+                EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+            }
             
             // Dismisses Survey View
             self?.dismiss(animated: true, completion: {

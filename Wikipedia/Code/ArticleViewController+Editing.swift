@@ -369,16 +369,16 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextRejectionSurvey() {
         let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
             
-            // TODO: Log in edit interaction funnel
-            
             // Dismisses Survey View
-            self?.dismiss(animated: true, completion: {
-                
-            })
+            self?.dismiss(animated: true)
             
         }, submitAction: { [weak self] options, otherText in
             
-            // TODO: Log in edit interaction funnel
+            if let siteURL = self?.articleURL.wmf_site,
+               let project = WikimediaProject(siteURL: siteURL) {
+                EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+            }
             
             // Dismisses Survey View
             self?.dismiss(animated: true, completion: {
