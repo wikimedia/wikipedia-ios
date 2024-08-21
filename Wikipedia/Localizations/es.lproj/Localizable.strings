@@ -186,6 +186,14 @@
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
 "alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
 "alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
+"alt-text-survey-option-1" = "No sé cómo describir una imagen";
+"alt-text-survey-option-2" = "No sé cómo añadir texto alternativo";
+"alt-text-survey-option-3" = "No entiendo en qué se diferencia de un pie de foto";
+"alt-text-survey-option-4" = "Tengo problemas técnicos";
+"alt-text-survey-option-5" = "Tengo problemas de la vista";
+"alt-text-survey-option-6" = "No me interesa escribir texto alternativo para las imágenes";
+"alt-text-survey-option-7" = "No tengo tiempo";
+"alt-text-survey-subtitle" = "Indique los motivos por los que no añadirá texto alternativo.";
 "alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
@@ -939,6 +947,10 @@
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
 "suggested-edits-title" = "Ediciones sugeridas";
+"survey-instructions" = "Seleccione una o más opciones";
+"survey-other-placeholder" = "Otra";
+"survey-submit" = "Enviar";
+"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
