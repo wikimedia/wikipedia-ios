@@ -206,6 +206,14 @@
 "alt-text-modal-title" = "添加缺失的图像替代文字？";
 "alt-text-modal-subtitle-regular-edit" = "本文中有一张缺少替代文字的图像。为视障读者添加描述？";
 "alt-text-modal-subtitle-image-recommendation" = "上一个​​图像缺少替代文字。为视障读者添加图像描述";
+"alt-text-survey-option-1" = "我不确定如何描述图像";
+"alt-text-survey-option-2" = "我没有添加替代文字的专业知识";
+"alt-text-survey-option-3" = "我不明白它与题注有何不同";
+"alt-text-survey-option-4" = "我遇到了技术问题";
+"alt-text-survey-option-5" = "我有视力障碍";
+"alt-text-survey-option-6" = "我对为图像撰写替代文字不感兴趣";
+"alt-text-survey-option-7" = "我没有时间";
+"alt-text-survey-subtitle" = "请分享您不添加替代文字的原因。";
 "alt-text-title" = "替代文字";
 "announcements-dismiss" = "关闭";
 "app-store-keywords" = "维基百科、参考书、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
@@ -1166,6 +1174,10 @@
 "sort-by-recently-added-action" = "最近添加";
 "sort-by-title-action" = "标题";
 "suggested-edits-title" = "编辑建议";
+"survey-instructions" = "您可选择一项或多项";
+"survey-other-placeholder" = "其他";
+"survey-submit" = "提交";
+"survey-title" = "原因";
 "table-of-contents-button-label" = "目录";
 "table-of-contents-close-accessibility-hint" = "关闭";
 "table-of-contents-close-accessibility-label" = "关闭目录";

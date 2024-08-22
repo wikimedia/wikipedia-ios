@@ -13,7 +13,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
     
     public struct LocalizedStrings {
-		public typealias SurveyLocalizedStrings =  WMFImageRecommendationsSurveyViewModel.LocalizedStrings
+		public typealias SurveyLocalizedStrings =  WMFSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings
         public typealias TooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings
         public typealias ErrorLocalizedStrings = WMFErrorViewModel.LocalizedStrings
@@ -59,7 +59,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         let title: String
         let viewArticle: String
 		let onboardingStrings: OnboardingStrings
-		let surveyLocalizedStrings: SurveyLocalizedStrings
+        let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
         let errorLocalizedStrings: ErrorLocalizedStrings
         let firstTooltipStrings: TooltipLocalizedStrings
@@ -93,7 +93,6 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
             self.tutorialButtonTitle = tutorialButtonTitle
             self.problemWithFeatureButtonTitle = problemWithFeatureButtonTitle
         }
-
     }
 
     public class WMFImageRecommendationData {
@@ -156,6 +155,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     public let semanticContentAttribute: UISemanticContentAttribute
     public let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
+    let surveyOptions: [WMFSurveyViewModel.OptionViewModel]
 
     private(set) var imageRecommendations: [ImageRecommendation] = []
     @Published public private(set) var currentRecommendation: ImageRecommendation?
@@ -176,11 +176,12 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, surveyOptions: [WMFSurveyViewModel.OptionViewModel], needsSuppressPosting: Bool) {
         self.isLoggedIn = isLoggedIn
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
+        self.surveyOptions = surveyOptions
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WMFArticleSummaryDataController()

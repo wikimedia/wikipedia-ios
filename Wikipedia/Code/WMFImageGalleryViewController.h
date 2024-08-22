@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFImageGalleryViewControllerDismissDelegate <NSObject>
 
 - (void)galleryDidDismiss:(WMFImageGalleryViewController *)gallery;
+- (void)galleryDidTapInfoButton:(WMFImageGalleryViewController *)gallery;
 
 @end
 

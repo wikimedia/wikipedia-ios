@@ -2,6 +2,8 @@ import UIKit
 
 public protocol WMFAltTextExperimentModalSheetDelegate: AnyObject {
     func didTapNext(altText: String)
+    func didTapImage(fileName: String)
+    func didTapFileName(fileName: String)
     func didTapGuidance()
 }
 
