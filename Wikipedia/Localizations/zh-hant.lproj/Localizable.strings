@@ -171,6 +171,7 @@
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";
 "alt-text-feedback-alert-subtitle" = "您會使用為需要替代文字的影像提供提要的功能嗎";
+"alt-text-feedback-alert-subtitle-flow-C" = "您是否有興趣在編輯文章後，收到關於文章建議編輯的類似通知";
 "alt-text-feedback-alert-title" = "我們需要您的意見反應";
 "alt-text-feedback-survey-neutral" = "沒意見";
 "alt-text-feedback-survey-satisfied" = "滿意";

@@ -580,7 +580,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
             return
         }
 
-        let alert = UIAlertController(title: CommonStrings.altTextFeedbackAlertTitle, message: CommonStrings.altTextFeedbackAlertMessage, preferredStyle: .alert)
+        let alert = UIAlertController(title: CommonStrings.altTextFeedbackAlertTitle, message: CommonStrings.altTextFeedbackAlertMessageFlowC, preferredStyle: .alert)
 
         let yesAction = UIAlertAction(title: CommonStrings.yesButtonTitle, style: .default) { _ in
             self.presentAltTextEditPublishedToast(isSurvey: true, project: project)

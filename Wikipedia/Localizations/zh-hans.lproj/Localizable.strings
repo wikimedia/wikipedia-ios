@@ -194,6 +194,7 @@
 "alt-text-experiment-text-field-placholder" = "描述图片";
 "alt-text-experiment-view-title" = "添加替代文字";
 "alt-text-feedback-alert-subtitle" = "尽量让替代文字保持简短，以便用户能够轻松理解图像内容";
+"alt-text-feedback-alert-subtitle-flow-C" = "您是否有兴趣在编辑文章后接收诸如文章编辑建议之类的通知";
 "alt-text-feedback-alert-title" = "如果有一项功能可以推送需要替代文字的图像，您会使用这个功能吗";
 "alt-text-feedback-survey-neutral" = "中立";
 "alt-text-feedback-survey-satisfied" = "满意";

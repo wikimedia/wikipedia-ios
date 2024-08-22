@@ -718,6 +718,8 @@ public class CommonStrings: NSObject {
 
     public static let altTextFeedbackAlertMessage = WMFLocalizedString("alt-text-feedback-alert-subtitle", value: "Would you use a feature that provided a feed of images in need of alt text?", comment: "Subtitle text for the feedback alert in alt text")
 
+    public static let altTextFeedbackAlertMessageFlowC = WMFLocalizedString("alt-text-feedback-alert-subtitle-flow-C", value: "Would you be interested in receiving similar notifications about suggested edits on articles after you edit them?", comment: "Subtitle text for the feedback alert in alt text experiment for flow C")
+
     public static let altTextFeedbackSurveyTitle = WMFLocalizedString("alt-text-feedback-survey-title", value: "Help improve the feature", comment: "Title for the alt text feedback survey")
 
     public static let altTextFeedbackSurveySubtitle = WMFLocalizedString("alt-text-feedback-survey-subtitle", value: "Are you satisfied with this feature?", comment: "Subtitle for the alt text feedback survey")

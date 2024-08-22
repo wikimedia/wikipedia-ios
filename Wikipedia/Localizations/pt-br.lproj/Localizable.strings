@@ -171,6 +171,7 @@
 "alt-text-experiment-text-field-placholder" = "Descreva a imagem";
 "alt-text-experiment-view-title" = "Adicionar texto alternativo";
 "alt-text-feedback-alert-subtitle" = "Você usaria um recurso que fornecesse um feed de imagens que precisa de texto alternativo?";
+"alt-text-feedback-alert-subtitle-flow-C" = "Você estaria interessado em receber notificações semelhantes sobre edições sugeridas em artigos depois de editá-los?";
 "alt-text-feedback-alert-title" = "Precisamos do seu feedback";
 "alt-text-feedback-survey-neutral" = "Neutro";
 "alt-text-feedback-survey-satisfied" = "Satisfeito";

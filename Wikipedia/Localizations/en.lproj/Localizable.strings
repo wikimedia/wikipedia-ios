@@ -126,6 +126,7 @@
 "alt-text-experiment-text-field-placholder" = "Describe the image";
 "alt-text-experiment-view-title" = "Add alt text";
 "alt-text-feedback-alert-subtitle" = "Would you use a feature that provided a feed of images in need of alt text?";
+"alt-text-feedback-alert-subtitle-flow-C" = "Would you be interested in receiving similar notifications about suggested edits on articles after you edit them?";
 "alt-text-feedback-alert-title" = "We want your feedback";
 "alt-text-feedback-survey-neutral" = "Neutral";
 "alt-text-feedback-survey-satisfied" = "Satisfied";

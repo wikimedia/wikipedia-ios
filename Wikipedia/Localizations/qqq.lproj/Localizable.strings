@@ -126,6 +126,7 @@
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";
 "alt-text-feedback-alert-subtitle" = "Subtitle text for the feedback alert in alt text";
+"alt-text-feedback-alert-subtitle-flow-C" = "Subtitle text for the feedback alert in alt text experiment for flow C";
 "alt-text-feedback-alert-title" = "Title text for the feedback alert in alt text";
 "alt-text-feedback-survey-neutral" = "Text for the alt text feedback survey neutral option";
 "alt-text-feedback-survey-satisfied" = "Text for the alt text feedback survey satisfied option";
