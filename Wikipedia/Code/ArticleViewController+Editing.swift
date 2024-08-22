@@ -575,7 +575,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
     private func presentAltTextPostPublishFeedbackAlert() {
 
         guard let siteURL = articleURL.wmf_site,
-              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
