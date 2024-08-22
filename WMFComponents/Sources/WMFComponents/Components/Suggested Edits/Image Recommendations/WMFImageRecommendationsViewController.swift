@@ -77,7 +77,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     private var cancellables = Set<AnyCancellable>()
 
     public var isBackFromAltText: Bool = false
-    private var shoudlPresentAltTextToast: Bool = false
+    private var shouldPresentAltTextToast: Bool = false
 
     private var overflowMenu: UIMenu {
 
@@ -189,9 +189,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                     return
                 }
 
-                if self.shoudlPresentAltTextToast {
+                if self.shouldPresentAltTextToast {
                     self.delegate?.imageRecommendationsDidTriggerAltTextFeedbackToast()
-                    self.shoudlPresentAltTextToast = false
+                    self.shouldPresentAltTextToast = false
                 }
                 self.presentTooltipsIfNecessary(onBottomSheetViewController: self.imageRecommendationBottomSheetController)
             }
@@ -367,13 +367,13 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
         let yesAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.yesButton, style: .default) { _ in
             self.loggingDelegate?.logAltTextFeedbackDidClickYes()
-            self.shoudlPresentAltTextToast = true
+            self.shouldPresentAltTextToast = true
             self.presentImageRecommendationBottomSheet()
         }
 
         let noAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.noButton, style: .default) { _ in
             self.loggingDelegate?.logAltTextFeedbackDidClickNo()
-            self.shoudlPresentAltTextToast = true
+            self.shouldPresentAltTextToast = true
             self.presentImageRecommendationBottomSheet()
         }
 
