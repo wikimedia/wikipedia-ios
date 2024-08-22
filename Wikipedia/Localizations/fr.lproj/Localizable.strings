@@ -178,6 +178,7 @@
 "alt-text-feedback-survey-satisfied" = "Satisfait";
 "alt-text-feedback-survey-subtitle" = "Êtes-vous satisfait de cette fonctionnalité?";
 "alt-text-feedback-survey-title" = "Contribuer à l'amélioration de la fonctionnalité";
+"alt-text-feedback-survey-toast-title" = "Commentaires soumis";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfait";
 "alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";

@@ -446,9 +446,11 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         logAltTextDidTapPublish(project: viewModel.project)
 
         let articleURL = viewModel.articleURL
-        guard let siteURL = articleURL.wmf_site else {
+        guard let siteURL = articleURL.wmf_site,
+        let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
+
 
         var finalWikitextToPublish: String?
         if #available(iOS 16.0, *) {
@@ -487,7 +489,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
                 if error == nil {
                     // wait for animation to complete
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                        self?.presentAltTextEditPublishedToast()
+                        self?.presentAltTextEditPublishedToast(isSurvey: false, project: project)
                         self?.presentAltTextPostPublishFeedbackSurvey()
                         self?.logAltTextEditSuccess(viewModel: viewModel, altText: viewModel.altText, revisionID: newRevID)
                     }
@@ -518,8 +520,8 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         altTextExperimentAcceptDate = nil
     }
 
-    private func presentAltTextEditPublishedToast() {
-        let title = CommonStrings.editPublishedToastTitle
+    private func presentAltTextEditPublishedToast(isSurvey: Bool, project: WikimediaProject) {
+        let title = isSurvey ? CommonStrings.altTextFeedbackSurveyToastTitle : CommonStrings.editPublishedToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
 
         if UIAccessibility.isVoiceOverRunning {
@@ -528,6 +530,9 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
             }
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        }
+        if isSurvey {
+            EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: project)
         }
     }
 
@@ -546,17 +551,17 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
         let neutralAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveyNeutral, style: .default) { _ in
             self.presentAltTextPostPublishFeedbackAlert()
-            EditInteractionFunnel.shared.logALtTextFeedbackSurveyNeutral(project: project)
+            EditInteractionFunnel.shared.logAltTextFeedbackSurveyNeutral(project: project)
         }
 
         let satisfiedAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveySatisfied, style: .default) { _ in
             self.presentAltTextPostPublishFeedbackAlert()
-            EditInteractionFunnel.shared.logALtTextFeedbackSurveySatisfied(project: project)
+            EditInteractionFunnel.shared.logAltTextFeedbackSurveySatisfied(project: project)
         }
 
         let unsatisfiedAction = UIAlertAction(title: CommonStrings.altTextFeedbackSurveyUnsatisfied, style: .default) { _ in
             self.presentAltTextPostPublishFeedbackAlert()
-            EditInteractionFunnel.shared.logALtTextFeedbackSurveyUnsatisfied(project: project)
+            EditInteractionFunnel.shared.logAltTextFeedbackSurveyUnsatisfied(project: project)
         }
 
         alert.addAction(neutralAction)
@@ -578,10 +583,12 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let alert = UIAlertController(title: CommonStrings.altTextFeedbackAlertTitle, message: CommonStrings.altTextFeedbackAlertMessage, preferredStyle: .alert)
 
         let yesAction = UIAlertAction(title: CommonStrings.yesButtonTitle, style: .default) { _ in
+            self.presentAltTextEditPublishedToast(isSurvey: true, project: project)
             EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: project)
         }
 
         let noAction = UIAlertAction(title: CommonStrings.noButtonTitle, style: .default) { _ in
+            self.presentAltTextEditPublishedToast(isSurvey: true, project: project)
             EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: project)
         }
 

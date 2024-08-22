@@ -188,6 +188,7 @@
 "alt-text-feedback-survey-satisfied" = "Satisfecho";
 "alt-text-feedback-survey-subtitle" = "¿Está satisfecho con esta función?";
 "alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
+"alt-text-feedback-survey-toast-title" = "Opinión enviada";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
 "alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";

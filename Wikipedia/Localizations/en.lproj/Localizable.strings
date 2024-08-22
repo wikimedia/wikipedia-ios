@@ -131,6 +131,7 @@
 "alt-text-feedback-survey-satisfied" = "Satisfied";
 "alt-text-feedback-survey-subtitle" = "Are you satisfied with this feature?";
 "alt-text-feedback-survey-title" = "Help improve the feature";
+"alt-text-feedback-survey-toast-title" = "Feedback submitted";
 "alt-text-feedback-survey-unsatisfied" = "Unsatisfied";
 "alt-text-license" = "By publishing changes, you agree to the [Terms of Use]($1),  and you irrevocably agree to release your contribution under the [CC BY-SA 3.0]($2) license  and the [GFDL]($3). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "alt-text-modal-subtitle-image-recommendation" = "The previous image is missing alt text. Add a description to the image for visually impaired readers?";

@@ -1346,6 +1346,16 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
     }
+
+    func imageRecommendationsDidTriggerAltTextFeedbackToast() {
+        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject(wmfProject: viewModel.project))
+    }
+
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {

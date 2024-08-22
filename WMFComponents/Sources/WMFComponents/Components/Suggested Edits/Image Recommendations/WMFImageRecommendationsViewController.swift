@@ -13,6 +13,7 @@ public protocol WMFImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController)
+    func imageRecommendationsDidTriggerAltTextFeedbackToast()
 }
 
 public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
@@ -362,11 +363,13 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         let yesAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.yesButton, style: .default) { _ in
             self.loggingDelegate?.logAltTextFeedbackDidClickYes()
             self.presentImageRecommendationBottomSheet()
+            self.delegate?.imageRecommendationsDidTriggerAltTextFeedbackToast()
         }
 
         let noAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.noButton, style: .default) { _ in
             self.loggingDelegate?.logAltTextFeedbackDidClickNo()
             self.presentImageRecommendationBottomSheet()
+            self.delegate?.imageRecommendationsDidTriggerAltTextFeedbackToast()
         }
 
         alert.addAction(yesAction)

@@ -70,6 +70,7 @@ final class EditInteractionFunnel {
         case feedbackNeutral = "feedback_neutral_click"
         case feedbackUnsatisfied = "feedback_unsatisfied_click"
         case feedbackSatisfied = "feedback_satisfied_click"
+        case feedbackToast = "feedback_submit_toast"
     }
 
     private struct Event: EventInterface {
@@ -383,16 +384,20 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextFeedbackInterface, action: action, project: project)
     }
 
-    func logALtTextFeedbackSurveyNeutral(project: WikimediaProject) {
+    func logAltTextFeedbackSurveyNeutral(project: WikimediaProject) {
         logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackNeutral, project: project)
     }
 
-    func logALtTextFeedbackSurveySatisfied(project: WikimediaProject) {
+    func logAltTextFeedbackSurveySatisfied(project: WikimediaProject) {
         logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackSatisfied, project: project)
     }
 
-    func logALtTextFeedbackSurveyUnsatisfied(project: WikimediaProject) {
+    func logAltTextFeedbackSurveyUnsatisfied(project: WikimediaProject) {
         logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackUnsatisfied, project: project)
+    }
+
+    func logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackToast, project: project)
     }
 
 }

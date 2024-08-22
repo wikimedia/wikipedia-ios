@@ -199,6 +199,7 @@
 "alt-text-feedback-survey-satisfied" = "满意";
 "alt-text-feedback-survey-subtitle" = "您对此功能满意吗？";
 "alt-text-feedback-survey-title" = "帮助改进功能";
+"alt-text-feedback-survey-toast-title" = "反馈已提交";
 "alt-text-feedback-survey-unsatisfied" = "不满意";
 "alt-text-license" = "发布更改即表示您同意相关[使用条款]($1)，同时，您同意依据 [CC BY-SA 3.0]($2) 许可协议及 [GFDL]($#) 授权您的贡献，并在 Creative Commons 许可协议下以超链接或网址 (URL) 等方式署名。";
 "alt-text-modal-title" = "添加缺失的图像替代文字？";

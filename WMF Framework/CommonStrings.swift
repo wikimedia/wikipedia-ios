@@ -728,6 +728,8 @@ public class CommonStrings: NSObject {
 
     public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
 
+    public static let altTextFeedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a alt text experiment survey")
+
 }
 // Language variant strings
 public extension CommonStrings {
