@@ -534,6 +534,7 @@
 "featured-widget-from-wikipedia" = "From Wikipedia";
 "featured-widget-language-failure" = "Your primary Wikipedia language does not support Featured article. You can update your primary Wikipedia in the app’s Settings menu.";
 "featured-widget-title" = "Featured article";
+"feedback-submitted" = "Feedback submitted";
 "fetcher-error-generic" = "Something went wrong. Please try again later.";
 "fetcher-error-unexpected-response" = "The app received an unexpected response from the server. Please try again later.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";

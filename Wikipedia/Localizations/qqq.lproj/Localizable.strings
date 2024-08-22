@@ -534,6 +534,7 @@
 "featured-widget-from-wikipedia" = "Text displayed as Wikipedia source on Featured article widget if language is unavailable.";
 "featured-widget-language-failure" = "Error message shown when the user's primary language Wikipedia does not support the 'Featured article' feature.";
 "featured-widget-title" = "Text for title of Featured article widget.";
+"feedback-submitted" = "Message displayed in popup toast after a user has entered feedback about a feature.";
 "fetcher-error-generic" = "Error shown to the user for generic errors with no clear recovery steps for the user.";
 "fetcher-error-unexpected-response" = "Error shown to the user for unexpected server responses.";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
