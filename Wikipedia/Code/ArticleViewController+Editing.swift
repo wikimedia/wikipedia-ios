@@ -313,7 +313,6 @@ extension ArticleViewController: EditorViewControllerDelegate {
     
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
-        
         guard let siteURL = articleURL.wmf_site,
               let languageCode = siteURL.wmf_languageCode,
               let project = WikimediaProject(siteURL: siteURL),
@@ -329,40 +328,16 @@ extension ArticleViewController: EditorViewControllerDelegate {
                     return
                 }
                 
-                let addAltTextTitle = CommonStrings.altTextArticleNavBarTitle
-                let editSummary = CommonStrings.altTextEditSummary(with: articleURL.wmf_languageCode)
-                let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
-                
-                var caption: String? = nil
-                if #available(iOS 16.0, *) {
-                    caption = try? missingAltTextLink.extractCaptionForDisplay(languageCode: languageCode)
-                } else {
-                    caption = nil
-                }
-                
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: filename, imageWikitext: missingAltTextLink.text, fullArticleWikitextWithImage: fullArticleWikitext, lastRevisionID: lastRevisionID, sectionID: nil, isFlowB: false, project: wmfProject)
-                
-                let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
-                let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
-                let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
-                let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
-                let guidanceText = CommonStrings.altGuidanceButtonTitle
-                
-                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
-
-                let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-                
                 self.altTextExperimentAcceptDate = Date()
                 
                 if let project = WikimediaProject(siteURL: siteURL) {
                     EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: project)
                 }
                 
-                if let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
-                    
-                    self.navigationController?.pushViewController(articleViewController, animated: true)
-                }
+                let info = ArticleAltTextInfo(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID, wmfProject: wmfProject)
+                let altTextArticleEditorOnboardingPresenter = AltTextArticleEditorOnboardingPresenter(articleViewController: self, altTextInfo: info)
+                self.altTextArticleEditorOnboardingPresenter = altTextArticleEditorOnboardingPresenter
+                altTextArticleEditorOnboardingPresenter.enterAltTextFlow()
             }
         }
 
@@ -412,6 +387,11 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
+    func didTapGuidance() {
+        self.altTextGuidancePresenter = AltTextGuidancePresenter(articleViewController: self)
+        altTextGuidancePresenter?.presentAltTextGuidance()
+    }
+    
     func didTapNext(altText: String) {
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {

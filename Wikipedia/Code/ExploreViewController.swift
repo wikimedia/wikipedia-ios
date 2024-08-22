@@ -12,6 +12,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
+    private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
     // MARK: - UIViewController
     
@@ -1286,6 +1287,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
     
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        
         guard let viewModel = imageRecommendationsViewModel,
               let lastRecommendation = viewModel.lastRecommendation else {
             return
@@ -1305,36 +1307,13 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                     return
                 }
                 
-                let addAltTextTitle = CommonStrings.altTextArticleNavBarTitle
-                let languageCode = viewModel.project.languageCode
-                let editSummary = CommonStrings.altTextEditSummary(with: languageCode)
-                
-                let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
-                
-                let articleTitle = lastRecommendation.imageData.pageTitle
-                
-                let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: viewModel.project)
-                
-                let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
-                let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
-                let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
-                let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
-                let guidanceText = CommonStrings.altGuidanceButtonTitle
-                
-                let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
-
-                let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-                
                 lastRecommendation.altTextExperimentAcceptDate = Date()
                 
                 EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
 
-                if let siteURL = viewModel.project.siteURL,
-                   let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-                   let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
-
-                    self.navigationController?.pushViewController(articleViewController, animated: true)
-                }
+                let altTextImageRecommendationsOnboardingPresenter = AltTextImageRecommendationsOnboardingPresenter(imageRecommendationsViewModel: viewModel, imageRecommendationsViewController: imageRecommendationsViewController, exploreViewController: self)
+                self.altTextImageRecommendationsOnboardingPresenter = altTextImageRecommendationsOnboardingPresenter
+                altTextImageRecommendationsOnboardingPresenter.enterAltTextFlow()
             }
         }
 

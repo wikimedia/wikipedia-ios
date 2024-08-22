@@ -694,6 +694,26 @@ public class CommonStrings: NSObject {
     
     public static let altGuidanceButtonTitle = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
     
+    public static let altTextOnboardingTitle = WMFLocalizedString("alt-text-experiment-onboarding-title", value: "How to write alt text for images", comment: "Title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem1Title = WMFLocalizedString("alt-text-experiment-onboarding-item-1-title", value: "Keep it short and clear", comment: "Item 1 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem1Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-1-subtitle", value: "1-2 lines of plain text with no acronyms, abbreviations, or jargon.", comment: "Item 1 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem2Title = WMFLocalizedString("alt-text-experiment-onboarding-item-2-title", value: "Describe what can be seen", comment: "Item 2 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem2Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-2-subtitle", value: "Don’t add your own research, interpretation, or point of view.", comment: "Item 2 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem3Title = WMFLocalizedString("alt-text-experiment-onboarding-item-3-title", value: "Focus on what is relevant to the article", comment: "Item 3 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem3Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-3-subtitle", value: "But don’t repeat text that is already in the caption.", comment: "Item 3 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem4Title = WMFLocalizedString("alt-text-experiment-onboarding-item-4-title", value: "Type of image", comment: "Item 4 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem4Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-4-subtitle", value: "Do not start with ‘This is an image of...’ but describe the medium or style, if relevant", comment: "Item 4 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingSecondaryButtonTitle = WMFLocalizedString("alt-text-experiment-onboarding-secondary-button-title", value: "View examples", comment: "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.")
+    
 }
 // Language variant strings
 public extension CommonStrings {

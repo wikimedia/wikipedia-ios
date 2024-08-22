@@ -106,6 +106,8 @@ class ArticleViewController: ViewController, HintPresenting {
     var didTapPreview: Bool = false /// Set when coming back from alt text preview
     var didTapAltTextFileName = false
     var didTapAltTextGalleryInfoButton = false
+    var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
+    var altTextGuidancePresenter: AltTextGuidancePresenter?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -1437,6 +1439,7 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+
     func didTriggerCharacterWarning() {
         guard let siteURL = articleURL.wmf_site,
               let project = WikimediaProject(siteURL: siteURL) else {
