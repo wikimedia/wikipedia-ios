@@ -51,7 +51,11 @@ final class AltTextImageRecommendationsOnboardingPresenter {
         
         let articleTitle = lastRecommendation.imageData.pageTitle
         
-        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: imageRecommendationsViewModel.project)
+        let firstTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Review", body: "Understand the image in the article context.", buttonTitle: "Next")
+        let secondTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Inspect", body: "View additional image information on Wikimedia Commons.", buttonTitle: "Next")
+        let thirdTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Add description", body: "Add description for visually impaired readers", buttonTitle: "Done")
+        
+        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, firstTooltipLocalizedStrings: firstTooltipLocalizedStrings, secondTooltipLocalizedStrings: secondTooltipLocalizedStrings, thirdTooltipLocalizedStrings: thirdTooltipLocalizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: imageRecommendationsViewModel.project)
         
         let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
         let textViewBottomDescription = CommonStrings.altTextViewBottomDescription

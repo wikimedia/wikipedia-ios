@@ -533,7 +533,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
     private func logAltTextDidTapPublish(project: WMFProject) {
         EditInteractionFunnel.shared.logAltTextDidTapPublish(project: WikimediaProject(wmfProject: project))
     }
-
 }
 
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit

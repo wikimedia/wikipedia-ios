@@ -126,7 +126,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         return label
     }()
 
-    private lazy var textView: UIPastelessTextView = {
+    private(set) lazy var textView: UITextView = {
         let textView = UIPastelessTextView(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
