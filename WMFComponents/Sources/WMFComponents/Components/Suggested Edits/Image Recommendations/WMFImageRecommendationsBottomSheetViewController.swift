@@ -111,14 +111,14 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
     func didTapNoButton() {
         loggingDelegate?.logBottomSheetDidTapNo()
         
-		let surveyView = WMFImageRecommendationsSurveyView(
-			viewModel: WMFImageRecommendationsSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings),
+		let surveyView = WMFSurveyView(
+            viewModel: WMFSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings, options: viewModel.surveyOptions),
 			cancelAction: { [weak self] in
                 self?.loggingDelegate?.logRejectSurveyDidTapCancel()
                 
 				self?.dismiss(animated: true)
 			},
-			submitAction: { [weak self] reasons in
+            submitAction: { [weak self] options, otherText  in
                 
                 guard let self,
                 let currentRecommendation = self.viewModel.currentRecommendation else {
@@ -126,13 +126,10 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
                 }
                 
                 // Logging
-                let rejectionReasons = reasons.map { $0.apiIdentifier }
-                let otherReason = reasons.first(where: {$0.otherText != nil})
-                
-                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason?.otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
+                self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: options, otherReason: otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
                 
                 // Send feedback API call
-                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: reasons.map { $0.apiIdentifier } , caption: nil, completion: { [weak self] result in
+                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: options, caption: nil, completion: { [weak self] result in
                     switch result {
                     case .success:
                         break
