@@ -346,7 +346,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 
                 EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: project)
                 
-                // todo: show survey
+                self?.presentAltTextRejectionSurvey()
             }
         }
 
@@ -364,6 +364,31 @@ extension ArticleViewController: EditorViewControllerDelegate {
         EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: project)
         
         present(panel, animated: true)
+    }
+    
+    private func presentAltTextRejectionSurvey() {
+        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true)
+            
+        }, submitAction: { [weak self] options, otherText in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: { [weak self] in
+                if let siteURL = self?.articleURL.wmf_site,
+                   let project = WikimediaProject(siteURL: siteURL) {
+                    EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                    
+                    let image = UIImage(systemName: "checkmark.circle.fill")
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    
+                    EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+                }
+            })
+        })
+        
+        present(surveyView, animated: true)
     }
 }
 
@@ -387,11 +412,12 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
+
     func didTapGuidance() {
         self.altTextGuidancePresenter = AltTextGuidancePresenter(articleViewController: self)
         altTextGuidancePresenter?.presentAltTextGuidance()
     }
-    
+
     func didTapNext(altText: String) {
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
@@ -400,6 +426,47 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
 
         altTextDelegate?.didTapNext(altText: altText, uiImage: altTextBottomSheetViewModel.uiImage,  articleViewController: self, viewModel: altTextExperimentViewModel)
         self.didTapPreview = true
+    }
+
+    func didTapImage(fileName: String) {
+        getMediaList { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                self?.showError(error)
+            case .success(let mediaList):
+
+                // Dismiss alt text modal
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.wasPresentingGalleryWhileInAltTextMode = true
+                    self?.showImage(in: mediaList, title: fileName)
+                }
+            }
+        }
+    }
+
+    func didTapFileName(fileName: String) {
+
+        guard let denormalizedFileName = fileName.denormalizedPageTitle else {
+            return
+        }
+
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL),
+              let url = siteURL.wmf_URL(withTitle: denormalizedFileName) else {
+            return
+        }
+
+        // Dismiss alt half sheet modal
+        dismiss(animated: true) { [weak self] in
+            guard let self else {
+                return
+            }
+
+            self.didTapAltTextFileName = true
+            let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
+            self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
+            EditInteractionFunnel.shared.logAltTextDidPushCommonsView(project: project)
+        }
     }
 }
 
@@ -411,7 +478,7 @@ extension ArticleViewController: AltTextDelegate {
         let captionTitle = WMFLocalizedString("alt-text-experiment-caption-title", value: "Image caption", comment: "title for image caption field on alt text preview")
         let reviewTitle = WMFLocalizedString("alt-text-experiment-review-title", value: "Review", comment: "Title for the review stpe of the alt text experiment")
 
-        let footerTextFormat = WMFLocalizedString("alt-text-license", value:"By publishing changes, you agree to the [Terms of Use](%1$@),  and you irrevocably agree to release your contribution under the [CC BY-SA 3.0](%2$@) license  and the [GFDL](%3$@). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. %1$@, %2$@ and %3$@ are replaced by the terms of use and license links.")
+        let footerTextFormat = WMFLocalizedString("alt-text-license", value:"By publishing changes, you agree to the [Terms of Use](%1$@), and you irrevocably agree to release your contribution under the [CC BY-SA 3.0](%2$@) license and the [GFDL](%3$@). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. %1$@, %2$@ and %3$@ are replaced by the terms of use and license links.")
 
         let terms = "\(Licenses.saveTermsURL?.absoluteString ?? String())"
         let license = "\(Licenses.CCBYSA4URL?.absoluteString ?? String())"

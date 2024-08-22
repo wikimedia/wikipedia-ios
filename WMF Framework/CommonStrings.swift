@@ -142,6 +142,13 @@ public class CommonStrings: NSObject {
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
     
+    // Survey strings
+    public static let surveyTitle = WMFLocalizedString("survey-title", value: "Reason", comment: "Title of the survey view. Displayed in the navigation bar as title of view.")
+    public static let surveySubmitActionTitle = WMFLocalizedString("survey-submit", value: "Submit", comment: "Title of the submit button. Displayed in survey views to submit answers.")
+    public static let surveyInstructions = WMFLocalizedString("survey-instructions", value: "Select one or more options", comment: "Instructions displayed on survey views.")
+    public static let surveyOtherPlaceholder = WMFLocalizedString("survey-other-placeholder", value: "Other", comment: "Title of other textfield placeholder option in survey view.")
+    public static let feedbackSubmitted = WMFLocalizedString("feedback-submitted", value: "Feedback submitted", comment: "Message displayed in popup toast after a user has entered feedback about a feature.")
+    
     // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
     

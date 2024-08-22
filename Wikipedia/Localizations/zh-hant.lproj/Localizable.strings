@@ -180,6 +180,14 @@
 "alt-text-modal-subtitle-image-recommendation" = "前一張圖片缺少替代文字，您要幫視覺障礙讀者們新增一個圖片描述嗎？";
 "alt-text-modal-title" = "新增缺少的圖片替代文字？";
 "alt-text-modal-subtitle-regular-edit" = "此條目的圖片缺少替代文字，您要幫視覺障礙讀者們新增圖片的描述嗎？";
+"alt-text-survey-option-1" = "我不確定如何描述影像";
+"alt-text-survey-option-2" = "我沒有新增替代文字的專業知識";
+"alt-text-survey-option-3" = "我不了解這與標題有何不同";
+"alt-text-survey-option-4" = "我遇到技術問題";
+"alt-text-survey-option-5" = "我有視力障礙";
+"alt-text-survey-option-6" = "我沒有興趣為影像撰寫替代文字";
+"alt-text-survey-option-7" = "我沒有時間";
+"alt-text-survey-subtitle" = "請分享您不新增替代文字的原因。";
 "alt-text-title" = "替代文字";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
@@ -1170,6 +1178,10 @@
 "sort-by-recently-added-action" = "近期新增";
 "sort-by-title-action" = "標題";
 "suggested-edits-title" = "建議編輯";
+"survey-instructions" = "選擇一或多個選項";
+"survey-other-placeholder" = "其他";
+"survey-submit" = "提交";
+"survey-title" = "原因";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";

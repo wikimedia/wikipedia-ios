@@ -61,11 +61,15 @@ final class EditInteractionFunnel {
         case publishClick = "alt_text_publish_click"
         case characterWarning = "character_warning"
         case imageDetailViewClick = "image_detail_view_click"
+        case imageTapImpression = "image_tap_impression"
+        case imageDetailImpression = "image_detail_impression"
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
         case examplesClick = "examples_click"
         case tooltipStartClick = "tooltip_start_click"
         case tooltipDoneClick = "tooltip_done_click"
+        case rejectSubmitClick = "reject_submit_click"
+        case rejectSubmitSuccess = "reject_submit_success"
     }
     
     private struct Event: EventInterface {
@@ -340,6 +344,14 @@ final class EditInteractionFunnel {
     func logAltTextInputDidTapFileName(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
     }
+    
+    func logAltTextInputDidTapImage(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageTapImpression, project: project)
+    }
+
+    func logAltTextDidPushCommonsView(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailImpression, project: project)
+    }
 
     func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
         
@@ -373,13 +385,31 @@ final class EditInteractionFunnel {
     func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
     }
-    
+
     func logAltTextOnboardingDidTapNextOnFirstTooltip(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipStartClick, project: project)
     }
     
     func logAltTextOnboardingDidTapDoneOnLastTooltip(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipDoneClick, project: project)
+    }
+    
+    func logAltTextSurveyDidTapSubmit(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitClick, project: project)
+    }
+    
+    func logAltTextSurveyDidSubmit(rejectionReasons: [String], otherReason: String?, project: WikimediaProject) {
+        let rejectionReasonsJoined = rejectionReasons.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "rejection_reason": "\(rejectionReasonsJoined)"
+        ]
+        
+        if let otherReason {
+            actionData["rejection_text"] = otherReason
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitSuccess, actionData: actionData, project: project)
     }
 }
 

@@ -1317,14 +1317,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             }
         }
 
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            imageRecommendationsViewController.dismiss(animated: true) {
-                
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
                 EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wmfProject: viewModel.project))
-                
-                // show survey
-                // once survey is done, bring back up next recommendation
-                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                self?.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
             }
         }
 
@@ -1345,6 +1341,34 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
+    }
+    
+    private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: {
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        }, submitAction: { [weak self] options, otherText in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: { [weak self] in
+                
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                
+                if let wmfProject = self?.imageRecommendationsViewModel?.project {
+                    let project = WikimediaProject(wmfProject: wmfProject)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+                }
+                
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        })
+        
+        imageRecommendationsViewController.present(surveyView, animated: true)
     }
 }
 
