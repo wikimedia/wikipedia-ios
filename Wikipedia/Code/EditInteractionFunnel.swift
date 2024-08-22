@@ -65,6 +65,8 @@ final class EditInteractionFunnel {
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
         case examplesClick = "examples_click"
+        case rejectSubmitClick = "reject_submit_click"
+        case rejectSubmitSuccess = "reject_submit_success"
     }
     
     private struct Event: EventInterface {
@@ -375,6 +377,24 @@ final class EditInteractionFunnel {
     
     func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
+    }
+    
+    func logAltTextSurveyDidTapSubmit(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitClick, project: project)
+    }
+    
+    func logAltTextSurveyDidSubmit(rejectionReasons: [String], otherReason: String?, project: WikimediaProject) {
+        let rejectionReasonsJoined = rejectionReasons.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "rejection_reason": "\(rejectionReasonsJoined)"
+        ]
+        
+        if let otherReason {
+            actionData["rejection_text"] = otherReason
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitSuccess, actionData: actionData, project: project)
     }
 }
 

@@ -152,6 +152,8 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
                 // no additional customization needed
             } else if messageView.customTypeName == "edit-published" {
                 messageView.titleTextColor = theme.colors.primaryText
+            } else if messageView.customTypeName == "feedback-submitted" {
+                messageView.titleTextColor = theme.colors.primaryText
             }
         default:
             messageView.titleTextColor = theme.colors.link

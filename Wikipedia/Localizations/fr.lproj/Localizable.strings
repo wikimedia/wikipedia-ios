@@ -177,6 +177,14 @@
 "alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
 "alt-text-modalsubtitle-regular-edit" = "Il y a une image dans cet article qui manque de texte alternatif. Ajouter une description pour les lecteurs malvoyants ?";
+"alt-text-survey-option-1" = "Je ne sais pas comment décrire une image";
+"alt-text-survey-option-2" = "Je n'ai pas l'expertise nécessaire pour ajouter un texte alternatif";
+"alt-text-survey-option-3" = "Je ne comprends pas en quoi ce texte est différent d'une légende";
+"alt-text-survey-option-4" = "J'ai des problèmes techniques";
+"alt-text-survey-option-5" = "Je souffre d'une déficience visuelle";
+"alt-text-survey-option-6" = "Je ne suis pas intéressé par la rédaction d'un texte alternatif pour les images";
+"alt-text-survey-option-7" = "Je n'ai pas le temps";
+"alt-text-survey-subtitle" = "Veuillez indiquer la ou les raisons pour lesquelles vous n'ajouterez pas de texte alternatif.";
 "alt-text-title" = "Texte complémentaire";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
@@ -1167,6 +1175,10 @@
 "sort-by-recently-added-action" = "Récemment ajouté";
 "sort-by-title-action" = "Titre";
 "suggested-edits-title" = "Modifications suggérées";
+"survey-instructions" = "Sélectionnez une ou plusieurs options";
+"survey-other-placeholder" = "Autre";
+"survey-submit" = "Soumettre";
+"survey-title" = "Raison";
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
