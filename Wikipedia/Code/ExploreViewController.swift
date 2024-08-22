@@ -1365,7 +1365,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             self?.dismiss(animated: true, completion: { [weak self] in
                 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                 
                 if let wmfProject = self?.imageRecommendationsViewModel?.project {
                     let project = WikimediaProject(wmfProject: wmfProject)

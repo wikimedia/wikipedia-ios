@@ -381,7 +381,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                     EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
                     
                     let image = UIImage(systemName: "checkmark.circle.fill")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                     
                     EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
                 }
