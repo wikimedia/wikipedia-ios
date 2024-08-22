@@ -152,10 +152,8 @@
 "alt-text-add-button-title" = "Adicionar";
 "alt-text-do-not-add-button-title" = "Não adicionar";
 "alt-text-experiment-caption-title" = "Legenda da imagem";
-"alt-text-experiment-edit-summary" = "Texto alternativo adicionado";
-"alt-text-experiment-review-title" = "Revise";
-"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Tente manter o texto alternativo curto para que os usuários possam entender facilmente o conteúdo da imagem";
+"alt-text-experiment-edit-summary" = "Texto alternativo adicionado";
 "alt-text-experiment-guidance-button" = "Orientação para escrever texto alternativo";
 "alt-text-experiment-onboarding-item-1-subtitle" = "1-2 linhas de texto simples, sem siglas, abreviações ou jargões.";
 "alt-text-experiment-onboarding-item-1-title" = "Seja breve e claro";
@@ -167,13 +165,15 @@
 "alt-text-experiment-onboarding-item-4-title" = "Tipo de imagem";
 "alt-text-experiment-onboarding-secondary-button-title" = "Ver exemplos";
 "alt-text-experiment-onboarding-title" = "Como escrever texto alternativo para imagens";
+"alt-text-experiment-review-title" = "Revise";
 "alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
 "alt-text-experiment-text-field-placholder" = "Descreva a imagem";
 "alt-text-experiment-view-title" = "Adicionar texto alternativo";
+// Fuzzy
 "alt-text-license" = "Ao publicar alterações, você concorda com os [Termos de Uso]($1) e concorda irrevogavelmente em liberar sua contribuição sob a Licença [CC BY-SA 3.0]($2) e a [GFDL]($3). Você concorda que um hiperlink ou URL é atribuição suficiente sob a licença Creative Commons.";
-"alt-text-modal-title" = "Adicionar o texto alternativo que está faltando da imagem?";
-"alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
 "alt-text-modal-subtitle-image-recommendation" = "A imagem anterior está sem texto alternativo. Adicionar uma descrição à imagem para leitores com deficiência visual?";
+"alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
+"alt-text-modal-title" = "Adicionar o texto alternativo que está faltando da imagem?";
 "alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";

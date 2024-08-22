@@ -153,9 +153,6 @@
 "advanced-settings-title" = "Paramètres avancés";
 "alt-text-add-button-title" = "Ajouter";
 "alt-text-do-not-add-button-title" = "Ne pas ajouter";
-"alt-text-experiment-edit-summary" = "Texte alternatif ajouté";
-"alt-text-experiment-review-title" = "Révision";
-"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
 "alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
 "alt-text-experiment-guidance-button" = "Conseils pour la rédaction d'un texte alternatif";
@@ -169,14 +166,15 @@
 "alt-text-experiment-onboarding-item-4-title" = "Type d'image";
 "alt-text-experiment-onboarding-secondary-button-title" = "Voir les exemples";
 "alt-text-experiment-onboarding-title" = "Comment rédiger un texte alternatif pour les images";
+"alt-text-experiment-review-title" = "Révision";
 "alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
 "alt-text-experiment-text-field-placholder" = "Décrire cette image";
 "alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
+// Fuzzy
 "alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";
 "alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
-"alt-text-modalsubtitle-regular-edit" = "Il y a une image dans cet article qui manque de texte alternatif. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-title" = "Texte complémentaire";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
@@ -272,6 +270,7 @@
 "developer-settings" = "Paramètres développeur";
 "developer-settings-enable-alt-text-experiment" = "Activer l'expérience Alt Text.";
 "developer-settings-enable-alt-text-experiment-en" = "Permettre l'experrimentation d'un texte alternatif sur Wikimedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";

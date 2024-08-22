@@ -136,9 +136,15 @@
 "advanced-settings-title" = "Avancerade inställningar";
 "alt-text-add-button-title" = "Lägg till";
 "alt-text-do-not-add-button-title" = "Lägg inte till";
+"alt-text-experiment-character-counter-warning" = "Försök hålla alternativtexten kort så användare enkelt kan förstå bildinnehållet";
+"alt-text-experiment-edit-summary" = "Lade till alternativtext";
+"alt-text-experiment-guidance-button" = "Riktlinjer för att skriva alternativtext";
+"alt-text-experiment-text-field-description" = "Textbeskrivning för läsare som inte kan se bilden";
+"alt-text-experiment-text-field-placholder" = "Beskriv bilden";
+"alt-text-experiment-view-title" = "Lägg till alternativtext";
 "alt-text-modal-subtitle-image-recommendation" = "Den förra bilden saknade alt-text. Lägga till en beskrivning till bilden för synskadade läsare?";
+"alt-text-modal-subtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
 "alt-text-modal-title" = "Lägga till alt-text till bilden?";
-"alt-text-modalsubtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -232,6 +238,8 @@
 "description-welcome-start-editing-button" = "Börja redigera";
 "developer-settings" = "Utvecklarinställningar";
 "developer-settings-enable-alt-text-experiment" = "Aktivera alt-text-experiment.";
+"developer-settings-enable-alt-text-experiment-en" = "Aktivera alternativtextexperimentet för engelskspråkiga Wikipedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
 "diff-article-revision-history" = "Artikelns versionshistorik";
 "diff-change-added" = "Nytt innehåll, $1, slut på nytt innehåll.";
