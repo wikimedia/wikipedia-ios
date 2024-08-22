@@ -344,7 +344,7 @@ public final class WMFAltTextDataController {
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
-            try? userDefaultsStore.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }
     
