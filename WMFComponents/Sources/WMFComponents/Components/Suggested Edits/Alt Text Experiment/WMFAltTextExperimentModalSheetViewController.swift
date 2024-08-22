@@ -42,7 +42,7 @@ final public class WMFAltTextExperimentModalSheetViewController: WMFCanvasViewCo
         }
         
         let fileNameRect = modalSheetView.fileNameLabel.frame
-        return CGRect(x: fileNameRect.minX + 30, y: fileNameRect.maxY, width: 0, height: 0)
+        return CGRect(x: fileNameRect.minX + 30, y: fileNameRect.minY, width: 0, height: 0)
     }
     
     public var tooltip3SourceView: UIView? {
