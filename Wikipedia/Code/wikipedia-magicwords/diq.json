@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "Sinoréerdi",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sinor",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "erd",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "werte",
       "miyan",
       "center",
@@ -42,6 +63,13 @@
   },
   {
     "aliases" : [
+      "merkez",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "çıniyo",
       "none"
     ],
@@ -56,6 +84,36 @@
   },
   {
     "aliases" : [
+      "anvar",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "cor",
+      "corén",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "erd-metin",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "gedug-metin",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "resmoqıckek",
       "qıckek",
       "thumb",
@@ -65,7 +123,26 @@
   },
   {
     "aliases" : [
-      "Dosya"
+      "gedug",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "disleg",
+      "disleg=$1",
+      "disleg_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Dosya",
+      "Image"
     ],
     "name" : "file_namespace"
   }

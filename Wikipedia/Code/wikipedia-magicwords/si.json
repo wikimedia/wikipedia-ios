@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "දාරය",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "මධ්‍යය",
       "center",
       "centre"
@@ -13,6 +20,13 @@
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "මැද",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -30,9 +44,28 @@
   },
   {
     "aliases" : [
+      "උප",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
   },
   {
     "aliases" : [
@@ -50,6 +83,25 @@
   },
   {
     "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "thumb",
       "thumbnail"
     ],
@@ -57,7 +109,23 @@
   },
   {
     "aliases" : [
-      "ගොනුව"
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "ගොනුව",
+      "Image",
+      "රූපය"
     ],
     "name" : "file_namespace"
   }

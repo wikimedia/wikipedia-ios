@@ -4,8 +4,9 @@ enum WMFUserDefaultsKey: String {
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsEnableAltTextExperiment = "dev-settings-enable-alt-text"
     case developerSettingsEnableAltTextExperimentForEN = "dev-settings-enable-alt-text-for-en"
-    case developerSettingsSetAltTextExperimentPercentage100 = "dev-settings-set-alt-text-experiment-percentage-100"
+    case alwaysShowAltTextEntryPoint = "dev-settings-always-show-alt-text-entry-point"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case sawAltTextImageRecommendationsPrompt = "saw-alt-text-image-recommendations-prompt"
     case sawAltTextArticleEditorPrompt = "saw-alt-text-article-editor-prompt"
+    case altTextExperimentOnboarding = "alt-text-experiment-onboarding"
 }

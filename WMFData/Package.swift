@@ -24,7 +24,8 @@ let package = Package(
         .target(
                    name: "WMFData",
                    dependencies: [],
-                   path: "Sources/WMFData"),
+                   path: "Sources/WMFData",
+                   resources: [.process("Resources")]),
                .target(name: "WMFDataMocks",
                       dependencies: ["WMFData"],
                        path: "Sources/WMFDataMocks",

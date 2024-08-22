@@ -8,6 +8,30 @@
   },
   {
     "aliases" : [
+      "олох-дьураа",
+      "baseline",
+      "основание"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "кирбии",
+      "border",
+      "граница"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "аллараа",
+      "bottom",
+      "снизу"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "орто",
       "center",
       "centre",
@@ -43,6 +67,14 @@
   },
   {
     "aliases" : [
+      "ортотунан",
+      "middle",
+      "посередине"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "суох",
       "none",
       "без"
@@ -59,6 +91,39 @@
   },
   {
     "aliases" : [
+      "алын",
+      "sub",
+      "под"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "үрүт",
+      "super",
+      "sup",
+      "над"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "тиэкис-аллара",
+      "text-bottom",
+      "текст-снизу"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "тиэкис-үрдүгэр",
+      "text-top",
+      "текст-сверху"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "мини",
       "ойуучаан",
       "thumb",
@@ -69,7 +134,32 @@
   },
   {
     "aliases" : [
-      "Билэ"
+      "үрдүнэн",
+      "top",
+      "сверху"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "үөһээуҥа",
+      "үөһээуҥа=$1",
+      "үөһээуҥа $1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Билэ",
+      "Image",
+      "Изображение",
+      "Ойуу"
     ],
     "name" : "file_namespace"
   }

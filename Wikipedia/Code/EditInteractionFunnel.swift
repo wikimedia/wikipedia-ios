@@ -58,6 +58,16 @@ final class EditInteractionFunnel {
         case addAltTextInput = "add_alt_text_input"
         case altTextEditSuccess = "alt_text_edit_success"
         case minimizedImpression = "minimized_impression"
+        case publishClick = "alt_text_publish_click"
+        case characterWarning = "character_warning"
+        case imageDetailViewClick = "image_detail_view_click"
+        case imageTapImpression = "image_tap_impression"
+        case imageDetailImpression = "image_detail_impression"
+        case onboardImpression = "onboard_impression"
+        case continueClick = "continue_click"
+        case examplesClick = "examples_click"
+        case rejectSubmitClick = "reject_submit_click"
+        case rejectSubmitSuccess = "reject_submit_success"
     }
     
     private struct Event: EventInterface {
@@ -321,7 +331,27 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingInterface, action: .minimizedImpression, project: project)
     }
     
-    func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
+    func logAltTextDidTapPublish(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .publishClick, project: project)
+    }
+
+    func logAltTextInputDidTriggerWarning(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .characterWarning, project: project)
+    }
+    
+    func logAltTextInputDidTapFileName(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
+    }
+    
+    func logAltTextInputDidTapImage(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageTapImpression, project: project)
+    }
+
+    func logAltTextDidPushCommonsView(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailImpression, project: project)
+    }
+
+    func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
         
         var actionData = ["time_spent": String(timeSpent),
                           "revision_id": String(revisionID),
@@ -335,7 +365,41 @@ final class EditInteractionFunnel {
             actionData["user_create_date"] = registrationDate
         }
         
+        if let caption {
+            actionData["caption"] = caption
+        }
+        
         logEvent(activeInterface: .altTextEditingInterface, action: .altTextEditSuccess, actionData: actionData, project: project)
+    }
+    
+    func logAltTextOnboardingDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .onboardImpression, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapPrimaryButton(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .continueClick, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
+    }
+    
+    func logAltTextSurveyDidTapSubmit(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitClick, project: project)
+    }
+    
+    func logAltTextSurveyDidSubmit(rejectionReasons: [String], otherReason: String?, project: WikimediaProject) {
+        let rejectionReasonsJoined = rejectionReasons.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "rejection_reason": "\(rejectionReasonsJoined)"
+        ]
+        
+        if let otherReason {
+            actionData["rejection_text"] = otherReason
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitSuccess, actionData: actionData, project: project)
     }
 }
 

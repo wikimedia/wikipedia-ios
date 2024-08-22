@@ -18,15 +18,20 @@ public enum WMFIcon {
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
-    static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
+    public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
     public static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
 
     // Project icons
-    static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
+    public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
+
+    // License
+
+    static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
+
 }
 
 public enum WMFSFSymbolIcon {
@@ -78,9 +83,13 @@ public enum WMFSFSymbolIcon {
 	case photoOnRectangleAngled
     case xMark
     case textBelowPhoto
+    case infoCircle
+    case squareTextSquare
+    case eye
+    case ellipsisBubble
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
-        let font = WMFFont.for(font)
+        let font = WMFFont.for(font, compatibleWith: traitCollection)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
         var image: UIImage?
@@ -179,6 +188,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "xmark", withConfiguration: configuration)
         case .textBelowPhoto:
             image = UIImage(systemName: "text.below.photo", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
+        case .infoCircle:
+            image = UIImage(systemName: "info.circle", withConfiguration: configuration)
+        case .squareTextSquare:
+            image = UIImage(systemName: "square.text.square", withConfiguration: configuration)
+        case .eye:
+            image = UIImage(systemName: "eye", withConfiguration: configuration)
+        case.ellipsisBubble:
+            image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

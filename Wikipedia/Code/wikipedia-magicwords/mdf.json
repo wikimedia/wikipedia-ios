@@ -1,6 +1,14 @@
 [
   {
     "aliases" : [
+      "алкс",
+      "снизу",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "куншкасо",
       "центр",
       "center",
@@ -36,6 +44,14 @@
   },
   {
     "aliases" : [
+      "куншка",
+      "посередине",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "вейкеяк_арась",
       "без",
       "none"
@@ -52,6 +68,22 @@
   },
   {
     "aliases" : [
+      "текст-алкс",
+      "текст-снизу",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "текст-верькс",
+      "текст-сверху",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "кенжешка",
       "мини",
       "миниатюра",
@@ -62,6 +94,14 @@
   },
   {
     "aliases" : [
+      "верькс",
+      "сверху",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
       "альт=$1",
       "alt=$1"
     ],
@@ -69,7 +109,49 @@
   },
   {
     "aliases" : [
-      "Няйф"
+      "основание",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "граница",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "под",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "над",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Няйф",
+      "Image",
+      "Изображение"
     ],
     "name" : "file_namespace"
   }

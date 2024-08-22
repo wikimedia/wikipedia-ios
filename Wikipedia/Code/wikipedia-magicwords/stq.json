@@ -8,6 +8,27 @@
   },
   {
     "aliases" : [
+      "grundlinie",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "rand",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "unten",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "zentriert",
       "center",
       "centre"
@@ -39,6 +60,13 @@
   },
   {
     "aliases" : [
+      "mitte",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ohne",
       "none"
     ],
@@ -53,6 +81,37 @@
   },
   {
     "aliases" : [
+      "tief",
+      "tiefgestellt",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "hoch",
+      "hochgestellt",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-unten",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-oben",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "mini",
       "miniatur",
       "thumb",
@@ -62,7 +121,28 @@
   },
   {
     "aliases" : [
-      "Bielde"
+      "oben",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "hochkant",
+      "hochkant=$1",
+      "hochkant $1",
+      "hochkant_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Bielde",
+      "Bild",
+      "Image"
     ],
     "name" : "file_namespace"
   }

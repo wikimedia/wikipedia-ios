@@ -9,6 +9,27 @@
   },
   {
     "aliases" : [
+      "chân-chữ",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "viền",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "dưới",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "giữa",
       "center",
       "centre"
@@ -40,6 +61,13 @@
   },
   {
     "aliases" : [
+      "nửa-chiều-cao",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "không",
       "none"
     ],
@@ -54,6 +82,35 @@
   },
   {
     "aliases" : [
+      "chỉ-số-dưới",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "chỉ-số-trên",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "dưới-chữ",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "trên-chữ",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "nhỏ",
       "thumb",
       "thumbnail"
@@ -62,7 +119,27 @@
   },
   {
     "aliases" : [
-      "Tập tin"
+      "trên",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "đứng",
+      "đứng=$1",
+      "đứng_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Tập tin",
+      "Hình",
+      "Image"
     ],
     "name" : "file_namespace"
   }

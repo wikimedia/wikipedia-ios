@@ -3,7 +3,7 @@ import WMF
 import CocoaLumberjackSwift
 
 protocol AltTextDelegate: AnyObject {
-    func didTapPublish(altText: String, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
+    func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
 }
 
 @objc(WMFArticleViewController)
@@ -30,7 +30,7 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Use separate properties for URL and language code since they're optional on WMFArticle and to save having to re-calculate them
     @objc public var articleURL: URL
     let articleLanguageCode: String
-    
+
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
@@ -97,10 +97,17 @@ class ArticleViewController: ViewController, HintPresenting {
 
     // MARK: Alt-text experiment Properties
 
-    private var altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?
+    private(set) var altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?
     private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
+    var altTextExperimentAcceptDate: Date?
+    var wasPresentingGalleryWhileInAltTextMode = false
+    var didTapPreview: Bool = false /// Set when coming back from alt text preview
+    var didTapAltTextFileName = false
+    var didTapAltTextGalleryInfoButton = false
+    var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
+    var altTextGuidancePresenter: AltTextGuidancePresenter?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -369,6 +376,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
@@ -385,7 +393,22 @@ class ArticleViewController: ViewController, HintPresenting {
         if altTextExperimentViewModel == nil {
             setupWButton()
         }
+
+        if didTapPreview {
+            presentAltTextModalSheet()
+            didTapPreview = false
+        }
         
+        if didTapAltTextFileName {
+            presentAltTextModalSheet()
+            didTapAltTextFileName = false
+        }
+        
+        if didTapAltTextGalleryInfoButton {
+            presentAltTextModalSheet()
+            didTapAltTextGalleryInfoButton = false
+        }
+
         guard isFirstAppearance else {
             return
         }
@@ -480,11 +503,11 @@ class ArticleViewController: ViewController, HintPresenting {
             self.articleLoadWaitGroup = nil
         }
     }
-    
+
     private func setupForAltTextExperiment() {
 
         guard let altTextExperimentViewModel,
-         let altTextBottomSheetViewModel else {
+         altTextBottomSheetViewModel != nil else {
             return
         }
         
@@ -493,8 +516,18 @@ class ArticleViewController: ViewController, HintPresenting {
         messagingController.hideEditPencils()
         messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
         
-        let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
+        presentAltTextModalSheet()
+    }
+    
+    func presentAltTextModalSheet() {
+        
+        guard altTextExperimentViewModel != nil,
+         let altTextBottomSheetViewModel else {
+            return
+        }
 
+        let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
+        
         if #available(iOS 16.0, *) {
             if let sheet = bottomSheetViewController.sheetPresentationController {
                 sheet.delegate = self
@@ -508,7 +541,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 sheet.prefersGrabberVisible = true
             }
             bottomSheetViewController.isModalInPresentation = true
-
+            
             present(bottomSheetViewController, animated: true, completion: nil)
         }
     }
@@ -1146,7 +1179,7 @@ private extension ArticleViewController {
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
-        let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 
@@ -1406,6 +1439,25 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+
+    func didTriggerCharacterWarning() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
+    }
+    
+    func didTapFileName() {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
+    }
+    
     func didAppear() {
         
         guard let siteURL = articleURL.wmf_site,
