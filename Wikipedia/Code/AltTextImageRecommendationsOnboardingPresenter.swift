@@ -51,9 +51,9 @@ final class AltTextImageRecommendationsOnboardingPresenter {
         
         let articleTitle = lastRecommendation.imageData.pageTitle
         
-        let firstTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Review", body: "Understand the image in the article context.", buttonTitle: "Next")
-        let secondTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Inspect", body: "View additional image information on Wikimedia Commons.", buttonTitle: "Next")
-        let thirdTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: "Add description", body: "Add description for visually impaired readers", buttonTitle: "Done")
+        let firstTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip1Title, body: CommonStrings.altTextOnboardingTooltip1Body, buttonTitle: CommonStrings.nextTitle)
+        let secondTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip2Title, body: CommonStrings.altTextOnboardingTooltip2Body, buttonTitle: CommonStrings.nextTitle)
+        let thirdTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip3Title, body: CommonStrings.altTextOnboardingTooltip3Body, buttonTitle: CommonStrings.doneTitle)
         
         let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, firstTooltipLocalizedStrings: firstTooltipLocalizedStrings, secondTooltipLocalizedStrings: secondTooltipLocalizedStrings, thirdTooltipLocalizedStrings: thirdTooltipLocalizedStrings, articleTitle: articleTitle, caption: lastRecommendation.caption, imageFullURLString: lastRecommendation.imageData.fullUrl, imageThumbURLString: lastRecommendation.imageData.thumbUrl, filename: localizedFileTitle, imageWikitext: imageWikitext, fullArticleWikitextWithImage: fullArticleWikitextWithImage, lastRevisionID: lastRevisionID, sectionID: 0, isFlowB: true, project: imageRecommendationsViewModel.project)
         
