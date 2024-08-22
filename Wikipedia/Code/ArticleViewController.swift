@@ -31,9 +31,6 @@ class ArticleViewController: ViewController, HintPresenting {
     @objc public var articleURL: URL
     let articleLanguageCode: String
 
-    /// Set when coming back from alt text preview
-    var didTapPreview: Bool = false
-
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
@@ -106,6 +103,9 @@ class ArticleViewController: ViewController, HintPresenting {
     private var needsAltTextExperimentSheet: Bool = false
     var altTextExperimentAcceptDate: Date?
     var wasPresentingGalleryWhileInAltTextMode = false
+    var didTapPreview: Bool = false /// Set when coming back from alt text preview
+    var didTapAltTextFileName = false
+    var didTapAltTextGalleryInfoButton = false
     var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
     var altTextGuidancePresenter: AltTextGuidancePresenter?
 
@@ -397,6 +397,16 @@ class ArticleViewController: ViewController, HintPresenting {
         if didTapPreview {
             presentAltTextModalSheet()
             didTapPreview = false
+        }
+        
+        if didTapAltTextFileName {
+            presentAltTextModalSheet()
+            didTapAltTextFileName = false
+        }
+        
+        if didTapAltTextGalleryInfoButton {
+            presentAltTextModalSheet()
+            didTapAltTextGalleryInfoButton = false
         }
 
         guard isFirstAppearance else {
