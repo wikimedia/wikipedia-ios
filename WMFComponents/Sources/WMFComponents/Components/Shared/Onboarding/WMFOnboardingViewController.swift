@@ -8,6 +8,16 @@ public protocol WMFOnboardingViewDelegate: AnyObject {
     func onboardingDidSwipeToDismiss()
 }
 
+public extension WMFOnboardingViewDelegate {
+    func onboardingViewWillSwipeToDismiss() {
+        
+    }
+    
+    func onboardingDidSwipeToDismiss() {
+        
+    }
+}
+
 public class WMFOnboardingViewController: WMFCanvasViewController {
 
     public weak var delegate: WMFOnboardingViewDelegate? {

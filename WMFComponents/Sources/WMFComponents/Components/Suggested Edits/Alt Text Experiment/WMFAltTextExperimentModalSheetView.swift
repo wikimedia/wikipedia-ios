@@ -411,11 +411,16 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedFileName() {
+        guard let fileName = viewModel?.altTextViewModel.filename else {
+            return
+        }
+        
+        delegate?.didTapFileName(fileName: fileName)
         loggingDelegate?.didTapFileName()
     }
     
     @objc func tappedGuidance() {
-        print("TODO: Present onboarding again")
+        delegate?.didTapGuidance()
     }
 }
 

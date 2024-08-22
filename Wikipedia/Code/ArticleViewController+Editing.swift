@@ -335,7 +335,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 }
                 
                 let info = ArticleAltTextInfo(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID, wmfProject: wmfProject)
-                self.enterAltTextFlow(info: info)
+                let altTextArticleEditorOnboardingPresenter = AltTextArticleEditorOnboardingPresenter(articleViewController: self, altTextInfo: info)
+                self.altTextArticleEditorOnboardingPresenter = altTextArticleEditorOnboardingPresenter
+                altTextArticleEditorOnboardingPresenter.enterAltTextFlow()
             }
         }
 
@@ -363,73 +365,6 @@ extension ArticleViewController: EditorViewControllerDelegate {
         
         present(panel, animated: true)
     }
-    
-    private func enterAltTextFlow(info: ArticleAltTextInfo) {
-        guard let dataController = WMFAltTextDataController.shared else {
-            return
-        }
-        
-        if !dataController.hasPresentedOnboardingModal {
-            presentAltTextOnboarding(info: info)
-            dataController.hasPresentedOnboardingModal = true
-        } else {
-            pushOnAltText(info: info)
-        }
-    }
-    
-    private func presentAltTextOnboarding(info: ArticleAltTextInfo) {
-        self.altTextInfo = info
-
-        let onboardingController = WMFOnboardingViewController.altTextOnboardingViewController(delegate: self)
-        present(onboardingController, animated: true, completion: {
-            UIAccessibility.post(notification: .layoutChanged, argument: nil)
-        })
-        
-        EditInteractionFunnel.shared.logAltTextOnboardingDidAppear(project: WikimediaProject(wmfProject: info.wmfProject))
-    }
-    
-    struct ArticleAltTextInfo {
-        let missingAltTextLink: WMFMissingAltTextLink
-        let filename: String
-        let articleTitle: String
-        let fullArticleWikitext: String
-        let lastRevisionID: UInt64
-        let wmfProject: WMFProject
-    }
-    private func pushOnAltText(info: ArticleAltTextInfo) {
-        
-        guard let languageCode = articleURL.wmf_languageCode else {
-            return
-        }
-        
-        let addAltTextTitle = CommonStrings.altTextArticleNavBarTitle
-        let editSummary = CommonStrings.altTextEditSummary(with: articleURL.wmf_languageCode)
-        let localizedStrings = WMFAltTextExperimentViewModel.LocalizedStrings(articleNavigationBarTitle: addAltTextTitle, editSummary: editSummary)
-        
-        var caption: String? = nil
-        if #available(iOS 16.0, *) {
-            caption = try? info.missingAltTextLink.extractCaptionForDisplay(languageCode: languageCode)
-        } else {
-            caption = nil
-        }
-        
-        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: info.articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: info.filename, imageWikitext: info.missingAltTextLink.text, fullArticleWikitextWithImage: info.fullArticleWikitext, lastRevisionID: info.lastRevisionID, sectionID: nil, isFlowB: false, project: info.wmfProject)
-        
-        let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
-        let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
-        let characterCounterWarningText = CommonStrings.altTextViewCharacterCounterWarning
-        let characterCounterFormat = CommonStrings.altTextViewCharacterCounterFormat
-        let guidanceText = CommonStrings.altGuidanceButtonTitle
-        
-        let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
-
-        let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-        
-        if let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: self) {
-            
-            self.navigationController?.pushViewController(articleViewController, animated: true)
-        }
-    }
 }
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
@@ -452,7 +387,12 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
-    
+
+    func didTapGuidance() {
+        self.altTextGuidancePresenter = AltTextGuidancePresenter(articleViewController: self)
+        altTextGuidancePresenter?.presentAltTextGuidance()
+    }
+
     func didTapNext(altText: String) {
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
@@ -462,20 +402,45 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
         altTextDelegate?.didTapNext(altText: altText, uiImage: altTextBottomSheetViewModel.uiImage,  articleViewController: self, viewModel: altTextExperimentViewModel)
         self.didTapPreview = true
     }
-    
+
     func didTapImage(fileName: String) {
         getMediaList { [weak self] (result) in
             switch result {
             case .failure(let error):
                 self?.showError(error)
             case .success(let mediaList):
-                
+
                 // Dismiss alt text modal
                 self?.dismiss(animated: true) { [weak self] in
                     self?.wasPresentingGalleryWhileInAltTextMode = true
                     self?.showImage(in: mediaList, title: fileName)
                 }
             }
+        }
+    }
+
+    func didTapFileName(fileName: String) {
+
+        guard let denormalizedFileName = fileName.denormalizedPageTitle else {
+            return
+        }
+
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL),
+              let url = siteURL.wmf_URL(withTitle: denormalizedFileName) else {
+            return
+        }
+
+        // Dismiss alt half sheet modal
+        dismiss(animated: true) { [weak self] in
+            guard let self else {
+                return
+            }
+
+            self.didTapAltTextFileName = true
+            let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
+            self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
+            EditInteractionFunnel.shared.logAltTextDidPushCommonsView(project: project)
         }
     }
 }
@@ -611,74 +576,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         EditInteractionFunnel.shared.logAltTextDidTapPublish(project: WikimediaProject(wmfProject: project))
     }
 
-}
-
-extension ArticleViewController: WMFOnboardingViewDelegate {
-    func onboardingViewDidClickPrimaryButton() {
-        dismiss(animated: true) {
-            guard let info = self.altTextInfo else {
-                return
-            }
-            
-            self.pushOnAltText(info: info)
-            self.altTextInfo = nil
-        }
-        
-        if let siteURL = articleURL.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL) {
-            EditInteractionFunnel.shared.logAltTextOnboardingDidTapPrimaryButton(project: project)
-        }
-    }
-    
-    func onboardingViewDidClickSecondaryButton() {
-        guard let siteURL = articleURL.wmf_site,
-              let wikimediaProject = WikimediaProject(siteURL: siteURL),
-        let wmfProject = wikimediaProject.wmfProject else {
-            return
-        }
-        
-        EditInteractionFunnel.shared.logAltTextOnboardingDidTapSecondaryButton(project: wikimediaProject)
-        
-        var url: URL?
-        switch wmfProject {
-        case .wikipedia(let language):
-            switch language.languageCode {
-            case "en", "test":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/en#Alt_Text_Examples")!
-            case "pt":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/pt-br#Exemplos_de_texto_alternativo")
-            case "es":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/es#Ejemplos_de_texto_alternativo")
-            case "zh":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/zh#%E6%9B%BF%E4%BB%A3%E6%96%87%E6%9C%AC%E7%AF%84%E4%BE%8B")
-            case "fr":
-                url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits/fr#Exemples_de_texte_alternatif")
-            default:
-                return
-            }
-        default:
-            return
-        }
-        
-        guard let url else {
-            return
-        }
-        
-        navigate(to: url, useSafari: true)
-    }
-    
-    func onboardingViewWillSwipeToDismiss() {
-        
-    }
-    
-    func onboardingDidSwipeToDismiss() {
-        guard let info = self.altTextInfo else {
-            return
-        }
-        
-        self.pushOnAltText(info: info)
-        self.altTextInfo = nil
-    }
 }
 
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit

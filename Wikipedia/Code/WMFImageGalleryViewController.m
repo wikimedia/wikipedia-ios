@@ -269,7 +269,16 @@ NS_ASSUME_NONNULL_BEGIN
     caption.infoTapCallback = ^{
         @strongify(self);
         if (imageInfo.filePageURL) {
-            [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
+            
+            // First dismiss self
+            [self dismissViewControllerAnimated:YES completion:^{
+                if ([self.dismissDelegate respondsToSelector:@selector(galleryDidTapInfoButton:)]) {
+                    [self.dismissDelegate galleryDidTapInfoButton:self];
+                }
+                
+                // then navigate to in-app web view
+                [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
+            }];
         }
     };
     @weakify(caption);

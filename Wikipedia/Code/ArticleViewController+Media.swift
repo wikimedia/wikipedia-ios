@@ -134,4 +134,10 @@ extension ArticleViewController: WMFImageGalleryViewControllerDismissDelegate {
             wasPresentingGalleryWhileInAltTextMode = false
         }
     }
+    
+    func galleryDidTapInfoButton(_ gallery: WMFImageGalleryViewController) {
+        if altTextExperimentViewModel != nil {
+            didTapAltTextGalleryInfoButton = true
+        }
+    }
 }
