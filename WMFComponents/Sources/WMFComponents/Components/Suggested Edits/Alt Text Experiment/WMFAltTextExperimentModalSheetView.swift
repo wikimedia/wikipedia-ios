@@ -402,7 +402,12 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedImage() {
-        print("TODO: Go to gallery view")
+        
+        guard let viewModel else {
+            return
+        }
+        
+        delegate?.didTapImage(fileName: viewModel.altTextViewModel.filename)
     }
     
     @objc func tappedFileName() {

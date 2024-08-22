@@ -412,11 +412,12 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
+
     func didTapGuidance() {
         self.altTextGuidancePresenter = AltTextGuidancePresenter(articleViewController: self)
         altTextGuidancePresenter?.presentAltTextGuidance()
     }
-    
+
     func didTapNext(altText: String) {
 
         guard let altTextExperimentViewModel, let altTextBottomSheetViewModel else {
@@ -426,25 +427,41 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
         altTextDelegate?.didTapNext(altText: altText, uiImage: altTextBottomSheetViewModel.uiImage,  articleViewController: self, viewModel: altTextExperimentViewModel)
         self.didTapPreview = true
     }
-    
+
+    func didTapImage(fileName: String) {
+        getMediaList { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                self?.showError(error)
+            case .success(let mediaList):
+
+                // Dismiss alt text modal
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.wasPresentingGalleryWhileInAltTextMode = true
+                    self?.showImage(in: mediaList, title: fileName)
+                }
+            }
+        }
+    }
+
     func didTapFileName(fileName: String) {
-        
+
         guard let denormalizedFileName = fileName.denormalizedPageTitle else {
             return
         }
-        
+
         guard let siteURL = articleURL.wmf_site,
               let project = WikimediaProject(siteURL: siteURL),
               let url = siteURL.wmf_URL(withTitle: denormalizedFileName) else {
             return
         }
-        
+
         // Dismiss alt half sheet modal
         dismiss(animated: true) { [weak self] in
             guard let self else {
                 return
             }
-            
+
             self.didTapAltTextFileName = true
             let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
             self.navigationController?.pushViewController(singlePageWebViewController, animated: true)

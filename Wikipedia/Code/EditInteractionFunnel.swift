@@ -61,6 +61,7 @@ final class EditInteractionFunnel {
         case publishClick = "alt_text_publish_click"
         case characterWarning = "character_warning"
         case imageDetailViewClick = "image_detail_view_click"
+        case imageTapImpression = "image_tap_impression"
         case imageDetailImpression = "image_detail_impression"
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
@@ -342,6 +343,10 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
     }
     
+    func logAltTextInputDidTapImage(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageTapImpression, project: project)
+    }
+
     func logAltTextDidPushCommonsView(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailImpression, project: project)
     }
