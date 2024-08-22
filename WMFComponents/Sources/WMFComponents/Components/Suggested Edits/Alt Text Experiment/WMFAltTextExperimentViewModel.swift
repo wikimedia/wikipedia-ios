@@ -25,6 +25,7 @@ public struct WMFAltTextExperimentViewModel {
     public let sectionID: Int?
     public let isFlowB: Bool
     public let project: WMFProject
+    public let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_Alt_Text")
 
     public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool, project: WMFProject) {
         self.localizedStrings = localizedStrings

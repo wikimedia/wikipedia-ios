@@ -636,11 +636,11 @@
 "image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
 "image-recommendations-email-fifth-line" = "[Screenshots or Links]";
-"image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
+"image-recommendations-email-first-line" = "I've encountered a problem with the Alt Text feature:";
 "image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
 "image-recommendations-email-second-line" = "- [Describe specific problem]";
 "image-recommendations-email-third-line" = "The behavior I would like to see is:";
-"image-recommendations-email-title" = "Issue Report - Add an Image Feature";
+"image-recommendations-email-title" = "Issue Report - Alt Text Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
 "image-recs-time-warning-message" = "Please review the article to understand its topic and inspect the image";

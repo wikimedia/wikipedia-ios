@@ -1055,6 +1055,14 @@ private extension ArticleViewController {
         if let altTextExperimentViewModel {
             self.navigationItem.titleView = nil
             self.title = altTextExperimentViewModel.localizedStrings.articleNavigationBarTitle
+
+            let rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(systemName: "ellipsis.circle"),
+                primaryAction: nil,
+                menu: overflowMenu)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            rightBarButtonItem.tintColor = .link
+
             self.navigationBar.updateNavigationItems()
         } else {
             setupWButton()
@@ -1065,7 +1073,55 @@ private extension ArticleViewController {
         setupWebView()
         setupMessagingController()
     }
-    
+
+    private var overflowMenu: UIMenu {
+        let learnMore = UIAction(title: CommonStrings.learnMoreTitle(), image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+            self?.goToFAQ()
+        })
+        
+        let tutorial = UIAction(title: CommonStrings.tutorialTitle, image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+            self?.showTutorial()
+        })
+
+        let reportIssues = UIAction(title: CommonStrings.problemWithFeatureTitle, image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+            self?.reportIssue()
+        })
+
+        let menuItems: [UIMenuElement] = [learnMore, tutorial, reportIssues]
+
+        return UIMenu(title: String(), children: menuItems)
+    }
+
+    private func goToFAQ() {
+        if let altTextExperimentViewModel {
+            navigate(to: altTextExperimentViewModel.learnMoreURL, useSafari: false)
+        }
+    }
+
+    private func showTutorial() {
+        // presentTooltipsIfNecessary(onBottomSheetViewController: imageRecommendationBottomSheetController, force: true)
+    }
+
+    private func reportIssue() {
+        func imageRecommendationsUserDidTapReportIssue() {
+            let emailAddress = "ios-support@wikimedia.org"
+            let emailSubject = WMFLocalizedString("image-recommendations-email-title", value: "Issue Report - Alt Text Feature", comment: "Title text for Image recommendations pre-filled issue report email")
+            let emailBodyLine1 = WMFLocalizedString("image-recommendations-email-first-line", value: "I've encountered a problem with the Alt Text feature:", comment: "Text for Image recommendations pre-filled issue report email")
+            let emailBodyLine2 = WMFLocalizedString("image-recommendations-email-second-line", value: "- [Describe specific problem]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
+            let emailBodyLine3 = WMFLocalizedString("image-recommendations-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Image recommendations pre-filled issue report email")
+            let emailBodyLine4 = WMFLocalizedString("image-recommendations-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
+            let emailBodyLine5 = WMFLocalizedString("image-recommendations-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+            let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+            let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+            guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
+                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+                return
+            }
+            UIApplication.shared.open(mailtoURL)
+        }
+    }
+
     // MARK: Notifications
     
     func addNotificationHandlers() {
