@@ -55,6 +55,14 @@ class ArticleViewController: ViewController, HintPresenting {
         return dataStore.configuration
     }
     
+    var project: WikimediaProject? {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return nil
+        }
+        return project
+    }
+    
     internal var authManager: WMFAuthenticationManager {
         return dataStore.authenticationManager
     }
@@ -1056,12 +1064,14 @@ private extension ArticleViewController {
             self.navigationItem.titleView = nil
             self.title = altTextExperimentViewModel.localizedStrings.articleNavigationBarTitle
 
-            let rightBarButtonItem = UIBarButtonItem(
-                image: UIImage(systemName: "ellipsis.circle"),
-                primaryAction: nil,
-                menu: overflowMenu)
+            let rightBarButtonItem = 
+                UIBarButtonItem(
+                    image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble),
+                    primaryAction: nil,
+                    menu: overflowMenu
+                )
             navigationItem.rightBarButtonItem = rightBarButtonItem
-            rightBarButtonItem.tintColor = .link
+            rightBarButtonItem.tintColor = theme.colors.link
 
             self.navigationBar.updateNavigationItems()
         } else {
@@ -1075,15 +1085,24 @@ private extension ArticleViewController {
     }
 
     private var overflowMenu: UIMenu {
-        let learnMore = UIAction(title: CommonStrings.learnMoreTitle(), image: UIImage(systemName: "info.circle"), handler: { [weak self] _ in
+        let learnMore = UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowLearnMore(project: project)
+            }
             self?.goToFAQ()
         })
         
-        let tutorial = UIAction(title: CommonStrings.tutorialTitle, image: UIImage(systemName: "lightbulb.min"), handler: { [weak self] _ in
+        let tutorial = UIAction(title: CommonStrings.tutorialTitle, image: WMFSFSymbolIcon.for(symbol: .lightbulbMin), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowTutorial(project: project)
+            }
             self?.showTutorial()
         })
 
-        let reportIssues = UIAction(title: CommonStrings.problemWithFeatureTitle, image: UIImage(systemName: "flag"), handler: { [weak self] _ in
+        let reportIssues = UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowReport(project: project)
+            }
             self?.reportIssue()
         })
 
@@ -1105,12 +1124,12 @@ private extension ArticleViewController {
     private func reportIssue() {
         func imageRecommendationsUserDidTapReportIssue() {
             let emailAddress = "ios-support@wikimedia.org"
-            let emailSubject = WMFLocalizedString("image-recommendations-email-title", value: "Issue Report - Alt Text Feature", comment: "Title text for Image recommendations pre-filled issue report email")
-            let emailBodyLine1 = WMFLocalizedString("image-recommendations-email-first-line", value: "I've encountered a problem with the Alt Text feature:", comment: "Text for Image recommendations pre-filled issue report email")
-            let emailBodyLine2 = WMFLocalizedString("image-recommendations-email-second-line", value: "- [Describe specific problem]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
-            let emailBodyLine3 = WMFLocalizedString("image-recommendations-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Image recommendations pre-filled issue report email")
-            let emailBodyLine4 = WMFLocalizedString("image-recommendations-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
-            let emailBodyLine5 = WMFLocalizedString("image-recommendations-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+            let emailSubject = WMFLocalizedString("alt-text-email-title", value: "Issue Report - Alt Text Feature", comment: "Title text for Alt Text pre-filled issue report email")
+            let emailBodyLine1 = WMFLocalizedString("alt-text-email-first-line", value: "I've encountered a problem with the Alt Text feature:", comment: "Text for Alt Text pre-filled issue report email")
+            let emailBodyLine2 = WMFLocalizedString("alt-text-email-second-line", value: "- [Describe specific problem]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
+            let emailBodyLine3 = WMFLocalizedString("alt-text-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Alt Text pre-filled issue report email")
+            let emailBodyLine4 = WMFLocalizedString("alt-text-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
+            let emailBodyLine5 = WMFLocalizedString("alt-text-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
             let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
             let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
@@ -1485,51 +1504,35 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
     }
     
     private func logMinimized() {
-        guard let siteURL = articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) else {
-            return
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidMinimize(project: project)
         }
-        
-        EditInteractionFunnel.shared.logAltTextInputDidMinimize(project: project)
     }
 }
 
 extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
 
     func didTriggerCharacterWarning() {
-        guard let siteURL = articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) else {
-            return
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
         }
-        
-        EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
     }
     
     func didTapFileName() {
-        guard let siteURL = articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) else {
-            return
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
         }
-        
-        EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
     }
     
     func didAppear() {
-        
-        guard let siteURL = articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) else {
-            return
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidAppear(project: project)
         }
-        
-        EditInteractionFunnel.shared.logAltTextInputDidAppear(project: project)
     }
     
     func didFocusTextView() {
-        guard let siteURL = articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) else {
-            return
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
         }
-        
-        EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
     }
 }
