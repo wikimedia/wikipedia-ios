@@ -5,9 +5,10 @@ public final class WMFAltTextDataController {
     
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingModal: Bool
+        var hasPresentedOnboardingTooltips: Bool
 
         static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false)
         }
     }
     
@@ -333,6 +334,16 @@ public final class WMFAltTextDataController {
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedOnboardingModal = newValue
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+    
+    public var hasPresentedOnboardingTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTooltips
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
             try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }

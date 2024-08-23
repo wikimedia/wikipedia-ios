@@ -1317,14 +1317,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             }
         }
 
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            imageRecommendationsViewController.dismiss(animated: true) {
-                
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
                 EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wmfProject: viewModel.project))
-                
-                // show survey
-                // once survey is done, bring back up next recommendation
-                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+                self?.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
             }
         }
 
@@ -1345,6 +1341,43 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
+    }
+
+    func imageRecommendationsDidTriggerAltTextFeedbackToast() {
+        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject(wmfProject: viewModel.project))
+    }
+    
+    private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: {
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        }, submitAction: { [weak self] options, otherText in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: { [weak self] in
+                
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                
+                if let wmfProject = self?.imageRecommendationsViewModel?.project {
+                    let project = WikimediaProject(wmfProject: wmfProject)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+                }
+                
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        })
+        
+        imageRecommendationsViewController.present(surveyView, animated: true)
     }
 }
 
@@ -1498,6 +1531,8 @@ extension ExploreViewController: WMFFeatureAnnouncing {
 }
 
 extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
+
+    
     func logAltTextExperimentDidAssignGroup() {
         
         guard let imageRecommendationsViewModel else {
@@ -1593,6 +1628,16 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+
+    func logAltTextFeedbackDidClickYes() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: WikimediaProject(wmfProject:  viewModel.project))
+    }
+
+    func logAltTextFeedbackDidClickNo() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: WikimediaProject(wmfProject:  viewModel.project))
     }
 }
 
@@ -1764,9 +1809,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
             if let navigationController = self.navigationController {
                 for viewController in navigationController.viewControllers {
-                    if viewController is WMFImageRecommendationsViewController {
-                        navigationController.popToViewController(viewController, animated: true)
-                        break
+                    if let vc =  viewController as? WMFImageRecommendationsViewController {
+                      vc.isBackFromAltText = true
+                      navigationController.popToViewController(vc, animated: true)
+                      break
                     }
                 }
             }
@@ -1796,7 +1842,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
                     if let navigationController = self.navigationController {
                         for viewController in navigationController.viewControllers {
                             if viewController is WMFImageRecommendationsViewController {
-                                navigationController.popToViewController(viewController, animated: true)
+                              let vc =  viewController as? WMFImageRecommendationsViewController
+                                guard let vc else { return }
+                                vc.isBackFromAltText = true
+                                navigationController.popToViewController(vc, animated: true)
                                 break
                             }
                         }

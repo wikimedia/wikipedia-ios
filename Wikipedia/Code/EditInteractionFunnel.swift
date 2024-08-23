@@ -29,10 +29,11 @@ final class EditInteractionFunnel {
         case articleEditPreview = "article_edit_preview"
         case articleEditSummary = "article_edit_summary"
         case talkEditSummary = "talk_edit_summary"
-        
+
         // Alt-Text-Experiment Items
         case altTextEditingOnboarding = "alt_text_editing_onboarding"
         case altTextEditingInterface = "alt_text_editing_interface"
+        case altTextFeedbackInterface = "alt_text_feedback_interface"
     }
     
     private enum Action: String {
@@ -61,11 +62,26 @@ final class EditInteractionFunnel {
         case publishClick = "alt_text_publish_click"
         case characterWarning = "character_warning"
         case imageDetailViewClick = "image_detail_view_click"
+        case imageTapImpression = "image_tap_impression"
+        case imageDetailImpression = "image_detail_impression"
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
         case examplesClick = "examples_click"
+        case tooltipStartClick = "tooltip_start_click"
+        case tooltipDoneClick = "tooltip_done_click"
+        case overflowLearnMore = "overflow_learn_more"
+        case overflowTutorialClick = "overflow_tutorial_click"
+        case overflowReportClick = "overflow_report_click"
+        case feedbackYes = "feedback_yes_click"
+        case feedbackNo = "feedback_no_click"
+        case feedbackNeutral = "feedback_neutral_click"
+        case feedbackUnsatisfied = "feedback_unsatisfied_click"
+        case feedbackSatisfied = "feedback_satisfied_click"
+        case feedbackToast = "feedback_submit_toast"
+        case rejectSubmitClick = "reject_submit_click"
+        case rejectSubmitSuccess = "reject_submit_success"
     }
-    
+
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .appInteraction
         let activeInterface: String?
@@ -338,6 +354,14 @@ final class EditInteractionFunnel {
     func logAltTextInputDidTapFileName(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailViewClick, project: project)
     }
+    
+    func logAltTextInputDidTapImage(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageTapImpression, project: project)
+    }
+
+    func logAltTextDidPushCommonsView(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .imageDetailImpression, project: project)
+    }
 
     func logAltTextDidSuccessfullyPostEdit(timeSpent: Int, revisionID: UInt64, altText: String, caption: String?, articleTitle: String, image: String, username: String, userEditCount: UInt64, registrationDate: String?, project: WikimediaProject) {
         
@@ -370,6 +394,65 @@ final class EditInteractionFunnel {
     
     func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
+    }
+
+    func logAltTextOnboardingDidTapNextOnFirstTooltip(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipStartClick, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapDoneOnLastTooltip(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipDoneClick, project: project)
+    }
+    
+    func logAltTextEditingInterfaceOverflowLearnMore(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowLearnMore, project: project)
+    }
+
+    func logAltTextEditingInterfaceOverflowTutorial(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowTutorialClick, project: project)
+    }
+    
+    func logAltTextEditingInterfaceOverflowReport(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowReportClick, project: project)
+   }
+
+    func logAltTextFeedback(answer: Bool, project: WikimediaProject) {
+        let action: Action = answer ? .feedbackYes : .feedbackNo
+        logEvent(activeInterface: .altTextFeedbackInterface, action: action, project: project)
+    }
+
+    func logAltTextFeedbackSurveyNeutral(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackNeutral, project: project)
+    }
+
+    func logAltTextFeedbackSurveySatisfied(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackSatisfied, project: project)
+    }
+
+    func logAltTextFeedbackSurveyUnsatisfied(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackUnsatisfied, project: project)
+    }
+
+    func logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackToast, project: project)
+    }
+    
+    func logAltTextSurveyDidTapSubmit(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitClick, project: project)
+    }
+    
+    func logAltTextSurveyDidSubmit(rejectionReasons: [String], otherReason: String?, project: WikimediaProject) {
+        let rejectionReasonsJoined = rejectionReasons.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "rejection_reason": "\(rejectionReasonsJoined)"
+        ]
+        
+        if let otherReason {
+            actionData["rejection_text"] = otherReason
+        }
+        
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .rejectSubmitSuccess, actionData: actionData, project: project)
     }
 }
 
