@@ -481,7 +481,7 @@ class TalkPageViewController: ViewController {
         let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
