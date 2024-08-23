@@ -69,7 +69,11 @@ final class AltTextArticleEditorOnboardingPresenter {
             caption = nil
         }
         
-        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, articleTitle: info.articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: info.filename, imageWikitext: info.missingAltTextLink.text, fullArticleWikitextWithImage: info.fullArticleWikitext, lastRevisionID: info.lastRevisionID, sectionID: nil, isFlowB: false, project: info.wmfProject)
+        let firstTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip1Title, body: CommonStrings.altTextOnboardingTooltip1Body, buttonTitle: CommonStrings.nextTitle)
+        let secondTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip2Title, body: CommonStrings.altTextOnboardingTooltip2Body, buttonTitle: CommonStrings.nextTitle)
+        let thirdTooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings(title: CommonStrings.altTextOnboardingTooltip3Title, body: CommonStrings.altTextOnboardingTooltip3Body, buttonTitle: CommonStrings.doneTitle)
+        
+        let altTextViewModel = WMFAltTextExperimentViewModel(localizedStrings: localizedStrings, firstTooltipLocalizedStrings: firstTooltipLocalizedStrings, secondTooltipLocalizedStrings: secondTooltipLocalizedStrings, thirdTooltipLocalizedStrings: thirdTooltipLocalizedStrings, articleTitle: info.articleTitle, caption: caption, imageFullURLString: nil, imageThumbURLString: nil, filename: info.filename, imageWikitext: info.missingAltTextLink.text, fullArticleWikitextWithImage: info.fullArticleWikitext, lastRevisionID: info.lastRevisionID, sectionID: nil, isFlowB: false, project: info.wmfProject)
         
         let textViewPlaceholder = CommonStrings.altTextViewPlaceholder
         let textViewBottomDescription = CommonStrings.altTextViewBottomDescription
