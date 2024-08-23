@@ -188,6 +188,15 @@
 "alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
 "alt-text-experiment-text-field-placholder" = "Describir la imagen";
 "alt-text-experiment-view-title" = "Añadir texto alternativo";
+"alt-text-feedback-alert-subtitle" = "¿Utilizaría una función que le proporcionara una lista de imágenes que necesitan un texto alternativo?";
+"alt-text-feedback-alert-subtitle-flow-C" = "¿Le interesaría recibir notificaciones similares sobre sugerencias de edición de artículos después de editarlos?";
+"alt-text-feedback-alert-title" = "Queremos conocer su opinión";
+"alt-text-feedback-survey-neutral" = "Neutral";
+"alt-text-feedback-survey-satisfied" = "Satisfecho";
+"alt-text-feedback-survey-subtitle" = "¿Está satisfecho con esta función?";
+"alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
+"alt-text-feedback-survey-toast-title" = "Opinión enviada";
+"alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
 "alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
 "alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
