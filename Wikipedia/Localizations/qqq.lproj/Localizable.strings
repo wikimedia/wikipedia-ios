@@ -106,6 +106,12 @@
 "advanced-settings-title" = "Title for advanced settings screen";
 "alt-text-add-button-title" = "Title for the Add button on the alt text modal";
 "alt-text-do-not-add-button-title" = "Title for the Do Not Add button on the alt text modal";
+"alt-text-email-fifth-line" = "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.";
+"alt-text-email-first-line" = "Text for Alt Text pre-filled issue report email";
+"alt-text-email-fourth-line" = "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution";
+"alt-text-email-second-line" = "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering";
+"alt-text-email-third-line" = "Text for Alt Text pre-filled issue report email";
+"alt-text-email-title" = "Title text for Alt Text pre-filled issue report email";
 "alt-text-experiment-caption-title" = "title for image caption field on alt text preview";
 "alt-text-experiment-character-counter-format" = "Character counter that appears as the user is typing in the alt text view. $1 is replaced with the number of characters the user has typed. $2 will be replaced with the maximum character number recommended for alt text.";
 "alt-text-experiment-character-counter-warning" = "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.";

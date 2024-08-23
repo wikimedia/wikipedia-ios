@@ -21,6 +21,7 @@
 // Author: Eulalio
 // Author: Fitoschido
 // Author: Geryescalier
+// Author: Grey Olson
 // Author: Hasley
 // Author: I DOWNGRADED YT APP (1)
 // Author: Ihojose
@@ -1086,3 +1087,9 @@
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
+"alt-text-email-fifth-line" = "Capturas de pantalla o enlaces";
+"alt-text-email-first-line" = "He encontrado un problema con la función de texto alternativo:";
+"alt-text-email-fourth-line" = "Describa la solución propuesta";
+"alt-text-email-second-line" = "Describa el problema específico";
+"alt-text-email-third-line" = "El comportamiento que espero es el siguiente:";
+"alt-text-email-title" = "Informe de problemas: función de texto alternativo";

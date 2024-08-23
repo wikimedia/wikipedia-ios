@@ -69,6 +69,9 @@ final class EditInteractionFunnel {
         case examplesClick = "examples_click"
         case tooltipStartClick = "tooltip_start_click"
         case tooltipDoneClick = "tooltip_done_click"
+        case overflowLearnMore = "overflow_learn_more"
+        case overflowTutorialClick = "overflow_tutorial_click"
+        case overflowReportClick = "overflow_report_click"
         case feedbackYes = "feedback_yes_click"
         case feedbackNo = "feedback_no_click"
         case feedbackNeutral = "feedback_neutral_click"
@@ -401,6 +404,18 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipDoneClick, project: project)
     }
     
+    func logAltTextEditingInterfaceOverflowLearnMore(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowLearnMore, project: project)
+    }
+
+    func logAltTextEditingInterfaceOverflowTutorial(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowTutorialClick, project: project)
+    }
+    
+    func logAltTextEditingInterfaceOverflowReport(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingInterface, action: .overflowReportClick, project: project)
+   }
+
     func logAltTextFeedback(answer: Bool, project: WikimediaProject) {
         let action: Action = answer ? .feedbackYes : .feedbackNo
         logEvent(activeInterface: .altTextFeedbackInterface, action: action, project: project)
