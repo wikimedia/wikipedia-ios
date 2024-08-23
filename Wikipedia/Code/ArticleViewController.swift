@@ -561,12 +561,12 @@ class ArticleViewController: ViewController, HintPresenting {
             self.altTextBottomSheetViewController = bottomSheetViewController
             
             present(bottomSheetViewController, animated: true) { [weak self] in
-                self?.presentTooltipsIfNecessary(force: false)
+                self?.presentAltTextTooltipsIfNecessary(force: false)
             }
         }
     }
     
-    private func presentTooltipsIfNecessary(force: Bool = false) {
+    private func presentAltTextTooltipsIfNecessary(force: Bool = false) {
         
         guard let altTextExperimentViewModel,
               let bottomSheetViewController = altTextBottomSheetViewController,
@@ -1177,7 +1177,7 @@ private extension ArticleViewController {
     }
 
     private func showTutorial() {
-        // presentTooltipsIfNecessary(onBottomSheetViewController: imageRecommendationBottomSheetController, force: true)
+        presentAltTextTooltipsIfNecessary(force: true)
     }
 
     private func reportIssue() {
