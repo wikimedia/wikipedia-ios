@@ -177,15 +177,47 @@
 "alt-text-experiment-onboarding-item-4-title" = "Tipo de imagen";
 "alt-text-experiment-onboarding-secondary-button-title" = "Ver ejemplos";
 "alt-text-experiment-onboarding-title" = "Cómo escribir el texto alternativo de las imágenes";
+<<<<<<< HEAD
 "alt-text-experiment-review-title" = "Revisar";
 "alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
 "alt-text-experiment-text-field-placholder" = "Describir la imagen";
 "alt-text-experiment-view-title" = "Añadir texto alternativo";
 // Fuzzy
+=======
+"alt-text-experiment-onboarding-tooltip-1-body" = "Comprenda la imagen en el contexto del artículo.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Revisar";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Consulte información adicional sobre la imagen en Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Inspeccionar";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Añada una descripción para lectores con problemas de la vista.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Añadir descripción";
+"alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
+"alt-text-experiment-text-field-placholder" = "Describir la imagen";
+"alt-text-experiment-view-title" = "Añadir texto alternativo";
+"alt-text-feedback-alert-subtitle" = "¿Utilizaría una función que le proporcionara una lista de imágenes que necesitan un texto alternativo?";
+"alt-text-feedback-alert-subtitle-flow-C" = "¿Le interesaría recibir notificaciones similares sobre sugerencias de edición de artículos después de editarlos?";
+"alt-text-feedback-alert-title" = "Queremos conocer su opinión";
+"alt-text-feedback-survey-neutral" = "Neutral";
+"alt-text-feedback-survey-satisfied" = "Satisfecho";
+"alt-text-feedback-survey-subtitle" = "¿Está satisfecho con esta función?";
+"alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
+"alt-text-feedback-survey-toast-title" = "Opinión enviada";
+"alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
+>>>>>>> 40f1ebe3c7ba84f203f0937114884d90ceedd98a
 "alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
+<<<<<<< HEAD
 "alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
+=======
+"alt-text-survey-option-1" = "No sé cómo describir una imagen";
+"alt-text-survey-option-2" = "No sé cómo añadir texto alternativo";
+"alt-text-survey-option-3" = "No entiendo en qué se diferencia de un pie de foto";
+"alt-text-survey-option-4" = "Tengo problemas técnicos";
+"alt-text-survey-option-5" = "Tengo problemas de la vista";
+"alt-text-survey-option-6" = "No me interesa escribir texto alternativo para las imágenes";
+"alt-text-survey-option-7" = "No tengo tiempo";
+"alt-text-survey-subtitle" = "Indique los motivos por los que no añadirá texto alternativo.";
+>>>>>>> 40f1ebe3c7ba84f203f0937114884d90ceedd98a
 "alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
@@ -939,6 +971,10 @@
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
 "suggested-edits-title" = "Ediciones sugeridas";
+"survey-instructions" = "Seleccione una o más opciones";
+"survey-other-placeholder" = "Otra";
+"survey-submit" = "Enviar";
+"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";

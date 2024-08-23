@@ -126,7 +126,7 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
         return label
     }()
 
-    private lazy var textView: UIPastelessTextView = {
+    private(set) lazy var textView: UITextView = {
         let textView = UIPastelessTextView(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
@@ -402,10 +402,20 @@ final class WMFAltTextExperimentModalSheetView: WMFComponentView {
     }
     
     @objc func tappedImage() {
-        print("TODO: Go to gallery view")
+        
+        guard let viewModel else {
+            return
+        }
+        
+        delegate?.didTapImage(fileName: viewModel.altTextViewModel.filename)
     }
     
     @objc func tappedFileName() {
+        guard let fileName = viewModel?.altTextViewModel.filename else {
+            return
+        }
+        
+        delegate?.didTapFileName(fileName: fileName)
         loggingDelegate?.didTapFileName()
     }
     

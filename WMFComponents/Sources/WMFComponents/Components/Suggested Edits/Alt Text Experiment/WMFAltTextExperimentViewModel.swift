@@ -14,6 +14,9 @@ public struct WMFAltTextExperimentViewModel {
     }
     
     public let localizedStrings: LocalizedStrings
+    public let firstTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings
+    public let secondTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings
+    public let thirdTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings
     public let articleTitle: String
     public let caption: String?
     public let imageFullURLString: String?
@@ -26,8 +29,11 @@ public struct WMFAltTextExperimentViewModel {
     public let isFlowB: Bool
     public let project: WMFProject
 
-    public init(localizedStrings: LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool, project: WMFProject) {
+    public init(localizedStrings: LocalizedStrings, firstTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings, secondTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings, thirdTooltipLocalizedStrings: WMFTooltipViewModel.LocalizedStrings, articleTitle: String, caption: String?, imageFullURLString: String?, imageThumbURLString: String?, filename: String, imageWikitext: String, fullArticleWikitextWithImage: String, lastRevisionID: UInt64, sectionID: Int?, isFlowB: Bool, project: WMFProject) {
         self.localizedStrings = localizedStrings
+        self.firstTooltipLocalizedStrings = firstTooltipLocalizedStrings
+        self.secondTooltipLocalizedStrings = secondTooltipLocalizedStrings
+        self.thirdTooltipLocalizedStrings = thirdTooltipLocalizedStrings
         self.articleTitle = articleTitle
         self.caption = caption
         self.imageFullURLString = imageFullURLString
