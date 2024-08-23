@@ -29,10 +29,11 @@ final class EditInteractionFunnel {
         case articleEditPreview = "article_edit_preview"
         case articleEditSummary = "article_edit_summary"
         case talkEditSummary = "talk_edit_summary"
-        
+
         // Alt-Text-Experiment Items
         case altTextEditingOnboarding = "alt_text_editing_onboarding"
         case altTextEditingInterface = "alt_text_editing_interface"
+        case altTextFeedbackInterface = "alt_text_feedback_interface"
     }
     
     private enum Action: String {
@@ -66,10 +67,16 @@ final class EditInteractionFunnel {
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
         case examplesClick = "examples_click"
+        case feedbackYes = "feedback_yes_click"
+        case feedbackNo = "feedback_no_click"
+        case feedbackNeutral = "feedback_neutral_click"
+        case feedbackUnsatisfied = "feedback_unsatisfied_click"
+        case feedbackSatisfied = "feedback_satisfied_click"
+        case feedbackToast = "feedback_submit_toast"
         case rejectSubmitClick = "reject_submit_click"
         case rejectSubmitSuccess = "reject_submit_success"
     }
-    
+
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .appInteraction
         let activeInterface: String?
@@ -382,6 +389,27 @@ final class EditInteractionFunnel {
     
     func logAltTextOnboardingDidTapSecondaryButton(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
+    }
+
+    func logAltTextFeedback(answer: Bool, project: WikimediaProject) {
+        let action: Action = answer ? .feedbackYes : .feedbackNo
+        logEvent(activeInterface: .altTextFeedbackInterface, action: action, project: project)
+    }
+
+    func logAltTextFeedbackSurveyNeutral(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackNeutral, project: project)
+    }
+
+    func logAltTextFeedbackSurveySatisfied(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackSatisfied, project: project)
+    }
+
+    func logAltTextFeedbackSurveyUnsatisfied(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackUnsatisfied, project: project)
+    }
+
+    func logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextFeedbackInterface, action: .feedbackToast, project: project)
     }
     
     func logAltTextSurveyDidTapSubmit(project: WikimediaProject) {

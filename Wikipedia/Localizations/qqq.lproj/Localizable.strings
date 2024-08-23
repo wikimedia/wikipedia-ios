@@ -125,6 +125,15 @@
 "alt-text-experiment-text-field-description" = "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.";
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
 "alt-text-experiment-view-title" = "Title text for alt text experiment view";
+"alt-text-feedback-alert-subtitle" = "Subtitle text for the feedback alert in alt text";
+"alt-text-feedback-alert-subtitle-flow-C" = "Subtitle text for the feedback alert in alt text experiment for flow C";
+"alt-text-feedback-alert-title" = "Title text for the feedback alert in alt text";
+"alt-text-feedback-survey-neutral" = "Text for the alt text feedback survey neutral option";
+"alt-text-feedback-survey-satisfied" = "Text for the alt text feedback survey satisfied option";
+"alt-text-feedback-survey-subtitle" = "Subtitle for the alt text feedback survey";
+"alt-text-feedback-survey-title" = "Title for the alt text feedback survey";
+"alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a alt text experiment survey";
+"alt-text-feedback-survey-unsatisfied" = "Text for the alt text feedback survey unsatisfied option";
 "alt-text-license" = "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. $1, $2 and $3 are replaced by the terms of use and license links.";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
 "alt-text-modal-subtitle-regular-edit" = "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article";
@@ -534,7 +543,6 @@
 "featured-widget-from-wikipedia" = "Text displayed as Wikipedia source on Featured article widget if language is unavailable.";
 "featured-widget-language-failure" = "Error message shown when the user's primary language Wikipedia does not support the 'Featured article' feature.";
 "featured-widget-title" = "Text for title of Featured article widget.";
-"feedback-submitted" = "Message displayed in popup toast after a user has entered feedback about a feature.";
 "fetcher-error-generic" = "Error shown to the user for generic errors with no clear recovery steps for the user.";
 "fetcher-error-unexpected-response" = "Error shown to the user for unexpected server responses.";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";

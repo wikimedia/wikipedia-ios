@@ -1342,6 +1342,15 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
     }
+
+    func imageRecommendationsDidTriggerAltTextFeedbackToast() {
+        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject(wmfProject: viewModel.project))
+    }
     
     private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
         let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
@@ -1356,7 +1365,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             self?.dismiss(animated: true, completion: { [weak self] in
                 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                 
                 if let wmfProject = self?.imageRecommendationsViewModel?.project {
                     let project = WikimediaProject(wmfProject: wmfProject)
@@ -1522,6 +1531,8 @@ extension ExploreViewController: WMFFeatureAnnouncing {
 }
 
 extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
+
+    
     func logAltTextExperimentDidAssignGroup() {
         
         guard let imageRecommendationsViewModel else {
@@ -1617,6 +1628,16 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+
+    func logAltTextFeedbackDidClickYes() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: WikimediaProject(wmfProject:  viewModel.project))
+    }
+
+    func logAltTextFeedbackDidClickNo() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: WikimediaProject(wmfProject:  viewModel.project))
     }
 }
 
@@ -1788,9 +1809,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
             if let navigationController = self.navigationController {
                 for viewController in navigationController.viewControllers {
-                    if viewController is WMFImageRecommendationsViewController {
-                        navigationController.popToViewController(viewController, animated: true)
-                        break
+                    if let vc =  viewController as? WMFImageRecommendationsViewController {
+                      vc.isBackFromAltText = true
+                      navigationController.popToViewController(vc, animated: true)
+                      break
                     }
                 }
             }
@@ -1820,7 +1842,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
                     if let navigationController = self.navigationController {
                         for viewController in navigationController.viewControllers {
                             if viewController is WMFImageRecommendationsViewController {
-                                navigationController.popToViewController(viewController, animated: true)
+                              let vc =  viewController as? WMFImageRecommendationsViewController
+                                guard let vc else { return }
+                                vc.isBackFromAltText = true
+                                navigationController.popToViewController(vc, animated: true)
                                 break
                             }
                         }

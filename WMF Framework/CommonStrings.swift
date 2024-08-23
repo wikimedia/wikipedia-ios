@@ -147,7 +147,6 @@ public class CommonStrings: NSObject {
     public static let surveySubmitActionTitle = WMFLocalizedString("survey-submit", value: "Submit", comment: "Title of the submit button. Displayed in survey views to submit answers.")
     public static let surveyInstructions = WMFLocalizedString("survey-instructions", value: "Select one or more options", comment: "Instructions displayed on survey views.")
     public static let surveyOtherPlaceholder = WMFLocalizedString("survey-other-placeholder", value: "Other", comment: "Title of other textfield placeholder option in survey view.")
-    public static let feedbackSubmitted = WMFLocalizedString("feedback-submitted", value: "Feedback submitted", comment: "Message displayed in popup toast after a user has entered feedback about a feature.")
     
     // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
@@ -720,7 +719,25 @@ public class CommonStrings: NSObject {
     public static let altTextOnboardingItem4Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-4-subtitle", value: "Do not start with ‘This is an image of...’ but describe the medium or style, if relevant", comment: "Item 4 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
     
     public static let altTextOnboardingSecondaryButtonTitle = WMFLocalizedString("alt-text-experiment-onboarding-secondary-button-title", value: "View examples", comment: "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.")
-    
+
+    public static let altTextFeedbackAlertTitle = WMFLocalizedString("alt-text-feedback-alert-title", value: "We want your feedback", comment: "Title text for the feedback alert in alt text")
+
+    public static let altTextFeedbackAlertMessage = WMFLocalizedString("alt-text-feedback-alert-subtitle", value: "Would you use a feature that provided a feed of images in need of alt text?", comment: "Subtitle text for the feedback alert in alt text")
+
+    public static let altTextFeedbackAlertMessageFlowC = WMFLocalizedString("alt-text-feedback-alert-subtitle-flow-C", value: "Would you be interested in receiving similar notifications about suggested edits on articles after you edit them?", comment: "Subtitle text for the feedback alert in alt text experiment for flow C")
+
+    public static let altTextFeedbackSurveyTitle = WMFLocalizedString("alt-text-feedback-survey-title", value: "Help improve the feature", comment: "Title for the alt text feedback survey")
+
+    public static let altTextFeedbackSurveySubtitle = WMFLocalizedString("alt-text-feedback-survey-subtitle", value: "Are you satisfied with this feature?", comment: "Subtitle for the alt text feedback survey")
+
+    public static let altTextFeedbackSurveySatisfied = WMFLocalizedString("alt-text-feedback-survey-satisfied", value: "Satisfied", comment: "Text for the alt text feedback survey satisfied option")
+
+    public static let altTextFeedbackSurveyNeutral = WMFLocalizedString("alt-text-feedback-survey-neutral", value: "Neutral", comment: "Text for the alt text feedback survey neutral option")
+
+    public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
+
+    public static let altTextFeedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a alt text experiment survey")
+
 }
 // Language variant strings
 public extension CommonStrings {

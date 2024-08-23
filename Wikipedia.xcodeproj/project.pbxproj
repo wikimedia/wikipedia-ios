@@ -1443,6 +1443,9 @@
 		83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
+		8383B9B92C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
+		8383B9BA2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
+		8383B9BB2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
 		83842A892B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
@@ -3735,6 +3738,7 @@
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
+		8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		83842A872B07A22300EFC55F /* UITestHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelperViewController.swift; sourceTree = "<group>"; };
 		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
@@ -8089,6 +8093,7 @@
 				7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */,
 				83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */,
 				834CC34A21075B7600F62818 /* UITabBar+Theme.swift */,
+				8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -10257,6 +10262,7 @@
 				7ABE170C2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				6782DBCD2343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
+				8383B9B92C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				D8A47C8F23D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
@@ -11519,6 +11525,7 @@
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8CE26071E698E2400DAE2E0 /* WMFAlertManager.swift in Sources */,
+				8383B9BB2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				67DDD189250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */,
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
@@ -12084,6 +12091,7 @@
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D8EC3F041E9BDA35006712EB /* MKCoordinateRegion+Dimensions.swift in Sources */,
+				8383B9BA2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				D8EC3F061E9BDA35006712EB /* WMFAlertManager.swift in Sources */,
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */,
