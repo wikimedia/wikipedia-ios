@@ -3795,6 +3795,9 @@
 		83C06886292EE5C600DF1403 /* TalkPageFormattingToolbarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFormattingToolbarViewDelegate.swift; sourceTree = "<group>"; };
 		83C0688D292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
 		83C06892292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
+		83C0A1DB2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		83C0A1DC2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/Localizable.strings; sourceTree = "<group>"; };
+		83C0A1DD2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = se; path = se.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleFetcher.swift; sourceTree = "<group>"; };
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
@@ -9313,6 +9316,7 @@
 				bg,
 				ia,
 				lmo,
+				se,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -12327,6 +12331,7 @@
 				67D4AD602A03EF7600F3D066 /* bg */,
 				676E08142A7DA0DA00F7632D /* ia */,
 				678B3E362B98D76900F4DF03 /* lmo */,
+				83C0A1DB2C7915C800213DC3 /* se */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12433,6 +12438,7 @@
 				67D4AD612A03EFA700F3D066 /* bg */,
 				676E08152A7DA10900F7632D /* ia */,
 				678B3E372B98D76A00F4DF03 /* lmo */,
+				83C0A1DC2C7915C800213DC3 /* se */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12545,6 +12551,7 @@
 				FF338A0B258D572900292602 /* nqo */,
 				FF19C1AC26054909000AC20B /* kcg */,
 				678B3E382B98D76A00F4DF03 /* lmo */,
+				83C0A1DD2C7915C800213DC3 /* se */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
