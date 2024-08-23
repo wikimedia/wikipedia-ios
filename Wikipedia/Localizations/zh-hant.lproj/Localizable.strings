@@ -167,6 +167,12 @@
 "alt-text-experiment-onboarding-item-4-title" = "影像類型";
 "alt-text-experiment-onboarding-secondary-button-title" = "檢視範例";
 "alt-text-experiment-onboarding-title" = "如何為影像撰寫替代文字";
+"alt-text-experiment-onboarding-tooltip-1-body" = "了解文章內容中的影像。";
+"alt-text-experiment-onboarding-tooltip-1-title" = "審閱";
+"alt-text-experiment-onboarding-tooltip-2-body" = "在維基共享資源上檢視更多影像資訊。";
+"alt-text-experiment-onboarding-tooltip-2-title" = "檢查";
+"alt-text-experiment-onboarding-tooltip-3-body" = "在維基共享資源上檢視更多影像資訊。";
+"alt-text-experiment-onboarding-tooltip-3-title" = "新增描述";
 "alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";

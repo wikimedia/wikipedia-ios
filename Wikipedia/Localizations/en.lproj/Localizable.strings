@@ -127,6 +127,12 @@
 "alt-text-experiment-onboarding-item-4-title" = "Type of image";
 "alt-text-experiment-onboarding-secondary-button-title" = "View examples";
 "alt-text-experiment-onboarding-title" = "How to write alt text for images";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Understand the image in the article context.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Review";
+"alt-text-experiment-onboarding-tooltip-2-body" = "View additional image information on Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Inspect";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Add description for visually impaired readers";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Add description";
 "alt-text-experiment-review-title" = "Review";
 "alt-text-experiment-text-field-description" = "Text description for readers who cannot see the image";
 "alt-text-experiment-text-field-placholder" = "Describe the image";

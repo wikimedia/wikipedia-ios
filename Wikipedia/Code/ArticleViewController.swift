@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import CocoaLumberjackSwift
+import WMFData
 
 protocol AltTextDelegate: AnyObject {
     func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
@@ -117,6 +118,7 @@ class ArticleViewController: ViewController, HintPresenting {
     var didTapAltTextGalleryInfoButton = false
     var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
     var altTextGuidancePresenter: AltTextGuidancePresenter?
+    private weak var altTextBottomSheetViewController: WMFAltTextExperimentModalSheetViewController?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -556,8 +558,57 @@ class ArticleViewController: ViewController, HintPresenting {
                 sheet.prefersGrabberVisible = true
             }
             bottomSheetViewController.isModalInPresentation = true
+            self.altTextBottomSheetViewController = bottomSheetViewController
             
-            present(bottomSheetViewController, animated: true, completion: nil)
+            present(bottomSheetViewController, animated: true) { [weak self] in
+                self?.presentTooltipsIfNecessary(force: false)
+            }
+        }
+    }
+    
+    private func presentTooltipsIfNecessary(force: Bool = false) {
+        
+        guard let altTextExperimentViewModel,
+              let bottomSheetViewController = altTextBottomSheetViewController,
+              let tooltip1SourceView = view,
+              let tooltip2SourceView = bottomSheetViewController.tooltip2SourceView,
+              let tooltip2SourceRect = bottomSheetViewController.tooltip2SourceRect,
+              let tooltip3SourceView = bottomSheetViewController.tooltip3SourceView,
+              let tooltip3SourceRect = bottomSheetViewController.tooltip3SourceRect,
+        let dataController = WMFAltTextDataController.shared else {
+            return
+        }
+
+        if !force && dataController.hasPresentedOnboardingTooltips {
+            return
+        }
+        
+        let tooltip1SourceRect = CGRect(x: 30, y: navigationBar.frame.height + 30, width: 0, height: 0)
+
+        let viewModel1 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.firstTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip1SourceView, sourceRect: tooltip1SourceRect, permittedArrowDirections: .up) { [weak self] in
+            
+            if let siteURL = self?.articleURL.wmf_site,
+               let project = WikimediaProject(siteURL: siteURL) {
+                EditInteractionFunnel.shared.logAltTextOnboardingDidTapNextOnFirstTooltip(project: project)
+            }
+        }
+
+        
+        let viewModel2 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.secondTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip2SourceView, sourceRect: tooltip2SourceRect, permittedArrowDirections: .down)
+
+        let viewModel3 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.thirdTooltipLocalizedStrings, buttonNeedsDisclosure: false, sourceView: tooltip3SourceView, sourceRect: tooltip3SourceRect, permittedArrowDirections: .down) { [weak self] in
+            
+            if let siteURL = self?.articleURL.wmf_site,
+               let project = WikimediaProject(siteURL: siteURL) {
+                EditInteractionFunnel.shared.logAltTextOnboardingDidTapDoneOnLastTooltip(project: project)
+            }
+            
+        }
+
+        bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
+
+        if !force {
+            dataController.hasPresentedOnboardingTooltips = true
         }
     }
     

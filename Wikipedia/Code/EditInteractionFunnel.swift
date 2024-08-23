@@ -67,6 +67,8 @@ final class EditInteractionFunnel {
         case onboardImpression = "onboard_impression"
         case continueClick = "continue_click"
         case examplesClick = "examples_click"
+        case tooltipStartClick = "tooltip_start_click"
+        case tooltipDoneClick = "tooltip_done_click"
         case overflowLearnMore = "overflow_learn_more"
         case overflowTutorialClick = "overflow_tutorial_click"
         case overflowReportClick = "overflow_report_click"
@@ -394,6 +396,14 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .examplesClick, project: project)
     }
 
+    func logAltTextOnboardingDidTapNextOnFirstTooltip(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipStartClick, project: project)
+    }
+    
+    func logAltTextOnboardingDidTapDoneOnLastTooltip(project: WikimediaProject) {
+        logEvent(activeInterface: .altTextEditingOnboarding, action: .tooltipDoneClick, project: project)
+    }
+    
     func logAltTextEditingInterfaceOverflowLearnMore(project: WikimediaProject) {
         logEvent(activeInterface: .altTextEditingInterface, action: .overflowLearnMore, project: project)
     }

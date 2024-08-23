@@ -127,6 +127,12 @@
 "alt-text-experiment-onboarding-item-4-title" = "Item 4 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
 "alt-text-experiment-onboarding-secondary-button-title" = "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.";
 "alt-text-experiment-onboarding-title" = "Title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Body of the first onboarding tooltip displayed on the alt text experiment.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Title of the first onboarding tooltip displayed on the alt text experiment. Points at an image lacking alt text in an article.";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Body of the second onboarding tooltip displayed on the alt text experiment.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Title of the second onboarding tooltip displayed on the alt text experiment. Points at an image file name that navigates to the commons web view.";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Body of the third onboarding tooltip displayed on the alt text experiment.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Title of the third onboarding tooltip displayed on the alt text experiment. Points at the alt text input textview.";
 "alt-text-experiment-review-title" = "Title for the review stpe of the alt text experiment";
 "alt-text-experiment-text-field-description" = "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.";
 "alt-text-experiment-text-field-placholder" = "Text used for the text field placholder on the alt text view";
