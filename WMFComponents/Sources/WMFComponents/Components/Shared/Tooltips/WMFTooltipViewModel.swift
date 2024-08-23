@@ -22,7 +22,7 @@ public final class WMFTooltipViewModel {
     let permittedArrowDirections: UIPopoverArrowDirection
     var buttonAction: (() -> Void)?
     
-    internal init(localizedStrings: LocalizedStrings, buttonNeedsDisclosure: Bool, sourceView: UIView, sourceRect: CGRect, permittedArrowDirections: UIPopoverArrowDirection = .any, buttonAction: (() -> Void)? = nil) {
+    public init(localizedStrings: LocalizedStrings, buttonNeedsDisclosure: Bool, sourceView: UIView, sourceRect: CGRect, permittedArrowDirections: UIPopoverArrowDirection = .any, buttonAction: (() -> Void)? = nil) {
         self.localizedStrings = localizedStrings
         self.buttonNeedsDisclosure = buttonNeedsDisclosure
         self.sourceView = sourceView
