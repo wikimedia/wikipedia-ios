@@ -109,6 +109,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
     private(set) weak var altTextDelegate: AltTextDelegate?
     private var needsAltTextExperimentSheet: Bool = false
+    private var isReturningFromFAQ = false
     var altTextExperimentAcceptDate: Date?
     var wasPresentingGalleryWhileInAltTextMode = false
     var didTapPreview: Bool = false /// Set when coming back from alt text preview
@@ -400,6 +401,12 @@ class ArticleViewController: ViewController, HintPresenting {
         
         if altTextExperimentViewModel == nil {
             setupWButton()
+        }
+
+        if isReturningFromFAQ {
+            isReturningFromFAQ = false
+            needsAltTextExperimentSheet = true
+            presentAltTextModalSheet()
         }
 
         if didTapPreview {
@@ -1066,7 +1073,7 @@ private extension ArticleViewController {
 
             let rightBarButtonItem = 
                 UIBarButtonItem(
-                    image: WMFSFSymbolIcon.for(symbol: .ellipsisBubble),
+                    image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle),
                     primaryAction: nil,
                     menu: overflowMenu
                 )
@@ -1113,6 +1120,7 @@ private extension ArticleViewController {
 
     private func goToFAQ() {
         if let altTextExperimentViewModel {
+            isReturningFromFAQ = true
             navigate(to: altTextExperimentViewModel.learnMoreURL, useSafari: false)
         }
     }
