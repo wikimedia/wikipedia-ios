@@ -166,13 +166,11 @@
 "alt-text-experiment-onboarding-item-4-title" = "Tipo de imagem";
 "alt-text-experiment-onboarding-secondary-button-title" = "Ver exemplos";
 "alt-text-experiment-onboarding-title" = "Como escrever texto alternativo para imagens";
-<<<<<<< HEAD
 "alt-text-experiment-review-title" = "Revise";
 "alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
 "alt-text-experiment-text-field-placholder" = "Descreva a imagem";
 "alt-text-experiment-view-title" = "Adicionar texto alternativo";
 // Fuzzy
-=======
 "alt-text-experiment-onboarding-tooltip-1-body" = "Entenda a imagem no contexto do artigo.";
 "alt-text-experiment-onboarding-tooltip-1-title" = "Revise";
 "alt-text-experiment-onboarding-tooltip-2-body" = "Veja informações adicionais da imagem no Wikimedia Commons.";
@@ -191,13 +189,10 @@
 "alt-text-feedback-survey-title" = "Ajude a melhorar o recurso";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfeito";
->>>>>>> b76935622127a1ad3214907aaac74eb56c53da26
 "alt-text-license" = "Ao publicar alterações, você concorda com os [Termos de Uso]($1) e concorda irrevogavelmente em liberar sua contribuição sob a Licença [CC BY-SA 3.0]($2) e a [GFDL]($3). Você concorda que um hiperlink ou URL é atribuição suficiente sob a licença Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "A imagem anterior está sem texto alternativo. Adicionar uma descrição à imagem para leitores com deficiência visual?";
-<<<<<<< HEAD
 "alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
 "alt-text-modal-title" = "Adicionar o texto alternativo que está faltando da imagem?";
-=======
 "alt-text-survey-option-1" = "Não tenho certeza de como descrever uma imagem";
 "alt-text-survey-option-2" = "Não tenho experiência para adicionar texto alternativo";
 "alt-text-survey-option-3" = "Não entendo como isto é diferente de uma legenda";
@@ -206,7 +201,6 @@
 "alt-text-survey-option-6" = "Não estou interessado em escrever texto alternativo para imagens";
 "alt-text-survey-option-7" = "Não tenho tempo";
 "alt-text-survey-subtitle" = "Compartilhe o(s) motivo(s) pelo(s) qual(is) você não adicionará texto alternativo.";
->>>>>>> b76935622127a1ad3214907aaac74eb56c53da26
 "alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
