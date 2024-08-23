@@ -153,6 +153,7 @@
 "alt-text-add-button-title" = "Adicionar";
 "alt-text-do-not-add-button-title" = "Não adicionar";
 "alt-text-experiment-caption-title" = "Legenda da imagem";
+"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Tente manter o texto alternativo curto para que os usuários possam entender facilmente o conteúdo da imagem";
 "alt-text-experiment-edit-summary" = "Texto alternativo adicionado";
 "alt-text-experiment-guidance-button" = "Orientação para escrever texto alternativo";

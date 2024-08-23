@@ -154,6 +154,7 @@
 "advanced-settings-title" = "Paramètres avancés";
 "alt-text-add-button-title" = "Ajouter";
 "alt-text-do-not-add-button-title" = "Ne pas ajouter";
+"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
 "alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
 "alt-text-experiment-guidance-button" = "Conseils pour la rédaction d'un texte alternatif";

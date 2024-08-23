@@ -153,6 +153,7 @@
 "alt-text-add-button-title" = "新增";
 "alt-text-do-not-add-button-title" = "不要新增";
 "alt-text-experiment-caption-title" = "圖片說明";
+"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "請盡量使替代文字保持簡短，讓使用者容易理解影像內容";
 "alt-text-experiment-edit-summary" = "已新增替代文字";
 "alt-text-experiment-guidance-button" = "替代文字撰寫指南";

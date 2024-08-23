@@ -165,6 +165,7 @@
 "alt-text-add-button-title" = "Añadir";
 "alt-text-do-not-add-button-title" = "No añadir";
 "alt-text-experiment-caption-title" = "Subtítulo da imagem";
+"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Procure que el texto alternativo sea breve para que los usuarios puedan entender fácilmente el contenido de la imagen";
 "alt-text-experiment-edit-summary" = "Texto alternativo añadido";
 "alt-text-experiment-guidance-button" = "Guía para redactar el texto alternativo";

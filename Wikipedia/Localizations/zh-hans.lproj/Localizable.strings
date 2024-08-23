@@ -177,6 +177,7 @@
 "advanced-settings-title" = "高级设置";
 "alt-text-add-button-title" = "添加";
 "alt-text-do-not-add-button-title" = "不要添加";
+"alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "尽量让替代文字保持简短，以便用户能够轻松理解图像内容";
 "alt-text-experiment-edit-summary" = "已添加替代文字";
 "alt-text-experiment-guidance-button" = "替代文字撰写指南";
