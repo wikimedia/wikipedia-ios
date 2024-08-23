@@ -1417,3 +1417,9 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+"alt-text-email-fifth-line" = "截圖或連結";
+"alt-text-email-first-line" = "我在使用替代文字功能時遇到了問題：";
+"alt-text-email-fourth-line" = "說明提議的解決方案";
+"alt-text-email-second-line" = "請描述具體問題";
+"alt-text-email-third-line" = "我期望看到的行為是：";
+"alt-text-email-title" = "問題報告 - 替代文字功能";

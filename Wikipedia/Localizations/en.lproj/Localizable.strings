@@ -106,6 +106,12 @@
 "advanced-settings-title" = "Advanced settings";
 "alt-text-add-button-title" = "Add";
 "alt-text-do-not-add-button-title" = "Do not add";
+"alt-text-email-fifth-line" = "[Screenshots or Links]";
+"alt-text-email-first-line" = "I've encountered a problem with the Alt Text feature:";
+"alt-text-email-fourth-line" = "- [Describe proposed solution]";
+"alt-text-email-second-line" = "- [Describe specific problem]";
+"alt-text-email-third-line" = "The behavior I would like to see is:";
+"alt-text-email-title" = "Issue Report - Alt Text Feature";
 "alt-text-experiment-caption-title" = "Image caption";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Try to keep alt text short so users can easily understand the image content";
