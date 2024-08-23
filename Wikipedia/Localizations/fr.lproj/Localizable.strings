@@ -12,6 +12,7 @@
 // Author: Eric.LEWIN
 // Author: Fitoschido
 // Author: Gomoko
+// Author: Grey Olson
 // Author: Hydros
 // Author: Iketsi
 // Author: John Trololo
@@ -1414,3 +1415,9 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
+"alt-text-email-fifth-line" = "Captures d'écran ou liens";
+"alt-text-email-first-line" = "J'ai rencontré un problème avec la fonctionnalité de texte alternatif :";
+"alt-text-email-fourth-line" = "Décrivez la solution proposée";
+"alt-text-email-second-line" = "Décrivez le problème spécifique";
+"alt-text-email-third-line" = "Le comportement que je souhaiterais voir adopter est le suivant :";
+"alt-text-email-title" = "Rapport de problème : fonctionnalité de texte alternatif";
