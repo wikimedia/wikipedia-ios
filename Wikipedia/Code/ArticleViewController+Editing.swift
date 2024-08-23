@@ -663,7 +663,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
         self.navigationController?.present(alert, animated: true)
     }
-
 }
 
 // Save these strings in case we need them - right now I don't think mobile-html even sends the event if they can't edit

@@ -169,6 +169,12 @@
 "alt-text-experiment-onboarding-item-4-title" = "Type d'image";
 "alt-text-experiment-onboarding-secondary-button-title" = "Voir les exemples";
 "alt-text-experiment-onboarding-title" = "Comment rédiger un texte alternatif pour les images";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Comprendre l'image dans le contexte de l'article.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Révision";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Consultez des informations supplémentaires sur l'image sur Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Contrôlez";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Ajouter une description pour les lecteurs malvoyants.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Ajouter une description";
 "alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
 "alt-text-experiment-text-field-placholder" = "Décrire cette image";
 "alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
