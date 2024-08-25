@@ -1293,10 +1293,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             return
         }
         
-        guard let imageWikitext = lastRecommendation.imageWikitext,
-              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
-            let lastRevisionID = lastRecommendation.lastRevisionID,
-            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
+        guard let _ = lastRecommendation.imageWikitext,
+              let _ = lastRecommendation.fullArticleWikitextWithImage,
+            let _ = lastRecommendation.lastRevisionID,
+            let _ = lastRecommendation.localizedFileTitle else {
             return
         }
 

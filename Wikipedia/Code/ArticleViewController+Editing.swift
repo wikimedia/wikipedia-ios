@@ -314,7 +314,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
-              let languageCode = siteURL.wmf_languageCode,
+              let _ = siteURL.wmf_languageCode,
               let project = WikimediaProject(siteURL: siteURL),
               let wmfProject = project.wmfProject else {
             return
@@ -609,7 +609,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
     private func presentAltTextPostPublishFeedbackSurvey() {
         guard let siteURL = articleURL.wmf_site,
-              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+              let _ = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
