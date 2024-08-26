@@ -1293,10 +1293,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             return
         }
         
-        guard let imageWikitext = lastRecommendation.imageWikitext,
-              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
-            let lastRevisionID = lastRecommendation.lastRevisionID,
-            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
+        guard lastRecommendation.imageWikitext != nil,
+              lastRecommendation.fullArticleWikitextWithImage != nil,
+              lastRecommendation.lastRevisionID != nil,
+              lastRecommendation.localizedFileTitle  != nil else {
             return
         }
 
@@ -1838,7 +1838,7 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
             let fetcher = WikiTextSectionUploader()
             fetcher.uploadWikiText(finalWikitext, forArticleURL: viewModel.articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
 
-                if let error {
+                if error != nil {
                     DispatchQueue.main.async {
                         if let navigationController = self.navigationController {
                             for viewController in navigationController.viewControllers {

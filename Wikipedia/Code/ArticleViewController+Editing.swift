@@ -314,7 +314,6 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
-              let languageCode = siteURL.wmf_languageCode,
               let project = WikimediaProject(siteURL: siteURL),
               let wmfProject = project.wmfProject else {
             return
@@ -536,7 +535,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let fetcher = WikiTextSectionUploader()
         fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
 
-            if let error {
+            if error != nil {
                 DispatchQueue.main.async {
                     if let navigationController = self.navigationController {
                         for viewController in navigationController.viewControllers {
@@ -620,7 +619,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
     private func presentAltTextPostPublishFeedbackSurvey() {
         guard let siteURL = articleURL.wmf_site,
-              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
