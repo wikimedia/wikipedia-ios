@@ -21,6 +21,7 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
     private let hostingViewController: WMFAltTextExperimentPreviewHostingViewController
     private var viewModel: WMFAltTextExperimentPreviewViewModel
     public weak var delegate: WMFAltTextPreviewDelegate?
+    public var publishButton: UIBarButtonItem?
 
     public init(viewModel: WMFAltTextExperimentPreviewViewModel, delegate: WMFAltTextPreviewDelegate?) {
         self.hostingViewController = WMFAltTextExperimentPreviewHostingViewController(viewModel: viewModel)
@@ -43,7 +44,8 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationItem.backButtonDisplayMode = .generic
         let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
+        publishButton = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
+        navigationItem.rightBarButtonItem = publishButton
         addComponent(hostingViewController, pinToEdges: true)
     }
     
@@ -54,6 +56,7 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
 
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
+        publishButton?.isEnabled = false
     }
 
     @objc private func tappedBack() {
