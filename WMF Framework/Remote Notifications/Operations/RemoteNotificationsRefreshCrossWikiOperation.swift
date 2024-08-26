@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOperation {
+class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOperation, @unchecked Sendable {
     
     enum CrossWikiGroupError: LocalizedError {
         case individualErrors([Error])
@@ -79,7 +79,7 @@ class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOper
     }
 }
 
-class RemoteNotificationsRefreshCrossWikiOperation: RemoteNotificationsPagingOperation {
+class RemoteNotificationsRefreshCrossWikiOperation: RemoteNotificationsPagingOperation, @unchecked Sendable {
     
     override var filter: RemoteNotificationsAPIController.Query.Filter {
         return .unread
