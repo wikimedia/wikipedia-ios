@@ -407,7 +407,7 @@ public struct HtmlUtils {
         let cleanString = regex.stringByReplacingMatches(in: string, options: [], range: string.fullNSRange, withTemplate: "")
         let entityReplaceData = try entityReplaceData(html: cleanString)
             let mutableCleanString = NSMutableString(string: cleanString)
-            for data in entityReplaceData {
+            for data in entityReplaceData.reversed() {
                 mutableCleanString.replaceCharacters(in: data.range, with: data.replaceText)
             }
             return mutableCleanString as String
