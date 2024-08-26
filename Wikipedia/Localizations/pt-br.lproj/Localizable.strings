@@ -152,6 +152,12 @@
 "advanced-settings-title" = "Configurações avançadas";
 "alt-text-add-button-title" = "Adicionar";
 "alt-text-do-not-add-button-title" = "Não adicionar";
+"alt-text-email-fifth-line" = "Capturas de tela ou links";
+"alt-text-email-first-line" = "Encontrei um problema com o recurso texto alternativo:";
+"alt-text-email-fourth-line" = "Descreva a solução proposta";
+"alt-text-email-second-line" = "Descreva o problema específico";
+"alt-text-email-third-line" = "O comportamento que eu gostaria de ver é:";
+"alt-text-email-title" = "Relatório de problema — recurso de texto alternativo";
 "alt-text-experiment-caption-title" = "Legenda da imagem";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Tente manter o texto alternativo curto para que os usuários possam entender facilmente o conteúdo da imagem";
@@ -167,17 +173,13 @@
 "alt-text-experiment-onboarding-item-4-title" = "Tipo de imagem";
 "alt-text-experiment-onboarding-secondary-button-title" = "Ver exemplos";
 "alt-text-experiment-onboarding-title" = "Como escrever texto alternativo para imagens";
-"alt-text-experiment-review-title" = "Revise";
-"alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
-"alt-text-experiment-text-field-placholder" = "Descreva a imagem";
-"alt-text-experiment-view-title" = "Adicionar texto alternativo";
-// Fuzzy
 "alt-text-experiment-onboarding-tooltip-1-body" = "Entenda a imagem no contexto do artigo.";
 "alt-text-experiment-onboarding-tooltip-1-title" = "Revise";
 "alt-text-experiment-onboarding-tooltip-2-body" = "Veja informações adicionais da imagem no Wikimedia Commons.";
 "alt-text-experiment-onboarding-tooltip-2-title" = "Inspecione";
 "alt-text-experiment-onboarding-tooltip-3-body" = "Adicione descrição para leitores com deficiência visual.";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Adicione descrição";
+"alt-text-experiment-review-title" = "Revise";
 "alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
 "alt-text-experiment-text-field-placholder" = "Descreva a imagem";
 "alt-text-experiment-view-title" = "Adicionar texto alternativo";
@@ -190,6 +192,7 @@
 "alt-text-feedback-survey-title" = "Ajude a melhorar o recurso";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfeito";
+// Fuzzy
 "alt-text-license" = "Ao publicar alterações, você concorda com os [Termos de Uso]($1) e concorda irrevogavelmente em liberar sua contribuição sob a Licença [CC BY-SA 3.0]($2) e a [GFDL]($3). Você concorda que um hiperlink ou URL é atribuição suficiente sob a licença Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "A imagem anterior está sem texto alternativo. Adicionar uma descrição à imagem para leitores com deficiência visual?";
 "alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
@@ -1321,9 +1324,3 @@
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-terms-name" = "Termo de uso";
-"alt-text-email-fifth-line" = "Capturas de tela ou links";
-"alt-text-email-first-line" = "Encontrei um problema com o recurso texto alternativo:";
-"alt-text-email-fourth-line" = "Descreva a solução proposta";
-"alt-text-email-second-line" = "Descreva o problema específico";
-"alt-text-email-third-line" = "O comportamento que eu gostaria de ver é:";
-"alt-text-email-title" = "Relatório de problema — recurso de texto alternativo";
