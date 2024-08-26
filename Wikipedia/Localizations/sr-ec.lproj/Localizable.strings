@@ -130,6 +130,11 @@
 "advanced-settings-title" = "Напредна подешавања";
 "alt-text-add-button-title" = "Додај";
 "alt-text-do-not-add-button-title" = "Не додај";
+"alt-text-experiment-onboarding-item-1-title" = "Будите кратки и јасни";
+"alt-text-experiment-onboarding-item-2-title" = "Опишите шта се може видети";
+"alt-text-experiment-onboarding-secondary-button-title" = "Види примере";
+"alt-text-experiment-text-field-placholder" = "Опишите слику";
+"alt-text-license" = "Објављивањем измена прихватате [услове коришћења]($1) и неопозиво објављивање свог доприноса под лиценцама [CC BY-SA 3.0]($2) и [GFDL]($3). Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "announcements-dismiss" = "Одбаци";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";

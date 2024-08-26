@@ -4,6 +4,7 @@
 // Author: ChiK
 // Author: Chidananda Kampa
 // Author: Lokesha kunchadka
+// Author: Mahaveer Indra
 // Author: Nemo bis
 // Author: Ravi Mundkur
 
@@ -30,6 +31,8 @@
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "action-undo" = "ದುಂಬುದಲೆಕೊ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
+"alt-text-experiment-character-counter-warning" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಆಯಿನಾತ್ ಕಿನ್ಯ ಇಪ್ಪಡ್, ಅಪಗ ಬಳಕೆದಾರೆರ್ ಪಟತ್ತ ಮಾಹಿತಿ ತೆರಿಯರ ಸುಲಬ ಆಪುಂಡು.";
+"alt-text-experiment-guidance-button" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಬರೆವರ ನಿಯಮೊಲು";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಾಡ್ಲೇ";
