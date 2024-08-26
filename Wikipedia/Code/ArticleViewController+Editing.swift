@@ -537,6 +537,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
             if error != nil {
                 DispatchQueue.main.async {
+                    self.presentAltTextEditErrorToast()
                     if let navigationController = self.navigationController {
                         for viewController in navigationController.viewControllers {
                             if viewController is WMFAltTextExperimentPreviewViewController {
@@ -671,6 +672,11 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         alert.addAction(noAction)
 
         self.navigationController?.present(alert, animated: true)
+    }
+
+    private func presentAltTextEditErrorToast() {
+        let title = CommonStrings.genericErrorDescription
+        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 }
 
