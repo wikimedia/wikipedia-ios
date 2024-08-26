@@ -4,7 +4,7 @@ internal enum ReadingListsOperationError: Error {
     case cancelled
 }
 
-internal class ReadingListsSyncOperation: ReadingListsOperation {
+internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Sendable {
     var syncedReadingListsCount = 0
     var syncedReadingListEntriesCount = 0
     
