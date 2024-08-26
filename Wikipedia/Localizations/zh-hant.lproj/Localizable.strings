@@ -152,6 +152,12 @@
 "advanced-settings-title" = "進階設定";
 "alt-text-add-button-title" = "新增";
 "alt-text-do-not-add-button-title" = "不要新增";
+"alt-text-email-fifth-line" = "截圖或連結";
+"alt-text-email-first-line" = "我在使用替代文字功能時遇到了問題：";
+"alt-text-email-fourth-line" = "說明提議的解決方案";
+"alt-text-email-second-line" = "請描述具體問題";
+"alt-text-email-third-line" = "我期望看到的行為是：";
+"alt-text-email-title" = "問題報告 - 替代文字功能";
 "alt-text-experiment-caption-title" = "圖片說明";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "請盡量使替代文字保持簡短，讓使用者容易理解影像內容";
@@ -167,17 +173,13 @@
 "alt-text-experiment-onboarding-item-4-title" = "影像類型";
 "alt-text-experiment-onboarding-secondary-button-title" = "檢視範例";
 "alt-text-experiment-onboarding-title" = "如何為影像撰寫替代文字";
-"alt-text-experiment-review-title" = "審閱";
-"alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
-"alt-text-experiment-text-field-placholder" = "描述圖片";
-"alt-text-experiment-view-title" = "新增替代文字";
-// Fuzzy
 "alt-text-experiment-onboarding-tooltip-1-body" = "了解文章內容中的影像。";
 "alt-text-experiment-onboarding-tooltip-1-title" = "審閱";
 "alt-text-experiment-onboarding-tooltip-2-body" = "在維基共享資源上檢視更多影像資訊。";
 "alt-text-experiment-onboarding-tooltip-2-title" = "檢查";
 "alt-text-experiment-onboarding-tooltip-3-body" = "在維基共享資源上檢視更多影像資訊。";
 "alt-text-experiment-onboarding-tooltip-3-title" = "新增描述";
+"alt-text-experiment-review-title" = "審閱";
 "alt-text-experiment-text-field-description" = "為看不到影像的讀者提供的文字描述";
 "alt-text-experiment-text-field-placholder" = "描述圖片";
 "alt-text-experiment-view-title" = "新增替代文字";
@@ -190,7 +192,7 @@
 "alt-text-feedback-survey-title" = "協助改善功能";
 "alt-text-feedback-survey-toast-title" = "意見反應已提交";
 "alt-text-feedback-survey-unsatisfied" = "不滿意";
-"alt-text-license" = "發佈變更即表示您同意[使用條款]($1)，且您不可撤銷地同意根據 [CC BY-SA 3.0]($2) 授權和 [GFDL]($3) 發佈您的貢獻。您同意，根據創用 CC 授權，超連結或 URL 即為充分的姓名標示。";
+"alt-text-license" = "發佈變更即表示您同意[使用條款]（$1），且不反悔同意根據 [CC BY-SA 3.0]（$2）授權和 [GFDL]（$3）釋出您的貢獻。您同意超連結或 URL 足以代表創用 CC 授權的姓名標示。";
 "alt-text-modal-subtitle-image-recommendation" = "前一張圖片缺少替代文字，您要幫視覺障礙讀者們新增一個圖片描述嗎？";
 "alt-text-modal-subtitle-regular-edit" = "此條目的圖片缺少替代文字，您要幫視覺障礙讀者們新增圖片的描述嗎？";
 "alt-text-modal-title" = "新增缺少的圖片替代文字？";
@@ -1424,9 +1426,3 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
-"alt-text-email-fifth-line" = "截圖或連結";
-"alt-text-email-first-line" = "我在使用替代文字功能時遇到了問題：";
-"alt-text-email-fourth-line" = "說明提議的解決方案";
-"alt-text-email-second-line" = "請描述具體問題";
-"alt-text-email-third-line" = "我期望看到的行為是：";
-"alt-text-email-title" = "問題報告 - 替代文字功能";
