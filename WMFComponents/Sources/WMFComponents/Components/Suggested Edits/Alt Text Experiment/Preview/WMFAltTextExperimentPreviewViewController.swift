@@ -18,10 +18,14 @@ final fileprivate class WMFAltTextExperimentPreviewHostingViewController: WMFCom
 
 final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewController {
 
+    // MARK: Properties
+
     private let hostingViewController: WMFAltTextExperimentPreviewHostingViewController
     private var viewModel: WMFAltTextExperimentPreviewViewModel
     public weak var delegate: WMFAltTextPreviewDelegate?
-    public var publishButton: UIBarButtonItem?
+    private var publishButton: UIBarButtonItem?
+
+    // MARK: Lifecycle
 
     public init(viewModel: WMFAltTextExperimentPreviewViewModel, delegate: WMFAltTextPreviewDelegate?) {
         self.hostingViewController = WMFAltTextExperimentPreviewHostingViewController(viewModel: viewModel)
@@ -54,12 +58,21 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    // MARK: Public Methods
+
+    public func updatePublishButtonState(isEnabled: Bool) {
+        publishButton?.isEnabled = isEnabled
+    }
+
+    // MARK: Private Methods
+
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
-        publishButton?.isEnabled = false
+        updatePublishButtonState(isEnabled: false)
     }
 
     @objc private func tappedBack() {
         navigationController?.popViewController(animated: true)
     }
+
 }

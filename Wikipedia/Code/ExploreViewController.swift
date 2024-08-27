@@ -1845,7 +1845,7 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
                             for viewController in navigationController.viewControllers {
                                 if viewController is WMFAltTextExperimentPreviewViewController {
                                     let vc = viewController as? WMFAltTextExperimentPreviewViewController
-                                    vc?.publishButton?.isEnabled = true
+                                    vc?.updatePublishButtonState(isEnabled: true)
                                 }
                             }
                         }
