@@ -145,6 +145,8 @@ class ArticleViewController: ViewController, HintPresenting {
 
         super.init(theme: theme)
         
+        self.schemeHandler.imageDidSuccessfullyLoad = imageDidSuccessfullyLoad
+        
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
@@ -468,6 +470,12 @@ class ArticleViewController: ViewController, HintPresenting {
         return super.preferredInterfaceOrientationForPresentation
     }
     
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
+    }
+    
     // MARK: Article load
     
     var articleLoadWaitGroup: DispatchGroup?
@@ -528,8 +536,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        let oldContentInset = webView.scrollView.contentInset
-        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
         messagingController.hideEditPencils()
         messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
         
@@ -609,6 +616,27 @@ class ArticleViewController: ViewController, HintPresenting {
 
         if !force {
             dataController.hasPresentedOnboardingTooltips = true
+        }
+    }
+    
+    private func imageDidSuccessfullyLoad() {
+        guard let altTextExperimentViewModel else {
+            return
+        }
+        
+        let presentedDetent = presentedViewController?.sheetPresentationController?.selectedDetentIdentifier ?? .medium
+        updateContentInsetForAltTextExperiment(detentIdentifier: presentedDetent)
+    }
+    
+    private func updateContentInsetForAltTextExperiment(detentIdentifier: UISheetPresentationController.Detent.Identifier) {
+
+        let oldContentInset = webView.scrollView.contentInset
+        
+        switch detentIdentifier {
+        case .large, .medium:
+            webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+        default:
+            webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: 75, right: oldContentInset.right)
         }
     }
     
@@ -1547,15 +1575,13 @@ extension ArticleViewController: UISheetPresentationControllerDelegate {
             return
         }
         
-        let oldContentInset = webView.scrollView.contentInset
-        
         if let selectedDetentIdentifier = sheetPresentationController.selectedDetentIdentifier {
+            updateContentInsetForAltTextExperiment(detentIdentifier: selectedDetentIdentifier)
             switch selectedDetentIdentifier {
             case .medium, .large:
-                webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+                break
             default:
                 logMinimized()
-                webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: 75, right: oldContentInset.right)
             }
         }
     }
