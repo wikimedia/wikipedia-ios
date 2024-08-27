@@ -22,8 +22,8 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
 
     private let hostingViewController: WMFAltTextExperimentPreviewHostingViewController
     private var viewModel: WMFAltTextExperimentPreviewViewModel
-    public weak var delegate: WMFAltTextPreviewDelegate?
     private var publishButton: UIBarButtonItem?
+    public weak var delegate: WMFAltTextPreviewDelegate?
 
     // MARK: Lifecycle
 
