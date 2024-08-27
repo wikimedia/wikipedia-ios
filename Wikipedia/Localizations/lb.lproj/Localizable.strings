@@ -93,6 +93,18 @@
 "advanced-settings-title" = "Erweidert Astellungen";
 "alt-text-add-button-title" = "Derbäisetzen";
 "alt-text-do-not-add-button-title" = "Net derbäisetzen";
+"alt-text-experiment-caption-title" = "Bildbeschrëftung";
+"alt-text-experiment-onboarding-item-2-title" = "Beschreift, wat ee gesäit";
+"alt-text-experiment-onboarding-secondary-button-title" = "Beispiller weisen";
+"alt-text-experiment-onboarding-tooltip-1-body" = "D'Bild am Kontext vum Artikel verstoen.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Inspizéieren";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Beschreiwung derbäisetzen";
+"alt-text-feedback-survey-neutral" = "Neutral";
+"alt-text-feedback-survey-satisfied" = "Zefridden";
+"alt-text-feedback-survey-toast-title" = "Feedback ofgeschéckt";
+"alt-text-feedback-survey-unsatisfied" = "Onzefridden";
+"alt-text-survey-option-4" = "Ech hunn technesch Problemer";
+"alt-text-survey-option-7" = "Ech hu keng Zäit";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
@@ -727,6 +739,8 @@
 "sort-by-recently-added-action" = "Rezent derbäigesat";
 "sort-by-title-action" = "Titel";
 "suggested-edits-title" = "Ännerungsvirschléi";
+"survey-instructions" = "Wielt eng oder méi Optiounen";
+"survey-title" = "Grond";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";

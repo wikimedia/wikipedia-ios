@@ -154,6 +154,12 @@
 "advanced-settings-title" = "Paramètres avancés";
 "alt-text-add-button-title" = "Ajouter";
 "alt-text-do-not-add-button-title" = "Ne pas ajouter";
+"alt-text-email-fifth-line" = "Captures d'écran ou liens";
+"alt-text-email-first-line" = "J'ai rencontré un problème avec la fonctionnalité de texte alternatif :";
+"alt-text-email-fourth-line" = "Décrivez la solution proposée";
+"alt-text-email-second-line" = "Décrivez le problème spécifique";
+"alt-text-email-third-line" = "Le comportement que je souhaiterais voir adopter est le suivant :";
+"alt-text-email-title" = "Rapport de problème : fonctionnalité de texte alternatif";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
 "alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
@@ -168,17 +174,13 @@
 "alt-text-experiment-onboarding-item-4-title" = "Type d'image";
 "alt-text-experiment-onboarding-secondary-button-title" = "Voir les exemples";
 "alt-text-experiment-onboarding-title" = "Comment rédiger un texte alternatif pour les images";
-"alt-text-experiment-review-title" = "Révision";
-"alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
-"alt-text-experiment-text-field-placholder" = "Décrire cette image";
-"alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
-// Fuzzy
 "alt-text-experiment-onboarding-tooltip-1-body" = "Comprendre l'image dans le contexte de l'article.";
 "alt-text-experiment-onboarding-tooltip-1-title" = "Révision";
 "alt-text-experiment-onboarding-tooltip-2-body" = "Consultez des informations supplémentaires sur l'image sur Wikimedia Commons.";
 "alt-text-experiment-onboarding-tooltip-2-title" = "Contrôlez";
 "alt-text-experiment-onboarding-tooltip-3-body" = "Ajouter une description pour les lecteurs malvoyants.";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Ajouter une description";
+"alt-text-experiment-review-title" = "Révision";
 "alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
 "alt-text-experiment-text-field-placholder" = "Décrire cette image";
 "alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
@@ -191,11 +193,11 @@
 "alt-text-feedback-survey-title" = "Contribuer à l'amélioration de la fonctionnalité";
 "alt-text-feedback-survey-toast-title" = "Commentaires soumis";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfait";
+// Fuzzy
 "alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";
 "alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
-"alt-text-modalsubtitle-regular-edit" = "Il y a une image dans cet article qui manque de texte alternatif. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-survey-option-1" = "Je ne sais pas comment décrire une image";
 "alt-text-survey-option-2" = "Je n'ai pas l'expertise nécessaire pour ajouter un texte alternatif";
 "alt-text-survey-option-3" = "Je ne comprends pas en quoi ce texte est différent d'une légende";
@@ -1425,9 +1427,3 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
-"alt-text-email-fifth-line" = "Captures d'écran ou liens";
-"alt-text-email-first-line" = "J'ai rencontré un problème avec la fonctionnalité de texte alternatif :";
-"alt-text-email-fourth-line" = "Décrivez la solution proposée";
-"alt-text-email-second-line" = "Décrivez le problème spécifique";
-"alt-text-email-third-line" = "Le comportement que je souhaiterais voir adopter est le suivant :";
-"alt-text-email-title" = "Rapport de problème : fonctionnalité de texte alternatif";

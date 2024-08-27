@@ -23,6 +23,7 @@
 // Author: Mhurd
 // Author: Michel Bakni
 // Author: Mido
+// Author: Mohammed Qays
 // Author: Musab Moahmmed
 // Author: NEHAOUA
 // Author: NancyMilad
@@ -150,14 +151,14 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
-"alt-text-add-button-title" = "اوضع";
+"alt-text-add-button-title" = "أضف";
 "alt-text-do-not-add-button-title" = "لاتضع بإضافة";
 "alt-text-experiment-edit-summary" = "الإضافة كل شئ نص";
 "alt-text-experiment-text-field-placholder" = "صف هذه الصورة";
 "alt-text-experiment-view-title" = "الإضافة كل شئ نص";
-"alt-text-modal-subtitle-image-recommendation" = "الصورة السابقة تفتقر إلى نص بديل وهي تبقي إضافة وصف للصورة للقراء الذي يبقي عنده إعاقة بصرية؟";
+"alt-text-modal-subtitle-image-recommendation" = "الصورة السابقة تفتقر إلى نص بديل. هل تريد إضافة وصف للصورة للقراء من ذوي الإعاقة البصرية؟";
 "alt-text-modal-subtitle-regular-edit" = "يوجد في المقالة صورة لا تحتوي على نص بديل انت عايز إضافة وصف للقراء اللذين لهم إعاقة بصرية؟";
-"alt-text-modal-title" = "اوضع نص بديل للصورة المفقودة؟";
+"alt-text-modal-title" = "أضف نص بديل للصورة المفقودة؟";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
