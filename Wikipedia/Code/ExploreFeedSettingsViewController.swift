@@ -234,14 +234,13 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }()
 
     private func shouldEnableForAltTextExperiment() -> Bool {
-        let altTextDevSettingsFeatureFlag = WMFDeveloperSettingsDataController.shared.enableAltTextExperiment
         let altTextDevSettingsFeatureFlagForEN = WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN
         let targetWikisForAltText = altTextDevSettingsFeatureFlagForEN ? ["es", "fr", "pt", "zh", "en"] : ["es", "fr", "pt", "zh"]
         let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
 
         if #available(iOS 16, *) {
             if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
-                return isUserLoggedIn && altTextDevSettingsFeatureFlag && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+                return isUserLoggedIn && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
                 && shouldAltTextExperimentBeActive()
             }
         }

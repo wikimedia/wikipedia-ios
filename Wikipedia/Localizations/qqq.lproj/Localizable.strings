@@ -252,7 +252,6 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "developer-settings" = "Title for developer settings view.";
 "developer-settings-always-show-alt-text-entry-point" = "Title for always showing the alt text experiment entry point. Displayed on the developer settings view.";
-"developer-settings-enable-alt-text-experiment" = "Title for setting to enable alt text experiment. Displayed on the developer settings view.";
 "developer-settings-enable-alt-text-experiment-en" = "Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";

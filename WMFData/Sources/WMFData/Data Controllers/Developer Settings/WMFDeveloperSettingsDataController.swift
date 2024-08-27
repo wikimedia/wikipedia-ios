@@ -13,14 +13,6 @@ import Foundation
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue, value: newValue)
         }
     }
-
-    @objc public var enableAltTextExperiment: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue, value: newValue)
-        }
-    }
     
     @objc public var enableAltTextExperimentForEN: Bool {
         get {
