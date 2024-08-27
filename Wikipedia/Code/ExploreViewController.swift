@@ -1330,6 +1330,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 break
             default:
                 EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wmfProject: viewModel.project))
+                self.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
