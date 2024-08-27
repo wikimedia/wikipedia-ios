@@ -71,8 +71,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
         }
         
-        if tabBarSnapshotImage == nil {
-            updateTabBarSnapshotImage()
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            tabBarSnapshotImage = nil
+        } else {
+            if tabBarSnapshotImage == nil {
+                updateTabBarSnapshotImage()
+            }
         }
     }
     
