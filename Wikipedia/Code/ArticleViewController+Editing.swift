@@ -314,7 +314,6 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
-              let languageCode = siteURL.wmf_languageCode,
               let project = WikimediaProject(siteURL: siteURL),
               let wmfProject = project.wmfProject else {
             return
@@ -518,7 +517,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
             return
         }
 
-
         var finalWikitextToPublish: String?
         if #available(iOS 16.0, *) {
             let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), viewModel.altText)
@@ -537,29 +535,42 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let fetcher = WikiTextSectionUploader()
         fetcher.uploadWikiText(finalWikitextToPublish, forArticleURL: articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
 
-            DispatchQueue.main.async {
-
-                if let navigationController = self.navigationController,
-                   navigationController.viewControllers.count > 2 {
-                    // pop back two view controllers. 
-                    let index = (navigationController.viewControllers.count-1) - 2
-                    if let _ = navigationController.viewControllers[index] as? ArticleViewController {
-                        navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.presentAltTextEditErrorToast()
+                    if let navigationController = self.navigationController {
+                        for viewController in navigationController.viewControllers {
+                            if viewController is WMFAltTextExperimentPreviewViewController {
+                                let vc = viewController as? WMFAltTextExperimentPreviewViewController
+                                vc?.updatePublishButtonState(isEnabled: true)
+                            }
+                        }
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
 
-                guard let fetchedData = result as? [String: Any],
-                      let newRevID = fetchedData["newrevid"] as? UInt64 else {
-                    return
-                }
+                    if let navigationController = self.navigationController,
+                       navigationController.viewControllers.count > 2 {
+                        // pop back two view controllers.
+                        let index = (navigationController.viewControllers.count-1) - 2
+                        if let _ = navigationController.viewControllers[index] as? ArticleViewController {
+                            navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
+                        }
+                    }
 
-                if error == nil {
+                    guard let fetchedData = result as? [String: Any],
+                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                        return
+                    }
+
                     // wait for animation to complete
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                         self?.presentAltTextEditPublishedToast(isSurvey: false, project: project)
                         self?.presentAltTextPostPublishFeedbackSurvey()
                         self?.logAltTextEditSuccess(viewModel: viewModel, altText: viewModel.altText, revisionID: newRevID)
                     }
+
                 }
             }
         }
@@ -609,7 +620,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
     private func presentAltTextPostPublishFeedbackSurvey() {
         guard let siteURL = articleURL.wmf_site,
-              let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
@@ -662,6 +672,11 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         alert.addAction(noAction)
 
         self.navigationController?.present(alert, animated: true)
+    }
+
+    private func presentAltTextEditErrorToast() {
+        let title = CommonStrings.genericErrorDescription
+        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 }
 

@@ -18,9 +18,14 @@ final fileprivate class WMFAltTextExperimentPreviewHostingViewController: WMFCom
 
 final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewController {
 
+    // MARK: Properties
+
     private let hostingViewController: WMFAltTextExperimentPreviewHostingViewController
     private var viewModel: WMFAltTextExperimentPreviewViewModel
+    private var publishButton: UIBarButtonItem?
     public weak var delegate: WMFAltTextPreviewDelegate?
+
+    // MARK: Lifecycle
 
     public init(viewModel: WMFAltTextExperimentPreviewViewModel, delegate: WMFAltTextPreviewDelegate?) {
         self.hostingViewController = WMFAltTextExperimentPreviewHostingViewController(viewModel: viewModel)
@@ -43,7 +48,8 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationItem.backButtonDisplayMode = .generic
         let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
+        publishButton = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
+        navigationItem.rightBarButtonItem = publishButton
         addComponent(hostingViewController, pinToEdges: true)
     }
     
@@ -52,11 +58,21 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    // MARK: Public Methods
+
+    public func updatePublishButtonState(isEnabled: Bool) {
+        publishButton?.isEnabled = isEnabled
+    }
+
+    // MARK: Private Methods
+
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
+        updatePublishButtonState(isEnabled: false)
     }
 
     @objc private func tappedBack() {
         navigationController?.popViewController(animated: true)
     }
+
 }
