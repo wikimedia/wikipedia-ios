@@ -54,7 +54,7 @@ extension Locale {
         for languageIdentifier in languageIdentifiers {
             let locale = Locale(identifier: languageIdentifier)
             
-            guard let languageCode = locale.language.languageCode.identifier?.lowercased() else { continue }
+            guard let languageCode = locale.language.languageCode?.identifier.lowercased() else { continue }
             
             // If the app supports a language variant for the locale, return the best guess of the correct Wikipedia language variant code
             if let mediaWikiCode = Locale.mediaWikiCodeForLocale(locale) {
@@ -81,11 +81,11 @@ extension Locale {
     /// - Parameter locale: A locale instance
     /// - Returns: The Wikipedia language variant code that most closely matches the provided locale
     fileprivate static func mediaWikiCodeForLocale(_ locale: Locale) -> String? {
-        if let languageCode = locale.language.languageCode.identifier?.lowercased() {
+        if let languageCode = locale.language.languageCode?.identifier.lowercased() {
             if let scriptLookup = mediaWikiCodeLookupGlobal[languageCode] {
-                let scriptCode = locale.language.script.identifier?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
+                let scriptCode = locale.language.script?.identifier.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
                 if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
-                    let regionCode = locale.region.identifier?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
+                    let regionCode = locale.region?.identifier.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
                     if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
                         return mediaWikiCode
                     }
@@ -121,7 +121,7 @@ extension Locale {
     }
     
     public var isEnglish: Bool {
-        guard let langCode = self.language.languageCode.identifier else {
+        guard let langCode = self.language.languageCode?.identifier else {
             return false
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false
