@@ -277,7 +277,7 @@ extension OnThisDayEntry {
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
-        let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
+        let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.language.languageCode?.identifier ?? "en") == .rightToLeft
         let destinationURL = URL(string: "wikipedia://explore")
         return OnThisDayEntry(isRTLLanguage: isRTL, error: error, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
     }
