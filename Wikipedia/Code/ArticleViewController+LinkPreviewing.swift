@@ -30,7 +30,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     var contextMenuItems: [UIAction] {
         // Read action
         let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, handler: { (action) in
+        let readAction = UIAction(title: readActionTitle, image: UIImage(systemName: "book"), handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 
@@ -45,7 +45,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
         if articleURL.namespace == .main {
             let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
-            let saveAction = UIAction(title: saveActionTitle, handler: { (action) in
+            let saveAction = UIAction(title: saveActionTitle, image: UIImage(systemName: article.isAnyVariantSaved ? "bookmark.fill" : "bookmark"), handler: { (action) in
                 let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
                 let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
                 UIAccessibility.post(notification: .announcement, argument: notification)
@@ -57,7 +57,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         // Location action
         if article.location != nil {
             let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
-            let placeAction = UIAction(title: placeActionTitle, handler: { (action) in
+            let placeAction = UIAction(title: placeActionTitle, image: UIImage(systemName: "map"), handler: { (action) in
                 self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
             })
             actions.append(placeAction)
@@ -65,7 +65,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 
         // Share action
         let shareActionTitle = CommonStrings.shareMenuTitle
-        let shareAction = UIAction(title: shareActionTitle, handler: { (action) in
+        let shareAction = UIAction(title: shareActionTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { (action) in
             guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
                 return
             }
