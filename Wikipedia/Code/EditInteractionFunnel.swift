@@ -277,13 +277,20 @@ final class EditInteractionFunnel {
     
     // MARK: Alt-Text-Experiment
     
-    func logAltTextDidAssignImageRecsGroup(project: WikimediaProject) {
-        
+    func logAltTextDidAssignImageRecsGroup(username: String, userEditCount: UInt64, articleTitle: String, image: String, registrationDate: String?, project: WikimediaProject) {
         guard let group = WMFAltTextDataController.shared?.assignedAltTextImageRecommendationsGroupForLogging() else {
             return
         }
         
-        var actionData: [String: String] = [:]
+        var actionData = ["article_title": articleTitle,
+                          "image": image,
+                          "username": username,
+                          "event_user_revision_count": String(userEditCount)]
+        
+        if let registrationDate {
+            actionData["user_create_date"] = registrationDate
+        }
+        
         switch group {
         case "A":
             actionData["exp_b_group"] = "a"
@@ -296,13 +303,21 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .altTextEditingOnboarding, action: .groupAssignment, actionData: actionData, project: project)
     }
     
-    func logAltTextDidAssignArticleEditorGroup(project: WikimediaProject) {
+    func logAltTextDidAssignArticleEditorGroup(username: String, userEditCount: UInt64, articleTitle: String, image: String, registrationDate: String?, project: WikimediaProject) {
         
         guard let group = WMFAltTextDataController.shared?.assignedAltTextArticleEditorGroupForLogging() else {
             return
         }
         
-        var actionData: [String: String] = [:]
+        var actionData = ["article_title": articleTitle,
+                          "image": image,
+                          "username": username,
+                          "event_user_revision_count": String(userEditCount)]
+        
+        if let registrationDate {
+            actionData["user_create_date"] = registrationDate
+        }
+        
         switch group {
         case "C":
             actionData["exp_c_group"] = "c"
