@@ -51,7 +51,8 @@ import CocoaLumberjackSwift
     }
     
     /**
-     *  The current logged in user. If nil, no user is logged in
+     *  The current logged in user. If nil, no user is logged in. Note: This is only populated after successfully logging in (or fetching the the current userinfo data from MW API) with a username and password. Note that username and password may have been pulled from keychain manager rather than inputted by user.
+     *  This loggedInUsername will NOT contain temporary account usernames. If a user is in a temporary account state, this property is nil.
      */
     @objc dynamic public private(set) var loggedInUsername: String? = nil {
         didSet {
