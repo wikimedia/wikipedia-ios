@@ -8,7 +8,7 @@ protocol AltTextDelegate: AnyObject {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController, HintPresenting {
+class ArticleViewController: ViewController, HintPresenting, UIEditMenuInteractionDelegate {
     enum ViewState {
         case initial
         case loading
@@ -375,6 +375,9 @@ class ArticleViewController: ViewController, HintPresenting {
         if altTextExperimentViewModel == nil {
             setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         }
+        
+        let editMenuInteraction = UIEditMenuInteraction(delegate: self)
+        view.addInteraction(editMenuInteraction)
         
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()

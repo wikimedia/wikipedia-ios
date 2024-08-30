@@ -136,8 +136,8 @@ NS_ASSUME_NONNULL_BEGIN
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL)shouldAutorotate {
-    return YES;
+- (void)updateOrientationSupport {
+    [self setNeedsUpdateOfSupportedInterfaceOrientations];
 }
 
 - (NSArray<id<NYTPhoto>> *)photos {
