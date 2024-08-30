@@ -35,7 +35,8 @@ open class Fetcher: NSObject {
             "type": type.stringValue,
             "format": "json"
         ]
-        return performMediaWikiAPIPOST(for: URL, with: parameters) { (result, response, error) in
+        return performMediaWikiAPIPOST(for: URL, with: parameters) { [weak self] (result, response, error) in
+            
             if let error = error {
                 completionHandler(Result.failure(error))
                 return
@@ -92,8 +93,10 @@ open class Fetcher: NSObject {
         let url = configuration.mediaWikiAPIURLForURL(URL, with: nil)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.postFormEncodedBodyParametersToURL(to: url, bodyParameters: bodyParameters, reattemptLoginOn401Response:reattemptLoginOn401Response) { (result, response, error) in
+            
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
+            self.session.cloneCentralAuthCookies()
         }
         track(task: task, for: key)
         return task
