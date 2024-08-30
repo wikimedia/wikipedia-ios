@@ -35,7 +35,7 @@ open class Fetcher: NSObject {
             "type": type.stringValue,
             "format": "json"
         ]
-        return performMediaWikiAPIPOST(for: URL, with: parameters) { [weak self] (result, response, error) in
+        return performMediaWikiAPIPOST(for: URL, with: parameters) { (result, response, error) in
             
             if let error = error {
                 completionHandler(Result.failure(error))
