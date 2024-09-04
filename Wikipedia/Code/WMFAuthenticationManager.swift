@@ -98,17 +98,17 @@ import CocoaLumberjackSwift
         }
         currentUserFetcher.fetch(siteURL: siteURL, success: { (user) in
             DispatchQueue.main.async {
-                self.loggedInUserCache[host] = user
+                if !user.isIP && !user.isTemp {
+                    self.loggedInUserCache[host] = user
+                } else if user.isIP {
+                    self.isAnonCache[host] = true
+                }
+                
                 completion(.success(user))
             }
         }) { (error) in
             DispatchQueue.main.async {
-                if error as? WMFCurrentlyLoggedInUserFetcherError == WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous {
-                    self.isAnonCache[host] = true
-                    completion(.success(nil))
-                } else {
-                    completion(.failure(error))
-                }
+                completion(.failure(error))
             }
         }
     }

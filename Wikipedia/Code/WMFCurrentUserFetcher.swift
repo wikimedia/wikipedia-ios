@@ -1,13 +1,10 @@
 public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     case cannotExtractUserInfo
-    case userIsAnonymous
     case blankUsernameOrPassword
     public var errorDescription: String? {
         switch self {
         case .cannotExtractUserInfo:
             return "Could not extract user info"
-        case .userIsAnonymous:
-            return "User is anonymous"
         case .blankUsernameOrPassword:
             return "Blank username or password"
         }
@@ -20,13 +17,18 @@ public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     @objc public let groups: [String]
     @objc public let editCount: UInt64
     @objc public let isBlocked: Bool
+    @objc public let isIP: Bool
+    @objc public let isTemp: Bool
     @objc public let registrationDateString: String?
-    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, registrationDateString: String?) {
+    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, isIP: Bool, isTemp: Bool, registrationDateString: String?) {
+        assert(!(isTemp && isIP), "Invalid values. A user cannot both be IP and Temp.")
         self.userID = userID
         self.name = name
         self.groups = groups
         self.editCount = editCount
         self.isBlocked = isBlocked
+        self.isIP = isIP
+        self.isTemp = isTemp
         self.registrationDateString = registrationDateString
     }
 }
@@ -54,10 +56,9 @@ public class WMFCurrentUserFetcher: Fetcher {
                     failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
                     return
             }
-            guard userinfo["anon"] == nil else {
-                failure(WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous)
-                return
-            }
+            
+            let isIP = userinfo["anon"] != nil
+            let isTemp = userinfo["temp"] != nil
             
             let editCount = userinfo["editcount"] as? UInt64 ?? 0
             let registrationDateString = userinfo["registrationdate"] as? String
@@ -71,7 +72,7 @@ public class WMFCurrentUserFetcher: Fetcher {
             }
             
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, registrationDateString: registrationDateString))
+            success(WMFCurrentUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, isIP: isIP, isTemp: isTemp, registrationDateString: registrationDateString))
         }
     }
 }
