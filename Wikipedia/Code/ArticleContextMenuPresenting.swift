@@ -98,8 +98,8 @@ extension ArticleContextMenuPresenting {
     }
 
     func getPeekViewControllerAsync(for linkURL: URL, completion: @escaping (UIViewController?) -> Void) {
-        let loggedInUsername = MWKDataStore.shared().authenticationManager.loggedInUsername
-        let destination = configuration.router.destination(for: linkURL, loggedInUsername: loggedInUsername)
+        let permanentUsername = MWKDataStore.shared().authenticationManager.permanentUsername
+        let destination = configuration.router.destination(for: linkURL, permanentUsername: permanentUsername)
         getPeekViewControllerAsync(for: destination, completion: completion)
     }
 

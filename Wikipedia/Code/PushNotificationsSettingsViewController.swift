@@ -87,7 +87,7 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
     // MARK: - Application Foreground Notification
 
     private func didReceiveWillEnterForegroundNotification() {
-        guard authenticationManager.isLoggedIn else {
+        guard authenticationManager.isPermanent else {
             self.navigationController?.popViewController(animated: true)
             return
         }

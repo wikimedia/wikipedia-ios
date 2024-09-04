@@ -266,9 +266,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        let isPermanent = dataStore.authenticationManager.isPermanent
         
-        guard isLoggedIn else {
+        guard isPermanent else {
             return
         }
         
@@ -295,7 +295,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
         
         do {
-            try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
+            try dataController.assignArticleEditorExperiment(isPermanent: isPermanent, project: project)
             EditInteractionFunnel.shared.logAltTextDidAssignArticleEditorGroup(project: WikimediaProject(wmfProject: project))
         } catch let error {
             DDLogWarn("Error assigning alt text article editor experiment: \(error)")
@@ -305,7 +305,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         
         DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
         
-        if dataController.shouldEnterAltTextArticleEditorFlow(isLoggedIn: isLoggedIn, project: project) {
+        if dataController.shouldEnterAltTextArticleEditorFlow(isPermanent: isPermanent, project: project) {
             presentAltTextPromptModal(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID)
             dataController.markSawAltTextArticleEditorPrompt()
         }
@@ -588,12 +588,12 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+        guard let permanentUser = dataStore.authenticationManager.getCurrentPermanentUserCache(for: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
 
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: permanentUser.name, userEditCount: permanentUser.editCount, registrationDate: permanentUser.registrationDateString, project: project)
 
         altTextExperimentAcceptDate = nil
     }

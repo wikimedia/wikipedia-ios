@@ -193,7 +193,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     var editCount: Int {
         var count: Int = 0
         if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
-            self.dataStore?.authenticationManager.getLoggedInUser(for: language, completion: { result in
+            self.dataStore?.authenticationManager.getCurrentPermanentUser(for: language, completion: { result in
                 switch result {
                 case .success(let user):
                     count = Int(user?.editCount ?? 0)
@@ -239,8 +239,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
 
         if #available(iOS 16, *) {
-            if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
-                return isUserLoggedIn && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+            if let isUserPermanent = dataStore?.authenticationManager.isPermanent {
+                return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
                 && shouldAltTextExperimentBeActive()
             }
         }

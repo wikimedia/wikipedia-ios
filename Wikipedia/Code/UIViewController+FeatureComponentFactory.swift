@@ -58,7 +58,7 @@ extension WMFImageRecommendationsViewController {
             WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "unfamiliar")
         ]
 
-        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isLoggedIn: dataStore.authenticationManager.isLoggedIn, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
+        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isPermanent: dataStore.authenticationManager.isPermanent, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
 
         let imageRecommendationsViewController = WMFImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController

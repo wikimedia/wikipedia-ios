@@ -92,7 +92,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
-        loginLabel.isHidden = dataStore.authenticationManager.isLoggedIn
+        loginLabel.isHidden = dataStore.authenticationManager.isPermanent
     }
     
     override func viewDidAppear(_ animated: Bool) {

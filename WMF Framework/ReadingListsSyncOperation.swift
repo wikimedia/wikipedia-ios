@@ -66,9 +66,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        let isPermanent = dataStore.authenticationManager.isPermanent
     
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && isLoggedIn {
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && isPermanent {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -161,7 +161,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard isLoggedIn else {
+        guard isPermanent else {
             try localSyncOnly()
             return
         }

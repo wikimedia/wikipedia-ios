@@ -1325,7 +1325,7 @@ private extension ArticleViewController {
         }
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
-        authManager.getLoggedInUser(for: siteURL) { (result) in
+        authManager.getCurrentPermanentUser(for: siteURL) { (result) in
             assert(Thread.isMainThread)
             switch result {
             case .success(let user):

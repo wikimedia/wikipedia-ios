@@ -11,7 +11,7 @@
 
 #pragma mark - Static URLs
 
-static const NSString *kvo_WMFSettingsViewController_authManager_loggedInUsername = nil;
+static const NSString *kvo_WMFSettingsViewController_authManager_permanentUsername = nil;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -77,11 +77,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         return;
     }
 
-    NSString *keyPath = WMF_SAFE_KEYPATH(authManager, loggedInUsername);
+    NSString *keyPath = WMF_SAFE_KEYPATH(authManager, permanentUsername);
 
-    [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
+    [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_permanentUsername];
     _authManager = authManager;
-    [_authManager addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
+    [_authManager addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFSettingsViewController_authManager_permanentUsername];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -113,8 +113,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
 
-        // If in a tab bar presentation, only show notification bar button item if the user is logged in
-        if (self.dataStore.authenticationManager.isLoggedIn) {
+        // If in a tab bar presentation, only show notification bar button item if the user is permanent
+        if (self.dataStore.authenticationManager.isPermanent) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
             BOOL hasUnreadNotifications = numUnreadNotifications != 0;
             UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
@@ -340,7 +340,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrAccount {
-    NSString *userName = self.dataStore.authenticationManager.loggedInUsername;
+    NSString *userName = self.dataStore.authenticationManager.permanentUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
@@ -571,7 +571,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
-    if (_authManager.isLoggedIn) {
+    if (_authManager.isPermanent) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
 
@@ -641,7 +641,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
-    if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
+    if (context == &kvo_WMFSettingsViewController_authManager_permanentUsername) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadSections];
         });

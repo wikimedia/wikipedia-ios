@@ -35,7 +35,7 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
+        [self.dataStore.authenticationManager getCurrentPermanentUserFor:appLanguageSiteURL
                                                       completion:^(WMFCurrentUser *user) {
                                                           // Image Recommendations Business Logic:
                                                           // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.

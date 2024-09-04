@@ -269,7 +269,7 @@ open class Fetcher: NSObject {
             let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockExpiry, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$6", with: blockExpiryDisplayDate)
             
-            let username = MWKDataStore.shared().authenticationManager.loggedInUsername ?? ""
+            let username = MWKDataStore.shared().authenticationManager.permanentUsername ?? ""
             templateHtml = templateHtml.replacingOccurrences(of: "$7", with: username)
 
             let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedTimestamp, siteURL: linkBaseURL)

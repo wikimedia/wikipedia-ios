@@ -142,7 +142,7 @@ private extension HelpViewController {
     }
     
     func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
-        guard dataStore.authenticationManager.isLoggedIn else {
+        guard dataStore.authenticationManager.isPermanent else {
             completion()
             return
         }
