@@ -14,7 +14,8 @@ import Contacts
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
-    
+    private let cacheLocalDonateHistory = "AppLocalDonationHistory"
+
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
@@ -227,7 +228,33 @@ import Contacts
             }
         })
     }
-    
+
+    @discardableResult
+    public func saveLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
+        // load existing donations
+        let donateHistory: [WMFDonateLocalHistory]? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory) // sempre retrieve um array de dicts
+
+        if let donateHistory {
+            var donationArray: [WMFDonateLocalHistory] = donateHistory
+            donationArray.append(donation)
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: donationArray)
+        } else {
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: [donation]) // sempre salva em [array de donation]
+        }
+
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory)
+
+    }
+
+    public func loadLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory)
+    }
+
+    public func deleteLocalDonationHistory() {
+
+//        try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: )
+    }
+
     // MARK: - Internal
     
     func reset() {

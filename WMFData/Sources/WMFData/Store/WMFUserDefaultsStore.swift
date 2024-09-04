@@ -1,6 +1,12 @@
 import Foundation
 
 class WMFUserDefaultsStore: WMFKeyValueStore {
+    
+    func remove<T>(key: String..., value: T?) throws {
+        let defaultsKey = key.joined(separator: ".")
+        return remove(defaultsKey: defaultsKey)
+    }
+    
     func load<T: Codable>(key: String...) throws -> T? {
         let defaultsKey = key.joined(separator: ".")
         return try load(defaultsKey: defaultsKey)
@@ -31,5 +37,9 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
         } catch let error {
             throw WMFUserDefaultsStoreError.failureEncodingJSON(error)
         }
+    }
+
+    private func remove(defaultsKey: String) {
+        UserDefaults.standard.removeObject(forKey: defaultsKey)
     }
 }

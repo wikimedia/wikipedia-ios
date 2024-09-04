@@ -17,4 +17,9 @@ public final class WMFMockKeyValueStore: WMFKeyValueStore {
         let defaultsKey = key.joined(separator: ".")
         savedObjects[defaultsKey] = value
     }
+
+    public func remove<T>(key: String..., value: T?) throws {
+        savedObjects = [:]
+    }
+
 }

@@ -502,9 +502,9 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                
                 // Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
+                    self?.saveDonationToLocalHistory(with: dataController, recurring: recurring)
                     self?.delegate?.donateDidSuccessfullySubmitPayment()
                 })
             case .failure(let error):
@@ -537,4 +537,18 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             
         }
     }
+
+    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool) {
+          let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+          let date = Date()
+          let dateFormatter = DateFormatter()
+          dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+          dateFormatter.dateFormat = iso8601Format
+          let timestamp = dateFormatter.string(from: date)
+
+          let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
+          let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp, donationType: donationType, donationAmount: finalAmount, isNative: true)
+          dataController.saveLocalDonationHistory(donationHistoryEntry)
+      }
+
 }

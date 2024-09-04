@@ -53,6 +53,12 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         try? encodedCache.write(to: cacheDataFileURL)
     }
 
+    public func deleteCache() {
+        if let subdirectoryURL = subdirectoryURL() {
+            try? FileManager.default.removeItem(at: subdirectoryURL)
+        }
+    }
+
     /// Persist only the last 50 visited talk pages
     @objc public static func deleteStaleCachedItems(in subdirectoryPathComponent: String, cleanupLevel: WMFCleanupLevel) {
         let folderURL = cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent)
