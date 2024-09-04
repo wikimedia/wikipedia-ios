@@ -191,19 +191,12 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     var editCount: Int {
-        var count: Int = 0
-        if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
-            self.dataStore?.authenticationManager.getCurrentPermanentUser(for: language, completion: { result in
-                switch result {
-                case .success(let user):
-                    count = Int(user?.editCount ?? 0)
-                default:
-                    break
-                }
-            })
+        guard let siteURL = self.dataStore?.languageLinkController.appLanguage?.siteURL,
+        let editCount = self.dataStore?.authenticationManager.permanentUser(siteURL: siteURL)?.editCount else {
+            return 0
         }
-
-        return count
+        
+        return Int(editCount)
     }
 
     // MARK: Items

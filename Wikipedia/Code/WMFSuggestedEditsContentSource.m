@@ -33,30 +33,27 @@
         completion();
         return;
     }
+        
+    WMFCurrentUser *user = [self.dataStore.authenticationManager permanentUserWithSiteURL:appLanguageSiteURL];
+    
+    // Image Recommendations Business Logic:
+    // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.dataStore.authenticationManager getCurrentPermanentUserFor:appLanguageSiteURL
-                                                      completion:^(WMFCurrentUser *user) {
-                                                          // Image Recommendations Business Logic:
-                                                          // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+    BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
-                                                          BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
+    if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
+        [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+            if (hasRecommendations) {
+                NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
 
-                                                          if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
-                                                              [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
-                                                                  if (hasRecommendations) {
-                                                                      NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
+                [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+            }
 
-                                                                      [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-                                                                  }
-
-                                                                  completion();
-                                                              }];
-                                                          } else {
-                                                              completion();
-                                                          }
-                                                      }];
-    });
+            completion();
+        }];
+    } else {
+        completion();
+    }
 }
 
 - (BOOL)isEligibleForAltText:(WMFCurrentUser *)user {

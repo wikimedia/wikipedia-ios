@@ -1900,7 +1900,7 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         let caption = lastRecommendation.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        guard let permanentUser = dataStore.authenticationManager.getCurrentPermanentUserCache(for: siteURL) else {
+        guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
             return
         }
 

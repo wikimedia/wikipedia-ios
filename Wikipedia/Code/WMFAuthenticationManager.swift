@@ -89,7 +89,7 @@ import CocoaLumberjackSwift
         return (permanentUsername != nil)
     }
     
-    public func getCurrentPermanentUserCache(for siteURL: URL) -> WMFCurrentUser? {
+    @objc public func permanentUser(siteURL: URL) -> WMFCurrentUser? {
         guard let host = siteURL.host else {
             return nil
         }
@@ -99,41 +99,6 @@ import CocoaLumberjackSwift
         }
         
         return user
-    }
-    
-    @objc func getCurrentPermanentUser(for siteURL: URL, completion: @escaping (WMFCurrentUser?) -> Void) {
-        getCurrentPermanentUser(for: siteURL) { result in
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    completion(user)
-                }
-            default:
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }
-        }
-    }
-    
-    public func getCurrentPermanentUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentUser?, Error>) -> Void ) {
-        assert(Thread.isMainThread)
-        getCurrentUser(for: siteURL) { result in
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    if !user.isIP && !user.isTemp {
-                        completion(.success(user))
-                    } else {
-                        completion(.success(nil))
-                    }
-                }
-            case.failure(let error):
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-            }
-        }
     }
     
     @objc public var hasKeychainCredentials: Bool {

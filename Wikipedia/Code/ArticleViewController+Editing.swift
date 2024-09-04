@@ -588,7 +588,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        guard let permanentUser = dataStore.authenticationManager.getCurrentPermanentUserCache(for: siteURL),
+        guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
