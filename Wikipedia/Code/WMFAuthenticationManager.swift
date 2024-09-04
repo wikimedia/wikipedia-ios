@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 
+// MARK: WMFAuthenticationManagerDelegate
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
     var loginSiteURL: URL? { get }
     func authenticationManagerWillLogOut(completionHandler: @escaping () -> Void) // allows interested objects to perform authenticated clean up actions before log out
@@ -12,15 +13,11 @@ import CocoaLumberjackSwift
  */
 @objc public class WMFAuthenticationManager: NSObject {
     
-    @objc weak var delegate: WMFAuthenticationManagerDelegate?
+    // MARK: Typealiases
     
-    fileprivate let accountLoginLogoutFetcher: WMFAccountLoginLogoutFetcher
-    fileprivate let currentUserFetcher: WMFCurrentUserFetcher
-
-    @objc public required init(session: Session, configuration: Configuration) {
-        accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
-        currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
-    }
+    private typealias SiteURLHost = String
+    
+    // MARK: Nested Types
     
     public enum LoginError: LocalizedError {
         case missingLoginURL
@@ -43,29 +40,32 @@ import CocoaLumberjackSwift
         }
     }
     
-    private var currentUserCache: [String: WMFCurrentUser] = [:]
-    
-    private func getCurrentUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void ) {
-        assert(Thread.isMainThread)
-        guard let host = siteURL.host else {
-            completion(.failure(RequestError.invalidParameters))
-            return
-        }
-        if let user = currentUserCache[host] {
-            completion(.success(user))
-            return
-        }
-        currentUserFetcher.fetch(siteURL: siteURL, success: { (user) in
-            DispatchQueue.main.async {
-                self.currentUserCache[host] = user
-                completion(.success(user))
-            }
-        }, failure: { (error) in
-            DispatchQueue.main.async {
-                completion(.failure(error))
-            }
-        })
+    @objc public enum LogoutInitiator: Int {
+        case user
+        case app
+        case server
     }
+    
+    // MARK: Properties
+    
+    @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
+    @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
+    
+    @objc weak var delegate: WMFAuthenticationManagerDelegate?
+    
+    fileprivate let accountLoginLogoutFetcher: WMFAccountLoginLogoutFetcher
+    fileprivate let currentUserFetcher: WMFCurrentUserFetcher
+    
+    private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
+
+    @objc public required init(session: Session, configuration: Configuration) {
+        accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
+        currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
+    }
+    
+    // MARK: Public
+    
+    // MARK: Computed
     
     @objc public var permanentUsername: String? {
         
@@ -104,26 +104,7 @@ import CocoaLumberjackSwift
         return user
     }
     
-    @objc public var hasKeychainCredentials: Bool {
-        guard
-            let userName = KeychainCredentialsManager.shared.username,
-            !userName.isEmpty,
-            let password = KeychainCredentialsManager.shared.password,
-            !password.isEmpty
-            else {
-                return false
-        }
-        return true
-    }
-    
-
-    private var loginSiteURL: URL? {
-        return delegate?.loginSiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
-    }
-    
-    private var session: Session {
-        return self.accountLoginLogoutFetcher.session
-    }
+    // MARK: Login
     
     public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
@@ -147,8 +128,7 @@ import CocoaLumberjackSwift
      *  @param password The password for the user
      *  @param retypePassword The password used for confirming password changes. Optional.
      *  @param oathToken Two factor password required if user's account has 2FA enabled. Optional.
-     *  @param loginSuccess  The handler for success - at this point the user is logged in
-     *  @param failure     The handler for any errors
+     *  @param completion The completion block called upon login success or failure. Success case will contain user info within WMFCurrentUser type
      */
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         guard let siteURL = loginSiteURL else {
@@ -190,8 +170,7 @@ import CocoaLumberjackSwift
     /**
      *  Logs in a user using saved credentials in the keychain
      *
-     *  @param success  The handler for success - at this point the user is logged in
-     *  @param completion
+     *  @param completion The completion block called upon login success or failure. Success case will contain user info within WMFCurrentUser type
      */
     public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
@@ -265,18 +244,26 @@ import CocoaLumberjackSwift
         })
     }
     
-    fileprivate func reset() {
-        KeychainCredentialsManager.shared.username = nil
-        KeychainCredentialsManager.shared.password = nil
-
-        session.removeAllCookies()
-        
-        delegate?.authenticationManagerDidReset()
-        
-        // Reset so can show for next logged in user.
-        UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
-        UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
+    @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
+        attemptLogin { result in
+            completion()
+        }
     }
+    
+    @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
+    public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
+        attemptLogin { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                self.logout(initiatedBy: initiatedBy)
+            default:
+                break
+            }
+        }
+    }
+
+    // MARK: Logout
     
     /**
      *  Logs out any authenticated user and clears out any associated cookies
@@ -318,42 +305,6 @@ import CocoaLumberjackSwift
             }
         }
     }
-}
-
-// MARK: @objc login
-
-extension WMFAuthenticationManager {
-    @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
-        attemptLogin { result in
-            completion()
-        }
-    }
-    
-    @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
-    public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
-        attemptLogin { result in
-            switch result {
-            case .failure(let error):
-                DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
-                self.logout(initiatedBy: initiatedBy)
-            default:
-                break
-            }
-        }
-    }
-}
-
-// MARK: @objc logout
-
-extension WMFAuthenticationManager {
-    @objc public enum LogoutInitiator: Int {
-        case user
-        case app
-        case server
-    }
-
-    @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
-    @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
 
     @objc public func userDidAcknowledgeUnintentionalLogout() {
         isUserUnawareOfLogout = false
@@ -366,5 +317,62 @@ extension WMFAuthenticationManager {
         set {
             UserDefaults.standard.isUserUnawareOfLogout = newValue
         }
+    }
+    
+    // MARK: Private
+    
+    private var hasKeychainCredentials: Bool {
+        guard
+            let userName = KeychainCredentialsManager.shared.username,
+            !userName.isEmpty,
+            let password = KeychainCredentialsManager.shared.password,
+            !password.isEmpty
+            else {
+                return false
+        }
+        return true
+    }
+
+    private var loginSiteURL: URL? {
+        return delegate?.loginSiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+    }
+    
+    private var session: Session {
+        return self.accountLoginLogoutFetcher.session
+    }
+    
+    private func getCurrentUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void ) {
+        assert(Thread.isMainThread)
+        guard let host = siteURL.host else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        if let user = currentUserCache[host] {
+            completion(.success(user))
+            return
+        }
+        currentUserFetcher.fetch(siteURL: siteURL, success: { (user) in
+            DispatchQueue.main.async {
+                self.currentUserCache[host] = user
+                completion(.success(user))
+            }
+        }, failure: { (error) in
+            DispatchQueue.main.async {
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    private func reset() {
+        KeychainCredentialsManager.shared.username = nil
+        KeychainCredentialsManager.shared.password = nil
+
+        session.removeAllCookies()
+        
+        delegate?.authenticationManagerDidReset()
+        
+        // Reset so can show for next logged in user.
+        UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
+        UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
     }
 }
