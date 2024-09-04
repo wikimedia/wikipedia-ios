@@ -64,10 +64,25 @@ import CocoaLumberjackSwift
         })
     }
     
-    @objc dynamic public private(set) var permanentUsername: String? = nil {
-        didSet {
-            currentUserCache = [:]
+    @objc public var permanentUsername: String? {
+        
+        guard let loginSiteURL else {
+            return nil
         }
+        
+        guard let host = loginSiteURL.host else {
+            return nil
+        }
+        
+        guard let currentUser = currentUserCache[host] else {
+            return nil
+        }
+        
+        if !currentUser.isIP && currentUser.isTemp {
+            return currentUser.name
+        }
+        
+        return nil
     }
     
     @objc public var isPermanent: Bool {
@@ -182,9 +197,6 @@ import CocoaLumberjackSwift
                     if let host = siteURL.host {
                         self.currentUserCache[host] = result
                     }
-                    if !result.isIP && result.isTemp {
-                        self.permanentUsername = result.name
-                    }
                     
                     KeychainCredentialsManager.shared.username = username
                     KeychainCredentialsManager.shared.password = password
@@ -234,9 +246,7 @@ import CocoaLumberjackSwift
                 if let host = siteURL.host {
                     self.currentUserCache[host] = result
                 }
-                if !result.isIP && result.isTemp {
-                    self.permanentUsername = result.name
-                }
+                
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
             }
@@ -250,8 +260,6 @@ import CocoaLumberjackSwift
                     if let host = siteURL.host {
                         self.currentUserCache[host] = user
                     }
-                    
-                    self.permanentUsername = user.name
                     
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     completion(.success(user))
@@ -275,14 +283,11 @@ import CocoaLumberjackSwift
                                     self.currentUserCache[host] = user
                                 }
                                 
-                                self.permanentUsername = user.name
-                                
                                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                                 completion(.success(user))
                                 return
                             }
                             
-                            self.permanentUsername = nil
                             self.logout(initiatedBy: .app)
                             completion(.failure(error))
                         }
@@ -295,7 +300,6 @@ import CocoaLumberjackSwift
     fileprivate func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
-        self.permanentUsername = nil
 
         session.removeAllCookies()
         
