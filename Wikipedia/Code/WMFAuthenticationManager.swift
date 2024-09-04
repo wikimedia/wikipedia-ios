@@ -11,6 +11,9 @@ import CocoaLumberjackSwift
  *  This class provides a simple interface for performing authentication tasks.
  */
 @objc public class WMFAuthenticationManager: Fetcher {
+    
+    // public typealias Username = String
+    
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
     fileprivate let loginInfoFetcher: WMFAuthLoginInfoFetcher
@@ -25,11 +28,10 @@ import CocoaLumberjackSwift
     }
     
     public enum AuthenticationResult {
-        case success(_: WMFAccountLoginResult)
+        case success(_: Username)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
         case failure(_: Error)
     }
-    
     public typealias AuthenticationResultHandler = (AuthenticationResult) -> Void
     
     public enum AuthenticationError: LocalizedError {
@@ -140,8 +142,8 @@ import CocoaLumberjackSwift
     public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
-            case .success(let result):
-                DDLogDebug("Successfully logged in with saved credentials for user \(result.username).")
+            case .success(let username):
+                DDLogDebug("Successfully logged in with saved credentials for user \(username).")
                 self.session.cloneCentralAuthCookies()
             case .alreadyLoggedIn(let result):
                 DDLogDebug("User \(result.name) is already logged in.")
@@ -172,16 +174,15 @@ import CocoaLumberjackSwift
             }
             return
         }
-        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {result in
+        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
             DispatchQueue.main.async {
-                let normalizedUserName = result.username
-                self.loggedInUsername = normalizedUserName
-                KeychainCredentialsManager.shared.username = normalizedUserName
+                self.loggedInUsername = username
+                KeychainCredentialsManager.shared.username = username
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
                 self.delegate?.authenticationManagerDidLogin()
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                completion(.success(result))
+                completion(.success(username))
             }
         }, failure: { (error) in
             DispatchQueue.main.async {
@@ -226,8 +227,7 @@ import CocoaLumberjackSwift
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                    let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                    completion(.success(loginResult))
+                    completion(.success(userName))
                     return
                 }
                 self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
@@ -239,8 +239,7 @@ import CocoaLumberjackSwift
                             guard !(error is URLError) else {
                                 self.loggedInUsername = userName
                                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
-                                completion(.success(loginResult))
+                                completion(.success(userName))
                                 return
                             }
                             self.loggedInUsername = nil
