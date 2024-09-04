@@ -10,29 +10,26 @@ import CocoaLumberjackSwift
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-@objc public class WMFAuthenticationManager: Fetcher {
-    
-    // public typealias Username = String
+@objc public class WMFAuthenticationManager: NSObject {
     
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
-    fileprivate let accountLogin: WMFAccountLogin
+    fileprivate let accountLoginLogoutFetcher: WMFAccountLoginLogoutFetcher
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
 
-    public required init(session: Session, configuration: Configuration) {
-        accountLogin = WMFAccountLogin(session: session, configuration: configuration)
+    @objc public required init(session: Session, configuration: Configuration) {
+        accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
         currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
-        super.init(session: session, configuration: configuration)
     }
     
-    public enum AuthenticationResult {
+    public enum LoginResult {
         case success(_: Username)
         case alreadyLoggedIn(_: WMFCurrentUser)
         case failure(_: Error)
     }
-    public typealias AuthenticationResultHandler = (AuthenticationResult) -> Void
+    public typealias LoginResultHandler = (LoginResult) -> Void
     
-    public enum AuthenticationError: LocalizedError {
+    public enum LoginError: LocalizedError {
         case missingLoginURL
         
         public var errorDescription: String? {
@@ -144,11 +141,15 @@ import CocoaLumberjackSwift
     }
     
 
-    var loginSiteURL: URL? {
+    private var loginSiteURL: URL? {
         return delegate?.loginSiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
-    public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
+    private var session: Session {
+        return self.accountLoginLogoutFetcher.session
+    }
+    
+    public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
             case .success(let username):
@@ -176,14 +177,14 @@ import CocoaLumberjackSwift
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
-                completion(.failure(AuthenticationError.missingLoginURL))
+                completion(.failure(LoginError.missingLoginURL))
             }
             return
         }
-        accountLogin.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
+        accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
             DispatchQueue.main.async {
                 self.permanentUsername = username
                 KeychainCredentialsManager.shared.username = username
@@ -206,7 +207,7 @@ import CocoaLumberjackSwift
      *  @param success  The handler for success - at this point the user is logged in
      *  @param completion
      */
-    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
+    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
         
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
@@ -218,7 +219,7 @@ import CocoaLumberjackSwift
         }
         
         guard let siteURL = loginSiteURL else {
-            completion(.failure(AuthenticationError.missingLoginURL))
+            completion(.failure(LoginError.missingLoginURL))
             return
         }
         
@@ -296,7 +297,15 @@ import CocoaLumberjackSwift
             let postDidLogOutNotification = {
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
             }
-            self.performTokenizedMediaWikiAPIPOST(to: self.loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: false) { (result, response, error) in
+            
+            guard let loginSiteURL = self.loginSiteURL else {
+                self.resetLocalUserLoginSettings()
+                completion()
+                postDidLogOutNotification()
+                return
+            }
+            
+            self.accountLoginLogoutFetcher.logout(loginSiteURL: loginSiteURL, reattemptOn401Response: false) { error in
                 DispatchQueue.main.async {
                     if let error = error {
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
@@ -306,6 +315,7 @@ import CocoaLumberjackSwift
                         postDidLogOutNotification()
                         return
                     }
+                    
                     DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
                     // It's best to call "action=logout" API *before* clearing local login settings...
                     self.resetLocalUserLoginSettings()
@@ -321,7 +331,7 @@ import CocoaLumberjackSwift
 
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
-        let completion: AuthenticationResultHandler = { result in
+        let completion: LoginResultHandler = { result in
             completion()
         }
         attemptLogin(completion: completion)
@@ -329,7 +339,7 @@ extension WMFAuthenticationManager {
     
     @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
     public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
-        let completion: AuthenticationResultHandler = { loginResult in
+        let completion: LoginResultHandler = { loginResult in
             switch loginResult {
             case .failure(let error):
                 DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")

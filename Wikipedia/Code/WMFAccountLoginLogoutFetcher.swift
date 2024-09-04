@@ -27,7 +27,8 @@ public enum WMFAccountLoginError: LocalizedError {
 
 public typealias Username = String
 
-public class WMFAccountLogin: Fetcher {
+public class WMFAccountLoginLogoutFetcher: Fetcher {
+    
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
         
         var parameters = [
@@ -116,6 +117,12 @@ public class WMFAccountLogin: Fetcher {
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
             success(normalizedUsername)
+        }
+    }
+    
+    func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {
+        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in
+            completion(error)
         }
     }
 }
