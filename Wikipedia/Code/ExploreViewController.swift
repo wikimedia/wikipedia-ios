@@ -1293,10 +1293,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             return
         }
         
-        guard let imageWikitext = lastRecommendation.imageWikitext,
-              let fullArticleWikitextWithImage = lastRecommendation.fullArticleWikitextWithImage,
-            let lastRevisionID = lastRecommendation.lastRevisionID,
-            let localizedFileTitle = lastRecommendation.localizedFileTitle else {
+        guard lastRecommendation.imageWikitext != nil,
+              lastRecommendation.fullArticleWikitextWithImage != nil,
+              lastRecommendation.lastRevisionID != nil,
+              lastRecommendation.localizedFileTitle  != nil else {
             return
         }
 
@@ -1330,6 +1330,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
                 break
             default:
                 EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wmfProject: viewModel.project))
+                self.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
                 imageRecommendationsViewController.presentImageRecommendationBottomSheet()
             }
         }
@@ -1341,6 +1342,15 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         imageRecommendationsViewController.present(panel, animated: true)
         let dataController = WMFAltTextDataController.shared
         dataController?.markSawAltTextImageRecommendationsPrompt()
+    }
+
+    func imageRecommendationsDidTriggerAltTextFeedbackToast() {
+        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject(wmfProject: viewModel.project))
     }
     
     private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
@@ -1356,7 +1366,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             self?.dismiss(animated: true, completion: { [weak self] in
                 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSubmitted, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                 
                 if let wmfProject = self?.imageRecommendationsViewModel?.project {
                     let project = WikimediaProject(wmfProject: wmfProject)
@@ -1522,15 +1532,20 @@ extension ExploreViewController: WMFFeatureAnnouncing {
 }
 
 extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
+
+    
     func logAltTextExperimentDidAssignGroup() {
         
-        guard let imageRecommendationsViewModel else {
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
+           let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let user = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
             return
         }
         
         let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
         
-        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(project: project)
+        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
 
     func logOnboardingDidTapPrimaryButton() {
@@ -1617,6 +1632,16 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+
+    func logAltTextFeedbackDidClickYes() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: WikimediaProject(wmfProject:  viewModel.project))
+    }
+
+    func logAltTextFeedbackDidClickNo() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: WikimediaProject(wmfProject:  viewModel.project))
     }
 }
 
@@ -1788,9 +1813,10 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 
             if let navigationController = self.navigationController {
                 for viewController in navigationController.viewControllers {
-                    if viewController is WMFImageRecommendationsViewController {
-                        navigationController.popToViewController(viewController, animated: true)
-                        break
+                    if let vc =  viewController as? WMFImageRecommendationsViewController {
+                      vc.isBackFromAltText = true
+                      navigationController.popToViewController(vc, animated: true)
+                      break
                     }
                 }
             }
@@ -1815,26 +1841,41 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
             let fetcher = WikiTextSectionUploader()
             fetcher.uploadWikiText(finalWikitext, forArticleURL: viewModel.articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
 
-                DispatchQueue.main.async {
-
-                    if let navigationController = self.navigationController {
-                        for viewController in navigationController.viewControllers {
-                            if viewController is WMFImageRecommendationsViewController {
-                                navigationController.popToViewController(viewController, animated: true)
-                                break
+                if error != nil {
+                    DispatchQueue.main.async {
+                        self.presentAltTextEditErrorToast()
+                        if let navigationController = self.navigationController {
+                            for viewController in navigationController.viewControllers {
+                                if viewController is WMFAltTextExperimentPreviewViewController {
+                                    let vc = viewController as? WMFAltTextExperimentPreviewViewController
+                                    vc?.updatePublishButtonState(isEnabled: true)
+                                }
                             }
                         }
                     }
-                    guard let fetchedData = result as? [String: Any],
-                          let newRevID = fetchedData["newrevid"] as? UInt64 else {
-                        return
-                    }
+                } else {
+                    DispatchQueue.main.async {
 
-                    if error == nil {
-                        // wait for animation to complete
+                        if let navigationController = self.navigationController {
+                            for viewController in navigationController.viewControllers {
+                                if viewController is WMFImageRecommendationsViewController {
+                                  let vc =  viewController as? WMFImageRecommendationsViewController
+                                    guard let vc else { return }
+                                    vc.isBackFromAltText = true
+                                    navigationController.popToViewController(vc, animated: true)
+                                    break
+                                }
+                            }
+                        }
+                        guard let fetchedData = result as? [String: Any],
+                              let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                            return
+                        }
+                            // wait for animation to complete
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
                             self?.presentAltTextEditPublishedToast()
                             self?.logAltTextEditSuccess(altText: viewModel.altText, revisionID: newRevID)
+
                         }
                     }
                 }
@@ -1880,6 +1921,11 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         } else {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
         }
+    }
+
+    private func presentAltTextEditErrorToast() {
+        let title = CommonStrings.genericErrorDescription
+        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
 }

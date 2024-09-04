@@ -87,6 +87,9 @@ public enum WMFSFSymbolIcon {
     case squareTextSquare
     case eye
     case ellipsisBubble
+    case flag
+    case lightbulbMin
+    case ellipsisCircle
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -196,6 +199,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "eye", withConfiguration: configuration)
         case.ellipsisBubble:
             image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
+        case .flag:
+            image = UIImage(systemName: "flag", withConfiguration: configuration)
+        case .lightbulbMin:
+            image = UIImage(systemName: "lightbulb.min", withConfiguration: configuration)
+        case .ellipsisCircle:
+            image = UIImage(systemName: "ellipsis.circle", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

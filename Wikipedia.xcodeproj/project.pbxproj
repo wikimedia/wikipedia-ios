@@ -1443,6 +1443,9 @@
 		83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
 		83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83836ECB1F615E5B007D1A05 /* ShareViewController.xib */; };
+		8383B9B92C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
+		8383B9BA2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
+		8383B9BB2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */; };
 		83842A892B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
 		83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83842A872B07A22300EFC55F /* UITestHelperViewController.swift */; };
@@ -3735,6 +3738,7 @@
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
+		8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		83842A872B07A22300EFC55F /* UITestHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelperViewController.swift; sourceTree = "<group>"; };
 		8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParsingAndRoutingTests.swift; sourceTree = "<group>"; };
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
@@ -3791,6 +3795,9 @@
 		83C06886292EE5C600DF1403 /* TalkPageFormattingToolbarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFormattingToolbarViewDelegate.swift; sourceTree = "<group>"; };
 		83C0688D292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
 		83C06892292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
+		83C0A1DB2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		83C0A1DC2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/Localizable.strings; sourceTree = "<group>"; };
+		83C0A1DD2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = se; path = se.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleFetcher.swift; sourceTree = "<group>"; };
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
@@ -8089,6 +8096,7 @@
 				7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */,
 				83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */,
 				834CC34A21075B7600F62818 /* UITabBar+Theme.swift */,
+				8383B9B82C76689100CF1646 /* UIAlertController+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -9308,6 +9316,7 @@
 				bg,
 				ia,
 				lmo,
+				se,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -10257,6 +10266,7 @@
 				7ABE170C2239B5A0006BA309 /* WelcomePageViewController.swift in Sources */,
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				6782DBCD2343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
+				8383B9B92C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				D8A47C8F23D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				0072991F28AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
@@ -11519,6 +11529,7 @@
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8CE26071E698E2400DAE2E0 /* WMFAlertManager.swift in Sources */,
+				8383B9BB2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				67DDD189250C1A27006C0F93 /* ThreeLineHeaderView.swift in Sources */,
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
@@ -12084,6 +12095,7 @@
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D8EC3F041E9BDA35006712EB /* MKCoordinateRegion+Dimensions.swift in Sources */,
+				8383B9BA2C76689100CF1646 /* UIAlertController+Extensions.swift in Sources */,
 				D8EC3F061E9BDA35006712EB /* WMFAlertManager.swift in Sources */,
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */,
@@ -12319,6 +12331,7 @@
 				67D4AD602A03EF7600F3D066 /* bg */,
 				676E08142A7DA0DA00F7632D /* ia */,
 				678B3E362B98D76900F4DF03 /* lmo */,
+				83C0A1DB2C7915C800213DC3 /* se */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12425,6 +12438,7 @@
 				67D4AD612A03EFA700F3D066 /* bg */,
 				676E08152A7DA10900F7632D /* ia */,
 				678B3E372B98D76A00F4DF03 /* lmo */,
+				83C0A1DC2C7915C800213DC3 /* se */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12537,6 +12551,7 @@
 				FF338A0B258D572900292602 /* nqo */,
 				FF19C1AC26054909000AC20B /* kcg */,
 				678B3E382B98D76A00F4DF03 /* lmo */,
+				83C0A1DD2C7915C800213DC3 /* se */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

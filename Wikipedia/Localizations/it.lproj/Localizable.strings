@@ -153,6 +153,16 @@
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alt-text-add-button-title" = "Aggiungi";
+"alt-text-email-fourth-line" = "- [Descrivi la soluzione proposta]";
+"alt-text-email-second-line" = "- [Descrivi il problema specifico]";
+"alt-text-email-third-line" = "Il comportamento che vorrei vedere è:";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Revisiona";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Visualizza ulteriori informazioni sull'immagine su Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Ispeziona";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Aggiungi una descrizione per i lettori ipovedenti";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Aggiungi descrizione";
+"alt-text-feedback-survey-satisfied" = "Soddisfatto";
+"alt-text-feedback-survey-title" = "Aiutaci a migliorare la funzionalità";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
@@ -814,6 +824,7 @@
 "sort-by-recently-added-action" = "Aggiunti di recente";
 "sort-by-title-action" = "Titolo";
 "suggested-edits-title" = "Modifiche suggerite";
+"survey-instructions" = "Seleziona una o più opzioni";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";

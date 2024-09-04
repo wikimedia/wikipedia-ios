@@ -61,7 +61,6 @@
 
 - (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
-    BOOL enableAltTextExperiment = [[WMFDeveloperSettingsDataController shared] enableAltTextExperiment];
     BOOL enableAltTextExperimentForEN = [[WMFDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
     NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
     BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
@@ -70,7 +69,7 @@
     // logged in users for target wikis, bypass minimum edit count, before Oct 21st
 
     if (@available(iOS 16.0, *)) {
-        return (user && !user.isBlocked && enableAltTextExperiment && appLanguageIsTarget && !UIAccessibilityIsVoiceOverRunning() && self.shouldAltTextExperimentBeActive && self.isDeviceIPhone);
+        return (user && !user.isBlocked && appLanguageIsTarget && !UIAccessibilityIsVoiceOverRunning() && self.shouldAltTextExperimentBeActive && self.isDeviceIPhone);
     }
     return NO;
 }
