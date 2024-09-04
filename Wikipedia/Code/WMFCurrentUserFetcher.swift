@@ -1,12 +1,9 @@
-public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
+public enum WMFUserFetcherError: LocalizedError {
     case cannotExtractUserInfo
-    case blankUsernameOrPassword
     public var errorDescription: String? {
         switch self {
         case .cannotExtractUserInfo:
             return "Could not extract user info"
-        case .blankUsernameOrPassword:
-            return "Blank username or password"
         }
     }
 }
@@ -53,7 +50,7 @@ public class WMFCurrentUserFetcher: Fetcher {
                 let userID = userinfo["id"] as? Int,
                 let userName = userinfo["name"] as? String
                 else {
-                    failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
+                    failure(WMFUserFetcherError.cannotExtractUserInfo)
                     return
             }
             

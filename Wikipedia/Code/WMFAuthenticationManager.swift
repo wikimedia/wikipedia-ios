@@ -24,9 +24,12 @@ import CocoaLumberjackSwift
     
     public enum LoginError: LocalizedError {
         case missingLoginURL
+        case blankUsernameOrPassword
         
         public var errorDescription: String? {
             switch self {
+            case .blankUsernameOrPassword:
+                return "Blank username or password"
             default:
                 return CommonStrings.genericErrorDescription
             }
@@ -196,7 +199,7 @@ import CocoaLumberjackSwift
             let userName = KeychainCredentialsManager.shared.username,
             let password = KeychainCredentialsManager.shared.password
             else {
-                let error = WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword
+                let error = LoginError.blankUsernameOrPassword
                 completion(.failure(error))
                 return
         }
