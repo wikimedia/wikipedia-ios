@@ -15,12 +15,12 @@ public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
 }
 
 @objc public class WMFCurrentUser: NSObject {
-    @objc public var userID: Int
-    @objc public var name: String
-    @objc public var groups: [String]
-    @objc public var editCount: UInt64
-    @objc public var isBlocked: Bool
-    @objc public var registrationDateString: String?
+    @objc public let userID: Int
+    @objc public let name: String
+    @objc public let groups: [String]
+    @objc public let editCount: UInt64
+    @objc public let isBlocked: Bool
+    @objc public let registrationDateString: String?
     init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, registrationDateString: String?) {
         self.userID = userID
         self.name = name
