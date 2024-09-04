@@ -16,12 +16,10 @@ import CocoaLumberjackSwift
     
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
-    fileprivate let loginInfoFetcher: WMFAuthLoginInfoFetcher
     fileprivate let accountLogin: WMFAccountLogin
     fileprivate let currentlyLoggedInUserFetcher: WMFCurrentlyLoggedInUserFetcher
 
     public required init(session: Session, configuration: Configuration) {
-        loginInfoFetcher = WMFAuthLoginInfoFetcher(session: session, configuration: configuration)
         accountLogin = WMFAccountLogin(session: session, configuration: configuration)
         currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher(session: session, configuration: configuration)
         super.init(session: session, configuration: configuration)
