@@ -57,11 +57,11 @@ import CocoaLumberjackSwift
                 self.currentUserCache[host] = user
                 completion(.success(user))
             }
-        }) { (error) in
+        }, failure: { (error) in
             DispatchQueue.main.async {
                 completion(.failure(error))
             }
-        }
+        })
     }
     
     @objc dynamic public private(set) var permanentUsername: String? = nil {
