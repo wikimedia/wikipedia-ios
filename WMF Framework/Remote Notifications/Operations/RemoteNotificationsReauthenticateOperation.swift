@@ -28,8 +28,6 @@ class RemoteNotificationsReauthenticateOperation: AsyncOperation {
             case .success:
                 self.didReauthenticate = true
                 self.finish()
-            case .alreadyLoggedIn:
-                self.finish()
             case .failure(let error):
                 self.finish(with: error)
             }

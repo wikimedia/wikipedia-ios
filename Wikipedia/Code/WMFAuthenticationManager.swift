@@ -22,13 +22,6 @@ import CocoaLumberjackSwift
         currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
     }
     
-    public enum LoginResult {
-        case success(_: Username)
-        case alreadyLoggedIn(_: WMFCurrentUser)
-        case failure(_: Error)
-    }
-    public typealias LoginResultHandler = (LoginResult) -> Void
-    
     public enum LoginError: LocalizedError {
         case missingLoginURL
         
@@ -149,14 +142,11 @@ import CocoaLumberjackSwift
         return self.accountLoginLogoutFetcher.session
     }
     
-    public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
+    public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
-            case .success(let username):
-                DDLogDebug("Successfully logged in with saved credentials for user \(username).")
-                self.session.cloneCentralAuthCookies()
-            case .alreadyLoggedIn(let result):
-                DDLogDebug("User \(result.name) is already logged in.")
+            case .success(let user):
+                DDLogDebug("Successfully logged in with saved credentials for user \(user.name).")
                 self.session.cloneCentralAuthCookies()
             case .failure(let error):
                 DDLogError("loginWithSavedCredentials failed with error \(error).")
@@ -177,7 +167,7 @@ import CocoaLumberjackSwift
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
                 completion(.failure(LoginError.missingLoginURL))
@@ -185,15 +175,31 @@ import CocoaLumberjackSwift
             return
         }
         accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
-            DispatchQueue.main.async {
-                self.permanentUsername = username
-                KeychainCredentialsManager.shared.username = username
-                KeychainCredentialsManager.shared.password = password
-                self.session.cloneCentralAuthCookies()
-                self.delegate?.authenticationManagerDidLogin()
-                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                completion(.success(username))
-            }
+            
+            // Upon successful login, try fetching userinfo to populate user cache
+            self.currentUserFetcher.fetch(siteURL: siteURL, success: { result in
+                DispatchQueue.main.async {
+                    if let host = siteURL.host {
+                        self.currentUserCache[host] = result
+                    }
+                    if !result.isIP && result.isTemp {
+                        self.permanentUsername = result.name
+                    }
+                    
+                    KeychainCredentialsManager.shared.username = username
+                    KeychainCredentialsManager.shared.password = password
+                    self.session.cloneCentralAuthCookies()
+                    self.delegate?.authenticationManagerDidLogin()
+                    NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                    
+                    completion(.success(result))
+                }
+            }, failure: { error in
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            })
+            
         }, failure: { (error) in
             DispatchQueue.main.async {
                 completion(.failure(error))
@@ -207,7 +213,7 @@ import CocoaLumberjackSwift
      *  @param success  The handler for success - at this point the user is logged in
      *  @param completion
      */
-    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping LoginResultHandler) {
+    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
@@ -232,38 +238,53 @@ import CocoaLumberjackSwift
                     self.permanentUsername = result.name
                 }
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                completion(.alreadyLoggedIn(result))
+                completion(.success(result))
             }
         }, failure: { error in
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
                     // Connection error, assume login would have been successful
-                    self.permanentUsername = userName
+                    
+                    let user = WMFCurrentUser(userID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
+                    
+                    if let host = siteURL.host {
+                        self.currentUserCache[host] = user
+                    }
+                    
+                    self.permanentUsername = user.name
+                    
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                    completion(.success(userName))
+                    completion(.success(user))
                     return
                 }
+                
                 self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
                     DispatchQueue.main.async {
                         switch loginResult {
                         case .success(let result):
-                            self.permanentUsername = userName
-                            NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                            
                             completion(.success(result))
+                            
                         case .failure(let error):
                             guard !(error is URLError) else {
                                 // Connection error, assume login would have been successful
                                 
-                                self.permanentUsername = userName
+                                let user = WMFCurrentUser(userID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
+                                
+                                if let host = siteURL.host {
+                                    self.currentUserCache[host] = user
+                                }
+                                
+                                self.permanentUsername = user.name
+                                
                                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                                completion(.success(userName))
+                                completion(.success(user))
                                 return
                             }
+                            
                             self.permanentUsername = nil
                             self.logout(initiatedBy: .app)
                             completion(.failure(error))
-                        default:
-                            break
                         }
                     }
                 })
@@ -331,16 +352,15 @@ import CocoaLumberjackSwift
 
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
-        let completion: LoginResultHandler = { result in
+        attemptLogin { result in
             completion()
         }
-        attemptLogin(completion: completion)
     }
     
     @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
     public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
-        let completion: LoginResultHandler = { loginResult in
-            switch loginResult {
+        attemptLogin { result in
+            switch result {
             case .failure(let error):
                 DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
                 self.logout(initiatedBy: initiatedBy)
@@ -348,7 +368,6 @@ extension WMFAuthenticationManager {
                 break
             }
         }
-        attemptLogin(completion: completion)
     }
 }
 
