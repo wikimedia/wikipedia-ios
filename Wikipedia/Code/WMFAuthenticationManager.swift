@@ -292,7 +292,7 @@ import CocoaLumberjackSwift
         })
     }
     
-    fileprivate func resetLocalUserLoginSettings() {
+    fileprivate func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         self.permanentUsername = nil
@@ -320,7 +320,7 @@ import CocoaLumberjackSwift
             }
             
             guard let loginSiteURL = self.loginSiteURL else {
-                self.resetLocalUserLoginSettings()
+                self.reset()
                 completion()
                 postDidLogOutNotification()
                 return
@@ -331,15 +331,15 @@ import CocoaLumberjackSwift
                     if let error = error {
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
                         DDLogError("Failed to log out, delete login tokens and other browser cookies: \(error)")
-                        self.resetLocalUserLoginSettings()
+                        self.reset()
                         completion()
                         postDidLogOutNotification()
                         return
                     }
                     
                     DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
-                    // It's best to call "action=logout" API *before* clearing local login settings...
-                    self.resetLocalUserLoginSettings()
+                    // It's best to call "action=logout" API *before* resetting...
+                    self.reset()
                     completion()
                     postDidLogOutNotification()
                 }
