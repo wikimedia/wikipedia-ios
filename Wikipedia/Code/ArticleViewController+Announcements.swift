@@ -22,6 +22,10 @@ extension ArticleViewController {
             let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
                 return
             }
+
+            if !isOptedIn {
+                DonateFunnel.shared.logHiddenBanner(campaignID: activeCampaignAsset.utmSource)
+            }
             
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }

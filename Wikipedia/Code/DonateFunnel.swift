@@ -20,6 +20,7 @@ import WMF
         case settingClick = "setting_click"
         case donateStartClick = "donate_start_click"
         case impression = "impression"
+        case impressionSuppressed = "impression_suppressed_user_pref"
         case closeClick = "close_click"
         case donateClick = "donate_click"
         case laterClick = "later_click"
@@ -274,5 +275,15 @@ import WMF
     
     func logDonateFormInAppWebViewDidTapReturnButton() {
         logEvent(activeInterface: .webPayProcessed, action: .returnClick)
+    }
+
+    func logHiddenBanner(campaignID: String?) {
+        var actionData: [String: String]?
+        if let campaignID {
+            actionData = [:]
+            actionData?["campaign_id"] = campaignID
+        }
+
+        logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: nil)
     }
 }
