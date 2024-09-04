@@ -14,9 +14,7 @@ public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     }
 }
 
-public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> Void
-
-@objc public class WMFCurrentlyLoggedInUser: NSObject {
+@objc public class WMFCurrentUser: NSObject {
     @objc public var userID: Int
     @objc public var name: String
     @objc public var groups: [String]
@@ -33,8 +31,8 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
     }
 }
 
-public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
-    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
+public class WMFCurrentUserFetcher: Fetcher {
+    public func fetch(siteURL: URL, success: @escaping (WMFCurrentUser) -> Void, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "query",
             "meta": "userinfo",
@@ -73,7 +71,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
             }
             
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, registrationDateString: registrationDateString))
+            success(WMFCurrentUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, registrationDateString: registrationDateString))
         }
     }
 }

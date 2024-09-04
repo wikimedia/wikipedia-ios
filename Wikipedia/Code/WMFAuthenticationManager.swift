@@ -17,17 +17,17 @@ import CocoaLumberjackSwift
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
     fileprivate let accountLogin: WMFAccountLogin
-    fileprivate let currentlyLoggedInUserFetcher: WMFCurrentlyLoggedInUserFetcher
+    fileprivate let currentUserFetcher: WMFCurrentUserFetcher
 
     public required init(session: Session, configuration: Configuration) {
         accountLogin = WMFAccountLogin(session: session, configuration: configuration)
-        currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher(session: session, configuration: configuration)
+        currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
         super.init(session: session, configuration: configuration)
     }
     
     public enum AuthenticationResult {
         case success(_: Username)
-        case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
+        case alreadyLoggedIn(_: WMFCurrentUser)
         case failure(_: Error)
     }
     public typealias AuthenticationResultHandler = (AuthenticationResult) -> Void
@@ -62,16 +62,16 @@ import CocoaLumberjackSwift
     }
     
     private var isAnonCache: [String: Bool] = [:]
-    private var loggedInUserCache: [String: WMFCurrentlyLoggedInUser] = [:]
+    private var loggedInUserCache: [String: WMFCurrentUser] = [:]
     
-    public func getLoggedInUserCache(for siteURL: URL) -> WMFCurrentlyLoggedInUser? {
+    public func getLoggedInUserCache(for siteURL: URL) -> WMFCurrentUser? {
         guard let host = siteURL.host else {
             return nil
         }
         return loggedInUserCache[host]
     }
     
-    @objc func getLoggedInUser(for siteURL: URL, completion: @escaping (WMFCurrentlyLoggedInUser?) -> Void) {
+    @objc func getLoggedInUser(for siteURL: URL, completion: @escaping (WMFCurrentUser?) -> Void) {
         getLoggedInUser(for: siteURL) { result in
             switch result {
             case .success(let user):
@@ -82,7 +82,7 @@ import CocoaLumberjackSwift
         }
     }
     /// Returns the currently logged in user for a given site. Useful to determine the user's groups for a given wiki
-    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentlyLoggedInUser?, Error>) -> Void ) {
+    public func getLoggedInUser(for siteURL: URL, completion: @escaping (Result<WMFCurrentUser?, Error>) -> Void ) {
         assert(Thread.isMainThread)
         guard let host = siteURL.host else {
             completion(.failure(RequestError.invalidParameters))
@@ -96,7 +96,7 @@ import CocoaLumberjackSwift
             completion(.success(user))
             return
         }
-        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { (user) in
+        currentUserFetcher.fetch(siteURL: siteURL, success: { (user) in
             DispatchQueue.main.async {
                 self.loggedInUserCache[host] = user
                 completion(.success(user))
@@ -211,7 +211,7 @@ import CocoaLumberjackSwift
             return
         }
         
-        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
+        currentUserFetcher.fetch(siteURL: siteURL, success: { result in
             DispatchQueue.main.async {
                 if let host = siteURL.host {
                     self.loggedInUserCache[host] = result

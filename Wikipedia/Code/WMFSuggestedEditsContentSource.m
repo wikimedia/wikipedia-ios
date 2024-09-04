@@ -36,7 +36,7 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
-                                                      completion:^(WMFCurrentlyLoggedInUser *user) {
+                                                      completion:^(WMFCurrentUser *user) {
                                                           // Image Recommendations Business Logic:
                                                           // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
 
@@ -59,7 +59,7 @@
     });
 }
 
-- (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
+- (BOOL)isEligibleForAltText:(WMFCurrentUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
     BOOL enableAltTextExperimentForEN = [[WMFDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
     NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
