@@ -1158,6 +1158,8 @@ private extension ArticleViewController {
                 )
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
+            // add accessibility attrubutes
+            rightBarButtonItem.accessibilityTraits = .button
 
             self.navigationBar.updateNavigationItems()
         } else {
