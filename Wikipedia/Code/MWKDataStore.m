@@ -519,16 +519,16 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 /// This helps us determine whether or not to trigger the Splash screen updating animation
 - (BOOL)needsMigration {
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
-    
+
     if (!libraryVersionNumber) {
         return NO;
     }
-    
+
     NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
     if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -1021,9 +1021,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 #pragma mark - WMFSessionAuthenticationDelegate
 
 - (void)attemptReauthentication {
-    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer
-                                                                completion:^{
-                                                                }];
+    [self.authenticationManager attemptLoginWithLogoutOnFailureWithCompletion:^{
+    }];
 }
 
 - (void)deauthenticate {

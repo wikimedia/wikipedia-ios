@@ -65,6 +65,11 @@ import CocoaLumberjackSwift
     
     // MARK: Public
     
+    
+    /// Pulls a current user from cache, according to the siteURL we want to check against.
+    /// Current user cache is populated via a call to https://www.mediawiki.org/wiki/API:Userinfo.
+    /// - Parameter siteURL: The siteURL (i.e. en.wikipedia.org) of the current user
+    /// - Returns: User object that contains auth states and additional info
     @objc public func user(siteURL: URL) -> WMFCurrentUser? {
         guard let host = siteURL.host else {
             return nil
@@ -76,6 +81,11 @@ import CocoaLumberjackSwift
         return user
     }
     
+    
+    /// Pulls a permanent current user from cache, according to the siteURL we want to check against. If current user authState != .permanent, method returns nil.
+    /// Current user cache is populated via a call to https://www.mediawiki.org/wiki/API:Userinfo.
+    /// - Parameter siteURL: The siteURL of the current user
+    /// - Returns: User object if authState == .permanent, else nil
     public func permanentUser(siteURL: URL) -> WMFCurrentUser? {
         guard let host = siteURL.host else {
             return nil
@@ -91,6 +101,7 @@ import CocoaLumberjackSwift
         return user
     }
     
+    /// Loops through all current user objects across the various siteURLs we have cached, and returns the username of the first username with authState == .permanent
     @objc public var authStatePermanentUsername: String? {
         
         for (_, user) in currentUserCache {
@@ -104,6 +115,7 @@ import CocoaLumberjackSwift
         return nil
     }
     
+    /// Loops through all current user objects across the various siteURLs we have cached, and returns true if one contains authState == .permanent
     @objc public var authStateIsPermanent: Bool {
         for (_, user) in currentUserCache {
             guard user.authState == .permanent else {
@@ -118,6 +130,10 @@ import CocoaLumberjackSwift
     
     // MARK: Login
     
+    /// Attempt login with saved credentials in the keychain.
+    /// - Parameters:
+    ///   - reattemptOn401Response: Attempts login again if response http is 401.
+    ///   - completion: Completion handler with current user object upon success
     public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
@@ -133,15 +149,16 @@ import CocoaLumberjackSwift
         }
     }
     
-    /**
-     *  Login with the given username and password
-     *
-     *  @param username The username to authenticate
-     *  @param password The password for the user
-     *  @param retypePassword The password used for confirming password changes. Optional.
-     *  @param oathToken Two factor password required if user's account has 2FA enabled. Optional.
-     *  @param completion The completion block called upon login success or failure. Success case will contain user info within WMFCurrentUser type
-     */
+    /// Login with the given username and password
+    /// - Parameters:
+    ///   - username: The username to authenticate
+    ///   - password: The password for the user
+    ///   - retypePassword: The password used for confirming password changes. Optional.
+    ///   - oathToken: Two factor password required if user's account has 2FA enabled. Optional.
+    ///   - captchaID: CaptchaID if login requiers captcha information
+    ///   - captchaWord: CaptchaWord if login requiers captcha information
+    ///   - reattemptOn401Response: Attempts login again if response http is 401.
+    ///   - completion: Completion handler with current user object upon success
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
@@ -179,11 +196,10 @@ import CocoaLumberjackSwift
         })
     }
     
-    /**
-     *  Logs in a user using saved credentials in the keychain
-     *
-     *  @param completion The completion block called upon login success or failure. Success case will contain user info within WMFCurrentUser type
-     */
+    /// Logs in a user using saved credentials in the keychain
+    /// - Parameters:
+    ///   - reattemptOn401Response: Attempts login again if response http is 401.
+    ///   - completion: Completion handler with current user object upon success
     public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
         guard hasKeychainCredentials,
@@ -266,30 +282,42 @@ import CocoaLumberjackSwift
         })
     }
     
+    
+    /// Objective-C wrapper method for attempting login with saved credentials
+    /// - Parameter completion: Completion handler once login attempt is done.
     @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
         attemptLogin { result in
             completion()
         }
     }
     
-    @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
-    public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
+    
+    /// Attempts to log in user with saved credentials. Makes logout API call and resets auth manager state upon failure.
+    /// - Parameters:
+    ///   - completion: Completion handler once login attempt (and subsequent logout call if needed) is done.
+    ///
+    @objc(attemptLoginWithLogoutOnFailureWithCompletion:)
+    public func attemptLoginWithLogoutOnFailure(completion: @escaping () -> Void = {}) {
         attemptLogin { result in
             switch result {
             case .failure(let error):
                 DDLogError("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
-                self.logout(initiatedBy: initiatedBy)
+                self.logout(initiatedBy: .server) {
+                    completion()
+                }
             default:
+                completion()
                 break
             }
         }
     }
 
     // MARK: Logout
-    
-    /**
-     *  Logs out any authenticated user and clears out any associated cookies
-     */
+
+    /// Logs out any authenticated user via API call and clears out any associated cookies and cache
+    /// - Parameters:
+    ///   - logoutInitiator: Initiator of the logout
+    ///   - completion: Completion handler once logout is done
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}) {
         delegate?.authenticationManagerWillLogOut {
@@ -363,6 +391,8 @@ import CocoaLumberjackSwift
         return self.accountLoginLogoutFetcher.session
     }
     
+    
+    /// Resets WMFAuthenticationManager back to fresh state. Removes persisted login credentials, removes user cache, removes cookies, removes persisted user defaults settings.
     private func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
