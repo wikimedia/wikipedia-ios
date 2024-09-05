@@ -179,7 +179,7 @@ import Contacts
             "street_address": donorAddressComponents.street,
             "city": donorAddressComponents.city,
             "state_province": donorAddressComponents.state,
-            "donor_country": donorAddressComponents.country,
+            "donor_country": donorAddressComponents.isoCountryCode,
             "postal_code": donorAddressComponents.postalCode,
             "payment_method": "applepay",
             "format": "json"
