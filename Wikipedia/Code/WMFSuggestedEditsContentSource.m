@@ -28,13 +28,19 @@
     [self removeAllContentInManagedObjectContext:moc];
 
     NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
+    WMFAuthenticationManager *authManager = self.dataStore.authenticationManager;
 
     if (!appLanguageSiteURL) {
         completion();
         return;
     }
+    
+    if (!authManager.appLanguageAuthStateIsPermanent) {
+        completion();
+        return;
+    }
         
-    WMFCurrentUser *user = [self.dataStore.authenticationManager permanentUserWithSiteURL:appLanguageSiteURL];
+    WMFCurrentUser *user = [self.dataStore.authenticationManager userWithSiteURL:appLanguageSiteURL];
     
     // Image Recommendations Business Logic:
     // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.

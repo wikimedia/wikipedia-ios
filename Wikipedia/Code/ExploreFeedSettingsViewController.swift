@@ -232,10 +232,15 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
 
         if #available(iOS 16, *) {
-            if let isUserPermanent = dataStore?.authenticationManager.isPermanent {
-                return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
-                && shouldAltTextExperimentBeActive()
+            
+            var isUserPermanent = false
+            if let dataStore,
+               dataStore.authenticationManager.appLanguageAuthState == .permanent {
+                isUserPermanent = true
             }
+            
+            return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+            && shouldAltTextExperimentBeActive()
         }
         return false
     }

@@ -23,7 +23,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = dataStore.authenticationManager.isPermanent ? .centeredLargeTitle : .largeTitle
+        navigationBar.displayType = dataStore.authenticationManager.appLanguageAuthState == .permanent ? .centeredLargeTitle : .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
@@ -133,7 +133,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateNotificationsCenterButton() {
-        if self.dataStore.authenticationManager.isPermanent {
+        if self.dataStore.authenticationManager.appLanguageAuthState == .permanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
             let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)

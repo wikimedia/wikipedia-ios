@@ -423,7 +423,8 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
         guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
             return
         }
-        let permanentUsername = MWKDataStore.shared().authenticationManager.permanentUsername
+        let authManager = MWKDataStore.shared().authenticationManager
+        let permanentUsername = authManager.appLanguageAuthState == .permanent ? authManager.appLanguageUsername : nil
         switch Configuration.current.router.destination(for: fullURL, permanentUsername: permanentUsername) {
         case .article(let articleURL): showInternalLink(url: articleURL)
         default: navigate(to: fullURL)

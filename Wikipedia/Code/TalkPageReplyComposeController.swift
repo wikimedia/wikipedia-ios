@@ -404,7 +404,7 @@ class TalkPageReplyComposeController {
         contentView?.replyTextView.resignFirstResponder()
         
         guard let authenticationManager = authenticationManager,
-        !authenticationManager.isPermanent else {
+              authenticationManager.appLanguageAuthState != .permanent else {
             isLoading = true
             viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
             return

@@ -221,7 +221,8 @@ extension URL {
     }
 
     public var doesOpenInBrowser: Bool {
-        let permanentUsername = MWKDataStore.shared().authenticationManager.permanentUsername
+        let authenticationManager = MWKDataStore.shared().authenticationManager
+        let permanentUsername = MWKDataStore.shared().authenticationManager.appLanguageAuthState == .permanent ? authenticationManager.appLanguageUsername : nil
         return Configuration.current.router.doesOpenInBrowser(for: self, permanentUsername: permanentUsername)
     }
 }

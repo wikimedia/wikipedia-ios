@@ -133,7 +133,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isPermanent else {
+        guard authManager.appLanguageAuthState == .permanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -182,7 +182,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isPermanent else {
+        guard authManager.appLanguageAuthState == .permanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -199,7 +199,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isPermanent else {
+        guard authManager.appLanguageAuthState == .permanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -210,7 +210,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// Asks server to mark all notifications as seen for the primary app language
     public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
         
-        guard authManager.isPermanent else {
+        guard authManager.appLanguageAuthState == .permanent else {
             completion(.failure(RequestError.unauthenticated))
             return
         }

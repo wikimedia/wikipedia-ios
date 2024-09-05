@@ -197,7 +197,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
         
-        if !(dataStore?.authenticationManager.isPermanent ?? false) {
+        var isPermanent = false
+        if let dataStore,
+           dataStore.authenticationManager.appLanguageAuthStateIsPermanent {
+            isPermanent = true
+        }
+        
+        if !isPermanent {
             addToWatchlistStackView.isHidden = true
         }
 
@@ -215,7 +221,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         vc.cannedSummaryTypes = cannedSummaryTypes
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
 
-        if dataStore?.authenticationManager.isPermanent ?? false {
+        if isPermanent {
             licenseLoginTextView.isHidden = true
         }
 
@@ -448,7 +454,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         // If needed, load full article wikitext for alt text experiment.
         // We are doing lots of checks here so the fewest number of people take the additional load.
-        let isPermanent = dataStore?.authenticationManager.isPermanent ?? false
+        var isPermanent = false
+        if let dataStore,
+           dataStore.authenticationManager.appLanguageAuthStateIsPermanent {
+            isPermanent = true
+        }
         if sectionID != nil, // if sectionID is nil, then wikitext property already represents the latest full article posted wikitext. If sectionID is populated, then we need to fetch the full article wikitext
            let altTextDataController = WMFAltTextDataController(),
            let pageURL,

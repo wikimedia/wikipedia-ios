@@ -40,7 +40,8 @@ class AccountViewController: SubSettingsViewController {
     
     private lazy var sections: [Section] = {
         
-        guard let username = dataStore.authenticationManager.permanentUsername else {
+        let username = dataStore.authenticationManager.appLanguageAuthState == .permanent ? dataStore.authenticationManager.appLanguageUsername : nil
+        guard let username else {
             assertionFailure("Should not reach this screen if user isn't logged in.")
             return []
         }
@@ -134,7 +135,8 @@ class AccountViewController: SubSettingsViewController {
         case .logout:
             showLogoutAlert()
         case .talkPage:
-            guard let username = dataStore.authenticationManager.permanentUsername,
+            let username = dataStore.authenticationManager.appLanguageAuthState == .permanent ? dataStore.authenticationManager.appLanguageUsername : nil
+            guard let username,
                   let siteURL = dataStore.primarySiteURL else {
                 return
             }

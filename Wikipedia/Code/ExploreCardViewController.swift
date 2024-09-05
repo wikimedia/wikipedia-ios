@@ -601,7 +601,8 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        contentGroup?.updateVisibilityForUserIsLogged(in: dataStore.authenticationManager.isPermanent)
+        let isLoggedIn = dataStore.authenticationManager.appLanguageAuthState == .permanent
+        contentGroup?.updateVisibilityForUserIsLogged(in: isLoggedIn)
         do {
             try dataStore.save()
         } catch let error {

@@ -731,7 +731,7 @@ extension UIViewController {
         let dataStore = MWKDataStore.shared()
         let presenter = self.presentedViewController ?? self
         guard !isAlreadyPresenting(presenter),
-              dataStore.authenticationManager.isPermanent,
+              dataStore.authenticationManager.appLanguageAuthState == .permanent,
               dataStore.readingListsController.isSyncRemotelyEnabled,
               !dataStore.readingListsController.isSyncEnabled else {
             didNotPresentPanelCompletion?()
@@ -922,7 +922,7 @@ extension UIViewController {
         // SINGLETONTODO
         let dataStore = MWKDataStore.shared()
         guard
-            !dataStore.authenticationManager.isPermanent &&
+            dataStore.authenticationManager.appLanguageAuthState != .permanent &&
             !UserDefaults.standard.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !dataStore.readingListsController.isSyncEnabled
         else {

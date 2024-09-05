@@ -239,8 +239,14 @@ extension StorageAndSyncingSettingsViewController {
                 self.dataStore?.readingListsController.fullSync({})
                 self.shouldShowReadingListsSyncAlertWhenViewAppears = true
             }
-            let isPermanent = dataStore?.authenticationManager.isPermanent ?? false
-            if isPermanent && isSyncEnabled {
+            
+            var isPermanent = false
+            if let dataStore,
+               dataStore.authenticationManager.appLanguageAuthState == .permanent {
+                isPermanent = true
+            }
+            
+             if isPermanent && isSyncEnabled {
                 dataStore?.readingListsController.fullSync({})
                 showReadingListsSyncAlert()
             } else if !isPermanent {
@@ -290,7 +296,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         let isSwitchOn = sender.isOn
         
         switch settingsItemType {
-        case .syncSavedArticlesAndLists where !dataStore.authenticationManager.isPermanent:
+        case .syncSavedArticlesAndLists where dataStore.authenticationManager.appLanguageAuthState != .permanent:
             assert(!isSyncEnabled, "Sync cannot be enabled if user is not logged in")
             let dismissHandler = {
                 sender.setOn(false, animated: true)
@@ -300,7 +306,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
             wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
-        case .syncSavedArticlesAndLists where dataStore.authenticationManager.isPermanent:
+        case .syncSavedArticlesAndLists where dataStore.authenticationManager.appLanguageAuthState == .permanent:
             let setSyncEnabled = {
                 dataStore.readingListsController.setSyncEnabled(isSwitchOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isSwitchOn)
                 if isSwitchOn {

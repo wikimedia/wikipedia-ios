@@ -100,7 +100,10 @@ class ViewControllerRouter: NSObject {
     @objc(routeURL:userInfo:completion:)
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        let permanentUsername = MWKDataStore.shared().authenticationManager.permanentUsername
+        
+        let authManager = MWKDataStore.shared().authenticationManager
+        let permanentUsername = authManager.appLanguageAuthState == .permanent ? authManager.appLanguageUsername : nil
+        
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article(let articleURL):

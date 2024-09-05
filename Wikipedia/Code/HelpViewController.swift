@@ -142,7 +142,7 @@ private extension HelpViewController {
     }
     
     func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
-        guard dataStore.authenticationManager.isPermanent else {
+        guard dataStore.authenticationManager.appLanguageAuthState == .permanent else {
             completion()
             return
         }

@@ -36,7 +36,7 @@
 #pragma mark - Getters and Setters
 
 - (BOOL)isLoggedIn {
-    return self.userDataStore.authenticationManager.isPermanent;
+    return self.userDataStore.authenticationManager.appLanguageAuthStateIsPermanent;
 }
 
 #pragma mark - Notifications
