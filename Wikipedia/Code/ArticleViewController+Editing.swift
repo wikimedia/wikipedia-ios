@@ -295,8 +295,13 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
         
         do {
+
             try dataController.assignArticleEditorExperiment(isPermanent: isPermanent, project: project)
-            EditInteractionFunnel.shared.logAltTextDidAssignArticleEditorGroup(project: WikimediaProject(wmfProject: project))
+            
+            if let user = dataStore.authenticationManager.permanentUser(siteURL: articleURL) {
+                EditInteractionFunnel.shared.logAltTextDidAssignArticleEditorGroup(username:user.name, userEditCount: user.editCount, articleTitle: articleTitle, image: filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: project))
+            }
+            
         } catch let error {
             DDLogWarn("Error assigning alt text article editor experiment: \(error)")
         }

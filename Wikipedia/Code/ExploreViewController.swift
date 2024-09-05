@@ -1536,13 +1536,16 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
     
     func logAltTextExperimentDidAssignGroup() {
         
-        guard let imageRecommendationsViewModel else {
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
+           let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let user = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
             return
         }
         
         let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
         
-        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(project: project)
+        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
 
     func logOnboardingDidTapPrimaryButton() {
