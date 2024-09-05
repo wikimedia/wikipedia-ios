@@ -102,7 +102,7 @@ class ViewControllerRouter: NSObject {
         let theme = appViewController.theme
         
         let authManager = MWKDataStore.shared().authenticationManager
-        let permanentUsername = authManager.appLanguageAuthState == .permanent ? authManager.appLanguageUsername : nil
+        let permanentUsername = authManager.authStatePermanentUsername
         
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {

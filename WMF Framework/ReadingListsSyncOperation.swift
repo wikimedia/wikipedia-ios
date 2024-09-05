@@ -66,7 +66,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let isPermanent = dataStore.authenticationManager.appLanguageAuthState == .permanent
+        let isPermanent = dataStore.authenticationManager.authStateIsPermanent
     
         if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && isPermanent {
             var disableReadingListsError: Error? = nil

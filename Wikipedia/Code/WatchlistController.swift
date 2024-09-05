@@ -41,7 +41,7 @@ class WatchlistController {
     
     func watch(pageTitle: String, siteURL: URL, expiry: WMFWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
-        guard authenticationManager.appLanguageAuthState == .permanent else {
+        guard authenticationManager.authStateIsPermanent else {
             performAfterLoginBlock = { [weak self] in
                 self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
             }
@@ -221,7 +221,7 @@ class WatchlistController {
     
     func unwatch(pageTitle: String, siteURL: URL, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme) {
         
-        guard authenticationManager.appLanguageAuthState == .permanent else {
+        guard authenticationManager.authStateIsPermanent else {
             performAfterLoginBlock = { [weak self] in
                 self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
             }

@@ -40,12 +40,6 @@ import CocoaLumberjackSwift
         }
     }
     
-    public enum AppLanguageAuthState {
-        case ip
-        case temporary
-        case permanent
-    }
-    
     @objc public enum LogoutInitiator: Int {
         case user
         case app
@@ -62,7 +56,6 @@ import CocoaLumberjackSwift
     fileprivate let accountLoginLogoutFetcher: WMFAccountLoginLogoutFetcher
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
-    public private(set) var appLanguageAuthState = AppLanguageAuthState.ip
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
 
     @objc public required init(session: Session, configuration: Configuration) {
@@ -91,34 +84,36 @@ import CocoaLumberjackSwift
             return nil
         }
         
-        guard !user.isIP && user.isTemp else {
+        guard user.authState == .permanent else {
             return nil
         }
         
         return user
     }
     
-    // MARK: Computed
-    
-    @objc public var appLanguageUsername: String? {
+    @objc public var authStatePermanentUsername: String? {
         
-        guard let loginSiteURL else {
-            return nil
+        for (_, user) in currentUserCache {
+            guard user.authState == .permanent else {
+                continue
+            }
+            
+            return user.name
         }
         
-        guard let host = loginSiteURL.host else {
-            return nil
-        }
-        
-        guard let currentUser = currentUserCache[host] else {
-            return nil
-        }
-        
-        return currentUser.name
+        return nil
     }
     
-    @objc public var appLanguageAuthStateIsPermanent: Bool {
-        return appLanguageAuthState == .permanent
+    @objc public var authStateIsPermanent: Bool {
+        for (_, user) in currentUserCache {
+            guard user.authState == .permanent else {
+                continue
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
     // MARK: Login
@@ -157,11 +152,10 @@ import CocoaLumberjackSwift
         accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
             
             // Upon successful login, try fetching userinfo to populate user cache
-            self.currentUserFetcher.fetch(siteURL: siteURL, success: { result in
+            self.currentUserFetcher.fetch(siteURL: siteURL, success: { user in
                 DispatchQueue.main.async {
                     if let host = siteURL.host {
-                        self.currentUserCache[host] = result
-                        self.updateAppLanguageAuthState(user: result)
+                        self.currentUserCache[host] = user
                     }
                     
                     KeychainCredentialsManager.shared.username = username
@@ -170,7 +164,7 @@ import CocoaLumberjackSwift
                     self.delegate?.authenticationManagerDidLogin()
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     
-                    completion(.success(result))
+                    completion(.success(user))
                 }
             }, failure: { error in
                 DispatchQueue.main.async {
@@ -210,9 +204,9 @@ import CocoaLumberjackSwift
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
                 DispatchQueue.main.async {
                     switch loginResult {
-                    case .success(let result):
+                    case .success(let user):
                         
-                        completion(.success(result))
+                        completion(.success(user))
                         
                     case .failure(let error):
                         guard !(error is URLError) else {
@@ -222,7 +216,6 @@ import CocoaLumberjackSwift
                             
                             if let host = siteURL.host {
                                 self.currentUserCache[host] = user
-                                self.appLanguageAuthState = .permanent
                             }
                             
                             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
@@ -238,19 +231,18 @@ import CocoaLumberjackSwift
         }
         
         // First see if we really need to make the login call by fetching current user info. If it indicates a permanent account is already logged in, return early.
-        currentUserFetcher.fetch(siteURL: siteURL, success: { result in
+        currentUserFetcher.fetch(siteURL: siteURL, success: { user in
             DispatchQueue.main.async {
                 if let host = siteURL.host {
-                    self.currentUserCache[host] = result
-                    self.updateAppLanguageAuthState(user: result)
+                    self.currentUserCache[host] = user
                 }
                 
                 // If fetch indicates nonPermanent, we need to actually log in
-                if result.isIP || result.isTemp {
+                if user.authState == .ip || user.authState == .temporary {
                     performLogin()
                 } else {
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                    completion(.success(result))
+                    completion(.success(user))
                 }
             }
         }, failure: { error in
@@ -262,7 +254,6 @@ import CocoaLumberjackSwift
                     
                     if let host = siteURL.host {
                         self.currentUserCache[host] = user
-                        self.appLanguageAuthState = .permanent
                     }
                     
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
@@ -372,21 +363,10 @@ import CocoaLumberjackSwift
         return self.accountLoginLogoutFetcher.session
     }
     
-    private func updateAppLanguageAuthState(user: WMFCurrentUser) {
-        if user.isIP {
-            appLanguageAuthState = .ip
-        } else if user.isTemp {
-            appLanguageAuthState = .temporary
-        } else {
-            appLanguageAuthState = .permanent
-        }
-    }
-    
     private func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         currentUserCache = [:]
-        appLanguageAuthState = .ip
 
         session.removeAllCookies()
         

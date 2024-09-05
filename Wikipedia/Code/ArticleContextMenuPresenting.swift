@@ -98,7 +98,7 @@ extension ArticleContextMenuPresenting {
     }
 
     func getPeekViewControllerAsync(for linkURL: URL, completion: @escaping (UIViewController?) -> Void) {
-        let permanentUsername = MWKDataStore.shared().authenticationManager.appLanguageAuthState == .permanent ? MWKDataStore.shared().authenticationManager.appLanguageUsername : nil
+        let permanentUsername = MWKDataStore.shared().authenticationManager.authStatePermanentUsername
         let destination = configuration.router.destination(for: linkURL, permanentUsername: permanentUsername)
         getPeekViewControllerAsync(for: destination, completion: completion)
     }

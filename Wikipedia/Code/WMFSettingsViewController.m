@@ -108,7 +108,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     } else {
         
         // If in a tab bar presentation, only show notification bar button item if the user is permanent
-        if (self.dataStore.authenticationManager.appLanguageAuthStateIsPermanent) {
+        if (self.dataStore.authenticationManager.authStateIsPermanent) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
             BOOL hasUnreadNotifications = numUnreadNotifications != 0;
             UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
@@ -334,7 +334,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrAccount {
-    NSString *userName = self.dataStore.authenticationManager.appLanguageAuthStateIsPermanent ? self.dataStore.authenticationManager.appLanguageUsername : nil;
+    NSString *userName = self.dataStore.authenticationManager.authStatePermanentUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
@@ -565,7 +565,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     
-    if (_authManager.appLanguageAuthStateIsPermanent) {
+    if (_authManager.authStateIsPermanent) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
     

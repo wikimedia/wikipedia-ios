@@ -233,11 +233,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
         if #available(iOS 16, *) {
             
-            var isUserPermanent = false
-            if let dataStore,
-               dataStore.authenticationManager.appLanguageAuthState == .permanent {
-                isUserPermanent = true
-            }
+            let isUserPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
             
             return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
             && shouldAltTextExperimentBeActive()

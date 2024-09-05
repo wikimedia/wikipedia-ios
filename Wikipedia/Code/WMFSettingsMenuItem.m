@@ -25,7 +25,7 @@
         case WMFSettingsMenuItemType_LoginAccount: {
             // SINGLETONTODO
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
-            NSString *userName = authManager.appLanguageAuthStateIsPermanent ? authManager.appLanguageUsername : nil;
+            NSString *userName = authManager.authStatePermanentUsername;
 
             NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
 

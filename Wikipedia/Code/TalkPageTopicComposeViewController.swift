@@ -430,7 +430,7 @@ class TalkPageTopicComposeViewController: ViewController {
         }
 
         guard let authenticationManager = authenticationManager,
-              authenticationManager.appLanguageAuthState != .permanent else {
+              !authenticationManager.authStateIsPermanent else {
             setupNavigationBar(isPublishing: true)
             delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
             return

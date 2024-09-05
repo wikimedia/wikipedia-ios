@@ -424,7 +424,7 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
             return
         }
         let authManager = MWKDataStore.shared().authenticationManager
-        let permanentUsername = authManager.appLanguageAuthState == .permanent ? authManager.appLanguageUsername : nil
+        let permanentUsername = authManager.authStatePermanentUsername
         switch Configuration.current.router.destination(for: fullURL, permanentUsername: permanentUsername) {
         case .article(let articleURL): showInternalLink(url: articleURL)
         default: navigate(to: fullURL)

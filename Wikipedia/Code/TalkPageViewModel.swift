@@ -97,7 +97,7 @@ final class TalkPageViewModel {
     }
 
     var isUserPermanent: Bool {
-        return authenticationManager.appLanguageAuthState == .permanent
+        return authenticationManager.authStateIsPermanent
     }
 
     func fetchTalkPage(completion: @escaping (Result<Int?, Error>) -> Void) {

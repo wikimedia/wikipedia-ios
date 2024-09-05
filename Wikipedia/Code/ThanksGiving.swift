@@ -29,7 +29,7 @@ extension ThanksGiving where Self: ViewController {
 
     var isPermanent: Bool {
         // SINGLETONTODO
-        return MWKDataStore.shared().authenticationManager.appLanguageAuthState == .permanent
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
 
     func tappedThank(for revisionID: Int?, isUserAnonymous: Bool) {

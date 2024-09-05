@@ -236,7 +236,7 @@ import WMFData
 
 
     private var isAnon: Bool {
-        return dataStore.authenticationManager.appLanguageAuthState != .permanent
+        return !dataStore.authenticationManager.authStateIsPermanent
     }
 
     private var _primaryLanguage: String {

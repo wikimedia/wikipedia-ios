@@ -240,11 +240,7 @@ extension StorageAndSyncingSettingsViewController {
                 self.shouldShowReadingListsSyncAlertWhenViewAppears = true
             }
             
-            var isPermanent = false
-            if let dataStore,
-               dataStore.authenticationManager.appLanguageAuthState == .permanent {
-                isPermanent = true
-            }
+            let isPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
             
              if isPermanent && isSyncEnabled {
                 dataStore?.readingListsController.fullSync({})
@@ -296,7 +292,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         let isSwitchOn = sender.isOn
         
         switch settingsItemType {
-        case .syncSavedArticlesAndLists where dataStore.authenticationManager.appLanguageAuthState != .permanent:
+        case .syncSavedArticlesAndLists where !dataStore.authenticationManager.authStateIsPermanent:
             assert(!isSyncEnabled, "Sync cannot be enabled if user is not logged in")
             let dismissHandler = {
                 sender.setOn(false, animated: true)
@@ -306,7 +302,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
             wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
-        case .syncSavedArticlesAndLists where dataStore.authenticationManager.appLanguageAuthState == .permanent:
+        case .syncSavedArticlesAndLists where dataStore.authenticationManager.authStateIsPermanent:
             let setSyncEnabled = {
                 dataStore.readingListsController.setSyncEnabled(isSwitchOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isSwitchOn)
                 if isSwitchOn {

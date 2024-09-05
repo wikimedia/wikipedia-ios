@@ -41,7 +41,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private var collectionViewHeight: CGFloat = 0
 
     private var isPermanent: Bool {
-        return MWKDataStore.shared().authenticationManager.appLanguageAuthState == .permanent
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
     
     override func setup() {

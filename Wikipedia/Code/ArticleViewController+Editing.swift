@@ -266,7 +266,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        let isPermanent = dataStore.authenticationManager.appLanguageAuthState == .permanent
+        let isPermanent = dataStore.authenticationManager.authStateIsPermanent
         
         guard isPermanent else {
             return
@@ -588,8 +588,6 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        let permanentUser: WMFCurrentUser?
-        
         guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return

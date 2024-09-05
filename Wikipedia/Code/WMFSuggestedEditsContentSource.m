@@ -35,7 +35,7 @@
         return;
     }
     
-    if (!authManager.appLanguageAuthStateIsPermanent) {
+    if (!authManager.authStateIsPermanent) {
         completion();
         return;
     }
