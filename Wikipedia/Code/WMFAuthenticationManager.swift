@@ -81,7 +81,7 @@ import CocoaLumberjackSwift
             return nil
         }
         
-        if !currentUser.isIP && currentUser.isTemp {
+        if !currentUser.isIP && !currentUser.isTemp {
             return currentUser.name
         }
         
@@ -175,12 +175,12 @@ import CocoaLumberjackSwift
     public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
         guard hasKeychainCredentials,
-            let userName = KeychainCredentialsManager.shared.username,
-            let password = KeychainCredentialsManager.shared.password
-            else {
-                let error = LoginError.blankUsernameOrPassword
-                completion(.failure(error))
-                return
+              let userName = KeychainCredentialsManager.shared.username,
+              let password = KeychainCredentialsManager.shared.password
+        else {
+            let error = LoginError.blankUsernameOrPassword
+            completion(.failure(error))
+            return
         }
         
         guard let siteURL = loginSiteURL else {
@@ -188,19 +188,55 @@ import CocoaLumberjackSwift
             return
         }
         
+        let performLogin: () -> Void = {
+            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
+                DispatchQueue.main.async {
+                    switch loginResult {
+                    case .success(let result):
+                        
+                        completion(.success(result))
+                        
+                    case .failure(let error):
+                        guard !(error is URLError) else {
+                            // Connection error, assume login would have been successful
+                            
+                            let user = WMFCurrentUser(userID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
+                            
+                            if let host = siteURL.host {
+                                self.currentUserCache[host] = user
+                            }
+                            
+                            NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                            completion(.success(user))
+                            return
+                        }
+                        
+                        self.logout(initiatedBy: .app)
+                        completion(.failure(error))
+                    }
+                }
+            })
+        }
+        
+        // First see if we really need to make the login call by fetching current user info. If it indicates a permanent account is already logged in, return early.
         currentUserFetcher.fetch(siteURL: siteURL, success: { result in
             DispatchQueue.main.async {
                 if let host = siteURL.host {
                     self.currentUserCache[host] = result
                 }
                 
-                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                completion(.success(result))
+                // If fetch indicates nonPermanent, we need to actually log in
+                if result.isIP || result.isTemp {
+                    performLogin()
+                } else {
+                    NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                    completion(.success(result))
+                }
             }
         }, failure: { error in
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
-                    // Connection error, assume login would have been successful
+                    // If connection error, assume login would have been successful
                     
                     let user = WMFCurrentUser(userID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
                     
@@ -213,33 +249,7 @@ import CocoaLumberjackSwift
                     return
                 }
                 
-                self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
-                    DispatchQueue.main.async {
-                        switch loginResult {
-                        case .success(let result):
-                            
-                            completion(.success(result))
-                            
-                        case .failure(let error):
-                            guard !(error is URLError) else {
-                                // Connection error, assume login would have been successful
-                                
-                                let user = WMFCurrentUser(userID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
-                                
-                                if let host = siteURL.host {
-                                    self.currentUserCache[host] = user
-                                }
-                                
-                                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-                                completion(.success(user))
-                                return
-                            }
-                            
-                            self.logout(initiatedBy: .app)
-                            completion(.failure(error))
-                        }
-                    }
-                })
+                performLogin()
             }
         })
     }
@@ -366,6 +376,7 @@ import CocoaLumberjackSwift
     private func reset() {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
+        currentUserCache = [:]
 
         session.removeAllCookies()
         

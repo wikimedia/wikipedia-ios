@@ -67,6 +67,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedOut:)
+                                                 name:[WMFAuthenticationManager didLogOutNotification]
+                                               object:nil];
 }
 
 - (void)dealloc {
@@ -659,6 +663,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadSections];
+    });
+}
+
+- (void)userWasLoggedOut:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self loadSections];
     });
