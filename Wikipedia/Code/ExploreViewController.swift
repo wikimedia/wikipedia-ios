@@ -1539,7 +1539,7 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
         guard let imageRecommendationsViewModel,
               let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let user = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
+           let user = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
             return
         }
         
