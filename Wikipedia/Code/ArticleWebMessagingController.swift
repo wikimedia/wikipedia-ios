@@ -150,6 +150,24 @@ class ArticleWebMessagingController: NSObject {
             }
         }
     }
+
+    func addMath() {
+        let javascript = """
+        document.querySelectorAll('.mwe-math-fallback-image-inline ').forEach(el => el.remove());
+        document.querySelectorAll('.mwe-math-mathml-a11y').forEach(el => el.classList.remove('mwe-math-mathml-a11y'))
+        """
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.webView?.evaluateJavaScript(javascript) { (result, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                }
+            }
+        }
+    }
     
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {

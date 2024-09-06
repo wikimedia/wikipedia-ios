@@ -490,6 +490,7 @@ class ArticleViewController: ViewController, HintPresenting {
     func load() {
         state = .loading
         
+        messagingController.addMath()
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
             
