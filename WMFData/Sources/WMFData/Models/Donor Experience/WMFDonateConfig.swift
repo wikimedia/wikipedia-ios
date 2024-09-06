@@ -17,9 +17,8 @@ public struct WMFDonateConfig: Codable {
         var max = currencyMaximumDonation[currencyCode] ?? Decimal()
 
         if max.isZero {
-            if let defaultMin = currencyMinimumDonation["USD"] {
-                max = (currencyMinimumDonation[currencyCode] ?? 0.0) / defaultMin *
-                (currencyMaximumDonation["USD"] ?? 0.0)
+            if let defaultMin = currencyMinimumDonation["USD"], let defaultMax = currencyMaximumDonation["USD"], let currencyMax = currencyMinimumDonation[currencyCode] {
+                max = currencyMax / defaultMin * defaultMax
             }
         }
         return max
