@@ -53,7 +53,8 @@ final class WMFTooltipViewController: WMFComponentViewController {
     }()
     
     lazy var actionButton: UIView = {
-        let configuration = WMFSmallButton.Configuration(style: .quiet, needsDisclosure: viewModel.buttonNeedsDisclosure)
+        let trailingIcon = viewModel.buttonNeedsDisclosure ? WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) : nil
+        let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: trailingIcon)
         let button = WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.buttonTitle, action: viewModel.buttonAction)
         let buttonHostingController = UIHostingController(rootView: button)
         buttonHostingController.view.translatesAutoresizingMaskIntoConstraints = false

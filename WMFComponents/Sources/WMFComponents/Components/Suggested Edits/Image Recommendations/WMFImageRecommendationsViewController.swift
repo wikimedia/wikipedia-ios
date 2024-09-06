@@ -13,6 +13,7 @@ public protocol WMFImageRecommendationsDelegate: AnyObject {
     func imageRecommendationsDidTriggerError(_ error: Error)
     func imageRecommendationsDidTriggerTimeWarning()
     func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController)
+    func imageRecommendationsDidTriggerAltTextFeedbackToast()
 }
 
 public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
@@ -36,6 +37,8 @@ public protocol WMFImageRecommendationsLoggingDelegate: AnyObject {
     func logEmptyStateDidTapBack()
     func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String)
     func logAltTextExperimentDidAssignGroup()
+    func logAltTextFeedbackDidClickYes()
+    func logAltTextFeedbackDidClickNo()
 }
 
 fileprivate final class WMFImageRecommendationsHostingViewController: WMFComponentHostingController<WMFImageRecommendationsView> {
@@ -72,6 +75,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     @ObservedObject private var viewModel: WMFImageRecommendationsViewModel
     private var imageRecommendationBottomSheetController: WMFImageRecommendationsBottomSheetViewController
     private var cancellables = Set<AnyCancellable>()
+
+    public var isBackFromAltText: Bool = false
+    private var shouldPresentAltTextToast: Bool = false
 
     private var overflowMenu: UIMenu {
 
@@ -143,6 +149,11 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         super.viewDidAppear(animated)
         bindViewModel()
 
+        if isBackFromAltText {
+            presentAltTextPostPublishFeedbackAlert()
+            isBackFromAltText = false
+        }
+
         if !dataController.hasPresentedOnboardingModal {
             presentOnboardingIfNecessary()
         } else {
@@ -178,6 +189,10 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                     return
                 }
 
+                if self.shouldPresentAltTextToast {
+                    self.delegate?.imageRecommendationsDidTriggerAltTextFeedbackToast()
+                    self.shouldPresentAltTextToast = false
+                }
                 self.presentTooltipsIfNecessary(onBottomSheetViewController: self.imageRecommendationBottomSheetController)
             }
 
@@ -337,12 +352,35 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         presentTooltipsIfNecessary(onBottomSheetViewController: imageRecommendationBottomSheetController, force: true)
     }
 
+
     private func goToFAQ() {
         delegate?.imageRecommendationsUserDidTapLearnMore(url: viewModel.learnMoreURL)
     }
 
     private func reportIssue() {
         delegate?.imageRecommendationsUserDidTapReportIssue()
+    }
+
+    private func presentAltTextPostPublishFeedbackAlert() {
+
+        let alert = UIAlertController(title: viewModel.localizedStrings.altTextFeedbackStrings.feedbackTitle, message: viewModel.localizedStrings.altTextFeedbackStrings.feedbackSubtitle, preferredStyle: .alert)
+
+        let yesAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.yesButton, style: .default) { _ in
+            self.loggingDelegate?.logAltTextFeedbackDidClickYes()
+            self.shouldPresentAltTextToast = true
+            self.presentImageRecommendationBottomSheet()
+        }
+
+        let noAction = UIAlertAction(title: viewModel.localizedStrings.altTextFeedbackStrings.noButton, style: .default) { _ in
+            self.loggingDelegate?.logAltTextFeedbackDidClickNo()
+            self.shouldPresentAltTextToast = true
+            self.presentImageRecommendationBottomSheet()
+        }
+
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+
+        self.navigationController?.present(alert, animated: true)
     }
 }
 

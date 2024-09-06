@@ -13,7 +13,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
     
     public struct LocalizedStrings {
-		public typealias SurveyLocalizedStrings =  WMFImageRecommendationsSurveyViewModel.LocalizedStrings
+		public typealias SurveyLocalizedStrings =  WMFSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings
         public typealias TooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings
         public typealias ErrorLocalizedStrings = WMFErrorViewModel.LocalizedStrings
@@ -41,16 +41,31 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 				self.learnMoreButton = learnMoreButton
 			}
 		}
+        
+        public struct AltTextFeedbackStrings {
+            let feedbackTitle: String
+            let feedbackSubtitle: String
+            let yesButton: String
+            let noButton: String
+
+            public init(feedbackTitle: String, feedbackSubtitle: String, yesButton: String, noButton: String) {
+                self.feedbackTitle = feedbackTitle
+                self.feedbackSubtitle = feedbackSubtitle
+                self.yesButton = yesButton
+                self.noButton = noButton
+            }
+        }
 
         let title: String
         let viewArticle: String
 		let onboardingStrings: OnboardingStrings
-		let surveyLocalizedStrings: SurveyLocalizedStrings
+        let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
         let errorLocalizedStrings: ErrorLocalizedStrings
         let firstTooltipStrings: TooltipLocalizedStrings
         let secondTooltipStrings: TooltipLocalizedStrings
         let thirdTooltipStrings: TooltipLocalizedStrings
+        let altTextFeedbackStrings: AltTextFeedbackStrings
         let bottomSheetTitle: String
         let yesButtonTitle: String
         let noButtonTitle: String
@@ -59,17 +74,17 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         let tutorialButtonTitle: String
         let problemWithFeatureButtonTitle: String
 
-
-        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
+        public init(title: String, viewArticle: String, onboardingStrings: OnboardingStrings, surveyLocalizedStrings: SurveyLocalizedStrings, emptyLocalizedStrings: EmptyLocalizedStrings, errorLocalizedStrings: ErrorLocalizedStrings, firstTooltipStrings: TooltipLocalizedStrings, secondTooltipStrings: TooltipLocalizedStrings, thirdTooltipStrings: TooltipLocalizedStrings, altTextFeedbackStrings: AltTextFeedbackStrings, bottomSheetTitle: String, yesButtonTitle: String, noButtonTitle: String, notSureButtonTitle: String, learnMoreButtonTitle: String, tutorialButtonTitle: String, problemWithFeatureButtonTitle: String) {
             self.title = title
             self.viewArticle = viewArticle
             self.onboardingStrings = onboardingStrings
-			self.surveyLocalizedStrings = surveyLocalizedStrings
+            self.surveyLocalizedStrings = surveyLocalizedStrings
             self.emptyLocalizedStrings = emptyLocalizedStrings
             self.errorLocalizedStrings = errorLocalizedStrings
             self.firstTooltipStrings = firstTooltipStrings
             self.secondTooltipStrings = secondTooltipStrings
             self.thirdTooltipStrings = thirdTooltipStrings
+            self.altTextFeedbackStrings = altTextFeedbackStrings
             self.bottomSheetTitle = bottomSheetTitle
             self.yesButtonTitle = yesButtonTitle
             self.noButtonTitle = noButtonTitle
@@ -78,7 +93,6 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
             self.tutorialButtonTitle = tutorialButtonTitle
             self.problemWithFeatureButtonTitle = problemWithFeatureButtonTitle
         }
-
     }
 
     public class WMFImageRecommendationData {
@@ -141,6 +155,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     public let semanticContentAttribute: UISemanticContentAttribute
     public let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
+    let surveyOptions: [WMFSurveyViewModel.OptionViewModel]
 
     private(set) var imageRecommendations: [ImageRecommendation] = []
     @Published public private(set) var currentRecommendation: ImageRecommendation?
@@ -161,11 +176,12 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, needsSuppressPosting: Bool) {
+    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, surveyOptions: [WMFSurveyViewModel.OptionViewModel], needsSuppressPosting: Bool) {
         self.isLoggedIn = isLoggedIn
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings
+        self.surveyOptions = surveyOptions
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WMFArticleSummaryDataController()

@@ -3,6 +3,15 @@ import UIKit
 
 public final class WMFAltTextDataController {
     
+    struct OnboardingStatus: Codable {
+        var hasPresentedOnboardingModal: Bool
+        var hasPresentedOnboardingTooltips: Bool
+
+        static var `default`: OnboardingStatus {
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false)
+        }
+    }
+    
     public static let shared = WMFAltTextDataController()
     
     public lazy var experimentStopDate: Date? = {
@@ -14,7 +23,6 @@ public final class WMFAltTextDataController {
     }()
     
     public enum WMFAltTextDataControllerError: Error {
-        case featureFlagIsOff
         case notLoggedIn
         case invalidProject
         case invalidDeviceOrOS
@@ -24,11 +32,11 @@ public final class WMFAltTextDataController {
         case alreadyAssignedOtherExperiment
     }
     
-    let experimentsDataController: WMFExperimentsDataController
-    let developerSettingsDataController: WMFDeveloperSettingsDataController
-    let userDefaultsStore: WMFKeyValueStore
+    private let experimentsDataController: WMFExperimentsDataController
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
+    private let userDefaultsStore: WMFKeyValueStore
     private var experimentPercentage: Int {
-        developerSettingsDataController.setAltTextExperimentPercentage100 ? 100 : 50
+        developerSettingsDataController.alwaysShowAltTextEntryPoint ? 100 : 50
     }
     
     // MARK: - Public
@@ -47,10 +55,6 @@ public final class WMFAltTextDataController {
     
     public func assignImageRecsExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            throw WMFAltTextDataControllerError.featureFlagIsOff
-        }
-        
         guard isLoggedIn else {
             throw WMFAltTextDataControllerError.notLoggedIn
         }
@@ -67,19 +71,23 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
-        if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
-            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if experimentsDataController.bucketForExperiment(.altTextImageRecommendations) != nil {
+                throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+            }
         }
         
-        if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
-            
-            switch articleEditorExperimentBucket {
-            case .altTextArticleEditorTest:
-                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
-            case .altTextArticleEditorControl:
-                break
-            default:
-                throw WMFAltTextDataControllerError.unexpectedBucketValue
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if let articleEditorExperimentBucket = experimentsDataController.bucketForExperiment(.altTextArticleEditor) {
+                
+                switch articleEditorExperimentBucket {
+                case .altTextArticleEditorTest:
+                    throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
+                case .altTextArticleEditorControl:
+                    break
+                default:
+                    throw WMFAltTextDataControllerError.unexpectedBucketValue
+                }
             }
         }
         
@@ -89,10 +97,6 @@ public final class WMFAltTextDataController {
     
     public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WMFProject) throws {
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            throw WMFAltTextDataControllerError.featureFlagIsOff
-        }
-        
         guard isLoggedIn else {
             throw WMFAltTextDataControllerError.notLoggedIn
         }
@@ -109,19 +113,23 @@ public final class WMFAltTextDataController {
             throw WMFAltTextDataControllerError.invalidDate
         }
         
-        if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
-            throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if experimentsDataController.bucketForExperiment(.altTextArticleEditor) != nil {
+                throw WMFAltTextDataControllerError.alreadyAssignedThisExperiment
+            }
         }
         
-        if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
-            
-            switch imageRecommendationsExperimentBucket {
-            case .altTextImageRecommendationsTest:
-                throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
-            case .altTextImageRecommendationsControl:
-                break
-            default:
-                throw WMFAltTextDataControllerError.unexpectedBucketValue
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
+                
+                switch imageRecommendationsExperimentBucket {
+                case .altTextImageRecommendationsTest:
+                    throw WMFAltTextDataControllerError.alreadyAssignedOtherExperiment
+                case .altTextImageRecommendationsControl:
+                    break
+                default:
+                    throw WMFAltTextDataControllerError.unexpectedBucketValue
+                }
             }
         }
         
@@ -130,21 +138,15 @@ public final class WMFAltTextDataController {
     
     public func markSawAltTextImageRecommendationsPrompt() {
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            return
-        }
-        
         self.sawAltTextImageRecommendationsPrompt = true
     }
     
     public func shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            return false
-        }
-        
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
-            return false
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         guard isLoggedIn else {
@@ -177,21 +179,54 @@ public final class WMFAltTextDataController {
     
     public func markSawAltTextArticleEditorPrompt() {
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            return
-        }
-        
         self.sawAltTextArticleEditorPrompt = true
     }
     
-    public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
+    public func shouldFetchFullArticleWikitextFromArticleEditor(isLoggedIn: Bool, project: WMFProject) -> Bool {
+
+        // haven't already seen the prompt elsewhere
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
+        }
         
-        guard developerSettingsDataController.enableAltTextExperiment else {
+        // is logged in
+        guard isLoggedIn else {
             return false
         }
         
-        guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+        // is looking at the target experiment wikis
+        guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
             return false
+        }
+        
+        // iPhone, iOS 16+
+        guard isValidDeviceAndOS else {
+            return false
+        }
+        
+        // Before Oct 10
+        guard isBeforeEndDate else {
+            return false
+        }
+        
+        // Hasn't already been assigned the alt text editor experiment
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard experimentsDataController.bucketForExperiment(.altTextArticleEditor) == nil else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
+
+        if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
+            guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
+                return false
+            }
         }
         
         guard isLoggedIn else {
@@ -223,11 +258,7 @@ public final class WMFAltTextDataController {
     }
     
     public func assignedAltTextImageRecommendationsGroupForLogging() -> String? {
-        
-        guard developerSettingsDataController.enableAltTextExperiment else {
-            return nil
-        }
-        
+
         if let imageRecommendationsExperimentBucket = experimentsDataController.bucketForExperiment(.altTextImageRecommendations) {
             switch imageRecommendationsExperimentBucket {
             case .altTextImageRecommendationsTest:
@@ -255,6 +286,32 @@ public final class WMFAltTextDataController {
         }
         
         return nil
+    }
+    
+    // MARK: - Onboarding
+    
+    private var onboardingStatus: OnboardingStatus {
+        return (try? userDefaultsStore.load(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue)) ?? OnboardingStatus.default
+    }
+
+    public var hasPresentedOnboardingModal: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingModal
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingModal = newValue
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+    
+    public var hasPresentedOnboardingTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTooltips
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
+            try? userDefaultsStore.save(key: WMFUserDefaultsKey.altTextExperimentOnboarding.rawValue, value: currentOnboardingStatus)
+        }
     }
     
     // MARK: - Private

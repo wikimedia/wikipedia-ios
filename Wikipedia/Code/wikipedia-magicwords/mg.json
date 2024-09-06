@@ -1,6 +1,22 @@
 [
   {
     "aliases" : [
+      "sisiny",
+      "bordure",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "ambany",
+      "bas",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centré",
       "ampivoany",
       "anivony",
@@ -19,6 +35,14 @@
   },
   {
     "aliases" : [
+      "anivo",
+      "milieu",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "tsymisy",
       "néant",
       "neant",
@@ -33,6 +57,22 @@
       "right"
     ],
     "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "ambony",
+      "haut",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "base",
+      "ligne-de-base",
+      "baseline"
+    ],
+    "name" : "img_baseline"
   },
   {
     "aliases" : [
@@ -56,11 +96,55 @@
   },
   {
     "aliases" : [
+      "indice",
+      "ind",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "exposant",
+      "exp",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "bas-texte",
+      "bas-txt",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "haut-texte",
+      "haut-txt",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "vignette",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "redresse",
+      "redresse=$1",
+      "redresse_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [
@@ -70,7 +154,8 @@
   },
   {
     "aliases" : [
-      "Sary"
+      "Sary",
+      "Image"
     ],
     "name" : "file_namespace"
   }

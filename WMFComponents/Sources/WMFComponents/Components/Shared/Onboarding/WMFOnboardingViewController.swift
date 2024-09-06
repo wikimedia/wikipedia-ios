@@ -5,6 +5,17 @@ public protocol WMFOnboardingViewDelegate: AnyObject {
     func onboardingViewDidClickPrimaryButton()
     func onboardingViewDidClickSecondaryButton()
     func onboardingViewWillSwipeToDismiss()
+    func onboardingDidSwipeToDismiss()
+}
+
+public extension WMFOnboardingViewDelegate {
+    func onboardingViewWillSwipeToDismiss() {
+        
+    }
+    
+    func onboardingDidSwipeToDismiss() {
+        
+    }
 }
 
 public class WMFOnboardingViewController: WMFCanvasViewController {
@@ -38,6 +49,10 @@ public class WMFOnboardingViewController: WMFCanvasViewController {
 extension WMFOnboardingViewController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         delegate?.onboardingViewWillSwipeToDismiss()
+    }
+    
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        delegate?.onboardingDidSwipeToDismiss()
     }
 }
 

@@ -1,6 +1,6 @@
 import WMFComponents
 
- @objc public class WKFontWrapper: NSObject {
+ @objc public class WMFFontWrapper: NSObject {
      @objc(fontFor:compatibleWithTraitCollection:) public static func font(for fontType: WMFFonts, compatibleWith traitCollection: UITraitCollection) -> UIFont {
         switch fontType {
         case .boldCallout:

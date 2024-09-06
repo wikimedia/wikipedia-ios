@@ -1,6 +1,29 @@
 [
   {
     "aliases" : [
+      "liñadebase",
+      "linhadebase",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "borda",
+      "bordo",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "abaixo",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centro",
       "center",
       "centre"
@@ -39,6 +62,14 @@
   },
   {
     "aliases" : [
+      "medio",
+      "meio",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "ningún",
       "nenhum",
       "none"
@@ -55,6 +86,20 @@
   },
   {
     "aliases" : [
+      "texto-abaixo",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "texto-arriba",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "miniatura",
       "miniaturadaimagem",
       "miniaturadaimaxe",
@@ -65,13 +110,53 @@
   },
   {
     "aliases" : [
+      "arriba",
+      "acima",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "arribaádereita",
+      "arribaádereita=$1",
+      "arribaádereita_$1",
+      "superiordireito",
+      "superiordireito=$1",
+      "superiordireito_$1",
+      "superiordireito $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
-      "Ficheiro"
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "Ficheiro",
+      "Arquivo",
+      "Image",
+      "Imagem",
+      "Imaxe"
     ],
     "name" : "file_namespace"
   }

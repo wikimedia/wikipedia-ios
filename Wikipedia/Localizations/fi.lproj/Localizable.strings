@@ -137,6 +137,10 @@
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
+"alt-text-add-button-title" = "Lisää";
+"alt-text-do-not-add-button-title" = "Älä lisää";
+"alt-text-experiment-text-field-placholder" = "Kuvaile tätä kuvaa";
+"alt-text-experiment-view-title" = "Lisää vaihtoehtoinen teksti";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -250,8 +254,8 @@
 "diff-rollback-success" = "Muokkaukset kumottu.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}}";
 "diff-single-header-editor-title" = "Muokkaajan tiedot";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 merkki lisätty|$1 merkkiä lisätty}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 merkki poistettu|$1 merkkiä poistettu}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 tavu lisätty|$1 tavua lisätty}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 tavu poistettu|$1 tavua poistettu}}";
 "diff-single-header-summary-heading" = "Muokkausyhteenveto";
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Rivi $1";
@@ -1000,7 +1004,7 @@
 "talk-page-archives" = "Arkistot";
 "talk-page-article-about" = "Tietoja keskustelusivuista";
 "talk-page-change-language" = "Vaihda kieli";
-"talk-page-discussion-read-accessibility-label" = "Lue";
+"talk-page-discussion-read-accessibility-label" = "Luettu";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
 "talk-page-error-alert-title" = "Odottamaton virhe";
 "talk-page-error-loading-subtitle" = "Jotain meni vikaan.";

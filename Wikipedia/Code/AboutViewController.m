@@ -173,7 +173,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - Navigation Bar Configuration
 
 - (void)setupNavigationBar {
-    self.navigationTitleLabel.font = [WKFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
+    self.navigationTitleLabel.font = [WMFFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
     self.navigationTitleLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitleViewWithGestureRecognizer:)];
     [self.navigationTitleLabel addGestureRecognizer:tapGestureRecognizer];
@@ -205,14 +205,14 @@ static NSString *const kWMFContributorsKey = @"contributors";
 - (void)presentDeveloperSettings {
     NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
     NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
-    NSString *enableAltTextExperiment = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment", nil, nil, @"Enable Alt Text experiment.", @"Title for setting to enable alt text experiment. Displayed on the developer settings view.");
     
     NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
     
-    NSString *setAltTextExperimentPercentage100 = WMFLocalizedStringWithDefaultValue(@"developer-settings-set-alt-text-experiment-100", nil, nil, @"Set alt text experiment percentage to 100.", @"Title for setting the alt text experiment to 100%. Displayed on the developer settings view.");
+    NSString *alwaysShowAltTextEntryPoint = WMFLocalizedStringWithDefaultValue(@"developer-settings-always-show-alt-text-entry-point", nil, nil, @"Always show alt text entry point.", @"Title for always showing the alt text experiment entry point. Displayed on the developer settings view.");
 
     NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperiment:enableAltTextExperiment enableAltTextExperimentForEN:enableAltTextExperimentForEN setAltTextExperimentPercentage100:setAltTextExperimentPercentage100 sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+   
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs close:[WMFCommonStrings closeButtonAccessibilityLabel]];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

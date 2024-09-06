@@ -13,14 +13,6 @@ import Foundation
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue, value: newValue)
         }
     }
-
-    @objc public var enableAltTextExperiment: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperiment.rawValue, value: newValue)
-        }
-    }
     
     @objc public var enableAltTextExperimentForEN: Bool {
         get {
@@ -30,11 +22,11 @@ import Foundation
         }
     }
     
-    @objc public var setAltTextExperimentPercentage100: Bool {
+    @objc public var alwaysShowAltTextEntryPoint: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSetAltTextExperimentPercentage100.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue, value: newValue)
         }
     }
     

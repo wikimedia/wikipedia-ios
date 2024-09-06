@@ -70,7 +70,7 @@ fileprivate struct WMFImageRecommendationsArticleSummaryView: View {
                         .frame(height: 19)
                     HStack {
                         Spacer()
-                        let configuration = WMFSmallButton.Configuration(style: .quiet, needsDisclosure: true)
+                        let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline))
                         WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.viewArticle) {
                             if let articleTitle = viewModel.currentRecommendation?.title {
                                 viewArticleAction(articleTitle)
