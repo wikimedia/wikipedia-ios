@@ -18,7 +18,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     public struct LocalizedStrings {
         public let title: String
         public let doneTitle: String
-        public let transactionFeeOptInText: String
+        public let transactionFeeOptInTextFormat: String
         public let monthlyRecurringText: String
         public let emailOptInText: String
         public let maximumErrorText: String?
@@ -39,10 +39,10 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, doneTitle: String, transactionFeeOptInTextFormat: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
             self.doneTitle = doneTitle
-            self.transactionFeeOptInText = transactionFeeOptInText
+            self.transactionFeeOptInTextFormat = transactionFeeOptInTextFormat
             self.monthlyRecurringText = monthlyRecurringText
             self.emailOptInText = emailOptInText
             self.maximumErrorText = maximumErrorText
@@ -119,8 +119,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         let localizedStrings: LocalizedStrings
         
-        init(localizedStrings: LocalizedStrings) {
+        init(localizedStrings: LocalizedStrings, isSelected: Bool = false) {
             self.localizedStrings = localizedStrings
+            self.isSelected = isSelected
         }
     }
     
@@ -183,10 +184,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     private var transactionFeeAmount: Decimal
     private(set) var finalAmount: Decimal {
         didSet {
-            guard let transactionFee = donateConfig.transactionFee(for: currencyCode, amount: finalAmount) else {
-                return
-            }
-            self.transactionFeeAmount = transactionFee
+            recalculateTransactionFee()
         }
     }
     
@@ -213,7 +211,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
         
-        guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
+        guard let transactionFeeAmount = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode) else {
             return nil
         }
         
@@ -238,7 +236,11 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         self.finalAmount = 0
         
-        self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.transactionFeeOptInText, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint))
+        let formatter = NumberFormatter.wmfCurrencyFormatter
+        formatter.currencyCode = currencyCode
+        let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) ?? ""
+        let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
+        self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint))
         
         self.monthlyRecurringViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.monthlyRecurringText, accessibilityHint: localizedStrings.accessibilityMonthlyRecurringHint))
         
@@ -409,6 +411,41 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
             self.finalAmount = isSelected ? self.finalAmount + self.transactionFeeAmount : max(0, self.finalAmount - self.transactionFeeAmount)
             textfieldViewModel.amount = self.finalAmount
         }
+    }
+    
+    private static func transactionFee(donateConfig: WMFDonateConfig, currencyCode: String, amount: Decimal = 0.0) -> Decimal? {
+        let percent = Decimal(0.04)
+        let calculatedTransactionFee = amount * percent
+        
+        var transactionFee: Decimal?
+        
+        if let minimumTransactionFee = donateConfig.currencyTransactionFees[currencyCode] {
+            transactionFee = calculatedTransactionFee > minimumTransactionFee ? calculatedTransactionFee : minimumTransactionFee
+            
+        } else if let defaultTransactionFee = donateConfig.currencyTransactionFees["default"] {
+            transactionFee = calculatedTransactionFee > defaultTransactionFee ? calculatedTransactionFee : defaultTransactionFee
+        }
+        
+        return transactionFee
+    }
+    
+    private func recalculateTransactionFee() {
+        
+        let originalAmount = transactionFeeOptInViewModel.isSelected ? finalAmount - transactionFeeAmount : finalAmount
+
+        guard let transactionFee = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode, amount: originalAmount) else {
+            return
+        }
+        self.transactionFeeAmount = transactionFee
+        print("TRANSACTION FEE: \(transactionFee)")
+        
+        let formatter = NumberFormatter.wmfCurrencyFormatter
+        formatter.currencyCode = currencyCode
+        let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) ?? ""
+        let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
+        let isOldModelSelected = transactionFeeOptInViewModel.isSelected
+        transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint), isSelected: isOldModelSelected)
+        addTransactionFeeSelectionListener()
     }
     
     private func addButtonSelectionListener() {
