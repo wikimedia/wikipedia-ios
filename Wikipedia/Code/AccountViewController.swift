@@ -15,6 +15,7 @@ private enum ItemType {
     case talkPageAutoSignDiscussions
     case watchlist
     case vanishAccount
+    case donationHistory
 }
 
 private struct Section {
@@ -48,10 +49,12 @@ class AccountViewController: SubSettingsViewController {
         let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .logout)
         let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: WMFColor.blue600 , type: .talkPage)
         let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: WMFColor.yellow600, type: .watchlist)
-        let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
+        let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: WMFColor.red600, type: .vanishAccount)
+
+        let donationHistory = Item(title: "Donation History", subtitle: nil, iconName: "settings-support", iconColor: .white, iconBackgroundColor: WMFColor.gray400, type: .donationHistory) // get localization
 
         let sectionItems: [Item]
-        sectionItems = [logout, talkPage, watchlist, vanishAccount]
+        sectionItems = [logout, talkPage, watchlist, donationHistory, vanishAccount]
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
@@ -112,6 +115,9 @@ class AccountViewController: SubSettingsViewController {
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
+        case .donationHistory:
+            cell.disclosureType = .viewController
+            cell.accessibilityTraits = .button
         }
         
         cell.apply(theme)
@@ -155,6 +161,14 @@ class AccountViewController: SubSettingsViewController {
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
             present(warningViewController, animated: true)
+        case .donationHistory:
+            let viewTitle = WMFLocalizedString("donation-history-view-title", value: "Donation history", comment: "Title for the donation history view")
+            let buttonTitle = WMFLocalizedString("donation-history-button-delete-title", value: "delete local history", comment: "Title for local donation history delete button")
+            let emptyViewMessage = WMFLocalizedString("donation-history-empty-view-title", value: "You have no locally saved donations", comment: "Title for donation history empty view")
+            let localizedStrings = WMFDonateHistoryViewModel.LocalizedStrings(viewTitle: viewTitle, buttonTitle: buttonTitle, emptyMessage: emptyViewMessage)
+            let viewModel = WMFDonateHistoryViewModel(localizedStrings: localizedStrings)
+            let donationHistoryVC = WMFDonateHistoryViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(donationHistoryVC, animated: true)
         default:
             break
         }
