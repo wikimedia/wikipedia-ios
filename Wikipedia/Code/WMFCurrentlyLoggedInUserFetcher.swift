@@ -22,12 +22,14 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
     @objc public var groups: [String]
     @objc public var editCount: UInt64
     @objc public var isBlocked: Bool
-    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool) {
+    @objc public var registrationDateString: String?
+    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, registrationDateString: String?) {
         self.userID = userID
         self.name = name
         self.groups = groups
         self.editCount = editCount
         self.isBlocked = isBlocked
+        self.registrationDateString = registrationDateString
     }
 }
 
@@ -36,7 +38,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
         let parameters = [
             "action": "query",
             "meta": "userinfo",
-            "uiprop": "groups|blockinfo|editcount",
+            "uiprop": "groups|blockinfo|editcount|registrationdate",
             "format": "json"
         ]
         
@@ -60,9 +62,10 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
             }
             
             let editCount = userinfo["editcount"] as? UInt64 ?? 0
+            let registrationDateString = userinfo["registrationdate"] as? String
             
             var isBlocked = false
-            if let blockID = userinfo["blockid"] as? UInt64 {
+            if userinfo["blockid"] is UInt64 {
                 let blockPartial = (userinfo["blockpartial"] as? Bool ?? false)
                 if !blockPartial {
                     isBlocked = true
@@ -70,7 +73,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
             }
             
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked))
+            success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, registrationDateString: registrationDateString))
         }
     }
 }

@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 public class CreateNewReadingListButtonView: UIView {
     @IBOutlet weak var button: AlignedImageButton!
@@ -23,7 +23,7 @@ public class CreateNewReadingListButtonView: UIView {
     }
 
     private func updateFonts() {
-        button.titleLabel?.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
     }
 
 }

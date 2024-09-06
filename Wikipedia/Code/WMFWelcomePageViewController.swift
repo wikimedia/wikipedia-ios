@@ -1,5 +1,4 @@
-import Foundation
-import UIKit
+import WMFComponents
 
 enum WMFWelcomePageType {
     case intro
@@ -164,8 +163,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     private func updateFonts() {
-        skipButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        nextButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {

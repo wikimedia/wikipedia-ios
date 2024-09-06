@@ -1,6 +1,5 @@
 #import <WMF/WMFContentGroup+CoreDataClass.h>
-
-@import CoreLocation;
+#import <CoreLocation/CoreLocation.h>
 
 @class WMFInMemoryURLKey;
 

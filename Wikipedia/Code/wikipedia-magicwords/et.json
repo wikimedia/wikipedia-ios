@@ -1,6 +1,13 @@
 [
   {
     "aliases" : [
+      "ääris",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
       "keskel",
       "center",
       "centre"
@@ -55,13 +62,74 @@
   },
   {
     "aliases" : [
+      "püsti",
+      "püsti=$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
       "alt=$1"
     ],
     "name" : "img_alt"
   },
   {
     "aliases" : [
-      "Fail"
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "Fail",
+      "Image",
+      "Pilt"
     ],
     "name" : "file_namespace"
   }

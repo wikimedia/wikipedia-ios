@@ -38,6 +38,7 @@
 
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 /**
  * Event Platform Client (EPC)
@@ -179,7 +180,13 @@ import CocoaLumberjackSwift
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static let eventIntakeURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+    private static var eventIntakeURI: URL {
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
+            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
+        } else {
+            URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+        }
+    }
 
     /**
      * MediaWiki API endpoint which returns stream configurations as JSON
@@ -362,7 +369,6 @@ import CocoaLumberjackSwift
 
         let events = storageManager.popAll()
         if events.count == 0 {
-//            DDLogDebug("EPC: Nothing to send.")
             completion?()
             return
         }
@@ -595,7 +601,7 @@ import CocoaLumberjackSwift
         let userDefaults = UserDefaults.standard
 
         guard let appInstallID = userDefaults.wmf_appInstallId else {
-            DDLogWarn("EPC: App install ID is unset. This shouldn't happen.")
+            DDLogError("EPC: App install ID is unset. This shouldn't happen.")
             return
         }
         
@@ -704,7 +710,7 @@ private extension EventPlatformClient {
         let request = dataStore.session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = dataStore.session.dataTask(with: request, completionHandler: { (_, response, error) in
             let fail: (PostEventError) -> Void = { error in
-                DDLogDebug("EPC: An error occurred sending the request: \(error)")
+                DDLogError("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
             }
             if let error = error {

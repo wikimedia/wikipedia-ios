@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell
@@ -201,10 +201,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         setAttributedStringViews()
         
-        timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        timestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        thankButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        viewChangesButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        viewDiscussionButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     func apply(theme: Theme) {
@@ -275,8 +275,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
             
-            thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+            thankButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+            viewChangesButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
 
             if largeEvent.wereThanksSent {
                 thankButton.setImage(UIImage(named: "thank"), for: .normal)

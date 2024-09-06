@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "BAD75B0C-AB52-4988-86B4-ECD18DA1424E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/WMFData",
+        "identifier" : "WMFDataTests",
+        "name" : "WMFDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}

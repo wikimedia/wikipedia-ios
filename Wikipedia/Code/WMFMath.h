@@ -1,7 +1,7 @@
 /* Unsafe, do not use.* @see WMFStrictClamp * @see WMFClamp */
 #define _WMFStrictClamp(min, x, max) MAX(MIN((max), (x)), (min))
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /**
  * @function WMFStrictClamp

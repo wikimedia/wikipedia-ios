@@ -1,6 +1,5 @@
 #import <WMF/WMFContentGroup+Extensions.h>
-
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @class MWKDataStore;
 

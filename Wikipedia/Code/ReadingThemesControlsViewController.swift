@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol WMFReadingThemesControlsViewControllerDelegate: AnyObject {
     
@@ -165,7 +165,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
 
     private func updateFonts() {
-        syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        syntaxHighlightingLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification) {

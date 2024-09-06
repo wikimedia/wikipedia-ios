@@ -92,11 +92,12 @@
 "empty-no-saved-pages-message" = "ਸਫ਼ਿਆਂ ਨੂੰ ਬਾਅਦ ਵਿਚ ਵੇਖਣ ਲਾਇ ਸੰਭਾਲੋ, ਔਫਲਾਈਨ ਵੀ";
 "empty-no-saved-pages-title" = "ਹਾਲੇ ਤੱਕ ਕੋੲੀ ਸਫ਼ਾ ਨਹੀ ਸੰਭਾਲੇ ਗਏ";
 "empty-no-search-results-message" = "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਲੱਭੇ";
-"explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
+"explore-another-random" = "ਇੱਕ ਹੋਰ ਬੇਤਰਤੀਬ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
 // Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ਸਾਰੇ ਪੱਤੇ \"%@\" ਓਹਲੇ ਕਰੋ";
+"explore-feed-preferences-randomizer-description" = "ਪੜ੍ਹਨ ਲਈ ਬੇਤਰਤੀਬ ਲੇਖ ਤਿਆਰ ਕਰੋ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
 // Fuzzy
 "explore-most-read-footer" = "ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
@@ -110,8 +111,10 @@
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੇ";
 "explore-nearby-sub-heading-your-location" = "ਤੁਹਾਡੀ ਸਥਿਤੀ";
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
-"explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
-"explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
+"explore-random-article-heading" = "ਬੇਤਰਤੀਬ ਲੇਖ";
+"explore-random-article-sub-heading-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
+"explore-random-article-sub-heading-from-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
+"explore-randomizer" = "ਬੇਤਰਤੀਬੀ";
 "explore-suggested-edits-image-recs-title" = "ਇੱਕ ਤਸਵੀਰ ਜੋੜੋ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
@@ -130,7 +133,7 @@
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
 "home-title" = "ਵਿਚਰੋ";
 "icon-shortcut-nearby-title" = "ਨੇੜਲੇ ਲੇਖ";
-"icon-shortcut-random-title" = "ਰਲ਼ਵਾਂ ਲੇਖ";
+"icon-shortcut-random-title" = "ਬੇਤਰਤੀਬ ਲੇਖ";
 "icon-shortcut-search-title" = "ਵਿਕੀਪੀਡੀਆ ਖੋਜੋ";
 // Fuzzy
 "image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";

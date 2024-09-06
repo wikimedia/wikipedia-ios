@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @interface NSCharacterSet (WMFExtras)
 

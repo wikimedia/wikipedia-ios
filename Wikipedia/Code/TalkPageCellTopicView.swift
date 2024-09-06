@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 final class TalkPageCellTopicView: SetupView {
@@ -33,7 +33,7 @@ final class TalkPageCellTopicView: SetupView {
 
     lazy var subscribeButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .subheadline, weight: .semibold, size: 15)
+        button.titleLabel?.font = WMFFont.for(.mediumSubheadline)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.black, for: .normal)
@@ -80,7 +80,7 @@ final class TalkPageCellTopicView: SetupView {
 
     lazy var timestampLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+        label.font = WMFFont.for(.callout)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -133,7 +133,7 @@ final class TalkPageCellTopicView: SetupView {
     lazy var activeUsersLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+        label.font = WMFFont.for(.callout)
         label.numberOfLines = 0
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
@@ -157,7 +157,7 @@ final class TalkPageCellTopicView: SetupView {
     lazy var repliesCountLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+        label.font = WMFFont.for(.callout)
         label.numberOfLines = 0
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
@@ -377,7 +377,7 @@ final class TalkPageCellTopicView: SetupView {
     // MARK: - Find in page
 
     private func applyTextHighlightIfNecessary(theme: Theme) {
-        let activeHighlightBackgroundColor: UIColor = WKColor.yellow600
+        let activeHighlightBackgroundColor: UIColor = WMFColor.yellow600
         let backgroundHighlightColor: UIColor
         let foregroundHighlightColor: UIColor
 

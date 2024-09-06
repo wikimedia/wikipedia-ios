@@ -1,4 +1,4 @@
-@import UIKit;
+#import <UIKit/UIKit.h>
 #import <WMF/WMFBlockDefinitions.h>
 
 @interface WMFFaceDetectionCache : NSObject

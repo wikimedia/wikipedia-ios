@@ -1,8 +1,8 @@
 import UIKit
 import SwiftUI
 import WMF
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -45,17 +45,13 @@ class AccountViewController: SubSettingsViewController {
             return []
         }
         
-        let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WKColor.orange600, type: .logout)
-        let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: WKColor.blue600 , type: .talkPage)
-        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: WKColor.yellow600, type: .watchlist)
+        let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .logout)
+        let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: WMFColor.blue600 , type: .talkPage)
+        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: WMFColor.yellow600, type: .watchlist)
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
-        if FeatureFlags.watchlistEnabled {
-            sectionItems = [logout, talkPage, watchlist, vanishAccount]
-        } else {
-            sectionItems = [logout, talkPage, vanishAccount]
-        }
+        sectionItems = [logout, talkPage, watchlist, vanishAccount]
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 

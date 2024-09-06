@@ -33,17 +33,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         removeExistingSubviewsAndSublayers()
         addSubview(baseImgView)
         addSubview(tubeImgView)
-        /*
-        isUserInteractionEnabled = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:))))
-        */
     }
-
-    /*
-    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        DDLogDebug("tubeImgView anchorPoint \(gestureRecognizer.location(in: self).wmf_normalizeUsingSize(frame.size))")
-    }
-    */
     
     override open func beginAnimations() {
         super.beginAnimations()

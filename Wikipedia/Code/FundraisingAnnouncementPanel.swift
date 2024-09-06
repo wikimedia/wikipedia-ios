@@ -1,12 +1,12 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanelViewController {
 
-    private let announcement: WKFundraisingCampaignConfig.WKAsset
+    private let announcement: WMFFundraisingCampaignConfig.WMFAsset
 
-    init(announcement: WKFundraisingCampaignConfig.WKAsset, theme: Theme, showOptionalButton: Bool ,primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, footerLinkAction: ((URL) -> Void)?) {
+    init(announcement: WMFFundraisingCampaignConfig.WMFAsset, theme: Theme, showOptionalButton: Bool ,primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, footerLinkAction: ((URL) -> Void)?) {
         self.announcement = announcement
         super.init(showCloseButton: true, showOptionalButton: showOptionalButton, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, optionalButtonTapHandler: optionalButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
         self.isUrgent = true

@@ -9,6 +9,7 @@
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: GAMEZONE628
+// Author: Hideki Yoshida
 // Author: Higa4
 // Author: Hinaloe
 // Author: Hzy980512
@@ -249,6 +250,7 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
+"developer-settings" = "開発者設定";
 "diff-article-revision-history" = "記事の版履歴";
 "diff-compare-header-from-info-heading" = "前の編集";
 "diff-compare-header-heading" = "版を比較";
@@ -335,6 +337,7 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
+"editor-edit-published" = "あなたの編集が公開されました。";
 "editor-edit-source" = "ソースを編集";
 "editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "editor-exit-confirmation-title" = "編集モードを終了しますか?";

@@ -8,6 +8,24 @@
   },
   {
     "aliases" : [
+      "kadra",
+      "kadrita",
+      "kadrigita",
+      "kadrite",
+      "kadrigite",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "malalte",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centra",
       "meza",
       "center",
@@ -43,6 +61,13 @@
   },
   {
     "aliases" : [
+      "meze",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "neniu",
       "nenio",
       "none"
@@ -59,6 +84,37 @@
   },
   {
     "aliases" : [
+      "sube",
+      "malsupre",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "supre",
+      "malsube",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "suba-teksto",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "tekst-alte",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "eta",
       "thumb",
       "thumbnail"
@@ -67,7 +123,32 @@
   },
   {
     "aliases" : [
-      "Dosiero"
+      "alte",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "altdekstre",
+      "altdekstre=$1",
+      "altdekstre_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "Dosiero",
+      "Image"
     ],
     "name" : "file_namespace"
   }

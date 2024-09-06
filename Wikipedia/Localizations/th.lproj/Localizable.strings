@@ -60,9 +60,9 @@
 "about-places-maps-license" = "สัญญาอนุญาตแผนที่สถานที่";
 "about-places-maps-license-details" = "สถานที่ใช้ข้อมูลแผนที่จาก Apple Maps $1";
 "about-places-maps-license-details-link-text" = "โปรดดูที่นี่สำหรับรายละเอียดสัญญาอนุญาต";
-"about-product-of" = "สร้างขึ้นโดย $1 จากการร่วมมือกันของอาสาสมัครเช่นคุณ";
+"about-product-of" = "สร้างขึ้นโดย$1จากการร่วมมือกันของอาสาสมัครเช่นคุณ";
 "about-repositories" = "ที่เก็บ";
-"about-repositories-app-source-license" = "ซอร์สโค้ดใช้ได้ภายใต้ $1";
+"about-repositories-app-source-license" = "ซอร์สโค้ดใช้ได้ภายใต้$1";
 "about-repositories-app-source-license-mit" = "สัญญาอนุญาต MIT";
 "about-send-feedback" = "ส่งคำติชมแอป";
 "about-testers" = "ผู้ทดสอบ";
@@ -115,7 +115,7 @@
 "action-share-accessibility" = "แบ่งปัน";
 "action-sort" = "เรียงลำดับ";
 "action-thank-user-accessibility" = "ขอบคุณผู้ใช้";
-"action-undo" = "เลิกทำ";
+"action-undo" = "ทำกลับ";
 "action-unsave" = "เลิกบันทึก";
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
 "action-update" = "ปรับปรุง";
@@ -177,7 +177,7 @@
 "description-add-title" = "เพิ่มคำอธิบาย";
 "description-edit-for-article" = "คำอธิบายบทความสำหรับ $1";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "การเปลี่ยนคำอธิบายบทความ ถือว่าคุณยอมรับ $1 และคุณตกลงเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างไม่อาจเพิกถอนได้";
+"description-edit-license" = "การเปลี่ยนคำอธิบายบทความ ถือว่าคุณยอมรับ$1และคุณตกลงเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างไม่อาจเพิกถอนได้";
 "description-edit-pencil-introduction" = "แก้ไขบทนำ";
 "description-edit-pencil-title" = "แก้ไขคำอธิบายบทความ";
 "description-edit-placeholder-title" = "ควรกำหนดคำอธิบายอย่างสั้น ๆ";
@@ -330,7 +330,7 @@
 "empty-no-search-results-message" = "ไม่พบผลลัพธ์";
 "empty-talk-page-title" = "ผู้ใช้นี้ยังไม่ได้โพสต์ข้อความใด";
 "error-generic-recovery-suggestion" = "โปรดลองอีกครั้งในภายหลัง";
-"error-unknown" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
+"error-unknown" = "เกิดข้อผิดพลาดไม่ทราบสาเหตุ";
 "explore-another-random" = "บทความสุ่มอื่น";
 "explore-because-you-read" = "เนื่องจากคุณอ่าน";
 "explore-because-you-read-footer" = "บทความอื่น ๆ ที่เกี่ยวข้อง";
@@ -487,9 +487,13 @@
 "icon-shortcut-search-title" = "ค้นหาวิกิพีเดีย";
 "image-gallery-unknown-owner" = "ไม่รู้จักผู้เขียน";
 "image-rec-add-image-title" = "เพิ่มภาพนี้?";
+"image-rec-error-subtitle" = "มีอะไรบางอย่างผิดพลาด";
+"image-rec-error-title" = "ไม่สามารถโหลดหน้าได้";
 "image-rec-feature-announce-body" = "ตัดสินใจว่าจะเพิ่มรูปภาพลงในบทความวิกิพีเดียหรือไม่ คุณจะพบการ์ด ‘เพิ่มรูปภาพ’ ได้ใน ‘ฟีดสำรวจ’";
 "image-rec-feature-announce-title" = "ลอง 'เพิ่มรูปภาพ'";
 "image-rec-onboarding-learn-more-button" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแก้ไขที่แนะนำ";
+"image-rec-survey-instructions-1" = "คำตอบของคุณจะช่วยปรับปรุงข้อเสนอแนะในอนาคต";
+"image-rec-survey-instructions-2" = "เลือกตัวเลือกหนึ่งรายการหรือมากกว่า";
 "image-rec-survey-option-6" = "อื่น ๆ";
 "image-rec-survey-submit-button" = "ส่ง";
 "image-rec-survey-title" = "เหตุผล";
@@ -547,7 +551,7 @@
 "logged-out-title" = "คุณออกจากระบบแล้ว";
 "login-forgot-password" = "ลืมรหัสผ่านของคุณหรือ?";
 "login-join-wikipedia" = "เข้าร่วมกับวิกิพีเดีย";
-"login-no-account" = "ไม่มีบัญชีหรือ $1";
+"login-no-account" = "ยังไม่มีบัญชี? $1";
 "login-title" = "เข้าสู่ระบบบัญชีของคุณ";
 "main-menu-about" = "เกี่ยวกับแอป";
 "main-menu-account-login" = "เข้าสู่ระบบ";
@@ -1132,7 +1136,7 @@
 "wikitext-upload-captcha-needed" = "ต้องการการทวนสอบ CAPTCHA";
 "wikitext-upload-result-unknown" = "ไม่สามารถกำหนดผลการอัปโหลดข้อความวิกิได้";
 "wikitext-upload-save" = "กำลังเผยแพร่...";
-"wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ $1 เข้าสู่ระบบ $2 คุณจะมีความเป็นส่วนตัวมากขึ้น";
-"wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ $1";
+"wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ$1เข้าสู่ระบบ$2คุณจะมีความเป็นส่วนตัวมากขึ้น";
+"wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ$1";
 "wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";

@@ -1,6 +1,7 @@
 // Messages for Sindhi (سنڌي)
 // Exported from translatewiki.net
 // Author: Aursani
+// Author: Charoo
 // Author: Indus Asia
 // Author: Macofe
 // Author: Mehtab ahmed
@@ -42,7 +43,7 @@
 "aaald-vandalism-revert-description" = "مشڪوڪ تخريبڪاري موٽائي وئي";
 "aaald-view-full-history-button" = "مضمون جي مڪمل سوانح ڏسو";
 "about-content-license" = "مواد جو اجازتنامو";
-"about-content-license-details" = "مواد $1 ھيٺ موجود آھي، جيسيتائين ٻي صورت واضع نہ ڪئي وڃي.";
+"about-content-license-details" = "مواد $1 تحت موجود آھي، جيسيتائين ٻي صورت واضع نہ ڪئي وڃي.";
 "about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز انتساب-ھڪجھڙي-ونڊ اجازتنامو";
 "about-contributors" = "ڀاڱيدارَ";
 "about-libraries" = "مستعمل لائبريريون";
@@ -54,7 +55,7 @@
 "about-places-maps-license-details-link-text" = "اجازتنامي جي تفصيلن لاءِ ھتي ڏسو";
 "about-product-of" = "توھان جھڙن رضاڪارن جي مدد سان $1 پاران ٺھيل";
 "about-repositories" = "ڀنڊارون";
-"about-repositories-app-source-license" = "سورس ڪوڊ $1 ھيٺ موجود آھي.";
+"about-repositories-app-source-license" = "سورس ڪوڊ $1 تحت موجود آھي.";
 "about-repositories-app-source-license-mit" = "ايم.آئِٽي اجازتنامو";
 "about-send-feedback" = "ايپ تي موٽ موڪليو";
 "about-testers" = "آزمائيندڙ";
@@ -114,10 +115,10 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ شامل ڪريو";
 "advanced-settings-title" = "متقدم ترتيبون";
 "announcements-dismiss" = "برخواست";
-"app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ-چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
+"app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، انسائيڪلوپيڊيا، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل طور پنھنجي حساب موجب رکڻ جوڳي ۽ پڙهڻ ۾ آسان ايڪسپلور رسد. مڪانيتڪاري، ڪارڪردگي ۾ بھتريون، ۽ چُڪون حل ڪيون ويون.";
 "app-store-short-description" = "پنهنجي ويجھو جڳھن کي جاکوڙڻ، مضمونن کي آف لائين پڙهڻ، ۽ پنھنجي پڙهڻ جي تجربي کي پنھنجو ڪرڻ لاءِ وڪيپيڊياڻايپ ڊائونلوڊ ڪريو.";
-"app-store-subtitle" = "کليل ڄاڻ چيڪلو";
+"app-store-subtitle" = "کليل انسائيڪلوپيڊيا";
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
 "appearance-settings-expand-tables" = "جدول کوليو";
 "appearance-settings-expand-tables-footer" = "مضمونن ۾ جدولون، بشمول ترت معلومات، حوالا، حاشيا، ۽ ٻاھريان ڳنڍڻا عام طور تي کليل هجن.";
@@ -892,7 +893,7 @@
 "saved-title" = "سانڍيل";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "نہ-سانڍڻ {{PLURAL:$1|ھن مضمون کي|ھنن مضمونن کي}} سڀني لاڳاپيل پڙھڻ فھرستن مان ھٽائيندو";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|مضمون|مضمون}} اڻسانڍيو؟";
-"search-button-accessibility-label" = "وڪيپيڊيا ڳوليو";
+"search-button-accessibility-label" = "وڪيپيڊيا ۾ ڳوليو";
 "search-clear-title" = "ختم ڪريو";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
@@ -1129,7 +1130,7 @@
 "welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ 300 کان مٿي ٻولين ۾ 40 ملين مضمون آھن.";
 "welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻيو";
 "welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
-"welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ آزاد ڄاڻ-چيڪلو ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
+"welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ کليل انسائيڪلوپيڊيا ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
 "welcome-intro-free-encyclopedia-title" = "مفت انسائيڪلوپيڊيا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون شامل يا مرتب ڪريو";

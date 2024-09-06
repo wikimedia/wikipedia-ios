@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol HintViewControllerDelegate: AnyObject {
     func hintViewControllerWillDisappear(_ hintViewController: HintViewController)
@@ -107,10 +107,10 @@ class HintViewController: UIViewController {
     }
 
     private func updateFonts() {
-        defaultLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        confirmationLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        warningLabel.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        warningSubtitleLabel.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        defaultLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        confirmationLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        warningLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        warningSubtitleLabel.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
     }
 }
 

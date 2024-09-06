@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 final class TalkPageCoffeeRollView: SetupView {
 
@@ -76,8 +76,13 @@ final class TalkPageCoffeeRollView: SetupView {
     }
     
     private func updateFonts() {
-        textView.attributedText = viewModel.coffeeRollText?.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
-        textView.linkTextAttributes = [.foregroundColor: theme.colors.link]
+        if let coffeeRollText = viewModel.coffeeRollText {
+            let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+            let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(coffeeRollText, styles: styles).removingRepetitiveNewlineCharacters()
+            textView.attributedText = attributedText
+            textView.linkTextAttributes = [.foregroundColor: theme.colors.link]
+        }
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {

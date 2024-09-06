@@ -8,6 +8,32 @@
   },
   {
     "aliases" : [
+      "основа",
+      "baseline",
+      "osnova"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "ивица",
+      "оивичено",
+      "border",
+      "ivica",
+      "oivičeno"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "дно",
+      "bottom",
+      "dno"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "центар",
       "ц",
       "c",
@@ -57,6 +83,14 @@
   },
   {
     "aliases" : [
+      "средина",
+      "middle",
+      "sredina"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "без",
       "н",
       "none",
@@ -77,6 +111,42 @@
   },
   {
     "aliases" : [
+      "под",
+      "sub",
+      "pod"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "супер",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "срединатекста",
+      "средина_текста",
+      "text-bottom",
+      "sredinateksta",
+      "sredina_teksta"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "врхтекста",
+      "врх_текста",
+      "text-top",
+      "vrhteksta",
+      "vrh_teksta"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "мини",
       "умањено",
       "thumbnail",
@@ -88,6 +158,34 @@
   },
   {
     "aliases" : [
+      "врх",
+      "top",
+      "vrh"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "усправно",
+      "усправно=$1",
+      "усправно_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "uspravno",
+      "uspravno=$1",
+      "uspravno_$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Datoteka",
+      "Fotografija",
+      "Image",
+      "Slika",
+      "Слика",
+      "Фотографија",
       "Датотека"
     ],
     "name" : "file_namespace"

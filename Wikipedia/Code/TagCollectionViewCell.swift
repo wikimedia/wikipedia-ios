@@ -1,3 +1,5 @@
+import WMFComponents
+
 public struct Tag {
     let readingList: ReadingList
     let index: Int
@@ -45,7 +47,7 @@ class TagCollectionViewCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

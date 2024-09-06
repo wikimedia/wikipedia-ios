@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 public protocol CardContent {
     var view: UIView! { get }
@@ -294,12 +294,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
     
     public override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        footerButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        undoLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        undoButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        footerButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        undoLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        undoButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        customizationButton.titleLabel?.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
     private var cardShadowColor: UIColor = .black {

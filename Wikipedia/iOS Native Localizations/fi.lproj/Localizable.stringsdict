@@ -191,9 +191,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d merkki lisätty</string>
+			<string>%1$d tavu lisätty</string>
 			<key>other</key>
-			<string>%1$d merkkiä lisätty</string>
+			<string>%1$d tavua lisätty</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -207,9 +207,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d merkki poistettu</string>
+			<string>%1$d tavu poistettu</string>
 			<key>other</key>
-			<string>%1$d merkkiä poistettu</string>
+			<string>%1$d tavua poistettu</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>

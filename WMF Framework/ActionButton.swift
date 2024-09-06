@@ -1,9 +1,9 @@
-import UIKit
+import WMFComponents
 
 class ActionButton: SetupButton {
     
-    var titleLabelFont = DynamicTextStyle.semiboldSubheadline
-    
+    var titleLabelFont = WMFFont.mediumSubheadline
+
     override func setup() {
         super.setup()
         var deprecatedSelf = self as DeprecatedButton
@@ -22,16 +22,16 @@ class ActionButton: SetupButton {
     
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
-        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.preferredContentSizeCategory else {
             return
         }
-        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        contentSizeCategory = traitCollection.preferredContentSizeCategory
         updateFonts(with: traitCollection)
     }
     
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel?.font = UIFont.wmf_font(titleLabelFont, compatibleWithTraitCollection: traitCollection)
+        titleLabel?.font = WMFFont.for(titleLabelFont, compatibleWith: traitCollection)
     }
 }
 

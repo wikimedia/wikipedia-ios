@@ -1,3 +1,5 @@
+import WMFComponents
+
 extension ArticleViewController {
     func showLanguages() {
         let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL)

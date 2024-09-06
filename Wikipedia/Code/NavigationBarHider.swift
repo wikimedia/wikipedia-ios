@@ -1,6 +1,6 @@
 import UIKit
 
-@objc (WMFNavigationBarHiderDelegate)
+@objc(WMFNavigationBarHiderDelegate)
 public protocol NavigationBarHiderDelegate: NSObjectProtocol {
     func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool)
 }

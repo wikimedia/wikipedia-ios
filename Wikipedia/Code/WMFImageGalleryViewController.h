@@ -35,6 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFImageGalleryViewControllerDismissDelegate <NSObject>
+
+- (void)galleryDidDismiss:(WMFImageGalleryViewController *)gallery;
+- (void)galleryDidTapInfoButton:(WMFImageGalleryViewController *)gallery;
+
+@end
+
 /**
  *  This is an abstract base class do not use it directly.
  *  Instead use either the concrete article or POTD version below.
@@ -52,17 +59,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage;
 
-- (UIImageView *)currentImageView;
-
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 - (void)setOverlayViewTopBarHidden:(BOOL)hidden;
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo;
 
-- (void)updateOverlayInformation;
-
 @property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
+
+@property (weak, nonatomic, nullable) id<WMFImageGalleryViewControllerDismissDelegate> dismissDelegate;
 
 @end
 

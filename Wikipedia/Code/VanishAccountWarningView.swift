@@ -1,3 +1,4 @@
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -50,9 +51,9 @@ struct VanishAccountWarningView: View {
         return LocalizedStrings.body.replacingOccurrences(of: "**", with: "")
     }
 
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 28)
-    private let primaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
-    private let secondaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 17)
+    private let titleFont = WMFFont.for(.boldTitle1)
+    private let primaryButtonFont = WMFFont.for(.boldHeadline)
+    private let secondaryButtonFont = WMFFont.for(.semiboldHeadline)
 
     // MARK: - Content
 

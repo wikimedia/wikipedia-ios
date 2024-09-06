@@ -37,6 +37,8 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
+"alt-text-experiment-onboarding-secondary-button-title" = "Դիտել օրինակներ";
+"alt-text-survey-option-7" = "Ես ժամանակ չունեմ";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Հոդվածը}} ջնջվել է";
@@ -148,6 +150,7 @@
 "notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";
 "notifications-center-go-to-your-talk-page" = "Ձեր քննարկման էջ";
 "notifications-center-mark" = "Նշել";
+"notifications-center-mark-all-as-read" = "Նշել բոլորը որպես ընթերցված";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 նախագիծ|$1 նախագիծ}}";
 "notifications-center-swipe-mark-as-read" = "Նշել ընթերցված";
 "notifications-center-swipe-mark-as-unread" = "Նշել չընթերցված";
@@ -188,6 +191,7 @@
 "settings-primary-language" = "Հիմնական";
 "settings-title" = "Կարգավորումներ";
 "sort-by-title-action" = "Վերնագիր";
+"survey-other-placeholder" = "Այլ";
 "table-of-contents-close-accessibility-hint" = "Փակել";
 "table-of-contents-heading" = "Բովանդակություն";
 "talk-page-discussion-read-accessibility-label" = "Կարդալ";

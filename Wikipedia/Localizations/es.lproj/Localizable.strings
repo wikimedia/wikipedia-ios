@@ -21,7 +21,9 @@
 // Author: Eulalio
 // Author: Fitoschido
 // Author: Geryescalier
+// Author: Grey Olson
 // Author: Hasley
+// Author: I DOWNGRADED YT APP (1)
 // Author: Ihojose
 // Author: Indiralena
 // Author: Irus
@@ -160,6 +162,62 @@
 "action-update" = "Actualizar";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "advanced-settings-title" = "Ajustes avanzados";
+"alt-text-add-button-title" = "Añadir";
+"alt-text-do-not-add-button-title" = "No añadir";
+"alt-text-email-fifth-line" = "Capturas de pantalla o enlaces";
+"alt-text-email-first-line" = "He encontrado un problema con la función de texto alternativo:";
+"alt-text-email-fourth-line" = "Describa la solución propuesta";
+"alt-text-email-second-line" = "Describa el problema específico";
+"alt-text-email-third-line" = "El comportamiento que espero es el siguiente:";
+"alt-text-email-title" = "Informe de problemas: función de texto alternativo";
+"alt-text-experiment-caption-title" = "Subtítulo da imagem";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "Procure que el texto alternativo sea breve para que los usuarios puedan entender fácilmente el contenido de la imagen";
+"alt-text-experiment-edit-summary" = "Texto alternativo añadido";
+"alt-text-experiment-guidance-button" = "Guía para redactar el texto alternativo";
+"alt-text-experiment-onboarding-item-1-subtitle" = "1 o 2 líneas de texto sin acrónimos, abreviaturas o tecnicismos.";
+"alt-text-experiment-onboarding-item-1-title" = "Que sea breve y claro";
+"alt-text-experiment-onboarding-item-2-subtitle" = "No añada su propio análisis, interpretación u opinión.";
+"alt-text-experiment-onboarding-item-2-title" = "Describa lo que se ve";
+"alt-text-experiment-onboarding-item-3-subtitle" = "No repita texto que ya esté en el pie de foto.";
+"alt-text-experiment-onboarding-item-3-title" = "Céntrese en lo que es relevante para el artículo";
+"alt-text-experiment-onboarding-item-4-subtitle" = "No empiece con: \"Esta es una imagen de...\", sino describa el medio o el estilo, si procede";
+"alt-text-experiment-onboarding-item-4-title" = "Tipo de imagen";
+"alt-text-experiment-onboarding-secondary-button-title" = "Ver ejemplos";
+"alt-text-experiment-onboarding-title" = "Cómo escribir el texto alternativo de las imágenes";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Comprenda la imagen en el contexto del artículo.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Revisar";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Consulte información adicional sobre la imagen en Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Inspeccionar";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Añada una descripción para lectores con problemas de la vista.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Añadir descripción";
+"alt-text-experiment-review-title" = "Revisar";
+"alt-text-experiment-text-field-description" = "Texto descriptivo para los lectores que no pueden ver la imagen";
+"alt-text-experiment-text-field-placholder" = "Describir la imagen";
+"alt-text-experiment-view-title" = "Añadir texto alternativo";
+"alt-text-feedback-alert-subtitle" = "¿Utilizaría una función que le proporcionara una lista de imágenes que necesitan un texto alternativo?";
+"alt-text-feedback-alert-subtitle-flow-C" = "¿Le interesaría recibir notificaciones similares sobre sugerencias de edición de artículos después de editarlos?";
+"alt-text-feedback-alert-title" = "Queremos conocer su opinión";
+"alt-text-feedback-survey-neutral" = "Neutral";
+"alt-text-feedback-survey-satisfied" = "Satisfecho";
+"alt-text-feedback-survey-subtitle" = "¿Está satisfecho con esta función?";
+"alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
+"alt-text-feedback-survey-toast-title" = "Opinión enviada";
+"alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
+// Fuzzy
+"alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
+"alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
+"alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
+"alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
+"alt-text-survey-option-1" = "No sé cómo describir una imagen";
+"alt-text-survey-option-2" = "No sé cómo añadir texto alternativo";
+"alt-text-survey-option-3" = "No entiendo en qué se diferencia de un pie de foto";
+"alt-text-survey-option-4" = "Tengo problemas técnicos";
+"alt-text-survey-option-5" = "Tengo problemas de la vista";
+"alt-text-survey-option-6" = "No me interesa escribir texto alternativo para las imágenes";
+"alt-text-survey-option-7" = "No tengo tiempo";
+"alt-text-survey-subtitle" = "Indique los motivos por los que no añadirá texto alternativo.";
+"alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, info, conocimiento, búsqueda, investiga, información, explora, aprende";
 "app-store-release-notes" = "Canal Explorar completamente personalizable y fácil de leer. Localización, mejoras de rendimiento y corrección de fallos.";
@@ -240,6 +298,7 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+"developer-settings-enable-alt-text-experiment" = "Habilite el experimento de texto alternativo.";
 "diff-change-added" = "Adición, $1, final de adición.";
 "diff-change-paragraph-lines-moved-down" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
 "diff-change-paragraph-lines-moved-up" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
@@ -911,6 +970,10 @@
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
 "suggested-edits-title" = "Ediciones sugeridas";
+"survey-instructions" = "Seleccione una o más opciones";
+"survey-other-placeholder" = "Otra";
+"survey-submit" = "Enviar";
+"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";

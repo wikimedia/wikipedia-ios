@@ -1,8 +1,8 @@
 import UIKit
 import WMF
 import SwiftUI
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -79,9 +79,8 @@ extension WMFAppViewController {
     // The user is deep linking in these states and we don't want to interrupt them
     private var shouldPresentLanguageVariantAlerts: Bool {
         guard presentedViewController == nil,
-              let navigationController = navigationController,
-              navigationController.viewControllers.count == 1 &&
-                navigationController.viewControllers[0] is WMFAppViewController else {
+              let navigationController = currentTabNavigationController,
+              navigationController.viewControllers.count == 1 else {
             return false
         }
         return true
@@ -118,7 +117,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
     public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
 }
 
@@ -140,7 +139,7 @@ extension WMFAppViewController {
         
         let dismissAndPushBlock = { [weak self] in
             self?.dismissPresentedViewControllers()
-            self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+            self?.currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
         }
 
         guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
@@ -153,7 +152,7 @@ extension WMFAppViewController {
     }
     
     var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
-        var currentController: UIViewController? = navigationController
+        var currentController: UIViewController? = currentTabNavigationController
 
         while let presentedViewController = currentController?.presentedViewController {
             if let presentedNavigationController = (presentedViewController as? UINavigationController) {
@@ -174,7 +173,7 @@ extension WMFAppViewController {
     
     private var topMostViewController: UIViewController? {
             
-        var topViewController: UIViewController = navigationController ?? self
+        var topViewController: UIViewController = currentTabNavigationController ?? self
 
         while let presentedViewController = topViewController.presentedViewController {
             topViewController = presentedViewController
@@ -204,14 +203,14 @@ extension WMFAppViewController {
 
 // MARK: - Watchlist
 
-extension WMFAppViewController: WKWatchlistDelegate {
+extension WMFAppViewController: WMFWatchlistDelegate {
 
     public func emptyViewDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+    public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
             return
         }
@@ -231,8 +230,8 @@ extension WMFAppViewController: WKWatchlistDelegate {
         navigate(to: diffURL, userInfo: userInfo)
     }
 
-    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction) {
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
         }
@@ -282,7 +281,7 @@ extension WMFAppViewController: WKWatchlistDelegate {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WKWatchlistFilterViewModel) {
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WMFWatchlistFilterViewModel) {
         let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
         languagesController.title = CommonStrings.wikipediaLanguages
         languagesController.apply(theme)
@@ -297,12 +296,12 @@ extension WMFAppViewController: WKWatchlistDelegate {
             // From `ViewControllerRouter`
             let dataStore = self.dataStore
             let appLanguages = dataStore.languageLinkController.preferredLanguages
-            var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
-                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wkProject = wikimediaProject.wkProject else {
+            var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wmfProject = wikimediaProject.wmfProject else {
                     return
                 }
 
-                result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+                result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
             }
             localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
             localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
@@ -326,7 +325,7 @@ extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
 
 }
 
-extension WMFAppViewController: WKWatchlistLoggingDelegate {
+extension WMFAppViewController: WMFWatchlistLoggingDelegate {
     public func logWatchlistDidLoad(itemCount: Int) {
         WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
     }
@@ -335,7 +334,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logOpenFilterSettings()
     }
     
-    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WMFWatchlistFilterSettings, onProjects: [WMFProject]) {
         
         // Projects
         let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
@@ -351,7 +350,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         }
         
         // Wikis
-        let wikipediaProjects = onProjects.map { WikimediaProject(wkProject: $0) }.filter {
+        let wikipediaProjects = onProjects.map { WikimediaProject(wmfProject: $0) }.filter {
             switch $0 {
             case .wikipedia: return true
             default: return false
@@ -415,7 +414,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         
         // Type Change
         var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
-        for changeType in WKWatchlistFilterSettings.ChangeType.allCases {
+        for changeType in WMFWatchlistFilterSettings.ChangeType.allCases {
             if !filterSettings.offTypes.contains(changeType) {
                 switch changeType {
                 case .categoryChanges: onTypeChanges.append(.categoryChanges)
@@ -432,7 +431,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
     }
     
-    public func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType) {
+    public func logWatchlistEmptyViewDidShow(type: WMFEmptyViewStateType) {
         switch type {
         case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
         case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
@@ -447,15 +446,15 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
     }
     
-    public func logWatchlistUserDidTapUserButton(project: WKData.WKProject) {
+    public func logWatchlistUserDidTapUserButton(project: WMFData.WMFProject) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WKData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WMFWatchlistUserButtonAction) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
 
         switch action {
         case .userPage:
@@ -540,67 +539,71 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
     }
     
-    @objc func setWKAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme: WKTheme
+    @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme: WMFTheme
         switch theme.name {
         case "light":
-            wkTheme = WKTheme.light
+            wmfTheme = WMFTheme.light
         case "sepia":
-            wkTheme = WKTheme.sepia
+            wmfTheme = WMFTheme.sepia
         case "dark":
-            wkTheme = WKTheme.dark
+            wmfTheme = WMFTheme.dark
         case "black":
-            wkTheme = WKTheme.black
+            wmfTheme = WMFTheme.black
         default:
-            wkTheme = WKTheme.light
+            wmfTheme = WMFTheme.light
         }
-        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
 }
 
-// MARK: WKData setup
+// MARK: WMFData setup
 
 extension WMFAppViewController {
-    @objc func setupWKDataEnvironment() {
-        WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+    @objc func setupWMFDataEnvironment() {
+        WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         switch Configuration.current.environment {
         case .staging:
-            WKDataEnvironment.current.serviceEnvironment = .staging
+            WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
-            WKDataEnvironment.current.serviceEnvironment = .production
+            WMFDataEnvironment.current.serviceEnvironment = .production
         }
         
-        WKDataEnvironment.current.userAgentUtility = {
+        WMFDataEnvironment.current.userAgentUtility = {
             return WikipediaAppUtils.versionedUserAgent()
         }
         
-        WKDataEnvironment.current.appInstallIDUtility = {
+        WMFDataEnvironment.current.appInstallIDUtility = {
             return UserDefaults.standard.wmf_appInstallId
         }
         
-        WKDataEnvironment.current.acceptLanguageUtility = {
+        WMFDataEnvironment.current.acceptLanguageUtility = {
             return Locale.acceptLanguageHeaderForPreferredLanguages
         }
         
-        WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
         
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
     
-    @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+    @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
 }
 
-// MARK: Components App Environment
+// MARK: WMFComponents App Environment Helpers
 extension WMFAppViewController {
 
-    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme = Theme.wkTheme(from: theme)
-        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme = Theme.wmfTheme(from: theme)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
+    }
+    
+    @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
+        return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
 }

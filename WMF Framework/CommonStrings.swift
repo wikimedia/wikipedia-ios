@@ -142,6 +142,12 @@ public class CommonStrings: NSObject {
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
     
+    // Survey strings
+    public static let surveyTitle = WMFLocalizedString("survey-title", value: "Reason", comment: "Title of the survey view. Displayed in the navigation bar as title of view.")
+    public static let surveySubmitActionTitle = WMFLocalizedString("survey-submit", value: "Submit", comment: "Title of the submit button. Displayed in survey views to submit answers.")
+    public static let surveyInstructions = WMFLocalizedString("survey-instructions", value: "Select one or more options", comment: "Instructions displayed on survey views.")
+    public static let surveyOtherPlaceholder = WMFLocalizedString("survey-other-placeholder", value: "Other", comment: "Title of other textfield placeholder option in survey view.")
+    
     // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
     
@@ -670,7 +676,79 @@ public class CommonStrings: NSObject {
     
     public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
 
+    // Alt text
 
+    public static let altTextTitle  = WMFLocalizedString("alt-text-title", value: "Alt text", comment: "Title for alt text")
+
+    public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
+
+    public static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
+    
+    public static let altTextArticleNavBarTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
+    
+    public static func altTextEditSummary(with languageCode: String?) -> String {
+        WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
+    }
+    
+    public static let altTextViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
+    
+    public static let altTextViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
+    
+    public static let altTextViewCharacterCounterWarning = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
+    
+    public static let altTextViewCharacterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
+    
+    public static let altGuidanceButtonTitle = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
+    
+    public static let altTextOnboardingTitle = WMFLocalizedString("alt-text-experiment-onboarding-title", value: "How to write alt text for images", comment: "Title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem1Title = WMFLocalizedString("alt-text-experiment-onboarding-item-1-title", value: "Keep it short and clear", comment: "Item 1 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem1Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-1-subtitle", value: "1-2 lines of plain text with no acronyms, abbreviations, or jargon.", comment: "Item 1 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem2Title = WMFLocalizedString("alt-text-experiment-onboarding-item-2-title", value: "Describe what can be seen", comment: "Item 2 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem2Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-2-subtitle", value: "Don’t add your own research, interpretation, or point of view.", comment: "Item 2 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem3Title = WMFLocalizedString("alt-text-experiment-onboarding-item-3-title", value: "Focus on what is relevant to the article", comment: "Item 3 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem3Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-3-subtitle", value: "But don’t repeat text that is already in the caption.", comment: "Item 3 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem4Title = WMFLocalizedString("alt-text-experiment-onboarding-item-4-title", value: "Type of image", comment: "Item 4 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingItem4Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-4-subtitle", value: "Do not start with ‘This is an image of...’ but describe the medium or style, if relevant", comment: "Item 4 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
+    
+    public static let altTextOnboardingSecondaryButtonTitle = WMFLocalizedString("alt-text-experiment-onboarding-secondary-button-title", value: "View examples", comment: "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.")
+    
+    public static let altTextOnboardingTooltip1Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-1-title", value: "Review", comment: "Title of the first onboarding tooltip displayed on the alt text experiment. Points at an image lacking alt text in an article.")
+    
+    public static let altTextOnboardingTooltip1Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-1-body", value: "Understand the image in the article context.", comment: "Body of the first onboarding tooltip displayed on the alt text experiment.")
+    
+    public static let altTextOnboardingTooltip2Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-2-title", value: "Inspect", comment: "Title of the second onboarding tooltip displayed on the alt text experiment. Points at an image file name that navigates to the commons web view.")
+    
+    public static let altTextOnboardingTooltip2Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-2-body", value: "View additional image information on Wikimedia Commons.", comment: "Body of the second onboarding tooltip displayed on the alt text experiment.")
+    
+    public static let altTextOnboardingTooltip3Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-3-title", value: "Add description", comment: "Title of the third onboarding tooltip displayed on the alt text experiment. Points at the alt text input textview.")
+    
+    public static let altTextOnboardingTooltip3Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-3-body", value: "Add description for visually impaired readers", comment: "Body of the third onboarding tooltip displayed on the alt text experiment.")
+
+    public static let altTextFeedbackAlertTitle = WMFLocalizedString("alt-text-feedback-alert-title", value: "We want your feedback", comment: "Title text for the feedback alert in alt text")
+
+    public static let altTextFeedbackAlertMessage = WMFLocalizedString("alt-text-feedback-alert-subtitle", value: "Would you use a feature that provided a feed of images in need of alt text?", comment: "Subtitle text for the feedback alert in alt text")
+
+    public static let altTextFeedbackAlertMessageFlowC = WMFLocalizedString("alt-text-feedback-alert-subtitle-flow-C", value: "Would you be interested in receiving similar notifications about suggested edits on articles after you edit them?", comment: "Subtitle text for the feedback alert in alt text experiment for flow C")
+
+    public static let altTextFeedbackSurveyTitle = WMFLocalizedString("alt-text-feedback-survey-title", value: "Help improve the feature", comment: "Title for the alt text feedback survey")
+
+    public static let altTextFeedbackSurveySubtitle = WMFLocalizedString("alt-text-feedback-survey-subtitle", value: "Are you satisfied with this feature?", comment: "Subtitle for the alt text feedback survey")
+
+    public static let altTextFeedbackSurveySatisfied = WMFLocalizedString("alt-text-feedback-survey-satisfied", value: "Satisfied", comment: "Text for the alt text feedback survey satisfied option")
+
+    public static let altTextFeedbackSurveyNeutral = WMFLocalizedString("alt-text-feedback-survey-neutral", value: "Neutral", comment: "Text for the alt text feedback survey neutral option")
+
+    public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
+
+    public static let altTextFeedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a alt text experiment survey")
 }
 // Language variant strings
 public extension CommonStrings {
@@ -740,8 +818,4 @@ public extension CommonStrings {
 	static let tachelhitVariantsAlertTitle =  WMFLocalizedString("tachelhit-variants-alert-title", value: "Updates to Tachelhit variant support", comment: "Title of alert used to inform users about Tachelhit variant support.")
 
 	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
-
-    static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
-
-    static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
 }
