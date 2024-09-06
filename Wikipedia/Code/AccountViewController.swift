@@ -163,7 +163,7 @@ class AccountViewController: SubSettingsViewController {
             present(warningViewController, animated: true)
         case .donationHistory:
             let viewTitle = WMFLocalizedString("donation-history-view-title", value: "Donation history", comment: "Title for the donation history view")
-            let buttonTitle = WMFLocalizedString("donation-history-button-delete-title", value: "delete local history", comment: "Title for local donation history delete button")
+            let buttonTitle = WMFLocalizedString("donation-history-button-delete-title", value: "Delete local history", comment: "Title for local donation history delete button")
             let emptyViewMessage = WMFLocalizedString("donation-history-empty-view-title", value: "You have no locally saved donations", comment: "Title for donation history empty view")
             let localizedStrings = WMFDonateHistoryViewModel.LocalizedStrings(viewTitle: viewTitle, buttonTitle: buttonTitle, emptyMessage: emptyViewMessage)
             let viewModel = WMFDonateHistoryViewModel(localizedStrings: localizedStrings)

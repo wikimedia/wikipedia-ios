@@ -2,10 +2,10 @@ import Foundation
 
 public final class WMFDonateLocalHistory: Codable {
 
-    let donationTimestamp: String
-    let donationType: DonationType
-    let donationAmount: Decimal
-    let isNative: Bool
+    public let donationTimestamp: String
+    public let donationType: DonationType
+    public let donationAmount: Decimal
+    public let isNative: Bool
 
     // MARK: Nested Types
 

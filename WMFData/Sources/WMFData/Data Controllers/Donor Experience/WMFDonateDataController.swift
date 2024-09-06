@@ -231,28 +231,26 @@ import Contacts
 
     @discardableResult
     public func saveLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
-        // load existing donations
-        let donateHistory: [WMFDonateLocalHistory]? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory) // sempre retrieve um array de dicts
+        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory()
 
         if let donateHistory {
             var donationArray: [WMFDonateLocalHistory] = donateHistory
             donationArray.append(donation)
             try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: donationArray)
         } else {
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: [donation]) // sempre salva em [array de donation]
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: [donation])
         }
 
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory)
 
     }
 
-    public func loadLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
+    public func loadLocalDonationHistory() -> [WMFDonateLocalHistory]? {
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistory)
     }
 
     public func deleteLocalDonationHistory() {
-
-//        try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistory, value: )
+        try? self.sharedCacheStore?.remove(key: self.cacheLocalDonateHistory)
     }
 
     // MARK: - Internal

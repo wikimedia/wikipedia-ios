@@ -336,6 +336,9 @@
 "donate-transaction-fee-opt-in-text" = "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * $1 - transaction fee amount. Please leave %% unchanged for proper formatting.";
 "donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url. $1 is replaced by the localized donor policy link.";
 "donate-wikimedia-fine-print-2" = "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.";
+"donation-history-button-delete-title" = "Title for local donation history delete button";
+"donation-history-empty-view-title" = "Title for donation history empty view";
+"donation-history-view-title" = "Title for the donation history view";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
 "edit-link-remove-link-title" = "Title for the remove link button";

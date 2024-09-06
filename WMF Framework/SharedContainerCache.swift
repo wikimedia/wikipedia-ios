@@ -53,10 +53,8 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         try? encodedCache.write(to: cacheDataFileURL)
     }
 
-    public func deleteCache() {
-        if let subdirectoryURL = subdirectoryURL() {
-            try? FileManager.default.removeItem(at: subdirectoryURL)
-        }
+    public func removeCache() {
+        try? FileManager.default.removeItem(at: cacheDataFileURL)
     }
 
     /// Persist only the last 50 visited talk pages
