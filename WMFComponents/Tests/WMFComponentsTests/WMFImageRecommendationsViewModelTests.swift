@@ -23,7 +23,7 @@ final class WMFImageRecommendationsViewModelTests: XCTestCase {
     }
 
     func testFetchInitialImageRecommendations() throws {
-        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isLoggedIn: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
+        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
         let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
         
@@ -39,7 +39,7 @@ final class WMFImageRecommendationsViewModelTests: XCTestCase {
     }
     
     func testFetchNextImageRecommendation() throws {
-        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isLoggedIn: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
+        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
         
         let expectation1 = XCTestExpectation(description: "Fetch Image Recommendations")
         
