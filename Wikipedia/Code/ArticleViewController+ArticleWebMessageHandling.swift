@@ -58,7 +58,11 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishInitialSetup() {
         let oldState = state
         state = .loaded
-        showWIconPopoverIfNecessary()
+        
+        if altTextExperimentViewModel == nil {
+            showWIconPopoverIfNecessary()
+        }
+        
         refreshControl.endRefreshing()
         surveyTimerController?.articleContentDidLoad()
         loadSummary(oldState: oldState)

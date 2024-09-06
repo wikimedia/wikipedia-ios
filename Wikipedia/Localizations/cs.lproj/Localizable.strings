@@ -101,6 +101,7 @@
 "account-creation-saving" = "Ukládá se…";
 "account-creation-title" = "Vytvořit uživatelský účet";
 "account-group-title" = "Váš účet";
+"account-request-vanishing" = "Nechat zmizet účet";
 "account-talk-page-title" = "Vaše diskusní stránka";
 "account-talk-preferences-auto-sign-discussions" = "Automaticky podepisovat příspěvky v diskusích";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatické podpisování příspěvků v diskusích bude používat podpis definovaný v Nastavení podpisu";

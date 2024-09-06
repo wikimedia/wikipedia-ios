@@ -21,8 +21,7 @@
 "action-unsave" = "Ӏалаш ца йина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 "article-about-title" = "ХӀокху агӀонах лаьцна";
-// Fuzzy
-"article-languages-filter-placeholder" = "Меттанийн луьттург";
+"article-languages-filter-placeholder" = "Мотт лаха";
 "article-languages-label" = "Харжа мотт";
 "back-button-accessibility-label" = "Йуханехьа";
 "button-next" = "Кхин дӀа";
@@ -46,7 +45,7 @@
 "main-menu-terms-of-use" = "Лелоран биллам";
 "main-menu-title" = "Кхин а";
 "main-menu-zero-faq" = "Wikipedia Zero кест-кеста луш долу хаттарш";
-"menu-cancel-accessibility-label" = "Цаоьшу";
+"menu-cancel-accessibility-label" = "ДӀадаккха";
 "more-languages-tooltip-title" = "ТӀетоха меттанаш";
 "navbar-title-mode-edit-wikitext-preview" = "Хьалххе хьажар";
 // Fuzzy
@@ -63,8 +62,8 @@
 "reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
-"search-recent-clear-cancel" = "Цаоьшу";
-"settings-clear-cache-cancel" = "Цаоьшу";
+"search-recent-clear-cancel" = "ДӀадаккхар";
+"settings-clear-cache-cancel" = "ДӀадаккхар";
 "settings-help-and-feedback" = "ЗӀе";
 "share-default-format" = "«$1» «$2» чуьра: $3";
 "share-email-format" = "«$1»\n\n«$2» чуьра \n\n$3";

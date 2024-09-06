@@ -43,10 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         updateDynamicIconShortcutItems()
     }
-    
-    func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
-        return true
-    }
 
     // MARK: UISceneSession Lifecycle
 

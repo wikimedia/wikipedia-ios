@@ -1,8 +1,8 @@
 import UIKit
-import Components
+import WMFComponents
 import WMF
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 
 protocol EditorViewControllerDelegate: AnyObject {
     func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?)
@@ -35,12 +35,12 @@ final class EditorViewController: UIViewController {
     // MARK: - Properties
     
     private let pageURL: URL
-    private let sectionID: Int?
+    let sectionID: Int?
     private let editFlow: EditFlow
     private let source: Source
     private let dataStore: MWKDataStore
     private let articleSelectedInfo: SelectedTextEditInfo?
-    private let editTag: WKEditTag
+    private let editTag: WMFEditTag
     private weak var delegate: EditorViewControllerDelegate?
     private var theme: Theme
     
@@ -48,7 +48,7 @@ final class EditorViewController: UIViewController {
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
     
-    private var sourceEditor: WKSourceEditorViewController?
+    private var sourceEditor: WMFSourceEditorViewController?
     private var editorTopConstraint: NSLayoutConstraint?
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
@@ -81,7 +81,7 @@ final class EditorViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WKEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
+    init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WMFEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
 
         self.pageURL = pageURL
         self.sectionID = sectionID
@@ -343,7 +343,7 @@ final class EditorViewController: UIViewController {
                     var onloadSelectRange: NSRange?
                     if let articleSelectedInfo {
                         let htmlInfo = articleSelectedInfo.htmlInfo()
-                        onloadSelectRange = WKWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
+                        onloadSelectRange = WMFWikitextUtils.rangeOf(htmlInfo: htmlInfo, inWikitext: response.wikitext)
                     }
                     
                     completion(.success(WikitextFetchResponse(wikitext: response.wikitext, onloadSelectRange: onloadSelectRange, userGroupLevelCanEdit: userGroupLevelCanEdit, protectedPageError: protectedPageError, blockedError: blockedError, otherError: otherError)))
@@ -450,7 +450,7 @@ final class EditorViewController: UIViewController {
     }
     
     private func addChildEditor(wikitext: String, needsReadOnly: Bool, onloadSelectRange: NSRange?) {
-        let localizedStrings = WKSourceEditorLocalizedStrings(
+        let localizedStrings = WMFSourceEditorLocalizedStrings(
             keyboardTextFormattingTitle: CommonStrings.editorKeyboardTextFormattingTitle,
             keyboardParagraph: CommonStrings.editorKeyboardParagraphButton,
             keyboardHeading: CommonStrings.editorKeyboardHeadingButton,
@@ -513,9 +513,9 @@ final class EditorViewController: UIViewController {
 
         let isSyntaxHighlightingEnabled = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let textAlignment = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: pageURL.wmf_contentLanguageCode) ? NSTextAlignment.right : NSTextAlignment.left
-        let viewModel = WKSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
+        let viewModel = WMFSourceEditorViewModel(configuration: .full, initialText: wikitext, localizedStrings: localizedStrings, isSyntaxHighlightingEnabled: isSyntaxHighlightingEnabled, textAlignment: textAlignment, needsReadOnly: needsReadOnly, onloadSelectRange: onloadSelectRange)
 
-        let sourceEditor = WKSourceEditorViewController(viewModel: viewModel, delegate: self)
+        let sourceEditor = WMFSourceEditorViewController(viewModel: viewModel, delegate: self)
         
         addChild(sourceEditor)
         sourceEditor.view.translatesAutoresizingMaskIntoConstraints = false
@@ -558,7 +558,7 @@ final class EditorViewController: UIViewController {
     
     private func setTextSizeInAppEnvironment() {
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
-        WKAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
+        WMFAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
     
 
@@ -643,7 +643,7 @@ final class EditorViewController: UIViewController {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = sourceEditor.editedWikitext
         saveVC.source = source
-        saveVC.editTag = editTag
+        saveVC.editTags = [editTag]
 
         if case .editorSavePreview = editFlow {
             saveVC.needsWebPreviewButton = true
@@ -674,25 +674,25 @@ extension EditorViewController: Themeable {
 
 // MARK: - WKSourceEditorViewControllerDelegate
 
-extension EditorViewController: WKSourceEditorViewControllerDelegate {
-    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: Components.WKSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
+extension EditorViewController: WMFSourceEditorViewControllerDelegate {
+    func sourceEditorDidChangeUndoState(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, canUndo: Bool, canRedo: Bool) {
         navigationItemController.undoButton.isEnabled = canUndo
         navigationItemController.redoButton.isEnabled = canRedo
     }
     
-    func sourceEditorDidChangeText(_ sourceEditorViewController: Components.WKSourceEditorViewController, didChangeText: Bool) {
+    func sourceEditorDidChangeText(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController, didChangeText: Bool) {
         navigationItemController.progressButton.isEnabled = didChangeText
     }
     
-    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidTapFind(_ sourceEditorViewController: WMFSourceEditorViewController) {
         showFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: Components.WKSourceEditorViewController) {
+    func sourceEditorViewControllerDidRemoveFindInputAccessoryView(_ sourceEditorViewController: WMFComponents.WMFSourceEditorViewController) {
         hideFocusNavigationView()
     }
     
-    func sourceEditorViewControllerDidTapLink(parameters: WKSourceEditorFormatterLinkWizardParameters) {
+    func sourceEditorViewControllerDidTapLink(parameters: WMFSourceEditorFormatterLinkWizardParameters) {
         guard let siteURL = pageURL.wmf_site else {
             return
         }
@@ -1067,8 +1067,8 @@ extension EditorViewController: EditNoticesViewControllerDelegate {
 // MARK: - SelectedTextEditInfo extension
 
 private extension SelectedTextEditInfo {
-    func htmlInfo() -> WKWikitextUtils.HtmlInfo {
-        return WKWikitextUtils.HtmlInfo(textBeforeTargetText: selectedAndAdjacentText.textBeforeSelectedText, targetText: selectedAndAdjacentText.selectedText, textAfterTargetText: selectedAndAdjacentText.textAfterSelectedText)
+    func htmlInfo() -> WMFWikitextUtils.HtmlInfo {
+        return WMFWikitextUtils.HtmlInfo(textBeforeTargetText: selectedAndAdjacentText.textBeforeSelectedText, targetText: selectedAndAdjacentText.selectedText, textAfterTargetText: selectedAndAdjacentText.textAfterSelectedText)
     }
 }
 

@@ -1,5 +1,6 @@
 // Messages for French (français)
 // Exported from translatewiki.net
+// Author: Assorted-Interests
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
@@ -11,6 +12,7 @@
 // Author: Eric.LEWIN
 // Author: Fitoschido
 // Author: Gomoko
+// Author: Grey Olson
 // Author: Hydros
 // Author: Iketsi
 // Author: John Trololo
@@ -21,6 +23,7 @@
 // Author: Macofe
 // Author: McDutchie
 // Author: Melimeli
+// Author: Méthodes Bulebe Hangi
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -149,6 +152,61 @@
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "advanced-settings-title" = "Paramètres avancés";
+"alt-text-add-button-title" = "Ajouter";
+"alt-text-do-not-add-button-title" = "Ne pas ajouter";
+"alt-text-email-fifth-line" = "Captures d'écran ou liens";
+"alt-text-email-first-line" = "J'ai rencontré un problème avec la fonctionnalité de texte alternatif :";
+"alt-text-email-fourth-line" = "Décrivez la solution proposée";
+"alt-text-email-second-line" = "Décrivez le problème spécifique";
+"alt-text-email-third-line" = "Le comportement que je souhaiterais voir adopter est le suivant :";
+"alt-text-email-title" = "Rapport de problème : fonctionnalité de texte alternatif";
+"alt-text-experiment-character-counter-format" = "$1/$2";
+"alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
+"alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
+"alt-text-experiment-guidance-button" = "Conseils pour la rédaction d'un texte alternatif";
+"alt-text-experiment-onboarding-item-1-subtitle" = "Une à deux lignes de texte simple, sans acronymes, abréviations ou jargon.";
+"alt-text-experiment-onboarding-item-1-title" = "Soyez bref et clair";
+"alt-text-experiment-onboarding-item-2-subtitle" = "N'ajoutez pas vos propres recherches, interprétations ou points de vue.";
+"alt-text-experiment-onboarding-item-2-title" = "Décrivez ce qui peut être vu";
+"alt-text-experiment-onboarding-item-3-subtitle" = "Mais ne répétez pas le texte qui se trouve déjà dans la légende.";
+"alt-text-experiment-onboarding-item-3-title" = "Concentrez-vous sur ce qui est pertinent pour l'article";
+"alt-text-experiment-onboarding-item-4-subtitle" = "Ne commencez pas par « Il s'agit d'une image de... », mais décrivez le support ou le style, le cas échéant.";
+"alt-text-experiment-onboarding-item-4-title" = "Type d'image";
+"alt-text-experiment-onboarding-secondary-button-title" = "Voir les exemples";
+"alt-text-experiment-onboarding-title" = "Comment rédiger un texte alternatif pour les images";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Comprendre l'image dans le contexte de l'article.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Révision";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Consultez des informations supplémentaires sur l'image sur Wikimedia Commons.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "Contrôlez";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Ajouter une description pour les lecteurs malvoyants.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Ajouter une description";
+"alt-text-experiment-review-title" = "Révision";
+"alt-text-experiment-text-field-description" = "Texte de description pour les lecteurs qui ne peuvent pas voir l'image";
+"alt-text-experiment-text-field-placholder" = "Décrire cette image";
+"alt-text-experiment-view-title" = "Ajoutez un texte alternatif";
+"alt-text-feedback-alert-subtitle" = "Utiliseriez-vous une fonctionnalité qui vous fournirait un flux d'images nécessitant un texte alternatif?";
+"alt-text-feedback-alert-subtitle-flow-C" = "Seriez-vous intéressé par des notifications similaires concernant les modifications suggérées sur les articles après que vous les avez modifiés?";
+"alt-text-feedback-alert-title" = "Nous avons besoin de votre avis";
+"alt-text-feedback-survey-neutral" = "Neutre";
+"alt-text-feedback-survey-satisfied" = "Satisfait";
+"alt-text-feedback-survey-subtitle" = "Êtes-vous satisfait de cette fonctionnalité?";
+"alt-text-feedback-survey-title" = "Contribuer à l'amélioration de la fonctionnalité";
+"alt-text-feedback-survey-toast-title" = "Commentaires soumis";
+"alt-text-feedback-survey-unsatisfied" = "Insatisfait";
+// Fuzzy
+"alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
+"alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";
+"alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
+"alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
+"alt-text-survey-option-1" = "Je ne sais pas comment décrire une image";
+"alt-text-survey-option-2" = "Je n'ai pas l'expertise nécessaire pour ajouter un texte alternatif";
+"alt-text-survey-option-3" = "Je ne comprends pas en quoi ce texte est différent d'une légende";
+"alt-text-survey-option-4" = "J'ai des problèmes techniques";
+"alt-text-survey-option-5" = "Je souffre d'une déficience visuelle";
+"alt-text-survey-option-6" = "Je ne suis pas intéressé par la rédaction d'un texte alternatif pour les images";
+"alt-text-survey-option-7" = "Je n'ai pas le temps";
+"alt-text-survey-subtitle" = "Veuillez indiquer la ou les raisons pour lesquelles vous n'ajouterez pas de texte alternatif.";
+"alt-text-title" = "Texte complémentaire";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
 "app-store-release-notes" = "Flux d’exploration complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections d’anomalies.";
@@ -240,6 +298,11 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+"developer-settings" = "Paramètres développeur";
+"developer-settings-enable-alt-text-experiment" = "Activer l'expérience Alt Text.";
+"developer-settings-enable-alt-text-experiment-en" = "Permettre l'experrimentation d'un texte alternatif sur Wikimedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
+"developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";
 "diff-change-paragraph-lines-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
@@ -1134,6 +1197,10 @@
 "sort-by-recently-added-action" = "Récemment ajouté";
 "sort-by-title-action" = "Titre";
 "suggested-edits-title" = "Modifications suggérées";
+"survey-instructions" = "Sélectionnez une ou plusieurs options";
+"survey-other-placeholder" = "Autre";
+"survey-submit" = "Soumettre";
+"survey-title" = "Raison";
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";

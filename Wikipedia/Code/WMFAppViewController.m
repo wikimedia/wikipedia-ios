@@ -373,12 +373,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showReadingListHintForArticle:(WMFArticle *)maybeArticle];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.currentTabNavigationController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return self.currentTabNavigationController.preferredInterfaceOrientationForPresentation;
+}
+
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
-    // Don't access anything that can't be accessed in the background without starting a background task. For example, don't use anything in the shared app container like all of the Core Data persistent stores
-    self.unprocessedUserActivity = nil;
-    self.unprocessedShortcutItem = nil;
+
 }
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
@@ -441,7 +447,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
-    [self updateWKDataEnvironmentFromLanguagesDidChange];
+    [self updateWMFDataEnvironmentFromLanguagesDidChange];
 }
 
 /**
@@ -883,7 +889,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     [self endMigrationBackgroundTask];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
-                    [self setupWKDataEnvironment];
+                    [self setupWMFDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }

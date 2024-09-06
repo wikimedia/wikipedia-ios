@@ -1,7 +1,7 @@
 import Foundation
-import WKData
+import WMFData
 
-extension WKProject {
+extension WMFProject {
     var siteURL: URL? {
         var components = URLComponents()
         components.scheme = "https"

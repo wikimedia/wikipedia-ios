@@ -89,11 +89,26 @@ class WikipediaLanguageCommandLineUtility {
             $0.name == "img_left" ||
             $0.name == "img_center" ||
             $0.name == "img_none" ||
-            $0.name == "img_alt"
+            $0.name == "img_alt" ||
+            $0.name == "img_baseline" ||
+            $0.name == "img_border" ||
+            $0.name == "img_bottom" ||
+            $0.name == "img_middle" ||
+            $0.name == "img_sub" ||
+            $0.name == "img_super" ||
+            $0.name == "img_text_bottom" ||
+            $0.name == "img_text_top" ||
+            $0.name == "img_top" ||
+            $0.name == "img_upright"
         }
+
+        let namespaceAliases = siteInfo.query.namespacealiases
+        var fileNamespaceMagicWords = namespaceAliases.filter { $0.id == 6 }.map { $0.alias }
         if let fileNamespaceMagicWord = siteInfo.query.namespaces["6"]?.name {
-            recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: [fileNamespaceMagicWord]))
+            fileNamespaceMagicWords.insert(fileNamespaceMagicWord, at: 0)
         }
+        recognizedMagicWords.append(MagicWord(name: "file_namespace", aliases: fileNamespaceMagicWords))
+        
         let namespaceInfo = WikipediaSiteInfoLookup.NamespaceInfo(namespace: namespaces, mainpage: siteInfo.query.general.mainpage.uppercased())
         return WikipediaSiteInfoLookup(namespaceInfo: namespaceInfo, magicWordInfo: recognizedMagicWords)
     }

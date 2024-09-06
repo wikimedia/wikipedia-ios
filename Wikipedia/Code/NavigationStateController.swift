@@ -25,12 +25,14 @@ final class NavigationStateController: NSObject {
         }
         
         guard let articleViewController = visibleArticleViewController(for: selectedNavigationController) else {
+            moc.navigationState = nil
             return
         }
         
         let info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
         
         guard let stateToPersist = NavigationState.ViewController(kind: .article, presentation: .push, info: info) else {
+            moc.navigationState = nil
             return
         }
         

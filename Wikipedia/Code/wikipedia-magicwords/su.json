@@ -9,6 +9,29 @@
   },
   {
     "aliases" : [
+      "gada",
+      "garis_dasar",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "tepi",
+      "batas",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bawah",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "pus",
       "pusat",
       "center",
@@ -44,6 +67,13 @@
   },
   {
     "aliases" : [
+      "tengah",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "nir",
       "tanpa",
       "none"
@@ -60,6 +90,29 @@
   },
   {
     "aliases" : [
+      "upa",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "batek",
+      "bawah-teks",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "atek",
+      "atas-teks",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "jmpl",
       "jempol",
       "mini",
@@ -71,7 +124,36 @@
   },
   {
     "aliases" : [
-      "Gambar"
+      "atas",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "lurus",
+      "lurus=$1",
+      "lurus_$1",
+      "tegak",
+      "tegak=$1",
+      "tegak_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "Gambar",
+      "Image"
     ],
     "name" : "file_namespace"
   }

@@ -4,7 +4,7 @@
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-@import Components;
+@import WMFComponents;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -173,7 +173,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - Navigation Bar Configuration
 
 - (void)setupNavigationBar {
-    self.navigationTitleLabel.font = [WKFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
+    self.navigationTitleLabel.font = [WMFFontWrapper fontFor: WMFFontsSemiboldHeadline compatibleWithTraitCollection:self.traitCollection];
     self.navigationTitleLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitleViewWithGestureRecognizer:)];
     [self.navigationTitleLabel addGestureRecognizer:tapGestureRecognizer];
@@ -205,10 +205,17 @@ static NSString *const kWMFContributorsKey = @"contributors";
 - (void)presentDeveloperSettings {
     NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
     NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
-    WKDeveloperSettingsLocalizedStrings *localizedStrings = [[WKDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations close:[WMFCommonStrings closeButtonAccessibilityLabel]];
-    WKDeveloperSettingsViewModel *viewModel = [[WKDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
-    WKDeveloperSettingsViewController *viewController = [[WKDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
+    NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
+    
+    NSString *alwaysShowAltTextEntryPoint = WMFLocalizedStringWithDefaultValue(@"developer-settings-always-show-alt-text-entry-point", nil, nil, @"Always show alt text entry point.", @"Title for always showing the alt text experiment entry point. Displayed on the developer settings view.");
+
+    NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
+   
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs close:[WMFCommonStrings closeButtonAccessibilityLabel]];
+    WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
+    
+    WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController: viewController theme: self.theme];
     [self presentViewController:navVC animated:YES completion:nil];
 }

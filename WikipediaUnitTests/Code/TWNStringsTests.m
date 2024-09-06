@@ -361,7 +361,7 @@
     // To do this:
     // 1. Go to the project editor, select the project name under Project, and click Info. Under Localizations, click the Add button (+), then choose a language combination from the pop-up menu.
     // 2. Then in the project navigator, click the "Localizable" file in the "Localizations" group, and add a checkmark to your language in the file inspector.
-    // If you get warnings about existing localizations in previous two steps, choose option to use existing files.
+    // If you get warnings about existing localizations in previous two steps, choose option to use existing files. You might need to delete the new language folder under iOS Native Localizations BEFORE adding the language in the project editor.
     NSArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
     for (NSString *file in files) {
         XCTAssert(![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:file], @"Missing supported translation for %@", file);

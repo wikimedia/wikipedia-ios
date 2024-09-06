@@ -134,6 +134,17 @@
 "action-update" = "Uppdatera";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "advanced-settings-title" = "Avancerade inställningar";
+"alt-text-add-button-title" = "Lägg till";
+"alt-text-do-not-add-button-title" = "Lägg inte till";
+"alt-text-experiment-character-counter-warning" = "Försök hålla alternativtexten kort så användare enkelt kan förstå bildinnehållet";
+"alt-text-experiment-edit-summary" = "Lade till alternativtext";
+"alt-text-experiment-guidance-button" = "Riktlinjer för att skriva alternativtext";
+"alt-text-experiment-text-field-description" = "Textbeskrivning för läsare som inte kan se bilden";
+"alt-text-experiment-text-field-placholder" = "Beskriv bilden";
+"alt-text-experiment-view-title" = "Lägg till alternativtext";
+"alt-text-modal-subtitle-image-recommendation" = "Den förra bilden saknade alt-text. Lägga till en beskrivning till bilden för synskadade läsare?";
+"alt-text-modal-subtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
+"alt-text-modal-title" = "Lägga till alt-text till bilden?";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -225,6 +236,11 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
+"developer-settings" = "Utvecklarinställningar";
+"developer-settings-enable-alt-text-experiment" = "Aktivera alt-text-experiment.";
+"developer-settings-enable-alt-text-experiment-en" = "Aktivera alternativtextexperimentet för engelskspråkiga Wikipedia.";
+"developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
+"developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
 "diff-article-revision-history" = "Artikelns versionshistorik";
 "diff-change-added" = "Nytt innehåll, $1, slut på nytt innehåll.";
 "diff-change-paragraph-lines-moved-down" = "Stycke flyttades ned {{PLURAL:$1|0=0 rader|$1 rad|$1 rader}}. Gå till den nya platsen.";
@@ -304,6 +320,8 @@
 "donate-success-title" = "Tack!";
 "donate-title" = "Välj ett belopp";
 "donate-transaction-fee-opt-in-text" = "Jag lägger generöst till $1 för att täcka transaktionsavgifterna så att ni kan behålla 100 %% av min donation.";
+"donate-wikimedia-fine-print-1" = "Vi varken säljer eller delar med oss av din information med någon annan. Genom att donera går du med på att dela med dig av din personliga information med Wikimedia Foundation, den icke-vinstdrivande organisationen som driver Wikipedia och andra Wikimediaprojekt, och dess tjänsteleverantörer enligt vår [donationspolicy]($1). Wikimedia Foundation och dess tjänsteleverantörer befinner sig i USA och i andra länder vars integritetspolicy kan motsvara din egen. För mer information kan du läsa vår [donationspolicy]($1).";
+"donate-wikimedia-fine-print-2" = "För återkommande givare kommer fasta månatliga bidrag debiteras varje år av Wikimedia Foundation på samma dag som din första donation, tills dess att du meddelar oss att avsluta dem. Donationer som inletts på månadens 29, 30, 31 dag kommer debiteras på månadens sista dag för kortare månader, så nära originaldatumet som möjligt. För frågor, vänligen kontakta donationspolicy.";
 "edit-link-display-text-title" = "Visa text";
 "edit-link-link-target-title" = "Länkmål";
 "edit-link-remove-link-title" = "Ta bort länk";
@@ -327,6 +345,8 @@
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
 "edit-summary-placeholder-text" = "Hur förbättrade du artikeln?";
+"edit-summary-short-description-added" = "La till kort beskrivning";
+"edit-summary-short-description-updated" = "Uppdaterade kort beskrivning";
 "edit-watch-list-learn-more-text" = "Läs mer om din bevakningslistor";
 "edit-watch-this-page-text" = "Bevaka denna sida";
 "editing-welcome-be-bold-subtitle" = "Var djärv men inte vårdslös med att uppdatera artiklar. Var inte för hård mot dig själv om du gör något misstag då varje föregående sidversion sparas, så misstag kan enkelt korrigeras av vår gemenskap.";
@@ -620,6 +640,7 @@
 "image-recommendations-email-title" = "Problemrapport - Funktionen \"Lägg till en bild\"";
 "image-recs-no-title" = "Nej";
 "image-recs-not-sure-title" = "Osäker";
+"image-recs-time-warning-message" = "Granska artikeln för att förstå dess ämne och inspektera bilden";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min läslista";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Inte nu";

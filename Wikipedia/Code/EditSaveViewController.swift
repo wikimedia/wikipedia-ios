@@ -1,10 +1,11 @@
 import SwiftUI
 import WMF
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 struct EditorChanges {
     let newRevisionID: UInt64
+    let fullArticleWikitextForAltTextExperiment: String?
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
@@ -60,8 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
     var needsSuppressPosting: Bool = false
-    var editSummaryTag: WKEditSummaryTag?
-    var editTag: WKEditTag?
+    var editTags: [WMFEditTag]?
     var cannedSummaryTypes: [EditSummaryViewCannedButtonType] = [.typo, .grammar, .link]
     weak var delegate: EditSaveViewControllerDelegate?
     weak var editorLoggingDelegate: EditSaveViewControllerEditorLoggingDelegate?
@@ -97,7 +97,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var summaryText = ""
     
     @IBOutlet weak var showWebPreviewContainerView: UIView!
-    private var showWebPreviewButtonHostingController: UIHostingController<WKSmallButton>?
+    private var showWebPreviewButtonHostingController: UIHostingController<WMFSmallButton>?
 
     private var mode: NavigationMode = .preview {
         didSet {
@@ -105,9 +105,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
     private let wikiTextSectionUploader = WikiTextSectionUploader()
+    private let wikitextFetcher = WikitextFetcher()
 
     private var styles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WKFont.for(.caption1, compatibleWith: traitCollection), boldFont: WKFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCaption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCaption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
     }
 
     private var licenseTitleTextViewAttributedString: NSAttributedString {
@@ -272,8 +273,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let configuration = WKSmallButton.Configuration(style: .quiet)
-        let rootView = WKSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
+        let configuration = WMFSmallButton.Configuration(style: .quiet)
+        let rootView = WMFSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
             self?.editorLoggingDelegate?.logEditSaveViewControllerDidTapShowWebPreview()
         }
@@ -294,12 +295,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL)?.wkProject,
+           let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
             let title = pageURL?.wmf_title else {
             return
         }
         
-        let dataController = WKWatchlistDataController()
+        let dataController = WMFWatchlistDataController()
         dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -387,13 +388,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        var editTags: [String]? = nil
-        if let editTag {
-            editTags = [editTag.rawValue]
-        }
+        let editTagStrings = editTags?.map { $0.rawValue }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editSummaryTag: editSummaryTag?.rawValue, editTags: editTags, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editTags: editTagStrings, completion: { (result, error) in
+            
             DispatchQueue.main.async {
+                
                 if let error = error {
                     self.handleEditFailure(with: error)
                     return
@@ -410,31 +410,65 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                self.delegate?.editSaveViewControllerDidSave(self, result: result)
-            }
+            self.delegate?.editSaveViewControllerDidSave(self, result: result)
         }
         guard let fetchedData = result as? [String: Any],
               let newRevID = fetchedData["newrevid"] as? UInt64 else {
             assertionFailure("Could not extract rev id as Int")
-            notifyDelegate(.failure(RequestError.unexpectedResponse))
+            DispatchQueue.main.async {
+                notifyDelegate(.failure(RequestError.unexpectedResponse))
+            }
             return
         }
         
-        if let pageURL,
-        let project = WikimediaProject(siteURL: pageURL) {
+        let completion: (UInt64, String?) -> Void = { [weak self] newRevID, fullArticleWikitextForAltTextExperiment in
             
-            if let source {
-                editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+            guard let self else {
+                return
             }
             
-            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
-            
+            DispatchQueue.main.async {
+                
+                if let pageURL = self.pageURL,
+                   let project = WikimediaProject(siteURL: pageURL) {
+                    
+                    if let source = self.source {
+                        self.editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
+                    }
+                    
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
+                    
+                }
+                
+                self.imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !self.summaryText.isEmpty)
+                
+                notifyDelegate(.success(EditorChanges(newRevisionID: newRevID, fullArticleWikitextForAltTextExperiment: fullArticleWikitextForAltTextExperiment)))
+            }
         }
         
-        imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !summaryText.isEmpty)
-        
-        notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
+        // If needed, load full article wikitext for alt text experiment.
+        // We are doing lots of checks here so the fewest number of people take the additional load.
+        let isLoggedIn = dataStore?.authenticationManager.isLoggedIn ?? false
+        if sectionID != nil, // if sectionID is nil, then wikitext property already represents the latest full article posted wikitext. If sectionID is populated, then we need to fetch the full article wikitext
+           let altTextDataController = WMFAltTextDataController(),
+           let pageURL,
+           let project = WikimediaProject(siteURL: pageURL)?.wmfProject,
+           altTextDataController.shouldFetchFullArticleWikitextFromArticleEditor(isLoggedIn: isLoggedIn, project: project) {
+            wikitextFetcher.fetchSection(with: nil, articleURL: pageURL, revisionID: newRevID) { result in
+                switch result {
+                case .success(let response):
+                    let fullArticleWikitext = response.wikitext
+                    completion(newRevID, fullArticleWikitext)
+                default:
+                    completion(newRevID, nil)
+                }
+            }
+        } else if sectionID == nil {
+            // self.wikitext property already represents the full article wikitext
+            completion(newRevID, wikitext)
+        } else {
+            completion(newRevID, nil)
+        }
     }
     
     private func handleEditFailure(with error: Error) {

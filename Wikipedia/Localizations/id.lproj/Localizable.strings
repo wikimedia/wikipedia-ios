@@ -142,6 +142,9 @@
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
+"alt-text-experiment-edit-summary" = "Tambahkan teks alternatif";
+"alt-text-experiment-text-field-placholder" = "Deskripsikan berkas ini";
+"alt-text-experiment-view-title" = "Tambahkan teks alternatif";
 "announcements-dismiss" = "Tutup";
 "app-store-keywords" = "Wikipedia, referensi, wiki, ensiklopedia, info, pengetahuan, penelitian, informasi, mengeksplorasi, belajar";
 "app-store-release-notes" = "Sepenuhnya dapat disesuaikan dan lebih mudah membaca umpan Jelajahi. Lokalisasi, peningkatan kinerja, dan perbaikan kesalahan.";
@@ -233,6 +236,7 @@
 "description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
+"developer-settings-enable-alt-text-experiment-en" = "Memungkinkan eksperimen Alt Text untuk Wikipedia bahasa Inggris.";
 "diff-article-revision-history" = "Riwayat revisi artikel";
 "diff-compare-header-from-info-heading" = "Suntingan Sebelumnya";
 "diff-compare-header-heading" = "Bandingkan Revisi";

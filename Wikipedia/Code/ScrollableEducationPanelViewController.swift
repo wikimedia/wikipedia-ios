@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 import WMF
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)
@@ -255,7 +255,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             return
         }
 
-        let styles = HtmlUtils.Styles(font: WKFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WKFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
 
         let attributedText =  NSMutableAttributedString.mutableAttributedStringFromHtml(subheadingHTML, styles: styles)
         var attributes: [NSAttributedString.Key : Any] = [:]
@@ -281,7 +281,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             footerTextView.attributedText = nil
             return
         }
-        let styles = HtmlUtils.Styles(font: WKFont.for(.footnote, compatibleWith: traitCollection), boldFont: WKFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WKFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WKFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.footnote, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
         let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(footerHTML, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
@@ -466,13 +466,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateFonts()
     }
 
-    var secondaryButtonTextStyle: WKFont = .mediumFootnote {
+    var secondaryButtonTextStyle: WMFFont = .mediumFootnote {
         didSet {
             updateFonts()
         }
     }
 
-    var optionalButtonTextStyle: WKFont = .boldSubheadline {
+    var optionalButtonTextStyle: WMFFont = .boldSubheadline {
         didSet {
             updateFonts()
         }
@@ -482,14 +482,14 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
         switch buttonStyle {
         case .legacyStyle:
-            inlineSecondaryButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
-            pinnedSecondaryButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
+            pinnedSecondaryButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
 
-            inlineOptionalButton.titleLabel?.font = WKFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
         case .updatedStyle:
-            inlinePrimaryButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
-            inlineSecondaryButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
-            inlineOptionalButton.titleLabel?.font = WKFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlinePrimaryButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
         }
     }
     

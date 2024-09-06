@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController)
@@ -16,7 +16,7 @@ class WatchlistController {
         case article
     }
     
-    private let dataController = WKWatchlistDataController()
+    private let dataController = WMFWatchlistDataController()
     let context: Context
     private weak var delegate: WatchlistControllerDelegate?
     private weak var lastPopoverPresentationController: UIPopoverPresentationController?
@@ -39,7 +39,7 @@ class WatchlistController {
         
     }
     
-    func watch(pageTitle: String, siteURL: URL, expiry: WKWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    func watch(pageTitle: String, siteURL: URL, expiry: WMFWatchlistExpiryType = .never, viewController: UIViewController, authenticationManager: WMFAuthenticationManager, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         
         guard authenticationManager.isLoggedIn else {
             performAfterLoginBlock = { [weak self] in
@@ -50,7 +50,7 @@ class WatchlistController {
         }
         
         guard let wikimediaProject = WikimediaProject(siteURL: siteURL),
-        let wkProject = wikimediaProject.wkProject else {
+        let wmfProject = wikimediaProject.wmfProject else {
             viewController.showGenericError()
             return
         }
@@ -62,10 +62,10 @@ class WatchlistController {
             WatchlistFunnel.shared.logAddToWatchlistFromDiff(project: wikimediaProject)
         }
         
-        presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wkProject: wkProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
+        presentChooseExpiryActionSheet(pageTitle: pageTitle, siteURL: siteURL, wmfProject: wmfProject, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect, authenticationManager: authenticationManager)
     }
     
-    private func displayWatchSuccessMessage(pageTitle: String, wkProject: WKProject, siteURL: URL, expiry: WKWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
+    private func displayWatchSuccessMessage(pageTitle: String, wmfProject: WMFProject, siteURL: URL, expiry: WMFWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
         let image = expiry == .never ? UIImage(systemName: "star.fill") : UIImage(systemName: "star.leadinghalf.filled")
         switch expiry {
@@ -85,7 +85,7 @@ class WatchlistController {
         
         let promptTitle = WMFLocalizedString("watchlist-added-toast-view-watchlist", value: "View Watchlist", comment: "Button in toast after a user successfully adds an article to their watchlist. Tapping will take them to their watchlist.")
         
-        let wikimediaProject = WikimediaProject(wkProject: wkProject)
+        let wikimediaProject = WikimediaProject(wmfProject: wmfProject)
         
         switch context {
         case .article:
@@ -123,7 +123,7 @@ class WatchlistController {
         }
     }
     
-    private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wkProject: WKProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
+    private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wmfProject: WMFProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
         
         WMFAlertManager.sharedInstance.dismissAllAlerts()
         
@@ -145,9 +145,9 @@ class WatchlistController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         let titles = [expiryOptionPermanent, expiryOptionOneWeek, expiryOptionOneMonth, expiryOptionThreeMonths, expiryOptionSixMonths, expiryOptionOneYear]
-        let expirys: [WKWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
+        let expirys: [WMFWatchlistExpiryType] = [.never, .oneWeek, .oneMonth, .threeMonths, .sixMonths, .oneYear]
         
-        let wikimediaProject = WikimediaProject(wkProject: wkProject)
+        let wikimediaProject = WikimediaProject(wmfProject: wmfProject)
         for (title, expiry) in zip(titles, expirys) {
             
             let action = UIAlertAction(title: title, style: .default) { [weak self] (action) in
@@ -167,7 +167,7 @@ class WatchlistController {
                     WatchlistFunnel.shared.logExpiryTapOneYear(project: wikimediaProject)
                 }
                 
-                self?.dataController.watch(title: pageTitle, project: wkProject, expiry: expiry, completion: { [weak self] result in
+                self?.dataController.watch(title: pageTitle, project: wmfProject, expiry: expiry, completion: { [weak self] result in
                     
                     DispatchQueue.main.async {
                         guard let self else {
@@ -181,7 +181,7 @@ class WatchlistController {
                             } else {
                                 self.delegate?.didSuccessfullyWatchTemporarily(self)
                             }
-                            self.displayWatchSuccessMessage(pageTitle: pageTitle, wkProject: wkProject, siteURL: siteURL, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                            self.displayWatchSuccessMessage(pageTitle: pageTitle, wmfProject: wmfProject, siteURL: siteURL, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
                         case .failure(let error):
                             self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
                                 self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
@@ -230,7 +230,7 @@ class WatchlistController {
         }
         
         guard let wikimediaProject = WikimediaProject(siteURL: siteURL),
-              let wkProject = wikimediaProject.wkProject else {
+              let wmfProject = wikimediaProject.wmfProject else {
             viewController.showGenericError()
             return
         }
@@ -242,7 +242,7 @@ class WatchlistController {
             WatchlistFunnel.shared.logRemoveWatchlistItemFromDiff(project: wikimediaProject)
         }
         
-        dataController.unwatch(title: pageTitle, project: wkProject) { [weak self] result in
+        dataController.unwatch(title: pageTitle, project: wmfProject) { [weak self] result in
             
             DispatchQueue.main.async {
                 
@@ -289,7 +289,7 @@ class WatchlistController {
             }
         }
         
-        guard let dataControllerError = error as? WKData.WKDataControllerError else {
+        guard let dataControllerError = error as? WMFData.WMFDataControllerError else {
             fallback(error)
             return
         }

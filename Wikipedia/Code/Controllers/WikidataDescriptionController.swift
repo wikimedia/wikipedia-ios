@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 class WikidataDescriptionController: ArticleDescriptionControlling {
 
@@ -36,7 +36,7 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     
     func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
-        let editTag: WKEditTag = editType == .add ? .appDescriptionAdd : .appDescriptionChange
+        let editTag: WMFEditTag = editType == .add ? .appDescriptionAdd : .appDescriptionChange
 
         fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode, editTags: [editTag]) { (error) in
             if let error = error {

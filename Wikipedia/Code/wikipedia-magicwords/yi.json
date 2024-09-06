@@ -9,6 +9,14 @@
   },
   {
     "aliases" : [
+      "אונטן",
+      "למטה",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "צענטער",
       "מרכז",
       "center",
@@ -23,6 +31,14 @@
       "left"
     ],
     "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "אינמיטן",
+      "באמצע",
+      "middle"
+    ],
+    "name" : "img_middle"
   },
   {
     "aliases" : [
@@ -42,12 +58,52 @@
   },
   {
     "aliases" : [
+      "אונטער",
+      "תחתי",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "איבער",
+      "עילי",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
       "קליין",
       "ממוזער",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "אויבן",
+      "למעלה",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "שורת הבסיס",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "גבול",
+      "גבולות",
+      "border"
+    ],
+    "name" : "img_border"
   },
   {
     "aliases" : [
@@ -69,7 +125,35 @@
   },
   {
     "aliases" : [
-      "טעקע"
+      "בתחתית הטקסט",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "בראש הטקסט",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "ימין למעלה",
+      "ימין למעלה=$1",
+      "ימין למעלה $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "טעקע",
+      "Image",
+      "בילד",
+      "תמונה"
     ],
     "name" : "file_namespace"
   }

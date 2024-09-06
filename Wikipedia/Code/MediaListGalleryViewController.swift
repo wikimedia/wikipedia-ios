@@ -2,7 +2,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     let imageController: ImageCacheController
     let imageInfoFetcher: MWKImageInfoFetcher
     let articleURL: URL
-    required init(articleURL: URL, mediaList: MediaList, dataStore: MWKDataStore, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
+    required init(articleURL: URL, mediaList: MediaList, dataStore: MWKDataStore, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false, dismissDelegate: WMFImageGalleryViewControllerDismissDelegate?) {
         self.articleURL = articleURL
         let photos = mediaList.items.filter { $0.showInGallery }.compactMap { MediaListItemNYTPhotoWrapper($0) }
         let initialPhoto: WMFPhoto?
@@ -14,6 +14,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         imageInfoFetcher = MWKImageInfoFetcher(dataStore: dataStore)
         imageController = dataStore.cacheController.imageCache
         super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
+        self.dismissDelegate = dismissDelegate
         fetchImageForPhoto(initialPhoto)
     }
     
