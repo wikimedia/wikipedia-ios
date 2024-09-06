@@ -257,7 +257,7 @@ final class EditorViewController: UIViewController {
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
             if shouldShowEditAlert && !isDifferentErrorBannerShown {
-                WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, sticky: false, dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, duration: NSNumber(value: 5), sticky: false, dismissPreviousAlerts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
         }
