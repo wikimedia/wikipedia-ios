@@ -434,13 +434,13 @@ private extension WMFSourceEditorViewController {
     
     @objc func toggleBoldFormattingFromKeyboard() {
         let selectionState = selectionState()
-        let action: WKSourceEditorFormatterButtonAction = selectionState.isBold ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = selectionState.isBold ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
     }
     
     @objc func toggleItalicsFormattingFromKeyboard() {
         let selectionState = selectionState()
-        let action: WKSourceEditorFormatterButtonAction = selectionState.isItalics ? .remove : .add
+        let action: WMFSourceEditorFormatterButtonAction = selectionState.isItalics ? .remove : .add
         textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
     }
 }
