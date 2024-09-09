@@ -9,7 +9,7 @@ extension ArticleViewController {
             self.editMenuItemTapped()
         }
 
-        let menu = UIMenu(title: "", children: [editAction, shareAction])
+        _ = UIMenu(title: "", children: [editAction, shareAction])
     }
     
     @objc func shareMenuItemTapped() {

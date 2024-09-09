@@ -37,7 +37,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     private func diffRevisionAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard
             let fromDiffVC = fromVC as? (DiffRevisionAnimating & DiffContainerViewController),
-            toVC as? (DiffRevisionAnimating & DiffContainerViewController) != nil,
+            toVC is (DiffRevisionAnimating & DiffContainerViewController),
             let direction = fromDiffVC.animateDirection,
             operation == .push else {
                 return nil

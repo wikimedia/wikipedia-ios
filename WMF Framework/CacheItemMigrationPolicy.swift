@@ -25,7 +25,7 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             let newVariant = String(variant)
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
-            var isDownloaded = false
+            let isDownloaded = false
             
             destinationItem.setValue(isDownloaded, forKey: "isDownloaded")
             destinationItem.setValue(nil, forKey: "url")

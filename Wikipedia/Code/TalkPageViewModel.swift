@@ -125,11 +125,11 @@ final class TalkPageViewModel {
         }
     }
 
-    func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postTopic(topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
-    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postReply(commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.postReply(commentId: commentId, comment: comment, completion: completion)
     }
     

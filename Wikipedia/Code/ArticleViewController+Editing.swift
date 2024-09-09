@@ -319,7 +319,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
     private func presentAltTextPromptModal(missingAltTextLink: WMFMissingAltTextLink, filename: String, articleTitle: String, fullArticleWikitext: String, lastRevisionID: UInt64) {
         
         guard let siteURL = articleURL.wmf_site,
-              let _ = siteURL.wmf_languageCode,
+              siteURL.wmf_languageCode != nil,
               let project = WikimediaProject(siteURL: siteURL),
               let wmfProject = project.wmfProject else {
             return
@@ -560,9 +560,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
                        navigationController.viewControllers.count > 2 {
                         // pop back two view controllers.
                         let index = (navigationController.viewControllers.count-1) - 2
-                        if let _ = navigationController.viewControllers[index] as? ArticleViewController {
-                            navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
-                        }
+                        navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
                     }
 
                     guard let fetchedData = result as? [String: Any],
@@ -626,7 +624,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
 
     private func presentAltTextPostPublishFeedbackSurvey() {
         guard let siteURL = articleURL.wmf_site,
-              let _ = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+              dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) != nil,
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }

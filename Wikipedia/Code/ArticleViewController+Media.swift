@@ -121,7 +121,7 @@ extension ArticleViewController {
     }
 
     func getGalleryViewController(for item: MediaListItem?, in mediaList: MediaList) -> MediaListGalleryViewController {
-        let _ = altTextExperimentViewModel != nil ? self : nil
+        _ = altTextExperimentViewModel != nil ? self : nil
         return MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme, dismissDelegate: self)
     }
 }

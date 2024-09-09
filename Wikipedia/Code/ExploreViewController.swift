@@ -1297,10 +1297,10 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             return
         }
         
-        guard let _ = lastRecommendation.imageWikitext,
-              let _ = lastRecommendation.fullArticleWikitextWithImage,
-            let _ = lastRecommendation.lastRevisionID,
-            let _ = lastRecommendation.localizedFileTitle else {
+        guard lastRecommendation.imageWikitext != nil,
+            lastRecommendation.fullArticleWikitextWithImage != nil,
+            lastRecommendation.lastRevisionID != nil,
+            lastRecommendation.localizedFileTitle != nil else {
             return
         }
 
@@ -1547,7 +1547,7 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
             return
         }
         
-        let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
+        _ = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
         
         EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
