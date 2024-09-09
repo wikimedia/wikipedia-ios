@@ -322,7 +322,6 @@
 "description-welcome-promise-title" = "点击开始按钮即表明我不会滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
 "developer-settings" = "开发者设置";
-"developer-settings-enable-alt-text-experiment" = "启用替代文字实验功能";
 "developer-settings-enable-alt-text-experiment-en" = "为英语维基百科启用替代文字实验功能。";
 "diff-article-revision-history" = "条目修订历史";
 "diff-compare-header-from-info-heading" = "上一次编辑";

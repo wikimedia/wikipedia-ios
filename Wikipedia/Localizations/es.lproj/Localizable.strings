@@ -298,7 +298,6 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
-"developer-settings-enable-alt-text-experiment" = "Habilite el experimento de texto alternativo.";
 "diff-change-added" = "Adición, $1, final de adición.";
 "diff-change-paragraph-lines-moved-down" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
 "diff-change-paragraph-lines-moved-up" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";

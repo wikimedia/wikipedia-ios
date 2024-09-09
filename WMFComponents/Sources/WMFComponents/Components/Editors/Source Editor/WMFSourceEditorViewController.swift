@@ -184,6 +184,13 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
         updateColorsAndFonts()
     }
     
+    public override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "b", modifierFlags: .command, action: #selector(toggleBoldFormattingFromKeyboard)),
+            UIKeyCommand(input: "i", modifierFlags: .command, action: #selector(toggleItalicsFormattingFromKeyboard))
+        ]
+    }
+    
     // MARK: - Notifications
     
     @objc private func keyboardWillHide(_ notification: Notification) {
@@ -423,6 +430,18 @@ private extension WMFSourceEditorViewController {
                 textView.selectedTextRange = textRangeCursor
             }
         }
+    }
+    
+    @objc func toggleBoldFormattingFromKeyboard() {
+        let selectionState = selectionState()
+        let action: WMFSourceEditorFormatterButtonAction = selectionState.isBold ? .remove : .add
+        textFrameworkMediator.boldItalicsFormatter?.toggleBoldFormatting(action: action, in: textView)
+    }
+    
+    @objc func toggleItalicsFormattingFromKeyboard() {
+        let selectionState = selectionState()
+        let action: WMFSourceEditorFormatterButtonAction = selectionState.isItalics ? .remove : .add
+        textFrameworkMediator.boldItalicsFormatter?.toggleItalicsFormatting(action: action, in: textView)
     }
 }
 
