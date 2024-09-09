@@ -189,10 +189,12 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     private weak var delegate: WMFDonateDelegate?
     private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
-    
+
+    private let userDefaultsStore: WMFKeyValueStore?
+
     // MARK: - Lifecycle
     
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -205,7 +207,8 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         self.appVersion = appVersion
         self.delegate = delegate
         self.loggingDelegate = loggingDelegate
-        
+        self.userDefaultsStore = userDefaultsStore
+
         guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
             return nil
         }
@@ -258,7 +261,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         return nil
     }
-    
+
     func logTappedApplePayButton() {
         
         var emailOptInNSNumber: NSNumber? = nil
@@ -538,17 +541,24 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         }
     }
 
-    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool) {
-          let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-          let date = Date()
-          let dateFormatter = DateFormatter()
-          dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-          dateFormatter.dateFormat = iso8601Format
-          let timestamp = dateFormatter.string(from: date)
+    private func checkIfThereAreLocalDonatiosn(dataController: WMFDonateDataController) -> Bool {
+        if let donations = dataController.loadLocalDonationHistory() {
+            return !donations.isEmpty
+        }
+        return false
+    }
 
-          let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
-          let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp, donationType: donationType, donationAmount: finalAmount, isNative: true)
-          dataController.saveLocalDonationHistory(donationHistoryEntry)
-      }
+    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool) {
+        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = iso8601Format
+        let timestamp = dateFormatter.string(from: date)
+
+        let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp, donationType: donationType, donationAmount: finalAmount, isNative: true, isFirstDonation: checkIfThereAreLocalDonatiosn(dataController: dataController))
+        dataController.saveLocalDonationHistory(donationHistoryEntry)
+    }
 
 }
