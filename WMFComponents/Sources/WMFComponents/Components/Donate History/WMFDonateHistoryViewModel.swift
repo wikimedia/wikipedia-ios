@@ -66,7 +66,6 @@ public class  WMFDonateHistoryViewModel: ObservableObject {
 
         let localizedFormatter = DateFormatter()
         localizedFormatter.dateStyle = .medium
-//        localizedFormatter.timeStyle = .short //maybe no time?
         localizedFormatter.locale = Locale.current
         return localizedFormatter.string(from: date)
     }
