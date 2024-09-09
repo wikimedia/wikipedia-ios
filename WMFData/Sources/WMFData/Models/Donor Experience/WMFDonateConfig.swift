@@ -7,6 +7,7 @@ public struct WMFDonateConfig: Codable {
     public let currencyAmountPresets: [String: [Decimal]]
     public let currencyTransactionFees: [String: Decimal]
     public let countryCodeEmailOptInRequired: [String]
+    public let countryCodeApplePayEnabled: [String]
     var cachedDate: Date?
     
     public func transactionFee(for currencyCode: String) -> Decimal? {

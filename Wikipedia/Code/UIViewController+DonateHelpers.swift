@@ -12,10 +12,14 @@ import PassKit
 @objc extension UIViewController {
     
     func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?) -> Bool {
+        let donateDataController = WMFDonateDataController.shared
+        let donateData = donateDataController.loadConfigs()
         
-        // Hide native Apple Pay path for users with a CN region setting
+        // Hide native Apple Pay path for certain countries
         // https://phabricator.wikimedia.org/T352180
-        guard countryCode != "CN" else {
+        // https://phabricator.wikimedia.org/T373209
+        guard let donateConfig = donateData.donateConfig,
+              donateConfig.countryCodeApplePayEnabled.contains(countryCode) else {
             return false
         }
         
