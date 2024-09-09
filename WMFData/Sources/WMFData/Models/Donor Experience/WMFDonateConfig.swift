@@ -13,4 +13,15 @@ public struct WMFDonateConfig: Codable {
     public func transactionFee(for currencyCode: String) -> Decimal? {
         return currencyTransactionFees[currencyCode] ?? currencyTransactionFees["default"]
     }
+
+    public func getMaxAmount(for currencyCode: String) -> Decimal {
+        var max = currencyMaximumDonation[currencyCode] ?? Decimal()
+
+        if max.isZero {
+            if let defaultMin = currencyMinimumDonation["USD"], let defaultMax = currencyMaximumDonation["USD"], let currencyMax = currencyMinimumDonation[currencyCode] {
+                max = currencyMax / defaultMin * defaultMax
+            }
+        }
+        return max
+    }
 }

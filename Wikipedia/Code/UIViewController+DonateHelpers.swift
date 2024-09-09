@@ -54,12 +54,10 @@ import PassKit
               let minimumString = formatter.string(from: minimumValue as NSNumber) else {
             return nil
         }
-        
-        var maximumString: String?
-        if let maximumValue = donateConfig.currencyMaximumDonation[currencyCode] {
-            maximumString = formatter.string(from: maximumValue as NSNumber)
-        }
-        
+
+        let maximumValue = donateConfig.getMaxAmount(for: currencyCode)
+        let maximumString = formatter.string(from: maximumValue as NSNumber)
+
         let donate = WMFLocalizedString("donate-title", value: "Select an amount", comment: "Title for donate form.")
         let done = CommonStrings.doneTitle
         
