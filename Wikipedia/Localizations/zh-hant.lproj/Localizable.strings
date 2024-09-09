@@ -298,7 +298,6 @@
 "description-welcome-start-editing-button" = "開始編輯";
 "developer-settings" = "開發人員設定";
 "developer-settings-always-show-alt-text-entry-point" = "永遠顯示替代文字入口點。";
-"developer-settings-enable-alt-text-experiment" = "啟用替代文字試驗功能。";
 "developer-settings-enable-alt-text-experiment-en" = "啟用英語維基百科的替代文字實驗功能。";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";

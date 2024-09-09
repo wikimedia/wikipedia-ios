@@ -29,6 +29,7 @@
 // Author: Katunchik
 // Author: Kent73
 // Author: Kopcap94
+// Author: Lutece398
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
@@ -181,6 +182,9 @@
 "alt-text-experiment-onboarding-item-4-title" = "Тип изображения";
 "alt-text-experiment-onboarding-secondary-button-title" = "Посмотреть примеры";
 "alt-text-experiment-onboarding-title" = "Как написать альтернативный текст для изображений";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Добавить описание";
+"alt-text-survey-option-4" = "У меня технические проблемы";
+"alt-text-survey-option-7" = "У меня нет времени";
 "alt-text-title" = "Альтернативный текст";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
@@ -273,6 +277,7 @@
 "description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"developer-settings" = "Настройки для разработчиков";
 "diff-article-revision-history" = "История версий статьи";
 "diff-compare-header-from-info-heading" = "Предыдущая правка";
 "diff-compare-header-heading" = "Сравнить версии";
@@ -1296,6 +1301,7 @@
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
+"welcome-privacy-subtitle" = "Мы считаем, что вам не нужно предоставлять личную информацию для участия в движении за свободные знания. Данные об использовании, собранные для этого приложения, анонимны.";
 "welcome-privacy-terms-button-text" = "Узнайте больше о нашей политике конфиденциальности и условиях использования.";
 "widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
 "widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";

@@ -112,7 +112,7 @@
 "advanced-settings-title" = "Parametros avantiate";
 "alt-text-add-button-title" = "Adder";
 "alt-text-do-not-add-button-title" = "Non adder";
-"alt-text-modal-title" = "Adder imagine sin texto alternative?";
+"alt-text-modal-title" = "Adder le texto alternative mancante al imagine?";
 "announcements-dismiss" = "Clauder";
 "app-store-keywords" = "Wikipedia, referentia, wiki, encyclopedia, info, cognoscentia, recerca, information, explorar, apprender";
 "app-store-release-notes" = "Un canal Explorar completemente personalisabile e plus facile a leger. Localisation, melior prestationes e correction de errores.";
@@ -204,7 +204,7 @@
 "description-welcome-descriptions-title" = "Descriptiones de articulos";
 "description-welcome-promise-title" = "Quando io comencia, io promitte non abusar de iste function";
 "description-welcome-start-editing-button" = "Comenciar a modificar";
-"developer-settings-enable-alt-text-experiment-en" = "Activar experimento Alt Text pro Wikipedia interlingua.";
+"developer-settings-enable-alt-text-experiment-en" = "Activar le experimento de texto alternative pro le Wikipedia in anglese.";
 "diff-article-revision-history" = "Historia de versiones del articulo";
 "diff-change-added" = "Addition: $1. Fin del addition.";
 "diff-change-paragraph-lines-moved-down" = "Paragrapho displaciate a basso de {{PLURAL:$1|0=0 lineas|$1 linea|$1 lineas}}. Va al nove position.";
