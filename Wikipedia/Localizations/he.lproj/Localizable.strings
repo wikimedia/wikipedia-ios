@@ -279,7 +279,6 @@
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "developer-settings" = "הגדרות מפתחים";
 "developer-settings-always-show-alt-text-entry-point" = "להציג תמיד את נקודת הכניסה לטקסט חלופי.";
-"developer-settings-enable-alt-text-experiment" = "להפעיל את הניסוי בטקסט חלופי.";
 "developer-settings-enable-alt-text-experiment-en" = "הפעלת ניסוי טקסט חלופי לוויקיפדיה האנגלית.";
 "developer-settings-send-analytics-to-wmflabs" = "שליחת נתוני לבדיקה ל־wmflabs.";
 "developer-settings-suppress-image-rec-post" = "לא לשלוח את עריכת הצעות התמונה.";

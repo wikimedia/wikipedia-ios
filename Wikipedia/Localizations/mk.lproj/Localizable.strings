@@ -263,7 +263,6 @@
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-always-show-alt-text-entry-point" = "Секогаш прикажувај го вносот за алтернативен текст.";
-"developer-settings-enable-alt-text-experiment" = "Овозможи експеримент со алтернативен текст.";
 "developer-settings-enable-alt-text-experiment-en" = "Овозможи го експериментот со алтернативен текст.";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";

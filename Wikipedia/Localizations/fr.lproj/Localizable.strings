@@ -299,7 +299,6 @@
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "developer-settings" = "Paramètres développeur";
-"developer-settings-enable-alt-text-experiment" = "Activer l'expérience Alt Text.";
 "developer-settings-enable-alt-text-experiment-en" = "Permettre l'experrimentation d'un texte alternatif sur Wikimedia.";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
