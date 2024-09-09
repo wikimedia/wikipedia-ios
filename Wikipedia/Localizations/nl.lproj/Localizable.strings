@@ -150,6 +150,12 @@
 "advanced-settings-title" = "Geavanceerde instellingen";
 "alt-text-add-button-title" = "Toevoegen";
 "alt-text-do-not-add-button-title" = "Niet toevoegen";
+"alt-text-email-fifth-line" = "[Schermafbeeldingen of koppelingen]";
+"alt-text-email-first-line" = "Ik heb een probleem ondervonden met de Alt-tekstfunctie:";
+"alt-text-email-fourth-line" = "- [Beschrijf de voorgestelde oplossing]";
+"alt-text-email-second-line" = "- [Beschrijf het specifieke probleem]";
+"alt-text-email-third-line" = "Het gedrag dat ik graag zou willen zien is:";
+"alt-text-email-title" = "Probleemrapport - Alt-tekstfunctie";
 "alt-text-experiment-caption-title" = "Afbeeldingsbijschrift";
 "alt-text-experiment-character-counter-warning" = "Probeer de alt-tekst kort te houden, zodat gebruikers de inhoud van de afbeelding gemakkelijk kunnen begrijpen";
 "alt-text-experiment-edit-summary" = "Toegevoegde alt tekst";
@@ -164,6 +170,8 @@
 "alt-text-experiment-onboarding-item-4-title" = "Soort afbeelding";
 "alt-text-experiment-onboarding-secondary-button-title" = "Bekijk voorbeelden";
 "alt-text-experiment-onboarding-title" = "Hoe schrijf je alt-tekst voor afbeeldingen";
+"alt-text-experiment-onboarding-tooltip-1-body" = "Begrijp de afbeelding in de context van de pagina.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Beoordelen";
 "alt-text-experiment-review-title" = "Beoordelen";
 "alt-text-experiment-text-field-description" = "Beschrijving voor lezers die de afbeelding niet kunnen bekijken";
 "alt-text-experiment-text-field-placholder" = "Beschrijf de afbeelding";
@@ -266,7 +274,6 @@
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "developer-settings" = "Ontwikkelaarsinstellingen";
 "developer-settings-always-show-alt-text-entry-point" = "Toon altijd het invoerpunt van alt-text.";
-"developer-settings-enable-alt-text-experiment" = "Expriment voor Alt Text inschakelen";
 "developer-settings-enable-alt-text-experiment-en" = "Zet het alt tekst experiment voor de Engelse Wikipedia aan.";
 "developer-settings-send-analytics-to-wmflabs" = "Zend de analyse naar wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Geen aanbevelingen voor afbeeldingen plaatsen.";
