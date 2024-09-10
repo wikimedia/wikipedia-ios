@@ -4,12 +4,6 @@ import UIKit
 class ViewControllerTransitionsController: NSObject, UINavigationControllerDelegate {
     @objc func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
-        // Check if the device is running iPadOS 18
-        if let systemVersion = ProcessInfo.processInfo.operatingSystemVersionString.split(separator: " ").last,
-           systemVersion.hasPrefix("18.") && UIDevice.current.userInterfaceIdiom == .pad {
-            return nil
-        }
-
         // If either participating view controller prefers standard animations, use a standard transition
         let participatingViewControllerPrefersStandardAnimationStyle = [fromVC, toVC].filter { vc in
             prefersStandardAnimationStyleTypes.contains(where: { standardType in type(of: vc) == standardType })

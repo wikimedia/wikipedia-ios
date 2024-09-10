@@ -136,10 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void)updateOrientationSupport {
-    [self setNeedsUpdateOfSupportedInterfaceOrientations];
-}
-
 - (NSArray<id<NYTPhoto>> *)photos {
     return [(id<WMFExposedDataSource>)self.dataSource photos];
 }
