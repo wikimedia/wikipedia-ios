@@ -560,7 +560,8 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
                        navigationController.viewControllers.count > 2 {
                         // pop back two view controllers.
                         let index = (navigationController.viewControllers.count-1) - 2
-                        navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
+                        if navigationController.viewControllers[index] is ArticleViewController { navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
+                        } 
                     }
 
                     guard let fetchedData = result as? [String: Any],
