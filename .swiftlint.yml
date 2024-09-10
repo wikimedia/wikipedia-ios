@@ -32,6 +32,7 @@ disabled_rules:
     - unneeded_break_in_switch
     - unused_closure_parameter
     - notification_center_detachment
+    - non_optional_string_data_conversion
 
 vertical_whitespace:
     max_empty_lines: 2
