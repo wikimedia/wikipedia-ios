@@ -122,8 +122,6 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
                         self.retypeField.text = nil
                     }
                 }
-            default:
-                break
             }
         }
     }

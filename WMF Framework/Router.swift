@@ -25,7 +25,7 @@ public class Router: NSObject {
     // MARK: Public
     
     /// Gets the appropriate in-app destination for a given URL
-    public func destination(for url: URL, loggedInUsername: String?) -> Destination {
+    public func destination(for url: URL, permanentUsername: String?) -> Destination {
         
         guard let siteURL = url.wmf_site,
         let project = WikimediaProject(siteURL: siteURL) else {
@@ -37,11 +37,11 @@ public class Router: NSObject {
             return .audio(url.byMakingAudioFileCompatibilityAdjustments)
         }
         
-        return destinationForHostURL(url, project: project, loggedInUsername: loggedInUsername)
+        return destinationForHostURL(url, project: project, permanentUsername: permanentUsername)
     }
 
-    public func doesOpenInBrowser(for url: URL, loggedInUsername: String?) -> Bool {
-        return [.externalLink(url), .inAppLink(url)].contains(destination(for: url, loggedInUsername: loggedInUsername))
+    public func doesOpenInBrowser(for url: URL, permanentUsername: String?) -> Bool {
+        return [.externalLink(url), .inAppLink(url)].contains(destination(for: url, permanentUsername: permanentUsername))
     }
     
     
@@ -51,7 +51,7 @@ public class Router: NSObject {
     private let mobilediffRegexSingleRevisionID = try! NSRegularExpression(pattern: "^mobilediff/([0-9]+)", options: .caseInsensitive)
     private let historyRegex = try! NSRegularExpression(pattern: "^history/(.*)", options: .caseInsensitive)
     
-    internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject, loggedInUsername: String?) -> Destination? {
+    internal func destinationForWikiResourceURL(_ url: URL, project: WikimediaProject, permanentUsername: String?) -> Destination? {
         guard let path = url.wikiResourcePath else {
             return nil
         }
@@ -76,14 +76,14 @@ public class Router: NSObject {
             // https://en.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&formatversion=2&siprop=specialpagealiases
             if language.uppercased() == "EN" || language.uppercased() == "TEST",
                 title == "MyTalk",
-               let username = loggedInUsername,
+               let username = permanentUsername,
                let newURL = url.wmf_URL(withTitle: "User_talk:\(username)") {
                 return .userTalk(newURL)
             }
             
             if language.uppercased() == "EN" || language.uppercased() == "TEST",
                 title == "MyContributions",
-               let username = loggedInUsername,
+               let username = permanentUsername,
                let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) {
                 return .inAppLink(newURL)
             }
@@ -243,10 +243,10 @@ public class Router: NSObject {
         return nil
     }
     
-    internal func destinationForHostURL(_ url: URL, project: WikimediaProject, loggedInUsername: String?) -> Destination {
+    internal func destinationForHostURL(_ url: URL, project: WikimediaProject, permanentUsername: String?) -> Destination {
         let canonicalURL = url.canonical
         
-        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL, project: project, loggedInUsername: loggedInUsername) {
+        if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL, project: project, permanentUsername: permanentUsername) {
             return wikiResourcePathInfo
         }
         

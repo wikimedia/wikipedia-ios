@@ -25,24 +25,11 @@ public enum WMFAccountLoginError: LocalizedError {
     }
 }
 
-public typealias WMFAccountLoginResultBlock = (WMFAccountLoginResult) -> Void
+public typealias Username = String
 
-public class WMFAccountLoginResult: NSObject {
-    public struct Status {
-        static let offline = "offline"
-    }
-    @objc var status: String
-    @objc var username: String
-    @objc var message: String?
-    @objc init(status: String, username: String, message: String?) {
-        self.status = status
-        self.username = username
-        self.message = message
-    }
-}
-
-public class WMFAccountLogin: Fetcher {
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
+public class WMFAccountLoginLogoutFetcher: Fetcher {
+    
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
         
         var parameters = [
             "action": "clientlogin",
@@ -129,7 +116,13 @@ public class WMFAccountLogin: Fetcher {
                 return
             }
             let normalizedUsername = clientlogin["username"] as? String ?? username
-            success(WMFAccountLoginResult.init(status: status, username: normalizedUsername, message: message))
+            success(normalizedUsername)
+        }
+    }
+    
+    func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {
+        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in
+            completion(error)
         }
     }
 }

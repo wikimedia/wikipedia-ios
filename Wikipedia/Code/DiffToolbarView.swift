@@ -10,7 +10,7 @@ protocol DiffToolbarViewDelegate: AnyObject {
     func tappedEditHistory()
     func tappedWatch()
     func tappedUnwatch()
-    var isLoggedIn: Bool { get }
+    var isPermanent: Bool { get }
 }
 
 class DiffToolbarView: UIView {
@@ -237,7 +237,7 @@ extension DiffToolbarView: Themeable {
         moreButton.apply(theme: theme)
 
         if let delegate = delegate,
-            !delegate.isLoggedIn {
+            !delegate.isPermanent {
             if let button = thankButton.customView as? UIButton {
                 button.tintColor = theme.colors.disabledLink
             }

@@ -36,11 +36,11 @@ final class TalkPageCellViewModel: Identifiable {
         return replies
     }
 
-    let isUserLoggedIn: Bool
+    let isUserPermanent: Bool
     
     weak var viewModel: TalkPageViewModel?
     
-    init(id: String, topicTitleHtml: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContentHtml: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
+    init(id: String, topicTitleHtml: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContentHtml: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserPermanent: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitleHtml = topicTitleHtml
         self.timestamp = timestamp
@@ -60,7 +60,7 @@ final class TalkPageCellViewModel: Identifiable {
         
         self.replies = replies
         self.activeUsersCount = activeUsersCount
-        self.isUserLoggedIn = isUserLoggedIn
+        self.isUserPermanent = isUserPermanent
     }
 
     func topicTitleAttributedString(traitCollection: UITraitCollection, theme: Theme = .light) -> NSAttributedString {

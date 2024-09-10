@@ -66,9 +66,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: Configuration.current.wikipediaCookieDomain)
+        let isPermanent = dataStore.authenticationManager.authStateIsPermanent
     
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && hasValidLocalCredentials {
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && isPermanent {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -161,7 +161,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard hasValidLocalCredentials else {
+        guard isPermanent else {
             try localSyncOnly()
             return
         }

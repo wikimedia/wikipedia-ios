@@ -78,22 +78,7 @@ public final class EditAttemptFunnel {
     }
 
     fileprivate func getUserID(pageURL: URL) -> Int {
-        let isAnon = !MWKDataStore.shared().authenticationManager.isLoggedIn
-
-        if isAnon {
-            return 0
-        } else {
-            var userId = 0
-            MWKDataStore.shared().authenticationManager.getLoggedInUser(for: pageURL) { result in
-                switch result {
-                case .success(let user):
-                    userId = user?.userID ?? 0
-                default:
-                    break
-                }
-            }
-            return userId
-        }
+        MWKDataStore.shared().authenticationManager.permanentUser(siteURL: pageURL)?.userID ?? 0
     }
 
 }

@@ -9,8 +9,8 @@
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-
 @property (readwrite, nonatomic, strong) WMFFundraisingCampaignDataController *fundraisingCampaignDataController;
+@property (readonly, nonatomic, assign) BOOL isLoggedIn;
 
 @end
 
@@ -29,7 +29,14 @@
                                                      name:[WMFAuthenticationManager didLogInNotification]
                                                    object:nil];
     }
+    
     return self;
+}
+
+#pragma mark - Getters and Setters
+
+- (BOOL)isLoggedIn {
+    return self.userDataStore.authenticationManager.authStateIsPermanent;
 }
 
 #pragma mark - Notifications
@@ -92,7 +99,6 @@
 
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
     [moc performBlock:^{
-        BOOL isLoggedIn = self.fetcher.session.isAuthenticated;
         [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
             WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
@@ -104,7 +110,7 @@
                                                     group.contentPreview = obj;
                                                     group.placement = obj.placement;
                                                 }];
-            [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
+            [group updateVisibilityForUserIsLoggedIn:self.isLoggedIn];
         }];
 
         [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL dataStore:self.userDataStore];
@@ -124,7 +130,7 @@
 
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
 
-    if (moc.wmf_isSyncRemotelyEnabled && !NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed && !self.fetcher.session.isAuthenticated) {
+    if (moc.wmf_isSyncRemotelyEnabled && !NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed && !self.isLoggedIn) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed = YES;
@@ -148,13 +154,12 @@
 
 - (void)saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL isLoggedIn = self.fetcher.session.isAuthenticated;
 
     if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard) {
 
         WMFContentGroup *currentNotificationsCardGroup = [moc newestGroupOfKind:WMFContentGroupKindNotification];
 
-        if (isLoggedIn) {
+        if (self.isLoggedIn) {
             if (currentNotificationsCardGroup) {
                 if (!currentNotificationsCardGroup.isVisible && !currentNotificationsCardGroup.wasDismissed) {
                     currentNotificationsCardGroup.isVisible = YES;
@@ -181,10 +186,10 @@
     if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         return;
     }
-    BOOL isLoggedIn = self.fetcher.session.isAuthenticated;
+    
     [moc enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
+                                [group updateVisibilityForUserIsLoggedIn: [self isLoggedIn]];
                             }];
 }
 

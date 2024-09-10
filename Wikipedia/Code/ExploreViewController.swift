@@ -23,7 +23,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = dataStore.authenticationManager.isLoggedIn ? .centeredLargeTitle : .largeTitle
+        navigationBar.displayType = dataStore.authenticationManager.authStateIsPermanent ? .centeredLargeTitle : .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
@@ -133,7 +133,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateNotificationsCenterButton() {
-        if self.dataStore.authenticationManager.isLoggedIn {
+        if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
             let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
@@ -1539,7 +1539,7 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
         guard let imageRecommendationsViewModel,
               let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let user = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
+           let user = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
             return
         }
         
@@ -1903,11 +1903,11 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         let caption = lastRecommendation.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL) else {
+        guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
             return
         }
 
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: permanentUser.name, userEditCount: permanentUser.editCount, registrationDate: permanentUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
 
     private func presentAltTextEditPublishedToast() {
