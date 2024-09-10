@@ -278,20 +278,19 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     }
     
     func validateAmount() {
-        
+
         guard let minimum = donateConfig.currencyMinimumDonation[currencyCode] else {
             return
         }
-        
+
         if finalAmount < minimum {
             let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMinimum, orderID: nil)
             self.errorViewModel = errorViewModel
             loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
             return
         }
-        
-        if let maximum = donateConfig.currencyMaximumDonation[currencyCode],
-        finalAmount > maximum {
+
+        if finalAmount > donateConfig.getMaxAmount(for: currencyCode) {
             let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMaximum, orderID: nil)
             self.errorViewModel = errorViewModel
             loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
@@ -300,7 +299,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         self.errorViewModel = nil
     }
-    
+
     func submit() {
         guard errorViewModel == nil else {
             return
@@ -330,7 +329,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     }
     
     // MARK: - Private
-    
+
     private func didSelectAmountButton(buttonViewModel: AmountButtonViewModel) {
 
         // Deselect other buttons
