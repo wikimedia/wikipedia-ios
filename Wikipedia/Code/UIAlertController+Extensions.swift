@@ -1,5 +1,5 @@
 import UIKit
 
-extension UIAlertController: RMessageSuppressing {
+extension UIAlertController: @retroactive RMessageSuppressing {
 
 }

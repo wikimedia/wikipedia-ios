@@ -218,8 +218,8 @@ import PassKit
 extension UIViewController {
     func sharedDonateDidTapProblemsDonatingLink() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         
@@ -232,8 +232,8 @@ extension UIViewController {
     
     func sharedDonateDidTapOtherWaysToGive() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         
@@ -246,8 +246,8 @@ extension UIViewController {
     
     func sharedDonateDidTapFrequentlyAskedQuestions() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         

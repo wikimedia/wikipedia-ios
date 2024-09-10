@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsReauthenticateOperation: AsyncOperation {
+class RemoteNotificationsReauthenticateOperation: AsyncOperation, @unchecked Sendable {
     
     var appLanguageOperationError: Error?
     private(set) var didReauthenticate: Bool = false

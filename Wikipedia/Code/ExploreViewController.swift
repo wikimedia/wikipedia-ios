@@ -72,7 +72,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         if tabBarSnapshotImage == nil {
-            updateTabBarSnapshotImage()
+            if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
+                tabBarSnapshotImage = nil
+            } else {
+                updateTabBarSnapshotImage()
+            }
         }
     }
     
@@ -1294,9 +1298,9 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         }
         
         guard lastRecommendation.imageWikitext != nil,
-              lastRecommendation.fullArticleWikitextWithImage != nil,
-              lastRecommendation.lastRevisionID != nil,
-              lastRecommendation.localizedFileTitle  != nil else {
+            lastRecommendation.fullArticleWikitextWithImage != nil,
+            lastRecommendation.lastRevisionID != nil,
+            lastRecommendation.localizedFileTitle != nil else {
             return
         }
 
@@ -1542,8 +1546,6 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
            let user = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
             return
         }
-        
-        let project = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
         
         EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }

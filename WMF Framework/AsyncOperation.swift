@@ -6,7 +6,7 @@ enum AsyncOperationError: Error {
 
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
-@objc(WMFAsyncOperation) open class AsyncOperation: Operation {
+@objc(WMFAsyncOperation) open class AsyncOperation: Operation, @unchecked Sendable {
     
     // MARK: - Operation State
 
@@ -108,7 +108,7 @@ enum AsyncOperationError: Error {
     }
 }
 
-@objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation {
+@objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation, @unchecked Sendable {
     let asyncBlock: (AsyncBlockOperation) -> Void
     
     @objc init(asyncBlock block: @escaping (AsyncBlockOperation) -> Void) {

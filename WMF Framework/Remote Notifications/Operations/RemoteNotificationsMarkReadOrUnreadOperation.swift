@@ -1,4 +1,4 @@
-class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOperation {
+class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOperation, @unchecked Sendable {
     
     private let shouldMarkRead: Bool
     private let identifierGroups: Set<RemoteNotification.IdentifierGroup>
