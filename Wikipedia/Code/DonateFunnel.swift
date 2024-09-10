@@ -284,6 +284,6 @@ import WMF
             actionData?["campaign_id"] = campaignID
         }
 
-        logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: nil)
+        logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: actionData)
     }
 }
