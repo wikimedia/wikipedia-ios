@@ -1547,8 +1547,6 @@ extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
             return
         }
         
-        _ = WikimediaProject(wmfProject: imageRecommendationsViewModel.project)
-        
         EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
     }
 
