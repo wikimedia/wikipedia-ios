@@ -1164,8 +1164,7 @@ class RevisionAuthorThanksErrorHintVC: HintViewController {
     }
 }
 
-extension DiffContainerViewController: DiffToolbarViewDelegate {
-    
+extension DiffContainerViewController: DiffToolbarViewDelegate { 
     private func replaceLastAndPush(with viewController: UIViewController) {
         if var newViewControllers = navigationController?.viewControllers {
             newViewControllers.removeLast()

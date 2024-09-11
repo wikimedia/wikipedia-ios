@@ -1,4 +1,4 @@
-import WebKit
+@preconcurrency import WebKit
 import CocoaLumberjackSwift
 import WMF
 import WMFComponents

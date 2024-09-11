@@ -12,10 +12,14 @@ import PassKit
 @objc extension UIViewController {
     
     func canOfferNativeDonateForm(countryCode: String, currencyCode: String, languageCode: String, bannerID: String?, metricsID: String?, appVersion: String?) -> Bool {
+        let donateDataController = WMFDonateDataController.shared
+        let donateData = donateDataController.loadConfigs()
         
-        // Hide native Apple Pay path for users with a CN region setting
+        // Hide native Apple Pay path for certain countries
         // https://phabricator.wikimedia.org/T352180
-        guard countryCode != "CN" else {
+        // https://phabricator.wikimedia.org/T373209
+        guard let donateConfig = donateData.donateConfig,
+              donateConfig.countryCodeApplePayEnabled.contains(countryCode) else {
             return false
         }
         
@@ -50,12 +54,10 @@ import PassKit
               let minimumString = formatter.string(from: minimumValue as NSNumber) else {
             return nil
         }
-        
-        var maximumString: String?
-        if let maximumValue = donateConfig.currencyMaximumDonation[currencyCode] {
-            maximumString = formatter.string(from: maximumValue as NSNumber)
-        }
-        
+
+        let maximumValue = donateConfig.getMaxAmount(for: currencyCode)
+        let maximumString = formatter.string(from: maximumValue as NSNumber)
+
         let donate = WMFLocalizedString("donate-title", value: "Select an amount", comment: "Title for donate form.")
         let done = CommonStrings.doneTitle
         
@@ -216,8 +218,8 @@ import PassKit
 extension UIViewController {
     func sharedDonateDidTapProblemsDonatingLink() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         
@@ -230,8 +232,8 @@ extension UIViewController {
     
     func sharedDonateDidTapOtherWaysToGive() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         
@@ -244,8 +246,8 @@ extension UIViewController {
     
     func sharedDonateDidTapFrequentlyAskedQuestions() {
         
-        guard let countryCode = Locale.current.regionCode,
-        let languageCode = Locale.current.languageCode else {
+        guard let countryCode = Locale.current.region?.identifier,
+              let languageCode = Locale.current.language.languageCode?.identifier else {
             return
         }
         

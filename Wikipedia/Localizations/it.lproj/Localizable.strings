@@ -11,6 +11,7 @@
 // Author: Chris96
 // Author: Dansita
 // Author: Devid Farinelli
+// Author: Dream Indigo
 // Author: EditGio
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
@@ -161,8 +162,11 @@
 "alt-text-experiment-onboarding-tooltip-2-title" = "Ispeziona";
 "alt-text-experiment-onboarding-tooltip-3-body" = "Aggiungi una descrizione per i lettori ipovedenti";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Aggiungi descrizione";
+"alt-text-feedback-survey-neutral" = "Neutrale";
 "alt-text-feedback-survey-satisfied" = "Soddisfatto";
 "alt-text-feedback-survey-title" = "Aiutaci a migliorare la funzionalità";
+"alt-text-feedback-survey-unsatisfied" = "Non soddisfatto";
+"alt-text-survey-option-7" = "Non ho tempo";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
@@ -364,7 +368,7 @@
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
-"empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per questo utente";
+"empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per quest'utente";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
@@ -825,6 +829,9 @@
 "sort-by-title-action" = "Titolo";
 "suggested-edits-title" = "Modifiche suggerite";
 "survey-instructions" = "Seleziona una o più opzioni";
+"survey-other-placeholder" = "Altro";
+"survey-submit" = "Invia";
+"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";

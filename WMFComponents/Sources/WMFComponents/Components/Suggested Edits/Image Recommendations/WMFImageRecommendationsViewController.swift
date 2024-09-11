@@ -214,17 +214,17 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             return false
         }
 
-        let isLoggedIn = viewModel.isLoggedIn
+        let isPermanent = viewModel.isPermanent
 
         do {
-            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+            try dataController.assignImageRecsExperiment(isPermanent: isPermanent, project: viewModel.project)
             loggingDelegate?.logAltTextExperimentDidAssignGroup()
         } catch let error {
             debugPrint(error)
             return false
         }
 
-        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isPermanent: isPermanent, project: viewModel.project) {
             return true
         }
 

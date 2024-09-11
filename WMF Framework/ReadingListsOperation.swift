@@ -1,4 +1,4 @@
-internal class ReadingListsOperation: AsyncOperation {
+internal class ReadingListsOperation: AsyncOperation, @unchecked Sendable {
     internal weak var readingListsController: ReadingListsController!
     
     internal var apiController: ReadingListsAPIController {

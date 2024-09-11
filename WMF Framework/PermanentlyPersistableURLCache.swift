@@ -20,7 +20,7 @@ public struct Header {
     }
 }
 
-class PermanentlyPersistableURLCache: URLCache {
+class PermanentlyPersistableURLCache: URLCache, @unchecked Sendable {
     let cacheManagedObjectContext: NSManagedObjectContext
     
     init(moc: NSManagedObjectContext) {

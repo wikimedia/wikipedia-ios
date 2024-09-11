@@ -136,7 +136,7 @@ class ArticleViewController: ViewController, HintPresenting {
         let cacheController = dataStore.cacheController.articleCache
 
         self.articleURL = articleURL
-        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.languageCode ?? "en"
+        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.language.languageCode?.identifier ?? "en"
         self.article = article
         
         self.dataStore = dataStore
@@ -198,6 +198,24 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override var inputAccessoryView: UIView? {
         return findInPage.view
+    }
+    
+    override func buildMenu(with builder: any UIMenuBuilder) {
+        
+        let shareMenuItemTitle = CommonStrings.shareMenuTitle
+        let shareAction = UIAction(title: shareMenuItemTitle) { [weak self] _ in
+            self?.shareMenuItemTapped()
+        }
+        let editMenuItemTitle = CommonStrings.editContextMenuTitle
+        let editAction = UIAction(title: editMenuItemTitle) { [weak self]  _ in
+            self?.editMenuItemTapped()
+        }
+        
+        builder.remove(menu: .share)
+        let menu = UIMenu(title: String(), image: nil, identifier: nil, options: .displayInline, children: [shareAction, editAction])
+        builder.insertSibling(menu, afterMenu: .standardEdit)
+        
+        super.buildMenu(with: builder)
     }
     
     // MARK: Lead Image
@@ -620,7 +638,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     private func imageDidSuccessfullyLoad() {
-        guard let altTextExperimentViewModel else {
+        guard altTextExperimentViewModel != nil else {
             return
         }
         
@@ -656,7 +674,6 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
-                self.updateMenuItems()
             }
             guard let article = article else {
                 return
@@ -1325,17 +1342,9 @@ private extension ArticleViewController {
         }
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
-        authManager.getLoggedInUser(for: siteURL) { (result) in
-            assert(Thread.isMainThread)
-            switch result {
-            case .success(let user):
-                self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
-            case .failure:
-                DDLogError("Error getting userinfo for \(siteURL)")
-                self.setupPageContentServiceJavaScriptInterface(with: [])
-            }
-            completion()
-        }
+        let user = authManager.permanentUser(siteURL: siteURL)
+        setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
+        completion()
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {

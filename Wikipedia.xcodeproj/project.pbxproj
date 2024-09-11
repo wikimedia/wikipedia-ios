@@ -679,7 +679,6 @@
 		678C7C2E23BE705C001AC4D5 /* CacheDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */; };
 		678C7C3023BE7319001AC4D5 /* CacheDBWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */; };
 		678C7C3423BE75F9001AC4D5 /* CacheFileWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */; };
-		678C7C3623BE7779001AC4D5 /* FileManager+CacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */; };
 		678D29AC2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AB2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift */; };
 		678D29AE2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
 		678D29AF2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
@@ -1045,8 +1044,8 @@
 		7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A393280236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib */; };
 		7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */; };
 		7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
-		7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */; };
-		7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */; };
+		7A3AD05A20ADB1CD00C92E04 /* WMFAccountLoginLogoutFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C5F1E3A813500B72802 /* WMFAccountLoginLogoutFetcher.swift */; };
+		7A3AD05B20ADB1DF00C92E04 /* WMFCurrentUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173A1E497AE7008B70AD /* WMFCurrentUserFetcher.swift */; };
 		7A3AD05C20ADB1F500C92E04 /* WMFKeychainCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -3387,7 +3386,6 @@
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
 		678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriterHelper.swift; sourceTree = "<group>"; };
 		678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriterHelper.swift; sourceTree = "<group>"; };
-		678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+CacheExtensions.swift"; sourceTree = "<group>"; };
 		678D29AB2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+LinkExtensions.swift"; sourceTree = "<group>"; };
 		678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+SheetActionExtensions.swift"; sourceTree = "<group>"; };
@@ -4165,7 +4163,7 @@
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTwoFactorPasswordViewController.swift; path = Wikipedia/Code/WMFTwoFactorPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
-		B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCurrentlyLoggedInUserFetcher.swift; sourceTree = "<group>"; };
+		B0ED173A1E497AE7008B70AD /* WMFCurrentUserFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFCurrentUserFetcher.swift; sourceTree = "<group>"; };
 		B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTwoFactorPasswordViewController.storyboard; path = Wikipedia/Code/WMFTwoFactorPasswordViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthenticationManager.swift; sourceTree = "<group>"; };
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
@@ -4181,7 +4179,7 @@
 		B0F7CB591C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguagesAnimationView.swift; path = Wikipedia/Code/WMFWelcomeLanguagesAnimationView.swift; sourceTree = SOURCE_ROOT; };
 		B0F84EEC1C8E444400801560 /* WMFWelcomeAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeAnimationView.swift; path = Wikipedia/Code/WMFWelcomeAnimationView.swift; sourceTree = SOURCE_ROOT; };
 		B0F9299B1F84789C002A0788 /* WMFWelcomeInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeInitialViewController.swift; sourceTree = "<group>"; };
-		B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountLogin.swift; sourceTree = "<group>"; };
+		B0F92C5F1E3A813500B72802 /* WMFAccountLoginLogoutFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAccountLoginLogoutFetcher.swift; sourceTree = "<group>"; };
 		B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFCaptchaResetter.swift; path = Wikipedia/Code/WMFCaptchaResetter.swift; sourceTree = SOURCE_ROOT; };
 		B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthLoginInfoFetcher.swift; sourceTree = "<group>"; };
 		B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthAccountCreationInfoFetcher.swift; sourceTree = "<group>"; };
@@ -6057,7 +6055,7 @@
 			isa = PBXGroup;
 			children = (
 				B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */,
-				B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */,
+				B0ED173A1E497AE7008B70AD /* WMFCurrentUserFetcher.swift */,
 				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
 				0EBB231A1D1C453C00CA9742 /* Login */,
 				0EBB231B1D1C454500CA9742 /* Account Creation */,
@@ -6070,7 +6068,7 @@
 		0EBB231A1D1C453C00CA9742 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */,
+				B0F92C5F1E3A813500B72802 /* WMFAccountLoginLogoutFetcher.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -6376,7 +6374,6 @@
 				678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */,
 				678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */,
 				678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */,
-				678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */,
 				67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */,
 				6779D45023F60903002840CA /* CacheFileWriter.swift */,
 				6779D45223F6EC2D002840CA /* CacheFetching.swift */,
@@ -9099,7 +9096,7 @@
 				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					00021DE024D48EFD00476F97 = {
@@ -10694,7 +10691,7 @@
 				00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */,
 				00A988082829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
-				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
+				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentUserFetcher.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
 				0042807825E6E395004945B3 /* MTLEXTScope.m in Sources */,
 				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
@@ -10714,7 +10711,7 @@
 				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
 				83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */,
-				7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */,
+				7A3AD05A20ADB1CD00C92E04 /* WMFAccountLoginLogoutFetcher.swift in Sources */,
 				D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */,
 				7A52C01B2150389D00A3A4A1 /* RemoteNotificationsController.swift in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
@@ -10750,7 +10747,6 @@
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
 				D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */,
-				678C7C3623BE7779001AC4D5 /* FileManager+CacheExtensions.swift in Sources */,
 				0E728D471DAEEE880074EB4B /* CLLocation+WMFComparison.m in Sources */,
 				670AF1CE26CA188B005F76D0 /* RemoteNotificationLinks.swift in Sources */,
 				678C7C3423BE75F9001AC4D5 /* CacheFileWriterHelper.swift in Sources */,
@@ -12593,7 +12589,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12633,7 +12629,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12672,7 +12668,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12711,7 +12707,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12751,7 +12747,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12790,7 +12786,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12829,7 +12825,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12868,7 +12864,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12889,7 +12885,6 @@
 		0E8380711D64989F0076EDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -12904,6 +12899,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12920,7 +12916,6 @@
 		0E8380731D64989F0076EDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -12931,6 +12926,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12946,7 +12942,6 @@
 		0E8380741D64989F0076EDE4 /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -12957,6 +12952,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13025,7 +13021,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DTEST";
@@ -13043,7 +13039,6 @@
 		0EAB7A211D47AF8000E7CF8E /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -13052,6 +13047,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13059,7 +13055,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13076,7 +13072,6 @@
 		0EAB7A221D47AF8000E7CF8E /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -13097,6 +13092,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -13170,7 +13166,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DUITEST";
@@ -13188,7 +13184,6 @@
 		675BC8BD2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -13197,6 +13192,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13204,7 +13200,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13221,7 +13217,6 @@
 		675BC8BE2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -13237,6 +13232,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13253,7 +13249,6 @@
 		675BC8BF2AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -13269,6 +13264,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13285,7 +13281,6 @@
 		675BC8C02AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -13306,6 +13301,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -13326,7 +13322,6 @@
 		675BC8C12AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -13337,6 +13332,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13363,7 +13359,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13373,7 +13369,6 @@
 		675BC8C32AFD2BD200771C4B /* UITests */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -13386,6 +13381,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -13394,6 +13390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13424,7 +13421,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -13449,7 +13447,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -13478,7 +13477,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Widgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13515,7 +13514,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13551,7 +13550,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13587,7 +13586,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -13622,7 +13621,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13655,7 +13654,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13688,7 +13687,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13722,7 +13721,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13755,7 +13754,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13788,7 +13787,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13821,7 +13820,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
@@ -13858,7 +13857,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13896,7 +13895,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13932,7 +13931,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13968,7 +13967,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14005,7 +14004,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14041,7 +14040,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14077,7 +14076,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14113,7 +14112,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14133,7 +14132,6 @@
 		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -14153,6 +14151,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -14173,7 +14172,6 @@
 		BC42735C1A7C736800068882 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -14194,6 +14192,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -14267,7 +14266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -14334,7 +14333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -14353,7 +14352,6 @@
 		D499146B181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14362,10 +14360,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14384,7 +14383,6 @@
 		D499146C181D51DF00E6073C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14393,6 +14391,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14400,7 +14399,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14417,7 +14416,6 @@
 		D844D9751D6CB2600042D692 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14430,11 +14428,13 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14454,7 +14454,6 @@
 		D844D9781D6CB2600042D692 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14467,6 +14466,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -14475,6 +14475,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14494,7 +14495,6 @@
 		D844D9791D6CB2600042D692 /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14507,6 +14507,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -14515,6 +14516,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14548,7 +14550,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14569,7 +14571,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14590,7 +14592,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14612,7 +14614,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14633,7 +14635,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14654,7 +14656,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14675,7 +14677,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14739,7 +14741,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL";
@@ -14757,7 +14759,6 @@
 		D85432332188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14766,10 +14767,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Local-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14788,7 +14790,6 @@
 		D85432342188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14800,6 +14801,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14818,7 +14820,6 @@
 		D85432352188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14830,6 +14831,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14848,7 +14850,6 @@
 		D85432392188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -14868,6 +14869,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -14888,7 +14890,6 @@
 		D854323B2188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -14903,6 +14904,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14933,7 +14935,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14943,7 +14945,6 @@
 		D854323F2188CC1300E895B5 /* LocalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -14956,11 +14957,13 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14994,7 +14997,8 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15053,7 +15057,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_EXPERIMENTAL";
 				SDKROOT = iphoneos;
@@ -15072,7 +15076,6 @@
 		D858A7FB1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15081,6 +15084,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15088,7 +15092,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15113,7 +15117,6 @@
 		D858A7FC1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -15132,6 +15135,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -15153,7 +15157,6 @@
 		D858A7FD1DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -15164,6 +15167,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15180,7 +15184,6 @@
 		D858A8001DA6DBC8009C3DEB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -15193,6 +15196,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -15201,6 +15205,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15274,7 +15279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_EXPERIMENTAL";
@@ -15292,7 +15297,6 @@
 		D858A8031DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15301,10 +15305,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15330,7 +15335,6 @@
 		D858A8041DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -15350,6 +15354,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -15371,7 +15376,6 @@
 		D858A8051DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -15386,6 +15390,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15402,7 +15407,6 @@
 		D858A8081DA6DD00009C3DEB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -15415,11 +15419,13 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15454,7 +15460,8 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15475,7 +15482,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15496,7 +15504,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -15518,7 +15527,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15539,7 +15549,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15560,7 +15571,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -15581,7 +15593,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -15641,7 +15654,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_STAGING";
 				SDKROOT = iphoneos;
@@ -15660,7 +15673,6 @@
 		D8A42A3E1E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15669,6 +15681,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15676,7 +15689,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15693,7 +15706,6 @@
 		D8A42A3F1E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15709,6 +15721,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15725,7 +15738,6 @@
 		D8A42A411E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -15746,6 +15758,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -15766,7 +15779,6 @@
 		D8A42A421E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -15777,6 +15789,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15792,7 +15805,6 @@
 		D8A42A441E814FAA00D8E281 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -15805,6 +15817,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -15813,6 +15826,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15885,7 +15899,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_STAGING";
@@ -15903,7 +15917,6 @@
 		D8A42A461E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15912,10 +15925,11 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15934,7 +15948,6 @@
 		D8A42A471E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15946,6 +15959,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15964,7 +15978,6 @@
 		D8A42A491E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -15984,6 +15997,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Library/Frameworks/,
@@ -16004,7 +16018,6 @@
 		D8A42A4A1E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -16019,6 +16032,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16035,7 +16049,6 @@
 		D8A42A4C1E814FE000D8E281 /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -16048,11 +16061,13 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16090,7 +16105,8 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -16116,7 +16132,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -16141,7 +16158,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -16166,7 +16184,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -16192,7 +16211,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -16217,7 +16237,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -16242,7 +16263,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -16267,7 +16289,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -16278,7 +16301,6 @@
 		D8CE26A91E698E2400DAE2E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16290,6 +16312,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16309,7 +16332,6 @@
 		D8CE26AB1E698E2400DAE2E0 /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16321,6 +16343,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16346,7 +16369,6 @@
 		D8CE26AC1E698E2400DAE2E0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16362,6 +16384,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16378,7 +16401,6 @@
 		D8CE26AD1E698E2400DAE2E0 /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16394,6 +16416,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16410,7 +16433,6 @@
 		D8CE26AE1E698E2400DAE2E0 /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16426,6 +16448,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16450,7 +16473,6 @@
 		D8EC3FA91E9BDA35006712EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16462,6 +16484,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16480,7 +16503,6 @@
 		D8EC3FAB1E9BDA35006712EB /* StagingDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16492,6 +16514,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16510,7 +16533,6 @@
 		D8EC3FAD1E9BDA35006712EB /* ExperimentalDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16522,6 +16544,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16547,7 +16570,6 @@
 		D8EC3FAE1E9BDA35006712EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16563,6 +16585,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16579,7 +16602,6 @@
 		D8EC3FB01E9BDA35006712EB /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16595,6 +16617,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16611,7 +16634,6 @@
 		D8EC3FB21E9BDA35006712EB /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16627,6 +16649,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16643,7 +16666,6 @@
 		D8EC3FB31E9BDA35006712EB /* Experimental */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16659,6 +16681,7 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

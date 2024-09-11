@@ -7,7 +7,7 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         
-        guard let countryCode = Locale.current.regionCode,
+        guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wmfProject = wikimediaProject.wmfProject else {
             return

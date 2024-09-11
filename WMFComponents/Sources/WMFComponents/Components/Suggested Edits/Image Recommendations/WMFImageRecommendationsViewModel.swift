@@ -153,7 +153,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     public let project: WMFProject
     public let semanticContentAttribute: UISemanticContentAttribute
-    public let isLoggedIn: Bool
+    public let isPermanent: Bool
     let localizedStrings: LocalizedStrings
     let surveyOptions: [WMFSurveyViewModel.OptionViewModel]
 
@@ -176,8 +176,8 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isLoggedIn: Bool, localizedStrings: LocalizedStrings, surveyOptions: [WMFSurveyViewModel.OptionViewModel], needsSuppressPosting: Bool) {
-        self.isLoggedIn = isLoggedIn
+    public init(project: WMFProject, semanticContentAttribute: UISemanticContentAttribute, isPermanent: Bool, localizedStrings: LocalizedStrings, surveyOptions: [WMFSurveyViewModel.OptionViewModel], needsSuppressPosting: Bool) {
+        self.isPermanent = isPermanent
         self.project = project
         self.semanticContentAttribute = semanticContentAttribute
         self.localizedStrings = localizedStrings

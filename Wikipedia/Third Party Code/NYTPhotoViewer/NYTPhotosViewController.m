@@ -236,7 +236,6 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
     [self.view addSubview:self.overlayView];
 }
 
-
 - (void)updateOverlayInformation {
     NSString *overlayTitle;
     
@@ -518,10 +517,13 @@ static const UIEdgeInsets NYTPhotosViewControllerCloseButtonImageInsets = {3, 0,
     self.shouldHandleLongPress = !clientDidHandle;
     
     if (self.shouldHandleLongPress) {
-        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        
         CGRect targetRect = CGRectZero;
         targetRect.origin = [longPressGestureRecognizer locationInView:longPressGestureRecognizer.view];
-        [menuController showMenuFromView:longPressGestureRecognizer.view rect:targetRect];
+        
+        UIEditMenuConfiguration *configuration = [UIEditMenuConfiguration configurationWithIdentifier:nil sourcePoint:targetRect.origin];
+
+        [photoViewController.editMenuInteraction presentEditMenuWithConfiguration:configuration];
     }
 }
 
