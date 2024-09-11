@@ -28,7 +28,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.isShadowHidingEnabled = true
 
         updateNotificationsCenterButton()
-        updateSettingsButton()
+        updateProfileViewButton()
         updateNavigationBarVisibility()
 
         isRefreshControlEnabled = true
@@ -155,12 +155,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public func updateNavigationBarVisibility() {
         navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
     }
-    
-    func updateSettingsButton() {
-        
-        let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
-        settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
-        navigationItem.rightBarButtonItem = settingsBarButtonItem
+
+    @objc func updateProfileViewButton() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.isLoggedIn {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
+        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        navigationItem.rightBarButtonItem = profileViewButtonItem
         navigationBar.updateNavigationItems()
     }
     
@@ -192,10 +199,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return titleView
     }()
 
-    @objc func userDidTapSettings() {
+    @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        settingsPresentationDelegate?.userDidTapSettings(from: self)
+        settingsPresentationDelegate?.userDidTapProfile(from: self)
 
     }
     
@@ -640,7 +647,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         self.theme = theme
         updateNotificationsCenterButton()
-        updateSettingsButton()
+        updateProfileViewButton()
 
         searchBar.apply(theme: theme)
         searchBarContainerView.backgroundColor = theme.colors.paperBackground

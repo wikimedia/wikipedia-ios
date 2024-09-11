@@ -385,6 +385,7 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
+		375217132C90E74400569299 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375217122C90E74400569299 /* ProfileView.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3249,6 +3250,7 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		375217122C90E74400569299 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -7264,6 +7266,7 @@
 				830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
+				375217122C90E74400569299 /* ProfileView.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -10492,6 +10495,7 @@
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				0042813D25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				83C06882292EC85700DF1403 /* TalkPageFormattingToolbarView.swift in Sources */,
+				375217132C90E74400569299 /* ProfileView.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				007CCF0C26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,

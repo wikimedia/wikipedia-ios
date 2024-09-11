@@ -90,6 +90,8 @@ public enum WMFSFSymbolIcon {
     case flag
     case lightbulbMin
     case ellipsisCircle
+    case personCropCircleBadge
+    case personCropCircle
     case bookmark
     case bookmarkFill
     case book
@@ -210,6 +212,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "lightbulb.min", withConfiguration: configuration)
         case .ellipsisCircle:
             image = UIImage(systemName: "ellipsis.circle", withConfiguration: configuration)
+        case .personCropCircleBadge:
+            image = UIImage(systemName: "person.crop.circle.badge", withConfiguration: configuration)
+        case .personCropCircle:
+            image = UIImage(systemName: "person.crop.circle", withConfiguration: configuration)
         case .bookmark:
             image = UIImage(systemName: "bookmark", withConfiguration: configuration)
         case .bookmarkFill:
