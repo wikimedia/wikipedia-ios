@@ -1,4 +1,5 @@
 import WMF
+import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
@@ -158,7 +159,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func updateProfileViewButton() {
         let hasUnreadNotifications: Bool
-        if self.dataStore.authenticationManager.isLoggedIn {
+        if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
         } else {
@@ -202,8 +203,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        settingsPresentationDelegate?.userDidTapProfile(from: self)
+        // settingsPresentationDelegate?.userDidTapProfile(from: self)
+        let profileView = ProfileView()
+        let hostingController = UIHostingController(rootView: profileView)
+        hostingController.modalPresentationStyle = .pageSheet
 
+        if let sheetPresentationController = hostingController.sheetPresentationController {
+            sheetPresentationController.detents = [.large()]
+            sheetPresentationController.prefersGrabberVisible = true
+        }
+
+        present(hostingController, animated: true, completion: nil)
     }
     
     open override func refresh() {

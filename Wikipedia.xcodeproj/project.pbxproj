@@ -385,6 +385,9 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
+		373A67CB2C91E3750007A289 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A67CA2C91E3750007A289 /* ProfileViewController.swift */; };
+		373A67CC2C91E3750007A289 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A67CA2C91E3750007A289 /* ProfileViewController.swift */; };
+		373A67CD2C91E3750007A289 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A67CA2C91E3750007A289 /* ProfileViewController.swift */; };
 		375217132C90E74400569299 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375217122C90E74400569299 /* ProfileView.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3250,6 +3253,7 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		373A67CA2C91E3750007A289 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		375217122C90E74400569299 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
@@ -7266,7 +7270,6 @@
 				830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
-				375217122C90E74400569299 /* ProfileView.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -8104,6 +8107,7 @@
 		D83F5C051F0E5111006130FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				373A67CA2C91E3750007A289 /* ProfileViewController.swift */,
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
@@ -8116,6 +8120,7 @@
 				D83F5C0B1F0E51E4006130FF /* Accessory Views */,
 				6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */,
 				FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */,
+				375217122C90E74400569299 /* ProfileView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -10154,6 +10159,7 @@
 				67C6F77E27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */,
 				8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				007CCF0726D5A17200D5EA7C /* NotificationsCenterView.swift in Sources */,
+				373A67CB2C91E3750007A289 /* ProfileViewController.swift in Sources */,
 				8382F8C720D844C600AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				67112E3D275E603B007A9850 /* NotificationsCenterInboxViewModel.swift in Sources */,
 				B37B38F01E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift in Sources */,
@@ -11117,6 +11123,7 @@
 				D8CE25161E698E2400DAE2E0 /* UIView+WMFSubviews.swift in Sources */,
 				830C0DD623D9AFBE006471C4 /* UIViewController+Push.swift in Sources */,
 				83155BA82A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
+				373A67CD2C91E3750007A289 /* ProfileViewController.swift in Sources */,
 				D87B13A61F276B0F00B27227 /* ShareActivityController.swift in Sources */,
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
@@ -11683,6 +11690,7 @@
 				D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */,
 				830C0DD723D9AFBE006471C4 /* UIViewController+Push.swift in Sources */,
 				83155BA72A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
+				373A67CC2C91E3750007A289 /* ProfileViewController.swift in Sources */,
 				D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */,
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,

@@ -27,8 +27,7 @@ struct ProfileView: View {
                 Section {
                     ForEach(0..<section.count, id: \.self) { itemIndex in
                         let item = section[itemIndex]
-                        // Use `item` here
-                        Text(item.text) // Example usage
+                        Text(item.text)
                     }
                 }
                 .listRowSeparator(.hidden)
