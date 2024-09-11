@@ -63,6 +63,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
+@property (nonatomic, strong, readonly) WMFSplashScreenViewController *splashScreenViewController;
+
 @property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -1576,22 +1578,30 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
+    if (_splashScreenViewController) {
+        return;
+    }
     WMFSplashScreenViewController *vc = [[WMFSplashScreenViewController alloc] initWithNibName:nil bundle:nil];
-    [vc applyTheme:self.theme];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:vc animated:NO completion:NULL];
+    [vc beginAppearanceTransition:YES animated:NO];
+    [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
+    [vc endAppearanceTransition];
+    _splashScreenViewController = vc;
 }
 
 - (void)hideSplashView {
-    if ([self.presentedViewController isKindOfClass:[WMFSplashScreenViewController class]]) {
-        [self dismissViewControllerAnimated:NO completion:nil];
+    WMFSplashScreenViewController *vc = _splashScreenViewController;
+    if (!vc) {
+        return;
     }
+    [vc beginAppearanceTransition:NO animated:NO];
+    [vc.view removeFromSuperview];
+    [vc endAppearanceTransition];
+    _splashScreenViewController = nil;
 }
 
 - (void)triggerMigratingAnimation {
-    if ([self.presentedViewController isKindOfClass:[WMFSplashScreenViewController class]]) {
-        WMFSplashScreenViewController *splashVC = (WMFSplashScreenViewController *)self.presentedViewController;
-        [splashVC triggerMigratingAnimation];
+    if (_splashScreenViewController) {
+        [_splashScreenViewController triggerMigratingAnimation];
     }
 }
 
