@@ -25,6 +25,10 @@ extension ArticleViewController {
             if !isOptedIn {
                 DonateFunnel.shared.logHiddenBanner(campaignID: activeCampaignAsset.metricsID)
             }
+
+            guard isOptedIn else {
+                return
+            }
             
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
