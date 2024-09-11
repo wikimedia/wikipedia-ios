@@ -10,8 +10,20 @@ public struct WMFDonateConfig: Codable {
     public let countryCodeApplePayEnabled: [String]
     var cachedDate: Date?
     
-    public func transactionFee(for currencyCode: String) -> Decimal? {
-        return currencyTransactionFees[currencyCode] ?? currencyTransactionFees["default"]
+    public func transactionFee(for currencyCode: String, amount: Decimal = 0.0) -> Decimal? {
+        
+        let percent: Double = 0.04
+        let calculatedTransactionFee = ((Double(amount.description) ?? 0.0) * percent).rounded()
+        
+        var transactionFee: Decimal?
+        
+        if let minimumTransactionFee = currencyTransactionFees[currencyCode] {
+            transactionFee = (Decimal(calculatedTransactionFee) > minimumTransactionFee) ? Decimal(calculatedTransactionFee) : minimumTransactionFee
+        } else if let defaultTransactionFee = currencyTransactionFees["default"] {
+            transactionFee = (Decimal(calculatedTransactionFee) > defaultTransactionFee) ? Decimal(calculatedTransactionFee) : defaultTransactionFee
+        }
+        
+        return transactionFee
     }
 
     public func getMaxAmount(for currencyCode: String) -> Decimal {
