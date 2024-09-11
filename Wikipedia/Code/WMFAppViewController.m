@@ -1583,6 +1583,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     WMFSplashScreenViewController *vc = [[WMFSplashScreenViewController alloc] initWithNibName:nil bundle:nil];
     [vc beginAppearanceTransition:YES animated:NO];
+    [vc applyTheme:self.theme];
     [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
     [vc endAppearanceTransition];
     _splashScreenViewController = vc;
