@@ -415,18 +415,17 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     private static func transactionFee(donateConfig: WMFDonateConfig, currencyCode: String, amount: Decimal = 0.0) -> Decimal? {
         let percent = Decimal(0.04)
-        let calculatedTransactionFee = amount * percent
+        let percentageTransactionFee = amount * percent
         
-        var transactionFee: Decimal?
+        var finalTransactionFee: Decimal?
         
         if let minimumTransactionFee = donateConfig.currencyTransactionFees[currencyCode] {
-            transactionFee = calculatedTransactionFee > minimumTransactionFee ? calculatedTransactionFee : minimumTransactionFee
-            
+            finalTransactionFee = percentageTransactionFee > minimumTransactionFee ? percentageTransactionFee : minimumTransactionFee
         } else if let defaultTransactionFee = donateConfig.currencyTransactionFees["default"] {
-            transactionFee = calculatedTransactionFee > defaultTransactionFee ? calculatedTransactionFee : defaultTransactionFee
+            finalTransactionFee = percentageTransactionFee > defaultTransactionFee ? percentageTransactionFee : defaultTransactionFee
         }
         
-        return transactionFee
+        return finalTransactionFee
     }
     
     private func recalculateTransactionFee() {
@@ -436,12 +435,17 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         guard let transactionFee = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode, amount: originalAmount) else {
             return
         }
-        self.transactionFeeAmount = transactionFee
-        print("TRANSACTION FEE: \(transactionFee)")
         
         let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = currencyCode
-        let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) ?? ""
+        
+        guard let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) else {
+            return
+        }
+        
+        self.transactionFeeAmount = transactionFee
+        
+        // Assign transactionFeeOptInViewModel again so that SwiftUI form updates
         let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
         let isOldModelSelected = transactionFeeOptInViewModel.isSelected
         transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint), isSelected: isOldModelSelected)
