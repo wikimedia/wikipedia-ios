@@ -18,8 +18,15 @@ extension ArticleViewController {
         Task {
             let isOptedIn = await dataController.isOptedIn(project: wmfProject)
             
-            guard isOptedIn,
-            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+            guard let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+                return
+            }
+
+            if !isOptedIn {
+                DonateFunnel.shared.logHiddenBanner(campaignID: activeCampaignAsset.metricsID)
+            }
+
+            guard isOptedIn else {
                 return
             }
             
