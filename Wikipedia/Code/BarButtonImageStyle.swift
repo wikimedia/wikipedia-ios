@@ -19,17 +19,9 @@ import WMFData
 
     @objc(profileButtonImageForTheme:indicated:)
     static func profileButtonImage(theme: Theme, indicated: Bool = false) -> UIImage? {
-        let symbolName = indicated ? "person.crop.circle.badge" : "person.crop.circle"
+        let symbol = indicated ? WMFSFSymbolIcon.for(symbol: .personCropCircleBadge, paletteColors: [theme.colors.destructive, theme.colors.link]) : WMFSFSymbolIcon.for(symbol: .personCropCircle, paletteColors: [theme.colors.link])
 
-        let symbolConfig: UIImage.SymbolConfiguration
-
-        if indicated {
-            symbolConfig = UIImage.SymbolConfiguration(paletteColors: [theme.colors.destructive, theme.colors.link])
-        } else {
-            symbolConfig = UIImage.SymbolConfiguration(paletteColors: [theme.colors.link])
-        }
-
-        return UIImage(systemName: symbolName, withConfiguration: symbolConfig)
+        return symbol
     }
 }
 
