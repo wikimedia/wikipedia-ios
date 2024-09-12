@@ -102,38 +102,38 @@ import WMF
         logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignID {
+        if let metricsID {
             actionData = [:]
-            actionData?["campaign_id"] = campaignID
+            actionData?["campaign_id"] = metricsID
         }
         
         logEvent(activeInterface: .articleBanner, action: .closeClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignID {
-            actionData = ["campaign_id": campaignID]
+        if let metricsID {
+            actionData = ["campaign_id": metricsID]
         }
         
         logEvent(activeInterface: .articleBanner, action: .donateClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignID {
-            actionData = ["campaign_id": campaignID]
+        if let metricsID {
+            actionData = ["campaign_id": metricsID]
         }
         
         logEvent(activeInterface: .articleBanner, action: .laterClick, actionData: actionData, project: project)
     }
     
-    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, campaignID: String?) {
+    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignID {
-            actionData = ["campaign_id": campaignID]
+        if let metricsID {
+            actionData = ["campaign_id": metricsID]
         }
         
         logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, actionData: actionData, project: project)
@@ -277,11 +277,11 @@ import WMF
         logEvent(activeInterface: .webPayProcessed, action: .returnClick)
     }
 
-    func logHiddenBanner(campaignID: String?) {
+    func logHiddenBanner(metricsID: String?) {
         var actionData: [String: String]?
-        if let campaignID {
+        if let metricsID {
             actionData = [:]
-            actionData?["campaign_id"] = campaignID
+            actionData?["campaign_id"] = metricsID
         }
 
         logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: actionData)
