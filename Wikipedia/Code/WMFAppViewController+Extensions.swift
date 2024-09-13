@@ -3,6 +3,7 @@ import WMF
 import SwiftUI
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -568,6 +569,13 @@ extension WMFAppViewController {
             WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
             WMFDataEnvironment.current.serviceEnvironment = .production
+        }
+        
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+        do {
+            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
+        } catch let error {
+            DDLogError("Error setting up WMFCoreDataStore: \(error)")
         }
         
         WMFDataEnvironment.current.userAgentUtility = {
