@@ -63,7 +63,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
-@property (nonatomic, strong, readonly) WMFSplashScreenViewController *splashScreenViewController;
+@property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
 @property (nonatomic, strong) WMFSavedArticlesFetcher *savedArticlesFetcher;
 
@@ -1578,7 +1578,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
-    if (_splashScreenViewController) {
+    if (self.splashScreenViewController) {
         return;
     }
     WMFSplashScreenViewController *vc = [[WMFSplashScreenViewController alloc] initWithNibName:nil bundle:nil];
@@ -1586,23 +1586,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [vc applyTheme:self.theme];
     [self.view wmf_addSubviewWithConstraintsToEdges:vc.view];
     [vc endAppearanceTransition];
-    _splashScreenViewController = vc;
+    self.splashScreenViewController = vc;
 }
 
 - (void)hideSplashView {
-    WMFSplashScreenViewController *vc = _splashScreenViewController;
+    WMFSplashScreenViewController *vc = self.splashScreenViewController;
     if (!vc) {
         return;
     }
     [vc beginAppearanceTransition:NO animated:NO];
     [vc.view removeFromSuperview];
     [vc endAppearanceTransition];
-    _splashScreenViewController = nil;
+    self.splashScreenViewController = nil;
 }
 
 - (void)triggerMigratingAnimation {
-    if (_splashScreenViewController) {
-        [_splashScreenViewController triggerMigratingAnimation];
+    if (self.splashScreenViewController) {
+        [self.splashScreenViewController triggerMigratingAnimation];
     }
 }
 
