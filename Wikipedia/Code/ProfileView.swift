@@ -15,7 +15,7 @@ struct ProfileView: View {
 
     init(isLoggedIn: Bool = true) {
         self.isLoggedIn = isLoggedIn
-        if isLoggedIn {
+        if self.isLoggedIn {
            profileSections = ProfileState.loggedIn.sections
         } else {
            profileSections = ProfileState.loggedOut.sections
