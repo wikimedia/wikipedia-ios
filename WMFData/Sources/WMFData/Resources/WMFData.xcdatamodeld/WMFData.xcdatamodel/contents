@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="WMFViewedPage" representedClassName="WMFViewedPage" syncable="YES" codeGenerationType="class">
-        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="namespaceID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="pageTitle" attributeType="String"/>
-        <attribute name="wmfProjectID" attributeType="String"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Page" representedClassName="CDPage" syncable="YES" codeGenerationType="class">
+        <attribute name="namespace" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="projectID" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="pageViews" toMany="YES" deletionRule="Nullify" destinationEntity="PageView" inverseName="page" inverseEntity="PageView"/>
+    </entity>
+    <entity name="PageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="page" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="pageViews" inverseEntity="Page"/>
     </entity>
 </model>

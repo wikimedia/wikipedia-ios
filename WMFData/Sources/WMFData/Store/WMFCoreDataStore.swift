@@ -69,7 +69,27 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func create<T: NSManagedObject>(entity: T.Type, in moc: NSManagedObjectContext) throws -> T? {
+    func fetchOrCreate<T: NSManagedObject>(entity: T.Type, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
+        
+        guard let existing = try fetch(entity: entity, predicate: predicate, in: moc) else {
+            return try create(entity: entity, in: moc)
+        }
+
+        return existing
+    }
+    
+    func fetch<T: NSManagedObject>(entity: T.Type, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
+
+        let entityName = String(describing: entity)
+        
+        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        let results: [T] = try moc.fetch(fetchRequest)
+        return results.first
+    }
+    
+    func create<T: NSManagedObject>(entity: T.Type, in moc: NSManagedObjectContext) throws -> T {
 
         let entityName = String(describing: entity)
         

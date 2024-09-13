@@ -776,7 +776,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 Task {
                     do {
                         let wikiwrappedDataController = try WMFWikiWrappedDataController()
-                        try await wikiwrappedDataController.createAndSaveViewedPage(pageTitle: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                        try await wikiwrappedDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
                     } catch let error {
                         DDLogError("Error saving viewed page: \(error)")
                     }
