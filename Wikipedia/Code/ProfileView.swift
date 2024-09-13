@@ -8,33 +8,19 @@ struct ProfileView: View {
         return appEnvironment.theme
     }
     
-    // Testing
-    let profileSections: [ProfileSection] = [
-        ProfileSection(
-            listItems: [
-                ProfileListItem(text: "Settings", image: .starLeadingHalfFilled, imageColor: UIColor(Color.blue), notificationNumber: nil, action: {}),
-                ProfileListItem(text: "Favorites", image: .personFilled, imageColor: UIColor(Color.orange), notificationNumber: nil, action: {}),
-                ProfileListItem(text: "Messages", image: .conversation, imageColor: nil, notificationNumber: 3, action: {})
-            ],
-            subtext: "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices."
-        ),
-        ProfileSection(
-            listItems: [
-                ProfileListItem(text: "Notifications", image: nil, imageColor: UIColor(Color.purple), notificationNumber: 5, action: {}),
-                ProfileListItem(text: "Help", image: .quoteOpening, imageColor: nil, notificationNumber: nil, action: {})
-            ],
-            subtext: nil
-        ),
-        ProfileSection(
-            listItems: [
-                ProfileListItem(text: "Profile", image: .person, imageColor: UIColor(Color.red), notificationNumber: nil, action: {}),
-                ProfileListItem(text: "Privacy", image: nil, imageColor: nil, notificationNumber: 12, action: {}),
-                ProfileListItem(text: "Support", image: nil, imageColor: nil, notificationNumber: 1, action: {}),
-                ProfileListItem(text: "About", image: nil, imageColor: nil, notificationNumber: nil, action: {})
-            ],
-            subtext: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world."
-        )
-    ]
+    // @Binding var isSheetShown: Bool
+    // @StateObject var viewModel: ProfileViewModel
+    let profileSections: [ProfileSection]
+    let isLoggedIn: Bool
+
+    init(isLoggedIn: Bool = true) {
+        self.isLoggedIn = isLoggedIn
+        if isLoggedIn {
+           profileSections = ProfileState.loggedIn.sections
+        } else {
+           profileSections = ProfileState.loggedOut.sections
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -43,10 +29,16 @@ struct ProfileView: View {
                     sectionView(items: profileSections[sectionIndex])
                 }
             }
-            .toolbarBackground( Color(uiColor: theme.midBackground), for: .navigationBar)
-            .background(Color(uiColor: theme.midBackground))
             .navigationTitle("Account")
-            .padding(.top, 16)
+            .toolbarBackground(Color(uiColor: theme.midBackground), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        print("Done")
+                    }
+                }
+            }
         }
     }
 
@@ -100,6 +92,7 @@ struct ProfileView: View {
     }
 }
 
+// To be moved
 struct ProfileListItem: Identifiable {
     var id = UUID()
     let text: String
@@ -115,6 +108,126 @@ struct ProfileSection: Identifiable {
     let subtext: String?
 }
 
-#Preview {
-    ProfileView()
+// To be updated / translated
+enum ProfileState {
+    case loggedIn
+    case loggedOut
+    
+    var sections: [ProfileSection] {
+        switch self {
+        case .loggedIn:
+            return [
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Notifications",
+                            image: .bellFill,
+                            imageColor: UIColor(Color.blue),
+                            notificationNumber: 12,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "User page",
+                            image: .personFilled,
+                            imageColor: UIColor(Color.purple),
+                            notificationNumber: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: "Talk page",
+                            image: .chatBubbleFilled,
+                            imageColor: UIColor(Color.green),
+                            notificationNumber: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: "Watchlist",
+                            image: .textBadgeStar,
+                            imageColor: UIColor(Color.orange),
+                            notificationNumber: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: "Log out",
+                            image: .leave,
+                            imageColor: UIColor(Color.gray),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Donate",
+                            image: .heart,
+                            imageColor: UIColor(Color.red),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Settings",
+                            image: .gear,
+                            imageColor: UIColor(Color.gray),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                )
+            ]
+            
+        case .loggedOut:
+            return [
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Join Wikipedia / Log In",
+                            image: .leave,
+                            imageColor: UIColor(Color.gray),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices."
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Donate",
+                            image: .heart,
+                            imageColor: UIColor(Color.red),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world."
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Settings",
+                            image: .gear,
+                            imageColor: UIColor(Color.gray),
+                            notificationNumber: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                )
+            ]
+        }
+    }
 }
+

@@ -98,6 +98,11 @@ public enum WMFSFSymbolIcon {
     case map
     case squareAndArrowUp
     case circleFill
+    case bellFill
+    case chatBubbleFilled
+    case textBadgeStar
+    case leave
+    case gear
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -229,6 +234,16 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .circleFill:
             image = UIImage(systemName: "circle.fill", withConfiguration: configuration)
+        case .bellFill:
+            image = UIImage(systemName: "bell.fill", withConfiguration: configuration)
+        case .chatBubbleFilled:
+            image = UIImage(systemName: "bubble.fill", withConfiguration: configuration)
+        case .textBadgeStar:
+            image = UIImage(systemName: "text.badge.star", withConfiguration: configuration)
+        case .leave:
+            image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
+        case .gear:
+            image = UIImage(systemName: "gear", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

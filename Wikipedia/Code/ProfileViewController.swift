@@ -6,7 +6,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let profileView = ProfileView()
+        // Assume isLoggedIn is provided from some app logic
+        let isLoggedIn = true
+
+        // Create the ProfileView with the required parameters
+        let profileView = ProfileView(isLoggedIn: isLoggedIn)
         let hostingController = UIHostingController(rootView: profileView)
 
         addChild(hostingController)
