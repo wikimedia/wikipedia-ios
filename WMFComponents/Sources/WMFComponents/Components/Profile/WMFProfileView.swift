@@ -1,7 +1,6 @@
 import SwiftUI
-import WMFComponents
 
-struct ProfileView: View {
+public struct WMFProfileView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     var theme: WMFTheme {
@@ -13,7 +12,7 @@ struct ProfileView: View {
     let profileSections: [ProfileSection]
     let isLoggedIn: Bool
 
-    init(isLoggedIn: Bool = true) {
+    public init(isLoggedIn: Bool = true) {
         self.isLoggedIn = isLoggedIn
         if self.isLoggedIn {
            profileSections = ProfileState.loggedIn.sections
@@ -22,7 +21,7 @@ struct ProfileView: View {
         }
     }
 
-    var body: some View {
+    public var body: some View {
         NavigationView {
             List {
                 ForEach(0..<profileSections.count, id: \.self) { sectionIndex in

@@ -1,16 +1,16 @@
 import SwiftUI
 import UIKit
 
-class ProfileViewController: UIViewController {
+public class WMFProfileViewController: UIViewController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         // Assume isLoggedIn is provided from some app logic
         let isLoggedIn = true
 
         // Create the ProfileView with the required parameters
-        let profileView = ProfileView(isLoggedIn: isLoggedIn)
+        let profileView = WMFProfileView(isLoggedIn: isLoggedIn)
         let hostingController = UIHostingController(rootView: profileView)
 
         addChild(hostingController)
