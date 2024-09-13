@@ -18,8 +18,15 @@ extension ArticleViewController {
         Task {
             let isOptedIn = await dataController.isOptedIn(project: wmfProject)
             
-            guard isOptedIn,
-            let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+            guard let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+                return
+            }
+
+            if !isOptedIn {
+                DonateFunnel.shared.logHiddenBanner(metricsID: activeCampaignAsset.metricsID)
+            }
+
+            guard isOptedIn else {
                 return
             }
             
@@ -37,25 +44,25 @@ extension ArticleViewController {
         
         wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
             
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
             self.pushToDonateForm(asset: asset, sourceView: button)
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, secondaryButtonTapHandler: { _, _ in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
             
             
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
                 self.donateDidSetMaybeLater()
             } else {
-                DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
                 self.donateAlreadyDonated()
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
             
         }, optionalButtonTapHandler: { _, _ in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, campaignID: asset.utmSource)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
@@ -65,7 +72,7 @@ extension ArticleViewController {
         }, traceableDismissHandler: { action in
             
             if action == .tappedClose {
-                DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, campaignID: asset.utmSource)
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             }
         }, showMaybeLater: shouldShowMaybeLater)
@@ -74,15 +81,14 @@ extension ArticleViewController {
     private func pushToDonateForm(asset: WMFFundraisingCampaignConfig.WMFAsset, sourceView: UIView?) {
         let firstAction = asset.actions[0]
         
-        let utmSource = asset.utmSource
         let metricsID = asset.metricsID
 
         let appVersion = Bundle.main.wmf_debugVersion()
         let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
 
-        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion),
+        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, metricsID: metricsID, appVersion: appVersion),
            let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, bannerID: utmSource, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
+            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
         } else {
             self.navigate(to: donateURL, userInfo: [
                 RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
@@ -222,27 +228,6 @@ extension ArticleViewController: WMFDonateLoggingDelegate {
 }
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
-    
-    var utmSource: String? {
-        
-        guard actions.count > 0 else {
-            return nil
-        }
-        
-        let firstAction = actions[0]
-        var utmSource: String? = nil
-        if let donateURL = firstAction.url,
-           let queryItems = URLComponents(url: donateURL, resolvingAgainstBaseURL: false)?.queryItems {
-            for queryItem in queryItems {
-                if queryItem.name == "utm_source" {
-                    utmSource = queryItem.value
-                }
-            }
-        }
-        
-        return utmSource
-    }
-    
     var metricsID: String {
         return "\(languageCode)\(id)_iOS"
     }
