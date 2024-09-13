@@ -226,7 +226,7 @@ class ViewControllerRouter: NSObject {
     }
     
     private func watchlistTargetNavigationController() -> UINavigationController? {
-        var targetNavigationController = appViewController.navigationController
+        var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
            presentedNavigationController.viewControllers[0] is WMFSettingsViewController {
             targetNavigationController = presentedNavigationController
