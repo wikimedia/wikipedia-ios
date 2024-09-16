@@ -203,7 +203,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        settingsPresentationDelegate?.userDidTapProfile(from: self)
+        // settingsPresentationDelegate?.userDidTapProfile(from: self)
+        let profileView = WMFProfileView(isLoggedIn: true)
+        let hostingController = UIHostingController(rootView: profileView)
+        hostingController.modalPresentationStyle = .pageSheet
+
+        if let sheetPresentationController = hostingController.sheetPresentationController {
+            sheetPresentationController.detents = [.large()]
+            sheetPresentationController.prefersGrabberVisible = true
+        }
+
+        present(hostingController, animated: true, completion: nil)
     }
     
     open override func refresh() {
@@ -1221,30 +1231,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-        // notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-        
-        if #available(iOS 17, *) {
-            
-//            guard let moc = try? WMFDataEnvironment.current.coreDataStore?.viewContext else {
-//                return
-//            }
-//            let pageViews = PageViewsViewCoreData(moc: moc)
-            
-            let pageViews = PageViewsView(pageViewCounts: [], delegate: self)
-            // let pageViews = PageViewsViewSwiftData(pageViews: [])
-
-            let hostingController = UIHostingController(rootView: pageViews)
-            hostingController.modalPresentationStyle = .pageSheet
-
-            if let sheetPresentationController = hostingController.sheetPresentationController {
-                sheetPresentationController.detents = [.large()]
-                sheetPresentationController.prefersGrabberVisible = true
-            }
-
-            present(hostingController, animated: true, completion: nil)
-        } else {
-            // Fallback on earlier versions
-        }
+        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
     }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
@@ -1960,30 +1947,4 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
-}
-
-extension ExploreViewController: PageViewsViewDelegate {
-    func didTapPage(page: WMFData.WMFPage) {
-        
-        dismiss(animated: true) {
-            let projectElements = page.projectID.split(separator: "~")
-            
-            guard projectElements.count >= 2 else {
-                return
-            }
-            
-            let title = page.title
-            
-            switch projectElements[0] {
-            case "wikipedia":
-                let languageCode = projectElements[1]
-                let url = URL(string: "https://\(languageCode).wikipedia.org/wiki/\(title)")!
-                if let articleVC = ArticleViewController(articleURL: url, dataStore: self.dataStore, theme: self.theme) {
-                    self.navigationController?.pushViewController(articleVC, animated: true)
-                }
-            default:
-                break
-            }
-        }
-    }
 }
