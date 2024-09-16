@@ -138,11 +138,17 @@ extension WMFProject {
         case .wikidata:
             return "wikidata"
         case .wikipedia(let language):
-            var identifier = "wikipedia-\(language.languageCode)"
+            var identifier = "wikipedia~\(language.languageCode)"
             if let variantCode = language.languageVariantCode {
-                identifier.append("-\(variantCode)")
+                identifier.append("~\(variantCode)")
             }
             return identifier
         }
+    }
+}
+
+extension String {
+    var coreDataTitle: String {
+        return self.spacesToUnderscores.precomposedStringWithCanonicalMapping
     }
 }

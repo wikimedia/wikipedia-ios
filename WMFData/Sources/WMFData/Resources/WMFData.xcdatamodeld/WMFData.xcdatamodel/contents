@@ -3,11 +3,21 @@
     <entity name="WMFPage" representedClassName="CDPage" syncable="YES" codeGenerationType="class">
         <attribute name="namespaceID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="projectID" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="pageViews" toMany="YES" deletionRule="Cascade" destinationEntity="WMFPageView" inverseName="page" inverseEntity="WMFPageView"/>
+        <relationship name="pageViews" toMany="YES" deletionRule="Deny" destinationEntity="WMFPageView" inverseName="page" inverseEntity="WMFPageView"/>
+        <fetchIndex name="byProjectNamespace">
+            <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byProjectNamespaceTitle">
+            <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="title" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="WMFPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="page" maxCount="1" deletionRule="Nullify" destinationEntity="WMFPage" inverseName="pageViews" inverseEntity="WMFPage"/>
     </entity>
 </model>

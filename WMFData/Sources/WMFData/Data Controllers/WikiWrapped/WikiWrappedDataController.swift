@@ -43,21 +43,25 @@ public final class WMFWikiWrappedDataController {
     
     public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
         
+        let coreDataTitle = title.coreDataTitle
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         try await backgroundContext.perform { [weak self] in
             
             guard let self else { return }
             
-            let predicate = NSPredicate(format: "title == %@ && namespaceID == %@ && projectID == %@", argumentArray: [title, namespaceID, project.coreDataIdentifier])
+            let currentDate = Date()
+            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext)
-            page?.title = title
+            page?.title = coreDataTitle
             page?.namespaceID = namespaceID
             page?.projectID = project.coreDataIdentifier
+            page?.timestamp = currentDate
             
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
             viewedPage.page = page
-            viewedPage.timestamp = Date()
+            viewedPage.timestamp = currentDate
 
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
