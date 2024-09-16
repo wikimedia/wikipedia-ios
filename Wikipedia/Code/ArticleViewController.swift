@@ -756,7 +756,7 @@ class ArticleViewController: ViewController, HintPresenting {
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
-        guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
+        guard significantlyViewedTimer == nil else {
             return
         }
         

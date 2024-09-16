@@ -203,17 +203,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        // settingsPresentationDelegate?.userDidTapProfile(from: self)
-        let profileView = WMFProfileView(isLoggedIn: true)
-        let hostingController = UIHostingController(rootView: profileView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
-        }
-
-        present(hostingController, animated: true, completion: nil)
+        settingsPresentationDelegate?.userDidTapProfile(from: self)
     }
     
     open override func refresh() {
@@ -1231,7 +1221,30 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
-        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+        // notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+        
+        if #available(iOS 17, *) {
+            
+//            guard let moc = try? WMFDataEnvironment.current.coreDataStore?.viewContext else {
+//                return
+//            }
+//            let pageViews = PageViewsViewCoreData(moc: moc)
+            
+            let pageViews = PageViewsView(pageViews: [])
+            // let pageViews = PageViewsViewSwiftData(pageViews: [])
+
+            let hostingController = UIHostingController(rootView: pageViews)
+            hostingController.modalPresentationStyle = .pageSheet
+
+            if let sheetPresentationController = hostingController.sheetPresentationController {
+                sheetPresentationController.detents = [.large()]
+                sheetPresentationController.prefersGrabberVisible = true
+            }
+
+            present(hostingController, animated: true, completion: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {

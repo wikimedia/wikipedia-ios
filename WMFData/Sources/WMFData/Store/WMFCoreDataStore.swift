@@ -32,15 +32,24 @@ public final class WMFCoreDataStore {
         
         let description = NSPersistentStoreDescription(url: databaseFileURL)
         description.shouldAddStoreAsynchronously = true
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         
         let container = NSPersistentContainer(name: dataModelName, managedObjectModel: dataModel)
         container.persistentStoreDescriptions = [description]
         
+        for description in container.persistentStoreDescriptions {
+            for (key, value) in description.options {
+                print("\(key): \(value)")
+            }
+        }
         container.loadPersistentStores { _, error in
             if let error {
                 debugPrint("Error loading persistent stores: \(error)")
             } else {
                 DispatchQueue.main.async {
+                    container.viewContext.automaticallyMergesChangesFromParent = true
+                    container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+                    
                     self.persistentContainer = container
                 }
             }
@@ -59,7 +68,7 @@ public final class WMFCoreDataStore {
         }
     }
     
-    var viewContext: NSManagedObjectContext {
+    public var viewContext: NSManagedObjectContext {
         get throws {
             guard let persistentContainer else {
                 throw WMFCoreDataStoreError.setupMissingPersistentContainer
@@ -69,29 +78,27 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func fetchOrCreate<T: NSManagedObject>(entity: T.Type, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
+    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
         
-        guard let existing = try fetch(entity: entity, predicate: predicate, in: moc) else {
-            return try create(entity: entity, in: moc)
+        guard let existing: [T] = try fetch(entityType: entityType, entityName: entityName, predicate: predicate, fetchLimit: 1, in: moc),
+              !existing.isEmpty else {
+            return try create(entityType: entityType, entityName: entityName, in: moc)
         }
 
-        return existing
+        return existing.first
     }
     
-    func fetch<T: NSManagedObject>(entity: T.Type, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
-
-        let entityName = String(describing: entity)
+    func fetch<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
         
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
-        let results: [T] = try moc.fetch(fetchRequest)
-        return results.first
+        if let fetchLimit {
+            fetchRequest.fetchLimit = fetchLimit
+        }
+        return try moc.fetch(fetchRequest)
     }
     
-    func create<T: NSManagedObject>(entity: T.Type, in moc: NSManagedObjectContext) throws -> T {
-
-        let entityName = String(describing: entity)
+    func create<T: NSManagedObject>(entityType: T.Type, entityName: String, in moc: NSManagedObjectContext) throws -> T {
         
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: moc) else {
             throw WMFCoreDataStoreError.missingEntity
@@ -105,6 +112,19 @@ public final class WMFCoreDataStore {
         if moc.hasChanges {
             try moc.save()
         }
+    }
+    
+    func pruneTransactionHistory() throws {
+        
+        guard let sevenDaysAgo = Calendar.current.date(byAdding: .day,
+                                                 value: -7,
+                                                       to: Date()) else {
+            return
+        }
+        
+        let deleteHistoryRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: sevenDaysAgo)
+        let backgroundContext = try newBackgroundContext
+        try backgroundContext.execute(deleteHistoryRequest)
     }
 }
 
