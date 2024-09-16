@@ -754,6 +754,23 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
+    func persistPageViewForWikiwrapped() {
+        if let title = self.articleURL.wmf_title,
+           let namespace = self.articleURL.namespace,
+           let siteURL = self.articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL),
+           let wmfProject = project.wmfProject {
+            Task {
+                do {
+                    let wikiwrappedDataController = try WMFWikiWrappedDataController()
+                    try await wikiwrappedDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                } catch let error {
+                    DDLogError("Error saving viewed page: \(error)")
+                }
+            }
+        }
+    }
+    
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
@@ -1634,28 +1651,6 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
     func didFocusTextView() {
         if let project = project {
             EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
-        }
-    }
-}
-
-// MARK: - Wikiwrapped
-// TODO: Move to extension?
-
-private extension ArticleViewController {
-    func persistPageViewForWikiwrapped() {
-        if let title = self.articleURL.wmf_title,
-           let namespace = self.articleURL.namespace,
-           let siteURL = self.articleURL.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL),
-           let wmfProject = project.wmfProject {
-            Task {
-                do {
-                    let wikiwrappedDataController = try WMFWikiWrappedDataController()
-                    try await wikiwrappedDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
-                } catch let error {
-                    DDLogError("Error saving viewed page: \(error)")
-                }
-            }
         }
     }
 }
