@@ -49,10 +49,10 @@ public final class WMFWikiWrappedDataController {
             
             guard let self else { return }
             
-            let predicate = NSPredicate(format: "title == %@ && namespace == %@ && projectID == %@", argumentArray: [title, namespaceID, project.coreDataIdentifier])
+            let predicate = NSPredicate(format: "title == %@ && namespaceID == %@ && projectID == %@", argumentArray: [title, namespaceID, project.coreDataIdentifier])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext)
             page?.title = title
-            page?.namespace = namespaceID
+            page?.namespaceID = namespaceID
             page?.projectID = project.coreDataIdentifier
             
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
@@ -86,7 +86,7 @@ public final class WMFWikiWrappedDataController {
                     continue
                 }
                 
-                let page = WMFPage(namespaceID: Int(cdPage.namespace), projectID: projectID, title: title, pageViews: [])
+                let page = WMFPage(namespaceID: Int(cdPage.namespaceID), projectID: projectID, title: title, pageViews: [])
                         
                 pageViews.append(WMFPageView(timestamp: timestamp, page: page))
             }

@@ -32,6 +32,8 @@ public final class WMFCoreDataStore {
         
         let description = NSPersistentStoreDescription(url: databaseFileURL)
         description.shouldAddStoreAsynchronously = true
+        description.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+        description.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
         description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         
         let container = NSPersistentContainer(name: dataModelName, managedObjectModel: dataModel)
