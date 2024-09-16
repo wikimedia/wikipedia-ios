@@ -1,10 +1,14 @@
 import Foundation
 import SwiftUI
 
+//I updated the view model so it could hold the coordinator reference, this is just for prototyping reasons
+// We can have a ViewController hold the ref to the coordinator, and call the delegate there
 public class ProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
     private let isLoggedIn: Bool
     private weak var coordinatorDelegate: ProfileCoordinatorDelegate?
+
+    public var onDismiss: (() -> Void)?
 
     public init(isLoggedIn: Bool, coordinatorDelegate: ProfileCoordinatorDelegate?) {
         self.isLoggedIn = isLoggedIn
@@ -24,7 +28,7 @@ public class ProfileViewModel: ObservableObject {
                             imageColor: UIColor(Color.blue),
                             notificationNumber: 12,
                             action: { [weak self] in
-                                self?.coordinatorDelegate?.showNotifications()
+                                self?.coordinatorDelegate?.handleProfileAction(.showNotifications)
                             }
                         )
                     ],

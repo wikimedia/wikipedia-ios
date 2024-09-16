@@ -25,8 +25,8 @@ public struct WMFProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
-                        print("Done")
-                        // Implement dismiss action if needed
+                        viewModel.onDismiss?()
+                        
                     }
                 }
             }
