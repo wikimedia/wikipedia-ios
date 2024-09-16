@@ -43,7 +43,7 @@ public final class WMFWikiWrappedDataController {
     
     public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
         
-        let coreDataTitle = title.coreDataTitle
+        let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         

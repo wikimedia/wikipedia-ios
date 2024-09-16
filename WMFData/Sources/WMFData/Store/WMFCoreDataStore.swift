@@ -148,7 +148,7 @@ extension WMFProject {
 }
 
 extension String {
-    var coreDataTitle: String {
+    var normalizedForCoreData: String {
         return self.spacesToUnderscores.precomposedStringWithCanonicalMapping
     }
 }
