@@ -15,6 +15,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
+    // Coordinator
+    private var profileCoordinator: ProfileCoordinator?
+
     // MARK: - UIViewController
     
     override func viewDidLoad() {
@@ -203,17 +206,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        // settingsPresentationDelegate?.userDidTapProfile(from: self)
-        let profileView = WMFProfileView(isLoggedIn: true)
-        let hostingController = UIHostingController(rootView: profileView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
-        }
-
-        present(hostingController, animated: true, completion: nil)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!)
+        self.profileCoordinator = coordinator
+        coordinator.start()
     }
     
     open override func refresh() {
