@@ -15,6 +15,8 @@ final class NotificationsCenterViewController: ViewController {
     
     var didUpdateFiltersCallback: (() -> Void)?
 
+    public var coordinator: NotificationsCoordinator?
+
     // MARK: - Properties: Onboarding
 
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?

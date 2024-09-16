@@ -1,31 +1,22 @@
 import SwiftUI
 
 public struct WMFProfileView: View {
+    @ObservedObject var viewModel: ProfileViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
-    // @Binding var isSheetShown: Bool
-    // @StateObject var viewModel: ProfileViewModel
-    let profileSections: [ProfileSection]
-    let isLoggedIn: Bool
 
-    public init(isLoggedIn: Bool = true) {
-        self.isLoggedIn = isLoggedIn
-        if self.isLoggedIn {
-           profileSections = ProfileState.loggedIn.sections
-        } else {
-           profileSections = ProfileState.loggedOut.sections
-        }
+    public init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {
         NavigationView {
             List {
-                ForEach(0..<profileSections.count, id: \.self) { sectionIndex in
-                    sectionView(items: profileSections[sectionIndex])
+                ForEach(viewModel.profileSections) { section in
+                    sectionView(items: section)
                 }
             }
             .navigationTitle("Account")
@@ -35,6 +26,7 @@ public struct WMFProfileView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
                         print("Done")
+                        // Implement dismiss action if needed
                     }
                 }
             }
@@ -43,8 +35,12 @@ public struct WMFProfileView: View {
 
     private func sectionView(items: ProfileSection) -> some View {
         Section {
-            ForEach(items.listItems, id: \.id) { item in
-                profileBarItem(item: item)
+            ForEach(items.listItems) { item in
+                Button(action: {
+                    item.action()
+                }) {
+                    profileBarItem(item: item)
+                }
             }
         } footer: {
             if let subtext = items.subtext {
@@ -58,23 +54,23 @@ public struct WMFProfileView: View {
         HStack {
             if let image = item.image {
                 if let uiImage = WMFSFSymbolIcon.for(symbol: image) {
-                        Image(uiImage: uiImage)
-                            .frame(width: 16, height: 16)
-                            .foregroundStyle(Color(uiColor: theme.paperBackground))
-                            .background(
-                                RoundedRectangle(cornerRadius: 6)
-                                    .fill(Color(uiColor: item.imageColor ?? theme.border))
-                                    .frame(width: 32, height: 32)
-                                    .padding(0)
-                            )
-                            .padding(.trailing, 16)
+                    Image(uiImage: uiImage)
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(Color(uiColor: theme.paperBackground))
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color(uiColor: item.imageColor ?? theme.border))
+                                .frame(width: 32, height: 32)
+                                .padding(0)
+                        )
+                        .padding(.trailing, 16)
                 }
             }
-            
+
             Text(item.text)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Font(WMFFont.for(.headline)))
-            
+
             if let notificationNumber = item.notificationNumber, notificationNumber > 0 {
                 HStack(spacing: 10) {
                     Text("\(notificationNumber)")
@@ -91,6 +87,7 @@ public struct WMFProfileView: View {
     }
 }
 
+
 // To be moved
 struct ProfileListItem: Identifiable {
     var id = UUID()
@@ -98,7 +95,7 @@ struct ProfileListItem: Identifiable {
     let image: WMFSFSymbolIcon?
     let imageColor: UIColor?
     let notificationNumber: Int? // if int > 0 or nil, show badge
-    let action: () -> ()?
+    let action: () -> Void
 }
 
 struct ProfileSection: Identifiable {
