@@ -10,8 +10,8 @@ public struct WMFProfileView: View {
     @ObservedObject var viewModel: WMFProfileViewModel
     public var donePressed: (() -> Void)?
 
-    public init(isLoggedIn: Bool = true) {
-        self.viewModel = WMFProfileViewModel(isLoggedIn: isLoggedIn)
+    public init(viewModel: WMFProfileViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {

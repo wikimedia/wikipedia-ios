@@ -6,7 +6,7 @@ public class WMFProfileViewModel: ObservableObject {
     let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
 
-    init(isLoggedIn: Bool, localizedStrings: LocalizedStrings) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
         loadProfileSections()
@@ -29,6 +29,21 @@ public class WMFProfileViewModel: ObservableObject {
         let joinWikipediaTitle: String
         let joinWikipediaSubtext: String
         let donateSubtext: String
+        
+        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String) {
+            self.pageTitle = pageTitle
+            self.doneButtonTitle = doneButtonTitle
+            self.notificationsTitle = notificationsTitle
+            self.userPageTitle = userPageTitle
+            self.talkPageTitle = talkPageTitle
+            self.watchlistTitle = watchlistTitle
+            self.logOutTitle = logOutTitle
+            self.donateTitle = donateTitle
+            self.settingsTitle = settingsTitle
+            self.joinWikipediaTitle = joinWikipediaTitle
+            self.joinWikipediaSubtext = joinWikipediaSubtext
+            self.donateSubtext = donateSubtext
+        }
     }
 }
 

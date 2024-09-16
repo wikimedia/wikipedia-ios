@@ -202,8 +202,29 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
+        
+        let localizedStrings =
+            WMFProfileViewModel.LocalizedStrings(
+                pageTitle: "a",
+                doneButtonTitle: "b",
+                notificationsTitle: "c",
+                userPageTitle: "d",
+                talkPageTitle: "e",
+                watchlistTitle: "f",
+                logOutTitle: "g",
+                donateTitle: "h",
+                settingsTitle: "i",
+                joinWikipediaTitle: "j",
+                joinWikipediaSubtext: "k",
+                donateSubtext: "l"
+            )
      
-        var profileView = WMFProfileView(isLoggedIn: true)
+        let viewModel = WMFProfileViewModel(
+            isLoggedIn: true,
+            localizedStrings: localizedStrings
+        )
+
+        var profileView = WMFProfileView(viewModel: viewModel)
         profileView.donePressed = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
