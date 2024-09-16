@@ -38,12 +38,7 @@ public final class WMFCoreDataStore {
         
         let container = NSPersistentContainer(name: dataModelName, managedObjectModel: dataModel)
         container.persistentStoreDescriptions = [description]
-        
-        for description in container.persistentStoreDescriptions {
-            for (key, value) in description.options {
-                print("\(key): \(value)")
-            }
-        }
+
         container.loadPersistentStores { _, error in
             if let error {
                 debugPrint("Error loading persistent stores: \(error)")
@@ -90,13 +85,18 @@ public final class WMFCoreDataStore {
         return existing.first
     }
     
-    func fetch<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
-        
+    private func fetchRequest<T>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
         if let fetchLimit {
             fetchRequest.fetchLimit = fetchLimit
         }
+        return fetchRequest
+    }
+    
+    func fetch<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
+        
+        let fetchRequest = fetchRequest(entityType: entityType, entityName: entityName, predicate: predicate, fetchLimit: fetchLimit, in: moc)
         return try moc.fetch(fetchRequest)
     }
     
@@ -138,17 +138,49 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func pruneTransactionHistory() throws {
+    public func performDatabaseHousekeeping() async throws {
         
-        guard let sevenDaysAgo = Calendar.current.date(byAdding: .day,
+        guard let sevenDaysAgoDate = Calendar.current.date(byAdding: .day,
                                                  value: -7,
                                                        to: Date()) else {
             return
         }
         
-        let deleteHistoryRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: sevenDaysAgo)
+        let currentYear = Calendar.current.component(.year, from: Date())
+        var dateComponents = DateComponents()
+        dateComponents.year = currentYear - 1
+        dateComponents.day = 1
+        dateComponents.month = 1
+        
+        guard let oneYearAgoDate = Calendar.current.date(from: dateComponents) else {
+            return
+        }
+        
         let backgroundContext = try newBackgroundContext
-        try backgroundContext.execute(deleteHistoryRequest)
+        try await backgroundContext.perform {
+            
+            // Delete unused (for now) transaction history > 7 days ago
+            let deleteHistoryRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: sevenDaysAgoDate)
+            
+            try backgroundContext.execute(deleteHistoryRequest)
+            
+            // Delete WMFPageViews that were added > one year ago
+            let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
+            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPageView")
+            pageViewFetchRequest.predicate = predicate
+            
+            let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
+            batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as! NSBatchDeleteResult
+            
+            // Delete WMFPages that were added > one year ago
+            let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPage")
+            pageFetchRequest.predicate = predicate
+            
+            let batchPageDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageFetchRequest)
+            batchPageDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchPageDeleteRequest) as! NSBatchDeleteResult
+        }
     }
 }
 

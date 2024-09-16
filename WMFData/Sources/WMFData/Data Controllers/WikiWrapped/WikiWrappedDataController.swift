@@ -77,8 +77,6 @@ public final class WMFWikiWrappedDataController {
 
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
-        
-        try coreDataStore.pruneTransactionHistory()
     }
     
     public func fetchPageViewCounts() throws -> [WMFPageViewCount] {
@@ -108,22 +106,4 @@ public final class WMFWikiWrappedDataController {
         
         return results
     }
-    
-//    public func deletePageView(pageView: WMFPageView) async throws {
-//        let backgroundContext = try coreDataStore.newBackgroundContext
-//        
-//        try await backgroundContext.perform { [weak self] in
-//            
-//            guard let self else { return }
-//            
-//            let predicate = NSPredicate(format: "timestamp == %@", argumentArray: [pageView.timestamp])
-//            
-//            guard let page = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
-//                return
-//            }
-//            
-//            backgroundContext.delete(page)
-//            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-//        }
-//    }
 }

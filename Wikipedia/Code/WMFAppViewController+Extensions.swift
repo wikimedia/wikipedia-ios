@@ -600,6 +600,18 @@ extension WMFAppViewController {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
+    
+    @objc func performWMFDataHousekeeping() {
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        Task {
+            do {
+                try await coreDataStore?.performDatabaseHousekeeping()
+            } catch {
+                DDLogError("Error pruning WMFData database: \(error)")
+            }
+        }
+
+    }
 }
 
 // MARK: WMFComponents App Environment Helpers
