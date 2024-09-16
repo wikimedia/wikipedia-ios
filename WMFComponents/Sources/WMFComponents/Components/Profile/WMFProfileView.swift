@@ -6,26 +6,19 @@ public struct WMFProfileView: View {
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
-    // @Binding var isSheetShown: Bool
-    // @StateObject var viewModel: ProfileViewModel
-    let profileSections: [ProfileSection]
-    let isLoggedIn: Bool
+
+    @ObservedObject var viewModel: WMFProfileViewModel
+    public var donePressed: (() -> Void)?
 
     public init(isLoggedIn: Bool = true) {
-        self.isLoggedIn = isLoggedIn
-        if self.isLoggedIn {
-           profileSections = ProfileState.loggedIn.sections
-        } else {
-           profileSections = ProfileState.loggedOut.sections
-        }
+        self.viewModel = WMFProfileViewModel(isLoggedIn: isLoggedIn)
     }
 
     public var body: some View {
         NavigationView {
             List {
-                ForEach(0..<profileSections.count, id: \.self) { sectionIndex in
-                    sectionView(items: profileSections[sectionIndex])
+                ForEach(0..<viewModel.profileSections.count, id: \.self) { sectionIndex in
+                    sectionView(items: viewModel.profileSections[sectionIndex])
                 }
             }
             .navigationTitle("Account")
@@ -34,7 +27,7 @@ public struct WMFProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
-                        print("Done")
+                        donePressed?()
                     }
                 }
             }
@@ -90,6 +83,7 @@ public struct WMFProfileView: View {
         }
     }
 }
+
 
 // To be moved
 struct ProfileListItem: Identifiable {

@@ -203,8 +203,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
      
-        // settingsPresentationDelegate?.userDidTapProfile(from: self)
-        let profileView = WMFProfileView(isLoggedIn: true)
+        var profileView = WMFProfileView(isLoggedIn: true)
+        profileView.donePressed = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         let hostingController = UIHostingController(rootView: profileView)
         hostingController.modalPresentationStyle = .pageSheet
 
