@@ -5,17 +5,25 @@ import SwiftData
 
 // Begin WMFData abstraction
 
+public protocol PageViewsViewDelegate: AnyObject {
+    func didTapPageView(pageView: WMFPageView)
+}
+
  public struct PageViewsView: View {
     
     @State var pageViews: [WMFPageView]
+     weak var delegate: PageViewsViewDelegate?
     
-    public init(pageViews: [WMFPageView] = []) {
+     public init(pageViews: [WMFPageView] = [], delegate: PageViewsViewDelegate?) {
         self.pageViews = pageViews
+         self.delegate = delegate
     }
     
     public var body: some View {
         List(pageViews) { pageView in
-            Text(pageView.page.title)
+            Button(pageView.page.title) {
+                delegate?.didTapPageView(pageView: pageView)
+            }
                 .swipeActions {
                             Button("Delete", systemImage: "trash", role: .destructive) {
                                 Task {

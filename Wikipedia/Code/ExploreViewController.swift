@@ -1230,7 +1230,7 @@ extension ExploreViewController {
 //            }
 //            let pageViews = PageViewsViewCoreData(moc: moc)
             
-            let pageViews = PageViewsView(pageViews: [])
+            let pageViews = PageViewsView(pageViews: [], delegate: self)
             // let pageViews = PageViewsViewSwiftData(pageViews: [])
 
             let hostingController = UIHostingController(rootView: pageViews)
@@ -1960,4 +1960,34 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
+}
+
+extension ExploreViewController: PageViewsViewDelegate {
+    func didTapPageView(pageView: WMFData.WMFPageView) {
+        
+        dismiss(animated: true) {
+            let projectElements = pageView.page.projectID.split(separator: "~")
+            
+            guard projectElements.count >= 2 else {
+                return
+            }
+            
+            let title = pageView.page.title
+            
+            switch projectElements[0] {
+            case "wikipedia":
+                let languageCode = projectElements[1]
+                let url = URL(string: "https://\(languageCode).wikipedia.org/wiki/\(title)")!
+                if let articleVC = ArticleViewController(articleURL: url, dataStore: self.dataStore, theme: self.theme) {
+                    self.navigationController?.pushViewController(articleVC, animated: true)
+                }
+            default:
+                break
+            }
+        }
+        
+        
+    }
+    
+    
 }

@@ -2,8 +2,8 @@ import Foundation
 import CoreData
 
  public final class WMFPage {
-   let namespaceID: Int
-   let projectID: String
+     public let namespaceID: Int
+   public let projectID: String
    public let title: String
    let pageViews: [WMFPageView]
 
