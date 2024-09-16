@@ -6,41 +6,44 @@ import SwiftData
 // Begin WMFData abstraction
 
 public protocol PageViewsViewDelegate: AnyObject {
-    func didTapPageView(pageView: WMFPageView)
+    func didTapPage(page: WMFPage)
 }
 
  public struct PageViewsView: View {
     
-    @State var pageViews: [WMFPageView]
+    @State var pageViewCounts: [WMFPageViewCount]
      weak var delegate: PageViewsViewDelegate?
     
-     public init(pageViews: [WMFPageView] = [], delegate: PageViewsViewDelegate?) {
-        self.pageViews = pageViews
+     public init(pageViewCounts: [WMFPageViewCount] = [], delegate: PageViewsViewDelegate?) {
+        self.pageViewCounts = pageViewCounts
          self.delegate = delegate
     }
     
     public var body: some View {
-        List(pageViews) { pageView in
-            Button(pageView.page.title) {
-                delegate?.didTapPageView(pageView: pageView)
+        List(pageViewCounts) { pageViewCount in
+            HStack {
+                Button(pageViewCount.page.title) {
+                    delegate?.didTapPage(page: pageViewCount.page)
+                }
+                Text(String(pageViewCount.count))
             }
-                .swipeActions {
-                            Button("Delete", systemImage: "trash", role: .destructive) {
-                                Task {
-                                    do {
-                                        try await WMFWikiWrappedDataController().deletePageView(pageView: pageView)
-                                    } catch {
-                                        print(error)
-                                    }
-                                }
-                            }
-                        }
+//                .swipeActions {
+//                            Button("Delete", systemImage: "trash", role: .destructive) {
+//                                Task {
+//                                    do {
+//                                        try await WMFWikiWrappedDataController().deletePageView(pageView: pageViewCount.page)
+//                                    } catch {
+//                                        print(error)
+//                                    }
+//                                }
+//                            }
+//                        }
         }
         .onAppear {
             Task {
                 do {
-                    let pageViews = try WMFWikiWrappedDataController().fetchPageViews()
-                    self.pageViews = pageViews
+                    let pageViewsCounts = try WMFWikiWrappedDataController().fetchPageViewCounts()
+                    self.pageViewCounts = pageViewsCounts
                 } catch {
                     print(error)
                 }

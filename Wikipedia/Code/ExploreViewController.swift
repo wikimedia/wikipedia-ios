@@ -1230,7 +1230,7 @@ extension ExploreViewController {
 //            }
 //            let pageViews = PageViewsViewCoreData(moc: moc)
             
-            let pageViews = PageViewsView(pageViews: [], delegate: self)
+            let pageViews = PageViewsView(pageViewCounts: [], delegate: self)
             // let pageViews = PageViewsViewSwiftData(pageViews: [])
 
             let hostingController = UIHostingController(rootView: pageViews)
@@ -1963,16 +1963,16 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 }
 
 extension ExploreViewController: PageViewsViewDelegate {
-    func didTapPageView(pageView: WMFData.WMFPageView) {
+    func didTapPage(page: WMFData.WMFPage) {
         
         dismiss(animated: true) {
-            let projectElements = pageView.page.projectID.split(separator: "~")
+            let projectElements = page.projectID.split(separator: "~")
             
             guard projectElements.count >= 2 else {
                 return
             }
             
-            let title = pageView.page.title
+            let title = page.title
             
             switch projectElements[0] {
             case "wikipedia":
@@ -1985,9 +1985,5 @@ extension ExploreViewController: PageViewsViewDelegate {
                 break
             }
         }
-        
-        
     }
-    
-    
 }

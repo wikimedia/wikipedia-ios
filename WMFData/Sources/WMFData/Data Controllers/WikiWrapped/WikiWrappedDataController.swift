@@ -15,16 +15,28 @@ import CoreData
    }
  }
 
-public final class WMFPageView: Identifiable {
-    public var id: Date {
-        return timestamp
-    }
+public final class WMFPageView {
    public let timestamp: Date
    public let page: WMFPage
 
    init(timestamp: Date, page: WMFPage) {
        self.timestamp = timestamp
        self.page = page
+   }
+ }
+
+public final class WMFPageViewCount: Identifiable {
+    
+    public var id: String {
+        return "\(page.projectID)~\(page.namespaceID)~\(page.title)"
+    }
+    
+    public let page: WMFPage
+    public let count: Int
+
+   init(page: WMFPage, count: Int) {
+       self.page = page
+       self.count = count
    }
  }
 
@@ -69,53 +81,49 @@ public final class WMFWikiWrappedDataController {
         try coreDataStore.pruneTransactionHistory()
     }
     
-    public func fetchPageViews() throws -> [WMFPageView] {
+    public func fetchPageViewCounts() throws -> [WMFPageViewCount] {
         
         let viewContext = try coreDataStore.viewContext
-        let results: [WMFPageView] = try viewContext.performAndWait {
-            guard let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: viewContext) else {
-                return []
-            }
-            
-            var pageViews: [WMFPageView] = []
-            
-            for cdPageView in cdPageViews {
-                guard let timestamp = cdPageView.timestamp,
-                      let cdPage = cdPageView.page else {
+        let results: [WMFPageViewCount] = try viewContext.performAndWait {
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityName: "WMFPageView", predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: viewContext)
+            var pageViewCounts: [WMFPageViewCount] = []
+            for dict in pageViewsDict {
+                
+                guard let objectID = dict["page"] as? NSManagedObjectID,
+                      let count = dict["count"] as? Int else {
                     continue
                 }
                 
-                guard let projectID = cdPage.projectID,
-                      let title = cdPage.title else {
+                guard let page = viewContext.object(with: objectID) as? CDPage,
+                    let projectID = page.projectID, let title = page.title else {
                     continue
                 }
                 
-                let page = WMFPage(namespaceID: Int(cdPage.namespaceID), projectID: projectID, title: title, pageViews: [])
-                        
-                pageViews.append(WMFPageView(timestamp: timestamp, page: page))
+                let namespaceID = page.namespaceID
+                
+                pageViewCounts.append(WMFPageViewCount(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), count: count))
             }
-            
-            return pageViews
+            return pageViewCounts
         }
         
         return results
     }
     
-    public func deletePageView(pageView: WMFPageView) async throws {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        try await backgroundContext.perform { [weak self] in
-            
-            guard let self else { return }
-            
-            let predicate = NSPredicate(format: "timestamp == %@", argumentArray: [pageView.timestamp])
-            
-            guard let page = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
-                return
-            }
-            
-            backgroundContext.delete(page)
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-        }
-    }
+//    public func deletePageView(pageView: WMFPageView) async throws {
+//        let backgroundContext = try coreDataStore.newBackgroundContext
+//        
+//        try await backgroundContext.perform { [weak self] in
+//            
+//            guard let self else { return }
+//            
+//            let predicate = NSPredicate(format: "timestamp == %@", argumentArray: [pageView.timestamp])
+//            
+//            guard let page = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
+//                return
+//            }
+//            
+//            backgroundContext.delete(page)
+//            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+//        }
+//    }
 }

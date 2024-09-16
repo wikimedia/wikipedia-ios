@@ -100,6 +100,28 @@ public final class WMFCoreDataStore {
         return try moc.fetch(fetchRequest)
     }
     
+    func fetchGrouped(entityName: String, predicate: NSPredicate?, propertyToCount: String, propertiesToGroupBy: [String], propertiesToFetch: [String], in moc: NSManagedObjectContext) throws -> [[String: Any]] {
+        
+        let keypathExp = NSExpression(forKeyPath: propertyToCount)
+        let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
+
+        let countDesc = NSExpressionDescription()
+        countDesc.expression = expression
+        countDesc.name = "count"
+        countDesc.expressionResultType = .integer64AttributeType
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.predicate = predicate
+        fetchRequest.propertiesToGroupBy = propertiesToGroupBy
+        fetchRequest.propertiesToFetch = propertiesToFetch + [countDesc]
+        fetchRequest.resultType = .dictionaryResultType
+        fetchRequest.returnsDistinctResults = true
+        guard let result = try moc.fetch(fetchRequest) as? [[String: Any]] else {
+            throw WMFCoreDataStoreError.unexpectedFetchGroupResult
+        }
+        return result
+    }
+    
     func create<T: NSManagedObject>(entityType: T.Type, entityName: String, in moc: NSManagedObjectContext) throws -> T {
         
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: moc) else {

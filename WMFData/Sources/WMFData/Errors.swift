@@ -33,6 +33,7 @@ enum WMFCoreDataStoreError: Error {
     case setupMissingDataModel
     case setupMissingPersistentContainer
     case missingEntity
+    case unexpectedFetchGroupResult
 }
 
 public enum WMFDonateDataControllerError: LocalizedError {
