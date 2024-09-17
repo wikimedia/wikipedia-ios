@@ -63,13 +63,13 @@ public struct WMFProfileView: View {
                 }
             }
             
-            Text(item.text)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(WMFFont.for(.headline)))
-            
-            if let notificationNumber = item.notificationNumber, notificationNumber > 0 {
+        Text(item.text)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(Font(WMFFont.for(.headline)))
+        
+            if let hasNotifications = item.hasNotifications, hasNotifications {
                 HStack(spacing: 10) {
-                    Text("\(notificationNumber)")
+                    Text("\(viewModel.inboxCount)")
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
                     if let image = WMFSFSymbolIcon.for(symbol: .circleFill) {
                         Image(uiImage: image)

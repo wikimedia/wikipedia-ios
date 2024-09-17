@@ -5,10 +5,12 @@ public class WMFProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
     let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
+    let inboxCount: Int
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
+        self.inboxCount = inboxCount
         loadProfileSections()
     }
 
@@ -52,7 +54,7 @@ struct ProfileListItem: Identifiable {
     let text: String
     let image: WMFSFSymbolIcon?
     let imageColor: UIColor?
-    let notificationNumber: Int?
+    let hasNotifications: Bool?
     let action: () -> ()?
 }
 
@@ -72,7 +74,7 @@ enum ProfileState {
                             text: localizedStrings.notificationsTitle,
                             image: .bellFill,
                             imageColor: UIColor(Color.blue),
-                            notificationNumber: 12,
+                            hasNotifications: true,
                             action: {}
                         )
                     ],
@@ -84,28 +86,28 @@ enum ProfileState {
                             text: localizedStrings.userPageTitle,
                             image: .personFilled,
                             imageColor: UIColor(Color.purple),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         ),
                         ProfileListItem(
                             text: localizedStrings.talkPageTitle,
                             image: .chatBubbleFilled,
                             imageColor: UIColor(Color.green),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         ),
                         ProfileListItem(
                             text: localizedStrings.watchlistTitle,
                             image: .textBadgeStar,
                             imageColor: UIColor(Color.orange),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         ),
                         ProfileListItem(
                             text: localizedStrings.logOutTitle,
                             image: .leave,
                             imageColor: UIColor(Color.gray),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
@@ -117,7 +119,7 @@ enum ProfileState {
                             text: localizedStrings.donateTitle,
                             image: .heart,
                             imageColor: UIColor(Color.red),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
@@ -129,7 +131,7 @@ enum ProfileState {
                             text: localizedStrings.settingsTitle,
                             image: .gear,
                             imageColor: UIColor(Color.gray),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
@@ -144,7 +146,7 @@ enum ProfileState {
                             text: localizedStrings.joinWikipediaTitle,
                             image: .leave,
                             imageColor: UIColor(Color.gray),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
@@ -156,7 +158,7 @@ enum ProfileState {
                             text: localizedStrings.donateTitle,
                             image: .heart,
                             imageColor: UIColor(Color.red),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
@@ -168,7 +170,7 @@ enum ProfileState {
                             text: localizedStrings.settingsTitle,
                             image: .gear,
                             imageColor: UIColor(Color.gray),
-                            notificationNumber: nil,
+                            hasNotifications: nil,
                             action: {}
                         )
                     ],
