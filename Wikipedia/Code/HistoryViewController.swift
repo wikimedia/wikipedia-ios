@@ -1,5 +1,7 @@
 import UIKit
 import WMF
+import WMFData
+import CocoaLumberjackSwift
 
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
@@ -51,6 +53,16 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             try dataStore.viewContext.clearReadHistory()
         } catch let error {
             showError(error)
+        }
+        
+        Task {
+            do {
+                let dataController = try WMFWikiWrappedDataController()
+                try await dataController.deletePageViews()
+            } catch {
+                DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+            
         }
     }
     

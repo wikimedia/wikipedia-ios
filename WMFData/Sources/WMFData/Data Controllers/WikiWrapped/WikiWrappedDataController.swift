@@ -92,9 +92,25 @@ public final class WMFWikiWrappedDataController {
         }
     }
     
+    public func deletePageViews() async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        try await backgroundContext.perform { [weak self] in
+            
+            guard let self else { return }
+            
+            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+                return
+            }
+            
+            for pageView in pageViews {
+                backgroundContext.delete(pageView)
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
     public func importPageViews(requests: [WMFPageViewImportRequest]) async throws {
-        
-        // TODO: Batch Import
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
