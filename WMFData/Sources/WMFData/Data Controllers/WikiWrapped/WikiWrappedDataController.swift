@@ -44,7 +44,6 @@ public final class WMFPageViewImportRequest {
     let title: String
     let project: WMFProject
     let viewedDate: Date
-    var pageObjectID: NSManagedObjectID?
     
     public init(title: String, project: WMFProject, viewedDate: Date) {
         self.title = title
@@ -143,81 +142,24 @@ public final class WMFWikiWrappedDataController {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
-            
-            let batchInsertPage = self.newBatchInsertPageRequest(requests: requests)
-            try backgroundContext.execute(batchInsertPage)
-        }
-        
-        backgroundContext.refreshAllObjects()
-        
-        try await backgroundContext.perform {
-            let batchInsertPageView = self.newBatchInsertPageViewRequest(moc: backgroundContext, requests: requests)
-            try backgroundContext.execute(batchInsertPageView)
-        }
-    }
-    
-    private func newBatchInsertPageRequest(requests: [WMFPageViewImportRequest])
-      -> NSBatchInsertRequest {
-      // 1
-      var index = 0
-      let total = requests.count
-
-      // 2
-      let batchInsert = NSBatchInsertRequest(
-        entity: CDPage.entity()) { (managedObject: NSManagedObject) -> Bool in
-        // 3
-        guard index < total else { return true }
-
-            if let page = managedObject as? CDPage {
-            // 4
-            let request = requests[index]
-            let coreDataTitle = request.title.normalizedForCoreData
-
-            page.title = coreDataTitle
-            page.namespaceID = 0
-            page.projectID = request.project.coreDataIdentifier
-            page.timestamp = request.viewedDate
-            page.pageViews = []
-            request.pageObjectID = page.objectID
-        }
-
-        // 5
-        index += 1
-        return false
-      }
-      return batchInsert
-    }
-    
-    private func newBatchInsertPageViewRequest(moc: NSManagedObjectContext, requests: [WMFPageViewImportRequest])
-      -> NSBatchInsertRequest {
-      // 1
-      var index = 0
-      let total = requests.count
-
-      // 2
-      let batchInsert = NSBatchInsertRequest(
-        entity: CDPageView.entity()) { (managedObject: NSManagedObject) -> Bool in
-            // 3
-            guard index < total else { return true }
-            
-            let request = requests[index]
-
-            guard let pageView = managedObject as? CDPageView,
-                  let pageObjectID = request.pageObjectID,
-                  let page = managedObject.managedObjectContext?.object(with: pageObjectID) as? CDPage else {
-                index += 1
-                return false
-            }
-            // 4
+            for request in requests {
                 
-            pageView.page = page
-            pageView.timestamp = request.viewedDate
-
-            // 5
-            index += 1
-            return false
-          }
-          return batchInsert
+                let coreDataTitle = request.title.normalizedForCoreData
+                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
+                
+                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext)
+                page?.title = coreDataTitle
+                page?.namespaceID = 0
+                page?.projectID = request.project.coreDataIdentifier
+                page?.timestamp = request.viewedDate
+                
+                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+                viewedPage.page = page
+                viewedPage.timestamp = request.viewedDate
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
     }
     
     public func fetchPageViewCounts() throws -> [WMFPageViewCount] {

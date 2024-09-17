@@ -1,3 +1,4 @@
+
 import XCTest
 @testable import WMFData
 import CoreData
@@ -14,7 +15,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
     }()
     
     override func setUp() async throws {
-        _ = self.store
+        let _ = self.store
         // Wait for store to load asyncronously
         try await Task.sleep(nanoseconds: 1_000_000_000)
     }
