@@ -174,7 +174,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
         // Clean up via database housekeeper
         try await store.performDatabaseHousekeeping()
         
-        backgroundContext.reset()
+        backgroundContext.refreshAllObjects()
         
         guard let newPages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
