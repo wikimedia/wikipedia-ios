@@ -1908,7 +1908,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
-        [self updateAppEnvironmentWithTheme:theme traitCollection:self.navigationController.traitCollection];
+        [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
     }
 }
 
