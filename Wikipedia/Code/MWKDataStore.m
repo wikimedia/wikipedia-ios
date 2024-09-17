@@ -383,17 +383,12 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     return [moc save:migrationError];
 }
 
-- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc completion:(void (^)(void))completion {
+- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSError *migrationError = nil;
 
     if (currentLibraryVersion < 5) {
         if (![self migrateToReadingListsInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -401,11 +396,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     if (currentLibraryVersion < 6) {
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -418,11 +408,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(8) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -432,11 +417,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(9) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -446,21 +426,11 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(10) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
 
         if (![self moveImageControllerCacheFolderWithError:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -470,11 +440,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(11) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -484,11 +449,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -498,11 +458,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(13) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -516,11 +471,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -530,11 +480,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -544,11 +489,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(16) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -558,11 +498,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(17) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
@@ -572,34 +507,17 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(18) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            
-            if (completion) {
-                completion();
-            }
-            
             return;
         }
     }
     
     if (currentLibraryVersion < 19) {
-        [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc completion:^{
-            
-            [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
-            
-            if ([moc hasChanges] && ![moc save:nil]) {
-                DDLogError(@"Error saving during migration: %@", migrationError);
-                
-                if (completion) {
-                    completion();
-                }
-                
-                return;
-            }
-            
-            if (completion) {
-                completion();
-            }
-        }];
+        [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
+        [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:nil]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
     }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
@@ -654,9 +572,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc completion:^{
-            combinedCompletion();
-        }];
+        [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
+        combinedCompletion();
     }];
 }
 

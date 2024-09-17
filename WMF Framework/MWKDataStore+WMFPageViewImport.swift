@@ -2,9 +2,8 @@ import WMFData
 import CocoaLumberjackSwift
 
 extension MWKDataStore {
-    @objc func importViewedArticlesIntoWMFData(dataStoreMOC: NSManagedObjectContext, completion: @escaping () -> Void) {
+    @objc func importViewedArticlesIntoWMFData(dataStoreMOC: NSManagedObjectContext) {
         guard let dataController = try? WMFWikiWrappedDataController() else {
-            completion()
             return
         }
         
@@ -44,23 +43,14 @@ extension MWKDataStore {
             Task {
                 do {
                     try await dataController.importPageViews(requests: importRequests)
-                    await dataStoreMOC.perform {
-                        completion()
-                    }
                 } catch {
                     DDLogError("Error importing WMFPageViewImportRequests: \(error)")
-                    await dataStoreMOC.perform {
-                        completion()
-                    }
                 }
             }
             
             
         } catch {
             DDLogError("Error fetching viewed WMFArticles: \(error)")
-            dataStoreMOC.perform {
-                completion()
-            }
         }
         
     }
