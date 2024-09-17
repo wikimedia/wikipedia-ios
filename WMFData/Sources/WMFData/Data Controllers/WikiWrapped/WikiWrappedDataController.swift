@@ -122,19 +122,14 @@ public final class WMFWikiWrappedDataController {
     
     public func deleteAllPageViews() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        try await backgroundContext.perform { [weak self] in
+        try await backgroundContext.perform {
+            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPageView")
             
-            guard let self else { return }
-            
-            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
-                return
-            }
-            
-            for pageView in pageViews {
-                backgroundContext.delete(pageView)
-            }
-            
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+            let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
+            batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
+
+            backgroundContext.refreshAllObjects()
         }
     }
     
