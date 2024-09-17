@@ -94,78 +94,28 @@ public final class WMFWikiWrappedDataController {
     
     public func importPageViews(requests: [WMFPageViewImportRequest]) async throws {
         
+        // TODO: Batch Import
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
-            
-            let batchInsertPage = self.newBatchInsertPageRequest(requests: requests)
-            try backgroundContext.execute(batchInsertPage)
-            
-            let batchInsertPageView = self.newBatchInsertPageViewRequest(moc: backgroundContext, requests: requests)
-            try backgroundContext.execute(batchInsertPageView)
-        }
-    }
-    
-    private func newBatchInsertPageRequest(requests: [WMFPageViewImportRequest])
-      -> NSBatchInsertRequest {
-      // 1
-      var index = 0
-      let total = requests.count
-
-      // 2
-      let batchInsert = NSBatchInsertRequest(
-        entity: CDPage.entity()) { (managedObject: NSManagedObject) -> Bool in
-        // 3
-        guard index < total else { return true }
-
-            if let page = managedObject as? CDPage {
-            // 4
-            let request = requests[index]
-            let coreDataTitle = request.title.normalizedForCoreData
-
-            page.title = coreDataTitle
-            page.namespaceID = 0
-            page.projectID = request.project.coreDataIdentifier
-            page.timestamp = request.viewedDate
-        }
-
-        // 5
-        index += 1
-        return false
-      }
-      return batchInsert
-    }
-    
-    private func newBatchInsertPageViewRequest(moc: NSManagedObjectContext, requests: [WMFPageViewImportRequest])
-      -> NSBatchInsertRequest {
-      // 1
-      var index = 0
-      let total = requests.count
-
-      // 2
-      let batchInsert = NSBatchInsertRequest(
-        entity: CDPageView.entity()) { (managedObject: NSManagedObject) -> Bool in
-            // 3
-            guard index < total else { return true }
-
-            if let pageView = managedObject as? CDPageView {
-            // 4
-                let request = requests[index]
+            for request in requests {
                 
-                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, request.title.normalizedForCoreData])
-                guard let page = try? self.coreDataStore.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, fetchLimit: 1, in: moc)?.first else {
-                    index += 1
-                    return false
-                }
+                let coreDataTitle = request.title.normalizedForCoreData
+                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
                 
-                pageView.page = page
-                pageView.timestamp = request.viewedDate
+                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext)
+                page?.title = coreDataTitle
+                page?.namespaceID = 0
+                page?.projectID = request.project.coreDataIdentifier
+                page?.timestamp = request.viewedDate
+                
+                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+                viewedPage.page = page
+                viewedPage.timestamp = request.viewedDate
             }
-
-            // 5
-            index += 1
-            return false
-          }
-          return batchInsert
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
     }
     
     public func fetchPageViewCounts() throws -> [WMFPageViewCount] {
