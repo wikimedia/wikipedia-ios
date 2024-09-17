@@ -203,9 +203,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
         
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        
+        let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
-                pageTitle: WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users"), // to be checked for logged in ness
+                pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
                 doneButtonTitle: WMFLocalizedString("profile-page-done-button", value: "Done", comment: "Done button title"),
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),

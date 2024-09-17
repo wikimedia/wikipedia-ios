@@ -21,17 +21,19 @@ public struct WMFProfileView: View {
                     sectionView(items: viewModel.profileSections[sectionIndex])
                 }
             }
-            .navigationTitle("Account")
+            .navigationTitle(viewModel.localizedStrings.pageTitle)
             .toolbarBackground(Color(uiColor: theme.midBackground), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
+                    Button(viewModel.localizedStrings.doneButtonTitle) {
                         donePressed?()
                     }
                 }
             }
         }
+        .background(Color(uiColor: theme.midBackground))
+        .navigationViewStyle(.stack)
     }
 
     private func sectionView(items: ProfileSection) -> some View {
