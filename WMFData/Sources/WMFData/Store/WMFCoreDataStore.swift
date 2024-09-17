@@ -171,7 +171,7 @@ public final class WMFCoreDataStore {
             
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
             batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as! NSBatchDeleteResult
+            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
             
             // Delete WMFPages that were added > one year ago
             let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPage")
@@ -179,7 +179,7 @@ public final class WMFCoreDataStore {
             
             let batchPageDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageFetchRequest)
             batchPageDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageDeleteRequest) as! NSBatchDeleteResult
+            _ = try backgroundContext.execute(batchPageDeleteRequest) as? NSBatchDeleteResult
         }
     }
 }
