@@ -22,8 +22,6 @@ public struct WMFProfileView: View {
                 }
             }
             .navigationTitle(viewModel.localizedStrings.pageTitle)
-            .toolbarBackground(Color(uiColor: theme.midBackground), for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(viewModel.localizedStrings.doneButtonTitle) {
@@ -32,7 +30,6 @@ public struct WMFProfileView: View {
                 }
             }
         }
-        .background(Color(uiColor: theme.midBackground))
         .navigationViewStyle(.stack)
     }
 
