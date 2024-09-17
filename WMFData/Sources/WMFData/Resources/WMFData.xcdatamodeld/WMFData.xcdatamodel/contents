@@ -5,7 +5,7 @@
         <attribute name="projectID" attributeType="String"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="pageViews" toMany="YES" deletionRule="Deny" destinationEntity="WMFPageView" inverseName="page" inverseEntity="WMFPageView"/>
+        <relationship name="pageViews" toMany="YES" deletionRule="Cascade" destinationEntity="WMFPageView" inverseName="page" inverseEntity="WMFPageView"/>
         <fetchIndex name="byProjectNamespace">
             <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
             <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
@@ -18,6 +18,6 @@
     </entity>
     <entity name="WMFPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="page" maxCount="1" deletionRule="Nullify" destinationEntity="WMFPage" inverseName="pageViews" inverseEntity="WMFPage"/>
+        <relationship name="page" maxCount="1" deletionRule="Cascade" destinationEntity="WMFPage" inverseName="pageViews" inverseEntity="WMFPage"/>
     </entity>
 </model>

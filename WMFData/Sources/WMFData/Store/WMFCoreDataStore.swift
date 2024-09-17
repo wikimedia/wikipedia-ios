@@ -75,7 +75,7 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate, in moc: NSManagedObjectContext) throws -> T? {
+    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
         
         guard let existing: [T] = try fetch(entityType: entityType, entityName: entityName, predicate: predicate, fetchLimit: 1, in: moc),
               !existing.isEmpty else {
