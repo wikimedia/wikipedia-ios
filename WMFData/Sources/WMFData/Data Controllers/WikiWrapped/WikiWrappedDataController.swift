@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
  public final class WMFPage {
-     public let namespaceID: Int
+   public let namespaceID: Int
    public let projectID: String
    public let title: String
    let pageViews: [WMFPageView]
@@ -40,6 +40,19 @@ public final class WMFPageViewCount: Identifiable {
    }
  }
 
+public final class WMFPageViewImportRequest {
+    let title: String
+    let project: WMFProject
+    let viewedDate: Date
+    
+    public init(title: String, project: WMFProject, viewedDate: Date) {
+        self.title = title
+        self.project = project
+        self.viewedDate = viewedDate
+    }
+    
+}
+
 public final class WMFWikiWrappedDataController {
     
     private let coreDataStore: WMFCoreDataStore
@@ -75,6 +88,32 @@ public final class WMFWikiWrappedDataController {
             viewedPage.page = page
             viewedPage.timestamp = currentDate
 
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    public func importPageViews(requests: [WMFPageViewImportRequest]) async throws {
+        
+        // TODO: Batch Import
+        
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        try await backgroundContext.perform {
+            for request in requests {
+                
+                let coreDataTitle = request.title.normalizedForCoreData
+                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
+                
+                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext)
+                page?.title = coreDataTitle
+                page?.namespaceID = 0
+                page?.projectID = request.project.coreDataIdentifier
+                page?.timestamp = request.viewedDate
+                
+                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+                viewedPage.page = page
+                viewedPage.timestamp = request.viewedDate
+            }
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
