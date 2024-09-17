@@ -2,10 +2,8 @@ import UIKit
 import SwiftUI
 import WMFComponents
 
-class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate, NotificationsCoordinatorDelegate {
+class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
 
-    //we can rethink depency injection here
-    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
 
     let theme: Theme
@@ -53,13 +51,8 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate, Notifications
         }
     }
 
-    // MARK: - ProfileCoordinatorDelegate Methods
-
     func showNotifications() {
-        //we can rethink depency injection as well
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        notificationsCoordinator.delegate = self
-        childCoordinators.append(notificationsCoordinator)
         notificationsCoordinator.start()
     }
 
@@ -75,9 +68,5 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate, Notifications
         navigationController.dismiss(animated: true, completion: nil)
     }
 
-    // note: rethink the child coordinator implementation? maybe not necessary at this point since we're not implement whole flows
-    public func notificationsCoordinatorDidFinish(_ coordinator: NotificationsCoordinator) {
-        //            childCoordinators = childCoordinators.filter { $0 !== coordinator }
-    }
 }
 

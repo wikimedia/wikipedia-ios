@@ -1,14 +1,8 @@
 import UIKit
 
-public protocol NotificationsCoordinatorDelegate: AnyObject {
-    func notificationsCoordinatorDidFinish(_ coordinator: NotificationsCoordinator)
-}
-
 public class NotificationsCoordinator: Coordinator {
-    var childCoordinators = [Coordinator]()
+    
     var navigationController: UINavigationController
-
-    public weak var delegate: NotificationsCoordinatorDelegate?
 
     let theme: Theme
     let dataStore: MWKDataStore
@@ -26,15 +20,5 @@ public class NotificationsCoordinator: Coordinator {
         notificationsVC.coordinator = self
         navigationController.pushViewController(notificationsVC, animated: true)
     }
-
-    @objc private func doneTapped() {
-        didFinish()
-    }
-
-    public func didFinish() {
-        delegate?.notificationsCoordinatorDidFinish(self)
-    }
-
-    // Add navigation methods for other flows from Notifications? Or keep it uikit for now?
 
 }

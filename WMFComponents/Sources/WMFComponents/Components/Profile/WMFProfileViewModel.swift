@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-//I updated the view model so it could hold the coordinator reference, this is just for prototyping reasons
+// I updated the view model so it could hold the coordinator reference, this is just for prototyping reasons
 // We can have a ViewController hold the ref to the coordinator, and call the delegate there
 public class ProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
