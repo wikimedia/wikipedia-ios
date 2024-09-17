@@ -92,7 +92,35 @@ public final class WMFWikiWrappedDataController {
         }
     }
     
-    public func deletePageViews() async throws {
+    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+        
+        let coreDataTitle = title.normalizedForCoreData
+        
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        try await backgroundContext.perform { [weak self] in
+            
+            guard let self else { return }
+            
+            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
+            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
+                return
+            }
+            
+            let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
+            
+            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
+                return
+            }
+            
+            for pageView in pageViews {
+                backgroundContext.delete(pageView)
+            }
+            
+            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    public func deleteAllPageViews() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform { [weak self] in
             

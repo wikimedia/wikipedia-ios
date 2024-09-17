@@ -10,7 +10,7 @@ extension MWKDataStore {
         
         let currentYear = Calendar.current.component(.year, from: Date())
         var dateComponents = DateComponents()
-        dateComponents.year = currentYear - 1
+        dateComponents.year = currentYear
         dateComponents.day = 1
         dateComponents.month = 1
         
