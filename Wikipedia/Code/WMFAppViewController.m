@@ -886,6 +886,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self triggerMigratingAnimation];
         }
         
+        [self setupWMFDataCoreDataStore];
+        
         [dataStore
             performLibraryUpdates:^{
                 dispatch_async(dispatch_get_main_queue(), ^{

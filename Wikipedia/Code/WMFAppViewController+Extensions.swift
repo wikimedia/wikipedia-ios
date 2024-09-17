@@ -561,6 +561,16 @@ extension WMFAppViewController: CreateReadingListDelegate {
 // MARK: WMFData setup
 
 extension WMFAppViewController {
+    
+    @objc func setupWMFDataCoreDataStore() {
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+        do {
+            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
+        } catch let error {
+            DDLogError("Error setting up WMFCoreDataStore: \(error)")
+        }
+    }
+    
     @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
@@ -569,13 +579,6 @@ extension WMFAppViewController {
             WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
             WMFDataEnvironment.current.serviceEnvironment = .production
-        }
-        
-        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
-        do {
-            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
-        } catch let error {
-            DDLogError("Error setting up WMFCoreDataStore: \(error)")
         }
         
         WMFDataEnvironment.current.userAgentUtility = {
