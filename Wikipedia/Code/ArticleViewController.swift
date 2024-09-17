@@ -451,7 +451,6 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         showAnnouncementIfNeeded()
         isFirstAppearance = false
-        persistPageViewForWikiwrapped()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
