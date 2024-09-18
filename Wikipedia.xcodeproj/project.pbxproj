@@ -1473,6 +1473,9 @@
 		83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		839B2C1C29BA3BD700FCAB74 /* WMFContentGroup+MEPExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B2C1B29BA3BD600FCAB74 /* WMFContentGroup+MEPExtension.swift */; };
+		839B87CA2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B87C92C9B17D2004624F4 /* SettingsCoordinator.swift */; };
+		839B87CB2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B87C92C9B17D2004624F4 /* SettingsCoordinator.swift */; };
+		839B87CC2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B87C92C9B17D2004624F4 /* SettingsCoordinator.swift */; };
 		83A1561420DBE08C0052487B /* ColumnarCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */; };
 		83A171D72819B6A60029FB89 /* UNAuthorizationStatus+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */; };
 		83A171D82819B6A70029FB89 /* UNAuthorizationStatus+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */; };
@@ -3762,6 +3765,7 @@
 		8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNAuthorizationStatus+String.swift"; sourceTree = "<group>"; };
 		83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Theme.swift"; sourceTree = "<group>"; };
 		839B2C1B29BA3BD600FCAB74 /* WMFContentGroup+MEPExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+MEPExtension.swift"; sourceTree = "<group>"; };
+		839B87C92C9B17D2004624F4 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		83A422B422786E2000BA446A /* Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Local-Info.plist"; sourceTree = "<group>"; };
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
@@ -6981,6 +6985,7 @@
 		83E8F33A2C987B5A0098E8C6 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				839B87C92C9B17D2004624F4 /* SettingsCoordinator.swift */,
 				83E8F3432C98857F0098E8C6 /* NotificationsCoordinator.swift */,
 				83E8F33F2C987BE90098E8C6 /* ProfileCoordinator.swift */,
 				83E8F33B2C987B720098E8C6 /* Coordinator.swift */,
@@ -10401,6 +10406,7 @@
 				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
 				B0CD9DD91F70997300051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
+				839B87CA2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */,
 				0030592627DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				7AB809DC22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
@@ -11058,6 +11064,7 @@
 				00E2EA8B26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				00D1F59128885BA300127169 /* TalkPageViewModel.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				839B87CB2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */,
 				67E2E491250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				00D46DA72889B7F50015DE9B /* TalkPageView.swift in Sources */,
@@ -11627,6 +11634,7 @@
 				00E2EA8A26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				00D1F59028885BA300127169 /* TalkPageViewModel.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
+				839B87CC2C9B17DA004624F4 /* SettingsCoordinator.swift in Sources */,
 				676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				00D46DA62889B7F50015DE9B /* TalkPageView.swift in Sources */,

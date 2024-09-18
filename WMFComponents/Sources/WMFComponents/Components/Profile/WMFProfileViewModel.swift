@@ -33,6 +33,21 @@ public class ProfileViewModel: ObservableObject {
                         )
                     ],
                     subtext: nil
+                ),
+
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Settings",
+                            image: .gear,
+                            imageColor: UIColor(Color.gray),
+                            notificationNumber: 0,
+                            action: { [weak self] in
+                                self?.coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
+                        )
+                    ],
+                    subtext: nil
                 )
                 // add others
 

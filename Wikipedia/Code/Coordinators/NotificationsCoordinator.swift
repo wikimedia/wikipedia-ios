@@ -17,7 +17,6 @@ public class NotificationsCoordinator: Coordinator {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
 
         let notificationsVC = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        notificationsVC.coordinator = self
         navigationController.pushViewController(notificationsVC, animated: true)
     }
 

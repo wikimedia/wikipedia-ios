@@ -57,7 +57,8 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
     }
 
     func showSettings() {
-        // call another coordinator
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        settingsCoordinator.start()
     }
 
     func showDonate() {
