@@ -221,12 +221,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
                 donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
             )
-        let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
+        let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
      
         let viewModel = WMFProfileViewModel(
-            isLoggedIn: true,
+            isLoggedIn: isLoggedIn,
             localizedStrings: localizedStrings,
-            inboxCount: inboxCount ?? 0
+            inboxCount: Int(truncating: inboxCount ?? 0)
         )
 
         var profileView = WMFProfileView(viewModel: viewModel)

@@ -65,7 +65,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0) -> [ProfileSection] {
         if isLoggedIn {
             return [
                 ProfileSection(
@@ -74,7 +74,7 @@ enum ProfileState {
                             text: localizedStrings.notificationsTitle,
                             image: .bellFill,
                             imageColor: UIColor(Color.blue),
-                            hasNotifications: true,
+                            hasNotifications: inboxCount > 0,
                             action: {}
                         )
                     ],

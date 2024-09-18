@@ -24,8 +24,12 @@ public struct WMFProfileView: View {
             .navigationTitle(viewModel.localizedStrings.pageTitle)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(viewModel.localizedStrings.doneButtonTitle) {
+                    Button(action: {
                         donePressed?()
+                    }) {
+                        Text(viewModel.localizedStrings.doneButtonTitle)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
                     }
                 }
             }
@@ -71,6 +75,7 @@ public struct WMFProfileView: View {
                 HStack(spacing: 10) {
                     Text("\(viewModel.inboxCount)")
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .font(Font(WMFFont.for(.headline)))
                     if let image = WMFSFSymbolIcon.for(symbol: .circleFill, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                         Image(uiImage: image)
                             .foregroundStyle(Color(uiColor: theme.destructive))
