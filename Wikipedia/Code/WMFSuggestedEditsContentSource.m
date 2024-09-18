@@ -24,42 +24,45 @@
 
 - (void)loadNewContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
-    // First delete old card
-    [self removeAllContentInManagedObjectContext:moc];
-
-    NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
-    WMFAuthenticationManager *authManager = self.dataStore.authenticationManager;
-
-    if (!appLanguageSiteURL) {
-        completion();
-        return;
-    }
-    
-    if (!authManager.authStateIsPermanent) {
-        completion();
-        return;
-    }
+    [moc performBlock:^{
+        // First delete old card
+        [self removeAllContentInManagedObjectContext:moc];
         
-    WMFCurrentUser *user = [self.dataStore.authenticationManager userWithSiteURL:appLanguageSiteURL];
-    
-    // Image Recommendations Business Logic:
-    // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+        NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
+        WMFAuthenticationManager *authManager = self.dataStore.authenticationManager;
 
-    BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
-
-    if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
-        [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
-            if (hasRecommendations) {
-                NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
-
-                [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-            }
-
+        if (!appLanguageSiteURL) {
             completion();
-        }];
-    } else {
-        completion();
-    }
+            return;
+        }
+        
+        if (!authManager.authStateIsPermanent) {
+            completion();
+            return;
+        }
+            
+        WMFCurrentUser *user = [self.dataStore.authenticationManager userWithSiteURL:appLanguageSiteURL];
+        
+        // Image Recommendations Business Logic:
+        // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
+
+        BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
+
+        if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
+            [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+                if (hasRecommendations) {
+                    NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
+                    
+                    [moc performBlock:^{
+                        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+                        completion();
+                    }];
+                }
+            }];
+        } else {
+            completion();
+        }
+    }];
 }
 
 - (BOOL)isEligibleForAltText:(WMFCurrentUser *)user {
