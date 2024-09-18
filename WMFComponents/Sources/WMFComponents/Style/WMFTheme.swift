@@ -7,7 +7,6 @@ public struct WMFTheme: Equatable {
 	public let name: String
 	public let userInterfaceStyle: UIUserInterfaceStyle
 	public let keyboardAppearance: UIKeyboardAppearance
-    public let paymentButtonStyle: PKPaymentButtonStyle
     public let text: UIColor
     public let secondaryText: UIColor
     public let link: UIColor
@@ -43,12 +42,15 @@ public struct WMFTheme: Equatable {
 	public var preferredColorScheme: ColorScheme {
 		return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
 	}
+    
+    public var applePayPaymentButtonStyle: PayWithApplePayButtonStyle {
+        return (self == WMFTheme.light || self == WMFTheme.sepia) ? .black : .white
+    }
 
 	public static let light = WMFTheme(
         name: "Light",
 		userInterfaceStyle: .light,
 		keyboardAppearance: .light,
-        paymentButtonStyle: .black,
         text: WMFColor.gray700,
         secondaryText: WMFColor.gray500,
         link: WMFColor.blue600,
@@ -86,7 +88,6 @@ public struct WMFTheme: Equatable {
         name: "Sepia",
 		userInterfaceStyle: .light,
         keyboardAppearance: .light,
-        paymentButtonStyle: .black,
         text: WMFColor.gray700,
         secondaryText: WMFColor.taupe600,
         link: WMFColor.blue600,
@@ -124,7 +125,6 @@ public struct WMFTheme: Equatable {
 		name: "Dark",
 		userInterfaceStyle: .dark,
 		keyboardAppearance: .dark,
-        paymentButtonStyle: .white,
         text: WMFColor.gray100,
         secondaryText: WMFColor.gray300,
         link: WMFColor.blue300,
@@ -162,7 +162,6 @@ public struct WMFTheme: Equatable {
 		name: "Black",
 		userInterfaceStyle: .dark,
 		keyboardAppearance: .dark,
-        paymentButtonStyle: .white,
         text: WMFColor.gray100,
         secondaryText: WMFColor.gray300,
         link: WMFColor.blue300,
