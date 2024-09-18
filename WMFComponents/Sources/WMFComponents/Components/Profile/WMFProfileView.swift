@@ -21,6 +21,8 @@ public struct WMFProfileView: View {
                     sectionView(items: viewModel.profileSections[sectionIndex])
                 }
             }
+            .background(Color(uiColor: theme.midBackground))
+            .scrollContentBackground(.hidden)
             .navigationTitle(viewModel.localizedStrings.pageTitle)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -41,6 +43,7 @@ public struct WMFProfileView: View {
         Section {
             ForEach(items.listItems, id: \.id) { item in
                 profileBarItem(item: item)
+                    .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } footer: {
             if let subtext = items.subtext {
@@ -70,6 +73,7 @@ public struct WMFProfileView: View {
         Text(item.text)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(Font(WMFFont.for(.headline)))
+            .foregroundStyle(Color(uiColor: theme.text))
         
             if let hasNotifications = item.hasNotifications, hasNotifications {
                 HStack(spacing: 10) {
