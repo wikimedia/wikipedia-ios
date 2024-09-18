@@ -28,7 +28,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
-        //updateNotificationsCenterButton()
+        // updateNotificationsCenterButton()
         updateProfileViewButton()
         updateNavigationBarVisibility()
 
@@ -684,7 +684,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        //updateNotificationsCenterButton()
+        // updateNotificationsCenterButton()
         updateProfileViewButton()
 
         searchBar.apply(theme: theme)
