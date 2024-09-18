@@ -47,6 +47,8 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
+        static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
+        static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
@@ -466,6 +468,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
+        }
+    }
+    
+    var didShowInformationEditingMessage: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
         }
     }
 
