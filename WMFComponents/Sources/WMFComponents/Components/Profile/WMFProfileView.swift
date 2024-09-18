@@ -12,6 +12,7 @@ public struct WMFProfileView: View {
 
     public init(viewModel: WMFProfileViewModel) {
         self.viewModel = viewModel
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.text]
     }
 
     public var body: some View {
@@ -37,6 +38,7 @@ public struct WMFProfileView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .environment(\.colorScheme, theme.preferredColorScheme)
     }
 
     private func sectionView(items: ProfileSection) -> some View {
