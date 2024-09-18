@@ -301,8 +301,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Logáil tú isteach le pasfhocal sealadach. Socraigh pasfhocal nua anseo chun an logáil isteach a chríochnú.";
 "new-password-title" = "Socraigh do phasfhocal";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Cas air fógraí";
+"notifications-center-feed-news-notification-button-text" = "Cas air brúfhógraí";
 "notifications-center-filters-read-status-item-title-all" = "Uile";
 "notifications-center-inbox-wikipedias-section-title" = "Vicipéidí";
 "notifications-center-notifications-settings" = "Socruithe fógraí";
@@ -423,8 +422,7 @@
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-my-languages" = "Mo chuid teangacha";
-// Fuzzy
-"settings-notifications" = "Fógraí";
+"settings-notifications" = "Brúfhógraí";
 "settings-notifications-learn-more" = "Foghlaim tuilleadh maidir le fógraí";
 "settings-notifications-push-notifications" = "Brúfhógraí";
 "settings-notifications-system-turn-on" = "Cás Fógraí air";
@@ -438,19 +436,16 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Taispeáin liosta léitheoireachta Sábháilte";
 "settings-title" = "Socruithe";
 "share-a-fact-made-with" = "Arna dhéanamh leis an aip Vicipéide";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" ar @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" ar Vicipéid:";
 "share-default-format" = "“$1” ó “$2”: $3";
 "share-email-format" = "“$1”\n\nó “$2”\n\n$3";
 "share-get-directions-in-maps" = "Faigh Treoracha";
 "share-menu-item" = "Comhroinn...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "trí @Wikipedia";
+"share-on-twitter-sign-off" = "trí Vicipéid";
 "share-open-in-maps" = "Oscail in Maps";
 "share-social-format" = "“$1” trí Vicipéid: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” trí @Wikipedia: $2";
+"share-social-mention-format" = "“$1” trí Vicipéid: $2";
 "sort-by-recently-added-action" = "Curtha leis le déanaí";
 "sort-by-title-action" = "Teideal";
 "table-of-contents-button-label" = "Clár ábhair";

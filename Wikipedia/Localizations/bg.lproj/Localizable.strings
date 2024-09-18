@@ -301,6 +301,7 @@
 "home-title" = "Разгледайте!";
 "icon-shortcut-random-title" = "Случайна статия";
 "icon-shortcut-search-title" = "Търсене в Уикипедия";
+"image-rec-survey-instructions-1" = "Вашите отговори подобряват бъдещите предложения.";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "in-the-news-sub-title-from-language-wikipedia" = "От Уикипедия на $1";
 "in-the-news-sub-title-from-wikipedia" = "От Уикипедия";
