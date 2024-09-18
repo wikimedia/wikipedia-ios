@@ -49,7 +49,7 @@ public struct WMFProfileView: View {
     private func profileBarItem(item: ProfileListItem) -> some View {
         HStack {
             if let image = item.image {
-                if let uiImage = WMFSFSymbolIcon.for(symbol: image) {
+                if let uiImage = WMFSFSymbolIcon.for(symbol: image, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                         Image(uiImage: uiImage)
                             .frame(width: 16, height: 16)
                             .foregroundStyle(Color(uiColor: theme.paperBackground))
@@ -71,7 +71,7 @@ public struct WMFProfileView: View {
                 HStack(spacing: 10) {
                     Text("\(viewModel.inboxCount)")
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    if let image = WMFSFSymbolIcon.for(symbol: .circleFill) {
+                    if let image = WMFSFSymbolIcon.for(symbol: .circleFill, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                         Image(uiImage: image)
                             .foregroundStyle(Color(uiColor: theme.destructive))
                             .frame(width: 10, height: 10)
