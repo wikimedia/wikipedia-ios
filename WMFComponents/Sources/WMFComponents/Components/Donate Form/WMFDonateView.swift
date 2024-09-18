@@ -1,4 +1,5 @@
 import SwiftUI
+import _PassKit_SwiftUI
 
 public protocol WMFDonateDelegate: AnyObject {
     func donateDidTapProblemsDonatingLink()
@@ -53,16 +54,18 @@ struct WMFDonateView: View {
                 }
                 
                 Group {
-                    WMFApplePayDonateButton(configuration: WMFApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
-                        .onTapGesture {
-                            viewModel.textfieldViewModel.hasFocus = false
-                            viewModel.logTappedApplePayButton()
-                            viewModel.validateAndSubmit()
-                            if let errorViewModel = viewModel.errorViewModel {
-                                errorViewModel.hasAccessibilityFocus = true
-                            }
+                    PayWithApplePayButton(.donate) {
+                        viewModel.textfieldViewModel.hasFocus = false
+                        viewModel.logTappedApplePayButton()
+                        viewModel.validateAndSubmit()
+                        if let errorViewModel = viewModel.errorViewModel {
+                            errorViewModel.hasAccessibilityFocus = true
                         }
-                        .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
+                    } fallback: {
+                        
+                    }
+                    .payWithApplePayButtonStyle(appEnvironment.theme.applePayPaymentButtonStyle)
+                    .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
                         .frame(height: 42)
                         .padding([.leading, .trailing], sizeClassDonateButtonPadding)
                     Spacer()
