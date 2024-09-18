@@ -65,10 +65,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         }
     }
     
-    public final class AmountButtonViewModel: ObservableObject, Equatable, Identifiable {
-        public static func == (lhs: WMFDonateViewModel.AmountButtonViewModel, rhs: WMFDonateViewModel.AmountButtonViewModel) -> Bool {
-            return lhs.amount == rhs.amount
-        }
+    public final class AmountButtonViewModel: ObservableObject, Identifiable {
         
         @Published var amount: Decimal
         @Published var isSelected: Bool = false
@@ -341,7 +338,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         // Deselect other buttons
         for loopButtonViewModel in buttonViewModels {
-            if loopButtonViewModel != buttonViewModel {
+            if loopButtonViewModel.amount != buttonViewModel.amount {
                 loopButtonViewModel.isSelected = false
             }
         }
