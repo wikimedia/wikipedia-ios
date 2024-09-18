@@ -202,9 +202,37 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logSettingsDidTapSettingsIcon()
+        
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        
+        let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
+        let localizedStrings =
+            WMFProfileViewModel.LocalizedStrings(
+                pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
+                doneButtonTitle: WMFLocalizedString("profile-page-done-button", value: "Done", comment: "Done button title"),
+                notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
+                userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
+                talkPageTitle: WMFLocalizedString("profile-page-talk-page-title", value: "Talk page", comment: "Link to talk page"),
+                watchlistTitle: WMFLocalizedString("profile-page-watchlist-title", value: "Watchlist", comment: "Link to watchlist"),
+                logOutTitle: WMFLocalizedString("profile-page-logout", value: "Log out", comment: "Log out button"),
+                donateTitle: WMFLocalizedString("profile-page-donate", value: "Donate", comment: "Link to donate"),
+                settingsTitle: WMFLocalizedString("profile-page-settings", value: "Settings", comment: "Link to settings"),
+                joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
+                joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
+                donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
+            )
+        let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
      
-        // settingsPresentationDelegate?.userDidTapProfile(from: self)
-        let profileView = WMFProfileView(isLoggedIn: true)
+        let viewModel = WMFProfileViewModel(
+            isLoggedIn: isLoggedIn,
+            localizedStrings: localizedStrings,
+            inboxCount: Int(truncating: inboxCount ?? 0)
+        )
+
+        var profileView = WMFProfileView(viewModel: viewModel)
+        profileView.donePressed = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         let hostingController = UIHostingController(rootView: profileView)
         hostingController.modalPresentationStyle = .pageSheet
 
