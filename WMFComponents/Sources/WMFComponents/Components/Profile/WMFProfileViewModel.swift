@@ -100,7 +100,9 @@ enum ProfileState {
                             image: .chatBubbleFilled,
                             imageColor: UIColor(Color.green),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.watchlistTitle,

@@ -13,6 +13,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     let theme: Theme
     let dataStore: MWKDataStore
+    let username: String?
 
     // MARK: Lifecycle
 
@@ -20,6 +21,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.username = dataStore.authenticationManager.authStatePermanentUsername
     }
 
     // MARK: Coordinator Protocol Methods
@@ -30,7 +32,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
-                pageTitle: (isLoggedIn ? dataStore.authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
+                pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
                 doneButtonTitle: CommonStrings.doneTitle,
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
@@ -88,6 +90,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserPage()
             }
+        case .showUserTalkPage:
+            dismissProfile {
+                self.showUserTalkPage()
+            }
         }
     }
 
@@ -112,9 +118,16 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
 
     func showUserPage() {
-        if let username = dataStore.authenticationManager.authStatePermanentUsername, let siteURL = dataStore.primarySiteURL {
+        if let username, let siteURL = dataStore.primarySiteURL {
             let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
             userPageCoordinator.start()
+        }
+    }
+
+    func showUserTalkPage() {
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
+            userTalkCoordinator.start()
         }
 
     }

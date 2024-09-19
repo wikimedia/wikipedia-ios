@@ -1552,6 +1552,9 @@
 		83B024A92C9C8E40006EAEFA /* UserPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */; };
 		83B024AA2C9C8E40006EAEFA /* UserPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */; };
 		83B024AB2C9C8E40006EAEFA /* UserPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */; };
+		83B024AD2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */; };
+		83B024AE2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */; };
+		83B024AF2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */; };
 		83B1218427FC8750006B8CCC /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
 		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
@@ -3803,6 +3806,7 @@
 		83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+FindInPage.swift"; sourceTree = "<group>"; };
 		83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleInformation.swift"; sourceTree = "<group>"; };
 		83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageCoordinator.swift; sourceTree = "<group>"; };
+		83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCoordinator.swift; sourceTree = "<group>"; };
 		83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFunnel.swift; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAttemptFunnel.swift; sourceTree = "<group>"; };
@@ -6929,6 +6933,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */,
 				83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */,
 				83796AEF2C9C6EB300E55C69 /* Coordinator.swift */,
 				83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */,
@@ -10403,6 +10408,7 @@
 				6782DBC72343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				67B64D572507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
+				83B024AD2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */,
 				00EBB7C727D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				83023C0620E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				B0C7A0861F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
@@ -11524,6 +11530,7 @@
 				D8CE25F01E698E2400DAE2E0 /* WMFAccountCreationViewController.swift in Sources */,
 				674711852507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift in Sources */,
 				D8CE25F31E698E2400DAE2E0 /* NSAttributedString+WMFModify.m in Sources */,
+				83B024AF2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */,
 				D8CE25F41E698E2400DAE2E0 /* WMFSettingsViewController.m in Sources */,
 				83B01F9B23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
@@ -12095,6 +12102,7 @@
 				B09705B6236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				D8EC3EEF1E9BDA35006712EB /* WMFAccountCreationViewController.swift in Sources */,
 				83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
+				83B024AE2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */,
 				83836ECE1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				83B01F9C23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
