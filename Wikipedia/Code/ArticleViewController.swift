@@ -419,6 +419,7 @@ class ArticleViewController: ViewController, HintPresenting {
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        setupSearchAndProfileButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
