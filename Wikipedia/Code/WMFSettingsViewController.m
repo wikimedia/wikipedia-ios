@@ -133,7 +133,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     BOOL hasUnreadNotifications = numUnreadNotifications != 0;
     UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
     UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
-    self.navigationItem.rightBarButtonItem = profileViewButtonItem;
+    self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
 
 - (void)closeButtonPressed {
