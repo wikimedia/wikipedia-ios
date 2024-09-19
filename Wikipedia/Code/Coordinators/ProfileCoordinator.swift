@@ -30,7 +30,7 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
                 pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
-                doneButtonTitle: WMFLocalizedString("profile-page-done-button", value: "Done", comment: "Done button title"),
+                doneButtonTitle: CommonStrings.doneTitle,
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
                 talkPageTitle: WMFLocalizedString("profile-page-talk-page-title", value: "Talk page", comment: "Link to talk page"),
