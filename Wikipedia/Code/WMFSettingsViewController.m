@@ -107,24 +107,32 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
 
-        // If in a tab bar presentation, only show notification bar button item if the user is permanent
-        [self updateNotificationsCenterButton];
+        //[self updateNotificationsCenterButton];
+        [self updateProfileViewButton];
     }
 
     [self.navigationBar updateNavigationItems];
 }
 
-- (void)updateNotificationsCenterButton {
-    if (self.dataStore.authenticationManager.authStateIsPermanent) {
-        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-        BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-        UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-        notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
-        self.navigationItem.leftBarButtonItem = notificationsBarButton;
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
-    }
+//- (void)updateNotificationsCenterButton {
+//    if (self.dataStore.authenticationManager.authStateIsPermanent) {
+//        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+//        BOOL hasUnreadNotifications = numUnreadNotifications != 0;
+//        UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
+//        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
+//        notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
+//        self.navigationItem.leftBarButtonItem = notificationsBarButton;
+//    } else {
+//        self.navigationItem.leftBarButtonItem = nil;
+//    }
+//}
+
+- (void)updateProfileViewButton {
+    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+    BOOL hasUnreadNotifications = numUnreadNotifications != 0;
+    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
+    UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
+    self.navigationItem.rightBarButtonItem = profileViewButtonItem;
 }
 
 - (void)closeButtonPressed {
@@ -658,8 +666,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Notifications Center
 
-- (void)userDidTapNotificationsCenter {
-    [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
+//- (void)userDidTapNotificationsCenter {
+//    [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
+//}
+
+- (void)userDidTapProfile {
 }
 
 - (void)pushNotificationBannerDidDisplayInForeground:(NSNotification *)notification {
