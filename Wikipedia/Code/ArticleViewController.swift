@@ -398,6 +398,7 @@ class ArticleViewController: ViewController, HintPresenting {
             setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         }
         
+        setupSearchAndProfileButtons()
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
