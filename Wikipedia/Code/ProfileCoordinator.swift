@@ -3,7 +3,7 @@ import SwiftUI
 import WMFComponents
 
 @objc(WMFProfileCoordinator)
-class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
+final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
@@ -30,7 +30,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
-                pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
+                pageTitle: (isLoggedIn ? dataStore.authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
                 doneButtonTitle: CommonStrings.doneTitle,
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
@@ -84,6 +84,10 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
             dismissProfile {
                 self.showDonate()
             }
+        case .showUserPage:
+            dismissProfile {
+                self.showUserPage()
+            }
         }
     }
 
@@ -105,6 +109,14 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     func showDonate() {
         // TODO
+    }
+
+    func showUserPage() {
+        if let username = dataStore.authenticationManager.authStatePermanentUsername, let siteURL = dataStore.primarySiteURL {
+            let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
+            userPageCoordinator.start()
+        }
+
     }
 
     private func dismissProfile() {

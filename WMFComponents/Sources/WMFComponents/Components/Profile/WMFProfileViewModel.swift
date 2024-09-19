@@ -91,7 +91,9 @@ enum ProfileState {
                             image: .personFilled,
                             imageColor: UIColor(Color.purple),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.talkPageTitle,
