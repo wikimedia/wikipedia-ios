@@ -25,8 +25,8 @@ final class UserTalkCoordinator: Coordinator {
         }
 
         let talkPageViewController = TalkPageViewController(theme: theme, viewModel: viewModel)
-        let navVC = WMFThemeableNavigationController(rootViewController: talkPageViewController, theme: theme)
-        navigationController.present(navVC, animated: true) //fix back button missing
+//        let navVC = WMFThemeableNavigationController(rootViewController: talkPageViewController, theme: theme)
+        navigationController.pushViewController(talkPageViewController, animated: true)
     }
 
 }
