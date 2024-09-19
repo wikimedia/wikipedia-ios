@@ -1,16 +1,14 @@
 import Foundation
 
-// I'm using a traditional delegate pattern to navigate between packages
+/// A delegate  for handling actions triggered from the Profile view, to comunicate with the Profile delegate.
 public protocol ProfileCoordinatorDelegate: AnyObject {
     func handleProfileAction(_ action: ProfileAction)
 }
 
-
-// Actions
-// Actions help us create other routes using the delegate
+/// Represents the various actions that can be performed from the Profile view.
 public enum ProfileAction {
     case showNotifications
     case showSettings
     case showDonate
-    // Add other actions
+    // TODO
 }

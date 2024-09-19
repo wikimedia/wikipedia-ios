@@ -6,16 +6,18 @@ public class WMFProfileViewModel: ObservableObject {
     let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
     let inboxCount: Int
+    private weak var coordinatorDelegate: ProfileCoordinatorDelegate?
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
         self.inboxCount = inboxCount
+        self.coordinatorDelegate = coordinatorDelegate
         loadProfileSections()
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, coordinatorDelegate: coordinatorDelegate)
     }
 
     public struct LocalizedStrings {
@@ -65,7 +67,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0) -> [ProfileSection] {
+     static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?) -> [ProfileSection] {
         if isLoggedIn {
             return [
                 ProfileSection(
@@ -75,7 +77,9 @@ enum ProfileState {
                             image: .bellFill,
                             imageColor: UIColor(Color.blue),
                             hasNotifications: inboxCount > 0,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showNotifications)
+                            }
                         )
                     ],
                     subtext: nil
@@ -132,7 +136,9 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
                         )
                     ],
                     subtext: nil
