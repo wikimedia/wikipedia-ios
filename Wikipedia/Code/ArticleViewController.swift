@@ -922,6 +922,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        setupSearchAndProfileButtons()
         guard viewIfLoaded != nil else {
             return
         }
@@ -978,6 +979,7 @@ class ArticleViewController: ViewController, HintPresenting {
             updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
+        setupSearchAndProfileButtons()
     }
     
     /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
@@ -1273,6 +1275,7 @@ private extension ArticleViewController {
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
+        setupSearchAndProfileButtons()
     }
     
     @objc func applicationWillResignActive(_ notification: Notification) {
@@ -1299,6 +1302,7 @@ private extension ArticleViewController {
         let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
         
         navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileViewButtonItem]
+        navigationBar.updateNavigationItems()
     }
     
     @objc func userDidTapProfile() {
