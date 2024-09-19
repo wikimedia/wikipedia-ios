@@ -2,7 +2,8 @@ import UIKit
 import SwiftUI
 import WMFComponents
 
-class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
+@objc(WMFProfileCoordinator)
+class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
@@ -15,7 +16,7 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
@@ -23,7 +24,7 @@ class ProfileCoordinator: Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Methods
 
-    func start() {
+    @objc func start() {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
 
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")

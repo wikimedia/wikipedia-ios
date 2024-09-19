@@ -27,6 +27,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 @property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
+@property (nullable, nonatomic, strong) WMFProfileCoordinator *profileCoordinator;
 
 @end
 
@@ -671,15 +672,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-
-    @weakify(self);
-    UIViewController *profileHostingController = [WMFSettingsViewController profileHostingControllerWithDataStore:self.dataStore
-                                                                                                      donePressed:^{
-                                                                                                          @strongify(self);
-                                                                                                          [self dismissViewControllerAnimated:true completion:nil];
-                                                                                                      }];
-
-    [self presentViewController:profileHostingController animated:YES completion:nil];
+    WMFProfileCoordinator *profileCoordinator = [[WMFProfileCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore];
+    self.profileCoordinator = profileCoordinator;
+    [profileCoordinator start];
 }
 
 - (void)pushNotificationBannerDidDisplayInForeground:(NSNotification *)notification {
