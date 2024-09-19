@@ -1415,6 +1415,18 @@
 		8373EDFA2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFB2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFC2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
+		83796AF42C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
+		83796AF52C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
+		83796AF62C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
+		83796AF72C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
+		83796AF82C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
+		83796AF92C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
+		83796AFA2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
+		83796AFB2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
+		83796AFC2C9C6EB300E55C69 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AEF2C9C6EB300E55C69 /* Coordinator.swift */; };
+		83796AFD2C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */; };
+		83796AFE2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */; };
+		83796AFF2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */; };
 		837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
 		837A15F528DA591E00AAC3FC /* TalkPageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A15F228DA591E00AAC3FC /* TalkPageCache.swift */; };
@@ -3724,6 +3736,10 @@
 		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
 		8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementPanel.swift; sourceTree = "<group>"; };
+		83796AEF2C9C6EB300E55C69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCoordinator.swift; sourceTree = "<group>"; };
+		83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		837A15F228DA591E00AAC3FC /* TalkPageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCache.swift; sourceTree = "<group>"; };
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
 		8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumarCollectionViewLayoutSection.swift; sourceTree = "<group>"; };
@@ -6906,6 +6922,17 @@
 			name = "View Model";
 			sourceTree = "<group>";
 		};
+		83796B012C9C6F6000E55C69 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				83796AEF2C9C6EB300E55C69 /* Coordinator.swift */,
+				83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */,
+				83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */,
+				83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */,
+			);
+			name = Coordinators;
+			sourceTree = "<group>";
+		};
 		83ACAA9F24E6DC8E003B3035 /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -7648,6 +7675,7 @@
 		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				83796B012C9C6F6000E55C69 /* Coordinators */,
 				D84C36461F32485E00895FA1 /* Model */,
 				D818D37F1ED725240076110D /* View Controllers */,
 				D83F5C051F0E5111006130FF /* Views */,
@@ -10574,6 +10602,10 @@
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				67C797C72BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */,
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
+				83796AF82C9C6EB300E55C69 /* Coordinator.swift in Sources */,
+				83796AF92C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */,
+				83796AFA2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */,
+				83796AFB2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */,
 				83C06893292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
 				FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */,
 				67D9D1F62970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */,
@@ -11435,6 +11467,10 @@
 				D8CE25D41E698E2400DAE2E0 /* NewsViewController.swift in Sources */,
 				67985A882524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
 				7AB809D122675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
+				83796AF42C9C6EB300E55C69 /* Coordinator.swift in Sources */,
+				83796AF52C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */,
+				83796AF62C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */,
+				83796AF72C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */,
 				83927D821F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4990227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
@@ -12001,6 +12037,10 @@
 				D8EC3ED21E9BDA35006712EB /* NewsViewController.swift in Sources */,
 				7AB809D222675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */,
+				83796AFC2C9C6EB300E55C69 /* Coordinator.swift in Sources */,
+				83796AFD2C9C6EB300E55C69 /* NotificationsCoordinator.swift in Sources */,
+				83796AFE2C9C6EB300E55C69 /* ProfileCoordinator.swift in Sources */,
+				83796AFF2C9C6EB300E55C69 /* SettingsCoordinator.swift in Sources */,
 				41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4991227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
 				B031032F1F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,

@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct WMFProfileView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -56,9 +56,12 @@ public struct WMFProfileView: View {
     }
 
     private func profileBarItem(item: ProfileListItem) -> some View {
-        HStack {
-            if let image = item.image {
-                if let uiImage = WMFSFSymbolIcon.for(symbol: image, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+        Button(action: {
+            item.action()
+        }) {
+            HStack {
+                if let image = item.image {
+                    if let uiImage = WMFSFSymbolIcon.for(symbol: image, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                         Image(uiImage: uiImage)
                             .frame(width: 16, height: 16)
                             .foregroundStyle(Color(uiColor: theme.paperBackground))
@@ -69,28 +72,28 @@ public struct WMFProfileView: View {
                                     .padding(0)
                             )
                             .padding(.trailing, 16)
-                }
-            }
-            
-        Text(item.text)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .font(Font(WMFFont.for(.headline)))
-            .foregroundStyle(Color(uiColor: theme.text))
-        
-            if let hasNotifications = item.hasNotifications, hasNotifications {
-                HStack(spacing: 10) {
-                    Text("\(viewModel.inboxCount)")
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        .font(Font(WMFFont.for(.headline)))
-                    if let image = WMFSFSymbolIcon.for(symbol: .circleFill, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                        Image(uiImage: image)
-                            .foregroundStyle(Color(uiColor: theme.destructive))
-                            .frame(width: 10, height: 10)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                
+                Text(item.text)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(Font(WMFFont.for(.headline)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+
+                if let hasNotifications = item.hasNotifications, hasNotifications {
+                    HStack(spacing: 10) {
+                        Text("\(viewModel.inboxCount)")
+                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            .font(Font(WMFFont.for(.headline)))
+                        if let image = WMFSFSymbolIcon.for(symbol: .circleFill, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+                            Image(uiImage: image)
+                                .foregroundStyle(Color(uiColor: theme.destructive))
+                                .frame(width: 10, height: 10)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
         }
     }
 }
-

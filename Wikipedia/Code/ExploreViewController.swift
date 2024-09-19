@@ -15,6 +15,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
+    // Coordinator
+    private var profileCoordinator: ProfileCoordinator?
+
     // MARK: - UIViewController
     
     override func viewDidLoad() {
@@ -201,12 +204,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        
-        let profileHostingController = Self.profileHostingController(dataStore: self.dataStore, donePressed: { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        })
-        
-        present(profileHostingController, animated: true, completion: nil)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore)
+        self.profileCoordinator = coordinator
+        coordinator.start()
     }
     
     open override func refresh() {
