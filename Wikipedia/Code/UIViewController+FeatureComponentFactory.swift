@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import WMFComponents
 import WMF
 import WMFData

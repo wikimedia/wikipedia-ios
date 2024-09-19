@@ -204,12 +204,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        DonateFunnel.shared.logSettingsDidTapSettingsIcon()
-
         let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore)
         self.profileCoordinator = coordinator
         coordinator.start()
-
     }
     
     open override func refresh() {
