@@ -1,62 +1,182 @@
 import Foundation
 import SwiftUI
 
-// I updated the view model so it could hold the coordinator reference, this is just for prototyping reasons
-// We can have a ViewController hold the ref to the coordinator, and call the delegate there
-public class ProfileViewModel: ObservableObject {
+public class WMFProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
-    private let isLoggedIn: Bool
-    private weak var coordinatorDelegate: ProfileCoordinatorDelegate?
+    let isLoggedIn: Bool
+    let localizedStrings: LocalizedStrings
+    let inboxCount: Int
 
-    public var onDismiss: (() -> Void)?
-
-    public init(isLoggedIn: Bool, coordinatorDelegate: ProfileCoordinatorDelegate?) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int) {
         self.isLoggedIn = isLoggedIn
-        self.coordinatorDelegate = coordinatorDelegate
-        setupSections()
+        self.localizedStrings = localizedStrings
+        self.inboxCount = inboxCount
+        loadProfileSections()
     }
 
-    private func setupSections() {
-        switch isLoggedIn {
-        case true:
-            profileSections = [
-                ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: "Notifications",
-                            image: .bellFill,
-                            imageColor: UIColor(Color.blue),
-                            notificationNumber: 12,
-                            action: { [weak self] in
-                                self?.coordinatorDelegate?.handleProfileAction(.showNotifications)
-                            }
-                        )
-                    ],
-                    subtext: nil
-                ),
+    private func loadProfileSections() {
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings)
+    }
 
-                ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: "Settings",
-                            image: .gear,
-                            imageColor: UIColor(Color.gray),
-                            notificationNumber: 0,
-                            action: { [weak self] in
-                                self?.coordinatorDelegate?.handleProfileAction(.showSettings)
-                            }
-                        )
-                    ],
-                    subtext: nil
-                )
-                // add others
+    public struct LocalizedStrings {
+        let pageTitle: String
+        let doneButtonTitle: String
+        let notificationsTitle: String
+        let userPageTitle: String
+        let talkPageTitle: String
+        let watchlistTitle: String
+        let logOutTitle: String
+        let donateTitle: String
+        let settingsTitle: String
+        let joinWikipediaTitle: String
+        let joinWikipediaSubtext: String
+        let donateSubtext: String
 
-            ]
-        case false:
-            profileSections = [
-
-            ]
+        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String) {
+            self.pageTitle = pageTitle
+            self.doneButtonTitle = doneButtonTitle
+            self.notificationsTitle = notificationsTitle
+            self.userPageTitle = userPageTitle
+            self.talkPageTitle = talkPageTitle
+            self.watchlistTitle = watchlistTitle
+            self.logOutTitle = logOutTitle
+            self.donateTitle = donateTitle
+            self.settingsTitle = settingsTitle
+            self.joinWikipediaTitle = joinWikipediaTitle
+            self.joinWikipediaSubtext = joinWikipediaSubtext
+            self.donateSubtext = donateSubtext
         }
     }
 }
 
+struct ProfileListItem: Identifiable {
+    var id = UUID()
+    let text: String
+    let image: WMFSFSymbolIcon?
+    let imageColor: UIColor?
+    let hasNotifications: Bool?
+    let action: () -> ()?
+}
+
+struct ProfileSection: Identifiable {
+    let id = UUID()
+    let listItems: [ProfileListItem]
+    let subtext: String?
+}
+
+enum ProfileState {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0) -> [ProfileSection] {
+        if isLoggedIn {
+            return [
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.notificationsTitle,
+                            image: .bellFill,
+                            imageColor: UIColor(Color.blue),
+                            hasNotifications: inboxCount > 0,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.userPageTitle,
+                            image: .personFilled,
+                            imageColor: UIColor(Color.purple),
+                            hasNotifications: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: localizedStrings.talkPageTitle,
+                            image: .chatBubbleFilled,
+                            imageColor: UIColor(Color.green),
+                            hasNotifications: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: localizedStrings.watchlistTitle,
+                            image: .textBadgeStar,
+                            imageColor: UIColor(Color.orange),
+                            hasNotifications: nil,
+                            action: {}
+                        ),
+                        ProfileListItem(
+                            text: localizedStrings.logOutTitle,
+                            image: .leave,
+                            imageColor: UIColor(Color.gray),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.donateTitle,
+                            image: .heart,
+                            imageColor: UIColor(Color.red),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.settingsTitle,
+                            image: .gear,
+                            imageColor: UIColor(Color.gray),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                )
+            ]
+        } else {
+            return [
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.joinWikipediaTitle,
+                            image: .leave,
+                            imageColor: UIColor(Color.gray),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: localizedStrings.joinWikipediaSubtext
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.donateTitle,
+                            image: .heart,
+                            imageColor: UIColor(Color.red),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: localizedStrings.donateSubtext
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: localizedStrings.settingsTitle,
+                            image: .gear,
+                            imageColor: UIColor(Color.gray),
+                            hasNotifications: nil,
+                            action: {}
+                        )
+                    ],
+                    subtext: nil
+                )
+            ]
+        }
+    }
+}
