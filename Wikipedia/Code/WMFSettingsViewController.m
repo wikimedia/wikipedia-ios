@@ -671,6 +671,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
+
+    @weakify(self);
+    UIViewController *profileHostingController = [WMFSettingsViewController profileHostingControllerWithDataStore:self.dataStore
+                                                                                                      donePressed:^{
+                                                                                                          @strongify(self);
+                                                                                                          [self dismissViewControllerAnimated:true completion:nil];
+                                                                                                      }];
+
+    [self presentViewController:profileHostingController animated:YES completion:nil];
 }
 
 - (void)pushNotificationBannerDidDisplayInForeground:(NSNotification *)notification {
