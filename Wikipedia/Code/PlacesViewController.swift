@@ -2029,7 +2029,79 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
         }
     }
-    
+
+    /// Do the search based on the coordinates
+    /// We use this for the deep link with a location coordinate
+    @objc
+    func searchPlaceWithCoordinate(latitude: Double, longitude: Double) {
+        let region = [CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude)]
+            .wmf_boundingRegion(with: 10000)
+
+        mapRegion = region
+
+        if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
+            performDefaultSearch(withRegion: mapRegion)
+        } else {
+            performDefaultSearchIfNecessary(withRegion: region)
+        }
+    }
+
+    /// Do the search based on the location name
+    /// We use this for the deep link with a location name
+    @objc
+    func searchForPlace(name: String) {
+        searchBar.text = name
+        performDefaultSearchOnNextMapRegionUpdate = false
+        searchPlacesForTopArticles(place: name) { [weak self] in
+            self?.searchForFirstSearchSuggestion()
+        }
+    }
+
+    /// Used existing logic from `updateSearchCompletionsFromSearchBarTextForTopArticles` method
+    /// We should investigate about the main queue in the future and refactor and simplify the logic
+    private func searchPlacesForTopArticles(place: String, completion: (() -> Void)? = nil) {
+        searchFetcher.fetchArticles(
+            forSearchTerm: place,
+            siteURL: siteURL,
+            resultLimit: 1,
+            failure: { error in
+                completion?()
+            }
+        ) { searchResult in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
+                let completions = handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
+                isWaitingForSearchSuggestionUpdate = false
+
+                guard completions.count > 0 else { return }
+
+                let center = mapView.userLocation.coordinate
+                let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
+
+                locationSearchFetcher.fetchArticles(
+                    withSiteURL: siteURL,
+                    in: region,
+                    matchingSearchTerm: place,
+                    sortStyle: .links,
+                    resultLimit: 1,
+                    completion: { [weak self] locationSearchResults in
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self else { return }
+
+                            var combinedResults: [MWKSearchResult] = searchResult.results ?? []
+                            let newResults = locationSearchResults.results as [MWKSearchResult]
+                            combinedResults.append(contentsOf: newResults)
+                            _ = handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                            completion?()
+                        }
+                    }) { error in }
+            }
+        }
+    }
+
     private func closeSearch() {
         searchBar.endEditing(true)
         currentSearch = nil
