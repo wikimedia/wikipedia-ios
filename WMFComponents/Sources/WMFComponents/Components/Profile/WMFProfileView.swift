@@ -1,7 +1,16 @@
 import SwiftUI
 
+public class WMFProfileViewTargetRects: ObservableObject {
+    public init(donateButtonFrame: CGRect = .zero) {
+        self.donateButtonFrame = donateButtonFrame
+    }
+    
+    @Published public var donateButtonFrame: CGRect = .zero
+}
+
 public struct WMFProfileView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @EnvironmentObject var targetRects: WMFProfileViewTargetRects
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -93,7 +102,22 @@ public struct WMFProfileView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 }
+                
+                if item.isDonate && item.isLoadingDonateConfigs {
+                    ProgressView()
+                }
             }
         }
+        .background(content: {
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        if item.isDonate {
+                            let insideFrame = geometry.frame(in: .global)
+                            targetRects.donateButtonFrame = insideFrame
+                        }
+                    }
+            }
+        })
     }
 }

@@ -204,7 +204,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateDelegate: self)
         self.profileCoordinator = coordinator
         coordinator.start()
     }
@@ -1940,4 +1940,26 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
+}
+
+extension ExploreViewController: WMFDonateDelegate {
+    public func donateDidTapProblemsDonatingLink() {
+        sharedDonateDidTapProblemsDonatingLink()
+    }
+    
+    public func donateDidTapOtherWaysToGive() {
+        sharedDonateDidTapOtherWaysToGive()
+    }
+    
+    public func donateDidTapFrequentlyAskedQuestions() {
+        sharedDonateDidTapFrequentlyAskedQuestions()
+    }
+    
+    public func donateDidTapTaxDeductibilityInformation() {
+        sharedDonateDidTapTaxDeductibilityInformation()
+    }
+    
+    public func donateDidSuccessfullySubmitPayment() {
+        sharedDonateDidSuccessfullSubmitPayment(source: .explore, articleURL: nil)
+    }
 }

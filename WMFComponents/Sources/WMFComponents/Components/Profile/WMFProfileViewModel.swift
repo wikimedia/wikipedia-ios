@@ -7,6 +7,11 @@ public class WMFProfileViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     let inboxCount: Int
     private weak var coordinatorDelegate: ProfileCoordinatorDelegate?
+    public var isLoadingDonateConfigs: Bool = false {
+        didSet {
+            loadProfileSections()
+        }
+    }
 
     public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?) {
         self.isLoggedIn = isLoggedIn
@@ -17,7 +22,7 @@ public class WMFProfileViewModel: ObservableObject {
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs)
     }
 
     public struct LocalizedStrings {
@@ -57,6 +62,8 @@ struct ProfileListItem: Identifiable {
     let image: WMFSFSymbolIcon?
     let imageColor: UIColor?
     let hasNotifications: Bool?
+    let isDonate: Bool
+    let isLoadingDonateConfigs: Bool
     let action: () -> ()?
 }
 
@@ -67,7 +74,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-     static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool) -> [ProfileSection] {
         if isLoggedIn {
             return [
                 ProfileSection(
@@ -77,6 +84,8 @@ enum ProfileState {
                             image: .bellFill,
                             imageColor: UIColor(Color.blue),
                             hasNotifications: inboxCount > 0,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {
                                 coordinatorDelegate?.handleProfileAction(.showNotifications)
                             }
@@ -91,6 +100,8 @@ enum ProfileState {
                             image: .personFilled,
                             imageColor: UIColor(Color.purple),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         ),
                         ProfileListItem(
@@ -98,6 +109,8 @@ enum ProfileState {
                             image: .chatBubbleFilled,
                             imageColor: UIColor(Color.green),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         ),
                         ProfileListItem(
@@ -105,6 +118,8 @@ enum ProfileState {
                             image: .textBadgeStar,
                             imageColor: UIColor(Color.orange),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         ),
                         ProfileListItem(
@@ -112,6 +127,8 @@ enum ProfileState {
                             image: .leave,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         )
                     ],
@@ -124,7 +141,11 @@ enum ProfileState {
                             image: .heart,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
-                            action: {}
+                            isDonate: true,
+                            isLoadingDonateConfigs: isLoadingDonateConfigs,
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showDonate)
+                            }
                         )
                     ],
                     subtext: nil
@@ -136,6 +157,8 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {
                                 coordinatorDelegate?.handleProfileAction(.showSettings)
                             }
@@ -153,6 +176,8 @@ enum ProfileState {
                             image: .leave,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         )
                     ],
@@ -165,7 +190,11 @@ enum ProfileState {
                             image: .heart,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
-                            action: {}
+                            isDonate: true,
+                            isLoadingDonateConfigs: isLoadingDonateConfigs,
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showDonate)
+                            }
                         )
                     ],
                     subtext: localizedStrings.donateSubtext
@@ -177,6 +206,8 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
                             action: {}
                         )
                     ],

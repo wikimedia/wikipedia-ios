@@ -1,7 +1,7 @@
 import SwiftUI
 import _PassKit_SwiftUI
 
-public protocol WMFDonateDelegate: AnyObject {
+@objc public protocol WMFDonateDelegate: AnyObject {
     func donateDidTapProblemsDonatingLink()
     func donateDidTapOtherWaysToGive()
     func donateDidTapFrequentlyAskedQuestions()

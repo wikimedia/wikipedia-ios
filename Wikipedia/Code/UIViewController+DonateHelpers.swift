@@ -7,6 +7,7 @@ import PassKit
 @objc enum DonateSource: Int {
     case articleCampaignModal
     case settings
+    case explore
 }
 
 @objc extension UIViewController {
@@ -270,6 +271,8 @@ extension UIViewController {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
             
             switch source {
+            case .explore:
+                print("TODO: Logging")
             case .settings:
                 DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
             case .articleCampaignModal:

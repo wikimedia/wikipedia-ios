@@ -28,6 +28,7 @@ public final class WMFDonateViewController: WMFCanvasViewController {
         self.hostingViewController = WMFDonateHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         self.loggingDelegate = loggingDelegate
         super.init()
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder: NSCoder) {
