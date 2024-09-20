@@ -1308,7 +1308,7 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, logoutDelegate: self, isExplore: false)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, isExplore: false)
         self.profileCoordinator = coordinator
         coordinator.start()
     }
