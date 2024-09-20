@@ -478,27 +478,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Donate
 
 - (void)showDonateForCell:(WMFSettingsTableViewCell *)settingsCell {
-    settingsCell.isLoading = YES;
-
-    NSString *countryCode = [[NSLocale currentLocale] countryCode];
-
-    @weakify(self);
-    [self.donateDataController fetchConfigsForCountryCode:countryCode
-                                               completion:^(NSError *_Nullable error) {
-                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                       @strongify(self);
-                                                       settingsCell.isLoading = NO;
-                                                       NSString *currencyCode = [[NSLocale currentLocale] currencyCode];
-                                                       NSString *languageCode = MWKDataStore.shared.languageLinkController.appLanguage.languageCode;
-                                                       NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
-                                                       if ([self canOfferNativeDonateFormWithCountryCode:countryCode currencyCode:currencyCode languageCode:languageCode metricsID:nil appVersion:appVersion]) {
-                                                           [self presentNewDonorExperiencePaymentMethodActionSheetWithDonateSource:DonateSourceSettings countryCode:countryCode currencyCode:currencyCode languageCode:languageCode donateURL:self.donationURL metricsID:nil appVersion:appVersion articleURL:nil sourceView:settingsCell loggingDelegate:self];
-                                                       } else {
-                                                           // New experience pushing to in-app browser
-                                                           [self wmf_navigateToURL:[self donationURL] useSafari:NO];
-                                                       }
-                                                   });
-                                               }];
+    // TODO: Delete cell
 }
 
 #pragma mark - Storage and syncing
@@ -671,7 +651,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [[WMFProfileCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }

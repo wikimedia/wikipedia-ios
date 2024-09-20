@@ -482,9 +482,6 @@
 		673DE3122BAE2C9400E4D431 /* WKProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DE3112BAE2C9400E4D431 /* WKProject+Extensions.swift */; };
 		673DE3132BAE2C9400E4D431 /* WKProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DE3112BAE2C9400E4D431 /* WKProject+Extensions.swift */; };
 		673DE3142BAE2C9400E4D431 /* WKProject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DE3112BAE2C9400E4D431 /* WKProject+Extensions.swift */; };
-		673DF4932AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
-		673DF4942AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
-		673DF4952AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */; };
 		673FC3D0273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
 		673FC3D1273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
 		673FC3D2273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */; };
@@ -672,6 +669,9 @@
 		67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
 		67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
+		678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */; };
+		678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */; };
+		678ABAEA2C9DB94B005CD570 /* DonateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */; };
 		678C7C2A23BE67F0001AC4D5 /* CacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2923BE67F0001AC4D5 /* CacheController.swift */; };
 		678C7C2E23BE705C001AC4D5 /* CacheDBWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */; };
 		678C7C3023BE7319001AC4D5 /* CacheDBWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */; };
@@ -821,9 +821,6 @@
 		67C797C72BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */; };
 		67C797C82BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */; };
 		67C797C92BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */; };
-		67C8E8022AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C8E8012AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift */; };
-		67C8E8032AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C8E8012AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift */; };
-		67C8E8042AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C8E8012AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift */; };
 		67C9D58F28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */; };
 		67C9D59128D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */; };
 		67C9FBFF28C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */; };
@@ -3319,7 +3316,6 @@
 		6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAllAsReadOperation.swift; sourceTree = "<group>"; };
 		673C55CA2ACC684E00E2EBF6 /* DonateFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateFunnel.swift; sourceTree = "<group>"; };
 		673DE3112BAE2C9400E4D431 /* WKProject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKProject+Extensions.swift"; sourceTree = "<group>"; };
-		673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DonateHelpers.swift"; sourceTree = "<group>"; };
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
 		6747117D250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocReferenceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -3402,6 +3398,7 @@
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
 		6785FCC82A66D8DB0078FAF2 /* WMFCleanLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFCleanLevel.swift; sourceTree = "<group>"; };
 		6785FCCA2A6840880078FAF2 /* WatchlistFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFunnel.swift; sourceTree = "<group>"; };
+		678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateCoordinator.swift; sourceTree = "<group>"; };
 		678B3E362B98D76900F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		678B3E372B98D76A00F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lmo; path = lmo.lproj/Localizable.strings; sourceTree = "<group>"; };
 		678B3E382B98D76A00F4DF03 /* lmo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lmo; path = lmo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3481,7 +3478,6 @@
 		67C6F7AA27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModel.swift; sourceTree = "<group>"; };
 		67C78F7028B6DA1300AC207A /* SwiftUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITextView.swift; sourceTree = "<group>"; };
 		67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+FeatureComponentFactory.swift"; sourceTree = "<group>"; };
-		67C8E8012AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFSettingsViewController+DonateHelpers.swift"; sourceTree = "<group>"; };
 		67C9D58E28D3689F00629165 /* WMFLocalizedDateFormatStrings+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFLocalizedDateFormatStrings+Extensions.swift"; sourceTree = "<group>"; };
 		67C9D59028D36BDD00629165 /* WMFFeedNewsStory+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFFeedNewsStory+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		67C9FBFE28C77F350065A530 /* TalkPageTopicComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicComposeViewController.swift; sourceTree = "<group>"; };
@@ -6950,6 +6946,7 @@
 				83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */,
 				83796AF12C9C6EB300E55C69 /* ProfileCoordinator.swift */,
 				83796AF22C9C6EB300E55C69 /* SettingsCoordinator.swift */,
+				678ABAE72C9DB948005CD570 /* DonateCoordinator.swift */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -7572,7 +7569,6 @@
 				7A16C4E4212D941C00F0D5EC /* SubSettingsViewController.swift */,
 				7A16C4E5212D941C00F0D5EC /* SubSettingsViewController.xib */,
 				67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */,
-				67C8E8012AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -8082,7 +8078,6 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				673DF4922AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
 				41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */,
 				41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */,
@@ -10179,7 +10174,6 @@
 				67C6F7A627E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
 				7A1469C5220BC223000A20F1 /* EditHintController.swift in Sources */,
 				007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */,
-				673DF4932AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */,
 				7A610CB7220A30C900C266AE /* HintViewController.swift in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
@@ -10403,6 +10397,7 @@
 				B0E294CD1DB2CF4300861D04 /* UIView+Animations.swift in Sources */,
 				7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
+				678ABAEA2C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */,
 				007CCF1126D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */,
 				7AC19E452301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
@@ -10606,7 +10601,6 @@
 				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
 				6782DBBB2343B861003FA21B /* DiffListViewController.swift in Sources */,
-				67C8E8022AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */,
 				7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
@@ -11229,6 +11223,7 @@
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
+				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				672428982362113900490629 /* DiffFetcher.swift in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				67C6F7A327E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
@@ -11595,7 +11590,6 @@
 				679A240A2968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				67DAEDDB27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
-				673DF4952AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */,
 				83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
 				00D9276D29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				0010F93B27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */,
@@ -11617,7 +11611,6 @@
 				7AB20A0D22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
-				67C8E8042AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */,
 				6758451B2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
@@ -11803,6 +11796,7 @@
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
+				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				67C6F7A227E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
@@ -12169,7 +12163,6 @@
 				7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				679A24092968E0D0008D7686 /* ShiftingScrollView.swift in Sources */,
 				67DAEDDA27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
-				673DF4942AB09DFE00B247E5 /* UIViewController+DonateHelpers.swift in Sources */,
 				83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
 				00D9276C29511E95004ECBEA /* PageHistoryCountsView.swift in Sources */,
 				0010F93A27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */,
@@ -12191,7 +12184,6 @@
 				7AB20A0E22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
-				67C8E8032AC711E1003FAB48 /* WMFSettingsViewController+DonateHelpers.swift in Sources */,
 				6758451A2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,

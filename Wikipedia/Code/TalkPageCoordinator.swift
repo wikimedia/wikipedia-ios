@@ -27,7 +27,10 @@ final class UserTalkCoordinator: Coordinator {
         guard let siteURL else {
             return
         }
-        guard let viewModel = TalkPageViewModel(pageType: .user, pageTitle: username, siteURL: siteURL, source: .profile, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) else {
+        
+        let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+        
+        guard let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, source: .profile, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) else {
             return
         }
 
