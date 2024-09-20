@@ -13,13 +13,15 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     let theme: Theme
     let dataStore: MWKDataStore
+    let isExplore: Bool?
 
     // MARK: Lifecycle
 
-    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, isExplore: Bool = true) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.isExplore = isExplore
     }
 
     // MARK: Coordinator Protocol Methods
@@ -62,7 +64,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
         if let sheetPresentationController = hostingController.sheetPresentationController {
             sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
+            sheetPresentationController.prefersGrabberVisible = false
         }
 
         navigationController.present(hostingController, animated: true, completion: nil)

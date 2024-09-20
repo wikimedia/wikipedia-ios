@@ -13,6 +13,7 @@ public struct WMFProfileView: View {
     public init(viewModel: WMFProfileViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.text]
+        UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
 
     public var body: some View {
@@ -22,6 +23,7 @@ public struct WMFProfileView: View {
                     sectionView(items: viewModel.profileSections[sectionIndex])
                 }
             }
+            .padding(.top)
             .background(Color(uiColor: theme.midBackground))
             .scrollContentBackground(.hidden)
             .navigationTitle(viewModel.localizedStrings.pageTitle)
@@ -36,7 +38,9 @@ public struct WMFProfileView: View {
                     }
                 }
             }
+            Spacer()
         }
+        .background(Color(uiColor: theme.midBackground))
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
     }
@@ -45,7 +49,7 @@ public struct WMFProfileView: View {
         Section {
             ForEach(items.listItems, id: \.id) { item in
                 profileBarItem(item: item)
-                    .listRowBackground(Color(uiColor: theme.paperBackground))
+                    .listRowBackground(Color(uiColor: theme.chromeBackground))
             }
         } footer: {
             if let subtext = items.subtext {
