@@ -398,7 +398,6 @@ class ArticleViewController: ViewController, HintPresenting {
             setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         }
         
-        setupSearchAndProfileButtons()
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
@@ -981,7 +980,6 @@ class ArticleViewController: ViewController, HintPresenting {
             updateRefreshOverlay(visible: true)
         }
         shouldPerformWebRefreshAfterScrollViewDeceleration = true
-        setupSearchAndProfileButtons()
     }
     
     /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
@@ -1277,7 +1275,6 @@ private extension ArticleViewController {
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
-        setupSearchAndProfileButtons()
     }
     
     @objc func applicationWillResignActive(_ notification: Notification) {
