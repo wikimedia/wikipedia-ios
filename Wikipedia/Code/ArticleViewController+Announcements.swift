@@ -66,6 +66,7 @@ extension ArticleViewController {
                 fundraisingPanelVC.isLoading = isLoading
             })
             
+            self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
             
             dataController.markAssetAsPermanentlyHidden(asset: asset)

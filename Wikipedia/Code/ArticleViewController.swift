@@ -121,7 +121,7 @@ class ArticleViewController: ViewController, HintPresenting {
     private weak var altTextBottomSheetViewController: WMFAltTextExperimentModalSheetViewController?
     
     // Coordinator used to navigate a user to the donate form from campaign modal
-    private var donateCoordinator: DonateCoordinator?
+    var donateCoordinator: DonateCoordinator?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
