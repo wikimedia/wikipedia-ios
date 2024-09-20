@@ -1,6 +1,7 @@
 import Foundation
 
-@objc protocol LogoutCoordinatorDelegate: AnyObject {
+@objc(WMFLogoutCoordinatorDelegate)
+protocol LogoutCoordinatorDelegate: AnyObject {
     func didTapLogout()
 }
 
