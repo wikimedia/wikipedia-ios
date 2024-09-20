@@ -20,8 +20,6 @@ import WMFData
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
     static let source = "source"
-    static let campaignArticleURL = "campaign-article-url"
-    static let campaignMetricsID = "campaign-metrics-id"
 }
 
 enum RoutingUserInfoSourceValue: String {
@@ -127,9 +125,7 @@ class ViewControllerRouter: NSObject {
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
-            let campaignArticleURL = userInfo?[RoutingUserInfoKeys.campaignArticleURL] as? URL
-            let campaignMetricsID = userInfo?[RoutingUserInfoKeys.campaignMetricsID] as? String
-            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme, campaignArticleURL: campaignArticleURL, campaignMetricsID: campaignMetricsID)
+            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
             return presentOrPush(singlePageVC, with: completion)
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)

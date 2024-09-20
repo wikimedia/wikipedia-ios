@@ -203,7 +203,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, logoutDelegate: self)
+        
+        guard let navigationController = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self)
+
         self.profileCoordinator = coordinator
         coordinator.start()
     }

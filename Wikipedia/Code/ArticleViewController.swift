@@ -123,6 +123,9 @@ class ArticleViewController: ViewController, HintPresenting {
     var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
     var altTextGuidancePresenter: AltTextGuidancePresenter?
     private weak var altTextBottomSheetViewController: WMFAltTextExperimentModalSheetViewController?
+    
+    // Coordinator used to navigate a user to the donate form from campaign modal
+    var donateCoordinator: DonateCoordinator?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -1305,7 +1308,7 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, logoutDelegate: self, isExplore: false)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, isExplore: false)
         self.profileCoordinator = coordinator
         coordinator.start()
     }
