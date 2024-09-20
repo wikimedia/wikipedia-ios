@@ -91,28 +91,36 @@ enum ProfileState {
                             image: .personFilled,
                             imageColor: UIColor(Color.purple),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.talkPageTitle,
                             image: .chatBubbleFilled,
                             imageColor: UIColor(Color.green),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.watchlistTitle,
                             image: .textBadgeStar,
                             imageColor: UIColor(Color.orange),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showWatchlist)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.logOutTitle,
                             image: .leave,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.logout)
+                            }
                         )
                     ],
                     subtext: nil
@@ -153,7 +161,9 @@ enum ProfileState {
                             image: .leave,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.login)
+                            }
                         )
                     ],
                     subtext: localizedStrings.joinWikipediaSubtext
@@ -177,7 +187,9 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
                         )
                     ],
                     subtext: nil

@@ -3,24 +3,29 @@ import SwiftUI
 import WMFComponents
 
 @objc(WMFProfileCoordinator)
-class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
+final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
     var navigationController: UINavigationController
 
+    weak var delegate: LogoutCoordinatorDelegate?
+
     // MARK: Properties
 
     let theme: Theme
     let dataStore: MWKDataStore
+    let username: String?
     let isExplore: Bool?
 
     // MARK: Lifecycle
 
-    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, isExplore: Bool = true) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.username = dataStore.authenticationManager.authStatePermanentUsername
+        self.delegate = logoutDelegate
         self.isExplore = isExplore
     }
 
@@ -32,7 +37,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
-                pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
+                pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
                 doneButtonTitle: CommonStrings.doneTitle,
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
@@ -86,6 +91,26 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
             dismissProfile {
                 self.showDonate()
             }
+        case .showUserPage:
+            dismissProfile {
+                self.showUserPage()
+            }
+        case .showUserTalkPage:
+            dismissProfile {
+                self.showUserTalkPage()
+            }
+        case .showWatchlist:
+            dismissProfile {
+                self.showWatchlist()
+            }
+        case .login:
+            dismissProfile {
+                self.login()
+            }
+        case .logout:
+            dismissProfile {
+                self.logout()
+            }
         }
     }
 
@@ -95,22 +120,60 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         }
     }
 
-    func showNotifications() {
+    private func showNotifications() {
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         notificationsCoordinator.start()
     }
 
-    func showSettings() {
+    private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
     }
 
-    func showDonate() {
+    private func showDonate() {
         // TODO
+    }
+
+    private func showUserPage() {
+        if let username, let siteURL = dataStore.primarySiteURL {
+            let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
+            userPageCoordinator.start()
+        }
+    }
+
+    private func showUserTalkPage() {
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
+            userTalkCoordinator.start()
+        }
+    }
+
+    private func showWatchlist() {
+        let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
+        watchlistCoordinator.start()
     }
 
     private func dismissProfile() {
         navigationController.dismiss(animated: true, completion: nil)
+    }
+
+    private func login() {
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        loginCoordinator.start()
+}
+
+    private func logout() {
+        let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.didTapLogout()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        navigationController.present(alertController, animated: true, completion: nil)
     }
 
 }

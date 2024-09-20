@@ -25,7 +25,8 @@ final class TalkPagesFunnel {
         case inAppWebView = "in_app_web_view"
         case watchlist
         case unknown
-        
+        case profile
+
         init(routingSource: RoutingUserInfoSourceValue) {
             switch routingSource {
             case .talkPage: self = .talkPage
@@ -38,6 +39,7 @@ final class TalkPagesFunnel {
             case .inAppWebView: self = .inAppWebView
             case .watchlist: self = .watchlist
             case .unknown: self = .unknown
+            case .profile: self = .profile
             }
         }
     }

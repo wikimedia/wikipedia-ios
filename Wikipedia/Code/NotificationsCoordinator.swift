@@ -1,6 +1,6 @@
 import UIKit
 
-public class NotificationsCoordinator: Coordinator {
+public final class NotificationsCoordinator: Coordinator {
 
     // MARK: Coordinator Protocol Properties
 

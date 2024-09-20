@@ -37,6 +37,7 @@ class SinglePageWebViewController: ViewController {
         
         self.navigationItem.backButtonTitle = url.lastPathComponent
         self.navigationItem.backButtonDisplayMode = .generic
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -749,6 +749,12 @@ public class CommonStrings: NSObject {
     public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
 
     public static let altTextFeedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a alt text experiment survey")
+
+    // Account
+
+    public static let logoutAlertTitle =  WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out.")
+
+    public static let logoutAlertMessage = WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out.")
 }
 // Language variant strings
 public extension CommonStrings {
