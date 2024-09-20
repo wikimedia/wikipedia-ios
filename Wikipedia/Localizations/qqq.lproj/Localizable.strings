@@ -69,7 +69,6 @@
 "account-creation-title" = "Title for account creation interface";
 "account-group-title" = "Title for account group on account settings screen.";
 "account-request-vanishing" = "This will initiate the process of requesting your account to be vanished";
-"account-talk-page-title" = "Title for button and page letting user view their account page.";
 "account-talk-preferences-auto-sign-discussions" = "Title for talk page preference that configures adding signature to new posts";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Text explaining how setting the auto-signing of talk page discussions preference works";
 "account-talk-preferences-title" = "Title for talk page preference sections in account settings";
