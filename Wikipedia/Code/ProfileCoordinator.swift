@@ -64,7 +64,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
         if let sheetPresentationController = hostingController.sheetPresentationController {
             sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
+            sheetPresentationController.prefersGrabberVisible = false
         }
 
         navigationController.present(hostingController, animated: true, completion: nil)
