@@ -1,12 +1,19 @@
 import UIKit
 
 final class UserTalkCoordinator: Coordinator {
+
+    // MARK: Coordinator Protocol Properties
+    
     var navigationController: UINavigationController
+    
+    // MARK: Properties
 
     private var theme: Theme
     private var username: String
     private var siteURL: URL?
     private var dataStore: MWKDataStore
+
+    // MARK: Lifecycle
 
     init(navigationController: UINavigationController, theme: Theme, username: String, siteURL: URL, dataStore: MWKDataStore) {
         self.navigationController = navigationController
@@ -25,7 +32,6 @@ final class UserTalkCoordinator: Coordinator {
         }
 
         let talkPageViewController = TalkPageViewController(theme: theme, viewModel: viewModel)
-//        let navVC = WMFThemeableNavigationController(rootViewController: talkPageViewController, theme: theme)
         navigationController.pushViewController(talkPageViewController, animated: true)
     }
 

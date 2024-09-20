@@ -1943,19 +1943,15 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
 }
 
 extension ExploreViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        self.logout()
+
+    func didTapLogin() {
+
     }
-    
-}
 
-extension ExploreViewController {
-    func logout() {
-
+    func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user) {
-//                LoginFunnel.shared.logLogoutInSettings() //update with profile
-            }
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
     }
+    
 }

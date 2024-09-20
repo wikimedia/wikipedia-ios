@@ -101,6 +101,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showWatchlist()
             }
+        case .login:
+            dismissProfile {
+                self.login()
+            }
         case .logout:
             dismissProfile {
                 self.logout()
@@ -114,35 +118,35 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         }
     }
 
-    func showNotifications() {
+    private func showNotifications() {
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         notificationsCoordinator.start()
     }
 
-    func showSettings() {
+    private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
     }
 
-    func showDonate() {
+    private func showDonate() {
         // TODO
     }
 
-    func showUserPage() {
+    private func showUserPage() {
         if let username, let siteURL = dataStore.primarySiteURL {
             let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
             userPageCoordinator.start()
         }
     }
 
-    func showUserTalkPage() {
+    private func showUserTalkPage() {
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
         }
     }
 
-    func showWatchlist() {
+    private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
     }
@@ -151,9 +155,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         navigationController.dismiss(animated: true, completion: nil)
     }
 
+    private func login() {
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        loginCoordinator.start()
+}
+
     private func logout() {
-        // Move strings
-        let alertController = UIAlertController(title: WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out."), message: WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out."), preferredStyle: .alert)
+        let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
             guard let self = self else {
                 return

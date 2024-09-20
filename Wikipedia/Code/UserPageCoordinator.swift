@@ -1,11 +1,18 @@
 import UIKit
 
 final class UserPageCoordinator: Coordinator {
+
+    // MARK: Coordinator Protocol Properties
+    
     var navigationController: UINavigationController
+
+    // MARK: Properties
 
     private var theme: Theme
     private var username: String
     private var siteURL: URL
+
+    // MARK: Lifecycle
 
     init(navigationController: UINavigationController, theme: Theme, username: String, siteURL: URL) {
         self.navigationController = navigationController

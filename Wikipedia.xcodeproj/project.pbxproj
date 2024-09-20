@@ -1307,9 +1307,12 @@
 		8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
 		830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
 		830795212C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
-		830795232C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogOutCoordinatorDelegate.swift */; };
-		830795242C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogOutCoordinatorDelegate.swift */; };
-		830795252C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogOutCoordinatorDelegate.swift */; };
+		830795232C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
+		830795242C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
+		830795252C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
+		830795272C9DE92200E453BD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795262C9DE91900E453BD /* LoginCoordinator.swift */; };
+		830795282C9DE92200E453BD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795262C9DE91900E453BD /* LoginCoordinator.swift */; };
+		830795292C9DE92200E453BD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795262C9DE91900E453BD /* LoginCoordinator.swift */; };
 		830AD2B924D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
 		830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
 		830AD2BB24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
@@ -3692,7 +3695,8 @@
 		83023C1E20E6584F00EC7592 /* SearchTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransition.swift; sourceTree = "<group>"; };
 		8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+FormattingToolbarExtension.swift"; sourceTree = "<group>"; };
 		8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCoordinator.swift; sourceTree = "<group>"; };
-		830795222C9DB3BA00E453BD /* LogOutCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		830795262C9DE91900E453BD /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageUserScript.swift; sourceTree = "<group>"; };
 		830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Push.swift"; sourceTree = "<group>"; };
 		830C0DD923D9C218006471C4 /* Properties.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Properties.js; sourceTree = "<group>"; };
@@ -6941,7 +6945,8 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				830795222C9DB3BA00E453BD /* LogOutCoordinatorDelegate.swift */,
+				830795262C9DE91900E453BD /* LoginCoordinator.swift */,
+				830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */,
 				8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */,
 				83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */,
 				83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */,
@@ -10400,6 +10405,7 @@
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				D8E6FF7724058AC600686272 /* WMFWebView.m in Sources */,
+				830795292C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+Animations.swift in Sources */,
 				7ABE17242239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -10619,7 +10625,7 @@
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
 				7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
-				830795242C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */,
+				830795242C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				7AB20A0C22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				678D29B3272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */,
@@ -11145,6 +11151,7 @@
 				D8E27BA21F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8B1668D1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				83FDE79B293564AC006D55FE /* Link.swift in Sources */,
+				830795282C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHousekeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				7A0FF2CD230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
@@ -11610,7 +11617,7 @@
 				006ABEEA2901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				671DF9C325F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* TableOfContentsPresentationController.swift in Sources */,
-				830795252C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */,
+				830795252C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */,
 				7ABE17012239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C020349B91006A364C /* Collection.swift in Sources */,
 				67C6F79927E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
@@ -11719,6 +11726,7 @@
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
 				83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8351CE7A20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
+				830795272C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				83FDE79A293564AC006D55FE /* Link.swift in Sources */,
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A0FF2CE230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
@@ -12184,7 +12192,7 @@
 				006ABEE92901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				671DF9C225F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* TableOfContentsPresentationController.swift in Sources */,
-				830795232C9DB3C100E453BD /* LogOutCoordinatorDelegate.swift in Sources */,
+				830795232C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */,
 				7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C120349B91006A364C /* Collection.swift in Sources */,
 				67C6F79827E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
