@@ -25,6 +25,4 @@ final class WatchlistCoordinator: Coordinator {
 
         NSUserActivity.wmf_navigate(to: userActivity)
     }
-    
-
 }

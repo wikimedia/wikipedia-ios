@@ -412,7 +412,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    // move to explore
     [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
                                                               theme:self.theme
                                                          completion:^{

@@ -227,8 +227,6 @@ class TalkPageViewController: ViewController {
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
-
-
         fetchTalkPage()
         setupToolbar()
     }
