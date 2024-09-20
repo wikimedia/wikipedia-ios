@@ -127,10 +127,6 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
                     return
                 }
                 
-                guard error == nil else {
-                    return
-                }
-                
                 guard let currencyCode = Locale.current.currency?.identifier else {
                     return
                 }
@@ -197,6 +193,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         }))
         
         alert.preferredAction = applePayAction
+        alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
 
         alert.popoverPresentationController?.sourceView = navigationController.view
         alert.popoverPresentationController?.sourceRect = targetRects.donateButtonFrame
