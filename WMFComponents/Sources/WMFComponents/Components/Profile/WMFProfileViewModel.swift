@@ -102,7 +102,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.talkPageTitle,
@@ -111,7 +113,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.watchlistTitle,
@@ -120,7 +124,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showWatchlist)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.logOutTitle,
@@ -129,7 +135,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.logout)
+                            }
                         )
                     ],
                     subtext: nil
@@ -138,7 +146,7 @@ enum ProfileState {
                     listItems: [
                         ProfileListItem(
                             text: localizedStrings.donateTitle,
-                            image: .heart,
+                            image: .heartFilled,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
                             isDonate: true,
@@ -178,7 +186,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.login)
+                            }
                         )
                     ],
                     subtext: localizedStrings.joinWikipediaSubtext
@@ -187,7 +197,7 @@ enum ProfileState {
                     listItems: [
                         ProfileListItem(
                             text: localizedStrings.donateTitle,
-                            image: .heart,
+                            image: .heartFilled,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
                             isDonate: true,
@@ -208,7 +218,9 @@ enum ProfileState {
                             hasNotifications: nil,
                             isDonate: false,
                             isLoadingDonateConfigs: false,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
                         )
                     ],
                     subtext: nil

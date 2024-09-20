@@ -5,33 +5,44 @@ import WMFComponents
 import WMFData
 
 @objc(WMFProfileCoordinator)
-class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
+final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
     var navigationController: UINavigationController
 
+    weak var delegate: LogoutCoordinatorDelegate?
+
     // MARK: Properties
 
     let theme: Theme
     let dataStore: MWKDataStore
-    private let donateSouce: DonateCoordinator.Source
-    private let targetRects = WMFProfileViewTargetRects()
+
     private weak var viewModel: WMFProfileViewModel?
     
+    private let donateSouce: DonateCoordinator.Source
+    private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
+    
+    let username: String?
+    let isExplore: Bool?
+
 
     // MARK: Lifecycle
     
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, donateSouce: .settingsProfile, dataStore: dataStore)
+    // Convenience method to output a Settings coordinator from Objective-C
+    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) -> ProfileCoordinator {
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, isExplore: isExplore)
     }
 
-    init(navigationController: UINavigationController, theme: Theme, donateSouce: DonateCoordinator.Source, dataStore: MWKDataStore) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) {
         self.navigationController = navigationController
         self.theme = theme
         self.donateSouce = donateSouce
         self.dataStore = dataStore
+        self.username = dataStore.authenticationManager.authStatePermanentUsername
+        self.delegate = logoutDelegate
+        self.isExplore = isExplore
     }
 
     // MARK: Coordinator Protocol Methods
@@ -42,7 +53,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
             WMFProfileViewModel.LocalizedStrings(
-                pageTitle: (isLoggedIn ? MWKDataStore.shared().authenticationManager.authStatePermanentUsername : pageTitle) ?? pageTitle,
+                pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
                 doneButtonTitle: CommonStrings.doneTitle,
                 notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
                 userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
@@ -76,7 +87,7 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
 
         if let sheetPresentationController = hostingController.sheetPresentationController {
             sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
+            sheetPresentationController.prefersGrabberVisible = false
         }
 
         navigationController.present(hostingController, animated: true, completion: nil)
@@ -97,6 +108,26 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         case .showDonate:
             // Purposefully not dismissing profile here. We need DonateCoordinator to fetch and present an action sheet first before dismissing profile.
             self.showDonate()
+        case .showUserPage:
+            dismissProfile {
+                self.showUserPage()
+            }
+        case .showUserTalkPage:
+            dismissProfile {
+                self.showUserTalkPage()
+            }
+        case .showWatchlist:
+            dismissProfile {
+                self.showWatchlist()
+            }
+        case .login:
+            dismissProfile {
+                self.login()
+            }
+        case .logout:
+            dismissProfile {
+                self.logout()
+            }
         }
     }
 
@@ -106,12 +137,12 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
         }
     }
 
-    func showNotifications() {
+    private func showNotifications() {
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         notificationsCoordinator.start()
     }
 
-    func showSettings() {
+    private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
     }
@@ -133,8 +164,46 @@ class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
     }
     
 
+    private func showUserPage() {
+        if let username, let siteURL = dataStore.primarySiteURL {
+            let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
+            userPageCoordinator.start()
+        }
+    }
+
+    private func showUserTalkPage() {
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
+            userTalkCoordinator.start()
+        }
+    }
+
+    private func showWatchlist() {
+        let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
+        watchlistCoordinator.start()
+    }
+
     private func dismissProfile() {
         navigationController.dismiss(animated: true, completion: nil)
+    }
+
+    private func login() {
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        loginCoordinator.start()
+}
+
+    private func logout() {
+        let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.didTapLogout()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        navigationController.present(alertController, animated: true, completion: nil)
     }
 
 }

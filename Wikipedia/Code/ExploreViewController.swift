@@ -10,7 +10,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
@@ -209,7 +208,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, donateSouce: .exploreProfile, dataStore: dataStore)
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self)
+
         self.profileCoordinator = coordinator
         coordinator.start()
     }
@@ -1945,4 +1945,12 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
+}
+
+extension ExploreViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
 }

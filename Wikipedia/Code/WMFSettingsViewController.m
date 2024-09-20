@@ -18,7 +18,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.or
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate, WMFLogoutCoordinatorDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -131,7 +131,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)updateProfileViewButton {
     NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
     BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
+    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
     UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
     self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
@@ -652,7 +652,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore];
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }
@@ -671,6 +671,18 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     dispatch_async(dispatch_get_main_queue(), ^{
         [self loadSections];
     });
+}
+
+#pragma mark WMFLogoutCoordinatorDelegate
+
+- (void)didTapLogout {
+    @weakify(self);
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
+        @strongify(self);
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
+                    
+        }];
+    }];
 }
 
 @end

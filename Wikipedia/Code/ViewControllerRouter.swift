@@ -33,6 +33,7 @@ enum RoutingUserInfoSourceValue: String {
     case inAppWebView
     case watchlist
     case unknown
+    case profile
 }
 
 @objc(WMFViewControllerRouter)

@@ -1,6 +1,7 @@
-import WMFComponents
 import WMF
+import SwiftUI
 import CocoaLumberjackSwift
+import WMFComponents
 import WMFData
 
 protocol AltTextDelegate: AnyObject {
@@ -47,6 +48,9 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
+    
+    // Coordinator
+    private var profileCoordinator: ProfileCoordinator?
     
     var session: Session {
         return dataStore.session
@@ -417,6 +421,7 @@ class ArticleViewController: ViewController, HintPresenting {
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        setupSearchAndProfileButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -921,6 +926,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        setupSearchAndProfileButtons()
         guard viewIfLoaded != nil else {
             return
         }
@@ -1184,7 +1190,7 @@ private extension ArticleViewController {
             self.navigationBar.updateNavigationItems()
         } else {
             setupWButton()
-            setupSearchButton()
+            setupSearchAndProfileButtons()
         }
         
         addNotificationHandlers()
@@ -1285,8 +1291,26 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchButton() {
-        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    func setupSearchAndProfileButtons() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
+        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        
+        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileViewButtonItem]
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func userDidTapProfile() {
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, logoutDelegate: self, isExplore: false)
+        self.profileCoordinator = coordinator
+        coordinator.start()
     }
     
     func setupMessagingController() {
@@ -1630,6 +1654,16 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
     func didFocusTextView() {
         if let project = project {
             EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
+        }
+    }
+}
+
+// LogoutCoordinatorDelegate
+
+extension ArticleViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
     }
 }
