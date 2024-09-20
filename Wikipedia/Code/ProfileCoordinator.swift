@@ -16,15 +16,17 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     let theme: Theme
     let dataStore: MWKDataStore
     let username: String?
+    let isExplore: Bool?
 
     // MARK: Lifecycle
 
-    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
+        self.isExplore = isExplore
     }
 
     // MARK: Coordinator Protocol Methods
@@ -67,7 +69,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
         if let sheetPresentationController = hostingController.sheetPresentationController {
             sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
+            sheetPresentationController.prefersGrabberVisible = false
         }
 
         navigationController.present(hostingController, animated: true, completion: nil)

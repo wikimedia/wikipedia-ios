@@ -131,7 +131,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)updateProfileViewButton {
     NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
     BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
+    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
     UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
     self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
@@ -672,7 +672,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [[WMFProfileCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self];
+    WMFProfileCoordinator *profileCoordinator = [[WMFProfileCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }

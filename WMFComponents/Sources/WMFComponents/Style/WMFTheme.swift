@@ -38,6 +38,7 @@ public struct WMFTheme: Equatable {
     public let editorReplacedMatchBackground: UIColor
     public let editorButtonSelectedBackground: UIColor
     public let editorKeyboardShadow: UIColor
+    public let chromeBackground: UIColor
 
 	public var preferredColorScheme: ColorScheme {
 		return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
@@ -81,7 +82,8 @@ public struct WMFTheme: Equatable {
         editorSelectedMatchBackground: WMFColor.yellow600,
         editorReplacedMatchBackground: WMFColor.matchReplacedBackground,
         editorButtonSelectedBackground: WMFColor.gray200,
-        editorKeyboardShadow: WMFColor.gray200
+        editorKeyboardShadow: WMFColor.gray200,
+        chromeBackground: WMFColor.white
 	)
     
     public static let sepia = WMFTheme(
@@ -118,7 +120,8 @@ public struct WMFTheme: Equatable {
         editorSelectedMatchBackground: WMFColor.yellow600,
         editorReplacedMatchBackground: WMFColor.matchReplacedBackground,
         editorButtonSelectedBackground: WMFColor.beige400,
-        editorKeyboardShadow: WMFColor.taupe200
+        editorKeyboardShadow: WMFColor.taupe200,
+        chromeBackground: WMFColor.beige100
     )
 
 	public static let dark = WMFTheme(
@@ -155,7 +158,8 @@ public struct WMFTheme: Equatable {
         editorSelectedMatchBackground: WMFColor.yellow600,
         editorReplacedMatchBackground: WMFColor.matchReplacedBackground,
         editorButtonSelectedBackground: WMFColor.gray600,
-        editorKeyboardShadow: WMFColor.gray800
+        editorKeyboardShadow: WMFColor.gray800,
+        chromeBackground: WMFColor.gray650
 	)
 
 	public static let black = WMFTheme(
@@ -192,7 +196,8 @@ public struct WMFTheme: Equatable {
         editorSelectedMatchBackground: WMFColor.yellow600,
         editorReplacedMatchBackground: WMFColor.matchReplacedBackground,
         editorButtonSelectedBackground: WMFColor.gray600,
-        editorKeyboardShadow: WMFColor.gray700
+        editorKeyboardShadow: WMFColor.gray700,
+        chromeBackground: WMFColor.gray650
 	)
 
 }

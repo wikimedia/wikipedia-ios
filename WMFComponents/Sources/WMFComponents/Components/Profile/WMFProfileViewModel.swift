@@ -129,7 +129,7 @@ enum ProfileState {
                     listItems: [
                         ProfileListItem(
                             text: localizedStrings.donateTitle,
-                            image: .heart,
+                            image: .heartFilled,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
                             action: {}
@@ -172,7 +172,7 @@ enum ProfileState {
                     listItems: [
                         ProfileListItem(
                             text: localizedStrings.donateTitle,
-                            image: .heart,
+                            image: .heartFilled,
                             imageColor: UIColor(Color.red),
                             hasNotifications: nil,
                             action: {}
