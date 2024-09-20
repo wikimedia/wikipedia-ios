@@ -94,6 +94,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPage()
             }
+        case .showWatchlist:
+            dismissProfile {
+                self.showWatchlist()
+            }
         }
     }
 
@@ -129,7 +133,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
         }
+    }
 
+    func showWatchlist() {
+        let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
+        watchlistCoordinator.start()
     }
 
     private func dismissProfile() {

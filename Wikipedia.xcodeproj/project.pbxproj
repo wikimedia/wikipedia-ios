@@ -1304,6 +1304,9 @@
 		830378402940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */; };
 		830378412940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */; };
 		830378422940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */; };
+		8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
+		830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
+		830795212C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
 		830AD2B924D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
 		830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
 		830AD2BB24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */; };
@@ -3685,6 +3688,7 @@
 		83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionsController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83023C1E20E6584F00EC7592 /* SearchTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransition.swift; sourceTree = "<group>"; };
 		8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+FormattingToolbarExtension.swift"; sourceTree = "<group>"; };
+		8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCoordinator.swift; sourceTree = "<group>"; };
 		830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageUserScript.swift; sourceTree = "<group>"; };
 		830C0DD423D9AFBE006471C4 /* UIViewController+Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Push.swift"; sourceTree = "<group>"; };
 		830C0DD923D9C218006471C4 /* Properties.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Properties.js; sourceTree = "<group>"; };
@@ -6933,6 +6937,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */,
 				83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */,
 				83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */,
 				83796AEF2C9C6EB300E55C69 /* Coordinator.swift */,
@@ -10242,6 +10247,7 @@
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				6741245027E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
 				00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
+				830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
@@ -11365,6 +11371,7 @@
 				83C06890292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift in Sources */,
 				7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6782DBBC2343B861003FA21B /* DiffListViewController.swift in Sources */,
+				8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AF6F76722395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				83C06895292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
@@ -11937,6 +11944,7 @@
 				83C0688F292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift in Sources */,
 				D8EC3E971E9BDA35006712EB /* TableOfContentsHeader.swift in Sources */,
 				7AF6F76822395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
+				830795212C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				83C06894292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,

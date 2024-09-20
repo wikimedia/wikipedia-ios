@@ -109,7 +109,9 @@ enum ProfileState {
                             image: .textBadgeStar,
                             imageColor: UIColor(Color.orange),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showWatchlist)
+                            }
                         ),
                         ProfileListItem(
                             text: localizedStrings.logOutTitle,
@@ -181,7 +183,9 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
                         )
                     ],
                     subtext: nil
