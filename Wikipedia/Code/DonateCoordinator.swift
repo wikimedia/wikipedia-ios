@@ -8,10 +8,11 @@ class DonateCoordinator: Coordinator {
     // MARK: Nested Types
     
     typealias ArticleURL = URL
+    typealias DonateURL = URL
     typealias MetricsID = String
     
     enum Source {
-        case articleCampaignModal(ArticleURL, MetricsID)
+        case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
         case settingsProfile
         case exploreProfile
         case articleProfile
@@ -27,9 +28,9 @@ class DonateCoordinator: Coordinator {
     private let theme: Theme
     
     private lazy var wikimediaProject: WikimediaProject? = {
-        if case .articleCampaignModal(let url, _) = source {
+        if case .articleCampaignModal(let articleURL, _, _) = source {
             
-            guard let wikimediaProject = WikimediaProject(siteURL: url) else {
+            guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
             
@@ -40,7 +41,7 @@ class DonateCoordinator: Coordinator {
     }()
     
     private lazy var metricsID: String? = {
-        if case .articleCampaignModal(let articleURL, let metricsID) = source {
+        if case .articleCampaignModal(_, let metricsID, _) = source {
             return metricsID
         }
         
@@ -49,20 +50,20 @@ class DonateCoordinator: Coordinator {
     
     private var webViewURL: URL? {
         
-        var urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
+        var urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&uselang=<langcode>"
+        
+        if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
+            urlString = articleCampaignDonateURL.absoluteString
+        }
         
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
             return nil
         }
         
-        guard let appVersion = Bundle.main.wmf_debugVersion().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            return nil
-        }
-        
         urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
-        urlString = urlString.replacingOccurrences(of: "<app-version>", with: appVersion)
         
-        return URL(string: urlString)
+        let appVersion = Bundle.main.wmf_debugVersion()
+        return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
     }
     
     // MARK: Lifecycle
@@ -315,11 +316,7 @@ extension DonateCoordinator: WMFDonateDelegate {
     public func donateDidSuccessfullySubmitPayment() {
         self.navigationController.popViewController(animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            
-            guard let self else {
-                return
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
@@ -412,5 +409,28 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     
     public func logDonateFormUserDidTapTaxInfoLink() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: wikimediaProject)
+    }
+}
+
+// MARK: URL Extensions
+
+fileprivate extension URL {
+    func appendingAppVersion(appVersion: String?) -> URL {
+        
+        guard let appVersion,
+              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
+        var queryItems = components.queryItems else {
+            return self
+        }
+        
+        
+        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            return self
+        }
+        
+        return url
     }
 }
