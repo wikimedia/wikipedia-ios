@@ -10,5 +10,9 @@ public enum ProfileAction {
     case showNotifications
     case showSettings
     case showDonate
-    // TODO
+    case showUserPage
+    case showUserTalkPage
+    case showWatchlist
+    case login
+    case logout
 }
