@@ -177,7 +177,9 @@ enum ProfileState {
                             image: .gear,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.showSettings)
+                            }
                         )
                     ],
                     subtext: nil
