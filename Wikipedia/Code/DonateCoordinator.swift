@@ -240,7 +240,7 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
-        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, delegate: self, loggingDelegate: self) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
         }
         
@@ -248,7 +248,7 @@ class DonateCoordinator: Coordinator {
     }
     
     private func pushToNativeDonateForm(donateViewModel: WMFDonateViewModel) {
-        let donateViewController = WMFDonateViewController(viewModel: donateViewModel, delegate: self, loggingDelegate: self)
+        let donateViewController = WMFDonateViewController(viewModel: donateViewModel)
         
         navigationController.pushViewController(donateViewController, animated: true)
     }
@@ -256,15 +256,41 @@ class DonateCoordinator: Coordinator {
     private func pushToOtherPaymentMethod() {
         guard let webViewURL else { return }
         
-        let webVC = SinglePageWebViewController(url: webViewURL, theme: theme)
+        let completeButtonTitle: String
+        if case .articleCampaignModal(_, _, _) = source {
+            completeButtonTitle = CommonStrings.returnToArticle
+        } else {
+            completeButtonTitle = CommonStrings.returnButtonTitle
+        }
+        let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
+        let webVC = SinglePageWebViewController(url: webViewURL, theme: theme, donateConfig: donateConfig)
         navigationController.pushViewController(webVC, animated: true)
     }
 }
 
-// MARK: WMFDonateDelegate
+// MARK: DonateCoordinatorDelegate
 
-extension DonateCoordinator: WMFDonateDelegate {
-    public func donateDidTapProblemsDonatingLink() {
+extension DonateCoordinator: DonateCoordinatorDelegate {
+    func handleDonateAction(_ action: WMFComponents.DonateCoordinatorAction) {
+        switch action {
+        case .nativeFormDidTapProblemsDonating:
+            showProblemsDonating()
+        case .nativeFormDidTapOtherWaysToGive:
+            showOtherWaysToGive()
+        case .nativeFormDidTapFAQ:
+            showFrequentlyAskedQuestions()
+        case .nativeFormDidTapTaxInfo:
+            showTaxDeductibilityInformation()
+        case .nativeFormDidTriggerPaymentSuccess:
+            popAndShowSuccessToastFromNativeForm()
+        case .webViewFormThankYouDidTapReturn:
+            popFromWebFormThankYouPage()
+        case .webViewFormThankYouDidDisappear:
+            displayThankYouToastAfterDelay()
+        }
+    }
+    
+    private func showProblemsDonating() {
         
         guard let countryCode = Locale.current.region?.identifier,
               let languageCode = Locale.current.language.languageCode?.identifier else {
@@ -278,7 +304,7 @@ extension DonateCoordinator: WMFDonateDelegate {
         UIApplication.shared.open(url)
     }
     
-    public func donateDidTapOtherWaysToGive() {
+    private func showOtherWaysToGive() {
         
         guard let countryCode = Locale.current.region?.identifier,
               let languageCode = Locale.current.language.languageCode?.identifier else {
@@ -292,7 +318,7 @@ extension DonateCoordinator: WMFDonateDelegate {
         UIApplication.shared.open(url)
     }
     
-    public func donateDidTapFrequentlyAskedQuestions() {
+    private func showFrequentlyAskedQuestions() {
         guard let countryCode = Locale.current.region?.identifier,
               let languageCode = Locale.current.language.languageCode?.identifier else {
             return
@@ -305,7 +331,7 @@ extension DonateCoordinator: WMFDonateDelegate {
         UIApplication.shared.open(url)
     }
     
-    public func donateDidTapTaxDeductibilityInformation() {
+    public func showTaxDeductibilityInformation() {
         guard let url = URL(string: "https://donate.wikimedia.org/wiki/Tax_deductibility") else {
             return
         }
@@ -313,11 +339,21 @@ extension DonateCoordinator: WMFDonateDelegate {
         UIApplication.shared.open(url)
     }
     
-    public func donateDidSuccessfullySubmitPayment() {
+    private func popAndShowSuccessToastFromNativeForm() {
         self.navigationController.popViewController(animated: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+        }
+    }
+    
+    private func popFromWebFormThankYouPage() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    private func displayThankYouToastAfterDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
@@ -326,13 +362,47 @@ extension DonateCoordinator: WMFDonateDelegate {
 // MARK: WMFDonateLoggingDelegate
 
 extension DonateCoordinator: WMFDonateLoggingDelegate {
+    func handleDonateLoggingAction(_ action: WMFComponents.WMFDonateLoggingAction) {
+        switch action {
+        case .nativeFormDidAppear:
+            logNativeFormDidAppear()
+        case .nativeFormDidTriggerError(let error):
+            logNativeFormDidTriggerError(error: error)
+        case .nativeFormDidTapAmountPresetButton:
+            logNativeFormDidTapAmountPresetButton()
+        case .nativeFormDidEnterAmountInTextfield:
+            logNativeFormDidEnterAmountInTextfield()
+        case .nativeFormDidTapApplePayButton(let transactionFeeIsSelected, let recurringMonthlyIsSelected, let emailOptInIsSelected):
+            logNativeFormDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected)
+        case .nativeFormDidAuthorizeApplePayPaymentSheet(let amount, let presetIsSelected, let recurringMonthlyIsSelected, let donorEmail, let metricsID):
+            logNativeFormDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, metricsID: metricsID)
+        case .nativeFormDidTriggerPaymentSuccess:
+            logNativeFormDidTriggerPaymentSuccess()
+        case .nativeFormDidTapProblemsDonating:
+            logNativeFormDidTapProblemsDonating()
+        case .nativeFormDidTapOtherWaysToGive:
+            logNativeFormDidTapOtherWaysToGive()
+        case .nativeFormDidTapFAQ:
+            logNativeFormDidTapFAQ()
+        case .nativeFormDidTapTaxInfo:
+            logNativeFormDidTapTaxInfo()
+        case .webViewFormDidAppear:
+            logWebViewFormDidAppear()
+        case .webViewFormThankYouPageDidAppear:
+            logWebViewFormThankYouPageDidAppear()
+        case .webViewFormThankYouDidTapReturn:
+            logWebViewFormThankYouDidTapReturn()
+        case .webViewFormThankYouDidDisappear:
+            logWebViewFormThankYouDidDisappear()
+        }
+    }
+    
 
-    public func logDonateFormDidAppear() {
-        
+    private func logNativeFormDidAppear() {
         DonateFunnel.shared.logDonateFormNativeApplePayImpression(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTriggerError(error: any Error) {
+    private func logNativeFormDidTriggerError(error: any Error) {
         
         let errorReason = (error as NSError).description
         let errorCode = String((error as NSError).code)
@@ -362,23 +432,23 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         DonateFunnel.shared.logDonateFormNativeApplePaySubmissionError(errorReason: errorReason, errorCode: errorCode, orderID: nil, project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTapAmountPresetButton() {
+    private func logNativeFormDidTapAmountPresetButton() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidEnterAmountInTextfield() {
+    private func logNativeFormDidEnterAmountInTextfield() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?) {
+    private func logNativeFormDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?) {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
+    private func logNativeFormDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
         DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: wikimediaProject)
     }
     
-    func logDonateDidSuccessfullySubmitPayment() {
+    private func logNativeFormDidTriggerPaymentSuccess() {
         switch source {
         case .exploreProfile:
             print("TODO: Logging")
@@ -395,20 +465,56 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         }
     }
     
-    public func logDonateFormUserDidTapProblemsDonatingLink() {
+    private func logNativeFormDidTapProblemsDonating() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTapOtherWaysToGiveLink() {
+    private func logNativeFormDidTapOtherWaysToGive() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTapFAQLink() {
+    private func logNativeFormDidTapFAQ() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: wikimediaProject)
     }
     
-    public func logDonateFormUserDidTapTaxInfoLink() {
+    private func logNativeFormDidTapTaxInfo() {
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: wikimediaProject)
+    }
+    
+    private func logWebViewFormDidAppear() {
+        DonateFunnel.shared.logDonateFormInAppWebViewImpression(project: wikimediaProject)
+    }
+    
+    private func logWebViewFormThankYouPageDidAppear() {
+        if case .articleCampaignModal(_, let metricsID, _) = source {
+            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject, metricsID: metricsID)
+        } else {
+            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: nil, metricsID: nil)
+        }
+    }
+    
+    private func logWebViewFormThankYouDidTapReturn() {
+        if case .articleCampaignModal = source,
+        let wikimediaProject {
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject)
+        } else {
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
+        }
+    }
+    
+    private func logWebViewFormThankYouDidDisappear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            
+            guard let self else {
+                return
+            }
+            
+            if let wikimediaProject {
+                DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
+            } else {
+                DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+            }
+        }
     }
 }
 
