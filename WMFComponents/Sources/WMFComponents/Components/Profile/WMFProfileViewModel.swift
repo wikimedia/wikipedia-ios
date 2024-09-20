@@ -118,7 +118,9 @@ enum ProfileState {
                             image: .leave,
                             imageColor: UIColor(Color.gray),
                             hasNotifications: nil,
-                            action: {}
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.logout)
+                            }
                         )
                     ],
                     subtext: nil

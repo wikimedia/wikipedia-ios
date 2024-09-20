@@ -13,4 +13,5 @@ public enum ProfileAction {
     case showUserPage
     case showUserTalkPage
     case showWatchlist
+    case logout
 }

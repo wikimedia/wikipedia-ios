@@ -9,6 +9,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     var navigationController: UINavigationController
 
+    weak var delegate: LogoutCoordinatorDelegate?
+
     // MARK: Properties
 
     let theme: Theme
@@ -17,11 +19,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     // MARK: Lifecycle
 
-    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.username = dataStore.authenticationManager.authStatePermanentUsername
+        self.delegate = logoutDelegate
     }
 
     // MARK: Coordinator Protocol Methods
@@ -98,6 +101,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showWatchlist()
             }
+        case .logout:
+            dismissProfile {
+                self.logout()
+            }
         }
     }
 
@@ -142,6 +149,21 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     private func dismissProfile() {
         navigationController.dismiss(animated: true, completion: nil)
+    }
+
+    private func logout() {
+        // Move strings
+        let alertController = UIAlertController(title: WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out."), message: WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out."), preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.didTapLogout()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        navigationController.present(alertController, animated: true, completion: nil)
     }
 
 }
