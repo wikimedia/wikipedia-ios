@@ -257,7 +257,7 @@ class DonateCoordinator: Coordinator {
         guard let webViewURL else { return }
         
         let completeButtonTitle: String
-        if case .articleCampaignModal(_, _, _) = source {
+        if case .articleCampaignModal = source {
             completeButtonTitle = CommonStrings.returnToArticle
         } else {
             completeButtonTitle = CommonStrings.returnButtonTitle
