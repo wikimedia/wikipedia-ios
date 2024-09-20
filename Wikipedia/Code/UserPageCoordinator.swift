@@ -24,8 +24,7 @@ final class UserPageCoordinator: Coordinator {
     func start() {
         if let url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true) {
             let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
-            let navVC = WMFThemeableNavigationController(rootViewController: singlePageWebViewController, theme: theme)
-            navigationController.present(navVC, animated: true)
+            navigationController.pushViewController(singlePageWebViewController, animated: true)
         }
     }
 }
