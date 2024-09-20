@@ -1305,7 +1305,7 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, isExplore: false)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, logoutDelegate: self, isExplore: false)
         self.profileCoordinator = coordinator
         coordinator.start()
     }
@@ -1651,6 +1651,16 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
     func didFocusTextView() {
         if let project = project {
             EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
+        }
+    }
+}
+
+// LogoutCoordinatorDelegate
+
+extension ArticleViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
     }
 }
