@@ -26,6 +26,10 @@ extension WMFSettingsViewController: WMFDonateDelegate {
 }
 
 extension WMFSettingsViewController: WMFDonateLoggingDelegate {
+    public func logDonateDidSuccessfullySubmitPayment() {
+        sharedLogDonateDidSuccessfullySubmitPayment(source: .settings, articleURL: nil)
+    }
+    
     public func logDonateFormDidAppear() {
         sharedLogDonateFormDidAppear()
     }

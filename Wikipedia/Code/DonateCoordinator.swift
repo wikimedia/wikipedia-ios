@@ -322,21 +322,6 @@ extension DonateCoordinator: WMFDonateDelegate {
             }
             
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
-            
-            switch self.source {
-            case .exploreProfile:
-                print("TODO: Logging")
-            case .articleProfile:
-                print("TODO: Logging")
-            case .settingsProfile:
-                print("TODO: Logging")
-                // This is the old donate logging from WMFSettingsViewController.m cell
-                // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-            case .articleCampaignModal:
-                if let wikimediaProject = self.wikimediaProject {
-                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
-                }
-            }
         }
     }
 }
@@ -344,7 +329,7 @@ extension DonateCoordinator: WMFDonateDelegate {
 // MARK: WMFDonateLoggingDelegate
 
 extension DonateCoordinator: WMFDonateLoggingDelegate {
-    
+
     public func logDonateFormDidAppear() {
         
         DonateFunnel.shared.logDonateFormNativeApplePayImpression(project: wikimediaProject)
@@ -394,6 +379,23 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     
     public func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
         DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: wikimediaProject)
+    }
+    
+    func logDonateDidSuccessfullySubmitPayment() {
+        switch source {
+        case .exploreProfile:
+            print("TODO: Logging")
+        case .articleProfile:
+            print("TODO: Logging")
+        case .settingsProfile:
+            print("TODO: Logging")
+            // This is the old donate logging from WMFSettingsViewController.m cell
+            // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+        case .articleCampaignModal:
+            if let wikimediaProject = self.wikimediaProject {
+                DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
+            }
+        }
     }
     
     public func logDonateFormUserDidTapProblemsDonatingLink() {

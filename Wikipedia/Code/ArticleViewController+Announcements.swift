@@ -143,6 +143,9 @@ extension ArticleViewController: WMFDonateDelegate {
 }
 
 extension ArticleViewController: WMFDonateLoggingDelegate {
+    func logDonateDidSuccessfullySubmitPayment() {
+        sharedLogDonateDidSuccessfullySubmitPayment(source: .articleCampaignModal, articleURL: articleURL)
+    }
     
     func logDonateFormDidAppear() {
         guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {

@@ -548,6 +548,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                 // Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
                     self?.delegate?.donateDidSuccessfullySubmitPayment()
+                    self?.loggingDelegate?.logDonateDidSuccessfullySubmitPayment()
                 })
             case .failure(let error):
                 if let dataControllerError = error as? WMFDonateDataControllerError {

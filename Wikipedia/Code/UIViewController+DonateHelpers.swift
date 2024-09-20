@@ -269,19 +269,21 @@ extension UIViewController {
         self.navigationController?.popViewController(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
-            
-            switch source {
-            case .explore:
-                print("TODO: Logging")
-            case .settings:
-                DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-            case .articleCampaignModal:
-                if let articleURL,
-                   let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
-                }
-                
+        }
+    }
+    
+    func sharedLogDonateDidSuccessfullySubmitPayment(source: DonateSource, articleURL: URL?) {
+        switch source {
+        case .explore:
+            print("TODO: Logging")
+        case .settings:
+            DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+        case .articleCampaignModal:
+            if let articleURL,
+               let wikimediaProject = WikimediaProject(siteURL: articleURL) {
+                DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
             }
+            
         }
     }
     
