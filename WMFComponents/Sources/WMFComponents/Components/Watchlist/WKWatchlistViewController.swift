@@ -198,7 +198,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
         
 		reachabilityHandler?(.disappearing)
         if viewModel.presentationConfiguration.hideNavBarUponDisappearance {
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            // self.navigationController?.setNavigationBarHidden(true, animated: false)
         }
     }
 

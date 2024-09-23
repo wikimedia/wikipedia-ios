@@ -1314,7 +1314,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
         ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        // navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData) {

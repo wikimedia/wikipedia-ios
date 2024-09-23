@@ -36,12 +36,6 @@ public final class WMFDonateViewController: WMFCanvasViewController {
         super.viewDidAppear(animated)
         viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAppear)
     }
-    
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
 }
 
 fileprivate final class WMFDonateHostingViewController: WMFComponentHostingController<WMFDonateView> {

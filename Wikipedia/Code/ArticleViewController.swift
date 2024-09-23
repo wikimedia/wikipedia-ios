@@ -434,7 +434,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        // navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()

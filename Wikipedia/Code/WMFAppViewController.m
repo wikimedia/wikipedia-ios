@@ -349,7 +349,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     navigationController.delegate = self;
     navigationController.interactivePopGestureRecognizer.delegate = self;
     navigationController.extendedLayoutIncludesOpaqueBars = YES;
-    [navigationController setNavigationBarHidden:YES animated:NO];
+    //[navigationController setNavigationBarHidden:YES animated:NO];
     [navigationController applyTheme:self.theme];
     return navigationController;
 }
