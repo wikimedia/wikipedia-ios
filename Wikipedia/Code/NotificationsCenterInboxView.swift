@@ -1,6 +1,6 @@
 import SwiftUI
 import WMF
-import Components
+import WMFComponents
 
 struct NotificationsCenterIconImage: View {
     let iconName: String
@@ -20,12 +20,12 @@ struct NotificationsCenterIconImage: View {
 
 struct NotificationsCenterInboxView: View {
 
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     let viewModel: NotificationsCenterInboxViewModel
     let doneAction: () -> Void
     
     var body: some View {
-        WKFormView(viewModel: viewModel.formViewModel)
+        WMFFormView(viewModel: viewModel.formViewModel)
             .navigationBarItems(
                 trailing:
                     Button(action: {
@@ -36,7 +36,7 @@ struct NotificationsCenterInboxView: View {
                             .foregroundColor(Color(viewModel.theme.colors.primaryText))
                         }
             )
-            .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
+            .padding(.horizontal, horizontalSizeClass == .regular ? WMFFont.for(.footnote).pointSize : 0)
             .navigationBarTitle(Text(WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type.")), displayMode: .inline)
     }
 }

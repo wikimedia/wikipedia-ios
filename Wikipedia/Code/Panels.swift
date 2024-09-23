@@ -1,4 +1,5 @@
-import WKData
+import WMFData
+import WMFComponents
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 
@@ -488,7 +489,31 @@ class NotificationsCenterOnboardingPushPanelViewController: ScrollableEducationP
         primaryButtonTitle = WMFLocalizedString("notifications-center-onboarding-panel-primary-button", value:"Turn on push notifications", comment:"Title for Notifications Center onboarding panel primary button.")
         secondaryButtonTitle = WMFLocalizedString("notifications-center-onboarding-panel-secondary-button", value:"No thanks", comment:"Title for Notifications Center onboarding panel secondary button.")
     }
+}
 
+class AltTextExperimentPanelViewController: ScrollableEducationPanelViewController {
+    let isFlowB: Bool
+
+   init(showCloseButton: Bool, buttonStyle: ScrollableEducationPanelViewController.ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, isFlowB: Bool) {
+       self.isFlowB = isFlowB
+        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let imageRecsSubtitle = WMFLocalizedString("alt-text-modal-subtitle-image-recommendation", value: "The previous image is missing alt text. Add a description to the image for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task")
+        let regularEditSubtitle =  WMFLocalizedString("alt-text-modal-subtitle-regular-edit", value: "There is an image in this article that is missing alt text. Add a description for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article")
+        image = WMFSFSymbolIcon.for(symbol: .textBelowPhoto, font: .title1, paletteColors: [theme.colors.link])
+        heading = WMFLocalizedString("alt-text-modal-title", value: "Add missing image alt text?", comment: "Title text for the alt text suggested edit prompt modal")
+        subheading = isFlowB ? imageRecsSubtitle : regularEditSubtitle
+        primaryButtonTitle = WMFLocalizedString("alt-text-add-button-title", value: "Add", comment: "Title for the Add button on the alt text modal")
+        secondaryButtonTitle = WMFLocalizedString("alt-text-do-not-add-button-title", value: "Do not add", comment: "Title for the Do Not Add button on the alt text modal")
+    }
 }
 
 extension UIViewController {
@@ -533,19 +558,10 @@ extension UIViewController {
     ///   - primaryButtonTapHandler: Goes to donation
     ///   - secondaryButtonTapHandler: Maybe later - remind the user again after a certain period, within campain duration
     ///   - optionalButtonTapHandler: Dismiss the modal, does not show again
-    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WKFundraisingCampaignConfig.WKAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
+    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
 
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
-            if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {
-                announcementVC.isLoading = true
-                let dataController = WKDonateDataController.shared
-                dataController.fetchConfigs(for: asset.countryCode) { result in
-                    DispatchQueue.main.async {
-                        announcementVC.isLoading = false
-                        primaryButtonTapHandler?(button, viewController)
-                    }
-                }
-            }
+            primaryButtonTapHandler?(button, viewController)
         }, secondaryButtonTapHandler: { button, viewController in
             secondaryButtonTapHandler?(button, viewController)
             self.dismiss(animated: true)
@@ -706,7 +722,7 @@ extension UIViewController {
         let dataStore = MWKDataStore.shared()
         let presenter = self.presentedViewController ?? self
         guard !isAlreadyPresenting(presenter),
-              dataStore.authenticationManager.isLoggedIn,
+              dataStore.authenticationManager.authStateIsPermanent,
               dataStore.readingListsController.isSyncRemotelyEnabled,
               !dataStore.readingListsController.isSyncEnabled else {
             didNotPresentPanelCompletion?()
@@ -897,7 +913,7 @@ extension UIViewController {
         // SINGLETONTODO
         let dataStore = MWKDataStore.shared()
         guard
-            !dataStore.authenticationManager.isLoggedIn &&
+            !dataStore.authenticationManager.authStateIsPermanent &&
             !UserDefaults.standard.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !dataStore.readingListsController.isSyncEnabled
         else {

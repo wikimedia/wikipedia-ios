@@ -1,3 +1,4 @@
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -45,8 +46,8 @@ struct TalkPageTopicReplyOnboardingView: View {
         }
     }
 
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 28)
-    private let buttonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
+    private let titleFont = WMFFont.for(.title1)
+    private let callout = WMFFont.for(.callout)
 
     // MARK: - Content
 
@@ -68,16 +69,16 @@ struct TalkPageTopicReplyOnboardingView: View {
                     Spacer(minLength: 31)
                     if let text = LocalizedStrings.bodyAttributedString {
                         Text(text)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                         Spacer(minLength: 24)
                         Text(LocalizedStrings.bodySecondPartiOS15)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                     } else {
                         Text(LocalizedStrings.body)
-                            .font(.callout)
+                            .font(Font(callout))
                             .foregroundColor(Color(theme.colors.primaryText))
                     }
                 }
@@ -90,7 +91,7 @@ struct TalkPageTopicReplyOnboardingView: View {
                         dismissAction?()
                     }, label: {
                         Text(CommonStrings.okTitle)
-                            .font(Font(buttonFont))
+                            .font(Font(callout))
                             .foregroundColor(buttonTextColor)
                             .padding()
                             .frame(maxWidth: .infinity)

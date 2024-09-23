@@ -30,7 +30,7 @@ NSString *WMFParseImageNameFromSourceURL(NSString *sourceURL) __attribute__((ove
     }
     NSArray *pathComponents = [sourceURL componentsSeparatedByString:@"/"];
     if (pathComponents.count < 2) {
-        DDLogWarn(@"Unable to parse source URL with too few path components: %@", pathComponents);
+        DDLogError(@"Unable to parse source URL with too few path components: %@", pathComponents);
         return nil;
     }
 

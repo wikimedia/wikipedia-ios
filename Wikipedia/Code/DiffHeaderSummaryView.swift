@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class DiffHeaderSummaryView: UIView, Themeable {
 
@@ -72,7 +72,7 @@ private extension DiffHeaderSummaryView {
     }
 
     func updateFonts(with traitCollection: UITraitCollection) {
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
-        summaryLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
+        summaryLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 }

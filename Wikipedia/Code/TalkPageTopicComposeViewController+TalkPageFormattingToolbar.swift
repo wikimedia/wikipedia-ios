@@ -64,7 +64,7 @@ extension TalkPageTopicComposeViewController: EditLinkViewControllerDelegate {
     }
 
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFailToExtractArticleTitleFromArticleURL articleURL: URL) {
-        DDLogError("Failed to extract article title from \(articleURL)")
+        DDLogWarn("Failed to extract article title from \(articleURL)")
         dismiss(animated: true)
     }
 

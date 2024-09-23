@@ -132,6 +132,78 @@
 			<string>artikkelia</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kappaletta siirretty %#@v1@ alaspäin. Siirry uuteen sijaintiin.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d rivi</string>
+			<key>other</key>
+			<string>%1$d riviä</string>
+			<key>zero</key>
+			<string>0 riviä</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kappaletta siirretty %#@v1@ ylöspäin. Siirry uuteen sijaintiin.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d rivi</string>
+			<key>other</key>
+			<string>%1$d riviä</string>
+			<key>zero</key>
+			<string>0 riviä</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kappaletta siirretty %#@v1@ alaspäin. Siirry uuteen sijaintiin.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d osio</string>
+			<key>other</key>
+			<string>%1$d osiota</string>
+			<key>zero</key>
+			<string>0 osiota</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kappaletta siirretty %#@v1@ ylöspäin. Siirry uuteen sijaintiin.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d osio</string>
+			<key>other</key>
+			<string>%1$d osiota</string>
+			<key>zero</key>
+			<string>0 osiota</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -191,9 +263,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d merkki lisätty</string>
+			<string>%1$d tavu lisätty</string>
 			<key>other</key>
-			<string>%1$d merkkiä lisätty</string>
+			<string>%1$d tavua lisätty</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -207,9 +279,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d merkki poistettu</string>
+			<string>%1$d tavu poistettu</string>
 			<key>other</key>
-			<string>%1$d merkkiä poistettu</string>
+			<string>%1$d tavua poistettu</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>

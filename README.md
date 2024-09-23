@@ -11,6 +11,7 @@ The official Wikipedia iOS app.
 
 ## Building and Running
 
+Note: Your Xcode version must be at least 16.0.
 In the directory, run `./scripts/setup`.  Note: going to `scripts` directory and running `setup` will not work due to relative paths.
 
 Running `scripts/setup` will setup your computer to build and run the app. The script assumes you have Xcode installed already. It will install [homebrew](https://brew.sh), [SwiftLint](https://github.com/realm/SwiftLint), and [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html). It will also create a pre-commit hook that uses ClangFormat for linting Objective-C code.
@@ -46,7 +47,9 @@ When reading logs, note that the log levels are shortened to emoji.
 - 💬 Debug
 - ℹ️ Info
 - ⚠️ Warning
-- 🚨 Error 
+- 🚨 Error
+
+ The app only writes Warning and Error messages to the console for both Debug and Release mode. If you need to log all messages temporarily during troubleshooting, update [this level](https://github.com/wikimedia/wikipedia-ios/blob/main/Wikipedia/Code/WMFLogging.h#L6) to DDLogLevelAll.  
 
 ### Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product → Test** menu bar action. In order for the tests to pass, the test device's language and region must be set to `en-US` in Settings → General → Language & Region. There is a [ticket filed](https://phabricator.wikimedia.org/T259859) to update the tests to pass regardless of language and region.

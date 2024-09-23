@@ -79,7 +79,7 @@ final class DiffHeaderView: UICollectionReusableView {
 
         if let leadImageURL = viewModel?.imageURL {
             imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                DDLogError("Failure loading diff header image: \(error)")
+                DDLogWarn("Failure loading diff header image: \(error)")
             }, success: { [weak self] in
                 self?.imageView.isHidden = false
             })

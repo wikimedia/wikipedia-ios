@@ -1,6 +1,28 @@
 [
   {
     "aliases" : [
+      "base",
+      "ligne-de-base",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bordure",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bas",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "centré",
       "center",
       "centre"
@@ -36,6 +58,13 @@
   },
   {
     "aliases" : [
+      "milieu",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "néant",
       "neant",
       "none"
@@ -51,11 +80,62 @@
   },
   {
     "aliases" : [
+      "indice",
+      "ind",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "exposant",
+      "exp",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "bas-texte",
+      "bas-txt",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "haut-texte",
+      "haut-txt",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "vignette",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "haut",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redresse",
+      "redresse=$1",
+      "redresse_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [
@@ -65,7 +145,8 @@
   },
   {
     "aliases" : [
-      "Dencukaay"
+      "Dencukaay",
+      "Image"
     ],
     "name" : "file_namespace"
   }

@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()
@@ -151,14 +151,14 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        timeLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        sizeDiffLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        authorButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        timeLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        sizeDiffLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        authorButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         if let comment,
            !comment.isEmpty {
-            commentLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+            commentLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         } else {
-            commentLabel.font = UIFont.wmf_font(.italicFootnote, compatibleWithTraitCollection: traitCollection)
+            commentLabel.font = WMFFont.for(.italicFootnote, compatibleWith: traitCollection)
         }
         
     }
@@ -293,7 +293,7 @@ extension PageHistoryCollectionViewCell: Themeable {
             }
         } else {
             // themeTODO: define a semantic color for this instead of checking isDark
-            roundedContent.layer.borderColor = theme.isDark ? WKColor.gray300.cgColor : theme.colors.border.cgColor
+            roundedContent.layer.borderColor = theme.isDark ? WMFColor.gray300.cgColor : theme.colors.border.cgColor
             roundedContent.backgroundColor = theme.colors.paperBackground
             authorButton.setTitleColor(theme.colors.link, for: .normal)
             authorButton.tintColor = theme.colors.link

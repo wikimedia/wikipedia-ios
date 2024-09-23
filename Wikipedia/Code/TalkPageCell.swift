@@ -1,5 +1,4 @@
-import Foundation
-import UIKit
+import WMFComponents
 import WMF
 
 protocol TalkPageCellDelegate: AnyObject {
@@ -48,7 +47,7 @@ final class TalkPageCell: UICollectionViewCell {
         let button = UIButton()
         button.layer.cornerRadius = 8
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+        button.titleLabel?.font = WMFFont.for(.boldCallout)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
 

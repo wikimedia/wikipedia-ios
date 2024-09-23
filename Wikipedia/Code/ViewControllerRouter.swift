@@ -1,7 +1,7 @@
 import UIKit
 import AVKit
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {
@@ -20,8 +20,6 @@ import WKData
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
     static let source = "source"
-    static let campaignArticleURL = "campaign-article-url"
-    static let campaignMetricsID = "campaign-metrics-id"
 }
 
 enum RoutingUserInfoSourceValue: String {
@@ -35,6 +33,7 @@ enum RoutingUserInfoSourceValue: String {
     case inAppWebView
     case watchlist
     case unknown
+    case profile
 }
 
 @objc(WMFViewControllerRouter)
@@ -100,8 +99,11 @@ class ViewControllerRouter: NSObject {
     @objc(routeURL:userInfo:completion:)
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        let loggedInUsername = MWKDataStore.shared().authenticationManager.loggedInUsername
-        let destination = router.destination(for: url, loggedInUsername: loggedInUsername)
+        
+        let authManager = MWKDataStore.shared().authenticationManager
+        let permanentUsername = authManager.authStatePermanentUsername
+        
+        let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article(let articleURL):
             appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
@@ -123,9 +125,7 @@ class ViewControllerRouter: NSObject {
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
-            let campaignArticleURL = userInfo?[RoutingUserInfoKeys.campaignArticleURL] as? URL
-            let campaignMetricsID = userInfo?[RoutingUserInfoKeys.campaignMetricsID] as? String
-            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme, campaignArticleURL: campaignArticleURL, campaignMetricsID: campaignMetricsID)
+            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
             return presentOrPush(singlePageVC, with: completion)
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)
@@ -222,7 +222,7 @@ class ViewControllerRouter: NSObject {
     }
     
     private func watchlistTargetNavigationController() -> UINavigationController? {
-        var targetNavigationController = appViewController.navigationController
+        var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
            presentedNavigationController.viewControllers[0] is WMFSettingsViewController {
             targetNavigationController = presentedNavigationController
@@ -230,23 +230,23 @@ class ViewControllerRouter: NSObject {
         return targetNavigationController
     }
     
-    private var watchlistFilterViewModel: WKWatchlistFilterViewModel {
+    private var watchlistFilterViewModel: WMFWatchlistFilterViewModel {
         
         let dataStore = appViewController.dataStore
         let appLanguages = dataStore.languageLinkController.preferredLanguages
-        var localizedProjectNames = appLanguages.reduce(into: [WKProject: String]()) { result, language in
+        var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
             
             guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController),
-                  let wkProject = wikimediaProject.wkProject else {
+                  let wmfProject = wikimediaProject.wmfProject else {
                 return
             }
             
-            result[wkProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
         }
         localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
         
-        let localizedStrings = WKWatchlistFilterViewModel.LocalizedStrings(
+        let localizedStrings = WMFWatchlistFilterViewModel.LocalizedStrings(
             title: CommonStrings.watchlistFilter,
             doneTitle: CommonStrings.doneTitle,
             localizedProjectNames: localizedProjectNames,
@@ -280,21 +280,21 @@ class ViewControllerRouter: NSObject {
         var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
         let themeName = UserDefaults.standard.themeName
         if !Theme.isDefaultThemeName(themeName) {
-            overrideUserInterfaceStyle = WKAppEnvironment.current.theme.userInterfaceStyle
+            overrideUserInterfaceStyle = WMFAppEnvironment.current.theme.userInterfaceStyle
         }
 
-        return WKWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
+        return WMFWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
     
     func showWatchlistOnboarding(targetNavigationController: UINavigationController?) {
-        let trackChanges = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
-        let watchArticles = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
-        let setExpiration = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
-        let viewUpdates = WKOnboardingViewModel.WKOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
+        let trackChanges = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
+        let watchArticles = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
+        let setExpiration = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "set-expiration"), title: CommonStrings.watchlistSetExpirationTitle, subtitle: CommonStrings.watchlistSetExpirationSubtitle)
+        let viewUpdates = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "view-updates"), title: CommonStrings.watchlistViewUpdatesTitle, subtitle: CommonStrings.watchlistViewUpdatesSubitle)
 
-        let viewModel = WKOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
+        let viewModel = WMFOnboardingViewModel(title: CommonStrings.watchlistOnboardingTitle, cells: [trackChanges, watchArticles, setExpiration, viewUpdates], primaryButtonTitle: CommonStrings.continueButton, secondaryButtonTitle: CommonStrings.watchlistOnboardingLearnMore)
 
-        let viewController = WKOnboardingViewController(viewModel: viewModel)
+        let viewController = WMFOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
         
         WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
@@ -313,7 +313,8 @@ class ViewControllerRouter: NSObject {
         }
 
         let htmlStripped: (String) -> String = { inputString in
-            return inputString.removingHTML
+            let strippedString = inputString.removingHTML
+            return strippedString
         }
 
         let attributedFilterString: (Int) -> AttributedString = { filters in
@@ -326,13 +327,13 @@ class ViewControllerRouter: NSObject {
             return attributedString
         }
 
-        let localizedStrings = WKWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
+        let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
 
-        let presentationConfiguration = WKWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
+        let presentationConfiguration = WMFWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
 
-        let viewModel = WKWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
+        let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
 
-        let localizedStringsEmptyView = WKEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
+        let localizedStringsEmptyView = WMFEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
 
         let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
             if reachable {
@@ -342,7 +343,7 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        let reachabilityHandler: WKWatchlistViewController.ReachabilityHandler = { state in
+        let reachabilityHandler: WMFWatchlistViewController.ReachabilityHandler = { state in
             switch state {
             case .appearing:
                 reachabilityNotifier.start()
@@ -351,15 +352,15 @@ class ViewControllerRouter: NSObject {
             }
         }
         
-        let emptyViewModel = WKEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
+        let emptyViewModel = WMFEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
 
-        let watchlistViewController = WKWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
+        let watchlistViewController = WMFWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
 
         targetNavigationController?.pushViewController(watchlistViewController, animated: true)
     }
 }
 
-extension ViewControllerRouter: WKOnboardingViewDelegate {
+extension ViewControllerRouter: WMFOnboardingViewDelegate {
     
     func onboardingViewDidClickPrimaryButton() {
         
@@ -388,9 +389,5 @@ extension ViewControllerRouter: WKOnboardingViewDelegate {
                 self?.appViewController.navigate(to: url)
             }
         }
-    }
-    
-    func onboardingViewWillSwipeToDismiss() {
-        
     }
 }

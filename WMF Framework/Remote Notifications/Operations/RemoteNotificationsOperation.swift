@@ -1,4 +1,4 @@
-class RemoteNotificationsOperation: AsyncOperation {
+class RemoteNotificationsOperation: AsyncOperation, @unchecked Sendable {
     let apiController: RemoteNotificationsAPIController
     let modelController: RemoteNotificationsModelController
     

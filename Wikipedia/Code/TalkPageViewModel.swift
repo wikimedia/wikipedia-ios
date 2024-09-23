@@ -96,8 +96,8 @@ final class TalkPageViewModel {
         dataController.resetToNewSiteURL(siteURL, pageTitle: pageTitle)
     }
 
-    var isUserLoggedIn: Bool {
-        return authenticationManager.isLoggedIn
+    var isUserPermanent: Bool {
+        return authenticationManager.authStateIsPermanent
     }
 
     func fetchTalkPage(completion: @escaping (Result<Int?, Error>) -> Void) {
@@ -125,11 +125,11 @@ final class TalkPageViewModel {
         }
     }
 
-    func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postTopic(topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
     }
     
-    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postReply(commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         dataController.postReply(commentId: commentId, comment: comment, completion: completion)
     }
     
@@ -211,12 +211,12 @@ final class TalkPageViewModel {
         for topic in cleanTopics {
             
             guard let topicTitleHtml = topic.html else {
-                DDLogWarn("Missing topic title. Skipping topic.")
+                DDLogDebug("Missing topic title. Skipping topic.")
                 continue
             }
             
             guard let topicName = topic.name else {
-                DDLogError("Unable to parse topic name")
+                DDLogWarn("Unable to parse topic name")
                 continue
             }
             
@@ -224,21 +224,21 @@ final class TalkPageViewModel {
             // set up cell view model with otherContent and continue to next topic
             if let otherContent = topic.otherContent,
                topic.replies.isEmpty {
-                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: nil, topicName: topicName, leadComment: nil, otherContentHtml: otherContent, replies: [], activeUsersCount: nil, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+                let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: nil, topicName: topicName, leadComment: nil, otherContentHtml: otherContent, replies: [], activeUsersCount: nil, isUserPermanent: isUserPermanent, dateFormatter: dateFormatter)
                 self.topics.append(topicViewModel)
                 continue
             }
             
             // Parse through topic replies and set up comment view models
             guard let firstReply = topic.replies.first else {
-                DDLogWarn("Unable to parse lead comment. Skipping topic.")
+                DDLogDebug("Unable to parse lead comment. Skipping topic.")
                 continue
             }
             
             let firstReplyHtml = firstReply.html
             
             guard let leadCommentViewModel = TalkPageCellCommentViewModel(commentId: firstReply.id, html: firstReplyHtml, author: firstReply.author, authorTalkPageURL: "", timestamp: firstReply.timestamp, replyDepth: firstReply.level, talkPageURL: getTalkPageURL(encoded: false)) else {
-                DDLogWarn("Unable to parse lead comment. Skipping topic.")
+                DDLogDebug("Unable to parse lead comment. Skipping topic.")
                 continue
             }
             
@@ -262,7 +262,7 @@ final class TalkPageViewModel {
             
             let activeUsersCount = activeUsersCount(topic: topic)
 
-            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContentHtml: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserLoggedIn: isUserLoggedIn, dateFormatter: dateFormatter)
+            let topicViewModel = TalkPageCellViewModel(id: topic.id, topicTitleHtml: topicTitleHtml, timestamp: firstReply.timestamp, topicName: topicName, leadComment: leadCommentViewModel, otherContentHtml: nil, replies: remainingCommentViewModels, activeUsersCount: activeUsersCount, isUserPermanent: isUserPermanent, dateFormatter: dateFormatter)
             topicViewModel.viewModel = self
 
             // Note this is a nested loop, so it will not perform well with many topics.

@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 
 extension NotificationsCenterCommonViewModel {
     

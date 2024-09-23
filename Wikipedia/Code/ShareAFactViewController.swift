@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class ShareAFactViewController: UIViewController {
 
@@ -59,11 +59,11 @@ class ShareAFactViewController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 7
         textLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        textLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        textLabel.font = WMFFont.for(.title3)
         let width = isImageViewHidden ? view.bounds.size.width : round(0.5 * view.bounds.size.width)
         let size = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
         if size.height > 0.6 * view.bounds.size.height {
-            textLabel.font = UIFont.systemFont(ofSize: 14)
+            textLabel.font = WMFFont.for(.callout)
             textLabel.attributedText = nil // without this line, the ellipsis wasn't being added at the end of the truncated text
             textLabel.text = text
         }

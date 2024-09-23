@@ -1,5 +1,4 @@
-import UIKit
-import Components
+import WMFComponents
 
 class DiffHeaderCompareView: SetupView {
 
@@ -64,22 +63,22 @@ class DiffHeaderCompareView: SetupView {
         return label
     }()
 
-    lazy var userButtonMenuItems: [WKSmallMenuButton.MenuItem] = {
+    lazy var userButtonMenuItems: [WMFSmallMenuButton.MenuItem] = {
         [
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
-            WKSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonContributions, image: UIImage(named: "user-contributions")),
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right")),
+            WMFSmallMenuButton.Configuration.MenuItem(title: CommonStrings.userButtonPage, image: UIImage(systemName: "person"))
         ]
     }()
 
     lazy var fromMenuButton = {
-        let button = WKSmallMenuButton(configuration: WKSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
+        let button = WMFSmallMenuButton(configuration: WMFSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.diffCompareAccent, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
 
     lazy var toMenuButton = {
-        let button = WKSmallMenuButton(configuration: WKSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
+        let button = WMFSmallMenuButton(configuration: WMFSmallMenuButton.Configuration(image: UIImage(systemName: "person.fill"), primaryColor: \.link, menuItems: userButtonMenuItems))
         button.delegate = self
         return button
     }()
@@ -217,12 +216,12 @@ class DiffHeaderCompareView: SetupView {
     }
 
     fileprivate func updateFonts(with traitCollection: UITraitCollection) {
-        toHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        fromHeadingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        toTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        fromTimestampLabel.font = UIFont.wmf_font(DynamicTextStyle.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
-        toDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
-        fromDescriptionLabel.font = UIFont.wmf_font(DynamicTextStyle.subheadline, compatibleWithTraitCollection: traitCollection)
+        toHeadingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        fromHeadingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        toTimestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        fromTimestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        toDescriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        fromDescriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     // MARK: Accessibility labels
@@ -261,9 +260,9 @@ extension DiffHeaderCompareView: Themeable {
     }
 }
 
-extension DiffHeaderCompareView: WKSmallMenuButtonDelegate {
+extension DiffHeaderCompareView: WMFSmallMenuButtonDelegate {
 
-    func wkMenuButton(_ sender: Components.WKSmallMenuButton, didTapMenuItem item: Components.WKSmallMenuButton.MenuItem) {
+    func wmfMenuButton(_ sender: WMFComponents.WMFSmallMenuButton, didTapMenuItem item: WMFComponents.WMFSmallMenuButton.MenuItem) {
         
         guard let viewModel else {
             return
@@ -287,7 +286,7 @@ extension DiffHeaderCompareView: WKSmallMenuButtonDelegate {
         }
     }
     
-    func wkMenuButtonDidTap(_ sender: WKSmallMenuButton) {
+    func wmfMenuButtonDidTap(_ sender: WMFSmallMenuButton) {
         if sender == fromMenuButton {
             WatchlistFunnel.shared.logDiffTapCompareFromEditorName(project: viewModel?.project)
         } else if sender == toMenuButton {

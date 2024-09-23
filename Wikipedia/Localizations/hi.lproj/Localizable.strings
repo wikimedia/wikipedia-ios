@@ -1,6 +1,7 @@
 // Messages for Hindi (हिन्दी)
 // Exported from translatewiki.net
 // Author: Abijeet Patro
+// Author: Abijeet Patro - Normal
 // Author: Adithyavr
 // Author: Anamdas
 // Author: AnupamM
@@ -128,6 +129,32 @@
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "action-update" = "अद्यतन";
 "add-articles-to-reading-list" = "पठन सूची में{{PLURAL:$1|$1 लेख}} जोड़ें";
+"alt-text-add-button-title" = "जोड़ें";
+"alt-text-email-fifth-line" = "[स्क्रीनशॉट या लिंक]";
+"alt-text-email-first-line" = "मुझे ऑल्ट टेक्स्ट सुविधा के साथ एक समस्या का सामना करना पड़ा हैः";
+"alt-text-email-fourth-line" = "- [प्रस्तावित समाधान का वर्णन करें]";
+"alt-text-email-second-line" = "- [विशिष्ट समस्या का वर्णन करें]";
+"alt-text-email-third-line" = "मैं जो व्यवहार देखना चाहता हूँ वह है:";
+"alt-text-experiment-onboarding-secondary-button-title" = "उदाहरण देखें";
+"alt-text-experiment-onboarding-tooltip-1-body" = "लेख के संदर्भ में छवि को समझें।";
+"alt-text-experiment-onboarding-tooltip-1-title" = "पुनरीक्षण";
+"alt-text-experiment-onboarding-tooltip-2-title" = "निरीक्षण";
+"alt-text-experiment-onboarding-tooltip-3-title" = "विवरण जोड़ें";
+"alt-text-experiment-review-title" = "पुनरीक्षण";
+"alt-text-feedback-alert-subtitle-flow-C" = "क्या आप लेखों को संपादित करने के बाद उन पर सुझाए गए संपादनों के बारे में इसी प्रकार की सूचनाएं प्राप्त करने में रुचि रखते हैं?";
+"alt-text-feedback-alert-title" = "हम आपकी प्रतिक्रिया चाहते हैं";
+"alt-text-feedback-survey-neutral" = "तटस्थ";
+"alt-text-feedback-survey-satisfied" = "संतुष्ट";
+"alt-text-feedback-survey-subtitle" = "क्या आप इस सुविधा से संतुष्ट हैं?";
+"alt-text-feedback-survey-title" = "सुविधा को बेहतर बनाने में सहायता करें";
+"alt-text-feedback-survey-toast-title" = "प्रतिक्रिया प्रस्तुत की गई";
+"alt-text-feedback-survey-unsatisfied" = "असंतुष्ट";
+"alt-text-survey-option-1" = "मैं अनिश्चित हूँ कि किसी छवि का वर्णन कैसे करूँ";
+"alt-text-survey-option-2" = "मेरे पास ऑल्ट टेक्स्ट जोड़ने की विशेषज्ञता नहीं है";
+"alt-text-survey-option-4" = "मुझे तकनीकी समस्याएं हैं";
+"alt-text-survey-option-5" = "मुझे दृष्टि दोष है";
+"alt-text-survey-option-6" = "मुझे छवियों के लिए ऑल्ट टेक्स्ट लिखने में कोई दिलचस्पी नहीं है";
+"alt-text-survey-option-7" = "मेरे पास समय नहीं है";
 "announcements-dismiss" = "रद्द करें";
 "app-store-keywords" = "विकिपीडिया, संदर्भ, विकी, विश्वकोश, जानकारी, ज्ञान, अनुसंधान, जानकारी, अन्वेषण करें, सीखें";
 "app-store-release-notes" = "एक्सप्लोर फ़ीड पूरी तरह से अनुकूलन योग्य और पढ़ने में आसान है। स्थानीयकरण, प्रदर्शन में सुधार और बग फिक्स।";
@@ -491,6 +518,10 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
+"survey-instructions" = "एक या अधिक विकल्प चुनें";
+"survey-other-placeholder" = "अन्य";
+"survey-submit" = "जमा करें";
+"survey-title" = "कारण";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";

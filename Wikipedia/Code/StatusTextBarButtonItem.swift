@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 /// A Themeable UIBarButtonItem with status text that mimics Apple Mail
 class StatusTextBarButtonItem: UIBarButtonItem, Themeable {
@@ -29,7 +29,7 @@ class StatusTextBarButtonItem: UIBarButtonItem, Themeable {
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: UIFont.systemFont(ofSize: 11), maximumPointSize: 12)
+        label.font = WMFFont.for(.caption1)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         return label

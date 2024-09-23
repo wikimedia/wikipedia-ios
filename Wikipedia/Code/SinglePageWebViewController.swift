@@ -1,11 +1,25 @@
-import WebKit
+@preconcurrency import WebKit
 import CocoaLumberjackSwift
 import WMF
+import WMFComponents
+
 
 class SinglePageWebViewController: ThemeableViewController {
+    
+    final class WebViewDonateConfig {
+        weak var donateCoordinatorDelegate: DonateCoordinatorDelegate?
+        weak var donateLoggingDelegate: WMFDonateLoggingDelegate?
+        let donateCompleteButtonTitle: String
+        
+        internal init(donateCoordinatorDelegate: (any DonateCoordinatorDelegate)?, donateLoggingDelegate: (any WMFDonateLoggingDelegate)?, donateCompleteButtonTitle: String) {
+            self.donateCoordinatorDelegate = donateCoordinatorDelegate
+            self.donateLoggingDelegate = donateLoggingDelegate
+            self.donateCompleteButtonTitle = donateCompleteButtonTitle
+        }
+    }
+
     let url: URL
-    let campaignArticleURL: URL?
-    let campaignMetricsID: String?
+    private let donateConfig: WebViewDonateConfig?
     
     var doesUseSimpleNavigationBar: Bool {
         didSet {
@@ -15,27 +29,20 @@ class SinglePageWebViewController: ThemeableViewController {
             }
         }
     }
-    
-    var campaignProject: WikimediaProject? {
-        guard let campaignArticleURL else {
-            return nil
-        }
-        
-        return WikimediaProject(siteURL: campaignArticleURL)
-    }
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignMetricsID: String? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil) {
         self.url = url
-        self.campaignArticleURL = campaignArticleURL
-        self.campaignMetricsID = campaignMetricsID
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
+        self.donateConfig = donateConfig
         super.init(nibName: nil, bundle: nil)
+
         self.theme = theme
         
         self.navigationItem.backButtonTitle = url.lastPathComponent
         self.navigationItem.backButtonDisplayMode = .generic
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +68,7 @@ class SinglePageWebViewController: ThemeableViewController {
     private(set) lazy var webView: WKWebView = {
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         return webView
     }()
     
@@ -70,28 +78,21 @@ class SinglePageWebViewController: ThemeableViewController {
 //        return fpc
 //    }()
 
-    private lazy var bottomView: UIView = {
+    private lazy var donationCompleteButtonContainer: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = self.theme.colors.paperBackground
         return contentView
     }()
 
-    private lazy var button: UIButton = {
+    private lazy var donationCompleteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Came from article
-        if campaignProject != nil {
-            button.setTitle(CommonStrings.returnToArticle, for: .normal)
-        } else {
-            button.setTitle(CommonStrings.returnButtonTitle, for: .normal)
-        }
-        
+        button.setTitle(donateConfig?.donateCompleteButtonTitle, for: .normal)
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
         button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
         return button
     }()
@@ -164,23 +165,23 @@ class SinglePageWebViewController: ThemeableViewController {
         super.viewDidAppear(animated)
         
         if url.isDonationURL {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
         }
     }
 
-    func setupBottomView() {
-        webView.addSubview(bottomView)
-        bottomView.addSubview(button)
+    func setupDonationCompleteView() {
+        webView.addSubview(donationCompleteButtonContainer)
+        donationCompleteButtonContainer.addSubview(donationCompleteButton)
 
-        let bottom = bottomView.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
-        let leading = bottomView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailing = bottomView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
-        let height = bottomView.heightAnchor.constraint(equalToConstant: 90)
+        let bottom = donationCompleteButtonContainer.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        let leading = donationCompleteButtonContainer.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailing = donationCompleteButtonContainer.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        let height = donationCompleteButtonContainer.heightAnchor.constraint(equalToConstant: 90)
 
-        let buttonTop = button.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12)
-        let buttonLeading = button.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 12)
-        let buttonTrailing = button.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -12)
-        let buttonBottom = button.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -32)
+        let buttonTop = donationCompleteButton.topAnchor.constraint(equalTo: donationCompleteButtonContainer.topAnchor, constant: 12)
+        let buttonLeading = donationCompleteButton.leadingAnchor.constraint(equalTo: donationCompleteButtonContainer.leadingAnchor, constant: 12)
+        let buttonTrailing = donationCompleteButton.trailingAnchor.constraint(equalTo: donationCompleteButtonContainer.trailingAnchor, constant: -12)
+        let buttonBottom = donationCompleteButton.bottomAnchor.constraint(equalTo: donationCompleteButtonContainer.bottomAnchor, constant: -32)
 
         webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom])
     }
@@ -205,8 +206,8 @@ class SinglePageWebViewController: ThemeableViewController {
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
-            setupBottomView()
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, metricsID: campaignMetricsID)
+            setupDonationCompleteView()
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
         }
         
         return true
@@ -229,28 +230,14 @@ class SinglePageWebViewController: ThemeableViewController {
     }
 
     @objc func didTapReturnButton() {
-        if let project = campaignProject {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
-        } else {
-            AppInteractionFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
-        }
-        
-        navigationController?.popViewController(animated: true)
+        donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidTapReturn)
+        donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidTapReturn)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        let project = self.campaignProject
         if didReachThankyouPage {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
-                
-                if let project {
-                    AppInteractionFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
-                } else {
-                    AppInteractionFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-                }
-            }
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidDisappear)
+            donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidDisappear)
         }
     }
 }
@@ -273,18 +260,35 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        DDLogError("Error loading single page - did fail provisional navigation: \(error)")
+        DDLogWarn("Error loading single page - did fail provisional navigation: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
         // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        DDLogError("Error loading single page: \(error)")
+        DDLogWarn("Error loading single page: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
         // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         // fakeProgressController.finish()
+    }
+}
+
+extension SinglePageWebViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: CommonStrings.okTitle, style: .default) { _ in
+            completionHandler(true)
+        }
+        let action2 = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default) { _ in
+            completionHandler(false)
+        }
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        
+        present(alertController, animated: true)
     }
 }

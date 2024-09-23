@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 final class TalkPageEmptyView: SetupView {
 
@@ -17,9 +17,9 @@ final class TalkPageEmptyView: SetupView {
 
     // MARK: - Properties
 
-    fileprivate var headerLabelPrimaryFont = UIFont.wmf_scaledSystemFont(forTextStyle: .title1, weight: .semibold, size: 28)
-    fileprivate var bodyLabelPrimaryFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
-    fileprivate var bodyLabelHighlightedFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+    fileprivate var headerLabelPrimaryFont = WMFFont.for(.boldTitle1)
+    fileprivate var bodyLabelPrimaryFont = WMFFont.for(.callout)
+    fileprivate var bodyLabelHighlightedFont = WMFFont.for(.boldCallout)
 
     lazy var headerLineHeightAttribute: NSMutableParagraphStyle = {
         let style = NSMutableParagraphStyle()
@@ -81,7 +81,7 @@ final class TalkPageEmptyView: SetupView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.cornerRadius = 8
         button.masksToBounds = true
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15)
+        button.titleLabel?.font = WMFFont.for(.boldCallout)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()

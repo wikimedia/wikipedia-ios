@@ -18,7 +18,7 @@ extension UINavigationItem {
     }
 }
 
-extension UINavigationItem: NSCopying {
+extension UINavigationItem: @retroactive NSCopying {
     public func copy(with zone: NSZone? = nil) -> Any {
         let newItem = UINavigationItem(title: title ?? "")
         newItem.titleView = titleView

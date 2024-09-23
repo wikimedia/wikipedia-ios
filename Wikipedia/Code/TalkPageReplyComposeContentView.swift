@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 class TalkPageReplyComposeContentView: SetupView {
@@ -257,9 +257,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func updateFonts() {
-        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
-        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
-        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        publishButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        replyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        placeholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     // MARK: Actions
@@ -293,10 +293,12 @@ class TalkPageReplyComposeContentView: SetupView {
             "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
             "</a>"
         )
-        
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
-        
-        return attributedString
+
+        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
+    }
+
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     private func evaluatePublishButtonEnabledState() {

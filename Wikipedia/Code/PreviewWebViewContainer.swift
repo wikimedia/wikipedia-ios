@@ -1,5 +1,5 @@
 import Foundation
-import WebKit
+@preconcurrency import WebKit
 import WMF
 
 @objc protocol WMFPreviewDelegate: AnyObject {

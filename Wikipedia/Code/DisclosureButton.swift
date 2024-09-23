@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 import SwiftUI
 
 struct DisclosureButton<Element: CustomStringConvertible>: View {
@@ -14,10 +14,10 @@ struct DisclosureButton<Element: CustomStringConvertible>: View {
                 HStack {
                     Text(item.description)
                         .foregroundColor(Color(observableTheme.theme.colors.primaryText))
-                        .font(.callout)
+                        .font(Font(WMFFont.for(.callout)))
                         .fontWeight(.semibold)
                     Spacer(minLength: 12)
-                    Image(systemName: "chevron.right").font(Font.system(.footnote).weight(.semibold))
+                    Image(systemName: "chevron.right").font(Font(WMFFont.for(.mediumFootnote)))
                         .foregroundColor(Color(observableTheme.theme.colors.secondaryText))
                 }
                 .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))

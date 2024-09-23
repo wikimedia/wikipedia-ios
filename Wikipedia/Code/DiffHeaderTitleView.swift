@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol DiffHeaderTitleViewTapDelegate: AnyObject {
     func userDidTapTitleLabel()
@@ -86,12 +86,12 @@ private extension DiffHeaderTitleView {
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(DynamicTextStyle.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         if let viewModel = viewModel {
-            subtitleLabel.font = UIFont.wmf_font(viewModel.subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = WMFFont.for(viewModel.subtitleTextStyle, compatibleWith: traitCollection)
         } else {
-            subtitleLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         }
     }
 

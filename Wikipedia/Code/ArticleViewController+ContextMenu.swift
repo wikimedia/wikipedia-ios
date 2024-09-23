@@ -1,12 +1,4 @@
 extension ArticleViewController {
-    func updateMenuItems() {
-        let shareMenuItemTitle = CommonStrings.shareMenuTitle
-        let shareMenuItem = UIMenuItem(title: shareMenuItemTitle, action: #selector(shareMenuItemTapped))
-        let editMenuItemTitle = CommonStrings.editContextMenuTitle
-        let editMenuItem = UIMenuItem(title: editMenuItemTitle, action: #selector(editMenuItemTapped))
-        
-        UIMenuController.shared.menuItems = [editMenuItem, shareMenuItem]
-    }
     
     @objc func shareMenuItemTapped() {
         self.shareArticle()

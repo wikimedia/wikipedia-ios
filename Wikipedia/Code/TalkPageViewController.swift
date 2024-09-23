@@ -1,7 +1,6 @@
-import UIKit
 import WMF
 import CocoaLumberjackSwift
-import Components
+import WMFComponents
 
 public enum InputAccessoryViewType {
     case format
@@ -139,7 +138,7 @@ class TalkPageViewController: ThemeableViewController {
             self?.pushToRevisionHistory()
         })
         
-        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
+        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WMFIcon.pencil, handler: { [weak self] _ in
             
             guard let self else {
                 return
@@ -227,7 +226,6 @@ class TalkPageViewController: ThemeableViewController {
         // Needed for reply compose views to display on top of navigation bar.
 //        navigationController?.setNavigationBarHidden(true, animated: false)
         // navigationMode = .forceBar
-
         fetchTalkPage()
         setupToolbar()
         
@@ -505,10 +503,10 @@ class TalkPageViewController: ThemeableViewController {
         
         let dataStore = MWKDataStore.shared()
 
-        let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
         let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
@@ -710,7 +708,8 @@ class TalkPageViewController: ThemeableViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
+            let stringFromTitle = cellViewModel.topicTitleHtml.removingHTML
+            if stringFromTitle == topicTitle {
                 targetIndexPath = IndexPath(item: index, section: 0)
                 targetCellViewModel = cellViewModel
                 break
@@ -723,7 +722,6 @@ class TalkPageViewController: ThemeableViewController {
         }
         
         if let replyText = deepLinkData.replyText {
-            
             for commentViewModel in targetCellViewModel.allCommentViewModels {
                 if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
                     targetCommentViewModel = commentViewModel

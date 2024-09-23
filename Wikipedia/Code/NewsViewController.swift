@@ -1,7 +1,7 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController2, DetailPresentingFromContentGroup {
+class NewsViewController: ColumnarCollectionViewController2 {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     

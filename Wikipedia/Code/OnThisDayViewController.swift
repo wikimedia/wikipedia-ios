@@ -1,6 +1,6 @@
 import WMF
 
-class OnThisDayViewController: ColumnarCollectionViewController2, DetailPresentingFromContentGroup {
+class OnThisDayViewController: ColumnarCollectionViewController2 {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"

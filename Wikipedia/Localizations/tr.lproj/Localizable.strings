@@ -159,7 +159,7 @@
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
 "appearance-settings-expand-tables" = "Tabloları genişlet";
 "appearance-settings-expand-tables-footer" = "Pratik Bilgiler, Kaynakça, Notlar ve Dış bağlantılar da dahil olmak üzere tüm maddelerin tüm tablolarını açık olacak şekilde ayarlayın.";
-"appearance-settings-image-dimming-footer" = "Karanlık ve siyah temalardaki görüntülerin opaklığını düşür.";
+"appearance-settings-image-dimming-footer" = "Koyu ve siyah temalardaki görüntülerin opaklığını düşür.";
 "appearance-settings-reading-themes" = "Okuma temaları";
 "appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
 "appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
@@ -639,6 +639,7 @@
 "image-recommendations-email-title" = "Sorun Bildirimi - Görsel Ekleme Özelliği";
 "image-recs-no-title" = "Hayır";
 "image-recs-not-sure-title" = "Emin değilim";
+"image-recs-time-warning-message" = "Konusunu anlamak için lütfen maddeyi gözden geçirin ve görseli inceleyin";
 "image-recs-yes-title" = "Evet";
 "import-shared-reading-list-default-title" = "Okuma Listem";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Şimdi değil";

@@ -1,5 +1,5 @@
+import WMFComponents
 import WMF
-import Components
 
 public struct LibraryUsed {
     let title:String
@@ -39,7 +39,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         let labelFrame = headerView.frame.insetBy(dx: 10, dy: 10)
         let label = UILabel.init(frame: labelFrame)
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.font = WMFFont.for(.footnote)
         label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -54,7 +54,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         self.apply(theme: self.theme)
-        view.backgroundColor = WKColor.gray400
+        view.backgroundColor = WMFColor.gray400
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableView.automaticDimension

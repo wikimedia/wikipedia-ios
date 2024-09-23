@@ -76,7 +76,7 @@ class TalkPageDataController {
 
     }
     
-    func postReply(commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postReply(commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         talkPageFetcher.postReply(talkPageTitle: pageTitle, siteURL: siteURL, commentId: commentId, comment: comment.signed) { result in
             DispatchQueue.main.async {
@@ -85,7 +85,7 @@ class TalkPageDataController {
         }
     }
     
-    func postTopic(topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postTopic(topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: topicBody.signed) { result in
             DispatchQueue.main.async {

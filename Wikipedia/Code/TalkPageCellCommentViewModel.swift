@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 
 final class TalkPageCellCommentViewModel: Identifiable {
 
@@ -30,8 +30,12 @@ final class TalkPageCellCommentViewModel: Identifiable {
     }
     
     func commentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        return html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        return NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles).removingInitialNewlineCharacters()
     }
+
+
 }
 
 extension TalkPageCellCommentViewModel: Hashable {

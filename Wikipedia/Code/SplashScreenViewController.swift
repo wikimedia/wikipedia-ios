@@ -3,7 +3,7 @@ import UIKit
 
 /// Matches the appearance of the launch xib and shows while we do any setup or migrations that need to block user interaction.
 /// If this VC is shown for longer than `maximumNonInteractiveTimeInterval`, the view transitions to a loading animation.
-@objc (WMFSplashScreenViewController)
+@objc(WMFSplashScreenViewController)
 class SplashScreenViewController: ThemeableViewController {
     
     // MARK: Object Lifecycle
@@ -20,7 +20,7 @@ class SplashScreenViewController: ThemeableViewController {
         setupSplashView()
     }
     
-    func triggerMigratingAnimation() {
+    @objc func triggerMigratingAnimation() {
         perform(#selector(showLoadingAnimation), with: nil, afterDelay: SplashScreenViewController.maximumNonInteractiveTimeInterval)
     }
     
@@ -29,26 +29,9 @@ class SplashScreenViewController: ThemeableViewController {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showLoadingAnimation), object: nil)
     }
     
-    /// Ensure we show the busy animation for some minimum amount of time, otherwise the transition can be jarring
-    @objc func ensureMinimumShowDuration(completion: @escaping () -> Void) {
-        guard loadingAnimationShowTime != 0 else {
-            completion()
-            return
-        }
-        let now = CFAbsoluteTimeGetCurrent()
-        let busyAnimationVisibleTimeInterval = now - loadingAnimationShowTime
-        guard busyAnimationVisibleTimeInterval < SplashScreenViewController.minimumBusyAnimationVisibleTimeInterval else {
-            completion()
-            return
-        }
-        let delay = SplashScreenViewController.minimumBusyAnimationVisibleTimeInterval - busyAnimationVisibleTimeInterval
-        dispatchOnMainQueueAfterDelayInSeconds(delay, completion)
-    }
-    
     // MARK: Constants
     
     static let maximumNonInteractiveTimeInterval: TimeInterval = 4
-    static let minimumBusyAnimationVisibleTimeInterval: TimeInterval = 0.6
     static let crossFadeAnimationDuration: TimeInterval = 0.3
     
     // MARK: Splash View

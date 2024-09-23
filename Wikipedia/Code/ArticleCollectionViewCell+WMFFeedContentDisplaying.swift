@@ -1,9 +1,11 @@
-import Foundation
+import WMFComponents
 
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)
     func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool, completion:(() -> Void)? = nil) {
+        self.theme = theme
         apply(theme: theme)
+        updateStyles()
         
         let group = DispatchGroup()
         
@@ -42,9 +44,16 @@ public extension ArticleCollectionViewCell {
             imageViewDimension = 130
             extractLabel?.text = nil
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+        case .relatedPages:
             extractLabel?.text = nil
+            descriptionLabel.text = article.wikidataDescription
+            configureForCompactList(at: index)
+            if let cell = self as? ArticleRightAlignedImageCollectionViewCell {
+                cell.topSeparator.isHidden = true
+                cell.bottomSeparator.isHidden = true
+            }
         case .mainPage:
-            titleTextStyle = .georgiaTitle3
+            styles =  HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
@@ -56,12 +65,8 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
             break
-        case .compactList, .relatedPages:
+        case .compactList:
             configureForCompactList(at: index)
-            if displayType == .relatedPages, let cell = self as? ArticleRightAlignedImageCollectionViewCell {
-                cell.topSeparator.isHidden = true
-                cell.bottomSeparator.isHidden = true
-            }
             fallthrough
         case .page:
             fallthrough

@@ -109,6 +109,12 @@
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
 "advanced-settings-title" = "Ешартыш тӧрлымаш";
+"alt-text-add-button-title" = "Ешараш";
+"alt-text-do-not-add-button-title" = "Ит ешаре";
+"alt-text-experiment-edit-summary" = "alt текстым ешарыме";
+"alt-text-experiment-text-field-placholder" = "Тиде сӱрет нерген каласкале";
+"alt-text-experiment-view-title" = "alt текстым ешаре";
+"alt-text-modal-title" = "Ситыдыме сӱретым alt текстыш ешараш?";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-release-notes" = "Explore ленте тичмашнек тӧрлаташ лийше да лудаш йӧнанрак. Локализаций, паша лектышым саемдымаш да йоҥылышым тӧрлымаш.";
@@ -194,6 +200,10 @@
 "description-welcome-descriptions-title" = "Статьян возен ончыктымашыже";
 "description-welcome-promise-title" = "Пашам ышташ тӱҥалшыла, тиде функцийым утыжден кучылташ ом тӱҥал манын сӧрем";
 "description-welcome-start-editing-button" = "Тӧрлытымашым тӱҥалаш";
+"developer-settings" = "Разработчик тӧрлымаш";
+"developer-settings-enable-alt-text-experiment-en" = "Англичан Википедийлан Alt Text экспериментым чӱктӧ.";
+"developer-settings-send-analytics-to-wmflabs" = "Иктешлымашым wmflabs колто";
+"developer-settings-suppress-image-rec-post" = "Сӱрет тӧрлымӧ темлымашым нигуш ит лук.";
 "diff-article-revision-history" = "Статьям угыч тергымаш эртылык";
 "diff-change-added" = "Ешарымаш, $1, ешарымаш мучаш.";
 "diff-change-paragraph-lines-moved-down" = "Абзац ӱлык волен {{PLURAL:$1|0=0 корно|$1 корно|$ корно}}. У верыш кусно.";
@@ -291,6 +301,7 @@
 "edit-summary-choice-fixed-typos" = "Опечаткым тӧрлатыме";
 "edit-summary-choice-linked-words" = "Ешарыме кылвер-влак";
 "edit-summary-placeholder-text" = "Кузе тый велыжым саемденат?";
+"edit-summary-short-description-updated" = "Уэмдыме кӱчык возен ончыктымаш";
 "edit-watch-list-learn-more-text" = "Эскерыме списке-влак нерген шукырак пален нал";
 "edit-watch-this-page-text" = "Тиде велыжым эскераш";
 "editing-welcome-be-bold-subtitle" = "Тӧрлымашым чолган, но шонен, ыште.  Йоҥылышлан кумылет ит волто — кажне тӧрлымаш деч вара статьян версийже аралалт кодеш, сандене википедийыш ушнышо-влак йоҥылышым куштылгын тӧрлатен кертыт.";
@@ -461,6 +472,7 @@
 "export-user-data-generic-error" = "Тыйын данный экспорт годым йоҥылыш лектын. Поро лий, варарак тӧчен ончо.";
 "export-user-data-space-error" = "Ушнышо данныйым экспортироватлаш устройствышто вер ок сите. Поро лий, варарак тӧчен ончо.";
 "export-user-data-title" = "Ушнышо данный экспорт";
+"featured-widget-description" = "Мемнан тӱшка дене кажне кечын ойырымо Википедийын эн сай статья-влакшым шкаланет поч.";
 "featured-widget-from-language-wikipedia" = "$1 Википедий ужаш гыч";
 "featured-widget-from-wikipedia" = "Википедий гыч";
 "featured-widget-title" = "Ойырен налме статья";

@@ -1,6 +1,6 @@
 @import UIKit;
 @class MWKDataStore;
-@class WKDonateDataController;
+@class WMFDonateDataController;
 @protocol NotificationsCenterPresentationDelegate;
 
 NS_ASSUME_NONNULL_BEGIN

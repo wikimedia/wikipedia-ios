@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 // MARK: - Cell
 class TableOfContentsCell: UITableViewCell {
@@ -20,9 +20,9 @@ class TableOfContentsCell: UITableViewCell {
     }
     
     private var titleHTML: String = ""
-    private var titleTextStyle: DynamicTextStyle = .georgiaTitle3
+    private var titleTextStyle: WMFFont = .georgiaTitle3
     private var isTitleLabelHighlighted: Bool = false
-    func setTitleHTML(_ html: String, with textStyle: DynamicTextStyle, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
+    func setTitleHTML(_ html: String, with textStyle: WMFFont, highlighted: Bool, color: UIColor, selectionColor: UIColor) {
         isTitleLabelHighlighted = highlighted
         titleHTML = html
         titleTextStyle = textStyle
@@ -30,10 +30,14 @@ class TableOfContentsCell: UITableViewCell {
         titleSelectionColor = selectionColor
         updateTitle()
     }
-    
-    func updateTitle() {
+
+    private var styles: HtmlUtils.Styles {
         let color = isTitleLabelHighlighted ? titleSelectionColor : titleColor
-        titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, color: color, handlingLinks: false)
+        return HtmlUtils.Styles(font: WMFFont.for(titleTextStyle, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: color, linkColor: titleSelectionColor, lineSpacing: 3)
+    }
+
+    func updateTitle() {
+        titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(titleHTML, styles: styles)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

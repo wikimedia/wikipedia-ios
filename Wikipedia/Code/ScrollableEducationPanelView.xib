@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -118,7 +118,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="115"/>
                                                                     <subviews>
                                                                         <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="33"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="55"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                                             <userDefinedRuntimeAttributes>
@@ -137,7 +137,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="43" width="250" height="33"/>
+                                                                            <rect key="frame" x="0.0" y="65" width="250" height="20"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                             <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                                             <userDefinedRuntimeAttributes>
@@ -153,7 +153,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-qo-2Gj" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="86" width="250" height="29"/>
+                                                                            <rect key="frame" x="0.0" y="95" width="250" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                                             <userDefinedRuntimeAttributes>
@@ -201,7 +201,7 @@
                                             </subviews>
                                         </stackView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="mGT-rc-9wM">
-                                            <rect key="frame" x="130" y="304" width="20" height="20"/>
+                                            <rect key="frame" x="130" y="315" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <constraints>
@@ -246,13 +246,13 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-CH-OgV" userLabel="Pinned Action Button Container View">
-                                    <rect key="frame" x="15" y="389" width="250" height="100"/>
+                                    <rect key="frame" x="15" y="409" width="250" height="80"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-Tf-8g1">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGY-CD-FTJ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="33"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="20"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
@@ -271,7 +271,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-nN-ABj" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="43" width="250" height="27"/>
+                                                    <rect key="frame" x="0.0" y="30" width="250" height="20"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
@@ -361,19 +361,19 @@
     </objects>
     <designables>
         <designable name="HGY-CD-FTJ">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="cUm-ox-sR8">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="hB2-ah-QwX">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="lj0-nN-ABj">
-            <size key="intrinsicContentSize" width="30" height="27"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
         <designable name="oeh-qo-2Gj">
-            <size key="intrinsicContentSize" width="30" height="29"/>
+            <size key="intrinsicContentSize" width="28" height="20"/>
         </designable>
     </designables>
     <resources>

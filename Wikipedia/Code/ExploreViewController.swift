@@ -1,8 +1,8 @@
-import UIKit
 import WMF
+import SwiftUI
 import CocoaLumberjackSwift
-import Components
-import WKData
+import WMFComponents
+import WMFData
 
 class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
 
@@ -10,9 +10,12 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
-    private weak var imageRecommendationsViewModel: WKImageRecommendationsViewModel?
+    private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
+    private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
+
+    // Coordinator
+    private var profileCoordinator: ProfileCoordinator?
 
     // MARK: - UIViewController
     
@@ -21,8 +24,9 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         setupNavigationBar()
-        updateNotificationsCenterButton()
-        updateSettingsButton()
+        // updateNotificationsCenterButton()
+        updateProfileViewButton()
+        // updateSettingsButton()
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
@@ -63,6 +67,14 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         if !UIAccessibility.isVoiceOverRunning {
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
         }
+        
+        if tabBarSnapshotImage == nil {
+            if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
+                tabBarSnapshotImage = nil
+            } else {
+                updateTabBarSnapshotImage()
+            }
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -87,6 +99,14 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         super.viewWillDisappear(animated)
         
         navigationController?.navigationBar.layer.speed = 1
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.updateTabBarSnapshotImage()
+        }
     }
 
     func presentUITestHelperController() {
@@ -166,25 +186,60 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: overlayView.bottomAnchor)
         ])
     }
-
-    @objc func updateNotificationsCenterButton() {
-        if self.dataStore.authenticationManager.isLoggedIn {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-            navigationItem.leftBarButtonItem = notificationsBarButton
-        } else {
-            navigationItem.leftBarButtonItem = nil
-        }
-    }
+//
+//    @objc func updateNotificationsCenterButton() {
+//        if self.dataStore.authenticationManager.isLoggedIn {
+//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
+//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
+//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
+//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
+//            navigationItem.leftBarButtonItem = notificationsBarButton
+//        } else {
+//            navigationItem.leftBarButtonItem = nil
+//        }
+//    }
     
-    func updateSettingsButton() {
-        
-        let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
-        settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
-        navigationItem.rightBarButtonItem = settingsBarButtonItem
+//    func updateSettingsButton() {
+//        
+//        let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
+//        settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
+//        navigationItem.rightBarButtonItem = settingsBarButtonItem
+//    }
+    
+//    @objc func updateNotificationsCenterButton() {
+//        if self.dataStore.authenticationManager.authStateIsPermanent {
+//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
+//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
+//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
+//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
+//            navigationItem.leftBarButtonItem = notificationsBarButton
+//            navigationBar.displayType = .centeredLargeTitle
+//        } else {
+//            navigationItem.leftBarButtonItem = nil
+//            navigationBar.displayType = .largeTitle
+//        }
+//        navigationBar.updateNavigationItems()
+//    }
+
+    @objc public func updateNavigationBarVisibility() {
+        // navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
+    }
+
+    @objc func updateProfileViewButton() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
+        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        navigationItem.rightBarButtonItem = profileViewButtonItem
+        // navigationBar.updateNavigationItems()
     }
     
     // MARK: - NavBar
@@ -221,11 +276,16 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         return titleView
     }()
 
-    @objc func userDidTapSettings() {
-        AppInteractionFunnel.shared.logSettingsDidTapSettingsIcon()
-     
-        settingsPresentationDelegate?.userDidTapSettings(from: self)
+    @objc func userDidTapProfile() {
+        
+        guard let navigationController = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self)
 
+        self.profileCoordinator = coordinator
+        coordinator.start()
     }
     
     open override func refresh() {
@@ -496,6 +556,21 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     
     var detailTransitionSourceRect: CGRect?
     
+    var tabBarSnapshotImage: UIImage?
+    
+    private func updateTabBarSnapshotImage() {
+        guard let tabBar = self.tabBarController?.tabBar else {
+            return
+        }
+        
+        let renderer = UIGraphicsImageRenderer(size: tabBar.bounds.size)
+        let image = renderer.image { ctx in
+            tabBar.drawHierarchy(in: tabBar.bounds, afterScreenUpdates: true)
+        }
+        
+        self.tabBarSnapshotImage = image
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -557,7 +632,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 
         if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
             
-            if vc is WKImageRecommendationsViewController {
+            if vc is WMFImageRecommendationsViewController {
                 ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
             }
             
@@ -622,8 +697,8 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         }
 
         self.theme = theme
-        updateNotificationsCenterButton()
-        updateSettingsButton()
+        // updateNotificationsCenterButton()
+        updateProfileViewButton()
 
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
@@ -707,7 +782,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
         }
         
-        if vc is WKImageRecommendationsViewController {
+        if vc is WMFImageRecommendationsViewController {
             ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
         }
         
@@ -902,7 +977,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             return
         }
         
-        let imageRecommendationsDataController = WKImageRecommendationsDataController()
+        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
         guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
             return
         }
@@ -916,10 +991,10 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             return
         }
         
-        let viewModel = WKFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WKIcon.addPhoto, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
             
             guard let self,
-                  let imageRecommendationViewController = WKImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+                  let imageRecommendationViewController = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
                 return
             }
             
@@ -1209,9 +1284,9 @@ extension ExploreViewController {
     }
 }
 
-extension ExploreViewController: WKImageRecommendationsDelegate {
+extension ExploreViewController: WMFImageRecommendationsDelegate {
 
-    func imageRecommendationsUserDidTapImage(project: WKProject, data: WKImageRecommendationsViewModel.WKImageRecommendationData, presentingVC: UIViewController) {
+    func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
@@ -1221,11 +1296,11 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         let item = MediaListItem(title: "File:\(data.filename)", sectionID: 0, type: .image, showInGallery: true, isLeadImage: false, sources: nil)
         let mediaList = MediaList(items: [item])
 
-        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme)
+        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme, dismissDelegate: nil)
         presentingVC.present(gallery, animated: true)
     }
 
-    func imageRecommendationsUserDidTapViewArticle(project: WKData.WKProject, title: String) {
+    func imageRecommendationsUserDidTapViewArticle(project: WMFData.WMFProject, title: String) {
         
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title),
@@ -1242,7 +1317,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
-    func imageRecommendationsUserDidTapInsertImage(viewModel: WKImageRecommendationsViewModel, title: String, with imageData: WKImageRecommendationsViewModel.WKImageRecommendationData) {
+    func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData) {
 
         guard let image = imageData.uiImage,
         let siteURL = viewModel.project.siteURL else {
@@ -1251,7 +1326,7 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         
         if let imageURL = URL(string: imageData.descriptionURL),
            let thumbURL = URL(string: imageData.thumbUrl) {
-            
+
             let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
             let imageDescription = imageData.description?.removingHTML
             let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
@@ -1270,11 +1345,105 @@ extension ExploreViewController: WKImageRecommendationsDelegate {
         let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
     }
+    
+    func imageRecommendationDidTriggerAltTextExperimentPanel(isFlowB: Bool, imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        
+        guard let viewModel = imageRecommendationsViewModel,
+              let lastRecommendation = viewModel.lastRecommendation else {
+            return
+        }
+        
+        guard lastRecommendation.imageWikitext != nil,
+            lastRecommendation.fullArticleWikitextWithImage != nil,
+            lastRecommendation.lastRevisionID != nil,
+            lastRecommendation.localizedFileTitle != nil else {
+            return
+        }
 
+        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                lastRecommendation.altTextExperimentAcceptDate = Date()
+                
+                EditInteractionFunnel.shared.logAltTextPromptDidTapAdd(project: WikimediaProject(wmfProject: viewModel.project))
+
+                let altTextImageRecommendationsOnboardingPresenter = AltTextImageRecommendationsOnboardingPresenter(imageRecommendationsViewModel: viewModel, imageRecommendationsViewController: imageRecommendationsViewController, exploreViewController: self)
+                self.altTextImageRecommendationsOnboardingPresenter = altTextImageRecommendationsOnboardingPresenter
+                altTextImageRecommendationsOnboardingPresenter.enterAltTextFlow()
+            }
+        }
+
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
+            imageRecommendationsViewController.dismiss(animated: true) { [weak self] in
+                EditInteractionFunnel.shared.logAltTextPromptDidTapDoNotAdd(project: WikimediaProject(wmfProject: viewModel.project))
+                self?.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
+            }
+        }
+
+        let traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler = { lastAction in
+            switch lastAction {
+            case .tappedPrimary, .tappedSecondary:
+                break
+            default:
+                EditInteractionFunnel.shared.logAltTextPromptDidTapClose(project: WikimediaProject(wmfProject: viewModel.project))
+                self.presentAltTextRejectionSurvey(imageRecommendationsViewController: imageRecommendationsViewController)
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            }
+        }
+
+        let panel = AltTextExperimentPanelViewController(showCloseButton: true, buttonStyle: .updatedStyle, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, traceableDismissHandler: traceableDismissHandler, theme: self.theme, isFlowB: isFlowB)
+        
+        EditInteractionFunnel.shared.logAltTextPromptDidAppear(project: WikimediaProject(wmfProject: viewModel.project))
+        
+        imageRecommendationsViewController.present(panel, animated: true)
+        let dataController = WMFAltTextDataController.shared
+        dataController?.markSawAltTextImageRecommendationsPrompt()
+    }
+
+    func imageRecommendationsDidTriggerAltTextFeedbackToast() {
+        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedbackSurveyToastDisplayed(project: WikimediaProject(wmfProject: viewModel.project))
+    }
+    
+    private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
+        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: {
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        }, submitAction: { [weak self] options, otherText in
+            
+            // Dismisses Survey View
+            self?.dismiss(animated: true, completion: { [weak self] in
+                
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                
+                if let wmfProject = self?.imageRecommendationsViewModel?.project {
+                    let project = WikimediaProject(wmfProject: wmfProject)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
+                    EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
+                }
+                
+                imageRecommendationsViewController.presentImageRecommendationBottomSheet()
+            })
+        })
+        
+        imageRecommendationsViewController.present(surveyView, animated: true)
+    }
 }
 
 extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
-    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?) {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
         
         guard let viewModel = imageRecommendationsViewModel,
         let currentRecommendation = viewModel.currentRecommendation,
@@ -1286,9 +1455,13 @@ extension ExploreViewController: InsertMediaSettingsViewControllerDelegate {
         
         currentRecommendation.caption = caption
         currentRecommendation.altText = altText
+        currentRecommendation.imageWikitext = imageWikitext
+        currentRecommendation.localizedFileTitle = localizedFileTitle
         
         do {
-            let wikitextWithImage = try WKWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            let wikitextWithImage = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            
+            currentRecommendation.fullArticleWikitextWithImage = wikitextWithImage
             
             let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
             editPreviewViewController.theme = theme
@@ -1317,8 +1490,8 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         saveVC.languageCode = pageURL.wmf_languageCode
         saveVC.wikitext = editPreviewViewController.wikitext
         saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
-        saveVC.needsSuppressPosting = FeatureFlags.needsImageRecommendationsSuppressPosting
-        saveVC.editSummaryTag = .suggestedEditsAddImageTop
+        saveVC.needsSuppressPosting = WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
+        saveVC.editTags = [.appSuggestedEdit, .appImageAddTop]
 
         saveVC.delegate = self
         saveVC.imageRecLoggingDelegate = self
@@ -1373,17 +1546,20 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
         }
         
         for viewController in viewControllers {
-            if viewController is WKImageRecommendationsViewController {
+            if viewController is WMFImageRecommendationsViewController {
                 navigationController?.popToViewController(viewController, animated: true)
                 
                 // Send Feedback
                 imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
                 }
                 
+                currentRecommendation.lastRevisionID = revID
+                
                 // Go to next recommendation and display success alert
                 imageRecommendationsViewModel.next {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+
                         let title = CommonStrings.editPublishedToastTitle
                         let image = UIImage(systemName: "checkmark.circle.fill")
                         
@@ -1399,9 +1575,8 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                 break
             }
         }
-        
-        self.imageRecommendationsViewModel = nil
     }
+
     
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         // no-op
@@ -1412,12 +1587,25 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
     }
 }
 
-extension ExploreViewController: WKFeatureAnnouncing {
+extension ExploreViewController: WMFFeatureAnnouncing {
     
 }
 
-extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
+extension ExploreViewController: WMFImageRecommendationsLoggingDelegate {
+
     
+    func logAltTextExperimentDidAssignGroup() {
+        
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation,
+           let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let user = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
+            return
+        }
+        
+        EditInteractionFunnel.shared.logAltTextDidAssignImageRecsGroup(username:user.name, userEditCount: user.editCount, articleTitle: lastRecommendation.title, image: lastRecommendation.imageData.filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
+    }
+
     func logOnboardingDidTapPrimaryButton() {
         ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
     }
@@ -1442,8 +1630,8 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
         ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
     }
 
-    func logDialogWarningMessageDidDisplay() {
-        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay()
+    func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay(fileName: fileName, recommendationSource: recommendationSource)
     }
 
     func logBottomSheetDidTapYes() {
@@ -1502,6 +1690,16 @@ extension ExploreViewController: WKImageRecommendationsLoggingDelegate {
     
     func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+
+    func logAltTextFeedbackDidClickYes() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: true, project: WikimediaProject(wmfProject:  viewModel.project))
+    }
+
+    func logAltTextFeedbackDidClickNo() {
+        guard let viewModel = imageRecommendationsViewModel else { return }
+        EditInteractionFunnel.shared.logAltTextFeedback(answer: false, project: WikimediaProject(wmfProject:  viewModel.project))
     }
 }
 
@@ -1648,5 +1846,207 @@ extension ExploreViewController: SearchTermSelectDelegate {
     
     func searchViewController(_ searchViewController: SearchViewController, didSelectSearchTerm searchTerm: String, at indexPath: IndexPath) {
         navigationItem.searchController?.searchBar.text = searchTerm
+    }
+}
+
+extension ExploreViewController: AltTextDelegate {
+    private func localizedAltTextFormat(siteURL: URL) -> String {
+        let enFormat = "alt=%@"
+        guard let languageCode = siteURL.wmf_languageCode else {
+            return enFormat
+        }
+        
+        guard let magicWord = MagicWordUtils.getMagicWordForKey(.imageAlt, languageCode: languageCode) else {
+            return enFormat
+        }
+             
+        return magicWord.replacingOccurrences(of: "$1", with: "%@")
+    }
+
+    func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFComponents.WMFAltTextExperimentViewModel) {
+
+        let articleURL = articleViewController.articleURL
+
+        guard let uiImage else { return }
+
+        let captionTitle = WMFLocalizedString("alt-text-experiment-caption-title", value: "Image caption", comment: "title for image caption field on alt text preview")
+        let reviewTitle = WMFLocalizedString("alt-text-experiment-review-title", value: "Review", comment: "Title for the review stpe of the alt text experiment")
+
+        let footerTextFormat = WMFLocalizedString("alt-text-license", value:"By publishing changes, you agree to the [Terms of Use](%1$@),  and you irrevocably agree to release your contribution under the [CC BY-SA 3.0](%2$@) license  and the [GFDL](%3$@). You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.", comment: "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. %1$@, %2$@ and %3$@ are replaced by the terms of use and license links.")
+
+        let terms = "\(Licenses.saveTermsURL?.absoluteString ?? String())"
+        let license = "\(Licenses.CCBYSA4URL?.absoluteString ?? String())"
+        let gdfl = "\(Licenses.GFDLURL?.absoluteString ?? String())"
+        let footerText = String.localizedStringWithFormat(footerTextFormat, terms, license, gdfl)
+
+        let localizedStrings = WMFAltTextExperimentPreviewViewModel.LocalizedStrings(altTextTitle: CommonStrings.altTextTitle, captionTitle: captionTitle, title: reviewTitle, footerText: footerText, publishTitle: CommonStrings.publishTitle)
+        let previewViewModel = WMFAltTextExperimentPreviewViewModel(image: uiImage, altText: altText, caption: viewModel.caption, localizedStrings: localizedStrings, articleURL: articleURL, fullArticleWikitextWithImage: viewModel.fullArticleWikitextWithImage, originalImageWikitext: viewModel.imageWikitext, isFlowB: viewModel.isFlowB, sectionID: viewModel.sectionID, lastRevisionID: viewModel.lastRevisionID, localizedEditSummary: viewModel.localizedStrings.editSummary, filename: viewModel.filename, project: viewModel.project)
+        let previewViewController = WMFAltTextExperimentPreviewViewController(viewModel: previewViewModel, delegate: self)
+        articleViewController.dismiss(animated: true) {
+            self.navigationController?.pushViewController(previewViewController, animated: true)
+        }
+
+    }
+
+}
+
+extension ExploreViewController: WMFAltTextPreviewDelegate {
+    func didTapPublish(viewModel: WMFAltTextExperimentPreviewViewModel) {
+
+        logAltTextDidTapPublish()
+
+        guard let siteURL = viewModel.articleURL.wmf_site else {
+            return
+        }
+        let originalFullArticleWikitext = viewModel.fullArticleWikitextWithImage
+        let originalImageWikitext = viewModel.originalImageWikitext
+        let originalCaption = viewModel.caption
+
+        var finalImageWikitext = originalImageWikitext
+        var finalWikitext = originalFullArticleWikitext
+
+        let altTextToInsert = String.localizedStringWithFormat(localizedAltTextFormat(siteURL: siteURL), viewModel.altText)
+
+        if let originalCaption,
+           let range = originalImageWikitext.range(of: " | \(originalCaption)]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert) | \(originalCaption)]]")
+        } else if let range = originalImageWikitext.range(of: "]]") {
+            finalImageWikitext.replaceSubrange(range, with: "| \(altTextToInsert)]]")
+        }
+
+        if let range = originalFullArticleWikitext.range(of: originalImageWikitext) {
+            finalWikitext.replaceSubrange(range, with: finalImageWikitext)
+        }
+
+        let developerSettings = WMFDeveloperSettingsDataController()
+
+        imageRecommendationsViewModel?.lastRecommendation?.altText = viewModel.altText
+
+        if viewModel.isFlowB && developerSettings.doNotPostImageRecommendationsEdit {
+
+            if let navigationController = self.navigationController {
+                for viewController in navigationController.viewControllers {
+                    if let vc =  viewController as? WMFImageRecommendationsViewController {
+                      vc.isBackFromAltText = true
+                      navigationController.popToViewController(vc, animated: true)
+                      break
+                    }
+                }
+            }
+
+            // wait for animation to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.presentAltTextEditPublishedToast()
+                self?.logAltTextEditSuccess(altText: viewModel.altText, revisionID: 0)
+            }
+
+            return
+            
+        } else {
+
+            let section: String?
+            if let sectionID = viewModel.sectionID {
+                section = "\(sectionID)"
+            } else {
+                section = nil
+            }
+
+            let fetcher = WikiTextSectionUploader()
+            fetcher.uploadWikiText(finalWikitext, forArticleURL: viewModel.articleURL, section: section, summary: viewModel.localizedEditSummary, isMinorEdit: false, addToWatchlist: false, baseRevID: NSNumber(value: viewModel.lastRevisionID), captchaId: nil, captchaWord: nil, editTags: nil) { result, error in
+
+                if error != nil {
+                    DispatchQueue.main.async {
+                        self.presentAltTextEditErrorToast()
+                        if let navigationController = self.navigationController {
+                            for viewController in navigationController.viewControllers {
+                                if viewController is WMFAltTextExperimentPreviewViewController {
+                                    let vc = viewController as? WMFAltTextExperimentPreviewViewController
+                                    vc?.updatePublishButtonState(isEnabled: true)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+
+                        if let navigationController = self.navigationController {
+                            for viewController in navigationController.viewControllers {
+                                if viewController is WMFImageRecommendationsViewController {
+                                  let vc =  viewController as? WMFImageRecommendationsViewController
+                                    guard let vc else { return }
+                                    vc.isBackFromAltText = true
+                                    navigationController.popToViewController(vc, animated: true)
+                                    break
+                                }
+                            }
+                        }
+                        guard let fetchedData = result as? [String: Any],
+                              let newRevID = fetchedData["newrevid"] as? UInt64 else {
+                            return
+                        }
+                            // wait for animation to complete
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                            self?.presentAltTextEditPublishedToast()
+                            self?.logAltTextEditSuccess(altText: viewModel.altText, revisionID: newRevID)
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func logAltTextDidTapPublish() {
+        guard let imageRecommendationsViewModel else {
+            return
+        }
+        EditInteractionFunnel.shared.logAltTextDidTapPublish(project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
+    }
+
+    private func logAltTextEditSuccess(altText: String, revisionID: UInt64) {
+
+        guard let imageRecommendationsViewModel,
+              let lastRecommendation = imageRecommendationsViewModel.lastRecommendation, let acceptDate = lastRecommendation.altTextExperimentAcceptDate,
+        let siteURL = imageRecommendationsViewModel.project.siteURL else {
+            return
+        }
+
+        let articleTitle = lastRecommendation.title
+        let image = lastRecommendation.imageData.filename
+        let caption = lastRecommendation.caption
+        let timeSpent = Int(Date().timeIntervalSince(acceptDate))
+
+        guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) else {
+            return
+        }
+
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: permanentUser.name, userEditCount: permanentUser.editCount, registrationDate: permanentUser.registrationDateString, project: WikimediaProject(wmfProject: imageRecommendationsViewModel.project))
+    }
+
+    private func presentAltTextEditPublishedToast() {
+        let title = CommonStrings.editPublishedToastTitle
+        let image = UIImage(systemName: "checkmark.circle.fill")
+
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+            }
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+        }
+    }
+
+    private func presentAltTextEditErrorToast() {
+        let title = CommonStrings.genericErrorDescription
+        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+    }
+
+}
+
+extension ExploreViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
     }
 }

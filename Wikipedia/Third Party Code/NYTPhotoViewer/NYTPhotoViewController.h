@@ -46,6 +46,8 @@ extern NSString * const NYTPhotoViewControllerPhotoImageUpdatedNotification;
  */
 @property (nonatomic, weak, nullable) id <NYTPhotoViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) UIEditMenuInteraction *editMenuInteraction;
+
 /**
  *  The designated initializer that takes the photo and activity view.
  *

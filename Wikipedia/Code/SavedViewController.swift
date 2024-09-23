@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)
@@ -268,7 +268,7 @@ class SavedViewController: ThemeableViewController {
         }
         
         let newAppearance = UINavigationBarAppearance()
-        newAppearance.largeTitleTextAttributes = [.font: UIFont.wmf_font(.boldTitle1)]
+        newAppearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1, compatibleWith: traitCollection)]
         newAppearance.configureWithOpaqueBackground()
         newAppearance.backgroundColor = theme.colors.chromeBackground
         newAppearance.backgroundImage = theme.navigationBarBackgroundImage
@@ -281,7 +281,7 @@ class SavedViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        // actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        // actionButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {

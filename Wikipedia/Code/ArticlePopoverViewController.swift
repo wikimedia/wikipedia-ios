@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
@@ -23,7 +23,9 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBOutlet weak var articleSummaryView: UIView!
     @IBOutlet weak var buttonContainerView: UIView!
-    
+
+    private var theme: Theme = .light
+
     var displayTitleHTML: String = ""
     let article: WMFArticle
     
@@ -127,9 +129,11 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
-        titleLabel.attributedText = displayTitleHTML.byAttributingHTML(with: .georgiaTitle3, matching: traitCollection)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(displayTitleHTML, styles: styles)
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         configureView(withTraitCollection: traitCollection)
@@ -162,6 +166,7 @@ class ArticlePopoverViewController: UIViewController {
 
 extension ArticlePopoverViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         view.tintColor = theme.colors.link
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText

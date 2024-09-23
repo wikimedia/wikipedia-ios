@@ -1,4 +1,5 @@
-import Components
+import WMFComponents
+import WMFData
 
 private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind
@@ -22,64 +23,64 @@ private class FeedCard: ExploreFeedSettingsItem {
             title = CommonStrings.inTheNewsTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-in-the-news-description", value: "Articles about current events", comment: "Description of In the news section of Explore feed")
             iconName = "in-the-news-mini"
-            iconColor = WKColor.gray400
-            iconBackgroundColor = WKColor.gray200
+            iconColor = WMFColor.gray400
+            iconBackgroundColor = WMFColor.gray200
         case .onThisDay:
             title = CommonStrings.onThisDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-on-this-day-description", value: "Events in history on this day", comment: "Description of On this day section of Explore feed")
             iconName = "on-this-day-mini"
-            iconColor = WKColor.blue600
-            iconBackgroundColor = WKColor.blue100
+            iconColor = WMFColor.blue600
+            iconBackgroundColor = WMFColor.blue100
         case .featuredArticle:
             title = CommonStrings.featuredArticleTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
             iconName = "featured-mini"
-            iconColor = WKColor.yellow600
-            iconBackgroundColor = WKColor.yellow600.withAlphaComponent(0.3)
+            iconColor = WMFColor.yellow600
+            iconBackgroundColor = WMFColor.yellow600.withAlphaComponent(0.3)
         case .topRead:
             title = CommonStrings.topReadTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-top-read-description", value: "Daily most read articles", comment: "Description of Top read section of Explore feed")
             iconName = "trending-mini"
-            iconColor = WKColor.blue600
-            iconBackgroundColor = WKColor.blue100
+            iconColor = WMFColor.blue600
+            iconBackgroundColor = WMFColor.blue100
         case .location:
             fallthrough
         case .locationPlaceholder:
             title = CommonStrings.placesTabTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-places-description", value: "Wikipedia articles near your location", comment: "Description of Places section of Explore feed")
             iconName = "nearby-mini"
-            iconColor = WKColor.green600
-            iconBackgroundColor = WKColor.green100
+            iconColor = WMFColor.green600
+            iconBackgroundColor = WMFColor.green100
         case .random:
             title = CommonStrings.randomizerTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random articles to read", comment: "Description of Randomizer section of Explore feed")
             iconName = "random-mini"
-            iconColor = WKColor.red600
-            iconBackgroundColor = WKColor.red100
+            iconColor = WMFColor.red600
+            iconBackgroundColor = WMFColor.red100
         case .pictureOfTheDay:
             title = CommonStrings.pictureOfTheDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
             iconName = "potd-mini"
-            iconColor = WKColor.purple600
-            iconBackgroundColor = WKColor.purple600.withAlphaComponent(0.3)
+            iconColor = WMFColor.purple600
+            iconBackgroundColor = WMFColor.purple600.withAlphaComponent(0.3)
         case .continueReading:
             title = CommonStrings.continueReadingTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")
             iconName = "today-mini"
-            iconColor = WKColor.gray400
-            iconBackgroundColor = WKColor.gray200
+            iconColor = WMFColor.gray400
+            iconBackgroundColor = WMFColor.gray200
         case .relatedPages:
             title = CommonStrings.relatedPagesTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-related-pages-description", value: "Suggestions based on reading history", comment: "Description of Related pages section of Explore feed")
             iconName = "recent-mini"
-            iconColor = WKColor.gray400
-            iconBackgroundColor = WKColor.gray200
+            iconColor = WMFColor.gray400
+            iconBackgroundColor = WMFColor.gray200
         case .suggestedEdits:
             title = CommonStrings.suggestedEditsTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-suggested-edits-description", value: "Suggestions to add content to Wikipedia", comment: "Description of Suggested Edits section of Explore feed")
             iconName = "pencil"
-            iconColor = WKColor.blue600
-            iconBackgroundColor = WKColor.blue100
+            iconColor = WMFColor.blue600
+            iconBackgroundColor = WMFColor.blue100
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""
@@ -190,19 +191,12 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     var editCount: Int {
-        var count: Int = 0
-        if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
-            self.dataStore?.authenticationManager.getLoggedInUser(for: language, completion: { result in
-                switch result {
-                case .success(let user):
-                    count = Int(user?.editCount ?? 0)
-                default:
-                    break
-                }
-            })
+        guard let siteURL = self.dataStore?.languageLinkController.appLanguage?.siteURL,
+        let editCount = self.dataStore?.authenticationManager.permanentUser(siteURL: siteURL)?.editCount else {
+            return 0
         }
-
-        return count
+        
+        return Int(editCount)
     }
 
     // MARK: Items
@@ -219,13 +213,53 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
-        if FeatureFlags.needsImageRecommendations && !UIAccessibility.isVoiceOverRunning && editCount >= 50 {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages, suggestedEdits]
-        } else {
-            return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
-        }
-        
+        var feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        let suggestedEditsOption = suggestedEdits
+
+            let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
+
+            if shouldShowSuggestedEdits || self.shouldEnableForAltTextExperiment() {
+                feedCards.append(suggestedEditsOption)
+            }
+
+        return feedCards
+
     }()
+
+    private func shouldEnableForAltTextExperiment() -> Bool {
+        let altTextDevSettingsFeatureFlagForEN = WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN
+        let targetWikisForAltText = altTextDevSettingsFeatureFlagForEN ? ["es", "fr", "pt", "zh", "en"] : ["es", "fr", "pt", "zh"]
+        let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
+
+        if #available(iOS 16, *) {
+            
+            let isUserPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
+            
+            return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+            && shouldAltTextExperimentBeActive()
+        }
+        return false
+    }
+
+    func shouldAltTextExperimentBeActive() -> Bool {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2024
+        dateComponents.month = 10
+        dateComponents.day = 21
+
+        let calendar = Calendar(identifier: .gregorian)
+        guard let experimentDate = calendar.date(from: dateComponents) else {
+            return false
+        }
+
+        let currentDate = Date()
+
+        if currentDate > experimentDate {
+            return false
+        }
+
+        return true
+    }
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
         return ExploreFeedSettingsGlobalCards()

@@ -129,6 +129,10 @@
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "advanced-settings-title" = "Avanserte innstillinger";
+"alt-text-add-button-title" = "Legg til";
+"alt-text-do-not-add-button-title" = "Ikke legg til";
+"alt-text-experiment-edit-summary" = "La til alternativ tekst";
+"alt-text-experiment-text-field-placholder" = "Beskriv bildet";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
@@ -323,6 +327,8 @@
 "edit-summary-choice-fixed-typos" = "Fikset typo";
 "edit-summary-choice-linked-words" = "La til lenker";
 "edit-summary-placeholder-text" = "Hvordan forbedret du artikkelen?";
+"edit-summary-short-description-added" = "La til kort beskrivelse";
+"edit-summary-short-description-updated" = "Oppdaterte kort beskrivelse";
 "edit-watch-list-learn-more-text" = "Lær mer om overvåkingslisten din";
 "edit-watch-this-page-text" = "Overvåk denne siden";
 "editing-welcome-be-bold-subtitle" = "Vær modig, men ikke uvøren når du oppdaterer artikler. Ikke vær redd for å gjøre feil: alle tidligere versjoner av en side er lagret, så feil kan enkelt korrigeres av andre.";

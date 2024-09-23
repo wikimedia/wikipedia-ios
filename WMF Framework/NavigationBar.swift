@@ -1,3 +1,5 @@
+import WMFComponents
+
 @objc public enum NavigationBarDisplayType: Int {
     case backVisible
     case largeTitle
@@ -199,7 +201,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             let navigationTitleLabel = UILabel()
             navigationTitleLabel.text = title
             navigationTitleLabel.sizeToFit()
-            navigationTitleLabel.font = UIFont.wmf_font(.boldTitle1)
+            navigationTitleLabel.font = WMFFont.for(.boldTitle1)
             titleView = navigationTitleLabel
             let titleItem = UIBarButtonItem(customView: navigationTitleLabel)
             extractedTitleBarButtonItem = titleItem
@@ -534,7 +536,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         
         setNeedsLayout()
-        // DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
                 if shadowAlpha >= 0 {

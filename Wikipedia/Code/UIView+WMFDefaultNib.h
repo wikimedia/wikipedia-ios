@@ -1,4 +1,4 @@
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @interface UIView (WMFDefaultNib)
 

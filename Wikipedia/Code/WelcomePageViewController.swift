@@ -1,4 +1,4 @@
-import Components
+import WMFComponents
 
 protocol PageViewControllerViewLifecycleDelegate: AnyObject {
     func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)
@@ -116,7 +116,7 @@ final class WelcomePageViewController: UIPageViewController {
     }
 
     private func updateFonts() {
-        let buttonFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let buttonFont = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         nextButton.titleLabel?.font = buttonFont
         skipButton.titleLabel?.font = buttonFont
     }
@@ -148,7 +148,7 @@ extension WelcomePageViewController: Themeable {
         pageControl?.pageIndicatorTintColor = theme.colors.pageIndicator
         pageControl?.currentPageIndicatorTintColor = theme.colors.pageIndicatorCurrent
         nextButton.tintColor = theme.colors.link
-        skipButton.tintColor = WKColor.gray400
+        skipButton.tintColor = WMFColor.gray400
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
     }
 }

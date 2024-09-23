@@ -207,8 +207,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            default:
-                break
             }
         }
     }

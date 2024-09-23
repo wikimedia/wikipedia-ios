@@ -1,6 +1,27 @@
 [
   {
     "aliases" : [
+      "grondlijn",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "rand",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "beneden",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
       "gecentreerd",
       "center",
       "centre"
@@ -32,6 +53,13 @@
   },
   {
     "aliases" : [
+      "midden",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
       "geen",
       "none"
     ],
@@ -46,11 +74,43 @@
   },
   {
     "aliases" : [
+      "tekst-beneden",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "tekst-boven",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
       "miniatuur",
       "thumb",
       "thumbnail"
     ],
     "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "boven",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "rechtop",
+      "rechtop=$1",
+      "rechtop$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
   },
   {
     "aliases" : [
@@ -60,7 +120,22 @@
   },
   {
     "aliases" : [
-      "Gefre"
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "Gefre",
+      "Afbeelding",
+      "Image"
     ],
     "name" : "file_namespace"
   }

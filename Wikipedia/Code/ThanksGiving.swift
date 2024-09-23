@@ -27,9 +27,9 @@ extension ThanksGiving where Self: ThemeableViewController {
         }
     }
 
-    var isLoggedIn: Bool {
+    var isPermanent: Bool {
         // SINGLETONTODO
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
 
     func tappedThank(for revisionID: Int?, isUserAnonymous: Bool) {
@@ -70,7 +70,7 @@ extension ThanksGiving where Self: ThemeableViewController {
             return
         }
 
-        guard isLoggedIn else {
+        guard isPermanent else {
             let tapLoginHandler: (() -> Void)?
             let category: EventCategoryMEP?
             switch source {

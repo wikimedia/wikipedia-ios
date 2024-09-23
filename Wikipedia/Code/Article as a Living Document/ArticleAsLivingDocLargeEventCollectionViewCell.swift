@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 // Note: this is an amalgamation of both SideScrollingCollectionViewCell and OnThisDayCollectionViewCell
@@ -40,8 +40,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     
     private var collectionViewHeight: CGFloat = 0
 
-    private var isLoggedIn: Bool {
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+    private var isPermanent: Bool {
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
     
     override func setup() {
@@ -201,10 +201,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         setAttributedStringViews()
         
-        timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        timestampLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        thankButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        viewChangesButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        viewDiscussionButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     func apply(theme: Theme) {
@@ -222,8 +222,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             switch largeEvent.buttonsToDisplay {
             case .thankAndViewChanges:
                 thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.cardButtonSelectedBackground : theme.colors.cardButtonBackground
-                thankButton.setTitleColor(!isLoggedIn ? theme.colors.disabledLink : theme.colors.link, for: .normal)
-                thankButton.tintColor = (!isLoggedIn ? theme.colors.disabledLink : theme.colors.link)
+                thankButton.setTitleColor(!isPermanent ? theme.colors.disabledLink : theme.colors.link, for: .normal)
+                thankButton.tintColor = (!isPermanent ? theme.colors.disabledLink : theme.colors.link)
 
                 viewChangesButton.backgroundColor = theme.colors.cardButtonBackground
                 viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
@@ -275,8 +275,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
             
-            thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+            thankButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+            viewChangesButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
 
             if largeEvent.wereThanksSent {
                 thankButton.setImage(UIImage(named: "thank"), for: .normal)

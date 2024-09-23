@@ -23,6 +23,7 @@
 // Author: Pahkiqaz
 // Author: Pyscowicz
 // Author: SMAUG
+// Author: Samoasambia
 // Author: ShakePilli
 // Author: Silvonen
 // Author: Stryn
@@ -92,7 +93,7 @@
 "account-creation-captcha-cannot-see-image" = "Etkö näe kuvaa? $1";
 "account-creation-captcha-obtaining" = "Ladataan uutta kuvavarmennusta...";
 "account-creation-captcha-request-account" = "Pyydä käyttäjätunnusta.";
-"account-creation-captcha-title" = "CAPTCHA-kuvavarmennus";
+"account-creation-captcha-title" = "CAPTCHA-turvallisuutarkistus";
 "account-creation-create-account" = "Luo käyttäjätunnus";
 "account-creation-have-account" = "Onko sinulla jo tunnus? $1";
 "account-creation-log-in" = "Kirjaudu sisään.";
@@ -102,7 +103,7 @@
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-title" = "Luo uusi käyttäjätunnus";
 "account-group-title" = "Oma käyttäjätunnus";
-"account-request-vanishing" = "Häivytä käyttäjätunnus";
+"account-request-vanishing" = "Hävitä käyttäjätunnus";
 "account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-auto-sign-discussions" = "Allekirjoita automaattisesti";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Allekirjoita keskusteluviestit asetuksissa määritellyllä allekirjoituksella automaattisesti";
@@ -137,6 +138,11 @@
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
+"advanced-settings-title" = "Lisäasetukset";
+"alt-text-add-button-title" = "Lisää";
+"alt-text-do-not-add-button-title" = "Älä lisää";
+"alt-text-experiment-text-field-placholder" = "Kuvaile tätä kuvaa";
+"alt-text-experiment-view-title" = "Lisää vaihtoehtoinen teksti";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -226,11 +232,21 @@
 "description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla lupaan, etten väärinkäytä tätä toimintoa";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
+"developer-settings" = "Kehittäjien asetukset";
 "diff-article-revision-history" = "Artikkelin versiohistoria";
+"diff-change-added" = "Lisäys, $1, lisäyksen loppu.";
+"diff-change-paragraph-lines-moved-down" = "Kappaletta siirretty {{PLURAL:$1|0=0 riviä|$1 rivi|$1 riviä}} alaspäin. Siirry uuteen sijaintiin.";
+"diff-change-paragraph-lines-moved-up" = "Kappaletta siirretty {{PLURAL:$1|0=0 riviä|$1 rivi|$1 riviä}} ylöspäin. Siirry uuteen sijaintiin.";
+"diff-change-paragraph-moved" = "Kappaletta siirretty. Siirry edelliseen sijaintiin.";
+"diff-change-paragraph-sections-moved-down" = "Kappaletta siirretty {{PLURAL:$1|0=0 osiota|$1 osio|$1 osiota}} alaspäin. Siirry uuteen sijaintiin.";
+"diff-change-paragraph-sections-moved-up" = "Kappaletta siirretty {{PLURAL:$1|0=0 osiota|$1 osio|$1 osiota}} ylöspäin. Siirry uuteen sijaintiin.";
+"diff-change-removal" = "Poisto, $1, poiston loppu.";
 "diff-compare-header-from-info-heading" = "Edellinen muokkaus";
 "diff-compare-header-heading" = "Versioiden vertailu";
 "diff-compare-header-to-info-heading" = "Näkyvä muokkaus";
 "diff-compare-title" = "Versioiden vertailu";
+"diff-content-added" = "Sisältöä lisätty, $1";
+"diff-content-removed" = "Sisältöä poistettu, $1";
 "diff-context-cell-collapse-section" = "Tiivistä $1";
 "diff-context-cell-expand-section" = "Laajenna $1";
 "diff-context-lines-collapsed-button-title" = "Näytä";
@@ -250,8 +266,8 @@
 "diff-rollback-success" = "Muokkaukset kumottu.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}}";
 "diff-single-header-editor-title" = "Muokkaajan tiedot";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 merkki lisätty|$1 merkkiä lisätty}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 merkki poistettu|$1 merkkiä poistettu}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 tavu lisätty|$1 tavua lisätty}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 tavu poistettu|$1 tavua poistettu}}";
 "diff-single-header-summary-heading" = "Muokkausyhteenveto";
 "diff-single-intro-title" = "Intro";
 "diff-single-line-format" = "Rivi $1";
@@ -264,6 +280,8 @@
 "diff-thanks-sent" = "Kiitoksesi lähetettiin käyttäjälle $1";
 "diff-thanks-sent-already" = "Olet jo lähettänyt kiitokset tälle muokkaukselle";
 "diff-thanks-sent-cannot-unsend" = "Kiitoksen lähettämistä ei voi kumota";
+"diff-unchanged-contextual-line" = "Asiayhteysrivi, muuttumaton: $1";
+"diff-undo-message" = "Tämä kumoaa tässä näytettävien versioiden tekemät muutokset artikkeliin. Jatkaaksesi anna syy tämän muokkauksen kumoamiseen.";
 "diff-undo-success" = "Versio kumottiin.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 rivi ilman muutoksia|$1 riviä ilman muutoksia}}";
 "diff-user-button-accessibility-text" = "Kaksoisnapauta avataksesi valikon";
@@ -278,11 +296,13 @@
 "donate-minimum-error-text" = "Valitse summa (vähintään $1 $2).";
 "donate-monthly-recurring-text" = "Tee tästä kuukausittainen toistuva lahjoitus.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Lahjoita Apple Paylla";
+"donate-payment-method-prompt-message" = "Lahjoita Apple Paylla tai valitse toinen maksutapa.";
 "donate-payment-method-prompt-other-button-title" = "Muu maksutapa";
 "donate-payment-method-prompt-title" = "Lahjoita Apple Paylla?";
 "donate-success-subtitle" = "Anteliaisuutesi merkitsee meille niin paljon.";
 "donate-success-title" = "Kiitos!";
 "donate-title" = "Valitse summa";
+"donate-transaction-fee-opt-in-text" = "Lisään avokätisesti $1 kattamaan siirtokulut, jotta voitte pitää 100 %% lahjoituksestani.";
 "edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-link-title" = "Poista linkki";
@@ -295,8 +315,10 @@
 "edit-notices" = "Muokkausilmoitukset";
 "edit-notices-always-display" = "Näytä aina muokkausilmoitukset";
 "edit-notices-please-read" = "Lue ennen muokkaamista";
+"edit-preview-simplified-format-message" = "Kaikki sisältö näytetään yksinkertaistetussa muodossa.";
 "edit-published" = "Muokkaus julkaistu";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
+"edit-show-web-preview" = "Näytä verkkoesikatselu";
 "edit-summary-add-summary-text" = "Lisää muokkausyhteenveto";
 "edit-summary-choice-added-image" = "Lisätty kuva";
 "edit-summary-choice-added-image-and-caption" = "Lisätty kuva ja kuvateksti";
@@ -304,6 +326,8 @@
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
+"edit-summary-short-description-added" = "Lyhyt kuvaus lisätty";
+"edit-summary-short-description-updated" = "Lyhyttä kuvausta päivitetty";
 "edit-watch-list-learn-more-text" = "Lue lisää omista tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-subtitle" = "Muokkaa rohkeasti, mutta älä holtittomasti. Älä epäröi virheiden tekemistä, sillä yhteisömme voi tarvittaessa helposti palauttaa edellisen version.";
@@ -326,10 +350,18 @@
 "editor-find-previous-button-accessibility" = "Edellinen hakutulos";
 "editor-find-textfield-accessibility" = "Etsi";
 "editor-keyboard-bold-accessibility" = "Lihavointi";
+"editor-keyboard-close-text-format-menu-accessibility" = "Sulje tekstinmuotoiluvalikko";
+"editor-keyboard-comment-accessibility" = "Kommentti";
 "editor-keyboard-heading-button" = "Otsikko";
+"editor-keyboard-indent-decrease-accessibility" = "Pienennä sisennystä";
+"editor-keyboard-indent-increase-accessibility" = "Suurenna sisennystä";
 "editor-keyboard-italics-accessibility" = "Kursivointi";
 "editor-keyboard-link-accessibility" = "Linkki";
+"editor-keyboard-list-ordered-accessibility" = "Järjestetty luettelo";
+"editor-keyboard-list-unordered-accessibility" = "Järjestämätön luettelo";
 "editor-keyboard-paragraph-button" = "Kappale";
+"editor-keyboard-reference-accessibility" = "Lähde";
+"editor-keyboard-strikethrough-accessibility" = "Yliviivaus";
 "editor-keyboard-subheading1-button" = "Alaotsikko 1";
 "editor-keyboard-subheading2-button" = "Alaotsikko 2";
 "editor-keyboard-subheading3-button" = "Alaotsikko 3";
@@ -340,6 +372,7 @@
 "editor-keyboard-text-formatting-title" = "Tekstin muotoilu";
 "editor-keyboard-underline-accessibility" = "Alleviivaus";
 "editor-replace-textfield-accessibility" = "Korvaa";
+"editor-replace-textfield-placeholder" = "Korvaa seuraavalla...";
 "editor-replace-type-all" = "Korvaa kaikki";
 "editor-replace-type-single" = "Korvaa";
 "empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
@@ -414,6 +447,8 @@
 "explore-feed-preferences-show-related-pages-title" = "Näytä Aiemmin lukemasi perusteella -kortti";
 "explore-feed-preferences-show-top-read-footer-text" = "Luetuimmat-kortin poistaminen käytöstä poistaa sen käytöstä kaikilla kielillä.";
 "explore-feed-preferences-show-top-read-title" = "Näytä Luetuimmat-kortti";
+"explore-feed-preferences-suggested-edits-description" = "Ehdotuksia sisällön lisäämiseksi Wikipediaan";
+"explore-feed-preferences-suggested-edits-title" = "Näytä Ehdotetut muokkaukset -kortti";
 "explore-feed-preferences-top-read-description" = "Päivittäin eniten luetut artikkelit";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Poista Tutki-syöte käytöstä";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Kaikkien Tutki-syötteen korttien piilottaminen poistaa näkymän kokonaan ja korvaa sen Asetukset-näkymällä";
@@ -554,6 +589,8 @@
 "insert-media-image-preview-select-image-action-title" = "Valitse kuva";
 "insert-media-image-size-setting-custom" = "Mukautettu";
 "insert-media-image-size-setting-default" = "Oletus";
+"insert-media-image-size-settings-measure-height" = "Korkeus";
+"insert-media-image-size-settings-measure-width" = "Leveys";
 "insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Kuvan koko";
 "insert-media-image-type-setting-basic" = "Normaali";
@@ -703,7 +740,8 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Merkitse valitut ilmoitukset";
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
-"notifications-center-type-title-connection-with-wikidata" = "Yhteys Wikidataan";
+"notifications-center-type-title-connection-with-wikidata" = "Linkitys Wikidataan";
+"notifications-center-type-title-edit-milestone" = "Muokkausvirstanpylväs";
 "notifications-center-type-title-edit-reverted" = "Muokkaus palautettu";
 "notifications-center-type-title-edit-summary-mention" = "Muokkausyhteenvetomaininta";
 "notifications-center-type-title-email-from-other-user" = "Sähköposti toiselta käyttäjältä";
@@ -797,6 +835,7 @@
 "potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
+"problem-with-feature-title" = "Ongelma ominaisuudessa";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikirjasto";
 "project-name-wikidata" = "Wikidata";
@@ -989,6 +1028,11 @@
 "share-social-mention-format" = "“$1” Wikipedian kautta: $2";
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";
+"suggested-edits-title" = "Ehdotetut muokkaukset";
+"survey-instructions" = "Valitse yksi tai useampi vaihtoehto";
+"survey-other-placeholder" = "Muu";
+"survey-submit" = "Lähetä";
+"survey-title" = "Syy";
 "table-of-contents-button-label" = "Sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
@@ -1000,7 +1044,7 @@
 "talk-page-archives" = "Arkistot";
 "talk-page-article-about" = "Tietoja keskustelusivuista";
 "talk-page-change-language" = "Vaihda kieli";
-"talk-page-discussion-read-accessibility-label" = "Lue";
+"talk-page-discussion-read-accessibility-label" = "Luettu";
 "talk-page-discussion-unread-accessibility-label" = "Lukematon";
 "talk-page-error-alert-title" = "Odottamaton virhe";
 "talk-page-error-loading-subtitle" = "Jotain meni vikaan.";
@@ -1011,6 +1055,7 @@
 "talk-page-new-banner-title" = "Olethan ystävällinen!";
 "talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";
 "talk-page-new-topic-success-text" = "Keskustelusi julkaistiin onnistuneesti";
+"talk-page-onboarding-button-accessibility-label" = "Palaa vastaamaan kaksoisnapauttamalla";
 "talk-page-page-info" = "Sivun tiedot";
 "talk-page-permanent-link" = "Ikilinkki";
 "talk-page-publish-reply-error-subtitle" = "Tarkista internetyhteytesi.";
@@ -1021,6 +1066,7 @@
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 vastaus|$1 vastausta}}";
 "talk-page-reply-button" = "Vastaa";
 "talk-page-reply-button-accessibility-label" = "Vastaa käyttäjälle $1";
+"talk-page-reply-depth-accessibility-label" = "Vastauksen syvyys: $1";
 "talk-page-reply-placeholder-format" = "Vastaa käyttäjälle $1";
 "talk-page-revision-history" = "Muutoshistoria";
 "talk-page-rply-close-button-accessibility-hint" = "Sulje vastausnäkymä";
@@ -1032,6 +1078,7 @@
 "talk-page-title-article-talk" = "Artikkelikeskustelu";
 "talk-page-title-user-talk" = "Keskustelu käyttäjästä";
 "talk-page-topic-close-button-hint" = "Sulje uusi aihe";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1Käyttöehdot$2 sekä kirjoituksen julkaisemisen peruuttamattomasti $3CC BY-SA 4.0$4 ja $5GFDL$6 -lisensseillä.";
 "talk-page-unsubscribe-to-topic" = "Peruuta tilaus";
 "talk-page-unsubscribed-alert-subtitle" = "Et saa enää ilmoituksia uusista tämän aiheen kommenteista.";
 "talk-page-unsubscribed-alert-title" = "Olet peruuttanut tilauksen.";
@@ -1055,6 +1102,7 @@
 "talk-pages-topic-compose-body-placeholder" = "Kuvaus";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "Aiheen kuvaus";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "Hylkää vastaus";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "Hylkää aihe";
 "talk-pages-topic-compose-close-confirmation-title" = "Haluatko varmasti hylätä tämän uuden aiheen?";
 "talk-pages-topic-compose-navbar-title" = "Aihe";
 "talk-pages-topic-compose-title-placeholder" = "Otsikko";
@@ -1074,6 +1122,7 @@
 "top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";
 "try-now-title" = "Kokeile nyt";
+"tutorial-title" = "Opas";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
@@ -1180,4 +1229,5 @@
 "wikitext-upload-save-anonymously-or-login" = "IP-osoitteesi tallentuu muutoshistoriaan. $1Kirjautumalla sisään$2 parannat yksityisyyttäsi.";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
