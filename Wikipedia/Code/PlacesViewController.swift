@@ -2060,7 +2060,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     /// Used existing logic from `updateSearchCompletionsFromSearchBarTextForTopArticles` method
-    /// We should investigate about the main queue in the future and refactor and simplify the logic
+    /// We should investigate about the main queue in the future and refactor / simplify the logic
     private func searchPlacesForTopArticles(place: String, completion: (() -> Void)? = nil) {
         searchFetcher.fetchArticles(
             forSearchTerm: place,
@@ -2081,25 +2081,36 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 let center = mapView.userLocation.coordinate
                 let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
 
-                locationSearchFetcher.fetchArticles(
-                    withSiteURL: siteURL,
-                    in: region,
-                    matchingSearchTerm: place,
-                    sortStyle: .links,
-                    resultLimit: 1,
-                    completion: { [weak self] locationSearchResults in
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self else { return }
-
-                            var combinedResults: [MWKSearchResult] = searchResult.results ?? []
-                            let newResults = locationSearchResults.results as [MWKSearchResult]
-                            combinedResults.append(contentsOf: newResults)
-                            _ = handleCompletion(searchResults: combinedResults, siteURL: siteURL)
-                            completion?()
-                        }
-                    }) { error in }
+                searchPlacesForTopArticlesInRegion(place: place, region: region, searchResults: searchResult.results ?? [], completion: completion)
             }
         }
+    }
+
+    /// Used existing logic from `updateSearchCompletionsFromSearchBarTextForTopArticles` method
+    /// Splitted the logic of `updateSearchCompletionsFromSearchBarTextForTopArticles` method for better readability
+    private func searchPlacesForTopArticlesInRegion(
+        place: String,
+        region: CLCircularRegion,
+        searchResults: [MWKSearchResult],
+        completion: (() -> Void)? = nil) {
+        locationSearchFetcher.fetchArticles(
+            withSiteURL: siteURL,
+            in: region,
+            matchingSearchTerm: place,
+            sortStyle: .links,
+            resultLimit: 1,
+            completion: { [weak self] locationSearchResults in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+
+                    var combinedResults: [MWKSearchResult] = searchResults
+                    let newResults = locationSearchResults.results as [MWKSearchResult]
+                    combinedResults.append(contentsOf: newResults)
+                    _ = handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                    completion?()
+                }
+            }) { error in }
+
     }
 
     private func closeSearch() {
