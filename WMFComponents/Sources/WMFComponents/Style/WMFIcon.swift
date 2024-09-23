@@ -44,6 +44,7 @@ public enum WMFSFSymbolIcon {
 	case personFilled
     case starLeadingHalfFilled
     case heart
+    case heartFilled
 	case conversation
     case quoteOpening
     case link
@@ -244,6 +245,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .heartFilled:
+            image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

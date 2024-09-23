@@ -15,6 +15,7 @@ private enum ItemType {
     case talkPageAutoSignDiscussions
     case watchlist
     case vanishAccount
+    case informational
 }
 
 private struct Section {
@@ -46,13 +47,12 @@ class AccountViewController: SubSettingsViewController {
             return []
         }
         
-        let logout = Item(title: username, subtitle: CommonStrings.logoutTitle, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .logout)
-        let talkPage = Item(title: WMFLocalizedString("account-talk-page-title", value: "Your talk page", comment: "Title for button and page letting user view their account page."), subtitle: nil, iconName: "settings-talk-page", iconColor: .white, iconBackgroundColor: WMFColor.blue600 , type: .talkPage)
-        let watchlist = Item(title: CommonStrings.watchlist, subtitle: nil, iconName: "watchlist", iconColor: .white, iconBackgroundColor: WMFColor.yellow600, type: .watchlist)
+        let userName = Item(title: username, subtitle: nil, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .informational)
+
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
-        sectionItems = [logout, talkPage, watchlist, vanishAccount]
+        sectionItems = [userName, vanishAccount]
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 
@@ -113,6 +113,12 @@ class AccountViewController: SubSettingsViewController {
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
+        case .informational:
+            cell.accessibilityTraits = .staticText
+            cell.disclosureType = .none
+            cell.isUserInteractionEnabled = false
+            cell.selectionStyle = .none
+            cell.accessoryType = .none
         }
         
         cell.apply(theme)
@@ -199,7 +205,7 @@ class AccountViewController: SubSettingsViewController {
    }
     
     private func showLogoutAlert() {
-        let alertController = UIAlertController(title: WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out."), message: WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out."), preferredStyle: .alert)
+        let alertController = UIAlertController(title: CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
             guard let self = self else {
                 return

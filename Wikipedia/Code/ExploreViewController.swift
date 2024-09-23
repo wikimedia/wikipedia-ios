@@ -10,10 +10,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
     
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
+
+    // Coordinator
+    private var profileCoordinator: ProfileCoordinator?
 
     // MARK: - UIViewController
     
@@ -28,7 +30,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
-        updateNotificationsCenterButton()
+        // updateNotificationsCenterButton()
         updateProfileViewButton()
         updateNavigationBarVisibility()
 
@@ -137,21 +139,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    @objc func updateNotificationsCenterButton() {
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-            navigationItem.leftBarButtonItem = notificationsBarButton
-            navigationBar.displayType = .centeredLargeTitle
-        } else {
-            navigationItem.leftBarButtonItem = nil
-            navigationBar.displayType = .largeTitle
-        }
-        navigationBar.updateNavigationItems()
-    }
+//    @objc func updateNotificationsCenterButton() {
+//        if self.dataStore.authenticationManager.authStateIsPermanent {
+//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
+//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
+//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
+//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
+//            navigationItem.leftBarButtonItem = notificationsBarButton
+//            navigationBar.displayType = .centeredLargeTitle
+//        } else {
+//            navigationItem.leftBarButtonItem = nil
+//            navigationBar.displayType = .largeTitle
+//        }
+//        navigationBar.updateNavigationItems()
+//    }
 
     @objc public func updateNavigationBarVisibility() {
         navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
@@ -201,19 +203,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        DonateFunnel.shared.logSettingsDidTapSettingsIcon()
-     
-        // settingsPresentationDelegate?.userDidTapProfile(from: self)
-        let profileView = WMFProfileView(isLoggedIn: true)
-        let hostingController = UIHostingController(rootView: profileView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = true
+        
+        guard let navigationController = self.navigationController else {
+            return
         }
+        
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self)
 
-        present(hostingController, animated: true, completion: nil)
+        self.profileCoordinator = coordinator
+        coordinator.start()
     }
     
     open override func refresh() {
@@ -656,7 +654,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        updateNotificationsCenterButton()
+        // updateNotificationsCenterButton()
         updateProfileViewButton()
 
         searchBar.apply(theme: theme)
@@ -1947,4 +1945,12 @@ extension ExploreViewController: WMFAltTextPreviewDelegate {
         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
     }
 
+}
+
+extension ExploreViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
 }
