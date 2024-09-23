@@ -124,11 +124,25 @@ class DonateCoordinator: Coordinator {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
-            // TODO: Logging
+            switch self.source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateCancel()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateCancel()
+            default:
+                print("No logging here.")
+            }
         }))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { [weak self] action in
-            // TODO: Logging
+            switch self?.source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateApplePay()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateApplePay()
+            default:
+                print("No logging here.")
+            }
             self?.navigationController.dismiss(animated: true, completion: {
                 self?.pushToNativeDonateForm(donateViewModel: donateViewModel)
             })
@@ -136,7 +150,14 @@ class DonateCoordinator: Coordinator {
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { [weak self] action in
-            // TODO: Logging
+            switch self?.source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateWebPay()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateWebPay()
+            default:
+                print("No logging here.")
+            }
             self?.navigationController.dismiss(animated: true, completion: {
                 self?.pushToOtherPaymentMethod()
             })

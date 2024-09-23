@@ -205,7 +205,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        
+        DonateFunnel.shared.logExploreProfile()
         guard let navigationController = self.navigationController else {
             return
         }

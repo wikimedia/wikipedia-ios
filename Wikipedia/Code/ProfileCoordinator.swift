@@ -6,18 +6,18 @@ import WMFData
 
 @objc(WMFProfileCoordinator)
 final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
-
+    
     // MARK: Coordinator Protocol Properties
-
+    
     var navigationController: UINavigationController
-
+    
     weak var delegate: LogoutCoordinatorDelegate?
-
+    
     // MARK: Properties
-
+    
     let theme: Theme
     let dataStore: MWKDataStore
-
+    
     private weak var viewModel: WMFProfileViewModel?
     
     private let donateSouce: DonateCoordinator.Source
@@ -26,15 +26,15 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     let username: String?
     let isExplore: Bool?
-
-
+    
+    
     // MARK: Lifecycle
     
     // Convenience method to output a Settings coordinator from Objective-C
     @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) -> ProfileCoordinator {
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, isExplore: isExplore)
     }
-
+    
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) {
         self.navigationController = navigationController
         self.theme = theme
@@ -44,38 +44,38 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.delegate = logoutDelegate
         self.isExplore = isExplore
     }
-
+    
     // MARK: Coordinator Protocol Methods
-
+    
     @objc func start() {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-
+        
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let localizedStrings =
-            WMFProfileViewModel.LocalizedStrings(
-                pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
-                doneButtonTitle: CommonStrings.doneTitle,
-                notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
-                userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
-                talkPageTitle: WMFLocalizedString("profile-page-talk-page-title", value: "Talk page", comment: "Link to talk page"),
-                watchlistTitle: WMFLocalizedString("profile-page-watchlist-title", value: "Watchlist", comment: "Link to watchlist"),
-                logOutTitle: WMFLocalizedString("profile-page-logout", value: "Log out", comment: "Log out button"),
-                donateTitle: WMFLocalizedString("profile-page-donate", value: "Donate", comment: "Link to donate"),
-                settingsTitle: WMFLocalizedString("profile-page-settings", value: "Settings", comment: "Link to settings"),
-                joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
-                joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
-                donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
-            )
-
+        WMFProfileViewModel.LocalizedStrings(
+            pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            notificationsTitle: WMFLocalizedString("profile-page-notification-title", value: "Notifications", comment: "Link to notifications page"),
+            userPageTitle: WMFLocalizedString("profile-page-user-page-title", value: "User page", comment: "Link to user page"),
+            talkPageTitle: WMFLocalizedString("profile-page-talk-page-title", value: "Talk page", comment: "Link to talk page"),
+            watchlistTitle: WMFLocalizedString("profile-page-watchlist-title", value: "Watchlist", comment: "Link to watchlist"),
+            logOutTitle: WMFLocalizedString("profile-page-logout", value: "Log out", comment: "Log out button"),
+            donateTitle: WMFLocalizedString("profile-page-donate", value: "Donate", comment: "Link to donate"),
+            settingsTitle: WMFLocalizedString("profile-page-settings", value: "Settings", comment: "Link to settings"),
+            joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
+            joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
+            donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
+        )
+        
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-
+        
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self
         )
-
+        
         var profileView = WMFProfileView(viewModel: viewModel)
         profileView.donePressed = { [weak self] in
             self?.navigationController.dismiss(animated: true, completion: nil)
@@ -84,17 +84,17 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let finalView = profileView.environmentObject(targetRects)
         let hostingController = UIHostingController(rootView: finalView)
         hostingController.modalPresentationStyle = .pageSheet
-
+        
         if let sheetPresentationController = hostingController.sheetPresentationController {
             sheetPresentationController.detents = [.large()]
             sheetPresentationController.prefersGrabberVisible = false
         }
-
+        
         navigationController.present(hostingController, animated: true, completion: nil)
     }
-
+    
     // MARK: - ProfileCoordinatorDelegate Methods
-
+    
     public func handleProfileAction(_ action: ProfileAction) {
         switch action {
         case .showNotifications:
@@ -128,25 +128,27 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.logout()
             }
+        case .donateTap:
+            self.onDonateTap()
         }
     }
-
+    
     private func dismissProfile(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()
         }
     }
-
+    
     private func showNotifications() {
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         notificationsCoordinator.start()
     }
-
+    
     private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
     }
-
+    
     func showDonate() {
         
         guard let viewModel else {
@@ -163,35 +165,35 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.donateCoordinator = donateCoordinator
     }
     
-
+    
     private func showUserPage() {
         if let username, let siteURL = dataStore.primarySiteURL {
             let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
             userPageCoordinator.start()
         }
     }
-
+    
     private func showUserTalkPage() {
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
         }
     }
-
+    
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
     }
-
+    
     private func dismissProfile() {
         navigationController.dismiss(animated: true, completion: nil)
     }
-
+    
     private func login() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
         loginCoordinator.start()
-}
-
+    }
+    
     private func logout() {
         let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
@@ -205,6 +207,21 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         alertController.addAction(cancelAction)
         navigationController.present(alertController, animated: true, completion: nil)
     }
-
+    
+    func onDonateTap() {
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        
+        if let isExplore = isExplore {
+            if isExplore && isLoggedIn {
+                DonateFunnel.shared.logExploreProfileDonateLoggedIn()
+            } else if isExplore && !isLoggedIn {
+                DonateFunnel.shared.logExploreProfileDonateLoggedOut()
+            } else if !isExplore && isLoggedIn {
+                DonateFunnel.shared.logArticleProfileDonateLoggedIn()
+            } else if !isExplore && !isLoggedIn {
+                DonateFunnel.shared.logArticleProfileDonateLoggedOut()
+            }
+        }
+    }
 }
 

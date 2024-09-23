@@ -14,6 +14,8 @@ import WMF
         case applePayProcessed = "applepay_processed"
         case webPayInitiated = "webpay_initiated"
         case webPayProcessed = "webpay_processed"
+        case articleProfile = "article_profile"
+        case exploreProfile = "explore_profile"
     }
     
     private enum Action: String {
@@ -44,6 +46,7 @@ import WMF
         case successToastArticle = "success_toast_article"
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
+        case profileClick = "profile_click"
     }
     
     private struct Event: EventInterface {
@@ -285,5 +288,63 @@ import WMF
         }
 
         logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: actionData)
+    }
+    
+    func logArticleProfile() {
+        logEvent(activeInterface: .articleProfile, action: .profileClick)
+    }
+    
+    func logArticleProfileDonateLoggedIn() {
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick)
+    }
+    
+    func logArticleProfileDonateLoggedOut() {
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["isAnon": "true"])
+    }
+    
+    // Not yet used
+    func logArticleProfileDonateTemp() {
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["isTemp": "true"])
+    }
+    
+    func logExploreProfile() {
+        logEvent(activeInterface: .exploreProfile, action: .profileClick)
+    }
+    
+    func logExploreProfileDonateLoggedIn() {
+        logEvent(activeInterface: .exploreProfile, action: .donateStartClick)
+    }
+    
+    func logExploreProfileDonateLoggedOut() {
+        logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isAnon": "true"])
+    }
+    
+    // Not yet used
+    func logExploreProfileDonateTemp() {
+        logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isTemp": "true"])
+    }
+    
+    func logArticleProfileDonateCancel() {
+        logEvent(activeInterface: .articleProfile, action: .cancelClick)
+    }
+    
+    func logExploreProfileDonateCancel() {
+        logEvent(activeInterface: .exploreProfile, action: .cancelClick)
+    }
+    
+    func logExploreProfileDonateApplePay() {
+        logEvent(activeInterface: .exploreProfile, action: .applePayClick)
+    }
+    
+    func logArticleProfileDonateApplePay() {
+        logEvent(activeInterface: .articleProfile, action: .applePayClick)
+    }
+    
+    func logExploreProfileDonateWebPay() {
+        logEvent(activeInterface: .exploreProfile, action: .webPayClick)
+    }
+    
+    func logArticleProfileDonateWebPay() {
+        logEvent(activeInterface: .articleProfile, action: .webPayClick)
     }
 }
