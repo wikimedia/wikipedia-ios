@@ -61,11 +61,11 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
             case .detail:
                 showsNavigationBar = false
                 ownsNavigationBar = false
-                // hidesBottomBarWhenPushed = true
+                hidesBottomBarWhenPushed = true
                 addCloseButton()
                 addScrollToTopButton()
             default:
-                // hidesBottomBarWhenPushed = false
+                hidesBottomBarWhenPushed = false
                 removeCloseButton()
                 removeScrollToTopButton()
                 break

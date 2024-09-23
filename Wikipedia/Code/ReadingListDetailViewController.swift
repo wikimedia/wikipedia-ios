@@ -51,8 +51,6 @@ class ReadingListDetailViewController: ThemeableViewController {
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
-        // readingListDetailUnderBarViewController.delegate = self
-        // hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
