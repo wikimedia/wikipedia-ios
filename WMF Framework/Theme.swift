@@ -898,7 +898,7 @@ public class Theme: NSObject {
     
     @objc public lazy var scrollEdgeTitleTextAttributes: [NSAttributedString.Key: Any] = {
         return [NSAttributedString.Key.foregroundColor: colors.chromeText,
-                NSAttributedString.Key.font: UIFont.wmf_font(.boldTitle1)]
+                NSAttributedString.Key.font: WMFFont.for(.boldTitle1)]
     }()
     
     public static let dimmedImageOpacity: CGFloat = 0.65

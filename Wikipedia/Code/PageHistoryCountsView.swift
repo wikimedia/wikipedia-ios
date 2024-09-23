@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 class PageHistoryCountsView: UICollectionReusableView {
     fileprivate var pageTitle: String = ""
@@ -106,9 +107,9 @@ class PageHistoryCountsView: UICollectionReusableView {
     }
 
     private func updateFonts() {
-        titleLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        pageTitleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        countsLabel.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WMFFont.for(.mediumFootnote)
+        pageTitleLabel.font = WMFFont.for(.boldTitle1)
+        countsLabel.font = WMFFont.for(.boldSubheadline)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

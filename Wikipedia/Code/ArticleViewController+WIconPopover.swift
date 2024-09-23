@@ -30,6 +30,10 @@ extension ArticleViewController {
     }
     
     @objc func showWIconPopover() {
+        guard let navigationBar = self.navigationController?.navigationBar else {
+            return
+        }
+        
         let sourceRect = CGRect(x: navigationBar.bounds.width / 2, y: navigationBar.frame.maxY, width: 0, height: 0)
         
         guard sourceRect.origin.y > 0 else {

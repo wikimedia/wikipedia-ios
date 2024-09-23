@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 protocol SearchTermSelectDelegate: AnyObject {
     var searchBarText: String? { get }
@@ -25,7 +26,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         navigationController?.hidesBarsOnSwipe = false
         
         let newAppearance = UINavigationBarAppearance()
-        newAppearance.largeTitleTextAttributes = [.font: UIFont.wmf_font(.boldTitle1)]
+        newAppearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
         newAppearance.configureWithOpaqueBackground()
         newAppearance.backgroundColor = theme.colors.chromeBackground
         newAppearance.backgroundImage = theme.navigationBarBackgroundImage

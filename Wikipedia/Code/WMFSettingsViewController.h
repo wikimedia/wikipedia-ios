@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSettingsViewController : UIViewController <WMFThemeable, WMFPreferredLanguagesViewControllerDelegate>
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store theme:(WMFTheme *)theme;
 
 - (void)loadSections;
 - (void)configureBarButtonItems;

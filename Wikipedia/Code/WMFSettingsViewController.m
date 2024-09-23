@@ -34,11 +34,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store theme:(WMFTheme *)theme {
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
     vc.donateDataController = [WMFDonateDataController sharedInstance];
+    [vc applyTheme:theme];
 
     return vc;
 }
@@ -102,7 +103,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     UINavigationBarAppearance *newAppearance = [[UINavigationBarAppearance alloc] init];
-    UIFont *font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle boldTitle1]];
+    UIFont *font = [WMFFontWrapper fontFor:WMFFontsTitle1 compatibleWithTraitCollection:self.traitCollection];
     newAppearance.largeTitleTextAttributes = @{NSFontAttributeName: font};
     [newAppearance configureWithOpaqueBackground];
     newAppearance.backgroundColor = self.theme.colors.chromeBackground;
