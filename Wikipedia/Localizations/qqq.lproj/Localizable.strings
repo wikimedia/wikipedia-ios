@@ -952,6 +952,8 @@
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
+"profile-button-accessibility-label" = "Accessibility label the profile navigation bar button. Tapping it navigates to the user profile view.";
+"profile-button-badge-accessibility-label" = "Accessibility label for the profile navigation bar badge button. This button has a badge indicating there are unread notifications. Tapping it navigates to the user profile view.";
 "profile-page-donate" = "Link to donate";
 "profile-page-donate-subtext" = "Information about supporting Wikipedia through donations";
 "profile-page-join-subtext" = "Information about signing in or up";

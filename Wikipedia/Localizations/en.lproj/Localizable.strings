@@ -952,6 +952,8 @@
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "privacy-policy-title" = "Privacy policy";
 "problem-with-feature-title" = "Problem with feature";
+"profile-button-accessibility-label" = "Profile";
+"profile-button-badge-accessibility-label" = "Profile with unread badge";
 "profile-page-donate" = "Donate";
 "profile-page-donate-subtext" = "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.";
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
