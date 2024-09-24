@@ -170,6 +170,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
         let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         navigationItem.rightBarButtonItem = profileViewButtonItem
         navigationBar.updateNavigationItems()
     }
