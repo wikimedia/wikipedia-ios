@@ -129,6 +129,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logExploreProfileDonateCancel()
             case .articleProfile:
                 DonateFunnel.shared.logArticleProfileDonateCancel()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateCancel()
             default:
                 print("No logging here.")
             }
@@ -140,6 +142,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logExploreProfileDonateApplePay()
             case .articleProfile:
                 DonateFunnel.shared.logArticleProfileDonateApplePay()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateApplePay()
             default:
                 print("No logging here.")
             }
@@ -155,6 +159,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logExploreProfileDonateWebPay()
             case .articleProfile:
                 DonateFunnel.shared.logArticleProfileDonateWebPay()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateWebPay()
             default:
                 print("No logging here.")
             }

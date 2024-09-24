@@ -7,6 +7,13 @@ import WMFData
 @objc(WMFProfileCoordinator)
 final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
     
+    @objc
+    enum Source: Int {
+        case exploreOptOut
+        case explore
+        case article
+    }
+    
     // MARK: Coordinator Protocol Properties
     
     var navigationController: UINavigationController
@@ -25,24 +32,24 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     
     let username: String?
-    let isExplore: Bool?
+    let sourcePage: Source
     
     
     // MARK: Lifecycle
     
     // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, isExplore: isExplore)
+    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: Source) -> ProfileCoordinator {
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage)
     }
     
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, isExplore: Bool = true) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: Source) {
         self.navigationController = navigationController
         self.theme = theme
         self.donateSouce = donateSouce
         self.dataStore = dataStore
         self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
-        self.isExplore = isExplore
+        self.sourcePage = sourcePage
     }
     
     // MARK: Coordinator Protocol Methods
@@ -211,14 +218,23 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     func onDonateTap() {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         
-        if let isExplore = isExplore {
-            if isExplore && isLoggedIn {
+        switch sourcePage {
+        case .exploreOptOut:
+            if isLoggedIn {
+                DonateFunnel.shared.logOptOutExploreProfileDonateLoggedIn()
+            } else {
+                DonateFunnel.shared.logOptOutExploreProfileDonateLoggedOut()
+            }
+        case .explore:
+            if isLoggedIn {
                 DonateFunnel.shared.logExploreProfileDonateLoggedIn()
-            } else if isExplore && !isLoggedIn {
+            } else {
                 DonateFunnel.shared.logExploreProfileDonateLoggedOut()
-            } else if !isExplore && isLoggedIn {
+            }
+        case .article:
+            if isLoggedIn {
                 DonateFunnel.shared.logArticleProfileDonateLoggedIn()
-            } else if !isExplore && !isLoggedIn {
+            } else {
                 DonateFunnel.shared.logArticleProfileDonateLoggedOut()
             }
         }

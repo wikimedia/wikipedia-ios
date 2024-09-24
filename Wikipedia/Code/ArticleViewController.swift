@@ -1311,7 +1311,7 @@ private extension ArticleViewController {
     
     @objc func userDidTapProfile() {
         DonateFunnel.shared.logArticleProfile()
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, isExplore: false)
+        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, sourcePage: ProfileCoordinator.Source.article)
         self.profileCoordinator = coordinator
         coordinator.start()
     }

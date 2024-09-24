@@ -16,6 +16,7 @@ import WMF
         case webPayProcessed = "webpay_processed"
         case articleProfile = "article_profile"
         case exploreProfile = "explore_profile"
+        case exploreOptOut = "explore_optout_profile"
     }
     
     private enum Action: String {
@@ -319,6 +320,19 @@ import WMF
         logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isAnon": "true"])
     }
     
+    func logOptOutExploreProfileDonateLoggedIn() {
+        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick)
+    }
+    
+    func logOptOutExploreProfileDonateLoggedOut() {
+        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["isAnon": "true"])
+    }
+    
+    // Not yet used
+    func logOptOutExploreProfileDonateTemp() {
+        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["isTemp": "true"])
+    }
+    
     // Not yet used
     func logExploreProfileDonateTemp() {
         logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isTemp": "true"])
@@ -332,12 +346,20 @@ import WMF
         logEvent(activeInterface: .exploreProfile, action: .cancelClick)
     }
     
+    func logExploreOptOutProfileDonateCancel() {
+        logEvent(activeInterface: .exploreOptOut, action: .cancelClick)
+    }
+    
     func logExploreProfileDonateApplePay() {
         logEvent(activeInterface: .exploreProfile, action: .applePayClick)
     }
     
     func logArticleProfileDonateApplePay() {
         logEvent(activeInterface: .articleProfile, action: .applePayClick)
+    }
+
+    func logExploreOptOutProfileDonateApplePay() {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick)
     }
     
     func logExploreProfileDonateWebPay() {
@@ -346,5 +368,9 @@ import WMF
     
     func logArticleProfileDonateWebPay() {
         logEvent(activeInterface: .articleProfile, action: .webPayClick)
+    }
+    
+    func logExploreOptOutProfileDonateWebPay() {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick)
     }
 }
