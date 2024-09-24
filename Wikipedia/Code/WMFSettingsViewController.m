@@ -653,7 +653,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:0];
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }
@@ -678,12 +678,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)didTapLogout {
     @weakify(self);
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
-        @strongify(self);
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
-                    
-        }];
-    }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
+                                                              theme:self.theme
+                                                         completion:^{
+                                                             @strongify(self);
+                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+                                                                                                          completion:^{
+
+                                                                                                          }];
+                                                         }];
 }
 
 @end
