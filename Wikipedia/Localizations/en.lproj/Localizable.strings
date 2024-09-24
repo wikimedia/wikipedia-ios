@@ -952,6 +952,7 @@
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "privacy-policy-title" = "Privacy policy";
 "problem-with-feature-title" = "Problem with feature";
+"profile-button-accessibility-hint" = "Navigates to the profile view.";
 "profile-button-accessibility-label" = "Profile";
 "profile-button-badge-accessibility-label" = "Profile with unread badge";
 "profile-page-donate" = "Donate";

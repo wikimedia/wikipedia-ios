@@ -134,6 +134,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
     UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
     profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? WMFCommonStrings.profileButtonBadgeTitle : WMFCommonStrings.profileButtonTitle;
+    profileViewButtonItem.accessibilityHint = WMFCommonStrings.profileButtonAccessibilityHint;
     self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
 
