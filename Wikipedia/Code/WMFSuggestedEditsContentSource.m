@@ -84,8 +84,8 @@
 - (BOOL)shouldAltTextExperimentBeActive {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setYear:2024];
-    [dateComponents setMonth:10];
-    [dateComponents setDay:21];
+    [dateComponents setMonth:11];
+    [dateComponents setDay:5];
 
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *experimentDate = [calendar dateFromComponents:dateComponents];
