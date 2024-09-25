@@ -131,8 +131,11 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateCancel()
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateCancel()
-            default:
-                print("No logging here.")
+            case .articleCampaignModal:
+               guard let project = self.wikimediaProject else {
+                   return
+               }
+                DonateFunnel.shared.logArticleDidTapCancel(project: project)
             }
         }))
         
@@ -144,6 +147,11 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateApplePay()
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay()
+            case .articleCampaignModal:
+                guard let project = self?.wikimediaProject else {
+                   return
+               }
+               DonateFunnel.shared.logArticleDidTapCancel(project: project)
             default:
                 print("No logging here.")
             }
@@ -161,6 +169,11 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateWebPay()
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay()
+            case .articleCampaignModal:
+                guard let project = self?.wikimediaProject else {
+                   return
+               }
+               DonateFunnel.shared.logArticleDidTapCancel(project: project)
             default:
                 print("No logging here.")
             }

@@ -135,7 +135,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.logout()
             }
-        case .donateTap:
+        case .logDonateTap:
             self.onDonateTap()
         }
     }
@@ -216,27 +216,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func onDonateTap() {
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        
         switch sourcePage {
         case .exploreOptOut:
-            if isLoggedIn {
-                DonateFunnel.shared.logOptOutExploreProfileDonateLoggedIn()
-            } else {
-                DonateFunnel.shared.logOptOutExploreProfileDonateLoggedOut()
-            }
+            DonateFunnel.shared.logOptOutExploreProfileDonate()
         case .explore:
-            if isLoggedIn {
-                DonateFunnel.shared.logExploreProfileDonateLoggedIn()
-            } else {
-                DonateFunnel.shared.logExploreProfileDonateLoggedOut()
-            }
+            DonateFunnel.shared.logExploreProfileDonate()
         case .article:
-            if isLoggedIn {
-                DonateFunnel.shared.logArticleProfileDonateLoggedIn()
-            } else {
-                DonateFunnel.shared.logArticleProfileDonateLoggedOut()
-            }
+            DonateFunnel.shared.logArticleProfileDonate()
         }
     }
 }

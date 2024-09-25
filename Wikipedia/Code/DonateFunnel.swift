@@ -295,47 +295,20 @@ import WMF
         logEvent(activeInterface: .articleProfile, action: .profileClick)
     }
     
-    func logArticleProfileDonateLoggedIn() {
+    func logArticleProfileDonate() {
         logEvent(activeInterface: .articleProfile, action: .donateStartClick)
-    }
-    
-    func logArticleProfileDonateLoggedOut() {
-        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["isAnon": "true"])
-    }
-    
-    // Not yet used
-    func logArticleProfileDonateTemp() {
-        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["isTemp": "true"])
     }
     
     func logExploreProfile() {
         logEvent(activeInterface: .exploreProfile, action: .profileClick)
     }
     
-    func logExploreProfileDonateLoggedIn() {
+    func logExploreProfileDonate() {
         logEvent(activeInterface: .exploreProfile, action: .donateStartClick)
     }
     
-    func logExploreProfileDonateLoggedOut() {
-        logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isAnon": "true"])
-    }
-    
-    func logOptOutExploreProfileDonateLoggedIn() {
+    func logOptOutExploreProfileDonate() {
         logEvent(activeInterface: .exploreOptOut, action: .donateStartClick)
-    }
-    
-    func logOptOutExploreProfileDonateLoggedOut() {
-        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["isAnon": "true"])
-    }
-    
-    // Not yet used
-    func logOptOutExploreProfileDonateTemp() {
-        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["isTemp": "true"])
-    }
-    
-    // Not yet used
-    func logExploreProfileDonateTemp() {
-        logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["isTemp": "true"])
     }
     
     func logArticleProfileDonateCancel() {
