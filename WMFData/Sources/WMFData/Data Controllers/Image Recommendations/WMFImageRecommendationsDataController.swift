@@ -9,9 +9,10 @@ public class WMFImageRecommendationsDataController {
 		var hasPresentedOnboardingModal: Bool
         var hasPresentedOnboardingTooltips: Bool
         var hasPresentedFeatureAnnouncementModal: Bool
+        var hasPresentedAddAnImageFeatureAnnouncemnt: Bool
 
 		static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false, hasPresentedAddAnImageFeatureAnnouncemnt: false)
 		}
 	}
 
@@ -55,6 +56,16 @@ public class WMFImageRecommendationsDataController {
     public var hasPresentedFeatureAnnouncementModal: Bool {
         get {
             return onboardingStatus.hasPresentedFeatureAnnouncementModal
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+    
+    public var hasPresentedAddAnImageFeatureAnnouncemnt: Bool {
+        get {
+            return onboardingStatus.hasPresentedAddAnImageFeatureAnnouncemnt
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue
