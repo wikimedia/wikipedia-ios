@@ -1313,7 +1313,7 @@ private extension ArticleViewController {
         guard let navigationController else { return }
         
         DonateFunnel.shared.logArticleProfile()
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, sourcePage: ProfileCoordinator.Source.article)
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
         self.profileCoordinator = coordinator
         coordinator.start()
     }

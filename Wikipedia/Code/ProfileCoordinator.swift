@@ -4,15 +4,15 @@ import SwiftUI
 import WMFComponents
 import WMFData
 
+@objc
+enum ProfileCoordinatorSource: Int {
+    case exploreOptOut
+    case explore
+    case article
+}
+
 @objc(WMFProfileCoordinator)
 final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
-    
-    @objc
-    enum Source: Int {
-        case exploreOptOut
-        case explore
-        case article
-    }
     
     // MARK: Coordinator Protocol Properties
     
@@ -32,17 +32,17 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     
     let username: String?
-    let sourcePage: Source
+    let sourcePage: ProfileCoordinatorSource
     
     
     // MARK: Lifecycle
     
     // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: Source) -> ProfileCoordinator {
+    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) -> ProfileCoordinator {
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage)
     }
     
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: Source) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) {
         self.navigationController = navigationController
         self.theme = theme
         self.donateSouce = donateSouce
