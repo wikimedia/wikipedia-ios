@@ -140,7 +140,10 @@ class DonateCoordinator: Coordinator {
         }))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { [weak self] action in
-            switch self?.source {
+            guard let self else {
+                return
+            }
+            switch source {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateApplePay()
             case .articleProfile:
@@ -148,21 +151,22 @@ class DonateCoordinator: Coordinator {
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay()
             case .articleCampaignModal:
-                guard let project = self?.wikimediaProject else {
+                guard let project = wikimediaProject else {
                    return
                }
-               DonateFunnel.shared.logArticleDidTapCancel(project: project)
-            default:
-                print("No logging here.")
+               DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project)
             }
-            self?.navigationController.dismiss(animated: true, completion: {
-                self?.pushToNativeDonateForm(donateViewModel: donateViewModel)
+            self.navigationController.dismiss(animated: true, completion: {
+                self.pushToNativeDonateForm(donateViewModel: donateViewModel)
             })
         })
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { [weak self] action in
-            switch self?.source {
+            guard let self else {
+                return
+            }
+            switch source {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateWebPay()
             case .articleProfile:
@@ -170,15 +174,13 @@ class DonateCoordinator: Coordinator {
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay()
             case .articleCampaignModal:
-                guard let project = self?.wikimediaProject else {
-                   return
-               }
-               DonateFunnel.shared.logArticleDidTapCancel(project: project)
-            default:
-                print("No logging here.")
+                guard let project = wikimediaProject else {
+                    return
+                }
+                DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project)
             }
-            self?.navigationController.dismiss(animated: true, completion: {
-                self?.pushToOtherPaymentMethod()
+            self.navigationController.dismiss(animated: true, completion: {
+                self.pushToOtherPaymentMethod()
             })
         }))
         

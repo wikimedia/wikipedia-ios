@@ -136,7 +136,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 self.logout()
             }
         case .logDonateTap:
-            self.onDonateTap()
+            self.logDonateTap()
         }
     }
     
@@ -215,7 +215,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         navigationController.present(alertController, animated: true, completion: nil)
     }
     
-    func onDonateTap() {
+    func logDonateTap() {
         switch sourcePage {
         case .exploreOptOut:
             DonateFunnel.shared.logOptOutExploreProfileDonate()
