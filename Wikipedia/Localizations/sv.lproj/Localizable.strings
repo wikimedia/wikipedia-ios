@@ -99,7 +99,6 @@
 "account-creation-title" = "Skapa ett nytt konto";
 "account-group-title" = "Ditt konto";
 "account-request-vanishing" = "Få kontot att försvinna";
-"account-talk-page-title" = "Din diskussionssida";
 "account-talk-preferences-auto-sign-discussions" = "Signera diskussioner automatiskt";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
 "account-talk-preferences-title" = "Inställningar för diskussionssida";
@@ -246,7 +245,6 @@
 "data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Artikelbeskrivning för $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Genom att ändra artikelbeskrivningen samtycker jag till $1 och att oåterkalleligt släppa mina bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Redigera inledningen";
 "description-edit-pencil-title" = "Redigera artikelbeskrivningen";
@@ -982,6 +980,20 @@
 "preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
 "problem-with-feature-title" = "Problem med funktion";
+"profile-button-accessibility-hint" = "Navigerar till profilvyn.";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil med märke för olästa aviseringar";
+"profile-page-donate" = "Donera";
+"profile-page-donate-subtext" = "Eller stöd Wikipedia med en donation för att hålla den gratis och tillgänglig för alla runt om i världen.";
+"profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
+"profile-page-join-title" = "Skapa konto på Wikipedia / Logga in";
+"profile-page-logout" = "Logga ut";
+"profile-page-notification-title" = "Aviseringar";
+"profile-page-settings" = "Inställningar";
+"profile-page-talk-page-title" = "Diskussionssida";
+"profile-page-title-logged-out" = "Konto";
+"profile-page-user-page-title" = "Användarsida";
+"profile-page-watchlist-title" = "Bevakningslista";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

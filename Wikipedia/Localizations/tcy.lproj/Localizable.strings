@@ -6,6 +6,7 @@
 // Author: Lokesha kunchadka
 // Author: Mahaveer Indra
 // Author: Nemo bis
+// Author: Pragathi. BH
 // Author: Ravi Mundkur
 
 "about-content-license" = "ಪರವಾನಿಗೆತಾ ವಿಸಯ";
@@ -147,6 +148,12 @@
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
 "potd-widget-title" = "ಇ ದಿನೊತ್ತಾ ಪೆಟೊ";
+"profile-button-accessibility-hint" = "ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಣೆಗ್ ನ್ಯಾವಿಗೇಟ್ ಮಲ್ಪುಂಡು.";
+"profile-button-accessibility-label" = "ವಿವರೊ";
+"profile-button-badge-accessibility-label" = "ಓದಂದಿನ ಬ್ಯಾಡ್ಜ್ ಇಪ್ಪುನ ಪ್ರೊಫೈಲ್";
+"profile-page-logout" = "ಲಾಗ್ ಔಟ್";
+"profile-page-talk-page-title" = "ಪಾತೆರ ಪುಟೊ";
+"profile-page-title-logged-out" = "ಕಾತೆ";
 "saved-title" = "ಒರಿಪಾಂಡ್";
 "search-did-you-mean" = "ಉಂದು ಪಂಡ $1?";
 "search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";

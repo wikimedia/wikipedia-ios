@@ -15,4 +15,5 @@ public enum ProfileAction {
     case showWatchlist
     case login
     case logout
+    case logDonateTap
 }

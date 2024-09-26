@@ -14,6 +14,9 @@ import WMF
         case applePayProcessed = "applepay_processed"
         case webPayInitiated = "webpay_initiated"
         case webPayProcessed = "webpay_processed"
+        case articleProfile = "article_profile"
+        case exploreProfile = "explore_profile"
+        case exploreOptOut = "explore_optout_profile"
     }
     
     private enum Action: String {
@@ -44,6 +47,7 @@ import WMF
         case successToastArticle = "success_toast_article"
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
+        case profileClick = "profile_click"
     }
     
     private struct Event: EventInterface {
@@ -285,5 +289,65 @@ import WMF
         }
 
         logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: actionData)
+    }
+    
+    func logArticleProfile() {
+        logEvent(activeInterface: .articleProfile, action: .profileClick)
+    }
+    
+    func logArticleProfileDonate() {
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick)
+    }
+    
+    func logExploreProfile() {
+        logEvent(activeInterface: .exploreProfile, action: .profileClick)
+    }
+    
+    func logExploreProfileDonate() {
+        logEvent(activeInterface: .exploreProfile, action: .donateStartClick)
+    }
+    
+    func logOptOutExploreProfileDonate() {
+        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick)
+    }
+    
+    func logArticleProfileDonateCancel() {
+        logEvent(activeInterface: .articleProfile, action: .cancelClick)
+    }
+    
+    func logExploreProfileDonateCancel() {
+        logEvent(activeInterface: .exploreProfile, action: .cancelClick)
+    }
+    
+    func logExploreOptOutProfileDonateCancel() {
+        logEvent(activeInterface: .exploreOptOut, action: .cancelClick)
+    }
+    
+    func logExploreProfileDonateApplePay() {
+        logEvent(activeInterface: .exploreProfile, action: .applePayClick)
+    }
+    
+    func logArticleProfileDonateApplePay() {
+        logEvent(activeInterface: .articleProfile, action: .applePayClick)
+    }
+
+    func logExploreOptOutProfileDonateApplePay() {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick)
+    }
+    
+    func logExploreProfileDonateWebPay() {
+        logEvent(activeInterface: .exploreProfile, action: .webPayClick)
+    }
+    
+    func logArticleProfileDonateWebPay() {
+        logEvent(activeInterface: .articleProfile, action: .webPayClick)
+    }
+    
+    func logExploreOptOutProfileDonateWebPay() {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick)
+    }
+    
+    @objc func logExploreOptOutProfileClick() {
+        logEvent(activeInterface: .exploreOptOut, action: . profileClick)
     }
 }

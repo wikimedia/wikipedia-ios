@@ -97,7 +97,6 @@
 "account-creation-title" = "Створити обліковий запис";
 "account-group-title" = "Ваш обліковий запис";
 "account-request-vanishing" = "Знищити обліковий запис";
-"account-talk-page-title" = "Ваша сторінка обговорення";
 "account-talk-preferences-auto-sign-discussions" = "Автоматичний підпис в обговореннях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В обговоренні використовуватиметься той підпис, що зазначений у ваших налаштуваннях";
 "account-talk-preferences-title" = "Налаштування сторінки обговорення";
@@ -187,7 +186,6 @@
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
 "description-edit-for-article" = "Опис статті «$1»";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Змінюючи опис назви, я погоджуюся із $1 та безвідклично публікую свій внесок за ліцензією $2.";
 "description-edit-pencil-introduction" = "Редагувати вступ";
 "description-edit-pencil-title" = "Редагувати опис статті";

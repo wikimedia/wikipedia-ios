@@ -40,7 +40,6 @@
 "account-creation-saving" = "ဂိုင်သိပ်ဒၟံင်";
 "account-creation-title" = "ခၞံကၠောန် အကံက်";
 "account-group-title" = "အကံက် မၞး";
-"account-talk-page-title" = "မုက်လိက် ဓရီုကျာ မၞး";
 "account-talk-preferences-auto-sign-discussions" = "စၟတ်တဲ ပတိုန်လညာတ်";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "စၟတ်တဲ ပတိုန်လညာတ်ဂှ် စကာ နဒဒှ် စၟတ်တဲ ပ္ဍဲဒၞာဲ စၟတ်တဲဂမၠိုင်";
 "account-talk-preferences-title" = "မဖျေဟ်ဗီု စရင်မၞးမဒးဂၞပ်";
@@ -117,7 +116,6 @@
 "description-add-title" = "ထပ် မဗၟံက်ထ္ၜး";
 // Fuzzy
 "description-edit-for-article" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး သွက်$1";
-"description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "နပွမပြံၚ်ကေတ် မဗမံက်ထ္ၜးက္ဍိုပ်လိက်, အဲတုပ်ကဵု $1 ကေုာံ သ္ဂောံပတိတ်မကလေၚ်ဂွံမာန် ရီုဗၚ်အဲ သၟတ်လာၚ်ဇြေန် $2";
 "description-edit-pencil-introduction" = "ပလေဝ်ဒါန် မဆက်မိတ်";

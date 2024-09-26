@@ -97,7 +97,6 @@
 "account-creation-title" = "एक नया खाता बनायें";
 "account-group-title" = "आपका खाता";
 "account-request-vanishing" = "गायब खाता";
-"account-talk-page-title" = "आपका वार्ता पृष्ठ";
 "account-talk-preferences-auto-sign-discussions" = "चर्चाओं पर स्वतः हस्ताक्षर";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "चर्चाओं पर स्वतः हस्ताक्षर करने के लिए हस्ताक्षर सेटिंग्स में परिभाषित हस्ताक्षर का उपयोग किया जाएगा";
 "account-talk-preferences-title" = "वार्ता पृष्ठ प्राथमिकताएँ";
@@ -208,7 +207,6 @@
 "data-migration-status" = "अपडेट हो रहा है...";
 "description-add-title" = "विवरण जोड़ें";
 "description-edit-for-article" = "$1 के लिए लेख विवरण";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "लेख विवरण को बदलकर, मैं $1 और $2 लाइसेंस के तहत अपना योगदान अपरिवर्तनीय रूप से जारी करने के लिए सहमत हूं।";
 "description-edit-pencil-introduction" = "परिचय सम्पादित करें";
 "description-edit-pencil-title" = "लेख विवरण संपादित करें";
@@ -448,6 +446,7 @@
 "potd-description-prefix" = "$1 के लिए आज का चित्र";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
 "preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिमीडिया फाउंडेशन को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
+"profile-page-donate" = "दान करें";
 "reading-list-add-saved-button-title" = "हाँ, उन्हें मेरी पठन सूची में जोड़ें";
 "reading-list-add-saved-title" = "सहेजे गए लेख मिले";
 "reading-list-do-not-keep-button-title" = "नहीं, डिवाइस से लेख हटाएं";

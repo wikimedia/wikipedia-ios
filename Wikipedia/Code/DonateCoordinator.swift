@@ -124,21 +124,63 @@ class DonateCoordinator: Coordinator {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
-            // TODO: Logging
+            switch self.source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateCancel()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateCancel()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateCancel()
+            case .articleCampaignModal:
+               guard let project = self.wikimediaProject else {
+                   return
+               }
+                DonateFunnel.shared.logArticleDidTapCancel(project: project)
+            }
         }))
         
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { [weak self] action in
-            // TODO: Logging
-            self?.navigationController.dismiss(animated: true, completion: {
-                self?.pushToNativeDonateForm(donateViewModel: donateViewModel)
+            guard let self else {
+                return
+            }
+            switch source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateApplePay()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateApplePay()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateApplePay()
+            case .articleCampaignModal:
+                guard let project = wikimediaProject else {
+                   return
+               }
+               DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project)
+            }
+            self.navigationController.dismiss(animated: true, completion: {
+                self.pushToNativeDonateForm(donateViewModel: donateViewModel)
             })
         })
         alert.addAction(applePayAction)
         
         alert.addAction(UIAlertAction(title: otherButtonTitle, style: .default, handler: { [weak self] action in
-            // TODO: Logging
-            self?.navigationController.dismiss(animated: true, completion: {
-                self?.pushToOtherPaymentMethod()
+            guard let self else {
+                return
+            }
+            switch source {
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDonateWebPay()
+            case .articleProfile:
+                DonateFunnel.shared.logArticleProfileDonateWebPay()
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDonateWebPay()
+            case .articleCampaignModal:
+                guard let project = wikimediaProject else {
+                    return
+                }
+                DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project)
+            }
+            self.navigationController.dismiss(animated: true, completion: {
+                self.pushToOtherPaymentMethod()
             })
         }))
         
@@ -512,7 +554,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject {
                 DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
             } else {
-                DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                // This is the old donate logging from WMFSettingsViewController.m cell
+                // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
             }
         }
     }
