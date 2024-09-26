@@ -40,30 +40,40 @@ class DonateCoordinator: Coordinator {
         return nil
     }()
     
-    private lazy var metricsID: String? = {
-        if case .articleCampaignModal(_, let metricsID, _) = source {
-            return metricsID
+    private lazy var languageCode: String? = {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+            return nil
         }
-        
-        return nil
+        return languageCode
+    }()
+    
+    private lazy var metricsID: String? = {
+        switch source {
+        case .articleCampaignModal(_, let metricsID, _):
+            return metricsID
+        case .articleProfile, .exploreProfile, .settingsProfile:
+            guard let languageCode = self.languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            
+            return "\(languageCode)\(countryCode)_appmenu_iOS"
+        }
     }()
     
     private var webViewURL: URL? {
         
-        // Start with settings (appmenu) url
-        var urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<langcode><countrycode>_appmenu_iOS&uselang=<langcode>"
-        
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let countryCode = Locale.current.region?.identifier else {
+        guard let metricsID,
+              let languageCode else {
             return nil
         }
         
-        urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
-        urlString = urlString.replacingOccurrences(of: "<countrycode>", with: countryCode)
-        
-        // Replace with article campaign url if needed
+        var urlString: String
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
             urlString = articleCampaignDonateURL.absoluteString
+        } else {
+            urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=\(metricsID)&uselang=<langcode>"
+            urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
@@ -115,6 +125,11 @@ class DonateCoordinator: Coordinator {
     // MARK: Private
     
     private func presentActionSheet(donateViewModel: WMFDonateViewModel) {
+        
+        guard let metricsID else {
+            return
+        }
+        
         let presentedViewController = navigationController.presentedViewController
 
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
@@ -130,12 +145,12 @@ class DonateCoordinator: Coordinator {
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
             switch self.source {
             case .exploreProfile:
-                DonateFunnel.shared.logExploreProfileDonateCancel()
+                DonateFunnel.shared.logExploreProfileDonateCancel(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateCancel()
+                DonateFunnel.shared.logArticleProfileDonateCancel(metricsID: metricsID)
             case .settingsProfile:
-                DonateFunnel.shared.logExploreOptOutProfileDonateCancel()
-            case .articleCampaignModal(_, let metricsID, _):
+                DonateFunnel.shared.logExploreOptOutProfileDonateCancel(metricsID: metricsID)
+            case .articleCampaignModal:
                guard let project = self.wikimediaProject else {
                    return
                }
@@ -149,12 +164,12 @@ class DonateCoordinator: Coordinator {
             }
             switch source {
             case .exploreProfile:
-                DonateFunnel.shared.logExploreProfileDonateApplePay()
+                DonateFunnel.shared.logExploreProfileDonateApplePay(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateApplePay()
+                DonateFunnel.shared.logArticleProfileDonateApplePay(metricsID: metricsID)
             case .settingsProfile:
-                DonateFunnel.shared.logExploreOptOutProfileDonateApplePay()
-            case .articleCampaignModal(_, let metricsID, _):
+                DonateFunnel.shared.logExploreOptOutProfileDonateApplePay(metricsID: metricsID)
+            case .articleCampaignModal:
                 guard let project = wikimediaProject else {
                    return
                }
@@ -172,12 +187,12 @@ class DonateCoordinator: Coordinator {
             }
             switch source {
             case .exploreProfile:
-                DonateFunnel.shared.logExploreProfileDonateWebPay()
+                DonateFunnel.shared.logExploreProfileDonateWebPay(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateWebPay()
+                DonateFunnel.shared.logArticleProfileDonateWebPay(metricsID: metricsID)
             case .settingsProfile:
-                DonateFunnel.shared.logExploreOptOutProfileDonateWebPay()
-            case .articleCampaignModal(_, let metricsID, _):
+                DonateFunnel.shared.logExploreOptOutProfileDonateWebPay(metricsID: metricsID)
+            case .articleCampaignModal:
                 guard let project = wikimediaProject else {
                     return
                 }
@@ -445,10 +460,19 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     
 
     private func logNativeFormDidAppear() {
+        
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayImpression(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidTriggerError(error: any Error) {
+        
+        guard let metricsID else {
+            return
+        }
         
         let errorReason = (error as NSError).description
         let errorCode = String((error as NSError).code)
@@ -479,22 +503,42 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     }
     
     private func logNativeFormDidTapAmountPresetButton() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapAmountPresetButton(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidEnterAmountInTextfield() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidEnterAmountInTextfield(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?) {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: wikimediaProject)
     }
     
     private func logNativeFormDidTriggerPaymentSuccess() {
+        guard let metricsID else {
+            return
+        }
+        
         switch source {
         case .exploreProfile:
             print("TODO: Logging")
@@ -504,7 +548,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             print("TODO: Logging")
             // This is the old donate logging from WMFSettingsViewController.m cell
             // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-        case .articleCampaignModal(_, let metricsID, _):
+        case .articleCampaignModal:
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
@@ -512,54 +556,93 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     }
     
     private func logNativeFormDidTapProblemsDonating() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidTapOtherWaysToGive() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidTapFAQ() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapFAQLink(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logNativeFormDidTapTaxInfo() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormNativeApplePayDidTapTaxInfoLink(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logWebViewFormDidAppear() {
+        guard let metricsID else {
+            return
+        }
+        
         DonateFunnel.shared.logDonateFormInAppWebViewImpression(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logWebViewFormThankYouPageDidAppear() {
-        if case .articleCampaignModal(_, let metricsID, _) = source {
-            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject, metricsID: metricsID)
-        } else {
-            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: nil, metricsID: nil)
+        guard let metricsID else {
+            return
         }
+        
+        DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: wikimediaProject, metricsID: metricsID)
     }
     
     private func logWebViewFormThankYouDidTapReturn() {
-        if case .articleCampaignModal = source,
-        let wikimediaProject {
+        
+        guard let metricsID else {
+            return
+        }
+        
+        switch source {
+        case .articleCampaignModal:
+            
+            guard let wikimediaProject else {
+                return
+            }
+            
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        } else {
-            DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
+        case .articleProfile, .exploreProfile, .settingsProfile:
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
         }
     }
     
     private func logWebViewFormThankYouDidDisappear() {
+        
+        guard let metricsID else {
+            return
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             
             guard let self else {
                 return
             }
             
-            if let wikimediaProject {
+            switch self.source {
+            case .articleCampaignModal:
+                guard let wikimediaProject else {
+                    return
+                }
+                
                 DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
-            } else {
-                // This is the old donate logging from WMFSettingsViewController.m cell
-                // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+            case .articleProfile, .exploreProfile, .settingsProfile:
+                print("TODO: Logging")
             }
         }
     }
