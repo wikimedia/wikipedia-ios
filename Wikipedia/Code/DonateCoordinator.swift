@@ -555,7 +555,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject)
             } else {
                 // This is the old donate logging from WMFSettingsViewController.m cell
-                //DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+                // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
             }
         }
     }

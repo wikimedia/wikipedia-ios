@@ -654,6 +654,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)userDidTapProfile {
     WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut];
+    [[WMFDonateFunnel shared] logExploreOptOutProfileClick];
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }

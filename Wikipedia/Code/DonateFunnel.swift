@@ -347,7 +347,7 @@ import WMF
         logEvent(activeInterface: .exploreOptOut, action: .applePayClick)
     }
     
-    func logExploreOptOutProfileClick() {
+    @objc func logExploreOptOutProfileClick() {
         logEvent(activeInterface: .exploreOptOut, action: . profileClick)
     }
 }
