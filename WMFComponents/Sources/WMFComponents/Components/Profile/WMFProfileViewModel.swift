@@ -153,6 +153,7 @@ enum ProfileState {
                             isLoadingDonateConfigs: isLoadingDonateConfigs,
                             action: {
                                 coordinatorDelegate?.handleProfileAction(.showDonate)
+                                coordinatorDelegate?.handleProfileAction(.logDonateTap)
                             }
                         )
                     ],
@@ -188,6 +189,7 @@ enum ProfileState {
                             isLoadingDonateConfigs: false,
                             action: {
                                 coordinatorDelegate?.handleProfileAction(.login)
+                                
                             }
                         )
                     ],
@@ -204,6 +206,7 @@ enum ProfileState {
                             isLoadingDonateConfigs: isLoadingDonateConfigs,
                             action: {
                                 coordinatorDelegate?.handleProfileAction(.showDonate)
+                                coordinatorDelegate?.handleProfileAction(.logDonateTap)
                             }
                         )
                     ],
