@@ -3,6 +3,14 @@ import PassKit
 import WMFComponents
 import WMFData
 
+
+// Helper class to access donate coordinator logic from Obj-c
+@objc class WMFDonateCoordinatorWrapper: NSObject {
+    @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
+        return DonateCoordinator.metricsID(for: .settingsProfile, languageCode: languageCode)
+    }
+}
+
 class DonateCoordinator: Coordinator {
     
     // MARK: Nested Types

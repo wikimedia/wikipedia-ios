@@ -280,7 +280,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support: {
-            [[WMFDonateFunnel shared] logSettingsDidTapDonateCell];
+            //[[WMFDonateFunnel shared] logSettingsDidTapDonateCell];
 
             if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
                 WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;
@@ -654,7 +654,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)userDidTapProfile {
     WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut];
-    [[WMFDonateFunnel shared] logExploreOptOutProfileClick];
+    
+    NSString *metricsID = [WMFDonateCoordinatorWrapper metricsIDForSettingsProfileDonateSourceWithLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode];
+    
+    if (metricsID) {
+        [[WMFDonateFunnel shared] logExploreOptOutProfileClickWithMetricsID:metricsID];
+    }
+    
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }

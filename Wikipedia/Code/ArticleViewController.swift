@@ -1310,9 +1310,10 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        guard let navigationController else { return }
+        guard let navigationController, let languageCode = articleURL.wmf_languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile, languageCode: languageCode) else { return }
         
-        DonateFunnel.shared.logArticleProfile()
+        DonateFunnel.shared.logArticleProfile(metricsID: metricsID)
         let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
         self.profileCoordinator = coordinator
         coordinator.start()

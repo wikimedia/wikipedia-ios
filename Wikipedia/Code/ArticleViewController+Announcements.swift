@@ -76,7 +76,7 @@ extension ArticleViewController {
             
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-                self.donateDidSetMaybeLater()
+                self.donateDidSetMaybeLater(metricsID: asset.metricsID)
             } else {
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
                 self.donateAlreadyDonated()
@@ -89,7 +89,7 @@ extension ArticleViewController {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, footerLinkAction: { url in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
             self.navigate(to: url, useSafari: true)
         }, traceableDismissHandler: { action in
             
@@ -100,14 +100,14 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    func donateDidSetMaybeLater() {
+    func donateDidSetMaybeLater(metricsID: String) {
         
         let project = WikimediaProject(siteURL: articleURL)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
-                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project)
+                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
             }
             
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
