@@ -50,17 +50,21 @@ class DonateCoordinator: Coordinator {
     
     private var webViewURL: URL? {
         
-        var urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&uselang=<langcode>"
+        // Start with settings (appmenu) url
+        var urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<langcode><countrycode>_appmenu_iOS&uselang=<langcode>"
         
-        if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
-            urlString = articleCampaignDonateURL.absoluteString
-        }
-        
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier else {
             return nil
         }
         
         urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
+        urlString = urlString.replacingOccurrences(of: "<countrycode>", with: countryCode)
+        
+        // Replace with article campaign url if needed
+        if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
+            urlString = articleCampaignDonateURL.absoluteString
+        }
         
         let appVersion = Bundle.main.wmf_debugVersion()
         return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
