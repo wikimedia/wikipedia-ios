@@ -161,6 +161,16 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
             }
         }
+        
+        // Fixes https://phabricator.wikimedia.org/T375445 caused by iPadOS18 floating tab bar
+        if #available(iOS 18, *) {
+            guard UIDevice.current.userInterfaceIdiom == .pad else {
+                return
+            }
+            
+            navigationController?.view.setNeedsLayout()
+            navigationController?.view.layoutIfNeeded()
+        }
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
