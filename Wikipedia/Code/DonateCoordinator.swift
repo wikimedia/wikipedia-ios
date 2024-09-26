@@ -569,16 +569,16 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         
         switch source {
         case .exploreProfile:
-            print("TODO: Logging")
+            DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .articleProfile:
-            print("TODO: Logging")
+            if let wikimediaProject = self.wikimediaProject {
+                DonateFunnel.shared.logArticleProfileDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+            }
         case .settingsProfile:
-            print("TODO: Logging")
-            // This is the old donate logging from WMFSettingsViewController.m cell
-            // DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
+            DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .articleCampaignModal:
             if let wikimediaProject = self.wikimediaProject {
-                DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+                DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
         }
     }
@@ -674,9 +674,17 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                     return
                 }
                 
-                DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
-            case .articleProfile, .exploreProfile, .settingsProfile:
-                print("TODO: Logging")
+                DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+            case .articleProfile:
+                guard let wikimediaProject else {
+                    return
+                }
+                
+                DonateFunnel.shared.logArticleProfileDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+            case .exploreProfile:
+                DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .settingsProfile:
+                DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }

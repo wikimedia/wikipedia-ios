@@ -45,6 +45,7 @@ import WMF
         case applePayUIConfirm = "applepay_ui_confirm"
         case successToastSetting = "success_toast_setting"
         case successToastArticle = "success_toast_article"
+        case successToastProfile = "success_toast_profile"
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
         case profileClick = "profile_click"
@@ -203,8 +204,20 @@ import WMF
         logEvent(activeInterface: .applePay, action: .submissionError, actionData: actionData, project: project)
     }
     
-    func logArticleDidSeeApplePayDonateSuccessToast(project: WikimediaProject, metricsID: String) {
+    func logArticleCampaignDidSeeApplePayDonateSuccessToast(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .article, action: .successToastArticle, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logArticleProfileDidSeeApplePayDonateSuccessToast(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
     
     func logDonateFormInAppWebViewImpression(project: WikimediaProject?, metricsID: String) {
