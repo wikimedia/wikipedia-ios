@@ -32,7 +32,6 @@ public struct WMFProfileView: View {
                     sectionView(items: viewModel.profileSections[sectionIndex])
                 }
             }
-            .padding(.top)
             .background(Color(uiColor: theme.midBackground))
             .scrollContentBackground(.hidden)
             .navigationTitle(viewModel.localizedStrings.pageTitle)
@@ -63,6 +62,8 @@ public struct WMFProfileView: View {
         } footer: {
             if let subtext = items.subtext {
                 Text(subtext)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
         }
         .listRowSeparator(.hidden)
@@ -85,6 +86,7 @@ public struct WMFProfileView: View {
                                     .padding(0)
                             )
                             .padding(.trailing, 16)
+                            .padding(.leading, 8)
                     }
                 }
                 
