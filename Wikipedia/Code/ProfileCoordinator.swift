@@ -216,13 +216,18 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func logDonateTap() {
+        
+        guard let metricsID = DonateCoordinator.metricsID(for: donateSouce, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) else {
+            return
+        }
+        
         switch sourcePage {
         case .exploreOptOut:
-            DonateFunnel.shared.logOptOutExploreProfileDonate()
+            DonateFunnel.shared.logOptOutExploreProfileDonate(metricsID: metricsID)
         case .explore:
-            DonateFunnel.shared.logExploreProfileDonate()
+            DonateFunnel.shared.logExploreProfileDonate(metricsID: metricsID)
         case .article:
-            DonateFunnel.shared.logArticleProfileDonate()
+            DonateFunnel.shared.logArticleProfileDonate(metricsID: metricsID)
         }
     }
 }

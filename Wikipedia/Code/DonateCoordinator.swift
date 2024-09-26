@@ -47,18 +47,8 @@ class DonateCoordinator: Coordinator {
         return languageCode
     }()
     
-    private lazy var metricsID: String? = {
-        switch source {
-        case .articleCampaignModal(_, let metricsID, _):
-            return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile:
-            guard let languageCode = self.languageCode,
-                  let countryCode = Locale.current.region?.identifier else {
-                return nil
-            }
-            
-            return "\(languageCode)\(countryCode)_appmenu_iOS"
-        }
+    private(set) lazy var metricsID: String? = {
+        return Self.metricsID(for: source, languageCode: languageCode)
     }()
     
     private var webViewURL: URL? {
@@ -89,6 +79,20 @@ class DonateCoordinator: Coordinator {
         self.dataStore = dataStore
         self.theme = theme
         self.setLoadingBlock = setLoadingBlock
+    }
+    
+    static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
+        switch donateSource {
+        case .articleCampaignModal(_, let metricsID, _):
+            return metricsID
+        case .articleProfile, .exploreProfile, .settingsProfile:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            
+            return "\(languageCode)\(countryCode)_appmenu_iOS"
+        }
     }
     
     func start() {
