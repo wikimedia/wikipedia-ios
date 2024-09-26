@@ -78,7 +78,6 @@
 "account-creation-title" = "Ráhkat ođđa dovddaldaga";
 "account-group-title" = "Du geavaheaddjidovddaldat";
 "account-request-vanishing" = "Jávkadahtte geavaheaddjidovddaldaga";
-"account-talk-page-title" = "Du ságastallansiidu";
 "account-talk-preferences-auto-sign-discussions" = "Vuolláičále ságastallamiid automáhtalaččat";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Digaštallamiid automáhtalaš vuolláičállimii geavahuvvo dat vuolláičála mii lea mearriduvvon du heivehusain";
 "account-talk-preferences-title" = "Ságastallansiidoheivehusat";
@@ -172,7 +171,6 @@
 "data-migration-status" = "Ođasmahttime ...";
 "description-add-title" = "Lasit govvádusa";
 "description-edit-for-article" = "Artihkkala $1 govvádus";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Artihkkalgovvádusa rievdadeami bokte mieđan $1:ii ja eretgeassemeahttumit luvvet iežan čállosiid $2-liseanssa vuolde.";
 "description-edit-pencil-introduction" = "Rievdat álggahusa";
 "description-edit-pencil-title" = "Rievdat artihkkala govvádusa";

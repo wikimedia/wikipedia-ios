@@ -117,7 +117,6 @@
 "account-creation-title" = "أنشئ حسابًا جديدًا";
 "account-group-title" = "حسابك";
 "account-request-vanishing" = "حذف الحساب";
-"account-talk-page-title" = "صفحة النقاش الخاصة بك";
 "account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "سيستخدم التوقيع التلقائي للمناقشات التوقيع المحدد في إعدادات التوقيع";
 "account-talk-preferences-title" = "تفضيلات صفحة النقاش";
@@ -247,6 +246,7 @@
 "description-welcome-descriptions-title" = "وصف المقالة";
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
+"developer-settings" = "إعدادات المطور";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "من:";
 "diff-compare-header-heading" = "مقارنة المراجعات";

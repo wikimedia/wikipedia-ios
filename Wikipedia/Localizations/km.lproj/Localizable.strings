@@ -73,7 +73,6 @@
 "account-creation-saving" = "កំពុង​រក្សា​ទុក...";
 "account-creation-title" = "បង្កើតគណនីថ្មី";
 "account-group-title" = "គណនីរបស់អ្នក";
-"account-talk-page-title" = "ទំព័រពិភាក្សារបស់អ្នក";
 "account-talk-preferences-auto-sign-discussions" = "ការពិភាក្សាមានដាក់ហត្ថលេខាស្វ័យប្រវត្តិ";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "ការចុះហត្ថលេខាដោយស្វ័យប្រវត្តិនៃការពិភាក្សានឹងប្រើហត្ថលេខាដែលបានកំណត់នៅក្នុងការកំណត់ហត្ថលេខា";
 "account-talk-preferences-title" = "ចំណង់ចំណូលចិត្តទំព័រពិភាក្សា";
@@ -150,7 +149,6 @@
 "data-migration-status" = "កំពុងបន្ទាន់សម័យ...";
 "description-add-title" = "បន្ថែមចំណារពន្យល់";
 "description-edit-for-article" = "ចំណារពន្យល់អំពីអត្ថបទសម្រាប់ $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "កែប្រែសេចក្ដីផ្ដើម";
 "description-edit-pencil-title" = "កែប្រែការពិពណ៌នាអត្ថបទ";
 "description-edit-placeholder-title" = "ការពិពណ៌នាកាន់តែខ្លីកាន់តែល្អ";

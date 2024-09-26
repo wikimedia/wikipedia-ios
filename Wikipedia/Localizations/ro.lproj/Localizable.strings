@@ -88,7 +88,6 @@
 "account-creation-saving" = "Se salvează...";
 "account-creation-title" = "Creează un cont nou";
 "account-group-title" = "Contul tău";
-"account-talk-page-title" = "Pagina ta de discuții";
 "account-talk-preferences-auto-sign-discussions" = "Semnare automată a discuțiilor";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Semnarea automată a discuțiilor va utiliza semnătura definită în Setări semnătură";
 "account-talk-preferences-title" = "Preferințele paginii de discuții";
@@ -173,7 +172,6 @@
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
 "description-edit-for-article" = "Descrierea articolului pentru $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Prin schimbarea descrierii articolului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
 "description-edit-pencil-introduction" = "Modifică introducerea";
 "description-edit-pencil-title" = "Modificați descrierea articolului";

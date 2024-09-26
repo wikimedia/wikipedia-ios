@@ -118,7 +118,6 @@
 "account-creation-title" = "Crea una nuova utenza";
 "account-group-title" = "La tua utenza";
 "account-request-vanishing" = "Elimina l'utenza";
-"account-talk-page-title" = "La tua pagina di discussione";
 "account-talk-preferences-auto-sign-discussions" = "Firma automaticamente nelle discussioni";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Per firmare automaticamente nelle discussioni verrà utilizzata la firma definita nelle impostazioni della firma";
 "account-talk-preferences-title" = "Preferenze della pagina di discussione";
@@ -211,7 +210,6 @@
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Modificando la descrizione della voce, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
 "description-edit-pencil-introduction" = "Modifica introduzione";
 "description-edit-pencil-title" = "Modifica la descrizione della voce";
@@ -705,6 +703,7 @@
 "potd-widget-title" = "Immagine del giorno";
 "preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
+"profile-button-accessibility-label" = "Profilo";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
