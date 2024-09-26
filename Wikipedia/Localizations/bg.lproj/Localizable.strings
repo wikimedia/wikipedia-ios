@@ -61,7 +61,6 @@
 "account-creation-title" = "Създаване на сметка";
 "account-group-title" = "Вашата сметка";
 "account-request-vanishing" = "Анулиране на сметка";
-"account-talk-page-title" = "Вашата беседа";
 "account-talk-preferences-auto-sign-discussions" = "Автоматично подписване на дискусии";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Автоматичното подписване на дискусиите ще използва подписа, установен в настройките на подписа";
 "account-talk-preferences-title" = "Предпочитания за беседа";
@@ -130,7 +129,6 @@
 "data-migration-status" = "Актуализиране...";
 "description-add-title" = "Добавяне на описание";
 "description-edit-for-article" = "Описание на статия „$1“";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променяйки описанието на статията, се съгласявам с $1 и неотменимо публикувам приноса си под $2 лиценз.";
 "description-edit-pencil-introduction" = "Редактиране на въведението";
 "description-edit-pencil-title" = "Редактиране на описанието на статията";

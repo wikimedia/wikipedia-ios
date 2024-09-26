@@ -65,7 +65,6 @@
 "account-creation-saving" = "Späicheren...";
 "account-creation-title" = "En neie Benotzerkont uleeën";
 "account-group-title" = "Äre Benotzerkont";
-"account-talk-page-title" = "Är Diskussiounssäit";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
@@ -143,7 +142,6 @@
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Aleedung änneren";
 "description-edit-pencil-title" = "Artikelbeschreiwung änneren";
 "description-edit-placeholder-title" = "Kuerz Beschreiwunge sinn am beschten";
@@ -601,6 +599,13 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
+"profile-page-logout" = "Ausloggen";
+"profile-page-notification-title" = "Notifikatiounen";
+"profile-page-settings" = "Astellungen";
+"profile-page-talk-page-title" = "Diskussiounssäit";
+"profile-page-title-logged-out" = "Kont";
+"profile-page-user-page-title" = "Benotzersäit";
+"profile-page-watchlist-title" = "Iwwerwaachungslëscht";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

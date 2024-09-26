@@ -101,7 +101,6 @@
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
 "account-group-title" = "Twoje konto";
-"account-talk-page-title" = "Twoja strona dyskusji";
 "account-talk-preferences-auto-sign-discussions" = "Dyskusje z auto-podpisem";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatyczne podpisywanie dyskusji wykorzysta podpis zdefiniowany w ustawieniach podpisu";
 "account-talk-preferences-title" = "Preferencje strony dyskusji";
@@ -184,7 +183,6 @@
 "data-migration-status" = "Aktualizowanie...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis artykułu dla $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Zmieniając opis artykułu, wyrażam zgodę na $1 i nieodwołalnie wydawać będę swoje wkłady na podstawie licencji $2.";
 "description-edit-pencil-introduction" = "Edytuj wprowadzenie";
 "description-edit-pencil-title" = "Edytuj opis artykułu";

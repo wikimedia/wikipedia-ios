@@ -116,7 +116,6 @@
 "account-creation-title" = "Yeni bir hesap oluştur";
 "account-group-title" = "Hesabınız";
 "account-request-vanishing" = "Hesabı yok et";
-"account-talk-page-title" = "Mesaj sayfanız";
 "account-talk-preferences-auto-sign-discussions" = "Otomatik imza tartışmaları";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tartışmaların otomatik olarak imzalanması, İmza ayarlarında tanımlanan imzayı kullanır";
 "account-talk-preferences-title" = "Tartışma sayfası tercihleri";
@@ -209,7 +208,6 @@
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
 "description-edit-for-article" = "$1 için madde açıklaması";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Madde açıklamasını değiştirerek $1nı kabul ediyorum ve $2 lisansı kapsamındaki katkılarımı geri alınamaz bir şekilde yayımlıyorum.";
 "description-edit-pencil-introduction" = "Girişi düzenle";
 "description-edit-pencil-title" = "Madde açıklamasını düzenle";
