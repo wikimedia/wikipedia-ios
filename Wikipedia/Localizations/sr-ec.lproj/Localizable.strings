@@ -93,7 +93,6 @@
 "account-creation-title" = "Отварање новог налога";
 "account-group-title" = "Ваш налог";
 "account-request-vanishing" = "Гашење налога";
-"account-talk-page-title" = "Ваша страница за разговор";
 "account-talk-preferences-auto-sign-discussions" = "Аутоматско потписивање дискусија";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Аутоматско потписивање дискусија ће користити потпис дефинисан у подешавањима потписа";
 "account-talk-preferences-title" = "Подешавања странице за разговор";
@@ -196,7 +195,6 @@
 "data-migration-status" = "Ажурирање...";
 "description-add-title" = "Додавање описа";
 "description-edit-for-article" = "Опис чланка за страницу $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променом описа чланка, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
 "description-edit-pencil-title" = "Додај опис чланка";

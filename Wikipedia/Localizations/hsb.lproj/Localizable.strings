@@ -53,7 +53,6 @@
 "account-creation-saving" = "Składuje so...";
 "account-creation-title" = "Nowe konto załožić";
 "account-group-title" = "Twoje wužiwarske konto";
-"account-talk-page-title" = "Twoja diskusijna strona";
 "account-talk-preferences-auto-sign-discussions" = "Přinoški awtomatisce podpisać";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Při awtomatiskim podpisanju w diskusijach wužiwa so w nastajenjach postajeny podpismo.";
 "account-talk-preferences-title" = "Nastajenja diskusijneje strony";
@@ -117,7 +116,6 @@
 "data-migration-status" = "Aktualizuju...";
 "description-add-title" = "Wopis přidać";
 "description-edit-for-article" = "Wopis zapiska $1";
-"description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "Přez změnjenje wopisa zapiska přihłosuju $1 a doskónčnemu wozjewjenju mojich přinoškow pod licencu $2.";
 "description-edit-pencil-introduction" = "Zawod wobdźěłać";
 "description-edit-pencil-title" = "Wopis zapiska wobdźěłać";

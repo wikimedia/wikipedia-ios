@@ -79,7 +79,6 @@
 "account-creation-saving" = "Mentés…";
 "account-creation-title" = "Új fiók létrehozása";
 "account-group-title" = "Fiókod";
-"account-talk-page-title" = "Vitalapod";
 "account-talk-preferences-auto-sign-discussions" = "Hozzászólások automatikus aláírása";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "A hozzászólások automatikus aláírása az Aláírásbeállításokban megadott aláírást használja";
 "account-talk-preferences-title" = "Vitalapok beállításai";
@@ -170,7 +169,6 @@
 "data-migration-status" = "Frissítés...";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-for-article" = "$1 leírása";
-"description-edit-length-warning" = "$1/$2";
 "description-edit-pencil-introduction" = "Bevezetés szerkesztése";
 "description-edit-pencil-title" = "Leírás szerkesztése";
 "description-edit-placeholder-title" = "A rövid leírások jobbak";

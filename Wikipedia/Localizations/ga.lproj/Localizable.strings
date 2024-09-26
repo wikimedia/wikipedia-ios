@@ -44,7 +44,6 @@
 "account-creation-saving" = "Ag sábháil...";
 "account-creation-title" = "Cruthaigh cuntas nua";
 "account-group-title" = "Do Chuntas";
-"account-talk-page-title" = "Do leathanach plé";
 "action-add-to" = "Cuir le...";
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
@@ -95,7 +94,6 @@
 "description-add-title" = "Cuir cur síos leis";
 // Fuzzy
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
-"description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ach an sainchuntas teidil a athrú, glacaim leis na $1 agus le mo chuid dréachtaí a scaoileadh go neamh-inchúlghairthe faoin gceadúnas $2.";
 // Fuzzy

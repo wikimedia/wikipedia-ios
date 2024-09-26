@@ -72,7 +72,6 @@
 "account-creation-title" = "ߖߊ߬ߕߋ߬ߘߊ߬ ߞߎߘߊ߫ ߛߌ߲ߘߌ߫";
 "account-group-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲";
 "account-request-vanishing" = "ߖߊ߬ߕߋ߬ߘߊ ߟߊߕߎߣߎ߲߫";
-"account-talk-page-title" = "ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
 "account-talk-preferences-auto-sign-discussions" = "ߞߊ߬ ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߴߊ߬ ߖߘߍ߬ߡߊ߬";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "ߘߊߘߐߖߊߥߏ ߞߟߊ߬ߣߐ߬ߦߊ߬ߟߌ߫ ߖߘߍ߬ߦߋ ߓߐߒߠߊߟߌ ߘߌ߫ ߣߊ߬ ߞߟߊ߬ߣߐ ߟߊߓߊ߯ߙߊ ߕߏ߫ ߞߟߊ߬ߣߐ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߘߐ߫";
 "account-talk-preferences-title" = "ߞߎߡߊ߫ ߞߐߜߍ ߝߌ߬ߛߊ߬ߡߊ߲߬ߕߋ";
@@ -148,7 +147,6 @@
 "data-migration-status" = "ߟߊ߬ߞߎ߬ߘߊ߬ߟߌ ߦߴߌ ߘߐ߫...";
 "description-add-title" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߘߏ߲߬";
 "description-edit-for-article" = "$1 ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "ߖߐ߲߬ߛߊ߫ ߞߊ߬ ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߡߊߝߊ߬ߟߋ߲߬߸ ߒ ߘߌ߬ߢߍ߬ߣߍ߲߬ ߦߋ߫ $1 ߡߵߊ߬ ߣߌ߫ ߒ ߣߡߌߛߊߓߊߟߌߦߊ߫ ߘߌߢߍߣߍ߲߫ ߦߋ߫ ߒ ߠߊ߫ ߓߟߏߡߊߜߍ߲ ߠߎ߬ ߟߊߓߌ߬ߟߊ ߡߊ߬ $2 ߟߊ߫ ߕߌ߰ߦߊ ߞߐ߬ߣߐߡߊ߬.";
 "description-edit-pencil-introduction" = "ߟߊߘߏ߲߬ߠߌ߲ ߡߊߦߟߍ߬ߡߊ߲߫";
 "description-edit-pencil-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
