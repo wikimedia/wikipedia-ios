@@ -9,10 +9,10 @@ public class WMFImageRecommendationsDataController {
 		var hasPresentedOnboardingModal: Bool
         var hasPresentedOnboardingTooltips: Bool
         var hasPresentedFeatureAnnouncementModal: Bool
-        var hasPresentedAddAnImageFeatureAnnouncemnt: Bool
+        var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool
 
 		static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false, hasPresentedAddAnImageFeatureAnnouncemnt: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false, hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: false)
 		}
 	}
 
@@ -63,9 +63,9 @@ public class WMFImageRecommendationsDataController {
         }
     }
     
-    public var hasPresentedAddAnImageFeatureAnnouncemnt: Bool {
+    public var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool {
         get {
-            return onboardingStatus.hasPresentedAddAnImageFeatureAnnouncemnt
+            return onboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue

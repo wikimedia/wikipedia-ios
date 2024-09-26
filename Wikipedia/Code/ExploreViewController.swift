@@ -72,11 +72,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #endif
         if !UIAccessibility.isVoiceOverRunning {
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
-        }
-        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        
-        if !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-            presentImageRecommendationsAnnouncementAltText()
+            
+            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+            
+            if !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
+                presentImageRecommendationsAnnouncementAltText()
+            }
         }
         
         if tabBarSnapshotImage == nil {
@@ -955,7 +956,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
+        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis else {
             return
         }
         
@@ -983,7 +984,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
-        imageRecommendationsDataController.hasPresentedAddAnImageFeatureAnnouncemnt = true
+        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }
     
     // TODO: - Remove after expiry date (4 Oct, 2024)
