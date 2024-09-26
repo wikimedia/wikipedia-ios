@@ -208,7 +208,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         guard let navigationController = self.navigationController,
               let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-            let metricsID = DonateCoordinator.metricsID(for: .articleProfile, languageCode: languageCode) else {
+        let metricsID = DonateCoordinator.metricsID(for: .exploreProfile, languageCode: languageCode) else {
             return
         }
         

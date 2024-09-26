@@ -223,15 +223,15 @@ import WMF
         logEvent(activeInterface: .webPayProcessed, action: .returnClick, actionData: ["campaign_id": metricsID])
     }
 
-    func logHiddenBanner(metricsID: String) {
+    func logHiddenBanner(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: ["campaign_id": metricsID])
     }
     
-    func logArticleProfile(metricsID: String) {
-        logEvent(activeInterface: .articleProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    func logArticleProfile(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .profileClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleProfileDonate(metricsID: String) {
+    func logArticleProfileDonate(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
@@ -247,8 +247,8 @@ import WMF
         logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
-    func logArticleProfileDonateCancel(metricsID: String) {
-        logEvent(activeInterface: .articleProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    func logArticleProfileDonateCancel(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .cancelClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
     func logExploreProfileDonateCancel(metricsID: String) {
@@ -263,8 +263,8 @@ import WMF
         logEvent(activeInterface: .exploreProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
     }
     
-    func logArticleProfileDonateApplePay(metricsID: String) {
-        logEvent(activeInterface: .articleProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    func logArticleProfileDonateApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
     }
 
     func logExploreOptOutProfileDonateApplePay(metricsID: String) {
@@ -275,8 +275,8 @@ import WMF
         logEvent(activeInterface: .exploreProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
     }
     
-    func logArticleProfileDonateWebPay(metricsID: String) {
-        logEvent(activeInterface: .articleProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    func logArticleProfileDonateWebPay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .webPayClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
     func logExploreOptOutProfileDonateWebPay(metricsID: String) {

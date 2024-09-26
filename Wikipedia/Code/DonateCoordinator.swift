@@ -23,7 +23,7 @@ class DonateCoordinator: Coordinator {
         case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
         case settingsProfile
         case exploreProfile
-        case articleProfile
+        case articleProfile(ArticleURL)
     }
     
     // MARK: Properties
@@ -36,16 +36,22 @@ class DonateCoordinator: Coordinator {
     private let theme: Theme
     
     private lazy var wikimediaProject: WikimediaProject? = {
-        if case .articleCampaignModal(let articleURL, _, _) = source {
-            
+        switch source {
+        case .articleCampaignModal(let articleURL, _, _):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
             
             return wikimediaProject
+        case .articleProfile(let articleURL):
+            guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
+                return nil
+            }
+            
+            return wikimediaProject
+        case .exploreProfile, .settingsProfile:
+            return nil
         }
-        
-        return nil
     }()
     
     private lazy var languageCode: String? = {
@@ -159,7 +165,10 @@ class DonateCoordinator: Coordinator {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateCancel(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateCancel(metricsID: metricsID)
+                guard let project = self.wikimediaProject else {
+                    return
+                }
+                DonateFunnel.shared.logArticleProfileDonateCancel(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateCancel(metricsID: metricsID)
             case .articleCampaignModal:
@@ -178,7 +187,10 @@ class DonateCoordinator: Coordinator {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateApplePay(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateApplePay(metricsID: metricsID)
+                guard let project = self.wikimediaProject else {
+                    return
+                }
+                DonateFunnel.shared.logArticleProfileDonateApplePay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay(metricsID: metricsID)
             case .articleCampaignModal:
@@ -201,7 +213,10 @@ class DonateCoordinator: Coordinator {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateWebPay(metricsID: metricsID)
             case .articleProfile:
-                DonateFunnel.shared.logArticleProfileDonateWebPay(metricsID: metricsID)
+                guard let project = self.wikimediaProject else {
+                    return
+                }
+                DonateFunnel.shared.logArticleProfileDonateWebPay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay(metricsID: metricsID)
             case .articleCampaignModal:
@@ -330,9 +345,10 @@ class DonateCoordinator: Coordinator {
         guard let webViewURL else { return }
         
         let completeButtonTitle: String
-        if case .articleCampaignModal = source {
+        switch source {
+        case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        } else {
+        case .exploreProfile, .settingsProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
@@ -629,7 +645,13 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .articleProfile, .exploreProfile, .settingsProfile:
+        case .articleProfile:
+            guard let wikimediaProject else {
+                return
+            }
+            
+            DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
+        case .exploreProfile, .settingsProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
         }
     }

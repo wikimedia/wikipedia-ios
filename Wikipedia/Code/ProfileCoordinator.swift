@@ -227,7 +227,19 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .explore:
             DonateFunnel.shared.logExploreProfileDonate(metricsID: metricsID)
         case .article:
-            DonateFunnel.shared.logArticleProfileDonate(metricsID: metricsID)
+            
+            switch donateSouce {
+            case .articleProfile(let articleURL):
+                
+                guard let siteURL = articleURL.wmf_site,
+                      let project = WikimediaProject(siteURL: siteURL) else {
+                    return
+                }
+                
+                DonateFunnel.shared.logArticleProfileDonate(project: project, metricsID: metricsID)
+            default:
+                return
+            }
         }
     }
 }

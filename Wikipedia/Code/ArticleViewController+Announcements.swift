@@ -23,7 +23,9 @@ extension ArticleViewController {
             }
 
             if !isOptedIn {
-                DonateFunnel.shared.logHiddenBanner(metricsID: activeCampaignAsset.metricsID)
+                if let project {
+                    DonateFunnel.shared.logHiddenBanner(project: project, metricsID: activeCampaignAsset.metricsID)
+                }
             }
 
             guard isOptedIn else {
