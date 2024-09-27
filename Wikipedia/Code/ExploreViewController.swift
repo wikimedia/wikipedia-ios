@@ -205,10 +205,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
 
     @objc func userDidTapProfile() {
-        DonateFunnel.shared.logExploreProfile()
-        guard let navigationController = self.navigationController else {
+        
+        guard let navigationController = self.navigationController,
+              let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .exploreProfile, languageCode: languageCode) else {
             return
         }
+        
+        DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
         
         let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore)
 
