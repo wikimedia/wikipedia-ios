@@ -68,7 +68,7 @@ public class WMFImageRecommendationsDataController {
             return onboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis
         } set {
             var currentOnboardingStatus = onboardingStatus
-            currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue
+            currentOnboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = newValue
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }

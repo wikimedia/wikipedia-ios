@@ -75,7 +75,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
             let imageRecommendationsDataController = WMFImageRecommendationsDataController()
             
-            if !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
+            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
                 presentImageRecommendationsAnnouncementAltText()
             }
         }
@@ -1319,7 +1319,7 @@ extension ExploreViewController {
         
         let imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
-        if !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
+        if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
             presentImageRecommendationsAnnouncementAltText()
         }
     }
