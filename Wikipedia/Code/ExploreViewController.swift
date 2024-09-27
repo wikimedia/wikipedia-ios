@@ -1315,12 +1315,12 @@ extension ExploreViewController {
     @objc func applicationDidBecomeActive() {
         if !UIAccessibility.isVoiceOverRunning {
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
-        }
-        
-        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        
-        if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-            presentImageRecommendationsAnnouncementAltText()
+            
+            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+            
+            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
+                presentImageRecommendationsAnnouncementAltText()
+            }
         }
     }
 }
