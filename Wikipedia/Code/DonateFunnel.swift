@@ -245,7 +245,7 @@ import WMF
     }
     
     func logArticleProfileDonate(project: WikimediaProject, metricsID: String) {
-        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
     func logExploreProfile(metricsID: String) {

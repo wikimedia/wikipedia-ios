@@ -76,7 +76,7 @@ class DonateCoordinator: Coordinator {
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
             urlString = articleCampaignDonateURL.absoluteString
         } else {
-            urlString = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=\(metricsID)&uselang=<langcode>"
+            urlString = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=iOS&wmf_source=\(metricsID)&uselang=<langcode>"
             urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
         }
         

@@ -1310,7 +1310,7 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        guard let navigationController, let languageCode = articleURL.wmf_languageCode,
+        guard let navigationController, let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
         let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
         let project else { return }
         
