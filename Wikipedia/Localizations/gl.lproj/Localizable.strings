@@ -52,7 +52,6 @@
 "account-creation-saving" = "Gardando...";
 "account-creation-title" = "Crear unha nova conta";
 "account-group-title" = "A súa conta";
-"account-talk-page-title" = "A súa páxina de conversa";
 "account-talk-preferences-auto-sign-discussions" = "Asinar automaticamente as conversas";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "A sinatura automática nas conversas usará a sinatura definida na configuración da sinatura";
 "account-talk-preferences-title" = "Preferencias da páxina de conversa";
@@ -123,7 +122,6 @@
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
 "description-add-title" = "Engadir unha descrición";
 "description-edit-for-article" = "Descrición do artigo $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ó alterar a descrición do artigo, acepto os $1 e publico irrevogablemente as miñas contribucións baixo a licenza $2.";
 "description-edit-pencil-introduction" = "Editar introdución";
 "description-edit-pencil-title" = "Editar a descrición do artigo";

@@ -93,7 +93,6 @@
 "account-creation-title" = "Отварање новог налога";
 "account-group-title" = "Ваш налог";
 "account-request-vanishing" = "Гашење налога";
-"account-talk-page-title" = "Ваша страница за разговор";
 "account-talk-preferences-auto-sign-discussions" = "Аутоматско потписивање дискусија";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Аутоматско потписивање дискусија ће користити потпис дефинисан у подешавањима потписа";
 "account-talk-preferences-title" = "Подешавања странице за разговор";
@@ -130,11 +129,13 @@
 "advanced-settings-title" = "Напредна подешавања";
 "alt-text-add-button-title" = "Додај";
 "alt-text-do-not-add-button-title" = "Не додај";
+"alt-text-email-fifth-line" = "[Снимци екрана или линкови]";
 "alt-text-email-fourth-line" = "- [Опишите могуће решење]";
 "alt-text-email-second-line" = "- [Опишите конкретан проблем]";
 "alt-text-email-third-line" = "Жељено понашање:";
 "alt-text-experiment-onboarding-item-1-title" = "Будите кратки и јасни";
 "alt-text-experiment-onboarding-item-2-title" = "Опишите шта се може видети";
+"alt-text-experiment-onboarding-item-4-title" = "Врста слике";
 "alt-text-experiment-onboarding-secondary-button-title" = "Види примере";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Додај опис";
 "alt-text-experiment-text-field-placholder" = "Опишите слику";
@@ -196,7 +197,6 @@
 "data-migration-status" = "Ажурирање...";
 "description-add-title" = "Додавање описа";
 "description-edit-for-article" = "Опис чланка за страницу $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променом описа чланка, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
 "description-edit-pencil-title" = "Додај опис чланка";
@@ -229,6 +229,7 @@
 "description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
+"developer-settings" = "Подешавања за програмере";
 "diff-article-revision-history" = "Историја чланка";
 "diff-compare-header-from-info-heading" = "Претходна измена";
 "diff-compare-header-heading" = "Упореди измене";
@@ -869,6 +870,16 @@
 "preference-summary-eventlogging-opt-in" = "Дозволите Задужбини Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
+"profile-button-accessibility-label" = "Профил";
+"profile-page-donate" = "Донација";
+"profile-page-join-title" = "Придружите се Википедији / Пријава";
+"profile-page-logout" = "Одјави ме";
+"profile-page-notification-title" = "Обавештења";
+"profile-page-settings" = "Подешавања";
+"profile-page-talk-page-title" = "Страница за разговор";
+"profile-page-title-logged-out" = "Налог";
+"profile-page-user-page-title" = "Корисничка страница";
+"profile-page-watchlist-title" = "Списак надгледања";
 "project-name-mediawiki" = "Медијавики";
 "project-name-wikibooks" = "Викикњиге";
 "project-name-wikidata" = "Википодаци";

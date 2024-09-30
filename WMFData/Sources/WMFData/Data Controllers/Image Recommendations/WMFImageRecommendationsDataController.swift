@@ -9,9 +9,10 @@ public class WMFImageRecommendationsDataController {
 		var hasPresentedOnboardingModal: Bool
         var hasPresentedOnboardingTooltips: Bool
         var hasPresentedFeatureAnnouncementModal: Bool
+        var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool?
 
 		static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false, hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: false)
 		}
 	}
 
@@ -58,6 +59,16 @@ public class WMFImageRecommendationsDataController {
         } set {
             var currentOnboardingStatus = onboardingStatus
             currentOnboardingStatus.hasPresentedFeatureAnnouncementModal = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+    
+    public var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool {
+        get {
+            return onboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis ?? false
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = newValue
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
         }
     }

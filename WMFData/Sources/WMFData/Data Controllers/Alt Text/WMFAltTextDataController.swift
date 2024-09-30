@@ -17,8 +17,8 @@ public final class WMFAltTextDataController {
     public lazy var experimentStopDate: Date? = {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
-        dateComponents.month = 10
-        dateComponents.day = 21
+        dateComponents.month = 11
+        dateComponents.day = 5
         return Calendar.current.date(from: dateComponents)
     }()
     

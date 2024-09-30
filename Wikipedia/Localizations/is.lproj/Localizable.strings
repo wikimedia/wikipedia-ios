@@ -81,7 +81,6 @@
 "account-creation-title" = "Búa til nýjan aðgang";
 "account-group-title" = "Aðgangurinn þinn";
 "account-request-vanishing" = "Þurrka út aðgang";
-"account-talk-page-title" = "Spjallsíðan þín";
 "account-talk-preferences-auto-sign-discussions" = "Undirrita sjálkrafa í umræðum";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Sjlfvirk undirskrift í umræðum notar undirskriftina sem skilgreind er undirritunarstillingunum";
 "account-talk-preferences-title" = "Kjörstillingar fyrir spjallsíður";
@@ -168,7 +167,6 @@
 "data-migration-status" = "Uppfæri...";
 "description-add-title" = "Bæta við lýsingu";
 "description-edit-for-article" = "Lýsing á grein fyrir $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Með því að breyta lýsingu á þessari grein, samþykkir þú  $1 og að þú gefir óafturkræft út framlög þín með $2 notkunarleyfi.";
 "description-edit-pencil-introduction" = "Breyta inngangi";
 "description-edit-pencil-title" = "Breyta lýsingu á grein";

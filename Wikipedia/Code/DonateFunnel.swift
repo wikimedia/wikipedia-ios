@@ -14,6 +14,9 @@ import WMF
         case applePayProcessed = "applepay_processed"
         case webPayInitiated = "webpay_initiated"
         case webPayProcessed = "webpay_processed"
+        case articleProfile = "article_profile"
+        case exploreProfile = "explore_profile"
+        case exploreOptOut = "explore_optout_profile"
     }
     
     private enum Action: String {
@@ -42,8 +45,10 @@ import WMF
         case applePayUIConfirm = "applepay_ui_confirm"
         case successToastSetting = "success_toast_setting"
         case successToastArticle = "success_toast_article"
+        case successToastProfile = "success_toast_profile"
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
+        case profileClick = "profile_click"
     }
     
     private struct Event: EventInterface {
@@ -83,113 +88,66 @@ import WMF
         EventPlatformClient.shared.submit(stream: .appDonorExperience, event: event)
     }
     
-    func logSettingsDidTapSettingsIcon() {
-        logEvent(activeInterface: .setting, action: .settingClick)
+    func logFundraisingCampaignModalImpression(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .impression, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    @objc func logSettingsDidTapDonateCell() {
-        logEvent(activeInterface: .setting, action: .donateStartClick)
+    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .closeClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalImpression(project: WikimediaProject, metricsID: String?) {
-        
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = [:]
-            actionData?["campaign_id"] = metricsID
-        }
-        
-        logEvent(activeInterface: .articleBanner, action: .impression, actionData: actionData, project: project)
+    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .donateClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalDidTapClose(project: WikimediaProject, metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = [:]
-            actionData?["campaign_id"] = metricsID
-        }
-        
-        logEvent(activeInterface: .articleBanner, action: .closeClick, actionData: actionData, project: project)
+    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .laterClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = ["campaign_id": metricsID]
-        }
-        
-        logEvent(activeInterface: .articleBanner, action: .donateClick, actionData: actionData, project: project)
+    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalDidTapMaybeLater(project: WikimediaProject, metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = ["campaign_id": metricsID]
-        }
-        
-        logEvent(activeInterface: .articleBanner, action: .laterClick, actionData: actionData, project: project)
+    func logFundraisingCampaignModalDidTapDonorPolicy(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .donorPolicyClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalDidTapAlreadyDonated(project: WikimediaProject, metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = ["campaign_id": metricsID]
-        }
-        
-        logEvent(activeInterface: .articleBanner, action: .alreadyDonatedClick, actionData: actionData, project: project)
+    func logArticleDidSeeReminderToast(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .article, action: .reminderToast, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logFundraisingCampaignModalDidTapDonorPolicy(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .donorPolicyClick, project: project)
+    func logArticleDidTapDonateWithApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleDidSeeReminderToast(project: WikimediaProject) {
-        logEvent(activeInterface: .article, action: .reminderToast, project: project)
+    func logArticleDidTapOtherPaymentMethod(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .webPayClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logSettingDidTapApplePay() {
-        logEvent(activeInterface: .setting, action: .applePayClick)
+    func logArticleDidTapCancel(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .cancelClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logSettingDidTapOtherPaymentMethod() {
-        logEvent(activeInterface: .setting, action: .webPayClick)
+    func logDonateFormNativeApplePayImpression(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePayInitiated, action: .impression, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logSettingDidTapCancel() {
-        logEvent(activeInterface: .setting, action: .cancelClick)
+    func logDonateFormNativeApplePayEntryError(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .entryError, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleDidTapDonateWithApplePay(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .applePayClick, project: project)
+    func logDonateFormNativeApplePayDidTapAmountPresetButton(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .amountSelected, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleDidTapOtherPaymentMethod(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .webPayClick, project: project)
+    func logDonateFormNativeApplePayDidEnterAmountInTextfield(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .amountEntered, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleDidTapCancel(project: WikimediaProject) {
-        logEvent(activeInterface: .articleBanner, action: .cancelClick, project: project)
-    }
-    
-    func logDonateFormNativeApplePayImpression(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePayInitiated, action: .impression, project: project)
-    }
-    
-    func logDonateFormNativeApplePayEntryError(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .entryError, project: project)
-    }
-    
-    func logDonateFormNativeApplePayDidTapAmountPresetButton(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .amountSelected, project: project)
-    }
-    
-    func logDonateFormNativeApplePayDidEnterAmountInTextfield(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .amountEntered, project: project)
-    }
-    
-    func logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool?, project: WikimediaProject?) {
+    func logDonateFormNativeApplePayDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: Bool?, project: WikimediaProject?, metricsID: String) {
         var actionData = ["add_transaction": String(transactionFeeIsSelected),
-                          "recurring": String(recurringMonthlyIsSelected)]
+                          "recurring": String(recurringMonthlyIsSelected),
+                          "campaign_id": metricsID]
         
         if let emailOptInIsSelected {
             actionData["email_subscribe"] = String(emailOptInIsSelected)
@@ -198,31 +156,29 @@ import WMF
         logEvent(activeInterface: .applePay, action: .donateConfirmClick, actionData: actionData, project: project)
     }
     
-    func logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .reportProblemClick, project: project)
+    func logDonateFormNativeApplePayDidTapProblemsDonatingLink(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .reportProblemClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .otherGiveClick, project: project)
+    func logDonateFormNativeApplePayDidTapOtherWaysToGiveLink(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .otherGiveClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormNativeApplePayDidTapFAQLink(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .faqClick, project: project)
+    func logDonateFormNativeApplePayDidTapFAQLink(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .faqClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormNativeApplePayDidTapTaxInfoLink(project: WikimediaProject?) {
-        logEvent(activeInterface: .applePay, action: .taxInfoClick, project: project)
+    func logDonateFormNativeApplePayDidTapTaxInfoLink(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .applePay, action: .taxInfoClick, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, metricsID: String?, donorEmail: String?, project: WikimediaProject?) {
+    func logDonateFormNativeApplePayDidAuthorizeApplePay(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, metricsID: String, donorEmail: String?, project: WikimediaProject?) {
         var actionData = ["preset_selected": String(presetIsSelected),
                           "donation_amount": (amount as NSNumber).stringValue,
                           "recurring": String(recurringMonthlyIsSelected),
-                          "pay_method": "applepay"]
-        if let metricsID {
-            actionData["campaign_id"] = metricsID
-        }
-        
+                          "pay_method": "applepay",
+                          "campaign_id": metricsID]
+
         if let donorEmail {
             actionData["email"] = donorEmail
         }
@@ -230,8 +186,8 @@ import WMF
         logEvent(activeInterface: .applePayProcessed, action: .applePayUIConfirm, actionData: actionData, project: project)
     }
     
-    func logDonateFormNativeApplePaySubmissionError(errorReason: String?, errorCode: String?, orderID: String?, project: WikimediaProject?) {
-        var actionData: [String: String] = [:]
+    func logDonateFormNativeApplePaySubmissionError(errorReason: String?, errorCode: String?, orderID: String?, project: WikimediaProject?, metricsID: String) {
+        var actionData: [String: String] = ["campaign_id": metricsID]
         
         if let errorReason {
             actionData["error_reason"] = "'\(errorReason)'"
@@ -248,42 +204,99 @@ import WMF
         logEvent(activeInterface: .applePay, action: .submissionError, actionData: actionData, project: project)
     }
     
-    func logSettingDidSeeApplePayDonateSuccessToast() {
-        logEvent(activeInterface: .setting, action: .successToastSetting)
+    func logArticleCampaignDidSeeApplePayDonateSuccessToast(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .article, action: .successToastArticle, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logArticleDidSeeApplePayDonateSuccessToast(project: WikimediaProject) {
-        logEvent(activeInterface: .article, action: .successToastArticle, project: project)
+    func logArticleProfileDidSeeApplePayDonateSuccessToast(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormInAppWebViewImpression(project: WikimediaProject?) {
-        logEvent(activeInterface: .webPayInitiated, action: .impression, project: project)
+    func logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
     
-    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = [:]
-            actionData?["campaign_id"] = metricsID
-        }
-        logEvent(activeInterface: .webPayProcessed, action: .impression, actionData: actionData, project: project)
+    func logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
     
-    func logDonateFormInAppWebViewDidTapArticleReturnButton(project: WikimediaProject) {
-        logEvent(activeInterface: .webPayProcessed, action: .articleReturnClick, project: project)
+    func logDonateFormInAppWebViewImpression(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .webPayInitiated, action: .impression, actionData: ["campaign_id": metricsID], project: project)
     }
     
-    func logDonateFormInAppWebViewDidTapReturnButton() {
-        logEvent(activeInterface: .webPayProcessed, action: .returnClick)
+    func logDonateFormInAppWebViewThankYouImpression(project: WikimediaProject?, metricsID: String) {
+        logEvent(activeInterface: .webPayProcessed, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logDonateFormInAppWebViewDidTapArticleReturnButton(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .webPayProcessed, action: .articleReturnClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logDonateFormInAppWebViewDidTapReturnButton(metricsID: String) {
+        logEvent(activeInterface: .webPayProcessed, action: .returnClick, actionData: ["campaign_id": metricsID])
     }
 
-    func logHiddenBanner(metricsID: String?) {
-        var actionData: [String: String]?
-        if let metricsID {
-            actionData = [:]
-            actionData?["campaign_id"] = metricsID
-        }
+    func logHiddenBanner(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logArticleProfile(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .profileClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logArticleProfileDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logExploreProfile(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logExploreProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logOptOutExploreProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logArticleProfileDonateCancel(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .cancelClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logExploreProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logExploreOptOutProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logExploreProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logArticleProfileDonateApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
 
-        logEvent(activeInterface: .articleBanner, action: .impressionSuppressed, actionData: actionData)
+    func logExploreOptOutProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logExploreProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .exploreProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logArticleProfileDonateWebPay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleProfile, action: .webPayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+    
+    func logExploreOptOutProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    @objc func logExploreOptOutProfileClick(metricsID: String) {
+        logEvent(activeInterface: .exploreOptOut, action: . profileClick, actionData: ["campaign_id": metricsID])
     }
 }

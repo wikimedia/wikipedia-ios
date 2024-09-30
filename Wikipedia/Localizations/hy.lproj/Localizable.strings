@@ -24,7 +24,6 @@
 "account-creation-logging-in" = "Մուտք համակարգ...";
 "account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, գաղտնաբառ և գաղտնաբառի հաստատում մասնակցային հաշիվ ստեղծելու համար";
 "account-creation-saving" = "Պահպանվում է...";
-"account-talk-page-title" = "Ձեր քննարկման էջ";
 "action-cancel" = "Չեղարկել";
 "action-find-in-page" = "Գտնել էջում";
 "action-read" = "Կարդալ";
@@ -167,6 +166,10 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
+"profile-page-donate" = "Նվիրաբերել";
+"profile-page-settings" = "Կարգավորումներ";
+"profile-page-title-logged-out" = "Հաշիվ";
+"profile-page-watchlist-title" = "Հսկացանկ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";

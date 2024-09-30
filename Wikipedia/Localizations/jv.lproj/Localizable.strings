@@ -45,7 +45,6 @@
 "account-creation-saving" = "Nyimpen...";
 "account-creation-title" = "Gawé akun anyar";
 "account-group-title" = "Akun";
-"account-talk-page-title" = "Parembuganmu";
 "action-add-to" = "Tambahaké ing...";
 "action-add-to-reading-list" = "Wuwuhaké ing pratélan wacan";
 "action-add-to-reading-list-short" = "Tambahaké ing pratélan";
@@ -101,7 +100,6 @@
 "description-add-title" = "Wuwuh wedharan";
 // Fuzzy
 "description-edit-for-article" = "Wedharaning sesirah tumrap $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Besut purwaka";
 // Fuzzy
 "description-edit-pencil-title" = "Besut wedharaning sesirah";

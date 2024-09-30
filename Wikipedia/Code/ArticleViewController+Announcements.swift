@@ -23,7 +23,9 @@ extension ArticleViewController {
             }
 
             if !isOptedIn {
-                DonateFunnel.shared.logHiddenBanner(metricsID: activeCampaignAsset.metricsID)
+                if let project {
+                    DonateFunnel.shared.logHiddenBanner(project: project, metricsID: activeCampaignAsset.metricsID)
+                }
             }
 
             guard isOptedIn else {
@@ -41,20 +43,42 @@ extension ArticleViewController {
         let dataController = WMFFundraisingCampaignDataController.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
-        
-        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { button, _ in
+
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { [weak self] button, viewController in
+            
+            guard let self else {
+                return
+            }
             
             DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
-            self.pushToDonateForm(asset: asset, sourceView: button)
+            
+            guard let navigationController = self.navigationController,
+            let globalPoint = button.superview?.convert(button.frame.origin, to: navigationController.view),
+            let donateURL =  asset.actions[0].url else {
+                return
+            }
+            
+            let globalRect = CGRect(x: globalPoint.x, y: globalPoint.y, width: button.frame.width, height: button.frame.height)
+            
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: globalRect, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, setLoadingBlock: { isLoading in
+                guard let fundraisingPanelVC = viewController as? FundraisingAnnouncementPanelViewController else {
+                    return
+                }
+                
+                fundraisingPanelVC.isLoading = isLoading
+            })
+            
+            self.donateCoordinator = donateCoordinator
+            donateCoordinator.start()
+            
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, secondaryButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
             
-            
             if shouldShowMaybeLater {
                 dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-                self.donateDidSetMaybeLater()
+                self.donateDidSetMaybeLater(metricsID: asset.metricsID)
             } else {
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
                 self.donateAlreadyDonated()
@@ -67,7 +91,7 @@ extension ArticleViewController {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
             
         }, footerLinkAction: { url in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
             self.navigate(to: url, useSafari: true)
         }, traceableDismissHandler: { action in
             
@@ -78,33 +102,14 @@ extension ArticleViewController {
         }, showMaybeLater: shouldShowMaybeLater)
     }
 
-    private func pushToDonateForm(asset: WMFFundraisingCampaignConfig.WMFAsset, sourceView: UIView?) {
-        let firstAction = asset.actions[0]
-        
-        let metricsID = asset.metricsID
-
-        let appVersion = Bundle.main.wmf_debugVersion()
-        let donateURL = firstAction.url?.appendingAppVersion(appVersion: appVersion)
-
-        if canOfferNativeDonateForm(countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, metricsID: metricsID, appVersion: appVersion),
-           let donateURL = donateURL {
-            presentNewDonorExperiencePaymentMethodActionSheet(donateSource: .articleCampaignModal, countryCode: asset.countryCode, currencyCode: asset.currencyCode, languageCode: asset.languageCode, donateURL: donateURL, metricsID: metricsID, appVersion: appVersion, articleURL: articleURL, sourceView: sourceView, loggingDelegate: self)
-        } else {
-            self.navigate(to: donateURL, userInfo: [
-                RoutingUserInfoKeys.campaignArticleURL: articleURL as Any,
-                RoutingUserInfoKeys.campaignMetricsID: metricsID as Any
-            ], useSafari: false)
-        }
-    }
-
-    func donateDidSetMaybeLater() {
+    func donateDidSetMaybeLater(metricsID: String) {
         
         let project = WikimediaProject(siteURL: articleURL)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
-                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project)
+                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
             }
             
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
@@ -120,136 +125,8 @@ extension ArticleViewController {
     }
 }
 
-extension ArticleViewController: WMFDonateDelegate {
-    public func donateDidTapProblemsDonatingLink() {
-        sharedDonateDidTapProblemsDonatingLink()
-    }
-    
-    public func donateDidTapOtherWaysToGive() {
-        sharedDonateDidTapOtherWaysToGive()
-    }
-    
-    public func donateDidTapFrequentlyAskedQuestions() {
-        sharedDonateDidTapFrequentlyAskedQuestions()
-    }
-    
-    public func donateDidTapTaxDeductibilityInformation() {
-        sharedDonateDidTapTaxDeductibilityInformation()
-    }
-    
-    public func donateDidSuccessfullySubmitPayment() {
-        sharedDonateDidSuccessfullSubmitPayment(source: .articleCampaignModal, articleURL: articleURL)
-    }
-}
-
-extension ArticleViewController: WMFDonateLoggingDelegate {
-    
-    func logDonateFormDidAppear() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormDidAppear(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTriggerError(error: Error) {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTriggerError(error: error, project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTapAmountPresetButton() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapAmountPresetButton(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidEnterAmountInTextfield() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidEnterAmountInTextfield(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?) {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected?.boolValue, project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?) {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, project: wikimediaProject, metricsID: metricsID)
-    }
-    
-    func logDonateFormUserDidTapProblemsDonatingLink() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapProblemsDonatingLink(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTapOtherWaysToGiveLink() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapOtherWaysToGiveLink(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTapFAQLink() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapFAQLink(project: wikimediaProject)
-    }
-    
-    func logDonateFormUserDidTapTaxInfoLink() {
-        guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
-            return
-        }
-        
-        sharedLogDonateFormUserDidTapTaxInfoLink(project: wikimediaProject)
-    }
-    
-    
-}
-
 extension WMFFundraisingCampaignConfig.WMFAsset {
     var metricsID: String {
         return "\(languageCode)\(id)_iOS"
-    }
-}
-
-fileprivate extension URL {
-    func appendingAppVersion(appVersion: String?) -> URL {
-        
-        guard let appVersion,
-              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
-        var queryItems = components.queryItems else {
-            return self
-        }
-        
-        
-        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
-        components.queryItems = queryItems
-        
-        guard let url = components.url else {
-            return self
-        }
-        
-        return url
     }
 }

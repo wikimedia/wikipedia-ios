@@ -116,7 +116,6 @@
 "account-creation-title" = "ایجاد یک حساب جدید";
 "account-group-title" = "حساب شما";
 "account-request-vanishing" = "حذف حساب";
-"account-talk-page-title" = "صفحهٔ بحث شما";
 "account-talk-preferences-auto-sign-discussions" = "امضای خودکار بحث‌ها";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "امضای خودکار بحث‌ها از امضای تعریف‌شده در تنظیمات امضا استفاده خواهد کرد";
 "account-talk-preferences-title" = "ترجیحات صفحهٔ بحث";
@@ -263,7 +262,6 @@
 "data-migration-status" = "در حال بروزرسانی...";
 "description-add-title" = "افزودن توضیحات";
 "description-edit-for-article" = "توضیحات مقاله برای $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "با تغییر توصیف مقاله، $1 را می‌پذیرم و به‌طور غیرقابل بازگشتی مشارکت‌هایم را تحت پروانه $2 منتشر می‌کنم.";
 "description-edit-pencil-introduction" = "ویرایش مقدمه";
 "description-edit-pencil-title" = "ویرایش توضیحات مقاله";

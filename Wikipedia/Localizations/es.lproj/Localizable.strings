@@ -127,7 +127,6 @@
 "account-creation-saving" = "Guardando…";
 "account-creation-title" = "Crear una cuenta nueva";
 "account-group-title" = "Tu cuenta";
-"account-talk-page-title" = "Tu página de discusión";
 "account-talk-preferences-auto-sign-discussions" = "Firmar automáticamente en las discusiones";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La firma automática de las discusiones usará la firma definida en tus ajustes de firma";
 "account-talk-preferences-title" = "Preferencias para las páginas de discusión";
@@ -266,7 +265,6 @@
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del artículo, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
 "description-edit-pencil-title" = "Editar descripción de título";
@@ -788,6 +786,17 @@
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "problem-with-feature-title" = "Problema con la característica";
+"profile-page-donate" = "Donar";
+"profile-page-donate-subtext" = "O apoyar a Wikipedia con una donación para mantenerla libre y accesible para todos en todo el mundo.";
+"profile-page-join-subtext" = "Regístrese a una cuenta de Wikipedia para rastrear sus contribuciones, guardar artículos fuera de línea y sincronizar entre dispositivos.";
+"profile-page-join-title" = "Únete a Wikipedia / Ingrese";
+"profile-page-logout" = "Salir de la sesión";
+"profile-page-notification-title" = "Notificaciones";
+"profile-page-settings" = "Configuración";
+"profile-page-talk-page-title" = "Página de discusión";
+"profile-page-title-logged-out" = "Cuenta";
+"profile-page-user-page-title" = "Página de usuario";
+"profile-page-watchlist-title" = "Lista de vigilancia";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";

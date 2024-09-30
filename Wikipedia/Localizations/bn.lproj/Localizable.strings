@@ -344,6 +344,10 @@
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "preference-summary-eventlogging-opt-in" = "অ্যাপ আরও ভালো করতে উইকিমিডিয়া ফাউন্ডেশনকে আপনি কিভাবে অ্যাপ্লিকেশন ব্যবহার করছেন সেই সম্পর্কে তথ্য সংগ্রহ করার অনুমতি দিন";
+"profile-page-donate" = "দান করুন";
+"profile-page-logout" = "প্রস্থান";
+"profile-page-settings" = "সেটিংস";
+"profile-page-title-logged-out" = "অ্যাকাউন্ট";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
 "project-name-wikiquote" = "উইকিউক্তি";
 "reading-list-create-new-list-description" = "বিবরণ";

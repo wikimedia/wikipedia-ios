@@ -142,7 +142,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 #endif
 
-
     [self applyTheme:self.theme];
 
     [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
@@ -386,7 +385,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
-
 }
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
@@ -878,16 +876,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     //    };
 
     self.migrationActive = YES;
-    
+
     MWKDataStore *dataStore = self.dataStore; // Triggers init
     [dataStore finishSetup:^{
-        
         if ([dataStore needsMigration]) {
             [self triggerMigratingAnimation];
         }
         
         [self setupWMFDataCoreDataStore];
-        
+
         [dataStore
             performLibraryUpdates:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -957,12 +954,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                              with:self.theme
                                                        completion:^{
                                                            [self hideSplashView];
-                
-                                                            NSError *saveError = nil;
-                                                            if (![self.dataStore save:&saveError]) {
-                                                                DDLogError(@"Error saving dataStore: %@", saveError);
-                                                            }
-                
+
+                                                           NSError *saveError = nil;
+                                                           if (![self.dataStore save:&saveError]) {
+                                                               DDLogError(@"Error saving dataStore: %@", saveError);
+                                                           }
+
                                                            done();
                                                        }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
@@ -1467,7 +1464,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
         _exploreViewController.notificationsCenterPresentationDelegate = self;
-        _exploreViewController.settingsPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
@@ -1477,7 +1473,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.exploreViewController updateNotificationsCenterButton];
+        //[self.exploreViewController updateNotificationsCenterButton];
+        [self.exploreViewController updateProfileViewButton];
         [self.settingsViewController configureBarButtonItems];
     });
 }
@@ -1871,7 +1868,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
-    
+
     // Ensures theming happens after main UI is loaded
     if (self.viewControllers.count > 0) {
         [self.settingsViewController applyTheme:theme];
@@ -1895,8 +1892,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
         [self setNeedsStatusBarAppearanceUpdate];
     }
-
-    
 }
 
 - (void)updateAppThemeIfNecessary {
@@ -1913,7 +1908,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
-        [self updateAppEnvironmentWithTheme:theme traitCollection:self.navigationController.traitCollection];
+        [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
     }
 }
 
@@ -2154,7 +2149,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (NSData * _Nullable )deviceToken error: (NSError * _Nullable)error {
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(NSData *_Nullable)deviceToken error:(NSError *_Nullable)error {
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 
@@ -2191,7 +2186,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.exploreViewController updateNotificationsCenterButton];
+        //[self.exploreViewController updateNotificationsCenterButton];
+        [self.exploreViewController updateProfileViewButton];
         [self.settingsViewController configureBarButtonItems];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
 
@@ -2209,7 +2205,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.exploreViewController updateNotificationsCenterButton];
+        //[self.exploreViewController updateNotificationsCenterButton];
+        [self.exploreViewController updateProfileViewButton];
         [self.settingsViewController configureBarButtonItems];
 
         if (self.isResumeComplete) {

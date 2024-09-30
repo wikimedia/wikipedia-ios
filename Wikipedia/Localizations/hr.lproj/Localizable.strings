@@ -47,7 +47,6 @@
 "account-creation-saving" = "Spremanje...";
 "account-creation-title" = "Stvorite novi račun";
 "account-group-title" = "Vaš račun";
-"account-talk-page-title" = "Vaša stranica za razgovor";
 "account-talk-preferences-auto-sign-discussions" = "Automatsko potpisivanje rasprava";
 "action-add-to" = "Dodaj u...";
 "action-add-to-reading-list" = "Dodaj na popis za čitanje";
@@ -107,7 +106,6 @@
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-title" = "Nema nedavno čitanih članaka";
 "description-add-title" = "Dodaj opis";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-placeholder-title" = "Kratki su opisi najbolji";
 "description-edit-publish" = "Objavi opis";

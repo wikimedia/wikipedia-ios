@@ -51,7 +51,6 @@
 "account-creation-saving" = "Konservante...";
 "account-creation-title" = "Krei novan konton";
 "account-group-title" = "Via Konto";
-"account-talk-page-title" = "Via diskutpaĝo";
 "account-talk-preferences-auto-sign-discussions" = "Aŭtomate subskribi en diskutoj";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Aŭtomata subskribado en diskutoj uzos la subskribon difinitan en la agordopaĝo Subskribo";
 "account-talk-preferences-title" = "Preferoj pri Diskutpaĝo";
@@ -121,7 +120,6 @@
 "description-add-title" = "Aldoni priskribon";
 // Fuzzy
 "description-edit-for-article" = "Titola priskribo por $1";
-"description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ŝanĝante la titolan priskribon, mi konsentas kun la $1 kaj nenuligeble eldonas miajn kontribuojn laŭ la permesilo $2.";
 "description-edit-pencil-introduction" = "Redakti enkondukon";

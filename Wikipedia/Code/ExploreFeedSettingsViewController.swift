@@ -244,8 +244,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     func shouldAltTextExperimentBeActive() -> Bool {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
-        dateComponents.month = 10
-        dateComponents.day = 21
+        dateComponents.month = 11
+        dateComponents.day = 5
 
         let calendar = Calendar(identifier: .gregorian)
         guard let experimentDate = calendar.date(from: dateComponents) else {
