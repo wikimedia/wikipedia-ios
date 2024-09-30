@@ -127,6 +127,6 @@ extension ArticleViewController {
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
     var metricsID: String {
-        return "\(languageCode)\(id)_iOS"
+        return "\(languageCode)\(countryCode)_\(id)_iOS"
     }
 }
