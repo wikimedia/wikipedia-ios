@@ -57,7 +57,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         
         Task {
             do {
-                let dataController = try WMFWikiWrappedDataController()
+                let dataController = try WMFPageViewsDataController()
                 try await dataController.deleteAllPageViews()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
@@ -86,7 +86,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         
         Task {
             do {
-                let dataController = try WMFWikiWrappedDataController()
+                let dataController = try WMFPageViewsDataController()
                 try await dataController.deletePageView(title: title, namespaceID: 0, project: project)
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")

@@ -761,7 +761,7 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
-    func persistPageViewForWikiwrapped() {
+    func persistPageViewsForYearInReview() {
         if let title = self.articleURL.wmf_title,
            let namespace = self.articleURL.namespace,
            let siteURL = self.articleURL.wmf_site,
@@ -769,8 +769,8 @@ class ArticleViewController: ViewController, HintPresenting {
            let wmfProject = project.wmfProject {
             Task {
                 do {
-                    let wikiwrappedDataController = try WMFWikiWrappedDataController()
-                    try await wikiwrappedDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                    let pageViewsDataController = try WMFPageViewsDataController()
+                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
                 } catch let error {
                     DDLogError("Error saving viewed page: \(error)")
                 }

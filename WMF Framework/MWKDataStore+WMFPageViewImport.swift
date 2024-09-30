@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 
 extension MWKDataStore {
     @objc func importViewedArticlesIntoWMFData(dataStoreMOC: NSManagedObjectContext) {
-        guard let dataController = try? WMFWikiWrappedDataController() else {
+        guard let dataController = try? WMFPageViewsDataController() else {
             return
         }
         

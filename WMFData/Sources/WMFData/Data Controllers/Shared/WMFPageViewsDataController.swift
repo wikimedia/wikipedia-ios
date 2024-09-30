@@ -53,7 +53,7 @@ public final class WMFPageViewImportRequest {
     
 }
 
-public final class WMFWikiWrappedDataController {
+public final class WMFPageViewsDataController {
     
     private let coreDataStore: WMFCoreDataStore
     
