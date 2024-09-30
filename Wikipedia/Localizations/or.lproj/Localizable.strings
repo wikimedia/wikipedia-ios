@@ -14,11 +14,12 @@
 "article-languages-filter-placeholder" = "ଛାଣିବା";
 "article-languages-label" = "ଭାଷା ବାଛନ୍ତୁ";
 "article-share" = "ବାଣ୍ଟିବେ";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 ବାଇଟ ଯୋଡ଼ିଲେ}}";
 "edit-summary-choice-fixed-grammar" = "ବ୍ୟାକରଣ ସଜାଡ଼ିବେ";
 "edit-summary-choice-fixed-typos" = "ବନାନ ସୁଧାରିଲି";
 // Fuzzy
 "edit-summary-choice-linked-words" = "ସମ୍ବନ୍ଧିତ ଶବ୍ଦରାଜି";
-"editor-edit-published" = "ଆପଣଙ୍କ ସମ୍ପାଦନା ସମ୍ପାଦନା ପ୍ରକାଶ ପାଇଲା ।";
+"editor-edit-published" = "ଆପଣଙ୍କ ସମ୍ପାଦନା ପ୍ରକାଶ ପାଇଲା ।";
 "editor-exit-confirmation-body" = "ପ୍ରକାଶ ବିନା ସମ୍ପାଦନା ମୋଡ୍ ଛାଡିବେ ବୋଲି ଆପଣ ପୂରା ନିଶ୍ଚିତ ତ?";
 // Fuzzy
 "languages-title" = "ଭାଷାସମୂହ";
