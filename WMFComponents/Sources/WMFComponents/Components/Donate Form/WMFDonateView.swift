@@ -1,6 +1,7 @@
 import SwiftUI
+import _PassKit_SwiftUI
 
-public protocol WMFDonateDelegate: AnyObject {
+@objc public protocol WMFDonateDelegate: AnyObject {
     func donateDidTapProblemsDonatingLink()
     func donateDidTapOtherWaysToGive()
     func donateDidTapFrequentlyAskedQuestions()
@@ -15,11 +16,8 @@ struct WMFDonateView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFDonateViewModel
     
-    weak var delegate: WMFDonateDelegate?
-    
-    init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?) {
+    init(viewModel: WMFDonateViewModel) {
         self.viewModel = viewModel
-        self.delegate = delegate
     }
     
     var body: some View {
@@ -53,16 +51,18 @@ struct WMFDonateView: View {
                 }
                 
                 Group {
-                    WMFApplePayDonateButton(configuration: WMFApplePayDonateButton.Configuration(paymentButtonStyle: appEnvironment.theme.paymentButtonStyle))
-                        .onTapGesture {
-                            viewModel.textfieldViewModel.hasFocus = false
-                            viewModel.logTappedApplePayButton()
-                            viewModel.validateAndSubmit()
-                            if let errorViewModel = viewModel.errorViewModel {
-                                errorViewModel.hasAccessibilityFocus = true
-                            }
+                    PayWithApplePayButton(.donate) {
+                        viewModel.textfieldViewModel.hasFocus = false
+                        viewModel.logTappedApplePayButton()
+                        viewModel.validateAndSubmit()
+                        if let errorViewModel = viewModel.errorViewModel {
+                            errorViewModel.hasAccessibilityFocus = true
                         }
-                        .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
+                    } fallback: {
+                        
+                    }
+                    .payWithApplePayButtonStyle(appEnvironment.theme.applePayPaymentButtonStyle)
+                    .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
                         .frame(height: 42)
                         .padding([.leading, .trailing], sizeClassDonateButtonPadding)
                     Spacer()
@@ -77,7 +77,7 @@ struct WMFDonateView: View {
                     }
                     Spacer()
                         .frame(height: 40)
-                    WMFDonateHelpLinks(viewModel: viewModel, delegate: delegate)
+                    WMFDonateHelpLinks(viewModel: viewModel)
                     Spacer()
                 }
             }
@@ -141,7 +141,7 @@ private struct WMFDonateAmountButtonView: View {
     var body: some View {
         let configuration = WMFPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
         WMFPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
-            viewModel.loggingDelegate?.logDonateFormUserDidTapAmountPresetButton()
+            viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapAmountPresetButton)
         })
     }
 }
@@ -227,31 +227,28 @@ private struct WMFDonateHelpLink: View {
 private struct WMFDonateHelpLinks: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let viewModel: WMFDonateViewModel
-    weak var delegate: WMFDonateDelegate?
-    weak var loggingDelegate: WMFDonateLoggingDelegate?
     
-    init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?) {
+    init(viewModel: WMFDonateViewModel) {
         self.viewModel = viewModel
-        self.delegate = delegate
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
-                viewModel.loggingDelegate?.logDonateFormUserDidTapProblemsDonatingLink()
-                delegate?.donateDidTapProblemsDonatingLink()
+                viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapProblemsDonating)
+                viewModel.coordinatorDelegate?.handleDonateAction(.nativeFormDidTapProblemsDonating)
             }
             WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkOtherWaysToGive) {
-                viewModel.loggingDelegate?.logDonateFormUserDidTapOtherWaysToGiveLink()
-                delegate?.donateDidTapOtherWaysToGive()
+                viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapOtherWaysToGive)
+                viewModel.coordinatorDelegate?.handleDonateAction(.nativeFormDidTapOtherWaysToGive)
             }
             WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkFrequentlyAskedQuestions) {
-                viewModel.loggingDelegate?.logDonateFormUserDidTapFAQLink()
-                delegate?.donateDidTapFrequentlyAskedQuestions()
+                viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapFAQ)
+                viewModel.coordinatorDelegate?.handleDonateAction(.nativeFormDidTapFAQ)
             }
             WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkTaxDeductibilityInformation) {
-                viewModel.loggingDelegate?.logDonateFormUserDidTapTaxInfoLink()
-                delegate?.donateDidTapTaxDeductibilityInformation()
+                viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapTaxInfo)
+                viewModel.coordinatorDelegate?.handleDonateAction(.nativeFormDidTapTaxInfo)
             }
         }
     }

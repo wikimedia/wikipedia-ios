@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsProjectOperation: RemoteNotificationsOperation {
+class RemoteNotificationsProjectOperation: RemoteNotificationsOperation, @unchecked Sendable {
     let project: WikimediaProject
     
     required init(project: WikimediaProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {

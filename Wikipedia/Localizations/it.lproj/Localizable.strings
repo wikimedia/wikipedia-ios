@@ -11,6 +11,7 @@
 // Author: Chris96
 // Author: Dansita
 // Author: Devid Farinelli
+// Author: Dream Indigo
 // Author: EditGio
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
@@ -117,7 +118,6 @@
 "account-creation-title" = "Crea una nuova utenza";
 "account-group-title" = "La tua utenza";
 "account-request-vanishing" = "Elimina l'utenza";
-"account-talk-page-title" = "La tua pagina di discussione";
 "account-talk-preferences-auto-sign-discussions" = "Firma automaticamente nelle discussioni";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Per firmare automaticamente nelle discussioni verrà utilizzata la firma definita nelle impostazioni della firma";
 "account-talk-preferences-title" = "Preferenze della pagina di discussione";
@@ -161,8 +161,11 @@
 "alt-text-experiment-onboarding-tooltip-2-title" = "Ispeziona";
 "alt-text-experiment-onboarding-tooltip-3-body" = "Aggiungi una descrizione per i lettori ipovedenti";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Aggiungi descrizione";
+"alt-text-feedback-survey-neutral" = "Neutrale";
 "alt-text-feedback-survey-satisfied" = "Soddisfatto";
 "alt-text-feedback-survey-title" = "Aiutaci a migliorare la funzionalità";
+"alt-text-feedback-survey-unsatisfied" = "Non soddisfatto";
+"alt-text-survey-option-7" = "Non ho tempo";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
 "app-store-subtitle" = "L'enciclopedia libera";
@@ -207,7 +210,6 @@
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Modificando la descrizione della voce, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
 "description-edit-pencil-introduction" = "Modifica introduzione";
 "description-edit-pencil-title" = "Modifica la descrizione della voce";
@@ -364,7 +366,7 @@
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
-"empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per questo utente";
+"empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per quest'utente";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
@@ -701,6 +703,7 @@
 "potd-widget-title" = "Immagine del giorno";
 "preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
+"profile-button-accessibility-label" = "Profilo";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -825,6 +828,9 @@
 "sort-by-title-action" = "Titolo";
 "suggested-edits-title" = "Modifiche suggerite";
 "survey-instructions" = "Seleziona una o più opzioni";
+"survey-other-placeholder" = "Altro";
+"survey-submit" = "Invia";
+"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";

@@ -266,9 +266,9 @@ extension ArticleViewController: EditorViewControllerDelegate {
             return
         }
         
-        let isLoggedIn = dataStore.authenticationManager.isLoggedIn
+        let isPermanent = dataStore.authenticationManager.authStateIsPermanent
         
-        guard isLoggedIn else {
+        guard isPermanent else {
             return
         }
         
@@ -295,9 +295,10 @@ extension ArticleViewController: EditorViewControllerDelegate {
         }
         
         do {
-            try dataController.assignArticleEditorExperiment(isLoggedIn: isLoggedIn, project: project)
+
+            try dataController.assignArticleEditorExperiment(isPermanent: isPermanent, project: project)
             
-            if let user = dataStore.authenticationManager.getLoggedInUserCache(for: articleURL) {
+            if let user = dataStore.authenticationManager.permanentUser(siteURL: articleURL) {
                 EditInteractionFunnel.shared.logAltTextDidAssignArticleEditorGroup(username:user.name, userEditCount: user.editCount, articleTitle: articleTitle, image: filename, registrationDate: user.registrationDateString, project: WikimediaProject(wmfProject: project))
             }
             
@@ -309,7 +310,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
         
         DDLogDebug("Assigned alt text article editor group: \(dataController.assignedAltTextArticleEditorGroupForLogging() ?? "nil")")
         
-        if dataController.shouldEnterAltTextArticleEditorFlow(isLoggedIn: isLoggedIn, project: project) {
+        if dataController.shouldEnterAltTextArticleEditorFlow(isPermanent: isPermanent, project: project) {
             presentAltTextPromptModal(missingAltTextLink: missingAltTextLink, filename: filename, articleTitle: articleTitle, fullArticleWikitext: fullArticleWikitext, lastRevisionID: lastRevisionID)
             dataController.markSawAltTextArticleEditorPrompt()
         }
@@ -558,7 +559,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
                        navigationController.viewControllers.count > 2 {
                         // pop back two view controllers.
                         let index = (navigationController.viewControllers.count-1) - 2
-                        if let _ = navigationController.viewControllers[index] as? ArticleViewController {
+                        if navigationController.viewControllers[index] is ArticleViewController {
                             navigationController.popToViewController(navigationController.viewControllers[index], animated: true)
                         }
                     }
@@ -592,12 +593,12 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
         let caption = viewModel.caption
         let timeSpent = Int(Date().timeIntervalSince(acceptDate))
 
-        guard let loggedInUser = dataStore.authenticationManager.getLoggedInUserCache(for: siteURL),
+        guard let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL),
               let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
 
-        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: loggedInUser.name, userEditCount: loggedInUser.editCount, registrationDate: loggedInUser.registrationDateString, project: project)
+        EditInteractionFunnel.shared.logAltTextDidSuccessfullyPostEdit(timeSpent: timeSpent, revisionID: revisionID, altText: altText, caption: caption, articleTitle: articleTitle, image: image, username: permanentUser.name, userEditCount: permanentUser.editCount, registrationDate: permanentUser.registrationDateString, project: project)
 
         altTextExperimentAcceptDate = nil
     }

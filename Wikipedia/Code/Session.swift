@@ -90,9 +90,6 @@ public class Session: NSObject {
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
-        cacheQueue.async(flags: .barrier) {
-            self._isAuthenticated = nil
-        }
     }
     
     @objc public func removeAllCookies() {
@@ -103,10 +100,6 @@ public class Session: NSObject {
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
-        }
-        
-        cacheQueue.async(flags: .barrier) {
-            self._isAuthenticated = nil
         }
     }
     
@@ -176,23 +169,6 @@ public class Session: NSObject {
             }
         }
         return true
-    }
-
-    private var cacheQueue = DispatchQueue(label: "session-cache-queue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
-    private var _isAuthenticated: Bool?
-    @objc public var isAuthenticated: Bool {
-        var read: Bool?
-        cacheQueue.sync {
-            read = _isAuthenticated
-        }
-        if let auth = read {
-            return auth
-        }
-        let hasValid = hasValidCentralAuthCookies(for: configuration.centralAuthCookieSourceDomain)
-        cacheQueue.async(flags: .barrier) {
-            self._isAuthenticated = hasValid
-        }
-        return hasValid
     }
     
     @objc(requestToGetURL:)

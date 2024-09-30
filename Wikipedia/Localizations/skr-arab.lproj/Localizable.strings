@@ -39,7 +39,6 @@
 "account-creation-saving" = "بچیندا پئے۔۔۔";
 "account-creation-title" = "نواں کھاتہ کھولو";
 "account-group-title" = "تہاݙا کھاتہ";
-"account-talk-page-title" = "تہاݙا ڳالھ مہاڑ ورقہ";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-add-to-reading-list" = "پڑھݨ تندیر وچ شامل کرو";
 "action-add-to-reading-list-short" = "تندیر وچ رلاؤ";
@@ -76,10 +75,12 @@
 "alt-text-experiment-onboarding-tooltip-2-title" = "معائنہ کرو";
 "alt-text-experiment-onboarding-tooltip-3-title" = "وضاحت شامل کرو";
 "alt-text-experiment-review-title" = "ولدا ݙیکھو";
+"alt-text-feedback-alert-title" = "اساں تہاݙی فیڈبیک چاہندے ہیں";
 "alt-text-feedback-survey-neutral" = "غیر جانبدار";
 "alt-text-feedback-survey-satisfied" = "مطمئن";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
 "alt-text-feedback-survey-unsatisfied" = "غیر مطمئن";
+"alt-text-survey-option-4" = "میکوں ٹیکنکل مسئلے ہن۔";
 "alt-text-survey-option-7" = "میݙے کول وقت کائنی";
 "announcements-dismiss" = "مکاؤ";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
@@ -114,7 +115,6 @@
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
 "description-add-title" = "وضاحت شامل کرو";
 "description-edit-for-article" = "$1 کیتے مضمون تفصیل";
-"description-edit-length-warning" = "\n$1 / $2";
 "description-edit-pencil-introduction" = "تعارف وچ تبدیلی کرو";
 "description-edit-pencil-title" = "مضمون  تفصیل وچ تبدیلی کرو";
 "description-edit-publish" = "تفصیل شائع کرو";
@@ -371,6 +371,15 @@
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
+"profile-button-accessibility-label" = "پروفائل";
+"profile-page-donate" = "عطیہ ݙیوو";
+"profile-page-logout" = "لاگ آؤٹ";
+"profile-page-notification-title" = "اطلاع نامے";
+"profile-page-settings" = "ترتیباں";
+"profile-page-talk-page-title" = "ڳالھ مہاڑ ورقہ";
+"profile-page-title-logged-out" = "کھاتہ";
+"profile-page-user-page-title" = "ورتݨ آلے دا ورقہ";
+"profile-page-watchlist-title" = "پارھا تندیر";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";
@@ -432,6 +441,7 @@
 "share-open-in-maps" = "نقشیاں وچ کھولو";
 "sort-by-recently-added-action" = "حالیہ ودھارے";
 "sort-by-title-action" = "عنوان";
+"survey-instructions" = "ہک یا ودھ آٓپشن چݨو";
 "survey-other-placeholder" = "ٻیا";
 "survey-submit" = "جمع کرواؤ";
 "survey-title" = "سبب";

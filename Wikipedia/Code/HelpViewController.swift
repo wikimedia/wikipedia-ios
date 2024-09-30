@@ -1,6 +1,7 @@
 import MessageUI
 import CocoaLumberjackSwift
 import WMF
+import WMFComponents
 
 @objc(WMFHelpViewController)
 class HelpViewController: SinglePageWebViewController {
@@ -25,10 +26,10 @@ class HelpViewController: SinglePageWebViewController {
         fatalError("init(url:theme:) has not been implemented")
     }
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignMetricsID: String? = nil) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:campaignArticleURL:campaignMetricsID:) has not been implemented")
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil) {
+        fatalError("init(url:theme:doesUseSimpleNavigationBar:donateConfig:) has not been implemented")
     }
-
+    
     lazy var sendEmailToolbarItem: UIBarButtonItem = {
         return UIBarButtonItem(title: WMFLocalizedString("button-report-a-bug", value: "Report a bug", comment: "Button text for reporting a bug"), style: .plain, target: self, action: #selector(sendEmail))
     }()
@@ -142,7 +143,7 @@ private extension HelpViewController {
     }
     
     func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
-        guard dataStore.authenticationManager.isLoggedIn else {
+        guard dataStore.authenticationManager.authStateIsPermanent else {
             completion()
             return
         }

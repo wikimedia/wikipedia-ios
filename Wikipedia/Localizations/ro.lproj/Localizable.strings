@@ -4,6 +4,7 @@
 // Author: Alesaru
 // Author: Andreyyshore
 // Author: Cleinman
+// Author: Firilacroco
 // Author: GabiBil
 // Author: Kyouko
 // Author: MSClaudiu
@@ -12,6 +13,7 @@
 // Author: Minisarm
 // Author: NGC 54
 // Author: Nemo bis
+// Author: Paloi Sciurala
 // Author: Rapiteanu
 // Author: Strainu
 // Author: WebSourceContentRO
@@ -86,7 +88,6 @@
 "account-creation-saving" = "Se salvează...";
 "account-creation-title" = "Creează un cont nou";
 "account-group-title" = "Contul tău";
-"account-talk-page-title" = "Pagina ta de discuții";
 "account-talk-preferences-auto-sign-discussions" = "Semnare automată a discuțiilor";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Semnarea automată a discuțiilor va utiliza semnătura definită în Setări semnătură";
 "account-talk-preferences-title" = "Preferințele paginii de discuții";
@@ -171,7 +172,6 @@
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
 "description-edit-for-article" = "Descrierea articolului pentru $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Prin schimbarea descrierii articolului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
 "description-edit-pencil-introduction" = "Modifică introducerea";
 "description-edit-pencil-title" = "Modificați descrierea articolului";
@@ -619,7 +619,7 @@
 "notifications-center-subheader-thanks" = "Mulțumiri";
 "notifications-center-subheader-translate-milestone" = "Bornă traduceri";
 "notifications-center-subheader-user-rights-change" = "Modificări ale drepturilor de utilizator";
-"notifications-center-subheader-welcome" = "Bun venit!";
+"notifications-center-subheader-welcome" = "Bun-venit!";
 "notifications-center-subheader-wikidata-connection" = "Conexiunea Wikidata a fost realizată";
 "notifications-center-swipe-mark-as-read" = "Marchează ca citit";
 "notifications-center-swipe-mark-as-unread" = "Marchează ca necitit";
@@ -647,7 +647,7 @@
 "notifications-center-type-title-translation-milestone" = "Bornă traduceri";
 "notifications-center-type-title-user-rights-change" = "Modificări ale drepturilor de utilizator";
 "notifications-center-type-title-user-talk-page-messsage" = "Mesaj în pagina de discuție";
-"notifications-center-type-title-welcome" = "Bun venit";
+"notifications-center-type-title-welcome" = "Bun-venit";
 "notifications-push-fallback-body-text" = "Activitate nouă pe Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mesaj nou|$1 mesaje noi}} pe $2";
 "notifications-push-talk-title-format" = "\n{{PLURAL:$1|Mesaj nou|Mesaje noi}}";

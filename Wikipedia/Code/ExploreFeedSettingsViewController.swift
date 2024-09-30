@@ -191,19 +191,12 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     var editCount: Int {
-        var count: Int = 0
-        if let language = self.dataStore?.languageLinkController.appLanguage?.siteURL {
-            self.dataStore?.authenticationManager.getLoggedInUser(for: language, completion: { result in
-                switch result {
-                case .success(let user):
-                    count = Int(user?.editCount ?? 0)
-                default:
-                    break
-                }
-            })
+        guard let siteURL = self.dataStore?.languageLinkController.appLanguage?.siteURL,
+        let editCount = self.dataStore?.authenticationManager.permanentUser(siteURL: siteURL)?.editCount else {
+            return 0
         }
-
-        return count
+        
+        return Int(editCount)
     }
 
     // MARK: Items
@@ -239,10 +232,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
 
         if #available(iOS 16, *) {
-            if let isUserLoggedIn = dataStore?.authenticationManager.isLoggedIn {
-                return isUserLoggedIn && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
-                && shouldAltTextExperimentBeActive()
-            }
+            
+            let isUserPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
+            
+            return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
+            && shouldAltTextExperimentBeActive()
         }
         return false
     }
@@ -250,8 +244,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     func shouldAltTextExperimentBeActive() -> Bool {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
-        dateComponents.month = 10
-        dateComponents.day = 21
+        dateComponents.month = 11
+        dateComponents.day = 5
 
         let calendar = Calendar(identifier: .gregorian)
         guard let experimentDate = calendar.date(from: dateComponents) else {

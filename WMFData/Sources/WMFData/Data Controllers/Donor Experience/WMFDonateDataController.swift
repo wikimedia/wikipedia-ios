@@ -159,7 +159,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, bannerID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
@@ -180,7 +180,7 @@ import Contacts
             "street_address": donorAddressComponents.street,
             "city": donorAddressComponents.city,
             "state_province": donorAddressComponents.state,
-            "donor_country": donorAddressComponents.country,
+            "donor_country": donorAddressComponents.isoCountryCode,
             "postal_code": donorAddressComponents.postalCode,
             "payment_method": "applepay",
             "format": "json"
@@ -202,8 +202,8 @@ import Contacts
             parameters["payment_network"] = paymentNetwork
         }
         
-        if let bannerID {
-            parameters["banner"] = bannerID
+        if let metricsID {
+            parameters["banner"] = metricsID
         }
         
         if let appVersion {

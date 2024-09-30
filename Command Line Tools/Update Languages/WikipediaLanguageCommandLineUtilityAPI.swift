@@ -54,8 +54,9 @@ class WikipediaLanguageCommandLineUtilityAPI {
                 
                 return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
             }
-            // Add testwiki, it's not returned by the site matrix
+            // Add testwiki and test2wiki, they are not returned by the site matrix
             wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", altISOCode: nil))
+            wikipedias.append(Wikipedia(languageCode: "test2", languageName: "Test 2", localName: "Test 2", altISOCode: nil))
             return wikipedias
         }.eraseToAnyPublisher()
     }

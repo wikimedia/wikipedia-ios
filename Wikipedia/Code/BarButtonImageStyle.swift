@@ -1,4 +1,7 @@
 import UIKit
+import WMFComponents
+import WMF
+import WMFData
 
 @objc class BarButtonImageStyle: NSObject {
 
@@ -14,15 +17,18 @@ import UIKit
         }
     }
 
-    @objc(settingsButtonImageForTheme:)
-    static func settingsButtonImage(theme: Theme) -> UIImage? {
-        switch theme {
-        case .dark, .black:
-            return UIImage(named: "settings-gear-dark-black")
-        default:
-            return UIImage(named: "settings-gear-light-sepia")
+    @objc(profileButtonImageForTheme:indicated:isExplore:)
+    static func profileButtonImage(theme: Theme, indicated: Bool = false, isExplore: Bool = true) -> UIImage? {
+        let paletteColors: [UIColor]
+        
+        if indicated {
+            paletteColors = isExplore ? [theme.colors.destructive, theme.colors.link] : [theme.colors.destructive, theme.colors.primaryText]
+        } else {
+            paletteColors = isExplore ? [theme.colors.link] : [theme.colors.primaryText]
         }
+        
+        let symbol = WMFSFSymbolIcon.for(symbol: indicated ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
+        return symbol
     }
-
 }
 

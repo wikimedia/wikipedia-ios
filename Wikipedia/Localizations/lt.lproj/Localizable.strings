@@ -79,7 +79,6 @@
 "account-creation-saving" = "Įrašoma...";
 "account-creation-title" = "Kurti naują paskyrą";
 "account-group-title" = "Jūsų paskyra";
-"account-talk-page-title" = "Jūsų aptarimo puslapis";
 "account-talk-preferences-auto-sign-discussions" = "Automatiškai pasirašyti diskusijose";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatinis pasirašymas diskusijose naudos parašą, apibrėžtą parašo nustatymuose";
 "account-talk-preferences-title" = "Aptarimo puslapio nustatymai";
@@ -160,7 +159,6 @@
 "data-migration-status" = "Atnaujinama...";
 "description-add-title" = "Pridėti aprašymą";
 "description-edit-for-article" = "$1 straipsnio aprašymas";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Pakeičiant straipsnio aprašymą aš sutinku su $1 ir leidžiu naudoti savo indėlį pagal $2 licenciją.";
 "description-edit-pencil-introduction" = "Redaguoti įžangą";
 "description-edit-pencil-title" = "Redaguoti straipsnio aprašymą";

@@ -20,8 +20,6 @@ import WMFData
 struct RoutingUserInfoKeys {
     static let talkPageReplyText = "talk-page-reply-text"
     static let source = "source"
-    static let campaignArticleURL = "campaign-article-url"
-    static let campaignMetricsID = "campaign-metrics-id"
 }
 
 enum RoutingUserInfoSourceValue: String {
@@ -35,6 +33,7 @@ enum RoutingUserInfoSourceValue: String {
     case inAppWebView
     case watchlist
     case unknown
+    case profile
 }
 
 @objc(WMFViewControllerRouter)
@@ -100,8 +99,11 @@ class ViewControllerRouter: NSObject {
     @objc(routeURL:userInfo:completion:)
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        let loggedInUsername = MWKDataStore.shared().authenticationManager.loggedInUsername
-        let destination = router.destination(for: url, loggedInUsername: loggedInUsername)
+        
+        let authManager = MWKDataStore.shared().authenticationManager
+        let permanentUsername = authManager.authStatePermanentUsername
+        
+        let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article(let articleURL):
             appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
@@ -123,9 +125,7 @@ class ViewControllerRouter: NSObject {
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
-            let campaignArticleURL = userInfo?[RoutingUserInfoKeys.campaignArticleURL] as? URL
-            let campaignMetricsID = userInfo?[RoutingUserInfoKeys.campaignMetricsID] as? String
-            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme, campaignArticleURL: campaignArticleURL, campaignMetricsID: campaignMetricsID)
+            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
             return presentOrPush(singlePageVC, with: completion)
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)
@@ -223,7 +223,7 @@ class ViewControllerRouter: NSObject {
     }
     
     private func watchlistTargetNavigationController() -> UINavigationController? {
-        var targetNavigationController = appViewController.navigationController
+        var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
            presentedNavigationController.viewControllers[0] is WMFSettingsViewController {
             targetNavigationController = presentedNavigationController

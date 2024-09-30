@@ -224,7 +224,7 @@ final class TalkPageCellTopicView: SetupView {
         self.viewModel = viewModel
 
         let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContentHtml != nil
-        let shouldHideSubscribe = !viewModel.isUserLoggedIn || viewModel.topicTitleHtml.isEmpty || (showingOtherContent)
+        let shouldHideSubscribe = !viewModel.isUserPermanent || viewModel.topicTitleHtml.isEmpty || (showingOtherContent)
         
         switch (shouldHideSubscribe, showingOtherContent) {
         case (false, false):

@@ -25,34 +25,8 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
             let newVariant = String(variant)
             destinationItem.setValue(newVariant, forKey: "variant")
             destinationItem.setValue(date, forKey: "date")
-            var isDownloaded = false
-            autoreleasepool { () in
-                guard
-                    let fileName = fetcher.uniqueFileNameForItemKey(key, variant: newVariant),
-                    let headerFileName = fetcher.uniqueHeaderFileNameForItemKey(key, variant: newVariant) else {
-                        return
-                }
-                let fileURL = CacheFileWriterHelper.fileURL(for: fileName)
-                let filePath = fileURL.path
-                // artifically create and save image response header
-                var headers: [String: String] = [:]
-                headers["Content-Type"] = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath)
-                let values = try? fileURL.resourceValues(forKeys: [URLResourceKey.fileSizeKey])
-                if let fileSize = values?.fileSize {
-                    headers["Content-Length"] = String(fileSize)
-                }
-                guard !headers.isEmpty else {
-                    return
-                }
-                CacheFileWriterHelper.saveResponseHeader(headerFields: headers, toNewFileName: headerFileName) { (result) in
-                    switch result {
-                    case .success, .exists:
-                        isDownloaded = true
-                    case .failure:
-                        break
-                    }
-                }
-            }
+            let isDownloaded = false
+            
             destinationItem.setValue(isDownloaded, forKey: "isDownloaded")
             destinationItem.setValue(nil, forKey: "url")
             manager.associate(sourceInstance: sInstance, withDestinationInstance: destinationItem, for: mapping)

@@ -81,7 +81,6 @@
 "account-creation-title" = "Создај нова сметка";
 "account-group-title" = "Ваша сметка";
 "account-request-vanishing" = "Исчезни сметка";
-"account-talk-page-title" = "Ваша разговорна страница";
 "account-talk-preferences-auto-sign-discussions" = "Автопотпишување во разговори";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Автопотпишувањето ќе го става потписот зададен во нагодувањата";
 "account-talk-preferences-title" = "Нагодувања за разговорни страници";
@@ -228,7 +227,7 @@
 "data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
 "description-edit-for-article" = "Опис на статијата „$1“";
-"description-edit-length-warning" = "$1 / $2";
+"description-edit-length-warning" = "$1 од $2";
 "description-edit-license" = "Менувајќи го описот на статијата се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
 "description-edit-pencil-introduction" = "Уреди вовед";
 "description-edit-pencil-title" = "Уреди опис на статијата";
@@ -263,7 +262,6 @@
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-always-show-alt-text-entry-point" = "Секогаш прикажувај го вносот за алтернативен текст.";
-"developer-settings-enable-alt-text-experiment" = "Овозможи експеримент со алтернативен текст.";
 "developer-settings-enable-alt-text-experiment-en" = "Овозможи го експериментот со алтернативен текст.";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
@@ -965,6 +963,20 @@
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "privacy-policy-title" = "Правила за лични податоци";
 "problem-with-feature-title" = "Проблем со функцијата";
+"profile-button-accessibility-hint" = "Води до поглед на профилот.";
+"profile-button-accessibility-label" = "Профил";
+"profile-button-badge-accessibility-label" = "Профил со непрочитана значка";
+"profile-page-donate" = "Дарувајте";
+"profile-page-donate-subtext" = "Или поддржете ја Википедија со паричен прилог за да биде остане бесплатна, слободна и достапна за сите ширум светот.";
+"profile-page-join-subtext" = "Направете сметка на Википедија за да си ги следите придонесите, да зачувувате статии вонмрежно и да усогласите на поеќе уреди.";
+"profile-page-join-title" = "Зачленете се / Најава";
+"profile-page-logout" = "Одјава";
+"profile-page-notification-title" = "Известувања";
+"profile-page-settings" = "Нагодувања";
+"profile-page-talk-page-title" = "Разговорна страница";
+"profile-page-title-logged-out" = "Сметка";
+"profile-page-user-page-title" = "Корисничка страница";
+"profile-page-watchlist-title" = "Набљудувања";
 "project-name-mediawiki" = "МедијаВики";
 "project-name-wikibooks" = "Викикниги";
 "project-name-wikidata" = "Википодатоци";

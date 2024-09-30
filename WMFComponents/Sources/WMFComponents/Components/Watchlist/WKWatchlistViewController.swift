@@ -51,7 +51,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
             self.articleTitleMetadataKey = articleTitleMetadaKey
 		}
 
-		func WMFSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
+		func wmfSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
                     let wmfProject = configuration.metadata[wmfProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
@@ -84,7 +84,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
             }
 		}
 
-        func WMFSwiftUIMenuButtonUserDidTapAccessibility(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
+        func wmfSwiftUIMenuButtonUserDidTapAccessibility(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
                     let wmfProject = configuration.metadata[wmfProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
@@ -158,6 +158,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
 
         self.hostingViewController.emptyViewDelegate = self
         self.hostingViewController.loggingDelegate = loggingDelegate
+        hidesBottomBarWhenPushed = true
 	}
 
 	required init?(coder: NSCoder) {
@@ -188,6 +189,21 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
 		reachabilityHandler?(.appearing)
         if viewModel.presentationConfiguration.showNavBarUponAppearance {
             navigationController?.setNavigationBarHidden(false, animated: false)
+        }
+        
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Fixes https://phabricator.wikimedia.org/T375445 caused by iPadOS18 floating tab bar
+        if #available(iOS 18, *) {
+            guard UIDevice.current.userInterfaceIdiom == .pad else {
+                return
+            }
+            
+            navigationController?.view.setNeedsLayout()
+            navigationController?.view.layoutIfNeeded()
         }
         
     }

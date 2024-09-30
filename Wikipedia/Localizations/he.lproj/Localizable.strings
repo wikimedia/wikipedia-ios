@@ -97,7 +97,6 @@
 "account-creation-title" = "יצירת חשבון חדש";
 "account-group-title" = "החשבון שלך";
 "account-request-vanishing" = "העלמת החשבון שלך";
-"account-talk-page-title" = "דף השיחה שלך";
 "account-talk-preferences-auto-sign-discussions" = "חתימה אוטומטית בדיונים";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "חתימה אוטומטית בדיונים תשתמש בחתימה שהוגדרה בהגדרות החתימה";
 "account-talk-preferences-title" = "העדפות דף שיחה";
@@ -279,7 +278,6 @@
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "developer-settings" = "הגדרות מפתחים";
 "developer-settings-always-show-alt-text-entry-point" = "להציג תמיד את נקודת הכניסה לטקסט חלופי.";
-"developer-settings-enable-alt-text-experiment" = "להפעיל את הניסוי בטקסט חלופי.";
 "developer-settings-enable-alt-text-experiment-en" = "הפעלת ניסוי טקסט חלופי לוויקיפדיה האנגלית.";
 "developer-settings-send-analytics-to-wmflabs" = "שליחת נתוני לבדיקה ל־wmflabs.";
 "developer-settings-suppress-image-rec-post" = "לא לשלוח את עריכת הצעות התמונה.";
@@ -981,6 +979,20 @@
 "preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "privacy-policy-title" = "מדיניות פרטיות";
 "problem-with-feature-title" = "בעיה עם אפשרות";
+"profile-button-accessibility-hint" = "ניווט לתצוגת פרופיל.";
+"profile-button-accessibility-label" = "פרופיל";
+"profile-button-badge-accessibility-label" = "פרופיל עם תג \"לא נקרא\"";
+"profile-page-donate" = "לתרום";
+"profile-page-donate-subtext" = "או לתמוך בוויקיפדיה בתרומה כדי לשמור על כל שהיא תהיה חופשית ונגישה לכולם ברחבי העולם.";
+"profile-page-join-subtext" = "אנו מזמינים אותך להירשם לחשבון ויקיפדיה כדי לעקוב אחר התרומות שלך, לשמור ערכים במצב לא מקוון ולסנכרן בין מכשירים.";
+"profile-page-join-title" = "הצטרפות לוויקיפדיה / כניסה לחשבון";
+"profile-page-logout" = "יציאה מהחשבון";
+"profile-page-notification-title" = "התראות";
+"profile-page-settings" = "הגדרות";
+"profile-page-talk-page-title" = "דף שיחה";
+"profile-page-title-logged-out" = "חשבון";
+"profile-page-user-page-title" = "דף משתמש";
+"profile-page-watchlist-title" = "רשימת המעקב";
 "project-name-mediawiki" = "mediawiki.org";
 "project-name-wikibooks" = "ויקיספר";
 "project-name-wikidata" = "ויקינתונים";
