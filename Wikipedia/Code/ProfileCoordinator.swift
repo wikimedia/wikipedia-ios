@@ -137,6 +137,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         case .logDonateTap:
             self.logDonateTap()
+        case .yearInReviewTap:
+            dismissProfile {
+                self.showYearInReview()
+            }
         }
     }
     
@@ -154,6 +158,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
+    }
+    
+    private func showYearInReview() {
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        yirCoordinator.start()
     }
     
     func showDonate() {

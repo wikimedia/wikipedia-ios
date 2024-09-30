@@ -174,6 +174,22 @@ enum ProfileState {
                         )
                     ],
                     subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [
+                        ProfileListItem(
+                            text: "Year in Review",
+                            image: .star,
+                            imageColor: UIColor(Color.blue),
+                            hasNotifications: false,
+                            isDonate: false,
+                            isLoadingDonateConfigs: false,
+                            action: {
+                                coordinatorDelegate?.handleProfileAction(.yearInReviewTap)
+                            }
+                        )
+                    ],
+                    subtext: nil
                 )
             ]
         } else {
