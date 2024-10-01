@@ -9,6 +9,7 @@ public struct WMFYearInReview: View {
     
     public var donePressed: (() -> Void)?
     var slides: [YearInReviewSlide]
+    @State private var currentSlide = 0
     
     public init(slides: [YearInReviewSlide]) {
         self.slides = slides
@@ -17,7 +18,7 @@ public struct WMFYearInReview: View {
     public var body: some View {
         NavigationView {
             VStack {
-                WMFSlideShow(slides: slides)
+                WMFSlideShow(currentSlide: $currentSlide, slides: slides)
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
@@ -60,7 +61,9 @@ public struct WMFYearInReview: View {
                         }
                         Spacer()
                         Button(action: {
-                            print("Next")
+                            withAnimation {
+                                currentSlide = (currentSlide + 1) % slides.count
+                            }
                         }) {
                             Text("Next")
                                 .foregroundStyle(Color(uiColor: theme.link))

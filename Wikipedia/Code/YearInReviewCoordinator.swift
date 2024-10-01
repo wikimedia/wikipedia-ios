@@ -22,7 +22,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
         let slides: [YearInReviewSlide] = [
             YearInReviewSlide(
-                imageName: "book.fill",
+                imageName: "heart_yir",
                 title: "You read 350 articles this year",
                 informationBubbleText: "Top languages: English, German, French",
                 subtitle: "You read 350 articles this year in English, German, and French. This year Wikipedia had 63.59 million articles available across over 332 active languages. You joined millions in expanding knowledge and exploring diverse topics."
