@@ -31,6 +31,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
+    private var yirCoordinator: YearInReviewCoordinator?
     
     let username: String?
     let sourcePage: ProfileCoordinatorSource
@@ -139,7 +140,9 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .yearInReviewTap:
-            self.showYearInReview()
+            dismissProfile {
+                self.showYearInReview()
+            }
         }
     }
     
@@ -160,9 +163,9 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
-        viewModel?.isYiRShown = true
-//        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-//        yirCoordinator.start()
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        yirCoordinator.start()
+        self.yirCoordinator = yirCoordinator
     }
     
     func showDonate() {

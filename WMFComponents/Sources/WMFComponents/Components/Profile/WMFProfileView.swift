@@ -51,11 +51,6 @@ public struct WMFProfileView: View {
         .background(Color(uiColor: theme.midBackground))
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
-        .sheet(isPresented: $viewModel.isYiRShown) {
-            WMFYearInReview(slides: viewModel.slides, donePressed: {
-                viewModel.dismissYiR()
-            })
-        }
     }
 
     private func sectionView(items: ProfileSection) -> some View {
