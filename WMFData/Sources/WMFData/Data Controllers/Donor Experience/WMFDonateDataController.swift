@@ -16,6 +16,16 @@ import Contacts
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
     private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
 
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+    public var hasLocallySavedDonations: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
@@ -241,6 +251,7 @@ import Contacts
             try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donation])
         }
 
+        hasLocallySavedDonations = true
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
 
     }
@@ -250,6 +261,7 @@ import Contacts
     }
 
     public func deleteLocalDonationHistory() {
+        hasLocallySavedDonations = false
         try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
     }
 

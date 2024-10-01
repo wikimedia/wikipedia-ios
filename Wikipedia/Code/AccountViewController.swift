@@ -39,7 +39,9 @@ class AccountViewController: SubSettingsViewController {
     
     @objc var dataStore: MWKDataStore!
     @objc weak var delegate: AccountViewControllerDelegate?
-    
+
+    private let donateDataController = WMFDonateDataController.shared
+
     private lazy var sections: [Section] = {
         
         let username = dataStore.authenticationManager.authStatePermanentUsername
@@ -50,12 +52,16 @@ class AccountViewController: SubSettingsViewController {
 
         let userName = Item(title: username, subtitle: nil, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .informational)
 
-        let donationHistory = Item(title: "Donation History", subtitle: nil, iconName: "settings-support", iconColor: .white, iconBackgroundColor: WMFColor.gray400, type: .donationHistory)
+        let donationHistory = Item(title: CommonStrings.deleteDonationHistory, subtitle: nil, iconName: "settings-support", iconColor: .white, iconBackgroundColor: WMFColor.gray400, type: .donationHistory)
 
         let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
 
         let sectionItems: [Item]
-        sectionItems = [userName, donationHistory, vanishAccount]
+        if donateDataController.hasLocallySavedDonations {
+            sectionItems = [userName, donationHistory, vanishAccount]
+        } else {
+            sectionItems = [userName, vanishAccount]
+        }
 
         let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
 

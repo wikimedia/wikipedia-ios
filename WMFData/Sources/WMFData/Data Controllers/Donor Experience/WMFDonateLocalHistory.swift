@@ -5,6 +5,7 @@ public final class WMFDonateLocalHistory: Codable {
     public let donationTimestamp: String
     public let donationType: DonationType
     public let donationAmount: Decimal
+    public let currencyCode: String
     public let isNative: Bool
     public let isFirstDonation: Bool
 
@@ -15,10 +16,11 @@ public final class WMFDonateLocalHistory: Codable {
         case recurring
     }
 
-    public init(donationTimestamp: String, donationType: DonationType, donationAmount: Decimal, isNative: Bool, isFirstDonation: Bool) {
+    public init(donationTimestamp: String, donationType: DonationType, donationAmount: Decimal, currencyCode: String, isNative: Bool, isFirstDonation: Bool) {
         self.donationTimestamp = donationTimestamp
         self.donationType = donationType
         self.donationAmount = donationAmount
+        self.currencyCode = currencyCode
         self.isNative = isNative
         self.isFirstDonation = isFirstDonation
     }

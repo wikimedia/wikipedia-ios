@@ -553,9 +553,12 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
                 // Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-                    self?.saveDonationToLocalHistory(with: dataController, recurring: recurring)
-                    self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-                    self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+
+                    guard let self else { return }
+
+                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+                    self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
                 })
             case .failure(let error):
                 if let dataControllerError = error as? WMFDonateDataControllerError {
@@ -588,14 +591,14 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         }
     }
 
-    private func checkIfThereAreLocalDonatiosn(dataController: WMFDonateDataController) -> Bool {
+    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
         if let donations = dataController.loadLocalDonationHistory() {
             return !donations.isEmpty
         }
         return false
     }
 
-    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool) {
+    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
         let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -604,8 +607,13 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let timestamp = dateFormatter.string(from: date)
 
         let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
-        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp, donationType: donationType, donationAmount: finalAmount, isNative: true, isFirstDonation: checkIfThereAreLocalDonatiosn(dataController: dataController))
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: donationType,
+                                                         donationAmount: finalAmount,
+                                                         currencyCode: currencyCode,
+                                                         isNative: true,
+                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
+        )
         dataController.saveLocalDonationHistory(donationHistoryEntry)
     }
-
 }
