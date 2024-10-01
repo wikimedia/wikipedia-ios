@@ -761,7 +761,7 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
-    func persistPageViewsForYearInReview() {
+    func persistPageViewsForWikipediaInReview() {
         if let title = self.articleURL.wmf_title,
            let namespace = self.articleURL.namespace,
            let siteURL = self.articleURL.wmf_site,
