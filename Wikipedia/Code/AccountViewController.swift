@@ -10,10 +10,7 @@ protocol AccountViewControllerDelegate: AnyObject {
 }
 
 private enum ItemType {
-    case logout
-    case talkPage
     case talkPageAutoSignDiscussions
-    case watchlist
     case vanishAccount
     case donationHistory
     case informational
@@ -42,19 +39,41 @@ class AccountViewController: SubSettingsViewController {
 
     private let donateDataController = WMFDonateDataController.shared
 
-    private lazy var sections: [Section] = {
-        
+    private var sections: [Section] = []
+
+    private func createSections() -> [Section] {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         guard let username else {
             assertionFailure("Should not reach this screen if user isn't logged in.")
             return []
         }
 
-        let userName = Item(title: username, subtitle: nil, iconName: "settings-user", iconColor: .white, iconBackgroundColor: WMFColor.orange600, type: .informational)
+        let userName = Item(
+            title: username,
+            subtitle: nil,
+            iconName: "settings-user",
+            iconColor: .white,
+            iconBackgroundColor: WMFColor.orange600,
+            type: .informational
+        )
 
-        let donationHistory = Item(title: CommonStrings.deleteDonationHistory, subtitle: nil, iconName: "settings-support", iconColor: .white, iconBackgroundColor: WMFColor.gray400, type: .donationHistory)
+        let donationHistory = Item(
+            title: CommonStrings.deleteDonationHistory,
+            subtitle: nil,
+            iconName: "settings-support",
+            iconColor: .white,
+            iconBackgroundColor: WMFColor.gray400,
+            type: .donationHistory
+        )
 
-        let vanishAccount = Item(title: CommonStrings.vanishAccount, subtitle: nil, iconName: "vanish-account", iconColor: .white, iconBackgroundColor: .red, type: .vanishAccount)
+        let vanishAccount = Item(
+            title: CommonStrings.vanishAccount,
+            subtitle: nil,
+            iconName: "vanish-account",
+            iconColor: .white,
+            iconBackgroundColor: .red,
+            type: .vanishAccount
+        )
 
         let sectionItems: [Item]
         if donateDataController.hasLocallySavedDonations {
@@ -63,13 +82,29 @@ class AccountViewController: SubSettingsViewController {
             sectionItems = [userName, vanishAccount]
         }
 
-        let account = Section(items: sectionItems, headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."), footerTitle: nil)
+        let account = Section(
+            items: sectionItems,
+            headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."),
+            footerTitle: nil
+        )
 
-        let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
-        let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
+        let autoSignDiscussions = Item(
+            title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"),
+            subtitle: nil,
+            iconName: nil,
+            iconColor: nil,
+            iconBackgroundColor: nil,
+            type: .talkPageAutoSignDiscussions
+        )
+
+        let talkPagePreferences = Section(
+            items: [autoSignDiscussions],
+            headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"),
+            footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works")
+        )
 
         return [account, talkPagePreferences]
-    }()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +116,8 @@ class AccountViewController: SubSettingsViewController {
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
         tableView.layoutIfNeeded()
+
+        sections = createSections()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,22 +141,11 @@ class AccountViewController: SubSettingsViewController {
         cell.title = item.title
         
         switch item.type {
-        case .logout:
-            cell.disclosureType = .viewControllerWithDisclosureText
-            cell.disclosureText = item.type == .logout ? CommonStrings.logoutTitle : nil
-            cell.accessibilityTraits = .button
-        case .talkPage:
-            cell.disclosureType = .viewController
-            cell.disclosureText = nil
-            cell.accessibilityTraits = .button
         case .talkPageAutoSignDiscussions:
             cell.disclosureType = .switch
             cell.selectionStyle = .none
             cell.disclosureSwitch.isOn = UserDefaults.standard.autoSignTalkPageDiscussions
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
-        case .watchlist:
-            cell.disclosureType = .viewController
-            cell.accessibilityTraits = .button
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
@@ -151,27 +177,6 @@ class AccountViewController: SubSettingsViewController {
             return
         }
         switch item.type {
-        case .logout:
-            showLogoutAlert()
-        case .talkPage:
-            let username = dataStore.authenticationManager.authStatePermanentUsername
-            guard let username,
-                  let siteURL = dataStore.primarySiteURL else {
-                return
-            }
-            
-            let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-
-                if let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, source: .account, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) {
-                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
-                    self.navigationController?.pushViewController(newTalkPage, animated: true)
-                }
-        case .watchlist:
-            
-            WatchlistFunnel.shared.logOpenWatchlistFromAccount()
-            
-            goToWatchlist()
-
         case .vanishAccount:
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
@@ -185,9 +190,8 @@ class AccountViewController: SubSettingsViewController {
                 self.deleteLocalHistory {
 
                     DispatchQueue.main.async {
-                        self.tableView.beginUpdates()
-                                self.tableView.reloadData()
-                                self.tableView.endUpdates()
+                        self.sections = self.createSections()
+                        self.tableView.reloadData()
                         self.showDeletionConfirmation()
 
                     }
@@ -249,21 +253,6 @@ class AccountViewController: SubSettingsViewController {
        let text = sections[safeIndex: section]?.footerTitle
        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, theme: theme)
    }
-    
-    private func showLogoutAlert() {
-        let alertController = UIAlertController(title: CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
-        let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
-            guard let self = self else {
-                return
-            }
-            self.delegate?.accountViewControllerDidTapLogout(self)
-            self.navigationController?.popViewController(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: WMFLocalizedString("main-menu-account-logout-cancel", value: "Cancel", comment: "Button text for hiding the log out menu. {{Identical|Cancel}}"), style: .cancel, handler: nil)
-        alertController.addAction(logoutAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)

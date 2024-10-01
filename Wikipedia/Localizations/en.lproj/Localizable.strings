@@ -722,7 +722,6 @@
 "main-menu-account-logout" = "Log out";
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-are-you-sure-message" = "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.";
-"main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-nearby" = "Nearby";

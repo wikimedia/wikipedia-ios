@@ -616,4 +616,35 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         )
         dataController.saveLocalDonationHistory(donationHistoryEntry)
     }
+
+    public func MOCKsaveDonationToLocalHistory(recurring: Bool) {
+           // Step 1: Format the current timestamp in ISO 8601 format
+
+           let dataController = WMFDonateDataController.shared
+           let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+           let date = Date()
+           let dateFormatter = DateFormatter()
+           dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+           dateFormatter.dateFormat = iso8601Format
+           let timestamp = dateFormatter.string(from: date)
+
+           // Step 2: Random donation amount between 5.00 and 100.00
+           let randomAmount = Decimal(Double.random(in: 5.00...100.00))
+
+           // Step 3: Determine donation type (one-time or recurring)
+           let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
+
+           // Step 4: Create donation history entry with random amount and current timestamp
+           let donationHistoryEntry = WMFDonateLocalHistory(
+               donationTimestamp: timestamp,
+               donationType: donationType,
+               donationAmount: randomAmount,
+               currencyCode: "",
+               isNative: true,
+               isFirstDonation: true
+           )
+
+           // Step 5: Save donation history entry to local cache
+           dataController.saveLocalDonationHistory(donationHistoryEntry)
+       }
 }

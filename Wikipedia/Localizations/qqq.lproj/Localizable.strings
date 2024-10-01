@@ -722,7 +722,6 @@
 "main-menu-account-logout" = "Button text for logging out.";
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-are-you-sure-message" = "Message explaining what happens to local data when logging out.";
-"main-menu-account-logout-cancel" = "Button text for hiding the log out menu. {{Identical|Cancel}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-nearby" = "Button for showing nearby articles. {{Identical|Nearby}}";

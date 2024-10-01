@@ -52,6 +52,7 @@ struct WMFDonateView: View {
                 
                 Group {
                     PayWithApplePayButton(.donate) {
+                        viewModel.MOCKsaveDonationToLocalHistory(recurring: false)
                         viewModel.textfieldViewModel.hasFocus = false
                         viewModel.logTappedApplePayButton()
                         viewModel.validateAndSubmit()
