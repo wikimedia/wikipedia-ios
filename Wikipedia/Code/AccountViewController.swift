@@ -74,6 +74,7 @@ class AccountViewController: SubSettingsViewController {
         tableView.estimatedSectionHeaderHeight = 44
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
+        tableView.layoutIfNeeded()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,7 +118,7 @@ class AccountViewController: SubSettingsViewController {
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
         case .donationHistory:
-            cell.disclosureType = .viewController
+            cell.disclosureType = .none
             cell.accessibilityTraits = .button
         case .informational:
             cell.accessibilityTraits = .staticText
