@@ -113,7 +113,7 @@ final class RemoteNotificationsModelController {
         try FileManager.default.removeItem(at: legecyJournalWalUrl)
     }
     
-    func resetDatabaseAndSharedCache() throws {
+    func resetDatabaseAndSharedCache() {
         
         let batchDeleteBlock: (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) throws -> Void = { [weak self] (fetchRequest, backgroundContext) in
             
@@ -131,21 +131,29 @@ final class RemoteNotificationsModelController {
         }
         
         let backgroundContext = newBackgroundContext()
-        let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
-        let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
-        
-        // batch delete all notification managed objects from Core Data
-        try batchDeleteBlock(request, backgroundContext)
-        
-        // batch delete all library values from Core Data
-        try batchDeleteBlock(libraryRequest, backgroundContext)
-        
-        // remove notifications from shared cache (referenced by the NotificationsService extension)
-        let sharedCache = SharedContainerCache.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
-        var cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
-        cache.notifications = []
-        cache.currentUnreadCount = 0
-        sharedCache.saveCache(cache)
+
+        backgroundContext.perform {
+            let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
+            let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
+            
+            do {
+                // batch delete all notification managed objects from Core Data
+                try batchDeleteBlock(request, backgroundContext)
+                
+                // batch delete all library values from Core Data
+                try batchDeleteBlock(libraryRequest, backgroundContext)
+                
+                // remove notifications from shared cache (referenced by the NotificationsService extension)
+                let sharedCache = SharedContainerCache.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+                var cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
+                cache.notifications = []
+                cache.currentUnreadCount = 0
+                sharedCache.saveCache(cache)
+            } catch {
+                DDLogError("Error resetting notifications database: \(error)")
+            }
+        }
+
     }
     
     func newBackgroundContext() -> NSManagedObjectContext {
