@@ -765,7 +765,9 @@ public class CommonStrings: NSObject {
 
     public static let deleteDonationHistory = WMFLocalizedString("donate-history-delete", value: "Delete local donation history", comment: "Text for delete locally saved donation history button")
 
-    public static let confirmDeletion = WMFLocalizedString("confirm-donation-history-deletion", value: "Confirm deletion", comment: "Title for confirm deletion alert")
+    public static let confirmDeletionTitle = WMFLocalizedString("confirm-donation-history-deletion-title", value: "Confirm deletion", comment: "Title for confirm local donation history deletion alert")
+
+    public static let confirmDeletionSubitle = WMFLocalizedString("confirm-donation-history-deletion-subtitle", value: "This will only apply to donations made from this device.", comment: "Subtitle for confirm local donation history deletion alert")
 
     public static let confirmedDeletion = WMFLocalizedString("confirmed-donation-history-deletion", value: "Local history deleted", comment: "Title for confirming deletion of locally saved donations alert")
 

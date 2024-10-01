@@ -182,7 +182,7 @@ class AccountViewController: SubSettingsViewController {
             warningViewController.delegate = self
             present(warningViewController, animated: true)
         case .donationHistory:
-            let alertController = UIAlertController(title: CommonStrings.confirmDeletion, message: nil, preferredStyle: .alert)
+            let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubitle, preferredStyle: .alert)
             let logoutAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { [weak self] (action) in
                 guard let self = self else {
                     return

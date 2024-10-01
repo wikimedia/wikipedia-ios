@@ -208,7 +208,8 @@
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
-"confirm-donation-history-deletion" = "Title for confirm deletion alert";
+"confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
+"confirm-donation-history-deletion-title" = "Title for confirm local donation history deletion alert";
 "confirmed-donation-history-deletion" = "Title for confirming deletion of locally saved donations alert";
 "continue-button-title" = "Continue button title";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";

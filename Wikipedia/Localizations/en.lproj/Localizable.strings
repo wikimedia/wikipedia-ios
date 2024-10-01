@@ -208,7 +208,8 @@
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
-"confirm-donation-history-deletion" = "Confirm deletion";
+"confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
+"confirm-donation-history-deletion-title" = "Confirm deletion";
 "confirmed-donation-history-deletion" = "Local history deleted";
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
