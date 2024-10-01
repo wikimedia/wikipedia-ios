@@ -4,12 +4,16 @@ final class InsertMediaImagePositionSettingsViewController: ViewController {
 
     typealias ImagePosition = InsertMediaSettings.Advanced.ImagePosition
 
-    func selectedImagePosition(isTextWrappingEnabled: Bool) -> ImagePosition {
+    func selectedImagePosition(isTextWrappingEnabled: Bool, isRTL: Bool?) -> ImagePosition {
         guard isTextWrappingEnabled else {
             return .none
         }
-        guard let selectedIndexPath = selectedIndexPath else {
-            return .right
+        guard let selectedIndexPath = selectedIndexPath, isRTL != nil else {
+            if isRTL! {
+                return .left
+            } else {
+                return .right
+            }
         }
         return viewModels[selectedIndexPath.row].imagePosition
     }
