@@ -34,7 +34,6 @@ public final class WMFCoreDataStore {
         description.shouldAddStoreAsynchronously = true
         description.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
         description.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
-        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         
         let container = NSPersistentContainer(name: dataModelName, managedObjectModel: dataModel)
         container.persistentStoreDescriptions = [description]
@@ -158,11 +157,6 @@ public final class WMFCoreDataStore {
         
         let backgroundContext = try newBackgroundContext
         try await backgroundContext.perform {
-            
-            // Delete unused (for now) transaction history > 7 days ago
-            let deleteHistoryRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: sevenDaysAgoDate)
-            
-            try backgroundContext.execute(deleteHistoryRequest)
             
             // Delete WMFPageViews that were added > one year ago
             let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
