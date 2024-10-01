@@ -7,11 +7,12 @@ public struct WMFYearInReview: View {
         return appEnvironment.theme
     }
     
-    public var donePressed: (() -> Void)?
+    public var donePressed: (() -> Void)
     var slides: [YearInReviewSlide]
     
-    public init(slides: [YearInReviewSlide]) {
+    public init(slides: [YearInReviewSlide], donePressed: @escaping () -> Void) {
         self.slides = slides
+        self.donePressed = donePressed
     }
 
     public var body: some View {
@@ -23,7 +24,7 @@ public struct WMFYearInReview: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        donePressed?()
+                        donePressed()
                     }) {
                         Text("Done")
                             .foregroundStyle(Color(uiColor: theme.link))

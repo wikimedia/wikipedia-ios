@@ -40,8 +40,10 @@ public struct WMFSlideShow: View {
         .ignoresSafeArea(edges: .bottom)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onReceive(timer) { _ in
-            withAnimation {
-                currentSlide = (currentSlide + 1) % slides.count
+            if slides.count > 0 {
+                withAnimation {
+                    currentSlide = (currentSlide + 1) % slides.count
+                }
             }
         }
     }
