@@ -177,16 +177,41 @@ class AccountViewController: SubSettingsViewController {
             warningViewController.delegate = self
             present(warningViewController, animated: true)
         case .donationHistory:
-            let viewTitle = WMFLocalizedString("donation-history-view-title", value: "Donation history", comment: "Title for the donation history view")
-            let buttonTitle = WMFLocalizedString("donation-history-button-delete-title", value: "Delete local history", comment: "Title for local donation history delete button")
-            let emptyViewMessage = WMFLocalizedString("donation-history-empty-view-title", value: "You have no locally saved donations", comment: "Title for donation history empty view")
-            let localizedStrings = WMFDonateHistoryViewModel.LocalizedStrings(viewTitle: viewTitle, buttonTitle: buttonTitle, emptyMessage: emptyViewMessage)
-            let viewModel = WMFDonateHistoryViewModel(localizedStrings: localizedStrings)
-            let donationHistoryVC = WMFDonateHistoryViewController(viewModel: viewModel)
-            self.navigationController?.pushViewController(donationHistoryVC, animated: true)
+            let alertController = UIAlertController(title: CommonStrings.confirmDeletion, message: nil, preferredStyle: .alert)
+            let logoutAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { [weak self] (action) in
+                guard let self = self else {
+                    return
+                }
+                self.deleteLocalHistory {
+
+                    DispatchQueue.main.async {
+                        self.tableView.beginUpdates()
+                                self.tableView.reloadData()
+                                self.tableView.endUpdates()
+                        self.showDeletionConfirmation()
+
+                    }
+                }
+            }
+            let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+            alertController.addAction(logoutAction)
+            alertController.addAction(cancelAction)
+            self.navigationController?.present(alertController, animated: true, completion: nil)
         default:
             break
         }
+    }
+
+    private func deleteLocalHistory(completion: @escaping () -> Void) {
+        donateDataController.deleteLocalDonationHistory()
+        completion()
+    }
+
+    private func showDeletionConfirmation() {
+        let alertController = UIAlertController(title: CommonStrings.confirmedDeletion, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.navigationController?.present(alertController, animated: true)
     }
 
     @objc func goToWatchlist() {
