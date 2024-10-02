@@ -25,11 +25,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 }
 
-public struct YearInReviewSlide {
-    let imageName: String
-    let title: String
+public struct YearInReviewSlide: SlideShowProtocol {
+    public let imageName: String
+    public let title: String
     let informationBubbleText: String?
-    let subtitle: String
+    public let subtitle: String
     
     public init(imageName: String, title: String, informationBubbleText: String?, subtitle: String) {
         self.imageName = imageName

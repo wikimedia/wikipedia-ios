@@ -16,5 +16,5 @@ public enum ProfileAction {
     case login
     case logout
     case logDonateTap
-    case yearInReviewTap
+    case showYearInReview
 }

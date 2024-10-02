@@ -3,6 +3,10 @@ import SwiftUI
 
 public class WMFProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
     let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
     let inboxCount: Int
@@ -156,8 +160,20 @@ enum ProfileState {
                                 coordinatorDelegate?.handleProfileAction(.logDonateTap)
                             }
                         )
+//                        ,
+//                        ProfileListItem(
+//                            text: "Year in Review",
+//                            image: .calendar,
+//                            imageColor: WMFColor.blue600,
+//                            hasNotifications: false,
+//                            isDonate: false,
+//                            isLoadingDonateConfigs: false,
+//                            action: {
+//                                coordinatorDelegate?.handleProfileAction(.showYearInReview)
+//                            }
+//                        )
                     ],
-                    subtext: nil
+                    subtext: nil //subtext: "Log in or create an account to get an improved year in review next year"
                 ),
                 ProfileSection(
                     listItems: [
@@ -174,23 +190,7 @@ enum ProfileState {
                         )
                     ],
                     subtext: nil
-                ),
-//                ProfileSection(
-//                    listItems: [
-//                        ProfileListItem(
-//                            text: "Year in Review",
-//                            image: .star,
-//                            imageColor: UIColor(Color.blue),
-//                            hasNotifications: false,
-//                            isDonate: false,
-//                            isLoadingDonateConfigs: false,
-//                            action: {
-//                                coordinatorDelegate?.handleProfileAction(.yearInReviewTap)
-//                            }
-//                        )
-//                    ],
-//                    subtext: nil
-//                )
+                )
             ]
         } else {
             return [

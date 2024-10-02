@@ -139,7 +139,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         case .logDonateTap:
             self.logDonateTap()
-        case .yearInReviewTap:
+        case .showYearInReview:
             dismissProfile {
                 self.showYearInReview()
             }
