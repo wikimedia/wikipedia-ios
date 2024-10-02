@@ -192,9 +192,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     private(set) weak var coordinatorDelegate: DonateCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
-    
+
     // MARK: - Lifecycle
-    
+
     public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, metricsID: String?, appVersion: String?, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
@@ -207,7 +207,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         self.appVersion = appVersion
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
-        
+
         guard let transactionFeeAmount = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode) else {
             return nil
         }
@@ -264,7 +264,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         return nil
     }
-    
+
     func logTappedApplePayButton() {
         
         var emailOptInNSNumber: NSNumber? = nil
@@ -547,11 +547,14 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                
                 // Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-                    self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-                    self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+
+                    guard let self else { return }
+
+                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+                    self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
                 })
             case .failure(let error):
                 if let dataControllerError = error as? WMFDonateDataControllerError {
@@ -583,4 +586,31 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             
         }
     }
+
+    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
+        if let donations = dataController.loadLocalDonationHistory() {
+            return !donations.isEmpty
+        }
+        return false
+    }
+
+    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
+        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = iso8601Format
+        let timestamp = dateFormatter.string(from: date)
+
+        let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: donationType,
+                                                         donationAmount: finalAmount,
+                                                         currencyCode: currencyCode,
+                                                         isNative: true,
+                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
+        )
+        dataController.saveLocalDonationHistory(donationHistoryEntry)
+    }
+
 }

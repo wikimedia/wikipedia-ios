@@ -6,7 +6,7 @@ import Foundation
     public static let widgetCache = "Widget Cache"
 }
 
-public final class SharedContainerCache<T: Codable>: SharedContainerCacheHousekeepingProtocol {
+public final class SharedContainerCache: SharedContainerCacheHousekeepingProtocol {
 
     private let fileName: String
     private let subdirectoryPathComponent: String?
@@ -32,14 +32,14 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         return Self.cacheDirectoryContainerURL.appendingPathComponent(subdirectoryPathComponent, isDirectory: true)
     }
 
-    public func loadCache() -> T? {
+    public func loadCache<T: Codable>() -> T? {
         if let data = try? Data(contentsOf: cacheDataFileURL), let decodedCache = try? JSONDecoder().decode(T.self, from: data) {
             return decodedCache
         }
         return nil
     }
 
-    public func saveCache(_ cache: T) {
+    public func saveCache<T: Codable>(_ cache: T) {
         let encoder = JSONEncoder()
         guard let encodedCache = try? encoder.encode(cache) else {
             return
@@ -51,6 +51,10 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
         }
 
         try? encodedCache.write(to: cacheDataFileURL)
+    }
+    
+    public func removeCache() throws {
+        try FileManager.default.removeItem(at: cacheDataFileURL)
     }
 
     /// Persist only the last 50 visited talk pages
@@ -83,7 +87,7 @@ public final class SharedContainerCache<T: Codable>: SharedContainerCacheHouseke
 
 @objc public class SharedContainerCacheClearFeaturedArticleWrapper: NSObject {
     @objc public static func clearOutFeaturedArticleWidgetCache() {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         var updatedCache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)

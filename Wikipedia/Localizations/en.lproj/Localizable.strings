@@ -208,6 +208,9 @@
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
+"confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
+"confirm-donation-history-deletion-title" = "Confirm deletion";
+"confirmed-donation-history-deletion" = "Local history deleted";
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
@@ -321,6 +324,7 @@
 "donate-help-other-ways-to-give" = "Other ways to give";
 "donate-help-problems-donating" = "Problems donating?";
 "donate-help-tax-deductibility-information" = "Tax deductibility information";
+"donate-history-delete" = "Delete local donation history";
 "donate-later-title" = "We will remind you again tomorrow.";
 "donate-maximum-error-text" = "We cannot accept donations greater than $1 $2 through our website. Please contact our major gifts staff at benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Please select an amount (minimum $1 $2).";
@@ -719,7 +723,6 @@
 "main-menu-account-logout" = "Log out";
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-are-you-sure-message" = "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.";
-"main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-nearby" = "Nearby";
