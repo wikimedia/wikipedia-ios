@@ -987,7 +987,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }
     
-    // TODO: - Remove after expiry date (4 Oct, 2024)
+    // TODO: - Remove after expiry date (5 Nov, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
         
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
@@ -1046,13 +1046,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 }
 
 // MARK: - Image Recommendations Announcement Time-box
-// TODO: - Remove after expiry date (4 Oct, 2024)
+// TODO: - Remove after expiry date (5 Nov, 2024)
 struct ImageRecommendationsFeatureAnnouncementTimeBox {
     static let expiryDate: Date? = {
         var expiryDateComponents = DateComponents()
         expiryDateComponents.year = 2024
-        expiryDateComponents.month = 10
-        expiryDateComponents.day = 4
+        expiryDateComponents.month = 11
+        expiryDateComponents.day = 5
         return Calendar.current.date(from: expiryDateComponents)
     }()
     
