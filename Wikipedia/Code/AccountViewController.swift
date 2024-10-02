@@ -183,7 +183,7 @@ class AccountViewController: SubSettingsViewController {
             present(warningViewController, animated: true)
         case .donationHistory:
             let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubitle, preferredStyle: .alert)
-            let logoutAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { [weak self] (action) in
+            let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { [weak self] (action) in
                 guard let self = self else {
                     return
                 }
@@ -195,7 +195,7 @@ class AccountViewController: SubSettingsViewController {
                 }
             }
             let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
-            alertController.addAction(logoutAction)
+            alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
             self.navigationController?.present(alertController, animated: true, completion: nil)
         default:
