@@ -187,14 +187,11 @@ class AccountViewController: SubSettingsViewController {
                 guard let self = self else {
                     return
                 }
-                self.deleteLocalHistory {
-
-                    DispatchQueue.main.async {
-                        self.sections = self.createSections()
-                        self.tableView.reloadData()
-                        self.showDeletionConfirmation()
-
-                    }
+                self.deleteLocalHistory()
+                DispatchQueue.main.async {
+                    self.sections = self.createSections()
+                    self.tableView.reloadData()
+                    self.showDeletionConfirmation()
                 }
             }
             let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
@@ -206,9 +203,8 @@ class AccountViewController: SubSettingsViewController {
         }
     }
 
-    private func deleteLocalHistory(completion: @escaping () -> Void) {
+    private func deleteLocalHistory() {
         donateDataController.deleteLocalDonationHistory()
-        completion()
     }
 
     private func showDeletionConfirmation() {
