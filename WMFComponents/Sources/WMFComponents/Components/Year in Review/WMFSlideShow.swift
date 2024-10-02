@@ -8,9 +8,9 @@ public struct WMFSlideShow: View {
         return appEnvironment.theme
     }
     
-    let slides: [any SlideShowProtocol]
+    let slides: [SlideShowProtocol]
     
-    public init(currentSlide: Binding<Int>, slides: [any SlideShowProtocol]) {
+    public init(currentSlide: Binding<Int>, slides: [SlideShowProtocol]) {
         self._currentSlide = currentSlide
         self.slides = slides
         

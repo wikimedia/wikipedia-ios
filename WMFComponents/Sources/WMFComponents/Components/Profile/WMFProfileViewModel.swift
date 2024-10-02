@@ -173,7 +173,7 @@ enum ProfileState {
 //                            }
 //                        )
                     ],
-                    subtext: nil //subtext: "Log in or create an account to get an improved year in review next year"
+                    subtext: nil
                 ),
                 ProfileSection(
                     listItems: [
