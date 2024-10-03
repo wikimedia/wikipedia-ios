@@ -761,15 +761,38 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
+    func persistPageViewsForWikipediaInReview() {
+        if let title = self.articleURL.wmf_title,
+           let namespace = self.articleURL.namespace,
+           let siteURL = self.articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL),
+           let wmfProject = project.wmfProject {
+            Task {
+                do {
+                    let pageViewsDataController = try WMFPageViewsDataController()
+                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                } catch let error {
+                    DDLogError("Error saving viewed page: \(error)")
+                }
+            }
+        }
+    }
+    
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
         guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
             return
         }
+        
         significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
-            self?.article.wasSignificantlyViewed = true
-            self?.stopSignificantlyViewedTimer()
+            
+            guard let self else {
+                return
+            }
+            
+            self.article.wasSignificantlyViewed = true
+            self.stopSignificantlyViewedTimer()
         })
     }
     

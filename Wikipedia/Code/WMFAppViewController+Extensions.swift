@@ -3,6 +3,7 @@ import WMF
 import SwiftUI
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -547,6 +548,16 @@ extension WMFAppViewController: CreateReadingListDelegate {
 // MARK: WMFData setup
 
 extension WMFAppViewController {
+    
+    @objc func setupWMFDataCoreDataStore() {
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+        do {
+            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
+        } catch let error {
+            DDLogError("Error setting up WMFCoreDataStore: \(error)")
+        }
+    }
+    
     @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
@@ -578,6 +589,18 @@ extension WMFAppViewController {
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+    }
+    
+    @objc func performWMFDataHousekeeping() {
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        Task {
+            do {
+                try await coreDataStore?.performDatabaseHousekeeping()
+            } catch {
+                DDLogError("Error pruning WMFData database: \(error)")
+            }
+        }
+
     }
 }
 

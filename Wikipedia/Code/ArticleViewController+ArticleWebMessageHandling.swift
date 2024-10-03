@@ -74,6 +74,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         assignScrollStateFromArticleFlagsIfNecessary()
         articleLoadWaitGroup?.leave()
         addToHistory()
+        persistPageViewsForWikipediaInReview()
         syncCachedResourcesIfNeeded()
     }
     

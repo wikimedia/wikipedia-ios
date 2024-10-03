@@ -13,6 +13,7 @@ public final class WMFDataEnvironment: ObservableObject {
 	public static let current = WMFDataEnvironment()
     
     public var serviceEnvironment: WMFServiceEnvironment = .production
+    public var appContainerURL: URL?
 
     @Published public var appData = WMFAppData(appLanguages: [])
     
@@ -25,4 +26,5 @@ public final class WMFDataEnvironment: ObservableObject {
     
     public internal(set) var userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
     public var sharedCacheStore: WMFKeyValueStore?
+    public var coreDataStore: WMFCoreDataStore?
 }
