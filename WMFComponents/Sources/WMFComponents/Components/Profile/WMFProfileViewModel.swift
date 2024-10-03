@@ -3,6 +3,10 @@ import SwiftUI
 
 public class WMFProfileViewModel: ObservableObject {
     @Published var profileSections: [ProfileSection] = []
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
     let isLoggedIn: Bool
     let localizedStrings: LocalizedStrings
     let inboxCount: Int
@@ -156,6 +160,18 @@ enum ProfileState {
                                 coordinatorDelegate?.handleProfileAction(.logDonateTap)
                             }
                         )
+//                        ,
+//                        ProfileListItem(
+//                            text: "Year in Review",
+//                            image: .calendar,
+//                            imageColor: WMFColor.blue600,
+//                            hasNotifications: false,
+//                            isDonate: false,
+//                            isLoadingDonateConfigs: false,
+//                            action: {
+//                                coordinatorDelegate?.handleProfileAction(.showYearInReview)
+//                            }
+//                        )
                     ],
                     subtext: nil
                 ),
