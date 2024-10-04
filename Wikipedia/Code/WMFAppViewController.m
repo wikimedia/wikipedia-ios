@@ -218,6 +218,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
+                                                 name:[WMFAuthenticationManager didHandlePrimaryLanguageChange]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleExploreCenterBadgeNeedsUpdateNotification)
                                                  name:NSNotification.notificationsCenterBadgeNeedsUpdate
                                                object:nil];
@@ -637,6 +642,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
+    
+    /// Housekeeping for WMFData
+    [self performWMFDataHousekeeping];
 
     completion(housekeepingError);
 }
@@ -871,6 +879,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if ([dataStore needsMigration]) {
             [self triggerMigratingAnimation];
         }
+        
+        [self setupWMFDataCoreDataStore];
 
         [dataStore
             performLibraryUpdates:^{
@@ -2205,6 +2215,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];
+    });
+}
+
+- (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 

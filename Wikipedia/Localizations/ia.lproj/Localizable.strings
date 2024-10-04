@@ -75,7 +75,6 @@
 "account-creation-title" = "Crear un nove conto";
 "account-group-title" = "Tu conto";
 "account-request-vanishing" = "Facer disparer le conto";
-"account-talk-page-title" = "Tu pagina de discussion";
 "account-talk-preferences-auto-sign-discussions" = "Signar automaticamente le discussiones";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Le signatura automatic de discussiones usara le signatura definite in le parametros de Signatura";
 "account-talk-preferences-title" = "Preferentias de pagina de discussion";
@@ -171,7 +170,6 @@
 "data-migration-status" = "Actualisation…";
 "description-add-title" = "Adder description";
 "description-edit-for-article" = "Description del articulo $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Cambiante le description del articulo, io accepta le $1 e libera irrevocabilemente mi contributiones sub le licentia $2.";
 "description-edit-pencil-introduction" = "Modificar introduction";
 "description-edit-pencil-title" = "Modificar description del articulo";

@@ -952,6 +952,9 @@
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
+"profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
+"profile-button-accessibility-label" = "Accessibility label for the profile navigation bar button. Tapping it navigates to the user profile view.";
+"profile-button-badge-accessibility-label" = "Accessibility label for the profile navigation bar badge button. This button has a badge indicating there are unread notifications. Tapping it navigates to the user profile view.";
 "profile-page-donate" = "Link to donate";
 "profile-page-donate-subtext" = "Information about supporting Wikipedia through donations";
 "profile-page-join-subtext" = "Information about signing in or up";
@@ -1389,3 +1392,7 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"year-in-review-donate" = "Year in review donate button";
+"year-in-review-done" = "Year in review done button";
+"year-in-review-next" = "Year in review next button";
+"year-in-review-share" = "Year in review share button";

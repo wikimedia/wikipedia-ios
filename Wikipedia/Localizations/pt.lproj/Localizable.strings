@@ -94,7 +94,6 @@
 "account-creation-title" = "Criar uma conta nova";
 "account-group-title" = "A sua conta";
 "account-request-vanishing" = "Fazer conta desaparecer";
-"account-talk-page-title" = "A sua página de discussão";
 "account-talk-preferences-auto-sign-discussions" = "Assinar discussões automaticamente";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "A assinatura automática de discussões usará a assinatura definida nas configurações da assinatura";
 "account-talk-preferences-title" = "Preferências da página de discussão";
@@ -187,7 +186,6 @@
 "data-migration-status" = "A atualizar...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do artigo $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ao alterar a descrição do artigo, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
 "description-edit-pencil-title" = "Editar descrição do artigo";

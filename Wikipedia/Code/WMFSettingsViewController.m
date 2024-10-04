@@ -144,6 +144,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     BOOL hasUnreadNotifications = numUnreadNotifications != 0;
     UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
     UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
+    profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? WMFCommonStrings.profileButtonBadgeTitle : WMFCommonStrings.profileButtonTitle;
+    profileViewButtonItem.accessibilityHint = WMFCommonStrings.profileButtonAccessibilityHint;
     self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
 
@@ -289,7 +291,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         }
         case WMFSettingsMenuItemType_Support: {
-            [[WMFDonateFunnel shared] logSettingsDidTapDonateCell];
+            //[[WMFDonateFunnel shared] logSettingsDidTapDonateCell];
 
             if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
                 WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;
@@ -662,7 +664,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self isExplore:YES];
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut];
+    
+    NSString *metricsID = [WMFDonateCoordinatorWrapper metricsIDForSettingsProfileDonateSourceWithLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode];
+    
+    if (metricsID) {
+        [[WMFDonateFunnel shared] logExploreOptOutProfileClickWithMetricsID:metricsID];
+    }
+    
     self.profileCoordinator = profileCoordinator;
     [profileCoordinator start];
 }
@@ -687,12 +696,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)didTapLogout {
     @weakify(self);
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
-        @strongify(self);
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
-                    
-        }];
-    }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
+                                                              theme:self.theme
+                                                         completion:^{
+                                                             @strongify(self);
+                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+                                                                                                          completion:^{
+
+                                                                                                          }];
+                                                         }];
 }
 
 @end

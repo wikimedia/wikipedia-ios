@@ -804,15 +804,38 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         try? article.addToReadHistory()
     }
     
+    func persistPageViewsForWikipediaInReview() {
+        if let title = self.articleURL.wmf_title,
+           let namespace = self.articleURL.namespace,
+           let siteURL = self.articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL),
+           let wmfProject = project.wmfProject {
+            Task {
+                do {
+                    let pageViewsDataController = try WMFPageViewsDataController()
+                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                } catch let error {
+                    DDLogError("Error saving viewed page: \(error)")
+                }
+            }
+        }
+    }
+    
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
         guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
             return
         }
+        
         significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
-            self?.article.wasSignificantlyViewed = true
-            self?.stopSignificantlyViewedTimer()
+            
+            guard let self else {
+                return
+            }
+            
+            self.article.wasSignificantlyViewed = true
+            self.stopSignificantlyViewedTimer()
         })
     }
     
@@ -1357,13 +1380,20 @@ private extension ArticleViewController {
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
         let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         
         navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileViewButtonItem]
         // navigationBar.updateNavigationItems()
     }
     
     @objc func userDidTapProfile() {
-        let coordinator = ProfileCoordinator(navigationController: self.navigationController!, theme: theme, dataStore: dataStore, donateSouce: .articleProfile, logoutDelegate: self, isExplore: false)
+        guard let navigationController, let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
+        let project else { return }
+        
+        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
+        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
         self.profileCoordinator = coordinator
         coordinator.start()
     }

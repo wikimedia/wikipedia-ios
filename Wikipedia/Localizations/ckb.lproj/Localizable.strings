@@ -74,7 +74,6 @@
 "account-creation-saving" = "پاشەکەوتکردن...";
 "account-creation-title" = "ھەژمارێکی نوێ دروست بکە";
 "account-group-title" = "هەژمارەکەت";
-"account-talk-page-title" = "پەڕەی لێدوانەکەت";
 "action-add-to" = "زیادکردن بۆ...";
 "action-add-to-reading-list" = "زیادکردن بۆ پێڕستی خوێندنەوە";
 "action-add-to-reading-list-short" = "زیاکردن بۆ پێڕست";
@@ -149,7 +148,6 @@
 "description-add-title" = "زیادکردنی وەسف";
 // Fuzzy
 "description-edit-for-article" = "وەسفی ناونیشان بۆ $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "دەستکاریی پێشەکی";
 "description-edit-publish" = "پاشەکەوتکردنی دەربارە";
 "description-help-about-title" = "دەربارە";

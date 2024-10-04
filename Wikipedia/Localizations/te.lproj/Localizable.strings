@@ -79,7 +79,6 @@
 "account-creation-saving" = "భద్రపరుస్తున్నాము...";
 "account-creation-title" = "కొత్త ఖాతా సృష్టించుకోండి";
 "account-group-title" = "మీ ఖాతా";
-"account-talk-page-title" = "మీ చర్చా పేజీ";
 "account-talk-preferences-auto-sign-discussions" = "ఆటోమాటిగ్గా సంతకం చేసే చర్చలు";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "ఆటోమాటిగ్గా సంతకం చేసే చర్చల్లో సంతకం అమరికల్లో నిర్వచించిన సంతకాన్ని వాడతాం";
 "account-talk-preferences-title" = "చర్చ పేజీ అభిరుచులు";
@@ -157,7 +156,6 @@
 "data-migration-status" = "తాజాకరిస్తున్నాం...";
 "description-add-title" = "వివరణ చేర్చు";
 "description-edit-for-article" = "$1 కి వ్యాసానికి వివరణ చేర్చండి";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "వ్యాస వివరణ మార్చుతూ, నేను $1 కూ, $2 లైసెన్సు కింద నా రచనలను తిరిగి వెనక్కి తీసుకోలేని విధంగా విడుదల చేసేందుకూ అంగీకరిస్తున్నాను.";
 "description-edit-pencil-introduction" = "ప్రవేశికను మార్చు";
 "description-edit-pencil-title" = "వ్యాస వివరణను సవరించు";

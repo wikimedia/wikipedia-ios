@@ -64,7 +64,6 @@
 "account-creation-saving" = "Oc'h enrollañ...";
 "account-creation-title" = "Krouiñ ur gont nevez";
 "account-group-title" = "Ho kont";
-"account-talk-page-title" = "Ho pajenn kaozeal";
 "action-add-to" = "Ouzhpennañ da";
 "action-add-to-reading-list" = "Ouzhpennañ d'ar roll lenn.";
 "action-add-to-reading-list-short" = "Ouzhpennañ d'ar roll";
@@ -134,7 +133,6 @@
 "data-migration-status" = "Oc'h hizivaat...";
 "description-add-title" = "Ouzhpennañ un deskrivadur";
 "description-edit-for-article" = "Deskrivadur ar pennad evit $1";
-"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Pa'z embannit e tegemerit ar $1, hag e lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "description-edit-pencil-introduction" = "Kemmañ ar raklavar";
 "description-edit-pencil-title" = "Kemmañ deskrivadur ar pennad";
