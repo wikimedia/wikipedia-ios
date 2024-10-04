@@ -87,6 +87,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 updateTabBarSnapshotImage()
             }
         }
+        
+        navigationItem.titleView = titleView
+        updateProfileViewButton()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -667,7 +670,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         self.theme = theme
         // updateNotificationsCenterButton()
+        navigationItem.titleView = titleView
         updateProfileViewButton()
+        tabBarSnapshotImage = nil
 
         searchBar.apply(theme: theme)
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
