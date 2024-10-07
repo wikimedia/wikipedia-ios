@@ -602,13 +602,6 @@ extension WMFAppViewController {
                 DDLogError("Error pruning WMFData database: \(error)")
             }
         }
-
-    }
-    
-    @objc func fetchFeatureConfigIfNecessary() {
-        WMFDeveloperSettingsDataController.shared.fetchFeatureConfig { result in
-            
-        }
     }
 }
 

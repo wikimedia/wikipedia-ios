@@ -2,7 +2,7 @@ import Foundation
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject {
     
-    public static let shared = WMFDeveloperSettingsDataController()
+    @objc public static let shared = WMFDeveloperSettingsDataController()
     
     private let service: WMFService?
     private let sharedCacheStore: WMFKeyValueStore?
@@ -62,15 +62,15 @@ import Foundation
             return featureConfig
         }
         
-        // Fall back to persisted objects if within three hours
+        // Fall back to persisted objects if within four hours
         let featureConfig: WMFFeatureConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheFeatureConfigFileName)
         
         guard let featureConfigCachedDate = featureConfig?.cachedDate else {
             return nil
         }
         
-        let threeHours = TimeInterval(60 * 60 * 3)
-        guard (-featureConfigCachedDate.timeIntervalSinceNow) < threeHours else {
+        let fourHours = TimeInterval(60 * 60 * 4)
+        guard (-featureConfigCachedDate.timeIntervalSinceNow) < fourHours else {
             return nil
         }
         
@@ -79,15 +79,15 @@ import Foundation
         return featureConfig
     }
     
-    public func fetchFeatureConfig(completion: @escaping (Result<Void, Error>) -> Void) {
+    @objc public func fetchFeatureConfig(completion: @escaping (Error?) -> Void) {
         
         guard let service else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
+            completion(WMFDataControllerError.basicServiceUnavailable)
             return
         }
 
         guard let featureConfigURL = URL.featureConfigURL() else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            completion(WMFDataControllerError.basicServiceUnavailable)
             return
         }
         
@@ -109,9 +109,9 @@ import Foundation
                 
                 try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheFeatureConfigFileName, value: featureConfig)
                 
-                completion(.success(()))
+                completion(nil)
             case .failure(let error):
-                completion(.failure(error))
+                completion(error)
             }
         }
     }
