@@ -73,6 +73,7 @@
 "account-creation-saving" = "Ngaraksa...";
 "account-creation-title" = "Kardi akun anyar";
 "account-group-title" = "Akun Ragané";
+"account-talk-page-title" = "Kaca pabligbagan ragané";
 "action-add-to" = "Wewhin nuju...";
 "action-add-to-reading-list" = "Weweh ring lis wacénan";
 "action-add-to-reading-list-short" = "Weweh nuju lis";
@@ -133,6 +134,7 @@
 "close-button-accessibility-label" = "Sineb";
 "compass-direction" = "ring pukul $1 tepet";
 "data-migration-status" = "Nganyarin...";
+"description-edit-length-warning" = "$1 / $2";
 "description-help-about-title" = "Indik";
 "description-help-about-wikidata" = "Indik Wikidata";
 "description-help-more-info-title" = "Pidarta lianan";

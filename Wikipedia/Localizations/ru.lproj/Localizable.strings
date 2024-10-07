@@ -135,6 +135,7 @@
 "account-creation-title" = "Создайте новую учётную запись";
 "account-group-title" = "Ваша учётная запись";
 "account-request-vanishing" = "Удалить учётную запись";
+"account-talk-page-title" = "Ваша страница обсуждения";
 "account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В автоматическом подписывании обсуждений будет использовать та подпись, которая установлена в Настройках";
 "account-talk-preferences-title" = "Настройки страницы обсуждения";
@@ -243,6 +244,7 @@
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
 "description-edit-for-article" = "Описание статьи для $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Изменяя описание статьи, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
 "description-edit-pencil-introduction" = "Редактировать введение";
 "description-edit-pencil-title" = "Редактировать описание статьи";
@@ -924,13 +926,6 @@
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
-"profile-page-donate" = "Пожертвовать";
-"profile-page-logout" = "Выйти";
-"profile-page-notification-title" = "Уведомления";
-"profile-page-settings" = "Настройки";
-"profile-page-talk-page-title" = "Страница обсуждения";
-"profile-page-user-page-title" = "Страница участника";
-"profile-page-watchlist-title" = "Список наблюдения";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";

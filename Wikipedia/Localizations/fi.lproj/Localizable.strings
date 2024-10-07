@@ -104,6 +104,7 @@
 "account-creation-title" = "Luo uusi käyttäjätunnus";
 "account-group-title" = "Oma käyttäjätunnus";
 "account-request-vanishing" = "Hävitä käyttäjätunnus";
+"account-talk-page-title" = "Oma keskustelusivu";
 "account-talk-preferences-auto-sign-discussions" = "Allekirjoita automaattisesti";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Allekirjoita keskusteluviestit asetuksissa määritellyllä allekirjoituksella automaattisesti";
 "account-talk-preferences-title" = "Keskustelusivujen asetukset";
@@ -198,6 +199,7 @@
 "data-migration-status" = "Päivitetään...";
 "description-add-title" = "Lisää kuvaus";
 "description-edit-for-article" = "Artikkelin kuvaus $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Muuttamalla artikkelin kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-introduction" = "Muokkaa esittelyä";
 "description-edit-pencil-title" = "Muokkaa artikkelin kuvausta";

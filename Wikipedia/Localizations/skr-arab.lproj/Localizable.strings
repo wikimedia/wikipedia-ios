@@ -39,6 +39,7 @@
 "account-creation-saving" = "بچیندا پئے۔۔۔";
 "account-creation-title" = "نواں کھاتہ کھولو";
 "account-group-title" = "تہاݙا کھاتہ";
+"account-talk-page-title" = "تہاݙا ڳالھ مہاڑ ورقہ";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-add-to-reading-list" = "پڑھݨ تندیر وچ شامل کرو";
 "action-add-to-reading-list-short" = "تندیر وچ رلاؤ";
@@ -115,6 +116,7 @@
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
 "description-add-title" = "وضاحت شامل کرو";
 "description-edit-for-article" = "$1 کیتے مضمون تفصیل";
+"description-edit-length-warning" = "\n$1 / $2";
 "description-edit-pencil-introduction" = "تعارف وچ تبدیلی کرو";
 "description-edit-pencil-title" = "مضمون  تفصیل وچ تبدیلی کرو";
 "description-edit-publish" = "تفصیل شائع کرو";
@@ -371,15 +373,6 @@
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
-"profile-button-accessibility-label" = "پروفائل";
-"profile-page-donate" = "عطیہ ݙیوو";
-"profile-page-logout" = "لاگ آؤٹ";
-"profile-page-notification-title" = "اطلاع نامے";
-"profile-page-settings" = "ترتیباں";
-"profile-page-talk-page-title" = "ڳالھ مہاڑ ورقہ";
-"profile-page-title-logged-out" = "کھاتہ";
-"profile-page-user-page-title" = "ورتݨ آلے دا ورقہ";
-"profile-page-watchlist-title" = "پارھا تندیر";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";

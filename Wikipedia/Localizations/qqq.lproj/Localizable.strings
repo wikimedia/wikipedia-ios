@@ -69,6 +69,7 @@
 "account-creation-title" = "Title for account creation interface";
 "account-group-title" = "Title for account group on account settings screen.";
 "account-request-vanishing" = "This will initiate the process of requesting your account to be vanished";
+"account-talk-page-title" = "Link to talk page";
 "account-talk-preferences-auto-sign-discussions" = "Title for talk page preference that configures adding signature to new posts";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Text explaining how setting the auto-signing of talk page discussions preference works";
 "account-talk-preferences-title" = "Title for talk page preference sections in account settings";
@@ -958,17 +959,10 @@
 "profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
 "profile-button-accessibility-label" = "Accessibility label for the profile navigation bar button. Tapping it navigates to the user profile view.";
 "profile-button-badge-accessibility-label" = "Accessibility label for the profile navigation bar badge button. This button has a badge indicating there are unread notifications. Tapping it navigates to the user profile view.";
-"profile-page-donate" = "Link to donate";
 "profile-page-donate-subtext" = "Information about supporting Wikipedia through donations";
 "profile-page-join-subtext" = "Information about signing in or up";
 "profile-page-join-title" = "Link to sign up or sign in";
-"profile-page-logout" = "Log out button";
-"profile-page-notification-title" = "Link to notifications page";
-"profile-page-settings" = "Link to settings";
-"profile-page-talk-page-title" = "Link to talk page";
 "profile-page-title-logged-out" = "Page title for non-logged in users";
-"profile-page-user-page-title" = "Link to user page";
-"profile-page-watchlist-title" = "Link to watchlist";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
@@ -1117,7 +1111,7 @@
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
-"settings-donate" = "Title for button letting user make a donation.";
+"settings-donate" = "Link to donate";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";

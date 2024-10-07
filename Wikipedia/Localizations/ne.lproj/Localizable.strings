@@ -51,6 +51,7 @@
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
 "account-creation-title" = "नयाँ खाता खोल्नुहोस्";
 "account-group-title" = "तपाईकाे खाता";
+"account-talk-page-title" = "तपाईकाे वार्तालाप पृष्ठ";
 "action-add-to" = "यहाँ थप्नुहोस्…";
 "action-add-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-add-to-reading-list-short" = "सूचीमा थप्नुहाेस्";
@@ -111,6 +112,7 @@
 "description-add-title" = "विवरण थप्नुहोस्";
 // Fuzzy
 "description-edit-for-article" = "$1का लागि शीर्षक जानकारी";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "परिचय सम्पादन गर्नुहोस्";
 // Fuzzy
 "description-edit-pencil-title" = "शीर्षक विवरण सम्पादन गर्नुहाेस्";

@@ -69,6 +69,7 @@
 "account-creation-saving" = "Shyia̱ di̱ saai...";
 "account-creation-title" = "Khwuk a̱la̱n a̰fai";
 "account-group-title" = "A̱la̱n Ang Ka";
+"account-talk-page-title" = "Peji a̱lyiat ang hu";
 "account-talk-preferences-title" = "A̱yaalan-cat peji a̱lyiat";
 "action-add-to" = "Mbeang mi̱...";
 "action-add-to-reading-list" = "Mbeang mi̱ lis fang";
@@ -140,6 +141,7 @@
 "description-add-title" = "Mbeang wa̱i a̱lyiat";
 // Fuzzy
 "description-edit-for-article" = "Wa̱i a̱lyiat a̱lyoot mat $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "A̱son a̱lyiat jhyuk";
 // Fuzzy
 "description-edit-pencil-title" = "Wa̱i a̱lyiat a̱lyoot jhyuk";
