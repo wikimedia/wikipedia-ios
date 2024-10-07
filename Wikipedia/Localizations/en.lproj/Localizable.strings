@@ -69,6 +69,7 @@
 "account-creation-title" = "Create a new account";
 "account-group-title" = "Your Account";
 "account-request-vanishing" = "Vanish account";
+"account-talk-page-title" = "Talk page";
 "account-talk-preferences-auto-sign-discussions" = "Auto-sign discussions";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-signing of discussions will use the signature defined in Signature settings";
 "account-talk-preferences-title" = "Talk page preferences";
@@ -958,17 +959,10 @@
 "profile-button-accessibility-hint" = "Navigates to the profile view.";
 "profile-button-accessibility-label" = "Profile";
 "profile-button-badge-accessibility-label" = "Profile with unread badge";
-"profile-page-donate" = "Donate";
 "profile-page-donate-subtext" = "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.";
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Join Wikipedia / Log in";
-"profile-page-logout" = "Log out";
-"profile-page-notification-title" = "Notifications";
-"profile-page-settings" = "Settings";
-"profile-page-talk-page-title" = "Talk page";
 "profile-page-title-logged-out" = "Account";
-"profile-page-user-page-title" = "User page";
-"profile-page-watchlist-title" = "Watchlist";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
