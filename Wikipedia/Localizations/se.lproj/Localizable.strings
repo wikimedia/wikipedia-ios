@@ -111,8 +111,10 @@
 "action-unsaved-accessibility-notification" = "Artihkal ii leat šat vurkejuvvon";
 "action-update" = "Ođasmahte";
 "add-articles-to-reading-list" = "Lasit  {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
-"advanced-settings-title" = "Lassiheivehusat";
+"advanced-settings-title" = "Lasseásahusat";
 "alt-text-add-button-title" = "Lasit";
+"alt-text-do-not-add-button-title" = "Ale lasit";
+"alt-text-experiment-caption-title" = "Govvateaksta";
 "announcements-dismiss" = "Gidde";
 "app-store-keywords" = "Wikipedia, gáldu, wiki, encyklopediija, diehtu, máhttu, info, fuomášupmi, oahppan";
 "app-store-release-notes" = "Áibbas heivehahtti ja eanet logahahtti guorahallansiidu. Báikkálašvuohta, doaibmabuorideamit ja boasttudivvumat.";
@@ -305,8 +307,7 @@
 "edit-summary-placeholder-text" = "Movt buoridit dán artihkkala?";
 "edit-summary-short-description-added" = "Lasihii oanehis govvádusa";
 "edit-summary-short-description-updated" = "Ođasmahttojuvvon oanehis govvádus";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Lassedieđut čuovvunlisttuin";
+"edit-watch-list-learn-more-text" = "Lassedieđut du čuovvunlisttu birra";
 "edit-watch-this-page-text" = "Čuovo dán siiddu";
 "editing-welcome-be-bold-subtitle" = "Leage duostil, muhto ii fal háreheapme go ođasmahtat artihkkaliid. Ale bala meaddimis: buot ovtta siiddu ovddeš veršuvnnat leat vurkejuvvon, nu ahte earát álkit sáhttet divvut meattáhusaid.";
 "editing-welcome-be-bold-title" = "Du jietna lea dehálaš";

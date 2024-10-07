@@ -1328,3 +1328,7 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
+"year-in-review-donate" = "Пожертвовать";
+"year-in-review-done" = "Готово";
+"year-in-review-next" = "Далее";
+"year-in-review-share" = "Поделиться";

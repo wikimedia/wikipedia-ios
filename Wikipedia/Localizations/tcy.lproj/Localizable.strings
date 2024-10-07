@@ -8,6 +8,7 @@
 // Author: Nemo bis
 // Author: Pragathi. BH
 // Author: Ravi Mundkur
+// Author: Vinoda mamatharai
 
 "about-content-license" = "ಪರವಾನಿಗೆತಾ ವಿಸಯ";
 "about-contributors" = "ಕಾನಿಕೆ ಕೊರ್ನಾರ್";
@@ -195,3 +196,7 @@
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
+"year-in-review-donate" = "ದಾನೊ";
+"year-in-review-done" = "ಆಂಡ್.";
+"year-in-review-next" = "ನನತಾ";
+"year-in-review-share" = "ಪಟ್ಟುಲೆ";

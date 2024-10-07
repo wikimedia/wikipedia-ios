@@ -859,6 +859,9 @@
 "potd-widget-title" = "Slika dneva";
 "preference-summary-eventlogging-opt-in" = "Omogočite Fundaciji Wikimedia zbiranje podatkov o tem, kako uporabljate aplikacijo, da bo ta postala še boljša.";
 "privacy-policy-title" = "Pravilnik o zasebnosti";
+"profile-button-accessibility-hint" = "Pomakne se na pogled profila.";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil z neprebrano značko";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikiknjige";
 "project-name-wikidata" = "Wikipodatki";
@@ -1275,3 +1278,7 @@
 "wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
+"year-in-review-donate" = "Doniraj";
+"year-in-review-done" = "Končano";
+"year-in-review-next" = "Naprej";
+"year-in-review-share" = "Deli";

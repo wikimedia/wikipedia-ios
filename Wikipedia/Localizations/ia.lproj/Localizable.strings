@@ -111,6 +111,11 @@
 "advanced-settings-title" = "Parametros avantiate";
 "alt-text-add-button-title" = "Adder";
 "alt-text-do-not-add-button-title" = "Non adder";
+"alt-text-email-fifth-line" = "[Capturas de schermo o ligamines]";
+"alt-text-email-first-line" = "Io ha incontrate un problema con le function de texto alternative:";
+"alt-text-email-fourth-line" = "- [Describe le solution proponite]";
+"alt-text-email-second-line" = "- [Describe le problema specific]";
+"alt-text-email-third-line" = "Le comportamento que io vole vider es:";
 "alt-text-modal-title" = "Adder le texto alternative mancante al imagine?";
 "announcements-dismiss" = "Clauder";
 "app-store-keywords" = "Wikipedia, referentia, wiki, encyclopedia, info, cognoscentia, recerca, information, explorar, apprender";

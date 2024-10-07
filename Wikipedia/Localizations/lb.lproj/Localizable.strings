@@ -599,6 +599,7 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
+"profile-button-accessibility-label" = "Profil";
 "profile-page-logout" = "Ausloggen";
 "profile-page-notification-title" = "Notifikatiounen";
 "profile-page-settings" = "Astellungen";
@@ -900,3 +901,4 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
+"year-in-review-share" = "Deelen";

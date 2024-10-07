@@ -1438,3 +1438,7 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+"year-in-review-donate" = "捐款";
+"year-in-review-done" = "確定";
+"year-in-review-next" = "下一個";
+"year-in-review-share" = "分享";

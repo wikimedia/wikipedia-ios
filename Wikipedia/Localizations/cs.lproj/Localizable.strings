@@ -214,11 +214,9 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Od";
+"diff-compare-header-from-info-heading" = "Předchozí editace";
 "diff-compare-header-heading" = "Porovnat revize";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Do";
+"diff-compare-header-to-info-heading" = "Zobrazená editace";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
 "diff-context-lines-expanded-button-title" = "Skrýt";

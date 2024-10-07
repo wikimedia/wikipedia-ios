@@ -1439,3 +1439,7 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
+"year-in-review-donate" = "Faire un don";
+"year-in-review-done" = "Terminé";
+"year-in-review-next" = "Suivant";
+"year-in-review-share" = "Partager";
