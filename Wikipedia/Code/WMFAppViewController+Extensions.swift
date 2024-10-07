@@ -604,6 +604,12 @@ extension WMFAppViewController {
         }
 
     }
+    
+    @objc func fetchFeatureConfigIfNecessary() {
+        WMFDeveloperSettingsDataController.shared.fetchFeatureConfig { result in
+            
+        }
+    }
 }
 
 // MARK: WMFComponents App Environment Helpers
