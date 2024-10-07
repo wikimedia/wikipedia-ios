@@ -99,6 +99,8 @@ extension WMFAppViewController {
 
 }
 
+// MARK: - Notifications
+
 extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
     /// Perform conditional presentation logic depending on origin `UIViewController`
@@ -187,6 +189,45 @@ extension WMFAppViewController {
         viewController.present(alertController, animated: true, completion: nil)
         
     }
+}
+
+fileprivate extension UIViewController {
+    
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
+        
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+        
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
+    }
+}
+
+
+/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
+protocol EditingFlowViewController where Self: UIViewController {
+    var shouldDisplayExitConfirmationAlert: Bool { get }
+}
+
+extension EditingFlowViewController {
+    var shouldDisplayExitConfirmationAlert: Bool {
+        return true
+    }
+}
+
+/// View Controllers that are a part of the Notifications Center flow
+protocol NotificationsCenterFlowViewController where Self: UIViewController {
+    
+    // hook called after the user taps a push notification while in the foregound.
+    // use if needed to tweak the view hierarchy to display the Notifications Center
+    func tappedPushNotification()
 }
 
 // MARK: - Watchlist
@@ -459,45 +500,6 @@ extension WMFAppViewController: WMFWatchlistLoggingDelegate {
     }
     
     
-}
-
-fileprivate extension UIViewController {
-    
-    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
-    /// Does not consider presenting view controllers
-    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
-        
-        if let viewController = self as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-        
-        if let navigationController = self as? UINavigationController,
-           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-
-        return nil
-    }
-}
-
-
-/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
-protocol EditingFlowViewController where Self: UIViewController {
-    var shouldDisplayExitConfirmationAlert: Bool { get }
-}
-
-extension EditingFlowViewController {
-    var shouldDisplayExitConfirmationAlert: Bool {
-        return true
-    }
-}
-
-/// View Controllers that are a part of the Notifications Center flow
-protocol NotificationsCenterFlowViewController where Self: UIViewController {
-    
-    // hook called after the user taps a push notification while in the foregound.
-    // use if needed to tweak the view hierarchy to display the Notifications Center
-    func tappedPushNotification()
 }
 
 // MARK: Importing Reading Lists - CreateReadingListDelegate
