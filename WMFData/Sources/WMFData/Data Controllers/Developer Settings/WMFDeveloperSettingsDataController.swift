@@ -37,4 +37,12 @@ import Foundation
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue)
         }
     }
+
+    public var enableYearInReview: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue, value: newValue)
+        }
+    }
 }
