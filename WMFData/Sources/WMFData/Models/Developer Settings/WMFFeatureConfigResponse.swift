@@ -1,24 +1,24 @@
 import Foundation
 
-struct WMFFeatureConfigResponse: Codable {
-    struct FeatureConfigIOS: Codable {
+public struct WMFFeatureConfigResponse: Codable {
+    public struct FeatureConfigIOS: Codable {
         
-        struct Slide: Codable {
-            let id: String
-            let isEnabled: Bool
+        public struct Slide: Codable {
+            public let id: String
+            public let isEnabled: Bool
         }
         
         let version: Int
-        let yirIsEnabled: Bool
-        let yirCountryCodes: [String]
-        let yirPrimaryAppLanguageCodes: [String]
-        let yirDataPopulationStartDateString: String
-        let yirDataPopulationEndDateString: String
-        let yirDataPopulationFetchMaxPagesPerSession: Int
-        let yirPersonalizedSlides: [Slide]
+        public let yirIsEnabled: Bool
+        public let yirCountryCodes: [String]
+        public let yirPrimaryAppLanguageCodes: [String]
+        public let yirDataPopulationStartDateString: String
+        public let yirDataPopulationEndDateString: String
+        public let yirDataPopulationFetchMaxPagesPerSession: Int
+        public let yirPersonalizedSlides: [Slide]
     }
     
-    let ios: [FeatureConfigIOS]
+    public let ios: [FeatureConfigIOS]
     var cachedDate: Date?
     
     private let currentFeatureConfigVersion = 1
@@ -64,5 +64,6 @@ struct WMFFeatureConfigResponse: Codable {
         }
         
         self.ios = validConfigs
+        self.cachedDate = try? overallContainer.decode(Date.self, forKey: .cachedDate)
     }
 }

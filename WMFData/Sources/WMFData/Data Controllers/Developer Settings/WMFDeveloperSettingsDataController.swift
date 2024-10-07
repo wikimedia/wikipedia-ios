@@ -55,7 +55,7 @@ import Foundation
     
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
-    func loadFeatureConfig() -> WMFFeatureConfigResponse? {
+    public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
         
         // First pull from memory
         guard featureConfig == nil else {
@@ -107,7 +107,12 @@ import Foundation
                 self.featureConfig = response
                 self.featureConfig?.cachedDate = Date()
                 
-                try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheFeatureConfigFileName, value: featureConfig)
+                do {
+                    try self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheFeatureConfigFileName, value: featureConfig)
+                } catch {
+                    print(error)
+                }
+                
                 
                 completion(nil)
             case .failure(let error):
