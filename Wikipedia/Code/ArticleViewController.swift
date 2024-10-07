@@ -431,6 +431,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         if altTextExperimentViewModel == nil {
             setupWButton()
+            setupSearchAndProfileButtons()
         }
 
         if isReturningFromFAQ {
