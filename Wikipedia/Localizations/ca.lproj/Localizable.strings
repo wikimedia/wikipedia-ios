@@ -97,6 +97,7 @@
 "account-creation-title" = "Crea un compte nou";
 "account-group-title" = "El vostre compte";
 "account-request-vanishing" = "Fes desaparèixer el compte";
+"account-talk-page-title" = "La vostra pàgina de discussió";
 "account-talk-preferences-auto-sign-discussions" = "Signa les discussions automàticament";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signatura automàtica de les discussions utilitzarà la signatura definida als paràmetres de signatura";
 "account-talk-preferences-title" = "Preferències de la pàgina de discussió";
@@ -189,6 +190,7 @@
 "data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
 "description-edit-for-article" = "Descripció de l'article $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En canviar la descripció de l'article, accepteu $1 i alliberar irrevocablement les contribucions sota la llicència $2.";
 "description-edit-pencil-introduction" = "Modifica la introducció";
 "description-edit-pencil-title" = "Modifica la descripció de l'article";

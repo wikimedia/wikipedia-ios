@@ -74,6 +74,7 @@
 "account-creation-saving" = "Adree a salvà...";
 "account-creation-title" = "Crea on cunt noeuv";
 "account-group-title" = "El to cunt";
+"account-talk-page-title" = "La toa pagina de ciciarada";
 "account-talk-preferences-auto-sign-discussions" = "Firma in automatich in di ciciarade";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Per firmà in automatich in di ciciarade la sarà drovada la firma definida in di impostazzion de la firma";
 "account-talk-preferences-title" = "Preferenza de la pagina de ciciarada";
@@ -156,6 +157,7 @@
 "data-migration-status" = "Adree a atualizà...";
 "description-add-title" = "Sgiontegh la descrizzion";
 "description-edit-for-article" = "Descrizzion de la vos per $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "A cambià la descrizzion de la vos, a aceti i $1 e de rilassà irrevocabilment i me contribuzzion a termin de la licenza $2.";
 "description-edit-pencil-introduction" = "Modifega l'introduzzion";
 "description-edit-pencil-title" = "Modifega la descrizzion de la vos";

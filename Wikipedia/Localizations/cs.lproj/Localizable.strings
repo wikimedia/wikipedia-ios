@@ -102,6 +102,7 @@
 "account-creation-title" = "Vytvořit uživatelský účet";
 "account-group-title" = "Váš účet";
 "account-request-vanishing" = "Nechat zmizet účet";
+"account-talk-page-title" = "Vaše diskusní stránka";
 "account-talk-preferences-auto-sign-discussions" = "Automaticky podepisovat příspěvky v diskusích";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatické podpisování příspěvků v diskusích bude používat podpis definovaný v Nastavení podpisu";
 "account-talk-preferences-title" = "Nastavení diskusí";
@@ -183,6 +184,7 @@
 "data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
 "description-edit-for-article" = "Popis článku pro článek $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
 "description-edit-pencil-title" = "Editovat popis článku";

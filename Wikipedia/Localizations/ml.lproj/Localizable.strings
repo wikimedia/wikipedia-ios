@@ -46,6 +46,7 @@
 "account-creation-saving" = "സേവ് ചെയ്യുന്നു...";
 "account-creation-title" = "പുതിയ അംഗത്വം സൃഷ്ടിക്കുക";
 "account-group-title" = "താങ്കളുടെ അംഗത്വം";
+"account-talk-page-title" = "താങ്കളുടെ സംവാദ താൾ";
 "action-add-to-reading-list" = "വായന പട്ടികയിലേക്ക് ചേർക്കുക";
 "action-add-to-reading-list-short" = "പട്ടികയിലേക്ക് ചേർക്കുക";
 "action-cancel" = "റദ്ദാക്കുക";
@@ -93,6 +94,7 @@
 "description-add-title" = "വിവരണം ചേർക്കുക";
 // Fuzzy
 "description-edit-for-article" = "$1നുള്ള തലക്കെട്ട് വിവരണം";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "ആമുഖം തിരുത്തുക";
 // Fuzzy
 "description-edit-pencil-title" = "തലക്കെട്ട് വിവരണം തിരുത്തുക";

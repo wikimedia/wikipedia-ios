@@ -87,6 +87,7 @@
 "account-creation-title" = "Яңы иҫәп яҙмаһы булдырығыҙ";
 "account-group-title" = "Һеҙҙең иҫәп яҙмаһы";
 "account-request-vanishing" = "Иҫәп яҙмаһын юйырға";
+"account-talk-page-title" = "Һеҙҙең фекер алышыу бите";
 "account-talk-preferences-auto-sign-discussions" = "Автоматик имзаланған фекер алышыу биттәре";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Фекер алышыуҙар битендә автоматик имза ҡуйғанда Көйләүҙәрҙә һайланған имза ҡулланыла";
 "account-talk-preferences-title" = "Фекер алышыу битен көйләү";
@@ -176,6 +177,7 @@
 "data-migration-status" = "Яңыртыу...";
 "description-add-title" = "Тасуирлама өҫтәргә";
 "description-edit-for-article" = "$1 өсөн тасуирлама өҫтәргә";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Тасуарламаны үҙгәртеп, мин $1 менән килешәм һәм үҙ өлөшөмдө кире алыу мөмкинлекһеҙ $2 лицензияһына ярашлы  баҫтырам.";
 "description-edit-pencil-introduction" = "Инеште мөхәррирләргә";
 "description-edit-pencil-title" = "Мәҡәлә тасуирламаһын мөхәррирләргә";

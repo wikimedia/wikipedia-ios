@@ -74,6 +74,7 @@
 "account-creation-title" = "Maale toŋ zie paalaa";
 "account-group-title" = "Fo toŋ zie";
 "account-request-vanishing" = "Toma bɔrɛɛ la";
+"account-talk-page-title" = "Fo yɛlɛ zie gampɛle";
 "account-talk-preferences-auto-sign-discussions" = "Eŋ o meŋɛ yel-yaga diibo";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Enna yɛlɛ yaga diibo zie na de la a nu-gloglo maale ne";
 "account-talk-preferences-title" = "Yeli gampɛle sommo yizie";
@@ -163,6 +164,7 @@
 "data-migration-status" = "Maale eŋe";
 "description-add-title" = "Maale eŋ mannoo";
 "description-edit-for-article" = "Ganlee mannoo ko $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ka ba naŋ leɛtɛ a Aatekle kannoo, N sagɛɛ la a $1 kyɛ e toŋ ena kaŋa a $2 sori teroo.";
 "description-edit-pencil-introduction" = "Maale eŋ piiluu";
 "description-edit-pencil-title" = "Maale eŋ ganlee mannoo";
