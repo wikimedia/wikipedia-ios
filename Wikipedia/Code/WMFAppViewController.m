@@ -650,6 +650,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
+    
+    /// Housekeeping for WMFData
+    [self performWMFDataHousekeeping];
 
     completion(housekeepingError);
 }
@@ -884,6 +887,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if ([dataStore needsMigration]) {
             [self triggerMigratingAnimation];
         }
+        
+        [self setupWMFDataCoreDataStore];
 
         [dataStore
             performLibraryUpdates:^{

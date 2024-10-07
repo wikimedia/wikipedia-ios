@@ -14,7 +14,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 18;
+static const NSInteger WMFCurrentLibraryVersion = 19;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -506,6 +506,15 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindSuggestedEdits isOn:YES updateFeed:NO];
         [moc wmf_setValue:@(18) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+    
+    if (currentLibraryVersion < 19) {
+        [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
+        [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:nil]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }

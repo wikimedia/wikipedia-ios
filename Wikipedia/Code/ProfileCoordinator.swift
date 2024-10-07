@@ -19,6 +19,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     var navigationController: UINavigationController
     
     weak var delegate: LogoutCoordinatorDelegate?
+    var shouldShowYiR = false
     
     // MARK: Properties
     
@@ -30,6 +31,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
+    private var yirCoordinator: YearInReviewCoordinator?
     
     let username: String?
     let sourcePage: ProfileCoordinatorSource
@@ -137,6 +139,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         case .logDonateTap:
             self.logDonateTap()
+        case .showYearInReview:
+            dismissProfile {
+                self.showYearInReview()
+            }
         }
     }
     
@@ -154,6 +160,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         settingsCoordinator.start()
+    }
+    
+    private func showYearInReview() {
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        yirCoordinator.start()
+        self.yirCoordinator = yirCoordinator
     }
     
     func showDonate() {
