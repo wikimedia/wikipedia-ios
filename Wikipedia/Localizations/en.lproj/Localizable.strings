@@ -69,6 +69,7 @@
 "account-creation-title" = "Create a new account";
 "account-group-title" = "Your Account";
 "account-request-vanishing" = "Vanish account";
+"account-talk-page-title" = "Talk page";
 "account-talk-preferences-auto-sign-discussions" = "Auto-sign discussions";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-signing of discussions will use the signature defined in Signature settings";
 "account-talk-preferences-title" = "Talk page preferences";
@@ -208,6 +209,9 @@
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
+"confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
+"confirm-donation-history-deletion-title" = "Confirm deletion";
+"confirmed-donation-history-deletion" = "Local history deleted";
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
@@ -321,6 +325,7 @@
 "donate-help-other-ways-to-give" = "Other ways to give";
 "donate-help-problems-donating" = "Problems donating?";
 "donate-help-tax-deductibility-information" = "Tax deductibility information";
+"donate-history-delete" = "Delete local donation history";
 "donate-later-title" = "We will remind you again tomorrow.";
 "donate-maximum-error-text" = "We cannot accept donations greater than $1 $2 through our website. Please contact our major gifts staff at benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Please select an amount (minimum $1 $2).";
@@ -719,7 +724,6 @@
 "main-menu-account-logout" = "Log out";
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-are-you-sure-message" = "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.";
-"main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-nearby" = "Nearby";
@@ -955,17 +959,10 @@
 "profile-button-accessibility-hint" = "Navigates to the profile view.";
 "profile-button-accessibility-label" = "Profile";
 "profile-button-badge-accessibility-label" = "Profile with unread badge";
-"profile-page-donate" = "Donate";
 "profile-page-donate-subtext" = "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.";
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Join Wikipedia / Log in";
-"profile-page-logout" = "Log out";
-"profile-page-notification-title" = "Notifications";
-"profile-page-settings" = "Settings";
-"profile-page-talk-page-title" = "Talk page";
 "profile-page-title-logged-out" = "Account";
-"profile-page-user-page-title" = "User page";
-"profile-page-watchlist-title" = "Watchlist";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

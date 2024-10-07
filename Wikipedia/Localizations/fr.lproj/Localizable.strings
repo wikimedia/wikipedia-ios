@@ -118,6 +118,7 @@
 "account-creation-title" = "Créer un nouveau compte";
 "account-group-title" = "Votre compte";
 "account-request-vanishing" = "Faire disparaître le compte";
+"account-talk-page-title" = "Votre page de discussion";
 "account-talk-preferences-auto-sign-discussions" = "Discussions signées automatiquement";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signature automatique des discussions utilisera le texte défini dans vos paramètres de signature.";
 "account-talk-preferences-title" = "Préférences de la page de discussion";
@@ -265,6 +266,7 @@
 "data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
 "description-edit-for-article" = "Description de l’article $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En modifiant la description de l’article, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
 "description-edit-pencil-introduction" = "Modifier l’introduction";
 "description-edit-pencil-title" = "Modifier la description de l’article";
@@ -999,11 +1001,9 @@
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
 "privacy-policy-title" = "Politique de confidentialité";
 "problem-with-feature-title" = "Problème avec la fonctionnalité";
-"profile-button-accessibility-hint" = "Accède à la vue du profil.";
-"profile-button-accessibility-label" = "Profil";
-"profile-button-badge-accessibility-label" = "Profil avec badge non lu";
 "profile-page-donate" = "Don";
 "profile-page-donate-subtext" = "Ou soutenez Wikipédia avec un don pour le garder gratuit et accessible à tous dans le monde.";
+"profile-page-done-button" = "Fait";
 "profile-page-join-subtext" = "Créez un compte Wikipédia pour suivre vos contributions, enregistrer des articles hors ligne et synchroniser sur plusieurs appareils.";
 "profile-page-join-title" = "Rejoignez Wikipédia / Se connecter";
 "profile-page-logout" = "Se déconnecter";

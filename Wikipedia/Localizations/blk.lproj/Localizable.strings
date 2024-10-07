@@ -37,6 +37,7 @@
 "account-creation-saving" = "အဝ်ႏထူႏဟဝ်ကျာꩻ...";
 "account-creation-title" = "ဖန်ဆင်ꩻအကောက်တသာ";
 "account-group-title" = "နာꩻအကောက်";
+"account-talk-page-title" = "နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါ";
 "account-talk-preferences-title" = "အိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါ အပွိုင်အဆင်ဖိုင်ႏ";
 "action-add-to" = "ထဲမ်သော့ꩻလွေꩻ...";
 "action-add-to-reading-list" = "ထဲမ်သော့ꩻ ဟော်ꩻထွားစာႏရင်ꩻကို";
@@ -94,6 +95,7 @@
 "data-migration-status" = "အဝ်ႏဒင်ႏထိုကျာꩻ...";
 "description-add-title" = "ထဲမ်သော့ꩻအွောန်ႏနယ်ချက်ခရာႏ";
 "description-edit-for-article" = "ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက် $1 တာႏ";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-title" = "မွဉ်းဖျင် ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက်";
 "description-edit-publish" = "ဒင်ႏထင်ႏအွောန်ႏနယ်ချက်ခရာႏ";
 "description-edit-title" = "မွဉ်းဖျင် အွောန်ႏနယ်ချက်ခရာႏ";

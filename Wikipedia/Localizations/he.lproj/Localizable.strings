@@ -97,6 +97,7 @@
 "account-creation-title" = "יצירת חשבון חדש";
 "account-group-title" = "החשבון שלך";
 "account-request-vanishing" = "העלמת החשבון שלך";
+"account-talk-page-title" = "דף השיחה שלך";
 "account-talk-preferences-auto-sign-discussions" = "חתימה אוטומטית בדיונים";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "חתימה אוטומטית בדיונים תשתמש בחתימה שהוגדרה בהגדרות החתימה";
 "account-talk-preferences-title" = "העדפות דף שיחה";
@@ -979,11 +980,9 @@
 "preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "privacy-policy-title" = "מדיניות פרטיות";
 "problem-with-feature-title" = "בעיה עם אפשרות";
-"profile-button-accessibility-hint" = "ניווט לתצוגת פרופיל.";
-"profile-button-accessibility-label" = "פרופיל";
-"profile-button-badge-accessibility-label" = "פרופיל עם תג \"לא נקרא\"";
 "profile-page-donate" = "לתרום";
 "profile-page-donate-subtext" = "או לתמוך בוויקיפדיה בתרומה כדי לשמור על כל שהיא תהיה חופשית ונגישה לכולם ברחבי העולם.";
+"profile-page-done-button" = "בוצע";
 "profile-page-join-subtext" = "אנו מזמינים אותך להירשם לחשבון ויקיפדיה כדי לעקוב אחר התרומות שלך, לשמור ערכים במצב לא מקוון ולסנכרן בין מכשירים.";
 "profile-page-join-title" = "הצטרפות לוויקיפדיה / כניסה לחשבון";
 "profile-page-logout" = "יציאה מהחשבון";

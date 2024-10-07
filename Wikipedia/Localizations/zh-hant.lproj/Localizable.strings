@@ -115,6 +115,7 @@
 "account-creation-title" = "建立新帳號";
 "account-group-title" = "您的帳號";
 "account-request-vanishing" = "隱退帳號";
+"account-talk-page-title" = "您的討論頁";
 "account-talk-preferences-auto-sign-discussions" = "自動簽名討論";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "討論的自動簽名，會使用在簽名設定裡所定義的簽名";
 "account-talk-preferences-title" = "討論頁偏好設定";
@@ -262,7 +263,7 @@
 "data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的條目描述";
-"description-edit-length-warning" = "$1/$2";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "透過更改條目描述，我同意$1且依據$2許可協議不撤銷所發表出我的個人貢獻。";
 "description-edit-pencil-introduction" = "編輯首段";
 "description-edit-pencil-title" = "編輯條目說明";
@@ -998,11 +999,9 @@
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "privacy-policy-title" = "隱私權政策";
 "problem-with-feature-title" = "功能問題";
-"profile-button-accessibility-hint" = "導航至個人資料檢視。";
-"profile-button-accessibility-label" = "個人資料";
-"profile-button-badge-accessibility-label" = "帶有尚未讀取徽章通知的個人資料";
 "profile-page-donate" = "捐款";
 "profile-page-donate-subtext" = "或透過捐款支持維基百科，來讓世界各地的人可免費使用。";
+"profile-page-done-button" = "完成";
 "profile-page-join-subtext" = "在維基百科註冊帳號可讓您追蹤自己的貢獻、儲存離線條目、以及跨裝置同步。";
 "profile-page-join-title" = "加入維基百科/登入";
 "profile-page-logout" = "登出";
