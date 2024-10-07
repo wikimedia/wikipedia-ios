@@ -52,7 +52,15 @@ import Foundation
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue)
         }
     }
-    
+
+    public var enableYearInReview: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
@@ -80,7 +88,7 @@ import Foundation
     }
     
     @objc public func fetchFeatureConfig(completion: @escaping (Error?) -> Void) {
-        
+
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
@@ -90,34 +98,35 @@ import Foundation
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
         }
-        
+
         let featureConfigParameters: [String: Any] = [
             "action": "raw"
         ]
 
         let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, parameters: featureConfigParameters, acceptType: .json)
         service.performDecodableGET(request: featureConfigRequest) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
-            
+
             guard let self else {
                 return
             }
-            
+
             switch result {
             case .success(let response):
                 self.featureConfig = response
                 self.featureConfig?.cachedDate = Date()
-                
+
                 do {
                     try self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheFeatureConfigFileName, value: featureConfig)
                 } catch {
                     print(error)
                 }
-                
-                
+
+
                 completion(nil)
             case .failure(let error):
                 completion(error)
             }
         }
     }
+
 }
