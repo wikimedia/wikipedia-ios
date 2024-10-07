@@ -107,6 +107,7 @@
 "account-creation-title" = "새 계정 만들기";
 "account-group-title" = "내 계정";
 "account-request-vanishing" = "계정 지우기";
+"account-talk-page-title" = "내 사용자토론";
 "account-talk-preferences-auto-sign-discussions" = "토론 자동 서명";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "토론 자동 서명은 서명 설정에 정의된 서명을 사용합니다";
 "account-talk-preferences-title" = "토론 문서 환경 설정";
@@ -199,6 +200,7 @@
 "data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
 "description-edit-for-article" = "$1의 문서 설명";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "문서 설명을 변경하면 당신은 $1에 동의하며 기여한 내용을 $2 라이선스로 배포하는 데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
 "description-edit-pencil-introduction" = "설명 편집";
 "description-edit-pencil-title" = "문서 설명 편집";
@@ -892,15 +894,6 @@
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
 "privacy-policy-title" = "개인정보보호정책";
 "problem-with-feature-title" = "기능에 문제가 있습니다";
-"profile-page-donate" = "기부";
-"profile-page-join-title" = "위키백과에 가입 / 로그인";
-"profile-page-logout" = "로그아웃";
-"profile-page-notification-title" = "알림";
-"profile-page-settings" = "설정";
-"profile-page-talk-page-title" = "토론 문서";
-"profile-page-title-logged-out" = "계정";
-"profile-page-user-page-title" = "사용자 문서";
-"profile-page-watchlist-title" = "주시문서 목록";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";

@@ -78,6 +78,7 @@
 "account-creation-title" = "Ustvarite nov račun";
 "account-group-title" = "Vaš račun";
 "account-request-vanishing" = "Izbris računa";
+"account-talk-page-title" = "Vaša stran za pogovor";
 "account-talk-preferences-auto-sign-discussions" = "Pogovori s samodejnim podpisom";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Pri samodejnem podpisovanju pogovorov bo uporabljen podpis, določen v nastavitvah podpisa";
 "account-talk-preferences-title" = "Nastavitve strani za pogovor";
@@ -171,6 +172,7 @@
 "data-migration-status" = "Posodabljam ...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis članka za $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "S spremembo opisa članka se strinjam s $1 in nepreklicno objavljam svoj prispevek pod licenco $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-pencil-title" = "Urejanje opisa članka";

@@ -293,7 +293,6 @@ private struct WMFWikimediaFinePrint: View {
     
     var body: some View {
         HStack {
-            
             contentView
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                 .font(Font(WMFFont.for(.caption1)))

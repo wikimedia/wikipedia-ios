@@ -35,10 +35,8 @@ public final class WMFAltTextDataController {
     private let experimentsDataController: WMFExperimentsDataController
     private let developerSettingsDataController: WMFDeveloperSettingsDataController
     private let userDefaultsStore: WMFKeyValueStore
-    private var experimentPercentage: Int {
-        developerSettingsDataController.alwaysShowAltTextEntryPoint ? 100 : 50
-    }
-    
+    private var experimentPercentage: Int = 100
+
     // MARK: - Public
     
     public init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {

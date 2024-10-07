@@ -24,6 +24,7 @@
 "account-creation-logging-in" = "Մուտք համակարգ...";
 "account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, գաղտնաբառ և գաղտնաբառի հաստատում մասնակցային հաշիվ ստեղծելու համար";
 "account-creation-saving" = "Պահպանվում է...";
+"account-talk-page-title" = "Ձեր քննարկման էջ";
 "action-cancel" = "Չեղարկել";
 "action-find-in-page" = "Գտնել էջում";
 "action-read" = "Կարդալ";

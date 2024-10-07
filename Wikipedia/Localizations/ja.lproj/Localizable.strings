@@ -124,6 +124,7 @@
 "account-creation-title" = "新しいアカウントを作成する";
 "account-group-title" = "あなたのアカウント";
 "account-request-vanishing" = "アカウントを削除";
+"account-talk-page-title" = "あなたの議論ページ";
 "account-talk-preferences-auto-sign-discussions" = "議論に自動署名する";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "議論に自動署名する際は、署名設定で定義した署名が使われます";
 "account-talk-preferences-title" = "ノートページの設定";
@@ -216,6 +217,7 @@
 "data-migration-status" = "更新中...";
 "description-add-title" = "説明を追加";
 "description-edit-for-article" = "$1の説明";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "記事の説明を変更すると、$1 に同意し、$2ライセンスのもとで貢献を公開することになります。これは取り消せません。";
 "description-edit-pencil-introduction" = "導入部を編集";
 "description-edit-pencil-title" = "記事の説明を編集";

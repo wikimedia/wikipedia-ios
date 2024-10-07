@@ -78,6 +78,7 @@
 "account-creation-title" = "Creu cyfrif newydd";
 "account-group-title" = "Eich Cyfrif";
 "account-request-vanishing" = "Gorchuddio cyfrif";
+"account-talk-page-title" = "Eich tudalen sgwrs";
 "account-talk-preferences-auto-sign-discussions" = "Llofnodi sgyrsiau'n awtomatig";
 "account-talk-preferences-title" = "Dewisiadau tudalen sgwrs";
 "action-add-to" = "Ychwanegu at…";
@@ -160,6 +161,7 @@
 "data-migration-status" = "Wrthi'n diweddaru...";
 "description-add-title" = "Ychwanegu disgrifiad";
 "description-edit-for-article" = "Disgrifiad erthygl am $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Golygu'r cyflwyniad";
 "description-edit-pencil-title" = "Golygu disgrifiad yr erthygl";
 "description-edit-placeholder-title" = "Disgrifiadau byr sydd orau";

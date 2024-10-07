@@ -86,6 +86,7 @@
 "account-creation-title" = "สร้างบัญชีใหม่";
 "account-group-title" = "บัญชีของคุณ";
 "account-request-vanishing" = "Vanish account";
+"account-talk-page-title" = "หน้าพูดคุยของคุณ";
 "account-talk-preferences-auto-sign-discussions" = "เซ็นชื่อการอภิปรายอัตโนมัติ";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "การเซ็นชื่อการอภิปรายอัตโนมัติจะใช้ลายเซ็นที่กำหนดในการตั้งค่าลายเซ็น";
 "account-talk-preferences-title" = "การตั้งค่าหน้าพูดคุย";
@@ -175,6 +176,7 @@
 "data-migration-status" = "กำลังปรับปรุง...";
 "description-add-title" = "เพิ่มคำอธิบาย";
 "description-edit-for-article" = "คำอธิบายบทความสำหรับ $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "การเปลี่ยนคำอธิบายบทความ ถือว่าคุณยอมรับ$1และคุณตกลงเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างไม่อาจเพิกถอนได้";
 "description-edit-pencil-introduction" = "แก้ไขบทนำ";
 "description-edit-pencil-title" = "แก้ไขคำอธิบายบทความ";

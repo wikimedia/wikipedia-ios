@@ -90,6 +90,7 @@
 "account-creation-title" = "Vytvoriť nový účet";
 "account-group-title" = "Váš účet";
 "account-request-vanishing" = "Zmiznúť účet";
+"account-talk-page-title" = "Vaša diskusná stránka";
 "account-talk-preferences-auto-sign-discussions" = "Automaticky podpisovať nové diskusné príspevky";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "V diskusných príspevkoch sa bude používať podpis určený v Nastaveniach podpisu";
 "account-talk-preferences-title" = "Nastavenia diskusií";
@@ -193,6 +194,7 @@
 "data-migration-status" = "Aktualizácia...";
 "description-add-title" = "Pridať popis";
 "description-edit-for-article" = "Popis článku pre $1";
+"description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "Zmenou popisu článku súhlasím s $1 a neodvolateľne uvoľňujem moje príspevky pod licenciou $2.";
 "description-edit-pencil-introduction" = "Upraviť úvod";
 "description-edit-pencil-title" = "Upraviť popis článku";
