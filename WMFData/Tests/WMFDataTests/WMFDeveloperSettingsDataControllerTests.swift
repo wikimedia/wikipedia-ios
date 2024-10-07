@@ -22,27 +22,25 @@ final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch Config")
         
-        controller.fetchFeatureConfig { result in
-            switch result {
-            case .success:
-                
-                guard let config = controller.loadFeatureConfig() else {
-                    XCTFail("Failure loading feature config")
-                    return
-                }
-                
-                XCTAssertEqual(config.ios.first?.version, 1, "Unexpected feature config version")
-                XCTAssertEqual(config.ios.first?.yirIsEnabled, true, "Unexpected feature config yirIsEnabled")
-                XCTAssertEqual(config.ios.first?.yirCountryCodes.count, 2, "Unexpected feature config yirCountryCodes count")
-                XCTAssertEqual(config.ios.first?.yirPrimaryAppLanguageCodes.count, 2, "Unexpected feature config yirPrimaryAppLanguageCodes count")
-                XCTAssertEqual(config.ios.first?.yirDataPopulationStartDateString, "2024-01-01T00:00:00Z", "Unexpected feature config yirDataPopulationStartDateString")
-                XCTAssertEqual(config.ios.first?.yirDataPopulationEndDateString, "2024-11-01T00:00:00Z", "Unexpected feature config yirDataPopulationStartDateString")
-                XCTAssertEqual(config.ios.first?.yirDataPopulationFetchMaxPagesPerSession, 3, "Unexpected feature config yirDataPopulationFetchMaxPagesPerSession")
-                XCTAssertEqual(config.ios.first?.yirPersonalizedSlides.count, 8, "Unexpected feature config yirPersonalizedSlides count")
-                
-            case .failure(let error):
-                XCTFail("Failure fetching feature config: \(error)")
+        controller.fetchFeatureConfig { error in
+            guard error == nil else {
+                XCTFail("Failure fetching feature config")
+                return
             }
+            
+            guard let config = controller.loadFeatureConfig() else {
+                XCTFail("Failure loading feature config")
+                return
+            }
+            
+            XCTAssertEqual(config.ios.first?.version, 1, "Unexpected feature config version")
+            XCTAssertEqual(config.ios.first?.yirIsEnabled, true, "Unexpected feature config yirIsEnabled")
+            XCTAssertEqual(config.ios.first?.yirCountryCodes.count, 2, "Unexpected feature config yirCountryCodes count")
+            XCTAssertEqual(config.ios.first?.yirPrimaryAppLanguageCodes.count, 2, "Unexpected feature config yirPrimaryAppLanguageCodes count")
+            XCTAssertEqual(config.ios.first?.yirDataPopulationStartDateString, "2024-01-01T00:00:00Z", "Unexpected feature config yirDataPopulationStartDateString")
+            XCTAssertEqual(config.ios.first?.yirDataPopulationEndDateString, "2024-11-01T00:00:00Z", "Unexpected feature config yirDataPopulationStartDateString")
+            XCTAssertEqual(config.ios.first?.yirDataPopulationFetchMaxPagesPerSession, 3, "Unexpected feature config yirDataPopulationFetchMaxPagesPerSession")
+            XCTAssertEqual(config.ios.first?.yirPersonalizedSlides.count, 8, "Unexpected feature config yirPersonalizedSlides count")
             
             expectation.fulfill()
         }
