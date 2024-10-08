@@ -1,6 +1,10 @@
 import Foundation
 
-@objc public final class WMFDeveloperSettingsDataController: NSObject {
+public protocol WMFDeveloperSettingsDataControlling: AnyObject {
+    func loadFeatureConfig() -> WMFFeatureConfigResponse?
+}
+
+@objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
     
     @objc public static let shared = WMFDeveloperSettingsDataController()
     
