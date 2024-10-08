@@ -2,7 +2,7 @@ import Foundation
 
 public struct WMFFeatureConfigResponse: Codable {
  
-    public struct FeatureConfigIOS: Codable {
+    public struct IOS: Codable {
         
         public struct YearInReview: Codable {
             
@@ -28,12 +28,12 @@ public struct WMFFeatureConfigResponse: Codable {
         public let yir: YearInReview
     }
     
-    public let ios: [FeatureConfigIOS]
+    public let ios: [IOS]
     var cachedDate: Date?
     
     private let currentFeatureConfigVersion = 1
     
-    public init(ios: [WMFFeatureConfigResponse.FeatureConfigIOS], cachedDate: Date? = nil) {
+    public init(ios: [WMFFeatureConfigResponse.IOS], cachedDate: Date? = nil) {
         self.ios = ios
         self.cachedDate = cachedDate
     }
@@ -47,11 +47,11 @@ public struct WMFFeatureConfigResponse: Codable {
         var versionContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
         var iosContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
         
-        var validConfigs: [FeatureConfigIOS] = []
+        var validConfigs: [IOS] = []
         while !versionContainer.isAtEnd {
             
             let wmfVersion: WMFConfigVersion
-            let config: FeatureConfigIOS
+            let config: IOS
             do {
                 wmfVersion = try versionContainer.decode(WMFConfigVersion.self)
             } catch {
@@ -68,7 +68,7 @@ public struct WMFFeatureConfigResponse: Codable {
             }
                 
             do {
-                config = try iosContainer.decode(FeatureConfigIOS.self)
+                config = try iosContainer.decode(IOS.self)
             } catch {
                 // Skip
                 _ = try? iosContainer.decode(WMFDiscardedElement.self)

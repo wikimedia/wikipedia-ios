@@ -1,6 +1,6 @@
 enum WMFYearInReviewPersonalizedSlideID: String {
-    case readCount = "read_count"
-    case editCount = "edit_count"
+    case readCount
+    case editCount
 }
 
 public final class WMFYearInReviewDataController {
@@ -20,19 +20,19 @@ public final class WMFYearInReviewDataController {
         }
         
         // Check remote feature disable switch
-        guard iosFeatureConfig.yirIsEnabled else {
+        guard iosFeatureConfig.yir.isEnabled else {
             return false
         }
         
         
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yirCountryCodes.map { $0.uppercased() }
+        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
         
         // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yirPrimaryAppLanguageCodes.map { $0.uppercased() }
+        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
@@ -42,19 +42,15 @@ public final class WMFYearInReviewDataController {
         
         // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
         // if {read_count persisted slide item}.display == yes {
-            if let readCountSlide = iosFeatureConfig.yirPersonalizedSlides.first(where: { $0.id == WMFYearInReviewPersonalizedSlideID.readCount.rawValue }) {
-                if readCountSlide.isEnabled {
-                    personalizedSlideCount += 1
-                }
+            if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+                personalizedSlideCount += 1
             }
         // }
         
         // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
         // if {edit_count persisted slide item}.display == yes {
-        if let editCountSlide = iosFeatureConfig.yirPersonalizedSlides.first(where: { $0.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue }) {
-                if editCountSlide.isEnabled {
-                    personalizedSlideCount += 1
-                }
+            if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                personalizedSlideCount += 1
             }
         // }
         
