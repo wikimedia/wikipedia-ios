@@ -3,37 +3,29 @@ import Foundation
 public struct WMFFeatureConfigResponse: Codable {
  
     public struct FeatureConfigIOS: Codable {
-
-        public struct Slide: Codable {
-            public let id: String
-            public let isEnabled: Bool
+        
+        public struct YearInReview: Codable {
             
-            public init(id: String, isEnabled: Bool) {
-                self.id = id
-                self.isEnabled = isEnabled
+            public struct PersonalizedSlides: Codable {
+                let readCount: SlideSettings
+                let editCount: SlideSettings
             }
+            
+            public struct SlideSettings: Codable {
+                public let isEnabled: Bool
+            }
+            
+            public let isEnabled: Bool
+            public let countryCodes: [String]
+            public let primaryAppLanguageCodes: [String]
+            public let dataPopulationStartDateString: String
+            public let dataPopulationEndDateString: String
+            public let personalizedSlides: PersonalizedSlides
         }
-        
+
         let version: Int
-        public let yirIsEnabled: Bool
-        public let yirCountryCodes: [String]
-        public let yirPrimaryAppLanguageCodes: [String]
-        public let yirDataPopulationStartDateString: String
-        public let yirDataPopulationEndDateString: String
-        public let yirDataPopulationFetchMaxPagesPerSession: Int
-        public let yirPersonalizedSlides: [Slide]
-        
-        public init(version: Int, yirIsEnabled: Bool, yirCountryCodes: [String], yirPrimaryAppLanguageCodes: [String], yirDataPopulationStartDateString: String, yirDataPopulationEndDateString: String, yirDataPopulationFetchMaxPagesPerSession: Int, yirPersonalizedSlides: [WMFFeatureConfigResponse.FeatureConfigIOS.Slide]) {
-            self.version = version
-            self.yirIsEnabled = yirIsEnabled
-            self.yirCountryCodes = yirCountryCodes
-            self.yirPrimaryAppLanguageCodes = yirPrimaryAppLanguageCodes
-            self.yirDataPopulationStartDateString = yirDataPopulationStartDateString
-            self.yirDataPopulationEndDateString = yirDataPopulationEndDateString
-            self.yirDataPopulationFetchMaxPagesPerSession = yirDataPopulationFetchMaxPagesPerSession
-            self.yirPersonalizedSlides = yirPersonalizedSlides
-        }
-        
+
+        public let yir: YearInReview
     }
     
     public let ios: [FeatureConfigIOS]
