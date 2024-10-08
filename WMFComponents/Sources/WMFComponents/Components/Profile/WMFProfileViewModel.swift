@@ -60,8 +60,10 @@ public class WMFProfileViewModel: ObservableObject {
         let joinWikipediaTitle: String
         let joinWikipediaSubtext: String
         let donateSubtext: String
+        let yearInReviewTitle: String
+        let yearInReviewLoggedOutSubtext: String
 
-        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String) {
+        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
             self.pageTitle = pageTitle
             self.doneButtonTitle = doneButtonTitle
             self.notificationsTitle = notificationsTitle
@@ -74,6 +76,8 @@ public class WMFProfileViewModel: ObservableObject {
             self.joinWikipediaTitle = joinWikipediaTitle
             self.joinWikipediaSubtext = joinWikipediaSubtext
             self.donateSubtext = donateSubtext
+            self.yearInReviewTitle = yearInReviewTitle
+            self.yearInReviewLoggedOutSubtext = yearInReviewLoggedOutSubtext
         }
     }
 }
@@ -167,7 +171,7 @@ enum ProfileState {
                 }
             )
             let yearInReviewItem = ProfileListItem(
-                text: "Year in Review",
+                text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
                 hasNotifications: false,
@@ -246,7 +250,7 @@ enum ProfileState {
             )
             
             let yearInReviewItem = ProfileListItem(
-                text: "Year in Review",
+                text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
                 hasNotifications: false,
@@ -285,7 +289,7 @@ enum ProfileState {
                 listItems: [
                     yearInReviewItem
                 ],
-                subtext: "Log in or create an account to get an improved year in review next year"
+                subtext: localizedStrings.yearInReviewLoggedOutSubtext
                 )
             let settingsSection = ProfileSection(
                 listItems: [

@@ -962,7 +962,9 @@
 "profile-page-donate-subtext" = "Information about supporting Wikipedia through donations";
 "profile-page-join-subtext" = "Information about signing in or up";
 "profile-page-join-title" = "Link to sign up or sign in";
+"profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
 "profile-page-title-logged-out" = "Page title for non-logged in users";
+"profile-page-year-in-review-title" = "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
