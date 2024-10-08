@@ -7,13 +7,21 @@ public final class WMFYearInReviewDataController {
     
     let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
-    init(developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) {
+    public init(developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) {
         self.developerSettingsDataController = developerSettingsDataController
     }
     
-    public func shouldShowYearInReviewEntryPoint(countryCode: String, primaryAppLanguageProject: WMFProject) -> Bool {
+    public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        // TODO: Remove this line once method TODOS are complete.
+        return false
         
         // TODO: Check developer settings local feature flag. https://phabricator.wikimedia.org/T376041
+        
+        guard let countryCode,
+              let primaryAppLanguageProject else {
+            return false
+        }
         
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
             return false
