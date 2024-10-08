@@ -3,52 +3,27 @@
     "ios": [
         {
             "version": 1,
-            "yirIsEnabled": true,
-            "yirCountryCodes": [
-                "FR",
-                "IT"
-            ],
-            "yirPrimaryAppLanguageCodes": [
-                "fr",
-                "it"
-            ],
-            "yirDataPopulationStartDateString": "2024-01-01T00:00:00Z",
-            "yirDataPopulationEndDateString": "2024-11-01T00:00:00Z",
-            "yirDataPopulationFetchMaxPagesPerSession": 3,
-            "yirPersonalizedSlides": [
-                {
-                    "id": "read_count",
-                    "isEnabled": true
-                },
-                {
-                    "id": "read_day",
-                    "isEnabled": true
-                },
-                {
-                    "id": "read_saved_count",
-                    "isEnabled": true
-                },
-                {
-                    "id": "read_top",
-                    "isEnabled": true
-                },
-                {
-                    "id": "read_topics",
-                    "isEnabled": true
-                },
-                {
-                    "id": "edit_count",
-                    "isEnabled": true
-                },
-                {
-                    "id": "edit_view_count",
-                    "isEnabled": true
-                },
-                {
-                    "id": "donate_count",
-                    "isEnabled": true
+            "yir": {
+                "isEnabled": true,
+                "countryCodes": [
+                    "FR",
+                    "IT"
+                ],
+                "primaryAppLanguageCodes": [
+                    "fr",
+                    "it"
+                ],
+                "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
+                "dataPopulationEndDateString": "2024-11-01T00:00:00Z",
+                "personalizedSlides": {
+                    "readCount": {
+                        "isEnabled": true
+                    },
+                    "editCount": {
+                        "isEnabled": true
+                    }
                 }
-            ]
+            }
         }
     ],
     "android": {}

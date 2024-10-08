@@ -3,19 +3,27 @@ import Foundation
 public struct WMFFeatureConfigResponse: Codable {
     public struct FeatureConfigIOS: Codable {
         
-        public struct Slide: Codable {
-            public let id: String
+        public struct YearInReview: Codable {
+            
+            public struct PersonalizedSlides: Codable {
+                let readCount: SlideSettings
+                let editCount: SlideSettings
+            }
+            
+            public struct SlideSettings: Codable {
+                public let isEnabled: Bool
+            }
+            
             public let isEnabled: Bool
+            public let countryCodes: [String]
+            public let primaryAppLanguageCodes: [String]
+            public let dataPopulationStartDateString: String
+            public let dataPopulationEndDateString: String
+            public let personalizedSlides: PersonalizedSlides
         }
-        
+
         let version: Int
-        public let yirIsEnabled: Bool
-        public let yirCountryCodes: [String]
-        public let yirPrimaryAppLanguageCodes: [String]
-        public let yirDataPopulationStartDateString: String
-        public let yirDataPopulationEndDateString: String
-        public let yirDataPopulationFetchMaxPagesPerSession: Int
-        public let yirPersonalizedSlides: [Slide]
+        public let yir: YearInReview
     }
     
     public let ios: [FeatureConfigIOS]
