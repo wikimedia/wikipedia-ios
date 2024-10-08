@@ -1,7 +1,6 @@
 import Foundation
 
 public struct WMFFeatureConfigResponse: Codable {
- 
     public struct IOS: Codable {
         
         public struct YearInReview: Codable {
