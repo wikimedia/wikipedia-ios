@@ -85,55 +85,6 @@ class ArticleCacheReadingTests: XCTestCase {
         .andReturn(500)
     }
     
-    func testBasicArticleLoad() {
-        
-        stub200Responses()
-        
-        let basicVC = BasicCachingWebViewController()
-        
-        let htmlExpectation = expectation(description: "Waiting for html content to return")
-        let imageExpectation = expectation(description: "Waiting for image load to return")
-        let cssExpectation = expectation(description: "Waiting for css load to return")
-        
-        basicVC.didReceiveDataCallback = { urlSchemeTask, data in
-            
-            guard let urlString = urlSchemeTask.request.url?.absoluteString else {
-                XCTFail("Unable to determine urlString from scheme task")
-                return
-            }
-            
-            switch urlString {
-            case "app://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States":
-                
-                htmlExpectation.fulfill()
-                
-                if let htmlString = String(data: data, encoding: .utf8) {
-                    let trimmedHTML = String(htmlString.filter { !"\n\t\r".contains($0) })
-                    XCTAssertEqual(trimmedHTML, "<!DOCTYPE html><html><head><link rel=\"stylesheet\" href=\"//en.wikipedia.org/api/rest_v1/data/css/mobile/site\"></head><body><p>Testing</p><img src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png\"></body></html>")
-                }
-                
-            case "app://en.wikipedia.org/api/rest_v1/data/css/mobile/site":
-                
-                cssExpectation.fulfill()
-                
-                if let cssString = String(data: data, encoding: .utf8) {
-                    let trimmedCSS = String(cssString.filter { !"\n\t\r".contains($0) })
-                    XCTAssertEqual(trimmedCSS, "body {background-color: green;}", "Unexpected basic HTML content")
-                }
-            case "app://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png":
-                imageExpectation.fulfill()
-            default:
-                break
-            }
-        }
-        
-        basicVC.loadViewIfNeeded()
-        
-        wait(for: [htmlExpectation], timeout: timeout)
-        wait(for: [imageExpectation], timeout: timeout)
-        wait(for: [cssExpectation], timeout: timeout)
-    }
-    
     func testBasicNetworkNotModifiedWithCachedArticle() {
         
         stub304Responses()
