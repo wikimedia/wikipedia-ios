@@ -14,6 +14,7 @@ public final class WMFYearInReviewDataController {
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
         // TODO: Remove this line once method TODOS are complete.
+        // Uncomment WMFYearInReviewDataControllerTests once this line is removed.
         return false
         
         // TODO: Check developer settings local feature flag. https://phabricator.wikimedia.org/T376041
