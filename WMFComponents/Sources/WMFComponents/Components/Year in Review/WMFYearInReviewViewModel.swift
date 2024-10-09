@@ -3,9 +3,9 @@ import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
-    var slides: [YearInReviewSlide]
+    var slides: [YearInReviewSlideContent]
     
-    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlide]) {
+    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent]) {
         self.localizedStrings = localizedStrings
         self.slides = slides
     }
@@ -25,7 +25,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 }
 
-public struct YearInReviewSlide: SlideShowProtocol {
+public struct YearInReviewSlideContent: SlideShowProtocol {
     public let imageName: String
     public let title: String
     let informationBubbleText: String?

@@ -21,32 +21,32 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     func start() {
         // NOTE: To be translated when grabbed from data source / migrated - this is all example data
-        let slides: [YearInReviewSlide] = [
-            YearInReviewSlide(
+        let slides: [YearInReviewSlideContent] = [
+            YearInReviewSlideContent(
                 imageName: "heart_yir",
                 title: "You read 350 articles this year",
                 informationBubbleText: "Top languages: English, German, French",
                 subtitle: "You read 350 articles this year in English, German, and French. This year Wikipedia had 63.59 million articles available across over 332 active languages. You joined millions in expanding knowledge and exploring diverse topics."
             ),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "languages_yir",
                 title: "Top Viewed Articles",
                 informationBubbleText: "Most viewed: History of Art",
                 subtitle: "You explored topics like History of Art, Climate Change, and Artificial Intelligence. These were among the most viewed subjects globally, with millions of views from around the world."
             ),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "phone_yir",
                 title: "Your Contributions",
                 informationBubbleText: "Edits: 45, Featured: 2",
                 subtitle: "This year, you made 45 edits, with 2 of them featured. Your contributions helped improve the quality and reach of Wikipedia's vast collection of knowledge."
             ),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: "Article Growth",
                 informationBubbleText: "New articles: 12",
                 subtitle: "You contributed to 12 new articles this year. Wikipedia's collection continues to grow, now with over 63.59 million articles in over 332 languages."
             ),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "savedarticles_yir",
                 title: "A Year in Review",
                 informationBubbleText: "Your Wiki Year",
