@@ -240,7 +240,7 @@ import WMFData
     }
     
     private var isTemp: Bool {
-        return !dataStore.authenticationManager.authStateIsTemporary
+        return dataStore.authenticationManager.authStateIsTemporary
     }
 
     private var _primaryLanguage: String {
