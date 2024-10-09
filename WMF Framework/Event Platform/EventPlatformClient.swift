@@ -238,6 +238,10 @@ import WMFData
     private var isAnon: Bool {
         return !dataStore.authenticationManager.authStateIsPermanent
     }
+    
+    private var isTemp: Bool {
+        return !dataStore.authenticationManager.authStateIsTemporary
+    }
 
     private var _primaryLanguage: String {
         if let appLanguage = dataStore.languageLinkController.appLanguage {
@@ -494,6 +498,13 @@ import WMFData
         **/
 
         let isAnon: Bool
+        
+        /**
+         * Not a required field, but we want to send it for all iOS schemas
+         * True if any wiki in auth manager's currentUserCache has a temporary flag
+        **/
+
+        let isTemp: Bool
 
         /**
          * Required field for all iOS schemas
@@ -509,6 +520,7 @@ import WMFData
             case dt
             case event
             case isAnon = "is_anon"
+            case isTemp = "is_temp"
             case primaryLanguage = "primary_language"
         }
         
@@ -521,6 +533,7 @@ import WMFData
                 try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
                 try container.encode(isAnon, forKey: .isAnon)
+                try container.encode(isTemp, forKey: .isTemp)
                 try container.encode(primaryLanguage, forKey: .primaryLanguage)
                 try event.encode(to: encoder)
             } catch let error {
@@ -606,7 +619,7 @@ import WMFData
         }
         
         let meta = Meta(stream: stream, id: UUID(), domain: domain)
-        let eventPayload: Encodable = needsMinimal ? MinimalEventBody<E>(meta: meta, dt: date, event: event) : EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, primaryLanguage: primaryLanguage)
+        let eventPayload: Encodable = needsMinimal ? MinimalEventBody<E>(meta: meta, dt: date, event: event) : EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, isTemp: isTemp, primaryLanguage: primaryLanguage)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601

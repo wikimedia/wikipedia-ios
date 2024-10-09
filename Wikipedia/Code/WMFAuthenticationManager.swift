@@ -130,6 +130,19 @@ import CocoaLumberjackSwift
         return false
     }
     
+    /// Loops through all current user objects across the various siteURLs we have cached, and returns true if one contains authState == .temporary
+    @objc public var authStateIsTemporary: Bool {
+        for (_, user) in currentUserCache {
+            guard user.authState == .temporary else {
+                continue
+            }
+            
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: Login
     
     /// Attempt login with saved credentials in the keychain.
