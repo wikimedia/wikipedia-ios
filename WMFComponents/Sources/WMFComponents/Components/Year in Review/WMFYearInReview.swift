@@ -15,6 +15,8 @@ public struct WMFYearInReview: View {
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
+    
+    let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
 
     public var body: some View {
         NavigationView {
@@ -101,27 +103,13 @@ public struct WMFYearInReview: View {
                         .foregroundStyle(Color(uiColor: theme.text))
                 }
                 VStack {
-                    Button(action: {
+                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
                         withAnimation {
-                            viewModel.isFirstSlide = false
+                            viewModel.getStarted()
                         }
-                    }) {
-                        Text(viewModel.localizedStrings.firstSlideCTA)
-                            .foregroundStyle(Color(uiColor: theme.paperBackground))
-                            .padding(.vertical, 11)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(uiColor: theme.link))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
                     }
-                    Button(action: {
-                       // TODO: Implement hide this feature
-                    }) {
-                        Text(viewModel.localizedStrings.firstSlideHide)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .padding(.vertical, 11)
-                            .frame(maxWidth: .infinity)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                        // TODO: Implement hide this feature
                     }
                 }
             }
