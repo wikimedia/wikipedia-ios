@@ -19,7 +19,11 @@ public struct WMFYearInReview: View {
     public var body: some View {
         NavigationView {
             VStack {
-                WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                if viewModel.isFirstSlide {
+                    firstSlide
+                } else {
+                    WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                }
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
@@ -32,43 +36,45 @@ public struct WMFYearInReview: View {
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        // TODO: Implement Donation
-                    }) {
-                        HStack {
-                            if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                                Image(uiImage: uiImage)
-                                    .foregroundStyle(Color(uiColor: theme.destructive))
-                            }
-                            Text(viewModel.localizedStrings.donateButtonTitle)
-                                .foregroundStyle(Color(uiColor: theme.destructive))
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                        }
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    HStack {
+                if !viewModel.isFirstSlide {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button(action: {
-                            // TODO: Implement share
+                            // TODO: Implement Donation
                         }) {
-                            HStack(alignment: .center, spacing: 6) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .foregroundStyle(Color(uiColor: theme.link))
-                                Text(viewModel.localizedStrings.shareButtonTitle)
-                                    .foregroundStyle(Color(uiColor: theme.link))
+                            HStack {
+                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+                                    Image(uiImage: uiImage)
+                                        .foregroundStyle(Color(uiColor: theme.destructive))
+                                }
+                                Text(viewModel.localizedStrings.donateButtonTitle)
+                                    .foregroundStyle(Color(uiColor: theme.destructive))
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
                         }
-                        Spacer()
-                        Button(action: {
-                            withAnimation {
-                                currentSlide = (currentSlide + 1) % viewModel.slides.count
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack {
+                            Button(action: {
+                                // TODO: Implement share
+                            }) {
+                                HStack(alignment: .center, spacing: 6) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .foregroundStyle(Color(uiColor: theme.link))
+                                    Text(viewModel.localizedStrings.shareButtonTitle)
+                                        .foregroundStyle(Color(uiColor: theme.link))
+                                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                                }
                             }
-                        }) {
-                            Text(viewModel.localizedStrings.nextButtonTitle)
-                                .foregroundStyle(Color(uiColor: theme.link))
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                            Spacer()
+                            Button(action: {
+                                withAnimation {
+                                    currentSlide = (currentSlide + 1) % viewModel.slides.count
+                                }
+                            }) {
+                                Text(viewModel.localizedStrings.nextButtonTitle)
+                                    .foregroundStyle(Color(uiColor: theme.link))
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                            }
                         }
                     }
                 }
@@ -79,5 +85,48 @@ public struct WMFYearInReview: View {
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
+    }
+
+    private var firstSlide: some View {
+        ScrollView {
+            VStack(spacing: 48) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Image("globe", bundle: .module)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Text("Explore your Wikipedia Year in Review")
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    Text("See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.")
+                        .font(Font(WMFFont.for(.title3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                }
+                VStack {
+                    Button(action: {
+                        withAnimation {
+                            viewModel.isFirstSlide = false
+                        }
+                    }) {
+                        Text("Get started")
+                            .foregroundStyle(Color(uiColor: theme.paperBackground))
+                            .padding(.vertical, 11)
+                            .frame(maxWidth: .infinity)
+                            .background(Color(uiColor: theme.link))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                    }
+                    Button(action: {
+                       // TODO: Implement hide this feature
+                    }) {
+                        Text("Hide this feature")
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .padding(.vertical, 11)
+                            .frame(maxWidth: .infinity)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                    }
+                }
+            }
+        }
+        .padding(36)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

@@ -2,12 +2,17 @@ import Foundation
 import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
+    @Published var isFirstSlide = true
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlide]
     
     public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlide]) {
         self.localizedStrings = localizedStrings
         self.slides = slides
+    }
+    
+    public func getStarted() {
+        isFirstSlide = true
     }
     
     public struct LocalizedStrings {

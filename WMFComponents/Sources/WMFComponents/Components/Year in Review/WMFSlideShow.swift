@@ -14,7 +14,7 @@ public struct WMFSlideShow: View {
         self._currentSlide = currentSlide
         self.slides = slides
         
-        UIPageControl.appearance().currentPageIndicatorTintColor = theme.link.withAlphaComponent(0.3)
+        UIPageControl.appearance().currentPageIndicatorTintColor = theme.link
         UIPageControl.appearance().pageIndicatorTintColor = theme.link.withAlphaComponent(0.3)
     }
     
