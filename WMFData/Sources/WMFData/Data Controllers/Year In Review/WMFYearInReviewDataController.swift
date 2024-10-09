@@ -58,7 +58,6 @@ public final class WMFYearInReviewDataController {
         }
     }
 
-
     public func createNewYearInReviewReport(year: Int, version: Int, slides: [WMFYearInReviewSlide]) async throws {
         let newReport = WMFYearInReviewReport(year: year, version: version, slides: slides)
 
