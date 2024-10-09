@@ -93,10 +93,10 @@ public struct WMFYearInReview: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Image("globe", bundle: .module)
                         .frame(maxWidth: .infinity, alignment: .center)
-                    Text("Explore your Wikipedia Year in Review")
+                    Text(viewModel.localizedStrings.firstSlideTitle)
                         .font(Font(WMFFont.for(.boldTitle1)))
                         .foregroundStyle(Color(uiColor: theme.text))
-                    Text("See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.")
+                    Text(viewModel.localizedStrings.firstSlideSubtitle)
                         .font(Font(WMFFont.for(.title3)))
                         .foregroundStyle(Color(uiColor: theme.text))
                 }
@@ -106,7 +106,7 @@ public struct WMFYearInReview: View {
                             viewModel.isFirstSlide = false
                         }
                     }) {
-                        Text("Get started")
+                        Text(viewModel.localizedStrings.firstSlideCTA)
                             .foregroundStyle(Color(uiColor: theme.paperBackground))
                             .padding(.vertical, 11)
                             .frame(maxWidth: .infinity)
@@ -117,7 +117,7 @@ public struct WMFYearInReview: View {
                     Button(action: {
                        // TODO: Implement hide this feature
                     }) {
-                        Text("Hide this feature")
+                        Text(viewModel.localizedStrings.firstSlideHide)
                             .foregroundStyle(Color(uiColor: theme.link))
                             .padding(.vertical, 11)
                             .frame(maxWidth: .infinity)

@@ -20,12 +20,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let doneButtonTitle: String
         let shareButtonTitle: String
         let nextButtonTitle: String
+        let firstSlideTitle: String
+        let firstSlideSubtitle: String
+        let firstSlideCTA: String
+        let firstSlideHide: String
         
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
             self.nextButtonTitle = nextButtonTitle
+            self.firstSlideTitle = firstSlideTitle
+            self.firstSlideSubtitle = firstSlideSubtitle
+            self.firstSlideCTA = firstSlideCTA
+            self.firstSlideHide = firstSlideHide
         }
     }
 }
