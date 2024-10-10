@@ -19,39 +19,71 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
     }
     
+//    let numberArticles = 63.59
+//    let numberLanguages = 332
+//    let numberViews = 1.4
+//    let numberEditors = 50 // dummy data
+//    let numberEdits = 342
+//    
+//    var baseSlide1Subtitle: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review for people without read/edit history, first slide subtitle, %1$@ is replaced with the number of articles, %2$@ is replaced with the number of languages.")
+//        return String.localizedStringWithFormat(format, String(numberArticles), String(numberLanguages))
+//    }
+//    
+//    var baseSlide2Title: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times.", comment: "Year in review for people without read/edit history, second slide title, %1$@ is replaced with the number of article views.")
+//        return String.localizedStringWithFormat(format, String(numberViews))
+//    }
+//    
+//    var baseSlide2Subtitle: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review for people without read/edit history, second slide subtitle, %1$@ is replaced with the number of articles")
+//        return String.localizedStringWithFormat(format, String(numberViews))
+//    }
+//    
+//    var baseSlide3Title: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-editors-title", value: "Editors on the iOS app made more than %1$@ edits", comment: "Year in review for people without read/edit history, third slide title, %1$@ is replaced with the number of edits.")
+//        return String.localizedStringWithFormat(format, String(numberEditors))
+//    }
+//    
+//    var baseSlide3Subtitle: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review for people without read/edit history, third slide subtitle, %1$@ is replaced with the number of edits")
+//        return String.localizedStringWithFormat(format, String(numberEditors))
+//    }
+//    
+//    var baseSlide4Title: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-edits-title", value: "Wikipedia was edited %1$@ times per minute", comment: "Year in review for people without read/edit history, fourth slide title, %1$@ is replaced with the number of edits per minute.")
+//        return String.localizedStringWithFormat(format, String(numberEdits))
+//    }
+//    
+//    var baseSlide4Subtitle: String {
+//        let format = WMFFakeLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia. All of us have knowledge to share, learn how to participate.", comment: "Year in review for people without read/edit history, fourth slide subtitle, %1$@ is replaced with the number of edits per minute")
+//        return String.localizedStringWithFormat(format, String(numberEdits))
+//    }
+    
     func start() {
-        // NOTE: To be translated when grabbed from data source / migrated - this is all example data
-        let slides: [YearInReviewSlide] = [
+        // Base case if user has no edit/read history
+        let baseFlow: [YearInReviewSlide] = [
             YearInReviewSlide(
                 imageName: "heart_yir",
-                title: "You read 350 articles this year",
-                informationBubbleText: "Top languages: English, German, French",
-                subtitle: "You read 350 articles this year in English, German, and French. This year Wikipedia had 63.59 million articles available across over 332 active languages. You joined millions in expanding knowledge and exploring diverse topics."
-            ),
-            YearInReviewSlide(
-                imageName: "languages_yir",
-                title: "Top Viewed Articles",
-                informationBubbleText: "Most viewed: History of Art",
-                subtitle: "You explored topics like History of Art, Climate Change, and Artificial Intelligence. These were among the most viewed subjects globally, with millions of views from around the world."
-            ),
+                title: WMFLocalizedString("year-in-review-base-reading-title", value: "Reading brought us together", comment: "Year in review for people without read/edit history, first slide title"),
+                informationBubbleText: nil,
+                // Purposefully not translated due to numbers
+                subtitle: "Wikipedia had 63.59 million articles across over 332 active languages this year. You joined millions in expanding knowledge and exploring diverse topics."),
             YearInReviewSlide(
                 imageName: "phone_yir",
-                title: "Your Contributions",
-                informationBubbleText: "Edits: 45, Featured: 2",
-                subtitle: "This year, you made 45 edits, with 2 of them featured. Your contributions helped improve the quality and reach of Wikipedia's vast collection of knowledge."
-            ),
+                title: "We have viewed Wikipedia articles 1.4 Billion times",
+                informationBubbleText: nil,
+                subtitle: "iOS app users have viewed Wikipedia articles 1.4 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact."),
+            YearInReviewSlide(
+                imageName: "languages_yir",
+                title: "Editors on the iOS app made more than X edits",
+                informationBubbleText: nil,
+                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information."),
             YearInReviewSlide(
                 imageName: "edit_yir",
-                title: "Article Growth",
-                informationBubbleText: "New articles: 12",
-                subtitle: "You contributed to 12 new articles this year. Wikipedia's collection continues to grow, now with over 63.59 million articles in over 332 languages."
-            ),
-            YearInReviewSlide(
-                imageName: "savedarticles_yir",
-                title: "A Year in Review",
-                informationBubbleText: "Your Wiki Year",
-                subtitle: "Looking back at your Wikipedia journey this year, you've helped expand knowledge and contributed to a vibrant and growing community."
-            )
+                title: "Wikipedia was edited 342 times per minute",
+                informationBubbleText: nil,
+                subtitle: "This year, Wikipedia was edited at an average rate of 342 times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.")
         ]
         
         let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
@@ -65,14 +97,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature")
         )
         
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: baseFlow)
 
         var yirview = WMFYearInReview(viewModel: viewModel)
         
         yirview.donePressed = { [weak self] in
             self?.navigationController.dismiss(animated: true, completion: nil)
         }
-        
         
         self.viewModel = viewModel
         let finalView = yirview.environmentObject(targetRects) 
