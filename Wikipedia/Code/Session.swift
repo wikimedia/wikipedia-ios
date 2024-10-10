@@ -99,7 +99,7 @@ public class Session: NSObject {
             return false
         }
         
-        return centralAuthCookie.value.starts(with: "~")
+        return centralAuthCookie.value.starts(with: "~2")
     }
     
     public func cloneCentralAuthCookies() {
