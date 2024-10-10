@@ -87,19 +87,16 @@ public class Session: NSObject {
         return storage
     }()
     
-    /// Checks `centralauth_User` cookie, returns true if cookie is prefixed with ~, indicating temporary
-    /// Only checked against Configuration.centralAuthCookieSourceDomain
-    /// - Returns: true if there's a temporary central auth cookie stored, false if not
-    public func hasTemporaryCentralAuthCookies() -> Bool {
+    public func hasCentralAuthUserCookie() -> Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
         }
         
-        guard let centralAuthCookie = storage.cookieWithName("centralauth_User", for: Configuration.current.centralAuthCookieSourceDomain) else {
+        guard storage.cookieWithName("centralauth_User", for: Configuration.current.centralAuthCookieSourceDomain) != nil else {
             return false
         }
         
-        return centralAuthCookie.value.starts(with: "~2")
+        return true
     }
     
     public func cloneCentralAuthCookies() {

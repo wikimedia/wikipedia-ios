@@ -130,21 +130,9 @@ import CocoaLumberjackSwift
         return false
     }
     
-    /// Loops through all current user objects across the various siteURLs we have cached, and returns true if one contains authState == .temporary
-    /// It ALSO catches additional users that have a central auth username cookie prefixed with a ~
     @objc public var authStateIsTemporary: Bool {
-        for (_, user) in currentUserCache {
-            guard user.authState == .temporary else {
-                continue
-            }
-            
-            return true
-        }
-
-        // currentUserCache is only populated via app login attempts against the primary app language wiki (either automatic by the app or explicitly by the user). It misses temp account pilot wikis that are not the primary app language. It also misses users who edited anonymously and received a temporary account cookie, but before the app has attempted to automatically log them in again upon the next app resume. We need this additional step to check for a temporary state during this period of time.
-        
-        // Look into central auth cookies directly to see if they contain a username fitting the temporary pattern.
-        return session.hasTemporaryCentralAuthCookies()
+        // To match Android, is_temp = existence of central auth username cookie, but missing an entry in the local credential store
+        return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
     }
     
     // MARK: Login
