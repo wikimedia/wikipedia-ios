@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="WMFPage" representedClassName="CDPage" syncable="YES" codeGenerationType="class">
+    <entity name="CDPage" representedClassName="CDPage" syncable="YES" codeGenerationType="class">
         <attribute name="namespaceID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="projectID" attributeType="String"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="pageViews" toMany="YES" deletionRule="Cascade" destinationEntity="WMFPageView" inverseName="page" inverseEntity="WMFPageView"/>
+        <relationship name="pageViews" toMany="YES" deletionRule="Cascade" destinationEntity="CDPageView" inverseName="page" inverseEntity="CDPageView"/>
         <fetchIndex name="byProjectNamespace">
             <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
             <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
@@ -16,24 +16,20 @@
             <fetchIndexElement property="title" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="WMFPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
+    <entity name="CDPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="page" maxCount="1" deletionRule="Cascade" destinationEntity="WMFPage" inverseName="pageViews" inverseEntity="WMFPage"/>
+        <relationship name="page" maxCount="1" deletionRule="Cascade" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
     </entity>
-    <entity name="WMFYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="version" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    <entity name="CDYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
         <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="slides" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WMFYearInReviewSlide" inverseName="report" inverseEntity="WMFYearInReviewSlide"/>
+        <relationship name="slides" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDYearInReviewSlide" inverseName="report" inverseEntity="CDYearInReviewSlide"/>
     </entity>
-    <entity name="WMFYearInReviewSlide" representedClassName="CDYearInReviewSlide" syncable="YES" codeGenerationType="class">
+    <entity name="CDYearInReviewSlide" representedClassName="CDYearInReviewSlide" syncable="YES" codeGenerationType="class">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="display" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="evaluated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="isCollective" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="report" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFYearInReviewReport" inverseName="slides" inverseEntity="WMFYearInReviewReport"/>
+        <relationship name="report" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDYearInReviewReport" inverseName="slides" inverseEntity="CDYearInReviewReport"/>
     </entity>
 </model>

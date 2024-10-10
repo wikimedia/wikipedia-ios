@@ -398,6 +398,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    // add on the .swift + extensions file 
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {

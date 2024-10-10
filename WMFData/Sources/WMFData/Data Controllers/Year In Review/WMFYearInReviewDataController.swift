@@ -20,7 +20,7 @@ public final class WMFYearInReviewDataController {
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
 
-            let reportPredicate = NSPredicate(format: "year == %d AND version == %d", report.year, report.version)
+            let reportPredicate = NSPredicate(format: "year == %d", report.year, report.version)
             let cdReport = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewReport.self,
                 entityName: "CDYearInReviewReport",
@@ -42,8 +42,7 @@ public final class WMFYearInReviewDataController {
                 )
 
                 cdSlide?.year = Int32(slide.year)
-                cdSlide?.title = slide.title
-                cdSlide?.isCollective = slide.isCollective
+                //new id 
                 cdSlide?.evaluated = slide.evaluated
                 cdSlide?.display = slide.display
                 cdSlide?.data = slide.data

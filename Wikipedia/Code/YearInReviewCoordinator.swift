@@ -20,6 +20,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
+        Task {
+            
+        }
         // NOTE: To be translated when grabbed from data source / migrated - this is all example data
         let slides: [YearInReviewSlideContent] = [
             YearInReviewSlideContent(
