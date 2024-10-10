@@ -9,6 +9,30 @@ internal enum WMFMockError: Error {
 }
 
 fileprivate extension WMFData.WMFServiceRequest {
+    
+    var isFeatureConfigGet: Bool {
+        switch WMFDataEnvironment.current.serviceEnvironment {
+        case .production:
+            guard let url,
+                  url.host == "donate.wikimedia.org",
+                  url.path == "/wiki/MediaWiki:AppsFeatureConfig.json",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+            
+            return method == .GET && action == "raw"
+        case .staging:
+            guard let url,
+                  url.host == "test.wikipedia.org",
+                  url.path == "/wiki/MediaWiki:AppsFeatureConfig.json",
+                  let action = parameters?["action"] as? String else {
+                return false
+            }
+            
+            return method == .GET && action == "raw"
+        }
+    }
+    
     var isDonateConfigGet: Bool {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -152,6 +176,15 @@ public class WMFMockBasicService: WMFService {
     private func jsonData(for request: WMFData.WMFServiceRequest) -> Data? {
         if request.isDonateConfigGet {
             let resourceName = "donate-get-config"
+             
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+            
+            return jsonData
+        } else if request.isFeatureConfigGet {
+            let resourceName = "feature-get-config"
              
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {
