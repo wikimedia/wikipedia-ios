@@ -256,6 +256,7 @@
 "developer-settings" = "Title for developer settings view.";
 "developer-settings-always-show-alt-text-entry-point" = "Title for always showing the alt text experiment entry point. Displayed on the developer settings view.";
 "developer-settings-enable-alt-text-experiment-en" = "Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.";
+"developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
@@ -1393,5 +1394,9 @@
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-done" = "Year in review done button";
+"year-in-review-get-started" = "Button to continue to year in review";
+"year-in-review-hide" = "Button to hide year in review feature";
 "year-in-review-next" = "Year in review next button";
 "year-in-review-share" = "Year in review share button";
+"year-in-review-subtitle" = "Year in review page information";
+"year-in-review-title" = "Year in review page title";
