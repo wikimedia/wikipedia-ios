@@ -766,7 +766,6 @@
 "main-menu-account-logout" = "خروج از سامانه";
 "main-menu-account-logout-are-you-sure" = "آیا مطمئن هستید که می‌خواهید خارج شوید؟";
 "main-menu-account-logout-are-you-sure-message" = "خروج از سامانه باعث حذف داده‌های نگهداری‌شدهٔ محلی حساب شما (اعلان‌ها و پیام‌ها) خواهد شد، اما داده‌های حساب شما همچنان در وب در دسترس خواهد بود و اگر دوباره به سامانه وارد شوید، مجدداً بارگیری خواهد شد.";
-"main-menu-account-logout-cancel" = "لغو";
 "main-menu-account-title-logged-in" = "ورود به‌عنوان $1";
 "main-menu-heading-legal" = "شرایط و محرمانگی";
 "main-menu-nearby" = "در نزدیکی";

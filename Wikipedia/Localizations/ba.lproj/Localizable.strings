@@ -508,7 +508,6 @@
 "main-menu-account-logout" = "Сығырға";
 "main-menu-account-logout-are-you-sure" = "Һеҙ ысынлап та сығырға уйлайһығыҙмы?";
 "main-menu-account-logout-are-you-sure-message" = "Системанан сыҡһағыҙ, иҫәп яҙмағыҙҙа һаҡланған мәғлүмәттәр (хәбәр итеүҙәр һәм хәбәрҙәр) юйыласаҡ, әммә иҫәп яҙмағыҙҙың мәғлүмәттәре элеккесә интернетта буласаҡ һәм ҡабаттан ингәндә күренәсәк.";
-"main-menu-account-logout-cancel" = "Кире алырға";
 "main-menu-account-title-logged-in" = "$1 булып танылған";
 "main-menu-heading-legal" = "Йәшеренлек һәм шарттар";
 "main-menu-nearby" = "Эргәлә";

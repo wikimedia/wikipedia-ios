@@ -558,7 +558,6 @@
 "main-menu-account-logout" = "ออกจากระบบ";
 "main-menu-account-logout-are-you-sure" = "คุณแน่ใจว่าต้องการออกจากระบบหรือไม่";
 "main-menu-account-logout-are-you-sure-message" = "การออกจากระบบจะลบข้อมูลบัญชีที่เก็บไว้ในเครื่องของคุณ (การแจ้งเตือนและข้อความ) แต่ข้อมูลบัญชีของคุณจะยังคงมีอยู่บนเว็บและจะถูกดาวน์โหลดใหม่หากคุณเข้าสู่ระบบใหม่";
-"main-menu-account-logout-cancel" = "ยกเลิก";
 "main-menu-account-title-logged-in" = "เข้าสู่ระบบในชื่อ $1 อยู่";
 "main-menu-heading-legal" = "ความเป็นส่วนตัวและข้อกำหนด";
 "main-menu-nearby" = "ใกล้เคียง";

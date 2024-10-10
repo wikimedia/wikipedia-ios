@@ -338,7 +338,6 @@
 "main-menu-account-login" = "Влизане";
 "main-menu-account-logout" = "Излизане";
 "main-menu-account-logout-are-you-sure" = "Сигурен ли сте, че искате да излезете?";
-"main-menu-account-logout-cancel" = "Отказ";
 "main-menu-account-title-logged-in" = "Влезли сте като $1";
 "main-menu-heading-legal" = "Поверителност и условия";
 "main-menu-nearby" = "Наблизо";

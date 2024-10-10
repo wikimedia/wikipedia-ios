@@ -632,7 +632,6 @@
 "main-menu-account-logout" = "Keluar log";
 "main-menu-account-logout-are-you-sure" = "Apakah Anda yakin ingin keluar?";
 "main-menu-account-logout-are-you-sure-message" = "Keluar log akan menghapus data akun yang disimpan secara lokal (pemberitahuan dan pesan), tetapi data akun Anda akan tetap tersedia di web dan akan diunduh ulang jika Anda masuk kembali.";
-"main-menu-account-logout-cancel" = "Batal";
 "main-menu-account-title-logged-in" = "Telah masuk log sebagai $1";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
 "main-menu-nearby" = "Sekitar";

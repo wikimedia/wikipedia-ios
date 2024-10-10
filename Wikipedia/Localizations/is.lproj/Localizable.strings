@@ -529,7 +529,6 @@
 "main-menu-account-login" = "Skrá inn á Wikipedia";
 "main-menu-account-logout" = "Útskrá";
 "main-menu-account-logout-are-you-sure" = "Ertu viss að þú viljir skrá þig út?";
-"main-menu-account-logout-cancel" = "Hætta við";
 "main-menu-account-title-logged-in" = "Innskráð(ur) sem: $1";
 "main-menu-heading-legal" = "Gagnaleynd og skilmálar";
 "main-menu-nearby" = "Í nágrenni";

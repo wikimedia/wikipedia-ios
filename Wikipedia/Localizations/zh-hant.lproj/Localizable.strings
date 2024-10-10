@@ -255,6 +255,9 @@
 "clearing-cache-in-progress" = "正在清除快取。";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
+"confirm-donation-history-deletion-subtitle" = "這僅套用到透過此裝置所做過的捐款。";
+"confirm-donation-history-deletion-title" = "確認刪除";
+"confirmed-donation-history-deletion" = "已刪除本地歷史紀錄";
 "continue-button-title" = "繼續";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
@@ -368,6 +371,7 @@
 "donate-help-other-ways-to-give" = "其他給予方式";
 "donate-help-problems-donating" = "捐款時遇到麻煩？";
 "donate-help-tax-deductibility-information" = "減稅資訊";
+"donate-history-delete" = "刪除本地捐款歷史紀錄";
 "donate-later-title" = "明天我們會再次提醒您。";
 "donate-maximum-error-text" = "我們無法透過我們的網站接受超過 $1 $2 的捐款。請藉由 benefactors@wikimedia.org 電郵帳號來聯絡我們的贈品專門處理人員。";
 "donate-minimum-error-text" = "請選擇金額（最低 $1 $2）";
@@ -766,7 +770,6 @@
 "main-menu-account-logout" = "登出";
 "main-menu-account-logout-are-you-sure" = "您確定要登出嗎？";
 "main-menu-account-logout-are-you-sure-message" = "登出會刪除您在本地儲存的帳號資料（通知和訊息），不過您的帳號資料仍可在網路上使用，也會在您再次登入後將重新下載。";
-"main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
 "main-menu-heading-legal" = "隱私與條款";
 "main-menu-nearby" = "附近";
@@ -999,18 +1002,13 @@
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "privacy-policy-title" = "隱私權政策";
 "problem-with-feature-title" = "功能問題";
-"profile-page-donate" = "捐款";
+"profile-button-accessibility-hint" = "導航至個人資料檢視。";
+"profile-button-accessibility-label" = "個人資料";
+"profile-button-badge-accessibility-label" = "帶有尚未讀取徽章通知的個人資料";
 "profile-page-donate-subtext" = "或透過捐款支持維基百科，來讓世界各地的人可免費使用。";
-"profile-page-done-button" = "完成";
 "profile-page-join-subtext" = "在維基百科註冊帳號可讓您追蹤自己的貢獻、儲存離線條目、以及跨裝置同步。";
 "profile-page-join-title" = "加入維基百科/登入";
-"profile-page-logout" = "登出";
-"profile-page-notification-title" = "通知";
-"profile-page-settings" = "設定";
-"profile-page-talk-page-title" = "討論頁";
 "profile-page-title-logged-out" = "帳號";
-"profile-page-user-page-title" = "使用者頁面";
-"profile-page-watchlist-title" = "監視清單";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "維基教科書";
 "project-name-wikidata" = "維基數據";
@@ -1437,3 +1435,7 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+"year-in-review-donate" = "捐款";
+"year-in-review-done" = "確定";
+"year-in-review-next" = "下一個";
+"year-in-review-share" = "分享";

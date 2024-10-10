@@ -498,7 +498,6 @@
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-account-logout-are-you-sure" = "Czy na pewno chcesz się wylogować?";
 "main-menu-account-logout-are-you-sure-message" = "Wylogowanie spowoduje usunięcie przechowywanych lokalnie danych konta (powiadomienia i wiadomości), ale dane konta będą nadal dostępne w Internecie i zostaną ponownie pobrane po ponownym zalogowaniu.";
-"main-menu-account-logout-cancel" = "Anuluj";
 "main-menu-account-title-logged-in" = "Zalogowano jako $1";
 "main-menu-heading-legal" = "Prywatność i warunki";
 "main-menu-nearby" = "W pobliżu";

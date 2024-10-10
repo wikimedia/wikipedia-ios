@@ -742,7 +742,6 @@
 "main-menu-account-logout" = "Afmelden";
 "main-menu-account-logout-are-you-sure" = "Weet u zeker dat u wilt afmelden?";
 "main-menu-account-logout-are-you-sure-message" = "Als u zich afmeldt, worden uw lokaal opgeslagen accountgegevens (meldingen en berichten) verwijderd, maar uw accountgegevens zijn nog steeds beschikbaar op internet en worden opnieuw gedownload als u zich opnieuw aanmeldt.";
-"main-menu-account-logout-cancel" = "Annuleren";
 "main-menu-account-title-logged-in" = "Aangemeld als $1";
 "main-menu-heading-legal" = "Privacy en voorwaarden";
 "main-menu-nearby" = "In de buurt";

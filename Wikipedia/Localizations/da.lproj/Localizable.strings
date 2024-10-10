@@ -500,7 +500,6 @@
 "main-menu-account-login" = "Log på";
 "main-menu-account-logout" = "Log af";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
-"main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
 "main-menu-heading-legal" = "Privatliv og vilkår";
 "main-menu-nearby" = "I nærheden";

@@ -66,18 +66,18 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
+"account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਵਰਕਾ";
 "action-read" = "ਪੜ੍ਹੋ";
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
 "action-share" = "ਸਾਂਝਾ ਕਰੋ";
-// Fuzzy
-"announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
+"announcements-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
 "article-delete" = "ਮਿਟਾਓ";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾ ਲੱਭੋ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-others" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ";
 "article-languages-yours" = "ਤੁਹਾਡੀਆੰ ਭਾਸ਼ਾਵਾੰ:";
-"back-button-accessibility-label" = "ਪਿੱਛੇ";
+"back-button-accessibility-label" = "ਪਿਛਾਂਹ";
 "button-next" = "ਅੱਗੇ";
 "button-ok" = "ਠੀਕ";
 "button-publish" = "ਛਾਪੋ";
@@ -89,6 +89,7 @@
 "cancel" = "ਰੱਦ ਕਰੋ";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
+"confirm-donation-history-deletion-title" = "ਮਿਟਾਉਣ ਦੀ ਤਸਦੀਕ ਕਰੋ";
 "edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
@@ -102,19 +103,15 @@
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਬੇਤਰਤੀਬ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "ਸਾਰੇ ਪੱਤੇ \"%@\" ਓਹਲੇ ਕਰੋ";
+"explore-feed-preferences-hide-feed-cards-action-title" = "ਸਾਰੇ \"$1\" ਪੱਤੇ ਲੁਕਾਓ";
 "explore-feed-preferences-randomizer-description" = "ਪੜ੍ਹਨ ਲਈ ਬੇਤਰਤੀਬ ਲੇਖ ਤਿਆਰ ਕਰੋ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
-// Fuzzy
-"explore-most-read-footer" = "ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
+"explore-most-read-footer" = "ਸਭ ਤੋਂ ਵੱਧ ਪੜ੍ਹੇ ਗਏ ਲੇਖ";
 "explore-most-read-generic-heading" = "ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "explore-nearby-heading" = "ਥਾਵਾਂ ਨੇੜੇ";
 "explore-nearby-placeholder-heading" = "ਥਾਂਵਾਂ";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੇ";
-// Fuzzy
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੇ";
 "explore-nearby-sub-heading-your-location" = "ਤੁਹਾਡੀ ਸਥਿਤੀ";
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
@@ -135,15 +132,13 @@
 "history-clear-delete-all" = "ਹਾੰਜੀ, ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "history-title" = "ਅਤੀਤ";
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
-// Fuzzy
-"home-nearby-footer" = "ਮੇਰੇ ਸਥਾਨ ਦੇ ਨੇੜੇ ਤੋਂ ਹੋਰ";
+"home-nearby-footer" = "ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੇ ਨੇੜੇ ਹੋਰ ਥਾਂਵਾਂ";
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
 "home-title" = "ਵਿਚਰੋ";
 "icon-shortcut-nearby-title" = "ਨੇੜਲੇ ਲੇਖ";
 "icon-shortcut-random-title" = "ਬੇਤਰਤੀਬ ਲੇਖ";
 "icon-shortcut-search-title" = "ਵਿਕੀਪੀਡੀਆ ਖੋਜੋ";
-// Fuzzy
-"image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
+"image-gallery-unknown-owner" = "ਲਿਖਾਰੀ ਅਣਜਾਣ ਹੈ।";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
@@ -152,7 +147,6 @@
 "main-menu-account-login" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "main-menu-account-logout" = "ਬਾਹਰ ਆਉ";
 "main-menu-account-logout-are-you-sure" = "ਕੀ ਤੁਸੀੰ ਯਕੀਨੀ ਵਿਦਾਅ ਹੋਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
-"main-menu-account-logout-cancel" = "ਰੱਦ ਕਰੋ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
 "main-menu-heading-legal" = "ਪਰਦੇਦਾਰੀ ਅਤੇ ਸ਼ਰਤਾਂ";
 "main-menu-nearby" = "ਨੇੜੇ-ਤੇੜੇ";
@@ -172,10 +166,8 @@
 "notifications-center-change-password" = "ਪਾਸਵਰਡ ਬਦਲੋ";
 "notifications-center-destination-app" = "ਐਪ ਵਿੱਚ";
 "notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
-// Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
-// Fuzzy
-"notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
+"notifications-center-go-to-article" = "ਲੇਖ";
 "notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
 "notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
 "number-billions" = "$1B";
@@ -188,6 +180,11 @@
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
+"profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
+"profile-page-title-logged-out" = "ਖਾਤਾ";
+"project-name-wikibooks" = "ਵਿਕੀਕਿਤਾਬਾਂ";
+"project-name-wikinews" = "ਵਿਕੀਖ਼ਬਰਾਂ";
+"project-name-wikispecies" = "ਵਿਕੀਜਾਤੀਆਂ";
 "reading-themes-controls-accessibility-black-theme-button" = "ਕਾਲਾ ਥੀਮ";
 "reference-title" = "ਹਵਾਲਾ $1";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
@@ -202,8 +199,7 @@
 "search-recent-title" = "ਹਾਲੀਆ ਖੋਜ਼ਾਂ";
 "search-result-redirected-from" = "$1 ਤੋਂ ਰੀਡਿਰੈਕਟ";
 "search-title" = "ਖੋਜ";
-// Fuzzy
-"settings-appearance" = "ਦਿੱਖ";
+"settings-appearance" = "ਪੜ੍ਹਨ ਦੀਆਂ ਤਰਜੀਹਾਂ";
 "settings-clear-cache-cancel" = "ਰੱਦ ਕਰੋ";
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਸੁਝਾਅ";
 "settings-language-bar" = "ਖੋਜ ਵਿੱਚ ਭਾਸ਼ਾਵਾੰ ਵਿਖਾਓ";
@@ -213,20 +209,20 @@
 "settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "settings-primary-language" = "ਮੁੱਢਲੀ";
-// Fuzzy
-"settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
+"settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਵਿੱਚ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਲਈ ਮੁੱਢਲੀ ਭਾਸ਼ਾ ਵਜੋਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
-// Fuzzy
-"share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
+"share-article-name-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ \"$1\":";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
-// Fuzzy
-"share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
+"share-on-twitter-sign-off" = "ਵਿਕੀਪੀਡੀਆ ਦੁਆਰਾ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
+"talk-page-menu-open-all" = "ਸਾਰੇ ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਖੋਲ੍ਹੋ";
+"talk-page-page-info" = "ਵਰਕੇ ਦੀ ਜਾਣਕਾਰੀ";
+"tutorial-title" = "ਸਿਖਲਾਈ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";

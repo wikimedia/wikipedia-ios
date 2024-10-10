@@ -501,7 +501,6 @@
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-account-logout-are-you-sure" = "Sigur doriți să închideți sesiunea?";
 "main-menu-account-logout-are-you-sure-message" = "Deconectarea va șterge datele contului stocate local (notificări și mesaje), dar datele contului dvs. vor fi în continuare disponibile pe web și vor fi re-descărcate dacă vă conectați din nou.";
-"main-menu-account-logout-cancel" = "Revocare";
 "main-menu-account-title-logged-in" = "Autentificat ca $1";
 "main-menu-heading-legal" = "Confidențialitate și Termeni";
 "main-menu-nearby" = "În apropiere";

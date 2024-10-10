@@ -247,6 +247,7 @@
 "description-welcome-descriptions-title" = "وصف المقالة";
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
+"developer-settings" = "إعدادات المطور";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "من:";
 "diff-compare-header-heading" = "مقارنة المراجعات";
@@ -553,7 +554,6 @@
 "main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-are-you-sure-message" = "سيؤدي تسجيل الخروج إلى حذف بيانات حسابك المخزنة محليًا (الإشعارات والرسائل) ، ولكن ستظل بيانات حسابك متاحة على الويب وسيتم إعادة تنزيلها إذا قمت بتسجيل الدخول مرة أخرى.";
-"main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
 "main-menu-heading-legal" = "الشروط والخصوصية";
 "main-menu-nearby" = "بالقرب من هنا";

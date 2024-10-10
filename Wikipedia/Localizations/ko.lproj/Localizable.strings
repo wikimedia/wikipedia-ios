@@ -27,6 +27,7 @@
 // Author: Twotwo2019
 // Author: Underbaaar
 // Author: Viral
+// Author: YeBoy371
 // Author: Ykhwong
 // Author: Ysjbserver
 // Author: YuzaTea
@@ -142,6 +143,40 @@
 "action-update" = "업데이트";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
 "advanced-settings-title" = "고급 설정";
+"alt-text-add-button-title" = "추가";
+"alt-text-email-fifth-line" = "[스크린샷 또는 링크]";
+"alt-text-email-fourth-line" = "- [해결책 제안 설명]";
+"alt-text-email-second-line" = "- [구체적인 문제 설명]";
+"alt-text-email-third-line" = "제가 보고 싶은 동작은 다음와 같습니다:";
+"alt-text-experiment-caption-title" = "이미지 캡션";
+"alt-text-experiment-edit-summary" = "대체 텍스트 추가";
+"alt-text-experiment-onboarding-item-4-title" = "이미지 유형";
+"alt-text-experiment-onboarding-secondary-button-title" = "예시 보기";
+"alt-text-experiment-onboarding-title" = "이미지의 대체 텍스트를 작성하는 방법";
+"alt-text-experiment-onboarding-tooltip-1-body" = "문서의 맥락에서 이미지를 이해합니다.";
+"alt-text-experiment-onboarding-tooltip-1-title" = "검토";
+"alt-text-experiment-onboarding-tooltip-2-body" = "위키미디어 공용에서 추가 이미지 정보를 확인합니다.";
+"alt-text-experiment-onboarding-tooltip-2-title" = "점검";
+"alt-text-experiment-onboarding-tooltip-3-title" = "설명 추가";
+"alt-text-experiment-review-title" = "검토";
+"alt-text-experiment-text-field-placholder" = "이미지 설명하기";
+"alt-text-experiment-view-title" = "대체 텍스트 추가";
+"alt-text-feedback-alert-title" = "우리는 당신의 피드백을 원합니다";
+"alt-text-feedback-survey-neutral" = "중립";
+"alt-text-feedback-survey-satisfied" = "만족";
+"alt-text-feedback-survey-subtitle" = "이 기능에 만족하시나요?";
+"alt-text-feedback-survey-title" = "기능 개선 도움 제공";
+"alt-text-feedback-survey-toast-title" = "의견이 제출되었습니다";
+"alt-text-feedback-survey-unsatisfied" = "불만족";
+"alt-text-modal-subtitle-regular-edit" = "이 문서에 대체 텍스트가 없는 이미지가 있습니다. 시각 장애인 독자를 위한 설명을 추가하시겠습니까?";
+"alt-text-modal-title" = "이미지의 누락된 대체 텍스트를 추가할까요?";
+"alt-text-survey-option-1" = "이미지를 어떻게 설명해야 할지 모르겠습니다";
+"alt-text-survey-option-2" = "대체 문자를 추가할 전문 지식이 없습니다";
+"alt-text-survey-option-3" = "캡션과 어떻게 다른지 모르겠어요";
+"alt-text-survey-option-4" = "기술 문제가 있습니다";
+"alt-text-survey-option-5" = "시각 장애가 있습니다";
+"alt-text-survey-option-7" = "시간이 없습니다";
+"alt-text-title" = "대체 텍스트";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 각주, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
 "app-store-release-notes" = "탐색 피드를 온전히 사용자에 맞추어 지정하고 더 쉽게 읽습니다. 지역화, 성능 개선, 버그 수정.";
@@ -322,6 +357,8 @@
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
 "edit-summary-placeholder-text" = "어떻게 문서를 개선했습니까?";
+"edit-summary-short-description-added" = "짧은 설명을 추가함";
+"edit-summary-short-description-updated" = "짧을 설명을 갱신함";
 "edit-watch-list-learn-more-text" = "주시문서 목록에 대해 더 알아보기";
 "edit-watch-this-page-text" = "이 문서 주시하기";
 "editing-welcome-be-bold-subtitle" = "문서 수정은 과감히 하되, 무모하게는 하지 마십시오. 실수를 두려워하지 마십시오: 과거의 모든 문서 판은 보존되므로 실수는 우리 공동체에 의해 쉽게 수정이 가능합니다.";
@@ -665,7 +702,6 @@
 "main-menu-account-logout" = "로그아웃";
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
 "main-menu-account-logout-are-you-sure-message" = "로그아웃하면 로컬에 저장한 계정 데이터(알림과 메시지)는 삭제되지만 계정 데이터는 웹에서 그대로 사용 가능하며 다시 로그인하면 다시 다운로드됩니다.";
-"main-menu-account-logout-cancel" = "취소";
 "main-menu-account-title-logged-in" = "$1님으로 로그인됨";
 "main-menu-heading-legal" = "개인정보 및 약관";
 "main-menu-nearby" = "근처";
@@ -894,6 +930,10 @@
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
 "privacy-policy-title" = "개인정보보호정책";
 "problem-with-feature-title" = "기능에 문제가 있습니다";
+"profile-button-accessibility-label" = "프로필";
+"profile-button-badge-accessibility-label" = "읽지 않은 배지가 있는 프로필";
+"profile-page-join-title" = "위키백과에 가입 / 로그인";
+"profile-page-title-logged-out" = "계정";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
 "project-name-wikidata" = "위키데이터";
@@ -1088,6 +1128,10 @@
 "sort-by-recently-added-action" = "최근 추가됨";
 "sort-by-title-action" = "제목";
 "suggested-edits-title" = "편집 제안";
+"survey-instructions" = "하나 이상의 옵션을 선택하세요";
+"survey-other-placeholder" = "기타";
+"survey-submit" = "제출";
+"survey-title" = "이유";
 "table-of-contents-button-label" = "목차";
 "table-of-contents-close-accessibility-hint" = "닫기";
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
@@ -1303,3 +1347,7 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
+"year-in-review-donate" = "기부";
+"year-in-review-done" = "완료";
+"year-in-review-next" = "다음";
+"year-in-review-share" = "공유";

@@ -533,7 +533,6 @@
 "main-menu-account-logout" = "Odjavi me";
 "main-menu-account-logout-are-you-sure" = "Jeste li sigurni da se želite odjaviti?";
 "main-menu-account-logout-are-you-sure-message" = "Odjavom će se izbrisati Vaši lokalno pohranjeni podaci o računu (obavijesti i poruke), ali podaci o Vašem računu će i dalje biti dostupni na internetu i preuzet će se nakon ponovne prijave.";
-"main-menu-account-logout-cancel" = "Odustani";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kao $1";
 "main-menu-heading-legal" = "Privatnost i uslovi";
 "main-menu-nearby" = "U blizini";

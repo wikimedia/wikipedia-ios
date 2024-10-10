@@ -128,7 +128,6 @@
 "main-menu-about" = "Ծրագրի մասին";
 "main-menu-account-login" = "Մուտք գործել";
 "main-menu-account-logout" = "Դուրս գալ";
-"main-menu-account-logout-cancel" = "Չեղարկել";
 "main-menu-heading-legal" = "Գաղտնիություն և պայմաններ";
 "main-menu-nearby" = "Մոտակայքում";
 "main-menu-privacy-policy" = "Գաղտնիության քաղաքականություն";
@@ -167,10 +166,7 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
-"profile-page-donate" = "Նվիրաբերել";
-"profile-page-settings" = "Կարգավորումներ";
 "profile-page-title-logged-out" = "Հաշիվ";
-"profile-page-watchlist-title" = "Հսկացանկ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";
@@ -217,3 +213,7 @@
 "wikitext-upload-save" = "Պահպանվում է...";
 "wikitext-upload-save-sign-in" = "Մուտք գործել";
 "wikitext-upload-save-terms-name" = "Օգտագործման պայմաններ";
+"year-in-review-donate" = "Նվիրաբերել";
+"year-in-review-done" = "Արված է";
+"year-in-review-next" = "Հաջորդ";
+"year-in-review-share" = "Կիսվել";
