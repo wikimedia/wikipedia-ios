@@ -1389,9 +1389,13 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"year-in-review-base-editors-subtitle" = "Year in review for people without read/edit history, third slide subtitle, $1 is replaced with the number of edits";
+"year-in-review-base-editors-title" = "Year in review for people without read/edit history, third slide title, $1 is replaced with the number of edits.";
+"year-in-review-base-edits-subtitle" = "Year in review for people without read/edit history, fourth slide subtitle, $1 is replaced with the number of edits per minute";
+"year-in-review-base-edits-title" = "Year in review for people without read/edit history, fourth slide title, $1 is replaced with the number of edits per minute.";
 "year-in-review-base-reading-subtitle" = "Year in review for people without read/edit history, first slide subtitle, $1 is replaced with the number of articles, $2 is replaced with the number of languages.";
 "year-in-review-base-reading-title" = "Year in review for people without read/edit history, first slide title";
-"year-in-review-base-viewed-subtitle" = "Year in review for people without read/edit history, first slide subtitle, $1 is replaced with the number of articles, $2 is replaced with the number of languages.";
+"year-in-review-base-viewed-subtitle" = "Year in review for people without read/edit history, second slide subtitle, $1 is replaced with the number of articles";
 "year-in-review-base-viewed-title" = "Year in review for people without read/edit history, second slide title, $1 is replaced with the number of article views.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-done" = "Year in review done button";

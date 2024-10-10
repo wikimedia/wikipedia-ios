@@ -1389,6 +1389,10 @@
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
+"year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than $1 edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
+"year-in-review-base-editors-title" = "Editors on the iOS app made more than $1 edits";
+"year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia. All of us have knowledge to share, learn how to participate.";
+"year-in-review-base-edits-title" = "Wikipedia was edited $1 times per minute";
 "year-in-review-base-reading-subtitle" = "Wikipedia had $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-base-reading-title" = "Reading brought us together";
 "year-in-review-base-viewed-subtitle" = "iOS app users have viewed Wikipedia articles $1 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
