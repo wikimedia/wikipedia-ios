@@ -1,4 +1,4 @@
- import XCTest
+import XCTest
  @testable import WMFData
  @testable import WMFDataMocks
 
