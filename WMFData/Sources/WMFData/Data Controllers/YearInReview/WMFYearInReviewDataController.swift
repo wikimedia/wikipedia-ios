@@ -19,8 +19,6 @@ public final class WMFYearInReviewDataController {
             return false
         }
         
-        // TODO: Check developer settings local feature flag. https://phabricator.wikimedia.org/T376041
-        
         guard let countryCode,
               let primaryAppLanguageProject else {
             return false

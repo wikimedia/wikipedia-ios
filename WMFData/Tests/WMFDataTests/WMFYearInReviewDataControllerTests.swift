@@ -107,56 +107,58 @@
         
         XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
     }
+     
+     // TODO: Bring back once at least one personalized slide is in: T376066 or T376320
     
-    func testYearInReviewEntryPointDisabledPersonalizedSlides() {
-        
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
-        let config = WMFFeatureConfigResponse(ios: [ios])
-        
-        // Create mock developer settings data controller
-        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
-        
-        // Create year in review data controller to test
-        let yearInReviewDataController = WMFYearInReviewDataController(developerSettingsDataController: developerSettingsDataController)
-        
-        guard let frCountryCode else {
-            XCTFail("Missing expected country codes")
-            return
-        }
-        
-        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
-        
-        XCTAssertFalse(shouldShowEntryPoint, "Should not show entry point when both personalized slides are disabled.")
-    }
-    
-    func testYearInReviewEntryPointOneEnabledPersonalizedSlide() {
-        
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
-        let config = WMFFeatureConfigResponse(ios: [ios])
-        
-        // Create mock developer settings data controller
-        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
-        
-        // Create year in review data controller to test
-        let yearInReviewDataController = WMFYearInReviewDataController(developerSettingsDataController: developerSettingsDataController)
-        
-        guard let frCountryCode else {
-            XCTFail("Missing expected country codes")
-            return
-        }
-        
-        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
-        
-        XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
-    }
- }
+//    func testYearInReviewEntryPointDisabledPersonalizedSlides() {
+//        
+//        // Create mock developer settings config
+//        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
+//        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
+//        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
+//        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+//        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
+//        let config = WMFFeatureConfigResponse(ios: [ios])
+//        
+//        // Create mock developer settings data controller
+//        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
+//        
+//        // Create year in review data controller to test
+//        let yearInReviewDataController = WMFYearInReviewDataController(developerSettingsDataController: developerSettingsDataController)
+//        
+//        guard let frCountryCode else {
+//            XCTFail("Missing expected country codes")
+//            return
+//        }
+//        
+//        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
+//        
+//        XCTAssertFalse(shouldShowEntryPoint, "Should not show entry point when both personalized slides are disabled.")
+//    }
+//    
+//    func testYearInReviewEntryPointOneEnabledPersonalizedSlide() {
+//        
+//        // Create mock developer settings config
+//        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+//        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
+//        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
+//        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+//        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
+//        let config = WMFFeatureConfigResponse(ios: [ios])
+//        
+//        // Create mock developer settings data controller
+//        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
+//        
+//        // Create year in review data controller to test
+//        let yearInReviewDataController = WMFYearInReviewDataController(developerSettingsDataController: developerSettingsDataController)
+//        
+//        guard let frCountryCode else {
+//            XCTFail("Missing expected country codes")
+//            return
+//        }
+//        
+//        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
+//        
+//        XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
+//    }
+}
