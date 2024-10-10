@@ -256,6 +256,7 @@
 "developer-settings" = "Developer Settings";
 "developer-settings-always-show-alt-text-entry-point" = "Always show alt text entry point.";
 "developer-settings-enable-alt-text-experiment-en" = "Enable Alt Text experiment for English Wikipedia.";
+"developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
