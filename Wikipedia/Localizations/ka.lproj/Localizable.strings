@@ -112,7 +112,6 @@
 "main-menu-account-login" = "შესვლა";
 "main-menu-account-logout" = "გასვლა";
 "main-menu-account-logout-are-you-sure" = "დარწმუნებული ხართ, რომ გსურთ გასვლა?";
-"main-menu-account-logout-cancel" = "გაუქმება";
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
 "main-menu-nearby" = "სიახლოვეს";

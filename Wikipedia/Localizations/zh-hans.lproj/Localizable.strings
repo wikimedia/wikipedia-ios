@@ -776,7 +776,6 @@
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
 "main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
-"main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -1000,17 +999,10 @@
 "problem-with-feature-title" = "功能问题";
 "profile-button-accessibility-label" = "个人资料";
 "profile-button-badge-accessibility-label" = "个人资料（带有未读消息标记）";
-"profile-page-donate" = "捐款";
 "profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持免费且人人可访问。";
 "profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
 "profile-page-join-title" = "加入维基百科/登录";
-"profile-page-logout" = "退出登录";
-"profile-page-notification-title" = "通知";
-"profile-page-settings" = "设置";
-"profile-page-talk-page-title" = "讨论页";
 "profile-page-title-logged-out" = "账号";
-"profile-page-user-page-title" = "用户页";
-"profile-page-watchlist-title" = "监视列表";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
 "project-name-wikidata" = "维基数据";
