@@ -10,6 +10,17 @@
         })
     }
     
+    public func cookieWithName(_ name: String, for domain: String) -> HTTPCookie? {
+        guard let cookies = cookies, !cookies.isEmpty else {
+            return nil
+        }
+        let standardizedName = name.lowercased().precomposedStringWithCanonicalMapping
+        let standardizedDomain = domain.lowercased().precomposedStringWithCanonicalMapping
+        return cookies.filter({ (cookie) -> Bool in
+            return cookie.domain.lowercased().precomposedStringWithCanonicalMapping == standardizedDomain && cookie.name.lowercased().precomposedStringWithCanonicalMapping == standardizedName
+        }).first
+    }
+    
     public func copyCookiesWithNamePrefix(_ prefix: String, for domain: String, to toDomains: [String]) {
         let cookies = cookiesWithNamePrefix(prefix, for: domain)
         for toDomain in toDomains {
