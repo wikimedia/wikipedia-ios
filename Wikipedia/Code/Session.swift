@@ -92,7 +92,8 @@ public class Session: NSObject {
             return false
         }
         
-        guard storage.cookieWithName("centralauth_User", for: Configuration.current.centralAuthCookieSourceDomain) != nil else {
+        guard let cookie = storage.cookieWithName("centralauth_User", for: Configuration.current.centralAuthCookieSourceDomain),
+              !cookie.value.isEmpty else {
             return false
         }
         
