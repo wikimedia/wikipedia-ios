@@ -501,7 +501,7 @@ import WMFData
         
         /**
          * Not a required field, but we want to send it for all iOS schemas
-         * True if any wiki in auth manager's currentUserCache has a temporary flag
+         * True if there are no stored credentials but we have a central auth username cookie.
         **/
 
         let isTemp: Bool
