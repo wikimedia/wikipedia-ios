@@ -12,7 +12,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func getStarted() {
-        isFirstSlide = true
+        isFirstSlide = false
     }
     
     public struct LocalizedStrings {
