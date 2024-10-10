@@ -160,7 +160,7 @@ public final class WMFCoreDataStore {
             
             // Delete WMFPageViews that were added > one year ago
             let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
-            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPageView")
+            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
             pageViewFetchRequest.predicate = predicate
             
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
@@ -168,7 +168,7 @@ public final class WMFCoreDataStore {
             _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
             
             // Delete WMFPages that were added > one year ago
-            let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFPage")
+            let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPage")
             pageFetchRequest.predicate = predicate
             
             let batchPageDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageFetchRequest)

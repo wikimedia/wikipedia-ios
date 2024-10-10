@@ -20,7 +20,7 @@ public final class WMFYearInReviewDataController {
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
 
-            let reportPredicate = NSPredicate(format: "year == %d", report.year, report.version)
+            let reportPredicate = NSPredicate(format: "year == %d", report.year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewReport.self,
                 entityName: "CDYearInReviewReport",
@@ -29,11 +29,10 @@ public final class WMFYearInReviewDataController {
             )
 
             cdReport?.year = Int32(report.year)
-            cdReport?.version = Int32(report.version)
 
             var cdSlidesSet = Set<CDYearInReviewSlide>()
             for slide in report.slides {
-                let slidePredicate = NSPredicate(format: "year == %d AND title == %@", slide.year, slide.title)
+                let slidePredicate = NSPredicate(format: "year == %d", slide.year)
                 let cdSlide = try self.coreDataStore.fetchOrCreate(
                     entityType: CDYearInReviewSlide.self,
                     entityName: "CDYearInReviewSlide",
@@ -42,7 +41,7 @@ public final class WMFYearInReviewDataController {
                 )
 
                 cdSlide?.year = Int32(slide.year)
-                //new id 
+                cdSlide?.id = slide.id.rawValue
                 cdSlide?.evaluated = slide.evaluated
                 cdSlide?.display = slide.display
                 cdSlide?.data = slide.data
@@ -57,13 +56,12 @@ public final class WMFYearInReviewDataController {
         }
     }
 
-    public func createNewYearInReviewReport(year: Int, version: Int, slides: [WMFYearInReviewSlide]) async throws {
-        let newReport = WMFYearInReviewReport(year: year, version: version, slides: slides)
+    public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
+        let newReport = WMFYearInReviewReport(year: year, slides: slides)
 
         try await saveYearInReviewReport(newReport)
     }
 
-    // assuming we can store more than one report at a time, maybe add a fetching index prop in CD
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
         let viewContext = try coreDataStore.viewContext
         let reports: [WMFYearInReviewReport] = try await viewContext.perform {
@@ -78,20 +76,14 @@ public final class WMFYearInReviewDataController {
 
                 var slides: [WMFYearInReviewSlide] = []
                 for cdSlide in cdSlides {
-                    let slide = WMFYearInReviewSlide(
-                        year: Int(cdSlide.year),
-                        title: cdSlide.title ?? "",
-                        isCollective: cdSlide.isCollective,
-                        evaluated: cdSlide.evaluated,
-                        display: cdSlide.display,
-                        data: cdSlide.data
-                    )
+
+                    let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: self.getSlideId(cdSlide.id), evaluated: cdSlide.evaluated, display: cdSlide.display)
+
                     slides.append(slide)
                 }
 
                 let report = WMFYearInReviewReport(
                     year: Int(cdReport.year),
-                    version: Int(cdReport.version),
                     slides: slides
                 )
                 results.append(report)
@@ -101,13 +93,25 @@ public final class WMFYearInReviewDataController {
         return reports
     }
 
-    public func deleteYearInReviewReport(year: Int, version: Int) async throws {
+    private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID {
+        switch idString {
+        case "readCount":
+            return .readCount
+        case "editCount":
+            return .editCount
+        default:
+            return .editCount // TODO: fix
+        }
+
+    }
+
+    public func deleteYearInReviewReport(year: Int) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
 
-            let reportPredicate = NSPredicate(format: "year == %d AND version == %d", year, version)
+            let reportPredicate = NSPredicate(format: "year == %d", year)
             if let cdReport = try self.coreDataStore.fetch(
                 entityType: CDYearInReviewReport.self,
                 entityName: "CDYearInReviewReport",
