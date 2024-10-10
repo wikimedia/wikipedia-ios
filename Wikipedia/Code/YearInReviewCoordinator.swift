@@ -21,10 +21,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     let numberArticles = 63.59
     let numberLanguages = 332
+    let numberViews = 1.4
     
     var baseSlide1Subtitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review for people without read/edit history, first slide subtitle, %1$@ is replaced with the number of articles, %2$@ is replaced with the number of languages.")
         return String.localizedStringWithFormat(format, String(numberArticles), String(numberLanguages))
+    }
+    
+    var baseSlide2Subtitle: String {
+        let format = WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review for people without read/edit history, first slide subtitle, %1$@ is replaced with the number of articles, %2$@ is replaced with the number of languages.")
+        return String.localizedStringWithFormat(format, String(numberViews))
+    }
+    
+    var baseSlide2Title: String {
+        let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times.", comment: "Year in review for people without read/edit history, second slide title, %1$@ is replaced with the number of article views.")
+        return String.localizedStringWithFormat(format, String(numberViews))
     }
     
     func start() {
@@ -34,7 +45,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 imageName: "heart_yir",
                 title: WMFLocalizedString("year-in-review-base-reading-title", value: "Reading brought us together", comment: "Year in review for people without read/edit history, first slide title"),
                 informationBubbleText: nil,
-                subtitle: baseSlide1Subtitle)
+                subtitle: baseSlide1Subtitle),
+            YearInReviewSlide(
+                imageName: "phone_yir",
+                title: baseSlide2Title,
+                informationBubbleText: nil,
+                subtitle: baseSlide2Subtitle)
         ]
         
         /*

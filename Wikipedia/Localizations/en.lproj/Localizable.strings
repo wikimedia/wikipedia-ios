@@ -1391,6 +1391,8 @@
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "year-in-review-base-reading-subtitle" = "Wikipedia had $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-base-reading-title" = "Reading brought us together";
+"year-in-review-base-viewed-subtitle" = "iOS app users have viewed Wikipedia articles $1 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
+"year-in-review-base-viewed-title" = "We have viewed Wikipedia articles $1 Billion times.";
 "year-in-review-donate" = "Donate";
 "year-in-review-done" = "Done";
 "year-in-review-get-started" = "Get Started";
