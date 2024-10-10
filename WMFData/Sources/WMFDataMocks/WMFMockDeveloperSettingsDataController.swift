@@ -4,6 +4,9 @@ import WMFData
 #if DEBUG
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
+    var enableYearInReview: Bool {
+        return true
+    }
     
     private let featureConfig: WMFData.WMFFeatureConfigResponse
     
