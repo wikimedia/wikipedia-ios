@@ -1392,6 +1392,7 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"year-in-review-base-reading-title" = "Year in review for people without read/edit history, first slide title";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-done" = "Year in review done button";
 "year-in-review-get-started" = "Button to continue to year in review";
