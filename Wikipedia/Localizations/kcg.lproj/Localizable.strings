@@ -1,5 +1,6 @@
 // Messages for Tyap (Tyap)
 // Exported from translatewiki.net
+// Author: Friday musa
 // Author: Kambai Akau
 // Author: Tsevener
 
@@ -69,6 +70,7 @@
 "account-creation-saving" = "Shyia̱ di̱ saai...";
 "account-creation-title" = "Khwuk a̱la̱n a̰fai";
 "account-group-title" = "A̱la̱n Ang Ka";
+"account-talk-page-title" = "Peji a̱lyiat ang hu";
 "account-talk-preferences-title" = "A̱yaalan-cat peji a̱lyiat";
 "action-add-to" = "Mbeang mi̱...";
 "action-add-to-reading-list" = "Mbeang mi̱ lis fang";
@@ -132,6 +134,7 @@
 "clear-title-accessibility-label" = "Kak";
 "close-button-accessibility-label" = "Nyim";
 "compass-direction" = "di̱ tswam $1";
+"confirm-donation-history-deletion-title" = "Á̱ ca̱t yurup";
 "continue-reading-empty-description" = "Kat Wikipidya mat a̱yaati̱kut á̱ghyang a nfang";
 "continue-reading-empty-title" = "A̱yaati̱kut nang á̱ nfang mmam a̱zama nshyia̱ bah";
 "crimean-tatar-variants-alert-body" = "Ap Wikipidya wu ndi̱n a̱ma zwályiat a̱lyem Tatar Krimya jinii ma̱ninika nang lilyem kuntyin ku nfeang a̱ni mami ap wu, ku si̱ yet doot a kin fang, zop a̱wot a bu jhyuk ma̱ hẏohyoot a̱hyoot di̱ zwályiat lan-cat ang ji:\n\nQırımtatarca, Lati̱n Tatar Krimya Lati̱n (chr-latn)\nкъырымтатарджа, Кирил Tatar Krimya Kirilut (crh-cyrl)";
@@ -140,6 +143,7 @@
 "description-add-title" = "Mbeang wa̱i a̱lyiat";
 // Fuzzy
 "description-edit-for-article" = "Wa̱i a̱lyiat a̱lyoot mat $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "A̱son a̱lyiat jhyuk";
 // Fuzzy
 "description-edit-pencil-title" = "Wa̱i a̱lyiat a̱lyoot jhyuk";
@@ -399,7 +403,6 @@
 "main-menu-account-login" = "Nwuo";
 "main-menu-account-logout" = "Ghwut";
 "main-menu-account-logout-are-you-sure" = "A nwuak a̱cucuk a cat ghwut a?";
-"main-menu-account-logout-cancel" = "Lyang";
 "main-menu-account-title-logged-in" = "Nwuo nang $1";
 "main-menu-heading-legal" = "A̱bala̱lang ma̱ng A̱yaaka̱nda̱n";
 "main-menu-nearby" = "Kpa̱mkpaan";

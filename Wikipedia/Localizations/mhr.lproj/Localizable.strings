@@ -74,6 +74,7 @@
 "account-creation-title" = "У аккаунтым ышташ";
 "account-group-title" = "Тыйын аккаунтет";
 "account-request-vanishing" = "Аккаунтым кораҥдаш";
+"account-talk-page-title" = "Тыйын каҥашымаш велыжет";
 "account-talk-preferences-auto-sign-discussions" = "Каҥашымаште вигак кидпалым шындымаш";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Ойым пидмаш-влакын автоматически кид палым пыштымаште ончылгоч палемдыме кидпале кучылталташ тӱҥалеш";
 "account-talk-preferences-title" = "Каҥашымаш велыжын келыштарымашыже";
@@ -575,7 +576,6 @@
 "main-menu-account-login" = "Пураш";
 "main-menu-account-logout" = "Лекташ";
 "main-menu-account-logout-are-you-sure" = "Тый чынак системе гыч лекнет?";
-"main-menu-account-logout-cancel" = "Чараш";
 "main-menu-account-title-logged-in" = "$1 семын пурымо";
 "main-menu-heading-legal" = "Шолыплык да келшык";
 "main-menu-nearby" = "Лишне";

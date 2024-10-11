@@ -77,6 +77,7 @@
 "account-creation-saving" = "Menyimpan...";
 "account-creation-title" = "Buka akaun baru";
 "account-group-title" = "Akaun anda";
+"account-talk-page-title" = "Laman perbincangan anda";
 "account-talk-preferences-title" = "Keutamaan laman perbincangan";
 "action-add-to" = "Tambah ke...";
 "action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
@@ -155,6 +156,7 @@
 "data-migration-status" = "Mengemaskini...";
 "description-add-title" = "Tambah penerangan";
 "description-edit-for-article" = "Huraian rencana untuk $1";
+"description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Dengan mengubah keterangan tajuk, saya bersetuju dengan $1 dan untuk membatalkan pembaharuan tanpa izin di bawah lesen $2.";
 "description-edit-pencil-introduction" = "Sunting pengenalan";
@@ -439,7 +441,6 @@
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-account-logout-are-you-sure" = "Adakah anda benar-benar ingin keluar?";
-"main-menu-account-logout-cancel" = "Batalkan";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai $1";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
 "main-menu-nearby" = "Berdekatan";
@@ -579,15 +580,8 @@
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
-"profile-page-donate" = "Derma";
 "profile-page-join-title" = "Sertai Wikipedia / Log masuk";
-"profile-page-logout" = "Log keluar";
-"profile-page-notification-title" = "Pemberitahuan";
-"profile-page-settings" = "Tetapan";
-"profile-page-talk-page-title" = "Laman perbincangan";
 "profile-page-title-logged-out" = "Akaun";
-"profile-page-user-page-title" = "Laman pengguna";
-"profile-page-watchlist-title" = "Senarai pantau";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
 "project-name-wikiquote" = "Wikipetikan";

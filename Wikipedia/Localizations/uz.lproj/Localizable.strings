@@ -55,6 +55,7 @@
 "account-creation-saving" = "Saqlanyapti...";
 "account-creation-title" = "Yangi hisob yaratish";
 "account-group-title" = "Sizning hisobingiz";
+"account-talk-page-title" = "Munozara sahifangiz";
 "account-talk-preferences-title" = "Munozara sahifasi moslamalari";
 "action-cancel" = "Bekor qilish";
 "action-find-in-page" = "Sahifadan izlash";
@@ -99,6 +100,7 @@
 "data-migration-status" = "Yangilanmoqda...";
 "description-add-title" = "Tavsif qoʻshish";
 "description-edit-for-article" = "$1 uchun maqola tavsifi";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Kirishni tahrirlash";
 "description-edit-pencil-title" = "Maqola tavsifini tahrirlash";
 "description-edit-publish" = "Tavsifni chop etish";
@@ -201,7 +203,6 @@
 "main-menu-account-login" = "Kirmoq";
 "main-menu-account-logout" = "Chiqish";
 "main-menu-account-logout-are-you-sure" = "Chiqmoqchi ekanligingizga ishonchingiz komilmi?";
-"main-menu-account-logout-cancel" = "Bekor qilish";
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
 "main-menu-heading-legal" = "Maxfiylik va shartlar";
 "main-menu-nearby" = "Yaqin atrofda";

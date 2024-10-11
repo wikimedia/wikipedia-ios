@@ -15,11 +15,17 @@ public struct WMFYearInReview: View {
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
+    
+    let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
 
     public var body: some View {
         NavigationView {
             VStack {
-                WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                if viewModel.isFirstSlide {
+                    firstSlide
+                } else {
+                    WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                }
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
@@ -32,43 +38,45 @@ public struct WMFYearInReview: View {
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        // TODO: Implement Donation
-                    }) {
-                        HStack {
-                            if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                                Image(uiImage: uiImage)
-                                    .foregroundStyle(Color(uiColor: theme.destructive))
-                            }
-                            Text(viewModel.localizedStrings.donateButtonTitle)
-                                .foregroundStyle(Color(uiColor: theme.destructive))
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                        }
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    HStack {
+                if !viewModel.isFirstSlide {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button(action: {
-                            // TODO: Implement share
+                            // TODO: Implement Donation
                         }) {
-                            HStack(alignment: .center, spacing: 6) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .foregroundStyle(Color(uiColor: theme.link))
-                                Text(viewModel.localizedStrings.shareButtonTitle)
-                                    .foregroundStyle(Color(uiColor: theme.link))
+                            HStack {
+                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+                                    Image(uiImage: uiImage)
+                                        .foregroundStyle(Color(uiColor: theme.destructive))
+                                }
+                                Text(viewModel.localizedStrings.donateButtonTitle)
+                                    .foregroundStyle(Color(uiColor: theme.destructive))
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
                         }
-                        Spacer()
-                        Button(action: {
-                            withAnimation {
-                                currentSlide = (currentSlide + 1) % viewModel.slides.count
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack {
+                            Button(action: {
+                                // TODO: Implement share
+                            }) {
+                                HStack(alignment: .center, spacing: 6) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .foregroundStyle(Color(uiColor: theme.link))
+                                    Text(viewModel.localizedStrings.shareButtonTitle)
+                                        .foregroundStyle(Color(uiColor: theme.link))
+                                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                                }
                             }
-                        }) {
-                            Text(viewModel.localizedStrings.nextButtonTitle)
-                                .foregroundStyle(Color(uiColor: theme.link))
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                            Spacer()
+                            Button(action: {
+                                withAnimation {
+                                    currentSlide = (currentSlide + 1) % viewModel.slides.count
+                                }
+                            }) {
+                                Text(viewModel.localizedStrings.nextButtonTitle)
+                                    .foregroundStyle(Color(uiColor: theme.link))
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                            }
                         }
                     }
                 }
@@ -79,5 +87,34 @@ public struct WMFYearInReview: View {
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
+    }
+
+    private var firstSlide: some View {
+        ScrollView {
+            VStack(spacing: 48) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Image("globe", bundle: .module)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Text(viewModel.localizedStrings.firstSlideTitle)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    Text(viewModel.localizedStrings.firstSlideSubtitle)
+                        .font(Font(WMFFont.for(.title3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                }
+                VStack {
+                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
+                        withAnimation {
+                            viewModel.getStarted()
+                        }
+                    }
+                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                        // TODO: Implement hide this feature
+                    }
+                }
+            }
+        }
+        .padding(36)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

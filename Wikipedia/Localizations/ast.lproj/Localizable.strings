@@ -47,6 +47,7 @@
 "account-creation-saving" = "Guardando...";
 "account-creation-title" = "Crear una cuenta nueva";
 "account-group-title" = "La to cuenta";
+"account-talk-page-title" = "La to páxina d'alderique";
 "account-talk-preferences-auto-sign-discussions" = "Roblar automáticamente nos alderiques";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La robla automática de los alderiques va usar la firma definida na configuración de Robla";
 "account-talk-preferences-title" = "Preferencies de la páxina d'alderique";
@@ -118,6 +119,7 @@
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
 "description-add-title" = "Amestar descripción";
 "description-edit-for-article" = "Descripción d'artículu pa $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Editar introducción";
 "description-edit-pencil-title" = "Editar la descripción del artículu";
 "description-edit-placeholder-title" = "Les descripciones curties son meyores";
@@ -324,7 +326,6 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-account-logout-are-you-sure" = "¿Seguro que quies zarrar sesión?";
-"main-menu-account-logout-cancel" = "Zarrar";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
 "main-menu-nearby" = "Cercanu";

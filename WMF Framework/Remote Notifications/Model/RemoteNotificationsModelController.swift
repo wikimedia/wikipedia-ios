@@ -131,6 +131,7 @@ final class RemoteNotificationsModelController {
         }
         
         let backgroundContext = newBackgroundContext()
+
         backgroundContext.perform {
             let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
             let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
@@ -143,7 +144,7 @@ final class RemoteNotificationsModelController {
                 try batchDeleteBlock(libraryRequest, backgroundContext)
                 
                 // remove notifications from shared cache (referenced by the NotificationsService extension)
-                let sharedCache = SharedContainerCache<PushNotificationsCache>.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+                let sharedCache = SharedContainerCache.init(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
                 var cache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
                 cache.notifications = []
                 cache.currentUnreadCount = 0
@@ -152,6 +153,7 @@ final class RemoteNotificationsModelController {
                 DDLogError("Error resetting notifications database: \(error)")
             }
         }
+
     }
     
     func newBackgroundContext() -> NSManagedObjectContext {

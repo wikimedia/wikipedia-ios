@@ -96,6 +96,7 @@
 "account-creation-title" = "Mở tài khoản mới";
 "account-group-title" = "Tài khoản của Bạn";
 "account-request-vanishing" = "Biến mất tài khoản";
+"account-talk-page-title" = "Trang thảo luận của bạn";
 "account-talk-preferences-auto-sign-discussions" = "Tự động ký thảo luận";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tự động ký các cuộc thảo luận sẽ sử dụng chữ ký trong tùy chọn Chữ ký";
 "account-talk-preferences-title" = "Tùy chọn trang thảo luận";
@@ -185,6 +186,7 @@
 "data-migration-status" = "Đang cập nhật…";
 "description-add-title" = "Thêm lời tóm lược";
 "description-edit-for-article" = "Tóm lược bài viết $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Với việc thay đổi lời tóm lược bài viết, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
 "description-edit-pencil-introduction" = "Sửa phần đầu";
 "description-edit-pencil-title" = "Sửa lời tóm lược bài viết";
@@ -536,7 +538,6 @@
 "main-menu-account-logout" = "Đăng xuất";
 "main-menu-account-logout-are-you-sure" = "Bạn có chắc chắn muốn đăng xuất?";
 "main-menu-account-logout-are-you-sure-message" = "Việc đăng xuất sẽ xóa dữ liệu tài khoản được lưu trữ cục bộ của bạn (thông báo và tin nhắn), nhưng dữ liệu tài khoản của bạn sẽ vẫn còn trên web và sẽ được tải xuống lại nếu bạn đăng nhập lại.";
-"main-menu-account-logout-cancel" = "Hủy bỏ";
 "main-menu-account-title-logged-in" = "Đã đăng nhập là $1.";
 "main-menu-heading-legal" = "Thông tin pháp luật";
 "main-menu-nearby" = "Lân cận";

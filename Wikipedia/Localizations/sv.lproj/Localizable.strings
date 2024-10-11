@@ -99,6 +99,7 @@
 "account-creation-title" = "Skapa ett nytt konto";
 "account-group-title" = "Ditt konto";
 "account-request-vanishing" = "Få kontot att försvinna";
+"account-talk-page-title" = "Din diskussionssida";
 "account-talk-preferences-auto-sign-discussions" = "Signera diskussioner automatiskt";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskussioner använder signaturen som definieras i signaturinställningarna";
 "account-talk-preferences-title" = "Inställningar för diskussionssida";
@@ -245,6 +246,7 @@
 "data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Artikelbeskrivning för $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Genom att ändra artikelbeskrivningen samtycker jag till $1 och att oåterkalleligt släppa mina bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Redigera inledningen";
 "description-edit-pencil-title" = "Redigera artikelbeskrivningen";
@@ -747,7 +749,6 @@
 "main-menu-account-logout" = "Logga ut";
 "main-menu-account-logout-are-you-sure" = "Är du säker på att du vill logga ut?";
 "main-menu-account-logout-are-you-sure-message" = "Om du loggar ut raderas din lokalt lagrade kontodata (notiser och meddelanden), men din kontodata kommer fortfarande att vara tillgängliga på webben och kommer att laddas ner igen om du loggar in igen.";
-"main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Inloggad som $1";
 "main-menu-heading-legal" = "Integritet och villkor";
 "main-menu-nearby" = "I närheten";
@@ -983,17 +984,10 @@
 "profile-button-accessibility-hint" = "Navigerar till profilvyn.";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil med märke för olästa aviseringar";
-"profile-page-donate" = "Donera";
 "profile-page-donate-subtext" = "Eller stöd Wikipedia med en donation för att hålla den gratis och tillgänglig för alla runt om i världen.";
 "profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
 "profile-page-join-title" = "Skapa konto på Wikipedia / Logga in";
-"profile-page-logout" = "Logga ut";
-"profile-page-notification-title" = "Aviseringar";
-"profile-page-settings" = "Inställningar";
-"profile-page-talk-page-title" = "Diskussionssida";
 "profile-page-title-logged-out" = "Konto";
-"profile-page-user-page-title" = "Användarsida";
-"profile-page-watchlist-title" = "Bevakningslista";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

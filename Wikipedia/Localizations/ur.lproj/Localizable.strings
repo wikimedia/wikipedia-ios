@@ -51,6 +51,7 @@
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-title" = "نیا کھاتہ بنائیں";
 "account-group-title" = "آپ کا کھاتہ";
+"account-talk-page-title" = "آپ کا تبادلۂ خیال صفحہ";
 "action-add-to" = "جمح کریں۔۔۔۔";
 "action-add-to-reading-list" = "فہرست مطالعہ میں شامل کریں";
 "action-add-to-reading-list-short" = "فہرست میں شامل کریں";
@@ -107,6 +108,7 @@
 "description-add-title" = "وضاحت شامل کریں";
 // Fuzzy
 "description-edit-for-article" = "$1 کے لیے عنوان وضاحت";
+"description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "دیباچے میں ترمیم  کے ساتھ ہی  مجھے اپنی ترامیم کے ضمن میں $1 اور $2 کے تحت  ناقابل تنسیخ واگزاشت لائسنس کی شرائط سے مکمل اتفاق ہے۔";
 "description-edit-pencil-introduction" = "تعاوف میں ترمیم کریں";
@@ -251,7 +253,6 @@
 "main-menu-account-login" = "داخل ہوں";
 "main-menu-account-logout" = "خارج ہوجائیں";
 "main-menu-account-logout-are-you-sure" = "کیا آپ یقینی طور پر خارج ہوجانا چاہتے ہیں؟";
-"main-menu-account-logout-cancel" = "منسوخ";
 "main-menu-account-title-logged-in" = "داخل شدہ بطور $1";
 "main-menu-heading-legal" = "رازداری اور شرائط";
 "main-menu-nearby" = "قریبی";

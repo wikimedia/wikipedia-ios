@@ -32,6 +32,7 @@
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
+"account-talk-page-title" = "אייער רעדן בלאַט";
 "action-cancel" = "אַנולירן";
 "action-language-accessibility" = "ענדערן שפּראַך";
 "action-read" = "לייענען";
@@ -72,7 +73,6 @@
 "main-menu-account-login" = "אַרײַנלאגירן";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-account-logout-are-you-sure" = "איר ווילט טאקע ארויסלאגירן?";
-"main-menu-account-logout-cancel" = "אַנולירן";
 "main-menu-account-title-logged-in" = "ארײַנלאגירט ווי $1";
 "main-menu-heading-legal" = "פריוואטקייט און באדינגונגען";
 "main-menu-nearby" = "דערבײ";

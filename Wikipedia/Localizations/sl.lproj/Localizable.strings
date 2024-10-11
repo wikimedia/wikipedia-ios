@@ -78,6 +78,7 @@
 "account-creation-title" = "Ustvarite nov račun";
 "account-group-title" = "Vaš račun";
 "account-request-vanishing" = "Izbris računa";
+"account-talk-page-title" = "Vaša stran za pogovor";
 "account-talk-preferences-auto-sign-discussions" = "Pogovori s samodejnim podpisom";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Pri samodejnem podpisovanju pogovorov bo uporabljen podpis, določen v nastavitvah podpisa";
 "account-talk-preferences-title" = "Nastavitve strani za pogovor";
@@ -171,6 +172,7 @@
 "data-migration-status" = "Posodabljam ...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis članka za $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "S spremembo opisa članka se strinjam s $1 in nepreklicno objavljam svoj prispevek pod licenco $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-pencil-title" = "Urejanje opisa članka";
@@ -628,7 +630,6 @@
 "main-menu-account-logout" = "Odjava";
 "main-menu-account-logout-are-you-sure" = "Ali se res želite odjaviti?";
 "main-menu-account-logout-are-you-sure-message" = "Če se boste odjavili, boste izbrisali lokalno shranjene podatke o računu (obvestila in sporočila), vendar bodo podatki o vašem računu še vedno na voljo na spletu in bodo znova preneseni, če se boste znova prijavili.";
-"main-menu-account-logout-cancel" = "Prekliči";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kot $1";
 "main-menu-heading-legal" = "Zasebnost in pogoji";
 "main-menu-nearby" = "Bližnje";
@@ -859,6 +860,9 @@
 "potd-widget-title" = "Slika dneva";
 "preference-summary-eventlogging-opt-in" = "Omogočite Fundaciji Wikimedia zbiranje podatkov o tem, kako uporabljate aplikacijo, da bo ta postala še boljša.";
 "privacy-policy-title" = "Pravilnik o zasebnosti";
+"profile-button-accessibility-hint" = "Pomakne se na pogled profila.";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil z neprebrano značko";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikiknjige";
 "project-name-wikidata" = "Wikipodatki";
@@ -1275,3 +1279,7 @@
 "wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
+"year-in-review-donate" = "Doniraj";
+"year-in-review-done" = "Končano";
+"year-in-review-next" = "Naprej";
+"year-in-review-share" = "Deli";

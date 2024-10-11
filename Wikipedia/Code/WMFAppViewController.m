@@ -897,9 +897,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     self.migrationComplete = YES;
                     self.migrationActive = NO;
                     [self endMigrationBackgroundTask];
+                    [self setupWMFDataEnvironment];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
-                    [self setupWMFDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }

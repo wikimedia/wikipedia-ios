@@ -3,6 +3,7 @@
 #import "WMFAnnouncement.h"
 
 @import CoreData;
+@import WMFData;
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
@@ -889,27 +890,19 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                                  [taskGroup leave];
                              });
                          }];
-    // Remote config
-    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/extensions/MobileApp/config/ios.json"];
+    // Remote Feature config
     [taskGroup enter];
-    [self.session getJSONDictionaryFromURL:remoteConfigURL
-                               ignoreCache:YES
-                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (error) {
-                                     updateError = error;
-                                     [taskGroup leave];
-                                     return;
-                                 }
-                                 if (self.isLocalConfigUpdateAllowed) {
-                                     [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                     self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
-                                 } else {
-                                     self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
-                                 }
-                                 [taskGroup leave];
-                             });
-                         }];
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    updateError = error;
+                    [taskGroup leave];
+                    return;
+                }
+                
+                [taskGroup leave];
+            });
+    }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);

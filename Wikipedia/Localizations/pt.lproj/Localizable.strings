@@ -94,6 +94,7 @@
 "account-creation-title" = "Criar uma conta nova";
 "account-group-title" = "A sua conta";
 "account-request-vanishing" = "Fazer conta desaparecer";
+"account-talk-page-title" = "A sua página de discussão";
 "account-talk-preferences-auto-sign-discussions" = "Assinar discussões automaticamente";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "A assinatura automática de discussões usará a assinatura definida nas configurações da assinatura";
 "account-talk-preferences-title" = "Preferências da página de discussão";
@@ -186,6 +187,7 @@
 "data-migration-status" = "A atualizar...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do artigo $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ao alterar a descrição do artigo, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
 "description-edit-pencil-title" = "Editar descrição do artigo";
@@ -622,7 +624,6 @@
 "main-menu-account-logout" = "Sair";
 "main-menu-account-logout-are-you-sure" = "Tem a certeza de que pretende encerrar a sessão?";
 "main-menu-account-logout-are-you-sure-message" = "Terminar a sessão apagará os seus dados de conta armazenados localmente (notificações e mensagens), mas os dados da sua conta continuarão a estar disponíveis na internet e voltarão a ser descarregados se voltar a iniciar uma sessão.";
-"main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sessão iniciada como $1";
 "main-menu-heading-legal" = "Privacidade e Condições";
 "main-menu-nearby" = "Aqui perto";

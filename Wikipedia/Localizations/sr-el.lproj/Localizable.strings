@@ -76,6 +76,7 @@
 "account-creation-title" = "Otvaranje novog naloga";
 "account-group-title" = "Vaš nalog";
 "account-request-vanishing" = "Gašenje naloga";
+"account-talk-page-title" = "Vaša stranica za razgovor";
 "account-talk-preferences-auto-sign-discussions" = "Automatsko potpisivanje diskusija";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatsko potpisivanje diskusija će koristiti potpis definisan u podešavanjima potpisa";
 "account-talk-preferences-title" = "Podešavanja stranice za razgovor";
@@ -161,6 +162,7 @@
 "data-migration-status" = "Ažuriranje...";
 "description-add-title" = "Dodavanje opisa";
 "description-edit-for-article" = "Opis članka za stranicu $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Promenom opisa članka, prihvatam $1 i neopozivo objavljujem doprinose pod licencom $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
 "description-edit-pencil-title" = "Dodaj opis članka";
@@ -517,7 +519,6 @@
 "main-menu-account-logout" = "Odjavi me";
 "main-menu-account-logout-are-you-sure" = "Želite li zaista da se odjavite?";
 "main-menu-account-logout-are-you-sure-message" = "Odjavljivanje će obrisati vaše lokalno sačuvane podatke sa naloga (obaveštenja i poruke), ali će podaci vašeg naloga biti i dalje dostupni na internetu i biti ponovo preuzeti ukoliko se prijavite ponovo.";
-"main-menu-account-logout-cancel" = "Otkaži";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kao $1";
 "main-menu-heading-legal" = "Privatnost i uslovi";
 "main-menu-nearby" = "U blizini";

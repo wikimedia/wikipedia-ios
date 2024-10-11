@@ -113,6 +113,7 @@
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
 "description-add-title" = "Gehitu deskribapena";
+"description-edit-length-warning" = "$1 / $2";
 "description-help-about-title" = "Honi buruz";
 "description-help-about-wikidata" = "Wikidatari buruz";
 "dim-images" = "Irudiak arindu";
@@ -258,7 +259,6 @@
 "main-menu-account-login" = "Saioa hasi";
 "main-menu-account-logout" = "Saioa itxi";
 "main-menu-account-logout-are-you-sure" = "Atera nahi duzula ziur al zaude?";
-"main-menu-account-logout-cancel" = "Utzi";
 "main-menu-account-title-logged-in" = "Saioa hasita, $1 erabiltzaile izenarekin";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
 "main-menu-nearby" = "Hurbilekoak";

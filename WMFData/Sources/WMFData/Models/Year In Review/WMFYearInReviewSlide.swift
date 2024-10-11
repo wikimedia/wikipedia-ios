@@ -1,6 +1,6 @@
 import Foundation
 
-public class WMFYearInReviewSlide: Identifiable{
+public class WMFYearInReviewSlide: Identifiable {
     public let year: Int
     public let id: WMFYearInReviewPersonalizedSlideID
     public var evaluated: Bool
