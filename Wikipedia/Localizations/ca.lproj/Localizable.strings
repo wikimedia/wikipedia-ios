@@ -591,7 +591,6 @@
 "main-menu-account-logout" = "Finalitza la sessió";
 "main-menu-account-logout-are-you-sure" = "Esteu segur que voleu finalitzar la sessió?";
 "main-menu-account-logout-are-you-sure-message" = "En finalitzar la sessió se suprimiran les dades del compte emmagatzemades localment (notificacions i missatges), però les dades del vostre compte continuaran disponibles a la xarxa i recuperaran de nou quan torneu a iniciar una sessió.";
-"main-menu-account-logout-cancel" = "Cancel·la";
 "main-menu-account-title-logged-in" = "Sessió iniciada com a $1";
 "main-menu-heading-legal" = "Privadesa i condicions";
 "main-menu-nearby" = "A prop";

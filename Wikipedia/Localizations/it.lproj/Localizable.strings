@@ -205,6 +205,9 @@
 "clear-title-accessibility-label" = "Pulisci";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
+"confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
+"confirm-donation-history-deletion-title" = "Conferma cancellazione";
+"confirmed-donation-history-deletion" = "Cronologia locale cancellata";
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
@@ -296,6 +299,7 @@
 "donate-help-other-ways-to-give" = "Altri modi per donare";
 "donate-help-problems-donating" = "Hai problemi con la donazione?";
 "donate-help-tax-deductibility-information" = "Informazioni di deducibilità fiscale";
+"donate-history-delete" = "Cancella la cronologia delle donazioni locali";
 "donate-later-title" = "Te lo ricorderemo di nuovo domani.";
 "donate-maximum-error-text" = "Non possiamo accettare donazioni superiori a $1 $2 attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Si prega di selezionare un importo (minimo $1 $2)";
@@ -543,7 +547,6 @@
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-account-logout-are-you-sure" = "Sei sicuro di voler uscire?";
-"main-menu-account-logout-cancel" = "Annulla";
 "main-menu-account-title-logged-in" = "Accesso effettuato come $1";
 "main-menu-heading-legal" = "Privacy e condizioni";
 "main-menu-nearby" = "Nelle vicinanze";
@@ -705,6 +708,7 @@
 "potd-widget-title" = "Immagine del giorno";
 "preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
+"profile-button-accessibility-label" = "Profilo";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -994,3 +998,7 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-donate" = "Dona";
+"year-in-review-done" = "Fatto";
+"year-in-review-next" = "Successivo";
+"year-in-review-share" = "Condividi";
