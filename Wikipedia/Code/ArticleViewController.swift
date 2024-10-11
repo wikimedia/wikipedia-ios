@@ -152,7 +152,9 @@ class ArticleViewController: ViewController, HintPresenting {
 
         super.init(theme: theme)
         
-        self.schemeHandler.imageDidSuccessfullyLoad = imageDidSuccessfullyLoad
+        self.schemeHandler.imageDidSuccessfullyLoad = { [weak self] in
+            self?.imageDidSuccessfullyLoad()
+        }
         
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
