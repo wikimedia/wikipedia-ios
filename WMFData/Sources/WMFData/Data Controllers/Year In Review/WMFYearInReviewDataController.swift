@@ -32,7 +32,7 @@ public final class WMFYearInReviewDataController {
 
             var cdSlidesSet = Set<CDYearInReviewSlide>()
             for slide in report.slides {
-                let slidePredicate = NSPredicate(format: "year == %d", slide.year)
+                let slidePredicate = NSPredicate(format: "id == %@", slide.id.rawValue)
                 let cdSlide = try self.coreDataStore.fetchOrCreate(
                     entityType: CDYearInReviewSlide.self,
                     entityName: "CDYearInReviewSlide",
@@ -62,6 +62,46 @@ public final class WMFYearInReviewDataController {
         try await saveYearInReviewReport(newReport)
     }
 
+    public func fetchYearInReviewReport(forYear year: Int) async throws -> WMFYearInReviewReport? {
+        let viewContext = try coreDataStore.viewContext
+        let report: WMFYearInReviewReport? = try await viewContext.perform { () -> WMFYearInReviewReport? in
+            let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
+
+            fetchRequest.predicate = NSPredicate(format: "year == %d", year)
+
+            let cdReports = try viewContext.fetch(fetchRequest)
+
+            guard let cdReport = cdReports.first else {
+                return nil
+            }
+
+            guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
+                return nil
+            }
+
+            var slides: [WMFYearInReviewSlide] = []
+            for cdSlide in cdSlides {
+                if let id = self.getSlideId(cdSlide.id) {
+                    let slide = WMFYearInReviewSlide(
+                        year: Int(cdSlide.year),
+                        id: id,
+                        evaluated: cdSlide.evaluated,
+                        display: cdSlide.display
+                    )
+                    slides.append(slide)
+                }
+            }
+
+            let report = WMFYearInReviewReport(
+                year: Int(cdReport.year),
+                slides: slides
+            )
+            return report
+        }
+        return report
+    }
+
+
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
         let viewContext = try coreDataStore.viewContext
         let reports: [WMFYearInReviewReport] = try await viewContext.perform {
@@ -76,10 +116,10 @@ public final class WMFYearInReviewDataController {
 
                 var slides: [WMFYearInReviewSlide] = []
                 for cdSlide in cdSlides {
-
-                    let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: self.getSlideId(cdSlide.id), evaluated: cdSlide.evaluated, display: cdSlide.display)
-
-                    slides.append(slide)
+                    if let id = self.getSlideId(cdSlide.id) {
+                        let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated, display: cdSlide.display)
+                        slides.append(slide)
+                    }
                 }
 
                 let report = WMFYearInReviewReport(
@@ -93,14 +133,14 @@ public final class WMFYearInReviewDataController {
         return reports
     }
 
-    private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID {
+    private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID? {
         switch idString {
         case "readCount":
             return .readCount
         case "editCount":
             return .editCount
         default:
-            return .editCount // TODO: fix
+            return nil
         }
 
     }

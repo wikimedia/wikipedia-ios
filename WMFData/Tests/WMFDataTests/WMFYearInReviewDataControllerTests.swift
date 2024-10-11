@@ -48,17 +48,39 @@ final class YearInReviewDataControllerTests: XCTestCase {
         XCTAssertEqual(reports![0].slides!.count, 1)
     }
 
-
     func testFetchYearInReviewReports() async throws {
         let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let report = WMFYearInReviewReport(year: 2024, slides: [slide])
+        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, display: true, data: nil)
+        let report = WMFYearInReviewReport(year: 2024, slides: [slide, slide2])
 
         try await dataController.saveYearInReviewReport(report)
 
         let reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 1)
         XCTAssertEqual(reports![0].year, 2024)
-        XCTAssertEqual(reports![0].slides!.count, 1)
+        XCTAssertEqual(reports![0].slides!.count, 2)
+    }
+
+    func testFetchYearInReviewReportForYear() async throws {
+        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
+        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false, display: true)
+
+        let report = WMFYearInReviewReport(year: 2021, slides: [slide1, slide2])
+        try await dataController.saveYearInReviewReport(report)
+
+        let fetchedReport = try await dataController.fetchYearInReviewReport(forYear: 2021)
+
+        XCTAssertNotNil(fetchedReport, "Expected to fetch a report for year 2021")
+
+        XCTAssertEqual(fetchedReport?.year, 2021)
+        XCTAssertEqual(fetchedReport?.slides.count, 2)
+
+        let fetchedSlideIDs = fetchedReport?.slides.map { $0.id }.sorted()
+        let originalSlideIDs = [slide1.id, slide2.id].sorted()
+        XCTAssertEqual(fetchedSlideIDs, originalSlideIDs)
+
+        let noReport = try await dataController.fetchYearInReviewReport(forYear: 2020)
+        XCTAssertNil(noReport, "Expected no report for year 2020")
     }
 
     func testDeleteYearInReviewReport() async throws {

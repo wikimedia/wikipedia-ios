@@ -17,7 +17,11 @@ public class WMFYearInReviewSlide: Identifiable {
 }
 
 // TEMP: Remove
-public enum WMFYearInReviewPersonalizedSlideID: String {
+public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
     case readCount
     case editCount
+
+    public static func < (lhs: WMFYearInReviewPersonalizedSlideID, rhs: WMFYearInReviewPersonalizedSlideID) -> Bool {
+           return lhs.rawValue < rhs.rawValue
+       }
 }
