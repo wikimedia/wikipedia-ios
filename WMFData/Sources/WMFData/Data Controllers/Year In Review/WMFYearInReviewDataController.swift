@@ -46,7 +46,7 @@ public class WMFYearInReviewDataController {
     public func createOrRetrieveYearInReview(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async {
 
         guard shouldCreateOrRetrieveYearInReview(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
-            return nil
+            return
         }
 
         var report = try? await fetchYearInReviewReport(forYear: year)
@@ -58,7 +58,6 @@ public class WMFYearInReviewDataController {
             report = try? await fetchYearInReviewReport(forYear: year)
         }
 
-        return report
     }
 
     func getSlides() -> [WMFYearInReviewSlide] {
