@@ -484,7 +484,6 @@
 "main-menu-account-logout" = "Atsijungti";
 "main-menu-account-logout-are-you-sure" = "Ar tikrai norite atsijungti?";
 "main-menu-account-logout-are-you-sure-message" = "Atsijungimas ištrins jūsų lokaliai laikomus paskyros duomenis (pranešimus ir žinutes), bet jūsų paskyros duomenis išliks prieinami internete ir bus galima juos persisiųsti iš naujo, jei prisijungsite atgal.";
-"main-menu-account-logout-cancel" = "Atšaukti";
 "main-menu-account-title-logged-in" = "Prisijungta kaip $1";
 "main-menu-heading-legal" = "Privatumas ir sąlygos";
 "main-menu-nearby" = "Netoliese";

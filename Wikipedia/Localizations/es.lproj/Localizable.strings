@@ -18,6 +18,7 @@
 // Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
+// Author: EmicraftNoob
 // Author: Eulalio
 // Author: Fitoschido
 // Author: Geryescalier
@@ -127,6 +128,7 @@
 "account-creation-saving" = "Guardando…";
 "account-creation-title" = "Crear una cuenta nueva";
 "account-group-title" = "Tu cuenta";
+"account-request-vanishing" = "Desaparecer cuenta";
 "account-talk-page-title" = "Tu página de discusión";
 "account-talk-preferences-auto-sign-discussions" = "Firmar automáticamente en las discusiones";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La firma automática de las discusiones usará la firma definida en tus ajustes de firma";
@@ -264,6 +266,7 @@
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
+"data-migration-status" = "Actualizando...";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
 "description-edit-length-warning" = "$1 / $2";
@@ -352,6 +355,7 @@
 "donate-payment-method-prompt-message" = "Dona con Apple Pay o elige otro método de pago.";
 "donate-payment-method-prompt-other-button-title" = "Otro método de pago";
 "donate-payment-method-prompt-title" = "¿Quieres donar con Apple Pay?";
+"donate-success-title" = "¡Gracias!";
 "donate-title" = "Selecciona un importe";
 "donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
 "edit-link-display-text-title" = "Mostrar texto";
@@ -388,6 +392,9 @@
 "editor-edit-source" = "Editar fuente";
 "editor-exit-confirmation-message" = "¿Estás seguro de que quieres descartar esta edición?";
 "editor-exit-confirmation-title" = "¿Desactivar el modo de edición?";
+"editor-keyboard-bold-accessibility" = "Negrita";
+"editor-keyboard-italics-accessibility" = "Cursivas";
+"editor-keyboard-link-accessibility" = "Enlace";
 "empty-diff-compare-title" = "No hay diferencias entre revisiones";
 "empty-diff-single-title" = "No se hicieron cambios visibles";
 "empty-edit-summary" = "Resumen de edición vacío";
@@ -662,7 +669,6 @@
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Salir";
 "main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
-"main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-heading-legal" = "Privacidad y términos";
 "main-menu-nearby" = "Cercanos";
@@ -698,6 +704,10 @@
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
 "notifications-center-go-to-article" = "Artículo";
 "notifications-center-go-to-article-talk-format" = "página de discusión $1";
+"notifications-center-go-to-diff" = "Dif";
+"notifications-center-go-to-talk-page" = "Página de discusión";
+"notifications-center-go-to-user-page" = "Página de usuario de $1";
+"notifications-center-inbox-title" = "Proyectos";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";
@@ -708,6 +718,10 @@
 "notifications-center-onboarding-panel-primary-button" = "Activar las notificaciones push";
 "notifications-center-onboarding-panel-secondary-button" = "No, gracias";
 "notifications-center-project-filters-accessibility-label" = "Filtro de proyectos";
+"notifications-center-status-all" = "Todo";
+"notifications-center-status-all-notifications" = "Todas las notificaciones";
+"notifications-center-status-double-concatenation" = "$1 en $2";
+"notifications-center-status-filtered-by" = "Filtrado por";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
@@ -788,18 +802,10 @@
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "problem-with-feature-title" = "Problema con la característica";
-"profile-page-donate" = "Donar";
 "profile-page-donate-subtext" = "O apoyar a Wikipedia con una donación para mantenerla libre y accesible para todos en todo el mundo.";
-"profile-page-done-button" = "Hecho";
 "profile-page-join-subtext" = "Regístrese a una cuenta de Wikipedia para rastrear sus contribuciones, guardar artículos fuera de línea y sincronizar entre dispositivos.";
 "profile-page-join-title" = "Únete a Wikipedia / Ingrese";
-"profile-page-logout" = "Salir de la sesión";
-"profile-page-notification-title" = "Notificaciones";
-"profile-page-settings" = "Configuración";
-"profile-page-talk-page-title" = "Página de discusión";
 "profile-page-title-logged-out" = "Cuenta";
-"profile-page-user-page-title" = "Página de usuario";
-"profile-page-watchlist-title" = "Lista de vigilancia";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";

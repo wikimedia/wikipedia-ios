@@ -768,7 +768,6 @@
 "main-menu-account-logout" = "Se déconnecter";
 "main-menu-account-logout-are-you-sure" = "Êtes-vous sûr{{GENDER:||e}} de vouloir vous déconnecter ?";
 "main-menu-account-logout-are-you-sure-message" = "La déconnexion supprimera vos données de compte stockées localement (les notifications et messages), mais vos données de compte seront encore disponibles sur le web et seront téléchargées à nouveau lorsque vous vous reconnecterez.";
-"main-menu-account-logout-cancel" = "Annuler";
 "main-menu-account-title-logged-in" = "Connecté{{GENDER:||e}} en tant que $1";
 "main-menu-heading-legal" = "Confidentialité et conditions";
 "main-menu-nearby" = "À proximité";
@@ -1001,18 +1000,13 @@
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
 "privacy-policy-title" = "Politique de confidentialité";
 "problem-with-feature-title" = "Problème avec la fonctionnalité";
-"profile-page-donate" = "Don";
+"profile-button-accessibility-hint" = "Accède à la vue du profil.";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil avec badge non lu";
 "profile-page-donate-subtext" = "Ou soutenez Wikipédia avec un don pour le garder gratuit et accessible à tous dans le monde.";
-"profile-page-done-button" = "Fait";
 "profile-page-join-subtext" = "Créez un compte Wikipédia pour suivre vos contributions, enregistrer des articles hors ligne et synchroniser sur plusieurs appareils.";
 "profile-page-join-title" = "Rejoignez Wikipédia / Se connecter";
-"profile-page-logout" = "Se déconnecter";
-"profile-page-notification-title" = "Notifications";
-"profile-page-settings" = "Paramètres";
-"profile-page-talk-page-title" = "Page de discussion";
 "profile-page-title-logged-out" = "Compte";
-"profile-page-user-page-title" = "Page utilisateur";
-"profile-page-watchlist-title" = "Liste de suivi";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
 "project-name-wikidata" = "Wikidata";
@@ -1439,3 +1433,7 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
+"year-in-review-donate" = "Faire un don";
+"year-in-review-done" = "Terminé";
+"year-in-review-next" = "Suivant";
+"year-in-review-share" = "Partager";

@@ -623,7 +623,6 @@
 "main-menu-account-logout" = "Kirjaudu ulos";
 "main-menu-account-logout-are-you-sure" = "Haluatko varmasti kirjautua ulos?";
 "main-menu-account-logout-are-you-sure-message" = "Uloskirjautuminen poistaa paikallisesti tallennetut tunnustietosi (ilmoitukset ja viestit), mutta tunnuksesi tiedot ovat silti käytettävissä verkossa ja ne ladataan uudelleen mikäli kirjaudut takaisin sisään.";
-"main-menu-account-logout-cancel" = "Peruuta";
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä $1";
 "main-menu-heading-legal" = "Tietosuoja ja Ehdot";
 "main-menu-nearby" = "Lähistöllä";
