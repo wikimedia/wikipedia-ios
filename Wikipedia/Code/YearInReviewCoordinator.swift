@@ -12,56 +12,34 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     private weak var viewModel: WMFYearInReviewViewModel?
     private let targetRects = WMFProfileViewTargetRects()
+    let dataController: WMFYearInReviewDataController
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.dataController = dataController
     }
     
-//    let numberArticles = 63.59
-//    let numberLanguages = 332
-//    let numberViews = 1.4
-//    let numberEditors = 50 // dummy data
-//    let numberEdits = 342
-//    
-//    var baseSlide1Subtitle: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review for people without read/edit history, first slide subtitle, %1$@ is replaced with the number of articles, %2$@ is replaced with the number of languages.")
-//        return String.localizedStringWithFormat(format, String(numberArticles), String(numberLanguages))
-//    }
-//    
-//    var baseSlide2Title: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times.", comment: "Year in review for people without read/edit history, second slide title, %1$@ is replaced with the number of article views.")
-//        return String.localizedStringWithFormat(format, String(numberViews))
-//    }
-//    
-//    var baseSlide2Subtitle: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review for people without read/edit history, second slide subtitle, %1$@ is replaced with the number of articles")
-//        return String.localizedStringWithFormat(format, String(numberViews))
-//    }
-//    
-//    var baseSlide3Title: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-editors-title", value: "Editors on the iOS app made more than %1$@ edits", comment: "Year in review for people without read/edit history, third slide title, %1$@ is replaced with the number of edits.")
-//        return String.localizedStringWithFormat(format, String(numberEditors))
-//    }
-//    
-//    var baseSlide3Subtitle: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review for people without read/edit history, third slide subtitle, %1$@ is replaced with the number of edits")
-//        return String.localizedStringWithFormat(format, String(numberEditors))
-//    }
-//    
-//    var baseSlide4Title: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-edits-title", value: "Wikipedia was edited %1$@ times per minute", comment: "Year in review for people without read/edit history, fourth slide title, %1$@ is replaced with the number of edits per minute.")
-//        return String.localizedStringWithFormat(format, String(numberEdits))
-//    }
-//    
-//    var baseSlide4Subtitle: String {
-//        let format = WMFFakeLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia. All of us have knowledge to share, learn how to participate.", comment: "Year in review for people without read/edit history, fourth slide subtitle, %1$@ is replaced with the number of edits per minute")
-//        return String.localizedStringWithFormat(format, String(numberEdits))
-//    }
-    
     func start() {
-
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        
+        if let username {
+            dataController.fetchUserContributionsCount(username: username) { result in
+                switch result {
+                case .success(let (editCount, hasMoreEdits)):
+                    print("Total edits: \(editCount)")
+                    if hasMoreEdits {
+                        print("More edits available to fetch.")
+                    } else {
+                        print("No more edits available.")
+                    }
+                case .failure(let error):
+                    print("Error fetching user contributions: \(error)")
+                }
+            }
+        }
+        
         // Base case if user has no edit/read history
         let baseFlow: [YearInReviewSlideContent] = [
             YearInReviewSlideContent(
