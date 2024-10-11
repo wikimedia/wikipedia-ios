@@ -22,24 +22,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        let username = dataStore.authenticationManager.authStatePermanentUsername
-        
-        if let username {
-            dataController.fetchUserContributionsCount(username: username) { result in
-                switch result {
-                case .success(let (editCount, hasMoreEdits)):
-                    print("Total edits: \(editCount)")
-                    if hasMoreEdits {
-                        print("More edits available to fetch.")
-                    } else {
-                        print("No more edits available.")
-                    }
-                case .failure(let error):
-                    print("Error fetching user contributions: \(error)")
-                }
-            }
-        }
-        
         // Base case if user has no edit/read history
         let baseFlow: [YearInReviewSlideContent] = [
             YearInReviewSlideContent(
@@ -53,12 +35,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 title: "We have viewed Wikipedia articles 1.4 Billion times",
                 informationBubbleText: nil,
                 subtitle: "iOS app users have viewed Wikipedia articles 1.4 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact."),
-            YearInReviewSlideContent(
-                imageName: "languages_yir",
-                title: "Editors on the iOS app made more than X edits",
-                informationBubbleText: nil,
-                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information."),
-            YearInReviewSlideContent(
+            editsSlide(),
+            YearInReviewSlide(
                 imageName: "edit_yir",
                 title: "Wikipedia was edited 342 times per minute",
                 informationBubbleText: nil,
@@ -95,5 +73,48 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         navigationController.present(hostingController, animated: true, completion: nil)
+    }
+    
+    func editsSlide() -> YearInReviewSlide {
+        let edits = checkEdits()
+        if edits == 0 {
+            return YearInReviewSlide(
+                imageName: "languages_yir",
+                title: "Editors on the iOS app made more than X edits",
+                informationBubbleText: nil,
+                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
+        } else {
+            return YearInReviewSlide(
+                imageName: "languages_yir",
+                title: "scream",
+                informationBubbleText: nil,
+                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
+        }
+    }
+    
+    func checkEdits() -> Int {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+            return 0
+        }
+        var count = 0
+        
+        if let username {
+            // Using Toni for testing
+            dataController.fetchUserContributionsCount(username: "TSevener (WMF)", languageCode: languageCode) { result in
+                switch result {
+                case .success(let (editCount, hasMoreEdits)):
+                    count = editCount
+                    if hasMoreEdits {
+                        print("More edits available to fetch.")
+                    } else {
+                        print("No more edits available.")
+                    }
+                case .failure(let error):
+                    print("Error fetching user contributions: \(error)")
+                }
+            }
+        }
+        return count
     }
 }
