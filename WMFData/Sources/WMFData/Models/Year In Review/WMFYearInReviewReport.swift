@@ -8,5 +8,4 @@ public class WMFYearInReviewReport: Identifiable {
         self.year = year
         self.slides = slides
     }
-
 }

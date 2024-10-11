@@ -614,7 +614,7 @@ extension WMFAppViewController {
         Task {
             do {
                 let dataController = try WMFYearInReviewDataController()
-                let report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+                await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
             }
         }
     }
