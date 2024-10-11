@@ -1,18 +1,70 @@
 import Foundation
 import CoreData
 
-public final class WMFYearInReviewDataController {
+public class WMFYearInReviewDataController {
 
     private let coreDataStore: WMFCoreDataStore
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataController = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.developerSettingsDataController = developerSettingsDataController
+
     }
 
-    // TODO: handle display logic in app resume
+    public func shouldCreateOrRetrieveYearInReview(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        guard developerSettingsDataController.enableYearInReview else {
+            return false
+        }
+
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+            return false
+        }
+
+        guard let countryCode,
+              let primaryAppLanguageProject else {
+            return false
+        }
+
+        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+            return false
+        }
+
+        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        guard let languageCode = primaryAppLanguageProject.languageCode,
+              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+            return false
+        }
+
+        return true
+    }
+
+    public func createOrRetrieveYearInReview(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async -> WMFYearInReviewReport? {
+
+        guard shouldCreateOrRetrieveYearInReview(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
+            return nil
+        }
+
+        var report = try? await fetchYearInReviewReport(forYear: year)
+
+        if report == nil {
+            // TODO: Replace with actual slide creation logic
+            let slides = getSlides()
+            try? await createNewYearInReviewReport(year: year, slides: slides)
+            report = try? await fetchYearInReviewReport(forYear: year)
+        }
+
+        return report
+    }
+
+    func getSlides() -> [WMFYearInReviewSlide] {
+        let mockSlide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
+        return [mockSlide]
+    }
 
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext

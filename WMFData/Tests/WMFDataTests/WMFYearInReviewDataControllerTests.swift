@@ -4,10 +4,6 @@ import CoreData
 
 final class YearInReviewDataControllerTests: XCTestCase {
 
-    enum CoreDataStoreTestsError: Error {
-        case empty
-    }
-
     lazy var store: WMFCoreDataStore = {
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         return try! WMFCoreDataStore(appContainerURL: temporaryDirectory)
