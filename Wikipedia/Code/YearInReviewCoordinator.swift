@@ -22,6 +22,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
+        checkEdits { count in
+            DispatchQueue.main.async {
+                let slide = self.editsSlide(edits: count)
+                self.viewModel?.updateSlide(at: 2, with: slide)
+            }
+        }
+
         // Base case if user has no edit/read history
         let baseFlow: [YearInReviewSlideContent] = [
             YearInReviewSlideContent(
@@ -35,7 +42,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 title: "We have viewed Wikipedia articles 1.4 Billion times",
                 informationBubbleText: nil,
                 subtitle: "iOS app users have viewed Wikipedia articles 1.4 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact."),
-            editsSlide(),
+            YearInReviewSlide(
+                imageName: "languages_yir",
+                title: "Editors on the iOS app made more than X edits",
+                informationBubbleText: nil,
+                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information."),
             YearInReviewSlide(
                 imageName: "edit_yir",
                 title: "Wikipedia was edited 342 times per minute",
@@ -75,8 +86,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
     }
     
-    func editsSlide() -> YearInReviewSlide {
-        let edits = checkEdits()
+    func editsSlide(edits: Int) -> YearInReviewSlide {
         if edits == 0 {
             return YearInReviewSlide(
                 imageName: "languages_yir",
@@ -86,35 +96,38 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         } else {
             return YearInReviewSlide(
                 imageName: "languages_yir",
-                title: "scream",
+                title: "You made \(edits) edits.",
                 informationBubbleText: nil,
                 subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
         }
     }
     
-    func checkEdits() -> Int {
+    func checkEdits(completion: @escaping (Int) -> Void) {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
-            return 0
+            completion(0)
+            return
         }
+        
         var count = 0
         
         if let username {
-            // Using Toni for testing
-            dataController.fetchUserContributionsCount(username: "TSevener (WMF)", languageCode: languageCode) { result in
+            dataController.fetchUserContributionsCount(username: "username", languageCode: languageCode) { result in
                 switch result {
-                case .success(let (editCount, hasMoreEdits)):
+                case .success(let (editCount, _)): // _ is hasMoreEdits
                     count = editCount
-                    if hasMoreEdits {
-                        print("More edits available to fetch.")
-                    } else {
-                        print("No more edits available.")
-                    }
                 case .failure(let error):
                     print("Error fetching user contributions: \(error)")
                 }
+                
+                DispatchQueue.main.async {
+                    completion(count)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                completion(0)
             }
         }
-        return count
     }
 }
