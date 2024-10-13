@@ -61,25 +61,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 //    }
     
     func start() {
+
         // Base case if user has no edit/read history
-        let baseFlow: [YearInReviewSlide] = [
-            YearInReviewSlide(
+        let baseFlow: [YearInReviewSlideContent] = [
+            YearInReviewSlideContent(
                 imageName: "heart_yir",
                 title: WMFLocalizedString("year-in-review-base-reading-title", value: "Reading brought us together", comment: "Year in review for people without read/edit history, first slide title"),
                 informationBubbleText: nil,
                 // Purposefully not translated due to numbers
                 subtitle: "Wikipedia had 63.59 million articles across over 332 active languages this year. You joined millions in expanding knowledge and exploring diverse topics."),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "phone_yir",
                 title: "We have viewed Wikipedia articles 1.4 Billion times",
                 informationBubbleText: nil,
                 subtitle: "iOS app users have viewed Wikipedia articles 1.4 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact."),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "languages_yir",
                 title: "Editors on the iOS app made more than X edits",
                 informationBubbleText: nil,
                 subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information."),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: "Wikipedia was edited 342 times per minute",
                 informationBubbleText: nil,

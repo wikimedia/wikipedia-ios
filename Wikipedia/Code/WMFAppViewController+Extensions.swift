@@ -603,6 +603,21 @@ extension WMFAppViewController {
             }
         }
     }
+
+    @objc func getYearInReviewReport(for year: Int) {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
+        Task {
+            do {
+                let dataController = try WMFYearInReviewDataController()
+                await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+            }
+        }
+    }
 }
 
 // MARK: WMFComponents App Environment Helpers
