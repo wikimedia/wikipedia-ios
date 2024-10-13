@@ -3,6 +3,7 @@ import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
+    @Published var slides: [YearInReviewSlide]
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
     
@@ -13,6 +14,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     public func getStarted() {
         isFirstSlide = false
+    }
+    
+    public func updateSlide(at index: Int, with newSlide: YearInReviewSlide) {
+        print("updating")
+        guard index >= 0 && index < slides.count else {
+            return
+        }
+        slides[index] = newSlide
     }
     
     public struct LocalizedStrings {
