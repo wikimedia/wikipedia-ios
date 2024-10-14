@@ -302,6 +302,7 @@
 "developer-settings" = "開發人員設定";
 "developer-settings-always-show-alt-text-entry-point" = "永遠顯示替代文字入口點。";
 "developer-settings-enable-alt-text-experiment-en" = "啟用英語維基百科的替代文字實驗功能。";
+"developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
 "diff-article-revision-history" = "條目修訂紀錄";
@@ -1435,7 +1436,12 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+"year-in-review-base-reading-title" = "閱讀維基百科讓我們走在一起";
 "year-in-review-donate" = "捐款";
 "year-in-review-done" = "確定";
+"year-in-review-get-started" = "開始";
+"year-in-review-hide" = "隱藏此功能";
 "year-in-review-next" = "下一個";
 "year-in-review-share" = "分享";
+"year-in-review-subtitle" = "查看您在維基百科應用程式上閱讀過的條目，以及您所做過編輯的見解。分享您的旅程，並發現今年對您來說最特別的事情。您的閱讀歷史紀錄會受到保護，閱讀見解是使用在您裝置上本地儲存的資料計算的，。";
+"year-in-review-title" = "探索您的維基百科年度回顧";
