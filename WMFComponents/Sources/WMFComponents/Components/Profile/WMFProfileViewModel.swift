@@ -6,10 +6,10 @@ public class WMFProfileViewModel: ObservableObject {
     
     public struct YearInReviewDependencies {
         let dataController: WMFYearInReviewDataController
-        let countryCode: String?
-        let primaryAppLanguageProject: WMFProject?
+        let countryCode: String
+        let primaryAppLanguageProject: WMFProject
         
-        public init(dataController: WMFYearInReviewDataController, countryCode: String? = nil, primaryAppLanguageProject: WMFProject? = nil) {
+        public init(dataController: WMFYearInReviewDataController, countryCode: String, primaryAppLanguageProject: WMFProject) {
             self.dataController = dataController
             self.countryCode = countryCode
             self.primaryAppLanguageProject = primaryAppLanguageProject
@@ -32,9 +32,9 @@ public class WMFProfileViewModel: ObservableObject {
     }
     
     
-    private var yearInReviewDependencies: YearInReviewDependencies
+    private let yearInReviewDependencies: YearInReviewDependencies?
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
         self.inboxCount = inboxCount
@@ -100,7 +100,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?) -> [ProfileSection] {
         
         if isLoggedIn {
             let notificationsItem = ProfileListItem(
@@ -182,7 +182,11 @@ enum ProfileState {
                 }
             )
             
-            let section3Items = yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) ? [donateItem, yearInReviewItem] : [donateItem]
+            var section3Items = [donateItem]
+            if let yearInReviewDependencies,
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+                section3Items = [donateItem, yearInReviewItem]
+            }
             
             let settingsItem = ProfileListItem(
                 text: localizedStrings.settingsTitle,
@@ -298,13 +302,14 @@ enum ProfileState {
                 subtext: nil
             )
             
-            if yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
-                
-                return [joinSection, donateSection, yearInReviewSection, settingsSection]
-                
-            } else {
-                return [joinSection, donateSection, settingsSection]
+            
+            var sections = [joinSection, donateSection, settingsSection]
+            if let yearInReviewDependencies,
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+                sections = [joinSection, donateSection, yearInReviewSection, settingsSection]
             }
+            
+            return sections
         }
     }
 }

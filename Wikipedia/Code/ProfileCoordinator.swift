@@ -80,12 +80,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
         
-        var primaryAppLanguageProject: WikimediaProject? = nil
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL {
-            primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)
+        var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+           let yearInReviewDataController = try? WMFYearInReviewDataController(),
+           let countryCode = Locale.current.region?.identifier {
+            yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
         }
-        
-        let yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: WMFYearInReviewDataController(), countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject?.wmfProject)
         
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
