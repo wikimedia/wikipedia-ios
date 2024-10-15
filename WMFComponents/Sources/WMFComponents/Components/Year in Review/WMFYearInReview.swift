@@ -14,6 +14,7 @@ public struct WMFYearInReview: View {
     
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
+        UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
     
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -22,7 +23,8 @@ public struct WMFYearInReview: View {
         NavigationView {
             VStack {
                 if viewModel.isFirstSlide {
-                    firstSlide
+                    WMFYearInReviewFirstSlideView(scrollViewContents: scrollViewContent, contents: buttons)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
                 }
@@ -89,32 +91,31 @@ public struct WMFYearInReview: View {
         .frame(maxHeight: .infinity)
     }
 
-    private var firstSlide: some View {
-        ScrollView {
-            VStack(spacing: 48) {
-                VStack(alignment: .leading, spacing: 16) {
-                    Image("globe", bundle: .module)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    Text(viewModel.localizedStrings.firstSlideTitle)
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                    Text(viewModel.localizedStrings.firstSlideSubtitle)
-                        .font(Font(WMFFont.for(.title3)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                }
-                VStack {
-                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
-                        withAnimation {
-                            viewModel.getStarted()
-                        }
-                    }
-                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                        // TODO: Implement hide this feature
-                    }
+    private var scrollViewContent: some View {
+        VStack(spacing: 48) {
+            VStack(alignment: .leading, spacing: 16) {
+                Image("globe", bundle: .module)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 48)
+                Text(viewModel.localizedStrings.firstSlideTitle)
+                    .font(Font(WMFFont.for(.boldTitle1)))
+                Text(viewModel.localizedStrings.firstSlideSubtitle)
+                    .font(Font(WMFFont.for(.title3)))
+            }
+            .foregroundStyle(Color(uiColor: theme.text))
+        }
+    }
+        
+    private var buttons: some View {
+        VStack {
+            WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
+                withAnimation(.easeInOut(duration: 0.75)) {
+                    viewModel.getStarted()
                 }
             }
+            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                // TODO: Implement hide this feature
+            }
         }
-        .padding(36)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
