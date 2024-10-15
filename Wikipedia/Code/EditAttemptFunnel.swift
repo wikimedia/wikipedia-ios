@@ -16,10 +16,12 @@ public final class EditAttemptFunnel {
         let app_install_id: String?
         let editor_interface: String
         let integration: String
+        let is_anon: Bool
         let mw_version: String
         let platform: String
         let user_editcount: Int
         let user_id: Int
+        let user_is_temp: Bool
         let version: Int
         let page_title: String?
         let page_ns: Int?
@@ -37,6 +39,14 @@ public final class EditAttemptFunnel {
         case saveFailure = "saveFailure"
         case abort = "abort"
     }
+    
+    private var isAnon: Bool {
+        return !MWKDataStore.shared().authenticationManager.authStateIsPermanent
+    }
+    
+    private var isTemp: Bool {
+        return MWKDataStore.shared().authenticationManager.authStateIsTemporary
+    }
 
     private func logEvent(pageURL: URL, action: EditAction, revisionId: Int? = nil) {
         let editorInterface = "wikitext"
@@ -47,7 +57,7 @@ public final class EditAttemptFunnel {
         
         let appInstallID = UserDefaults.standard.wmf_appInstallId
 
-        let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId)
+        let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, is_anon: isAnon, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, user_is_temp: isTemp, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId)
         
         let container = EventContainer(event: event)
         EventPlatformClient.shared.submit(stream: .editAttempt, event: container, needsMinimal: true)

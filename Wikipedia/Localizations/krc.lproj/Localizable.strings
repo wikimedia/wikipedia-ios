@@ -75,6 +75,7 @@
 "account-creation-title" = "Джангы хыйсаб къура";
 "account-group-title" = "Хыйсабыгъыз";
 "account-request-vanishing" = "Хыйсабны джокъ эт";
+"account-talk-page-title" = "Сюзюу бетигиз";
 "account-talk-preferences-auto-sign-discussions" = "Автомат къол салыу сюзюуле";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Сюзюулени автомат халда къол салыныуу, къол салыу джарашдырыулада танылгъан къолну салыр";
 "account-talk-preferences-title" = "Сюзюу бет джарашдырыула";
@@ -166,6 +167,7 @@
 "data-migration-status" = "Джангыртыла турады...";
 "description-add-title" = "Ачыкълау къош";
 "description-edit-for-article" = "$1 ючюн статья ачыкълау";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Статья ачыкълауну тюрлендириб $1 къабыл этеме эмда $2 лицензия тамалындагъы къошумланы кери алынмаз шекелде басмалайма.";
 "description-edit-pencil-introduction" = "Ал сёзню тюзет";
 "description-edit-pencil-title" = "Статья ачыкълауну тюзет";
@@ -651,7 +653,6 @@
 "main-menu-account-logout" = "Чыкъ";
 "main-menu-account-logout-are-you-sure" = "Сессияны джабаргъа излегенигзге ишексизмисиз?";
 "main-menu-account-logout-are-you-sure-message" = "Системадан чыгъыу, локал сакъланнган хыйсаб билгилеригизни (хапарландырыула бла билдириуле) кетерир, алай а хыйсаб билгилеригиз вебде къалыр эмда къайтарыб кирсегиз, джангыдан эндирилирле.";
-"main-menu-account-logout-cancel" = "Ызына ал";
 "main-menu-account-title-logged-in" = "$1 болуб сессия ачылды";
 "main-menu-heading-legal" = "Ташалыкъ эмда Шартла";
 "main-menu-nearby" = "Джуўукъда";

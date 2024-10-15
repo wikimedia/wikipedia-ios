@@ -458,6 +458,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         if altTextExperimentViewModel == nil {
             setupWButton()
+            setupSearchAndProfileButtons()
         }
 
         if isReturningFromFAQ {
@@ -1497,7 +1498,7 @@ private extension ArticleViewController {
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         guard let widgetFeaturedArticleURLString = cache.featuredContent?.featuredArticle?.contentURL.desktop.page,

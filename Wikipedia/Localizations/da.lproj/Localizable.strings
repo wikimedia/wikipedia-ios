@@ -87,6 +87,7 @@
 "account-creation-title" = "Opret en ny konto";
 "account-group-title" = "Din konto";
 "account-request-vanishing" = "Få konto til at forsvinde";
+"account-talk-page-title" = "Din diskussionsside";
 "account-talk-preferences-auto-sign-discussions" = "Auto-underskriv diskussioner";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-underskrivning i diskussioner vil benytte den signatur, der er defineret i Signatur-indstillinger";
 "account-talk-preferences-title" = "Indstillinger for diskussionsside";
@@ -203,6 +204,7 @@
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Artikelbeskrivelse for $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ved at ændre titelbeskrivelsen indvilliger jeg i $1 og uigenkaldeligt at udgive mit bidrag under $2 licensen.";
 "description-edit-pencil-introduction" = "Rediger introduktion";
 "description-edit-pencil-title" = "Rediger artikelbeskrivelse";
@@ -498,7 +500,6 @@
 "main-menu-account-login" = "Log på";
 "main-menu-account-logout" = "Log af";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
-"main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
 "main-menu-heading-legal" = "Privatliv og vilkår";
 "main-menu-nearby" = "I nærheden";

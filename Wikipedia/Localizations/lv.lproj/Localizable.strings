@@ -25,6 +25,7 @@
 "account-creation-saving" = "Saglabā...";
 "account-creation-title" = "Izveidot jaunu kontu";
 "account-group-title" = "Tavs konts";
+"account-talk-page-title" = "Tava diskusiju lapa";
 "account-talk-preferences-auto-sign-discussions" = "Automātiski parakstīt diskusijas";
 "account-talk-preferences-title" = "Diskusiju lapu izvēlnes";
 "action-add-to" = "Pievienot...";
@@ -123,7 +124,6 @@
 "main-menu-about" = "Par lietotni";
 "main-menu-account-login" = "Pieslēgties";
 "main-menu-account-logout" = "Iziet";
-"main-menu-account-logout-cancel" = "Atcelt";
 "main-menu-heading-legal" = "Privātuma politika un nosacījumi";
 "main-menu-nearby" = "Tuvumā";
 "main-menu-privacy-policy" = "Privātuma politika";

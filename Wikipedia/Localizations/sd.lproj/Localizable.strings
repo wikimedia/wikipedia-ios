@@ -79,6 +79,7 @@
 "account-creation-title" = "نئون کاتو کوليو";
 "account-group-title" = "توهان جو کاتو";
 "account-request-vanishing" = "کاتو گم ڪريو";
+"account-talk-page-title" = "توھان جو بحث صفحو";
 "account-talk-preferences-auto-sign-discussions" = "پاڻمرادو-دستخط-ٿيل تبصرا";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "تبصرن جو پاڻمرادو-دستخط-ڪرڻ دستخط ترتيبن ۾ وصف-ڪيل دستخط استعمال ڪندو";
 "account-talk-preferences-title" = "بحث صفحو ترجيحون";
@@ -166,6 +167,7 @@
 "data-migration-status" = "تجديد ڪندي...";
 "description-add-title" = "تشريح ڏيو";
 "description-edit-for-article" = "$1 لاءِ تشريح";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "مضمون جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
 "description-edit-pencil-introduction" = "تعارف سنواريو";
 "description-edit-pencil-title" = "مضمون جي تشريح سنواريو";
@@ -587,7 +589,6 @@
 "main-menu-account-login" = "داخل ٿيو";
 "main-menu-account-logout" = "ٻاھر نڪرو";
 "main-menu-account-logout-are-you-sure" = "ڇا توھان کي پڪ آھي تہ توھان ٻاھر نڪرڻ ٿا چاھيو؟";
-"main-menu-account-logout-cancel" = "رد";
 "main-menu-account-title-logged-in" = "بطور $1 داخل ٿيل";
 "main-menu-heading-legal" = "نويڪلائي ۽ شرط";
 "main-menu-nearby" = "ويجها";

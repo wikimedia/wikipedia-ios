@@ -108,6 +108,7 @@
 "account-creation-title" = "Buat akun baru";
 "account-group-title" = "Akun Anda";
 "account-request-vanishing" = "Hilangkan akun";
+"account-talk-page-title" = "Halaman pembicaraan Anda";
 "account-talk-preferences-auto-sign-discussions" = "Otomatis tanda tangani diskusi";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tanda tangan otomatis diskusi akan menggunakan tanda tangan yang didefinisikan dalam setting Tanda Tangan";
 "account-talk-preferences-title" = "Preferensi halaman pembicaraan";
@@ -202,6 +203,7 @@
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
 "description-edit-for-article" = "Deskripsi artikel untuk $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Dengan mengubah deskripsi artikel, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
 "description-edit-pencil-introduction" = "Sunting pengantar";
 "description-edit-pencil-title" = "Sunting deskripsi artikel";
@@ -630,7 +632,6 @@
 "main-menu-account-logout" = "Keluar log";
 "main-menu-account-logout-are-you-sure" = "Apakah Anda yakin ingin keluar?";
 "main-menu-account-logout-are-you-sure-message" = "Keluar log akan menghapus data akun yang disimpan secara lokal (pemberitahuan dan pesan), tetapi data akun Anda akan tetap tersedia di web dan akan diunduh ulang jika Anda masuk kembali.";
-"main-menu-account-logout-cancel" = "Batal";
 "main-menu-account-title-logged-in" = "Telah masuk log sebagai $1";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
 "main-menu-nearby" = "Sekitar";

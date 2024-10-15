@@ -94,6 +94,7 @@
 "account-creation-title" = "Opprett ny konto";
 "account-group-title" = "Kontoen din";
 "account-request-vanishing" = "Få kontoen til å forsvinne";
+"account-talk-page-title" = "Diskusjonssiden din";
 "account-talk-preferences-auto-sign-discussions" = "Signer diskusjoner automatisk";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatisk signering av diskusjoner bruker signaturen som er angitt i innstillingene dine";
 "account-talk-preferences-title" = "Diskusjonssideinnstillinger";
@@ -190,6 +191,7 @@
 "data-migration-status" = "Oppdaterer …";
 "description-add-title" = "Legg til beskrivelse";
 "description-edit-for-article" = "Artikkelbeskrivelse for $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ved å endre artikkelbeskrivelsen samtykker jeg til $1 og til å ugjenkallelig slippe bidragene mine under $2-lisensen.";
 "description-edit-pencil-introduction" = "Rediger innledning";
 "description-edit-pencil-title" = "Rediger artikkelbeskrivelsen";
@@ -681,7 +683,6 @@
 "main-menu-account-logout" = "Logg ut";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du vil logge ut?";
 "main-menu-account-logout-are-you-sure-message" = "Å logge ut vil slette dine lokalt lagrede kontodata (varsler og meldinger), men kontodataene dine vil still være tilgjengelige på nett og lastes ned på nytt hvis du logger inn igjen.";
-"main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Innlogget som $1";
 "main-menu-heading-legal" = "Personvern og vilkår";
 "main-menu-nearby" = "I nærheten";

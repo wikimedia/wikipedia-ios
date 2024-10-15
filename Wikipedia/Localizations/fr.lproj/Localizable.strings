@@ -118,6 +118,7 @@
 "account-creation-title" = "Créer un nouveau compte";
 "account-group-title" = "Votre compte";
 "account-request-vanishing" = "Faire disparaître le compte";
+"account-talk-page-title" = "Votre page de discussion";
 "account-talk-preferences-auto-sign-discussions" = "Discussions signées automatiquement";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "La signature automatique des discussions utilisera le texte défini dans vos paramètres de signature.";
 "account-talk-preferences-title" = "Préférences de la page de discussion";
@@ -265,6 +266,7 @@
 "data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
 "description-edit-for-article" = "Description de l’article $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En modifiant la description de l’article, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
 "description-edit-pencil-introduction" = "Modifier l’introduction";
 "description-edit-pencil-title" = "Modifier la description de l’article";
@@ -766,7 +768,6 @@
 "main-menu-account-logout" = "Se déconnecter";
 "main-menu-account-logout-are-you-sure" = "Êtes-vous sûr{{GENDER:||e}} de vouloir vous déconnecter ?";
 "main-menu-account-logout-are-you-sure-message" = "La déconnexion supprimera vos données de compte stockées localement (les notifications et messages), mais vos données de compte seront encore disponibles sur le web et seront téléchargées à nouveau lorsque vous vous reconnecterez.";
-"main-menu-account-logout-cancel" = "Annuler";
 "main-menu-account-title-logged-in" = "Connecté{{GENDER:||e}} en tant que $1";
 "main-menu-heading-legal" = "Confidentialité et conditions";
 "main-menu-nearby" = "À proximité";
@@ -1002,17 +1003,10 @@
 "profile-button-accessibility-hint" = "Accède à la vue du profil.";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil avec badge non lu";
-"profile-page-donate" = "Don";
 "profile-page-donate-subtext" = "Ou soutenez Wikipédia avec un don pour le garder gratuit et accessible à tous dans le monde.";
 "profile-page-join-subtext" = "Créez un compte Wikipédia pour suivre vos contributions, enregistrer des articles hors ligne et synchroniser sur plusieurs appareils.";
 "profile-page-join-title" = "Rejoignez Wikipédia / Se connecter";
-"profile-page-logout" = "Se déconnecter";
-"profile-page-notification-title" = "Notifications";
-"profile-page-settings" = "Paramètres";
-"profile-page-talk-page-title" = "Page de discussion";
 "profile-page-title-logged-out" = "Compte";
-"profile-page-user-page-title" = "Page utilisateur";
-"profile-page-watchlist-title" = "Liste de suivi";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
 "project-name-wikidata" = "Wikidata";
@@ -1439,3 +1433,7 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
+"year-in-review-donate" = "Faire un don";
+"year-in-review-done" = "Terminé";
+"year-in-review-next" = "Suivant";
+"year-in-review-share" = "Partager";

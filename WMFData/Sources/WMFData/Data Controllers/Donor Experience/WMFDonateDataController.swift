@@ -14,7 +14,18 @@ import Contacts
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
-    
+    private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
+
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+    public var hasLocallySavedDonations: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
@@ -227,7 +238,33 @@ import Contacts
             }
         })
     }
-    
+
+    @discardableResult
+    public func saveLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
+        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory()
+
+        if let donateHistory {
+            var donationArray: [WMFDonateLocalHistory] = donateHistory
+            donationArray.append(donation)
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: donationArray)
+        } else {
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donation])
+        }
+
+        hasLocallySavedDonations = true
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+
+    }
+
+    public func loadLocalDonationHistory() -> [WMFDonateLocalHistory]? {
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    }
+
+    public func deleteLocalDonationHistory() {
+        hasLocallySavedDonations = false
+        try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    }
+
     // MARK: - Internal
     
     func reset() {

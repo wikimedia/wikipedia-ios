@@ -113,6 +113,7 @@
 "account-creation-title" = "Een nieuw account aanmaken";
 "account-group-title" = "Uw account";
 "account-request-vanishing" = "Account laten verdwijnen";
+"account-talk-page-title" = "Uw overlegpagina";
 "account-talk-preferences-auto-sign-discussions" = "Overleg automatisch ondertekenen";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Bij het automatisch ondertekenen van discussies wordt de handtekening gebruikt die is gedefinieerd in Handtekeninginstellingen";
 "account-talk-preferences-title" = "Voorkeuren overlegpagina";
@@ -238,6 +239,7 @@
 "data-migration-status" = "Bijwerken...";
 "description-add-title" = "Beschrijving toevoegen";
 "description-edit-for-article" = "Artikelbeschrijving voor $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Door de artikelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de $2 licentie.";
 "description-edit-pencil-introduction" = "Bewerk inleiding";
 "description-edit-pencil-title" = "Artikelbeschrijving bewerken";
@@ -740,7 +742,6 @@
 "main-menu-account-logout" = "Afmelden";
 "main-menu-account-logout-are-you-sure" = "Weet u zeker dat u wilt afmelden?";
 "main-menu-account-logout-are-you-sure-message" = "Als u zich afmeldt, worden uw lokaal opgeslagen accountgegevens (meldingen en berichten) verwijderd, maar uw accountgegevens zijn nog steeds beschikbaar op internet en worden opnieuw gedownload als u zich opnieuw aanmeldt.";
-"main-menu-account-logout-cancel" = "Annuleren";
 "main-menu-account-title-logged-in" = "Aangemeld als $1";
 "main-menu-heading-legal" = "Privacy en voorwaarden";
 "main-menu-nearby" = "In de buurt";

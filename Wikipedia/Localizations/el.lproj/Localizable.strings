@@ -58,6 +58,7 @@
 "account-creation-saving" = "Γίνεται αποθήκευση…";
 "account-creation-title" = "Δημιουργήστε νέο λογαριασμό";
 "account-group-title" = "Ο λογαριασμός σας";
+"account-talk-page-title" = "Η σελίδα συζήτησής σας";
 "account-talk-preferences-title" = "Προτιμήσεις σελίδας συζήτησης";
 "action-add-to" = "Πρόσθεση σε...";
 "action-add-to-reading-list" = "Πρόσθεση στην λίστα ανάγνωσης";
@@ -268,7 +269,6 @@
 "main-menu-account-login" = "Σύνδεση";
 "main-menu-account-logout" = "Αποσύνδεση";
 "main-menu-account-logout-are-you-sure" = "Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε;";
-"main-menu-account-logout-cancel" = "Ακύρωση";
 "main-menu-account-title-logged-in" = "Συνδεδεμένος ως: $1";
 "main-menu-heading-legal" = "Ιδιωτικότητα και Όροι";
 "main-menu-nearby" = "Κοντινά";
