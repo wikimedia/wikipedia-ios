@@ -94,11 +94,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 informationBubbleText: nil,
                 subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
         } else {
-            return YearInReviewSlide(
+            var editString = String(edits)
+            if edits >= 500 {
+                editString = "500+"
+            }
+            return YearInReviewSlideContent(
                 imageName: "languages_yir",
-                title: "You made \(edits) edits.",
+                title: "You edited Wikipedia \(editString) times.",
                 informationBubbleText: nil,
-                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
+                subtitle: "You edited Wikipedia \(editString) times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.")
         }
     }
     
