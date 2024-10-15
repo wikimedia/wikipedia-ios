@@ -441,7 +441,6 @@
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-account-logout-are-you-sure" = "Adakah anda benar-benar ingin keluar?";
-"main-menu-account-logout-cancel" = "Batalkan";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai $1";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
 "main-menu-nearby" = "Berdekatan";
@@ -581,15 +580,8 @@
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
-"profile-page-donate" = "Derma";
 "profile-page-join-title" = "Sertai Wikipedia / Log masuk";
-"profile-page-logout" = "Log keluar";
-"profile-page-notification-title" = "Pemberitahuan";
-"profile-page-settings" = "Tetapan";
-"profile-page-talk-page-title" = "Laman perbincangan";
 "profile-page-title-logged-out" = "Akaun";
-"profile-page-user-page-title" = "Laman pengguna";
-"profile-page-watchlist-title" = "Senarai pantau";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
 "project-name-wikiquote" = "Wikipetikan";

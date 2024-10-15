@@ -532,7 +532,6 @@
 "main-menu-account-logout" = "Odhlásiť sa";
 "main-menu-account-logout-are-you-sure" = "Ste si istý, že sa chcete odhlásiť?";
 "main-menu-account-logout-are-you-sure-message" = "Odhlásenie sa vymaže vaše lokálne uložené údaje (oznámenia a správy), ale vaše údaje o účte budú stále dostupné na webe a budú sa dať znovu stiahnuť ak sa znovu prihlásite.";
-"main-menu-account-logout-cancel" = "Zrušiť";
 "main-menu-account-title-logged-in" = "Prihlásený ako $1";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
 "main-menu-nearby" = "V okolí";

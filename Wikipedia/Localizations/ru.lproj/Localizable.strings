@@ -236,6 +236,8 @@
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
+"confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
+"confirm-donation-history-deletion-title" = "Подтвердите удаление";
 "continue-button-title" = "Продолжить";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
@@ -693,7 +695,6 @@
 "main-menu-account-logout" = "Выйти";
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-are-you-sure-message" = "При выходе из системы будут удалены локально сохранённые данные учётной записи (уведомления и сообщения), но данные вашей учётной записи по-прежнему будут доступны в Интернете и будут загружены при повторном входе в систему.";
-"main-menu-account-logout-cancel" = "Отмена";
 "main-menu-account-title-logged-in" = "Вход выполнен как $1";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
 "main-menu-nearby" = "Поблизости";
@@ -1323,3 +1324,7 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
+"year-in-review-donate" = "Пожертвовать";
+"year-in-review-done" = "Готово";
+"year-in-review-next" = "Далее";
+"year-in-review-share" = "Поделиться";
