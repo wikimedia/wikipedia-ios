@@ -26,18 +26,18 @@ public struct WMFYearInReview: View {
         NavigationView {
             VStack {
                 if viewModel.isFirstSlide {
-                    WMFYearInReviewFirstSlideView(scrollViewContents: scrollViewContent, contents: buttons)
+                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack {
                         TabView(selection: $currentSlide) {
                             WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .tabViewStyle(
                             PageTabViewStyle(indexDisplayMode: .automatic)
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding([.leading, .trailing], 36)
                         .padding(.top, 48)
                     }
                     .onAppear {

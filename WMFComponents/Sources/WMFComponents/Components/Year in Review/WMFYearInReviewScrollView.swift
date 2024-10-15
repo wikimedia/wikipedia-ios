@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFYearInReviewFirstSlideView: View {
+public struct WMFYearInReviewScrollView: View {
 
     // MARK: - Properties
     var primaryButtonAction: (() -> Void)?
@@ -19,14 +19,14 @@ public struct WMFYearInReviewFirstSlideView: View {
     @State private var flashScrollIndicators: Bool = false
     
     var scrollViewContents: AnyView
-    var contents: AnyView
+        var contents: AnyView?
     
-    public init<ScrollViewContent: View, OtherContent: View>(
+    public init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent,
-        contents: OtherContent
+        @ViewBuilder contents: () -> AnyView? = { nil }
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
-        self.contents = AnyView(contents)
+        self.contents = contents()
     }
 
     // MARK: - Lifecycle
@@ -56,10 +56,12 @@ public struct WMFYearInReviewFirstSlideView: View {
             } else {
                 scrollView
             }
-            contents
-            .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))
-            .background {
-                Color(appEnvironment.theme.midBackground).ignoresSafeArea()
+            if contents != nil {
+                contents
+                    .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))
+                    .background {
+                        Color(appEnvironment.theme.midBackground).ignoresSafeArea()
+                    }
             }
         })
     }
