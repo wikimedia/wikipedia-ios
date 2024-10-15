@@ -30,7 +30,7 @@
 "aaald-new-website-reference-archive-date-text" = "ਮੂਲ ਤੋਂ $1 ਉੱਤੇ";
 "aaald-new-website-reference-title" = "ਵੈੱਬਸਾਈਟ";
 "aaald-one-section-description" = "$1 ਭਾਗ ਵਿੱਚ";
-"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਦੁਆਰਾ ਸੋਧ";
+"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ ਸੋਧ";
 "aaald-revision-userInfo" = "$1 ਨਾਲ ਸੋਧ ($2 ਸੋਧਾਂ)";
 "aaald-single-reference-added-description" = "ਹਵਾਲਾ ਜੋੜਿਆ ਗਿਆ";
 "aaald-two-sections-description" = "$1 ਅਤੇ $2 ਭਾਗਾਂ ਵਿੱਚ";
@@ -44,7 +44,7 @@
 "about-libraries-complete-list" = "ਪੂਰੀ ਸੂਚੀ";
 "about-libraries-license" = "ਲਸੰਸ";
 "about-libraries-licenses-title" = "ਸਾਨੂੰ ਖੁੱਲ੍ਹੇ ਸਰੋਤ ਸਾਫਟਵੇਅਰ ਨਾਲ ਪ੍ਰੇਮ ਹੈ $1";
-"about-product-of" = "$1 ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ ਤੁਹਾਡੇ ਵਰਗੇ ਵਲੰਟੀਅਰਾਂ ਦੀ ਮਦਦ ਨਾਲ";
+"about-product-of" = "$1 ਵੱਲੋਂ ਬਣਾਇਆ ਗਿਆ ਤੁਹਾਡੇ ਵਰਗੇ ਵਲੰਟੀਅਰਾਂ ਦੀ ਮਦਦ ਨਾਲ";
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
 "about-repositories-app-source-license" = "$1 ਹੇਠ ਸਰੋਤ ਕੋਡ ਉੱਪਲਬਧ ਹੈ।";
 "about-repositories-app-source-license-mit" = "ਐੱਮ.ਆਈ.ਟੀ. ਲਸੰਸ";
@@ -53,7 +53,7 @@
 "about-testers-details" = "QA $1 ਦੁਆਰਾ ਟੈਸਟ ਕੀਤਾ ਗਿਆ";
 "about-title" = "ਬਾਰੇ";
 "about-translators" = "ਤਰਜਮੇਕਾਰ";
-"about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਦੁਆਰਾ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
+"about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਵੱਲੋਂ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
@@ -82,14 +82,17 @@
 "button-ok" = "ਠੀਕ";
 "button-publish" = "ਛਾਪੋ";
 "button-read-now" = "ਪਡ਼੍ਹੋ";
-"button-report-a-bug" = "ਕਿਸੇ ਦੋਸ਼ ਦੀ ਇਤਲਾਹ ਦਿਉ";
+"button-report-a-bug" = "ਮਾਂਙਣੂ ਦੀ ਇਤਲਾਹ ਦਿਓ";
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
 "button-saved-remove" = "ਸੰਭਾਲਿਆਂ ਵਿੱਚੋਂ ਹਟਾਓ";
 "cancel" = "ਰੱਦ ਕਰੋ";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
+"confirm-donation-history-deletion-subtitle" = "ਇਹ ਸਿਰਫ਼ ਇਸ ਜੰਤਰ ਤੋਂ ਕੀਤੇ ਦਾਨ ਉੱਤੇ ਲਾਗੂ ਹੋਵੇਗਾ।";
 "confirm-donation-history-deletion-title" = "ਮਿਟਾਉਣ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"confirmed-donation-history-deletion" = "ਸਥਾਨਕ ਇਤਿਹਾਸ ਮਿਟਾਇਆ ਗਿਆ";
+"donate-history-delete" = "ਸਥਾਨਕ ਦਾਨ ਇਤਿਹਾਸ ਨੂੰ ਮਿਟਾਓ";
 "edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
@@ -214,7 +217,7 @@
 "share-article-name-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ \"$1\":";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
-"share-on-twitter-sign-off" = "ਵਿਕੀਪੀਡੀਆ ਦੁਆਰਾ";
+"share-on-twitter-sign-off" = "ਵਿਕੀਪੀਡੀਆ ਵੱਲੋਂ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
@@ -234,3 +237,7 @@
 "wikitext-upload-save-anonymously-warning" = "ਸੋਧਾਂ ਦਾ ਸਿਹਰਾ ਤੁਹਾਡੇ ਆਈ.ਪੀ. ਪਤੇ ਸਿਰ ਦਿੱਤਾ ਜਾਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ $1 ਹੋ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ਼ ਵਧੇਰੇ ਪਰਦੇਦਾਰੀ ਹੋਵੇਗੀ।";
 "wikitext-upload-save-sign-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "wikitext-upload-save-terms-name" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
+"year-in-review-base-reading-title" = "ਪੜ੍ਹਨਾ ਸਾਨੂੰ ਇਕੱਠੇ ਲੈ ਆਇਆ";
+"year-in-review-donate" = "ਦਾਨ ਕਰੋ";
+"year-in-review-get-started" = "ਸ਼ੁਰੂ ਕਰੋ";
+"year-in-review-next" = "ਅਗਲਾ";

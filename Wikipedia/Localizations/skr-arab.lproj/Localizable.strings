@@ -373,6 +373,7 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "profile-button-accessibility-label" = "پروفائل";
+"profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
 "profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
@@ -523,5 +524,7 @@
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
 "year-in-review-done" = "تھی ڳیا";
+"year-in-review-get-started" = "شروع کرو";
+"year-in-review-hide" = "ایہ خاصیت لکاؤ";
 "year-in-review-next" = "اڳلا";
 "year-in-review-share" = "شیئر";

@@ -219,6 +219,7 @@
 "diff-thanks-sent" = "Ucapan 'Terima kasih' anda diberi kepada $1";
 "diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
+"donate-payment-method-prompt-apple-pay-button-title" = "Derma menggunakan Apple Pay";
 "edit-link-display-text-title" = "Teks paparan";
 "edit-link-link-target-title" = "Sasaran pautan";
 "edit-link-remove-link-title" = "Buang pautan";
@@ -713,6 +714,7 @@
 "settings-clear-cache-are-you-sure-title" = "Padamkan data dalam cache?";
 "settings-clear-cache-cancel" = "Batalkan";
 "settings-clear-cache-ok" = "Padamkan cache";
+"settings-donate" = "Derma";
 "settings-help-and-feedback" = "Bantuan dan maklum balas";
 "settings-language-bar" = "Tampilkan bahasa pada carian";
 "settings-languages-feed-customization" = "Anda boleh mengurus bahasa mana yang ditunjukkan pada suapan Teroka anda dengan menyesuaikan tetapan suapan Teroka anda.";
@@ -823,3 +825,4 @@
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
+"year-in-review-donate" = "Derma";
