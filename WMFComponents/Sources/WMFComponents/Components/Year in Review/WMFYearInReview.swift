@@ -15,6 +15,9 @@ public struct WMFYearInReview: View {
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().backgroundColor = theme.midBackground
+        
+        UIPageControl.appearance().currentPageIndicatorTintColor = theme.link
+        UIPageControl.appearance().pageIndicatorTintColor = theme.link.withAlphaComponent(0.3)
     }
     
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -26,7 +29,22 @@ public struct WMFYearInReview: View {
                     WMFYearInReviewFirstSlideView(scrollViewContents: scrollViewContent, contents: buttons)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                    VStack {
+                        TabView(selection: $currentSlide) {
+                            WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                        }
+                        .tabViewStyle(
+                            PageTabViewStyle(indexDisplayMode: .automatic)
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding([.leading, .trailing], 36)
+                        .padding(.top, 48)
+                    }
+                    .onAppear {
+                        UIPageControl.appearance().isHidden = true
+                    }
+                    .ignoresSafeArea(edges: .bottom)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
             .background(Color(uiColor: theme.midBackground))
@@ -57,7 +75,7 @@ public struct WMFYearInReview: View {
                         }
                     }
                     ToolbarItem(placement: .bottomBar) {
-                        HStack {
+                        HStack(alignment: .center) {
                             Button(action: {
                                 // TODO: Implement share
                             }) {
@@ -69,6 +87,16 @@ public struct WMFYearInReview: View {
                                         .font(Font(WMFFont.for(.semiboldHeadline)))
                                 }
                             }
+                            .frame(maxWidth: .infinity)
+                            Spacer()
+                            HStack(spacing: 9) {
+                                ForEach(0..<viewModel.slides.count, id: \.self) { index in
+                                    Circle()
+                                        .fill(index == currentSlide ? Color(uiColor: theme.link) : Color(uiColor: theme.link.withAlphaComponent(0.3)))
+                                        .frame(width: 7, height: 7)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
                             Spacer()
                             Button(action: {
                                 withAnimation {
@@ -79,6 +107,7 @@ public struct WMFYearInReview: View {
                                     .foregroundStyle(Color(uiColor: theme.link))
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
+                            .frame(maxWidth: .infinity)
                         }
                     }
                 }
