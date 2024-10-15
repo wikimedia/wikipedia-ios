@@ -963,7 +963,9 @@
 "profile-page-donate-subtext" = "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.";
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Join Wikipedia / Log in";
+"profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
 "profile-page-title-logged-out" = "Account";
+"profile-page-year-in-review-title" = "Year in Review";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

@@ -1,7 +1,21 @@
 import Foundation
 import SwiftUI
+import WMFData
 
 public class WMFProfileViewModel: ObservableObject {
+    
+    public struct YearInReviewDependencies {
+        let dataController: WMFYearInReviewDataController
+        let countryCode: String
+        let primaryAppLanguageProject: WMFProject
+        
+        public init(dataController: WMFYearInReviewDataController, countryCode: String, primaryAppLanguageProject: WMFProject) {
+            self.dataController = dataController
+            self.countryCode = countryCode
+            self.primaryAppLanguageProject = primaryAppLanguageProject
+        }
+    }
+    
     @Published var profileSections: [ProfileSection] = []
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme {
@@ -16,17 +30,21 @@ public class WMFProfileViewModel: ObservableObject {
             loadProfileSections()
         }
     }
+    
+    
+    private let yearInReviewDependencies: YearInReviewDependencies?
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
         self.inboxCount = inboxCount
         self.coordinatorDelegate = coordinatorDelegate
+        self.yearInReviewDependencies = yearInReviewDependencies
         loadProfileSections()
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies)
     }
 
     public struct LocalizedStrings {
@@ -42,8 +60,10 @@ public class WMFProfileViewModel: ObservableObject {
         let joinWikipediaTitle: String
         let joinWikipediaSubtext: String
         let donateSubtext: String
+        let yearInReviewTitle: String
+        let yearInReviewLoggedOutSubtext: String
 
-        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String) {
+        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
             self.pageTitle = pageTitle
             self.doneButtonTitle = doneButtonTitle
             self.notificationsTitle = notificationsTitle
@@ -56,6 +76,8 @@ public class WMFProfileViewModel: ObservableObject {
             self.joinWikipediaTitle = joinWikipediaTitle
             self.joinWikipediaSubtext = joinWikipediaSubtext
             self.donateSubtext = donateSubtext
+            self.yearInReviewTitle = yearInReviewTitle
+            self.yearInReviewLoggedOutSubtext = yearInReviewLoggedOutSubtext
         }
     }
 }
@@ -78,173 +100,216 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?) -> [ProfileSection] {
+        
         if isLoggedIn {
+            let notificationsItem = ProfileListItem(
+                text: localizedStrings.notificationsTitle,
+                image: .bellFill,
+                imageColor: UIColor(Color.blue),
+                hasNotifications: inboxCount > 0,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showNotifications)
+                }
+            )
+            let userPageItem = ProfileListItem(
+                text: localizedStrings.userPageTitle,
+                image: .personFilled,
+                imageColor: UIColor(Color.purple),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showUserPage)
+                }
+            )
+            let talkPageItem = ProfileListItem(
+                text: localizedStrings.talkPageTitle,
+                image: .chatBubbleFilled,
+                imageColor: UIColor(Color.green),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                }
+            )
+            let watchlistItem = ProfileListItem(
+                text: localizedStrings.watchlistTitle,
+                image: .textBadgeStar,
+                imageColor: UIColor(Color.orange),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showWatchlist)
+                }
+            )
+            let logoutItem = ProfileListItem(
+                text: localizedStrings.logOutTitle,
+                image: .leave,
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.logout)
+                }
+            )
+            let donateItem = ProfileListItem(
+                text: localizedStrings.donateTitle,
+                image: .heartFilled,
+                imageColor: UIColor(Color.red),
+                hasNotifications: nil,
+                isDonate: true,
+                isLoadingDonateConfigs: isLoadingDonateConfigs,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                }
+            )
+            let yearInReviewItem = ProfileListItem(
+                text: localizedStrings.yearInReviewTitle,
+                image: .calendar,
+                imageColor: WMFColor.blue600,
+                hasNotifications: false,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                }
+            )
+            
+            var section3Items = [donateItem]
+            if let yearInReviewDependencies,
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+                section3Items = [donateItem, yearInReviewItem]
+            }
+            
+            let settingsItem = ProfileListItem(
+                text: localizedStrings.settingsTitle,
+                image: .gear,
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showSettings)
+                }
+            )
             return [
                 ProfileSection(
                     listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.notificationsTitle,
-                            image: .bellFill,
-                            imageColor: UIColor(Color.blue),
-                            hasNotifications: inboxCount > 0,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showNotifications)
-                            }
-                        )
+                        notificationsItem
                     ],
                     subtext: nil
                 ),
                 ProfileSection(
                     listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.userPageTitle,
-                            image: .personFilled,
-                            imageColor: UIColor(Color.purple),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showUserPage)
-                            }
-                        ),
-                        ProfileListItem(
-                            text: localizedStrings.talkPageTitle,
-                            image: .chatBubbleFilled,
-                            imageColor: UIColor(Color.green),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
-                            }
-                        ),
-                        ProfileListItem(
-                            text: localizedStrings.watchlistTitle,
-                            image: .textBadgeStar,
-                            imageColor: UIColor(Color.orange),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showWatchlist)
-                            }
-                        ),
-                        ProfileListItem(
-                            text: localizedStrings.logOutTitle,
-                            image: .leave,
-                            imageColor: UIColor(Color.gray),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.logout)
-                            }
-                        )
+                        userPageItem,
+                        talkPageItem,
+                        watchlistItem,
+                        logoutItem
                     ],
                     subtext: nil
                 ),
                 ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.donateTitle,
-                            image: .heartFilled,
-                            imageColor: UIColor(Color.red),
-                            hasNotifications: nil,
-                            isDonate: true,
-                            isLoadingDonateConfigs: isLoadingDonateConfigs,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showDonate)
-                                coordinatorDelegate?.handleProfileAction(.logDonateTap)
-                            }
-                        )
-//                        ,
-//                        ProfileListItem(
-//                            text: "Year in Review",
-//                            image: .calendar,
-//                            imageColor: WMFColor.blue600,
-//                            hasNotifications: false,
-//                            isDonate: false,
-//                            isLoadingDonateConfigs: false,
-//                            action: {
-//                                coordinatorDelegate?.handleProfileAction(.showYearInReview)
-//                            }
-//                        )
-                    ],
+                    listItems: section3Items,
                     subtext: nil
                 ),
                 ProfileSection(
                     listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.settingsTitle,
-                            image: .gear,
-                            imageColor: UIColor(Color.gray),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showSettings)
-                            }
-                        )
+                        settingsItem
                     ],
                     subtext: nil
                 )
             ]
         } else {
-            return [
-                ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.joinWikipediaTitle,
-                            image: .leave,
-                            imageColor: UIColor(Color.gray),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.login)
-                                
-                            }
-                        )
-                    ],
-                    subtext: localizedStrings.joinWikipediaSubtext
-                ),
-                ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.donateTitle,
-                            image: .heartFilled,
-                            imageColor: UIColor(Color.red),
-                            hasNotifications: nil,
-                            isDonate: true,
-                            isLoadingDonateConfigs: isLoadingDonateConfigs,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showDonate)
-                                coordinatorDelegate?.handleProfileAction(.logDonateTap)
-                            }
-                        )
-                    ],
-                    subtext: localizedStrings.donateSubtext
-                ),
-                ProfileSection(
-                    listItems: [
-                        ProfileListItem(
-                            text: localizedStrings.settingsTitle,
-                            image: .gear,
-                            imageColor: UIColor(Color.gray),
-                            hasNotifications: nil,
-                            isDonate: false,
-                            isLoadingDonateConfigs: false,
-                            action: {
-                                coordinatorDelegate?.handleProfileAction(.showSettings)
-                            }
-                        )
-                    ],
-                    subtext: nil
+            
+            let joinWikipediaItem = ProfileListItem(
+                text: localizedStrings.joinWikipediaTitle,
+                image: .leave,
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.login)
+                    
+                }
+            )
+            let donateItem = ProfileListItem(
+                text: localizedStrings.donateTitle,
+                image: .heartFilled,
+                imageColor: UIColor(Color.red),
+                hasNotifications: nil,
+                isDonate: true,
+                isLoadingDonateConfigs: isLoadingDonateConfigs,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                }
+            )
+            
+            let yearInReviewItem = ProfileListItem(
+                text: localizedStrings.yearInReviewTitle,
+                image: .calendar,
+                imageColor: WMFColor.blue600,
+                hasNotifications: false,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                }
+            )
+            
+            let settingsItem = ProfileListItem(
+                text: localizedStrings.settingsTitle,
+                image: .gear,
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showSettings)
+                }
+            )
+            
+            let joinSection = ProfileSection(
+                listItems: [
+                    joinWikipediaItem
+                ],
+                subtext: localizedStrings.joinWikipediaSubtext
+            )
+            let donateSection = ProfileSection(
+                listItems: [
+                    donateItem
+                ],
+                subtext: localizedStrings.donateSubtext
+            )
+            let yearInReviewSection = ProfileSection(
+                listItems: [
+                    yearInReviewItem
+                ],
+                subtext: localizedStrings.yearInReviewLoggedOutSubtext
                 )
-            ]
+            let settingsSection = ProfileSection(
+                listItems: [
+                    settingsItem
+                ],
+                subtext: nil
+            )
+            
+            
+            var sections = [joinSection, donateSection, settingsSection]
+            if let yearInReviewDependencies,
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+                sections = [joinSection, donateSection, yearInReviewSection, settingsSection]
+            }
+            
+            return sections
         }
     }
 }
