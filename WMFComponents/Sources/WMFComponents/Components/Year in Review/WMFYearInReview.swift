@@ -15,9 +15,6 @@ public struct WMFYearInReview: View {
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().backgroundColor = theme.midBackground
-        
-        UIPageControl.appearance().currentPageIndicatorTintColor = theme.link
-        UIPageControl.appearance().pageIndicatorTintColor = theme.link.withAlphaComponent(0.3)
     }
     
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -34,14 +31,8 @@ public struct WMFYearInReview: View {
                             WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
-                        .tabViewStyle(
-                            PageTabViewStyle(indexDisplayMode: .automatic)
-                        )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 48)
-                    }
-                    .onAppear {
-                        UIPageControl.appearance().isHidden = true
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

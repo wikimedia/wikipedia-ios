@@ -18,7 +18,7 @@ public struct WMFSlideShow: View {
     public var body: some View {
         Group {
             ForEach(0..<slides.count, id: \.self) { slide in
-                WMFYearInReviewScrollView(scrollViewContents: slideView(slide: slide))
+                WMFYearInReviewScrollView(scrollViewContents: slideView(slide: slide), hasLargeInsets: false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(slide)
                     .background(Color(uiColor: theme.midBackground))

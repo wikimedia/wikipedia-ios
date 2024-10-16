@@ -19,14 +19,17 @@ public struct WMFYearInReviewScrollView: View {
     @State private var flashScrollIndicators: Bool = false
     
     var scrollViewContents: AnyView
-        var contents: AnyView?
+    var contents: AnyView?
+    var hasLargeInsets: Bool
     
     public init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent,
-        @ViewBuilder contents: () -> AnyView? = { nil }
+        @ViewBuilder contents: () -> AnyView? = { nil },
+        hasLargeInsets: Bool = true
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
         self.contents = contents()
+        self.hasLargeInsets = hasLargeInsets
     }
 
     // MARK: - Lifecycle
@@ -35,7 +38,7 @@ public struct WMFYearInReviewScrollView: View {
     var flashingScrollView: some View {
         ScrollView(showsIndicators: true) {
             scrollViewContents
-                .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
+                .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
         }
         .scrollIndicatorsFlash(trigger: flashScrollIndicators)
     }
