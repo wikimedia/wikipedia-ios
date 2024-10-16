@@ -32,7 +32,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
-        // updateNotificationsCenterButton()
         updateProfileViewButton()
         updateNavigationBarVisibility()
 
@@ -655,7 +654,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        // updateNotificationsCenterButton()
         navigationItem.titleView = titleView
         updateProfileViewButton()
         tabBarSnapshotImage = nil
@@ -941,6 +939,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        guard presentedViewController == nil else {
+            return
+        }
+
+        guard self.isViewLoaded && self.view.window != nil else {
+            return
+        }
+
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
@@ -954,17 +960,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             yirCoordinator.start()
         })
 
-        if let customView = profileViewButtonItem?.customView,
-           let superview = customView.superview,
-           let navigationView = navigationController?.view {
-            let centerInSuperview = CGPoint(x: customView.frame.midX, y: customView.frame.midY)
-
-            let ref = superview.convert(centerInSuperview, to: navigationView)
-            let globalRect = CGRect(x: ref.x, y: ref.y, width: customView.frame.width, height: customView.frame.height)
-
-            announceFeature(viewModel: viewModel, sourceView: view, sourceRect: globalRect)
-            yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
+        if let profileViewButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: nil, sourceBarButton: profileViewButtonItem)
         }
+
+        yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {
@@ -1027,7 +1027,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, sourceBarButton: profileViewButtonItem)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }
@@ -1391,8 +1391,6 @@ extension ExploreViewController {
             }
              */
         }
-
-
     }
 }
 

@@ -142,7 +142,6 @@ extension ArticleViewController {
 
         let yirDataController = try? WMFYearInReviewDataController()
 
-
         guard let wmfProject = project?.wmfProject, let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject), shouldShowYir else {
             return
         }
@@ -164,8 +163,9 @@ extension ArticleViewController {
             yirCoordinator.start()
         })
         
-        let sourceRect = profileViewButtonItem?.customView?.frame // test code
-        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect ?? self.view.frame)
+        if let profileViewButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileViewButtonItem)
+        }
         yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     
     }

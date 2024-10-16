@@ -33,7 +33,9 @@ public class WMFYearInReviewDataController {
         get {
             return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: newValue)
+            var currentAnnouncementStatus = featureAnnouncementStatus
+            currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
         }
     }
 
