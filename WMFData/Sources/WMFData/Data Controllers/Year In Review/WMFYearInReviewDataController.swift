@@ -293,7 +293,8 @@ public class WMFYearInReviewDataController {
                     year: Int(cdSlide.year),
                     id: id,
                     evaluated: cdSlide.evaluated,
-                    display: cdSlide.display
+                    display: cdSlide.display,
+                    data: cdSlide.data
                 )
                 slides.append(slide)
             }

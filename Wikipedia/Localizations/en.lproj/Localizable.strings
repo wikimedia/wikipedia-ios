@@ -1392,12 +1392,16 @@
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
+"year-in-review-2024-Wikipedia-num-active-languages" = "332 active languages";
+"year-in-review-2024-Wikipedia-num-articles" = "63.69 million articles";
 "year-in-review-base-reading-title" = "Reading brought us together";
 "year-in-review-donate" = "Donate";
 "year-in-review-done" = "Done";
 "year-in-review-get-started" = "Get Started";
 "year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
+"year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year. This year Wikipedia had $2 available across over $3 this year. You joined millions in expanding knowledge and exploring diverse topics.";
+"year-in-review-personalized-reading-title- format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share" = "Share";
 "year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-title" = "Explore your Wikipedia Year in Review";

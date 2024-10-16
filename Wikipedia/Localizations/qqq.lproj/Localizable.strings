@@ -1392,12 +1392,16 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"year-in-review-2024-Wikipedia-num-active-languages" = "Number of active languages available on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-articles" = "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
 "year-in-review-base-reading-title" = "Year in review for people without read/edit history, first slide title";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-done" = "Year in review done button";
 "year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-hide" = "Button to hide year in review feature";
 "year-in-review-next" = "Year in review next button";
+"year-in-review-personalized-reading-subtitle-format" = "Year in review first slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59 million articles\". $3 is replaced with the number of active languages available on Wikipedia, for example \"332 active languages\"";
+"year-in-review-personalized-reading-title- format" = "Year in review first slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-share" = "Year in review share button";
 "year-in-review-subtitle" = "Year in review page information";
 "year-in-review-title" = "Year in review page title";
