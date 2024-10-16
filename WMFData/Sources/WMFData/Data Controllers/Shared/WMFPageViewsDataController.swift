@@ -145,11 +145,16 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func fetchPageViewCounts() throws -> [WMFPageViewCount] {
+    public func fetchPageViewCounts(moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewCount] {
         
-        let viewContext = try coreDataStore.viewContext
-        let results: [WMFPageViewCount] = try viewContext.performAndWait {
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: viewContext)
+        let context: NSManagedObjectContext
+        if let moc {
+            context = moc
+        } else {
+            context = try coreDataStore.viewContext
+        }
+        let results: [WMFPageViewCount] = try context.performAndWait {
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: context)
             var pageViewCounts: [WMFPageViewCount] = []
             for dict in pageViewsDict {
                 
@@ -158,7 +163,7 @@ public final class WMFPageViewsDataController {
                     continue
                 }
                 
-                guard let page = viewContext.object(with: objectID) as? CDPage,
+                guard let page = context.object(with: objectID) as? CDPage,
                     let projectID = page.projectID, let title = page.title else {
                     continue
                 }

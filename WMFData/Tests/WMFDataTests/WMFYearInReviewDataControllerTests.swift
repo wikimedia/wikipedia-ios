@@ -3,7 +3,7 @@ import XCTest
 @testable import WMFDataMocks
 import CoreData
 
-final class YearInReviewDataControllerTests: XCTestCase {
+final class WMFYearInReviewDataControllerTests: XCTestCase {
 
     lazy var store: WMFCoreDataStore = {
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

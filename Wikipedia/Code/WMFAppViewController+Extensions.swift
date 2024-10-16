@@ -604,7 +604,7 @@ extension WMFAppViewController {
         }
     }
 
-    @objc func getYearInReviewReport(for year: Int) {
+    @objc func populateYearInReviewReport(for year: Int) {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
         else { return }
@@ -614,7 +614,9 @@ extension WMFAppViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                await yirDataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+                try await yirDataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
             }
         }
     }

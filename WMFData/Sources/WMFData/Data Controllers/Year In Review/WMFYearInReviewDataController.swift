@@ -3,7 +3,7 @@ import CoreData
 
 public class WMFYearInReviewDataController {
 
-    private let coreDataStore: WMFCoreDataStore
+    let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
@@ -112,32 +112,106 @@ public class WMFYearInReviewDataController {
     }
 
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
 
-        // First fetch or create an empty report object
-        var report = try? await fetchYearInReviewReport(forYear: year)
-
-        if report == nil {
-            let slides = initialSlides(year: year)
-            try? await createNewYearInReviewReport(year: year, slides: slides)
-            report = try? await fetchYearInReviewReport(forYear: year)
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
+            
+            guard let self else { return nil }
+            let predicate = NSPredicate(format: "year == %d", year)
+            let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
+            
+            guard let cdReport else {
+                return nil
+            }
+            
+            cdReport.year = Int32(year)
+            if (cdReport.slides?.count ?? 0) == 0 {
+                cdReport.slides = try self.initialSlides(year: year, moc: backgroundContext) as NSSet
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+            
+            // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
+            guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+                return nil
+            }
+            
+            guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
+                return nil
+            }
+            
+            for slide in cdSlides {
+                switch slide.id {
+                    
+                case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
+                    if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+                        
+                        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+                        let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(moc: backgroundContext)
+                        
+                        // TODO: Data population dates.
+                        
+                        let encoder = JSONEncoder()
+                        slide.data = try encoder.encode(pageViewCounts.count)
+                        
+                        if pageViewCounts.count > 5 {
+                            slide.display = true
+                        }
+                        
+                        slide.evaluated = true
+                    }
+                    
+                case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
+                    
+                    if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                        
+                        // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
+                        
+                    }
+                default:
+                    debugPrint("Unrecognized Slide ID")
+                }
+            
+            }
+            
+            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+            
+            return WMFYearInReviewReport(cdReport: cdReport)
         }
         
-        // Then check for slide disable switch. If not disabled, evaluate and update slide data.
-
-        return report
+        return result
     }
 
-    func initialSlides(year: Int) -> [WMFYearInReviewSlide] {
-        let editCount = WMFYearInReviewSlide(year: year, id: .editCount,  evaluated: false, display: false, data: nil)
-        let readCount = WMFYearInReviewSlide(year: year, id: .readCount,  evaluated: false, display: false, data: nil)
-        return [editCount, readCount]
+    func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
+        var results = Set<CDYearInReviewSlide>()
+        if year == 2024 {
+            
+            let readCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            readCountSlide.year = 2024
+            readCountSlide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
+            readCountSlide.evaluated = false
+            readCountSlide.display = false
+            readCountSlide.data = nil
+            results.insert(readCountSlide)
+            
+            let editCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            editCountSlide.year = 2024
+            editCountSlide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
+            editCountSlide.evaluated = false
+            editCountSlide.display = false
+            editCountSlide.data = nil
+            results.insert(editCountSlide)
+        }
+        
+        return results
     }
-
+    
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
