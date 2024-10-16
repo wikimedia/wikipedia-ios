@@ -31,6 +31,7 @@ public struct WMFYearInReview: View {
                             WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 48)
                     }
