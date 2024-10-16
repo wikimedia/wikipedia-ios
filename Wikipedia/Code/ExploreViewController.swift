@@ -14,6 +14,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
+    private var profileViewButtonItem: UIBarButtonItem?
+
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
 
@@ -162,9 +164,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileViewButtonItem?.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileViewButtonItem?.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         navigationItem.rightBarButtonItem = profileViewButtonItem
         navigationBar.updateNavigationItems()
     }
@@ -929,25 +931,31 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         let yirDataController = try? WMFYearInReviewDataController()
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
+            return
+        }
+
         guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
             return
         }
 
-        let title = "Title title title title "
-        let body = "Body body body body body body body body body body body body body body body body body"
-        let primaryButtonTitle = "Primary button"
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
             guard let self,
                   let navController = self.navigationController
             else { return }
             let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
             yirCoordinator.start()
-
         })
-        let sourceRect = view.convert(view.bounds, to: nil) // get profile icon rect for iPad popover
-        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect)
 
+        let sourceRect = profileViewButtonItem?.customView?.frame
+        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect ?? self.view.frame)
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {
@@ -1363,6 +1371,8 @@ extension ExploreViewController {
 
     @objc func applicationDidBecomeActive() {
         if !UIAccessibility.isVoiceOverRunning {
+            presentYearInReviewAnnouncement()
+            /*
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
             
             let imageRecommendationsDataController = WMFImageRecommendationsDataController()
@@ -1370,7 +1380,10 @@ extension ExploreViewController {
             if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
                 presentImageRecommendationsAnnouncementAltText()
             }
+             */
         }
+
+
     }
 }
 
