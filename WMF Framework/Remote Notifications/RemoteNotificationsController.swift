@@ -109,7 +109,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         do {
             filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
             allInboxProjects = []
-            try modelController?.resetDatabaseAndSharedCache()
+            modelController?.resetDatabaseAndSharedCache()
         } catch let error {
             DDLogError("Error resetting notifications database on logout: \(error)")
         }
@@ -316,7 +316,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
         let currentCount = try numberOfUnreadNotifications().intValue
-        let sharedCache = SharedContainerCache<PushNotificationsCache>(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
         var pushCache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
         pushCache.currentUnreadCount = currentCount
         sharedCache.saveCache(pushCache)

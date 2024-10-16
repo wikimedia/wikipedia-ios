@@ -69,7 +69,6 @@
 "main-menu-about" = "د کاريال په اړه";
 "main-menu-account-login" = "ننوتل";
 "main-menu-account-logout" = "وتل";
-"main-menu-account-logout-cancel" = "ناگارل";
 "main-menu-account-title-logged-in" = "د $1 په توگه ورننوتئ";
 "main-menu-nearby" = "نژدې";
 "main-menu-privacy-policy" = "د پټنتيا تگلاره";

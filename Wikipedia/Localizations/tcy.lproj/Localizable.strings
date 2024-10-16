@@ -6,7 +6,9 @@
 // Author: Lokesha kunchadka
 // Author: Mahaveer Indra
 // Author: Nemo bis
+// Author: Pragathi. BH
 // Author: Ravi Mundkur
+// Author: Vinoda mamatharai
 
 "about-content-license" = "ಪರವಾನಿಗೆತಾ ವಿಸಯ";
 "about-contributors" = "ಕಾನಿಕೆ ಕೊರ್ನಾರ್";
@@ -22,6 +24,7 @@
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
 "account-creation-title" = "ಪೊಸ ಖಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
+"account-talk-page-title" = "ಪಾತೆರ ಪುಟೊ";
 "action-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "action-read" = "ಓದ್‍ಲೆ";
 "action-redo" = "ಕುಡಮಲ್ಪಿ";
@@ -52,7 +55,10 @@
 "cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
+"confirm-donation-history-deletion-title" = "ಅಳಿಸುವಿಕೆನ್ ಖಚಿತಪಡಿಸಲೆ";
+"confirmed-donation-history-deletion" = "ಸ್ಥಳೀಯ ಇತಿಹಾಸೊನು ದೆತ್ತ್ ಪಾಡ್ದೆರ್";
 "description-published-button-title" = "ಆಂಡ್";
+"donate-history-delete" = "ಸ್ಥಳೀಯ ದಾನ ಇತಿಹಾಸೊನು ಮಾಜಾವೊಡು";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
 "edit-menu-item" = "ಸಂಪೊಲಿಪುಲೆ";
@@ -121,7 +127,6 @@
 "main-menu-about" = "ಆಪ್ ತಾ ಬಗ್ಗೆ";
 "main-menu-account-login" = "ಲಾಗಿನ್ ಆಲೆ";
 "main-menu-account-logout" = "ಲಾಗ್ ಔಟ್";
-"main-menu-account-logout-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "main-menu-nearby" = "ಒಂಜೆ ನಮೂನೆತಾ";
 "main-menu-privacy-policy" = "ಕಾಸಗಿ ಕಾರ್ಯೊನೀತಿ";
 "main-menu-rate-app" = "Rate the app";
@@ -147,6 +152,13 @@
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
 "potd-widget-title" = "ಇ ದಿನೊತ್ತಾ ಪೆಟೊ";
+"profile-button-accessibility-hint" = "ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಣೆಗ್ ನ್ಯಾವಿಗೇಟ್ ಮಲ್ಪುಂಡು.";
+"profile-button-accessibility-label" = "ವಿವರೊ";
+"profile-button-badge-accessibility-label" = "ಓದಂದಿನ ಬ್ಯಾಡ್ಜ್ ಇಪ್ಪುನ ಪ್ರೊಫೈಲ್";
+"profile-page-donate-subtext" = "ಅತ್ತ್ಂಡ ವಿಕಿಪೀಡಿಯನ್ ಉಚಿತವಾದ್ ಬೊಕ್ಕ ಜಗತ್ತ್ ದ ಪ್ರತಿಯೊಬ್ಬೆರೆಗ್ಲಾ ಲಭ್ಯವಾದ್ ದೀಯೆರೆ ಒಂಜಿ ದಾನೊಡು ಸಪೋರ್ಟ್ ಮಲ್ಪುಲೆ.";
+"profile-page-join-subtext" = "ನಿಕ್ಲೆನ ಕೊಡುಗೆಲೆನ್ ಟ್ರ್ಯಾಕ್ ಮಲ್ಪರೆ, ಲೇಖನೊಲೆನ್ ಆಫ್ಲೈನ್ ಡ್ ಉಳಾಯೆರೆ ಬೊಕ್ಕ ಸಾಧನೊಲೆಡ್ ಸಿಂಕ್ ಮಲ್ಪರೆ ಒಂಜಿ ವಿಕಿಪೀಡಿಯ ಖಾತೆಗ್ ಸೈನ್ ಅಪ್ ಮಲ್ಪುಲೆ.";
+"profile-page-join-title" = "ವಿಕಿಪೀಡಿಯೊಗು ಸೇರ್ಲೆ / ಲಾಗ್ ಇನ್ ಮಲ್ಪುಲೆ";
+"profile-page-title-logged-out" = "ಕಾತೆ";
 "saved-title" = "ಒರಿಪಾಂಡ್";
 "search-did-you-mean" = "ಉಂದು ಪಂಡ $1?";
 "search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
@@ -180,3 +192,7 @@
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
+"year-in-review-donate" = "ದಾನೊ";
+"year-in-review-done" = "ಆಂಡ್.";
+"year-in-review-next" = "ನನತಾ";
+"year-in-review-share" = "ಪಟ್ಟುಲೆ";

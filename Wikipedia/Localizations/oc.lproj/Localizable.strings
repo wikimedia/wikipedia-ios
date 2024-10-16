@@ -115,7 +115,6 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-account-logout-are-you-sure" = "Sètz segur que vos volètz desconnectar ?";
-"main-menu-account-logout-cancel" = "Anullar";
 "main-menu-account-title-logged-in" = "Connectat en tant que $1.";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
 "main-menu-nearby" = "A proximitat";

@@ -424,13 +424,13 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
                 wmfVersion = try versionContainer.decode(WMFConfigVersion.self)
             } catch {
                 // Skip
-                _ = try? versionContainer.decode(DiscardedElement.self)
-                _ = try? campaignContainer.decode(DiscardedElement.self)
+                _ = try? versionContainer.decode(WMFDiscardedElement.self)
+                _ = try? campaignContainer.decode(WMFDiscardedElement.self)
                 continue
             }
             
             guard wmfVersion.version == Self.currentVersion else {
-                _ = try? campaignContainer.decode(DiscardedElement.self)
+                _ = try? campaignContainer.decode(WMFDiscardedElement.self)
                 continue
             }
                 
@@ -438,7 +438,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
                 config = try campaignContainer.decode(FundraisingCampaignConfig.self)
             } catch {
                 // Skip
-                _ = try? campaignContainer.decode(DiscardedElement.self)
+                _ = try? campaignContainer.decode(WMFDiscardedElement.self)
                 continue
             }
             
@@ -452,8 +452,6 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         var container = encoder.unkeyedContainer()
         try container.encode(contentsOf: configs)
     }
-    
-    struct DiscardedElement: Codable {}
 }
 
 private struct WMFFundraisingCampaignPromptState: Codable {

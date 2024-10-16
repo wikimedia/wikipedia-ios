@@ -749,7 +749,6 @@
 "main-menu-account-logout" = "Logga ut";
 "main-menu-account-logout-are-you-sure" = "Är du säker på att du vill logga ut?";
 "main-menu-account-logout-are-you-sure-message" = "Om du loggar ut raderas din lokalt lagrade kontodata (notiser och meddelanden), men din kontodata kommer fortfarande att vara tillgängliga på webben och kommer att laddas ner igen om du loggar in igen.";
-"main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Inloggad som $1";
 "main-menu-heading-legal" = "Integritet och villkor";
 "main-menu-nearby" = "I närheten";
@@ -982,6 +981,13 @@
 "preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "privacy-policy-title" = "Integritetspolicy";
 "problem-with-feature-title" = "Problem med funktion";
+"profile-button-accessibility-hint" = "Navigerar till profilvyn.";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil med märke för olästa aviseringar";
+"profile-page-donate-subtext" = "Eller stöd Wikipedia med en donation för att hålla den gratis och tillgänglig för alla runt om i världen.";
+"profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
+"profile-page-join-title" = "Skapa konto på Wikipedia / Logga in";
+"profile-page-title-logged-out" = "Konto";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";

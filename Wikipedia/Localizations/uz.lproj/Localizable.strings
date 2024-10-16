@@ -203,7 +203,6 @@
 "main-menu-account-login" = "Kirmoq";
 "main-menu-account-logout" = "Chiqish";
 "main-menu-account-logout-are-you-sure" = "Chiqmoqchi ekanligingizga ishonchingiz komilmi?";
-"main-menu-account-logout-cancel" = "Bekor qilish";
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
 "main-menu-heading-legal" = "Maxfiylik va shartlar";
 "main-menu-nearby" = "Yaqin atrofda";

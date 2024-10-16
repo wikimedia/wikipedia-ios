@@ -273,7 +273,6 @@
 "main-menu-account-login" = "لاگ ان تھیوو";
 "main-menu-account-logout" = "لاگ آؤٹ";
 "main-menu-account-logout-are-you-sure" = "بھلا تہاکوں پک ہے جو تساں لاگ آؤٹ تھیوݨ چاہندو؟";
-"main-menu-account-logout-cancel" = "منسوخ";
 "main-menu-heading-legal" = "رازداری تے شرائط";
 "main-menu-nearby" = "نیڑے";
 "main-menu-privacy-policy" = "رازداری پالیسی";
@@ -373,6 +372,9 @@
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
+"profile-button-accessibility-label" = "پروفائل";
+"profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
+"profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";
@@ -520,3 +522,9 @@
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
+"year-in-review-donate" = "عطیہ";
+"year-in-review-done" = "تھی ڳیا";
+"year-in-review-get-started" = "شروع کرو";
+"year-in-review-hide" = "ایہ خاصیت لکاؤ";
+"year-in-review-next" = "اڳلا";
+"year-in-review-share" = "شیئر";

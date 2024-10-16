@@ -653,7 +653,6 @@
 "main-menu-account-logout" = "Чыкъ";
 "main-menu-account-logout-are-you-sure" = "Сессияны джабаргъа излегенигзге ишексизмисиз?";
 "main-menu-account-logout-are-you-sure-message" = "Системадан чыгъыу, локал сакъланнган хыйсаб билгилеригизни (хапарландырыула бла билдириуле) кетерир, алай а хыйсаб билгилеригиз вебде къалыр эмда къайтарыб кирсегиз, джангыдан эндирилирле.";
-"main-menu-account-logout-cancel" = "Ызына ал";
 "main-menu-account-title-logged-in" = "$1 болуб сессия ачылды";
 "main-menu-heading-legal" = "Ташалыкъ эмда Шартла";
 "main-menu-nearby" = "Джуўукъда";

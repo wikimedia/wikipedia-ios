@@ -705,7 +705,6 @@
 "main-menu-account-logout" = "Oturumu kapat";
 "main-menu-account-logout-are-you-sure" = "Oturumu kapatmak istediğinizden emin misiniz?";
 "main-menu-account-logout-are-you-sure-message" = "Çıkış yapmak, yerel olarak depolanan hesap verilerinizi (bildirimler ve mesajlar) siler ancak hesap verileriniz web'de bulunmaya devam eder ve tekrar giriş yaparsanız yeniden indirilir.";
-"main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınımdakiler";

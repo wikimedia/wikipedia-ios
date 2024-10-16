@@ -218,6 +218,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
+                                                 name:[WMFAuthenticationManager didHandlePrimaryLanguageChange]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleExploreCenterBadgeNeedsUpdateNotification)
                                                  name:NSNotification.notificationsCenterBadgeNeedsUpdate
                                                object:nil];
@@ -393,6 +398,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self getYearInReviewReportFor:2024];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -645,6 +651,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
+    
+    /// Housekeeping for WMFData
+    [self performWMFDataHousekeeping];
 
     completion(housekeepingError);
 }
@@ -879,6 +888,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if ([dataStore needsMigration]) {
             [self triggerMigratingAnimation];
         }
+        
+        [self setupWMFDataCoreDataStore];
 
         [dataStore
             performLibraryUpdates:^{
@@ -886,9 +897,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                     self.migrationComplete = YES;
                     self.migrationActive = NO;
                     [self endMigrationBackgroundTask];
+                    [self setupWMFDataEnvironment];
                     [self checkRemoteAppConfigIfNecessary];
                     [self setupControllers];
-                    [self setupWMFDataEnvironment];
                     if (!self.isWaitingToResumeApp) {
                         [self resumeApp:NULL];
                     }
@@ -2225,6 +2236,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];
+    });
+}
+
+- (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 
