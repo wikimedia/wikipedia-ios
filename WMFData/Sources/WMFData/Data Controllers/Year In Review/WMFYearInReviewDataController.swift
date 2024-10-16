@@ -4,15 +4,37 @@ import CoreData
 public class WMFYearInReviewDataController {
 
     private let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataController
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataController = WMFDeveloperSettingsDataController.shared) throws {
+    struct FeatureAnnouncemmentStatus: Codable {
+        var hasPresentedYiRFeatureAnnouncementModal: Bool
+        static var `default`: FeatureAnnouncemmentStatus {
+            return FeatureAnnouncemmentStatus(hasPresentedYiRFeatureAnnouncementModal: false)
+        }
+    }
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataController = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
+    }
 
+    // MARK: - Feature Announcement
+
+    private var featureAnnouncementStatus: FeatureAnnouncemmentStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncemmentStatus.default
+    }
+
+    public var hasPresentedYiRFeatureAnnouncementModel: Bool {
+        get {
+            return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: newValue)
+        }
     }
 
     public func shouldCreateOrRetrieveYearInReview(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {

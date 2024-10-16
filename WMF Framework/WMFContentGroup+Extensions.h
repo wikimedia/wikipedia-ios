@@ -36,7 +36,8 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
     WMFContentGroupKindOnThisDay = 13,
     WMFContentGroupKindTheme = 14,
     WMFContentGroupKindReadingList = 15,
-    WMFContentGroupKindSuggestedEdits = 16
+    WMFContentGroupKindSuggestedEdits = 16,
+    WMFContentGroupKindYearInReview = 17
 };
 
 typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {

@@ -148,22 +148,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-//    @objc func updateNotificationsCenterButton() {
-//        if self.dataStore.authenticationManager.authStateIsPermanent {
-//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-//            navigationItem.leftBarButtonItem = notificationsBarButton
-//            navigationBar.displayType = .centeredLargeTitle
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//            navigationBar.displayType = .largeTitle
-//        }
-//        navigationBar.updateNavigationItems()
-//    }
-
     @objc public func updateNavigationBarVisibility() {
         navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
     }
@@ -927,7 +911,45 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
-    
+
+    // TODO: Remove after expiry date (1 March 2025)
+    private func presentYearInReviewAnnouncement() {
+
+        let languages = ["es", "it"]
+        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
+
+        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+            return
+        }
+
+        guard languages.contains(appLanguage.languageCode) else {
+            return
+        }
+
+        let yirDataController = try? WMFYearInReviewDataController()
+        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+            return
+        }
+
+        let title = "Title title title title "
+        let body = "Body body body body body body body body body body body body body body body body body"
+        let primaryButtonTitle = "Primary button"
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, primaryButtonAction: { [weak self] in
+            guard let self,
+                  let navController = self.navigationController
+            else { return }
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
+            yirCoordinator.start()
+
+        })
+        let sourceRect = view.convert(view.bounds, to: nil) // get profile icon rect for iPad popover
+        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect)
+
+    }
+
     private func presentImageRecommendationsAnnouncementAltText() {
         let languages = ["es", "pt", "fr", "zh"]
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
@@ -961,6 +983,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        
         guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis else {
             return
         }
@@ -1058,6 +1081,27 @@ struct ImageRecommendationsFeatureAnnouncementTimeBox {
         expiryDateComponents.year = 2024
         expiryDateComponents.month = 11
         expiryDateComponents.day = 5
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+}
+
+// MARK: Year In Review Time-box
+// TODO: Remove after expiry date (1 March 2025)
+
+struct YearInReviewFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2025
+        expiryDateComponents.month = 3
+        expiryDateComponents.day = 1
         return Calendar.current.date(from: expiryDateComponents)
     }()
     
