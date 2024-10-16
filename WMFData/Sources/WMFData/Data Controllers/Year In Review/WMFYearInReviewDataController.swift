@@ -76,7 +76,6 @@ public class WMFYearInReviewDataController {
             let reportPredicate = NSPredicate(format: "year == %d", report.year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewReport.self,
-                entityName: "CDYearInReviewReport",
                 predicate: reportPredicate,
                 in: backgroundContext
             )
@@ -88,7 +87,6 @@ public class WMFYearInReviewDataController {
                 let slidePredicate = NSPredicate(format: "id == %@", slide.id.rawValue)
                 let cdSlide = try self.coreDataStore.fetchOrCreate(
                     entityType: CDYearInReviewSlide.self,
-                    entityName: "CDYearInReviewSlide",
                     predicate: slidePredicate,
                     in: backgroundContext
                 )
@@ -207,7 +205,6 @@ public class WMFYearInReviewDataController {
             let reportPredicate = NSPredicate(format: "year == %d", year)
             if let cdReport = try self.coreDataStore.fetch(
                 entityType: CDYearInReviewReport.self,
-                entityName: "CDYearInReviewReport",
                 predicate: reportPredicate,
                 fetchLimit: 1,
                 in: backgroundContext

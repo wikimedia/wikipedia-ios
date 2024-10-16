@@ -28,7 +28,7 @@ final class WMFYearInReviewDataControllerCReateOrRetrieveTests: XCTestCase {
 
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
         dataController.shouldCreateOrRetrieve = false
-        var report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        let report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
 
     }

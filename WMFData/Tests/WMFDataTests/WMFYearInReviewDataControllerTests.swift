@@ -44,7 +44,7 @@ final class YearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide1, slide2])
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 1)
         XCTAssertEqual(reports![0].year, 2023)
         XCTAssertEqual(reports![0].slides!.count, 2)
@@ -56,7 +56,7 @@ final class YearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(report)
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
 
         XCTAssertEqual(reports!.count, 1)
         XCTAssertEqual(reports![0].year, 2024)
@@ -70,7 +70,7 @@ final class YearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(report)
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 1)
         XCTAssertEqual(reports![0].year, 2024)
         XCTAssertEqual(reports![0].slides!.count, 2)
@@ -102,12 +102,12 @@ final class YearInReviewDataControllerTests: XCTestCase {
         let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
-        var reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        var reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 1)
 
         try await dataController.deleteYearInReviewReport(year: 2021)
 
-        reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 0)
     }
 
@@ -118,12 +118,12 @@ final class YearInReviewDataControllerTests: XCTestCase {
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
 
-        var reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        var reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 1)
 
         try await dataController.deleteAllYearInReviewReports()
 
-        reports = try store.fetch(entityType: CDYearInReviewReport.self, entityName: "CDYearInReviewReport", predicate: nil, fetchLimit: 1, in: store.viewContext)
+        reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
         XCTAssertEqual(reports!.count, 0)
     }
     
