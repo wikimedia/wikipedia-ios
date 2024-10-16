@@ -28,13 +28,13 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         return .wikipedia(language)
     }()
     
-    lazy var nowDate: Date = {
+    lazy var todayDate: Date = {
         return Calendar.current.startOfDay(for: Date())
     }()
     
     lazy var yesterdayDate: Date = {
         let dayInSeconds = TimeInterval(60 * 60 * 24)
-        return nowDate.addingTimeInterval(-dayInSeconds)
+        return todayDate.addingTimeInterval(-dayInSeconds)
     }()
     
     override func setUp() async throws {
@@ -99,7 +99,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     
     func testImportPageViews() async throws {
         let importRequests: [WMFPageViewImportRequest] = [
-            WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: nowDate),
+            WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: todayDate),
             WMFPageViewImportRequest(title: "Felis silvestris catus", project: esProject, viewedDate: yesterdayDate)
         ]
         
@@ -123,7 +123,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject)
         
-        let results = try dataController.fetchPageViewCounts()
+        let results = try dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
         
         XCTAssertEqual(results.count, 2)
         XCTAssertEqual(results[0].page.title, "Cat")

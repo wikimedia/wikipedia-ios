@@ -123,69 +123,76 @@ public class WMFYearInReviewDataController {
         let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
             
             guard let self else { return nil }
-            let predicate = NSPredicate(format: "year == %d", year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
-            
-            guard let cdReport else {
-                return nil
-            }
-            
-            cdReport.year = Int32(year)
-            if (cdReport.slides?.count ?? 0) == 0 {
-                cdReport.slides = try self.initialSlides(year: year, moc: backgroundContext) as NSSet
-            }
-            
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-            
-            // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
-            guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
-                return nil
-            }
-            
-            guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
-                return nil
-            }
-            
-            for slide in cdSlides {
-                switch slide.id {
-                    
-                case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
-                    if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
-                        
-                        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-                        let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(moc: backgroundContext)
-                        
-                        // TODO: Data population dates.
-                        
-                        let encoder = JSONEncoder()
-                        slide.data = try encoder.encode(pageViewCounts.count)
-                        
-                        if pageViewCounts.count > 5 {
-                            slide.display = true
-                        }
-                        
-                        slide.evaluated = true
-                    }
-                    
-                case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                    
-                    if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
-                        
-                        // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
-                        
-                    }
-                default:
-                    debugPrint("Unrecognized Slide ID")
-                }
-            
-            }
-            
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
-            
-            return WMFYearInReviewReport(cdReport: cdReport)
+            return try populateYearInReviewReportData(year: year, backgroundContext: backgroundContext)
         }
         
         return result
+    }
+    
+    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext) throws -> WMFYearInReviewReport? {
+        let predicate = NSPredicate(format: "year == %d", year)
+        let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
+        
+        guard let cdReport else {
+            return nil
+        }
+        
+        cdReport.year = Int32(year)
+        if (cdReport.slides?.count ?? 0) == 0 {
+            cdReport.slides = try self.initialSlides(year: year, moc: backgroundContext) as NSSet
+        }
+        
+        try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        
+        // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+            return nil
+        }
+        
+        guard let dataPopulationStartDate = iosFeatureConfig.yir.dataPopulationStartDate,
+              let dataPopulationEndDate = iosFeatureConfig.yir.dataPopulationEndDate else {
+            return nil
+        }
+        
+        guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
+            return nil
+        }
+        
+        for slide in cdSlides {
+            switch slide.id {
+                
+            case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
+                if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+                    
+                    let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+                    let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate, moc: backgroundContext)
+                    
+                    let encoder = JSONEncoder()
+                    slide.data = try encoder.encode(pageViewCounts.count)
+                    
+                    if pageViewCounts.count > 5 {
+                        slide.display = true
+                    }
+                    
+                    slide.evaluated = true
+                }
+                
+            case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
+                
+                if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                    
+                    // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
+                    
+                }
+            default:
+                debugPrint("Unrecognized Slide ID")
+            }
+        
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+        
+        return WMFYearInReviewReport(cdReport: cdReport)
     }
 
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {

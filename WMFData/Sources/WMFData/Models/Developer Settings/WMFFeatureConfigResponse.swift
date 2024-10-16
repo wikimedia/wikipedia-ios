@@ -20,6 +20,16 @@ public struct WMFFeatureConfigResponse: Codable {
             public let dataPopulationStartDateString: String
             public let dataPopulationEndDateString: String
             public let personalizedSlides: PersonalizedSlides
+            
+            var dataPopulationStartDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataPopulationStartDateString)
+            }
+            
+            var dataPopulationEndDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataPopulationEndDateString)
+            }
         }
 
         let version: Int

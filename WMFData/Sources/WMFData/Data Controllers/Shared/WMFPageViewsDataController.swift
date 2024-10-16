@@ -145,7 +145,7 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func fetchPageViewCounts(moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewCount] {
+    public func fetchPageViewCounts(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewCount] {
         
         let context: NSManagedObjectContext
         if let moc {
@@ -154,7 +154,8 @@ public final class WMFPageViewsDataController {
             context = try coreDataStore.viewContext
         }
         let results: [WMFPageViewCount] = try context.performAndWait {
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: context)
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: context)
             var pageViewCounts: [WMFPageViewCount] = []
             for dict in pageViewsDict {
                 
