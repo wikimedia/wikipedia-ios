@@ -73,16 +73,27 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             settingsTitle: CommonStrings.settingsTitle,
             joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
             joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
-            donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
+            donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations"),
+            yearInReviewTitle: WMFLocalizedString("profile-page-year-in-review-title", value: "Year in Review", comment: "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped."),
+            yearInReviewLoggedOutSubtext:  WMFLocalizedString("profile-page-logged-out-year-in-review-subtext", value: "Log in or create an account to get an improved year in review next year", comment: "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.")
         )
         
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+        
+        var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+           let yearInReviewDataController = try? WMFYearInReviewDataController(),
+           let countryCode = Locale.current.region?.identifier {
+            yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
+        }
         
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
-            coordinatorDelegate: self
+            coordinatorDelegate: self,
+            yearInReviewDependencies: yearInReviewDependencies
         )
         
         var profileView = WMFProfileView(viewModel: viewModel)

@@ -15,6 +15,7 @@
 // Author: Dirruw'o
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
+// Author: Firapinch
 // Author: Happy13241
 // Author: Helpau
 // Author: Iluvatar
@@ -927,6 +928,7 @@
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
+"profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
