@@ -127,29 +127,29 @@ extension ArticleViewController {
     // TODO: remover after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
 
-        let languages = ["es", "it"]
-        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
-            return
-        }
-
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
-
-        guard languages.contains(appLanguage.languageCode) else {
-            return
-        }
-
-        let yirDataController = try? WMFYearInReviewDataController()
-
-        guard let wmfProject = project?.wmfProject, let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject), shouldShowYir else {
-            return
-        }
-
-        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
-            return
-        }
-
+//        let languages = ["es", "it"]
+//        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+//            return
+//        }
+//
+//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+//            return
+//        }
+//
+//        guard languages.contains(appLanguage.languageCode) else {
+//            return
+//        }
+//
+//        let yirDataController = try? WMFYearInReviewDataController()
+//
+//        guard let wmfProject = project?.wmfProject, let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject), shouldShowYir else {
+//            return
+//        }
+//
+//        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+//            return
+//        }
+//
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
@@ -163,10 +163,8 @@ extension ArticleViewController {
             yirCoordinator.start()
         })
         
-        if let profileViewButtonItem {
-            announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileViewButtonItem)
-        }
-        yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
+        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileButton)
+        // yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     
     }
 }
