@@ -922,24 +922,24 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
-
-        guard languages.contains(appLanguage.languageCode) else {
-            return
-        }
-
-        let yirDataController = try? WMFYearInReviewDataController()
-
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
-            return
-        }
-
-        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
-            return
-        }
+//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+//            return
+//        }
+//
+//        guard languages.contains(appLanguage.languageCode) else {
+//            return
+//        }
+//
+//        let yirDataController = try? WMFYearInReviewDataController()
+//
+//        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+//        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
+//            return
+//        }
+//
+//        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+//            return
+//        }
 
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
@@ -954,8 +954,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             yirCoordinator.start()
         })
 
-        let sourceRect = profileViewButtonItem?.customView?.frame
-        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect ?? self.view.frame)
+        if let customView = profileViewButtonItem?.customView,
+           let superview = customView.superview,
+           let navigationView = navigationController?.view {
+            let centerInSuperview = CGPoint(x: customView.frame.midX, y: customView.frame.midY)
+
+            let ref = superview.convert(centerInSuperview, to: navigationView)
+            let globalRect = CGRect(x: ref.x, y: ref.y, width: customView.frame.width, height: customView.frame.height)
+
+            announceFeature(viewModel: viewModel, sourceView: view, sourceRect: globalRect)
+        }
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {

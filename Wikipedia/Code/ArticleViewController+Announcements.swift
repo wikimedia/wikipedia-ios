@@ -123,6 +123,50 @@ extension ArticleViewController {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
+
+    // TODO: remover after expiry date (1 March 2025)
+    func presentYearInReviewAnnouncement() {
+
+        let languages = ["es", "it"]
+        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
+
+        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+            return
+        }
+
+        guard languages.contains(appLanguage.languageCode) else {
+            return
+        }
+
+        let yirDataController = try? WMFYearInReviewDataController()
+
+
+        guard let wmfProject = project?.wmfProject, let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject), shouldShowYir else {
+            return
+        }
+
+        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+            return
+        }
+
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+            guard let self,
+                  let navController = self.navigationController
+            else { return }
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
+            yirCoordinator.start()
+        })
+
+        let sourceRect = profileViewButtonItem?.customView?.frame // test code
+        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: sourceRect ?? self.view.frame)
+    }
 }
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
@@ -130,3 +174,5 @@ extension WMFFundraisingCampaignConfig.WMFAsset {
         return "\(languageCode)\(countryCode)_\(id)_iOS"
     }
 }
+
+extension ArticleViewController: WMFFeatureAnnouncing { }
