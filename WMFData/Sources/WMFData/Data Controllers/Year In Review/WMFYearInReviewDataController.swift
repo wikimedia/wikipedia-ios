@@ -15,7 +15,9 @@ public class WMFYearInReviewDataController {
 
     }
 
-    public func shouldCreateOrRetrieveYearInReview(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+    func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        // Check local developer settings feature flag
         guard developerSettingsDataController.enableYearInReview else {
             return false
         }
@@ -28,12 +30,19 @@ public class WMFYearInReviewDataController {
               let primaryAppLanguageProject else {
             return false
         }
+        
+        // Check remote feature disable switch
+        guard iosFeatureConfig.yir.isEnabled else {
+            return false
+        }
 
+        // Check remote valid country codes
         let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
 
+        // Check remote valid primary app language wikis
         let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
@@ -42,29 +51,91 @@ public class WMFYearInReviewDataController {
 
         return true
     }
+    
+    public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        // Check local developer settings feature flag
+        guard developerSettingsDataController.enableYearInReview else {
+            return false
+        }
+        
+        guard let countryCode,
+              let primaryAppLanguageProject else {
+            return false
+        }
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+            return false
+        }
+        
+        // Check remote feature disable switch
+        guard iosFeatureConfig.yir.isEnabled else {
+            return false
+        }
+        
+        
+        // Check remote valid country codes
+        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+            return false
+        }
+        
+        // Check remote valid primary app language wikis
+        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        guard let languageCode = primaryAppLanguageProject.languageCode,
+              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+            return false
+        }
+        
+        var personalizedSlideCount = 0
+        
+        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
+        // if {read_count persisted slide item}.display == yes {
+            if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+                personalizedSlideCount += 1
+            }
+        // }
+        
+        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
+        // if {edit_count persisted slide item}.display == yes {
+            if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                personalizedSlideCount += 1
+            }
+        // }
+        
+        // TODO: Uncomment once at least one personalized slide is in: T376066 or T376320
+//        guard personalizedSlideCount >= 1 else {
+//            return false
+//        }
+        
+        return true
+    }
 
     @discardableResult
-    public func createOrRetrieveYearInReview(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async -> WMFYearInReviewReport? {
 
-        guard shouldCreateOrRetrieveYearInReview(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
+        guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
 
+        // First fetch or create an empty report object
         var report = try? await fetchYearInReviewReport(forYear: year)
 
         if report == nil {
-            // TODO: Replace with actual slide creation logic
-            let slides = getSlides()
+            let slides = initialSlides(year: year)
             try? await createNewYearInReviewReport(year: year, slides: slides)
             report = try? await fetchYearInReviewReport(forYear: year)
         }
+        
+        // Then check for slide disable switch. If not disabled, evaluate and update slide data.
 
         return report
     }
 
-    func getSlides() -> [WMFYearInReviewSlide] {
-        let mockSlide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        return [mockSlide]
+    func initialSlides(year: Int) -> [WMFYearInReviewSlide] {
+        let editCount = WMFYearInReviewSlide(year: year, id: .editCount,  evaluated: false, display: false, data: nil)
+        let readCount = WMFYearInReviewSlide(year: year, id: .readCount,  evaluated: false, display: false, data: nil)
+        return [editCount, readCount]
     }
 
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
@@ -230,63 +301,5 @@ public class WMFYearInReviewDataController {
             }
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
-    }
-    
-    public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
-        
-        guard developerSettingsDataController.enableYearInReview else {
-            return false
-        }
-        
-        guard let countryCode,
-              let primaryAppLanguageProject else {
-            return false
-        }
-        
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
-            return false
-        }
-        
-        // Check remote feature disable switch
-        guard iosFeatureConfig.yir.isEnabled else {
-            return false
-        }
-        
-        
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-        
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
-            return false
-        }
-        
-        var personalizedSlideCount = 0
-        
-        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
-        // if {read_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
-                personalizedSlideCount += 1
-            }
-        // }
-        
-        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
-        // if {edit_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
-                personalizedSlideCount += 1
-            }
-        // }
-        
-        // TODO: Uncomment once at least one personalized slide is in: T376066 or T376320
-//        guard personalizedSlideCount >= 1 else {
-//            return false
-//        }
-        
-        return true
     }
 }

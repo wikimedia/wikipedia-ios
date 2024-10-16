@@ -28,20 +28,20 @@ final class WMFYearInReviewDataControllerCReateOrRetrieveTests: XCTestCase {
 
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
         dataController.shouldCreateOrRetrieve = false
-        let report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        let report = await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
 
     }
 
     func testShouldCreateOrRetrieveYearInReview() async throws {
-        var report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        var report = await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
         dataController.shouldCreateOrRetrieve = true
 
         let existingSlide = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true, display: true)
         let existingReport = WMFYearInReviewReport(year: year, slides: [existingSlide])
         try await dataController.saveYearInReviewReport(existingReport)
 
-        report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        report = await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 1)
@@ -49,14 +49,14 @@ final class WMFYearInReviewDataControllerCReateOrRetrieveTests: XCTestCase {
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
-        var report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        var report = await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
 
         try await dataController.deleteYearInReviewReport(year: year)
 
         let newSlide = WMFYearInReviewSlide(year: year, id: .editCount, evaluated: false, display: true)
         dataController.mockSlides = [newSlide]
 
-        report = await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
+        report = await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject)
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 1)
@@ -68,11 +68,11 @@ class YearInReviewDataControllerMock: WMFYearInReviewDataController {
     var shouldCreateOrRetrieve = true
     var mockSlides: [WMFYearInReviewSlide] = []
 
-    override func shouldCreateOrRetrieveYearInReview(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+    override func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         return shouldCreateOrRetrieve
     }
 
-    override func getSlides() -> [WMFYearInReviewSlide] {
+    override func initialSlides(year: Int) -> [WMFYearInReviewSlide] {
         return mockSlides
     }
 }
