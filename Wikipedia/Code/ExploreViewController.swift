@@ -922,24 +922,24 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-//            return
-//        }
-//
-//        guard languages.contains(appLanguage.languageCode) else {
-//            return
-//        }
-//
-//        let yirDataController = try? WMFYearInReviewDataController()
-//
-//        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-//        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
-//            return
-//        }
-//
-//        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
-//            return
-//        }
+        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+            return
+        }
+
+        guard languages.contains(appLanguage.languageCode) else {
+            return
+        }
+
+        let yirDataController = try? WMFYearInReviewDataController()
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
+            return
+        }
+
+        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+            return
+        }
 
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
@@ -963,6 +963,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let globalRect = CGRect(x: ref.x, y: ref.y, width: customView.frame.width, height: customView.frame.height)
 
             announceFeature(viewModel: viewModel, sourceView: view, sourceRect: globalRect)
+            yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
         }
     }
 
