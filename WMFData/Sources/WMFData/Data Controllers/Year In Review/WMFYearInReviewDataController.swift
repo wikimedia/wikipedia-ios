@@ -53,6 +53,7 @@ public class WMFYearInReviewDataController {
     }
     
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
         // Check local developer settings feature flag
         guard developerSettingsDataController.enableYearInReview else {
@@ -87,28 +88,29 @@ public class WMFYearInReviewDataController {
             return false
         }
         
+        // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
+        guard let yirReport = try? fetchYearInReviewReport(forYear: 2024) else {
+            return false
+        }
+        
         var personalizedSlideCount = 0
         
-        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
-        // if {read_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
-                personalizedSlideCount += 1
+        for slide in yirReport.slides {
+            switch slide.id {
+            case .readCount:
+                if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled,
+                   slide.display == true {
+                    personalizedSlideCount += 1
+                }
+            case .editCount:
+                if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled,
+                   slide.display == true {
+                    personalizedSlideCount += 1
+                }
             }
-        // }
+        }
         
-        // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
-        // if {edit_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
-                personalizedSlideCount += 1
-            }
-        // }
-        
-        // TODO: Uncomment once at least one personalized slide is in: T376066 or T376320
-//        guard personalizedSlideCount >= 1 else {
-//            return false
-//        }
-        
-        return true
+        return personalizedSlideCount >= 1
     }
 
     @discardableResult
@@ -265,42 +267,42 @@ public class WMFYearInReviewDataController {
         try await saveYearInReviewReport(newReport)
     }
 
-    public func fetchYearInReviewReport(forYear year: Int) async throws -> WMFYearInReviewReport? {
+    public func fetchYearInReviewReport(forYear year: Int) throws -> WMFYearInReviewReport? {
+        assert(Thread.isMainThread, "This report must be called from the main thread in order to keep it synchronous")
+        
         let viewContext = try coreDataStore.viewContext
-        let report: WMFYearInReviewReport? = try await viewContext.perform { () -> WMFYearInReviewReport? in
-            let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
+        
+        let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
 
-            fetchRequest.predicate = NSPredicate(format: "year == %d", year)
+        fetchRequest.predicate = NSPredicate(format: "year == %d", year)
 
-            let cdReports = try viewContext.fetch(fetchRequest)
+        let cdReports = try viewContext.fetch(fetchRequest)
 
-            guard let cdReport = cdReports.first else {
-                return nil
-            }
-
-            guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
-                return nil
-            }
-
-            var slides: [WMFYearInReviewSlide] = []
-            for cdSlide in cdSlides {
-                if let id = self.getSlideId(cdSlide.id) {
-                    let slide = WMFYearInReviewSlide(
-                        year: Int(cdSlide.year),
-                        id: id,
-                        evaluated: cdSlide.evaluated,
-                        display: cdSlide.display
-                    )
-                    slides.append(slide)
-                }
-            }
-
-            let report = WMFYearInReviewReport(
-                year: Int(cdReport.year),
-                slides: slides
-            )
-            return report
+        guard let cdReport = cdReports.first else {
+            return nil
         }
+
+        guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
+            return nil
+        }
+
+        var slides: [WMFYearInReviewSlide] = []
+        for cdSlide in cdSlides {
+            if let id = self.getSlideId(cdSlide.id) {
+                let slide = WMFYearInReviewSlide(
+                    year: Int(cdSlide.year),
+                    id: id,
+                    evaluated: cdSlide.evaluated,
+                    display: cdSlide.display
+                )
+                slides.append(slide)
+            }
+        }
+
+        let report = WMFYearInReviewReport(
+            year: Int(cdReport.year),
+            slides: slides
+        )
         return report
     }
 
