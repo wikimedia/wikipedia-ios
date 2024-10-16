@@ -7,10 +7,10 @@ public class WMFYearInReviewDataController {
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    struct FeatureAnnouncemmentStatus: Codable {
+    struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
-        static var `default`: FeatureAnnouncemmentStatus {
-            return FeatureAnnouncemmentStatus(hasPresentedYiRFeatureAnnouncementModal: false)
+        static var `default`: FeatureAnnouncementStatus {
+            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
         }
     }
 
@@ -25,8 +25,8 @@ public class WMFYearInReviewDataController {
 
     // MARK: - Feature Announcement
 
-    private var featureAnnouncementStatus: FeatureAnnouncemmentStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncemmentStatus.default
+    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
     }
 
     public var hasPresentedYiRFeatureAnnouncementModel: Bool {
