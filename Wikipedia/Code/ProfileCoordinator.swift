@@ -174,7 +174,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
-        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+
+        guard let yirCoordinator = try? YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: WMFYearInReviewDataController()) else { return }
         yirCoordinator.start()
         self.yirCoordinator = yirCoordinator
     }
