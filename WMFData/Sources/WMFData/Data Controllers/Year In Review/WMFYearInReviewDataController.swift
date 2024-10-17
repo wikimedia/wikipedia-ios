@@ -5,6 +5,7 @@ public class WMFYearInReviewDataController {
 
     private let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let service = WMFDataEnvironment.current.mediaWikiService
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
@@ -291,5 +292,85 @@ public class WMFYearInReviewDataController {
 //        }
         
         return true
+    }
+    
+    public func fetchUserContributionsCount(username: String, languageCode: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+        guard let service = service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        let ucStartDate = "2024-11-01T22:20:13.000Z"
+        let ucEndDate = "2024-01-01T22:20:13.000Z"
+        
+        let parameters: [String: Any] = [
+            "action": "query",
+            "format": "json",
+            "list": "usercontribs",
+            "formatversion": "2",
+            "uclimit": "500",  // Above 500, just display 500+
+            "ucstart": ucStartDate,
+            "ucend": ucEndDate,
+            "ucuser": username,
+            "ucnamespace": "0",
+            "ucprop": "ids|title|timestamp|tags|flags"
+        ]
+
+        guard let url = URL(string: "https://\(languageCode).wikipedia.org/w/api.php") else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+        
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        
+        service.performDecodableGET(request: request) { (result: Result<UserContributionsAPIResponse, Error>) in
+            switch result {
+            case .success(let response):
+                let editCount = response.query?.usercontribs.count
+                
+                let hasMoreEdits = response.continue?.uccontinue != nil
+                
+                completion(.success((editCount ?? 0, hasMoreEdits)))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    struct UserContributionsAPIResponse: Codable {
+        let batchcomplete: Bool?
+        let `continue`: ContinueData?
+        let query: UserContributionsQuery?
+        
+        struct ContinueData: Codable {
+            let uccontinue: String?
+        }
+        
+        struct UserContributionsQuery: Codable {
+            let usercontribs: [UserContribution]
+        }
+    }
+
+    struct UserContribution: Codable {
+        let userid: Int
+        let user: String
+        let pageid: Int
+        let revid: Int
+        let parentid: Int
+        let ns: Int
+        let title: String
+        let timestamp: String
+        let isNew: Bool
+        let isMinor: Bool
+        let isTop: Bool
+        let tags: [String]
+        
+        enum CodingKeys: String, CodingKey {
+            case userid, user, pageid, revid, parentid, ns, title, timestamp, tags
+            case isNew = "new"
+            case isMinor = "minor"
+            case isTop = "top"
+        }
     }
 }
