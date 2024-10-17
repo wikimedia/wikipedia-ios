@@ -16,7 +16,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func updateSlide(at index: Int, with newSlide: YearInReviewSlideContent) {
-        print("updating")
         guard index >= 0 && index < slides.count else {
             return
         }
