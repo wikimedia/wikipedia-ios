@@ -12,3 +12,5 @@ require 'open-uri'
 automatic_release false
 
 copyright "#{Time.now.year} Wikimedia Foundation"
+
+force true
