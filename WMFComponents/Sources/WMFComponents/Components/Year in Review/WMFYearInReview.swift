@@ -56,10 +56,8 @@ public struct WMFYearInReview: View {
                             // TODO: Implement Donation
                         }) {
                             HStack(alignment: .center, spacing: 6) {
-                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                                    Image(uiImage: uiImage)
-                                        .foregroundStyle(Color(uiColor: theme.destructive))
-                                }
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(Color(uiColor: theme.destructive))
                                 Text(viewModel.localizedStrings.donateButtonTitle)
                                     .foregroundStyle(Color(uiColor: theme.destructive))
                             }
@@ -72,10 +70,8 @@ public struct WMFYearInReview: View {
                                 // TODO: Implement share
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
-                                    if let uiImage = WMFSFSymbolIcon.for(symbol: .share, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                                        Image(uiImage: uiImage)
-                                            .foregroundStyle(Color(uiColor: theme.link))
-                                    }
+                                    Image(systemName: "square.and.arrow.up")
+                                        .foregroundStyle(Color(uiColor: theme.link))
                                     Text(viewModel.localizedStrings.shareButtonTitle)
                                         .foregroundStyle(Color(uiColor: theme.link))
                                 }
