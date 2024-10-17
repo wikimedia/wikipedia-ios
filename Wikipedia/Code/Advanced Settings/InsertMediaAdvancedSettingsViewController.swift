@@ -5,9 +5,11 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
     private let tableView = UITableView()
 
     typealias AdvancedSettings = InsertMediaSettings.Advanced
+    
+    var isRTL: Bool?
 
     var advancedSettings: AdvancedSettings {
-        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn), imageType: imageTypeSettingsViewController.selectedImageType, imageSize: imageSizeSettingsViewController.selectedImageSize)
+        return AdvancedSettings(wrapTextAroundImage: textWrappingSwitch.isOn, imagePosition: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn, isRTL: isRTL), imageType: imageTypeSettingsViewController.selectedImageType, imageSize: imageSizeSettingsViewController.selectedImageSize)
     }
 
     struct ViewModel {
@@ -43,7 +45,7 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
     
     private var viewModels: [ViewModel] {
         let textWrappingViewModel = ViewModel(title: WMFLocalizedString("insert-media-image-text-wrapping-setting", value: "Wrap text around image", comment: "Title for image setting that wraps text around image"), accessoryView: textWrappingSwitch, accessoryType: .none, selectionStyle: .none)
-        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
+        let imagePositionViewModel = ViewModel(title: AdvancedSettings.ImagePosition.displayTitle, detailText: imagePositionSettingsViewController.selectedImagePosition(isTextWrappingEnabled: textWrappingSwitch.isOn, isRTL: isRTL).displayTitle, isEnabled: textWrappingSwitch.isOn) { [weak self] in
             guard let self = self else {
                 return
             }
