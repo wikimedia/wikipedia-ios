@@ -14,7 +14,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
-    private var profileViewButtonItem: UIBarButtonItem?
+    private lazy var profileButton: UIBarButtonItem = {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
+        profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        return profileButton
+    }()
 
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
@@ -88,9 +102,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 updateTabBarSnapshotImage()
             }
         }
-        
-        navigationItem.titleView = titleView
-        updateProfileViewButton()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -154,19 +165,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateProfileViewButton() {
-        let hasUnreadNotifications: Bool
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileViewButtonItem?.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileViewButtonItem?.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItem = profileViewButtonItem
+        navigationItem.rightBarButtonItem = profileButton
         navigationBar.updateNavigationItems()
     }
     
@@ -654,8 +653,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        navigationItem.titleView = titleView
-        updateProfileViewButton()
         tabBarSnapshotImage = nil
 
         searchBar.apply(theme: theme)
@@ -960,9 +957,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             yirCoordinator.start()
         })
 
-        if let profileViewButtonItem {
-            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: nil, sourceBarButton: profileViewButtonItem)
-        }
+        announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: nil, sourceBarButton: profileButton)
 
         yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     }
@@ -1027,7 +1022,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, sourceBarButton: profileViewButtonItem)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, sourceBarButton: nil)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }

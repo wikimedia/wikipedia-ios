@@ -162,10 +162,9 @@ extension ArticleViewController {
             let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
             yirCoordinator.start()
         })
-        
-        if let profileViewButtonItem {
-            announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileViewButtonItem)
-        }
+
+        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileButton)
+
         yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     
     }
