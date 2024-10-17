@@ -22,13 +22,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        checkEdits { count in
-            DispatchQueue.main.async {
-                let slide = self.editsSlide(edits: count)
-                self.viewModel?.updateSlide(at: 2, with: slide)
-            }
-        }
-
         // Base case if user has no edit/read history
         let baseFlow: [YearInReviewSlideContent] = [
             YearInReviewSlideContent(
@@ -84,54 +77,5 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         navigationController.present(hostingController, animated: true, completion: nil)
-    }
-    
-    func editsSlide(edits: Int) -> YearInReviewSlideContent {
-        if edits == 0 {
-            return YearInReviewSlideContent(
-                imageName: "languages_yir",
-                title: "Editors on the iOS app made more than X edits",
-                informationBubbleText: nil,
-                subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.")
-        } else {
-            var editString = String(edits)
-            if edits >= 500 {
-                editString = "500+"
-            }
-            return YearInReviewSlideContent(
-                imageName: "languages_yir",
-                title: "You edited Wikipedia \(editString) times.",
-                informationBubbleText: nil,
-                subtitle: "You edited Wikipedia \(editString) times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.")
-        }
-    }
-    
-    func checkEdits(completion: @escaping (Int) -> Void) {
-        let username = dataStore.authenticationManager.authStatePermanentUsername
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
-            completion(0)
-            return
-        }
-        
-        var count = 0
-        
-        if let username {
-            dataController.fetchUserContributionsCount(username: username, languageCode: languageCode) { result in
-                switch result {
-                case .success(let (editCount, _)): // _ is hasMoreEdits
-                    count = editCount
-                case .failure(let error):
-                    print("Error fetching user contributions: \(error)")
-                }
-                
-                DispatchQueue.main.async {
-                    completion(count)
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                completion(0)
-            }
-        }
     }
 }
