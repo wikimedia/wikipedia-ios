@@ -66,7 +66,7 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
-"account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਵਰਕਾ";
+"account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਸਫ਼ਾ";
 "action-read" = "ਪੜ੍ਹੋ";
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
@@ -97,6 +97,7 @@
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
+"editor-keyboard-link-accessibility" = "ਕੜੀ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
 "empty-no-feed-action-message" = "ਤੁਸੀੰ ਹਾਲੇ ਵੀ ਸੰਭਾਲੇ ਸਫ਼ੇ ਪੜ੍ਹ ਸਕਦੇ ਹੋ";
 "empty-no-history-title" = "ਦਿਖਾਉਣ ਲਈ ਕੋਈ ਇਤਿਹਾਸ ਨਹੀੰ";
@@ -171,6 +172,7 @@
 "notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "notifications-center-go-to-article" = "ਲੇਖ";
+"notifications-center-mark" = "ਨਿਸ਼ਾਨ ਲਾਓ";
 "notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
 "notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
 "number-billions" = "$1B";
@@ -224,7 +226,7 @@
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
 "talk-page-menu-open-all" = "ਸਾਰੇ ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਖੋਲ੍ਹੋ";
-"talk-page-page-info" = "ਵਰਕੇ ਦੀ ਜਾਣਕਾਰੀ";
+"talk-page-page-info" = "ਸਫ਼ਾ ਜਾਣਕਾਰੀ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
