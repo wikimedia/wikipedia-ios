@@ -116,7 +116,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         var count = 0
         
         if let username {
-            dataController.fetchUserContributionsCount(username: "username", languageCode: languageCode) { result in
+            dataController.fetchUserContributionsCount(username: username, languageCode: languageCode) { result in
                 switch result {
                 case .success(let (editCount, _)): // _ is hasMoreEdits
                     count = editCount
