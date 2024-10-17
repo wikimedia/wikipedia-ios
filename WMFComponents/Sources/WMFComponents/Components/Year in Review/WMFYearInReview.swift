@@ -55,15 +55,15 @@ public struct WMFYearInReview: View {
                         Button(action: {
                             // TODO: Implement Donation
                         }) {
-                            HStack {
+                            HStack(alignment: .center, spacing: 6) {
                                 if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                                     Image(uiImage: uiImage)
                                         .foregroundStyle(Color(uiColor: theme.destructive))
                                 }
                                 Text(viewModel.localizedStrings.donateButtonTitle)
                                     .foregroundStyle(Color(uiColor: theme.destructive))
-                                    .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
                         }
                     }
                     ToolbarItem(placement: .bottomBar) {
@@ -72,12 +72,14 @@ public struct WMFYearInReview: View {
                                 // TODO: Implement share
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .foregroundStyle(Color(uiColor: theme.link))
+                                    if let uiImage = WMFSFSymbolIcon.for(symbol: .share, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+                                        Image(uiImage: uiImage)
+                                            .foregroundStyle(Color(uiColor: theme.link))
+                                    }
                                     Text(viewModel.localizedStrings.shareButtonTitle)
                                         .foregroundStyle(Color(uiColor: theme.link))
-                                        .font(Font(WMFFont.for(.semiboldHeadline)))
                                 }
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
                             .frame(maxWidth: .infinity)
                             Spacer()
