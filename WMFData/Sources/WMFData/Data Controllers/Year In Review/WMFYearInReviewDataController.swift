@@ -294,7 +294,7 @@ public class WMFYearInReviewDataController {
         return true
     }
     
-    public func fetchUserContributionsCount(username: String, languageCode: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -315,8 +315,8 @@ public class WMFYearInReviewDataController {
             "ucnamespace": "0",
             "ucprop": "ids|title|timestamp|tags|flags"
         ]
-
-        guard let url = URL(string: "https://\(languageCode).wikipedia.org/w/api.php") else {
+        
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
@@ -326,11 +326,16 @@ public class WMFYearInReviewDataController {
         service.performDecodableGET(request: request) { (result: Result<UserContributionsAPIResponse, Error>) in
             switch result {
             case .success(let response):
-                let editCount = response.query?.usercontribs.count
+                guard let query = response.query else {
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
+                    return
+                }
+                
+                let editCount = query.usercontribs.count
                 
                 let hasMoreEdits = response.continue?.uccontinue != nil
                 
-                completion(.success((editCount ?? 0, hasMoreEdits)))
+                completion(.success((editCount, hasMoreEdits)))
                 
             case .failure(let error):
                 completion(.failure(error))
