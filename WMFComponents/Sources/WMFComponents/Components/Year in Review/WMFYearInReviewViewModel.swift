@@ -3,9 +3,8 @@ import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
-    @Published var slides: [YearInReviewSlide]
     let localizedStrings: LocalizedStrings
-    var slides: [YearInReviewSlideContent]
+    @Published var slides: [YearInReviewSlideContent]
     
     public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent]) {
         self.localizedStrings = localizedStrings
@@ -16,7 +15,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         isFirstSlide = false
     }
     
-    public func updateSlide(at index: Int, with newSlide: YearInReviewSlide) {
+    public func updateSlide(at index: Int, with newSlide: YearInReviewSlideContent) {
         print("updating")
         guard index >= 0 && index < slides.count else {
             return

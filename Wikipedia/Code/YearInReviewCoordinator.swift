@@ -42,12 +42,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 title: "We have viewed Wikipedia articles 1.4 Billion times",
                 informationBubbleText: nil,
                 subtitle: "iOS app users have viewed Wikipedia articles 1.4 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact."),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "languages_yir",
                 title: "Editors on the iOS app made more than X edits",
                 informationBubbleText: nil,
                 subtitle: "Wikipedia's community of volunteer editors made more than X edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information."),
-            YearInReviewSlide(
+            YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: "Wikipedia was edited 342 times per minute",
                 informationBubbleText: nil,
@@ -86,9 +86,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
     }
     
-    func editsSlide(edits: Int) -> YearInReviewSlide {
+    func editsSlide(edits: Int) -> YearInReviewSlideContent {
         if edits == 0 {
-            return YearInReviewSlide(
+            return YearInReviewSlideContent(
                 imageName: "languages_yir",
                 title: "Editors on the iOS app made more than X edits",
                 informationBubbleText: nil,
