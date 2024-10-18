@@ -144,13 +144,15 @@ extension ArticleViewController {
             return
         }
 
-        let yirDataController = try? WMFYearInReviewDataController()
-
-        guard let wmfProject = project?.wmfProject, let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject), shouldShowYir else {
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 
-        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject) else {
+            return
+        }
+
+        guard !yirDataController.hasPresentedYiRFeatureAnnouncementModel else {
             return
         }
 
@@ -163,7 +165,7 @@ extension ArticleViewController {
             guard let self,
                   let navController = self.navigationController
             else { return }
-            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
             yirCoordinator.start()
         })
 
@@ -173,8 +175,8 @@ extension ArticleViewController {
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
         }
-        yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
-    
+        
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 }
 

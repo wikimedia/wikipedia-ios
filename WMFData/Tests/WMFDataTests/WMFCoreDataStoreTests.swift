@@ -20,10 +20,6 @@ final class WMFCoreDataStoreTests: XCTestCase {
         try await super.setUp()
     }
 
-    override func tearDown() async throws {
-        try await super.tearDown()
-    }
-
     func testCreateAndFetch() throws {
         
         // First save new record

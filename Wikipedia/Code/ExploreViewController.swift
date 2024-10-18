@@ -926,14 +926,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        let yirDataController = try? WMFYearInReviewDataController()
-
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-        guard let shouldShowYir = yirDataController?.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project), shouldShowYir else {
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 
-        guard !(yirDataController?.hasPresentedYiRFeatureAnnouncementModel ?? false) else {
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+        guard yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project) else {
+            return
+        }
+
+        guard !yirDataController.hasPresentedYiRFeatureAnnouncementModel else {
             return
         }
 
@@ -954,7 +956,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard let self,
                   let navController = self.navigationController
             else { return }
-            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore)
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
             yirCoordinator.start()
         })
 
@@ -965,7 +967,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
         }
 
-        yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {
