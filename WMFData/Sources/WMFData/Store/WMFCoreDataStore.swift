@@ -74,17 +74,19 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
+    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
         
-        guard let existing: [T] = try fetch(entityType: entityType, entityName: entityName, predicate: predicate, fetchLimit: 1, in: moc),
+        guard let existing: [T] = try fetch(entityType: entityType, predicate: predicate, fetchLimit: 1, in: moc),
               !existing.isEmpty else {
-            return try create(entityType: entityType, entityName: entityName, in: moc)
+            return try create(entityType: entityType, in: moc)
         }
 
         return existing.first
     }
     
-    private func fetchRequest<T>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
+    private func fetchRequest<T>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
+        
+        let entityName = NSStringFromClass(entityType)
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
         if let fetchLimit {
@@ -93,13 +95,13 @@ public final class WMFCoreDataStore {
         return fetchRequest
     }
     
-    func fetch<T: NSManagedObject>(entityType: T.Type, entityName: String, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
+    func fetch<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
         
-        let fetchRequest = fetchRequest(entityType: entityType, entityName: entityName, predicate: predicate, fetchLimit: fetchLimit, in: moc)
+        let fetchRequest = fetchRequest(entityType: entityType, predicate: predicate, fetchLimit: fetchLimit, in: moc)
         return try moc.fetch(fetchRequest)
     }
     
-    func fetchGrouped(entityName: String, predicate: NSPredicate?, propertyToCount: String, propertiesToGroupBy: [String], propertiesToFetch: [String], in moc: NSManagedObjectContext) throws -> [[String: Any]] {
+    func fetchGrouped<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, propertyToCount: String, propertiesToGroupBy: [String], propertiesToFetch: [String], in moc: NSManagedObjectContext) throws -> [[String: Any]] {
         
         let keypathExp = NSExpression(forKeyPath: propertyToCount)
         let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
@@ -109,6 +111,7 @@ public final class WMFCoreDataStore {
         countDesc.name = "count"
         countDesc.expressionResultType = .integer64AttributeType
         
+        let entityName = NSStringFromClass(entityType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequest.predicate = predicate
         fetchRequest.propertiesToGroupBy = propertiesToGroupBy
@@ -121,8 +124,9 @@ public final class WMFCoreDataStore {
         return result
     }
     
-    func create<T: NSManagedObject>(entityType: T.Type, entityName: String, in moc: NSManagedObjectContext) throws -> T {
+    func create<T: NSManagedObject>(entityType: T.Type, in moc: NSManagedObjectContext) throws -> T {
         
+        let entityName = NSStringFromClass(entityType)
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: moc) else {
             throw WMFCoreDataStoreError.missingEntity
         }
