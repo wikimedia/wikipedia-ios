@@ -5,6 +5,8 @@ public class WMFYearInReviewDataController {
 
     private let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    
+    public let targetConfigYearID = "2024.1"
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
@@ -20,7 +22,8 @@ public class WMFYearInReviewDataController {
             return false
         }
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
 
@@ -29,12 +32,12 @@ public class WMFYearInReviewDataController {
             return false
         }
 
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
 
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
@@ -246,24 +249,25 @@ public class WMFYearInReviewDataController {
             return false
         }
         
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
         
         // Check remote feature disable switch
-        guard iosFeatureConfig.yir.isEnabled else {
+        guard yirConfig.isEnabled else {
             return false
         }
         
         
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
         
         // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
@@ -273,14 +277,14 @@ public class WMFYearInReviewDataController {
         
         // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
         // if {read_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+            if yirConfig.personalizedSlides.readCount.isEnabled {
                 personalizedSlideCount += 1
             }
         // }
         
         // TODO: Check persisted slide item here https://phabricator.wikimedia.org/T376041
         // if {edit_count persisted slide item}.display == yes {
-            if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+            if yirConfig.personalizedSlides.editCount.isEnabled {
                 personalizedSlideCount += 1
             }
         // }

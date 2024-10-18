@@ -133,8 +133,8 @@ final class YearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
         // Create mock developer settings data controller
@@ -159,8 +159,8 @@ final class YearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
         // Create mock developer settings data controller
@@ -189,8 +189,8 @@ final class YearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: yearInReview)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
         // Create mock developer settings data controller
