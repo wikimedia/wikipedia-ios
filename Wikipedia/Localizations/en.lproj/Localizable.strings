@@ -1410,6 +1410,8 @@
 "year-in-review-get-started" = "Get Started";
 "year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
+"year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia $1 {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
+"year-in-review-personalized-editing-title-format" = "You edited Wikipedia $1 {{PLURAL:$1|$1 time|$1 times}}.";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year. This year Wikipedia had $2 available across over $3 this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title- format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share" = "Share";

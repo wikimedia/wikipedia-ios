@@ -115,7 +115,7 @@ public class WMFYearInReviewDataController {
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String) async throws -> WMFYearInReviewReport? {
         
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -126,13 +126,13 @@ public class WMFYearInReviewDataController {
         let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
             
             guard let self else { return nil }
-            return try populateYearInReviewReportData(year: year, backgroundContext: backgroundContext)
+            return try populateYearInReviewReportData(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
         return result
     }
     
-    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext) throws -> WMFYearInReviewReport? {
+    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) throws -> WMFYearInReviewReport? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -181,11 +181,26 @@ public class WMFYearInReviewDataController {
                 }
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                
                 if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                    var edits = 0
+                    fetchUserContributionsCount(username: username, project: project) { result in
+                        switch result {
+                        case .success(let (editCount, _)):
+                            edits = editCount
+                        case .failure(let error):
+                            print("Error fetching user contributions: \(error)")
+                            edits = 0
+                        }
+                    }
                     
-                    // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
+                    let encoder = JSONEncoder()
+                    slide.data = try encoder.encode(edits)
                     
+                    if edits > 0 {
+                        slide.display = true
+                    }
+                    
+                    slide.evaluated = true
                 }
             default:
                 debugPrint("Unrecognized Slide ID")
@@ -388,8 +403,13 @@ public class WMFYearInReviewDataController {
         }
     }
     
-    public func fetchUserContributionsCount(username: String, project: WMFProject, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject?, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let project = project else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
@@ -450,6 +470,7 @@ public class WMFYearInReviewDataController {
             let usercontribs: [UserContribution]
         }
     }
+    
     struct UserContribution: Codable {
         let userid: Int
         let user: String
