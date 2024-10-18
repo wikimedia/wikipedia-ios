@@ -1382,7 +1382,7 @@ extension ExploreViewController {
     @objc func applicationDidBecomeActive() {
         if !UIAccessibility.isVoiceOverRunning {
             presentYearInReviewAnnouncement()
-            /*
+
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
             
             let imageRecommendationsDataController = WMFImageRecommendationsDataController()
@@ -1390,7 +1390,7 @@ extension ExploreViewController {
             if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
                 presentImageRecommendationsAnnouncementAltText()
             }
-             */
+             
         }
     }
 }
