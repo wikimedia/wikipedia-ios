@@ -3,9 +3,10 @@ import CoreData
 
 public class WMFYearInReviewDataController {
 
-    private let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+
+    public let coreDataStore: WMFCoreDataStore
 
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
