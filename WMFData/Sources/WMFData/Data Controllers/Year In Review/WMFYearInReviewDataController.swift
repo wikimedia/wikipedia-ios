@@ -2,31 +2,31 @@ import Foundation
 import CoreData
 
 public class WMFYearInReviewDataController {
-
+    
     let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let service = WMFDataEnvironment.current.mediaWikiService
-
+    
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
-
+        
     }
-
+    
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
         // Check local developer settings feature flag
         guard developerSettingsDataController.enableYearInReview else {
             return false
         }
-
+        
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
             return false
         }
-
+        
         guard let countryCode,
               let primaryAppLanguageProject else {
             return false
@@ -36,20 +36,20 @@ public class WMFYearInReviewDataController {
         guard iosFeatureConfig.yir.isEnabled else {
             return false
         }
-
+        
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
-
+        
         // Check remote valid primary app language wikis
         let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
         }
-
+        
         return true
     }
     
@@ -113,14 +113,14 @@ public class WMFYearInReviewDataController {
         
         return personalizedSlideCount >= 1
     }
-
+    
     @discardableResult
     public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async throws -> WMFYearInReviewReport? {
-
+        
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
-
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
@@ -190,14 +190,14 @@ public class WMFYearInReviewDataController {
             default:
                 debugPrint("Unrecognized Slide ID")
             }
-        
+            
         }
         
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
         
         return WMFYearInReviewReport(cdReport: cdReport)
     }
-
+    
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
         var results = Set<CDYearInReviewSlide>()
         if year == 2024 {
@@ -224,19 +224,19 @@ public class WMFYearInReviewDataController {
     
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-
+        
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
-
+            
             let reportPredicate = NSPredicate(format: "year == %d", report.year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
                 entityType: CDYearInReviewReport.self,
                 predicate: reportPredicate,
                 in: backgroundContext
             )
-
+            
             cdReport?.year = Int32(report.year)
-
+            
             var cdSlidesSet = Set<CDYearInReviewSlide>()
             for slide in report.slides {
                 let slidePredicate = NSPredicate(format: "id == %@", slide.id.rawValue)
@@ -245,48 +245,48 @@ public class WMFYearInReviewDataController {
                     predicate: slidePredicate,
                     in: backgroundContext
                 )
-
+                
                 cdSlide?.year = Int32(slide.year)
                 cdSlide?.id = slide.id.rawValue
                 cdSlide?.evaluated = slide.evaluated
                 cdSlide?.display = slide.display
                 cdSlide?.data = slide.data
-
+                
                 if let cdSlide {
                     cdSlidesSet.insert(cdSlide)
                 }
             }
             cdReport?.slides = cdSlidesSet as NSSet
-
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
-
+    
     public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
         let newReport = WMFYearInReviewReport(year: year, slides: slides)
-
+        
         try await saveYearInReviewReport(newReport)
     }
-
+    
     public func fetchYearInReviewReport(forYear year: Int) throws -> WMFYearInReviewReport? {
         assert(Thread.isMainThread, "This report must be called from the main thread in order to keep it synchronous")
         
         let viewContext = try coreDataStore.viewContext
         
         let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
-
+        
         fetchRequest.predicate = NSPredicate(format: "year == %d", year)
-
+        
         let cdReports = try viewContext.fetch(fetchRequest)
-
+        
         guard let cdReport = cdReports.first else {
             return nil
         }
-
+        
         guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
             return nil
         }
-
+        
         var slides: [WMFYearInReviewSlide] = []
         for cdSlide in cdSlides {
             if let id = self.getSlideId(cdSlide.id) {
@@ -300,27 +300,27 @@ public class WMFYearInReviewDataController {
                 slides.append(slide)
             }
         }
-
+        
         let report = WMFYearInReviewReport(
             year: Int(cdReport.year),
             slides: slides
         )
         return report
     }
-
-
+    
+    
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
         let viewContext = try coreDataStore.viewContext
         let reports: [WMFYearInReviewReport] = try await viewContext.perform {
             let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
             let cdReports = try viewContext.fetch(fetchRequest)
-
+            
             var results: [WMFYearInReviewReport] = []
             for cdReport in cdReports {
                 guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
                     continue
                 }
-
+                
                 var slides: [WMFYearInReviewSlide] = []
                 for cdSlide in cdSlides {
                     if let id = self.getSlideId(cdSlide.id) {
@@ -328,7 +328,7 @@ public class WMFYearInReviewDataController {
                         slides.append(slide)
                     }
                 }
-
+                
                 let report = WMFYearInReviewReport(
                     year: Int(cdReport.year),
                     slides: slides
@@ -339,7 +339,7 @@ public class WMFYearInReviewDataController {
         }
         return reports
     }
-
+    
     private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID? {
         switch idString {
         case "readCount":
@@ -349,15 +349,15 @@ public class WMFYearInReviewDataController {
         default:
             return nil
         }
-
+        
     }
-
+    
     public func deleteYearInReviewReport(year: Int) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-
+        
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
-
+            
             let reportPredicate = NSPredicate(format: "year == %d", year)
             if let cdReport = try self.coreDataStore.fetch(
                 entityType: CDYearInReviewReport.self,
@@ -370,21 +370,105 @@ public class WMFYearInReviewDataController {
             }
         }
     }
-
+    
     public func deleteAllYearInReviewReports() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-
+        
         try await backgroundContext.perform {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDYearInReviewReport")
             let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             batchDeleteRequest.resultType = .resultTypeObjectIDs
             let result = try backgroundContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
-
+            
             if let objectIDArray = result?.result as? [NSManagedObjectID], !objectIDArray.isEmpty {
                 let changes = [NSDeletedObjectsKey: objectIDArray]
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
             }
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    public func fetchUserContributionsCount(username: String, project: WMFProject, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+        guard let service = service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        let ucStartDate = "2024-11-01T22:20:13.000Z"
+        let ucEndDate = "2024-01-01T22:20:13.000Z"
+        
+        let parameters: [String: Any] = [
+            "action": "query",
+            "format": "json",
+            "list": "usercontribs",
+            "formatversion": "2",
+            "uclimit": "500",  // Above 500, just display 500+
+            "ucstart": ucStartDate,
+            "ucend": ucEndDate,
+            "ucuser": username,
+            "ucnamespace": "0",
+            "ucprop": "ids|title|timestamp|tags|flags"
+        ]
+        
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+        
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        
+        service.performDecodableGET(request: request) { (result: Result<UserContributionsAPIResponse, Error>) in
+            switch result {
+            case .success(let response):
+                guard let query = response.query else {
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
+                    return
+                }
+                
+                let editCount = query.usercontribs.count
+                
+                let hasMoreEdits = response.continue?.uccontinue != nil
+                
+                completion(.success((editCount, hasMoreEdits)))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    struct UserContributionsAPIResponse: Codable {
+        let batchcomplete: Bool?
+        let `continue`: ContinueData?
+        let query: UserContributionsQuery?
+        
+        struct ContinueData: Codable {
+            let uccontinue: String?
+        }
+        
+        struct UserContributionsQuery: Codable {
+            let usercontribs: [UserContribution]
+        }
+    }
+    struct UserContribution: Codable {
+        let userid: Int
+        let user: String
+        let pageid: Int
+        let revid: Int
+        let parentid: Int
+        let ns: Int
+        let title: String
+        let timestamp: String
+        let isNew: Bool
+        let isMinor: Bool
+        let isTop: Bool
+        let tags: [String]
+        
+        enum CodingKeys: String, CodingKey {
+            case userid, user, pageid, revid, parentid, ns, title, timestamp, tags
+            case isNew = "new"
+            case isMinor = "minor"
+            case isTop = "top"
         }
     }
 }
