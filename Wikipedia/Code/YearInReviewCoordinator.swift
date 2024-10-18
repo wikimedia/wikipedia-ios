@@ -25,7 +25,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     let collectiveNumEditsPerMinuteText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute", value: "342 edits per minute", comment: "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
