@@ -133,7 +133,7 @@ struct NotificationsCenterFilterView: View {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(InsetGroupedListStyle())
             .navigationBarItems(
                 trailing:
                     Button(action: {
