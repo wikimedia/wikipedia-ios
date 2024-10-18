@@ -14,22 +14,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
-    private lazy var profileButton: UIBarButtonItem = {
-        let hasUnreadNotifications: Bool
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        return profileButton
-    }()
-
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
 
@@ -118,6 +102,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -165,6 +150,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateProfileViewButton() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         navigationItem.rightBarButtonItem = profileButton
         navigationBar.updateNavigationItems()
     }
@@ -912,6 +909,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
 
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return
+        }
+
         let languages = ["es", "it"]
         guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
@@ -957,7 +958,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             yirCoordinator.start()
         })
 
-        announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: nil, sourceBarButton: profileButton)
+        if  navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 45
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        }
 
         yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     }
@@ -1022,7 +1028,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, sourceBarButton: nil)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }

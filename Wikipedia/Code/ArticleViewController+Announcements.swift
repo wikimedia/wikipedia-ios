@@ -127,6 +127,10 @@ extension ArticleViewController {
     // TODO: remover after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
 
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return
+        }
+
         let languages = ["es", "it"]
         guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
@@ -163,8 +167,12 @@ extension ArticleViewController {
             yirCoordinator.start()
         })
 
-        announceFeature(viewModel: viewModel, sourceView: view, sourceRect: nil, sourceBarButton: profileButton)
-
+        if navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 100
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        }
         yirDataController?.hasPresentedYiRFeatureAnnouncementModel = true
     
     }

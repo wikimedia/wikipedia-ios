@@ -49,21 +49,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     private let cacheController: ArticleCacheController
 
-    internal lazy var profileButton: UIBarButtonItem = {
-            let hasUnreadNotifications: Bool
-            if self.dataStore.authenticationManager.authStateIsPermanent {
-                let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-                hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-            } else {
-                hasUnreadNotifications = false
-            }
-            let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
-            let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-            profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-            profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-            navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileViewButtonItem]
-            return profileViewButtonItem
-        }()
 
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
@@ -1333,6 +1318,17 @@ private extension ArticleViewController {
     }
     
     func setupSearchAndProfileButtons() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
         navigationBar.updateNavigationItems()
     }
