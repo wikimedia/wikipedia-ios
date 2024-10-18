@@ -913,7 +913,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        let languages = ["es", "it"]
+        let languages = ["fr", "it"]
         guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
         }
