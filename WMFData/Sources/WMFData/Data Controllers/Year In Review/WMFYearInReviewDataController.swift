@@ -2,18 +2,43 @@ import Foundation
 import CoreData
 
 public class WMFYearInReviewDataController {
-    
-    let coreDataStore: WMFCoreDataStore
+
+    public let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let service = WMFDataEnvironment.current.mediaWikiService
-    
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+
+    struct FeatureAnnouncementStatus: Codable {
+        var hasPresentedYiRFeatureAnnouncementModal: Bool
+        static var `default`: FeatureAnnouncementStatus {
+            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
+        }
+    }
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
-        
+    }
+
+    // MARK: - Feature Announcement
+
+    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
+    }
+
+    public var hasPresentedYiRFeatureAnnouncementModel: Bool {
+        get {
+            return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
+        } set {
+            var currentAnnouncementStatus = featureAnnouncementStatus
+            currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
+        }
     }
     
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {

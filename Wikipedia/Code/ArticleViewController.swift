@@ -48,7 +48,8 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
-    
+
+
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
     
@@ -459,6 +460,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         showAnnouncementIfNeeded()
+        presentYearInReviewAnnouncement()
         isFirstAppearance = false
     }
 
@@ -1323,13 +1325,11 @@ private extension ArticleViewController {
         } else {
             hasUnreadNotifications = false
         }
-
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
-        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        
-        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileViewButtonItem]
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
         navigationBar.updateNavigationItems()
     }
     

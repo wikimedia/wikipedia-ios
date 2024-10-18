@@ -30,7 +30,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
-        // updateNotificationsCenterButton()
         updateProfileViewButton()
         updateNavigationBarVisibility()
 
@@ -87,9 +86,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 updateTabBarSnapshotImage()
             }
         }
-        
-        navigationItem.titleView = titleView
-        updateProfileViewButton()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -106,6 +102,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -148,22 +145,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-//    @objc func updateNotificationsCenterButton() {
-//        if self.dataStore.authenticationManager.authStateIsPermanent {
-//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-//            navigationItem.leftBarButtonItem = notificationsBarButton
-//            navigationBar.displayType = .centeredLargeTitle
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//            navigationBar.displayType = .largeTitle
-//        }
-//        navigationBar.updateNavigationItems()
-//    }
-
     @objc public func updateNavigationBarVisibility() {
         navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
     }
@@ -178,10 +159,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItem = profileViewButtonItem
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        navigationItem.rightBarButtonItem = profileButton
         navigationBar.updateNavigationItems()
     }
     
@@ -669,9 +650,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        // updateNotificationsCenterButton()
-        navigationItem.titleView = titleView
-        updateProfileViewButton()
         tabBarSnapshotImage = nil
 
         searchBar.apply(theme: theme)
@@ -927,7 +905,71 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
-    
+
+    // TODO: Remove after expiry date (1 March 2025)
+    private func presentYearInReviewAnnouncement() {
+
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return
+        }
+
+        let languages = ["fr", "it"]
+        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return
+        }
+
+        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+            return
+        }
+
+        guard languages.contains(appLanguage.languageCode) else {
+            return
+        }
+
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
+            return
+        }
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+        guard yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project) else {
+            return
+        }
+
+        guard !yirDataController.hasPresentedYiRFeatureAnnouncementModel else {
+            return
+        }
+
+        guard presentedViewController == nil else {
+            return
+        }
+
+        guard self.isViewLoaded && self.view.window != nil else {
+            return
+        }
+
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+            guard let self,
+                  let navController = self.navigationController
+            else { return }
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            yirCoordinator.start()
+        })
+
+        if  navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 45
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        }
+
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+    }
+
     private func presentImageRecommendationsAnnouncementAltText() {
         let languages = ["es", "pt", "fr", "zh"]
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
@@ -961,6 +1003,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        
         guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis else {
             return
         }
@@ -1058,6 +1101,27 @@ struct ImageRecommendationsFeatureAnnouncementTimeBox {
         expiryDateComponents.year = 2024
         expiryDateComponents.month = 11
         expiryDateComponents.day = 5
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
+    
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+}
+
+// MARK: Year In Review Time-box
+// TODO: Remove after expiry date (1 March 2025)
+
+struct YearInReviewFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2025
+        expiryDateComponents.month = 3
+        expiryDateComponents.day = 1
         return Calendar.current.date(from: expiryDateComponents)
     }()
     
@@ -1319,6 +1383,8 @@ extension ExploreViewController {
 
     @objc func applicationDidBecomeActive() {
         if !UIAccessibility.isVoiceOverRunning {
+            presentYearInReviewAnnouncement()
+
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
             
             let imageRecommendationsDataController = WMFImageRecommendationsDataController()
@@ -1326,6 +1392,7 @@ extension ExploreViewController {
             if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
                 presentImageRecommendationsAnnouncementAltText()
             }
+             
         }
     }
 }

@@ -26,16 +26,14 @@ public extension WMFFeatureAnnouncing where Self:UIViewController {
         
         viewController.modalPresentationStyle = .popover
         if let popover = viewController.popoverPresentationController {
-            
+
             popover.sourceView = sourceView
             popover.sourceRect = sourceRect
-            
+
             let sheet = popover.adaptiveSheetPresentationController
             sheet.detents = [.medium()]
             
             present(viewController, animated: true)
         }
-        
-        
     }
 }
