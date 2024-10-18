@@ -43,7 +43,7 @@ public struct WMFSmallButton: View {
                         .foregroundColor(Color(appEnvironment.theme.link))
                 }
             }
-            .padding([.top, .bottom], 4)
+            .padding([.top, .bottom], 12)
             .padding([.leading, .trailing], 8)
             
         })
