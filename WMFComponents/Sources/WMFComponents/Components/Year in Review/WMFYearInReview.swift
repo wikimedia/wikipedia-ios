@@ -53,7 +53,7 @@ public struct WMFYearInReview: View {
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .topBarLeading) {
                         Button(action: {
-                            // TODO: Implement Donation
+                            viewModel.coordinatorDelegate?.handleYearInReviewAction(.donate)
                         }) {
                             HStack(alignment: .center, spacing: 6) {
                                 if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {

@@ -94,8 +94,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         var readCountSlide: YearInReviewSlideContent? = nil
-        var editCountSlide: YearInReviewSlideContent? = nil
-        
+        let editCountSlide: YearInReviewSlideContent? = nil
+
         for slide in report.slides {
             switch slide.id {
             case .readCount:
@@ -161,7 +161,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature")
         )
         
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, coordinatorDelegate: self)
 
         var yirview = WMFYearInReview(viewModel: viewModel)
         
@@ -181,4 +181,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         navigationController.present(hostingController, animated: true, completion: nil)
     }
+}
+
+extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
+    func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
+    }
+
 }
