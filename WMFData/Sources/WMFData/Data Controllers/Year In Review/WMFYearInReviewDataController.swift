@@ -129,16 +129,28 @@ public class WMFYearInReviewDataController {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
-            
-            guard let self else { return nil }
-            return try populateYearInReviewReportData(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
+        let result: WMFYearInReviewReport? = try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform { [weak self] in
+                guard let self = self else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                
+                Task {
+                    do {
+                        let report = try await self.populateYearInReviewReportData(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
+                        continuation.resume(returning: report)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
         }
         
         return result
     }
     
-    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) throws -> WMFYearInReviewReport? {
+    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) async throws -> WMFYearInReviewReport? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -189,22 +201,17 @@ public class WMFYearInReviewDataController {
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
-                    Task {
-                        do {
-                            let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
-                            
-                            let encoder = JSONEncoder()
-                            slide.data = try encoder.encode(edits)
-                            
-                            if edits > 0 {
-                                slide.display = true
-                            }
-                            
-                            slide.evaluated = true
-                        } catch {
-                            print("Error fetching user contributions: \(error)")
-                        }
+                    let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
+                    print("EDITS: \(edits)")
+                    
+                    let encoder = JSONEncoder()
+                    slide.data = try encoder.encode(edits)
+                    
+                    if edits > 0 {
+                        slide.display = true
                     }
+                    
+                    slide.evaluated = true
                 }
             default:
                 debugPrint("Unrecognized Slide ID")
