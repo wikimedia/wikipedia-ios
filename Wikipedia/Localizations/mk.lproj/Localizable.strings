@@ -974,7 +974,9 @@
 "profile-page-donate-subtext" = "Или поддржете ја Википедија со паричен прилог за да биде остане бесплатна, слободна и достапна за сите ширум светот.";
 "profile-page-join-subtext" = "Направете сметка на Википедија за да си ги следите придонесите, да зачувувате статии вонмрежно и да усогласите на поеќе уреди.";
 "profile-page-join-title" = "Зачленете се / Најава";
+"profile-page-logged-out-year-in-review-subtext" = "Најавете се или направете сметка за да го подобриме Прегледот на годината за следната година";
 "profile-page-title-logged-out" = "Сметка";
+"profile-page-year-in-review-title" = "Преглед на годината";
 "project-name-mediawiki" = "МедијаВики";
 "project-name-wikibooks" = "Викикниги";
 "project-name-wikidata" = "Википодатоци";

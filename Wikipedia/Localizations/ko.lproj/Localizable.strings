@@ -227,6 +227,7 @@
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
+"confirm-donation-history-deletion-title" = "삭제 확인";
 "continue-button-title" = "계속";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
@@ -1349,5 +1350,7 @@
 "wikitext-upload-save-terms-name" = "이용 약관";
 "year-in-review-donate" = "기부";
 "year-in-review-done" = "완료";
+"year-in-review-get-started" = "시작하기";
+"year-in-review-hide" = "이 기능 숨기기";
 "year-in-review-next" = "다음";
 "year-in-review-share" = "공유";
