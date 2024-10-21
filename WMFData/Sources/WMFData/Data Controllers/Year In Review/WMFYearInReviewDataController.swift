@@ -171,7 +171,6 @@ public class WMFYearInReviewDataController {
         
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         
-        // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return nil
@@ -201,8 +200,6 @@ public class WMFYearInReviewDataController {
                 debugPrint("Unrecognized Slide ID")
             }
         }
-        
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
         
         return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation)
     }
