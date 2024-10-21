@@ -6,6 +6,9 @@ public class WMFYearInReviewDataController {
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+
+    public let targetConfigYearID = "2024.1"
+
     private let service = WMFDataEnvironment.current.mediaWikiService
 
     struct FeatureAnnouncementStatus: Codable {
@@ -47,8 +50,9 @@ public class WMFYearInReviewDataController {
         guard developerSettingsDataController.enableYearInReview else {
             return false
         }
-        
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
         
@@ -58,18 +62,19 @@ public class WMFYearInReviewDataController {
         }
         
         // Check remote feature disable switch
-        guard iosFeatureConfig.yir.isEnabled else {
+        guard yirConfig.isEnabled else {
             return false
         }
         
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
         
         // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
@@ -91,24 +96,25 @@ public class WMFYearInReviewDataController {
             return false
         }
         
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
         
         // Check remote feature disable switch
-        guard iosFeatureConfig.yir.isEnabled else {
+        guard yirConfig.isEnabled else {
             return false
         }
         
         
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = iosFeatureConfig.yir.countryCodes.map { $0.uppercased() }
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
         
         // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = iosFeatureConfig.yir.primaryAppLanguageCodes.map { $0.uppercased() }
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
         guard let languageCode = primaryAppLanguageProject.languageCode,
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
@@ -120,16 +126,16 @@ public class WMFYearInReviewDataController {
         }
         
         var personalizedSlideCount = 0
-        
+
         for slide in yirReport.slides {
             switch slide.id {
             case .readCount:
-                if iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled,
+                if yirConfig.personalizedSlides.readCount.isEnabled,
                    slide.display == true {
                     personalizedSlideCount += 1
                 }
             case .editCount:
-                if iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled,
+                if yirConfig.personalizedSlides.editCount.isEnabled,
                    slide.display == true {
                     personalizedSlideCount += 1
                 }
@@ -173,12 +179,13 @@ public class WMFYearInReviewDataController {
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         
         // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first else {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return nil
         }
         
-        guard let dataPopulationStartDate = iosFeatureConfig.yir.dataPopulationStartDate,
-              let dataPopulationEndDate = iosFeatureConfig.yir.dataPopulationEndDate else {
+        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
+              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
             return nil
         }
         
@@ -190,7 +197,7 @@ public class WMFYearInReviewDataController {
             switch slide.id {
                 
             case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
-                if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.readCount.isEnabled {
+                if slide.evaluated == false && yirConfig.personalizedSlides.readCount.isEnabled {
                     
                     let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
                     let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate, moc: backgroundContext)
@@ -207,7 +214,7 @@ public class WMFYearInReviewDataController {
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 
-                if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
+                if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
                     
                     // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
                     
