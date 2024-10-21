@@ -6,6 +6,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+    @Published public var isLoading: Bool = false
 
     public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.localizedStrings = localizedStrings

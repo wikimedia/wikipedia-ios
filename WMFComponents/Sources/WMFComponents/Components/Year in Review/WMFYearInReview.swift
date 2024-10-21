@@ -8,15 +8,14 @@ public struct WMFYearInReview: View {
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     public var donePressed: (() -> Void)?
-    
-    
+
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
-    
+
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
 
     public var body: some View {
@@ -52,19 +51,7 @@ public struct WMFYearInReview: View {
                 }
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button(action: {
-                            viewModel.coordinatorDelegate?.handleYearInReviewAction(.donate)
-                        }) {
-                            HStack(alignment: .center, spacing: 6) {
-                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
-                                    Image(uiImage: uiImage)
-                                        .foregroundStyle(Color(uiColor: theme.destructive))
-                                }
-                                Text(viewModel.localizedStrings.donateButtonTitle)
-                                    .foregroundStyle(Color(uiColor: theme.destructive))
-                            }
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                        }
+                        WMFYearInReviewDonateButton(viewModel: viewModel)
                     }
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
@@ -128,7 +115,7 @@ public struct WMFYearInReview: View {
             .foregroundStyle(Color(uiColor: theme.text))
         }
     }
-        
+
     private var buttons: some View {
         VStack {
             WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {

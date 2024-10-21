@@ -13,7 +13,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var viewModel: WMFYearInReviewViewModel?
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
-    
+    var donateCoordinator: DonateCoordinator?
+
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
     
@@ -184,7 +185,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
-    func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
+    func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction, sourceRect: CGRect) {
+        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: sourceRect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
+            guard let viewModel = self.viewModel else { return }
+            viewModel.isLoading = loading
+        }
+        self.donateCoordinator = donateCoordinator
+        donateCoordinator.start()
     }
 
 }
