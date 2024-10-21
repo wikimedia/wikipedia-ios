@@ -17,6 +17,7 @@ import WMF
         case articleProfile = "article_profile"
         case exploreProfile = "explore_profile"
         case exploreOptOut = "explore_optout_profile"
+        case wikiYiR = "wiki_yir"
     }
     
     private enum Action: String {
@@ -49,6 +50,7 @@ import WMF
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
         case profileClick = "profile_click"
+        case startClick = "start_click"
     }
     
     private struct Event: EventInterface {
@@ -298,5 +300,11 @@ import WMF
     
     @objc func logExploreOptOutProfileClick(metricsID: String) {
         logEvent(activeInterface: .exploreOptOut, action: . profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    // MARK: - Year In Review
+    
+    func logProfileDidTapYearInReview() {
+        logEvent(activeInterface: .wikiYiR, action: . startClick, actionData: ["slide": "entry_b_profile"])
     }
 }
