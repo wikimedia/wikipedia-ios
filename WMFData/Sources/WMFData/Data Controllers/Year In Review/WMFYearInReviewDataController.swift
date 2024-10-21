@@ -188,31 +188,27 @@ public class WMFYearInReviewDataController {
                 }
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                if slide.evaluated == false && iosFeatureConfig.yir.personalizedSlides.editCount.isEnabled {
-                    var edits = 0
-                    fetchUserContributionsCount(username: username, project: project) { result in
-                        switch result {
-                        case .success(let (editCount, _)):
-                            edits = editCount
-                        case .failure(let error):
+                if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
+                    Task {
+                        do {
+                            let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
+                            
+                            let encoder = JSONEncoder()
+                            slide.data = try encoder.encode(edits)
+                            
+                            if edits > 0 {
+                                slide.display = true
+                            }
+                            
+                            slide.evaluated = true
+                        } catch {
                             print("Error fetching user contributions: \(error)")
-                            edits = 0
                         }
                     }
-                    
-                    let encoder = JSONEncoder()
-                    slide.data = try encoder.encode(edits)
-                    
-                    if edits > 0 {
-                        slide.display = true
-                    }
-                    
-                    slide.evaluated = true
                 }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
-            
         }
         
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
@@ -410,6 +406,19 @@ public class WMFYearInReviewDataController {
         }
     }
     
+    public func fetchUserContributionsCount(username: String, project: WMFProject?) async throws -> (Int, Bool) {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchUserContributionsCount(username: username, project: project) { result in
+                switch result {
+                case .success(let successResult):
+                    continuation.resume(returning: successResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
     public func fetchUserContributionsCount(username: String, project: WMFProject?, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -429,7 +438,7 @@ public class WMFYearInReviewDataController {
             "format": "json",
             "list": "usercontribs",
             "formatversion": "2",
-            "uclimit": "500",  // Above 500, just display 500+
+            "uclimit": "500", 
             "ucstart": ucStartDate,
             "ucend": ucEndDate,
             "ucuser": username,
