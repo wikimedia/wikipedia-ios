@@ -14,6 +14,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 public let isEnabled: Bool
             }
             
+            public let yearID: String
             public let isEnabled: Bool
             public let countryCodes: [String]
             public let primaryAppLanguageCodes: [String]
@@ -34,7 +35,11 @@ public struct WMFFeatureConfigResponse: Codable {
 
         let version: Int
 
-        public let yir: YearInReview
+        public let yir: [YearInReview]
+        
+        public func yir(yearID: String) -> YearInReview? {
+            return yir.first { $0.yearID == yearID }
+        }
     }
     
     public let ios: [IOS]
