@@ -127,30 +127,21 @@ public class WMFYearInReviewDataController {
             return nil
         }
         
+        let (edits, _) = try await fetchUserContributionsCount(username: username, project: primaryAppLanguageProject)
+        print("EDITS: \(edits)")
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: WMFYearInReviewReport? = try await withCheckedThrowingContinuation { continuation in
-            backgroundContext.perform { [weak self] in
-                guard let self = self else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-                
-                Task {
-                    do {
-                        let report = try await self.populateYearInReviewReportData(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
-                        continuation.resume(returning: report)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
+        let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
+                    
+            return try self?.populateYearInReviewReportData(year: year, edits: edits, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
+            
         }
         
         return result
     }
     
-    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) async throws -> WMFYearInReviewReport? {
+    private func populateYearInReviewReportData(year: Int, edits: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) throws -> WMFYearInReviewReport? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -201,8 +192,6 @@ public class WMFYearInReviewDataController {
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
-                    let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
-                    print("EDITS: \(edits)")
                     
                     let encoder = JSONEncoder()
                     slide.data = try encoder.encode(edits)
