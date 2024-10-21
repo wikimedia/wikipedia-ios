@@ -95,7 +95,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         var readCountSlide: YearInReviewSlideContent? = nil
-        let editCountSlide: YearInReviewSlideContent? = nil
+        var editCountSlide: YearInReviewSlideContent? = nil
 
         for slide in report.slides {
             switch slide.id {
