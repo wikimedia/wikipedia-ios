@@ -167,7 +167,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, loggingDelegate: self)
 
-        var yirview = WMFYearInReview(viewModel: viewModel)
+        var yirview = WMFYearInReviewView(viewModel: viewModel)
         
         yirview.donePressed = { [weak self] in
             self?.navigationController.dismiss(animated: true, completion: nil)

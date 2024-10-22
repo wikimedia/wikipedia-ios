@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFYearInReview: View {
+public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewViewModel
 
