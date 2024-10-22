@@ -45,6 +45,10 @@ public struct WMFYearInReview: View {
                 }
             }
             .background(Color(uiColor: theme.midBackground))
+            .onChange(of: viewModel.currentSlide) { newSlide in
+                // Logs slide impressions and next taps
+                viewModel.logYearInReviewSlideDidAppear()
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -100,6 +104,7 @@ public struct WMFYearInReview: View {
                             Spacer()
                             Button(action: {
                                 withAnimation {
+                                    viewModel.logYearInReviewSlideDidTapNext()
                                     viewModel.nextSlide()
                                 }
                             }) {
