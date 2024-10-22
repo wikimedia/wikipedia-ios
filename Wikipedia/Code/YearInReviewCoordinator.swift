@@ -188,8 +188,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 }
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
-    func logYearInReviewIntroDidAppear() {
-        DonateFunnel.shared.logYearInReviewIntroImpression()
+    
+    func logYearInReviewSlideDidAppear(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewDidTapDone(slideLoggingID: String) {
@@ -202,5 +203,9 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     
     func logYearInReviewIntroDidTapDisable() {
         DonateFunnel.shared.logYearInReviewDidTapIntroDisable()
+    }
+    
+    func logYearInReviewDidTapNext(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
     }
 }

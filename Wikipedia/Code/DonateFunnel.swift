@@ -52,6 +52,7 @@ import WMF
         case profileClick = "profile_click"
         case startClick = "start_click"
         case hideClick = "hide_click"
+        case nextClick = "next_click"
     }
     
     private struct Event: EventInterface {
@@ -309,8 +310,8 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
     }
     
-    func logYearInReviewIntroImpression() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "start"])
+    func logYearInReviewSlideImpression(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
     }
     
     func logYearInReviewDidTapDone(slideLoggingID: String) {
@@ -323,5 +324,9 @@ import WMF
     
     func logYearInReviewDidTapIntroDisable() {
         logEvent(activeInterface: .wikiYiR, action: .hideClick, actionData: ["slide": "start"])
+    }
+    
+    func logYearInReviewDidTapNext(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
     }
 }
