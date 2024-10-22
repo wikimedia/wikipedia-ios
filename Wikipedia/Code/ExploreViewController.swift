@@ -907,21 +907,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        let languages = ["fr", "it"]
-
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
-
+//        let languages = ["fr", "it"]
+//
+//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+//            return
+//        }
+//
         guard let yirDataController else {
             return
         }
-
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
-            return
-        }
+//
+//        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+//
+//        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+//            return
+//        }
 
         guard presentedViewController == nil else {
             return
@@ -951,7 +951,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
         }
 
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+//        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {
@@ -1345,24 +1345,24 @@ extension ExploreViewController {
     }
 
     fileprivate func showFeatureAnnouncementsIfNeeded() {
-        if let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-            if let yirDataController, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) {
+//        if let appLanguage = dataStore.languageLinkController.appLanguage {
+//            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+//            if let yirDataController, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) {
                 presentYearInReviewAnnouncement()
-            }
-        } else {
-            guard !UIAccessibility.isVoiceOverRunning else {
-                return
-            }
-
-            presentImageRecommendationsFeatureAnnouncementIfNeeded()
-            
-            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-            
-            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-                presentImageRecommendationsAnnouncementAltText()
-            }
-        }
+//            }
+//        } else {
+//            guard !UIAccessibility.isVoiceOverRunning else {
+//                return
+//            }
+//
+//            presentImageRecommendationsFeatureAnnouncementIfNeeded()
+//            
+//            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+//            
+//            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
+//                presentImageRecommendationsAnnouncementAltText()
+//            }
+//        }
     }
     
     @objc func applicationDidBecomeActive() {

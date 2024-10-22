@@ -132,27 +132,27 @@ extension ArticleViewController {
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return
         }
-        let languages = ["fr", "it"]
-
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
-
-        guard !willDisplayFundraisingBanner else {
-            return
-        }
-
+//        let languages = ["fr", "it"]
+//
+//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+//            return
+//        }
+//
+//        guard !willDisplayFundraisingBanner else {
+//            return
+//        }
+//
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject) else {
-            return
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
-            return
-        }
+//
+//        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject) else {
+//            return
+//        }
+//
+//        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+//            return
+//        }
 
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
@@ -174,7 +174,7 @@ extension ArticleViewController {
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
         }
         
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+//        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
 }
 
