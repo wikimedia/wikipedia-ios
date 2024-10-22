@@ -26,6 +26,7 @@ struct NotificationsCenterInboxView: View {
     
     var body: some View {
         WMFFormView(viewModel: viewModel.formViewModel)
+            .listStyle(InsetGroupedListStyle())
             .navigationBarItems(
                 trailing:
                     Button(action: {

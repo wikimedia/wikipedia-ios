@@ -24,7 +24,7 @@ public struct WMFFormView: View {
                 
             }
         }
-        .listStyle(GroupedListStyle())
+        .listStyle(InsetGroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
         .onAppear(perform: {
             if #unavailable(iOS 16) {
