@@ -43,7 +43,41 @@ public class WMFYearInReviewDataController {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
         }
     }
-    
+
+    func isAnnouncementActive() -> Bool {
+        let expiryDate: Date? = {
+            var expiryDateComponents = DateComponents()
+            expiryDateComponents.year = 2025
+            expiryDateComponents.month = 3
+            expiryDateComponents.day = 1
+            return Calendar.current.date(from: expiryDateComponents)
+        }()
+
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+
+    public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
+
+        guard isAnnouncementActive() else {
+            return false
+        }
+
+
+        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+            return false
+        }
+
+        guard hasPresentedYiRFeatureAnnouncementModel else {
+            return false
+        }
+
+        return true
+    }
+
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
         // Check local developer settings feature flag
@@ -468,7 +502,7 @@ public class WMFYearInReviewDataController {
             }
         }
     }
-    
+
     struct UserContributionsAPIResponse: Codable {
         let batchcomplete: Bool?
         let `continue`: ContinueData?

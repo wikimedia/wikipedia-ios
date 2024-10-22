@@ -49,6 +49,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     private let cacheController: ArticleCacheController
 
+    internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?

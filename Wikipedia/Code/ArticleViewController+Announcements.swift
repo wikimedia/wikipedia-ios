@@ -31,7 +31,9 @@ extension ArticleViewController {
             guard isOptedIn else {
                 return
             }
-            
+
+            willDisplayFundraisingBanner = true
+
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
     }
@@ -124,23 +126,19 @@ extension ArticleViewController {
         }
     }
 
-    // TODO: remover after expiry date (1 March 2025)
+    // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
 
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return
         }
-
         let languages = ["fr", "it"]
-        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
-            return
-        }
 
         guard let appLanguage = dataStore.languageLinkController.appLanguage else {
             return
         }
 
-        guard languages.contains(appLanguage.languageCode) else {
+        guard !willDisplayFundraisingBanner else {
             return
         }
 
@@ -152,7 +150,7 @@ extension ArticleViewController {
             return
         }
 
-        guard !yirDataController.hasPresentedYiRFeatureAnnouncementModel else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
             return
         }
 

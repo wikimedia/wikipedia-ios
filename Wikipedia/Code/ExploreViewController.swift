@@ -14,6 +14,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
+    private let yirDataController = try? WMFYearInReviewDataController()
+
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
 
@@ -69,16 +71,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #if UITEST
         presentUITestHelperController()
 #endif
-        if !UIAccessibility.isVoiceOverRunning {
-            presentImageRecommendationsFeatureAnnouncementIfNeeded()
-            
-            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-            
-            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-                presentImageRecommendationsAnnouncementAltText()
-            }
-        }
-        
+        showFeatureAnnouncementsIfNeeded()
+
         if tabBarSnapshotImage == nil {
             if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
                 tabBarSnapshotImage = nil
@@ -914,28 +908,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         let languages = ["fr", "it"]
-        guard YearInReviewFeatureAnnouncementTimeBox.isAnnouncementActive() else {
-            return
-        }
 
         guard let appLanguage = dataStore.languageLinkController.appLanguage else {
             return
         }
 
-        guard languages.contains(appLanguage.languageCode) else {
-            return
-        }
-
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
+        guard let yirDataController else {
             return
         }
 
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-        guard yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: project) else {
-            return
-        }
 
-        guard !yirDataController.hasPresentedYiRFeatureAnnouncementModel else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
             return
         }
 
@@ -971,6 +955,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     private func presentImageRecommendationsAnnouncementAltText() {
+
         let languages = ["es", "pt", "fr", "zh"]
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
@@ -1037,7 +1022,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // TODO: - Remove after expiry date (5 Nov, 2024)
     private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
-        
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
             return
         }
@@ -1101,27 +1085,6 @@ struct ImageRecommendationsFeatureAnnouncementTimeBox {
         expiryDateComponents.year = 2024
         expiryDateComponents.month = 11
         expiryDateComponents.day = 5
-        return Calendar.current.date(from: expiryDateComponents)
-    }()
-    
-    static func isAnnouncementActive() -> Bool {
-        guard let expiryDate else {
-            return false
-        }
-        let currentDate = Date()
-        return currentDate <= expiryDate
-    }
-}
-
-// MARK: Year In Review Time-box
-// TODO: Remove after expiry date (1 March 2025)
-
-struct YearInReviewFeatureAnnouncementTimeBox {
-    static let expiryDate: Date? = {
-        var expiryDateComponents = DateComponents()
-        expiryDateComponents.year = 2025
-        expiryDateComponents.month = 3
-        expiryDateComponents.day = 1
         return Calendar.current.date(from: expiryDateComponents)
     }()
     
@@ -1381,9 +1344,16 @@ extension ExploreViewController {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
-    @objc func applicationDidBecomeActive() {
-        if !UIAccessibility.isVoiceOverRunning {
-            presentYearInReviewAnnouncement()
+    fileprivate func showFeatureAnnouncementsIfNeeded() {
+        if let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+            if let yirDataController, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) {
+                presentYearInReviewAnnouncement()
+            }
+        } else {
+            guard !UIAccessibility.isVoiceOverRunning else {
+                return
+            }
 
             presentImageRecommendationsFeatureAnnouncementIfNeeded()
             
@@ -1392,8 +1362,11 @@ extension ExploreViewController {
             if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
                 presentImageRecommendationsAnnouncementAltText()
             }
-             
         }
+    }
+    
+    @objc func applicationDidBecomeActive() {
+        showFeatureAnnouncementsIfNeeded()
     }
 }
 
