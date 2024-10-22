@@ -2,10 +2,10 @@ import Foundation
 import SwiftUI
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
-    func logYearInReviewIntroDidAppear()
-    func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewIntroDidTapContinue()
     func logYearInReviewIntroDidTapDisable()
+    func logYearInReviewSlideDidAppear(slideLoggingID: String)
+    func logYearInReviewDidTapDone(slideLoggingID: String)
 }
 
 public class WMFYearInReviewViewModel: ObservableObject {
@@ -49,6 +49,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideCTA = firstSlideCTA
             self.firstSlideHide = firstSlideHide
         }
+    }
+    
+    public func logYearInReviewSlideDidAppear() {
+        let slideLoggingID: String
+        if isFirstSlide {
+            slideLoggingID = "start"
+        } else {
+            slideLoggingID = slides[currentSlide].loggingID
+        }
+        loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
     }
     
     public func logYearInReviewDidTapDone() {

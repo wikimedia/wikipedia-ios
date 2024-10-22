@@ -25,7 +25,7 @@ public struct WMFYearInReview: View {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
-                            viewModel.loggingDelegate?.logYearInReviewIntroDidAppear()
+                            viewModel.logYearInReviewSlideDidAppear()
                         }
                 } else {
                     VStack {
@@ -39,6 +39,9 @@ public struct WMFYearInReview: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear {
+                        viewModel.logYearInReviewSlideDidAppear()
+                    }
                 }
             }
             .background(Color(uiColor: theme.midBackground))
