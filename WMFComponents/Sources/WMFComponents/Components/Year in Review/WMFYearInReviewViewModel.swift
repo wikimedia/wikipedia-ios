@@ -62,7 +62,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
     }
     
-    func logYearInReviewDidTapDone() {
+    public func logYearInReviewDidTapDone() {
         let slideLoggingID: String
         if isFirstSlide {
             slideLoggingID = "start"

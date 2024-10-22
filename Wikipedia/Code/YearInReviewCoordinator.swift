@@ -183,6 +183,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             sheetPresentationController.prefersGrabberVisible = false
         }
         
+        hostingController.presentationController?.delegate = self
+        
         navigationController.present(hostingController, animated: true, completion: nil)
     }
 }
@@ -207,5 +209,11 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+}
+
+extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        viewModel?.logYearInReviewDidTapDone()
     }
 }
