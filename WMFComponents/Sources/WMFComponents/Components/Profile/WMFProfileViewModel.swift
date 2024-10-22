@@ -263,6 +263,7 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                    coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
             )
             
