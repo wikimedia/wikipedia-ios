@@ -104,7 +104,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
-                            imageName: "heart_yir", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount))
+                            imageName: "heart_yir", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount), loggingID: "read_count_custom")
                     }
                 }
             case .editCount:
@@ -123,7 +123,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: baseSlide1Title,
             informationBubbleText: nil,
             // Purposefully not translated due to numbers
-            subtitle: baseSlide1Subtitle)
+            subtitle: baseSlide1Subtitle,
+            loggingID: "read_count_base")
         
         let personalizedSlides = getPersonalizedSlides()
         
@@ -137,17 +138,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 imageName: "phone_yir",
                 title: baseSlide2Title,
                 informationBubbleText: nil,
-                subtitle: baseSlide2Subtitle),
+                subtitle: baseSlide2Subtitle,
+                loggingID: "read_view_base"),
             YearInReviewSlideContent(
                 imageName: "languages_yir",
                 title: baseSlide3Title,
                 informationBubbleText: nil,
-                subtitle: baseSlide3Subtitle),
+                subtitle: baseSlide3Subtitle,
+                loggingID: "edit_count_base"),
             YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: baseSlide4Title,
                 informationBubbleText: nil,
-                subtitle: baseSlide4Subtitle)
+                subtitle: baseSlide4Subtitle,
+                loggingID: "edit_rate_base")
         ]
         
         let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
@@ -161,7 +165,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature")
         )
         
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, loggingDelegate: self)
 
         var yirview = WMFYearInReview(viewModel: viewModel)
         
@@ -180,5 +184,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         navigationController.present(hostingController, animated: true, completion: nil)
+    }
+}
+
+extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
+    func logYearInReviewIntroDidAppear() {
+        DonateFunnel.shared.logYearInReviewIntroImpression()
+    }
+    
+    func logYearInReviewDidTapDone(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewIntroDidTapContinue() {
+        DonateFunnel.shared.logYearInReviewDidTapIntroContinue()
+    }
+    
+    func logYearInReviewIntroDidTapDisable() {
+        DonateFunnel.shared.logYearInReviewDidTapIntroDisable()
     }
 }

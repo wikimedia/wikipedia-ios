@@ -51,6 +51,7 @@ import WMF
         case returnClick = "return_click"
         case profileClick = "profile_click"
         case startClick = "start_click"
+        case hideClick = "hide_click"
     }
     
     private struct Event: EventInterface {
@@ -305,6 +306,22 @@ import WMF
     // MARK: - Year In Review
     
     func logProfileDidTapYearInReview() {
-        logEvent(activeInterface: .wikiYiR, action: . startClick, actionData: ["slide": "entry_b_profile"])
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
+    }
+    
+    func logYearInReviewIntroImpression() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "start"])
+    }
+    
+    func logYearInReviewDidTapDone(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDidTapIntroContinue() {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
+    }
+    
+    func logYearInReviewDidTapIntroDisable() {
+        logEvent(activeInterface: .wikiYiR, action: .hideClick, actionData: ["slide": "start"])
     }
 }
