@@ -132,11 +132,6 @@ extension ArticleViewController {
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return
         }
-        let languages = ["fr", "it"]
-
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
 
         guard !willDisplayFundraisingBanner else {
             return
