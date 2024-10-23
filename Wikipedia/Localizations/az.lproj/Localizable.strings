@@ -110,7 +110,7 @@
 "action-unsave" = "Yadda saxlama";
 "action-unsaved-accessibility-notification" = "Məqalə saxlanılmadı";
 "action-update" = "Yenilə";
-"add-articles-to-reading-list" = "{{{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
+"add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
 "advanced-settings-title" = "Qabaqcıl parametrlər";
 "alt-text-add-button-title" = "Əlavə et";
 "alt-text-do-not-add-button-title" = "Əlavə etmə";
@@ -740,7 +740,7 @@
 "more-languages-tooltip-description" = "300-dən çox dildə Vikipediyada axtarış edin";
 "more-languages-tooltip-title" = "Dil əlavə et";
 "more-menu" = "Daha çox";
-"move-articles-to-reading-list" = "{{{{PLURAL:$1|$1 məqaləni}} oxuma siyahısına köçür";
+"move-articles-to-reading-list" = "{{PLURAL:$1|$1 məqaləni}} oxuma siyahısına köçür";
 "navbar-title-mode-edit-wikitext-preview" = "Sınaq görüntüsü";
 "nearby-distance-label-feet" = "$1 fut";
 "nearby-distance-label-miles" = "$1 metr";

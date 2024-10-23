@@ -91,7 +91,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>{{%#@v1@ oxuma siyahısına əlavə et</string>
+		<string>%#@v1@ oxuma siyahısına əlavə et</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -269,7 +269,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>{{%#@v1@ oxuma siyahısına köçür</string>
+		<string>%#@v1@ oxuma siyahısına köçür</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
