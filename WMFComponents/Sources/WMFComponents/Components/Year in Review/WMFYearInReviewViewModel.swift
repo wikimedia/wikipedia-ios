@@ -5,16 +5,24 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
-    
-    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent]) {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+
+    weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+
+    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.localizedStrings = localizedStrings
         self.slides = slides
+        self.coordinatorDelegate = coordinatorDelegate
     }
-    
+
     public func getStarted() {
         isFirstSlide = false
     }
-    
+
     public struct LocalizedStrings {
         let donateButtonTitle: String
         let doneButtonTitle: String
@@ -24,7 +32,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideSubtitle: String
         let firstSlideCTA: String
         let firstSlideHide: String
-        
+
         public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
@@ -43,11 +51,21 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
-    
+
     public init(imageName: String, title: String, informationBubbleText: String?, subtitle: String) {
         self.imageName = imageName
         self.title = title
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
     }
+}
+
+// temp - waiting for the donate action to be merged
+
+public protocol YearInReviewCoordinatorDelegate: AnyObject {
+    func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction)
+}
+
+public enum YearInReviewCoordinatorAction {
+    case share(image: UIImage)
 }

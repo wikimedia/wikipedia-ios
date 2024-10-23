@@ -69,7 +69,7 @@ public struct WMFYearInReview: View {
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
-                                // TODO: Implement share
+                                viewModel.handleShare(for: currentSlide)
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {

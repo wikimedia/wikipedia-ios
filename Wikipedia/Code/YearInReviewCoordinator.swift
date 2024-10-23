@@ -182,3 +182,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
     }
 }
+
+extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
+    func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
+
+        switch action {
+            case let .share(image):
+            print("")
+
+        }
+    }
+}
