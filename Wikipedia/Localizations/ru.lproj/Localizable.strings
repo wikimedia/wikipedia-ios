@@ -1330,6 +1330,12 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 млн статей";
+"year-in-review-2024-Wikipedia-num-edits" = "460,300 правок";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 правки в минуту";
+"year-in-review-2024-Wikipedia-num-languages" = "332 активных языка";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 миллиарда раз";
+"year-in-review-base-edits-title" = "Википедия была отредактирована $1";
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-done" = "Готово";
 "year-in-review-next" = "Далее";

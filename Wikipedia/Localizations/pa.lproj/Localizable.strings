@@ -15,7 +15,7 @@
 // Author: ਪ੍ਰਚਾਰਕ
 
 "aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
-"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ";
+"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਨਵਿਆਈਆਂ ਗਿਆ";
 "aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
 "aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
 "aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
@@ -67,6 +67,7 @@
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
 "account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਸਫ਼ਾ";
+"action-language-accessibility" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "action-read" = "ਪੜ੍ਹੋ";
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
@@ -173,8 +174,10 @@
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "notifications-center-go-to-article" = "ਲੇਖ";
 "notifications-center-mark" = "ਨਿਸ਼ਾਨ ਲਾਓ";
+"notifications-center-subheader-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ!";
 "notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
 "notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
+"notifications-center-type-title-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -225,6 +228,7 @@
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
+"talk-page-change-language" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "talk-page-menu-open-all" = "ਸਾਰੇ ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਖੋਲ੍ਹੋ";
 "talk-page-page-info" = "ਸਫ਼ਾ ਜਾਣਕਾਰੀ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
