@@ -86,9 +86,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, editCount)
     }
     
+    func personalizedSlide3Title500Plus() -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format-500plus", value: "You edited Wikipedia 500+ times", comment: "Year in review, personalized editing article count slide title for users that edited articles 500+ times. ")
+        return String.localizedStringWithFormat(format)
+    }
+    
     func personalizedSlide3Subtitle(editCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
+    }
+    
+    func personalizedSlide3Subtitle500Plus() -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format-500plus", value: "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.")
+        return String.localizedStringWithFormat(format)
     }
     
     private struct PersonalizedSlides {
@@ -124,9 +134,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
                             imageName: "languages_yir",
-                            title: personalizedSlide3Title(editCount: editCount),
+                            title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
-                            subtitle: personalizedSlide3Subtitle(editCount: editCount))
+                            subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount))
                     }
                 }
             }
@@ -136,7 +146,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        
         var firstSlide = YearInReviewSlideContent(
             imageName: "heart_yir",
             title: baseSlide1Title,
