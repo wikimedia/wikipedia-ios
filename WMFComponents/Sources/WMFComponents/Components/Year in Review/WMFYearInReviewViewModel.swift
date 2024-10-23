@@ -5,17 +5,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
+    let username: String?
 
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
 
-    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
+    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.localizedStrings = localizedStrings
         self.slides = slides
+        self.username = username
         self.coordinatorDelegate = coordinatorDelegate
     }
 
@@ -44,6 +41,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideHide = firstSlideHide
         }
     }
+
+    func handleShare(for slide: Int) {
+        coordinatorDelegate?.handleYearInReviewAction(.share)
+    }
+
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
@@ -67,5 +69,5 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 }
 
 public enum YearInReviewCoordinatorAction {
-    case share(image: UIImage)
+    case share
 }
