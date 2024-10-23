@@ -1,9 +1,9 @@
 import Foundation
 
 public protocol YearInReviewCoordinatorDelegate: AnyObject {
-    func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction, sourceRect: CGRect)
+    func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction)
 }
 
 public enum YearInReviewCoordinatorAction {
-    case donate
+    case donate(sourceRect: CGRect)
 }
