@@ -1010,6 +1010,7 @@
 "profile-page-join-subtext" = "在維基百科註冊帳號可讓您追蹤自己的貢獻、儲存離線條目、以及跨裝置同步。";
 "profile-page-join-title" = "加入維基百科/登入";
 "profile-page-title-logged-out" = "帳號";
+"profile-page-year-in-review-title" = "年度回顧";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "維基教科書";
 "project-name-wikidata" = "維基數據";
@@ -1436,6 +1437,12 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+"year-in-review-2024-Wikipedia-num-articles" = "6369 萬個條目";
+"year-in-review-2024-Wikipedia-num-edits" = "460300 次編輯";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "每分鐘 342 次編輯";
+"year-in-review-2024-Wikipedia-num-languages" = "332 種活躍語言";
+"year-in-review-2024-Wikipedia-num-views" = "14 億次";
+"year-in-review-base-edits-title" = "在維基百科上發生的編輯為$1";
 "year-in-review-base-reading-title" = "閱讀維基百科讓我們走在一起";
 "year-in-review-donate" = "捐款";
 "year-in-review-done" = "確定";
