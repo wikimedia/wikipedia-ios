@@ -907,8 +907,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        let languages = ["fr", "it"]
-
         guard let appLanguage = dataStore.languageLinkController.appLanguage else {
             return
         }

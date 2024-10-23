@@ -71,7 +71,7 @@ public class WMFYearInReviewDataController {
             return false
         }
 
-        guard hasPresentedYiRFeatureAnnouncementModel else {
+        guard !hasPresentedYiRFeatureAnnouncementModel else {
             return false
         }
 

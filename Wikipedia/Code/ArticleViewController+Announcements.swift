@@ -141,7 +141,7 @@ extension ArticleViewController {
             return
         }
 
-        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: wmfProject) else {
+        guard let wmfProject = project?.wmfProject else {
             return
         }
 
