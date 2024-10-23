@@ -147,7 +147,6 @@ public class WMFYearInReviewDataController {
         
         if result.needsEditingPopulation == true {
             let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
-            print("EDITS: \(edits)")
             try await backgroundContext.perform { [weak self] in
                 try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
             }
@@ -193,7 +192,6 @@ public class WMFYearInReviewDataController {
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
-                    
                     needsEditingPopulation = true
                 }
             default:

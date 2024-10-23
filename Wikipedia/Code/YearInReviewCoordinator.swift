@@ -81,13 +81,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, collectiveNumArticlesText, collectiveNumLanguagesText)
     }
     
-    func personalizedSlide4Title(editCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia %1$d {{PLURAL:%1$d|%1$d time|%1$d times}}.", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
+    func personalizedSlide3Title(editCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}.", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
     }
     
-    func personalizedSlide4Subtitle(editCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format", value: "You edited Wikipedia %1$d {{PLURAL:%1$d|%1$d time|%1$d times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
+    func personalizedSlide3Subtitle(editCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
     }
     
@@ -118,14 +118,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .editCount:
-                if slide.display == true, let data = slide.data {
+                if slide.display == true,
+                        let data = slide.data {
                     let decoder = JSONDecoder()
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
-                            imageName: "edit_yir",
-                            title: personalizedSlide4Title(editCount: editCount),
+                            imageName: "languages_yir",
+                            title: personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
-                            subtitle: personalizedSlide4Subtitle(editCount: editCount))
+                            subtitle: personalizedSlide3Subtitle(editCount: editCount))
                     }
                 }
             }
@@ -142,11 +143,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             informationBubbleText: nil,
             // Purposefully not translated due to numbers
             subtitle: baseSlide1Subtitle)
+        var thirdSlide = YearInReviewSlideContent(
+            imageName: "languages_yir",
+            title: baseSlide3Title,
+            informationBubbleText: nil,
+            subtitle: baseSlide3Subtitle)
         
         let personalizedSlides = getPersonalizedSlides()
         
         if let readCountSlide = personalizedSlides.readCount {
             firstSlide = readCountSlide
+        }
+        
+        if let editCountSlide = personalizedSlides.editCount {
+            thirdSlide = editCountSlide
         }
         
         let slides: [YearInReviewSlideContent] = [
@@ -156,11 +166,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 title: baseSlide2Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide2Subtitle),
-            YearInReviewSlideContent(
-                imageName: "languages_yir",
-                title: baseSlide3Title,
-                informationBubbleText: nil,
-                subtitle: baseSlide3Subtitle),
+            thirdSlide,
             YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: baseSlide4Title,
