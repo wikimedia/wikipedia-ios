@@ -343,7 +343,7 @@
 "donate-success-title" = "Təşəkkürlər!";
 "donate-title" = "Məbləği seç";
 "donate-transaction-fee-opt-in-text" = "İanəmin 100%%-ni ala bilməyiniz üçün əməliyyat xərclərini də ödəmək üçün $1 əlavə edəcəm";
-"donate-wikimedia-fine-print-1" = "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə <a href=\"$1\">ianə siyasətinə</a> uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün <a href=\"$1\">ianə siyasətini</a> oxuyun.";
+"donate-wikimedia-fine-print-1" = "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə [ianə siyasətinə]($1) uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün [ianə siyasətini]($1) oxuyun.";
 "donate-wikimedia-fine-print-2" = "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianədən etibarən hər ay eyni gündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün donate@wikimedia.org ünvanı ilə əlaqə saxlayın.";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";
