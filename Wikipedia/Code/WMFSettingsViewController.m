@@ -107,26 +107,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
-
-        //[self updateNotificationsCenterButton];
         [self updateProfileViewButton];
     }
 
     [self.navigationBar updateNavigationItems];
 }
-
-//- (void)updateNotificationsCenterButton {
-//    if (self.dataStore.authenticationManager.authStateIsPermanent) {
-//        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-//        BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-//        UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
-//        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-//        notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
-//        self.navigationItem.leftBarButtonItem = notificationsBarButton;
-//    } else {
-//        self.navigationItem.leftBarButtonItem = nil;
-//    }
-//}
 
 - (void)updateProfileViewButton {
     NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
