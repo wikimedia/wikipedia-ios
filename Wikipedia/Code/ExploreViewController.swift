@@ -18,6 +18,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
+    private var yirCoordinator: YearInReviewCoordinator?
 
     // MARK: - UIViewController
     
@@ -938,8 +939,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard let self,
                   let navController = self.navigationController
             else { return }
-            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            yirCoordinator.start()
+            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            yirCoordinator?.start()
         })
 
         if  navigationBar.superview != nil {

@@ -53,7 +53,8 @@ class ArticleViewController: ViewController, HintPresenting {
 
     // Coordinator
     private var profileCoordinator: ProfileCoordinator?
-    
+    internal var yirCoordinator: YearInReviewCoordinator?
+
     var session: Session {
         return dataStore.session
     }

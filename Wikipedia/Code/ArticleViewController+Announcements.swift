@@ -141,14 +141,6 @@ extension ArticleViewController {
             return
         }
 
-        guard let wmfProject = project?.wmfProject else {
-            return
-        }
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
-            return
-        }
-
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
@@ -158,8 +150,8 @@ extension ArticleViewController {
             guard let self,
                   let navController = self.navigationController
             else { return }
-            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            yirCoordinator.start()
+            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            yirCoordinator?.start()
         })
 
         if navigationBar.superview != nil {
