@@ -115,7 +115,9 @@
 "advanced-settings-title" = "Lasseásahusat";
 "alt-text-add-button-title" = "Lasit";
 "alt-text-do-not-add-button-title" = "Ale lasit";
+"alt-text-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
 "alt-text-experiment-caption-title" = "Govvateaksta";
+"alt-text-experiment-onboarding-secondary-button-title" = "Čájet ovdamearkkaid";
 "announcements-dismiss" = "Gidde";
 "app-store-keywords" = "Wikipedia, gáldu, wiki, encyklopediija, diehtu, máhttu, info, fuomášupmi, oahppan";
 "app-store-release-notes" = "Áibbas heivehahtti ja eanet logahahtti guorahallansiidu. Báikkálašvuohta, doaibmabuorideamit ja boasttudivvumat.";
@@ -650,7 +652,7 @@
 "logged-out-subtitle" = "Muhtun váttisvuohta dagahii ahte don it leat šat sisačálihuvvon. Fertet sisačálihit ođđasit vai sáhtát synkroniseret lohkanlisttuid ja rievdadit iežat namas.";
 "logged-out-title" = "Don leat čálihuvvon olggos";
 "login-forgot-password" = "Vajáldahttetgo beassansáni?";
-"login-join-wikipedia" = "Searvva Wikipediai";
+"login-join-wikipedia" = "Searvva Wikipediai.";
 "login-no-account" = "Iigo dus leat geavaheaddjidovddaldat? $1";
 "login-title" = "Čálit sisa du dovddaldahkii";
 "main-menu-about" = "Áppa birra";
@@ -823,6 +825,7 @@
 "page-history-graph-accessibility-label" = "Gráfa áiggiid badjel rievdademiin";
 "page-history-minor-edits" = "unna rievdadusažat";
 "page-history-revision-author-accessibility-label" = "Čálli: $1";
+"page-history-revision-comment-accessibility-label" = "Kommentára $1";
 "page-history-revision-history-title" = "Revišuvdnahistorihkka";
 "page-history-revision-minor-edit-accessibility-label" = "Unna rievdadusaš";
 "page-history-revision-size-diff-addition" = "Lasihii $1 {{PLURAL:$1|ceahki}}";
@@ -881,6 +884,7 @@
 "preference-summary-eventlogging-opt-in" = "Suova Wikimedia Foundationa čohkket dieđuid du áppageavaheami birra vai buorida dan appa";
 "privacy-policy-title" = "Persovdnasuodjaluspolitihkka";
 "problem-with-feature-title" = "Váttisvuohta doaimmain";
+"profile-page-title-logged-out" = "Geavaheaddjidovddaldat";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikigirjjit";
 "project-name-wikidata" = "Wikidata";

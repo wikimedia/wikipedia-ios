@@ -896,4 +896,11 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 Milliounen Artikelen";
+"year-in-review-2024-Wikipedia-num-edits" = "460.300 Ännerungen";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 Ännerunge pro Minutt";
+"year-in-review-2024-Wikipedia-num-languages" = "332 aktiv Sproochen";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 Milliarde Mol";
+"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 geännert";
+"year-in-review-personalized-reading-title- format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-share" = "Deelen";
