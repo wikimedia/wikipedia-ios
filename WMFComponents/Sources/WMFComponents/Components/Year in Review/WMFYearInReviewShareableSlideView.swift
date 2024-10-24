@@ -51,6 +51,7 @@ struct WMFYearInReviewShareableSlideView: View {
             .padding(.horizontal, 24)
             .frame(height: 80)
         }
+        .padding(.bottom, 70)
         .background(Color(uiColor: theme.paperBackground))
     }
 

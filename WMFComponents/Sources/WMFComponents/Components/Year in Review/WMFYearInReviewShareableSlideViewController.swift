@@ -28,6 +28,49 @@ public final class WMFYearInReviewShareableSlideViewController: WMFCanvasViewCon
     public override func viewDidLoad() {
         super.viewDidLoad()
         addComponent(hostingController, pinToEdges: true)
-        // Share activity
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        share()
+    }
+
+    private func share() {
+        let screenSize = UIScreen.main.bounds.size
+        let snapshot = hostingController.rootView.snapshot(with: screenSize)
+        let text = "\(viewModel.localizedStrings.shareText) (\(viewModel.shareLink))\(viewModel.hashtag)"
+
+        let activityItems: [Any] = [ShareActivityImageItemProvider(image: snapshot), text]
+
+        let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+        activityController.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
+            self.dismiss(animated: true, completion: nil)
+        }
+
+        if let popover = activityController.popoverPresentationController {
+            popover.sourceRect = self.hostingController.view.bounds
+            popover.sourceView = self.hostingController.view
+        }
+
+        self.present(activityController, animated: true, completion: nil)
+    }
+}
+
+fileprivate class ShareActivityImageItemProvider: UIActivityItemProvider, @unchecked Sendable {
+    let image: UIImage
+
+    required init(image: UIImage) {
+        self.image = image
+        super.init(placeholderItem: image)
+    }
+
+    override var item: Any {
+        let type = activityType ?? .message
+        switch type {
+        default:
+            return image
+        }
     }
 }
