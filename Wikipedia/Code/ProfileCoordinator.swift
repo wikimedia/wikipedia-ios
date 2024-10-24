@@ -19,8 +19,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     var navigationController: UINavigationController
     
     weak var delegate: LogoutCoordinatorDelegate?
-    var shouldShowYiR = false
-    
+
     // MARK: Properties
     
     let theme: Theme

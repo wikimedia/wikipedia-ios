@@ -258,6 +258,7 @@
 "clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
+"confirm-donation-history-deletion-title" = "Confirmer la suppression";
 "continue-button-title" = "Continuer";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";

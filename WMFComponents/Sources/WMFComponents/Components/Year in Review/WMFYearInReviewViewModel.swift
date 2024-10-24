@@ -14,11 +14,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @Published var currentSlide = 0
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
+
+    weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
-    
-    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], loggingDelegate: WMFYearInReviewLoggingDelegate) {
+        
+    @Published public var isLoading: Bool = false
+
+    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate) {
         self.localizedStrings = localizedStrings
         self.slides = slides
+        self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
     }
     

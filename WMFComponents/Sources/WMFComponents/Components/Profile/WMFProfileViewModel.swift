@@ -30,8 +30,7 @@ public class WMFProfileViewModel: ObservableObject {
             loadProfileSections()
         }
     }
-    
-    
+
     private let yearInReviewDependencies: YearInReviewDependencies?
 
     public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?) {

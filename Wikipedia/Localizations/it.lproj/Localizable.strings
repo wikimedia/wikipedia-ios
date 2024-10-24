@@ -998,7 +998,13 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 milioni di voci";
+"year-in-review-2024-Wikipedia-num-edits" = "460.300 modifiche";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 modifiche al minuto";
+"year-in-review-2024-Wikipedia-num-languages" = "332 lingue attive";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 miliardi di volte";
 "year-in-review-donate" = "Dona";
 "year-in-review-done" = "Fatto";
 "year-in-review-next" = "Successivo";
+"year-in-review-personalized-reading-title- format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-share" = "Condividi";

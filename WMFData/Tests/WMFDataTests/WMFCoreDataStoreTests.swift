@@ -17,8 +17,9 @@ final class WMFCoreDataStoreTests: XCTestCase {
         _ = self.store
         // Wait for store to load asyncronously
         try await Task.sleep(nanoseconds: 1_000_000_000)
+        try await super.setUp()
     }
-    
+
     func testCreateAndFetch() throws {
         
         // First save new record

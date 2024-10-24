@@ -31,7 +31,9 @@ extension ArticleViewController {
             guard isOptedIn else {
                 return
             }
-            
+
+            willDisplayFundraisingBanner = true
+
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
     }
@@ -123,6 +125,48 @@ extension ArticleViewController {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
+
+    // TODO: remove after expiry date (1 March 2025)
+    func presentYearInReviewAnnouncement() {
+
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return
+        }
+
+        guard !willDisplayFundraisingBanner else {
+            return
+        }
+
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
+            return
+        }
+
+        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+            return
+        }
+
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+            guard let self,
+                  let navController = self.navigationController
+            else { return }
+            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            yirCoordinator?.start()
+        })
+
+        if navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 100
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        }
+        
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+    }
 }
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
@@ -130,3 +174,5 @@ extension WMFFundraisingCampaignConfig.WMFAsset {
         return "\(languageCode)\(countryCode)_\(id)_iOS"
     }
 }
+
+extension ArticleViewController: WMFFeatureAnnouncing { }
