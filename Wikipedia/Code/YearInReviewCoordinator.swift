@@ -193,10 +193,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
 
         switch action {
-        case .share:
+        case .share(let slide):
             dismissYearInReview {
                 guard let viewModel = self.viewModel else { return }
-                let shareController = WMFYearInReviewShareableSlideViewController(viewModel: viewModel, slide: 2) // get slide number
+                let shareController = WMFYearInReviewShareableSlideViewController(viewModel: viewModel, slide: slide)
                 self.navigationController.present(shareController, animated: true, completion: nil)
             }
 

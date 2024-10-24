@@ -43,7 +43,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func handleShare(for slide: Int) {
-        coordinatorDelegate?.handleYearInReviewAction(.share)
+        coordinatorDelegate?.handleYearInReviewAction(.share(slide: slide))
     }
 
 }
@@ -69,5 +69,5 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 }
 
 public enum YearInReviewCoordinatorAction {
-    case share
+    case share(slide: Int)
 }

@@ -11,9 +11,8 @@ struct WMFYearInReviewShareableSlideView: View {
     var viewModel: WMFYearInReviewViewModel
     var slide: Int
     var body: some View {
-        //TODO: Font size
-        //TODO: Smaller screens ?
         VStack {
+            Spacer()
             VStack(alignment: .leading, spacing: 16) {
                 Image(viewModel.slides[slide].imageName, bundle: .module)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -24,41 +23,35 @@ struct WMFYearInReviewShareableSlideView: View {
                     .font(Font(WMFFont.for(.title3)))
                     .foregroundStyle(Color(uiColor: theme.text))
             }
-            .padding(60)
+            .padding(28)
             Spacer()
             HStack {
                 Image("globe", bundle: .module)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
-                    .padding(.leading, 15)
 
                 VStack(alignment: .leading) {
                     Text("#WikipediaYearinReview")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.blue)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.link))
 
                     if let username = viewModel.username {
-                        Text("User:\(username)") // TODO: Localize it
-                            .font(.system(size: 14))
-                            .foregroundColor(.black)
+                        Text("User:\(username)")// TODO: Localize it
+                            .font(Font(WMFFont.for(.georgiaTitle3)))
+                            .foregroundStyle(Color(uiColor: theme.text))
                     }
                 }
-                .padding(.leading, 10)
-
                 Spacer()
             }
             .padding()
-            .background(Color.white)
-            .cornerRadius(15)
+            .background(Color(uiColor: theme.paperBackground))
+            .cornerRadius(12)
             .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 0, y: 5)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 24)
             .frame(height: 80)
-
-            Spacer()
         }
-        .background(Color(.systemBackground))
-        .edgesIgnoringSafeArea(.all)
+        .background(Color(uiColor: theme.paperBackground))
     }
 
 }
