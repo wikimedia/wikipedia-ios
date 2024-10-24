@@ -2,23 +2,82 @@ import Foundation
 import CoreData
 
 public class WMFYearInReviewDataController {
-    
-    let coreDataStore: WMFCoreDataStore
+
+    public let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     public let targetConfigYearID = "2024.1"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+    struct FeatureAnnouncementStatus: Codable {
+        var hasPresentedYiRFeatureAnnouncementModal: Bool
+        static var `default`: FeatureAnnouncementStatus {
+            return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
+        }
+    }
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
-        
     }
-    
+
+    // MARK: - Feature Announcement
+
+    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
+    }
+
+    public var hasPresentedYiRFeatureAnnouncementModel: Bool {
+        get {
+            return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
+        } set {
+            var currentAnnouncementStatus = featureAnnouncementStatus
+            currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
+        }
+    }
+
+    func isAnnouncementActive() -> Bool {
+        let expiryDate: Date? = {
+            var expiryDateComponents = DateComponents()
+            expiryDateComponents.year = 2025
+            expiryDateComponents.month = 3
+            expiryDateComponents.day = 1
+            return Calendar.current.date(from: expiryDateComponents)
+        }()
+
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+
+    public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
+
+        guard isAnnouncementActive() else {
+            return false
+        }
+
+
+        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+            return false
+        }
+
+        guard !hasPresentedYiRFeatureAnnouncementModel else {
+            return false
+        }
+
+        return true
+    }
+
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
         // Check local developer settings feature flag
@@ -549,7 +608,7 @@ public class WMFYearInReviewDataController {
             }
         }
     }
-    
+
     struct UserContributionsAPIResponse: Codable {
         let batchcomplete: Bool?
         let `continue`: ContinueData?

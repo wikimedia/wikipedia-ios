@@ -771,6 +771,12 @@ public class CommonStrings: NSObject {
 
     public static let confirmedDeletion = WMFLocalizedString("confirmed-donation-history-deletion", value: "Local history deleted", comment: "Title for confirming deletion of locally saved donations alert")
 
+    // Year In Review
+
+    public static let yirFeatureAnnoucementTitle = WMFLocalizedString("yir-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("yir-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
+
+
 }
 // Language variant strings
 public extension CommonStrings {
