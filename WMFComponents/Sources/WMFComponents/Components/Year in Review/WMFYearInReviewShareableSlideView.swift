@@ -37,7 +37,7 @@ struct WMFYearInReviewShareableSlideView: View {
                         .foregroundStyle(Color(uiColor: theme.link))
 
                     if let username = viewModel.username {
-                        Text("User:\(username)")// TODO: Localize it
+                        Text("\(viewModel.localizedStrings.usernameTitle):\(username)")
                             .font(Font(WMFFont.for(.georgiaTitle3)))
                             .foregroundStyle(Color(uiColor: theme.text))
                     }

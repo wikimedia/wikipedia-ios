@@ -158,10 +158,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
             firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
             firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
-            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature")
+            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature"),
+            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+            usernameTitle: CommonStrings.userTitle
         )
-
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, coordinatorDelegate: self)
+        let appShareLink = "app link TBD" // TODO: Get from Shay
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, coordinatorDelegate: self)
 
         var yirview = WMFYearInReview(viewModel: viewModel)
 
