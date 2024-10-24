@@ -137,7 +137,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             imageName: "languages_yir",
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
-                            subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount))
+                            subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
+                            loggingID: "edit_count_custom")
                     }
                 }
             }
@@ -203,7 +204,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, coordinatorDelegate: self, loggingDelegate: self)
 
-        var yirview = WMFYearInReview(viewModel: viewModel)
+        var yirview = WMFYearInReviewView(viewModel: viewModel)
 
         yirview.donePressed = { [weak self] in
             self?.navigationController.dismiss(animated: true, completion: nil)
