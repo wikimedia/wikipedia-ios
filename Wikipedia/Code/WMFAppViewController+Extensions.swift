@@ -614,7 +614,11 @@ extension WMFAppViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+                try await yirDataController.populateYearInReviewReportData(
+                    for: year,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername ?? "")
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

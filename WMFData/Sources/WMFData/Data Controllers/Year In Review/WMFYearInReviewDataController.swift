@@ -180,7 +180,7 @@ public class WMFYearInReviewDataController {
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String) async throws -> WMFYearInReviewReport? {
         
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -188,16 +188,33 @@ public class WMFYearInReviewDataController {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: WMFYearInReviewReport? = try await backgroundContext.perform { [weak self] in
-            
-            guard let self else { return nil }
-            return try populateYearInReviewReportData(year: year, backgroundContext: backgroundContext)
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
-        return result
+        guard let result else {
+            return nil
+        }
+        
+        let report = result.report
+        
+        if result.needsReadingPopulation == true {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateReadingSlide(report: report, backgroundContext: backgroundContext)
+            }
+        }
+        
+        if result.needsEditingPopulation == true {
+            let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
+            }
+        }
+        
+        return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func populateYearInReviewReportData(year: Int, backgroundContext: NSManagedObjectContext) throws -> WMFYearInReviewReport? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -212,56 +229,36 @@ public class WMFYearInReviewDataController {
         
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         
-        // Then for each personalized slide, check slide enabled flag from remote config. Then populate and save associated data.
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return nil
         }
-        
-        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
-              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
-            return nil
-        }
-        
+
         guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
             return nil
         }
+        
+        var needsReadingPopulation = false
+        var needsEditingPopulation = false
         
         for slide in cdSlides {
             switch slide.id {
                 
             case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.readCount.isEnabled {
-                    
-                    let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-                    let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate, moc: backgroundContext)
-                    
-                    let encoder = JSONEncoder()
-                    slide.data = try encoder.encode(pageViewCounts.count)
-                    
-                    if pageViewCounts.count > 5 {
-                        slide.display = true
-                    }
-                    
-                    slide.evaluated = true
+                    needsReadingPopulation = true
                 }
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
-                    
-                    // TODO: Fetch edit count, save in slide data, set evaluated = true and display = true (if needed)
-                    
+                    needsEditingPopulation = true
                 }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
-            
         }
         
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
-        
-        return WMFYearInReviewReport(cdReport: cdReport)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation)
     }
     
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -286,6 +283,97 @@ public class WMFYearInReviewDataController {
         }
         
         return results
+    }
+    
+    private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return
+        }
+        
+        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
+              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate, moc: backgroundContext)
+        
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            return
+        }
+        
+        for slide in slides {
+            
+            guard let slideID = slide.id else {
+                continue
+            }
+            
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(pageViewCounts.count)
+                
+                if pageViewCounts.count > 5 {
+                    slide.display = true
+                }
+                
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+    
+    private func fetchEditCount(username: String, project: WMFProject?) async throws -> Int {
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            throw WMFYearInReviewDataControllerError.missingRemoteConfig
+        }
+        
+        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
+              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
+            throw WMFYearInReviewDataControllerError.missingRemoteConfig
+        }
+        
+        // TODO: pass in dataPopulationStartDate & dataPopulationEndDate
+        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
+        
+        return edits
+    }
+    
+    private func populateEditingSlide(edits: Int, report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+        
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            return
+        }
+
+        for slide in slides {
+            
+            guard let slideID = slide.id else {
+                continue
+            }
+            
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(edits)
+                
+                if edits > 0 {
+                    slide.display = true
+                }
+                
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
@@ -454,8 +542,26 @@ public class WMFYearInReviewDataController {
         }
     }
     
-    public func fetchUserContributionsCount(username: String, project: WMFProject, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject?) async throws -> (Int, Bool) {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchUserContributionsCount(username: username, project: project) { result in
+                switch result {
+                case .success(let successResult):
+                    continuation.resume(returning: successResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    public func fetchUserContributionsCount(username: String, project: WMFProject?, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let project = project else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
@@ -468,7 +574,7 @@ public class WMFYearInReviewDataController {
             "format": "json",
             "list": "usercontribs",
             "formatversion": "2",
-            "uclimit": "500",  // Above 500, just display 500+
+            "uclimit": "500", 
             "ucstart": ucStartDate,
             "ucend": ucEndDate,
             "ucuser": username,
@@ -516,6 +622,7 @@ public class WMFYearInReviewDataController {
             let usercontribs: [UserContribution]
         }
     }
+    
     struct UserContribution: Codable {
         let userid: Int
         let user: String
