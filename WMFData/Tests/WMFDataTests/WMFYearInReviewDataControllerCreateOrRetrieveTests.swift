@@ -37,6 +37,10 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         results.insert(editCountSlide)
         return results
     }
+    
+    override func fetchUserContributionsCount(username: String, project: WMFProject?) async throws -> (Int, Bool) {
+        return (27, false)
+    }
 }
 
 final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
@@ -62,7 +66,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
     let year = 2023
     let countryCode = "US"
-    let username = "TSevener (WMF)"
+    let username = "user"
 
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
         dataController.shouldCreateOrRetrieve = false
