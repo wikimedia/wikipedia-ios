@@ -5,10 +5,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
     let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
-    
-    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent]) {
+    weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+    @Published public var isLoading: Bool = false
+
+    public init(localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.localizedStrings = localizedStrings
         self.slides = slides
+        self.coordinatorDelegate = coordinatorDelegate
     }
     
     public func getStarted() {

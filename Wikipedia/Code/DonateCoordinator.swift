@@ -24,6 +24,7 @@ class DonateCoordinator: Coordinator {
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
+        case yearInReview // TODO: Do it properly T376062
     }
     
     // MARK: Properties
@@ -49,7 +50,7 @@ class DonateCoordinator: Coordinator {
             }
             
             return wikimediaProject
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             return nil
         }
     }()
@@ -99,7 +100,7 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile:
+        case .articleProfile, .exploreProfile, .settingsProfile, .yearInReview:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
@@ -175,7 +176,10 @@ class DonateCoordinator: Coordinator {
                guard let project = self.wikimediaProject else {
                    return
                }
+                
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
+            case .yearInReview:
+                print("Year in review")
             }
         }))
         
@@ -198,6 +202,8 @@ class DonateCoordinator: Coordinator {
                    return
                }
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
+            case .yearInReview:
+                print("Year in review")
             }
             self.navigationController.dismiss(animated: true, completion: {
                 self.pushToNativeDonateForm(donateViewModel: donateViewModel)
@@ -224,6 +230,8 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
+            case .yearInReview:
+                print("Year in review")
             }
             self.navigationController.dismiss(animated: true, completion: {
                 self.pushToOtherPaymentMethod()
@@ -348,7 +356,7 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
@@ -580,6 +588,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
+        case .yearInReview:
+            print("year in review")
         }
     }
     
@@ -653,6 +663,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
         case .exploreProfile, .settingsProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
+        case .yearInReview:
+            print("Year in review")
         }
     }
     
@@ -685,6 +697,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .yearInReview:
+                print("year in review")
             }
         }
     }
