@@ -3446,6 +3446,9 @@
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
 		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		67A986EC2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		67A986ED2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
+		67A986EE2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = az; path = az.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
 		67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataExportCache.swift; sourceTree = "<group>"; };
@@ -9235,7 +9238,6 @@
 				fi,
 				ar,
 				ast,
-				az,
 				bcl,
 				bn,
 				br,
@@ -9362,6 +9364,7 @@
 				ia,
 				lmo,
 				se,
+				az,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -12400,6 +12403,7 @@
 				676E08142A7DA0DA00F7632D /* ia */,
 				678B3E362B98D76900F4DF03 /* lmo */,
 				83C0A1DB2C7915C800213DC3 /* se */,
+				67A986EC2CC96488003A99B5 /* az */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12507,6 +12511,7 @@
 				676E08152A7DA10900F7632D /* ia */,
 				678B3E372B98D76A00F4DF03 /* lmo */,
 				83C0A1DC2C7915C800213DC3 /* se */,
+				67A986ED2CC96488003A99B5 /* az */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12620,6 +12625,7 @@
 				FF19C1AC26054909000AC20B /* kcg */,
 				678B3E382B98D76A00F4DF03 /* lmo */,
 				83C0A1DD2C7915C800213DC3 /* se */,
+				67A986EE2CC96488003A99B5 /* az */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
