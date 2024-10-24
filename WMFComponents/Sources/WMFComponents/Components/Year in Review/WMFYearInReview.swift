@@ -21,6 +21,20 @@ public struct WMFYearInReview: View {
     public var body: some View {
         NavigationView {
             VStack {
+                HStack {
+                    if !viewModel.isFirstSlide {
+                        WMFYearInReviewDonateButton(viewModel: viewModel)
+                    }
+                    Spacer()
+                    Button(action: {
+                        donePressed?()
+                    }) {
+                        Text(viewModel.localizedStrings.doneButtonTitle)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                    }
+                }
+                .padding()
                 if viewModel.isFirstSlide {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -40,19 +54,7 @@ public struct WMFYearInReview: View {
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        donePressed?()
-                    }) {
-                        Text(viewModel.localizedStrings.doneButtonTitle)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                    }
-                }
                 if !viewModel.isFirstSlide {
-                    ToolbarItem(placement: .topBarLeading) {
-                        WMFYearInReviewDonateButton(viewModel: viewModel)
-                    }
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
