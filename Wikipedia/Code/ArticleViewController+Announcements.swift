@@ -141,6 +141,10 @@ extension ArticleViewController {
             return
         }
 
+        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+            return
+        }
+
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
