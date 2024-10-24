@@ -19,9 +19,11 @@ struct WMFYearInReviewShareableSlideView: View {
                 Text(viewModel.slides[slide].title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
+                    .dynamicTypeSize(.medium)
                 Text(viewModel.slides[slide].subtitle)
                     .font(Font(WMFFont.for(.title3)))
                     .foregroundStyle(Color(uiColor: theme.text))
+                    .dynamicTypeSize(.medium)
             }
             .padding(28)
             Spacer()
@@ -35,11 +37,13 @@ struct WMFYearInReviewShareableSlideView: View {
                     Text("#WikipediaYearinReview")
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundStyle(Color(uiColor: theme.link))
+                        .dynamicTypeSize(.medium)
 
                     if let username = viewModel.username {
                         Text("\(viewModel.localizedStrings.usernameTitle):\(username)")
                             .font(Font(WMFFont.for(.georgiaTitle3)))
                             .foregroundStyle(Color(uiColor: theme.text))
+                            .dynamicTypeSize(.medium)
                     }
                 }
                 Spacer()
@@ -53,6 +57,7 @@ struct WMFYearInReviewShareableSlideView: View {
         }
         .padding(.bottom, 70)
         .background(Color(uiColor: theme.paperBackground))
+        .environment(\.sizeCategory, .medium)
     }
 
 }

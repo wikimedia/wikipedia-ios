@@ -61,63 +61,7 @@ public class WMFYearInReviewDataController {
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
-            return false
-        }
-        
-        guard let countryCode,
-              let primaryAppLanguageProject else {
-            return false
-        }
-        
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-        
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
-            return false
-        }
-        
-        
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-        
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
-            return false
-        }
-        
-        // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: 2024) else {
-            return false
-        }
-        
-        var personalizedSlideCount = 0
-
-        for slide in yirReport.slides {
-            switch slide.id {
-            case .readCount:
-                if yirConfig.personalizedSlides.readCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .editCount:
-                if yirConfig.personalizedSlides.editCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            }
-        }
-        
-        return personalizedSlideCount >= 1
+        return true
     }
     
     @discardableResult
