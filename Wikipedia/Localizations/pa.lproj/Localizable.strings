@@ -128,7 +128,13 @@
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
+"field-new-password-confirm-placeholder" = "ਨਵਾਂ ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
+"field-new-password-confirm-title" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"field-new-password-placeholder" = "ਨਵਾਂ ਲੰਘ-ਸ਼ਬਦ ਪਾਓ";
 "field-new-password-title" = "ਨਵਾਂ ਲੰਘ-ਸ਼ਬਦ:";
+"field-password-confirm-placeholder" = "ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
+"field-password-confirm-title" = "ਪਾਰਸ਼ਬਦ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"field-password-placeholder" = "ਪਾਰਸ਼ਬਦ ਪਾਓ";
 "field-password-title" = "ਲੰਘ-ਸ਼ਬਦ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
@@ -146,6 +152,7 @@
 "image-gallery-unknown-owner" = "ਲਿਖਾਰੀ ਅਣਜਾਣ ਹੈ।";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
+"login-forgot-password" = "ਆਪਣਾ ਪਾਰਸ਼ਬਦ ਭੁੱਲ ਗਏ ਹੋ?";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
 "login-no-account" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? $1";
 "main-menu-about" = "ਐਪ ਬਾਰੇ";
@@ -174,9 +181,11 @@
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "notifications-center-go-to-article" = "ਲੇਖ";
 "notifications-center-mark" = "ਨਿਸ਼ਾਨ ਲਾਓ";
+"notifications-center-subheader-translate-milestone" = "ਤਰਜਮੇ ਦਾ ਮੀਲ ਪੱਥਰ";
 "notifications-center-subheader-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ!";
 "notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
 "notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
+"notifications-center-type-title-translation-milestone" = "ਤਰਜਮੇ ਦਾ ਮੀਲ ਪੱਥਰ";
 "notifications-center-type-title-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
