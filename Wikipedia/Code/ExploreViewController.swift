@@ -907,20 +907,20 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return
         }
-
-        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
-        }
+//
+//        guard let appLanguage = dataStore.languageLinkController.appLanguage else {
+//            return
+//        }
 
         guard let yirDataController else {
             return
         }
 
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
-
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
-            return
-        }
+//        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
+//
+//        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+//            return
+//        }
 
         guard presentedViewController == nil else {
             return
@@ -1344,6 +1344,7 @@ extension ExploreViewController {
     }
 
     fileprivate func showFeatureAnnouncementsIfNeeded() {
+        presentYearInReviewAnnouncement()
         if let appLanguage = dataStore.languageLinkController.appLanguage {
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: nil))
             if let yirDataController, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) {

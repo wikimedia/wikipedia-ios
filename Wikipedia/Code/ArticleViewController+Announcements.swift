@@ -133,17 +133,17 @@ extension ArticleViewController {
             return
         }
 
-        guard !willDisplayFundraisingBanner else {
-            return
-        }
+//        guard !willDisplayFundraisingBanner else {
+//            return
+//        }
 
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
-            return
-        }
+//
+//        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+//            return
+//        }
 
         let title = CommonStrings.yirFeatureAnnoucementTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
