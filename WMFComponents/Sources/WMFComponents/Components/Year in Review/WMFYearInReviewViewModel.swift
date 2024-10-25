@@ -3,11 +3,11 @@ import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
-    let localizedStrings: LocalizedStrings
+    public let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
     let username: String?
-    let shareLink: String
-    let hashtag = "#WikipediaYearInReview"
+    public let shareLink: String
+    public let hashtag = "#WikipediaYearInReview"
 
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
 
@@ -33,8 +33,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideSubtitle: String
         let firstSlideCTA: String
         let firstSlideHide: String
-        let shareText: String
-        let usernameTitle: String
+        public let shareText: String
+        public let usernameTitle: String
 
         public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
             self.donateButtonTitle = donateButtonTitle
@@ -51,8 +51,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     }
 
+    func getFomattedUsername() -> String? {
+        if let username {
+            return "\(localizedStrings.usernameTitle):\(username)"
+        }
+        return nil
+    }
+
     func handleShare(for slide: Int) {
-        coordinatorDelegate?.handleYearInReviewAction(.share(slide: slide))
+
+        let view = WMFYearInReviewShareableSlideView(slide: slide, slideImage: slides[slide].imageName, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, username: getFomattedUsername())
+        let size = CGSize(width: 402, height: 874)
+        let shareView = view.snapshot(with: size) // always iphone sized
+
+        coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
 
 }
@@ -78,5 +90,5 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 }
 
 public enum YearInReviewCoordinatorAction {
-    case share(slide: Int)
+    case share(image: UIImage)
 }

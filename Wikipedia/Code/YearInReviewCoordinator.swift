@@ -184,21 +184,33 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
     }
 
-    private func dismissYearInReview(completion: @escaping () -> Void) {
-        navigationController.dismiss(animated: true) {
-            completion()
-        }
-    }
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .share(let slide):
-            dismissYearInReview {
-                guard let viewModel = self.viewModel else { return }
-                let shareController = WMFYearInReviewShareableSlideViewController(viewModel: viewModel, slide: slide)
-                self.navigationController.present(shareController, animated: true, completion: nil)
+        case .share(let image):
+
+            guard let viewModel else { return }
+
+            let text = "\(viewModel.localizedStrings.shareText) (\(viewModel.shareLink))\(viewModel.hashtag)"
+
+            let activityItems: [Any] = [ShareAFactActivityImageItemProvider(image: image), text]
+
+            let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+            activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+            activityController.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
+                self.navigationController.dismiss(animated: true, completion: nil)
+            }
+
+            if let visibleVC = self.navigationController.visibleViewController {
+                if let popover = activityController.popoverPresentationController {
+                    popover.sourceRect = visibleVC.view.bounds
+                    popover.sourceView = visibleVC.view
+                }
+
+                visibleVC.present(activityController, animated: true, completion: nil)
             }
         }
     }

@@ -8,18 +8,22 @@ struct WMFYearInReviewShareableSlideView: View {
         return appEnvironment.theme
     }
 
-    var viewModel: WMFYearInReviewViewModel
     var slide: Int
+    var slideImage: String
+    var slideTitle: String
+    var slideSubtitle: String
+    var username: String?
+
     var body: some View {
         VStack {
             Spacer()
             VStack(alignment: .leading, spacing: 16) {
-                Image(viewModel.slides[slide].imageName, bundle: .module)
+                Image(slideImage, bundle: .module)
                     .frame(maxWidth: .infinity, alignment: .center)
-                Text(viewModel.slides[slide].title)
+                Text(slideTitle)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
-                Text(viewModel.slides[slide].subtitle)
+                Text(slideSubtitle)
                     .font(Font(WMFFont.for(.title3)))
                     .foregroundStyle(Color(uiColor: theme.text))
             }
@@ -32,12 +36,12 @@ struct WMFYearInReviewShareableSlideView: View {
                     .frame(width: 50, height: 50)
 
                 VStack(alignment: .leading) {
-                    Text("#WikipediaYearinReview")
+                    Text("#WikipediaYearInReview")
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundStyle(Color(uiColor: theme.link))
 
-                    if let username = viewModel.username {
-                        Text("\(viewModel.localizedStrings.usernameTitle):\(username)")
+                    if let username {
+                        Text(username)
                             .font(Font(WMFFont.for(.georgiaTitle3)))
                             .foregroundStyle(Color(uiColor: theme.text))
                     }
@@ -53,6 +57,7 @@ struct WMFYearInReviewShareableSlideView: View {
         }
         .padding(.bottom, 70)
         .background(Color(uiColor: theme.paperBackground))
+        .frame(width: 402, height: 847) // Fixed iPhone 16 size
     }
 
 }
