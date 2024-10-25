@@ -342,4 +342,28 @@ import WMF
     func logYearInReviewFeatureAnnouncementDidTapClose() {
         logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
     }
+    
+    func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: [
+            "slide": slideLoggingID,
+            "campaign_id": metricsID])
+    }
+    
+    // Year in Review Donate flow events
+    
+    func logYearInReviewDidTapDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidTapDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
 }

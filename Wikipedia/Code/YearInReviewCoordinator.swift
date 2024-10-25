@@ -258,7 +258,12 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect):
+        case .donate(let rect, let slideLoggingID):
+            
+            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+                DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+            }
+            
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
                 guard let viewModel = self.viewModel else { return }
                 viewModel.isLoading = loading

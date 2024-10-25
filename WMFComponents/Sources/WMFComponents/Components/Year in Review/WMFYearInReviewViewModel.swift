@@ -58,33 +58,19 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func logYearInReviewSlideDidAppear() {
-        let slideLoggingID: String
-        if isFirstSlide {
-            slideLoggingID = "start"
-        } else {
-            slideLoggingID = slides[currentSlide].loggingID
-        }
         loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
     }
     
     public func logYearInReviewDidTapDone() {
-        let slideLoggingID: String
-        if isFirstSlide {
-            slideLoggingID = "start"
-        } else {
-            slideLoggingID = slides[currentSlide].loggingID
-        }
         loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewSlideDidTapNext() {
-        let slideLoggingID: String
-        if isFirstSlide {
-            slideLoggingID = "start"
-        } else {
-            slideLoggingID = slides[currentSlide].loggingID
-        }
         loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    var slideLoggingID: String {
+        return isFirstSlide ? "start" : slides[currentSlide].loggingID
     }
 }
 
