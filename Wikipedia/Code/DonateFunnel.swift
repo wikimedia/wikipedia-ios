@@ -54,6 +54,7 @@ import WMF
         case hideClick = "hide_click"
         case nextClick = "next_click"
         case continueClick = "continue_click"
+        case donateStartClickYir = "donate_start_click_yir"
     }
     
     private struct Event: EventInterface {
@@ -344,7 +345,7 @@ import WMF
     }
     
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: [
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
             "campaign_id": metricsID])
     }
