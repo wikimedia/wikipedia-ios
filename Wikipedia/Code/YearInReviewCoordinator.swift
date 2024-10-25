@@ -199,7 +199,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             usernameTitle: CommonStrings.userTitle
         )
         
-        let appShareLink = "app link TBD" // TODO: Get from Shay
+        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
         let hashtag = "#WikipediaYearInReview"
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self)
 
