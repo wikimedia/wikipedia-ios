@@ -17,6 +17,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
+        self.coordinatorDelegate = coordinatorDelegate
     }
 
     public func getStarted() {
@@ -60,8 +61,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func handleShare(for slide: Int) {
 
         let view = WMFYearInReviewShareableSlideView(slide: slide, slideImage: slides[slide].imageName, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, username: getFomattedUsername())
-        let size = CGSize(width: 402, height: 874)
-        let shareView = view.snapshot(with: size) // always iphone sized
+
+        let shareView = view.snapshot() 
 
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }

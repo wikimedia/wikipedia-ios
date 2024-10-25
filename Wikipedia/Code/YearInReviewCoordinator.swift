@@ -244,14 +244,11 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
 
-            activityController.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
-                self.navigationController.dismiss(animated: true, completion: nil)
-            }
-
             if let visibleVC = self.navigationController.visibleViewController {
                 if let popover = activityController.popoverPresentationController {
                     popover.sourceRect = visibleVC.view.bounds
                     popover.sourceView = visibleVC.view
+                    popover.permittedArrowDirections = []
                 }
 
                 visibleVC.present(activityController, animated: true, completion: nil)
