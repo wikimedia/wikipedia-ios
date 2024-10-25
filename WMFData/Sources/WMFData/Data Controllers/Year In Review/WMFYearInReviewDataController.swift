@@ -205,7 +205,7 @@ public class WMFYearInReviewDataController {
         }
         
         if result.needsEditingPopulation == true {
-            if let username = username {
+            if let username {
                 let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
                 try await backgroundContext.perform { [weak self] in
                     try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
@@ -573,9 +573,9 @@ public class WMFYearInReviewDataController {
             "format": "json",
             "list": "usercontribs",
             "formatversion": "2",
-            "uclimit": "500", 
-            "ucstart": ucStartDate,
+            "uclimit": "500",
             "ucend": ucEndDate,
+            "ucstart": ucStartDate,
             "ucuser": username,
             "ucnamespace": "0",
             "ucprop": "ids|title|timestamp|tags|flags"
