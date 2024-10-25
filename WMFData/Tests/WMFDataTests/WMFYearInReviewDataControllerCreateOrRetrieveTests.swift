@@ -38,7 +38,7 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         return results
     }
     
-    override func fetchUserContributionsCount(username: String, project: WMFProject?) async throws -> (Int, Bool) {
+    override func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
         return (27, false)
     }
 }
