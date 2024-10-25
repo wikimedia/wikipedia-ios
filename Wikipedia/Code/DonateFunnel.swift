@@ -53,6 +53,7 @@ import WMF
         case startClick = "start_click"
         case hideClick = "hide_click"
         case nextClick = "next_click"
+        case continueClick = "continue_click"
     }
     
     private struct Event: EventInterface {
@@ -328,5 +329,17 @@ import WMF
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "entry_a"])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidTapContinue() {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": "entry_a"])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidTapClose() {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
     }
 }
