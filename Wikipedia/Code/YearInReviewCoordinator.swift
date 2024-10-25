@@ -13,6 +13,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private weak var viewModel: WMFYearInReviewViewModel?
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
+    var donateCoordinator: DonateCoordinator?
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -81,6 +82,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, collectiveNumArticlesText, collectiveNumLanguagesText)
     }
 
+    func personalizedSlide3Title(editCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
+        return String.localizedStringWithFormat(format, editCount)
+    }
+    
+    func personalizedSlide3Title500Plus() -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format-500plus", value: "You edited Wikipedia 500+ times", comment: "Year in review, personalized editing article count slide title for users that edited articles 500+ times. ")
+        return String.localizedStringWithFormat(format)
+    }
+    
+    func personalizedSlide3Subtitle(editCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
+        return String.localizedStringWithFormat(format, editCount)
+    }
+    
+    func personalizedSlide3Subtitle500Plus() -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format-500plus", value: "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.")
+        return String.localizedStringWithFormat(format)
+    }
+
     private struct PersonalizedSlides {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
@@ -108,8 +129,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .editCount:
-                // TODO: check slide metadata, populate editCountSlide
-                break
+                if slide.display == true,
+                        let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let editCount = try? decoder.decode(Int.self, from: data) {
+                        editCountSlide = YearInReviewSlideContent(
+                            imageName: "languages_yir",
+                            title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
+                            informationBubbleText: nil,
+                            subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount))
+                    }
+                }
             }
         }
 
@@ -125,10 +155,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             // Purposefully not translated due to numbers
             subtitle: baseSlide1Subtitle)
 
+        var thirdSlide = YearInReviewSlideContent(
+            imageName: "languages_yir",
+            title: baseSlide3Title,
+            informationBubbleText: nil,
+            subtitle: baseSlide3Subtitle)
+
         let personalizedSlides = getPersonalizedSlides()
 
         if let readCountSlide = personalizedSlides.readCount {
             firstSlide = readCountSlide
+        }
+
+        if let editCountSlide = personalizedSlides.editCount {
+            thirdSlide = editCountSlide
         }
 
         let slides: [YearInReviewSlideContent] = [
@@ -138,11 +178,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 title: baseSlide2Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide2Subtitle),
-            YearInReviewSlideContent(
-                imageName: "languages_yir",
-                title: baseSlide3Title,
-                informationBubbleText: nil,
-                subtitle: baseSlide3Subtitle),
+            thirdSlide,
             YearInReviewSlideContent(
                 imageName: "edit_yir",
                 title: baseSlide4Title,
@@ -162,6 +198,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
             usernameTitle: CommonStrings.userTitle
         )
+        
         let appShareLink = "app link TBD" // TODO: Get from Shay
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, coordinatorDelegate: self)
 
@@ -189,6 +226,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
+        case .donate(let rect):
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
+                guard let viewModel = self.viewModel else { return }
+                viewModel.isLoading = loading
+            }
+            self.donateCoordinator = donateCoordinator
+            donateCoordinator.start()
         case .share(let image):
 
             guard let viewModel else { return }

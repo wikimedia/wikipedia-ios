@@ -8,20 +8,33 @@ public struct WMFYearInReview: View {
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     public var donePressed: (() -> Void)?
-    
-    
+
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
-    
+
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
 
     public var body: some View {
         NavigationView {
             VStack {
+                HStack {
+                    if !viewModel.isFirstSlide {
+                        WMFYearInReviewDonateButton(viewModel: viewModel)
+                    }
+                    Spacer()
+                    Button(action: {
+                        donePressed?()
+                    }) {
+                        Text(viewModel.localizedStrings.doneButtonTitle)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                    }
+                }
+                .padding()
                 if viewModel.isFirstSlide {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -41,31 +54,7 @@ public struct WMFYearInReview: View {
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        donePressed?()
-                    }) {
-                        Text(viewModel.localizedStrings.doneButtonTitle)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                    }
-                }
                 if !viewModel.isFirstSlide {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button(action: {
-                            // TODO: Implement Donation
-                        }) {
-                            HStack(alignment: .center, spacing: 6) {
-                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
-                                    Image(uiImage: uiImage)
-                                        .foregroundStyle(Color(uiColor: theme.destructive))
-                                }
-                                Text(viewModel.localizedStrings.donateButtonTitle)
-                                    .foregroundStyle(Color(uiColor: theme.destructive))
-                            }
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                        }
-                    }
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
@@ -128,7 +117,7 @@ public struct WMFYearInReview: View {
             .foregroundStyle(Color(uiColor: theme.text))
         }
     }
-        
+
     private var buttons: some View {
         VStack {
             WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {

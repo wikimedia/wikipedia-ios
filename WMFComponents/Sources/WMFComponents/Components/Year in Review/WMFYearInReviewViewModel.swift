@@ -8,8 +8,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
     let username: String?
     public let shareLink: String
     public let hashtag = "#WikipediaYearInReview"
-
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+    @Published public var isLoading: Bool = false
 
     public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.isFirstSlide = isFirstSlide
@@ -17,7 +17,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
-        self.coordinatorDelegate = coordinatorDelegate
     }
 
     public func getStarted() {
@@ -81,14 +80,4 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
     }
-}
-
-// temp - waiting for the donate action to be merged
-
-public protocol YearInReviewCoordinatorDelegate: AnyObject {
-    func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction)
-}
-
-public enum YearInReviewCoordinatorAction {
-    case share(image: UIImage)
 }
