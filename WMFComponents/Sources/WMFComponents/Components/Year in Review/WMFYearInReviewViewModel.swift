@@ -7,16 +7,17 @@ public class WMFYearInReviewViewModel: ObservableObject {
     var slides: [YearInReviewSlideContent]
     let username: String?
     public let shareLink: String
-    public let hashtag = "#WikipediaYearInReview"
+    public let hashtag: String
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
+        self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
     }
 
@@ -59,14 +60,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func handleShare(for slide: Int) {
-
         let view = WMFYearInReviewShareableSlideView(slide: slide, slideImage: slides[slide].imageName, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, username: getFomattedUsername())
-
-        let shareView = view.snapshot() 
-
+        let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
-
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {

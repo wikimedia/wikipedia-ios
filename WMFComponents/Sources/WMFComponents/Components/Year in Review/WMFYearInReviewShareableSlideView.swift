@@ -21,10 +21,10 @@ struct WMFYearInReviewShareableSlideView: View {
                 Image(slideImage, bundle: .module)
                     .frame(maxWidth: .infinity, alignment: .center)
                 Text(slideTitle)
-                    .font(Font(WMFFont.for(.boldTitle1)))
+                    .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                     .foregroundStyle(Color(uiColor: theme.text))
                 Text(slideSubtitle)
-                    .font(Font(WMFFont.for(.title3)))
+                    .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                     .foregroundStyle(Color(uiColor: theme.text))
             }
             .padding(28)
@@ -34,15 +34,14 @@ struct WMFYearInReviewShareableSlideView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
-
                 VStack(alignment: .leading) {
                     Text("#WikipediaYearInReview")
-                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                         .foregroundStyle(Color(uiColor: theme.link))
 
                     if let username {
                         Text(username)
-                            .font(Font(WMFFont.for(.georgiaTitle3)))
+                            .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
                     }
                 }
@@ -57,7 +56,7 @@ struct WMFYearInReviewShareableSlideView: View {
         }
         .padding(.bottom, 70)
         .background(Color(uiColor: theme.paperBackground))
-        .frame(width: 402, height: 847) // Fixed iPhone 16 size
+        .frame(width: 402, height: 847) // Fixed iPhone 16 size for iPad as well
     }
 
 }
