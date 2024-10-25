@@ -565,6 +565,9 @@ public class WMFYearInReviewDataController {
             return
         }
         
+        // We have to switch the dates here before sending into the API.
+        // It is expected that this method's startDate parameter is chronologically earlier than endDate. This is how the remote feature config is set up.
+        // The User Contributions API expects ucend to be chronologically earlier than ucstart, because it pages backwards so that the most recent edits appear on the first page.
         let ucStartDate = endDate
         let ucEndDate = startDate
         
