@@ -565,8 +565,8 @@ public class WMFYearInReviewDataController {
             return
         }
         
-        let ucStartDate = startDate
-        let ucEndDate = endDate
+        let ucStartDate = endDate
+        let ucEndDate = startDate
         
         let parameters: [String: Any] = [
             "action": "query",
@@ -574,8 +574,8 @@ public class WMFYearInReviewDataController {
             "list": "usercontribs",
             "formatversion": "2",
             "uclimit": "500",
-            "ucend": ucEndDate,
             "ucstart": ucStartDate,
+            "ucend": ucEndDate,
             "ucuser": username,
             "ucnamespace": "0",
             "ucprop": "ids|title|timestamp|tags|flags"
