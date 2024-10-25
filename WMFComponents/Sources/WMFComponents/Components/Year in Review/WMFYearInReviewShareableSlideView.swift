@@ -12,6 +12,7 @@ struct WMFYearInReviewShareableSlideView: View {
     var slideImage: String
     var slideTitle: String
     var slideSubtitle: String
+    var hashtag: String
     var username: String?
 
     var body: some View {
@@ -35,7 +36,7 @@ struct WMFYearInReviewShareableSlideView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
                 VStack(alignment: .leading) {
-                    Text("#WikipediaYearInReview")
+                    Text(hashtag)
                         .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                         .foregroundStyle(Color(uiColor: theme.link))
 
