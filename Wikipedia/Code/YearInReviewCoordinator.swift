@@ -81,7 +81,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year. This year Wikipedia had %2$@ available across over %3$@ this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59 million articles\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"332 active languages\"")
         return String.localizedStringWithFormat(format, readCount, collectiveNumArticlesText, collectiveNumLanguagesText)
     }
-    
+
     func personalizedSlide3Title(editCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
@@ -167,7 +167,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlide = readCountSlide
         }
 
-        
         if let editCountSlide = personalizedSlides.editCount {
             thirdSlide = editCountSlide
         }
@@ -195,10 +194,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
             firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
             firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
-            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature")
+            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature"),
+            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+            usernameTitle: CommonStrings.userTitle
         )
-
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, coordinatorDelegate: self)
+        
+        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
+        let hashtag = "#WikipediaYearInReview"
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self)
 
         var yirview = WMFYearInReview(viewModel: viewModel)
 
@@ -218,10 +221,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         navigationController.present(hostingController, animated: true, completion: nil)
     }
+
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
-    func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction) {
+    func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
         case .donate(let rect):
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
@@ -230,7 +234,26 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
+        case .share(let image):
+
+            guard let viewModel else { return }
+
+            let text = "\(viewModel.localizedStrings.shareText) (\(viewModel.shareLink))\(viewModel.hashtag)"
+
+            let activityItems: [Any] = [ShareAFactActivityImageItemProvider(image: image), text]
+
+            let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+            activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+            if let visibleVC = self.navigationController.visibleViewController {
+                if let popover = activityController.popoverPresentationController {
+                    popover.sourceRect = visibleVC.view.bounds
+                    popover.sourceView = visibleVC.view
+                    popover.permittedArrowDirections = []
+                }
+
+                visibleVC.present(activityController, animated: true, completion: nil)
+            }
         }
     }
-    
 }
