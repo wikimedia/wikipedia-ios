@@ -1417,6 +1417,7 @@
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59 million articles\". $3 is replaced with the number of active languages available on Wikipedia, for example \"332 active languages\"";
 "year-in-review-personalized-reading-title- format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-share" = "Year in review share button";
+"year-in-review-share-text" = "Text shared the Year In Review slides";
 "year-in-review-subtitle" = "Year in review page information";
 "year-in-review-title" = "Year in review page title";
 "yir-feature-announcement-body" = "Body for year in review feature announcement";
