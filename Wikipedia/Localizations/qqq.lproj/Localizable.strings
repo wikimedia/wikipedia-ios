@@ -1397,6 +1397,7 @@
 "year-in-review-2024-Wikipedia-num-edits-per-minute" = "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
 "year-in-review-2024-Wikipedia-num-languages" = "Number of active languages available on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
 "year-in-review-2024-Wikipedia-num-views" = "Number of article views on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-already-donate" = "Button to let the app know that the user has already made a donation";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle, $1 is replaced with the number of edits text, e.g. \"460,300 edits\"";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"460,300 edits\".";
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342 times per minute\"";
@@ -1410,6 +1411,7 @@
 "year-in-review-finish" = "Year in review finish button";
 "year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-hide" = "Button to hide year in review feature";
+"year-in-review-learn-more" = "Button to navigate to learn more about our work.";
 "year-in-review-next" = "Year in review next button";
 "year-in-review-personalized-editing-subtitle-format" = "Year in review, personalized editing article count slide subtitle for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.";

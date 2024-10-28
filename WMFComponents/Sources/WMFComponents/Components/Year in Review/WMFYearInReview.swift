@@ -38,8 +38,13 @@ public struct WMFYearInReview: View {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttonsFirstSlide) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if viewModel.isEdgeSlide {
-                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    if viewModel.hasDonated {
+                        WMFYearInReviewScrollView(scrollViewContents: scrollViewContent)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttonsLastSlide) })
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
@@ -131,6 +136,9 @@ public struct WMFYearInReview: View {
                 // Has donated or not
                 if viewModel.hasDonated {
                     VStack(alignment: .leading, spacing: 16) {
+                        Image("globe", bundle: .module)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.top, 48)
                         Text(viewModel.localizedStrings.firstSlideTitle)
                             .font(Font(WMFFont.for(.boldTitle1)))
                         Text(viewModel.localizedStrings.firstSlideSubtitle)
@@ -139,6 +147,9 @@ public struct WMFYearInReview: View {
                     .foregroundStyle(Color(uiColor: theme.text))
                 } else {
                     VStack(alignment: .leading, spacing: 16) {
+                        Image("globe", bundle: .module)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.top, 48)
                         Text(viewModel.localizedStrings.firstSlideTitle)
                             .font(Font(WMFFont.for(.boldTitle1)))
                         Text(viewModel.localizedStrings.firstSlideSubtitle)
@@ -164,31 +175,15 @@ public struct WMFYearInReview: View {
     }
     
     private var buttonsLastSlide: some View {
-        Group {
-            if viewModel.hasDonated {
-                VStack {
-                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
-                        withAnimation(.easeInOut(duration: 0.75)) {
-                            viewModel.getStarted()
-                        }
-                    }
-                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                        // TODO: Implement hide this feature
-                    }
-                }
-            } else {
-                VStack {
-                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
-                        withAnimation(.easeInOut(duration: 0.75)) {
-                            viewModel.getStarted()
-                        }
-                    }
-                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                        // TODO: Implement hide this feature
-                    }
+        VStack {
+            WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.lastSlideCTA) {
+                withAnimation(.easeInOut(duration: 0.75)) {
+                    // TODO: Implement this feature
                 }
             }
-
+            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.lastSlideDonate) {
+                // TODO: Implement this feature
+            }
         }
     }
 }

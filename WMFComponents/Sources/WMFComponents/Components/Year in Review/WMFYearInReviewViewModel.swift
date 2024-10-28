@@ -24,7 +24,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.shareLink = shareLink
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
-        self.hasDonated = true
+        self.hasDonated = false
     }
 
     public func getStarted() {
@@ -42,10 +42,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideSubtitle: String
         let firstSlideCTA: String
         let firstSlideHide: String
+        let lastSlideCTA: String
+        let lastSlideDonate: String
         public let shareText: String
         public let usernameTitle: String
         
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, lastSlideCTA: String, lastSlideDonate: String, shareText: String, usernameTitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -55,6 +57,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideSubtitle = firstSlideSubtitle
             self.firstSlideCTA = firstSlideCTA
             self.firstSlideHide = firstSlideHide
+            self.lastSlideCTA = lastSlideCTA
+            self.lastSlideDonate = lastSlideDonate
             self.shareText = shareText
             self.usernameTitle = usernameTitle
         }

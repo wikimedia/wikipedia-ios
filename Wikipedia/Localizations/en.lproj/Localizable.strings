@@ -1397,6 +1397,7 @@
 "year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 edits per minute";
 "year-in-review-2024-Wikipedia-num-languages" = "332 active languages";
 "year-in-review-2024-Wikipedia-num-views" = "1.4 billion times";
+"year-in-review-already-donate" = "I already contribute";
 "year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than $1 on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1";
 "year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.";
@@ -1410,6 +1411,7 @@
 "year-in-review-finish" = "Finish";
 "year-in-review-get-started" = "Get Started";
 "year-in-review-hide" = "Hide this feature";
+"year-in-review-learn-more" = "Learn more about our work";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
