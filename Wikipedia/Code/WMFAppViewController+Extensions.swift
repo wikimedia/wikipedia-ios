@@ -618,7 +618,7 @@ extension WMFAppViewController {
                     for: year,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername ?? "")
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
