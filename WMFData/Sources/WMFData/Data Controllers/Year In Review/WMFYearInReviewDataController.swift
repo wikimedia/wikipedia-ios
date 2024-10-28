@@ -180,7 +180,7 @@ public class WMFYearInReviewDataController {
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?) async throws -> WMFYearInReviewReport? {
         
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -205,16 +205,18 @@ public class WMFYearInReviewDataController {
         }
         
         if result.needsEditingPopulation == true {
-            let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
-            try await backgroundContext.perform { [weak self] in
-                try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
+            if let username {
+                let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
+                try await backgroundContext.perform { [weak self] in
+                    try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
+                }
             }
         }
         
         return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -250,7 +252,7 @@ public class WMFYearInReviewDataController {
                 }
                 
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled {
+                if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled && username != nil {
                     needsEditingPopulation = true
                 }
             default:
@@ -335,13 +337,10 @@ public class WMFYearInReviewDataController {
             throw WMFYearInReviewDataControllerError.missingRemoteConfig
         }
         
-        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
-              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
-            throw WMFYearInReviewDataControllerError.missingRemoteConfig
-        }
+        let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
+        let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
         
-        // TODO: pass in dataPopulationStartDate & dataPopulationEndDate
-        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project)
+        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: dataPopulationStartDateString, endDate: dataPopulationEndDateString)
         
         return edits
     }
@@ -542,9 +541,9 @@ public class WMFYearInReviewDataController {
         }
     }
     
-    public func fetchUserContributionsCount(username: String, project: WMFProject?) async throws -> (Int, Bool) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
         return try await withCheckedThrowingContinuation { continuation in
-            fetchUserContributionsCount(username: username, project: project) { result in
+            fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate) { result in
                 switch result {
                 case .success(let successResult):
                     continuation.resume(returning: successResult)
@@ -555,26 +554,29 @@ public class WMFYearInReviewDataController {
         }
     }
     
-    public func fetchUserContributionsCount(username: String, project: WMFProject?, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
-        
+
         guard let project = project else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
         
-        let ucStartDate = "2024-11-01T22:20:13.000Z"
-        let ucEndDate = "2024-01-01T22:20:13.000Z"
+        // We have to switch the dates here before sending into the API.
+        // It is expected that this method's startDate parameter is chronologically earlier than endDate. This is how the remote feature config is set up.
+        // The User Contributions API expects ucend to be chronologically earlier than ucstart, because it pages backwards so that the most recent edits appear on the first page.
+        let ucStartDate = endDate
+        let ucEndDate = startDate
         
         let parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "list": "usercontribs",
             "formatversion": "2",
-            "uclimit": "500", 
+            "uclimit": "500",
             "ucstart": ucStartDate,
             "ucend": ucEndDate,
             "ucuser": username,
