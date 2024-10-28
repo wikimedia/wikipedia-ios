@@ -2,7 +2,11 @@ import Foundation
 import SwiftUI
 
 public class WMFYearInReviewViewModel: ObservableObject {
-    @Published var isFirstSlide = true
+    // Edge slide refers to one at either the beginning or the end
+    @Published var isEdgeSlide = true
+    @Published var hasDonated = false
+    @Published var currentSlide = 0
+
     public let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
     let username: String?
@@ -10,18 +14,21 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public let hashtag: String
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     @Published public var isLoading: Bool = false
+    private var isFirstSlide = true
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
-        self.isFirstSlide = isFirstSlide
+    public init(isEdgeSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, hasDonated: Bool = false) {
+        self.isEdgeSlide = isEdgeSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
+        self.hasDonated = true
     }
 
     public func getStarted() {
+        isEdgeSlide = false
         isFirstSlide = false
     }
 
@@ -30,18 +37,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let doneButtonTitle: String
         let shareButtonTitle: String
         let nextButtonTitle: String
+        let finishButtonTitle: String
         let firstSlideTitle: String
         let firstSlideSubtitle: String
         let firstSlideCTA: String
         let firstSlideHide: String
         public let shareText: String
         public let usernameTitle: String
-
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
+        
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
             self.nextButtonTitle = nextButtonTitle
+            self.finishButtonTitle = finishButtonTitle
             self.firstSlideTitle = firstSlideTitle
             self.firstSlideSubtitle = firstSlideSubtitle
             self.firstSlideCTA = firstSlideCTA
@@ -49,7 +58,30 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.shareText = shareText
             self.usernameTitle = usernameTitle
         }
+    }
+    
+    public func shouldShowDonate() -> Bool {
+        if isFirstSlide {
+            return false
+        } else if isEdgeSlide {
+            return !hasDonated
+        }
+        return false
+    }
 
+    public func shouldShowFinish() -> Bool {
+        return hasDonated && currentSlide == slides.count - 1
+    }
+    
+    public func shouldShowToolbar() -> Bool {
+        if isFirstSlide {
+            return false
+        } else {
+            if !isEdgeSlide {
+                return true
+            }
+            return isEdgeSlide && hasDonated
+        }
     }
 
     func getFomattedUsername() -> String? {

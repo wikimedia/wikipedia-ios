@@ -2,7 +2,6 @@ import SwiftUI
 
 public struct WMFYearInReview: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @State private var currentSlide = 0
     @ObservedObject var viewModel: WMFYearInReviewViewModel
 
     var theme: WMFTheme {
@@ -22,7 +21,7 @@ public struct WMFYearInReview: View {
         NavigationView {
             VStack {
                 HStack {
-                    if !viewModel.isFirstSlide {
+                    if viewModel.shouldShowDonate() {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                     }
                     Spacer()
@@ -35,14 +34,24 @@ public struct WMFYearInReview: View {
                     }
                 }
                 .padding()
-                if viewModel.isFirstSlide {
-                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
+                if viewModel.isEdgeSlide && viewModel.currentSlide == 0 {
+                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttonsFirstSlide) })
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else if viewModel.isEdgeSlide {
+                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack {
-                        TabView(selection: $currentSlide) {
-                            WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                        TabView(selection: $viewModel.currentSlide) {
+                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        .onChange(of: viewModel.currentSlide) { newSlide in
+                            if newSlide == viewModel.slides.count - 1 {
+                                viewModel.isEdgeSlide = true
+                            } else {
+                                viewModel.isEdgeSlide = false
+                            }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -54,11 +63,11 @@ public struct WMFYearInReview: View {
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
-                if !viewModel.isFirstSlide {
+                if viewModel.shouldShowToolbar() { 
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
-                                viewModel.handleShare(for: currentSlide)
+                                viewModel.handleShare(for: viewModel.currentSlide)
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {
@@ -75,7 +84,7 @@ public struct WMFYearInReview: View {
                             HStack(spacing: 9) {
                                 ForEach(0..<viewModel.slides.count, id: \.self) { index in
                                     Circle()
-                                        .fill(index == currentSlide ? Color(uiColor: theme.link) : Color(uiColor: theme.link.withAlphaComponent(0.3)))
+                                        .fill(index == viewModel.currentSlide ? Color(uiColor: theme.link) : Color(uiColor: theme.link.withAlphaComponent(0.3)))
                                         .frame(width: 7, height: 7)
                                 }
                             }
@@ -83,10 +92,10 @@ public struct WMFYearInReview: View {
                             Spacer()
                             Button(action: {
                                 withAnimation {
-                                    currentSlide = (currentSlide + 1) % viewModel.slides.count
+                                    viewModel.currentSlide = (viewModel.currentSlide + 1) % viewModel.slides.count
                                 }
                             }) {
-                                Text(viewModel.localizedStrings.nextButtonTitle)
+                                Text(viewModel.shouldShowFinish() ? viewModel.localizedStrings.finishButtonTitle : viewModel.localizedStrings.nextButtonTitle)
                                     .foregroundStyle(Color(uiColor: theme.link))
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
@@ -105,20 +114,43 @@ public struct WMFYearInReview: View {
 
     private var scrollViewContent: some View {
         VStack(spacing: 48) {
-            VStack(alignment: .leading, spacing: 16) {
-                Image("globe", bundle: .module)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 48)
-                Text(viewModel.localizedStrings.firstSlideTitle)
-                    .font(Font(WMFFont.for(.boldTitle1)))
-                Text(viewModel.localizedStrings.firstSlideSubtitle)
-                    .font(Font(WMFFont.for(.title3)))
+            // First slide
+            if viewModel.currentSlide == 0 {
+                VStack(alignment: .leading, spacing: 16) {
+                    Image("globe", bundle: .module)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 48)
+                    Text(viewModel.localizedStrings.firstSlideTitle)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Text(viewModel.localizedStrings.firstSlideSubtitle)
+                        .font(Font(WMFFont.for(.title3)))
+                }
+                .foregroundStyle(Color(uiColor: theme.text))
+                // Last slide
+            } else {
+                // Has donated or not
+                if viewModel.hasDonated {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(viewModel.localizedStrings.firstSlideTitle)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                        Text(viewModel.localizedStrings.firstSlideSubtitle)
+                            .font(Font(WMFFont.for(.title3)))
+                    }
+                    .foregroundStyle(Color(uiColor: theme.text))
+                } else {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(viewModel.localizedStrings.firstSlideTitle)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                        Text(viewModel.localizedStrings.firstSlideSubtitle)
+                            .font(Font(WMFFont.for(.title3)))
+                    }
+                    .foregroundStyle(Color(uiColor: theme.text))
+                }
             }
-            .foregroundStyle(Color(uiColor: theme.text))
         }
     }
 
-    private var buttons: some View {
+    private var buttonsFirstSlide: some View {
         VStack {
             WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
                 withAnimation(.easeInOut(duration: 0.75)) {
@@ -128,6 +160,35 @@ public struct WMFYearInReview: View {
             WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
                 // TODO: Implement hide this feature
             }
+        }
+    }
+    
+    private var buttonsLastSlide: some View {
+        Group {
+            if viewModel.hasDonated {
+                VStack {
+                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
+                        withAnimation(.easeInOut(duration: 0.75)) {
+                            viewModel.getStarted()
+                        }
+                    }
+                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                        // TODO: Implement hide this feature
+                    }
+                }
+            } else {
+                VStack {
+                    WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
+                        withAnimation(.easeInOut(duration: 0.75)) {
+                            viewModel.getStarted()
+                        }
+                    }
+                    WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                        // TODO: Implement hide this feature
+                    }
+                }
+            }
+
         }
     }
 }
