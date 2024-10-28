@@ -480,6 +480,50 @@
 			<string>%1$d məqalə</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Siz hər hesab üçün olan %#@v1@ limitini keçmisiniz.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d məqalə</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ bu siyahıya əlavə edilə bilməz. Siz %3$@ siyahısında %2$d məqalə limitinə çatmısınız.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Məqalə</string>
+			<key>other</key>
+			<string>Məqalələr</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Siz hər hesab üçün olan %#@v1@ limitini keçmisiniz.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d oxuma siyahısı</string>
+		</dict>
+	</dict>
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

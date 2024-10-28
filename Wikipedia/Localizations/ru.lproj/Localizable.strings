@@ -1339,4 +1339,7 @@
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-done" = "Готово";
 "year-in-review-next" = "Далее";
+"year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
+"year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
+"year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
 "year-in-review-share" = "Поделиться";
