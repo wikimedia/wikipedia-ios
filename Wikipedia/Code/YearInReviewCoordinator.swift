@@ -218,6 +218,39 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
     }
 
+    private func surveyViewController() -> UIViewController {
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: "Title",
+            cancel: "Cancel",
+            submit: "Submit",
+            subtitle: "Subtitle",
+            instructions: "Instructions",
+            otherPlaceholder: "Other"
+        )
+        
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: "Option 1 text", apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 2 text", apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 3 text", apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 4 text", apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 5 text", apiIdentifer: "5"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 6 text", apiIdentifer: "6"),
+            WMFSurveyViewModel.OptionViewModel(text: "Option 7 text", apiIdentifer: "7")
+        ]
+        
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions),
+            cancelAction: { [weak self] in
+            self?.navigationController.dismiss(animated: true)
+        },
+            submitAction: { [weak self] options, otherText in
+            print("TODO: Send answer to DonateFunnel")
+            print("TODO: show bottom alert")
+            self?.navigationController.dismiss(animated: true)
+        })
+
+        let hostedView = WMFComponentHostingController(rootView: surveyView)
+        return hostedView
+    }
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
@@ -253,7 +286,14 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         case .dismissNotLastSlide:
             navigationController.dismiss(animated: true, completion: nil)
         case .dismissLastSlide:
-            print("TODO: dismiss, present survey if needed")
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                if !self.dataController.hasPresentedYiRSurvey {
+                    let surveyVC = surveyViewController()
+                    navigationController.present(surveyVC, animated: true)
+                    self.dataController.hasPresentedYiRSurvey = true
+                }
+            }
         }
     }
 }

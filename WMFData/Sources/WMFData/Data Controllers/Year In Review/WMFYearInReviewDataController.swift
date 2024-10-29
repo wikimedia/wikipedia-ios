@@ -43,16 +43,6 @@ public class WMFYearInReviewDataController {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
         }
     }
-    
-    public var hasPresentedYiRSurvey: Bool {
-        get {
-            return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
-        } set {
-            var currentAnnouncementStatus = featureAnnouncementStatus
-            currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
-        }
-    }
 
     func isAnnouncementActive() -> Bool {
         let expiryDate: Date? = {
@@ -154,7 +144,7 @@ public class WMFYearInReviewDataController {
     
     // MARK: - Survey
     
-    public var hasPresentedYirSurvey: Bool {
+    public var hasPresentedYiRSurvey: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSurveyPresented.rawValue)) ?? false
         } set {

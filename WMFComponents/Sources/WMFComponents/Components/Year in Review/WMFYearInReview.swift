@@ -81,7 +81,11 @@ public struct WMFYearInReview: View {
                             Spacer()
                             Button(action: {
                                 withAnimation {
-                                    currentSlide = (currentSlide + 1) % viewModel.slides.count
+                                    if currentSlide == viewModel.slides.count - 1 {
+                                        viewModel.coordinatorDelegate?.handleYearInReviewAction(.dismissLastSlide)
+                                    } else {
+                                        currentSlide = (currentSlide + 1) % viewModel.slides.count
+                                    }
                                 }
                             }) {
                                 Text(viewModel.localizedStrings.nextButtonTitle)
