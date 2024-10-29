@@ -39,13 +39,20 @@ public final class WMFSurveyViewModel {
             self.apiIdentifer = apiIdentifer
         }
     }
+    
+    public enum SelectionType {
+        case multi
+        case single
+    }
 
 	let localizedStrings: LocalizedStrings
     let options: [OptionViewModel]
+    let selectionType: SelectionType
 
-    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel]) {
+    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel], selectionType: SelectionType) {
 		self.localizedStrings = localizedStrings
         self.options = options
+        self.selectionType = selectionType
 	}
 
 }
