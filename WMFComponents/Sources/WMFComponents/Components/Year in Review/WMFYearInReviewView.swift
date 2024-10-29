@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFYearInReview: View {
+public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFYearInReviewViewModel
 
@@ -26,6 +26,7 @@ public struct WMFYearInReview: View {
                     }
                     Spacer()
                     Button(action: {
+                        viewModel.logYearInReviewDidTapDone()
                         donePressed?()
                     }) {
                         Text(viewModel.localizedStrings.doneButtonTitle)
@@ -37,6 +38,9 @@ public struct WMFYearInReview: View {
                 if viewModel.isEdgeSlide && viewModel.currentSlide == 0 {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttonsFirstSlide) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onAppear {
+                            viewModel.logYearInReviewSlideDidAppear()
+                        }
                 } else if viewModel.isEdgeSlide {
                     if viewModel.hasDonated {
                         WMFYearInReviewScrollView(scrollViewContents: scrollViewContent)
@@ -64,9 +68,16 @@ public struct WMFYearInReview: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear {
+                        viewModel.logYearInReviewSlideDidAppear()
+                    }
                 }
             }
             .background(Color(uiColor: theme.midBackground))
+            .onChange(of: viewModel.currentSlide) { newSlide in
+                // Logs slide impressions and next taps
+                viewModel.logYearInReviewSlideDidAppear()
+            }
             .toolbar {
                 if viewModel.shouldShowToolbar() { 
                     ToolbarItem(placement: .bottomBar) {
@@ -97,7 +108,8 @@ public struct WMFYearInReview: View {
                             Spacer()
                             Button(action: {
                                 withAnimation {
-                                    viewModel.currentSlide = (viewModel.currentSlide + 1) % viewModel.slides.count
+                                    viewModel.logYearInReviewSlideDidTapNext()
+                                    viewModel.nextSlide()
                                 }
                             }) {
                                 Text(viewModel.shouldShowFinish() ? viewModel.localizedStrings.finishButtonTitle : viewModel.localizedStrings.nextButtonTitle)
@@ -165,10 +177,12 @@ public struct WMFYearInReview: View {
         VStack {
             WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
                 withAnimation(.easeInOut(duration: 0.75)) {
+                    viewModel.loggingDelegate?.logYearInReviewIntroDidTapContinue()
                     viewModel.getStarted()
                 }
             }
             WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                viewModel.loggingDelegate?.logYearInReviewIntroDidTapDisable()
                 // TODO: Implement hide this feature
             }
         }
