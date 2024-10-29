@@ -301,7 +301,7 @@
 "diff-paragraph-moved-direction-down" = "naar beneden";
 "diff-paragraph-moved-direction-up" = "naar boven";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 regel|$1 regels}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sectie|$1 secties}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|Eén sectie|$1 secties}}";
 "diff-paragraph-moved-format" = "Paragraaf verplaatst $1 $2";
 "diff-revision-error-title" = "Kan versie niet laden";
 "diff-rollback" = "Terugdraaien";

@@ -1421,6 +1421,10 @@
 "year-in-review-get-started" = "Започнете";
 "year-in-review-hide" = "Скриј ја функцијава";
 "year-in-review-next" = "Следно";
+"year-in-review-personalized-editing-subtitle-format" = "Ја имате уредено Википедија {{PLURAL:$1|еднаш|$1 пати}}. Ви благодариме за вашето учество доброволен уредувач и за вложениот труд во име на проектите ширум светот.";
+"year-in-review-personalized-editing-subtitle-format-500plus" = "Ја имате уредено Википедија преку 500 пати. Ви благодариме за вашето учество доброволен уредувач и за вложениот труд во име на проектите ширум светот.";
+"year-in-review-personalized-editing-title-format" = "Ја имате уредено Википедија {{PLURAL:$1|еднаш|$1 пати}}";
+"year-in-review-personalized-editing-title-format-500plus" = "Ја имате уредено Википедија преку 500 пати";
 "year-in-review-personalized-reading-subtitle-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}} оваа година. Годинава Википедија имаше $2 на преку $3. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.";
 "year-in-review-personalized-reading-title- format" = "Годинава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}";
 "year-in-review-share" = "Сподели";

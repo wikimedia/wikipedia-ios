@@ -257,6 +257,14 @@
 "diff-thanks-sent-already" = "Du har allerede sendt et 'Tak' for denne redigering";
 "diff-thanks-sent-cannot-unsend" = "Et 'Tak' kan ikke fortrydes";
 "dim-images" = "Mørklæg billeder";
+"donate-help-frequently-asked-questions" = "Ofte stillede spørgsmål";
+"donate-help-other-ways-to-give" = "Alternative donationsmetoder";
+"donate-help-problems-donating" = "Problemer med at donere?";
+"donate-help-tax-deductibility-information" = "Information om skattefradrag";
+"donate-history-delete" = "Slet lokal donationshistorik";
+"donate-later-title" = "Vi vil minde dig om det igen i morgen.";
+"donate-minimum-error-text" = "Vælg venligst et beløb (minimum $1 $2)";
+"donate-monthly-recurring-text" = "Gør dette til en månedlig tilbagevendende donation.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Donér med Apple Pay";
 "donate-payment-method-prompt-message" = "Donér med Apple Pay eller vælg en anden betalingsmetode.";
 "donate-payment-method-prompt-other-button-title" = "Anden betalingsmetode";
