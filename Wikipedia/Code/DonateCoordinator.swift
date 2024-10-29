@@ -100,13 +100,19 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile, .yearInReview:
+        case .articleProfile, .exploreProfile, .settingsProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
+        case .yearInReview:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            return "\(languageCode)\(countryCode)_appmenu_yir_iOS"
         }
     }
     
@@ -179,7 +185,7 @@ class DonateCoordinator: Coordinator {
                 
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
             case .yearInReview:
-                print("Year in review")
+                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -203,7 +209,7 @@ class DonateCoordinator: Coordinator {
                }
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
             case .yearInReview:
-                print("Year in review")
+                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
                 self.pushToNativeDonateForm(donateViewModel: donateViewModel)
@@ -231,7 +237,7 @@ class DonateCoordinator: Coordinator {
                 }
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
             case .yearInReview:
-                print("Year in review")
+                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
                 self.pushToOtherPaymentMethod()
@@ -589,7 +595,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
         case .yearInReview:
-            print("year in review")
+            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -661,10 +667,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
-        case .yearInReview:
-            print("Year in review")
         }
     }
     
@@ -698,7 +702,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .yearInReview:
-                print("year in review")
+                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }

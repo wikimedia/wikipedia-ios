@@ -1,8 +1,7 @@
 import SwiftUI
 
-public struct WMFYearInReview: View {
+public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @State private var currentSlide = 0
     @ObservedObject var viewModel: WMFYearInReviewViewModel
 
     var theme: WMFTheme {
@@ -25,7 +24,8 @@ public struct WMFYearInReview: View {
                     }
                     Spacer()
                     Button(action: {
-                        viewModel.handleDone(for: currentSlide)
+                        viewModel.logYearInReviewDidTapDone()
+                        viewModel.handleDone()
                     }) {
                         Text(viewModel.localizedStrings.doneButtonTitle)
                             .foregroundStyle(Color(uiColor: theme.link))
@@ -36,10 +36,13 @@ public struct WMFYearInReview: View {
                 if viewModel.isFirstSlide {
                     WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onAppear {
+                            viewModel.logYearInReviewSlideDidAppear()
+                        }
                 } else {
                     VStack {
-                        TabView(selection: $currentSlide) {
-                            WMFSlideShow(currentSlide: $currentSlide, slides: viewModel.slides)
+                        TabView(selection: $viewModel.currentSlide) {
+                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -48,15 +51,22 @@ public struct WMFYearInReview: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear {
+                        viewModel.logYearInReviewSlideDidAppear()
+                    }
                 }
             }
             .background(Color(uiColor: theme.midBackground))
+            .onChange(of: viewModel.currentSlide) { newSlide in
+                // Logs slide impressions and next taps
+                viewModel.logYearInReviewSlideDidAppear()
+            }
             .toolbar {
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
-                                viewModel.handleShare(for: currentSlide)
+                                viewModel.handleShare(for: viewModel.currentSlide)
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {
@@ -73,7 +83,7 @@ public struct WMFYearInReview: View {
                             HStack(spacing: 9) {
                                 ForEach(0..<viewModel.slides.count, id: \.self) { index in
                                     Circle()
-                                        .fill(index == currentSlide ? Color(uiColor: theme.link) : Color(uiColor: theme.link.withAlphaComponent(0.3)))
+                                        .fill(index == viewModel.currentSlide ? Color(uiColor: theme.link) : Color(uiColor: theme.link.withAlphaComponent(0.3)))
                                         .frame(width: 7, height: 7)
                                 }
                             }
@@ -81,11 +91,8 @@ public struct WMFYearInReview: View {
                             Spacer()
                             Button(action: {
                                 withAnimation {
-                                    if currentSlide == viewModel.slides.count - 1 {
-                                        viewModel.coordinatorDelegate?.handleYearInReviewAction(.dismissLastSlide)
-                                    } else {
-                                        currentSlide = (currentSlide + 1) % viewModel.slides.count
-                                    }
+                                    viewModel.logYearInReviewSlideDidTapNext()
+                                    viewModel.nextSlide()
                                 }
                             }) {
                                 Text(viewModel.localizedStrings.nextButtonTitle)
@@ -124,10 +131,12 @@ public struct WMFYearInReview: View {
         VStack {
             WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.firstSlideCTA) {
                 withAnimation(.easeInOut(duration: 0.75)) {
+                    viewModel.loggingDelegate?.logYearInReviewIntroDidTapContinue()
                     viewModel.getStarted()
                 }
             }
             WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
+                viewModel.loggingDelegate?.logYearInReviewIntroDidTapDisable()
                 // TODO: Implement hide this feature
             }
         }
