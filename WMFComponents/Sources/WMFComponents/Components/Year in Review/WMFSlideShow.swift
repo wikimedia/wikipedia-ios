@@ -2,8 +2,8 @@ import SwiftUI
 
 public struct WMFSlideShow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @Binding private var currentSlide: Int
-    
+    @Binding public var currentSlide: Int
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }

@@ -153,6 +153,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showYearInReview()
             }
+        case .logYearInReviewTap:
+            self.logYearInReviewTap()
         }
     }
     
@@ -264,6 +266,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 return
             }
         }
+    }
+    
+    func logYearInReviewTap() {
+        DonateFunnel.shared.logProfileDidTapYearInReview()
     }
 }
 
