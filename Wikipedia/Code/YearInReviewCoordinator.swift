@@ -205,10 +205,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         var yirview = WMFYearInReview(viewModel: viewModel)
 
-        yirview.donePressed = { [weak self] in
-            self?.navigationController.dismiss(animated: true, completion: nil)
-        }
-
         self.viewModel = viewModel
         let finalView = yirview.environmentObject(targetRects)
         let hostingController = UIHostingController(rootView: finalView)
@@ -254,6 +250,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
+        case .dismissNotLastSlide:
+            navigationController.dismiss(animated: true, completion: nil)
+        case .dismissLastSlide:
+            print("TODO: dismiss, present survey if needed")
         }
     }
 }

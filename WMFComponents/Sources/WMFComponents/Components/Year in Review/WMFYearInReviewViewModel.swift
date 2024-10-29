@@ -64,6 +64,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
+    
+    func handleDone(for slide: Int) {
+        if slide == slides.count - 1 {
+            coordinatorDelegate?.handleYearInReviewAction(.dismissLastSlide)
+        } else {
+            coordinatorDelegate?.handleYearInReviewAction(.dismissNotLastSlide)
+        }
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {

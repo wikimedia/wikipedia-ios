@@ -7,4 +7,6 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 public enum YearInReviewCoordinatorAction {
     case donate(sourceRect: CGRect)
     case share(image: UIImage)
+    case dismissNotLastSlide
+    case dismissLastSlide
 }

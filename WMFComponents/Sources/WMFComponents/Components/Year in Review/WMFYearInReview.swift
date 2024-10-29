@@ -9,8 +9,6 @@ public struct WMFYearInReview: View {
         return appEnvironment.theme
     }
 
-    public var donePressed: (() -> Void)?
-
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
         UINavigationBar.appearance().backgroundColor = theme.midBackground
@@ -27,7 +25,7 @@ public struct WMFYearInReview: View {
                     }
                     Spacer()
                     Button(action: {
-                        donePressed?()
+                        viewModel.handleDone(for: currentSlide)
                     }) {
                         Text(viewModel.localizedStrings.doneButtonTitle)
                             .foregroundStyle(Color(uiColor: theme.link))
