@@ -225,23 +225,31 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     private func surveyViewController() -> UIViewController {
+        let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let subtitle = WMFLocalizedString("year-in-review-survey-subtitle", value: "Help improve the Wikipedia Year in Review. Are you satisfied with this feature? What would like to see next year?", comment: "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let additionalThoughts = WMFLocalizedString("year-in-review-survey-additional-thoughts", value: "Any additional thoughts?", comment: "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        
+        let verySatisfied = WMFLocalizedString("year-in-review-survey-very-satisfied", value: "Very satisfied", comment: "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let satisfied = WMFLocalizedString("year-in-review-survey-satisfied", value: "Satisfied", comment: "Year in review survey option 2 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let neutral = WMFLocalizedString("year-in-review-survey-neutral", value: "Neutral", comment: "Year in review survey option 3 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let unsatisfied = WMFLocalizedString("year-in-review-survey-unsatisfied", value: "Unsatisfied", comment: "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let veryUnsatisfied = WMFLocalizedString("year-in-review-survey-very-unsatisfied", value: "Very unsatisfied", comment: "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: "Title",
-            cancel: "Cancel",
-            submit: "Submit",
-            subtitle: "Subtitle",
-            instructions: "Instructions",
-            otherPlaceholder: "Other"
+            title: title,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: subtitle,
+            instructions: nil,
+            otherPlaceholder: additionalThoughts
         )
         
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: "Option 1 text", apiIdentifer: "1"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 2 text", apiIdentifer: "2"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 3 text", apiIdentifer: "3"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 4 text", apiIdentifer: "4"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 5 text", apiIdentifer: "5"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 6 text", apiIdentifer: "6"),
-            WMFSurveyViewModel.OptionViewModel(text: "Option 7 text", apiIdentifer: "7")
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "very_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
+            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "very_unsatisfied")
         ]
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions),

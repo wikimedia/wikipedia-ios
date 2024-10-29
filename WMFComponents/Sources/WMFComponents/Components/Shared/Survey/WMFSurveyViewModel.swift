@@ -6,13 +6,12 @@ public final class WMFSurveyViewModel {
 		let title: String
 		let cancel: String
 		let submit: String
-
 		let subtitle: String
-		let instructions: String
+		let instructions: String?
 
 		let otherPlaceholder: String
 
-        public init(title: String, cancel: String, submit: String, subtitle: String, instructions: String, otherPlaceholder: String) {
+        public init(title: String, cancel: String, submit: String, subtitle: String, instructions: String?, otherPlaceholder: String) {
 			self.title = title
 			self.cancel = cancel
 			self.submit = submit

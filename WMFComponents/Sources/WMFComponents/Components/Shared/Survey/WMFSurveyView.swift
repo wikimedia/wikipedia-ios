@@ -43,8 +43,10 @@ public struct WMFSurveyView: View {
 					VStack(alignment: .leading) {
 						Text(viewModel.localizedStrings.subtitle)
 							.font(Font(WMFFont.for(.callout)))
-						Text(viewModel.localizedStrings.instructions)
-							.font(Font(WMFFont.for(.italicCallout)))
+                        if let instructions = viewModel.localizedStrings.instructions {
+                            Text(instructions)
+                                .font(Font(WMFFont.for(.italicCallout)))
+                        }
 					}
 				}
 				.foregroundColor(Color(theme.secondaryText))

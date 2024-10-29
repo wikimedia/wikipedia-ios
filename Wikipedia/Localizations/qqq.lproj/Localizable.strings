@@ -1419,6 +1419,14 @@
 "year-in-review-share" = "Year in review share button";
 "year-in-review-share-text" = "Text shared the Year In Review slides";
 "year-in-review-subtitle" = "Year in review page information";
+"year-in-review-survey-additional-thoughts" = "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-neutral" = "Year in review survey option 3 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-satisfied" = "Year in review survey option 2 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-subtitle" = "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-title" = "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-title" = "Year in review page title";
 "yir-feature-announcement-body" = "Body for year in review feature announcement";
 "yir-feature-announcement-title" = "Title for year in review feature announcement";
