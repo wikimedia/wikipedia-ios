@@ -371,7 +371,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
     }
     
     private func presentAltTextRejectionSurvey() {
-        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+        let surveyView = WMFSurveyView.altTextSurveyView(cancelAction: { [weak self] in
             
             // Dismisses Survey View
             self?.dismiss(animated: true)

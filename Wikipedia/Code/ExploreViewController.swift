@@ -1499,7 +1499,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
     
     private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
-        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+        let surveyView = WMFSurveyView.altTextSurveyView(cancelAction: { [weak self] in
             
             // Dismisses Survey View
             self?.dismiss(animated: true, completion: {

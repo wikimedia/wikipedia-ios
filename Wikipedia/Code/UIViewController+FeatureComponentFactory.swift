@@ -86,7 +86,7 @@ extension WMFOnboardingViewController {
 }
 
 extension WMFSurveyView {
-    static func surveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
+    static func altTextSurveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.surveyTitle,
             cancel: CommonStrings.cancelActionTitle,
