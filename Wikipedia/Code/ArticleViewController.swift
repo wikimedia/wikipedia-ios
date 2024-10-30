@@ -446,46 +446,44 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
         
         if altTextExperimentViewModel == nil {
             setupWButton()
             setupSearchAndProfileButtons()
         }
 
+        presentModalOnAppearanceIfNeeded()
+    }
+    
+    
+    /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    private func presentModalOnAppearanceIfNeeded() {
+
+        // Alt-Text half-sheet modal presentations
         if isReturningFromFAQ {
             isReturningFromFAQ = false
             needsAltTextExperimentSheet = true
             presentAltTextModalSheet()
-        }
-
-        if didTapPreview {
+        } else if didTapPreview {
             presentAltTextModalSheet()
             didTapPreview = false
-        }
-        
-        if didTapAltTextFileName {
+        } else if didTapAltTextFileName {
             presentAltTextModalSheet()
             didTapAltTextFileName = false
-        }
-        
-        if didTapAltTextGalleryInfoButton {
+        } else if didTapAltTextGalleryInfoButton {
             presentAltTextModalSheet()
             didTapAltTextGalleryInfoButton = false
+        
+        // Year in Review modal presentations
+        } else if yirCoordinator?.needsSurveyPresentation ?? false {
+            yirCoordinator?.presentSurveyIfNeeded()
+        } else if needsYearInReviewAnnouncement() {
+            presentYearInReviewAnnouncement()
+        
+        // Campaign modal presentations
+        } else {
+            showFundraisingCampaignAnnouncementIfNeeded()
         }
-        
-        yirCoordinator?.presentSurveyIfNeeded()
-
-        guard isFirstAppearance else {
-            return
-        }
-        
-        // TODO: Clean up so these presentations don't step on each other
-        showAnnouncementIfNeeded()
-        presentYearInReviewAnnouncement()
-        
-        isFirstAppearance = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
