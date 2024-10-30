@@ -45,9 +45,10 @@ public struct WMFYearInReviewView: View {
                     WMFYearInReviewScrollView(
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
-                        imageName: "read_gradient",
+                        imageName: "intro",
                         imageOverlay: "globe")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.top, 48)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
                         }

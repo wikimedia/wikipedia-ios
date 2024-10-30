@@ -134,7 +134,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
-                            imageName: "read_gradient",
+                            imageName: "read",
                             textOverlay: String.localizedStringWithFormat(
                                 WMFLocalizedString(
                                     "year-in-review-personalized-read-count",
@@ -155,7 +155,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
-                            imageName: "read_gradient",
+                            imageName: "edits",
                             textOverlay: String.localizedStringWithFormat(
                                 WMFLocalizedString(
                                     "year-in-review-personalized-edit-count",
@@ -179,7 +179,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
 
         var firstSlide = YearInReviewSlideContent(
-            imageName: "read_gradient",
+            imageName: "read",
             textOverlay: collectiveNumArticlesNumber,
             title: baseSlide1Title,
             informationBubbleText: nil,
@@ -187,7 +187,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingID: "read_count_base")
 
         var thirdSlide = YearInReviewSlideContent(
-            imageName: "read_gradient",
+            imageName: "edits",
             textOverlay: collectiveNumEditsNumber,
             title: baseSlide3Title,
             informationBubbleText: nil,
@@ -207,7 +207,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let slides: [YearInReviewSlideContent] = [
             firstSlide,
             YearInReviewSlideContent(
-                imageName: "read_gradient",
+                imageName: "viewed",
                 textOverlay: collectiveNumViewsNumber,
                 title: baseSlide2Title,
                 informationBubbleText: nil,
@@ -215,7 +215,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 loggingID: "read_view_base"),
             thirdSlide,
             YearInReviewSlideContent(
-                imageName: "read_gradient",
+                imageName: "editedPerMinute",
                 textOverlay: collectiveNumEditsPerMinuteNumber,
                 title: baseSlide4Title,
                 informationBubbleText: nil,
