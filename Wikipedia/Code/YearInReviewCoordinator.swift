@@ -235,8 +235,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             let surveyVC = surveyViewController()
             navigationController.present(surveyVC, animated: true)
             self.dataController.hasPresentedYiRSurvey = true
-            self.needsSurveyPresentation = false
         }
+        
+        self.needsSurveyPresentation = false
     }
 
     private func surveyViewController() -> UIViewController {

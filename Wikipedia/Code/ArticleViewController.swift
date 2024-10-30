@@ -475,10 +475,10 @@ class ArticleViewController: ViewController, HintPresenting {
             didTapAltTextGalleryInfoButton = false
         
         // Year in Review modal presentations
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         } else if needsYearInReviewAnnouncement() {
             presentYearInReviewAnnouncement()
+        } else if yirCoordinator?.needsSurveyPresentation ?? false {
+            yirCoordinator?.presentSurveyIfNeeded()
         
         // Campaign modal presentations
         } else {
