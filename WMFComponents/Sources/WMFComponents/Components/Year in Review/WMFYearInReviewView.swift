@@ -23,6 +23,10 @@ public struct WMFYearInReviewView: View {
                 HStack {
                     if !viewModel.isFirstSlide {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Spacer()
+                        Image("W", bundle: .module)
+                            .frame(maxWidth: .infinity)
                     }
                     Spacer()
                     Button(action: {
@@ -32,7 +36,9 @@ public struct WMFYearInReviewView: View {
                         Text(viewModel.localizedStrings.doneButtonTitle)
                             .foregroundStyle(Color(uiColor: theme.link))
                             .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                     }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .padding()
                 if viewModel.isFirstSlide {
