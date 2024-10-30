@@ -39,7 +39,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     public func nextSlide() {
         if currentSlide == slides.count - 1 {
-            coordinatorDelegate?.handleYearInReviewAction(.dismissLastSlide)
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
         } else {
             currentSlide = (currentSlide + 1) % slides.count
         }
@@ -87,9 +87,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func handleDone() {
         if currentSlide == slides.count - 1 {
-            coordinatorDelegate?.handleYearInReviewAction(.dismissLastSlide)
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
         } else {
-            coordinatorDelegate?.handleYearInReviewAction(.dismissNotLastSlide)
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: false))
         }
     }
     

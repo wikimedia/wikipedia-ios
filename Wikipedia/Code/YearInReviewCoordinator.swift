@@ -331,17 +331,18 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
-        case .dismissNotLastSlide:
-            navigationController.dismiss(animated: true, completion: nil)
-        case .dismissLastSlide:
-            navigationController.dismiss(animated: true) { [weak self] in
+        case .dismiss(let isLastSlide):
+            navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
+                
+                guard isLastSlide else { return }
+                
                 if !self.dataController.hasPresentedYiRSurvey {
                     let surveyVC = surveyViewController()
                     navigationController.present(surveyVC, animated: true)
                     self.dataController.hasPresentedYiRSurvey = true
                 }
-            }
+            })
         }
     }
 }
