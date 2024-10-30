@@ -125,7 +125,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
-                            imageName: "heart_yir", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount), loggingID: "read_count_custom")
+                            imageName: "read_gradient", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount), loggingID: "read_count_custom")
                     }
                 }
             case .editCount:
@@ -134,7 +134,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
-                            imageName: "languages_yir",
+                            imageName: "read_gradient",
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
@@ -150,14 +150,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
 
         var firstSlide = YearInReviewSlideContent(
-            imageName: "heart_yir",
+            imageName: "read_gradient",
+            imageOverlay: "globe",
             title: baseSlide1Title,
             informationBubbleText: nil,
             subtitle: baseSlide1Subtitle,
             loggingID: "read_count_base")
 
         var thirdSlide = YearInReviewSlideContent(
-            imageName: "languages_yir",
+            imageName: "read_gradient",
+            imageOverlay: "heart_yir",
             title: baseSlide3Title,
             informationBubbleText: nil,
             subtitle: baseSlide3Subtitle,
@@ -176,14 +178,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let slides: [YearInReviewSlideContent] = [
             firstSlide,
             YearInReviewSlideContent(
-                imageName: "phone_yir",
+                imageName: "read_gradient",
+                imageOverlay: "globe",
                 title: baseSlide2Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide2Subtitle,
                 loggingID: "read_view_base"),
             thirdSlide,
             YearInReviewSlideContent(
-                imageName: "edit_yir",
+                imageName: "read_gradient",
+                imageOverlay: "heart_yir",
                 title: baseSlide4Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide4Subtitle,

@@ -36,7 +36,7 @@ public struct WMFYearInReviewView: View {
                 }
                 .padding()
                 if viewModel.isFirstSlide {
-                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) })
+                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) }, imageName: "heart_yir")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
