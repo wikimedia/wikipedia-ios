@@ -218,7 +218,7 @@ class SinglePageWebViewController: ViewController {
             return nil
         }
 
-        let isRecurring = queryDict.keys.contains("recurring")
+        let isRecurring = queryDict["recurring"] == "true" || queryDict.keys.contains("recurring") && queryDict["recurring"] == nil
 
         let donationInfo = DonationInfo(amount: amount, country: country, currency: currency, isRecurring: isRecurring)
 
