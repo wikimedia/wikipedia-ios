@@ -154,8 +154,8 @@ extension ArticleViewController {
             guard let self,
                   let navController = self.navigationController
             else { return }
-            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            yirCoordinator?.start()
+            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            yirCoordinator.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
         }, closeButtonAction: {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()

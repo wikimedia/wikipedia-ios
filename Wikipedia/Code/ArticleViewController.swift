@@ -52,8 +52,14 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
-    private var profileCoordinator: ProfileCoordinator?
-    internal var yirCoordinator: YearInReviewCoordinator?
+    private lazy var profileCoordinator: ProfileCoordinator? = {
+        
+        guard let navigationController else {
+            return nil
+        }
+        
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
+    }()
 
     var session: Session {
         return dataStore.session
@@ -457,12 +463,17 @@ class ArticleViewController: ViewController, HintPresenting {
             presentAltTextModalSheet()
             didTapAltTextGalleryInfoButton = false
         }
+        
+        profileCoordinator?.yirCoordinator?.presentSurveyIfNeeded()
 
         guard isFirstAppearance else {
             return
         }
+        
+        // TODO: Clean up so these presentations don't step on each other
         showAnnouncementIfNeeded()
         presentYearInReviewAnnouncement()
+        
         isFirstAppearance = false
     }
 
@@ -1341,9 +1352,7 @@ private extension ArticleViewController {
         let project else { return }
         
         DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
-        self.profileCoordinator = coordinator
-        coordinator.start()
+        profileCoordinator?.start()
     }
     
     func setupMessagingController() {

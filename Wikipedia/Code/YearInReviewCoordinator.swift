@@ -14,6 +14,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    private(set) var needsSurveyPresentation = false
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -223,6 +224,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         navigationController.present(hostingController, animated: true, completion: nil)
     }
+    
+    func presentSurveyIfNeeded() {
+        guard needsSurveyPresentation else {
+            return
+        }
+        
+        if !self.dataController.hasPresentedYiRSurvey {
+            let surveyVC = surveyViewController()
+            navigationController.present(surveyVC, animated: true)
+            self.dataController.hasPresentedYiRSurvey = true
+            self.needsSurveyPresentation = false
+        }
+    }
 
     private func surveyViewController() -> UIViewController {
         let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
@@ -299,18 +313,29 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID):
+        case .donate(let rect, let slideLoggingID, let isLastSlide):
             
             if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
                 DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
             }
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
-                guard let viewModel = self.viewModel else { return }
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, setLoadingBlock: {  [weak self] loading in
+                guard let self,
+                      let viewModel = self.viewModel else {
+                    return
+                }
+                
                 viewModel.isLoading = loading
-            }
+            }, dismissalBlock: { [weak self] in
+                if isLastSlide {
+                    self?.needsSurveyPresentation = true
+                }
+            })
+            
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
+            
+            
         case .share(let image):
 
             guard let viewModel else { return }
@@ -337,11 +362,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 
                 guard isLastSlide else { return }
                 
-                if !self.dataController.hasPresentedYiRSurvey {
-                    let surveyVC = surveyViewController()
-                    navigationController.present(surveyVC, animated: true)
-                    self.dataController.hasPresentedYiRSurvey = true
-                }
+                self.needsSurveyPresentation = true
+                self.presentSurveyIfNeeded()
             })
         }
     }

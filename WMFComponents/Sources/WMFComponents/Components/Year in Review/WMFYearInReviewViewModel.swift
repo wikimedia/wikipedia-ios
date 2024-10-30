@@ -86,11 +86,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDone() {
-        if currentSlide == slides.count - 1 {
-            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
-        } else {
-            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: false))
-        }
+        let isLastSlide = currentSlide == slides.count - 1
+        coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: isLastSlide))
+    }
+    
+    func handleDonate(sourceRect: CGRect) {
+        let isLastSlide = currentSlide == slides.count - 1
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID, isLastSlide: isLastSlide))
     }
     
     func logYearInReviewSlideDidAppear() {

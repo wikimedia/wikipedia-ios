@@ -30,7 +30,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
-    private var yirCoordinator: YearInReviewCoordinator?
+    private(set) var yirCoordinator: YearInReviewCoordinator?
     
     let username: String?
     let sourcePage: ProfileCoordinatorSource
