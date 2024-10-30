@@ -31,7 +31,7 @@ import Contacts
     @objc(sharedInstance)
     public static let shared = WMFDonateDataController()
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
        self.service = service
         self.sharedCacheStore = sharedCacheStore
    }
