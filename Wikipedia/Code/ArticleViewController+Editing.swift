@@ -385,7 +385,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                     EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
                     
                     let image = UIImage(systemName: "checkmark.circle.fill")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                     
                     EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
                 }
@@ -604,7 +604,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
     }
 
     private func presentAltTextEditPublishedToast(isSurvey: Bool, project: WikimediaProject) {
-        let title = isSurvey ? CommonStrings.altTextFeedbackSurveyToastTitle : CommonStrings.editPublishedToastTitle
+        let title = isSurvey ? CommonStrings.feedbackSurveyToastTitle : CommonStrings.editPublishedToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
 
         if UIAccessibility.isVoiceOverRunning {

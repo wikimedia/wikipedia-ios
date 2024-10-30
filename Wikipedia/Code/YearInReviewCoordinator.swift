@@ -273,8 +273,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         },
             submitAction: { [weak self] options, otherText in
             print("TODO: Send answer to DonateFunnel")
-            print("TODO: show bottom alert")
-            self?.navigationController.dismiss(animated: true)
+            self?.navigationController.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
         })
 
         let hostedView = WMFComponentHostingController(rootView: surveyView)

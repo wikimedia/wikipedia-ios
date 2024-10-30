@@ -1505,7 +1505,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
 
     func imageRecommendationsDidTriggerAltTextFeedbackToast() {
-        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let title = CommonStrings.feedbackSurveyToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
 
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
@@ -1526,7 +1526,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             self?.dismiss(animated: true, completion: { [weak self] in
                 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                 
                 if let wmfProject = self?.imageRecommendationsViewModel?.project {
                     let project = WikimediaProject(wmfProject: wmfProject)

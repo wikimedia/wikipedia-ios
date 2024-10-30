@@ -144,7 +144,7 @@
 "alt-text-feedback-survey-satisfied" = "Text for the alt text feedback survey satisfied option";
 "alt-text-feedback-survey-subtitle" = "Subtitle for the alt text feedback survey";
 "alt-text-feedback-survey-title" = "Title for the alt text feedback survey";
-"alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a alt text experiment survey";
+"alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a survey";
 "alt-text-feedback-survey-unsatisfied" = "Text for the alt text feedback survey unsatisfied option";
 "alt-text-license" = "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. $1, $2 and $3 are replaced by the terms of use and license links.";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
