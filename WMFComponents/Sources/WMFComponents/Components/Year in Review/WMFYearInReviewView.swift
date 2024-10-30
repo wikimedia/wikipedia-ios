@@ -36,7 +36,11 @@ public struct WMFYearInReviewView: View {
                 }
                 .padding()
                 if viewModel.isFirstSlide {
-                    WMFYearInReviewScrollView(scrollViewContents: scrollViewContent, contents: { AnyView(buttons) }, imageName: "heart_yir")
+                    WMFYearInReviewScrollView(
+                        scrollViewContents: scrollViewContent,
+                        contents: { AnyView(buttons) },
+                        imageName: "read_gradient",
+                        imageOverlay: "globe")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
@@ -117,9 +121,6 @@ public struct WMFYearInReviewView: View {
     private var scrollViewContent: some View {
         VStack(spacing: 48) {
             VStack(alignment: .leading, spacing: 16) {
-                Image("globe", bundle: .module)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 48)
                 Text(viewModel.localizedStrings.firstSlideTitle)
                     .font(Font(WMFFont.for(.boldTitle1)))
                 Text(viewModel.localizedStrings.firstSlideSubtitle)

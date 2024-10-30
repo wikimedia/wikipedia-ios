@@ -47,11 +47,26 @@ public struct WMFYearInReviewScrollView: View {
     var flashingScrollView: some View {
         ScrollView(showsIndicators: true) {
             VStack(spacing: 16) {
-                Image(imageName, bundle: .module)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 0)
+                ZStack {
+                    Image(imageName, bundle: .module)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .ignoresSafeArea()
+                        .padding(.horizontal, 0)
+                    
+                    if let imageOverlay {
+                        Image(imageOverlay, bundle: .module)
+                            .padding(.horizontal, 100)
+                            .padding(.vertical, 50)
+                    }
+                    
+                    if let overlayText = textOverlay {
+                        Text(overlayText)
+                            .font(Font(WMFFont.for(.xxlTitleBold)))
+                            .foregroundColor(.white)
+                    }
+                }
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
             }
@@ -67,27 +82,19 @@ public struct WMFYearInReviewScrollView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
+                        .ignoresSafeArea()
                         .padding(.horizontal, 0)
                     
                     if let imageOverlay {
                         Image(imageOverlay, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .padding(.horizontal, 0)
                     }
                     
                     if let overlayText = textOverlay {
                         Text(overlayText)
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(Font(WMFFont.for(.xxlTitleBold)))
                             .foregroundColor(.white)
-                            .shadow(radius: 5)
-                            .padding()
-                            .frame(alignment: .center)
                     }
                 }
-
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
             }

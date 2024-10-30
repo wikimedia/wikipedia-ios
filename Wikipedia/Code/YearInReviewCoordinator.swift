@@ -125,7 +125,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
-                            imageName: "read_gradient", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount), loggingID: "read_count_custom")
+                            imageName: "read_gradient",
+                            textOverlay: String.localizedStringWithFormat(
+                                WMFLocalizedString(
+                                    "year-in-review-personalized-read-count",
+                                    value: "%@",
+                                    comment: "Year in review, amount of articles read by the user."
+                                ),
+                                String(readCount) 
+                            ),
+                            title: personalizedSlide1Title(readCount: readCount),
+                            informationBubbleText: nil,
+                            subtitle: personalizedSlide1Subtitle(readCount: readCount),
+                            loggingID: "read_count_custom")
                     }
                 }
             case .editCount:
@@ -135,6 +147,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
                             imageName: "read_gradient",
+                            textOverlay: String.localizedStringWithFormat(
+                                WMFLocalizedString(
+                                    "year-in-review-personalized-edit-count",
+                                    value: "%@",
+                                    comment: "Year in review, amount of edits made by the user."
+                                ),
+                                editCount >= 500 ? "500+" : String(editCount)
+                            ),
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
@@ -159,7 +179,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         var thirdSlide = YearInReviewSlideContent(
             imageName: "read_gradient",
-            imageOverlay: "heart_yir",
+            imageOverlay: "globe",
             title: baseSlide3Title,
             informationBubbleText: nil,
             subtitle: baseSlide3Subtitle,
@@ -179,7 +199,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlide,
             YearInReviewSlideContent(
                 imageName: "read_gradient",
-                imageOverlay: "globe",
                 title: baseSlide2Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide2Subtitle,
@@ -187,7 +206,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             thirdSlide,
             YearInReviewSlideContent(
                 imageName: "read_gradient",
-                imageOverlay: "heart_yir",
                 title: baseSlide4Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide4Subtitle,
