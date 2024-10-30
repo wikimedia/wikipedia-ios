@@ -25,7 +25,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     let collectiveNumEditsText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits", value: "460,300 edits", comment: "Number of edits made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
 
     let collectiveNumEditsPerMinuteText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute", value: "342 edits per minute", comment: "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
+    
+    // Collective base numbers that will change for header
+    let collectiveNumArticlesNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles-number", value: "63,590,000", comment: "Total number of articles across Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
 
+    let collectiveNumEditsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-number", value: "399,100", comment: "Number of edits made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+    
+    let collectiveNumEditsPerMinuteNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute-number", value: "342", comment: "Number of edits per minute made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+    
+    let collectiveNumViewsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-views-number", value: "1,400,000,000", comment: "Number of article views on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+    
     public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
         self.theme = theme
@@ -132,7 +141,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                                     value: "%@",
                                     comment: "Year in review, amount of articles read by the user."
                                 ),
-                                String(readCount) 
+                                String(readCount)
                             ),
                             title: personalizedSlide1Title(readCount: readCount),
                             informationBubbleText: nil,
@@ -171,7 +180,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         var firstSlide = YearInReviewSlideContent(
             imageName: "read_gradient",
-            imageOverlay: "globe",
+            textOverlay: collectiveNumArticlesNumber,
             title: baseSlide1Title,
             informationBubbleText: nil,
             subtitle: baseSlide1Subtitle,
@@ -179,7 +188,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         var thirdSlide = YearInReviewSlideContent(
             imageName: "read_gradient",
-            imageOverlay: "globe",
+            textOverlay: collectiveNumEditsNumber,
             title: baseSlide3Title,
             informationBubbleText: nil,
             subtitle: baseSlide3Subtitle,
@@ -199,6 +208,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlide,
             YearInReviewSlideContent(
                 imageName: "read_gradient",
+                textOverlay: collectiveNumViewsNumber,
                 title: baseSlide2Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide2Subtitle,
@@ -206,6 +216,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             thirdSlide,
             YearInReviewSlideContent(
                 imageName: "read_gradient",
+                textOverlay: collectiveNumEditsPerMinuteNumber,
                 title: baseSlide4Title,
                 informationBubbleText: nil,
                 subtitle: baseSlide4Subtitle,

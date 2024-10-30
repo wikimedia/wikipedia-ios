@@ -1393,10 +1393,14 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "year-in-review-2024-Wikipedia-num-articles" = "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-articles-number" = "Total number of articles across Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-edits" = "Number of edits made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-edits-number" = "Number of edits made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-edits-per-minute" = "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-edits-per-minute-number" = "Number of edits per minute made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-languages" = "Number of active languages available on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
 "year-in-review-2024-Wikipedia-num-views" = "Number of article views on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-views-number" = "Number of article views on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle, $1 is replaced with the number of edits text, e.g. \"460,300 edits\"";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"460,300 edits\".";
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342 times per minute\"";
