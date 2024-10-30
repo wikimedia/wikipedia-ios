@@ -87,7 +87,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #if UITEST
         presentUITestHelperController()
 #endif
-        showFeatureAnnouncementsIfNeeded()
+        presentModalsIfNeeded()
 
         if tabBarSnapshotImage == nil {
             if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
@@ -936,7 +936,8 @@ struct ImageRecommendationsFeatureAnnouncementTimeBox {
 
 extension ExploreViewController {
     
-    fileprivate func showFeatureAnnouncementsIfNeeded() {
+    /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    fileprivate func presentModalsIfNeeded() {
         
         if needsYearInReviewAnnouncement() {
             presentYearInReviewAnnouncement()
@@ -1013,7 +1014,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let sourceRect = cell.superview?.convert(cell.frame, to: view) else {
+        let _ = cell.superview?.convert(cell.frame, to: view) else {
             return false
         }
         
@@ -1067,7 +1068,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let sourceRect = cell.superview?.convert(cell.frame, to: view) else {
+        let _ = cell.superview?.convert(cell.frame, to: view) else {
             return false
         }
         
@@ -1437,7 +1438,7 @@ extension ExploreViewController {
     }
     
     @objc func applicationDidBecomeActive() {
-        showFeatureAnnouncementsIfNeeded()
+        presentModalsIfNeeded()
     }
 }
 

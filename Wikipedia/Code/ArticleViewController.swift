@@ -452,12 +452,12 @@ class ArticleViewController: ViewController, HintPresenting {
             setupSearchAndProfileButtons()
         }
 
-        presentModalOnAppearanceIfNeeded()
+        presentModalsIfNeeded()
     }
     
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
-    private func presentModalOnAppearanceIfNeeded() {
+    private func presentModalsIfNeeded() {
 
         // Alt-Text half-sheet modal presentations
         if isReturningFromFAQ {
