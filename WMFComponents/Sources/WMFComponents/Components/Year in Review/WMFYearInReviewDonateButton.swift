@@ -12,7 +12,7 @@ struct WMFYearInReviewDonateButton: View {
 
     var body: some View {
         Button(action: {
-            viewModel.coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: buttonRect))
+            viewModel.coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: buttonRect, slideLoggingID: viewModel.slideLoggingID))
         }) {
 
             ZStack {

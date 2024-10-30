@@ -156,6 +156,9 @@ extension ArticleViewController {
             else { return }
             yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
             yirCoordinator?.start()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+        }, closeButtonAction: {
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
         })
 
         if navigationBar.superview != nil {
@@ -163,6 +166,7 @@ extension ArticleViewController {
             let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
         }
         
         yirDataController.hasPresentedYiRFeatureAnnouncementModel = true

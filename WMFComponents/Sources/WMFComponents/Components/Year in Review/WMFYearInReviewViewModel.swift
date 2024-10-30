@@ -1,17 +1,28 @@
 import Foundation
 import SwiftUI
 
+public protocol WMFYearInReviewLoggingDelegate: AnyObject {
+    func logYearInReviewIntroDidTapContinue()
+    func logYearInReviewIntroDidTapDisable()
+    func logYearInReviewSlideDidAppear(slideLoggingID: String)
+    func logYearInReviewDidTapDone(slideLoggingID: String)
+    func logYearInReviewDidTapNext(slideLoggingID: String)
+}
+
 public class WMFYearInReviewViewModel: ObservableObject {
     @Published var isFirstSlide = true
+    @Published var currentSlide = 0
     public let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
     let username: String?
     public let shareLink: String
     public let hashtag: String
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+    private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
+        
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
@@ -19,10 +30,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.shareLink = shareLink
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
+        self.loggingDelegate = loggingDelegate
     }
 
     public func getStarted() {
         isFirstSlide = false
+    }
+    
+    public func nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.count
     }
 
     public struct LocalizedStrings {
@@ -64,6 +80,22 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
+    
+    func logYearInReviewSlideDidAppear() {
+        loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
+    }
+    
+    public func logYearInReviewDidTapDone() {
+        loggingDelegate?.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewSlideDidTapNext() {
+        loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    var slideLoggingID: String {
+        return isFirstSlide ? "start" : slides[currentSlide].loggingID
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
@@ -71,11 +103,13 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
-
-    public init(imageName: String, title: String, informationBubbleText: String?, subtitle: String) {
+    public let loggingID: String
+    
+    public init(imageName: String, title: String, informationBubbleText: String?, subtitle: String, loggingID: String) {
         self.imageName = imageName
         self.title = title
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
+        self.loggingID = loggingID
     }
 }

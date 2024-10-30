@@ -5,6 +5,6 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 }
 
 public enum YearInReviewCoordinatorAction {
-    case donate(sourceRect: CGRect)
+    case donate(sourceRect: CGRect, slideLoggingID: String)
     case share(image: UIImage)
 }

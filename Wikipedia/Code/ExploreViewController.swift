@@ -941,6 +941,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             else { return }
             yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
             yirCoordinator?.start()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+        }, closeButtonAction: {
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
         })
 
         if  navigationBar.superview != nil {
@@ -948,6 +951,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
         }
 
         yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
