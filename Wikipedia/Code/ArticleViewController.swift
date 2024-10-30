@@ -54,11 +54,22 @@ class ArticleViewController: ViewController, HintPresenting {
     // Coordinator
     private lazy var profileCoordinator: ProfileCoordinator? = {
         
-        guard let navigationController else {
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator else {
             return nil
         }
         
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+    }()
+    
+    lazy var yirCoordinator: YearInReviewCoordinator? = {
+        
+        guard let navigationController,
+              let dataController = try? WMFYearInReviewDataController() else {
+            return nil
+        }
+        
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
     }()
 
     var session: Session {
@@ -464,7 +475,7 @@ class ArticleViewController: ViewController, HintPresenting {
             didTapAltTextGalleryInfoButton = false
         }
         
-        profileCoordinator?.yirCoordinator?.presentSurveyIfNeeded()
+        yirCoordinator?.presentSurveyIfNeeded()
 
         guard isFirstAppearance else {
             return
@@ -1347,7 +1358,7 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        guard let navigationController, let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
         let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
         let project else { return }
         

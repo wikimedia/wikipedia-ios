@@ -30,7 +30,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
-    private(set) var yirCoordinator: YearInReviewCoordinator?
+    private let yirCoordinator: YearInReviewCoordinator
     
     let username: String?
     let sourcePage: ProfileCoordinatorSource
@@ -39,11 +39,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     // MARK: Lifecycle
     
     // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage)
+    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) -> ProfileCoordinator {
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage, yirCoordinator: yirCoordinator)
     }
     
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) {
         self.navigationController = navigationController
         self.theme = theme
         self.donateSouce = donateSouce
@@ -51,6 +51,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
         self.sourcePage = sourcePage
+        self.yirCoordinator = yirCoordinator
     }
     
     // MARK: Coordinator Protocol Methods
@@ -175,10 +176,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
-
-        guard let yirCoordinator = try? YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: WMFYearInReviewDataController()) else { return }
         yirCoordinator.start()
-        self.yirCoordinator = yirCoordinator
     }
     
     func showDonate() {

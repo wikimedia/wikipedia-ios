@@ -17,8 +17,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private let yirDataController = try? WMFYearInReviewDataController()
 
     // Coordinator
-    private var profileCoordinator: ProfileCoordinator?
-    private var yirCoordinator: YearInReviewCoordinator?
+    private lazy var profileCoordinator: ProfileCoordinator? = {
+        guard let navigationController = navigationController,
+        let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+        
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+    }()
+    
+    private lazy var yirCoordinator: YearInReviewCoordinator? = {
+        guard let navigationController = navigationController,
+        let dataController = try? WMFYearInReviewDataController() else {
+            return nil
+        }
+        
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+    }()
 
     // MARK: - UIViewController
     
@@ -191,18 +206,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func userDidTapProfile() {
         
-        guard let navigationController = self.navigationController,
-              let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
         let metricsID = DonateCoordinator.metricsID(for: .exploreProfile, languageCode: languageCode) else {
             return
         }
         
         DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
-        
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore)
 
-        self.profileCoordinator = coordinator
-        coordinator.start()
+        profileCoordinator?.start()
     }
     
     open override func refresh() {
@@ -936,10 +947,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let image = UIImage(named: "wikipedia-globe")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
-            guard let self,
-                  let navController = self.navigationController
-            else { return }
-            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            guard let self else { return }
             yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
         }, closeButtonAction: {
@@ -1366,6 +1374,9 @@ extension ExploreViewController {
                 presentImageRecommendationsAnnouncementAltText()
             }
         }
+        
+        // TODO: organize presentations better
+        yirCoordinator?.presentSurveyIfNeeded()
     }
     
     @objc func applicationDidBecomeActive() {

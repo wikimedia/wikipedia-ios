@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public class WMFYearInReviewDataController {
+@objc public class WMFYearInReviewDataController: NSObject {
 
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
@@ -16,6 +16,10 @@ public class WMFYearInReviewDataController {
         static var `default`: FeatureAnnouncementStatus {
             return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
         }
+    }
+    
+    @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
     }
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {

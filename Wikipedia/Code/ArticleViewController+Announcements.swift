@@ -151,11 +151,8 @@ extension ArticleViewController {
         let image = UIImage(named: "wikipedia-globe")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
-            guard let self,
-                  let navController = self.navigationController
-            else { return }
-            let yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            yirCoordinator.start()
+            guard let self else { return }
+            self.yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
         }, closeButtonAction: {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
