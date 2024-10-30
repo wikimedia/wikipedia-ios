@@ -138,8 +138,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             textOverlay: String.localizedStringWithFormat(
                                 WMFLocalizedString(
                                     "year-in-review-personalized-read-count",
-                                    value: "%@",
-                                    comment: "Year in review, amount of articles read by the user."
+                                    value: "%1$@",
+                                    comment: "Year in review, amount of articles read by the user, $1 is amount of articles."
                                 ),
                                 String(readCount)
                             ),
@@ -159,8 +159,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             textOverlay: String.localizedStringWithFormat(
                                 WMFLocalizedString(
                                     "year-in-review-personalized-edit-count",
-                                    value: "%@",
-                                    comment: "Year in review, amount of edits made by the user."
+                                    value: "%1$@",
+                                    comment: "Year in review, amount of edits made by the user. $1 is amount of edits."
                                 ),
                                 editCount >= 500 ? "500+" : String(editCount)
                             ),
