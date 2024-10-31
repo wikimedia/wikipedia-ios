@@ -55,7 +55,7 @@ struct WMFFeatureAnnouncementView: View {
                                         .aspectRatio(contentMode: .fill)
                                         .frame(height: 140)
                                         .frame(maxWidth: .infinity)
-                                        .cornerRadius(12)
+                                        .cornerRadius(8)
                                         .clipped()
                                 }
                                 Image(uiImage: image)
