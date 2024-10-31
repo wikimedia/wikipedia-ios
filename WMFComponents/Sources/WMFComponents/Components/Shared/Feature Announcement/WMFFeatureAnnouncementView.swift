@@ -1,27 +1,26 @@
 import SwiftUI
 
 struct WMFFeatureAnnouncementView: View {
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
+
     let viewModel: WMFFeatureAnnouncementViewModel
-    
+
     var imageColor: Color? {
         Color(uiColor: appEnvironment.theme.link)
     }
-    
+
     var closeImage: Image? {
         if let uiImage = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
             return Image(uiImage: uiImage)
         }
-        
         return nil
     }
-    
+
     func spacingForAvailableHeight(_ height: CGFloat) -> CGFloat {
         return max(height * 0.04, 8)
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -49,15 +48,26 @@ struct WMFFeatureAnnouncementView: View {
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
                         if let image = viewModel.image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 132, height: 118)
-                                .foregroundColor(imageColor)
+                            ZStack {
+                                if let backgroundImage = viewModel.backgroundImage {
+                                    Image(uiImage: backgroundImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 140)
+                                        .frame(maxWidth: .infinity)
+                                        .cornerRadius(12)
+                                        .clipped()
+                                }
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 132, height: 118)
+                                    .foregroundColor(imageColor)
+                            }
                         }
                         WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
-                    .padding()
+                    .padding(32)
                 }
             }
         }
