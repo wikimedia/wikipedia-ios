@@ -144,7 +144,7 @@
 "alt-text-feedback-survey-satisfied" = "Text for the alt text feedback survey satisfied option";
 "alt-text-feedback-survey-subtitle" = "Subtitle for the alt text feedback survey";
 "alt-text-feedback-survey-title" = "Title for the alt text feedback survey";
-"alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a alt text experiment survey";
+"alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a survey";
 "alt-text-feedback-survey-unsatisfied" = "Text for the alt text feedback survey unsatisfied option";
 "alt-text-license" = "Text for information about the Terms of Use and edit licenses. Do not translate url. Do not remove [] and () as it is formatted following markdown link formatting. $1, $2 and $3 are replaced by the terms of use and license links.";
 "alt-text-modal-subtitle-image-recommendation" = "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task";
@@ -1419,6 +1419,14 @@
 "year-in-review-share" = "Year in review share button";
 "year-in-review-share-text" = "Text shared the Year In Review slides";
 "year-in-review-subtitle" = "Year in review page information";
+"year-in-review-survey-additional-thoughts" = "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-neutral" = "Year in review survey option 3 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-satisfied" = "Year in review survey option 2 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-subtitle" = "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-title" = "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-title" = "Year in review page title";
 "yir-feature-announcement-body" = "Body for year in review feature announcement";
 "yir-feature-announcement-title" = "Title for year in review feature announcement";

@@ -28,6 +28,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 @property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
 @property (nullable, nonatomic, strong) WMFProfileCoordinator *profileCoordinator;
+@property (nullable, nonatomic, strong) WMFYearInReviewCoordinator *yirCoordinator;
 
 @end
 
@@ -638,7 +639,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 //}
 
 - (void)userDidTapProfile {
-    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut];
+    WMFYearInReviewDataController *yirDataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
+    
+    if (!yirDataController || !self.navigationController) {
+        return;
+    }
+    
+    WMFYearInReviewCoordinator *yirCoordinator = [[WMFYearInReviewCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore dataController:yirDataController];
+    
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut yirCoordinator:yirCoordinator];
     
     NSString *metricsID = [WMFDonateCoordinatorWrapper metricsIDForSettingsProfileDonateSourceWithLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode];
     
