@@ -219,6 +219,7 @@
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
+"description-article-introduction-warning-message" = "Description of alert dialouge to show ordering is different";
 "description-edit-for-article" = "String describing which article description is being edited. $1 is replaced with the article title";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
 "description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
