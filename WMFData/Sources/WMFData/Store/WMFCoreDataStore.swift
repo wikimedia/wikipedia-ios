@@ -8,6 +8,8 @@ public final class WMFCoreDataStore {
     // Will only be populated if persistent stores load correctly
     private var persistentContainer: NSPersistentContainer?
     
+    private(set) var isLoaded = false
+    
     public init(appContainerURL: URL? = WMFDataEnvironment.current.appContainerURL) throws {
         
         guard let appContainerURL else {
@@ -47,6 +49,7 @@ public final class WMFCoreDataStore {
                     container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
                     
                     self.persistentContainer = container
+                    self.isLoaded = true
                 }
             }
         }

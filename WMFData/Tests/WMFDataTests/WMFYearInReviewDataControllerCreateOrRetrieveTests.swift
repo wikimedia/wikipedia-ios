@@ -44,21 +44,15 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
 }
 
 final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
-    lazy var store: WMFCoreDataStore = {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        return try! WMFCoreDataStore(appContainerURL: temporaryDirectory)
-    }()
-
-    override func setUp() async throws {
-        _ = self.store
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+    
+    enum TestsError: Error {
+        case missingDataController
+        case storeNotLoaded
     }
-
-    fileprivate lazy var dataController: WMFMockYearInReviewDataController = {
-        let dataController = try! WMFMockYearInReviewDataController(coreDataStore: store)
-        return dataController
-    }()
-
+    
+    var store: WMFCoreDataStore?
+    fileprivate var dataController: WMFMockYearInReviewDataController?
+    
     lazy var enProject: WMFProject = {
         let language = WMFLanguage(languageCode: "es", languageVariantCode: nil)
         return .wikipedia(language)
@@ -68,7 +62,31 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     let countryCode = "US"
     let username = "user"
 
+    override func setUp() async throws {
+        
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        
+        self.store = store
+        
+        // Wait for store to load asyncronously
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        guard store.isLoaded else {
+            throw TestsError.storeNotLoaded
+        }
+        
+        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+        
+        try await super.setUp()
+    }
+
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         dataController.shouldCreateOrRetrieve = false
         let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
@@ -76,6 +94,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     }
 
     func testShouldCreateOrRetrieveYearInReview() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
         dataController.shouldCreateOrRetrieve = true
 
@@ -91,6 +114,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
 
         try await dataController.deleteYearInReviewReport(year: year)

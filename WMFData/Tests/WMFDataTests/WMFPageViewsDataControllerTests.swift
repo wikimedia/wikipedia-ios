@@ -4,14 +4,13 @@ import CoreData
 
 final class WMFPageViewsDataControllerTests: XCTestCase {
     
-    enum WMFCoreDataStoreTestsError: Error {
+    enum TestsError: Error {
+        case missingStore
+        case storeNotLoaded
         case empty
     }
     
-    lazy var store: WMFCoreDataStore = {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        return try! WMFCoreDataStore(appContainerURL: temporaryDirectory)
-    }()
+    var store: WMFCoreDataStore?
     
     lazy var dataController: WMFPageViewsDataController = {
         let dataController = try! WMFPageViewsDataController(coreDataStore: store)
@@ -38,12 +37,26 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     }()
     
     override func setUp() async throws {
-        _ = self.store
+        
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        self.store = store
+        
         // Wait for store to load asyncronously
         try await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        guard store.isLoaded else {
+            throw TestsError.storeNotLoaded
+        }
+        
+        try await super.setUp()
     }
     
     func testAddPageView() async throws {
+        
+        guard let store else {
+            throw TestsError.missingStore
+        }
         
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         
@@ -61,6 +74,10 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     }
     
     func testDeletePageView() async throws {
+        
+        guard let store else {
+            throw TestsError.missingStore
+        }
         
         // First add page view
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
@@ -80,6 +97,11 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     }
     
     func testDeleteAllPageViews() async throws {
+        
+        guard let store else {
+            throw TestsError.missingStore
+        }
+        
         // First add page view
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         
@@ -98,6 +120,11 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     }
     
     func testImportPageViews() async throws {
+        
+        guard let store else {
+            throw TestsError.missingStore
+        }
+        
         let importRequests: [WMFPageViewImportRequest] = [
             WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: todayDate),
             WMFPageViewImportRequest(title: "Felis silvestris catus", project: esProject, viewedDate: yesterdayDate)
@@ -117,6 +144,10 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     }
     
     func testFetchPageViewCounts() async throws {
+        
+        guard let store else {
+            throw TestsError.missingStore
+        }
         
         // First add page views
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
