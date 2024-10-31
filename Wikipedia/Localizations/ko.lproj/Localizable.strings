@@ -180,6 +180,7 @@
 "alt-text-survey-option-4" = "기술 문제가 있습니다";
 "alt-text-survey-option-5" = "시각 장애가 있습니다";
 "alt-text-survey-option-7" = "시간이 없습니다";
+"alt-text-survey-subtitle" = "대체 텍스트를 추가하지 않는 이유를 알려주세요.";
 "alt-text-title" = "대체 텍스트";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 각주, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
@@ -422,6 +423,10 @@
 "editor-toolbar-cursor-up-accessibility" = "커서를 이전 줄로 이동합니다.";
 "editor-toolbar-find-accessibility" = "문서에서 찾기";
 "editor-toolbar-image-accessibility" = "이미지 텍스트 서식 지정";
+"editor-toolbar-italics-accessibility" = "기울인 글씨 서식 지정";
+"editor-toolbar-link-accessibility" = "링크 텍스트 서식 지정";
+"editor-toolbar-list-ordered-accessibility" = "순서 있는 목록 텍스트 서식 지정";
+"editor-toolbar-list-unordered-accessibility" = "순서 없는 목록 텍스트 서식 지정";
 "editor-toolbar-open-text-format-menu-accessibility" = "텍스트 서식 메뉴 열기";
 "editor-toolbar-reference-accessibility" = "각주 텍스트 서식";
 "editor-toolbar-show-more-accessibility" = "더 많은 서식 옵션 보기";
