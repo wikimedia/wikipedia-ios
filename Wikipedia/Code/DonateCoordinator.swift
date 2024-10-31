@@ -24,6 +24,7 @@ class DonateCoordinator: Coordinator {
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
+        case yearInReview // TODO: Do it properly T376062
     }
     
     // MARK: Properties
@@ -31,7 +32,13 @@ class DonateCoordinator: Coordinator {
     var navigationController: UINavigationController
     private let donateButtonGlobalRect: CGRect
     private let source: Source
+    
+    // Code to run when we are fetching donate configs. Typically this changes some donate button into a spinner.
     private let setLoadingBlock: (Bool) -> Void
+    
+    /// Code to run after navigation controller dismisses any modals it's currently presenting, but before it pushes on the donate (native or web view) form
+    private var dismissalBlock: (() -> Void)?
+    
     private let dataStore: MWKDataStore
     private let theme: Theme
     
@@ -49,7 +56,7 @@ class DonateCoordinator: Coordinator {
             }
             
             return wikimediaProject
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             return nil
         }
     }()
@@ -86,13 +93,14 @@ class DonateCoordinator: Coordinator {
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, setLoadingBlock: @escaping (Bool) -> Void) {
+    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, setLoadingBlock: @escaping (Bool) -> Void, dismissalBlock: (() -> Void)? = nil) {
         self.navigationController = navigationController
         self.donateButtonGlobalRect = donateButtonGlobalRect
         self.source = source
         self.dataStore = dataStore
         self.theme = theme
         self.setLoadingBlock = setLoadingBlock
+        self.dismissalBlock = dismissalBlock
     }
     
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
@@ -106,6 +114,12 @@ class DonateCoordinator: Coordinator {
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
+        case .yearInReview:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            return "\(languageCode)\(countryCode)_appmenu_yir_iOS"
         }
     }
     
@@ -129,6 +143,7 @@ class DonateCoordinator: Coordinator {
                 guard let donateViewModel = self.nativeDonateFormViewModel(countryCode: countryCode) else {
                     
                     self.navigationController.dismiss(animated: true, completion: { [weak self] in
+                        self?.dismissalBlock?()
                         self?.pushToOtherPaymentMethod()
                     })
                     
@@ -175,7 +190,10 @@ class DonateCoordinator: Coordinator {
                guard let project = self.wikimediaProject else {
                    return
                }
+                
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
+            case .yearInReview:
+                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -198,8 +216,11 @@ class DonateCoordinator: Coordinator {
                    return
                }
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
+            case .yearInReview:
+                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
+                self.dismissalBlock?()
                 self.pushToNativeDonateForm(donateViewModel: donateViewModel)
             })
         })
@@ -224,8 +245,11 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
+            case .yearInReview:
+                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
+                self.dismissalBlock?()
                 self.pushToOtherPaymentMethod()
             })
         }))
@@ -348,7 +372,7 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
@@ -580,6 +604,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
+        case .yearInReview:
+            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -651,7 +677,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .exploreProfile, .settingsProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
         }
     }
@@ -685,6 +711,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .yearInReview:
+                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }

@@ -3,6 +3,7 @@ import WMF
 import SwiftUI
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -98,6 +99,8 @@ extension WMFAppViewController {
 
 }
 
+// MARK: - Notifications
+
 extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
     /// Perform conditional presentation logic depending on origin `UIViewController`
@@ -186,6 +189,45 @@ extension WMFAppViewController {
         viewController.present(alertController, animated: true, completion: nil)
         
     }
+}
+
+fileprivate extension UIViewController {
+    
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
+        
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+        
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
+    }
+}
+
+
+/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
+protocol EditingFlowViewController where Self: UIViewController {
+    var shouldDisplayExitConfirmationAlert: Bool { get }
+}
+
+extension EditingFlowViewController {
+    var shouldDisplayExitConfirmationAlert: Bool {
+        return true
+    }
+}
+
+/// View Controllers that are a part of the Notifications Center flow
+protocol NotificationsCenterFlowViewController where Self: UIViewController {
+    
+    // hook called after the user taps a push notification while in the foregound.
+    // use if needed to tweak the view hierarchy to display the Notifications Center
+    func tappedPushNotification()
 }
 
 // MARK: - Watchlist
@@ -460,45 +502,6 @@ extension WMFAppViewController: WMFWatchlistLoggingDelegate {
     
 }
 
-fileprivate extension UIViewController {
-    
-    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
-    /// Does not consider presenting view controllers
-    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
-        
-        if let viewController = self as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-        
-        if let navigationController = self as? UINavigationController,
-           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-
-        return nil
-    }
-}
-
-
-/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
-protocol EditingFlowViewController where Self: UIViewController {
-    var shouldDisplayExitConfirmationAlert: Bool { get }
-}
-
-extension EditingFlowViewController {
-    var shouldDisplayExitConfirmationAlert: Bool {
-        return true
-    }
-}
-
-/// View Controllers that are a part of the Notifications Center flow
-protocol NotificationsCenterFlowViewController where Self: UIViewController {
-    
-    // hook called after the user taps a push notification while in the foregound.
-    // use if needed to tweak the view hierarchy to display the Notifications Center
-    func tappedPushNotification()
-}
-
 // MARK: Importing Reading Lists - CreateReadingListDelegate
 
 extension WMFAppViewController: CreateReadingListDelegate {
@@ -547,6 +550,16 @@ extension WMFAppViewController: CreateReadingListDelegate {
 // MARK: WMFData setup
 
 extension WMFAppViewController {
+    
+    @objc func setupWMFDataCoreDataStore() {
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+        do {
+            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
+        } catch let error {
+            DDLogError("Error setting up WMFCoreDataStore: \(error)")
+        }
+    }
+    
     @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
@@ -578,6 +591,38 @@ extension WMFAppViewController {
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+    }
+    
+    @objc func performWMFDataHousekeeping() {
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        Task {
+            do {
+                try await coreDataStore?.performDatabaseHousekeeping()
+            } catch {
+                DDLogError("Error pruning WMFData database: \(error)")
+            }
+        }
+    }
+
+    @objc func populateYearInReviewReport(for year: Int) {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.populateYearInReviewReportData(
+                    for: year,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
+            }
+        }
     }
 }
 

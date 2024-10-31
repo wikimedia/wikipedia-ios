@@ -4,7 +4,6 @@
 // Author: A Chinese Wikipedian
 // Author: A Retired User
 // Author: A2B4C
-// Author: Amire80
 // Author: Angrydog001
 // Author: Anterdc99
 // Author: Chixvv
@@ -140,6 +139,7 @@
 "account-creation-title" = "创建新账号";
 "account-group-title" = "您的账号";
 "account-request-vanishing" = "隐退账号";
+"account-talk-page-title" = "您的讨论页";
 "account-talk-preferences-auto-sign-discussions" = "自动签名讨论";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "自动签名的讨论将使用签名设置中定义的签名";
 "account-talk-preferences-title" = "讨论页参数设置";
@@ -322,6 +322,7 @@
 "description-welcome-start-editing-button" = "开始编辑";
 "developer-settings" = "开发者设置";
 "developer-settings-enable-alt-text-experiment-en" = "为英语维基百科启用替代文字实验功能。";
+"developer-settings-enable-year-in-review" = "启用年度回顾";
 "developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
 "developer-settings-suppress-image-rec-post" = "不发布图像推荐产生的编辑。";
 "diff-article-revision-history" = "条目修订历史";
@@ -775,7 +776,6 @@
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
 "main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
-"main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -999,17 +999,12 @@
 "problem-with-feature-title" = "功能问题";
 "profile-button-accessibility-label" = "个人资料";
 "profile-button-badge-accessibility-label" = "个人资料（带有未读消息标记）";
-"profile-page-donate" = "捐款";
 "profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持免费且人人可访问。";
 "profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
 "profile-page-join-title" = "加入维基百科/登录";
-"profile-page-logout" = "退出登录";
-"profile-page-notification-title" = "通知";
-"profile-page-settings" = "设置";
-"profile-page-talk-page-title" = "讨论页";
+"profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
 "profile-page-title-logged-out" = "账号";
-"profile-page-user-page-title" = "用户页";
-"profile-page-watchlist-title" = "监视列表";
+"profile-page-year-in-review-title" = "年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
 "project-name-wikidata" = "维基数据";
@@ -1432,3 +1427,32 @@
 "wikitext-upload-save-sign-in" = "登录";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "发布更改即代表您同意$1使用条款$2，并且不可撤销地同意以$3CC BY-SA 4.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
+"year-in-review-2024-Wikipedia-num-articles" = "6369万篇条目";
+"year-in-review-2024-Wikipedia-num-edits" = "460300笔编辑";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "每分钟342笔编辑";
+"year-in-review-2024-Wikipedia-num-languages" = "332种活跃语言";
+"year-in-review-2024-Wikipedia-num-views" = "14亿次";
+"year-in-review-base-editors-subtitle" = "今年，维基百科的志愿编者社群在iOS应用程序上作出了不少于$1。由志愿者、捐赠者和像您一样千千万万的读者组成的社群，是维基百科的命脉所在，团结起来，不受限制地共享可靠的信息。";
+"year-in-review-base-editors-title" = "编者在iOS应用程序上作出了不少于$1";
+"year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速率达$1。所有条目均由众人合作创建，并使用可靠来源提升质量。每一笔编辑，都对提升维基百科条目的质和量至关重要。";
+"year-in-review-base-edits-title" = "维基百科编辑达$1。";
+"year-in-review-base-reading-subtitle" = "维基百科囊括了$1，横跨$2。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
+"year-in-review-base-reading-title" = "阅读使我们相聚";
+"year-in-review-base-viewed-subtitle" = "iOS应用程序用户阅读了维基百科条目$1。无论人们身处何方，维基百科都是回答问题、查找学习工作所需信息，或学习新知的首选。";
+"year-in-review-base-viewed-title" = "我们在维基百科上阅读条目达$1。";
+"year-in-review-donate" = "捐款";
+"year-in-review-done" = "完成";
+"year-in-review-get-started" = "开始";
+"year-in-review-hide" = "隐藏此功能";
+"year-in-review-next" = "下一页";
+"year-in-review-personalized-editing-subtitle-format" = "您在维基百科上编辑了{{PLURAL:$1|$1次}}。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
+"year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
+"year-in-review-personalized-editing-title-format" = "您在维基百科上编辑了{{PLURAL:$1|$1次}}。";
+"year-in-review-personalized-editing-title-format-500plus" = "您在维基百科上的编辑次数超过了500次。";
+"year-in-review-personalized-reading-subtitle-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。今年维基百科包含了$2，横跨$3。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
+"year-in-review-personalized-reading-title- format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。";
+"year-in-review-share" = "分享";
+"year-in-review-subtitle" = "查看有关您在维基百科应用程序上所阅读的条目和所作编辑的深入分析。向他人分享您的旅程，发现今年令您印象深刻的事件。您的阅读历史将受到保护。阅读见解使用设备上本地存储的数据计算。";
+"year-in-review-title" = "探索您的维基百科年度回顾";
+"yir-feature-announcement-body" = "查看有关您在维基百科应用程序上所阅读的条目的深入分析，分享您的旅程，发现您今年的闪光点。";
+"yir-feature-announcement-title" = "探索您的维基百科年度回顾";

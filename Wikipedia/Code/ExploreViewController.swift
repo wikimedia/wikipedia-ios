@@ -14,8 +14,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
+    private let yirDataController = try? WMFYearInReviewDataController()
+
     // Coordinator
-    private var profileCoordinator: ProfileCoordinator?
+    private lazy var profileCoordinator: ProfileCoordinator? = {
+        guard let navigationController = navigationController,
+        let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+        
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+    }()
+    
+    private lazy var yirCoordinator: YearInReviewCoordinator? = {
+        guard let navigationController = navigationController,
+        let dataController = try? WMFYearInReviewDataController() else {
+            return nil
+        }
+        
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+    }()
 
     // MARK: - UIViewController
     
@@ -30,7 +48,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
-        // updateNotificationsCenterButton()
         updateProfileViewButton()
         updateNavigationBarVisibility()
 
@@ -70,16 +87,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #if UITEST
         presentUITestHelperController()
 #endif
-        if !UIAccessibility.isVoiceOverRunning {
-            presentImageRecommendationsFeatureAnnouncementIfNeeded()
-            
-            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-            
-            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-                presentImageRecommendationsAnnouncementAltText()
-            }
-        }
-        
+        presentModalsIfNeeded()
+
         if tabBarSnapshotImage == nil {
             if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
                 tabBarSnapshotImage = nil
@@ -103,6 +112,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -145,22 +155,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-//    @objc func updateNotificationsCenterButton() {
-//        if self.dataStore.authenticationManager.authStateIsPermanent {
-//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-//            navigationItem.leftBarButtonItem = notificationsBarButton
-//            navigationBar.displayType = .centeredLargeTitle
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//            navigationBar.displayType = .largeTitle
-//        }
-//        navigationBar.updateNavigationItems()
-//    }
-
     @objc public func updateNavigationBarVisibility() {
         navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
     }
@@ -175,10 +169,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        let profileViewButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileViewButtonItem.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItem = profileViewButtonItem
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        navigationItem.rightBarButtonItem = profileButton
         navigationBar.updateNavigationItems()
     }
     
@@ -212,18 +206,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func userDidTapProfile() {
         
-        guard let navigationController = self.navigationController,
-              let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
         let metricsID = DonateCoordinator.metricsID(for: .exploreProfile, languageCode: languageCode) else {
             return
         }
         
         DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
-        
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore)
 
-        self.profileCoordinator = coordinator
-        coordinator.start()
+        profileCoordinator?.start()
     }
     
     open override func refresh() {
@@ -666,8 +656,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         self.theme = theme
-        // updateNotificationsCenterButton()
-        updateProfileViewButton()
+        tabBarSnapshotImage = nil
 
         searchBar.apply(theme: theme)
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
@@ -922,21 +911,245 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
+}
+
+// MARK: - Modal Presentation Logic
+
+// TODO: - Remove after expiry date (5 Nov, 2024)
+struct ImageRecommendationsFeatureAnnouncementTimeBox {
+    static let expiryDate: Date? = {
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2024
+        expiryDateComponents.month = 11
+        expiryDateComponents.day = 5
+        return Calendar.current.date(from: expiryDateComponents)
+    }()
     
-    private func presentImageRecommendationsAnnouncementAltText() {
+    static func isAnnouncementActive() -> Bool {
+        guard let expiryDate else {
+            return false
+        }
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+}
+
+extension ExploreViewController {
+    
+    /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    fileprivate func presentModalsIfNeeded() {
+        
+        if needsYearInReviewAnnouncement() {
+            presentYearInReviewAnnouncement()
+        } else if yirCoordinator?.needsSurveyPresentation ?? false {
+            yirCoordinator?.presentSurveyIfNeeded()
+        } else if needsImageRecommendationsFeatureAnnouncement() {
+            presentImageRecommendationsFeatureAnnouncement()
+        } else if needsAltTextFeatureAnnouncement() {
+            presentImageRecommendationsAnnouncementAltText()
+        }
+    }
+    
+    private func needsYearInReviewAnnouncement() -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return false
+        }
+        
+        guard let yirDataController,
+              let appLanguage = dataStore.languageLinkController.appLanguage else {
+                  return false
+        }
+        
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+        
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+            return false
+        }
+
+        guard presentedViewController == nil else {
+            return false
+        }
+
+        guard self.isViewLoaded && self.view.window != nil else {
+            return false
+        }
+        
+        return navigationBar.superview != nil
+    }
+    
+    private func needsImageRecommendationsFeatureAnnouncement() -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return false
+        }
+        
+        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
+            return false
+        }
+        
+        guard let fetchedResultsController,
+            let groups = fetchedResultsController.fetchedObjects else {
+            return false
+        }
+        
+        let suggestedEditsCardObjects = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
+        guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
+            return false
+        }
+        
+        guard presentedViewController == nil else {
+            return false
+        }
+        
+        guard self.isViewLoaded && self.view.window != nil else {
+            return false
+        }
+        
+        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
+            return false
+        }
+        
+        guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
+            return false
+        }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath),
+        let _ = cell.superview?.convert(cell.frame, to: view) else {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func needsAltTextFeatureAnnouncement() -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return false
+        }
+        
         let languages = ["es", "pt", "fr", "zh"]
         guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
-            return
+            return false
         }
         
         guard let appLanguage = dataStore.languageLinkController.appLanguage else {
-            return
+            return false
         }
         
         guard languages.contains(appLanguage.languageCode) else {
+            return false
+        }
+        
+        guard let fetchedResultsController,
+            let groups = fetchedResultsController.fetchedObjects else {
+            return false
+        }
+        
+        let suggestedEditsCardObjects = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
+        guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
+            return false
+        }
+        
+        guard presentedViewController == nil else {
+            return false
+        }
+        
+        guard self.isViewLoaded && self.view.window != nil else {
+            return false
+        }
+        
+        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        
+        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis else {
+            return false
+        }
+        
+        guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
+            return false
+        }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath),
+        let _ = cell.superview?.convert(cell.frame, to: view) else {
+            return false
+        }
+        
+        return true
+    }
+
+    // TODO: Remove after expiry date (1 March 2025)
+    private func presentYearInReviewAnnouncement() {
+        
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
+            return
+        }
+
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+            guard let self else { return }
+            yirCoordinator?.start()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+        }, closeButtonAction: {
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+        })
+
+        if  navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 45
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+        }
+
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+    }
+    
+    // TODO: - Remove after expiry date (5 Nov, 2024)
+    private func presentImageRecommendationsFeatureAnnouncement() {
+        
+        guard let fetchedResultsController,
+                    let groups = fetchedResultsController.fetchedObjects else {
+                    return
+                }
+        
+        let suggestedEditsCardObjects = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
+                guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
+                    return
+                }
+        
+        guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
+                    return
+                }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath),
+        let sourceRect = cell.superview?.convert(cell.frame, to: view) else {
             return
         }
         
+        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        
+        let viewModel = WMFFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
+            
+            guard let self,
+                  let imageRecommendationViewController = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+                return
+            }
+            
+            navigationController?.pushViewController(imageRecommendationViewController, animated: true)
+            
+            ImageRecommendationsFunnel.shared.logExploreDidTapFeatureAnnouncementPrimaryButton()
+            
+        })
+        
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+
+       imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
+    }
+    
+    private func presentImageRecommendationsAnnouncementAltText() {
+
         guard let fetchedResultsController,
             let groups = fetchedResultsController.fetchedObjects else {
             return
@@ -946,19 +1159,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
             return
         }
-        
-        guard presentedViewController == nil else {
-            return
-        }
-        
-        guard self.isViewLoaded && self.view.window != nil else {
-            return
-        }
-        
+
         let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis else {
-            return
-        }
         
         guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
             return
@@ -985,83 +1187,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
-    }
-    
-    // TODO: - Remove after expiry date (4 Oct, 2024)
-    private func presentImageRecommendationsFeatureAnnouncementIfNeeded() {
-        
-        guard ImageRecommendationsFeatureAnnouncementTimeBox.isAnnouncementActive() else {
-            return
-        }
-        
-        guard let fetchedResultsController,
-            let groups = fetchedResultsController.fetchedObjects else {
-            return
-        }
-        
-        let suggestedEditsCardObjects = groups.filter { $0.contentGroupKindInteger == WMFContentGroupKind.suggestedEdits.rawValue}
-        guard let suggestedEditsCardObject = suggestedEditsCardObjects.first else {
-            return
-        }
-        
-        guard presentedViewController == nil else {
-            return
-        }
-        
-        guard self.isViewLoaded && self.view.window != nil else {
-            return
-        }
-        
-        let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        guard !imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal else {
-            return
-        }
-        
-        guard let indexPath = fetchedResultsController.indexPath(forObject: suggestedEditsCardObject) else {
-            return
-        }
-        
-        guard let cell = collectionView.cellForItem(at: indexPath),
-        let sourceRect = cell.superview?.convert(cell.frame, to: view) else {
-            return
-        }
-        
-        let viewModel = WMFFeatureAnnouncementViewModel(title: WMFLocalizedString("image-rec-feature-announce-title", value: "Try 'Add an image'", comment: "Title of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), body: WMFLocalizedString("image-rec-feature-announce-body", value: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", comment: "Body of image recommendations feature announcement modal. Displayed the first time a user lands on the Explore feed after the feature has been added (if eligible)."), primaryButtonTitle: CommonStrings.tryNowTitle, image:  WMFIcon.addPhoto, primaryButtonAction: { [weak self] in
-            
-            guard let self,
-                  let imageRecommendationViewController = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: self.dataStore, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
-                return
-            }
-            
-            navigationController?.pushViewController(imageRecommendationViewController, animated: true)
-            
-            ImageRecommendationsFunnel.shared.logExploreDidTapFeatureAnnouncementPrimaryButton()
-            
-        })
-        
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
-
-       imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
-    }
-}
-
-// MARK: - Image Recommendations Announcement Time-box
-// TODO: - Remove after expiry date (4 Oct, 2024)
-struct ImageRecommendationsFeatureAnnouncementTimeBox {
-    static let expiryDate: Date? = {
-        var expiryDateComponents = DateComponents()
-        expiryDateComponents.year = 2024
-        expiryDateComponents.month = 10
-        expiryDateComponents.day = 4
-        return Calendar.current.date(from: expiryDateComponents)
-    }()
-    
-    static func isAnnouncementActive() -> Bool {
-        guard let expiryDate else {
-            return false
-        }
-        let currentDate = Date()
-        return currentDate <= expiryDate
     }
 }
 
@@ -1311,17 +1436,9 @@ extension ExploreViewController {
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
-
+    
     @objc func applicationDidBecomeActive() {
-        if !UIAccessibility.isVoiceOverRunning {
-            presentImageRecommendationsFeatureAnnouncementIfNeeded()
-            
-            let imageRecommendationsDataController = WMFImageRecommendationsDataController()
-            
-            if imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal {
-                presentImageRecommendationsAnnouncementAltText()
-            }
-        }
+        presentModalsIfNeeded()
     }
 }
 
@@ -1446,7 +1563,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
 
     func imageRecommendationsDidTriggerAltTextFeedbackToast() {
-        let title = CommonStrings.altTextFeedbackSurveyToastTitle
+        let title = CommonStrings.feedbackSurveyToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
 
         WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
@@ -1455,7 +1572,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
     
     private func presentAltTextRejectionSurvey(imageRecommendationsViewController: WMFImageRecommendationsViewController) {
-        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+        let surveyView = WMFSurveyView.altTextSurveyView(cancelAction: { [weak self] in
             
             // Dismisses Survey View
             self?.dismiss(animated: true, completion: {
@@ -1467,7 +1584,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             self?.dismiss(animated: true, completion: { [weak self] in
                 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                 
                 if let wmfProject = self?.imageRecommendationsViewModel?.project {
                     let project = WikimediaProject(wmfProject: wmfProject)

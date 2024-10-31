@@ -118,6 +118,7 @@
 "account-creation-title" = "Crea una nuova utenza";
 "account-group-title" = "La tua utenza";
 "account-request-vanishing" = "Elimina l'utenza";
+"account-talk-page-title" = "La tua pagina di discussione";
 "account-talk-preferences-auto-sign-discussions" = "Firma automaticamente nelle discussioni";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Per firmare automaticamente nelle discussioni verrà utilizzata la firma definita nelle impostazioni della firma";
 "account-talk-preferences-title" = "Preferenze della pagina di discussione";
@@ -204,12 +205,16 @@
 "clear-title-accessibility-label" = "Pulisci";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
+"confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
+"confirm-donation-history-deletion-title" = "Conferma cancellazione";
+"confirmed-donation-history-deletion" = "Cronologia locale cancellata";
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Modificando la descrizione della voce, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
 "description-edit-pencil-introduction" = "Modifica introduzione";
 "description-edit-pencil-title" = "Modifica la descrizione della voce";
@@ -294,6 +299,7 @@
 "donate-help-other-ways-to-give" = "Altri modi per donare";
 "donate-help-problems-donating" = "Hai problemi con la donazione?";
 "donate-help-tax-deductibility-information" = "Informazioni di deducibilità fiscale";
+"donate-history-delete" = "Cancella la cronologia delle donazioni locali";
 "donate-later-title" = "Te lo ricorderemo di nuovo domani.";
 "donate-maximum-error-text" = "Non possiamo accettare donazioni superiori a $1 $2 attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Si prega di selezionare un importo (minimo $1 $2)";
@@ -541,7 +547,6 @@
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-account-logout-are-you-sure" = "Sei sicuro di voler uscire?";
-"main-menu-account-logout-cancel" = "Annulla";
 "main-menu-account-title-logged-in" = "Accesso effettuato come $1";
 "main-menu-heading-legal" = "Privacy e condizioni";
 "main-menu-nearby" = "Nelle vicinanze";
@@ -993,3 +998,13 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 milioni di voci";
+"year-in-review-2024-Wikipedia-num-edits" = "460.300 modifiche";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 modifiche al minuto";
+"year-in-review-2024-Wikipedia-num-languages" = "332 lingue attive";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 miliardi di volte";
+"year-in-review-donate" = "Dona";
+"year-in-review-done" = "Fatto";
+"year-in-review-next" = "Successivo";
+"year-in-review-personalized-reading-title- format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
+"year-in-review-share" = "Condividi";

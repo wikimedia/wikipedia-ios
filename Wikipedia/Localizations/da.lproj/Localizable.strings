@@ -87,6 +87,7 @@
 "account-creation-title" = "Opret en ny konto";
 "account-group-title" = "Din konto";
 "account-request-vanishing" = "Få konto til at forsvinde";
+"account-talk-page-title" = "Din diskussionsside";
 "account-talk-preferences-auto-sign-discussions" = "Auto-underskriv diskussioner";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-underskrivning i diskussioner vil benytte den signatur, der er defineret i Signatur-indstillinger";
 "account-talk-preferences-title" = "Indstillinger for diskussionsside";
@@ -203,6 +204,7 @@
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Artikelbeskrivelse for $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Ved at ændre titelbeskrivelsen indvilliger jeg i $1 og uigenkaldeligt at udgive mit bidrag under $2 licensen.";
 "description-edit-pencil-introduction" = "Rediger introduktion";
 "description-edit-pencil-title" = "Rediger artikelbeskrivelse";
@@ -255,6 +257,14 @@
 "diff-thanks-sent-already" = "Du har allerede sendt et 'Tak' for denne redigering";
 "diff-thanks-sent-cannot-unsend" = "Et 'Tak' kan ikke fortrydes";
 "dim-images" = "Mørklæg billeder";
+"donate-help-frequently-asked-questions" = "Ofte stillede spørgsmål";
+"donate-help-other-ways-to-give" = "Alternative donationsmetoder";
+"donate-help-problems-donating" = "Problemer med at donere?";
+"donate-help-tax-deductibility-information" = "Information om skattefradrag";
+"donate-history-delete" = "Slet lokal donationshistorik";
+"donate-later-title" = "Vi vil minde dig om det igen i morgen.";
+"donate-minimum-error-text" = "Vælg venligst et beløb (minimum $1 $2)";
+"donate-monthly-recurring-text" = "Gør dette til en månedlig tilbagevendende donation.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Donér med Apple Pay";
 "donate-payment-method-prompt-message" = "Donér med Apple Pay eller vælg en anden betalingsmetode.";
 "donate-payment-method-prompt-other-button-title" = "Anden betalingsmetode";
@@ -498,7 +508,6 @@
 "main-menu-account-login" = "Log på";
 "main-menu-account-logout" = "Log af";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
-"main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
 "main-menu-heading-legal" = "Privatliv og vilkår";
 "main-menu-nearby" = "I nærheden";

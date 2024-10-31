@@ -33,7 +33,9 @@ struct WMFFeatureAnnouncementView: View {
                             HStack {
                                 Spacer()
                                 Button(
-                                    action: { viewModel.closeButtonAction?() },
+                                    action: {
+                                        viewModel.closeButtonAction?()
+                                    },
                                     label: {
                                         closeImage
                                     })

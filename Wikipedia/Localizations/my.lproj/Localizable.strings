@@ -63,6 +63,7 @@
 "account-creation-saving" = "သိမ်းဆည်းနေသည်...";
 "account-creation-title" = "အကောင့်အသစ်တစ်ခု ဖန်တီးပါ";
 "account-group-title" = "သင်၏ အကောင့်";
+"account-talk-page-title" = "သင်၏ ဆွေးနွေးစာမျက်နှာ";
 "account-talk-preferences-title" = "ဆွေးနွေးချက်စာမျက်နှာ အပြင်အဆင်များ";
 "action-add-to" = "ပေါင်းထည့်ရန်...";
 "action-add-to-reading-list" = "စာဖတ်စာရင်းသို့ ပေါင်းထည့်ရန်";
@@ -129,6 +130,7 @@
 "data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
 "description-edit-for-article" = "$1အတွက် ဆောင်းပါးဖော်ပြချက်";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
 "description-edit-pencil-title" = "ဆောင်းပါးဖော်ပြချက်ကို တည်းဖြတ်ရန်";
 "description-edit-placeholder-title" = "ဖော်ပြချက်တိုများသည် အကောင်းဆုံးဖြစ်သည်";
@@ -364,7 +366,6 @@
 "main-menu-account-login" = "အကောင့်ဝင်ရန်";
 "main-menu-account-logout" = "ထွက်ရန်";
 "main-menu-account-logout-are-you-sure" = "သင် ထွက်မည်ဆိုသည်မှာ သေချာပါသလား?";
-"main-menu-account-logout-cancel" = "မလုပ်တော့ပါ";
 "main-menu-account-title-logged-in" = "$1 အဖြစ် လော့ဂ်အင်ဝင်ခဲ့သည်";
 "main-menu-heading-legal" = "တရားဝင် အချက်အလက်များ";
 "main-menu-nearby" = "အနီးအနား";

@@ -112,7 +112,7 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
         loggingDelegate?.logBottomSheetDidTapNo()
         
 		let surveyView = WMFSurveyView(
-            viewModel: WMFSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings, options: viewModel.surveyOptions),
+            viewModel: WMFSurveyViewModel(localizedStrings: viewModel.localizedStrings.surveyLocalizedStrings, options: viewModel.surveyOptions, selectionType: .multi),
 			cancelAction: { [weak self] in
                 self?.loggingDelegate?.logRejectSurveyDidTapCancel()
                 

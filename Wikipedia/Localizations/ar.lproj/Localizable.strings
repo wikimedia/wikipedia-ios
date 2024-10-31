@@ -5,7 +5,6 @@
 // Author: Ahmed Alyamoor
 // Author: Alaa
 // Author: Alshamiri1
-// Author: Amire80
 // Author: Asma
 // Author: DRIHEM
 // Author: Dyolf77 (WMF)
@@ -117,6 +116,7 @@
 "account-creation-title" = "أنشئ حسابًا جديدًا";
 "account-group-title" = "حسابك";
 "account-request-vanishing" = "حذف الحساب";
+"account-talk-page-title" = "صفحة النقاش الخاصة بك";
 "account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "سيستخدم التوقيع التلقائي للمناقشات التوقيع المحدد في إعدادات التوقيع";
 "account-talk-preferences-title" = "تفضيلات صفحة النقاش";
@@ -553,7 +553,6 @@
 "main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-are-you-sure-message" = "سيؤدي تسجيل الخروج إلى حذف بيانات حسابك المخزنة محليًا (الإشعارات والرسائل) ، ولكن ستظل بيانات حسابك متاحة على الويب وسيتم إعادة تنزيلها إذا قمت بتسجيل الدخول مرة أخرى.";
-"main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
 "main-menu-heading-legal" = "الشروط والخصوصية";
 "main-menu-nearby" = "بالقرب من هنا";

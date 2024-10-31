@@ -102,6 +102,7 @@
 "account-creation-title" = "Vytvořit uživatelský účet";
 "account-group-title" = "Váš účet";
 "account-request-vanishing" = "Nechat zmizet účet";
+"account-talk-page-title" = "Vaše diskusní stránka";
 "account-talk-preferences-auto-sign-discussions" = "Automaticky podepisovat příspěvky v diskusích";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Automatické podpisování příspěvků v diskusích bude používat podpis definovaný v Nastavení podpisu";
 "account-talk-preferences-title" = "Nastavení diskusí";
@@ -183,6 +184,7 @@
 "data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
 "description-edit-for-article" = "Popis článku pro článek $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
 "description-edit-pencil-title" = "Editovat popis článku";
@@ -214,11 +216,9 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Od";
+"diff-compare-header-from-info-heading" = "Předchozí editace";
 "diff-compare-header-heading" = "Porovnat revize";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Do";
+"diff-compare-header-to-info-heading" = "Zobrazená editace";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
 "diff-context-lines-expanded-button-title" = "Skrýt";
@@ -492,7 +492,6 @@
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
-"main-menu-account-logout-cancel" = "Storno";
 "main-menu-account-title-logged-in" = "{{GENDER:$1|Jste přihlášen|Jste přihlášena}} účtem $1";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";
 "main-menu-nearby" = "Poblíž";

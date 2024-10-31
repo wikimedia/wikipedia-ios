@@ -15,6 +15,7 @@
 // Author: Dirruw'o
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
+// Author: Firapinch
 // Author: Happy13241
 // Author: Helpau
 // Author: Iluvatar
@@ -135,6 +136,7 @@
 "account-creation-title" = "Создайте новую учётную запись";
 "account-group-title" = "Ваша учётная запись";
 "account-request-vanishing" = "Удалить учётную запись";
+"account-talk-page-title" = "Ваша страница обсуждения";
 "account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В автоматическом подписывании обсуждений будет использовать та подпись, которая установлена в Настройках";
 "account-talk-preferences-title" = "Настройки страницы обсуждения";
@@ -235,6 +237,8 @@
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
+"confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
+"confirm-donation-history-deletion-title" = "Подтвердите удаление";
 "continue-button-title" = "Продолжить";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
@@ -243,6 +247,7 @@
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
 "description-edit-for-article" = "Описание статьи для $1";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Изменяя описание статьи, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
 "description-edit-pencil-introduction" = "Редактировать введение";
 "description-edit-pencil-title" = "Редактировать описание статьи";
@@ -691,7 +696,6 @@
 "main-menu-account-logout" = "Выйти";
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-are-you-sure-message" = "При выходе из системы будут удалены локально сохранённые данные учётной записи (уведомления и сообщения), но данные вашей учётной записи по-прежнему будут доступны в Интернете и будут загружены при повторном входе в систему.";
-"main-menu-account-logout-cancel" = "Отмена";
 "main-menu-account-title-logged-in" = "Вход выполнен как $1";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
 "main-menu-nearby" = "Поблизости";
@@ -924,13 +928,8 @@
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
-"profile-page-donate" = "Пожертвовать";
-"profile-page-logout" = "Выйти";
-"profile-page-notification-title" = "Уведомления";
-"profile-page-settings" = "Настройки";
-"profile-page-talk-page-title" = "Страница обсуждения";
-"profile-page-user-page-title" = "Страница участника";
-"profile-page-watchlist-title" = "Список наблюдения";
+"profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
+"profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
@@ -1127,6 +1126,9 @@
 "sort-by-recently-added-action" = "Недавно добавленный";
 "sort-by-title-action" = "Заголовок";
 "suggested-edits-title" = "Предложенные правки";
+"survey-instructions" = "Выберите один или несколько вариантов";
+"survey-submit" = "Отправить";
+"survey-title" = "Причина";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
@@ -1328,3 +1330,16 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 млн статей";
+"year-in-review-2024-Wikipedia-num-edits" = "460,300 правок";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 правки в минуту";
+"year-in-review-2024-Wikipedia-num-languages" = "332 активных языка";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 миллиарда раз";
+"year-in-review-base-edits-title" = "Википедия была отредактирована $1";
+"year-in-review-donate" = "Пожертвовать";
+"year-in-review-done" = "Готово";
+"year-in-review-next" = "Далее";
+"year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
+"year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
+"year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
+"year-in-review-share" = "Поделиться";

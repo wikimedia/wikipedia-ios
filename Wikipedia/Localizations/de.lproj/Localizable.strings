@@ -1,7 +1,6 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
 // Author: 1233qwer1234qwer4
-// Author: Amire80
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
@@ -104,6 +103,7 @@
 "account-creation-title" = "Ein neues Benutzerkonto erstellen";
 "account-group-title" = "Dein Benutzerkonto";
 "account-request-vanishing" = "Konto auflösen";
+"account-talk-page-title" = "Deine Benutzerdiskussionsseite";
 "account-talk-preferences-auto-sign-discussions" = "Beiträge automatisch signieren";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Beim automatischen Signieren von Diskussionen wird die in den Signatur-Einstellungen definierte Signatur verwendet.";
 "account-talk-preferences-title" = "Diskussionsseiten Einstellungen";
@@ -541,7 +541,6 @@
 "main-menu-account-login" = "Anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-account-logout-are-you-sure" = "Bist du sicher, dass du dich abmelden möchtest?";
-"main-menu-account-logout-cancel" = "Abbrechen";
 "main-menu-account-title-logged-in" = "Angemeldet als $1";
 "main-menu-heading-legal" = "Datenschutz und Bedingungen";
 "main-menu-nearby" = "In der Nähe";

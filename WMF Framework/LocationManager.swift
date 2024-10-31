@@ -186,7 +186,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
         self.heading = heading
         delegate?.locationManager?(self, didUpdate: heading)
-        DDLogDebug("LocationManager - did update heading: \(heading).")
+        DDLogDebug("LocationManager - did update heading.")
     }
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
