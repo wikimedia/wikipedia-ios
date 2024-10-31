@@ -5,7 +5,7 @@ import WMFComponents
 
 extension ArticleViewController {
     
-    func showAnnouncementIfNeeded() {
+    func showFundraisingCampaignAnnouncementIfNeeded() {
         
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
@@ -127,21 +127,26 @@ extension ArticleViewController {
     }
 
     // TODO: remove after expiry date (1 March 2025)
-    func presentYearInReviewAnnouncement() {
-
+    func needsYearInReviewAnnouncement() -> Bool {
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
-            return
-        }
-
-        guard !willDisplayFundraisingBanner else {
-            return
+            return false
         }
 
         guard let yirDataController = try? WMFYearInReviewDataController() else {
-            return
+            return false
         }
 
         guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+            return false
+        }
+        
+        return navigationBar.superview != nil
+    }
+    
+    // TODO: remove after expiry date (1 March 2025)
+    func presentYearInReviewAnnouncement() {
+        
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 
@@ -151,11 +156,8 @@ extension ArticleViewController {
         let image = UIImage(named: "wikipedia-globe")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
-            guard let self,
-                  let navController = self.navigationController
-            else { return }
-            yirCoordinator = YearInReviewCoordinator(navigationController: navController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            yirCoordinator?.start()
+            guard let self else { return }
+            self.yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
         }, closeButtonAction: {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()

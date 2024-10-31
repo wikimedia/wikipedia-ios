@@ -38,7 +38,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.count
+        if currentSlide == slides.count - 1 {
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
+        } else {
+            currentSlide = (currentSlide + 1) % slides.count
+        }
     }
 
     public struct LocalizedStrings {
@@ -79,6 +83,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let view = WMFYearInReviewShareableSlideView(slide: slide, slideImage: slides[slide].imageName, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, username: getFomattedUsername())
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
+    }
+    
+    func handleDone() {
+        let isLastSlide = currentSlide == slides.count - 1
+        coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: isLastSlide))
+    }
+    
+    func handleDonate(sourceRect: CGRect) {
+        let isLastSlide = currentSlide == slides.count - 1
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID, isLastSlide: isLastSlide))
     }
     
     func logYearInReviewSlideDidAppear() {

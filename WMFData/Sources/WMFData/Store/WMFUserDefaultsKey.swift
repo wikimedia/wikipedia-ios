@@ -11,4 +11,5 @@ enum WMFUserDefaultsKey: String {
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewEnabled = "year-in-review-enabled"
     case yearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"
+    case yearInReviewSurveyPresented = "year-in-review-survey-presented"
 }
