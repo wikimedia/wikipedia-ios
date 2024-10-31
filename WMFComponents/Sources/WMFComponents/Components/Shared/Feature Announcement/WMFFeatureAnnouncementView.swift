@@ -67,7 +67,8 @@ struct WMFFeatureAnnouncementView: View {
                         }
                         WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
-                    .padding(32)
+                    .padding([.leading, .trailing], 32)
+                    .padding(.top, 20)
                 }
             }
         }
