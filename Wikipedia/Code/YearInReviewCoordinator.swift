@@ -6,6 +6,7 @@ import WMFData
 
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
+    
     let theme: Theme
     let dataStore: MWKDataStore
 
@@ -14,6 +15,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    private(set) var needsSurveyPresentation = false
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -26,7 +28,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     let collectiveNumEditsPerMinuteText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute", value: "342 edits per minute", comment: "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
 
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
+    @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
@@ -207,11 +209,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let hashtag = "#WikipediaYearInReview"
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
 
-        var yirview = WMFYearInReviewView(viewModel: viewModel)
-
-        yirview.donePressed = { [weak self] in
-            self?.navigationController.dismiss(animated: true, completion: nil)
-        }
+        let yirview = WMFYearInReviewView(viewModel: viewModel)
 
         self.viewModel = viewModel
         let finalView = yirview.environmentObject(targetRects)
@@ -227,7 +225,64 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         navigationController.present(hostingController, animated: true, completion: nil)
     }
+    
+    func presentSurveyIfNeeded() {
+        guard needsSurveyPresentation else {
+            return
+        }
+        
+        if !self.dataController.hasPresentedYiRSurvey {
+            let surveyVC = surveyViewController()
+            navigationController.present(surveyVC, animated: true)
+            self.dataController.hasPresentedYiRSurvey = true
+        }
+        
+        self.needsSurveyPresentation = false
+    }
 
+    private func surveyViewController() -> UIViewController {
+        let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let subtitle = WMFLocalizedString("year-in-review-survey-subtitle", value: "Help improve the Wikipedia Year in Review. Are you satisfied with this feature? What would like to see next year?", comment: "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let additionalThoughts = WMFLocalizedString("year-in-review-survey-additional-thoughts", value: "Any additional thoughts?", comment: "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        
+        let verySatisfied = WMFLocalizedString("year-in-review-survey-very-satisfied", value: "Very satisfied", comment: "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let satisfied = WMFLocalizedString("year-in-review-survey-satisfied", value: "Satisfied", comment: "Year in review survey option 2 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let neutral = WMFLocalizedString("year-in-review-survey-neutral", value: "Neutral", comment: "Year in review survey option 3 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let unsatisfied = WMFLocalizedString("year-in-review-survey-unsatisfied", value: "Unsatisfied", comment: "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        let veryUnsatisfied = WMFLocalizedString("year-in-review-survey-very-unsatisfied", value: "Very unsatisfied", comment: "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.")
+        
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: title,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: subtitle,
+            instructions: nil,
+            otherPlaceholder: additionalThoughts
+        )
+        
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "very_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
+            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "very_unsatisfied")
+        ]
+        
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
+            cancelAction: { [weak self] in
+            self?.navigationController.dismiss(animated: true)
+        },
+            submitAction: { [weak self] options, otherText in
+            print("TODO: Send answer to DonateFunnel")
+            self?.navigationController.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
+        })
+
+        let hostedView = WMFComponentHostingController(rootView: surveyView)
+        return hostedView
+    }
 }
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
@@ -262,18 +317,29 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID):
+        case .donate(let rect, let slideLoggingID, let isLastSlide):
             
             if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
                 DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
             }
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme) { loading in
-                guard let viewModel = self.viewModel else { return }
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, setLoadingBlock: {  [weak self] loading in
+                guard let self,
+                      let viewModel = self.viewModel else {
+                    return
+                }
+                
                 viewModel.isLoading = loading
-            }
+            }, dismissalBlock: { [weak self] in
+                if isLastSlide {
+                    self?.needsSurveyPresentation = true
+                }
+            })
+            
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
+            
+            
         case .share(let image):
 
             guard let viewModel else { return }
@@ -294,6 +360,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
+        case .dismiss(let isLastSlide):
+            navigationController.dismiss(animated: true, completion: { [weak self] in
+                guard let self else { return }
+                
+                guard isLastSlide else { return }
+                
+                self.needsSurveyPresentation = true
+                self.presentSurveyIfNeeded()
+            })
         }
     }
 }

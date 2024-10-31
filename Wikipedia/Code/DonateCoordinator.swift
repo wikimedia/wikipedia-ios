@@ -32,7 +32,13 @@ class DonateCoordinator: Coordinator {
     var navigationController: UINavigationController
     private let donateButtonGlobalRect: CGRect
     private let source: Source
+    
+    // Code to run when we are fetching donate configs. Typically this changes some donate button into a spinner.
     private let setLoadingBlock: (Bool) -> Void
+    
+    /// Code to run after navigation controller dismisses any modals it's currently presenting, but before it pushes on the donate (native or web view) form
+    private var dismissalBlock: (() -> Void)?
+    
     private let dataStore: MWKDataStore
     private let theme: Theme
     
@@ -87,13 +93,14 @@ class DonateCoordinator: Coordinator {
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, setLoadingBlock: @escaping (Bool) -> Void) {
+    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, setLoadingBlock: @escaping (Bool) -> Void, dismissalBlock: (() -> Void)? = nil) {
         self.navigationController = navigationController
         self.donateButtonGlobalRect = donateButtonGlobalRect
         self.source = source
         self.dataStore = dataStore
         self.theme = theme
         self.setLoadingBlock = setLoadingBlock
+        self.dismissalBlock = dismissalBlock
     }
     
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
@@ -136,6 +143,7 @@ class DonateCoordinator: Coordinator {
                 guard let donateViewModel = self.nativeDonateFormViewModel(countryCode: countryCode) else {
                     
                     self.navigationController.dismiss(animated: true, completion: { [weak self] in
+                        self?.dismissalBlock?()
                         self?.pushToOtherPaymentMethod()
                     })
                     
@@ -212,6 +220,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
+                self.dismissalBlock?()
                 self.pushToNativeDonateForm(donateViewModel: donateViewModel)
             })
         })
@@ -240,6 +249,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
             }
             self.navigationController.dismiss(animated: true, completion: {
+                self.dismissalBlock?()
                 self.pushToOtherPaymentMethod()
             })
         }))

@@ -6,13 +6,12 @@ public final class WMFSurveyViewModel {
 		let title: String
 		let cancel: String
 		let submit: String
-
 		let subtitle: String
-		let instructions: String
+		let instructions: String?
 
 		let otherPlaceholder: String
 
-        public init(title: String, cancel: String, submit: String, subtitle: String, instructions: String, otherPlaceholder: String) {
+        public init(title: String, cancel: String, submit: String, subtitle: String, instructions: String?, otherPlaceholder: String) {
 			self.title = title
 			self.cancel = cancel
 			self.submit = submit
@@ -40,13 +39,20 @@ public final class WMFSurveyViewModel {
             self.apiIdentifer = apiIdentifer
         }
     }
+    
+    public enum SelectionType {
+        case multi
+        case single
+    }
 
 	let localizedStrings: LocalizedStrings
     let options: [OptionViewModel]
+    let selectionType: SelectionType
 
-    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel]) {
+    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel], selectionType: SelectionType) {
 		self.localizedStrings = localizedStrings
         self.options = options
+        self.selectionType = selectionType
 	}
 
 }

@@ -52,8 +52,25 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
-    private var profileCoordinator: ProfileCoordinator?
-    internal var yirCoordinator: YearInReviewCoordinator?
+    private lazy var profileCoordinator: ProfileCoordinator? = {
+        
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+        
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+    }()
+    
+    lazy var yirCoordinator: YearInReviewCoordinator? = {
+        
+        guard let navigationController,
+              let dataController = try? WMFYearInReviewDataController() else {
+            return nil
+        }
+        
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+    }()
 
     var session: Session {
         return dataStore.session
@@ -429,41 +446,44 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
         
         if altTextExperimentViewModel == nil {
             setupWButton()
             setupSearchAndProfileButtons()
         }
 
+        presentModalsIfNeeded()
+    }
+    
+    
+    /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    private func presentModalsIfNeeded() {
+
+        // Alt-Text half-sheet modal presentations
         if isReturningFromFAQ {
             isReturningFromFAQ = false
             needsAltTextExperimentSheet = true
             presentAltTextModalSheet()
-        }
-
-        if didTapPreview {
+        } else if didTapPreview {
             presentAltTextModalSheet()
             didTapPreview = false
-        }
-        
-        if didTapAltTextFileName {
+        } else if didTapAltTextFileName {
             presentAltTextModalSheet()
             didTapAltTextFileName = false
-        }
-        
-        if didTapAltTextGalleryInfoButton {
+        } else if didTapAltTextGalleryInfoButton {
             presentAltTextModalSheet()
             didTapAltTextGalleryInfoButton = false
+        
+        // Year in Review modal presentations
+        } else if needsYearInReviewAnnouncement() {
+            presentYearInReviewAnnouncement()
+        } else if yirCoordinator?.needsSurveyPresentation ?? false {
+            yirCoordinator?.presentSurveyIfNeeded()
+        
+        // Campaign modal presentations
+        } else {
+            showFundraisingCampaignAnnouncementIfNeeded()
         }
-
-        guard isFirstAppearance else {
-            return
-        }
-        showAnnouncementIfNeeded()
-        presentYearInReviewAnnouncement()
-        isFirstAppearance = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -1336,14 +1356,12 @@ private extension ArticleViewController {
     }
     
     @objc func userDidTapProfile() {
-        guard let navigationController, let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
         let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
         let project else { return }
         
         DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
-        let coordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article)
-        self.profileCoordinator = coordinator
-        coordinator.start()
+        profileCoordinator?.start()
     }
     
     func setupMessagingController() {
