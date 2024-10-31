@@ -532,6 +532,8 @@
 "notifications-center-go-to-wikidata-item" = "Položka Wikidat";
 "notifications-center-mark" = "Označit";
 "notifications-center-mark-all-as-read" = "Označit vše jako přečtené";
+"notifications-center-mark-as-read" = "Označit jako přečtené";
+"notifications-center-mark-as-unread" = "Označit jako nepřečtené";
 "notifications-center-more-action-accessibility-label" = "Více";
 "notifications-center-onboarding-modal-continue-action" = "Pokračovat";
 "notifications-center-onboarding-modal-learn-more-action" = "Další informace o upozorněních";
@@ -558,6 +560,8 @@
 "notifications-center-subheader-page-link" = "Odkaz na stránku";
 "notifications-center-subheader-page-reviewed" = "Stránka zkontrolována";
 "notifications-center-subheader-welcome" = "Vítejte!";
+"notifications-center-swipe-mark-as-read" = "Označit jako přečtené";
+"notifications-center-swipe-mark-as-unread" = "Označit jako nepřečtené";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tis.";

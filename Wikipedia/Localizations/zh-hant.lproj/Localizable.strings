@@ -1462,6 +1462,7 @@
 "year-in-review-personalized-reading-subtitle-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目。今年在維基百科上有 $2可用，超過 $3。您與數百萬人一起擴展知識，並探索不同的主題。";
 "year-in-review-personalized-reading-title- format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
 "year-in-review-share" = "分享";
+"year-in-review-share-text" = "這是我使用維基百科 iOS 應用程式建立的維基百科年度回顧。";
 "year-in-review-subtitle" = "查看您在維基百科應用程式上閱讀過的條目，以及您所做過編輯的見解。分享您的旅程，並發現今年對您來說最特別的事情。您的閱讀歷史紀錄會受到保護，閱讀見解是使用在您裝置上本地儲存的資料計算的，。";
 "year-in-review-title" = "探索您的維基百科年度回顧";
 "yir-feature-announcement-body" = "查看有關您在維基百科應用程式上閱讀條目的見解，分享您的旅程，並發現您這一年的精彩事項。";
