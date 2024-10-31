@@ -114,13 +114,17 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
     public let imageName: String
+    public let imageOverlay: String?
+    public let textOverlay: String?
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
     public let loggingID: String
     
-    public init(imageName: String, title: String, informationBubbleText: String?, subtitle: String, loggingID: String) {
+    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String) {
         self.imageName = imageName
+        self.imageOverlay = imageOverlay
+        self.textOverlay = textOverlay
         self.title = title
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
