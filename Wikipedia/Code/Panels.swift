@@ -561,16 +561,7 @@ extension UIViewController {
     func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
 
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
-            if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {
-                announcementVC.isLoading = true
-                let dataController = WMFDonateDataController.shared
-                dataController.fetchConfigs(for: asset.countryCode) { result in
-                    DispatchQueue.main.async {
-                        announcementVC.isLoading = false
-                        primaryButtonTapHandler?(button, viewController)
-                    }
-                }
-            }
+            primaryButtonTapHandler?(button, viewController)
         }, secondaryButtonTapHandler: { button, viewController in
             secondaryButtonTapHandler?(button, viewController)
             self.dismiss(animated: true)
@@ -731,7 +722,7 @@ extension UIViewController {
         let dataStore = MWKDataStore.shared()
         let presenter = self.presentedViewController ?? self
         guard !isAlreadyPresenting(presenter),
-              dataStore.authenticationManager.isLoggedIn,
+              dataStore.authenticationManager.authStateIsPermanent,
               dataStore.readingListsController.isSyncRemotelyEnabled,
               !dataStore.readingListsController.isSyncEnabled else {
             didNotPresentPanelCompletion?()
@@ -922,7 +913,7 @@ extension UIViewController {
         // SINGLETONTODO
         let dataStore = MWKDataStore.shared()
         guard
-            !dataStore.authenticationManager.isLoggedIn &&
+            !dataStore.authenticationManager.authStateIsPermanent &&
             !UserDefaults.standard.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !dataStore.readingListsController.isSyncEnabled
         else {

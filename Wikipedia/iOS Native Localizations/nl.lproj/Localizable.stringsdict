@@ -231,7 +231,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d sectie</string>
+			<string>Eén sectie</string>
 			<key>other</key>
 			<string>%1$d secties</string>
 		</dict>

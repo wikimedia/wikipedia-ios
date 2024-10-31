@@ -161,6 +161,16 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
             }
         }
+        
+        // Fixes https://phabricator.wikimedia.org/T375445 caused by iPadOS18 floating tab bar
+        if #available(iOS 18, *) {
+            guard UIDevice.current.userInterfaceIdiom == .pad else {
+                return
+            }
+            
+            navigationController?.view.setNeedsLayout()
+            navigationController?.view.layoutIfNeeded()
+        }
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -214,17 +224,17 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             return false
         }
 
-        let isLoggedIn = viewModel.isLoggedIn
+        let isPermanent = viewModel.isPermanent
 
         do {
-            try dataController.assignImageRecsExperiment(isLoggedIn: isLoggedIn, project: viewModel.project)
+            try dataController.assignImageRecsExperiment(isPermanent: isPermanent, project: viewModel.project)
             loggingDelegate?.logAltTextExperimentDidAssignGroup()
         } catch let error {
             debugPrint(error)
             return false
         }
 
-        if dataController.shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: isLoggedIn, project: viewModel.project) {
+        if dataController.shouldEnterAltTextImageRecommendationsFlow(isPermanent: isPermanent, project: viewModel.project) {
             return true
         }
 

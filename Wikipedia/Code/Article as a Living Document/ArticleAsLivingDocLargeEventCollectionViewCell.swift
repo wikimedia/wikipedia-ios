@@ -40,8 +40,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     
     private var collectionViewHeight: CGFloat = 0
 
-    private var isLoggedIn: Bool {
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+    private var isPermanent: Bool {
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
     
     override func setup() {
@@ -222,8 +222,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             switch largeEvent.buttonsToDisplay {
             case .thankAndViewChanges:
                 thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.cardButtonSelectedBackground : theme.colors.cardButtonBackground
-                thankButton.setTitleColor(!isLoggedIn ? theme.colors.disabledLink : theme.colors.link, for: .normal)
-                thankButton.tintColor = (!isLoggedIn ? theme.colors.disabledLink : theme.colors.link)
+                thankButton.setTitleColor(!isPermanent ? theme.colors.disabledLink : theme.colors.link, for: .normal)
+                thankButton.tintColor = (!isPermanent ? theme.colors.disabledLink : theme.colors.link)
 
                 viewChangesButton.backgroundColor = theme.colors.cardButtonBackground
                 viewChangesButton.setTitleColor(theme.colors.link, for: .normal)

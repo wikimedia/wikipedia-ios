@@ -1,6 +1,7 @@
-import WMFComponents
 import WMF
+import SwiftUI
 import CocoaLumberjackSwift
+import WMFComponents
 import WMFData
 
 protocol AltTextDelegate: AnyObject {
@@ -47,7 +48,30 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
+
+    internal var willDisplayFundraisingBanner: Bool = false
+
+    // Coordinator
+    private lazy var profileCoordinator: ProfileCoordinator? = {
+        
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+        
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+    }()
     
+    lazy var yirCoordinator: YearInReviewCoordinator? = {
+        
+        guard let navigationController,
+              let dataController = try? WMFYearInReviewDataController() else {
+            return nil
+        }
+        
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+    }()
+
     var session: Session {
         return dataStore.session
     }
@@ -119,6 +143,9 @@ class ArticleViewController: ViewController, HintPresenting {
     var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
     var altTextGuidancePresenter: AltTextGuidancePresenter?
     private weak var altTextBottomSheetViewController: WMFAltTextExperimentModalSheetViewController?
+    
+    // Coordinator used to navigate a user to the donate form from campaign modal
+    var donateCoordinator: DonateCoordinator?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -136,7 +163,7 @@ class ArticleViewController: ViewController, HintPresenting {
         let cacheController = dataStore.cacheController.articleCache
 
         self.articleURL = articleURL
-        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.languageCode ?? "en"
+        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.language.languageCode?.identifier ?? "en"
         self.article = article
         
         self.dataStore = dataStore
@@ -198,6 +225,24 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override var inputAccessoryView: UIView? {
         return findInPage.view
+    }
+    
+    override func buildMenu(with builder: any UIMenuBuilder) {
+        
+        let shareMenuItemTitle = CommonStrings.shareMenuTitle
+        let shareAction = UIAction(title: shareMenuItemTitle) { [weak self] _ in
+            self?.shareMenuItemTapped()
+        }
+        let editMenuItemTitle = CommonStrings.editContextMenuTitle
+        let editAction = UIAction(title: editMenuItemTitle) { [weak self]  _ in
+            self?.editMenuItemTapped()
+        }
+        
+        builder.remove(menu: .share)
+        let menu = UIMenu(title: String(), image: nil, identifier: nil, options: .displayInline, children: [shareAction, editAction])
+        builder.insertSibling(menu, afterMenu: .standardEdit)
+        
+        super.buildMenu(with: builder)
     }
     
     // MARK: Lead Image
@@ -396,43 +441,49 @@ class ArticleViewController: ViewController, HintPresenting {
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        setupSearchAndProfileButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
         
         if altTextExperimentViewModel == nil {
             setupWButton()
+            setupSearchAndProfileButtons()
         }
 
+        presentModalsIfNeeded()
+    }
+    
+    
+    /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    private func presentModalsIfNeeded() {
+
+        // Alt-Text half-sheet modal presentations
         if isReturningFromFAQ {
             isReturningFromFAQ = false
             needsAltTextExperimentSheet = true
             presentAltTextModalSheet()
-        }
-
-        if didTapPreview {
+        } else if didTapPreview {
             presentAltTextModalSheet()
             didTapPreview = false
-        }
-        
-        if didTapAltTextFileName {
+        } else if didTapAltTextFileName {
             presentAltTextModalSheet()
             didTapAltTextFileName = false
-        }
-        
-        if didTapAltTextGalleryInfoButton {
+        } else if didTapAltTextGalleryInfoButton {
             presentAltTextModalSheet()
             didTapAltTextGalleryInfoButton = false
+        
+        // Year in Review modal presentations
+        } else if needsYearInReviewAnnouncement() {
+            presentYearInReviewAnnouncement()
+        } else if yirCoordinator?.needsSurveyPresentation ?? false {
+            yirCoordinator?.presentSurveyIfNeeded()
+        
+        // Campaign modal presentations
+        } else {
+            showFundraisingCampaignAnnouncementIfNeeded()
         }
-
-        guard isFirstAppearance else {
-            return
-        }
-        showAnnouncementIfNeeded()
-        isFirstAppearance = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -620,7 +671,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     private func imageDidSuccessfullyLoad() {
-        guard let altTextExperimentViewModel else {
+        guard altTextExperimentViewModel != nil else {
             return
         }
         
@@ -656,7 +707,6 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
-                self.updateMenuItems()
             }
             guard let article = article else {
                 return
@@ -736,15 +786,38 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
+    func persistPageViewsForWikipediaInReview() {
+        if let title = self.articleURL.wmf_title,
+           let namespace = self.articleURL.namespace,
+           let siteURL = self.articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL),
+           let wmfProject = project.wmfProject {
+            Task {
+                do {
+                    let pageViewsDataController = try WMFPageViewsDataController()
+                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                } catch let error {
+                    DDLogError("Error saving viewed page: \(error)")
+                }
+            }
+        }
+    }
+    
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
         guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
             return
         }
+        
         significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
-            self?.article.wasSignificantlyViewed = true
-            self?.stopSignificantlyViewedTimer()
+            
+            guard let self else {
+                return
+            }
+            
+            self.article.wasSignificantlyViewed = true
+            self.stopSignificantlyViewedTimer()
         })
     }
     
@@ -901,6 +974,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        setupSearchAndProfileButtons()
         guard viewIfLoaded != nil else {
             return
         }
@@ -1158,11 +1232,13 @@ private extension ArticleViewController {
                 )
             navigationItem.rightBarButtonItem = rightBarButtonItem
             rightBarButtonItem.tintColor = theme.colors.link
+            // add accessibility attrubutes
+            rightBarButtonItem.accessibilityTraits = .button
 
             self.navigationBar.updateNavigationItems()
         } else {
             setupWButton()
-            setupSearchButton()
+            setupSearchAndProfileButtons()
         }
         
         addNotificationHandlers()
@@ -1263,8 +1339,29 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchButton() {
-        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    func setupSearchAndProfileButtons() {
+        let hasUnreadNotifications: Bool
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func userDidTapProfile() {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
+        let project else { return }
+        
+        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
+        profileCoordinator?.start()
     }
     
     func setupMessagingController() {
@@ -1325,17 +1422,9 @@ private extension ArticleViewController {
         }
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
-        authManager.getLoggedInUser(for: siteURL) { (result) in
-            assert(Thread.isMainThread)
-            switch result {
-            case .success(let user):
-                self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
-            case .failure:
-                DDLogError("Error getting userinfo for \(siteURL)")
-                self.setupPageContentServiceJavaScriptInterface(with: [])
-            }
-            completion()
-        }
+        let user = authManager.permanentUser(siteURL: siteURL)
+        setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
+        completion()
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
@@ -1354,7 +1443,7 @@ private extension ArticleViewController {
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         guard let widgetFeaturedArticleURLString = cache.featuredContent?.featuredArticle?.contentURL.desktop.page,
@@ -1616,6 +1705,16 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
     func didFocusTextView() {
         if let project = project {
             EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
+        }
+    }
+}
+
+// LogoutCoordinatorDelegate
+
+extension ArticleViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
     }
 }

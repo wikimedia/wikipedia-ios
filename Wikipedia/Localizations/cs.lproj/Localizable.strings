@@ -216,11 +216,9 @@
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "Od";
+"diff-compare-header-from-info-heading" = "Předchozí editace";
 "diff-compare-header-heading" = "Porovnat revize";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "Do";
+"diff-compare-header-to-info-heading" = "Zobrazená editace";
 "diff-compare-title" = "Porovnat revize";
 "diff-context-lines-collapsed-button-title" = "Zobrazit";
 "diff-context-lines-expanded-button-title" = "Skrýt";
@@ -494,7 +492,6 @@
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
-"main-menu-account-logout-cancel" = "Storno";
 "main-menu-account-title-logged-in" = "{{GENDER:$1|Jste přihlášen|Jste přihlášena}} účtem $1";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";
 "main-menu-nearby" = "Poblíž";
@@ -535,6 +532,8 @@
 "notifications-center-go-to-wikidata-item" = "Položka Wikidat";
 "notifications-center-mark" = "Označit";
 "notifications-center-mark-all-as-read" = "Označit vše jako přečtené";
+"notifications-center-mark-as-read" = "Označit jako přečtené";
+"notifications-center-mark-as-unread" = "Označit jako nepřečtené";
 "notifications-center-more-action-accessibility-label" = "Více";
 "notifications-center-onboarding-modal-continue-action" = "Pokračovat";
 "notifications-center-onboarding-modal-learn-more-action" = "Další informace o upozorněních";
@@ -561,6 +560,8 @@
 "notifications-center-subheader-page-link" = "Odkaz na stránku";
 "notifications-center-subheader-page-reviewed" = "Stránka zkontrolována";
 "notifications-center-subheader-welcome" = "Vítejte!";
+"notifications-center-swipe-mark-as-read" = "Označit jako přečtené";
+"notifications-center-swipe-mark-as-unread" = "Označit jako nepřečtené";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tis.";

@@ -15,7 +15,7 @@ public final class WMFAppEnvironment: ObservableObject {
 
 	// MARK: - Update
 
-	public func set(theme newTheme: WMFTheme? = nil, articleAndEditorTextSize newArticleAndEditorTextSize: UIContentSizeCategory? = nil,  traitCollection newTraitCollection: UITraitCollection? = nil) {
+	public func set(theme newTheme: WMFTheme? = nil, articleAndEditorTextSize newArticleAndEditorTextSize: UIContentSizeCategory? = nil, traitCollection newTraitCollection: UITraitCollection? = nil) {
 		theme = newTheme ?? theme
         articleAndEditorTextSize = newArticleAndEditorTextSize ?? articleAndEditorTextSize
 		traitCollection = newTraitCollection ?? traitCollection

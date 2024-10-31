@@ -186,7 +186,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
@@ -208,7 +208,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
@@ -229,7 +229,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping(Result<Void, Error>) -> Void) {
+    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Void, Error>) -> Void) {
         if let error = error {
             completion(.failure(error))
             return

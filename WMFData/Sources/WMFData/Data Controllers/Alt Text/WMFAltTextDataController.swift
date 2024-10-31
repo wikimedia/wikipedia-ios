@@ -17,13 +17,13 @@ public final class WMFAltTextDataController {
     public lazy var experimentStopDate: Date? = {
         var dateComponents = DateComponents()
         dateComponents.year = 2024
-        dateComponents.month = 10
-        dateComponents.day = 21
+        dateComponents.month = 11
+        dateComponents.day = 5
         return Calendar.current.date(from: dateComponents)
     }()
     
     public enum WMFAltTextDataControllerError: Error {
-        case notLoggedIn
+        case notPermanent
         case invalidProject
         case invalidDeviceOrOS
         case invalidDate
@@ -35,10 +35,8 @@ public final class WMFAltTextDataController {
     private let experimentsDataController: WMFExperimentsDataController
     private let developerSettingsDataController: WMFDeveloperSettingsDataController
     private let userDefaultsStore: WMFKeyValueStore
-    private var experimentPercentage: Int {
-        developerSettingsDataController.alwaysShowAltTextEntryPoint ? 100 : 50
-    }
-    
+    private var experimentPercentage: Int = 100
+
     // MARK: - Public
     
     public init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
@@ -53,10 +51,10 @@ public final class WMFAltTextDataController {
         self.userDefaultsStore = userDefaultsStore
     }
     
-    public func assignImageRecsExperiment(isLoggedIn: Bool, project: WMFProject) throws {
+    public func assignImageRecsExperiment(isPermanent: Bool, project: WMFProject) throws {
         
-        guard isLoggedIn else {
-            throw WMFAltTextDataControllerError.notLoggedIn
+        guard isPermanent else {
+            throw WMFAltTextDataControllerError.notPermanent
         }
         
         guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
@@ -95,10 +93,10 @@ public final class WMFAltTextDataController {
         
     }
     
-    public func assignArticleEditorExperiment(isLoggedIn: Bool, project: WMFProject) throws {
+    public func assignArticleEditorExperiment(isPermanent: Bool, project: WMFProject) throws {
         
-        guard isLoggedIn else {
-            throw WMFAltTextDataControllerError.notLoggedIn
+        guard isPermanent else {
+            throw WMFAltTextDataControllerError.notPermanent
         }
         
         guard project.qualifiesForAltTextExperiments(developerSettingsDataController: developerSettingsDataController) else {
@@ -141,7 +139,7 @@ public final class WMFAltTextDataController {
         self.sawAltTextImageRecommendationsPrompt = true
     }
     
-    public func shouldEnterAltTextImageRecommendationsFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
+    public func shouldEnterAltTextImageRecommendationsFlow(isPermanent: Bool, project: WMFProject) -> Bool {
         
         if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
             guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
@@ -149,7 +147,7 @@ public final class WMFAltTextDataController {
             }
         }
         
-        guard isLoggedIn else {
+        guard isPermanent else {
             return false
         }
         
@@ -182,7 +180,7 @@ public final class WMFAltTextDataController {
         self.sawAltTextArticleEditorPrompt = true
     }
     
-    public func shouldFetchFullArticleWikitextFromArticleEditor(isLoggedIn: Bool, project: WMFProject) -> Bool {
+    public func shouldFetchFullArticleWikitextFromArticleEditor(isPermanent: Bool, project: WMFProject) -> Bool {
 
         // haven't already seen the prompt elsewhere
         if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
@@ -191,8 +189,8 @@ public final class WMFAltTextDataController {
             }
         }
         
-        // is logged in
-        guard isLoggedIn else {
+        // is permanent
+        guard isPermanent else {
             return false
         }
         
@@ -221,7 +219,7 @@ public final class WMFAltTextDataController {
         return true
     }
     
-    public func shouldEnterAltTextArticleEditorFlow(isLoggedIn: Bool, project: WMFProject) -> Bool {
+    public func shouldEnterAltTextArticleEditorFlow(isPermanent: Bool, project: WMFProject) -> Bool {
 
         if !developerSettingsDataController.alwaysShowAltTextEntryPoint {
             guard sawAltTextImageRecommendationsPrompt == false && sawAltTextArticleEditorPrompt == false else {
@@ -229,7 +227,7 @@ public final class WMFAltTextDataController {
             }
         }
         
-        guard isLoggedIn else {
+        guard isPermanent else {
             return false
         }
         

@@ -1,13 +1,28 @@
-import WebKit
+@preconcurrency import WebKit
 import CocoaLumberjackSwift
 import WMF
 import WMFComponents
+import WMFData
 
 class SinglePageWebViewController: ViewController {
-    let url: URL
-    let campaignArticleURL: URL?
-    let campaignMetricsID: String?
     
+    final class WebViewDonateConfig {
+        weak var donateCoordinatorDelegate: DonateCoordinatorDelegate?
+        weak var donateLoggingDelegate: WMFDonateLoggingDelegate?
+        let donateCompleteButtonTitle: String
+        
+        internal init(donateCoordinatorDelegate: (any DonateCoordinatorDelegate)?, donateLoggingDelegate: (any WMFDonateLoggingDelegate)?, donateCompleteButtonTitle: String) {
+            self.donateCoordinatorDelegate = donateCoordinatorDelegate
+            self.donateLoggingDelegate = donateLoggingDelegate
+            self.donateCompleteButtonTitle = donateCompleteButtonTitle
+        }
+    }
+    
+    let url: URL
+    private let donateConfig: WebViewDonateConfig?
+
+    private let donateDataController = WMFDonateDataController()
+
     var doesUseSimpleNavigationBar: Bool {
         didSet {
             if doesUseSimpleNavigationBar {
@@ -16,27 +31,19 @@ class SinglePageWebViewController: ViewController {
             }
         }
     }
-    
-    var campaignProject: WikimediaProject? {
-        guard let campaignArticleURL else {
-            return nil
-        }
-        
-        return WikimediaProject(siteURL: campaignArticleURL)
-    }
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignMetricsID: String? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil) {
         self.url = url
-        self.campaignArticleURL = campaignArticleURL
-        self.campaignMetricsID = campaignMetricsID
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
+        self.donateConfig = donateConfig
         super.init()
         self.theme = theme
         
         self.navigationItem.backButtonTitle = url.lastPathComponent
         self.navigationItem.backButtonDisplayMode = .generic
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,24 +79,17 @@ class SinglePageWebViewController: ViewController {
         return fpc
     }()
 
-    private lazy var bottomView: UIView = {
+    private lazy var donationCompleteButtonContainer: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = self.theme.colors.paperBackground
         return contentView
     }()
 
-    private lazy var button: UIButton = {
+    private lazy var donationCompleteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Came from article
-        if campaignProject != nil {
-            button.setTitle(CommonStrings.returnToArticle, for: .normal)
-        } else {
-            button.setTitle(CommonStrings.returnButtonTitle, for: .normal)
-        }
-        
+        button.setTitle(donateConfig?.donateCompleteButtonTitle, for: .normal)
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
@@ -152,23 +152,23 @@ class SinglePageWebViewController: ViewController {
         super.viewDidAppear(animated)
         
         if url.isDonationURL {
-            DonateFunnel.shared.logDonateFormInAppWebViewImpression(project: campaignProject)
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
         }
     }
 
-    func setupBottomView() {
-        webView.addSubview(bottomView)
-        bottomView.addSubview(button)
+    func setupDonationCompleteView() {
+        webView.addSubview(donationCompleteButtonContainer)
+        donationCompleteButtonContainer.addSubview(donationCompleteButton)
 
-        let bottom = bottomView.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
-        let leading = bottomView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailing = bottomView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
-        let height = bottomView.heightAnchor.constraint(equalToConstant: 90)
+        let bottom = donationCompleteButtonContainer.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        let leading = donationCompleteButtonContainer.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailing = donationCompleteButtonContainer.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        let height = donationCompleteButtonContainer.heightAnchor.constraint(equalToConstant: 90)
 
-        let buttonTop = button.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 12)
-        let buttonLeading = button.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 12)
-        let buttonTrailing = button.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -12)
-        let buttonBottom = button.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -32)
+        let buttonTop = donationCompleteButton.topAnchor.constraint(equalTo: donationCompleteButtonContainer.topAnchor, constant: 12)
+        let buttonLeading = donationCompleteButton.leadingAnchor.constraint(equalTo: donationCompleteButtonContainer.leadingAnchor, constant: 12)
+        let buttonTrailing = donationCompleteButton.trailingAnchor.constraint(equalTo: donationCompleteButtonContainer.trailingAnchor, constant: -12)
+        let buttonBottom = donationCompleteButton.bottomAnchor.constraint(equalTo: donationCompleteButtonContainer.bottomAnchor, constant: -32)
 
         webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom])
     }
@@ -193,13 +193,69 @@ class SinglePageWebViewController: ViewController {
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
-            setupBottomView()
-            DonateFunnel.shared.logDonateFormInAppWebViewThankYouImpression(project: campaignProject, metricsID: campaignMetricsID)
+            let parsedDonationInfo = parseThankYouURL(actionURL)
+            saveDonationToLocalHistory(donationInfo: parsedDonationInfo, dataController: donateDataController)
+            setupDonationCompleteView()
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
         }
         
         return true
     }
-    
+
+    func parseThankYouURL(_ url: URL) -> DonationInfo? {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+
+        let queryItems = urlComponents.queryItems ?? []
+        let queryDict = Dictionary(uniqueKeysWithValues: queryItems.compactMap { item in
+            (item.name, item.value)
+        })
+
+        guard let amount = queryDict["amount"],
+              let country = queryDict["country"],
+              let currency = queryDict["currency"] else {
+            return nil
+        }
+
+        let isRecurring = queryDict["recurring"] == "true" || queryDict.keys.contains("recurring") && queryDict["recurring"] == nil
+
+        let donationInfo = DonationInfo(amount: amount, country: country, currency: currency, isRecurring: isRecurring)
+
+        return donationInfo
+    }
+
+    private func saveDonationToLocalHistory(donationInfo: DonationInfo?, dataController: WMFDonateDataController) {
+        guard let donationInfo,
+        let decimalAmount = Decimal(string: donationInfo.amount ?? String()),
+                let currency = donationInfo.currency else {
+            return
+        }
+        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = iso8601Format
+        let timestamp = dateFormatter.string(from: date)
+
+        let donationType: WMFDonateLocalHistory.DonationType = donationInfo.isRecurring ? .recurring : .oneTime
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: donationType,
+                                                         donationAmount: decimalAmount,
+                                                         currencyCode: currency,
+                                                         isNative: false,
+                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
+        )
+        dataController.saveLocalDonationHistory(donationHistoryEntry)
+    }
+
+    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
+        if let donations = dataController.loadLocalDonationHistory() {
+            return !donations.isEmpty
+        }
+        return false
+    }
+
     @objc func tappedAction(_ sender: UIBarButtonItem) {
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
         
@@ -217,28 +273,14 @@ class SinglePageWebViewController: ViewController {
     }
 
     @objc func didTapReturnButton() {
-        if let project = campaignProject {
-            DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: project)
-        } else {
-            DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton()
-        }
-        
-        navigationController?.popViewController(animated: true)
+        donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidTapReturn)
+        donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidTapReturn)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        let project = self.campaignProject
         if didReachThankyouPage {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
-                
-                if let project {
-                    DonateFunnel.shared.logArticleDidSeeApplePayDonateSuccessToast(project: project)
-                } else {
-                    DonateFunnel.shared.logSettingDidSeeApplePayDonateSuccessToast()
-                }
-            }
+            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidDisappear)
+            donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidDisappear)
         }
     }
 }
@@ -292,4 +334,12 @@ extension SinglePageWebViewController: WKUIDelegate {
         
         present(alertController, animated: true)
     }
+}
+
+
+struct DonationInfo {
+    let amount: String?
+    let country: String?
+    let currency: String?
+    let isRecurring: Bool
 }

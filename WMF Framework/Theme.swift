@@ -175,9 +175,9 @@ public class Colors: NSObject {
         case .sepia:
             return WMFColor.beige100
         case .dark:
-            return WMFColor.gray700
+            return WMFColor.gray650
         case .black:
-            return WMFColor.gray700
+            return WMFColor.gray650
         case .widgetLight, .widgetDark:
             return .clear
         }

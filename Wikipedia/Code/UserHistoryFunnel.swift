@@ -10,7 +10,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     @objc public static let shared = UserHistoryFunnel(dataStore: MWKDataStore.shared())
     
     private var isTarget: Bool {
-        guard let countryCode = Locale.current.regionCode?.uppercased() else {
+        guard let countryCode = Locale.current.region?.identifier.uppercased() else {
             return false
         }
         return targetCountries.contains(countryCode)
@@ -21,7 +21,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         self.dataStore = dataStore
     }
 
-    private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot")
+    private let sharedCache = SharedContainerCache.init(fileName: "User History Funnel Snapshot")
 
     public struct FeedEnabledList: Codable, Equatable {
         let featuredArticle: ItemLanguages?

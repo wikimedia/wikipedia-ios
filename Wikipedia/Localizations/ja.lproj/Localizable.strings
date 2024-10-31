@@ -159,6 +159,9 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
 "advanced-settings-title" = "高度な設定";
+"alt-text-add-button-title" = "追加";
+"alt-text-do-not-add-button-title" = "追加しない";
+"alt-text-email-fifth-line" = "[スクリーンショットまたはリンク]";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "探索フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -583,7 +586,6 @@
 "main-menu-account-logout" = "ログアウト";
 "main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-are-you-sure-message" = "ログアウトすると、ローカルに保存されているアカウントデータ (通知とメッセージ) が削除されますが、アカウントデータは引き続きウェブ上で利用でき、再ログイン時に再ダウンロードされます。";
-"main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
 "main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-nearby" = "付近";

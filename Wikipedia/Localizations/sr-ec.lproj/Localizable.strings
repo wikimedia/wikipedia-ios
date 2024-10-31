@@ -130,11 +130,13 @@
 "advanced-settings-title" = "Напредна подешавања";
 "alt-text-add-button-title" = "Додај";
 "alt-text-do-not-add-button-title" = "Не додај";
+"alt-text-email-fifth-line" = "[Снимци екрана или линкови]";
 "alt-text-email-fourth-line" = "- [Опишите могуће решење]";
 "alt-text-email-second-line" = "- [Опишите конкретан проблем]";
 "alt-text-email-third-line" = "Жељено понашање:";
 "alt-text-experiment-onboarding-item-1-title" = "Будите кратки и јасни";
 "alt-text-experiment-onboarding-item-2-title" = "Опишите шта се може видети";
+"alt-text-experiment-onboarding-item-4-title" = "Врста слике";
 "alt-text-experiment-onboarding-secondary-button-title" = "Види примере";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Додај опис";
 "alt-text-experiment-text-field-placholder" = "Опишите слику";
@@ -229,6 +231,7 @@
 "description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
+"developer-settings" = "Подешавања за програмере";
 "diff-article-revision-history" = "Историја чланка";
 "diff-compare-header-from-info-heading" = "Претходна измена";
 "diff-compare-header-heading" = "Упореди измене";
@@ -298,7 +301,7 @@
 "donate-success-subtitle" = "Ваша великодушност нам много значи.";
 "donate-success-title" = "Хвала вам!";
 "donate-title" = "Износ донације";
-"donate-transaction-fee-opt-in-text" = "Великодушно ћу додати $1 да покријем провизију за трансакцију тако да можете добити 100%% моје донације.";
+"donate-transaction-fee-opt-in-text" = "Платићу и провизију ($1), да би добили цео износ моје донације.";
 "donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
@@ -637,7 +640,6 @@
 "main-menu-account-logout" = "Одјави ме";
 "main-menu-account-logout-are-you-sure" = "Желите ли заиста да се одјавите?";
 "main-menu-account-logout-are-you-sure-message" = "Одјављивање ће обрисати ваше локално сачуване податке са налога (обавештења и поруке), али ће подаци вашег налога бити и даље доступни на интернету и бити поново преузети уколико се пријавите поново.";
-"main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Пријављени сте као $1";
 "main-menu-heading-legal" = "Приватност и услови";
 "main-menu-nearby" = "У близини";
@@ -869,6 +871,9 @@
 "preference-summary-eventlogging-opt-in" = "Дозволите Задужбини Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
+"profile-button-accessibility-label" = "Профил";
+"profile-page-join-title" = "Придружите се Википедији / Пријава";
+"profile-page-title-logged-out" = "Налог";
 "project-name-mediawiki" = "Медијавики";
 "project-name-wikibooks" = "Викикњиге";
 "project-name-wikidata" = "Википодаци";
@@ -1285,3 +1290,15 @@
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 милиона чланака";
+"year-in-review-2024-Wikipedia-num-edits" = "460.300 измена";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 измене у минуту";
+"year-in-review-2024-Wikipedia-num-languages" = "332 активна језика";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 милијарди пута";
+"year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1";
+"year-in-review-base-edits-title" = "Википедија се уређује $1";
+"year-in-review-donate" = "Донирај";
+"year-in-review-done" = "Готово";
+"year-in-review-next" = "Следеће";
+"year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
+"year-in-review-share" = "Дели";

@@ -1,6 +1,5 @@
 // Messages for Abkhazian (аԥсшәа)
 // Exported from translatewiki.net
-// Author: Amire80
 // Author: Fraxinus.cs
 // Author: Pupsik-ipa
 // Author: Surprizi
@@ -67,7 +66,6 @@
 "login-forgot-password" = "Ишәхашҭыма ажәамаӡа?";
 "main-menu-account-login" = "Иҭалатәуп";
 "main-menu-account-logout" = "Иҭыҵтәуп";
-"main-menu-account-logout-cancel" = "Аҟәыхра";
 "main-menu-nearby" = "Ааигәа";
 "main-menu-title" = "Еиҭа";
 "menu-cancel-accessibility-label" = "Аҟәыхра";

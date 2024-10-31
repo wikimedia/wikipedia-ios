@@ -14,13 +14,24 @@ import Contacts
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
-    
+    private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
+
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+    public var hasLocallySavedDonations: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
     public static let shared = WMFDonateDataController()
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
        self.service = service
         self.sharedCacheStore = sharedCacheStore
    }
@@ -158,7 +169,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, bannerID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
@@ -201,8 +212,8 @@ import Contacts
             parameters["payment_network"] = paymentNetwork
         }
         
-        if let bannerID {
-            parameters["banner"] = bannerID
+        if let metricsID {
+            parameters["banner"] = metricsID
         }
         
         if let appVersion {
@@ -227,7 +238,33 @@ import Contacts
             }
         })
     }
-    
+
+    @discardableResult
+    public func saveLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
+        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory()
+
+        if let donateHistory {
+            var donationArray: [WMFDonateLocalHistory] = donateHistory
+            donationArray.append(donation)
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: donationArray)
+        } else {
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donation])
+        }
+
+        hasLocallySavedDonations = true
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+
+    }
+
+    public func loadLocalDonationHistory() -> [WMFDonateLocalHistory]? {
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    }
+
+    public func deleteLocalDonationHistory() {
+        hasLocallySavedDonations = false
+        try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    }
+
     // MARK: - Internal
     
     func reset() {

@@ -10,7 +10,7 @@ final class MockCLLocationManager: CLLocationManager {
     private var _location: CLLocation?
     override var location: CLLocation? { _location }
 
-    override class func locationServicesEnabled() -> Bool { true }
+    override static func locationServicesEnabled() -> Bool { true }
 
     private var _authorizationStatus: CLAuthorizationStatus = .authorizedAlways
     override var authorizationStatus: CLAuthorizationStatus {

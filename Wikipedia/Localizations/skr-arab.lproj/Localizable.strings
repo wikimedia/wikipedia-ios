@@ -76,10 +76,12 @@
 "alt-text-experiment-onboarding-tooltip-2-title" = "معائنہ کرو";
 "alt-text-experiment-onboarding-tooltip-3-title" = "وضاحت شامل کرو";
 "alt-text-experiment-review-title" = "ولدا ݙیکھو";
+"alt-text-feedback-alert-title" = "اساں تہاݙی فیڈبیک چاہندے ہیں";
 "alt-text-feedback-survey-neutral" = "غیر جانبدار";
 "alt-text-feedback-survey-satisfied" = "مطمئن";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
 "alt-text-feedback-survey-unsatisfied" = "غیر مطمئن";
+"alt-text-survey-option-4" = "میکوں ٹیکنکل مسئلے ہن۔";
 "alt-text-survey-option-7" = "میݙے کول وقت کائنی";
 "announcements-dismiss" = "مکاؤ";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
@@ -271,7 +273,6 @@
 "main-menu-account-login" = "لاگ ان تھیوو";
 "main-menu-account-logout" = "لاگ آؤٹ";
 "main-menu-account-logout-are-you-sure" = "بھلا تہاکوں پک ہے جو تساں لاگ آؤٹ تھیوݨ چاہندو؟";
-"main-menu-account-logout-cancel" = "منسوخ";
 "main-menu-heading-legal" = "رازداری تے شرائط";
 "main-menu-nearby" = "نیڑے";
 "main-menu-privacy-policy" = "رازداری پالیسی";
@@ -371,6 +372,9 @@
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
+"profile-button-accessibility-label" = "پروفائل";
+"profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
+"profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";
@@ -432,6 +436,7 @@
 "share-open-in-maps" = "نقشیاں وچ کھولو";
 "sort-by-recently-added-action" = "حالیہ ودھارے";
 "sort-by-title-action" = "عنوان";
+"survey-instructions" = "ہک یا ودھ آٓپشن چݨو";
 "survey-other-placeholder" = "ٻیا";
 "survey-submit" = "جمع کرواؤ";
 "survey-title" = "سبب";
@@ -517,3 +522,9 @@
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
+"year-in-review-donate" = "عطیہ";
+"year-in-review-done" = "تھی ڳیا";
+"year-in-review-get-started" = "شروع کرو";
+"year-in-review-hide" = "ایہ خاصیت لکاؤ";
+"year-in-review-next" = "اڳلا";
+"year-in-review-share" = "شیئر";

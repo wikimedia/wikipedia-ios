@@ -1,33 +1,19 @@
 import Foundation
 
-@objc public protocol WMFDonateLoggingDelegate: AnyObject {
-    func logDonateFormDidAppear()
-    func logDonateFormUserDidTriggerError(error: Error)
-    func logDonateFormUserDidTapAmountPresetButton()
-    func logDonateFormUserDidEnterAmountInTextfield()
-    func logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: Bool, recurringMonthlyIsSelected: Bool, emailOptInIsSelected: NSNumber?)
-    func logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: Decimal, presetIsSelected: Bool, recurringMonthlyIsSelected: Bool, donorEmail: String?, metricsID: String?)
-    func logDonateFormUserDidTapProblemsDonatingLink()
-    func logDonateFormUserDidTapOtherWaysToGiveLink()
-    func logDonateFormUserDidTapFAQLink()
-    func logDonateFormUserDidTapTaxInfoLink()
-}
-
 public final class WMFDonateViewController: WMFCanvasViewController {
     
     // MARK: - Properties
 
     fileprivate let hostingViewController: WMFDonateHostingViewController
     private let viewModel: WMFDonateViewModel
-    private weak var loggingDelegate: WMFDonateLoggingDelegate?
     
     // MARK: - Lifecycle
     
-    public init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
+    public init(viewModel: WMFDonateViewModel) {
         self.viewModel = viewModel
-        self.hostingViewController = WMFDonateHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
-        self.loggingDelegate = loggingDelegate
+        self.hostingViewController = WMFDonateHostingViewController(viewModel: viewModel)
         super.init()
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder: NSCoder) {
@@ -48,7 +34,7 @@ public final class WMFDonateViewController: WMFCanvasViewController {
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loggingDelegate?.logDonateFormDidAppear()
+        viewModel.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAppear)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -60,8 +46,8 @@ public final class WMFDonateViewController: WMFCanvasViewController {
 
 fileprivate final class WMFDonateHostingViewController: WMFComponentHostingController<WMFDonateView> {
 
-    init(viewModel: WMFDonateViewModel, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
-        super.init(rootView: WMFDonateView(viewModel: viewModel, delegate: delegate))
+    init(viewModel: WMFDonateViewModel) {
+        super.init(rootView: WMFDonateView(viewModel: viewModel))
     }
 
     required init?(coder aDecoder: NSCoder) {

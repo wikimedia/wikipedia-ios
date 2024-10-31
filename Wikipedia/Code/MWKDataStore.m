@@ -3,6 +3,7 @@
 #import "WMFAnnouncement.h"
 
 @import CoreData;
+@import WMFData;
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
@@ -14,7 +15,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 18;
+static const NSInteger WMFCurrentLibraryVersion = 19;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -510,6 +511,15 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
+    
+    if (currentLibraryVersion < 19) {
+        [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
+        [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:nil]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
@@ -519,16 +529,16 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 /// This helps us determine whether or not to trigger the Splash screen updating animation
 - (BOOL)needsMigration {
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
-    
+
     if (!libraryVersionNumber) {
         return NO;
     }
-    
+
     NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
     if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -880,27 +890,19 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                                  [taskGroup leave];
                              });
                          }];
-    // Remote config
-    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/extensions/MobileApp/config/ios.json"];
+    // Remote Feature config
     [taskGroup enter];
-    [self.session getJSONDictionaryFromURL:remoteConfigURL
-                               ignoreCache:YES
-                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (error) {
-                                     updateError = error;
-                                     [taskGroup leave];
-                                     return;
-                                 }
-                                 if (self.isLocalConfigUpdateAllowed) {
-                                     [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                     self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
-                                 } else {
-                                     self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
-                                 }
-                                 [taskGroup leave];
-                             });
-                         }];
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    updateError = error;
+                    [taskGroup leave];
+                    return;
+                }
+                
+                [taskGroup leave];
+            });
+    }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);
@@ -1021,9 +1023,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 #pragma mark - WMFSessionAuthenticationDelegate
 
 - (void)attemptReauthentication {
-    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer
-                                                                completion:^{
-                                                                }];
+    [self.authenticationManager attemptLoginWithLogoutOnFailureWithCompletion:^{
+    }];
 }
 
 - (void)deauthenticate {

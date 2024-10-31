@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import WMFComponents
 import WMF
 import WMFData
@@ -58,7 +59,7 @@ extension WMFImageRecommendationsViewController {
             WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-5", value: "I don’t know this subject", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "unfamiliar")
         ]
 
-        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isLoggedIn: dataStore.authenticationManager.isLoggedIn, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
+        let viewModel = WMFImageRecommendationsViewModel(project: project, semanticContentAttribute: semanticContentAttribute, isPermanent: dataStore.authenticationManager.authStateIsPermanent, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
 
         let imageRecommendationsViewController = WMFImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
@@ -85,7 +86,7 @@ extension WMFOnboardingViewController {
 }
 
 extension WMFSurveyView {
-    static func surveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
+    static func altTextSurveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.surveyTitle,
             cancel: CommonStrings.cancelActionTitle,
@@ -105,7 +106,7 @@ extension WMFSurveyView {
             WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-7", value: "I don’t have the time", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "notime")
         ]
         
-        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions),
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .multi),
             cancelAction: cancelAction,
             submitAction: submitAction)
 

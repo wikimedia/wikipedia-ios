@@ -136,10 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
 - (NSArray<id<NYTPhoto>> *)photos {
     return [(id<WMFExposedDataSource>)self.dataSource photos];
 }

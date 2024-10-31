@@ -464,7 +464,6 @@
 "main-menu-account-login" = "Mewngofnodi";
 "main-menu-account-logout" = "Allgofnodi";
 "main-menu-account-logout-are-you-sure" = "Ydych chi'n sicr eich bod am allgofnodi?";
-"main-menu-account-logout-cancel" = "Canslo";
 "main-menu-account-title-logged-in" = "Mewngofnodwyd fel $1";
 "main-menu-heading-legal" = "Telerau a phreifatrwydd";
 "main-menu-nearby" = "Gerllaw";
@@ -841,3 +840,5 @@
 "wikitext-upload-save" = "Wrthi'n cyhoeddi...";
 "wikitext-upload-save-sign-in" = "Mewngofnodi";
 "wikitext-upload-save-terms-name" = "Telerau Defnyddio";
+"year-in-review-2024-Wikipedia-num-languages" = "332 o ieithoedd gweithredol";
+"year-in-review-2024-Wikipedia-num-views" = "1.4 biliwn o weithiau";

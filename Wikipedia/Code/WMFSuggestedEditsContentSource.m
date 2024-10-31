@@ -24,42 +24,48 @@
 
 - (void)loadNewContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
-    // First delete old card
-    [self removeAllContentInManagedObjectContext:moc];
+    [moc performBlock:^{
+        // First delete old card
+        [self removeAllContentInManagedObjectContext:moc];
+        
+        NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
+        WMFAuthenticationManager *authManager = self.dataStore.authenticationManager;
 
-    NSURL *appLanguageSiteURL = self.dataStore.languageLinkController.appLanguage.siteURL;
+        if (!appLanguageSiteURL) {
+            completion();
+            return;
+        }
+        
+        if (!authManager.authStateIsPermanent) {
+            completion();
+            return;
+        }
+            
+        WMFCurrentUser *user = [self.dataStore.authenticationManager userWithSiteURL:appLanguageSiteURL];
+        
+        // Image Recommendations Business Logic:
+        // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
 
-    if (!appLanguageSiteURL) {
-        completion();
-        return;
-    }
+        BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.dataStore.authenticationManager getLoggedInUserFor:appLanguageSiteURL
-                                                      completion:^(WMFCurrentlyLoggedInUser *user) {
-                                                          // Image Recommendations Business Logic:
-                                                          // Do not show suggested edits option if users have < 50 edits or they have VoiceOver on.
-
-                                                          BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
-
-                                                          if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
-                                                              [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
-                                                                  if (hasRecommendations) {
-                                                                      NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
-
-                                                                      [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
-                                                                  }
-
-                                                                  completion();
-                                                              }];
-                                                          } else {
-                                                              completion();
-                                                          }
-                                                      }];
-    });
+        if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
+            [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+                if (hasRecommendations) {
+                    NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
+                    
+                    [moc performBlock:^{
+                        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindSuggestedEdits forDate:[NSDate date] withSiteURL:appLanguageSiteURL associatedContent:nil customizationBlock:nil];
+                        completion();
+                    }];
+                }
+            }];
+        } else {
+            completion();
+        }
+    }];
 }
 
-- (BOOL)isEligibleForAltText:(WMFCurrentlyLoggedInUser *)user {
+- (BOOL)isEligibleForAltText:(WMFCurrentUser *)user {
     NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
     BOOL enableAltTextExperimentForEN = [[WMFDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
     NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
@@ -81,8 +87,8 @@
 - (BOOL)shouldAltTextExperimentBeActive {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setYear:2024];
-    [dateComponents setMonth:10];
-    [dateComponents setDay:21];
+    [dateComponents setMonth:11];
+    [dateComponents setDay:5];
 
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *experimentDate = [calendar dateFromComponents:dateComponents];

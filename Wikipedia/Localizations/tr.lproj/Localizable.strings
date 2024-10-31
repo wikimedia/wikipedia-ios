@@ -4,7 +4,6 @@
 // Author: Ahmetlii
 // Author: Alikaan
 // Author: Alpkant
-// Author: Amire80
 // Author: Ayrıntılı Bilgi
 // Author: BaRaN6161 TURK
 // Author: Betseg
@@ -151,6 +150,13 @@
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
+"alt-text-add-button-title" = "Ekle";
+"alt-text-do-not-add-button-title" = "Ekleme";
+"alt-text-email-fifth-line" = "[Ekran görüntüleri ya da Bağlantılar]";
+"alt-text-email-fourth-line" = "- [Önerilen çözümü tanımlayın]";
+"alt-text-email-second-line" = "- [Belirli bir sorunu tanımlayın]";
+"alt-text-email-third-line" = "Görmek istediğim davranış:";
+"alt-text-experiment-caption-title" = "Görsel alt yazısı";
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
@@ -705,7 +711,6 @@
 "main-menu-account-logout" = "Oturumu kapat";
 "main-menu-account-logout-are-you-sure" = "Oturumu kapatmak istediğinizden emin misiniz?";
 "main-menu-account-logout-are-you-sure-message" = "Çıkış yapmak, yerel olarak depolanan hesap verilerinizi (bildirimler ve mesajlar) siler ancak hesap verileriniz web'de bulunmaya devam eder ve tekrar giriş yaparsanız yeniden indirilir.";
-"main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınımdakiler";

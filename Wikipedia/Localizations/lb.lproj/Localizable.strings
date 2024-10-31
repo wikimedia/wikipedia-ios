@@ -65,6 +65,7 @@
 "account-creation-saving" = "Späicheren...";
 "account-creation-title" = "En neie Benotzerkont uleeën";
 "account-group-title" = "Äre Benotzerkont";
+"account-request-vanishing" = "Kont opléisen";
 "account-talk-page-title" = "Är Diskussiounssäit";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
@@ -440,7 +441,6 @@
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-account-logout-are-you-sure" = "Sidd Dir sécher, datt Dir Iech wëllt ausloggen?";
-"main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";
 "main-menu-nearby" = "An der Noperschaft";
@@ -601,6 +601,8 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
+"profile-button-accessibility-label" = "Profil";
+"profile-page-title-logged-out" = "Kont";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -895,3 +897,12 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
+"year-in-review-2024-Wikipedia-num-articles" = "63,69 Milliounen Artikelen";
+"year-in-review-2024-Wikipedia-num-edits" = "460.300 Ännerungen";
+"year-in-review-2024-Wikipedia-num-edits-per-minute" = "342 Ännerunge pro Minutt";
+"year-in-review-2024-Wikipedia-num-languages" = "332 aktiv Sproochen";
+"year-in-review-2024-Wikipedia-num-views" = "1,4 Milliarde Mol";
+"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 geännert";
+"year-in-review-base-reading-title" = "Liesen huet eis zesummebruecht";
+"year-in-review-personalized-reading-title- format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
+"year-in-review-share" = "Deelen";
