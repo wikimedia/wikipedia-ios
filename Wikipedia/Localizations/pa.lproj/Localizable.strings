@@ -16,6 +16,7 @@
 
 "aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
 "aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਨਵਿਆਈਆਂ ਗਿਆ";
+"aaald-article-insert-last-updated" = "ਆਖਰੀ ਵਾਰ ਨਵਿਆਈਆ ਗਿਆ";
 "aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
 "aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
 "aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
@@ -98,6 +99,7 @@
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
+"edit-summary-short-description-updated" = "ਛੋਟਾ ਵੇਰਵਾ ਨਵਿਆਈਆ ਗਿਆ";
 "editor-keyboard-link-accessibility" = "ਕੜੀ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
 "empty-no-feed-action-message" = "ਤੁਸੀੰ ਹਾਲੇ ਵੀ ਸੰਭਾਲੇ ਸਫ਼ੇ ਪੜ੍ਹ ਸਕਦੇ ਹੋ";
