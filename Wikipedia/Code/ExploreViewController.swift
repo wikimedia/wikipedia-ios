@@ -951,28 +951,6 @@ extension ExploreViewController {
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
-            return false
-        }
-        
-        guard let yirDataController,
-              let appLanguage = dataStore.languageLinkController.appLanguage else {
-                  return false
-        }
-        
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
-            return false
-        }
-
-        guard presentedViewController == nil else {
-            return false
-        }
-
-        guard self.isViewLoaded && self.view.window != nil else {
-            return false
-        }
         
         return navigationBar.superview != nil
     }
