@@ -514,14 +514,14 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
-        guard !payment.token.paymentData.isEmpty,
-              let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
-            let error = Error.invalidToken
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-            completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
-            return
-        }
+//        guard !payment.token.paymentData.isEmpty,
+//              let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
+//            let error = Error.invalidToken
+//            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+//            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+//            completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+//            return
+//        }
         
         guard let donorNameComponents = payment.billingContact?.name,
               let donorEmail = payment.shippingContact?.emailAddress,
@@ -538,7 +538,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
         let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: "", paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { [weak self] result in
             
             guard let self else {
                 return

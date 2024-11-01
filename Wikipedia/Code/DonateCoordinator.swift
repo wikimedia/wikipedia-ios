@@ -2,7 +2,7 @@ import WMF
 import PassKit
 import WMFComponents
 import WMFData
-
+import CocoaLumberjackSwift
 
 // Helper class to access donate coordinator logic from Obj-c
 @objc class WMFDonateCoordinatorWrapper: NSObject {
@@ -27,11 +27,17 @@ class DonateCoordinator: Coordinator {
         case yearInReview // TODO: Do it properly T376062
     }
     
+    enum NavigationStyle {
+        case dismissThenPush
+        case present
+    }
+    
     // MARK: Properties
     
     var navigationController: UINavigationController
     private let donateButtonGlobalRect: CGRect
     private let source: Source
+    private let navigationStyle: NavigationStyle
     
     // Code to run when we are fetching donate configs. Typically this changes some donate button into a spinner.
     private let setLoadingBlock: (Bool) -> Void
@@ -90,12 +96,13 @@ class DonateCoordinator: Coordinator {
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, setLoadingBlock: @escaping (Bool) -> Void) {
+    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void) {
         self.navigationController = navigationController
         self.donateButtonGlobalRect = donateButtonGlobalRect
         self.source = source
         self.dataStore = dataStore
         self.theme = theme
+        self.navigationStyle = navigationStyle
         self.setLoadingBlock = setLoadingBlock
     }
     
@@ -138,9 +145,7 @@ class DonateCoordinator: Coordinator {
                 
                 guard let donateViewModel = self.nativeDonateFormViewModel(countryCode: countryCode) else {
                     
-                    self.navigationController.dismiss(animated: true, completion: { [weak self] in
-                        self?.pushToOtherPaymentMethod()
-                    })
+                    self.navigateToOtherPaymentMethod()
                     
                     return
                 }
@@ -214,9 +219,7 @@ class DonateCoordinator: Coordinator {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
             }
-            self.navigationController.dismiss(animated: true, completion: {
-                self.pushToNativeDonateForm(donateViewModel: donateViewModel)
-            })
+            self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
         alert.addAction(applePayAction)
         
@@ -242,9 +245,7 @@ class DonateCoordinator: Coordinator {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
             }
-            self.navigationController.dismiss(animated: true, completion: {
-                self.pushToOtherPaymentMethod()
-            })
+            navigateToOtherPaymentMethod()
         }))
         
         alert.preferredAction = applePayAction
@@ -352,13 +353,28 @@ class DonateCoordinator: Coordinator {
         return viewModel
     }
     
-    private func pushToNativeDonateForm(donateViewModel: WMFDonateViewModel) {
+    private func navigateToNativeDonateForm(donateViewModel: WMFDonateViewModel) {
         let donateViewController = WMFDonateViewController(viewModel: donateViewModel)
         
-        navigationController.pushViewController(donateViewController, animated: true)
+        switch navigationStyle {
+        case .dismissThenPush:
+            navigationController.dismiss(animated: true) {
+                self.navigationController.pushViewController(donateViewController, animated: true)
+            }
+        case .present:
+            
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping donate form presentation.")
+                return
+            }
+            
+            let newNavigationController = WMFThemeableNavigationController(rootViewController: donateViewController)
+            presentedViewController.present(newNavigationController, animated: true)
+        }
+        
     }
     
-    private func pushToOtherPaymentMethod() {
+    private func navigateToOtherPaymentMethod() {
         guard let webViewURL else { return }
         
         let completeButtonTitle: String
@@ -370,7 +386,22 @@ class DonateCoordinator: Coordinator {
         }
         let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
         let webVC = SinglePageWebViewController(url: webViewURL, theme: theme, donateConfig: donateConfig)
-        navigationController.pushViewController(webVC, animated: true)
+        
+        switch navigationStyle {
+        case .dismissThenPush:
+            self.navigationController.dismiss(animated: true, completion: {
+                self.navigationController.pushViewController(webVC, animated: true)
+            })
+        case .present:
+            
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping donate form presentation.")
+                return
+            }
+            
+            let newNavigationController = WMFThemeableNavigationController(rootViewController: webVC)
+            presentedViewController.present(newNavigationController, animated: true)
+        }
     }
 }
 
@@ -446,16 +477,40 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     }
     
     private func popAndShowSuccessToastFromNativeForm() {
-        self.navigationController.popViewController(animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        switch navigationStyle {
+        case .dismissThenPush:
+            self.navigationController.popViewController(animated: true)
+        case .present:
+            guard let presentedVC = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping auto-dismissal.")
+                return
+            }
             
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+            presentedVC.dismiss(animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+                }
+            }
         }
+        
+        
     }
     
     private func popFromWebFormThankYouPage() {
-        navigationController.popViewController(animated: true)
+        
+        switch navigationStyle {
+        case .dismissThenPush:
+            navigationController.popViewController(animated: true)
+        case .present:
+            guard let presentedVC = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping auto-dismissal.")
+                return
+            }
+            
+            presentedVC.dismiss(animated: true)
+        }
     }
     
     private func displayThankYouToastAfterDelay() {

@@ -171,6 +171,9 @@ import Contacts
     
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         
+        completion(.success(()))
+        return
+        
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
