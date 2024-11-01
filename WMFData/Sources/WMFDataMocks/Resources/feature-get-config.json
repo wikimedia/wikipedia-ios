@@ -22,6 +22,9 @@
                     },
                     "editCount": {
                         "isEnabled": true
+                    },
+                    "donateCount": {
+                        "isEnabled": true
                     }
                 }
             }]
