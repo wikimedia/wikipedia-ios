@@ -8,6 +8,7 @@ public struct WMFFeatureConfigResponse: Codable {
             public struct PersonalizedSlides: Codable {
                 let readCount: SlideSettings
                 let editCount: SlideSettings
+                let donateCount: SlideSettings
             }
             
             public struct SlideSettings: Codable {
