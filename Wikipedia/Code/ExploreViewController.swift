@@ -941,8 +941,6 @@ extension ExploreViewController {
         
         if needsYearInReviewAnnouncement() {
             presentYearInReviewAnnouncement()
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
         } else if needsAltTextFeatureAnnouncement() {
