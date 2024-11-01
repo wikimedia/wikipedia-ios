@@ -42,6 +42,7 @@ public enum WMFFont {
     case subheadline
     case title1
     case title3
+    case xxlTitleBold
 
     public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
 
@@ -228,6 +229,9 @@ public enum WMFFont {
 
         case .title3:
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
+            
+        case .xxlTitleBold:
+            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 40, weight: .bold), compatibleWith: traitCollection)
 
         }
     }
