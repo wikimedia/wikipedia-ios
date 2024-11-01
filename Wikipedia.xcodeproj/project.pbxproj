@@ -1389,6 +1389,7 @@
 		834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834F47F42833D91F00F86C80 /* RemoteNotificationFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */; };
+		835021BA2CD1496E00D0CB5E /* SinglePageWebViewParseDonationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835021B92CD1495900D0CB5E /* SinglePageWebViewParseDonationTests.swift */; };
 		8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
@@ -3446,6 +3447,9 @@
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
 		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		67A986EC2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		67A986ED2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
+		67A986EE2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = az; path = az.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
 		67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataExportCache.swift; sourceTree = "<group>"; };
@@ -3734,6 +3738,7 @@
 		834C269D240D49F400245BE7 /* ReferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewController.swift; sourceTree = "<group>"; };
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
 		834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationFilterType.swift; sourceTree = "<group>"; };
+		835021B92CD1495900D0CB5E /* SinglePageWebViewParseDonationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewParseDonationTests.swift; sourceTree = "<group>"; };
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		83510B0628F4CF6400B6235B /* TalkPageErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageErrorStateView.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -7896,6 +7901,7 @@
 				67ED8EAF24F99F1900DD5D39 /* Significant Events Tests */,
 				679FA102242E64FC0095F3C6 /* Article Tests */,
 				8330533223F0388E00123141 /* DataStoreTests.swift */,
+				835021B92CD1495900D0CB5E /* SinglePageWebViewParseDonationTests.swift */,
 				D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */,
 				B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */,
 				B39427421E71F79700D3146D /* NSSetBlocksKitTest.m */,
@@ -9235,7 +9241,6 @@
 				fi,
 				ar,
 				ast,
-				az,
 				bcl,
 				bn,
 				br,
@@ -9362,6 +9367,7 @@
 				ia,
 				lmo,
 				se,
+				az,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -10086,6 +10092,7 @@
 				004281C925E6EFC4004945B3 /* LSStubResponseDSL.m in Sources */,
 				004281B225E6EFC4004945B3 /* LSStubRequest.m in Sources */,
 				004281C025E6EFC4004945B3 /* NSString+Matcheable.m in Sources */,
+				835021BA2CD1496E00D0CB5E /* SinglePageWebViewParseDonationTests.swift in Sources */,
 				004281C425E6EFC4004945B3 /* LSRegexMatcher.m in Sources */,
 				004281C225E6EFC4004945B3 /* LSDataMatcher.m in Sources */,
 				004281C625E6EFC4004945B3 /* NSString+Nocilla.m in Sources */,
@@ -12400,6 +12407,7 @@
 				676E08142A7DA0DA00F7632D /* ia */,
 				678B3E362B98D76900F4DF03 /* lmo */,
 				83C0A1DB2C7915C800213DC3 /* se */,
+				67A986EC2CC96488003A99B5 /* az */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12507,6 +12515,7 @@
 				676E08152A7DA10900F7632D /* ia */,
 				678B3E372B98D76A00F4DF03 /* lmo */,
 				83C0A1DC2C7915C800213DC3 /* se */,
+				67A986ED2CC96488003A99B5 /* az */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12620,6 +12629,7 @@
 				FF19C1AC26054909000AC20B /* kcg */,
 				678B3E382B98D76A00F4DF03 /* lmo */,
 				83C0A1DD2C7915C800213DC3 /* se */,
+				67A986EE2CC96488003A99B5 /* az */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

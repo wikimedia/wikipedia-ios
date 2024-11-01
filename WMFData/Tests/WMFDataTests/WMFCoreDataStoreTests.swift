@@ -17,13 +17,14 @@ final class WMFCoreDataStoreTests: XCTestCase {
         _ = self.store
         // Wait for store to load asyncronously
         try await Task.sleep(nanoseconds: 1_000_000_000)
+        try await super.setUp()
     }
-    
+
     func testCreateAndFetch() throws {
         
         // First save new record
         let backgroundContext = try store.newBackgroundContext
-        let page = try store.create(entityType: CDPage.self, entityName: "WMFPage", in: backgroundContext)
+        let page = try store.create(entityType: CDPage.self, in: backgroundContext)
         page.title = "Cat"
         page.namespaceID = 0
         page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
@@ -32,7 +33,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
         try store.saveIfNeeded(moc: backgroundContext)
 
         // Then pull from store, confirm values match
-        guard let pulledPage = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: nil, fetchLimit: 1, in: backgroundContext)?.first else {
+        guard let pulledPage = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: 1, in: backgroundContext)?.first else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
@@ -48,14 +49,14 @@ final class WMFCoreDataStoreTests: XCTestCase {
         let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: ["wikipedia~en", 0, "Dog"])
         
         let backgroundContext = try store.newBackgroundContext
-        guard let initialPages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
+        guard let initialPages = try store.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
         XCTAssertEqual(initialPages.count, 0)
         
         // Then fetch or create
-        guard let savedPage = try store.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext) else {
+        guard let savedPage = try store.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
 
@@ -67,14 +68,14 @@ final class WMFCoreDataStoreTests: XCTestCase {
         try store.saveIfNeeded(moc: backgroundContext)
 
         // Then pull from store again, confirm only one page saved
-        guard let nextPages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
+        guard let nextPages = try store.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
         XCTAssertEqual(nextPages.count, 1)
         
         // Try saving again, confirm we don't add a duplicate
-        guard let anotherSavedPage = try store.fetchOrCreate(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, in: backgroundContext) else {
+        guard let anotherSavedPage = try store.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
 
@@ -86,7 +87,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
         try store.saveIfNeeded(moc: backgroundContext)
         
         // Then pull from store once more, confirm still only one page saved
-        guard let finalPages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
+        guard let finalPages = try store.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
@@ -97,24 +98,24 @@ final class WMFCoreDataStoreTests: XCTestCase {
         
         // First save new records
         let backgroundContext = try store.newBackgroundContext
-        let page = try store.create(entityType: CDPage.self, entityName: "WMFPage", in: backgroundContext)
+        let page = try store.create(entityType: CDPage.self, in: backgroundContext)
         page.title = "Cat"
         page.namespaceID = 0
         page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
         page.timestamp = Date()
         
-        let pageView1 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let pageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         pageView1.timestamp = Date.init(timeIntervalSinceNow: -(60*60))
         pageView1.page = page
         
-        let pageView2 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let pageView2 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         pageView2.timestamp = Date()
         pageView2.page = page
         
         try store.saveIfNeeded(moc: backgroundContext)
         
         // Then fetch grouped and compare counts
-        let pageViews = try store.fetchGrouped(entityName: "WMFPageView", predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
+        let pageViews = try store.fetchGrouped(entityType: CDPageView.self, predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
         XCTAssertEqual(pageViews.count, 1)
         let pageViewsDict = pageViews[0]
         XCTAssertEqual(pageViewsDict["page"] as? NSManagedObjectID, page.objectID)
@@ -127,44 +128,44 @@ final class WMFCoreDataStoreTests: XCTestCase {
         
         // First save new records
         let backgroundContext = try store.newBackgroundContext
-        let catPage = try store.create(entityType: CDPage.self, entityName: "WMFPage", in: backgroundContext)
+        let catPage = try store.create(entityType: CDPage.self, in: backgroundContext)
         catPage.title = "Cat"
         catPage.namespaceID = 0
         catPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
         catPage.timestamp = Date(timeIntervalSinceNow: -(60*60))
         
-        let catPageView1 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let catPageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         catPageView1.timestamp = Date(timeIntervalSinceNow: -(60*60))
         catPageView1.page = catPage
         
-        let catPageView2 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let catPageView2 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         catPageView2.timestamp = Date()
         catPageView2.page = catPage
         
-        let dogPage = try store.create(entityType: CDPage.self, entityName: "WMFPage", in: backgroundContext)
+        let dogPage = try store.create(entityType: CDPage.self, in: backgroundContext)
         dogPage.title = "Dog"
         dogPage.namespaceID = 0
         dogPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
         dogPage.timestamp = Date(timeIntervalSinceNow: -(overTwoYearsAgoInSeconds + 20))
         
-        let dogPageView1 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let dogPageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         dogPageView1.timestamp = Date(timeIntervalSinceNow: -(overTwoYearsAgoInSeconds + 20))
         dogPageView1.page = dogPage
         
-        let dogPageView2 = try store.create(entityType: CDPageView.self, entityName: "WMFPageView", in: backgroundContext)
+        let dogPageView2 = try store.create(entityType: CDPageView.self, in: backgroundContext)
         dogPageView2.timestamp = Date(timeIntervalSinceNow: -(overTwoYearsAgoInSeconds))
         dogPageView2.page = dogPage
         
         try store.saveIfNeeded(moc: backgroundContext)
         
         // Confirm counts
-        guard let pages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+        guard let pages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
         XCTAssertEqual(pages.count, 2)
         
-        guard let pageViews = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+        guard let pageViews = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
@@ -175,13 +176,13 @@ final class WMFCoreDataStoreTests: XCTestCase {
         
         backgroundContext.refreshAllObjects()
         
-        guard let newPages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+        guard let newPages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         
         XCTAssertEqual(newPages.count, 1)
         
-        guard let newPageViews = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+        guard let newPageViews = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
             throw WMFCoreDataStoreTestsError.empty
         }
         

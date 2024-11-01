@@ -11,6 +11,7 @@
 // Author: Carlosmg.dg
 // Author: Chopan050
 // Author: Csbotero
+// Author: Danielyepezgarces
 // Author: DannyS712
 // Author: DarkGames26
 // Author: David.novella
@@ -1039,6 +1040,12 @@
 "uzbek-variants-alert-title" = "Actualizaciones a soporte de variantes del uzbeko";
 "variants-alert-dismiss-button" = "No, gracias";
 "variants-alert-preferences-button" = "Revisar tus preferencias";
+"watchlist" = "Lista de seguimiento";
+"watchlist-change-expiry-option-one-month" = "1 mes";
+"watchlist-change-expiry-option-one-week" = "1 semana";
+"watchlist-change-expiry-option-one-year" = "1 año";
+"watchlist-change-expiry-option-six-months" = "6 meses";
+"watchlist-change-expiry-option-three-months" = "3 meses";
 "watchlist-expiration-subtitle" = "Las páginas permanecen aquí por defecto, pero hay opciones de seguimiento que van desde una semana a un año.";
 "watchlist-filter-activity-header" = "Actividad de la lista de seguimiento";
 "watchlist-filter-activity-options-seen-changes" = "Cambios vistos";

@@ -2,8 +2,14 @@ import SwiftUI
 
 public struct WMFSlideShow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @Binding private var currentSlide: Int
-    
+    @Binding public var currentSlide: Int
+
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    var sizeClassPadding: CGFloat {
+        horizontalSizeClass == .regular ? 64 : 32
+    }
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -13,42 +19,36 @@ public struct WMFSlideShow: View {
     public init(currentSlide: Binding<Int>, slides: [SlideShowProtocol]) {
         self._currentSlide = currentSlide
         self.slides = slides
-        
-        UIPageControl.appearance().currentPageIndicatorTintColor = theme.link
-        UIPageControl.appearance().pageIndicatorTintColor = theme.link.withAlphaComponent(0.3)
     }
     
     public var body: some View {
-        VStack {
-            TabView(selection: $currentSlide) {
-                ForEach(0..<slides.count, id: \.self) { slide in
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Image(slides[slide].imageName, bundle: .module)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            Text(slides[slide].title)
-                                .font(Font(WMFFont.for(.boldTitle1)))
-                                .foregroundStyle(Color(uiColor: theme.text))
-                            Text(slides[slide].subtitle)
-                                .font(Font(WMFFont.for(.title3)))
-                                .foregroundStyle(Color(uiColor: theme.text))
-                            Spacer()
-                        }
-                    }
+        Group {
+            ForEach(0..<slides.count, id: \.self) { slide in
+                WMFYearInReviewScrollView(
+                    scrollViewContents: slideView(slide: slide),
+                    hasLargeInsets: false,
+                    imageName: slides[slide].imageName,
+                    imageOverlay: slides[slide].imageOverlay,
+                    textOverlay: slides[slide].textOverlay
+                )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(slide)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding([.leading, .trailing], 36)
-            .padding(.top, 48)
-            .safeAreaInset(edge: .bottom) {
-                Spacer().frame(height: 34)
+                    .background(Color(uiColor: theme.midBackground))
             }
         }
-        .ignoresSafeArea(edges: .bottom)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    private func slideView(slide: Int) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text(slides[slide].title)
+                .font(Font(WMFFont.for(.boldTitle1)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            Text(slides[slide].subtitle)
+                .font(Font(WMFFont.for(.title3)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            Spacer()
+        }
     }
 }
     
@@ -56,4 +56,6 @@ public protocol SlideShowProtocol {
     var title: String { get }
     var subtitle: String { get }
     var imageName: String { get }
+    var imageOverlay: String? { get }
+    var textOverlay: String? { get }
 }

@@ -15,7 +15,8 @@
 // Author: ਪ੍ਰਚਾਰਕ
 
 "aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
-"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ";
+"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਨਵਿਆਈਆਂ ਗਿਆ";
+"aaald-article-insert-last-updated" = "ਆਖਰੀ ਵਾਰ ਨਵਿਆਈਆ ਗਿਆ";
 "aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
 "aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
 "aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
@@ -30,7 +31,7 @@
 "aaald-new-website-reference-archive-date-text" = "ਮੂਲ ਤੋਂ $1 ਉੱਤੇ";
 "aaald-new-website-reference-title" = "ਵੈੱਬਸਾਈਟ";
 "aaald-one-section-description" = "$1 ਭਾਗ ਵਿੱਚ";
-"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਦੁਆਰਾ ਸੋਧ";
+"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ ਸੋਧ";
 "aaald-revision-userInfo" = "$1 ਨਾਲ ਸੋਧ ($2 ਸੋਧਾਂ)";
 "aaald-single-reference-added-description" = "ਹਵਾਲਾ ਜੋੜਿਆ ਗਿਆ";
 "aaald-two-sections-description" = "$1 ਅਤੇ $2 ਭਾਗਾਂ ਵਿੱਚ";
@@ -44,7 +45,7 @@
 "about-libraries-complete-list" = "ਪੂਰੀ ਸੂਚੀ";
 "about-libraries-license" = "ਲਸੰਸ";
 "about-libraries-licenses-title" = "ਸਾਨੂੰ ਖੁੱਲ੍ਹੇ ਸਰੋਤ ਸਾਫਟਵੇਅਰ ਨਾਲ ਪ੍ਰੇਮ ਹੈ $1";
-"about-product-of" = "$1 ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ ਤੁਹਾਡੇ ਵਰਗੇ ਵਲੰਟੀਅਰਾਂ ਦੀ ਮਦਦ ਨਾਲ";
+"about-product-of" = "$1 ਵੱਲੋਂ ਬਣਾਇਆ ਗਿਆ ਤੁਹਾਡੇ ਵਰਗੇ ਵਲੰਟੀਅਰਾਂ ਦੀ ਮਦਦ ਨਾਲ";
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
 "about-repositories-app-source-license" = "$1 ਹੇਠ ਸਰੋਤ ਕੋਡ ਉੱਪਲਬਧ ਹੈ।";
 "about-repositories-app-source-license-mit" = "ਐੱਮ.ਆਈ.ਟੀ. ਲਸੰਸ";
@@ -53,7 +54,7 @@
 "about-testers-details" = "QA $1 ਦੁਆਰਾ ਟੈਸਟ ਕੀਤਾ ਗਿਆ";
 "about-title" = "ਬਾਰੇ";
 "about-translators" = "ਤਰਜਮੇਕਾਰ";
-"about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਦੁਆਰਾ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
+"about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਵੱਲੋਂ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
@@ -66,7 +67,8 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
-"account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਵਰਕਾ";
+"account-talk-page-title" = "ਗੱਲ-ਬਾਤ ਸਫ਼ਾ";
+"action-language-accessibility" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "action-read" = "ਪੜ੍ਹੋ";
 "action-save" = "ਸਾਂਭੋ";
 "action-saved" = "ਸੰਭਾਲਿਆ";
@@ -82,18 +84,23 @@
 "button-ok" = "ਠੀਕ";
 "button-publish" = "ਛਾਪੋ";
 "button-read-now" = "ਪਡ਼੍ਹੋ";
-"button-report-a-bug" = "ਕਿਸੇ ਦੋਸ਼ ਦੀ ਇਤਲਾਹ ਦਿਉ";
+"button-report-a-bug" = "ਮਾਂਙਣੂ ਦੀ ਇਤਲਾਹ ਦਿਓ";
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
 "button-saved-remove" = "ਸੰਭਾਲਿਆਂ ਵਿੱਚੋਂ ਹਟਾਓ";
 "cancel" = "ਰੱਦ ਕਰੋ";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
+"confirm-donation-history-deletion-subtitle" = "ਇਹ ਸਿਰਫ਼ ਇਸ ਜੰਤਰ ਤੋਂ ਕੀਤੇ ਦਾਨ ਉੱਤੇ ਲਾਗੂ ਹੋਵੇਗਾ।";
 "confirm-donation-history-deletion-title" = "ਮਿਟਾਉਣ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"confirmed-donation-history-deletion" = "ਸਥਾਨਕ ਇਤਿਹਾਸ ਮਿਟਾਇਆ ਗਿਆ";
+"donate-history-delete" = "ਸਥਾਨਕ ਦਾਨ ਇਤਿਹਾਸ ਨੂੰ ਮਿਟਾਓ";
 "edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-typos" = "ਹਿੱਜੇ ਸਹੀ ਕੀਤੇ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
+"edit-summary-short-description-updated" = "ਛੋਟਾ ਵੇਰਵਾ ਨਵਿਆਈਆ ਗਿਆ";
+"editor-keyboard-link-accessibility" = "ਕੜੀ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
 "empty-no-feed-action-message" = "ਤੁਸੀੰ ਹਾਲੇ ਵੀ ਸੰਭਾਲੇ ਸਫ਼ੇ ਪੜ੍ਹ ਸਕਦੇ ਹੋ";
 "empty-no-history-title" = "ਦਿਖਾਉਣ ਲਈ ਕੋਈ ਇਤਿਹਾਸ ਨਹੀੰ";
@@ -123,7 +130,13 @@
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
+"field-new-password-confirm-placeholder" = "ਨਵਾਂ ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
+"field-new-password-confirm-title" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"field-new-password-placeholder" = "ਨਵਾਂ ਲੰਘ-ਸ਼ਬਦ ਪਾਓ";
 "field-new-password-title" = "ਨਵਾਂ ਲੰਘ-ਸ਼ਬਦ:";
+"field-password-confirm-placeholder" = "ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
+"field-password-confirm-title" = "ਪਾਰਸ਼ਬਦ ਦੀ ਤਸਦੀਕ ਕਰੋ";
+"field-password-placeholder" = "ਪਾਰਸ਼ਬਦ ਪਾਓ";
 "field-password-title" = "ਲੰਘ-ਸ਼ਬਦ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
@@ -141,6 +154,7 @@
 "image-gallery-unknown-owner" = "ਲਿਖਾਰੀ ਅਣਜਾਣ ਹੈ।";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
+"login-forgot-password" = "ਆਪਣਾ ਪਾਰਸ਼ਬਦ ਭੁੱਲ ਗਏ ਹੋ?";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
 "login-no-account" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? $1";
 "main-menu-about" = "ਐਪ ਬਾਰੇ";
@@ -168,8 +182,13 @@
 "notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "notifications-center-go-to-article" = "ਲੇਖ";
+"notifications-center-mark" = "ਨਿਸ਼ਾਨ ਲਾਓ";
+"notifications-center-subheader-translate-milestone" = "ਤਰਜਮੇ ਦਾ ਮੀਲ ਪੱਥਰ";
+"notifications-center-subheader-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ!";
 "notifications-center-type-item-description-welcome-verbose" = "ਜੀ ਆਇਆ ਨੂੰ ਸੁਨੇਹਾ";
 "notifications-center-type-title-login-success" = "ਦਾਖ਼ਲ ਹੋਣਾ ਸਫ਼ਲ!";
+"notifications-center-type-title-translation-milestone" = "ਤਰਜਮੇ ਦਾ ਮੀਲ ਪੱਥਰ";
+"notifications-center-type-title-welcome" = "ਜੀ ਆਇਆਂ ਨੂੰ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -214,14 +233,15 @@
 "share-article-name-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ \"$1\":";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
-"share-on-twitter-sign-off" = "ਵਿਕੀਪੀਡੀਆ ਦੁਆਰਾ";
+"share-on-twitter-sign-off" = "ਵਿਕੀਪੀਡੀਆ ਵੱਲੋਂ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
+"talk-page-change-language" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "talk-page-menu-open-all" = "ਸਾਰੇ ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਖੋਲ੍ਹੋ";
-"talk-page-page-info" = "ਵਰਕੇ ਦੀ ਜਾਣਕਾਰੀ";
+"talk-page-page-info" = "ਸਫ਼ਾ ਜਾਣਕਾਰੀ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
@@ -234,3 +254,7 @@
 "wikitext-upload-save-anonymously-warning" = "ਸੋਧਾਂ ਦਾ ਸਿਹਰਾ ਤੁਹਾਡੇ ਆਈ.ਪੀ. ਪਤੇ ਸਿਰ ਦਿੱਤਾ ਜਾਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ $1 ਹੋ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ਼ ਵਧੇਰੇ ਪਰਦੇਦਾਰੀ ਹੋਵੇਗੀ।";
 "wikitext-upload-save-sign-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "wikitext-upload-save-terms-name" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
+"year-in-review-base-reading-title" = "ਪੜ੍ਹਨਾ ਸਾਨੂੰ ਇਕੱਠੇ ਲੈ ਆਇਆ";
+"year-in-review-donate" = "ਦਾਨ ਕਰੋ";
+"year-in-review-get-started" = "ਸ਼ੁਰੂ ਕਰੋ";
+"year-in-review-next" = "ਅਗਲਾ";

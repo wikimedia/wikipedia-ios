@@ -19,8 +19,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     var navigationController: UINavigationController
     
     weak var delegate: LogoutCoordinatorDelegate?
-    var shouldShowYiR = false
-    
+
     // MARK: Properties
     
     let theme: Theme
@@ -31,7 +30,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
-    private var yirCoordinator: YearInReviewCoordinator?
+    private let yirCoordinator: YearInReviewCoordinator
     
     let username: String?
     let sourcePage: ProfileCoordinatorSource
@@ -40,11 +39,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     // MARK: Lifecycle
     
     // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage)
+    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) -> ProfileCoordinator {
+        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage, yirCoordinator: yirCoordinator)
     }
     
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) {
         self.navigationController = navigationController
         self.theme = theme
         self.donateSouce = donateSouce
@@ -52,6 +51,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
         self.sourcePage = sourcePage
+        self.yirCoordinator = yirCoordinator
     }
     
     // MARK: Coordinator Protocol Methods
@@ -73,16 +73,27 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             settingsTitle: CommonStrings.settingsTitle,
             joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
             joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
-            donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations")
+            donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations"),
+            yearInReviewTitle: WMFLocalizedString("profile-page-year-in-review-title", value: "Year in Review", comment: "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped."),
+            yearInReviewLoggedOutSubtext:  WMFLocalizedString("profile-page-logged-out-year-in-review-subtext", value: "Log in or create an account to get an improved year in review next year", comment: "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.")
         )
         
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+        
+        var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+           let yearInReviewDataController = try? WMFYearInReviewDataController(),
+           let countryCode = Locale.current.region?.identifier {
+            yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
+        }
         
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
-            coordinatorDelegate: self
+            coordinatorDelegate: self,
+            yearInReviewDependencies: yearInReviewDependencies
         )
         
         var profileView = WMFProfileView(viewModel: viewModel)
@@ -143,6 +154,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showYearInReview()
             }
+        case .logYearInReviewTap:
+            self.logYearInReviewTap()
         }
     }
     
@@ -163,9 +176,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
-        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         yirCoordinator.start()
-        self.yirCoordinator = yirCoordinator
     }
     
     func showDonate() {
@@ -253,6 +264,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 return
             }
         }
+    }
+    
+    func logYearInReviewTap() {
+        DonateFunnel.shared.logProfileDidTapYearInReview()
     }
 }
 

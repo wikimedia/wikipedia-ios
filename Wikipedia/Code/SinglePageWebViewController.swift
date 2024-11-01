@@ -2,6 +2,7 @@
 import CocoaLumberjackSwift
 import WMF
 import WMFComponents
+import WMFData
 
 class SinglePageWebViewController: ViewController {
     
@@ -19,7 +20,9 @@ class SinglePageWebViewController: ViewController {
     
     let url: URL
     private let donateConfig: WebViewDonateConfig?
-    
+
+    private let donateDataController = WMFDonateDataController()
+
     var doesUseSimpleNavigationBar: Bool {
         didSet {
             if doesUseSimpleNavigationBar {
@@ -190,13 +193,69 @@ class SinglePageWebViewController: ViewController {
         } else if action.navigationType == .other,
                   actionURL.isThankYouDonationURL {
             didReachThankyouPage = true
+            let parsedDonationInfo = parseThankYouURL(actionURL)
+            saveDonationToLocalHistory(donationInfo: parsedDonationInfo, dataController: donateDataController)
             setupDonationCompleteView()
             donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
         }
         
         return true
     }
-    
+
+    func parseThankYouURL(_ url: URL) -> DonationInfo? {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+
+        let queryItems = urlComponents.queryItems ?? []
+        let queryDict = Dictionary(uniqueKeysWithValues: queryItems.compactMap { item in
+            (item.name, item.value)
+        })
+
+        guard let amount = queryDict["amount"],
+              let country = queryDict["country"],
+              let currency = queryDict["currency"] else {
+            return nil
+        }
+
+        let isRecurring = queryDict["recurring"] == "true" || queryDict.keys.contains("recurring") && queryDict["recurring"] == nil
+
+        let donationInfo = DonationInfo(amount: amount, country: country, currency: currency, isRecurring: isRecurring)
+
+        return donationInfo
+    }
+
+    private func saveDonationToLocalHistory(donationInfo: DonationInfo?, dataController: WMFDonateDataController) {
+        guard let donationInfo,
+        let decimalAmount = Decimal(string: donationInfo.amount ?? String()),
+                let currency = donationInfo.currency else {
+            return
+        }
+        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = iso8601Format
+        let timestamp = dateFormatter.string(from: date)
+
+        let donationType: WMFDonateLocalHistory.DonationType = donationInfo.isRecurring ? .recurring : .oneTime
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: donationType,
+                                                         donationAmount: decimalAmount,
+                                                         currencyCode: currency,
+                                                         isNative: false,
+                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
+        )
+        dataController.saveLocalDonationHistory(donationHistoryEntry)
+    }
+
+    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
+        if let donations = dataController.loadLocalDonationHistory() {
+            return !donations.isEmpty
+        }
+        return false
+    }
+
     @objc func tappedAction(_ sender: UIBarButtonItem) {
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
         
@@ -251,6 +310,13 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DDLogWarn("Error loading single page: \(error)")
+
+        // Avoid displaying "Plug-in handled load" noise to users.
+        if (error as NSError).isPluginHandledLoadError {
+            fakeProgressController.finish()
+            return
+        }
+
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
         fakeProgressController.finish()
     }
@@ -275,4 +341,17 @@ extension SinglePageWebViewController: WKUIDelegate {
         
         present(alertController, animated: true)
     }
+}
+
+private extension NSError {
+  var isPluginHandledLoadError: Bool {
+      domain == "WebKitErrorDomain" && code == 204
+  }
+}
+
+struct DonationInfo {
+    let amount: String?
+    let country: String?
+    let currency: String?
+    let isRecurring: Bool
 }

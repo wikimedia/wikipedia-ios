@@ -28,13 +28,13 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         return .wikipedia(language)
     }()
     
-    lazy var nowDate: Date = {
+    lazy var todayDate: Date = {
         return Calendar.current.startOfDay(for: Date())
     }()
     
     lazy var yesterdayDate: Date = {
         let dayInSeconds = TimeInterval(60 * 60 * 24)
-        return nowDate.addingTimeInterval(-dayInSeconds)
+        return todayDate.addingTimeInterval(-dayInSeconds)
     }()
     
     override func setUp() async throws {
@@ -48,7 +48,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         
         // Fetch, confirm page view was added
-        let results = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let results = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(results)
         XCTAssertEqual(results!.count, 1)
         XCTAssertNotNil(results![0].page)
@@ -66,7 +66,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         
         // Fetch, confirm page view was added
-        let addedResults = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(addedResults)
         XCTAssertEqual(addedResults!.count, 1)
         
@@ -74,7 +74,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.deletePageView(title: "Cat", namespaceID: 0, project: enProject)
         
         // Fetch, confirm page view was deleted
-        let deletedResults = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(deletedResults)
         XCTAssertEqual(deletedResults!.count, 0)
     }
@@ -84,7 +84,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         
         // Fetch, confirm page view was added
-        let addedResults = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(addedResults)
         XCTAssertEqual(addedResults!.count, 1)
         
@@ -92,26 +92,26 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.deleteAllPageViews()
         
         // Fetch, confirm page view was deleted
-        let deletedResults = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(deletedResults)
         XCTAssertEqual(deletedResults!.count, 0)
     }
     
     func testImportPageViews() async throws {
         let importRequests: [WMFPageViewImportRequest] = [
-            WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: nowDate),
+            WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: todayDate),
             WMFPageViewImportRequest(title: "Felis silvestris catus", project: esProject, viewedDate: yesterdayDate)
         ]
         
         try await dataController.importPageViews(requests: importRequests)
         
         // Fetch, confirm page views were added
-        let pageViews = try store.fetch(entityType: CDPageView.self, entityName: "WMFPageView", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let pageViews = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(pageViews)
         XCTAssertEqual(pageViews!.count, 2)
         
         // Fetch, confirm pages were added
-        let pages = try store.fetch(entityType: CDPage.self, entityName: "WMFPage", predicate: nil, fetchLimit: nil, in: store.viewContext)
+        let pages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
         XCTAssertNotNil(pages)
         XCTAssertEqual(pages!.count, 2)
     }
@@ -123,7 +123,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
         try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject)
         
-        let results = try dataController.fetchPageViewCounts()
+        let results = try dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
         
         XCTAssertEqual(results.count, 2)
         XCTAssertEqual(results[0].page.title, "Cat")

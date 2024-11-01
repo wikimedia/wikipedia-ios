@@ -21,6 +21,7 @@
 // Author: Lulucmy
 // Author: MacOS Weed
 // Author: Macofe
+// Author: Mahabarata
 // Author: McDutchie
 // Author: Melimeli
 // Author: Méthodes Bulebe Hangi
@@ -194,8 +195,7 @@
 "alt-text-feedback-survey-title" = "Contribuer à l'amélioration de la fonctionnalité";
 "alt-text-feedback-survey-toast-title" = "Commentaires soumis";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfait";
-// Fuzzy
-"alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [GFDL]($3). Vous reconnaissez qu'un lien hypertexte ou une URL suffit pour attribuer la licence Creative Commons.";
+"alt-text-license" = "En publiant des modifications, vous acceptez les [conditions d'utilisation]($1) et vous acceptez irrévocablement de publier votre contribution sous la licence [CC BY-SA 3.0]($2) et la [licence de documentation libre GNU]($3). Vous reconnaissez qu'un lien hypertexte ou une URL constitue une attribution suffisante sous la licence Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "Les images précédentes manquent de textes alternatifs. Ajoutez une description à l'mage pour aider les lecteurs de comprendre.";
 "alt-text-modal-subtitle-regular-edit" = "Cet article contient une image dont le texte alternatif est manquant. Ajouter une description pour les lecteurs malvoyants ?";
 "alt-text-modal-title" = "Ajouter le Texte alternatif manquant l'image.";
@@ -258,6 +258,7 @@
 "clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
+"confirm-donation-history-deletion-title" = "Confirmer la suppression";
 "continue-button-title" = "Continuer";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";

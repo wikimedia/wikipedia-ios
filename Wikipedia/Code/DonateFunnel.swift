@@ -17,6 +17,7 @@ import WMF
         case articleProfile = "article_profile"
         case exploreProfile = "explore_profile"
         case exploreOptOut = "explore_optout_profile"
+        case wikiYiR = "wiki_yir"
     }
     
     private enum Action: String {
@@ -49,6 +50,11 @@ import WMF
         case articleReturnClick = "article_return_click"
         case returnClick = "return_click"
         case profileClick = "profile_click"
+        case startClick = "start_click"
+        case hideClick = "hide_click"
+        case nextClick = "next_click"
+        case continueClick = "continue_click"
+        case donateStartClickYir = "donate_start_click_yir"
     }
     
     private struct Event: EventInterface {
@@ -298,5 +304,67 @@ import WMF
     
     @objc func logExploreOptOutProfileClick(metricsID: String) {
         logEvent(activeInterface: .exploreOptOut, action: . profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    // MARK: - Year In Review
+    
+    func logProfileDidTapYearInReview() {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
+    }
+    
+    func logYearInReviewSlideImpression(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDidTapDone(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDidTapIntroContinue() {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
+    }
+    
+    func logYearInReviewDidTapIntroDisable() {
+        logEvent(activeInterface: .wikiYiR, action: .hideClick, actionData: ["slide": "start"])
+    }
+    
+    func logYearInReviewDidTapNext(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "entry_a"])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidTapContinue() {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": "entry_a"])
+    }
+    
+    func logYearInReviewFeatureAnnouncementDidTapClose() {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
+    }
+    
+    func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
+            "slide": slideLoggingID,
+            "campaign_id": metricsID])
+    }
+    
+    // Year in Review Donate flow events
+    
+    func logYearInReviewDidTapDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidTapDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
 }

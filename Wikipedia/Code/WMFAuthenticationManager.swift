@@ -130,6 +130,11 @@ import CocoaLumberjackSwift
         return false
     }
     
+    @objc public var authStateIsTemporary: Bool {
+        // To match Android, is_temp = existence of central auth username cookie, but missing an entry in the local credential store
+        return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
+    }
+    
     // MARK: Login
     
     /// Attempt login with saved credentials in the keychain.

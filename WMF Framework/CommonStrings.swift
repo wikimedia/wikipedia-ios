@@ -142,7 +142,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let shareActionTitle = WMFLocalizedString("article-share", value: "Share", comment: "Text of the article list row action shown on swipe which allows the user to choose the sharing option")
     public static let shareMenuTitle = WMFLocalizedString("share-menu-item", value: "Share…", comment:"'Share…' menu item with ellipsis to indicate further actions are required.")
-
+    public static let editArticleWarning = WMFLocalizedString("description-article-introduction-warning-message", value: "The ordering of elements will be different in the editing view than article view.", comment: "Description of alert dialouge to show ordering is different")
     @objc public static let updateActionTitle = WMFLocalizedString("action-update", value: "Update", comment: "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
@@ -753,7 +753,7 @@ public class CommonStrings: NSObject {
 
     public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
 
-    public static let altTextFeedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a alt text experiment survey")
+    public static let feedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a survey")
 
     // Account
 
@@ -770,6 +770,12 @@ public class CommonStrings: NSObject {
     public static let confirmDeletionSubitle = WMFLocalizedString("confirm-donation-history-deletion-subtitle", value: "This will only apply to donations made from this device.", comment: "Subtitle for confirm local donation history deletion alert")
 
     public static let confirmedDeletion = WMFLocalizedString("confirmed-donation-history-deletion", value: "Local history deleted", comment: "Title for confirming deletion of locally saved donations alert")
+
+    // Year In Review
+
+    public static let yirFeatureAnnoucementTitle = WMFLocalizedString("yir-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("yir-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
+
 
 }
 // Language variant strings

@@ -28,19 +28,21 @@ final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
                 return
             }
             
-            guard let config = controller.loadFeatureConfig() else {
+            guard let config = controller.loadFeatureConfig(),
+                  let iosConfig = config.ios.first,
+            let yirConfig = config.ios.first?.yir(yearID: "2024.1") else {
                 XCTFail("Failure loading feature config")
                 return
             }
             
-            XCTAssertEqual(config.ios.first?.version, 1, "Unexpected feature config version")
-            XCTAssertEqual(config.ios.first?.yir.isEnabled, true, "Unexpected feature config yir isEnabled")
-            XCTAssertEqual(config.ios.first?.yir.countryCodes.count, 2, "Unexpected feature config yir countryCodes count")
-            XCTAssertEqual(config.ios.first?.yir.primaryAppLanguageCodes.count, 2, "Unexpected feature config yir primaryAppLanguageCodes count")
-            XCTAssertEqual(config.ios.first?.yir.dataPopulationStartDateString, "2024-01-01T00:00:00Z", "Unexpected feature config yir dataPopulationStartDateString")
-            XCTAssertEqual(config.ios.first?.yir.dataPopulationEndDateString, "2024-11-01T00:00:00Z", "Unexpected feature config yir dataPopulationEndDateString")
-            XCTAssertEqual(config.ios.first?.yir.personalizedSlides.readCount.isEnabled, true, "Unexpected feature config yir personalizedSlides readCount isEnabled flag")
-            XCTAssertEqual(config.ios.first?.yir.personalizedSlides.editCount.isEnabled, true, "Unexpected feature config yir personalizedSlides editCount isEnabled flag")
+            XCTAssertEqual(iosConfig.version, 1, "Unexpected feature config version")
+            XCTAssertEqual(yirConfig.isEnabled, true, "Unexpected feature config yir isEnabled")
+            XCTAssertEqual(yirConfig.countryCodes.count, 2, "Unexpected feature config yir countryCodes count")
+            XCTAssertEqual(yirConfig.primaryAppLanguageCodes.count, 2, "Unexpected feature config yir primaryAppLanguageCodes count")
+            XCTAssertEqual(yirConfig.dataPopulationStartDateString, "2024-01-01T00:00:00Z", "Unexpected feature config yir dataPopulationStartDateString")
+            XCTAssertEqual(yirConfig.dataPopulationEndDateString, "2024-11-01T00:00:00Z", "Unexpected feature config yir dataPopulationEndDateString")
+            XCTAssertEqual(yirConfig.personalizedSlides.readCount.isEnabled, true, "Unexpected feature config yir personalizedSlides readCount isEnabled flag")
+            XCTAssertEqual(yirConfig.personalizedSlides.editCount.isEnabled, true, "Unexpected feature config yir personalizedSlides editCount isEnabled flag")
             
             expectation.fulfill()
         }

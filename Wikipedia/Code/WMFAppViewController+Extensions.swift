@@ -603,6 +603,27 @@ extension WMFAppViewController {
             }
         }
     }
+
+    @objc func populateYearInReviewReport(for year: Int) {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.populateYearInReviewReportData(
+                    for: year,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
+            }
+        }
+    }
 }
 
 // MARK: WMFComponents App Environment Helpers

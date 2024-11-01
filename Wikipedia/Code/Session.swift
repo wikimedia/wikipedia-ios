@@ -87,6 +87,19 @@ public class Session: NSObject {
         return storage
     }()
     
+    public func hasCentralAuthUserCookie() -> Bool {
+        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
+            return false
+        }
+        
+        guard let cookie = storage.cookieWithName("centralauth_User", for: Configuration.current.centralAuthCookieSourceDomain),
+              !cookie.value.isEmpty else {
+            return false
+        }
+        
+        return true
+    }
+    
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
@@ -101,6 +114,23 @@ public class Session: NSObject {
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
         }
+    }
+    
+    public func hasValidCentralAuthCookies(for domain: String) -> Bool {
+        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
+            return false
+        }
+        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
+        guard !cookies.isEmpty else {
+            return false
+        }
+        let now = Date()
+        for cookie in cookies {
+            if let cookieExpirationDate = cookie.expiresDate, cookieExpirationDate < now {
+                return false
+            }
+        }
+        return true
     }
     
     @objc public func clearTemporaryCache() {
@@ -153,23 +183,6 @@ public class Session: NSObject {
         config.allowsCellularAccess = false
         return URLSession(configuration: config)
     }()
-    
-    public func hasValidCentralAuthCookies(for domain: String) -> Bool {
-        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
-            return false
-        }
-        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
-        guard !cookies.isEmpty else {
-            return false
-        }
-        let now = Date()
-        for cookie in cookies {
-            if let cookieExpirationDate = cookie.expiresDate, cookieExpirationDate < now {
-                return false
-            }
-        }
-        return true
-    }
     
     @objc(requestToGetURL:)
     public func request(toGET requestURL: URL?) -> URLRequest? {
