@@ -47,7 +47,6 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     
     enum TestsError: Error {
         case missingDataController
-        case storeNotLoaded
     }
     
     var store: WMFCoreDataStore?
@@ -65,16 +64,9 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     override func setUp() async throws {
         
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         
         self.store = store
-        
-        // Wait for store to load asyncronously
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        guard store.isLoaded else {
-            throw TestsError.storeNotLoaded
-        }
         
         self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
         

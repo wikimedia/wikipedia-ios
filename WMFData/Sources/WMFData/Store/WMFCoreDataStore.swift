@@ -8,9 +8,7 @@ public final class WMFCoreDataStore {
     // Will only be populated if persistent stores load correctly
     private var persistentContainer: NSPersistentContainer?
     
-    private(set) var isLoaded = false
-    
-    public init(appContainerURL: URL? = WMFDataEnvironment.current.appContainerURL) throws {
+    public init(appContainerURL: URL? = WMFDataEnvironment.current.appContainerURL) async throws {
         
         guard let appContainerURL else {
             throw WMFCoreDataStoreError.setupMissingAppContainerURL
@@ -39,22 +37,34 @@ public final class WMFCoreDataStore {
         
         let container = NSPersistentContainer(name: dataModelName, managedObjectModel: dataModel)
         container.persistentStoreDescriptions = [description]
-
-        container.loadPersistentStores { _, error in
-            if let error {
-                debugPrint("Error loading persistent stores: \(error)")
-            } else {
-                DispatchQueue.main.async {
-                    container.viewContext.automaticallyMergesChangesFromParent = true
-                    container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-                    
-                    self.persistentContainer = container
-                    self.isLoaded = true
-                }
-            }
-        }
         
         self.persistentContainer = container
+        
+        try await loadPersistentStores()
+    }
+    
+    private func loadPersistentStores() async throws {
+        
+        guard let persistentContainer else {
+            throw WMFCoreDataStoreError.setupMissingPersistentContainer
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            self.persistentContainer?.loadPersistentStores(completionHandler: { _, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    
+                    DispatchQueue.main.async {
+                        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+                        persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+                        
+                        continuation.resume()
+                    }
+                }
+            })
+        }
+        
     }
     
     var newBackgroundContext: NSManagedObjectContext {

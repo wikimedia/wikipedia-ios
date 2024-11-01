@@ -6,7 +6,6 @@ final class WMFCoreDataStoreTests: XCTestCase {
     
     enum TestsError: Error {
         case missingStore
-        case storeNotLoaded
         case empty
     }
     
@@ -15,15 +14,8 @@ final class WMFCoreDataStoreTests: XCTestCase {
     override func setUp() async throws {
         
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         self.store = store
-        
-        // Wait for store to load asyncronously
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        guard store.isLoaded else {
-            throw TestsError.storeNotLoaded
-        }
         
         try await super.setUp()
     }

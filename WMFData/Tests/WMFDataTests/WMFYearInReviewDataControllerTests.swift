@@ -8,7 +8,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     enum TestError: Error {
         case missingDataController
         case missingStore
-        case storeNotLoaded
     }
 
     var store: WMFCoreDataStore?
@@ -35,15 +34,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     override func setUp() async throws {
         
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         self.store = store
-        
-        // Wait for store to load asyncronously
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        guard store.isLoaded else {
-            throw TestError.storeNotLoaded
-        }
         
         self.dataController = try WMFYearInReviewDataController(coreDataStore: store)
         
@@ -119,10 +111,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         
         guard let dataController else {
             throw TestError.missingDataController
-        }
-        
-        guard let store else {
-            throw TestError.missingStore
         }
         
         let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
