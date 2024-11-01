@@ -310,6 +310,13 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DDLogWarn("Error loading single page: \(error)")
+
+        // Avoid displaying "Plug-in handled load" noise to users.
+        if (error as NSError).isPluginHandledLoadError {
+            fakeProgressController.finish()
+            return
+        }
+
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
         fakeProgressController.finish()
     }
@@ -336,6 +343,11 @@ extension SinglePageWebViewController: WKUIDelegate {
     }
 }
 
+private extension NSError {
+  var isPluginHandledLoadError: Bool {
+      domain == "WebKitErrorDomain" && code == 204
+  }
+}
 
 struct DonationInfo {
     let amount: String?
