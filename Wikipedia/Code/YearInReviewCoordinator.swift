@@ -175,8 +175,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .donateCount:
-                // TODO: Personalized donate slide
-                donateCountSlide = nil
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let donateCount = try? decoder.decode(Int.self, from: data) {
+                        donateCountSlide = nil
+                        // TODO: Create personalized donate slide
+                    }
+                }
             }
         }
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide)
@@ -227,9 +233,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
                loggingID: "edit_rate_base")
+           // TODO: Personalized or collective 5th donate slide here
        ]
         
-        // TODO: Personalized or collective 5th donate slide
+        
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
            donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
