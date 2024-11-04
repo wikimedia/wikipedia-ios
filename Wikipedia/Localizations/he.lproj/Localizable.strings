@@ -246,6 +246,7 @@
 "crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
+"description-article-introduction-warning-message" = "סדר הרכיבים יהיה שונה בתצוגת העריכה מאשר תצוגת ערך.";
 "description-edit-for-article" = "תיאור הערך עבור $1";
 "description-edit-length-warning" = "$1 מתוך $2";
 "description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
@@ -283,7 +284,7 @@
 "developer-settings" = "הגדרות מפתחים";
 "developer-settings-always-show-alt-text-entry-point" = "להציג תמיד את נקודת הכניסה לטקסט חלופי.";
 "developer-settings-enable-alt-text-experiment-en" = "הפעלת ניסוי טקסט חלופי לוויקיפדיה האנגלית.";
-"developer-settings-enable-year-in-review" = "הפעלת סקירת שנה";
+"developer-settings-enable-year-in-review" = "הפעלת \"סקירת השנה\"";
 "developer-settings-send-analytics-to-wmflabs" = "שליחת נתוני לבדיקה ל־wmflabs.";
 "developer-settings-suppress-image-rec-post" = "לא לשלוח את עריכת הצעות התמונה.";
 "diff-article-revision-history" = "היסטוריית גרסאות של ערך";
