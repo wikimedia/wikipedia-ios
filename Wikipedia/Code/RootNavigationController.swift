@@ -3,12 +3,16 @@ import UIKit
 @objc(WMFRootNavigationController)
 class RootNavigationController: WMFThemeableNavigationController {
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return topViewController?.supportedInterfaceOrientations ?? .all
-    }
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        return topViewController?.supportedInterfaceOrientations ?? .all
+//    }
 
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
 
     func pruneSearchControllers() {
