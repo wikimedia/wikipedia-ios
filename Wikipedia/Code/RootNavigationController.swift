@@ -2,17 +2,14 @@ import UIKit
 
 @objc(WMFRootNavigationController)
 class RootNavigationController: WMFThemeableNavigationController {
+    var forcePortrait = false
 
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        return topViewController?.supportedInterfaceOrientations ?? .all
-//    }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return forcePortrait ? topViewController?.supportedInterfaceOrientations ?? .all : .portrait
+    }
 
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
     }
 
     func pruneSearchControllers() {
@@ -23,6 +20,14 @@ class RootNavigationController: WMFThemeableNavigationController {
 
         /// `1..<count-2`: If first controller is Search (from tab bar item Search), it must be kept. Also, if VC prior to top one is Search, it is kept.
         viewControllers[1..<count-2].forEach({ ($0 as? SearchViewController)?.removeFromParent() })
+    }
+    
+    func turnOnForcePortrait() {
+        forcePortrait = true
+    }
+    
+    func turnOffForcePortrait() {
+        forcePortrait = false
     }
 
 }
