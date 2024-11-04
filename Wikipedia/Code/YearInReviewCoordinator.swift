@@ -115,17 +115,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private struct PersonalizedSlides {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
+        let donateCount: YearInReviewSlideContent?
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
         
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: 2024) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil)
         }
         
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
+        var donateCountSlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
             switch slide.id {
@@ -171,9 +173,18 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             loggingID: "edit_count_custom")
                     }
                 }
+            case .donateCount:
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let donateCount = try? decoder.decode(Int.self, from: data) {
+                        donateCountSlide = nil
+                        // TODO: Create personalized donate slide
+                    }
+                }
             }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide)
     }
     
     func start() {
@@ -221,7 +232,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
                loggingID: "edit_rate_base")
+           // TODO: Personalized or collective 5th donate slide here
        ]
+        
+        
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
            donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
