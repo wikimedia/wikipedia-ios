@@ -273,7 +273,8 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
             return
         }
         
-        let viewController = SinglePageWebViewController(url: url, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

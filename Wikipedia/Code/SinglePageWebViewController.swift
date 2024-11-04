@@ -6,49 +6,78 @@ import WMFData
 
 class SinglePageWebViewController: ViewController {
     
-    final class WebViewDonateConfig {
-        weak var donateCoordinatorDelegate: DonateCoordinatorDelegate?
-        weak var donateLoggingDelegate: WMFDonateLoggingDelegate?
-        let donateCompleteButtonTitle: String
-        
-        internal init(donateCoordinatorDelegate: (any DonateCoordinatorDelegate)?, donateLoggingDelegate: (any WMFDonateLoggingDelegate)?, donateCompleteButtonTitle: String) {
-            self.donateCoordinatorDelegate = donateCoordinatorDelegate
-            self.donateLoggingDelegate = donateLoggingDelegate
-            self.donateCompleteButtonTitle = donateCompleteButtonTitle
+    // MARK: - Nested Types
+    
+    final class DonateConfig {
+        let url: URL
+        let dataController: WMFDonateDataController
+        weak var coordinatorDelegate: DonateCoordinatorDelegate?
+        weak var loggingDelegate: WMFDonateLoggingDelegate?
+        let completeButtonTitle: String
+
+        internal init(url: URL, dataController: WMFDonateDataController, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?, completeButtonTitle: String) {
+            self.url = url
+            self.dataController = dataController
+            self.coordinatorDelegate = coordinatorDelegate
+            self.loggingDelegate = loggingDelegate
+            self.completeButtonTitle = completeButtonTitle
         }
     }
     
-    let url: URL
-    private let donateConfig: WebViewDonateConfig?
-    private let donateDataController = WMFDonateDataController()
-    private let isLearnMoreDonateURL: Bool
-
-    var doesUseSimpleNavigationBar: Bool {
-        didSet {
-            if doesUseSimpleNavigationBar {
-                navigationItem.setRightBarButtonItems([], animated: false)
-                navigationItem.titleView = nil
-            }
+    final class YiRLearnMoreConfig {
+        let url: URL
+        let donateButtonTitle: String
+        
+        internal init(url: URL, donateButtonTitle: String) {
+            self.url = url
+            self.donateButtonTitle = donateButtonTitle
         }
     }
-
-    var didReachThankyouPage = false
-
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil, isLearnMoreDonateURL: Bool) {
-        self.url = url
-        self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
-        self.donateConfig = donateConfig
-        self.isLearnMoreDonateURL = true
-        super.init()
-        self.theme = theme
+    
+    final class StandardConfig {
+        let url: URL
+        let useSimpleNavigationBar: Bool
         
-        self.navigationItem.backButtonTitle = url.lastPathComponent
-        self.navigationItem.backButtonDisplayMode = .generic
-        hidesBottomBarWhenPushed = true
+        internal init(url: URL, useSimpleNavigationBar: Bool) {
+            self.url = url
+            self.useSimpleNavigationBar = useSimpleNavigationBar
+        }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    enum ConfigType {
+        case donate(DonateConfig)
+        case yirLearnMore(YiRLearnMoreConfig)
+        case standard(StandardConfig)
+    }
+    
+    // MARK: - Properties
+    
+    private let configType: ConfigType
+    private var didReachThankYouPage = false
+    
+    private var loaded = false
+    private var didHandleInitialNavigation = false
+    
+    var useSimpleNavigationBar: Bool {
+        switch configType {
+        case .donate(let config):
+            return true
+        case .yirLearnMore(let config):
+            return true
+        case .standard(let config):
+            return config.useSimpleNavigationBar
+        }
+    }
+    
+    private var url: URL {
+        switch configType {
+        case .donate(let config):
+            return config.url
+        case .yirLearnMore(let config):
+            return config.url
+        case .standard(let config):
+            return config.url
+        }
     }
     
     private lazy var webViewConfiguration: WKWebViewConfiguration = {
@@ -80,60 +109,75 @@ class SinglePageWebViewController: ViewController {
         return fpc
     }()
 
-    private lazy var donationCompleteButtonContainer: UIView = {
+    private lazy var overlayButtonContainer: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = self.theme.colors.paperBackground
         return contentView
     }()
 
-    private lazy var donationCompleteButton: UIButton = {
+    private lazy var overlayButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(donateConfig?.donateCompleteButtonTitle, for: .normal)
+        
+        let title: String
+        switch configType {
+        case .donate(let config):
+            button.setTitle(config.completeButtonTitle, for: .normal)
+        case .yirLearnMore(let config):
+            button.setTitle(config.donateButtonTitle, for: .normal)
+        case .standard(let config):
+            break
+        }
+        
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
         button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
-        button.addTarget(self, action: #selector(didTapReturnButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapOverlayButton), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Lifecycle
+
+    required init(configType: ConfigType, theme: Theme) {
+        self.configType = configType
+        super.init()
+        self.theme = theme
+        
+        self.navigationItem.backButtonTitle = url.lastPathComponent
+        self.navigationItem.backButtonDisplayMode = .generic
+        hidesBottomBarWhenPushed = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
         scrollView?.delegate = self
 
-        if !doesUseSimpleNavigationBar {
+        if useSimpleNavigationBar {
+            navigationItem.setRightBarButtonItems([], animated: false)
+            navigationItem.titleView = nil
+        } else {
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
             let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
             navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
 
-            if url.isDonationURL {
-                navigationBar.isInteractiveHidingEnabled = false
-            }
             setupWButton()
+        }
+        
+        if case .donate(let donateConfig) = configType {
+            navigationBar.isInteractiveHidingEnabled = false
         }
 
         copyCookiesFromSession()
         
         super.viewDidLoad()
     }
-    
-    private func copyCookiesFromSession() {
-        let cookies = Session.sharedCookieStorage.cookies ?? []
-        for cookie in cookies {
-            webView.configuration.websiteDataStore.httpCookieStore
-                .setCookie(cookie)
-        }
-    }
-
-    private func fetch() {
-        fakeProgressController.start()
-        webView.load(URLRequest(url: url))
-    }
-    
-    var fetched = false
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -145,18 +189,41 @@ class SinglePageWebViewController: ViewController {
         
         super.viewWillAppear(animated)
 
-        guard !fetched else {
+        guard !loaded else {
             return
         }
-        fetched = true
-        fetch()
+        loaded = true
+        load()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if url.isDonationURL {
-            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
+        switch configType {
+        case .donate(let config):
+            if config.url.isDonationURL {
+                config.loggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
+            }
+        case .yirLearnMore(let config):
+            break
+        case .standard(let config):
+            break
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        switch configType {
+        case .donate(let config):
+            if didReachThankYouPage {
+                config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidDisappear)
+                config.coordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidDisappear)
+            }
+        case .yirLearnMore(let yiRLearnMoreConfig):
+            break
+        case .standard(let standardConfig):
+            break
         }
     }
     
@@ -167,26 +234,70 @@ class SinglePageWebViewController: ViewController {
             super.preferredContentSize = newValue
         }
     }
+    
+    // MARK: - Actions
+    
+    @objc private func tappedAction(_ sender: UIBarButtonItem) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
+        
+        if let popover = activityViewController.popoverPresentationController {
+            popover.barButtonItem = sender
+            popover.permittedArrowDirections = .any
+        }
 
-    func setupDonationCompleteView() {
-        webView.addSubview(donationCompleteButtonContainer)
-        donationCompleteButtonContainer.addSubview(donationCompleteButton)
+        activityViewController.excludedActivityTypes = [.addToReadingList]
+        present(activityViewController, animated: true)
+    }
+    
+    @objc private func closeButtonTapped(_ sender: UIButton) {
+        navigationController?.dismiss(animated: true)
+    }
 
-        let bottom = donationCompleteButtonContainer.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
-        let leading = donationCompleteButtonContainer.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailing = donationCompleteButtonContainer.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
-        let height = donationCompleteButtonContainer.heightAnchor.constraint(equalToConstant: 90)
+    @objc private func didTapOverlayButton() {
+        switch configType {
+        case .donate(let config):
+            config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidTapReturn)
+            config.coordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidTapReturn)
+        case .yirLearnMore(let config):
+            break
+        case .standard(let config):
+            break
+        }
+    }
+    
+    private func copyCookiesFromSession() {
+        let cookies = Session.sharedCookieStorage.cookies ?? []
+        for cookie in cookies {
+            webView.configuration.websiteDataStore.httpCookieStore
+                .setCookie(cookie)
+        }
+    }
+    
+    // MARK: - Private
 
-        let buttonTop = donationCompleteButton.topAnchor.constraint(equalTo: donationCompleteButtonContainer.topAnchor, constant: 12)
-        let buttonLeading = donationCompleteButton.leadingAnchor.constraint(equalTo: donationCompleteButtonContainer.leadingAnchor, constant: 12)
-        let buttonTrailing = donationCompleteButton.trailingAnchor.constraint(equalTo: donationCompleteButtonContainer.trailingAnchor, constant: -12)
-        let buttonBottom = donationCompleteButton.bottomAnchor.constraint(equalTo: donationCompleteButtonContainer.bottomAnchor, constant: -32)
+    private func load() {
+        fakeProgressController.start()
+        webView.load(URLRequest(url: url))
+    }
+
+    private func setupButtonOverlay() {
+        webView.addSubview(overlayButtonContainer)
+        overlayButtonContainer.addSubview(overlayButton)
+
+        let bottom = overlayButtonContainer.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+        let leading = overlayButtonContainer.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailing = overlayButtonContainer.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        let height = overlayButtonContainer.heightAnchor.constraint(equalToConstant: 90)
+
+        let buttonTop = overlayButton.topAnchor.constraint(equalTo: overlayButtonContainer.topAnchor, constant: 12)
+        let buttonLeading = overlayButton.leadingAnchor.constraint(equalTo: overlayButtonContainer.leadingAnchor, constant: 12)
+        let buttonTrailing = overlayButton.trailingAnchor.constraint(equalTo: overlayButtonContainer.trailingAnchor, constant: -12)
+        let buttonBottom = overlayButton.bottomAnchor.constraint(equalTo: overlayButtonContainer.bottomAnchor, constant: -32)
 
         webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom])
     }
 
-    var didHandleInitialNavigation = false
-    func handleNavigation(with action: WKNavigationAction) -> Bool {
+    private func handleNavigation(with action: WKNavigationAction) -> Bool {
         guard didHandleInitialNavigation else {
             didHandleInitialNavigation = true
             return true
@@ -198,30 +309,41 @@ class SinglePageWebViewController: ViewController {
             return true
         }
         
-        if let host = actionURL.host(),
-           host == "payments.wikimedia.org",
-           let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
-            webView.load(URLRequest(url: thankYouURL))
-            return false
-        }
+//        if let host = actionURL.host(),
+//           host == "payments.wikimedia.org",
+//           let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
+//            webView.load(URLRequest(url: thankYouURL))
+//            return false
+//        }
         
         if action.navigationType == .linkActivated {
             let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
             navigate(to: actionURL, userInfo: userInfo)
             return false
-        } else if action.navigationType == .other,
-                  actionURL.isThankYouDonationURL {
-            didReachThankyouPage = true
-            let parsedDonationInfo = parseThankYouURL(actionURL)
-            saveDonationToLocalHistory(donationInfo: parsedDonationInfo, dataController: donateDataController)
-            setupDonationCompleteView()
-            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
+        } else if action.navigationType == .other {
+            
+            switch configType {
+            case .donate(let config):
+                if actionURL.isThankYouDonationURL {
+                    didReachThankYouPage = true
+                    let parsedDonationInfo = parseThankYouURL(actionURL)
+                    saveDonationToLocalHistory(donationInfo: parsedDonationInfo, dataController: config.dataController)
+                    setupButtonOverlay()
+                    config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
+                }
+            case .yirLearnMore(let config):
+                break
+            case .standard(let config):
+                break
+            }
         }
         
         return true
     }
+    
+    // MARK: - Donate Config Logic
 
-    func parseThankYouURL(_ url: URL) -> DonationInfo? {
+    private func parseThankYouURL(_ url: URL) -> DonationInfo? {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return nil
         }
@@ -274,35 +396,9 @@ class SinglePageWebViewController: ViewController {
         }
         return false
     }
-
-    @objc func tappedAction(_ sender: UIBarButtonItem) {
-        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
-        
-        if let popover = activityViewController.popoverPresentationController {
-            popover.barButtonItem = sender
-            popover.permittedArrowDirections = .any
-        }
-
-        activityViewController.excludedActivityTypes = [.addToReadingList]
-        present(activityViewController, animated: true)
-    }
-    
-    @objc func closeButtonTapped(_ sender: UIButton) {
-        navigationController?.dismiss(animated: true)
-    }
-
-    @objc func didTapReturnButton() {
-        donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidTapReturn)
-        donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidTapReturn)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        if didReachThankyouPage {
-            donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidDisappear)
-            donateConfig?.donateCoordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidDisappear)
-        }
-    }
 }
+
+// MARK: - WKNavigationDelegate
 
 extension SinglePageWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -344,6 +440,8 @@ extension SinglePageWebViewController: WKNavigationDelegate {
         fakeProgressController.finish()
     }
 }
+
+// MARK: - WKUIDelegate
 
 extension SinglePageWebViewController: WKUIDelegate {
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {

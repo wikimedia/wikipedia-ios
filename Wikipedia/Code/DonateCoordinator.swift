@@ -384,8 +384,8 @@ class DonateCoordinator: Coordinator {
         case .exploreProfile, .settingsProfile, .yearInReview:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
-        let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
-        let webVC = SinglePageWebViewController(url: webViewURL, theme: theme, donateConfig: donateConfig)
+        let donateConfig = SinglePageWebViewController.DonateConfig(url: webViewURL, dataController: WMFDonateDataController.shared, coordinatorDelegate: self, loggingDelegate: self, completeButtonTitle: completeButtonTitle)
+        let webVC = SinglePageWebViewController(configType: .donate(donateConfig), theme: theme)
         
         switch navigationStyle {
         case .dismissThenPush:
