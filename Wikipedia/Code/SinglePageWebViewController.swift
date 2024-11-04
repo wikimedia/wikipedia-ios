@@ -317,12 +317,13 @@ class SinglePageWebViewController: ViewController {
             return true
         }
         
-//        if let host = actionURL.host(),
-//           host == "payments.wikimedia.org",
-//           let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
-//            webView.load(URLRequest(url: thankYouURL))
-//            return false
-//        }
+        if WMFDeveloperSettingsDataController.shared.bypassDonation,
+           let host = actionURL.host(),
+           host == "payments.wikimedia.org",
+           let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
+            webView.load(URLRequest(url: thankYouURL))
+            return false
+        }
         
         if action.navigationType == .linkActivated {
             let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
