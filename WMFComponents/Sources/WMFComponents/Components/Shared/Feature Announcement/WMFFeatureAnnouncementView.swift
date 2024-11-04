@@ -47,14 +47,15 @@ struct WMFFeatureAnnouncementView: View {
                                 .font(Font(WMFFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
+
                         if let image = viewModel.image {
-                            ZStack {
+                            ZStack(alignment: .center) {
                                 if let backgroundImage = viewModel.backgroundImage {
                                     Image(uiImage: backgroundImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(height: 140)
-                                        .frame(maxWidth: .infinity)
+                                        .frame(maxWidth: geometry.size.width - 64)
                                         .cornerRadius(8)
                                         .clipped()
                                 }
@@ -64,7 +65,9 @@ struct WMFFeatureAnnouncementView: View {
                                     .frame(width: 132, height: 118)
                                     .foregroundColor(imageColor)
                             }
+                            .frame(maxWidth: geometry.size.width - 64)
                         }
+
                         WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
                     .padding([.leading, .trailing], 32)
