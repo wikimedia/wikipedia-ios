@@ -20,8 +20,8 @@ class SinglePageWebViewController: ViewController {
     
     let url: URL
     private let donateConfig: WebViewDonateConfig?
-
     private let donateDataController = WMFDonateDataController()
+    private let isLearnMoreDonateURL: Bool
 
     var doesUseSimpleNavigationBar: Bool {
         didSet {
@@ -34,10 +34,11 @@ class SinglePageWebViewController: ViewController {
 
     var didReachThankyouPage = false
 
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil) {
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil, isLearnMoreDonateURL: Bool) {
         self.url = url
         self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         self.donateConfig = donateConfig
+        self.isLearnMoreDonateURL = true
         super.init()
         self.theme = theme
         
@@ -187,6 +188,13 @@ class SinglePageWebViewController: ViewController {
             let relativeActionURL = action.request.url,
             let actionURL = URL(string: relativeActionURL.absoluteString, relativeTo: webView.url)?.absoluteURL else {
             return true
+        }
+        
+        if let host = actionURL.host(),
+           host == "payments.wikimedia.org",
+           let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
+            webView.load(URLRequest(url: thankYouURL))
+            return false
         }
         
         if action.navigationType == .linkActivated {
