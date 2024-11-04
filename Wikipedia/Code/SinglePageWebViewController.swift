@@ -61,9 +61,9 @@ class SinglePageWebViewController: ViewController {
     
     var useSimpleNavigationBar: Bool {
         switch configType {
-        case .donate(let config):
+        case .donate:
             return true
-        case .yirLearnMore(let config):
+        case .yirLearnMore:
             return true
         case .standard(let config):
             return config.useSimpleNavigationBar
@@ -179,7 +179,7 @@ class SinglePageWebViewController: ViewController {
             setupWButton()
         }
         
-        if case .donate(let donateConfig) = configType {
+        if case .donate = configType {
             navigationBar.isInteractiveHidingEnabled = false
         }
 
@@ -229,9 +229,9 @@ class SinglePageWebViewController: ViewController {
                 config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidDisappear)
                 config.coordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidDisappear)
             }
-        case .yirLearnMore(let yiRLearnMoreConfig):
+        case .yirLearnMore:
             break
-        case .standard(let standardConfig):
+        case .standard:
             break
         }
     }
@@ -361,9 +361,9 @@ class SinglePageWebViewController: ViewController {
                     setupButtonOverlay()
                     config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouPageDidAppear)
                 }
-            case .yirLearnMore(let config):
+            case .yirLearnMore:
                 break
-            case .standard(let config):
+            case .standard:
                 break
             }
         }
@@ -414,7 +414,7 @@ class SinglePageWebViewController: ViewController {
         switch configType {
         case .donate:
             DDLogError("Unexpected config for setOverlayButtonLoading")
-        case .yirLearnMore(let yiRLearnMoreConfig):
+        case .yirLearnMore:
             
             if isLoading {
                 overlayButton.titleLabel?.alpha = 0
