@@ -44,7 +44,7 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         imageName: "intro",
-                        imageOverlay: "globe")
+                        imageOverlay: "globe_yir")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.top, 48)
                     .onAppear {
