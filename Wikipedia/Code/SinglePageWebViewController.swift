@@ -116,6 +116,14 @@ class SinglePageWebViewController: ViewController {
         contentView.backgroundColor = self.theme.colors.paperBackground
         return contentView
     }()
+    
+    private lazy var overlayButtonSpinner: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = theme.colors.primaryText
+        return activityIndicator
+    }()
 
     private lazy var overlayButton: UIButton = {
         let button = UIButton()
@@ -265,13 +273,24 @@ class SinglePageWebViewController: ViewController {
                 return
             }
             
-            let coordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: overlayButtonContainer.frame, source: .yearInReview, dataStore: MWKDataStore.shared(), theme: theme, navigationStyle: .push, setLoadingBlock: { isLoading in })
+            let coordinator = DonateCoordinator(
+                navigationController: navigationController,
+                donateButtonGlobalRect: overlayButtonContainer.frame,
+                source: .yearInReview,
+                dataStore: MWKDataStore.shared(),
+                theme: theme,
+                navigationStyle: .push,
+                setLoadingBlock: { [weak self] isLoading in
+                self?.setOverlayButtonLoading(isLoading)
+            })
             coordinator.start()
             config.donateCoordinator = coordinator
-        case .standard(let config):
+        case .standard:
             break
         }
     }
+    
+    // MARK: - Private
     
     private func copyCookiesFromSession() {
         let cookies = Session.sharedCookieStorage.cookies ?? []
@@ -280,8 +299,6 @@ class SinglePageWebViewController: ViewController {
                 .setCookie(cookie)
         }
     }
-    
-    // MARK: - Private
 
     private func load() {
         fakeProgressController.start()
@@ -291,6 +308,7 @@ class SinglePageWebViewController: ViewController {
     private func setupButtonOverlay() {
         webView.addSubview(overlayButtonContainer)
         overlayButtonContainer.addSubview(overlayButton)
+        overlayButton.addSubview(overlayButtonSpinner)
 
         let bottom = overlayButtonContainer.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
         let leading = overlayButtonContainer.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
@@ -301,8 +319,11 @@ class SinglePageWebViewController: ViewController {
         let buttonLeading = overlayButton.leadingAnchor.constraint(equalTo: overlayButtonContainer.leadingAnchor, constant: 12)
         let buttonTrailing = overlayButton.trailingAnchor.constraint(equalTo: overlayButtonContainer.trailingAnchor, constant: -12)
         let buttonBottom = overlayButton.bottomAnchor.constraint(equalTo: overlayButtonContainer.bottomAnchor, constant: -32)
+        
+        let spinnerCenterX = overlayButtonSpinner.centerXAnchor.constraint(equalTo: overlayButton.centerXAnchor)
+        let spinnerCenterY = overlayButtonSpinner.centerYAnchor.constraint(equalTo: overlayButton.centerYAnchor)
 
-        webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom])
+        webView.addConstraints([bottom, leading, trailing, height, buttonTop, buttonLeading, buttonTrailing, buttonBottom, spinnerCenterX, spinnerCenterY])
     }
 
     private func handleNavigation(with action: WKNavigationAction) -> Bool {
@@ -385,6 +406,28 @@ class SinglePageWebViewController: ViewController {
         let donationType: WMFDonateLocalHistory.DonationType = donationInfo.isRecurring ? .recurring : .oneTime
 
         dataController.saveLocalDonationHistory(type: donationType, amount: decimalAmount, currencyCode: currency, isNative: false)
+    }
+
+    // MARK: - YiR Learn More Config Logic
+    
+    private func setOverlayButtonLoading(_ isLoading: Bool) {
+        switch configType {
+        case .donate:
+            DDLogError("Unexpected config for setOverlayButtonLoading")
+        case .yirLearnMore(let yiRLearnMoreConfig):
+            
+            if isLoading {
+                overlayButton.titleLabel?.alpha = 0
+                overlayButtonSpinner.startAnimating()
+            } else {
+                overlayButton.titleLabel?.alpha = 1
+                overlayButtonSpinner.stopAnimating()
+            }
+            
+            
+        case .standard:
+            DDLogError("Unexpected config for setOverlayButtonLoading")
+        }
     }
 }
 
