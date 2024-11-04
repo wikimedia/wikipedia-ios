@@ -400,6 +400,7 @@ class DonateCoordinator: Coordinator {
             }
             
             let newNavigationController = WMFThemeableNavigationController(rootViewController: webVC)
+            newNavigationController.modalPresentationStyle = .formSheet
             presentedViewController.present(newNavigationController, animated: true)
         }
     }

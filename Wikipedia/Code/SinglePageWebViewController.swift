@@ -158,6 +158,14 @@ class SinglePageWebViewController: ViewController {
             donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
         }
     }
+    
+    public override var preferredContentSize: CGSize {
+        get {
+            return CGSize(width: 1400, height: 1400)
+        } set {
+            super.preferredContentSize = newValue
+        }
+    }
 
     func setupDonationCompleteView() {
         webView.addSubview(donationCompleteButtonContainer)
