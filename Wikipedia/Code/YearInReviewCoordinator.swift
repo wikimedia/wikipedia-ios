@@ -3,6 +3,7 @@ import PassKit
 import SwiftUI
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
@@ -15,6 +16,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -237,7 +239,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
+           donateButtonTitle: yearInReviewDonateText,
            doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
            shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
@@ -395,6 +397,26 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
+            
+            // todo: remove
+            if isLastSlide {
+                guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+                      let url = URL(string:"https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)") else {
+                    return
+                }
+                
+                guard let presentedViewController = navigationController.presentedViewController else {
+                    DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                    return
+                }
+                
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle: yearInReviewDonateText)
+                let webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+                let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC)
+                presentedViewController.present(newNavigationVC, animated: true)
+                return
+            }
+            
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
                 

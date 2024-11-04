@@ -29,6 +29,7 @@ class DonateCoordinator: Coordinator {
     
     enum NavigationStyle {
         case dismissThenPush
+        case push
         case present
     }
     
@@ -357,6 +358,8 @@ class DonateCoordinator: Coordinator {
         let donateViewController = WMFDonateViewController(viewModel: donateViewModel)
         
         switch navigationStyle {
+        case .push:
+            navigationController.pushViewController(donateViewController, animated: true)
         case .dismissThenPush:
             navigationController.dismiss(animated: true) {
                 self.navigationController.pushViewController(donateViewController, animated: true)
@@ -388,8 +391,10 @@ class DonateCoordinator: Coordinator {
         let webVC = SinglePageWebViewController(configType: .donate(donateConfig), theme: theme)
         
         switch navigationStyle {
+        case .push:
+            navigationController.pushViewController(webVC, animated: true)
         case .dismissThenPush:
-            self.navigationController.dismiss(animated: true, completion: {
+            navigationController.dismiss(animated: true, completion: {
                 self.navigationController.pushViewController(webVC, animated: true)
             })
         case .present:
@@ -480,6 +485,8 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         
         switch navigationStyle {
+        case .push:
+            self.navigationController.popViewController(animated: true)
         case .dismissThenPush:
             self.navigationController.popViewController(animated: true)
         case .present:
@@ -502,6 +509,8 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popFromWebFormThankYouPage() {
         
         switch navigationStyle {
+        case .push:
+            self.navigationController.popViewController(animated: true)
         case .dismissThenPush:
             navigationController.popViewController(animated: true)
         case .present:

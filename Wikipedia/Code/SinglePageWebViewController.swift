@@ -27,6 +27,7 @@ class SinglePageWebViewController: ViewController {
     final class YiRLearnMoreConfig {
         let url: URL
         let donateButtonTitle: String
+        var donateCoordinator: DonateCoordinator?
         
         internal init(url: URL, donateButtonTitle: String) {
             self.url = url
@@ -204,9 +205,9 @@ class SinglePageWebViewController: ViewController {
             if config.url.isDonationURL {
                 config.loggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
             }
-        case .yirLearnMore(let config):
-            break
-        case .standard(let config):
+        case .yirLearnMore:
+            setupButtonOverlay()
+        case .standard:
             break
         }
     }
@@ -259,7 +260,14 @@ class SinglePageWebViewController: ViewController {
             config.loggingDelegate?.handleDonateLoggingAction(.webViewFormThankYouDidTapReturn)
             config.coordinatorDelegate?.handleDonateAction(.webViewFormThankYouDidTapReturn)
         case .yirLearnMore(let config):
-            break
+            
+            guard let navigationController else {
+                return
+            }
+            
+            let coordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: overlayButtonContainer.frame, source: .yearInReview, dataStore: MWKDataStore.shared(), theme: theme, navigationStyle: .push, setLoadingBlock: { isLoading in })
+            coordinator.start()
+            config.donateCoordinator = coordinator
         case .standard(let config):
             break
         }
