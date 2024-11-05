@@ -27,6 +27,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     let collectiveNumEditsText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits", value: "460,300 edits", comment: "Number of edits made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
 
     let collectiveNumEditsPerMinuteText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute", value: "342 edits per minute", comment: "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
+    
+    // Collective base numbers that will change for header
+        let collectiveNumArticlesNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles-number", value: "63,590,000", comment: "Total number of articles across Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+        
+        let collectiveNumEditsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-number", value: "399,100", comment: "Number of edits made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+        
+        let collectiveNumEditsPerMinuteNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute-number", value: "342", comment: "Number of edits per minute made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+        
+        let collectiveNumViewsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-views-number", value: "1,400,000,000", comment: "Number of article views on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -107,18 +116,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private struct PersonalizedSlides {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
+        let donateCount: YearInReviewSlideContent?
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
-
+        
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: 2024) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil)
         }
-
+        
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
-
+        var donateCountSlide: YearInReviewSlideContent? = nil
+        
         for slide in report.slides {
             switch slide.id {
             case .readCount:
@@ -127,104 +138,139 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
-                            imageName: "heart_yir", title: personalizedSlide1Title(readCount: readCount), informationBubbleText: nil, subtitle: personalizedSlide1Subtitle(readCount: readCount), loggingID: "read_count_custom")
+                            imageName: "read",
+                            textOverlay: String.localizedStringWithFormat(
+                                WMFLocalizedString(
+                                    "year-in-review-personalized-read-count",
+                                    value: "%1$@",
+                                    comment: "Year in review, amount of articles read by the user, $1 is amount of articles."
+                                ),
+                                String(readCount)
+                            ),
+                            title: personalizedSlide1Title(readCount: readCount),
+                            informationBubbleText: nil,
+                            subtitle: personalizedSlide1Subtitle(readCount: readCount),
+                            loggingID: "read_count_custom")
                     }
                 }
             case .editCount:
                 if slide.display == true,
-                        let data = slide.data {
+                   let data = slide.data {
                     let decoder = JSONDecoder()
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
-                            imageName: "languages_yir",
+                            imageName: "edits",
+                            textOverlay: String.localizedStringWithFormat(
+                                WMFLocalizedString(
+                                    "year-in-review-personalized-edit-count",
+                                    value: "%1$@",
+                                    comment: "Year in review, amount of edits made by the user. $1 is amount of edits."
+                                ),
+                                editCount >= 500 ? "500+" : String(editCount)
+                            ),
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
                             loggingID: "edit_count_custom")
                     }
                 }
+            case .donateCount:
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let donateCount = try? decoder.decode(Int.self, from: data) {
+                        donateCountSlide = nil
+                        // TODO: Create personalized donate slide
+                    }
+                }
             }
         }
-
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide)
     }
-
+    
     func start() {
-
-        var firstSlide = YearInReviewSlideContent(
-            imageName: "heart_yir",
-            title: baseSlide1Title,
-            informationBubbleText: nil,
-            subtitle: baseSlide1Subtitle,
-            loggingID: "read_count_base")
-
-        var thirdSlide = YearInReviewSlideContent(
-            imageName: "languages_yir",
-            title: baseSlide3Title,
-            informationBubbleText: nil,
-            subtitle: baseSlide3Subtitle,
-            loggingID: "edit_count_base")
-
-        let personalizedSlides = getPersonalizedSlides()
-
-        if let readCountSlide = personalizedSlides.readCount {
-            firstSlide = readCountSlide
-        }
-
-        if let editCountSlide = personalizedSlides.editCount {
-            thirdSlide = editCountSlide
-        }
-
-        let slides: [YearInReviewSlideContent] = [
-            firstSlide,
-            YearInReviewSlideContent(
-                imageName: "phone_yir",
-                title: baseSlide2Title,
-                informationBubbleText: nil,
-                subtitle: baseSlide2Subtitle,
-                loggingID: "read_view_base"),
-            thirdSlide,
-            YearInReviewSlideContent(
-                imageName: "edit_yir",
-                title: baseSlide4Title,
-                informationBubbleText: nil,
-                subtitle: baseSlide4Subtitle,
-                loggingID: "edit_rate_base")
-        ]
-
-        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-            donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
-            doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
-            shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
-            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
-            firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
-            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
-            firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
-            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature"),
-            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-            usernameTitle: CommonStrings.userTitle
-        )
-
-        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
-        let hashtag = "#WikipediaYearInReview"
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
-
-        let yirview = WMFYearInReviewView(viewModel: viewModel)
-
-        self.viewModel = viewModel
-        let finalView = yirview.environmentObject(targetRects)
-        let hostingController = UIHostingController(rootView: finalView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = false
-        }
+           
+       var firstSlide = YearInReviewSlideContent(
+           imageName: "read",
+           textOverlay: collectiveNumArticlesNumber,
+           title: baseSlide1Title,
+           informationBubbleText: nil,
+           subtitle: baseSlide1Subtitle,
+           loggingID: "read_count_base")
+       
+       var thirdSlide = YearInReviewSlideContent(
+           imageName: "edits",
+           textOverlay: collectiveNumEditsNumber,
+           title: baseSlide3Title,
+           informationBubbleText: nil,
+           subtitle: baseSlide3Subtitle,
+           loggingID: "edit_count_base")
+       
+       let personalizedSlides = getPersonalizedSlides()
+       
+       if let readCountSlide = personalizedSlides.readCount {
+           firstSlide = readCountSlide
+       }
+       
+       if let editCountSlide = personalizedSlides.editCount {
+           thirdSlide = editCountSlide
+       }
+       
+       let slides: [YearInReviewSlideContent] = [
+           firstSlide,
+           YearInReviewSlideContent(
+               imageName: "viewed",
+               textOverlay: collectiveNumViewsNumber,
+               title: baseSlide2Title,
+               informationBubbleText: nil,
+               subtitle: baseSlide2Subtitle,
+               loggingID: "read_view_base"),
+           thirdSlide,
+           YearInReviewSlideContent(
+               imageName: "editedPerMinute",
+               textOverlay: collectiveNumEditsPerMinuteNumber,
+               title: baseSlide4Title,
+               informationBubbleText: nil,
+               subtitle: baseSlide4Subtitle,
+               loggingID: "edit_rate_base")
+           // TODO: Personalized or collective 5th donate slide here
+       ]
         
-        hostingController.presentationController?.delegate = self
-
-        navigationController.present(hostingController, animated: true, completion: nil)
-    }
+        
+       
+       let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
+           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
+           doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
+           shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
+           nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
+           firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
+           firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
+           firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
+           firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature"),
+           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+           usernameTitle: CommonStrings.userTitle
+       )
+       
+       let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
+       let hashtag = "#WikipediaYearInReview"
+       let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
+       
+       let yirview = WMFYearInReviewView(viewModel: viewModel)
+       
+       self.viewModel = viewModel
+       let finalView = yirview.environmentObject(targetRects)
+       let hostingController = UIHostingController(rootView: finalView)
+       hostingController.modalPresentationStyle = .pageSheet
+       
+       if let sheetPresentationController = hostingController.sheetPresentationController {
+           sheetPresentationController.detents = [.large()]
+           sheetPresentationController.prefersGrabberVisible = false
+       }
+       
+       hostingController.presentationController?.delegate = self
+       
+       navigationController.present(hostingController, animated: true, completion: nil)
+   }
     
     func presentSurveyIfNeeded() {
         guard needsSurveyPresentation else {

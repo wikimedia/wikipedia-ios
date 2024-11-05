@@ -219,6 +219,7 @@
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
+"description-article-introduction-warning-message" = "Description of alert dialouge to show ordering is different";
 "description-edit-for-article" = "String describing which article description is being edited. $1 is replaced with the article title";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
 "description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
@@ -1393,10 +1394,14 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "year-in-review-2024-Wikipedia-num-articles" = "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-articles-number" = "Total number of articles across Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-edits" = "Number of edits made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-edits-number" = "Number of edits made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-edits-per-minute" = "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-edits-per-minute-number" = "Number of edits per minute made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-2024-Wikipedia-num-languages" = "Number of active languages available on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
 "year-in-review-2024-Wikipedia-num-views" = "Number of article views on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.";
+"year-in-review-2024-Wikipedia-num-views-number" = "Number of article views on Wikipedia. This text will be displayed in Wikipedia Year in Review header.";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle, $1 is replaced with the number of edits text, e.g. \"460,300 edits\"";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"460,300 edits\".";
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342 times per minute\"";
@@ -1410,10 +1415,12 @@
 "year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-hide" = "Button to hide year in review feature";
 "year-in-review-next" = "Year in review next button";
+"year-in-review-personalized-edit-count" = "Year in review, amount of edits made by the user. $1 is amount of edits.";
 "year-in-review-personalized-editing-subtitle-format" = "Year in review, personalized editing article count slide subtitle for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.";
 "year-in-review-personalized-editing-title-format" = "Year in review, personalized editing article count slide title for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
+"year-in-review-personalized-read-count" = "Year in review, amount of articles read by the user, $1 is amount of articles.";
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59 million articles\". $3 is replaced with the number of active languages available on Wikipedia, for example \"332 active languages\"";
 "year-in-review-personalized-reading-title- format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-share" = "Year in review share button";

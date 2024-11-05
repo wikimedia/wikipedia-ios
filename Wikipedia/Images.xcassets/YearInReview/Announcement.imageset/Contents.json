@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "IMG_80E389F47015-1 1.svg",
+      "filename" : "Announcement.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }

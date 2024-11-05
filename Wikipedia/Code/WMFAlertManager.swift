@@ -56,10 +56,12 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
 
-    @objc func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+    @objc func showWarningAlert(_ message: String, duration: NSNumber? = nil, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+        
+        let finalDuration = duration?.intValue ?? 2
         
         showAlert(dismissPreviousAlerts, alertBlock: { () in
-            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .warning, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .warning, customTypeName: nil, duration: sticky ? -1 : TimeInterval(finalDuration), callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
