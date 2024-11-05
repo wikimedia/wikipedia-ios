@@ -8,7 +8,7 @@ import CocoaLumberjackSwift
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
     
-    let theme: Theme
+    var theme: Theme
     let dataStore: MWKDataStore
 
     var navigationController: UINavigationController

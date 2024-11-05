@@ -121,7 +121,7 @@ class SinglePageWebViewController: ViewController {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = theme.colors.primaryText
+        activityIndicator.color = .white
         return activityIndicator
     }()
 
@@ -259,6 +259,16 @@ class SinglePageWebViewController: ViewController {
     }
     
     @objc private func closeButtonTapped(_ sender: UIButton) {
+        
+        switch configType {
+        case .donate:
+            break
+        case .yirLearnMore(let config):
+            config.donateCoordinator = nil
+        case .standard:
+            break
+        }
+        
         navigationController?.dismiss(animated: true)
     }
 
@@ -281,7 +291,7 @@ class SinglePageWebViewController: ViewController {
                 theme: theme,
                 navigationStyle: .push,
                 setLoadingBlock: { [weak self] isLoading in
-                self?.setOverlayButtonLoading(isLoading)
+                    self?.setOverlayButtonLoading(isLoading)
             })
             coordinator.start()
             config.donateCoordinator = coordinator
@@ -407,9 +417,9 @@ class SinglePageWebViewController: ViewController {
 
         dataController.saveLocalDonationHistory(type: donationType, amount: decimalAmount, currencyCode: currency, isNative: false)
     }
-
-    // MARK: - YiR Learn More Config Logic
     
+    // MARK: - YiR Learn More Config Logic
+        
     private func setOverlayButtonLoading(_ isLoading: Bool) {
         switch configType {
         case .donate:
