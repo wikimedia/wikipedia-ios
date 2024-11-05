@@ -383,7 +383,7 @@ class SinglePageWebViewController: ViewController {
     
     // MARK: - Donate Config Logic
 
-    private func parseThankYouURL(_ url: URL) -> DonationInfo? {
+    func parseThankYouURL(_ url: URL) -> DonationInfo? {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return nil
         }
