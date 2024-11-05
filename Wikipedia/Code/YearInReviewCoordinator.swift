@@ -15,7 +15,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
-    private(set) var needsSurveyPresentation = false
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -272,18 +271,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        navigationController.present(hostingController, animated: true, completion: nil)
    }
     
-    func presentSurveyIfNeeded() {
-        guard needsSurveyPresentation else {
-            return
-        }
-        
+    private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {
             let surveyVC = surveyViewController()
             navigationController.present(surveyVC, animated: true)
             self.dataController.hasPresentedYiRSurvey = true
         }
-        
-        self.needsSurveyPresentation = false
     }
 
     private func surveyViewController() -> UIViewController {
@@ -369,17 +362,13 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
             }
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, setLoadingBlock: {  [weak self] loading in
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
                 }
                 
                 viewModel.isLoading = loading
-            }, dismissalBlock: { [weak self] in
-                if isLastSlide {
-                    self?.needsSurveyPresentation = true
-                }
             })
             
             self.donateCoordinator = donateCoordinator
@@ -412,7 +401,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 
                 guard isLastSlide else { return }
                 
-                self.needsSurveyPresentation = true
                 self.presentSurveyIfNeeded()
             })
         }
