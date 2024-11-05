@@ -215,7 +215,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     donateCount > 0 {
                         donateCountSlide = YearInReviewSlideContent(
                             imageName: "thankyou",
-                            textOverlay: nil,
+                            imageOverlay: "wmf-logo",
                             title: personalizedSlide5Title,
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
@@ -247,7 +247,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         var fifthSlide = YearInReviewSlideContent(
             imageName: "thankyou",
-            textOverlay: nil,
+            imageOverlay: "wmf-logo",
             title: baseSlide5Title,
             informationBubbleText: nil,
             subtitle: baseSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
