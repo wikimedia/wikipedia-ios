@@ -240,15 +240,27 @@ import Contacts
     }
 
     @discardableResult
-    public func saveLocalDonationHistory(_ donation: WMFDonateLocalHistory) -> [WMFDonateLocalHistory]? {
-        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory()
+    public func saveLocalDonationHistory(type: WMFDonateLocalHistory.DonationType, amount: Decimal, currencyCode: String, isNative: Bool) -> [WMFDonateLocalHistory]? {
+        
+        let currentDate = Date()
+        let timestamp = DateFormatter.mediaWikiAPIDateFormatter.string(from: currentDate)
+        
+        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory(startDate: nil, endDate: nil)
+        let isFirstDonation = donateHistory?.count ?? 0 == 0
+        
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: type,
+                                                         donationAmount: amount,
+                                                         currencyCode: currencyCode,
+                                                         isNative: true,
+                                                         isFirstDonation: isFirstDonation)
 
         if let donateHistory {
             var donationArray: [WMFDonateLocalHistory] = donateHistory
-            donationArray.append(donation)
+            donationArray.append(donationHistoryEntry)
             try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: donationArray)
         } else {
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donation])
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donationHistoryEntry])
         }
 
         hasLocallySavedDonations = true
@@ -256,8 +268,38 @@ import Contacts
 
     }
 
-    public func loadLocalDonationHistory() -> [WMFDonateLocalHistory]? {
-        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    // Pass in startDate and endDate to return filtered donations.
+    // If either are nil, all local donations are returned.
+    
+    /// Returns persisted local donation entries, filtered by date params if needed. If either startDate or endDate is nil, no filter is applied.
+    /// - Parameters:
+    ///   - startDate: Supply to filter out donations timestamped older than startDate
+    ///   - endDate: Supply to filter out donations timestamped older than endDate
+    /// - Returns:Array of local donation entries
+    public func loadLocalDonationHistory(startDate: Date?, endDate: Date?) -> [WMFDonateLocalHistory]? {
+        
+        guard let donations: [WMFDonateLocalHistory] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName) else {
+            return nil
+        }
+        
+        guard let startDate, let endDate else {
+            return donations
+        }
+        
+        
+        let filteredDonationsByDate = donations.filter { donation in
+            
+            guard let timestamp = DateFormatter.mediaWikiAPIDateFormatter.date(from: donation.donationTimestamp) else {
+                return false
+            }
+            
+            if timestamp >= startDate && timestamp <= endDate {
+                return true
+            }
+            return false
+        }
+        
+        return filteredDonationsByDate
     }
 
     public func deleteLocalDonationHistory() {

@@ -140,6 +140,9 @@ import CoreData
                    slide.display == true {
                     personalizedSlideCount += 1
                 }
+            case .donateCount:
+                // Do nothing, this slide should not contribute to the personalized slide count
+                break
             }
         }
         
@@ -206,7 +209,7 @@ import CoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
             return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
@@ -231,10 +234,16 @@ import CoreData
             }
         }
         
+        if result.needsDonatingPopulation == true {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateDonatingSlide(report: report, backgroundContext: backgroundContext)
+            }
+        }
+        
         return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -260,6 +269,7 @@ import CoreData
         
         var needsReadingPopulation = false
         var needsEditingPopulation = false
+        var needsDonatingPopulation = false
         
         for slide in cdSlides {
             switch slide.id {
@@ -273,12 +283,16 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled && username != nil {
                     needsEditingPopulation = true
                 }
+            case WMFYearInReviewPersonalizedSlideID.donateCount.rawValue:
+                if slide.evaluated == false && yirConfig.personalizedSlides.donateCount.isEnabled {
+                    needsDonatingPopulation = true
+                }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
         }
         
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation)
     }
     
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -300,6 +314,14 @@ import CoreData
             editCountSlide.display = false
             editCountSlide.data = nil
             results.insert(editCountSlide)
+            
+            let donateCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            donateCountSlide.year = 2024
+            donateCountSlide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
+            donateCountSlide.evaluated = false
+            donateCountSlide.display = false
+            donateCountSlide.data = nil
+            results.insert(donateCountSlide)
         }
         
         return results
@@ -381,6 +403,49 @@ import CoreData
                 slide.data = try encoder.encode(edits)
                 
                 if edits > 0 {
+                    slide.display = true
+                }
+                
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+    
+    private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return
+        }
+        
+        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
+              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        let donateHistory = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate)
+        let donateCount = donateHistory?.count ?? 0
+        
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            return
+        }
+        
+        for slide in slides {
+            
+            guard let slideID = slide.id else {
+                continue
+            }
+            
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.donateCount.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(donateCount)
+                
+                if donateCount > 0 {
                     slide.display = true
                 }
                 
@@ -517,6 +582,8 @@ import CoreData
             return .readCount
         case "editCount":
             return .editCount
+        case "donateCount":
+            return .donateCount
         default:
             return nil
         }
