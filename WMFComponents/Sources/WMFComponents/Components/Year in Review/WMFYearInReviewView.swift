@@ -121,6 +121,10 @@ public struct WMFYearInReviewView: View {
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
+        .environment(\.openURL, OpenURLAction { url in
+            print(url)
+            return .handled
+        })
     }
 
     private var scrollViewContent: some View {
