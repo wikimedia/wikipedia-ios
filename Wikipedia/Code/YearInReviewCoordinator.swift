@@ -397,6 +397,26 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
+            
+            // todo: remove
+            if isLastSlide {
+                guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+                      let url = URL(string:"https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)") else {
+                    return
+                }
+                
+                guard let presentedViewController = navigationController.presentedViewController else {
+                    DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                    return
+                }
+                
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle: yearInReviewDonateText)
+                let webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+                let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
+                newNavigationVC.modalPresentationStyle = .formSheet
+                presentedViewController.present(newNavigationVC, animated: true)
+                return
+            }
 
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }

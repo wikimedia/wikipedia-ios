@@ -164,7 +164,15 @@ class DonateCoordinator: Coordinator {
             return
         }
         
-        let presentedViewController = navigationController.presentedViewController
+        let viewControllerToPresentActionSheet: UIViewController?
+        switch navigationStyle {
+        case .dismissThenPush:
+            viewControllerToPresentActionSheet = navigationController.presentedViewController
+        case .push:
+            viewControllerToPresentActionSheet = navigationController.topViewController
+        case .present:
+            viewControllerToPresentActionSheet = navigationController.presentedViewController
+        }
 
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
@@ -255,7 +263,7 @@ class DonateCoordinator: Coordinator {
         alert.popoverPresentationController?.sourceView = navigationController.view
         alert.popoverPresentationController?.sourceRect = donateButtonGlobalRect
         
-        presentedViewController?.present(alert, animated: true)
+        viewControllerToPresentActionSheet?.present(alert, animated: true)
     }
     
     private func nativeDonateFormViewModel(countryCode: String) -> WMFDonateViewModel? {
