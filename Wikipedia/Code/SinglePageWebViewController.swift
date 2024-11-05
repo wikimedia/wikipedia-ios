@@ -348,11 +348,17 @@ class SinglePageWebViewController: ViewController {
             return true
         }
         
+        // Fake a donation if developer settings toggle is on
         if WMFDeveloperSettingsDataController.shared.bypassDonation,
            let host = actionURL.host(),
            host == "payments.wikimedia.org",
            let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {
+            
+            // Skip to thank you page
             webView.load(URLRequest(url: thankYouURL))
+            
+            // Save fake donation
+            saveDonationToLocalHistory(donationInfo: DonationInfo(amount: "1", country: "US", currency: "USD", isRecurring: false), dataController: WMFDonateDataController.shared)
             return false
         }
         
