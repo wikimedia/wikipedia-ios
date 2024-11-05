@@ -8,8 +8,9 @@ struct WMFYearInReviewShareableSlideView: View {
         return appEnvironment.theme
     }
 
-    var slide: Int
-    var slideImage: String
+    let imageName: String
+    let imageOverlay: String?
+    let textOverlay: String?
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
@@ -22,18 +23,40 @@ struct WMFYearInReviewShareableSlideView: View {
                     Image("W-share-logo", bundle: .module)
                         .frame(height: 70)
                         .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(theme.text))
 
-                    Image(slideImage, bundle: .module)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    Text(slideTitle)
-                        .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                    Text(slideSubtitle)
-                        .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                        .foregroundStyle(Color(uiColor: theme.text))
+                    ZStack {
+                        Image(imageName, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .ignoresSafeArea()
+                            .padding(.horizontal, 0)
+
+                        if let imageOverlay {
+                            Image(imageOverlay, bundle: .module)
+                                .padding(.horizontal, 100)
+                                .padding(.vertical, 50)
+                        }
+
+                        if let overlayText = textOverlay {
+                            Text(overlayText)
+                                .font(Font(WMFFont.for(.xxlTitleBold)))
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.top, 10)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(slideTitle)
+                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                        Text(slideSubtitle)
+                            .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                    }
+                    .padding(28)
                 }
-                .padding(.top, 10)
-                .padding(.horizontal, 28)
+
 
                 Spacer(minLength: 10)
 
