@@ -1414,6 +1414,7 @@
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle, $1 is replaced with the number of article views text, e.g. \"1.4 billion times\"";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.4 billion times\".";
 "year-in-review-donate" = "Year in review donate button";
+"year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
 "year-in-review-done" = "Year in review done button";
 "year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-hide" = "Button to hide year in review feature";

@@ -133,8 +133,10 @@ class SinglePageWebViewController: ViewController {
         switch configType {
         case .donate(let config):
             button.setTitle(config.completeButtonTitle, for: .normal)
+            button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
         case .yirLearnMore(let config):
             button.setTitle(config.donateButtonTitle, for: .normal)
+            button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         case .standard(let config):
             break
         }
@@ -142,7 +144,7 @@ class SinglePageWebViewController: ViewController {
         button.backgroundColor = self.theme.colors.link
         button.titleLabel?.textColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
+        
         button.addTarget(self, action: #selector(didTapOverlayButton), for: .touchUpInside)
         return button
     }()

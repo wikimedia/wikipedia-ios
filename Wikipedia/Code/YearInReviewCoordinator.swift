@@ -16,7 +16,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
-    let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -291,7 +290,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-           donateButtonTitle: yearInReviewDonateText,
+           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
            doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
            shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
@@ -467,7 +466,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let webVC: SinglePageWebViewController
             
             if !fromPersonalizedDonateSlide {
-                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle: yearInReviewDonateText)
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
