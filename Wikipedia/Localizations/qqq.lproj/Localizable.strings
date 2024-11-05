@@ -1416,6 +1416,7 @@
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
 "year-in-review-done" = "Year in review done button";
+"year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
 "year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-hide" = "Button to hide year in review feature";
 "year-in-review-next" = "Year in review next button";

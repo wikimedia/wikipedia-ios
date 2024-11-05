@@ -182,7 +182,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedSlide1Title(readCount: readCount),
                             informationBubbleText: nil,
                             subtitle: personalizedSlide1Subtitle(readCount: readCount),
-                            loggingID: "read_count_custom")
+                            loggingID: "read_count_custom",
+                            hideDonateButton: false)
                     }
                 }
             case .editCount:
@@ -203,7 +204,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
-                            loggingID: "edit_count_custom")
+                            loggingID: "edit_count_custom",
+                            hideDonateButton: false)
                     }
                 }
             case .donateCount:
@@ -218,7 +220,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedSlide5Title,
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
-                            loggingID: "thank_custom")
+                            loggingID: "thank_custom",
+                            hideDonateButton: true)
                     }
                 }
             }
@@ -234,7 +237,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            title: baseSlide1Title,
            informationBubbleText: nil,
            subtitle: baseSlide1Subtitle,
-           loggingID: "read_count_base")
+           loggingID: "read_count_base",
+           hideDonateButton: false)
        
        var thirdSlide = YearInReviewSlideContent(
            imageName: "edits",
@@ -242,7 +246,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            title: baseSlide3Title,
            informationBubbleText: nil,
            subtitle: baseSlide3Subtitle,
-           loggingID: "edit_count_base")
+           loggingID: "edit_count_base",
+           hideDonateButton: false)
         
         var fifthSlide = YearInReviewSlideContent(
             imageName: "thankyou",
@@ -250,7 +255,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: baseSlide5Title,
             informationBubbleText: nil,
             subtitle: baseSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
-            loggingID: "ads_served_base")
+            loggingID: "ads_served_base",
+            hideDonateButton: false)
        
        let personalizedSlides = getPersonalizedSlides()
        
@@ -276,7 +282,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                title: baseSlide2Title,
                informationBubbleText: nil,
                subtitle: baseSlide2Subtitle,
-               loggingID: "read_view_base"),
+               loggingID: "read_view_base",
+               hideDonateButton: false),
            thirdSlide,
            YearInReviewSlideContent(
                imageName: "editedPerMinute",
@@ -284,7 +291,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                title: baseSlide4Title,
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
-               loggingID: "edit_rate_base"),
+               loggingID: "edit_rate_base",
+               hideDonateButton: false),
            fifthSlide
        ]
         
@@ -294,6 +302,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
            shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
+           finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
            firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
            firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
