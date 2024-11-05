@@ -263,8 +263,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            thirdSlide = editCountSlide
        }
         
+        var hasPersonalizedDonateSlide = false
         if let donateCountSlide = personalizedSlides.donateCount {
             fifthSlide = donateCountSlide
+            hasPersonalizedDonateSlide = true
         }
        
        let slides: [YearInReviewSlideContent] = [
@@ -303,7 +305,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
        let hashtag = "#WikipediaYearInReview"
-       let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self)
        
        let yirview = WMFYearInReviewView(viewModel: viewModel)
        
@@ -427,27 +429,27 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             
             
         case .share(let image):
-
+            
             guard let viewModel else { return }
-
+            
             let text = "\(viewModel.localizedStrings.shareText) (\(viewModel.shareLink))\(viewModel.hashtag)"
-
+            
             let activityItems: [Any] = [ShareAFactActivityImageItemProvider(image: image), text]
-
+            
             let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
-
+            
             if let visibleVC = self.navigationController.visibleViewController {
                 if let popover = activityController.popoverPresentationController {
                     popover.sourceRect = visibleVC.view.bounds
                     popover.sourceView = visibleVC.view
                     popover.permittedArrowDirections = []
                 }
-
+                
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
-
+            
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
                 
@@ -455,6 +457,27 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 
                 self.presentSurveyIfNeeded()
             })
+        case .learnMore(let url, let fromPersonalizedDonateSlide):
+            
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                return
+            }
+            
+            let webVC: SinglePageWebViewController
+            
+            if !fromPersonalizedDonateSlide {
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle: yearInReviewDonateText)
+                webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+            } else {
+                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            }
+            
+            let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
+            newNavigationVC.modalPresentationStyle = .formSheet
+            presentedViewController.present(newNavigationVC, animated: true)
         }
+        
     }
 }

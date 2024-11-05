@@ -122,7 +122,7 @@ public struct WMFYearInReviewView: View {
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
         .environment(\.openURL, OpenURLAction { url in
-            print(url)
+            viewModel.handleLearnMore(url: url)
             return .handled
         })
     }

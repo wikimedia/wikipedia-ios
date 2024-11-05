@@ -17,17 +17,19 @@ public class WMFYearInReviewViewModel: ObservableObject {
     let username: String?
     public let shareLink: String
     public let hashtag: String
+    let hasPersonalizedDonateSlide: Bool
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
         
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
+        self.hasPersonalizedDonateSlide = hasPersonalizedDonateSlide
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
@@ -92,6 +94,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func handleDonate(sourceRect: CGRect) {
         coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID))
+    }
+    
+    func handleLearnMore(url: URL) {
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
     }
     
     func logYearInReviewSlideDidAppear() {
