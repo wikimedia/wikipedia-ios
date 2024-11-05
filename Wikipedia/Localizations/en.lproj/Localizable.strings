@@ -1403,6 +1403,8 @@
 "year-in-review-2024-Wikipedia-num-languages" = "332 active languages";
 "year-in-review-2024-Wikipedia-num-views" = "1.4 billion times";
 "year-in-review-2024-Wikipedia-num-views-number" = "1,400,000,000";
+"year-in-review-base-donate-subtitle" = "Wikipedia is hosted by the Wikimedia Foundation and funded by individual donations. We work to keep Wikimedia sites available to all, build features and tools to make it easy to share knowledge, support communities of volunteer editors, and more. <a href=\"%1$$2\">Learn more about our work.</a>";
+"year-in-review-base-donate-title" = "0 ads served on Wikipedia";
 "year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than $1 on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1";
 "year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.";
@@ -1416,6 +1418,8 @@
 "year-in-review-get-started" = "Get Started";
 "year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
+"year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. <a href=\"%1$$2\">Learn more about our work.</a>";
+"year-in-review-personalized-donate-title" = "Thank you for your contribution!";
 "year-in-review-personalized-edit-count" = "$1";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";

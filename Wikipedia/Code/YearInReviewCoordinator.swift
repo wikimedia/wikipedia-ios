@@ -83,6 +83,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342 times per minute\"")
         return String.localizedStringWithFormat(format, collectiveNumEditsPerMinuteText)
     }
+    
+    var baseSlide5Title: String {
+        return WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year.")
+    }
+    
+    func baseSlide5Subtitle(languageCode: String?) -> String {
+        let urlString: String
+        if let languageCode {
+            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
+        } else {
+            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
+        }
+        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "Wikipedia is hosted by the Wikimedia Foundation and funded by individual donations. We work to keep Wikimedia sites available to all, build features and tools to make it easy to share knowledge, support communities of volunteer editors, and more. <a href=\"%1%@\">Learn more about our work.</a>", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not remove the html link when translating.")
+        return String.localizedStringWithFormat(format, urlString)
+    }
 
     func personalizedSlide1Title(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title- format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
@@ -112,6 +127,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedSlide3Subtitle500Plus() -> String {
         let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format-500plus", value: "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.")
         return String.localizedStringWithFormat(format)
+    }
+    
+    var personalizedSlide5Title: String {
+        return WMFLocalizedString("year-in-review-personalized-donate-title", value: "Thank you for your contribution!", comment: "Year in review, personalized donate slide title for users that donated at least once that year. ")
+    }
+    
+    func personalizedSlide5Subtitle(languageCode: String?) -> String {
+        
+        let urlString: String
+        if let languageCode {
+            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
+        } else {
+            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
+        }
+        
+        let format = WMFLocalizedString("year-in-review-personalized-donate-subtitle", value: "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. <a href=\"%1%@\">Learn more about our work.</a>", comment: "Year in review, personalized donate slide subtitle for users that donated at least once that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not remove the html link when translating.")
+        return String.localizedStringWithFormat(format, urlString)
     }
 
     private struct PersonalizedSlides {
@@ -179,9 +211,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 if slide.display == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let donateCount = try? decoder.decode(Int.self, from: data) {
-                        donateCountSlide = nil
-                        // TODO: Create personalized donate slide
+                    if let donateCount = try? decoder.decode(Int.self, from: data),
+                    donateCount > 0 {
+                        donateCountSlide = YearInReviewSlideContent(
+                            imageName: "thankyou",
+                            textOverlay: nil,
+                            title: personalizedSlide5Title,
+                            informationBubbleText: nil,
+                            subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
+                            loggingID: "thank_custom")
                     }
                 }
             }
@@ -206,6 +244,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            informationBubbleText: nil,
            subtitle: baseSlide3Subtitle,
            loggingID: "edit_count_base")
+        
+        var fifthSlide = YearInReviewSlideContent(
+            imageName: "thankyou",
+            textOverlay: nil,
+            title: baseSlide5Title,
+            informationBubbleText: nil,
+            subtitle: baseSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
+            loggingID: "ads_served_base")
        
        let personalizedSlides = getPersonalizedSlides()
        
@@ -216,6 +262,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        if let editCountSlide = personalizedSlides.editCount {
            thirdSlide = editCountSlide
        }
+        
+        if let donateCountSlide = personalizedSlides.donateCount {
+            fifthSlide = donateCountSlide
+        }
        
        let slides: [YearInReviewSlideContent] = [
            firstSlide,
@@ -233,8 +283,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                title: baseSlide4Title,
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
-               loggingID: "edit_rate_base")
-           // TODO: Personalized or collective 5th donate slide here
+               loggingID: "edit_rate_base"),
+           fifthSlide
        ]
         
        
