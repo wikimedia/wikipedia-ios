@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import WMFData
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
@@ -109,6 +110,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     var slideLoggingID: String {
         return isFirstSlide ? "start" : slides[currentSlide].loggingID
+    }
+
+    func markFirstSlideAsSeen() {
+        if let dataController = try? WMFYearInReviewDataController() {
+            dataController.hasSeenYiRIntroSlide = true
+        }
     }
 }
 

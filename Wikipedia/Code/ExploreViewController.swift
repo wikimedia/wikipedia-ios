@@ -10,7 +10,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    
+
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
@@ -22,21 +22,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
-        
+
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
     }()
-    
+
     private lazy var yirCoordinator: YearInReviewCoordinator? = {
         guard let navigationController = navigationController,
-        let dataController = try? WMFYearInReviewDataController() else {
+        let yirDataController else {
             return nil
         }
-        
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+
+        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
     }()
 
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
@@ -64,7 +64,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
-    
+
     @objc var isGranularUpdatingEnabled: Bool = true {
         didSet {
             collectionViewUpdater?.isGranularUpdatingEnabled = isGranularUpdatingEnabled
@@ -75,7 +75,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -97,27 +97,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
     }
-    
+
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
         setupFetchedResultsController()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
+
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
+        updateProfileViewButton()
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
 
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
         }
@@ -141,14 +142,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         self.shouldRestoreScrollPosition = false
         self.presentedContentGroupKey = nil
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
     }
-    
+
     @objc private func databaseHousekeeperDidComplete() {
         DispatchQueue.main.async {
             self.refresh()
@@ -160,12 +161,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateProfileViewButton() {
-        let hasUnreadNotifications: Bool
+        var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
         } else {
             hasUnreadNotifications = false
+        }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
         }
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)

@@ -49,6 +49,7 @@ public struct WMFYearInReviewView: View {
                         .padding(.top, 48)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
+                            viewModel.markFirstSlideAsSeen()
                         }
                 } else {
                     VStack {

@@ -235,7 +235,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            // TODO: Personalized or collective 5th donate slide here
        ]
         
-        
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
            donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
