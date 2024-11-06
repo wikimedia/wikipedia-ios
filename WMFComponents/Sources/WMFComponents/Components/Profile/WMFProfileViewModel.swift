@@ -102,6 +102,11 @@ struct ProfileSection: Identifiable {
 enum ProfileState {
     static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?) -> [ProfileSection] {
 
+        var needsYiRNotification = false
+        if let yearInReviewDependencies {
+            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject)
+        }
+
         if isLoggedIn {
             let notificationsItem = ProfileListItem(
                 text: localizedStrings.notificationsTitle,
@@ -171,16 +176,12 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
-            var needsNotification = false
-            if let yearInReviewDependencies {
-                needsNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject)
 
-            }
             let yearInReviewItem = ProfileListItem(
                 text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
-                hasNotifications: needsNotification,
+                hasNotifications: needsYiRNotification,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
@@ -263,7 +264,7 @@ enum ProfileState {
                 text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
-                hasNotifications: !(yearInReviewDependencies?.dataController.hasSeenYiRIntroSlide ?? false),
+                hasNotifications: needsYiRNotification,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
