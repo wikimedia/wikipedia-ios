@@ -161,6 +161,40 @@ import CoreData
     
     // MARK: - Hide Year in Review
     
+    @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
+        // Check local developer settings feature flag
+        guard developerSettingsDataController.enableYearInReview else {
+            return false
+        }
+        
+        guard let countryCode,
+              let primaryAppLanguageCode else {
+            return false
+        }
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return false
+        }
+        
+        // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
+        
+        
+        // Check remote valid country codes
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+            return false
+        }
+        
+        // Check remote valid primary app language wikis
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+        guard uppercaseConfigPrimaryAppLanguageCodes.contains(primaryAppLanguageCode.uppercased()) else {
+            return false
+        }
+        
+        return true
+    }
+    
     @objc public var yearInReviewSettingsIsEnabled: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? false

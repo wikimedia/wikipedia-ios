@@ -594,7 +594,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
+    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
+    }
 
     if (_authManager.authStateIsPermanent) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
