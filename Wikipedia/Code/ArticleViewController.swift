@@ -72,8 +72,11 @@ class ArticleViewController: ViewController, HintPresenting {
               let yirDataController else {
             return nil
         }
-        
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+        yirCoordinator.badgeDelegate = self
+
+        return yirCoordinator
     }()
 
     var session: Session {
@@ -482,6 +485,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
+            setupSearchAndProfileButtons()
             presentYearInReviewAnnouncement()
         
         // Campaign modal presentations
@@ -1731,5 +1735,11 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+extension ArticleViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        setupSearchAndProfileButtons()
     }
 }

@@ -31,8 +31,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let yirDataController else {
             return nil
         }
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+        yirCoordinator.badgeDelegate = self
 
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+        return yirCoordinator
     }()
 
     // MARK: - UIViewController
@@ -951,6 +953,7 @@ extension ExploreViewController {
     fileprivate func presentModalsIfNeeded() {
         
         if needsYearInReviewAnnouncement() {
+            updateProfileViewButton()
             presentYearInReviewAnnouncement()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
@@ -2161,5 +2164,12 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+
+extension ExploreViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        updateProfileViewButton()
     }
 }

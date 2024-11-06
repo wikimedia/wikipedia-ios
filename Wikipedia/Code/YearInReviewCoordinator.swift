@@ -15,6 +15,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    var badgeDelegate: YearInReviewBadgeDelegate?
 
     // Collective base numbers that will change
     let collectiveNumArticlesText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles", value: "63.69 million articles", comment: "Total number of articles across Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
@@ -251,8 +252,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
        let hashtag = "#WikipediaYearInReview"
-       let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
-       
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
+
        let yirview = WMFYearInReviewView(viewModel: viewModel)
        
        self.viewModel = viewModel

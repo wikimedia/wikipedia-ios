@@ -234,7 +234,6 @@ enum ProfileState {
                 )
             ]
         } else {
-            
             let joinWikipediaItem = ProfileListItem(
                 text: localizedStrings.joinWikipediaTitle,
                 image: .leave,
