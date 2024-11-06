@@ -239,7 +239,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-           
+               
        var firstSlide = YearInReviewSlideContent(
            imageName: "read",
            textOverlay: collectiveNumArticlesNumber,
@@ -318,6 +318,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        hostingController.presentationController?.delegate = self
        
+      (self.navigationController as? RootNavigationController)?.turnOnForcePortrait()
        navigationController.present(hostingController, animated: true, completion: nil)
    }
     
@@ -400,6 +401,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         viewModel?.logYearInReviewDidTapDone()
+        (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
     }
 }
 
@@ -446,6 +448,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
+            (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
                 
