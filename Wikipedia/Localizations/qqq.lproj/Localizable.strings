@@ -1402,7 +1402,7 @@
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"460,300 edits\".";
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342 times per minute\"";
 "year-in-review-base-edits-title" = "Year in review, collective edits per minute slide title, $1 is replaced with the number of edits per minute text, e.g. \"342 times per minute\".";
-"year-in-review-base-reading-subtitle" = "Year in review, collective reading count slide subtitle. $1 is replaced with text representing the number of articles available across Wikipedia, e.g. \"63.69 million articles\". $2 is replaced with text representing the number of active languages available on Wikipedia, e.g. \"332 active languages\"";
+"year-in-review-base-reading-subtitle" = "Year in review, collective reading count slide subtitle. $1 is replaced with a formatted number of articles available across Wikipedia, e.g. \"63.69\". $2 is replaced with the number of active languages available on Wikipedia, e.g. \"332\"";
 "year-in-review-base-reading-title" = "Year in review, collective reading article count slide title";
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle, $1 is replaced with the number of article views text, e.g. \"1.4 billion times\"";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.4 billion times\".";
