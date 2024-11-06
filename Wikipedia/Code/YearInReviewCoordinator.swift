@@ -52,6 +52,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.dataController = dataController
     }
+    
+    func formatNumber(_ number: NSNumber, fractionDigits: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = fractionDigits
+        return formatter.string(from: number) ?? "\(number)"
+    }
 
     var baseSlide1Title: String {
         WMFLocalizedString("year-in-review-base-reading-title", value: "Reading brought us together", comment: "Year in review, collective reading article count slide title")
@@ -60,15 +67,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var baseSlide1Subtitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63.69\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"332\"")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        let numArticles = NSNumber(63.69)
-        let numArticlesString = formatter.string(from: numArticles) ?? "63.69"
-        
-        formatter.maximumFractionDigits = 0
-        let numLanguages = NSNumber(332)
-        let numLanguagesString = formatter.string(from: numLanguages) ?? "332"
+        let numArticlesString = formatNumber(63.69, fractionDigits: 2)
+        let numLanguagesString = formatNumber(332, fractionDigits: 0)
         
         return String.localizedStringWithFormat(format, numArticlesString, numLanguagesString)
     }
@@ -76,70 +76,51 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var baseSlide2Title: String {
         let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ billion times.", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.4\".")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        let numArticleViews = NSNumber(1.4)
-        let numArticleViewsString = formatter.string(from: numArticleViews) ?? "1.4"
-
+        let numArticleViewsString = formatNumber(1.4, fractionDigits: 2)
+        
         return String.localizedStringWithFormat(format, numArticleViewsString)
     }
 
     var baseSlide2Subtitle: String {
         let format = WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review, collective article view count subtitle, %1$@ is replaced with the number of article views text, e.g. \"1.4\"")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        let numArticleViews = NSNumber(1.4)
-        let numArticleViewsString = formatter.string(from: numArticleViews) ?? "1.4"
-
+        let numArticleViewsString = formatNumber(1.4, fractionDigits: 2)
+        
         return String.localizedStringWithFormat(format, numArticleViewsString)
     }
 
     var baseSlide3Title: String {
         let format = WMFLocalizedString("year-in-review-base-editors-title", value: "Editors on the iOS app made more than %1$@ edits", comment: "Year in review, collective edits count slide title, %1$@ is replaced with the number of edits text, e.g. \"460,300\".")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let numEdits = NSNumber(460300)
-        let numEditsString = formatter.string(from: numEdits) ?? "460,300"
-
+        let numEditsString = formatNumber(460300, fractionDigits: 0)
+        
         return String.localizedStringWithFormat(format, numEditsString)
     }
 
     var baseSlide3Subtitle: String {
         let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle, %1$@ is replaced with the number of edits text, e.g. \"460,300\"")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let numEdits = NSNumber(460300)
-        let numEditsString = formatter.string(from: numEdits) ?? "460,300"
-
+        let numEditsString = formatNumber(460300, fractionDigits: 0)
+        
         return String.localizedStringWithFormat(format, numEditsString)
     }
 
     var baseSlide4Title: String {
         let format = WMFLocalizedString("year-in-review-base-edits-title", value: "Wikipedia was edited %1$@ times per minute", comment: "Year in review, collective edits per minute slide title, %1$@ is replaced with the number of edits per minute text, e.g. \"342\".")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let numEditsPerMin = NSNumber(342)
-        let numEditsPerMinString = formatter.string(from: numEditsPerMin) ?? "342"
-
+        let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
+        
         return String.localizedStringWithFormat(format, numEditsPerMinString)
     }
 
     var baseSlide4Subtitle: String {
         let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342\"")
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let numEditsPerMin = NSNumber(342)
-        let numEditsPerMinString = formatter.string(from: numEditsPerMin) ?? "342"
-
+        let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
+        
         return String.localizedStringWithFormat(format, numEditsPerMinString)
     }
+
     
     func personalizedSlide1Title(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title- format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
