@@ -12,7 +12,6 @@ protocol AccountViewControllerDelegate: AnyObject {
 private enum ItemType {
     case talkPageAutoSignDiscussions
     case vanishAccount
-    case donationHistory
     case informational
 }
 
@@ -57,15 +56,6 @@ class AccountViewController: SubSettingsViewController {
             type: .informational
         )
 
-        let donationHistory = Item(
-            title: CommonStrings.deleteDonationHistory,
-            subtitle: nil,
-            iconName: "settings-support",
-            iconColor: .white,
-            iconBackgroundColor: WMFColor.gray400,
-            type: .donationHistory
-        )
-
         let vanishAccount = Item(
             title: CommonStrings.vanishAccount,
             subtitle: nil,
@@ -75,15 +65,8 @@ class AccountViewController: SubSettingsViewController {
             type: .vanishAccount
         )
 
-        let sectionItems: [Item]
-        if donateDataController.hasLocallySavedDonations {
-            sectionItems = [userName, donationHistory, vanishAccount]
-        } else {
-            sectionItems = [userName, vanishAccount]
-        }
-
         let account = Section(
-            items: sectionItems,
+            items: [userName, vanishAccount],
             headerTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."),
             footerTitle: nil
         )
@@ -149,9 +132,6 @@ class AccountViewController: SubSettingsViewController {
         case .vanishAccount:
             cell.disclosureType = .viewController
             cell.accessibilityTraits = .button
-        case .donationHistory:
-            cell.disclosureType = .none
-            cell.accessibilityTraits = .button
         case .informational:
             cell.accessibilityTraits = .staticText
             cell.disclosureType = .none
@@ -181,38 +161,11 @@ class AccountViewController: SubSettingsViewController {
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
             present(warningViewController, animated: true)
-        case .donationHistory:
-            let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubitle, preferredStyle: .alert)
-            let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { [weak self] (action) in
-                guard let self = self else {
-                    return
-                }
-                self.deleteLocalHistory()
-                DispatchQueue.main.async {
-                    self.sections = self.createSections()
-                    self.tableView.reloadData()
-                    self.showDeletionConfirmation()
-                }
-            }
-            let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
-            alertController.addAction(deleteAction)
-            alertController.addAction(cancelAction)
-            self.navigationController?.present(alertController, animated: true, completion: nil)
         default:
             break
         }
     }
 
-    private func deleteLocalHistory() {
-        donateDataController.deleteLocalDonationHistory()
-    }
-
-    private func showDeletionConfirmation() {
-        let alertController = UIAlertController(title: CommonStrings.confirmedDeletion, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil)
-        alertController.addAction(okAction)
-        self.navigationController?.present(alertController, animated: true)
-    }
 
     @objc func goToWatchlist() {
         
