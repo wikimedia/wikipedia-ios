@@ -28,13 +28,34 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     let collectiveNumEditsPerMinuteText = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute", value: "342 edits per minute", comment: "Number of edits per minute made on Wikipedia. This text will be inserted into paragraph text displayed in Wikipedia Year in Review slides for 2024.")
     
     // Collective base numbers that will change for header
-        let collectiveNumArticlesNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-articles-number", value: "63,590,000", comment: "Total number of articles across Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
-        
-        let collectiveNumEditsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-number", value: "399,100", comment: "Number of edits made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
-        
-        let collectiveNumEditsPerMinuteNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-edits-per-minute-number", value: "342", comment: "Number of edits per minute made on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
-        
-        let collectiveNumViewsNumber = WMFLocalizedString("year-in-review-2024-Wikipedia-num-views-number", value: "1,400,000,000", comment: "Number of article views on Wikipedia. This text will be displayed in Wikipedia Year in Review header.")
+    var collectiveNumArticlesNumber: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(63590000)
+        return formatter.string(from: number) ?? "63,590,000"
+    }
+
+    var collectiveNumEditsNumber: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(399100)
+        return formatter.string(from: number) ?? "399,100"
+    }
+
+    var collectiveNumEditsPerMinuteNumber: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(342)
+        return formatter.string(from: number) ?? "342"
+    }
+
+    var collectiveNumViewsNumber: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(1400000000)
+        return formatter.string(from: number) ?? "1,400,000,000"
+    }
+
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -234,7 +255,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                loggingID: "edit_rate_base")
            // TODO: Personalized or collective 5th donate slide here
        ]
-        
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
