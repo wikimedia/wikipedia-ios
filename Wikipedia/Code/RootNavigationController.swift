@@ -5,7 +5,7 @@ class RootNavigationController: WMFThemeableNavigationController {
     var forcePortrait = false
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return forcePortrait ? topViewController?.supportedInterfaceOrientations ?? .all : .portrait
+        return forcePortrait ? .portrait : topViewController?.supportedInterfaceOrientations ?? .all 
     }
 
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {

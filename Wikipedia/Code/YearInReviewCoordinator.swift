@@ -344,6 +344,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         viewModel?.logYearInReviewDidTapDone()
+        (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
     }
 }
 
