@@ -159,6 +159,16 @@ import CoreData
         }
     }
     
+    // MARK: - Hide Year in Review
+    
+    @objc public var yearInReviewSettingsIsEnabled: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue, value: newValue)
+        }
+    }
+    
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {

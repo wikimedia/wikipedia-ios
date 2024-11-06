@@ -253,6 +253,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
             break;
+        case WMFSettingsMenuItemType_YearInReview:
+            [self showYearInReview];
+            break;
         case WMFSettingsMenuItemType_Appearance: {
             [self showAppearance];
             break;
@@ -494,6 +497,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:pushSettingsVC animated:YES];
 }
 
+#pragma mark - Year in Review
+
+- (void)showYearInReview {
+    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithTheme:self.theme];
+    [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
+}
+
 #pragma mark - Appearance
 
 - (void)showAppearance {
@@ -583,6 +593,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
+    
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
 
     if (_authManager.authStateIsPermanent) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
