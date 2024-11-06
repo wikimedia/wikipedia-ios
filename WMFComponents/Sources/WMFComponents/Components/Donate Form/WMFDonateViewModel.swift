@@ -587,30 +587,10 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         }
     }
 
-    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
-        if let donations = dataController.loadLocalDonationHistory() {
-            return !donations.isEmpty
-        }
-        return false
-    }
-
     private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
-        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = iso8601Format
-        let timestamp = dateFormatter.string(from: date)
-
         let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
-        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
-                                                         donationType: donationType,
-                                                         donationAmount: finalAmount,
-                                                         currencyCode: currencyCode,
-                                                         isNative: true,
-                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
-        )
-        dataController.saveLocalDonationHistory(donationHistoryEntry)
+        
+        dataController.saveLocalDonationHistory(type: donationType, amount: finalAmount, currencyCode: currencyCode, isNative: true)
     }
 
 }
