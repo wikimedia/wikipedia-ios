@@ -27,8 +27,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var collectiveNumEditsNumber: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        let number = NSNumber(399100)
-        return formatter.string(from: number) ?? "399,100"
+        let number = NSNumber(452257)
+        return formatter.string(from: number) ?? "452,257"
     }
 
     var collectiveNumEditsPerMinuteNumber: String {
@@ -41,8 +41,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var collectiveNumViewsNumber: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        let number = NSNumber(1400000000)
-        return formatter.string(from: number) ?? "1,400,000,000"
+        let number = NSNumber(1522941831)
+        return formatter.string(from: number) ?? "1,522,941,831"
     }
 
 
@@ -65,42 +65,42 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var baseSlide1Subtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63.69\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"332\"")
+        let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63.59\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"332\"")
         
-        let numArticlesString = formatNumber(63.69, fractionDigits: 2)
+        let numArticlesString = formatNumber(63.59, fractionDigits: 2)
         let numLanguagesString = formatNumber(332, fractionDigits: 0)
         
         return String.localizedStringWithFormat(format, numArticlesString, numLanguagesString)
     }
 
     var baseSlide2Title: String {
-        let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ billion times.", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.4\".")
+        let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".")
         
-        let numArticleViewsString = formatNumber(1.4, fractionDigits: 2)
+        let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
         
         return String.localizedStringWithFormat(format, numArticleViewsString)
     }
 
     var baseSlide2Subtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review, collective article view count subtitle, %1$@ is replaced with the number of article views text, e.g. \"1.4\"")
+        let format = WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "iOS app users have viewed Wikipedia articles %1$@ Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review, collective article view count subtitle, %1$@ is replaced with the number of article views text, e.g. \"1.5\"")
         
-        let numArticleViewsString = formatNumber(1.4, fractionDigits: 2)
+        let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
         
         return String.localizedStringWithFormat(format, numArticleViewsString)
     }
 
     var baseSlide3Title: String {
-        let format = WMFLocalizedString("year-in-review-base-editors-title", value: "Editors on the iOS app made more than %1$@ edits", comment: "Year in review, collective edits count slide title, %1$@ is replaced with the number of edits text, e.g. \"460,300\".")
+        let format = WMFLocalizedString("year-in-review-base-editors-title", value: "Editors on the iOS app made more than %1$@ edits", comment: "Year in review, collective edits count slide title, %1$@ is replaced with the number of edits text, e.g. \"452,257\".")
         
-        let numEditsString = formatNumber(460300, fractionDigits: 0)
+        let numEditsString = formatNumber(452257, fractionDigits: 0)
         
         return String.localizedStringWithFormat(format, numEditsString)
     }
 
     var baseSlide3Subtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle, %1$@ is replaced with the number of edits text, e.g. \"460,300\"")
+        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle, %1$@ is replaced with the number of edits text, e.g. \"452,257\"")
         
-        let numEditsString = formatNumber(460300, fractionDigits: 0)
+        let numEditsString = formatNumber(452257, fractionDigits: 0)
         
         return String.localizedStringWithFormat(format, numEditsString)
     }
@@ -133,8 +133,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
-        let numArticles = NSNumber(63.69)
-        let numArticlesString = formatter.string(from: numArticles) ?? "63.69"
+        let numArticles = NSNumber(63.59)
+        let numArticlesString = formatter.string(from: numArticles) ?? "63.59"
         
         formatter.maximumFractionDigits = 0
         let numLanguages = NSNumber(332)
