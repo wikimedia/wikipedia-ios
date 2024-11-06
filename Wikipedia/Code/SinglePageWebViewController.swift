@@ -135,11 +135,14 @@ class SinglePageWebViewController: ViewController {
     var fetched = false
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
         if navigationController?.viewControllers.first === self {
             let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
+        
+        super.viewWillAppear(animated)
 
         guard !fetched else {
             return
@@ -153,6 +156,14 @@ class SinglePageWebViewController: ViewController {
         
         if url.isDonationURL {
             donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
+        }
+    }
+    
+    public override var preferredContentSize: CGSize {
+        get {
+            return CGSize(width: 1400, height: 1400)
+        } set {
+            super.preferredContentSize = newValue
         }
     }
 
