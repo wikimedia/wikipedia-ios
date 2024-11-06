@@ -135,11 +135,14 @@ class SinglePageWebViewController: ViewController {
     var fetched = false
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
         if navigationController?.viewControllers.first === self {
             let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
+        
+        super.viewWillAppear(animated)
 
         guard !fetched else {
             return
@@ -153,6 +156,14 @@ class SinglePageWebViewController: ViewController {
         
         if url.isDonationURL {
             donateConfig?.donateLoggingDelegate?.handleDonateLoggingAction(.webViewFormDidAppear)
+        }
+    }
+    
+    public override var preferredContentSize: CGSize {
+        get {
+            return CGSize(width: 1400, height: 1400)
+        } set {
+            super.preferredContentSize = newValue
         }
     }
 
@@ -231,29 +242,10 @@ class SinglePageWebViewController: ViewController {
                 let currency = donationInfo.currency else {
             return
         }
-        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = iso8601Format
-        let timestamp = dateFormatter.string(from: date)
 
         let donationType: WMFDonateLocalHistory.DonationType = donationInfo.isRecurring ? .recurring : .oneTime
-        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
-                                                         donationType: donationType,
-                                                         donationAmount: decimalAmount,
-                                                         currencyCode: currency,
-                                                         isNative: false,
-                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
-        )
-        dataController.saveLocalDonationHistory(donationHistoryEntry)
-    }
 
-    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
-        if let donations = dataController.loadLocalDonationHistory() {
-            return !donations.isEmpty
-        }
-        return false
+        dataController.saveLocalDonationHistory(type: donationType, amount: decimalAmount, currencyCode: currency, isNative: false)
     }
 
     @objc func tappedAction(_ sender: UIBarButtonItem) {

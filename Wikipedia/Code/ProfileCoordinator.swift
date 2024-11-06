@@ -185,7 +185,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             return
         }
         
-        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: targetRects.donateButtonFrame, source: donateSouce, dataStore: dataStore, theme: theme, setLoadingBlock: { isLoading in
+        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: targetRects.donateButtonFrame, source: donateSouce, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
             viewModel.isLoadingDonateConfigs = isLoading
         })
         
