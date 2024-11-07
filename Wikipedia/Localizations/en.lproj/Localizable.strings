@@ -1415,7 +1415,6 @@
 "year-in-review-donate" = "Donate";
 "year-in-review-done" = "Done";
 "year-in-review-get-started" = "Get Started";
-"year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-edit-count" = "$1";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";

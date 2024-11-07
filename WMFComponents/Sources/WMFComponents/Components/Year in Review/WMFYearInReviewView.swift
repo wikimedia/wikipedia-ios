@@ -143,8 +143,9 @@ public struct WMFYearInReviewView: View {
                     viewModel.getStarted()
                 }
             }
-            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                viewModel.loggingDelegate?.logYearInReviewIntroDidTapDisable()
+            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideLearnMore) {
+                viewModel.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
+                viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
                 // TODO: Implement hide this feature
             }
         }
