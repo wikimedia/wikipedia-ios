@@ -57,6 +57,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    public var bypassDonation: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {

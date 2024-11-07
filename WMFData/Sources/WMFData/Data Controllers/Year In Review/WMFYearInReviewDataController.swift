@@ -17,7 +17,14 @@ import CoreData
             return FeatureAnnouncementStatus(hasPresentedYiRFeatureAnnouncementModal: false)
         }
     }
-    
+
+    struct YiRNotificationAnnouncementStatus: Codable {
+        var hasSeenYiRIntroSlide: Bool
+        static var `default`: YiRNotificationAnnouncementStatus {
+            return YiRNotificationAnnouncementStatus(hasSeenYiRIntroSlide: false)
+        }
+    }
+
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -35,7 +42,25 @@ import CoreData
     // MARK: - Feature Announcement
 
     private var featureAnnouncementStatus: FeatureAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
+    }
+
+    private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
+    }
+
+    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?) -> Bool {
+        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+    }
+
+    public var hasSeenYiRIntroSlide: Bool {
+        get {
+            return seenIntroSlideStatus.hasSeenYiRIntroSlide
+        } set {
+            var currentSeenIntroSlideStatus = seenIntroSlideStatus
+            currentSeenIntroSlideStatus.hasSeenYiRIntroSlide = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue, value: currentSeenIntroSlideStatus)
+        }
     }
 
     public var hasPresentedYiRFeatureAnnouncementModel: Bool {
@@ -44,7 +69,7 @@ import CoreData
         } set {
             var currentAnnouncementStatus = featureAnnouncementStatus
             currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
         }
     }
 
@@ -79,6 +104,10 @@ import CoreData
         }
 
         guard !hasPresentedYiRFeatureAnnouncementModel else {
+            return false
+        }
+
+        guard !hasSeenYiRIntroSlide else {
             return false
         }
 
