@@ -687,6 +687,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
             themeable.apply(theme: theme)
         }
+        yirCoordinator?.theme = theme
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

@@ -12,7 +12,8 @@ class SinglePageWebViewControllerTests: XCTestCase {
         }
 
         let theme = Theme.standard
-        let viewController = SinglePageWebViewController(url: url, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
 
         let result = viewController.parseThankYouURL(url)
 
@@ -30,7 +31,8 @@ class SinglePageWebViewControllerTests: XCTestCase {
         }
 
         let theme = Theme.standard
-        let viewController = SinglePageWebViewController(url: url, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
 
         let result = viewController.parseThankYouURL(url)
 
@@ -47,7 +49,10 @@ class SinglePageWebViewControllerTests: XCTestCase {
                 return
             }
 
-            let viewController = SinglePageWebViewController(url: url, theme: Theme.standard)
+            let theme = Theme.standard
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+            let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        
             let result = viewController.parseThankYouURL(url)
 
             XCTAssertEqual(result?.amount, "10.00", "Amount should be 10.00")
@@ -64,7 +69,8 @@ class SinglePageWebViewControllerTests: XCTestCase {
         }
 
         let theme = Theme.standard
-        let viewController = SinglePageWebViewController(url: url, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
 
         let result = viewController.parseThankYouURL(url)
 

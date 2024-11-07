@@ -3,11 +3,12 @@ import PassKit
 import SwiftUI
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
     
-    let theme: Theme
+    var theme: Theme
     let dataStore: MWKDataStore
 
     var navigationController: UINavigationController
@@ -15,6 +16,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
     var badgeDelegate: YearInReviewBadgeDelegate?
 
     // Collective base numbers that will change for header
@@ -289,7 +291,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
+           donateButtonTitle: yearInReviewDonateText,
            doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
            shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
@@ -409,7 +411,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID, let isLastSlide):
+        case .donate(let rect, let slideLoggingID):
             
             if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
                 DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)

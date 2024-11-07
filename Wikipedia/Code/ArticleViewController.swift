@@ -994,6 +994,7 @@ class ArticleViewController: ViewController, HintPresenting {
         if state == .loaded {
             messagingController.updateTheme(theme)
         }
+        yirCoordinator?.theme = theme
     }
     
     private func rethemeWebViewIfNecessary() {
