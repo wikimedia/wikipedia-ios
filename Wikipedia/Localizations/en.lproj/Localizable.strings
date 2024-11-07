@@ -256,6 +256,7 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-settings" = "Developer Settings";
 "developer-settings-always-show-alt-text-entry-point" = "Always show alt text entry point.";
+"developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-alt-text-experiment-en" = "Enable Alt Text experiment for English Wikipedia.";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";

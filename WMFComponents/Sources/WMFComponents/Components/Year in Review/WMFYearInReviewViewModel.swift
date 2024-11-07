@@ -94,8 +94,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDonate(sourceRect: CGRect) {
-        let isLastSlide = currentSlide == slides.count - 1
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID, isLastSlide: isLastSlide))
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID))
     }
     
     func logYearInReviewSlideDidAppear() {
