@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFData
+import CocoaLumberjackSwift
 
 fileprivate protocol YearInReviewSettingsItem {
     var title: String { get }
@@ -62,6 +63,16 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
             return isEnabled
         }, action: { [weak self] isOn in
             self?.dataController?.yearInReviewSettingsIsEnabled = isOn
+            if !isOn {
+                Task {
+                    do {
+                        try await WMFYearInReviewDataController().deleteAllYearInReviewReports()
+                    } catch {
+                        DDLogError("Error deleting year in review reports: \(error)")
+                    }
+                }
+                
+            }
         })
         
         let section = YearInReviewSettingsSection(headerText: self.headerText, items: [switchItem])
