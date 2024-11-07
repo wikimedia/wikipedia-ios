@@ -33,6 +33,7 @@ public struct WMFYearInReviewView: View {
                         Spacer()
                         Image("W", bundle: .module)
                             .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(theme.text))
                     }
                     Spacer()
                     Button(action: {

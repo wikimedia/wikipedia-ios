@@ -362,6 +362,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
        )
        
@@ -494,13 +495,12 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             
             
         case .share(let image):
-            
             guard let viewModel else { return }
-            
-            let text = "\(viewModel.localizedStrings.shareText) (\(viewModel.shareLink))\(viewModel.hashtag)"
-            
-            let activityItems: [Any] = [ShareAFactActivityImageItemProvider(image: image), text]
-            
+            let contentProvider = YiRShareActivityContentProvider(text: viewModel.localizedStrings.shareText, appStoreURL: viewModel.shareLink, hashtag: viewModel.hashtag)
+            let imageProvider = ShareAFactActivityImageItemProvider(image: image)
+
+            let activityItems: [Any] = [contentProvider, imageProvider]
+
             let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
             
@@ -553,5 +553,31 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             presentedViewController.present(newNavigationVC, animated: true)
         }
         
+    }
+}
+
+
+class YiRShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendable {
+    let text: String
+    let appStoreURL: String
+    let hashtag: String
+
+    required init(text: String, appStoreURL: String, hashtag: String) {
+        self.text = text
+        self.appStoreURL = appStoreURL
+        self.hashtag = hashtag
+        super.init(placeholderItem: YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag))
+    }
+
+    override var item: Any {
+        return YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag)
+    }
+
+    override func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+        return hashtag
+    }
+
+    static func messageRepresentation(text: String, appStoreURL: String, hashtag: String) -> String {
+        return "\(text) (\(appStoreURL)) \(hashtag)"
     }
 }
