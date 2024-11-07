@@ -19,14 +19,20 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     // Coordinator
-    private lazy var profileCoordinator: ProfileCoordinator? = {
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
         guard let navigationController = navigationController,
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
+        
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
+        }
 
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
-    }()
+        return existingProfileCoordinator
+    }
 
     private var _yirCoordinator: YearInReviewCoordinator?
     private var yirCoordinator: YearInReviewCoordinator? {
@@ -696,6 +702,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

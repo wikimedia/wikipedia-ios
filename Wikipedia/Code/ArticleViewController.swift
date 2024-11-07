@@ -52,15 +52,21 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
-    private lazy var profileCoordinator: ProfileCoordinator? = {
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
         
         guard let navigationController,
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
         
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
-    }()
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
+        }
+        
+        return existingProfileCoordinator
+    }
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -999,6 +1005,7 @@ class ArticleViewController: ViewController, HintPresenting {
             messagingController.updateTheme(theme)
         }
         yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     private func rethemeWebViewIfNecessary() {
