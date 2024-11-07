@@ -10,6 +10,7 @@ enum WMFUserDefaultsKey: String {
     case altTextExperimentOnboarding = "alt-text-experiment-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewEnabled = "year-in-review-enabled"
-    case yearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"
+    case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"
     case yearInReviewSurveyPresented = "year-in-review-survey-presented"
+    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
 }

@@ -45,11 +45,13 @@ public struct WMFYearInReviewView: View {
                         contents: { AnyView(buttons) },
                         imageName: "intro",
                         imageOverlay: "globe_yir")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.top, 48)
-                    .onAppear {
-                        viewModel.logYearInReviewSlideDidAppear()
-                    }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.top, 48)
+                        .onAppear {
+                            viewModel.logYearInReviewSlideDidAppear()
+                            viewModel.markFirstSlideAsSeen()
+                        }
+
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
