@@ -5,7 +5,9 @@ import CocoaLumberjackSwift
 
 fileprivate protocol YearInReviewSettingsItem {
     var title: String { get }
-    var iconName: String? { get }
+    var iconName: String { get }
+    var iconColor: UIColor { get }
+    var iconBackgroundColor: UIColor { get }
 }
 
 @objc(WMFYearInReviewSettingsViewController)
@@ -20,7 +22,9 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     fileprivate struct YearInReviewSettingsSwitchItem: YearInReviewSettingsItem {
         let title: String
-        let iconName: String?
+        let iconName: String
+        let iconColor: UIColor
+        let iconBackgroundColor: UIColor
         let tag: Int
         let valueChecker: () -> Bool
         let action: (Bool) -> Void
@@ -54,7 +58,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     private func updateSections() {
         
-        let switchItem = YearInReviewSettingsSwitchItem(title: CommonStrings.yirTitle, iconName: nil, tag: 0, valueChecker: { [weak self] in
+        let switchItem = YearInReviewSettingsSwitchItem(title: CommonStrings.yirTitle, iconName: "settings-calendar", iconColor: UIColor.white, iconBackgroundColor: UIColor.wmf_blue_600, tag: 0, valueChecker: { [weak self] in
             
             guard let isEnabled = self?.dataController?.yearInReviewSettingsIsEnabled else {
                 return false
@@ -99,6 +103,13 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = item.iconName
+        cell.iconColor = item.iconColor
+        cell.iconBackgroundColor = item.iconBackgroundColor
+        
+        if let iconBackgroundColor = theme.colors.iconBackground, let iconColor = theme.colors.icon {
+            cell.iconBackgroundColor = iconColor
+            cell.iconColor = iconBackgroundColor
+        }
 
         if let themeableCell = cell as Themeable? {
             themeableCell.apply(theme: theme)
