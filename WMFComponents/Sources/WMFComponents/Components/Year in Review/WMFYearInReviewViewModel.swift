@@ -40,6 +40,19 @@ public class WMFYearInReviewViewModel: ObservableObject {
         isFirstSlide = false
     }
     
+    public func navigate(to url: URL?, useSafari: Bool) {
+        guard let url = url else {
+            return
+        }
+        guard
+            !useSafari,
+            url.scheme == "https" || url.scheme == "http"
+        else {
+            UIApplication.shared.open(url)
+            return
+        }
+    }
+    
     public func nextSlide() {
         if currentSlide == slides.count - 1 {
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
@@ -123,6 +136,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
+    public var infoURL: String?
     public let imageName: String
     public let imageOverlay: String?
     public let textOverlay: String?
@@ -131,7 +145,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let subtitle: String
     public let loggingID: String
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String) {
+    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: String? = nil) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.textOverlay = textOverlay
@@ -139,6 +153,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
         self.loggingID = loggingID
+        self.infoURL = infoURL
     }
 }
 

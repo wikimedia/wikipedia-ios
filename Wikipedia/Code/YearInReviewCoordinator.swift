@@ -275,7 +275,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                title: baseSlide2Title,
                informationBubbleText: nil,
                subtitle: baseSlide2Subtitle,
-               loggingID: "read_view_base"),
+               loggingID: "read_view_base",
+               // TODO: GREY - change URL to be proper once Toni's PRs are merged
+               infoURL: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used"),
            thirdSlide,
            YearInReviewSlideContent(
                imageName: "editedPerMinute",
