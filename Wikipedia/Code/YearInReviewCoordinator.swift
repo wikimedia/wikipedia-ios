@@ -15,6 +15,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    var badgeDelegate: YearInReviewBadgeDelegate?
 
     // Collective base numbers that will change for header
     var collectiveNumArticlesNumber: String {
@@ -302,8 +303,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
        let hashtag = "#WikipediaYearInReview"
-       let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self)
-       
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
+
        let yirview = WMFYearInReviewView(viewModel: viewModel)
        
        self.viewModel = viewModel
