@@ -62,9 +62,9 @@ class ArticleViewController: ViewController, HintPresenting {
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
     }()
 
-    lazy var yirDataController: WMFYearInReviewDataController? = {
+    private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
-    }()
+    }
 
     private var _yirCoordinator: YearInReviewCoordinator?
     var yirCoordinator: YearInReviewCoordinator? {
