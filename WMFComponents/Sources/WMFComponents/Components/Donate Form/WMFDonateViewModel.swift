@@ -514,13 +514,19 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
-        guard !payment.token.paymentData.isEmpty,
-              let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
-            let error = Error.invalidToken
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-            completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
-            return
+        let paymentToken: String
+        if !WMFDeveloperSettingsDataController.shared.bypassDonation {
+            guard !payment.token.paymentData.isEmpty,
+                  let token = String(data: payment.token.paymentData, encoding: .utf8) else {
+                let error = Error.invalidToken
+                self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+                loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+                return
+            }
+            paymentToken = token
+        } else {
+            paymentToken = ""
         }
         
         guard let donorNameComponents = payment.billingContact?.name,

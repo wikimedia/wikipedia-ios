@@ -1427,18 +1427,20 @@
 "wikitext-upload-save-sign-in" = "登录";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "发布更改即代表您同意$1使用条款$2，并且不可撤销地同意以$3CC BY-SA 4.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
-"year-in-review-2024-Wikipedia-num-articles" = "6369万篇条目";
-"year-in-review-2024-Wikipedia-num-edits" = "460300笔编辑";
-"year-in-review-2024-Wikipedia-num-edits-per-minute" = "每分钟342笔编辑";
-"year-in-review-2024-Wikipedia-num-languages" = "332种活跃语言";
-"year-in-review-2024-Wikipedia-num-views" = "14亿次";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "今年，维基百科的志愿编者社群在iOS应用程序上作出了不少于$1。由志愿者、捐赠者和像您一样千千万万的读者组成的社群，是维基百科的命脉所在，团结起来，不受限制地共享可靠的信息。";
+// Fuzzy
 "year-in-review-base-editors-title" = "编者在iOS应用程序上作出了不少于$1";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速率达$1。所有条目均由众人合作创建，并使用可靠来源提升质量。每一笔编辑，都对提升维基百科条目的质和量至关重要。";
+// Fuzzy
 "year-in-review-base-edits-title" = "维基百科编辑达$1。";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "维基百科囊括了$1，横跨$2。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
 "year-in-review-base-reading-title" = "阅读使我们相聚";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS应用程序用户阅读了维基百科条目$1。无论人们身处何方，维基百科都是回答问题、查找学习工作所需信息，或学习新知的首选。";
+// Fuzzy
 "year-in-review-base-viewed-title" = "我们在维基百科上阅读条目达$1。";
 "year-in-review-donate" = "捐款";
 "year-in-review-done" = "完成";
@@ -1449,6 +1451,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
 "year-in-review-personalized-editing-title-format" = "您在维基百科上编辑了{{PLURAL:$1|$1次}}。";
 "year-in-review-personalized-editing-title-format-500plus" = "您在维基百科上的编辑次数超过了500次。";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。今年维基百科包含了$2，横跨$3。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
 "year-in-review-personalized-reading-title- format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。";
 "year-in-review-share" = "分享";

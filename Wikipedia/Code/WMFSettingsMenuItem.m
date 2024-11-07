@@ -187,6 +187,15 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_DonateHistory: {
+            return [[WMFSettingsMenuItem alloc] initWithType:type
+                                                       title: WMFCommonStrings.deleteDonationHistory
+                                                    iconName:@"settings-support"
+                                                   iconColor:[UIColor wmf_gray_400]
+                                              disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                              disclosureText:nil
+                                                  isSwitchOn:NO];
+        }
     }
 }
 
