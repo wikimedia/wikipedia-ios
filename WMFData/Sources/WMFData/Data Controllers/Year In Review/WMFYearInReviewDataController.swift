@@ -70,6 +70,9 @@ import CoreData
             return false
         }
 
+        guard yearInReviewSettingsIsEnabled else {
+            return false
+        }
 
         guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return false
@@ -89,6 +92,10 @@ import CoreData
         
         // Check local developer settings feature flag
         guard developerSettingsDataController.enableYearInReview else {
+            return false
+        }
+        
+        guard yearInReviewSettingsIsEnabled else {
             return false
         }
         
@@ -209,6 +216,10 @@ import CoreData
         
         // Check local developer settings feature flag
         guard developerSettingsDataController.enableYearInReview else {
+            return false
+        }
+        
+        guard yearInReviewSettingsIsEnabled else {
             return false
         }
 
