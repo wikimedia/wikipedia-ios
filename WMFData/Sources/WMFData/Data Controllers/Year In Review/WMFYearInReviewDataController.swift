@@ -90,11 +90,6 @@ import CoreData
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
-            return false
-        }
-        
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
@@ -169,10 +164,6 @@ import CoreData
     // MARK: - Hide Year in Review
     
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
-            return false
-        }
         
         guard let countryCode,
               let primaryAppLanguageCode else {
@@ -204,7 +195,7 @@ import CoreData
     
     @objc public var yearInReviewSettingsIsEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? true
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue, value: newValue)
         }
@@ -213,11 +204,6 @@ import CoreData
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
-        
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
-            return false
-        }
         
         guard yearInReviewSettingsIsEnabled else {
             return false

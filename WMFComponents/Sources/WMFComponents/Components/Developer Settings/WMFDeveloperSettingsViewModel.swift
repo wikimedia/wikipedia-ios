@@ -35,9 +35,8 @@ import WMFData
         let enableAltTextExperimentItemForENItem = WMFFormItemSelectViewModel(title: localizedStrings.enableAltTextExperimentForEN, isSelected: WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN)
         let alwaysShowAltTextEntryPointItem = WMFFormItemSelectViewModel(title: localizedStrings.alwaysShowAltTextEntryPoint, isSelected: WMFDeveloperSettingsDataController.shared.alwaysShowAltTextEntryPoint)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
-        let enableYearinReviewItem = WMFFormItemSelectViewModel(title: localizedStrings.enableYearinReview, isSelected: WMFDeveloperSettingsDataController.shared.enableYearInReview)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem, enableYearinReviewItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
@@ -53,10 +52,6 @@ import WMFData
         
         sendAnalyticsToWMFLabsItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs = isSelected
-        }.store(in: &subscribers)
-
-        enableYearinReviewItem.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.enableYearInReview = isSelected
         }.store(in: &subscribers)
 
     }
