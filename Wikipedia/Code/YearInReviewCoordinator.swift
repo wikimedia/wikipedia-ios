@@ -361,7 +361,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
            firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
-           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia year in review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
        )
