@@ -967,7 +967,6 @@
 "profile-page-join-title" = "Join Wikipedia / Log in";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
 "profile-page-title-logged-out" = "Account";
-"profile-page-year-in-review-title" = "Year in Review";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1131,6 +1130,8 @@
 "settings-notifications-push-notifications" = "Push notifications";
 "settings-notifications-system-turn-on" = "Turn on Notifications";
 "settings-notifications-trending" = "Trending current events";
+"settings-off" = "Off";
+"settings-on" = "On";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app.";
 "settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
@@ -1404,12 +1405,12 @@
 "year-in-review-base-reading-title" = "Reading brought us together";
 "year-in-review-base-viewed-subtitle" = "iOS app users have viewed Wikipedia articles $1 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "We have viewed Wikipedia articles $1 Billion times";
+"year-in-review-button-title" = "Year in Review";
 "year-in-review-donate" = "Donate";
 "year-in-review-donate-now" = "Donate now";
 "year-in-review-done" = "Done";
 "year-in-review-finish" = "Finish";
 "year-in-review-get-started" = "Get Started";
-"year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
