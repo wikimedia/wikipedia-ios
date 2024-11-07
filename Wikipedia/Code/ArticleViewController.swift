@@ -61,15 +61,22 @@ class ArticleViewController: ViewController, HintPresenting {
         
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
     }()
-    
+
+    lazy var yirDataController: WMFYearInReviewDataController? = {
+        return try? WMFYearInReviewDataController()
+    }()
+
     lazy var yirCoordinator: YearInReviewCoordinator? = {
         
         guard let navigationController,
-              let dataController = try? WMFYearInReviewDataController() else {
+              let yirDataController else {
             return nil
         }
-        
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
+
+        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+        yirCoordinator.badgeDelegate = self
+
+        return yirCoordinator
     }()
 
     var session: Session {
@@ -478,6 +485,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
+            setupSearchAndProfileButtons()
             presentYearInReviewAnnouncement()
         
         // Campaign modal presentations
@@ -1341,13 +1349,24 @@ private extension ArticleViewController {
     }
     
     func setupSearchAndProfileButtons() {
-        let hasUnreadNotifications: Bool
+        var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
         } else {
             hasUnreadNotifications = false
         }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
+        }
+
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
         let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
         profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
@@ -1717,5 +1736,11 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+extension ArticleViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        setupSearchAndProfileButtons()
     }
 }

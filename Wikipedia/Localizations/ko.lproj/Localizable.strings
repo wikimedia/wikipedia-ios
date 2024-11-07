@@ -1363,12 +1363,9 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
-"year-in-review-2024-Wikipedia-num-articles" = "문서 6,369만 개";
-"year-in-review-2024-Wikipedia-num-edits" = "460,300개 편집";
-"year-in-review-2024-Wikipedia-num-edits-per-minute" = "분당 342개 편집";
-"year-in-review-2024-Wikipedia-num-languages" = "활성 언어 332개";
-"year-in-review-2024-Wikipedia-num-views" = "14억 번 조회";
+// Fuzzy
 "year-in-review-base-edits-title" = "위키백과는 $1 편집되었습니다";
+// Fuzzy
 "year-in-review-base-viewed-title" = "위키백과 문서를 $1회 조회했습니다.";
 "year-in-review-donate" = "기부";
 "year-in-review-done" = "완료";

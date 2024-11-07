@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import WMFData
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
@@ -19,11 +20,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public let hashtag: String
     let hasPersonalizedDonateSlide: Bool
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
         
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
@@ -33,6 +35,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
+        self.badgeDelegate = badgeDelegate
     }
 
     public func getStarted() {
@@ -129,6 +132,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     var shouldShowWLogo: Bool {
         return !isFirstSlide
     }
+
+    func markFirstSlideAsSeen() {
+        if let dataController = try? WMFYearInReviewDataController() {
+            dataController.hasSeenYiRIntroSlide = true
+            badgeDelegate?.didSeeFirstSlide()
+        }
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
@@ -151,4 +161,9 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.loggingID = loggingID
         self.hideDonateButton = hideDonateButton
     }
+}
+
+
+@objc public protocol YearInReviewBadgeDelegate: AnyObject {
+    @objc func didSeeFirstSlide()
 }

@@ -920,7 +920,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You read %#@v1@ this year. This year Wikipedia had %2$@ available across over %3$@ this year. You joined millions in expanding knowledge and exploring diverse topics.</string>
+		<string>You read %#@v1@ this year. This year Wikipedia had %2$@ million articles available across over %3$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

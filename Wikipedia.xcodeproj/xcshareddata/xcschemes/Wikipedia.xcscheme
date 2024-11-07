@@ -98,7 +98,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       disablePerformanceAntipatternChecker = "YES"
       language = "en"
-      region = "MX"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
