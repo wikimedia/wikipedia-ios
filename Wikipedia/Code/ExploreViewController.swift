@@ -14,7 +14,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
-    private let yirDataController = try? WMFYearInReviewDataController()
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
+    }
 
     // Coordinator
     private lazy var profileCoordinator: ProfileCoordinator? = {
@@ -26,16 +28,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
     }()
 
-    private lazy var yirCoordinator: YearInReviewCoordinator? = {
-        guard let navigationController = navigationController,
-        let yirDataController else {
-            return nil
-        }
-        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-        yirCoordinator.badgeDelegate = self
-
-        return yirCoordinator
-    }()
+    private var _yirCoordinator: YearInReviewCoordinator?
+    private var yirCoordinator: YearInReviewCoordinator? {
+            guard let navigationController = navigationController,
+            let yirDataController else {
+                return nil
+            }
+            
+            guard let existingYirCoordinator = _yirCoordinator else {
+                _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+                _yirCoordinator?.badgeDelegate = self
+                return _yirCoordinator
+            }
+            
+            return existingYirCoordinator
+    }
 
     // MARK: - UIViewController
 
@@ -687,6 +694,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
             themeable.apply(theme: theme)
         }
+        
         yirCoordinator?.theme = theme
     }
     

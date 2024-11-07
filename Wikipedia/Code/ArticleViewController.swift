@@ -66,18 +66,22 @@ class ArticleViewController: ViewController, HintPresenting {
         return try? WMFYearInReviewDataController()
     }()
 
-    lazy var yirCoordinator: YearInReviewCoordinator? = {
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
         
         guard let navigationController,
               let yirDataController else {
             return nil
         }
 
-        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-        yirCoordinator.badgeDelegate = self
-
-        return yirCoordinator
-    }()
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
 
     var session: Session {
         return dataStore.session
