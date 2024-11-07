@@ -19,9 +19,17 @@ public struct WMFYearInReviewView: View {
         NavigationView {
             VStack {
                 HStack {
-                    if !viewModel.isFirstSlide {
+                    if viewModel.shouldShowDonateButton {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    if viewModel.shouldShowWLogo {
+                        if !viewModel.shouldShowDonateButton {
+                            // Need something here for W to center well
+                            Text("")
+                                .accessibilityHidden(true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                         Spacer()
                         Image("W", bundle: .module)
                             .frame(maxWidth: .infinity)
@@ -108,7 +116,8 @@ public struct WMFYearInReviewView: View {
                                     viewModel.nextSlide()
                                 }
                             }) {
-                                Text(viewModel.localizedStrings.nextButtonTitle)
+                                let text = viewModel.isLastSlide ? viewModel.localizedStrings.finishButtonTitle : viewModel.localizedStrings.nextButtonTitle
+                                Text(text)
                                     .foregroundStyle(Color(uiColor: theme.link))
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                             }
@@ -123,6 +132,10 @@ public struct WMFYearInReviewView: View {
         .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
+        .environment(\.openURL, OpenURLAction { url in
+            viewModel.handleLearnMore(url: url)
+            return .handled
+        })
     }
 
     private var scrollViewContent: some View {
