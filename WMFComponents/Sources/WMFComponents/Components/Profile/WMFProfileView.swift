@@ -97,9 +97,11 @@ public struct WMFProfileView: View {
 
                 if let hasNotifications = item.hasNotifications, hasNotifications {
                     HStack(spacing: 10) {
-                        Text("\(viewModel.inboxCount)")
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                            .font(Font(WMFFont.for(.headline)))
+                        if item.needsNotificationCount {
+                            Text("\(viewModel.inboxCount)")
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                .font(Font(WMFFont.for(.headline)))
+                        }
                         if let image = WMFSFSymbolIcon.for(symbol: .circleFill, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
                             Image(uiImage: image)
                                 .foregroundStyle(Color(uiColor: theme.destructive))
