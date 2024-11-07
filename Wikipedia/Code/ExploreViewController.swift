@@ -941,8 +941,6 @@ extension ExploreViewController {
         
         if needsYearInReviewAnnouncement() {
             presentYearInReviewAnnouncement()
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
         } else if needsAltTextFeatureAnnouncement() {
@@ -1086,8 +1084,9 @@ extension ExploreViewController {
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")
+        let backgroundImage = UIImage(named: "Announcement")
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()

@@ -44,12 +44,12 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         imageName: "intro",
-                        imageOverlay: "globe")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
-                        .onAppear {
-                            viewModel.logYearInReviewSlideDidAppear()
-                        }
+                        imageOverlay: "globe_yir")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, 48)
+                    .onAppear {
+                        viewModel.logYearInReviewSlideDidAppear()
+                    }
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
@@ -150,3 +150,4 @@ public struct WMFYearInReviewView: View {
         }
     }
 }
+

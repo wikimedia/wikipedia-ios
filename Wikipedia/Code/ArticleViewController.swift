@@ -172,7 +172,9 @@ class ArticleViewController: ViewController, HintPresenting {
 
         super.init(theme: theme)
         
-        self.schemeHandler.imageDidSuccessfullyLoad = imageDidSuccessfullyLoad
+        self.schemeHandler.imageDidSuccessfullyLoad = { [weak self] in
+            self?.imageDidSuccessfullyLoad()
+        }
         
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
@@ -477,8 +479,6 @@ class ArticleViewController: ViewController, HintPresenting {
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
             presentYearInReviewAnnouncement()
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         
         // Campaign modal presentations
         } else {
