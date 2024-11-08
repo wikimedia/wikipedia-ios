@@ -48,7 +48,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let number = NSNumber(1522941831)
         return formatter.string(from: number) ?? "1,522,941,831"
     }
-
+    
+    var languageCode: String? {
+        dataStore.languageLinkController.appLanguage?.languageCode
+    }
+    
+    var aboutWikimediaURL: String {
+        if let languageCode {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
+        } else {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
+        }
+    }
+    
+    var aboutYIRURL: String {
+        if let languageCode {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used/\(languageCode)"
+        } else {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used"
+        }
+    }
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -129,15 +148,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year.")
     }
     
-    func baseSlide5Subtitle(languageCode: String?) -> String {
-        let urlString: String
-        if let languageCode {
-            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
-        } else {
-            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
-        }
+    func baseSlide5Subtitle() -> String {
         let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "Wikipedia is hosted by the Wikimedia Foundation and funded by individual donations. We work to keep Wikimedia sites available to all, build features and tools to make it easy to share knowledge, support communities of volunteer editors, and more. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, urlString)
+        return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
 
     
@@ -292,6 +305,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            informationBubbleText: nil,
            subtitle: baseSlide1Subtitle,
            loggingID: "read_count_base",
+           infoURL: aboutYIRURL,
            hideDonateButton: false)
        
        var thirdSlide = YearInReviewSlideContent(
@@ -301,6 +315,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            informationBubbleText: nil,
            subtitle: baseSlide3Subtitle,
            loggingID: "edit_count_base",
+           infoURL: aboutYIRURL,
            hideDonateButton: false)
         
         var fifthSlide = YearInReviewSlideContent(
@@ -308,8 +323,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             imageOverlay: "wmf-logo",
             title: baseSlide5Title,
             informationBubbleText: nil,
-            subtitle: baseSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
+            subtitle: baseSlide5Subtitle(),
             loggingID: "ads_served_base",
+            infoURL: aboutYIRURL,
             hideDonateButton: false)
        
        let personalizedSlides = getPersonalizedSlides()
@@ -337,8 +353,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide2Subtitle,
                loggingID: "read_view_base",
-               // TODO: GREY - change URL to be proper once Toni's PRs are merged
-               infoURL: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used",
+               infoURL: aboutYIRURL,
                hideDonateButton: false),
            thirdSlide,
            YearInReviewSlideContent(
@@ -348,6 +363,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
                loggingID: "edit_rate_base",
+               infoURL: aboutYIRURL,
                hideDonateButton: false),
            fifthSlide
        ]
@@ -361,7 +377,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
            firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
-           firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
+           firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get started", comment: "Button to continue to year in review"),
            firstSlideHide: WMFLocalizedString("year-in-review-hide", value: "Hide this feature", comment: "Button to hide year in review feature"),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
