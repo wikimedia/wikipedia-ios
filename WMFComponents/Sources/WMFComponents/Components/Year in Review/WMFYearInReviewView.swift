@@ -10,7 +10,14 @@ public struct WMFYearInReviewView: View {
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
-        UINavigationBar.appearance().backgroundColor = theme.midBackground
+        let toolbarAppearance = UIToolbarAppearance()
+        toolbarAppearance.configureWithOpaqueBackground()
+        toolbarAppearance.backgroundColor = theme.midBackground
+        toolbarAppearance.shadowColor = .clear
+
+        UIToolbar.appearance().standardAppearance = toolbarAppearance
+        UIToolbar.appearance().compactAppearance = toolbarAppearance
+
     }
 
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -79,6 +86,7 @@ public struct WMFYearInReviewView: View {
                 // Logs slide impressions and next taps
                 viewModel.logYearInReviewSlideDidAppear()
             }
+            .toolbarColorScheme(theme.preferredColorScheme)
             .toolbar {
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .bottomBar) {
