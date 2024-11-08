@@ -1479,7 +1479,7 @@ private extension ArticleViewController {
         let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
         profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
+        navigationItem.rightBarButtonItems = [profileButton]
         // navigationBar.updateNavigationItems()
     }
     
