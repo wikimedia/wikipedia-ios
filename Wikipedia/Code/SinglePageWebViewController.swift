@@ -154,7 +154,7 @@ class SinglePageWebViewController: ThemeableViewController {
 
     required init(configType: ConfigType, theme: Theme) {
         self.configType = configType
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
         self.navigationItem.backButtonTitle = url.lastPathComponent
@@ -167,6 +167,7 @@ class SinglePageWebViewController: ThemeableViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         edgesForExtendedLayout = .all
         extendedLayoutIncludesOpaqueBars = true
         
@@ -184,8 +185,6 @@ class SinglePageWebViewController: ThemeableViewController {
         }
 
         copyCookiesFromSession()
-        
-        super.viewDidLoad()
     }
     
     private func setupWButton() {
@@ -209,14 +208,12 @@ class SinglePageWebViewController: ThemeableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
         
         if navigationController?.viewControllers.first === self {
             let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = false
         navigationItem.largeTitleDisplayMode = .never
 
@@ -333,7 +330,7 @@ class SinglePageWebViewController: ThemeableViewController {
     }
 
     private func load() {
-        //fakeProgressController.start()
+        // fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
 
@@ -499,7 +496,7 @@ extension SinglePageWebViewController: WKNavigationDelegate {
 
         // Avoid displaying "Plug-in handled load" noise to users.
         if (error as NSError).isPluginHandledLoadError {
-            //fakeProgressController.finish()
+            // fakeProgressController.finish()
             return
         }
 

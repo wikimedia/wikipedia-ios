@@ -1038,7 +1038,7 @@ extension ExploreViewController {
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
         
@@ -1061,7 +1061,7 @@ extension ExploreViewController {
             return false
         }
         
-        return navigationBar.superview != nil
+        return true
     }
     
     private func needsImageRecommendationsFeatureAnnouncement() -> Bool {
@@ -1183,15 +1183,11 @@ extension ExploreViewController {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
         })
 
-        if  navigationBar.superview != nil {
-            let xOrigin = navigationBar.frame.width - 45
-            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
-            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
-            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        if let profileBarButtonItem = navigationItem.rightBarButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
-
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
     
     // TODO: - Remove after expiry date (5 Nov, 2024)
@@ -1231,7 +1227,7 @@ extension ExploreViewController {
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, barButtonItem: nil)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
     }
@@ -1272,7 +1268,7 @@ extension ExploreViewController {
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, barButtonItem: nil)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }
