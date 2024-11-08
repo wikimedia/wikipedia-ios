@@ -52,32 +52,42 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
-    private lazy var profileCoordinator: ProfileCoordinator? = {
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
         
         guard let navigationController,
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
         
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
-    }()
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
+        }
+        
+        return existingProfileCoordinator
+    }
 
-    lazy var yirDataController: WMFYearInReviewDataController? = {
+    private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
-    }()
+    }
 
-    lazy var yirCoordinator: YearInReviewCoordinator? = {
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
         
         guard let navigationController,
               let yirDataController else {
             return nil
         }
 
-        let yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-        yirCoordinator.badgeDelegate = self
-
-        return yirCoordinator
-    }()
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
 
     var session: Session {
         return dataStore.session
@@ -995,6 +1005,7 @@ class ArticleViewController: ViewController, HintPresenting {
             messagingController.updateTheme(theme)
         }
         yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     private func rethemeWebViewIfNecessary() {
