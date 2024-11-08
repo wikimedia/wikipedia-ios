@@ -1409,7 +1409,6 @@
 "year-in-review-done" = "Done";
 "year-in-review-finish" = "Finish";
 "year-in-review-get-started" = "Get Started";
-"year-in-review-hide" = "Hide this feature";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
@@ -1423,7 +1422,8 @@
 "year-in-review-personalized-reading-title- format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share" = "Share";
 "year-in-review-share-text" = "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app";
-"year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
+"year-in-review-start" = "Learn more";
+"year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-survey-additional-thoughts" = "Any additional thoughts?";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Satisfied";
