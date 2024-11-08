@@ -42,6 +42,7 @@ extension ReadingThemesControlsPresenting {
         
         readingThemesControlsViewController.delegate = responder
         readingThemesControlsViewController.setValuesWithSteps(fontSizes.count, current: index)
+        readingThemesControlsViewController.updateSliderLayout()
         readingThemesControlsViewController.showsSyntaxHighlighting = showsSyntaxHighlighting
         readingThemesControlsViewController.needsExtraTopSpacing = needsExtraTopSpacing
         

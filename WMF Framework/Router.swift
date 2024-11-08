@@ -132,6 +132,11 @@ public class Router: NSObject {
                 return nil
             }
             
+            guard let host = url.host,
+                  host != "thankyou.wikipedia.org" else {
+                return nil
+            }
+            
             return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? nil : Destination.article(url)
         case .wikipedia:
             

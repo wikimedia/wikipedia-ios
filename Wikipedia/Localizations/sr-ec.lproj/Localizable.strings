@@ -1290,7 +1290,17 @@
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
+// Fuzzy
+"year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1";
+// Fuzzy
+"year-in-review-base-edits-title" = "Википедија се уређује $1";
 "year-in-review-donate" = "Донирај";
 "year-in-review-done" = "Готово";
 "year-in-review-next" = "Следеће";
+"year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
 "year-in-review-share" = "Дели";
+"year-in-review-survey-neutral" = "Неутралан";
+"year-in-review-survey-satisfied" = "Задовољан";
+"year-in-review-survey-unsatisfied" = "Незадовољан";
+"year-in-review-survey-very-satisfied" = "Веома задовољан";
+"year-in-review-survey-very-unsatisfied" = "Веома незадовољан";

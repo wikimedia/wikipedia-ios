@@ -5,7 +5,7 @@ import WMFComponents
 
 extension ArticleViewController {
     
-    func showAnnouncementIfNeeded() {
+    func showFundraisingCampaignAnnouncementIfNeeded() {
         
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
@@ -31,7 +31,9 @@ extension ArticleViewController {
             guard isOptedIn else {
                 return
             }
-            
+
+            willDisplayFundraisingBanner = true
+
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
     }
@@ -60,7 +62,7 @@ extension ArticleViewController {
             
             let globalRect = CGRect(x: globalPoint.x, y: globalPoint.y, width: button.frame.width, height: button.frame.height)
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: globalRect, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, setLoadingBlock: { isLoading in
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: globalRect, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
                 guard let fundraisingPanelVC = viewController as? FundraisingAnnouncementPanelViewController else {
                     return
                 }
@@ -123,6 +125,55 @@ extension ArticleViewController {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: UIImage.init(systemName: "checkmark.circle.fill"), type: .custom, customTypeName: "watchlist-add-remove-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
+
+    // TODO: remove after expiry date (1 March 2025)
+    func needsYearInReviewAnnouncement() -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+            return false
+        }
+
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
+            return false
+        }
+
+        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+            return false
+        }
+        
+        return navigationBar.superview != nil
+    }
+    
+    // TODO: remove after expiry date (1 March 2025)
+    func presentYearInReviewAnnouncement() {
+        
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
+            return
+        }
+
+        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let body = CommonStrings.yirFeatureAnnoucementBody
+        let primaryButtonTitle = CommonStrings.continueButton
+        let image = UIImage(named: "wikipedia-globe")
+        let backgroundImage = UIImage(named: "Announcement")
+
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage:backgroundImage, primaryButtonAction: { [weak self] in
+            guard let self else { return }
+            self.yirCoordinator?.start()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+        }, closeButtonAction: {
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+        })
+
+        if navigationBar.superview != nil {
+            let xOrigin = navigationBar.frame.width - 100
+            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
+            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
+            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+        }
+        
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+    }
 }
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
@@ -130,3 +181,5 @@ extension WMFFundraisingCampaignConfig.WMFAsset {
         return "\(languageCode)\(countryCode)_\(id)_iOS"
     }
 }
+
+extension ArticleViewController: WMFFeatureAnnouncing { }

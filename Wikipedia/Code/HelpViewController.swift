@@ -27,19 +27,16 @@ class HelpViewController: SinglePageWebViewController {
             return nil
         }
         self.dataStore = dataStore
-        super.init(url: faqURL, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: faqURL, useSimpleNavigationBar: false)
+        super.init(configType: .standard(config), theme: theme)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    required init(url: URL, theme: Theme) {
-        fatalError("init(url:theme:) has not been implemented")
-    }
-
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, donateConfig: WebViewDonateConfig? = nil) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:donateConfig:) has not been implemented")
+    required init(configType: ConfigType, theme: Theme) {
+        fatalError("init(configType:theme:) has not been implemented")
     }
     
     lazy var sendEmailToolbarItem: UIBarButtonItem = {

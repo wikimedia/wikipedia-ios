@@ -3,7 +3,8 @@
     "ios": [
         {
             "version": 1,
-            "yir": {
+            "yir": [{
+                "yearID": "2024.1",
                 "isEnabled": true,
                 "countryCodes": [
                     "FR",
@@ -21,9 +22,12 @@
                     },
                     "editCount": {
                         "isEnabled": true
+                    },
+                    "donateCount": {
+                        "isEnabled": true
                     }
                 }
-            }
+            }]
         }
     ],
     "android": {}

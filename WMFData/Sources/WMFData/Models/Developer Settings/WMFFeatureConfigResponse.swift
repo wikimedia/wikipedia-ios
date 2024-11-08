@@ -8,23 +8,39 @@ public struct WMFFeatureConfigResponse: Codable {
             public struct PersonalizedSlides: Codable {
                 let readCount: SlideSettings
                 let editCount: SlideSettings
+                let donateCount: SlideSettings
             }
             
             public struct SlideSettings: Codable {
                 public let isEnabled: Bool
             }
             
+            public let yearID: String
             public let isEnabled: Bool
             public let countryCodes: [String]
             public let primaryAppLanguageCodes: [String]
             public let dataPopulationStartDateString: String
             public let dataPopulationEndDateString: String
             public let personalizedSlides: PersonalizedSlides
+            
+            var dataPopulationStartDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataPopulationStartDateString)
+            }
+            
+            var dataPopulationEndDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataPopulationEndDateString)
+            }
         }
 
         let version: Int
 
-        public let yir: YearInReview
+        public let yir: [YearInReview]
+        
+        public func yir(yearID: String) -> YearInReview? {
+            return yir.first { $0.yearID == yearID }
+        }
     }
     
     public let ios: [IOS]

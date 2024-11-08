@@ -5,23 +5,11 @@ import CoreData
    public let namespaceID: Int
    public let projectID: String
    public let title: String
-   let pageViews: [WMFPageView]
 
-     init(namespaceID: Int, projectID: String, title: String, pageViews: [WMFPageView] = []) {
+     init(namespaceID: Int, projectID: String, title: String) {
        self.namespaceID = namespaceID
        self.projectID = projectID
        self.title = title
-       self.pageViews = pageViews
-   }
- }
-
-public final class WMFPageView {
-   public let timestamp: Date
-   public let page: WMFPage
-
-   init(timestamp: Date, page: WMFPage) {
-       self.timestamp = timestamp
-       self.page = page
    }
  }
 
@@ -78,13 +66,13 @@ public final class WMFPageViewsDataController {
             
             let currentDate = Date()
             let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
-            let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "CDPage", predicate: predicate, in: backgroundContext)
+            let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
             page?.title = coreDataTitle
             page?.namespaceID = namespaceID
             page?.projectID = project.coreDataIdentifier
             page?.timestamp = currentDate
             
-            let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "CDPageView", in: backgroundContext)
+            let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
 
@@ -102,13 +90,13 @@ public final class WMFPageViewsDataController {
             guard let self else { return }
             
             let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
-            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, entityName: "CDPage", predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
+            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
                 return
             }
             
             let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
             
-            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, entityName: "CDPageView", predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
+            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
                 return
             }
             
@@ -142,13 +130,13 @@ public final class WMFPageViewsDataController {
                 let coreDataTitle = request.title.normalizedForCoreData
                 let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
                 
-                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, entityName: "CDPage", predicate: predicate, in: backgroundContext)
+                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
                 page?.title = coreDataTitle
                 page?.namespaceID = 0
                 page?.projectID = request.project.coreDataIdentifier
                 page?.timestamp = request.viewedDate
                 
-                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, entityName: "CDPageView", in: backgroundContext)
+                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
                 viewedPage.page = page
                 viewedPage.timestamp = request.viewedDate
             }
@@ -157,11 +145,17 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func fetchPageViewCounts() throws -> [WMFPageViewCount] {
+    public func fetchPageViewCounts(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewCount] {
         
-        let viewContext = try coreDataStore.viewContext
-        let results: [WMFPageViewCount] = try viewContext.performAndWait {
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityName: "CDPageView", predicate: nil, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: viewContext)
+        let context: NSManagedObjectContext
+        if let moc {
+            context = moc
+        } else {
+            context = try coreDataStore.viewContext
+        }
+        let results: [WMFPageViewCount] = try context.performAndWait {
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: context)
             var pageViewCounts: [WMFPageViewCount] = []
             for dict in pageViewsDict {
                 
@@ -170,7 +164,7 @@ public final class WMFPageViewsDataController {
                     continue
                 }
                 
-                guard let page = viewContext.object(with: objectID) as? CDPage,
+                guard let page = context.object(with: objectID) as? CDPage,
                     let projectID = page.projectID, let title = page.title else {
                     continue
                 }

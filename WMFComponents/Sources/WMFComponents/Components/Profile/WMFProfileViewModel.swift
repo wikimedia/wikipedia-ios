@@ -30,8 +30,7 @@ public class WMFProfileViewModel: ObservableObject {
             loadProfileSections()
         }
     }
-    
-    
+
     private let yearInReviewDependencies: YearInReviewDependencies?
 
     public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?) {
@@ -88,6 +87,7 @@ struct ProfileListItem: Identifiable {
     let image: WMFSFSymbolIcon?
     let imageColor: UIColor?
     let hasNotifications: Bool?
+    var needsNotificationCount: Bool = false
     let isDonate: Bool
     let isLoadingDonateConfigs: Bool
     let action: () -> ()?
@@ -101,13 +101,19 @@ struct ProfileSection: Identifiable {
 
 enum ProfileState {
     static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?) -> [ProfileSection] {
-        
+
+        var needsYiRNotification = false
+        if let yearInReviewDependencies {
+            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject)
+        }
+
         if isLoggedIn {
             let notificationsItem = ProfileListItem(
                 text: localizedStrings.notificationsTitle,
                 image: .bellFill,
                 imageColor: UIColor(Color.blue),
                 hasNotifications: inboxCount > 0,
+                needsNotificationCount: true,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
@@ -170,15 +176,17 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
+
             let yearInReviewItem = ProfileListItem(
                 text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
-                hasNotifications: false,
+                hasNotifications: needsYiRNotification,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                    coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
             )
             
@@ -227,7 +235,6 @@ enum ProfileState {
                 )
             ]
         } else {
-            
             let joinWikipediaItem = ProfileListItem(
                 text: localizedStrings.joinWikipediaTitle,
                 image: .leave,
@@ -252,16 +259,17 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
-            
+
             let yearInReviewItem = ProfileListItem(
                 text: localizedStrings.yearInReviewTitle,
                 image: .calendar,
                 imageColor: WMFColor.blue600,
-                hasNotifications: false,
+                hasNotifications: needsYiRNotification,
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                    coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
             )
             
@@ -301,8 +309,7 @@ enum ProfileState {
                 ],
                 subtext: nil
             )
-            
-            
+
             var sections = [joinSection, donateSection, settingsSection]
             if let yearInReviewDependencies,
                yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {

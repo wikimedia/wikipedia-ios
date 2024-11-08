@@ -998,7 +998,10 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
+"year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
+"year-in-review-base-viewed-title" = "Abbiamo visto voci di Wikipedia $1 miliardi di volte";
 "year-in-review-donate" = "Dona";
 "year-in-review-done" = "Fatto";
 "year-in-review-next" = "Successivo";
+"year-in-review-personalized-reading-title- format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-share" = "Condividi";

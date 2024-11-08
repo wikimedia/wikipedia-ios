@@ -554,10 +554,13 @@ extension WMFAppViewController {
     
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
-        do {
-            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
-        } catch let error {
-            DDLogError("Error setting up WMFCoreDataStore: \(error)")
+        
+        Task {
+            do {
+                WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+            } catch let error {
+                DDLogError("Error setting up WMFCoreDataStore: \(error)")
+            }
         }
     }
     
@@ -605,7 +608,7 @@ extension WMFAppViewController {
         }
     }
 
-    @objc func getYearInReviewReport(for year: Int) {
+    @objc func populateYearInReviewReport(for year: Int) {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
         else { return }
@@ -614,8 +617,14 @@ extension WMFAppViewController {
 
         Task {
             do {
-                let dataController = try WMFYearInReviewDataController()
-                await dataController.createOrRetrieveYearInReview(for: year, countryCode: countryCode, primaryAppLanguageProject: project)
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.populateYearInReviewReportData(
+                    for: year,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
             }
         }
     }

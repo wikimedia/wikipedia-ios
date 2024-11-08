@@ -46,3 +46,8 @@ public enum WMFDonateDataControllerError: LocalizedError {
         }
     }
 }
+
+public enum WMFYearInReviewDataControllerError: Error {
+    case missingRemoteConfig
+    case missingDonateDataController
+}

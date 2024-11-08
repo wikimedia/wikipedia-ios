@@ -65,6 +65,7 @@
 "account-creation-saving" = "Späicheren...";
 "account-creation-title" = "En neie Benotzerkont uleeën";
 "account-group-title" = "Äre Benotzerkont";
+"account-request-vanishing" = "Kont opléisen";
 "account-talk-page-title" = "Är Diskussiounssäit";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
@@ -181,6 +182,7 @@
 "diff-paragraph-moved-direction-down" = "erof";
 "diff-paragraph-moved-direction-up" = "erop";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 Zeil|$1 Zeilen}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitter}}";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat|$1 Byten derbäigesat}}";
@@ -239,12 +241,14 @@
 "editor-find-next-button-accessibility" = "Nächst Resultat vun der Sich";
 "editor-find-previous-button-accessibility" = "Viregt Resultat vun der Sich";
 "editor-find-textfield-accessibility" = "Sichen";
+"editor-keyboard-bold-accessibility" = "Fett";
 "editor-keyboard-heading-button" = "Iwwerschrëft";
 "editor-keyboard-paragraph-button" = "Abschnitt";
 "editor-keyboard-subheading1-button" = "Ënneriwwerschrëft 1";
 "editor-keyboard-subheading2-button" = "Ënneriwwerschrëft 2";
 "editor-keyboard-subheading3-button" = "Ënneriwwerschrëft 3";
 "editor-keyboard-subheading4-button" = "Ënneriwwerschrëft 4";
+"editor-keyboard-template-accessibility" = "Schabloun";
 "editor-keyboard-text-formatting-title" = "Textformatéierung";
 "editor-replace-textfield-accessibility" = "Ersetzen";
 "editor-replace-textfield-placeholder" = "Ersetzen duerch...";
@@ -368,6 +372,7 @@
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "image-gallery-unknown-owner" = "Auteur onbekannt.";
 "image-rec-add-image-title" = "Dëst Bild derbäisetzen?";
+"image-rec-error-subtitle" = "Et ass eppes schif gaangen.";
 "image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipediaartikel derbäigesat soll ginn.";
 "image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
 "image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
@@ -430,6 +435,7 @@
 "languages-settings-title" = "Sproochen";
 "languages-title" = "Sprooch änneren";
 "languages-wikipedia" = "Wikipedia-Sproochen";
+"learn-more-title" = "Méi gewuer ginn";
 "logged-out-continue-without-logging-in-button-title" = "Virufueren ouni anzeloggen";
 "logged-out-title" = "Dir sidd elo ausgeloggt";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
@@ -476,12 +482,14 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter|$1 Filteren}}";
 "notifications-center-feed-news-notification-button-text" = "Push-Notifikatiounen aschalten";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Net elo";
+"notifications-center-filters-accessibility-label" = "Notifikatiounsfilter";
 "notifications-center-filters-read-status-item-title-all" = "All";
 "notifications-center-filters-read-status-item-title-read" = "Liesen";
 "notifications-center-filters-read-status-item-title-unread" = "Net gelies";
 "notifications-center-filters-read-status-section-title" = "Liesstatus";
 "notifications-center-filters-title" = "Filteren";
 "notifications-center-filters-types-item-title-all" = "All Typpen";
+"notifications-center-filters-types-section-title" = "Notifikatiounstyppen";
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1 Diskussiounssäit";
 "notifications-center-go-to-diff" = "Ënnerscheed";
@@ -499,6 +507,7 @@
 "notifications-center-mark-as-read" = "Als gelies markéieren";
 "notifications-center-mark-as-unread" = "Als net gelies markéieren";
 "notifications-center-more-action-accessibility-label" = "Méi";
+"notifications-center-notifications-settings" = "Notifikatiounsastellungen";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 Message|$1 Messagen}}";
 "notifications-center-onboarding-modal-continue-action" = "Virufueren";
 "notifications-center-onboarding-modal-filters-title" = "Filteren";
@@ -654,6 +663,9 @@
 "reading-lists-list-not-synced-limit-exceeded" = "Lëscht net synchroniséiert, Limitt iwwerschratt";
 "reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
+"reading-themes-controls-accessibility-dark-theme-button" = "Däischtere Modus";
+"reading-themes-controls-accessibility-light-theme-button" = "Helle Modus";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Modus";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|1=Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-abbreviated" = "$1 h";
@@ -896,4 +908,17 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
+// Fuzzy
+"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 geännert";
+"year-in-review-base-reading-title" = "Liesen huet eis zesummebruecht";
+"year-in-review-next" = "Nächst";
+"year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
+"year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
+"year-in-review-personalized-reading-title- format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-share" = "Deelen";
+"year-in-review-survey-neutral" = "Neutral";
+"year-in-review-survey-satisfied" = "Zefridden";
+"year-in-review-survey-title" = "Zefriddenheetsëmfro";
+"year-in-review-survey-unsatisfied" = "Onzefridden";
+"year-in-review-survey-very-satisfied" = "Ganz zefridden";
+"year-in-review-survey-very-unsatisfied" = "Ganz onzefridden";

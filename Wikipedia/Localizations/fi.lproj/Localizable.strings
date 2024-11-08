@@ -141,8 +141,13 @@
 "advanced-settings-title" = "Lisäasetukset";
 "alt-text-add-button-title" = "Lisää";
 "alt-text-do-not-add-button-title" = "Älä lisää";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Lisää kuvaus";
 "alt-text-experiment-text-field-placholder" = "Kuvaile tätä kuvaa";
 "alt-text-experiment-view-title" = "Lisää vaihtoehtoinen teksti";
+"alt-text-survey-option-4" = "Minulla on teknisiä ongelmia";
+"alt-text-survey-option-5" = "Minulla on näkövamma";
+"alt-text-survey-option-6" = "En ole kiinnostunut kirjoittamaan kuville vaihtoehtoista tekstiä";
+"alt-text-survey-option-7" = "Minulla ei ole aikaa";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
@@ -377,6 +382,7 @@
 "editor-replace-type-single" = "Korvaa";
 "empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
 "empty-diff-single-title" = "Näkyviä muutoksia ei tehty";
+"empty-edit-summary" = "Tyhjä muokkausyhteenveto";
 "empty-insert-media-title" = "Valitse tiedosto";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
@@ -551,6 +557,8 @@
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
+"image-rec-error-subtitle" = "Jotain meni vikaan.";
+"image-rec-error-title" = "Sivua ei voi ladata";
 "image-rec-onboarding-item-2-title" = "Hyväksy tai hylkää kuva";
 "image-rec-onboarding-item-3-title" = "Lisensoidut kuvat";
 "image-rec-onboarding-learn-more-button" = "Lisätietoja ehdotetuista muokkauksista";
@@ -1230,3 +1238,4 @@
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
+"year-in-review-next" = "Seuraava";

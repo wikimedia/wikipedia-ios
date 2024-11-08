@@ -371,7 +371,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
     }
     
     private func presentAltTextRejectionSurvey() {
-        let surveyView = WMFSurveyView.surveyView(cancelAction: { [weak self] in
+        let surveyView = WMFSurveyView.altTextSurveyView(cancelAction: { [weak self] in
             
             // Dismisses Survey View
             self?.dismiss(animated: true)
@@ -385,7 +385,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                     EditInteractionFunnel.shared.logAltTextSurveyDidTapSubmit(project: project)
                     
                     let image = UIImage(systemName: "checkmark.circle.fill")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.altTextFeedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
                     
                     EditInteractionFunnel.shared.logAltTextSurveyDidSubmit(rejectionReasons: options, otherReason: otherText, project: project)
                 }
@@ -467,7 +467,8 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
             }
 
             self.didTapAltTextFileName = true
-            let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+            let singlePageWebViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
             self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
             EditInteractionFunnel.shared.logAltTextDidPushCommonsView(project: project)
         }
@@ -604,7 +605,7 @@ extension ArticleViewController: WMFAltTextPreviewDelegate {
     }
 
     private func presentAltTextEditPublishedToast(isSurvey: Bool, project: WikimediaProject) {
-        let title = isSurvey ? CommonStrings.altTextFeedbackSurveyToastTitle : CommonStrings.editPublishedToastTitle
+        let title = isSurvey ? CommonStrings.feedbackSurveyToastTitle : CommonStrings.editPublishedToastTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
 
         if UIAccessibility.isVoiceOverRunning {

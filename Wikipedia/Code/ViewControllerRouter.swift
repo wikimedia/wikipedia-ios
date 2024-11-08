@@ -73,20 +73,6 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        // For Article as a Living Doc modal - fix the nav bar in place
-        if navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
-            if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
-                vc.doesUseSimpleNavigationBar = true
-                // vc.navigationBar.isBarHidingEnabled = false
-            }
-        }
-        
-        // pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
-        if let lastWebVC = navigationController.children.last as? SinglePageWebViewController,
-           let nextWebVC = viewController as? SinglePageWebViewController {
-            nextWebVC.doesUseSimpleNavigationBar = lastWebVC.doesUseSimpleNavigationBar
-        }
-
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {
@@ -125,7 +111,8 @@ class ViewControllerRouter: NSObject {
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
-            let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
+            let config = SinglePageWebViewController.StandardConfig(url: linkURL, useSimpleNavigationBar: false)
+            let singlePageVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
             return presentOrPush(singlePageVC, with: completion)
         case .audio(let audioURL):
             try? AVAudioSession.sharedInstance().setCategory(.playback)
