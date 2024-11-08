@@ -8,56 +8,87 @@ struct WMFYearInReviewShareableSlideView: View {
         return appEnvironment.theme
     }
 
-    var slide: Int
-    var slideImage: String
+    let imageName: String
+    let imageOverlay: String?
+    let textOverlay: String?
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
     var username: String?
 
     var body: some View {
-        VStack {
-            Spacer()
-            VStack(alignment: .leading, spacing: 16) {
-                Image(slideImage, bundle: .module)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                Text(slideTitle)
-                    .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                Text(slideSubtitle)
-                    .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                    .foregroundStyle(Color(uiColor: theme.text))
-            }
-            .padding(28)
-            Spacer()
-            HStack {
-                Image("globe", bundle: .module)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 50, height: 50)
-                VStack(alignment: .leading) {
-                    Text(hashtag)
-                        .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                        .foregroundStyle(Color(uiColor: theme.link))
+        GeometryReader { geometry in
+            VStack {
+                VStack(alignment: .leading, spacing: 16) {
+                    Image("W-share-logo", bundle: .module)
+                        .frame(height: 70)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(theme.text))
 
-                    if let username {
-                        Text(username)
-                            .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                    ZStack {
+                        Image(imageName, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .ignoresSafeArea()
+                            .padding(.horizontal, 0)
+
+                        if let imageOverlay {
+                            Image(imageOverlay, bundle: .module)
+                                .padding(.horizontal, 100)
+                                .padding(.vertical, 50)
+                        }
+
+                        if let overlayText = textOverlay {
+                            Text(overlayText)
+                                .font(Font(WMFFont.for(.xxlTitleBold)))
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.top, 10)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(slideTitle)
+                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                        Text(slideSubtitle)
+                            .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
                     }
+                    .padding(28)
                 }
-                Spacer()
-            }
-            .padding()
-            .background(Color(uiColor: theme.paperBackground))
-            .cornerRadius(12)
-            .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 0, y: 5)
-            .padding(.horizontal, 24)
-            .frame(height: 80)
-        }
-        .padding(.bottom, 70)
-        .background(Color(uiColor: theme.paperBackground))
-        .frame(width: 402, height: 847) // Fixed iPhone 16 size for iPad as well
-    }
 
+
+                Spacer(minLength: 10)
+
+                HStack {
+                    Image("globe", bundle: .module)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                    VStack(alignment: .leading) {
+                        Text(hashtag)
+                            .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                            .foregroundStyle(Color(uiColor: theme.link))
+
+                        if let username {
+                            Text(username)
+                                .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                        }
+                    }
+                    Spacer()
+                }
+                .padding()
+                .background(Color(uiColor: theme.paperBackground))
+                .cornerRadius(12)
+                .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                .padding(.horizontal, 24)
+                .frame(height: 80)
+                .padding(.bottom, 60)
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(Color(uiColor: theme.paperBackground))
+        }
+        .frame(width: 402, height: 847)
+    }
 }
