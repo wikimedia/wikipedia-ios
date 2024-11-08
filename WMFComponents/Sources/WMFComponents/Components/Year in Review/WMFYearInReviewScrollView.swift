@@ -57,8 +57,6 @@ public struct WMFYearInReviewScrollView: View {
                     
                     if let imageOverlay {
                         Image(imageOverlay, bundle: .module)
-                            .padding(.horizontal, 100)
-                            .padding(.vertical, 50)
                     }
                     
                     if let overlayText = textOverlay {

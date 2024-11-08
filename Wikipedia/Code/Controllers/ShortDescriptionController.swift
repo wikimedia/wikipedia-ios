@@ -119,7 +119,9 @@ class ShortDescriptionController: ArticleDescriptionControlling {
             return nil
         }
         
-        return SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        
+        return SinglePageWebViewController(configType: .standard(config), theme: theme)
     }
     
     func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes {

@@ -29,6 +29,7 @@ class DonateCoordinator: Coordinator {
     
     enum NavigationStyle {
         case dismissThenPush
+        case push
         case present
     }
     
@@ -163,7 +164,15 @@ class DonateCoordinator: Coordinator {
             return
         }
         
-        let presentedViewController = navigationController.presentedViewController
+        let viewControllerToPresentActionSheet: UIViewController?
+        switch navigationStyle {
+        case .dismissThenPush:
+            viewControllerToPresentActionSheet = navigationController.presentedViewController
+        case .push:
+            viewControllerToPresentActionSheet = navigationController.topViewController
+        case .present:
+            viewControllerToPresentActionSheet = navigationController.presentedViewController
+        }
 
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
@@ -254,7 +263,7 @@ class DonateCoordinator: Coordinator {
         alert.popoverPresentationController?.sourceView = navigationController.view
         alert.popoverPresentationController?.sourceRect = donateButtonGlobalRect
         
-        presentedViewController?.present(alert, animated: true)
+        viewControllerToPresentActionSheet?.present(alert, animated: true)
     }
     
     private func nativeDonateFormViewModel(countryCode: String) -> WMFDonateViewModel? {
@@ -357,6 +366,8 @@ class DonateCoordinator: Coordinator {
         let donateViewController = WMFDonateViewController(viewModel: donateViewModel)
         
         switch navigationStyle {
+        case .push:
+            navigationController.pushViewController(donateViewController, animated: true)
         case .dismissThenPush:
             navigationController.dismiss(animated: true) {
                 self.navigationController.pushViewController(donateViewController, animated: true)
@@ -384,12 +395,14 @@ class DonateCoordinator: Coordinator {
         case .exploreProfile, .settingsProfile, .yearInReview:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
-        let donateConfig = SinglePageWebViewController.WebViewDonateConfig(donateCoordinatorDelegate: self, donateLoggingDelegate: self, donateCompleteButtonTitle: completeButtonTitle)
-        let webVC = SinglePageWebViewController(url: webViewURL, theme: theme, donateConfig: donateConfig)
+        let donateConfig = SinglePageWebViewController.DonateConfig(url: webViewURL, dataController: WMFDonateDataController.shared, coordinatorDelegate: self, loggingDelegate: self, completeButtonTitle: completeButtonTitle)
+        let webVC = SinglePageWebViewController(configType: .donate(donateConfig), theme: theme)
         
         switch navigationStyle {
+        case .push:
+            navigationController.pushViewController(webVC, animated: true)
         case .dismissThenPush:
-            self.navigationController.dismiss(animated: true, completion: {
+            navigationController.dismiss(animated: true, completion: {
                 self.navigationController.pushViewController(webVC, animated: true)
             })
         case .present:
@@ -480,6 +493,8 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         
         switch navigationStyle {
+        case .push:
+            self.navigationController.popViewController(animated: true)
         case .dismissThenPush:
             self.navigationController.popViewController(animated: true)
         case .present:
@@ -502,6 +517,8 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popFromWebFormThankYouPage() {
         
         switch navigationStyle {
+        case .push:
+            self.navigationController.popViewController(animated: true)
         case .dismissThenPush:
             navigationController.popViewController(animated: true)
         case .present:

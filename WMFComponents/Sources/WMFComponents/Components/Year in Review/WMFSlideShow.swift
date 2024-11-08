@@ -46,6 +46,11 @@ public struct WMFSlideShow: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
+    private func subtitleAttributedString(slide: Int) -> AttributedString {
+        let text = slides[slide].subtitle
+        return (try? AttributedString(markdown: text)) ?? AttributedString(text)
+    }
+    
     private func slideView(slide: Int) -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
@@ -64,9 +69,10 @@ public struct WMFSlideShow: View {
                     }
                 }
             }
-            Text(slides[slide].subtitle)
+            Text(subtitleAttributedString(slide: slide))
                 .font(Font(WMFFont.for(.title3)))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .accentColor(Color(uiColor: theme.link))
             Spacer()
         }
     }

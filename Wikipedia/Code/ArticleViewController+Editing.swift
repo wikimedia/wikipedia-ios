@@ -467,7 +467,8 @@ extension ArticleViewController: WMFAltTextExperimentModalSheetDelegate {
             }
 
             self.didTapAltTextFileName = true
-            let singlePageWebViewController = SinglePageWebViewController(url: url, theme: theme)
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+            let singlePageWebViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
             self.navigationController?.pushViewController(singlePageWebViewController, animated: true)
             EditInteractionFunnel.shared.logAltTextDidPushCommonsView(project: project)
         }

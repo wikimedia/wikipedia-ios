@@ -12,5 +12,6 @@ enum WMFUserDefaultsKey: String {
     case yearInReviewEnabled = "year-in-review-enabled"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"
     case yearInReviewSurveyPresented = "year-in-review-survey-presented"
+    case bypassDonation = "bypass-donation"
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
 }

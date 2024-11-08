@@ -18,18 +18,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
     let username: String?
     public let shareLink: String
     public let hashtag: String
+    let hasPersonalizedDonateSlide: Bool
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
         
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.username = username
         self.shareLink = shareLink
+        self.hasPersonalizedDonateSlide = hasPersonalizedDonateSlide
         self.hashtag = hashtag
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
@@ -54,7 +56,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func nextSlide() {
-        if currentSlide == slides.count - 1 {
+        if isLastSlide {
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
         } else {
             currentSlide = (currentSlide + 1) % slides.count
@@ -66,6 +68,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let doneButtonTitle: String
         let shareButtonTitle: String
         let nextButtonTitle: String
+        let finishButtonTitle: String
         let firstSlideTitle: String
         let firstSlideSubtitle: String
         let firstSlideCTA: String
@@ -73,11 +76,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
         public let shareText: String
         public let usernameTitle: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
             self.nextButtonTitle = nextButtonTitle
+            self.finishButtonTitle = finishButtonTitle
             self.firstSlideTitle = firstSlideTitle
             self.firstSlideSubtitle = firstSlideSubtitle
             self.firstSlideCTA = firstSlideCTA
@@ -96,19 +100,21 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func handleShare(for slide: Int) {
-        let view = WMFYearInReviewShareableSlideView(slide: slide, slideImage: slides[slide].imageName, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, username: getFomattedUsername())
+        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].imageName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, username: getFomattedUsername())
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
     
     func handleDone() {
-        let isLastSlide = currentSlide == slides.count - 1
         coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: isLastSlide))
     }
     
     func handleDonate(sourceRect: CGRect) {
-        let isLastSlide = currentSlide == slides.count - 1
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID, isLastSlide: isLastSlide))
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID))
+    }
+    
+    func handleLearnMore(url: URL) {
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
     }
     
     func logYearInReviewSlideDidAppear() {
@@ -125,6 +131,19 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     var slideLoggingID: String {
         return isFirstSlide ? "start" : slides[currentSlide].loggingID
+    }
+    
+    var isLastSlide: Bool {
+        return currentSlide == slides.count - 1
+    }
+    
+    var shouldShowDonateButton: Bool {
+        let slide = slides[currentSlide]
+        return !isFirstSlide && !slide.hideDonateButton
+    }
+    
+    var shouldShowWLogo: Bool {
+        return !isFirstSlide
     }
 
     func markFirstSlideAsSeen() {
@@ -144,8 +163,9 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     let informationBubbleText: String?
     public let subtitle: String
     public let loggingID: String
+    public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: String? = nil) {
+    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: String? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.textOverlay = textOverlay
@@ -154,6 +174,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.subtitle = subtitle
         self.loggingID = loggingID
         self.infoURL = infoURL
+		self.hideDonateButton = hideDonateButton
     }
 }
 
