@@ -482,10 +482,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
-        
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = true
-        navigationItem.largeTitleDisplayMode = .never
 
         setupSearchAndProfileButtons()
     }
@@ -1312,6 +1308,36 @@ private extension ArticleViewController {
         setupToolbar()
         setupMessagingController()
         
+        // Begin: Nav bar stuff
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+        navigationItem.largeTitleDisplayMode = .never
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        if #available(iOS 16.0, *) {
+            navigationItem.preferredSearchBarPlacement = .stacked
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
+        let search = UISearchController(searchResultsController: searchViewController)
+        search.searchResultsUpdater = self
+        search.searchBar.delegate = self
+        search.searchBar.searchBarStyle = .minimal
+        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        search.showsSearchResultsController = true
+        search.searchBar.showsScopeBar = false
+
+        // definesPresentationContext = true
+        
+        navigationItem.searchController = search
+        
+        // End: Nav bar stuff
+        
         // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
         // TODO: Update this upon theming change.
         let overlayView = UIView()
@@ -1844,5 +1870,79 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 extension ArticleViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
         setupSearchAndProfileButtons()
+    }
+}
+
+extension ArticleViewController: SearchTermSelectDelegate {
+    var searchBarText: String? {
+        navigationItem.searchController?.searchBar.text
+    }
+    
+    func searchViewController(_ searchViewController: SearchViewController, didSelectSearchTerm searchTerm: String, at indexPath: IndexPath) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+    }
+}
+
+extension ArticleViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+        
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+        
+        if searchController.searchBar.isFirstResponder {
+            
+            let showLanguageBar = UserDefaults.standard.wmf_showSearchLanguageBar()
+            
+            if showLanguageBar {
+                navigationItem.searchController?.searchBar.showsScopeBar = true
+                let languages = dataStore.languageLinkController.preferredLanguages
+                navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
+                    
+//                    let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
+//
+//                    return truncatedLanguageCode.last?.isPunctuation ?? false
+//                    ? String(truncatedLanguageCode.dropLast())
+//                    : String(truncatedLanguageCode)
+                    return $0.contentLanguageCode.localizedUppercase
+                }
+            }
+            
+            navigationController?.hidesBarsOnSwipe = false
+        } else {
+            navigationController?.hidesBarsOnSwipe = true
+            navigationItem.searchController?.searchBar.showsScopeBar = false
+        }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+//    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+//        let searchActivity = NSUserActivity.wmf_searchView()
+//        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
+//        return false
+//    }
+
+extension ArticleViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        let languages = dataStore.languageLinkController.preferredLanguages
+        let language = languages[selectedScope]
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.siteURL = language.siteURL
+        }
     }
 }
