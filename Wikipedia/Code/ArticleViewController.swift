@@ -163,6 +163,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
+    
+    private var overlayHeightConstraint: NSLayoutConstraint?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -412,6 +414,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
             
             self.watchlistController.calculatePopoverPosition(sender: self.toolbarController.moreButton, sourceView: self.toolbarController.moreButtonSourceView, sourceRect: self.toolbarController.moreButtonSourceRect)
+            self.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
         }
     }
     
@@ -483,9 +486,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = true
         navigationItem.largeTitleDisplayMode = .never
-        
-        // speed up show/hide animation
-        navigationController?.navigationBar.layer.speed = 1.2
 
         setupSearchAndProfileButtons()
     }
@@ -561,8 +561,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
-        
-        navigationController?.navigationBar.layer.speed = 1
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -1248,6 +1246,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlightIfNecessary()
+        
+        // prevents "sticky" hidden nav bar
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
@@ -1314,12 +1318,16 @@ private extension ArticleViewController {
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.backgroundColor = theme.colors.paperBackground
         view.insertSubview(overlayView, aboveSubview: webView)
+        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
+        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: overlayView.topAnchor),
             view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: overlayView.bottomAnchor)
+            overlayHeightConstraint
         ])
+        
+        self.overlayHeightConstraint = overlayHeightConstraint
     }
 
     private var overflowMenu: UIMenu {

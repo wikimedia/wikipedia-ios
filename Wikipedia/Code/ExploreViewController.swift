@@ -123,16 +123,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.hidesBarsOnSwipe = true
         
-        // speed up show/hide animation
-        navigationController?.navigationBar.layer.speed = 1.2
-        
         updateProfileViewButton()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        navigationController?.navigationBar.layer.speed = 1
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -140,6 +131,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
+            self?.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
         }
     }
 
@@ -175,6 +167,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         }
     }
     
+    private var overlayHeightConstraint: NSLayoutConstraint?
     func setupNavigationBar() {
         navigationItem.titleView = titleView
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -213,12 +206,16 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.backgroundColor = theme.colors.paperBackground
         view.insertSubview(overlayView, aboveSubview: collectionView)
+        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
+        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: overlayView.topAnchor),
             view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: overlayView.bottomAnchor)
+            overlayHeightConstraint
         ])
+        
+        self.overlayHeightConstraint = overlayHeightConstraint
     }
 //
 //    @objc func updateNotificationsCenterButton() {
@@ -344,6 +341,13 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     var isLoadingOlderContent: Bool = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
+        
+        // prevents "sticky" hidden nav bar
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        
         guard !isLoadingOlderContent else {
             return
         }
