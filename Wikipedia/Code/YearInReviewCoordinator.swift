@@ -250,6 +250,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: personalizedSlide1Subtitle(readCount: readCount),
                             loggingID: "read_count_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
                 }
@@ -288,6 +289,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
                             loggingID: "thank_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: true)
                     }
                 }

@@ -110,7 +110,7 @@ public struct WMFYearInReviewScrollView: View {
             }
             if contents != nil {
                 contents
-                    .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))
+                    .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
                     .background {
                         Color(appEnvironment.theme.midBackground).ignoresSafeArea()
                     }
