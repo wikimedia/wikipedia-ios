@@ -13,7 +13,7 @@ class ReadingThemesControlsViewController: UIViewController {
     @objc static let WMFUserDidSelectThemeNotificationThemeNameKey = "themeName"
     @objc static let WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey = "isImageDimmingEnabled"
     @objc static let nibName = "ReadingThemesControlsViewController"
-    
+
     var theme = Theme.standard
     
     @IBOutlet fileprivate var slider: SWStepSlider!
@@ -150,6 +150,10 @@ class ReadingThemesControlsViewController: UIViewController {
         self.slider.minimumValue = minimum
         self.slider.maximumValue = maximum
         self.slider.value = current
+    }
+    
+    func updateSliderLayout() {
+        self.slider.setNeedsLayout()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
