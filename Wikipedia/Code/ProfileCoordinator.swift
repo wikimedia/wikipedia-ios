@@ -22,7 +22,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     // MARK: Properties
     
-    let theme: Theme
+    var theme: Theme
     let dataStore: MWKDataStore
     
     private weak var viewModel: WMFProfileViewModel?

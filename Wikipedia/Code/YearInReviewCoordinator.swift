@@ -18,7 +18,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var donateCoordinator: DonateCoordinator?
 
     let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
-    var badgeDelegate: YearInReviewBadgeDelegate?
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
 
     // Collective base numbers that will change for header
     var collectiveNumArticlesNumber: String {
