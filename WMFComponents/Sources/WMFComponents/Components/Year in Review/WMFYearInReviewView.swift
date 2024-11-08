@@ -23,18 +23,14 @@ public struct WMFYearInReviewView: View {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    if viewModel.shouldShowWLogo {
-                        if !viewModel.shouldShowDonateButton {
-                            // Need something here for W to center well
-                            Text("")
-                                .accessibilityHidden(true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                    if !viewModel.shouldShowDonateButton {
                         Spacer()
-                        Image("W", bundle: .module)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(Color(theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    Spacer()
+                    Image("W", bundle: .module)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(theme.text))
                     Spacer()
                     Button(action: {
                         viewModel.logYearInReviewDidTapDone()
