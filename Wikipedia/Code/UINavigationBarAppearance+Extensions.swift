@@ -18,6 +18,9 @@ import UIKit
             appearance.backgroundImage = theme.navigationBarBackgroundImage
         }
         
+        appearance.shadowImage = UIImage()
+        appearance.shadowColor = .clear
+        
         return appearance
     }
     
@@ -36,6 +39,9 @@ import UIKit
         default:
             appearance.backgroundImage = theme.navigationBarBackgroundImage
         }
+        
+        appearance.shadowImage = UIImage()
+        appearance.shadowColor = .clear
         
         return appearance
     }

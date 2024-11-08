@@ -104,11 +104,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     UINavigationBarAppearance *newAppearance = [[UINavigationBarAppearance alloc] init];
-    UIFont *font = [WMFFontWrapper fontFor:WMFFontsTitle1 compatibleWithTraitCollection:self.traitCollection];
+    UIFont *font = [WMFFontWrapper fontFor:WMFFontsBoldTitle1 compatibleWithTraitCollection:self.traitCollection];
     newAppearance.largeTitleTextAttributes = @{NSFontAttributeName: font};
     [newAppearance configureWithOpaqueBackground];
-    newAppearance.backgroundColor = self.theme.colors.chromeBackground;
-    newAppearance.backgroundImage = self.theme.navigationBarBackgroundImage;
+    newAppearance.backgroundColor = [UIColor clearColor];
+    newAppearance.backgroundImage = [[UIImage alloc] init];
     self.navigationItem.scrollEdgeAppearance = newAppearance;
 }
 

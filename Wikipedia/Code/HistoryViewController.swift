@@ -43,6 +43,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         newAppearance.configureWithOpaqueBackground()
         newAppearance.backgroundColor = theme.colors.chromeBackground
         newAppearance.backgroundImage = theme.navigationBarBackgroundImage
+        newAppearance.shadowImage = UIImage()
+        newAppearance.shadowColor = .clear
         navigationItem.scrollEdgeAppearance = newAppearance
     }
     
