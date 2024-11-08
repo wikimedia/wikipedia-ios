@@ -118,11 +118,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var baseSlide4Subtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342\"")
+        let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate.](%2$@)", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342\". %2$@ is replaced with a link to the Mediawiki Apps team FAQ about editing.")
         
         let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
-        
-        return String.localizedStringWithFormat(format, numEditsPerMinString)
+        let editingFAQ = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing"
+        return String.localizedStringWithFormat(format, numEditsPerMinString, editingFAQ)
     }
     
     var baseSlide5Title: String {
