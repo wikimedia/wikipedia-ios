@@ -128,10 +128,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let slide = slides[currentSlide]
         return !isFirstSlide && !slide.hideDonateButton
     }
-    
-    var shouldShowWLogo: Bool {
-        return !isFirstSlide
-    }
 
     func markFirstSlideAsSeen() {
         if let dataController = try? WMFYearInReviewDataController() {
