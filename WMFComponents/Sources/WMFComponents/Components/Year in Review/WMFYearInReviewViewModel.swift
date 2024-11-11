@@ -4,7 +4,7 @@ import WMFData
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
-    func logYearInReviewIntroDidTapDisable()
+    func logYearInReviewIntroDidTapLearnMore()
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
@@ -59,11 +59,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideTitle: String
         let firstSlideSubtitle: String
         let firstSlideCTA: String
-        let firstSlideHide: String
+        let firstSlideLearnMore: String
         public let shareText: String
         public let usernameTitle: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideHide: String, shareText: String, usernameTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, usernameTitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -72,7 +72,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideTitle = firstSlideTitle
             self.firstSlideSubtitle = firstSlideSubtitle
             self.firstSlideCTA = firstSlideCTA
-            self.firstSlideHide = firstSlideHide
+            self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
             self.usernameTitle = usernameTitle
         }

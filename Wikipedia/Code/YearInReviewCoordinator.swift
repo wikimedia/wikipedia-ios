@@ -360,7 +360,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
            firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
-           firstSlideHide: WMFLocalizedString("year-in-review-start", value: "Learn more", comment: "Button to go to year in review informative page"),
+           firstSlideLearnMore: CommonStrings.learnMoreTitle(),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
        )
@@ -455,8 +455,8 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapIntroContinue()
     }
     
-    func logYearInReviewIntroDidTapDisable() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroDisable()
+    func logYearInReviewIntroDidTapLearnMore() {
+        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
     }
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
@@ -521,6 +521,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 
                 self.presentSurveyIfNeeded()
             })
+
+        case .introLearnMore:
+            var languageCodeSuffix = ""
+            if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+                languageCodeSuffix = "/\(primaryAppLanguageCode)"
+            }
+            let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used\(languageCodeSuffix)")
+            navigationController.navigate(to: url, useSafari: true)
+
         case .learnMore(let url, let fromPersonalizedDonateSlide):
             
             guard let presentedViewController = navigationController.presentedViewController else {
