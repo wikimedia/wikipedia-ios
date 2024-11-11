@@ -232,6 +232,7 @@
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "developer-settings" = "Подешавања за програмере";
+"developer-settings-bypass-donation" = "Заобилажење донирања";
 "diff-article-revision-history" = "Историја чланка";
 "diff-compare-header-from-info-heading" = "Претходна измена";
 "diff-compare-header-heading" = "Упореди измене";
@@ -1290,15 +1291,18 @@
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
-// Fuzzy
-"year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1";
-// Fuzzy
-"year-in-review-base-edits-title" = "Википедија се уређује $1";
+"year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1 измена";
+"year-in-review-base-edits-title" = "Википедија се уређује $1 пута у минуту";
+"year-in-review-base-viewed-subtitle" = "Корисници апликације за iOS су посетили Википедијине чланке $1 милијарду пута. За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
 "year-in-review-donate" = "Донирај";
+"year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-done" = "Готово";
+"year-in-review-finish" = "Готово";
 "year-in-review-next" = "Следеће";
+"year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";
 "year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
 "year-in-review-share" = "Дели";
+"year-in-review-start" = "Сазнајте више";
 "year-in-review-survey-neutral" = "Неутралан";
 "year-in-review-survey-satisfied" = "Задовољан";
 "year-in-review-survey-unsatisfied" = "Незадовољан";

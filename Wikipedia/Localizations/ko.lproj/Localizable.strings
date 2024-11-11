@@ -275,6 +275,7 @@
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "developer-settings" = "개발자 설정";
+"developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-compare-header-from-info-heading" = "이전 편집";
@@ -1363,15 +1364,20 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
-// Fuzzy
-"year-in-review-base-edits-title" = "위키백과는 $1 편집되었습니다";
-// Fuzzy
-"year-in-review-base-viewed-title" = "위키백과 문서를 $1회 조회했습니다.";
+"year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
+"year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
+"year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
 "year-in-review-donate" = "기부";
 "year-in-review-done" = "완료";
 "year-in-review-get-started" = "시작하기";
-"year-in-review-hide" = "이 기능 숨기기";
 "year-in-review-next" = "다음";
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
 "year-in-review-share" = "공유";
+"year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
+"year-in-review-survey-neutral" = "중립";
+"year-in-review-survey-satisfied" = "만족";
+"year-in-review-survey-title" = "만족도 조사";
+"year-in-review-survey-unsatisfied" = "불만족";
+"year-in-review-survey-very-satisfied" = "매우 만족";
+"year-in-review-survey-very-unsatisfied" = "매우 불만족";

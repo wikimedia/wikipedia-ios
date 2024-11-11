@@ -688,7 +688,7 @@
 "notifications-center-type-title-translation-milestone" = "معلم الترجمة";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
-"notifications-center-type-title-welcome" = "مرحبًا";
+"notifications-center-type-title-welcome" = "مرحبا";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "notifications-push-talk-body-format" = "{{PLURAL:$1| رسالة جديدة $1 | رسائل جديدة $1 }} على $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1| رسالة جديدة | رسائل جديدة}}";
@@ -1050,7 +1050,7 @@
 "talk-pages-view-title" = "نقاش";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
-"theme-default-display-name" = "الافتراضية";
+"theme-default-display-name" = "افتراضي";
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
