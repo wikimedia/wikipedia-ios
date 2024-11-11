@@ -1399,7 +1399,7 @@
 "year-in-review-base-donate-title" = "0 ads served on Wikipedia";
 "year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than $1 edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1 edits";
-"year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. Each edit plays a crucial role in improving and expanding Wikipedia.";
+"year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate.]($2)";
 "year-in-review-base-edits-title" = "Wikipedia was edited $1 times per minute";
 "year-in-review-base-reading-subtitle" = "Wikipedia had $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-base-reading-title" = "Reading brought us together";
@@ -1424,7 +1424,7 @@
 "year-in-review-personalized-reading-title- format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share" = "Share";
 "year-in-review-share-text" = "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app";
-"year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Share your journey and discover what stood out for you this year. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
+"year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-survey-additional-thoughts" = "Any additional thoughts?";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Satisfied";

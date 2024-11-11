@@ -32,7 +32,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
     
-    let username: String?
     let sourcePage: ProfileCoordinatorSource
     
     
@@ -48,7 +47,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.theme = theme
         self.donateSouce = donateSouce
         self.dataStore = dataStore
-        self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
         self.sourcePage = sourcePage
         self.yirCoordinator = yirCoordinator
@@ -57,6 +55,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     // MARK: Coordinator Protocol Methods
     
     @objc func start() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
@@ -197,6 +196,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     
     private func showUserPage() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         if let username, let siteURL = dataStore.primarySiteURL {
             let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
             userPageCoordinator.start()
@@ -204,6 +204,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showUserTalkPage() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
