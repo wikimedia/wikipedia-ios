@@ -908,14 +908,16 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
-// Fuzzy
-"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 geännert";
+"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
 "year-in-review-base-reading-title" = "Liesen huet eis zesummebruecht";
+"year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-next" = "Nächst";
+"year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
 "year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
 "year-in-review-personalized-reading-title- format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-share" = "Deelen";
+"year-in-review-start" = "Méi gewuer ginn";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Zefridden";
 "year-in-review-survey-title" = "Zefriddenheetsëmfro";

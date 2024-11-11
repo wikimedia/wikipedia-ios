@@ -1445,7 +1445,6 @@
 "year-in-review-donate" = "捐款";
 "year-in-review-done" = "完成";
 "year-in-review-get-started" = "开始";
-"year-in-review-hide" = "隐藏此功能";
 "year-in-review-next" = "下一页";
 "year-in-review-personalized-editing-subtitle-format" = "您在维基百科上编辑了{{PLURAL:$1|$1次}}。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
@@ -1455,6 +1454,7 @@
 "year-in-review-personalized-reading-subtitle-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。今年维基百科包含了$2，横跨$3。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
 "year-in-review-personalized-reading-title- format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。";
 "year-in-review-share" = "分享";
+// Fuzzy
 "year-in-review-subtitle" = "查看有关您在维基百科应用程序上所阅读的条目和所作编辑的深入分析。向他人分享您的旅程，发现今年令您印象深刻的事件。您的阅读历史将受到保护。阅读见解使用设备上本地存储的数据计算。";
 "year-in-review-title" = "探索您的维基百科年度回顾";
 "yir-feature-announcement-body" = "查看有关您在维基百科应用程序上所阅读的条目的深入分析，分享您的旅程，发现您今年的闪光点。";
