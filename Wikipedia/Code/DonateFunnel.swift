@@ -55,6 +55,7 @@ import WMF
         case nextClick = "next_click"
         case continueClick = "continue_click"
         case donateStartClickYir = "donate_start_click_yir"
+        case shareClick = "share_click"
     }
     
     private struct Event: EventInterface {
@@ -348,6 +349,10 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
             "campaign_id": metricsID])
+    }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .shareClick, actionData: ["slide": slideLoggingID])
     }
     
     // Year in Review Donate flow events

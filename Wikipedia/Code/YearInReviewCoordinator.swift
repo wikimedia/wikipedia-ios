@@ -468,6 +468,10 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
     }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
+    }
 }
 
 extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {

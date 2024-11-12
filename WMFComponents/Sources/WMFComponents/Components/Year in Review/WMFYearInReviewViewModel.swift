@@ -9,6 +9,7 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
     func logYearInReviewDidTapDonate(slideLoggingID: String)
+    func logYearInReviewDidTapShare(slideLoggingID: String)
 }
 
 public class WMFYearInReviewViewModel: ObservableObject {
@@ -119,6 +120,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func logYearInReviewDidTapDonate() {
         loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapShare() {
+        loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
     }
     
     var slideLoggingID: String {
