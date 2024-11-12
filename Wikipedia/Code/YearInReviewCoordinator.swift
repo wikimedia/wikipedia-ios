@@ -391,7 +391,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {
             let surveyVC = surveyViewController()
-            navigationController.present(surveyVC, animated: true)
+            navigationController.present(surveyVC, animated: true, completion: {
+                DonateFunnel.shared.logYearInReviewSurveyDidAppear()
+            })
             self.dataController.hasPresentedYiRSurvey = true
         }
     }
@@ -417,22 +419,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
         
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "very_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "v_satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
             WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "very_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "v_unsatisfied")
         ]
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
             cancelAction: { [weak self] in
             self?.navigationController.dismiss(animated: true)
+            DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         },
             submitAction: { [weak self] options, otherText in
-            print("TODO: Send answer to DonateFunnel")
+            DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
             self?.navigationController.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
 
