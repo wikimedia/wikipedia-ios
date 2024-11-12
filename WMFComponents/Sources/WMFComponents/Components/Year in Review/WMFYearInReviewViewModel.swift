@@ -5,6 +5,7 @@ import WMFData
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
     func logYearInReviewIntroDidTapLearnMore()
+    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String)
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
@@ -104,6 +105,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func handleLearnMore(url: URL) {
         coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
+        loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewSlideDidAppear() {

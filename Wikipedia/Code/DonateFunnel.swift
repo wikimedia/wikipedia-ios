@@ -386,6 +386,19 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitted)
     }
     
+    func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia",
+                                                                                       "campaign_id": metricsID])
+    }
+    
     // Year in Review Donate flow events
     
     func logYearInReviewDidTapDonateCancel(metricsID: String) {

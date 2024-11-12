@@ -469,6 +469,10 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
     }
     
+    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: slideLoggingID)
+    }
+    
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
     }
@@ -548,18 +552,21 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
             
             let webVC: SinglePageWebViewController
+            let slideLoggingID: String
             
             if !fromPersonalizedDonateSlide {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+                slideLoggingID = "about_wikimedia_base"
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+                slideLoggingID = "about_wikimedia_custom"
             }
             
             let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
             newNavigationVC.modalPresentationStyle = .formSheet
-            presentedViewController.present(newNavigationVC, animated: true)
+            presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
         }
         
     }

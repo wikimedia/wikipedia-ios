@@ -285,6 +285,12 @@ class SinglePageWebViewController: ViewController {
                 return
             }
             
+            let dataStore = MWKDataStore.shared()
+            
+            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+                DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
+            }
+            
             let coordinator = DonateCoordinator(
                 navigationController: navigationController,
                 donateButtonGlobalRect: overlayButtonContainer.frame,
