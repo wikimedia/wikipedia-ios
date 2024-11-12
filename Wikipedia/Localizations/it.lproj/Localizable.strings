@@ -1015,6 +1015,8 @@
 "year-in-review-donate" = "Dona";
 "year-in-review-donate-now" = "Dona ora";
 "year-in-review-done" = "Fatto";
+"year-in-review-feature-announcement-body" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia, condividi il tuo percorso e scopri i punti forti della tua annata.";
+"year-in-review-feature-announcement-title" = "Esplora la tua rassegna annuale di Wikipedia";
 "year-in-review-finish" = "Termina";
 "year-in-review-next" = "Successivo";
 "year-in-review-personalized-donate-subtitle" = "Grazie per il tuo sostegno a Wikipedia e alla creazione di un mondo in cui la conoscenza sia gratuita per tutti. Ogni singola modifica o donazione serve ad arricchire l’accesso a informazioni accurate e affidabili, soprattutto in una realtà in rapido cambiamento. [Scopri di più sul nostro lavoro.]($1)";
@@ -1035,5 +1037,3 @@
 "year-in-review-survey-unsatisfied" = "Insoddisfatto";
 "year-in-review-survey-very-satisfied" = "Molto soddisfatto";
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
-"yir-feature-announcement-body" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia, condividi il tuo percorso e scopri i punti forti della tua annata.";
-"yir-feature-announcement-title" = "Esplora la tua rassegna annuale di Wikipedia";

@@ -781,10 +781,8 @@ public class CommonStrings: NSObject {
 
     @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
     
-    public static let exploreYiRTitle = WMFLocalizedString("yir-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
-    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("yir-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
-
-
+    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
 }
 // Language variant strings
 public extension CommonStrings {

@@ -1150,6 +1150,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
 "settings-storage-and-syncing-title" = "Article storage and syncing";
 "settings-title" = "Settings";
+"settings-year-in-review-header" = "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "\"$1\" on Wikipedia:";
 "share-building" = "Building Share-a-fact card…";
@@ -1408,6 +1409,8 @@
 "year-in-review-button-title" = "Year in Review";
 "year-in-review-donate" = "Donate";
 "year-in-review-donate-now" = "Donate now";
+"year-in-review-feature-announcement-body" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
+"year-in-review-feature-announcement-title" = "Explore your Wikipedia Year in Review";
 "year-in-review-finish" = "Finish";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
@@ -1430,5 +1433,3 @@
 "year-in-review-survey-unsatisfied" = "Unsatisfied";
 "year-in-review-survey-very-satisfied" = "Very satisfied";
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
-"yir-feature-announcement-body" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
-"yir-feature-announcement-title" = "Explore your Wikipedia Year in Review";
