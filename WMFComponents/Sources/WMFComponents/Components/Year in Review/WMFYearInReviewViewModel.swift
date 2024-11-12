@@ -8,6 +8,7 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
+    func logYearInReviewDidTapDonate(slideLoggingID: String)
 }
 
 public class WMFYearInReviewViewModel: ObservableObject {
@@ -97,7 +98,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDonate(sourceRect: CGRect) {
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID))
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect))
     }
     
     func handleLearnMore(url: URL) {
@@ -114,6 +115,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func logYearInReviewSlideDidTapNext() {
         loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapDonate() {
+        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
     }
     
     var slideLoggingID: String {

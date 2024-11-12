@@ -442,13 +442,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 }
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
-    
+
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewDidTapDone(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapDonate(slideLoggingID: String) {
+        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+            DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+        }
     }
     
     func logYearInReviewIntroDidTapContinue() {
@@ -474,11 +480,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID):
-            
-            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
-                DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
-            }
+        case .donate(let rect):
             
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
