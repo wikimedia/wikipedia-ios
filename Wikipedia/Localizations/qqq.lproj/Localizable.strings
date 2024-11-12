@@ -1408,9 +1408,7 @@
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
-"year-in-review-done" = "Year in review done button";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
-"year-in-review-get-started" = "Button to continue to year in review";
 "year-in-review-next" = "Year in review next button";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
@@ -1421,8 +1419,7 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
 "year-in-review-personalized-read-count" = "Year in review, amount of articles read by the user, $1 is amount of articles.";
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59\". $3 is replaced with the number of active languages available on Wikipedia, for example \"332\"";
-"year-in-review-personalized-reading-title- format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
-"year-in-review-share" = "Year in review share button";
+"year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-share-text" = "Text shared the Year In Review slides";
 "year-in-review-subtitle" = "Year in review page information";
 "year-in-review-survey-additional-thoughts" = "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.";
@@ -1433,6 +1430,5 @@
 "year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
-"year-in-review-title" = "Year in review page title";
 "yir-feature-announcement-body" = "Body for year in review feature announcement";
 "yir-feature-announcement-title" = "Title for year in review feature announcement";

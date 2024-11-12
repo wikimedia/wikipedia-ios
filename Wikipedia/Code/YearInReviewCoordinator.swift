@@ -79,7 +79,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var baseSlide2Title: String {
         let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".")
-        
+
         let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
         
         return String.localizedStringWithFormat(format, numArticleViewsString)
@@ -142,7 +142,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     
     func personalizedSlide1Title(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title- format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
         return String.localizedStringWithFormat(format, readCount)
     }
 
@@ -352,14 +352,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
-           doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
-           shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
+        donateButtonTitle: CommonStrings.donateTitle,
+           doneButtonTitle:CommonStrings.doneTitle,
+        shareButtonTitle: CommonStrings.shortShareTitle,
            nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
            finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
-           firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
+           firstSlideTitle: CommonStrings.exploreYiRTitle,
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
-           firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
+           firstSlideCTA: CommonStrings.getStartedTitle,
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
