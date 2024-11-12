@@ -355,7 +355,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         donateButtonTitle: CommonStrings.donateTitle,
            doneButtonTitle:CommonStrings.doneTitle,
         shareButtonTitle: CommonStrings.shortShareTitle,
-           nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
+        nextButtonTitle: CommonStrings.nextTitle,
            finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
            firstSlideTitle: CommonStrings.exploreYiRTitle,
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),

@@ -1412,7 +1412,6 @@
 "year-in-review-feature-announcement-body" = "Body for year in review feature announcement";
 "year-in-review-feature-announcement-title" = "Title for year in review feature announcement";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
-"year-in-review-next" = "Year in review next button";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
 "year-in-review-personalized-edit-count" = "Year in review, amount of edits made by the user. $1 is amount of edits.";
