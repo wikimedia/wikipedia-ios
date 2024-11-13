@@ -150,7 +150,7 @@ extension ArticleViewController {
             return
         }
 
-        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let title = CommonStrings.exploreYiRTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")

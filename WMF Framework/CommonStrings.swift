@@ -449,6 +449,8 @@ public class CommonStrings: NSObject {
     public static let donateThankTitle = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
     public static let donateThankSubtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
 
+     public static let donateTitle = WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate")
+
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
@@ -779,10 +781,8 @@ public class CommonStrings: NSObject {
 
     @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
     
-    public static let yirFeatureAnnoucementTitle = WMFLocalizedString("yir-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
-    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("yir-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
-
-
+    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
 }
 // Language variant strings
 public extension CommonStrings {
