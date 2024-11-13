@@ -921,21 +921,5 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title- format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Годинава прочитавте %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d статија</string>
-			<key>other</key>
-			<string>%1$d статии</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

@@ -933,7 +933,7 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title- format</key>
+	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>You read %#@v1@ this year</string>

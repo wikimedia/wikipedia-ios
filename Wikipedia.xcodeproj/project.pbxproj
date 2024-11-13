@@ -6216,14 +6216,6 @@
 			name = Watchlist;
 			sourceTree = "<group>";
 		};
-		67132FEC2CDC1E79004DAB4E /* Year in Review */ = {
-			isa = PBXGroup;
-			children = (
-				67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */,
-			);
-			path = "Year in Review";
-			sourceTree = "<group>";
-		};
 		6714D6C9245A2B6A00CE5A4A /* Manual Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -6938,6 +6930,14 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		834DB8DF2CE3D92100BAF7C0 /* Year In Review */ = {
+			isa = PBXGroup;
+			children = (
+				67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */,
+			);
+			name = "Year In Review";
+			sourceTree = "<group>";
+		};
 		83510B0428F4CED800B6235B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -7583,9 +7583,9 @@
 				7A0DE4F120CEEBE40032AB57 /* Explore Feed */,
 				BAFCE8401F1D7F8A0077D5E9 /* Appearance */,
 				D84BF6281DB96D4700E0C85E /* Notifications */,
-				67132FEC2CDC1E79004DAB4E /* Year in Review */,
 				042A5B1419253D2A0095E172 /* View Controller */,
 				045D871D19FAD2D00035C1F9 /* About The App */,
+				834DB8DF2CE3D92100BAF7C0 /* Year In Review */,
 				0E8DC0961C7632B500622CBD /* Settings Item */,
 				7AF49F85204EEDD800578861 /* Storage and syncing */,
 				0EE2438B1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.h */,
