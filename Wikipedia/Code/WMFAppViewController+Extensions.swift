@@ -1,9 +1,9 @@
 import UIKit
 import WMF
 import SwiftUI
-import WKData
-import WKDataMocks
-import Components
+import WMFComponents
+import WMFData
+import CocoaLumberjackSwift
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -52,7 +52,7 @@ extension WMFAppViewController {
         if let nextCode = remainingCodes.first {
             
             // If more to show, primary button shows next variant alert
-            primaryButtonTapHandler = { _ in
+            primaryButtonTapHandler = { _, _ in
                 self.dismiss(animated: true) {
                     self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
                 }
@@ -62,12 +62,12 @@ extension WMFAppViewController {
             
         } else {
             // If no more to show, primary button navigates to languge settings
-            primaryButtonTapHandler = { _ in
+            primaryButtonTapHandler = { _, _ in
                 self.displayPreferredLanguageSettings(completion: completion)
             }
 
             // And secondary button dismisses
-            secondaryButtonTapHandler = { _ in
+            secondaryButtonTapHandler = { _, _ in
                 self.dismiss(animated: true, completion: completion)
             }
         }
@@ -80,9 +80,8 @@ extension WMFAppViewController {
     // The user is deep linking in these states and we don't want to interrupt them
     private var shouldPresentLanguageVariantAlerts: Bool {
         guard presentedViewController == nil,
-              let navigationController = navigationController,
-              navigationController.viewControllers.count == 1 &&
-                navigationController.viewControllers[0] is WMFAppViewController else {
+              let navigationController = currentTabNavigationController,
+              navigationController.viewControllers.count == 1 else {
             return false
         }
         return true
@@ -100,18 +99,7 @@ extension WMFAppViewController {
 
 }
 
-// MARK: Notifications
-
-extension WMFAppViewController: SettingsPresentationDelegate {
-
-    public func userDidTapSettings(from viewController: UIViewController?) {
-        if viewController is ExploreViewController {
-            NavigationEventsFunnel.shared.logTappedSettingsFromExplore()
-        }
-        showSettings(animated: true)
-    }
-
-}
+// MARK: - Notifications
 
 extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
@@ -119,7 +107,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
     public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
 }
 
@@ -141,7 +129,7 @@ extension WMFAppViewController {
         
         let dismissAndPushBlock = { [weak self] in
             self?.dismissPresentedViewControllers()
-            self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+            self?.currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
         }
 
         guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
@@ -154,7 +142,7 @@ extension WMFAppViewController {
     }
     
     var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
-        var currentController: UIViewController? = navigationController
+        var currentController: UIViewController? = currentTabNavigationController
 
         while let presentedViewController = currentController?.presentedViewController {
             if let presentedNavigationController = (presentedViewController as? UINavigationController) {
@@ -175,7 +163,7 @@ extension WMFAppViewController {
     
     private var topMostViewController: UIViewController? {
             
-        var topViewController: UIViewController = navigationController ?? self
+        var topViewController: UIViewController = currentTabNavigationController ?? self
 
         while let presentedViewController = topViewController.presentedViewController {
             topViewController = presentedViewController
@@ -203,16 +191,55 @@ extension WMFAppViewController {
     }
 }
 
+fileprivate extension UIViewController {
+    
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
+        
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+        
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
+    }
+}
+
+
+/// View Controllers that have an editing element (Editor flow, User talk pages, Article description editor)
+protocol EditingFlowViewController where Self: UIViewController {
+    var shouldDisplayExitConfirmationAlert: Bool { get }
+}
+
+extension EditingFlowViewController {
+    var shouldDisplayExitConfirmationAlert: Bool {
+        return true
+    }
+}
+
+/// View Controllers that are a part of the Notifications Center flow
+protocol NotificationsCenterFlowViewController where Self: UIViewController {
+    
+    // hook called after the user taps a push notification while in the foregound.
+    // use if needed to tweak the view hierarchy to display the Notifications Center
+    func tappedPushNotification()
+}
+
 // MARK: - Watchlist
 
-extension WMFAppViewController: WKWatchlistDelegate {
+extension WMFAppViewController: WMFWatchlistDelegate {
 
     public func emptyViewDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
 
-    public func watchlistUserDidTapDiff(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+    public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
             return
         }
@@ -226,12 +253,14 @@ extension WMFAppViewController: WKWatchlistDelegate {
         } else {
             diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)", isMobile: true)
         }
+        
+        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
 
-        navigate(to: diffURL)
+        navigate(to: diffURL, userInfo: userInfo)
     }
 
-    public func watchlistUserDidTapUser(project: WKProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WKWatchlistUserButtonAction) {
-        let wikimediaProject = WikimediaProject(wkProject: project)
+    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction) {
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
             return
         }
@@ -259,13 +288,13 @@ extension WMFAppViewController: WKWatchlistDelegate {
             }
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _ in
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _, _ in
                     WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
                     self?.topMostViewController?.dismiss(animated: true, completion: {
                         performThanks()
                     })
-                }, cancelHandler: { [weak self] _ in
+                }, cancelHandler: { [weak self] _, _ in
                     WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
                     self?.topMostViewController?.dismiss(animated: true)
                 })
@@ -280,9 +309,52 @@ extension WMFAppViewController: WKWatchlistDelegate {
     public func watchlistEmptyViewUserDidTapSearch() {
         NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
     }
+
+    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WMFWatchlistFilterViewModel) {
+        let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
+        languagesController.title = CommonStrings.wikipediaLanguages
+        languagesController.apply(theme)
+        languagesController.delegate = self
+        languagesController.showAllLanguages = true
+        languagesController.showPreferredLanguages = false
+        languagesController.showNonPreferredLanguages = false
+
+        languagesController.userLanguageSelectionBlock = { [weak self, weak viewModel] in
+            guard let self = self else { return }
+
+            // From `ViewControllerRouter`
+            let dataStore = self.dataStore
+            let appLanguages = dataStore.languageLinkController.preferredLanguages
+            var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
+                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wmfProject = wikimediaProject.wmfProject else {
+                    return
+                }
+
+                result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
+            }
+            localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
+            localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
+
+            viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
+        }
+
+        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        viewController.present(navigationController, animated: true)
+    }
+
 }
 
-extension WMFAppViewController: WKWatchlistLoggingDelegate {
+extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
+
+    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
+        dataStore.languageLinkController.appendPreferredLanguage(language)
+        controller.userLanguageSelectionBlock?()
+        controller.dismiss(animated: true)
+    }
+
+}
+
+extension WMFAppViewController: WMFWatchlistLoggingDelegate {
     public func logWatchlistDidLoad(itemCount: Int) {
         WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
     }
@@ -291,7 +363,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logOpenFilterSettings()
     }
     
-    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WKWatchlistFilterSettings, onProjects: [WKProject]) {
+    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WMFWatchlistFilterSettings, onProjects: [WMFProject]) {
         
         // Projects
         let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
@@ -307,7 +379,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         }
         
         // Wikis
-        let wikipediaProjects = onProjects.map { WikimediaProject(wkProject: $0) }.filter {
+        let wikipediaProjects = onProjects.map { WikimediaProject(wmfProject: $0) }.filter {
             switch $0 {
             case .wikipedia: return true
             default: return false
@@ -371,7 +443,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         
         // Type Change
         var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
-        for changeType in WKWatchlistFilterSettings.ChangeType.allCases {
+        for changeType in WMFWatchlistFilterSettings.ChangeType.allCases {
             if !filterSettings.offTypes.contains(changeType) {
                 switch changeType {
                 case .categoryChanges: onTypeChanges.append(.categoryChanges)
@@ -388,7 +460,7 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
     }
     
-    public func logWatchlistEmptyViewDidShow(type: WKEmptyViewStateType) {
+    public func logWatchlistEmptyViewDidShow(type: WMFEmptyViewStateType) {
         switch type {
         case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
         case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
@@ -403,15 +475,15 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
         WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
     }
     
-    public func logWatchlistUserDidTapUserButton(project: WKData.WKProject) {
+    public func logWatchlistUserDidTapUserButton(project: WMFData.WMFProject) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
         WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
     }
     
-    public func logWatchlistUserDidTapUserButtonAction(project: WKData.WKProject, action: Components.WKWatchlistUserButtonAction) {
+    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WMFWatchlistUserButtonAction) {
         
-        let wikimediaProject = WikimediaProject(wkProject: project)
+        let wikimediaProject = WikimediaProject(wmfProject: project)
 
         switch action {
         case .userPage:
@@ -428,45 +500,6 @@ extension WMFAppViewController: WKWatchlistLoggingDelegate {
     }
     
     
-}
-
-fileprivate extension UIViewController {
-    
-    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
-    /// Does not consider presenting view controllers
-    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
-        
-        if let viewController = self as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-        
-        if let navigationController = self as? UINavigationController,
-           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
-            return viewController
-        }
-
-        return nil
-    }
-}
-
-
-/// View Controllers that have an editing element (Section editor flow, User talk pages, Article description editor)
-protocol EditingFlowViewController where Self: UIViewController {
-    var shouldDisplayExitConfirmationAlert: Bool { get }
-}
-
-extension EditingFlowViewController {
-    var shouldDisplayExitConfirmationAlert: Bool {
-        return true
-    }
-}
-
-/// View Controllers that are a part of the Notifications Center flow
-protocol NotificationsCenterFlowViewController where Self: UIViewController {
-    
-    // hook called after the user taps a push notification while in the foregound.
-    // use if needed to tweak the view hierarchy to display the Notifications Center
-    func tappedPushNotification()
 }
 
 // MARK: Importing Reading Lists - CreateReadingListDelegate
@@ -495,40 +528,117 @@ extension WMFAppViewController: CreateReadingListDelegate {
             }
         }
     }
+    
+    @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme: WMFTheme
+        switch theme.name {
+        case "light":
+            wmfTheme = WMFTheme.light
+        case "sepia":
+            wmfTheme = WMFTheme.sepia
+        case "dark":
+            wmfTheme = WMFTheme.dark
+        case "black":
+            wmfTheme = WMFTheme.black
+        default:
+            wmfTheme = WMFTheme.light
+        }
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
+    }
 }
 
-// MARK: WKData setup
+// MARK: WMFData setup
 
 extension WMFAppViewController {
-    @objc func setupWKDataEnvironment() {
-        WKDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+    
+    @objc func setupWMFDataCoreDataStore() {
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+        
+        Task {
+            do {
+                WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+            } catch let error {
+                DDLogError("Error setting up WMFCoreDataStore: \(error)")
+            }
+        }
+    }
+    
+    @objc func setupWMFDataEnvironment() {
+        WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         switch Configuration.current.environment {
         case .staging:
-            WKDataEnvironment.current.serviceEnvironment = .staging
-            WKDataEnvironment.current.basicService = WKMockDonateBasicService()
+            WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
-            WKDataEnvironment.current.serviceEnvironment = .production
+            WMFDataEnvironment.current.serviceEnvironment = .production
         }
         
-        WKDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        WMFDataEnvironment.current.userAgentUtility = {
+            return WikipediaAppUtils.versionedUserAgent()
+        }
         
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+        WMFDataEnvironment.current.appInstallIDUtility = {
+            return UserDefaults.standard.wmf_appInstallId
+        }
+        
+        WMFDataEnvironment.current.acceptLanguageUtility = {
+            return Locale.acceptLanguageHeaderForPreferredLanguages
+        }
+        
+        WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+        
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
     
-    @objc func updateWKDataEnvironmentFromLanguagesDidChange() {
-        let languages = dataStore.languageLinkController.preferredLanguages.map { WKLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
-        WKDataEnvironment.current.appData = WKAppData(appLanguages: languages)
+    @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+    }
+    
+    @objc func performWMFDataHousekeeping() {
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        Task {
+            do {
+                try await coreDataStore?.performDatabaseHousekeeping()
+            } catch {
+                DDLogError("Error pruning WMFData database: \(error)")
+            }
+        }
+    }
+
+    @objc func populateYearInReviewReport(for year: Int) {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.populateYearInReviewReportData(
+                    for: year,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
+            }
+        }
     }
 }
 
-// MARK: Components App Environment
+// MARK: WMFComponents App Environment Helpers
 extension WMFAppViewController {
 
-    @objc func appEnvironmentDidChange(theme: Theme, traitCollection: UITraitCollection) {
-        let wkTheme = Theme.wkTheme(from: theme)
-        WKAppEnvironment.current.set(theme: wkTheme, traitCollection: traitCollection)
+    @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme = Theme.wmfTheme(from: theme)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
+    }
+    
+    @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
+        return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
 }

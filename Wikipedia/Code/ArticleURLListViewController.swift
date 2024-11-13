@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleURLListViewController: ArticleCollectionViewController, DetailPresentingFromContentGroup {
+class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     var contentGroupIDURIString: String?
@@ -69,11 +69,6 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
-    }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
@@ -101,14 +96,7 @@ extension ArticleURLListViewController {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleURLListViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
-
-    }
 }
 
 extension ArticleURLListViewController {
-    override func didPerformAction(_ action: Action) -> Bool {
-        return super.didPerformAction(action)
-    }
 }

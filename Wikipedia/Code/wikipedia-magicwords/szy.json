@@ -1,0 +1,165 @@
+[
+  {
+    "aliases" : [
+      "替代文字",
+      "替代=$1",
+      "替代文本=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "邊框",
+      "边框",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "垂直置底",
+      "bottom",
+      "底部"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "置中",
+      "居中",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "有框",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "無框",
+      "无框",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "左",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "垂直置中",
+      "middle",
+      "中间"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "無",
+      "无",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "右",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "下標",
+      "sub",
+      "子"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "上標",
+      "super",
+      "sup",
+      "超"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "文字置底",
+      "text-bottom",
+      "文字底部"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "文字置頂",
+      "text-top",
+      "文字顶部"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "縮圖",
+      "缩略图",
+      "thumbnail",
+      "thumb"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "垂直置頂",
+      "top",
+      "顶部"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "baseline",
+      "基线"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "右上",
+      "右上=$1",
+      "右上$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "tangan",
+      "Image",
+      "图像",
+      "图片",
+      "圖像",
+      "圖片",
+      "文件",
+      "档案",
+      "檔案"
+    ],
+    "name" : "file_namespace"
+  }
+]

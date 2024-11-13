@@ -81,7 +81,6 @@
 "main-menu-account-login" = "Enlogge";
 "main-menu-account-logout" = "Ußlogge";
 "main-menu-account-logout-are-you-sure" = "Wells De verhaftesch ußlogge?";
-"main-menu-account-logout-cancel" = "Ophüre";
 "main-menu-account-title-logged-in" = "Ennjelogg als $1";
 "main-menu-heading-legal" = "Rääschlesche Krohm";
 "main-menu-nearby" = "En de Nöhde";
@@ -103,7 +102,6 @@
 "potd-empty-error-description" = "Kunnd et Beld vum Daach nit lahde för $1";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "Donn de Wikkimehdija-Schteffong älaube, Enfommazjuhne drövver opzesammelle, wi De heh di Äpp bruchs, öme se bäßer maache ze künne.";
-"preference-title-eventlogging-opt-in" = "Bereeschte met Dahte övver der Jebruch afflivvere";
 "saved-pages-image-download-error" = "Mer kunnte kein Bellder för heh di faßjehallde Sigg eronger lahde.";
 "saved-title" = "Faßjehallde";
 "search-did-you-mean" = "Häß De „$1“ jemeint?";
@@ -121,7 +119,6 @@
 "settings-primary-language" = "Houpschprohch";
 // Fuzzy
 "settings-primary-language-details" = "De eezde Schprohch e heh dä Leß es och de Houpschprohch fö di Äpp. Di ze änndere bedügg, de dääschlesche Saache ze änndere, wi de Featured Sigge, di beijm Ußfochsche kumme.";
-"settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-title" = "Enschtällonge";
 // Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ op @Wikipedia:";
@@ -136,10 +133,7 @@
 "welcome-explore-continue-button" = "Wigger";
 "welcome-explore-tell-me-more-done-button" = "Wiggermaache";
 "welcome-languages-add-button" = "Donn nor_ren Schprohch dobei";
-"welcome-volunteer-send-usage-reports" = "Bereeschte met Dahte övver der Jebruch afflivvere";
-"wikitext-downloading" = "Aam Lahde ...";
 "wikitext-preview-changes" = "Ben en Vör_Aanseesch vun dä Änderonge aam holle.";
-"wikitext-preview-changes-none" = "Et wohd nix verändert.";
 "wikitext-upload-captcha-error" = "Kaptscha-Fähler.";
 "wikitext-upload-captcha-needed" = "Et Kaptscha moß jepröhv wähde.";
 "wikitext-upload-result-unknown" = "Mer künne nit eruß fenge, wat beim Huhlahde för ene Wikkitägs eruß jekumme es.";

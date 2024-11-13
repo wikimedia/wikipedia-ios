@@ -198,7 +198,7 @@ private extension SavedArticlesFetcher {
                 DispatchQueue.main.async {
                     switch groupResult {
                     case .success(let itemKeys):
-                        DDLogInfo("Successfully saved all items for \(articleKey), itemKeyCount: \(itemKeys.count)")
+                        DDLogDebug("Successfully saved all items for \(articleKey), itemKeyCount: \(itemKeys.count)")
                         self.didFetchArticle(with: articleObjectID)
                         self.spotlightManager.addToIndex(url: articleURL as NSURL)
                         self.updateCountOfFetchesInProcess()
@@ -250,7 +250,7 @@ private extension SavedArticlesFetcher {
                     DispatchQueue.main.async {
                         switch groupResult {
                         case .success:
-                            DDLogInfo("Successfully removed all items for \(articleKey)")
+                            DDLogDebug("Successfully removed all items for \(articleKey)")
                             self.spotlightManager.removeFromIndex(url: articleURL as NSURL)
                         case .failure(let error):
                             DDLogError("Failed removing items for \(articleKey): \(error)")

@@ -27,7 +27,6 @@ final internal class NavigationEventsFunnel: NSObject {
         case settingsClearData = "setting_cleardata"
         case settingsPrivacy = "setting_privacy"
         case settingsTOS = "setting_tos"
-        case settingsUsageReports = "setting_usage_reports"
         case settingsRate = "setting_rate"
         case settingsHelp = "setting_help"
         case settingsAbout = "setting_about"
@@ -139,10 +138,6 @@ final internal class NavigationEventsFunnel: NSObject {
 
         @objc func logTappedSettingsTermsOfUse() {
             logEvent(action: .settingsTOS)
-        }
-
-        @objc func logTappedSettingsSendUsageReports() {
-            logEvent(action: .settingsUsageReports)
         }
 
         @objc func logTappedSettingsRateTheApp() {

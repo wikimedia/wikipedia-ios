@@ -233,9 +233,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.setViewControllerUserInteraction(enabled: true)
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            default:
-                assertionFailure("Unhandled login result")
-                break
             }
         }
     }

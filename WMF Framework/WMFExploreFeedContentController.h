@@ -1,6 +1,5 @@
 #import <WMF/WMFContentGroup+Extensions.h>
-
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @class MWKDataStore;
 
@@ -36,6 +35,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)performDeduplicatedFetch:(nullable dispatch_block_t)completion;
 
 - (void)updateContentSource:(Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
+
+- (NSArray<NSSortDescriptor *> *)exploreFeedSortDescriptors;
 
 // Preferences
 
@@ -100,6 +101,10 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 + (NSSet<NSNumber *> *)globalContentGroupKindNumbers;
 
+/**
+ Returns a set of integers that represent non-date specific content group kinds.
+ */
++ (NSSet<NSNumber *> *)nonDateBasedContentGroupKindNumbers;
 /**
  Indicates whether non-language specific group kinds are visible in the feed.
  */

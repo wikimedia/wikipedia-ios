@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #ifndef Wikipedia_WMFGCDHelpers_h
 #define Wikipedia_WMFGCDHelpers_h

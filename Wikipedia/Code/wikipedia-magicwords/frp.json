@@ -1,0 +1,178 @@
+[
+  {
+    "aliases" : [
+      "legne_de_bâsa",
+      "ligne_de_base",
+      "base",
+      "ligne-de-base",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bordura",
+      "bordure",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "d'avâl",
+      "bas",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "centrâ",
+      "centré",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "encâdrâ",
+      "câdro",
+      "cadre",
+      "encadré",
+      "encadre",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sen_câdro",
+      "pas_encâdrâ",
+      "sans_cadre",
+      "non_encadré",
+      "non_encadre",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "gôche",
+      "gauche",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "entre-mié",
+      "milieu",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "vouedo",
+      "néant",
+      "neant",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "drêta",
+      "droite",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "segno",
+      "indice",
+      "ind",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "èxposent",
+      "èxp",
+      "exposant",
+      "exp",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "tèxto-d'avâl",
+      "bas-texte",
+      "bas-txt",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "tèxto-d'amont",
+      "haut-texte",
+      "haut-txt",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "figura",
+      "vignette",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "d'amont",
+      "haut",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "drêt",
+      "drêt=$1",
+      "drêt $1",
+      "redresse",
+      "redresse=$1",
+      "redresse $1",
+      "redresse_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fichiér",
+      "Image",
+      "Émâge"
+    ],
+    "name" : "file_namespace"
+  }
+]

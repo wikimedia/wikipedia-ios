@@ -190,7 +190,6 @@
 "main-menu-account-login" = "Qqen";
 "main-menu-account-logout" = "Ffeɣ";
 "main-menu-account-logout-are-you-sure" = "Tebɣiḍ ad teffɣed?";
-"main-menu-account-logout-cancel" = "Sefsex";
 "main-menu-account-title-logged-in" = "Yeqqen s yisem $1";
 "main-menu-heading-legal" = "Tabaḍnit d tiwtilin";
 "main-menu-nearby" = "S lqeṛban";
@@ -251,7 +250,6 @@
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
-"preference-title-eventlogging-opt-in" = "Azen ineqqisen n useqdec";
 "reading-themes-controls-accessibility-brightness-slider" = "Taḥnaččaḍt n tafat";
 "reading-themes-controls-accessibility-dark-theme-button" = "Asentel aberkan";
 "reading-themes-controls-accessibility-light-theme-button" = "Asentel aceɛlal";
@@ -296,7 +294,6 @@
 "settings-primary-language" = "Agejdan";
 // Fuzzy
 "settings-primary-language-details" = "Tutlayt tamezwarut di tebdart-agi ad tettwaseqdec d tutlayt tagejdant n usnas-ik. Asnifel n tutlayt-agi ad ibeddel agbur n wass (am imagraden itran) yettwaseknen di Snirem (Explore).";
-"settings-support" = "Mudd afus i Wikipedia";
 "settings-title" = "Iɣewwaren";
 "share-a-fact-made-with" = "Yettwag s usnas Wikipedia";
 // Fuzzy
@@ -348,13 +345,7 @@
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";
 "welcome-notifications-tell-me-more-title" = "Ugar ɣef ilɣa";
-"welcome-send-data-helps-title" = "Mudd-aɣ-d afus ad nesnerni asnas ugar";
-"welcome-send-data-learn-more" = "Issin ugar ɣef isefka yettwaleqḍen";
-"welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
-"welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
-"wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
-"wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";
 "wikitext-preview-link-preview-description" = "Aseɣwen-agi ad yawi ar '$1'";
 "wikitext-preview-link-preview-title" = "Taskant n useɣwen";
 "wikitext-upload-captcha-error" = "Tuccḍa n usenqed n CAPTCHA";

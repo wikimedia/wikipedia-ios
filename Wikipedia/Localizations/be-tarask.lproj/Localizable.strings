@@ -6,6 +6,11 @@
 // Author: Red Winged Duck
 // Author: Renessaince
 
+"aaald-added-text-description-2" = "дададзена $1";
+"aaald-article-description-updated-description" = "Апісаньне артыкулу абноўленае";
+"aaald-article-insert-header" = "Значныя абнаўленьні";
+"aaald-article-insert-last-updated" = "Апошняе абнаўленьне";
+"aaald-article-insert-new-changes" = "Новыя зьмены";
 "about-contributors" = "Аўтары";
 "about-libraries" = "Выкарыстаныя бібліятэкі";
 "about-libraries-license" = "Ліцэнзія";
@@ -21,7 +26,7 @@
 "about-wikipedia" = "Вікіпэдыя";
 "account-creation-captcha-obtaining" = "Атрымліваем новую CAPTCHA…";
 "account-creation-logging-in" = "Уваход у сыстэму...";
-"account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць рахунак.";
+"account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць уліковы запіс.";
 "account-creation-passwords-mismatched" = "Паролі не супадаюць.";
 "account-creation-saving" = "Захаваньне...";
 "article-languages-filter-placeholder" = "Знайсьці мову";
@@ -83,7 +88,6 @@
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
-"preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
 "saved-title" = "Захаваны";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";
@@ -95,13 +99,12 @@
 "search-recent-title" = "Нядаўна шукалі";
 "search-result-redirected-from" = "Перанакіравана з: $1";
 "search-title" = "Пошук";
+"settings-appearance" = "Налады чытаньня";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";
 "table-of-contents-heading" = "Зьмест";
-"wikitext-downloading" = "Загрузка зьместу...";
 "wikitext-preview-changes" = "Атрыманьне папярэдняга прагляду зьменаў...";
-"wikitext-preview-changes-none" = "Няма зьменаў для прагляду.";
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";
 "wikitext-upload-result-unknown" = "Не атрымліваецца вызначыць вынік загрузкі вікі-тэксту.";

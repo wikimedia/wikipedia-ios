@@ -66,7 +66,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                                                                       options:NSRegularExpressionCaseInsensitive
                                                                         error:&error];
         if (error) {
-            DDLogError(@"Error creating cache control regex: %@", error);
+            DDLogWarn(@"Error creating cache control regex: %@", error);
         }
     });
     return cacheControlRegex;

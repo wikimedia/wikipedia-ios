@@ -1,5 +1,5 @@
 import Foundation
-import UIKit
+import WMFComponents
 import WMF
 
 protocol TalkPageReplyComposeDelegate: AnyObject {
@@ -12,7 +12,7 @@ class TalkPageReplyComposeController {
     
     enum ActionSheetStrings {
         static let closeConfirmationTitle = WMFLocalizedString("talk-pages-reply-compose-close-confirmation-title", value: "Are you sure you want to discard this new reply?", comment: "Title of confirmation alert displayed to user when they attempt to close the new reply view after entering text. Please prioritize for de, ar and zh wikis.")
-        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard", value: "Discard Reply", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the new topic view after entering title or body text. Please prioritize for de, ar and zh wikis.")
+        static let closeConfirmationDiscard = WMFLocalizedString("talk-pages-topic-compose-close-confirmation-discard-reply", value: "Discard Reply", comment: "Title of discard action, displayed within a confirmation alert to user when they attempt to close the reply view after entering reply text.")
     }
     
     // viewController - the view controller that triggered the reply compose screen
@@ -392,7 +392,7 @@ class TalkPageReplyComposeController {
     @objc private func tappedPublish() {
 
         if let talkPageURL = commentViewModel?.talkPageURL {
-            EditAttemptFunnel.shared.logSaveIntent(articleURL: talkPageURL)
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: talkPageURL)
         }
         
         guard let commentViewModel = commentViewModel,
@@ -404,7 +404,7 @@ class TalkPageReplyComposeController {
         contentView?.replyTextView.resignFirstResponder()
         
         guard let authenticationManager = authenticationManager,
-        !authenticationManager.isLoggedIn else {
+              !authenticationManager.authStateIsPermanent else {
             isLoading = true
             viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
             return
@@ -432,7 +432,7 @@ extension TalkPageReplyComposeController: Themeable {
     func apply(theme: Theme) {
         containerView?.backgroundColor = theme.colors.paperBackground
         containerView?.layer.shadowColor = theme.colors.shadow.cgColor
-        dragHandleView?.backgroundColor = .gray675
+        dragHandleView?.backgroundColor = WMFColor.gray675
         contentView?.apply(theme: theme)
     }
 }

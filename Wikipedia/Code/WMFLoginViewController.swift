@@ -207,8 +207,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            default:
-                break
             }
         }
     }
@@ -275,6 +273,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
             let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
+            createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

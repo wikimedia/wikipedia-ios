@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 
 final class TalkPageCellViewModel: Identifiable {
 
@@ -36,11 +36,11 @@ final class TalkPageCellViewModel: Identifiable {
         return replies
     }
 
-    let isUserLoggedIn: Bool
+    let isUserPermanent: Bool
     
     weak var viewModel: TalkPageViewModel?
     
-    init(id: String, topicTitleHtml: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContentHtml: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserLoggedIn: Bool, dateFormatter: DateFormatter?) {
+    init(id: String, topicTitleHtml: String, timestamp: Date?, topicName: String, leadComment: TalkPageCellCommentViewModel?, otherContentHtml: String?, replies: [TalkPageCellCommentViewModel], activeUsersCount: Int?, isUserPermanent: Bool, dateFormatter: DateFormatter?) {
         self.id = id
         self.topicTitleHtml = topicTitleHtml
         self.timestamp = timestamp
@@ -60,17 +60,21 @@ final class TalkPageCellViewModel: Identifiable {
         
         self.replies = replies
         self.activeUsersCount = activeUsersCount
-        self.isUserLoggedIn = isUserLoggedIn
+        self.isUserPermanent = isUserPermanent
     }
-    
+
     func topicTitleAttributedString(traitCollection: UITraitCollection, theme: Theme = .light) -> NSAttributedString {
-        return topicTitleHtml.byAttributingHTML(with: .headline, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.headline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldHeadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.headline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldHeadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        return NSAttributedString.attributedStringFromHtml(topicTitleHtml, styles: styles)
     }
     
     func leadCommentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let leadComment = leadComment {
             let commentColor = isThreadExpanded ? theme.colors.primaryText : theme.colors.secondaryText
-            return leadComment.html.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: commentColor, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: commentColor, linkColor: theme.colors.link, lineSpacing: 1)
+            let leadCommentFormatted = NSMutableAttributedString.mutableAttributedStringFromHtml(leadComment.html, styles: styles).removingInitialNewlineCharacters()
+
+            return leadCommentFormatted
         }
         
         return nil
@@ -78,7 +82,9 @@ final class TalkPageCellViewModel: Identifiable {
     
     func otherContentAttributedString(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let otherContentHtml = otherContentHtml {
-            return otherContentHtml.byAttributingHTML(with: .callout, boldWeight: .semibold, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true).removingInitialNewlineCharacters()
+            let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+            return NSMutableAttributedString.mutableAttributedStringFromHtml(otherContentHtml, styles: styles).removingInitialNewlineCharacters()
+
         }
         
         return nil

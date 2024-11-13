@@ -70,7 +70,6 @@
 "page-protected-can-not-edit-title" = "एतत् पृष्ठं संरक्षितचरम् अस्ति";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगे आवश्यकपरिवर्तनं कर्तुं भवान्/भवती विकिपीडिया-अनुप्रयोगस्य कथम् उपयोगं करोति इत्यस्य सूचनां क्रोडीकर्तुं विकिपीडिया-जालाय अनुमतिं ददातु ।";
-"preference-title-eventlogging-opt-in" = "उपयोगस्य वृत्तान्तं प्रेषयतु";
 "search-did-you-mean" = "किं भवतः/भवत्याः आशयः $1 एवमस्ति ?";
 "search-field-placeholder-text" = "विकिपीडिया-जाले अन्विष्यताम्";
 "search-recent-clear-cancel" = "निरस्यताम्";
@@ -83,9 +82,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia उपरि \"$1\" :";
 "table-of-contents-heading" = "अन्तर्विषयाः";
-"wikitext-downloading" = "सूचनायाः अवारोपणं....";
 "wikitext-preview-changes" = "भवता/भवत्या कृतस्य परिवतनस्य प्राग्दृश्यं प्रदर्शयति...";
-"wikitext-preview-changes-none" = "प्राग्दृश्ये कृते सति किमपि परिवर्तनं न भवति ।";
 "wikitext-upload-captcha-error" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनदोषः ।";
 "wikitext-upload-captcha-needed" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
 "wikitext-upload-result-unknown" = "विकि-पाठस्य उपारोपणनिर्णयस्य निर्धारणं न शक्यते ।";

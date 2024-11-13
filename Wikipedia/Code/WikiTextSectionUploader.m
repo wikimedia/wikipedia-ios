@@ -57,8 +57,10 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
+                      summary:(nullable NSString *)summary
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
+            editTags:(nullable NSArray<NSString *> *)editTags
                    completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
 
     NSString *title = articleURL.wmf_title;
@@ -72,6 +74,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"action": @"edit",
       @"prependtext": text,
       @"section": sectionID,
+      @"summary": summary,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -87,23 +90,27 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     if (baseRevID) {
         params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
     }
+    
+    if (editTags && editTags.count > 0) {
+        params[@"matags"] = [editTags componentsJoinedByString:@","];
+    }
 
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
 
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
-               section:(NSString *)section
+               section:(nullable NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
+              editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
     wikiText = wikiText ? wikiText : @"";
-    section = section ? section : @"";
     summary = summary ? summary : @"";
     NSString *title = articleURL.wmf_title;
     if (!title) {
@@ -116,7 +123,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"action": @"edit",
       @"text": wikiText,
       @"summary": summary,
-      @"section": section,
       @"title": articleURL.wmf_title,
       @"errorformat": @"html",
       @"errorsuselocal": @"1",
@@ -124,6 +130,10 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
       @"formatversion": @"2",
       }
     .mutableCopy;
+    
+    if (section) {
+        params[@"section"] = section;
+    }
 
     if (isMinorEdit) {
         params[@"minor"] = @"1";
@@ -140,6 +150,10 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     if (captchaWord && captchaId) {
         params[@"captchaid"] = captchaId;
         params[@"captchaword"] = captchaWord;
+    }
+    
+    if (editTags && editTags.count > 0) {
+        params[@"matags"] = [editTags componentsJoinedByString:@","];
     }
     
     [self updateWithArticleURL:articleURL parameters:params captchaWord:captchaWord completion:completion];
@@ -176,6 +190,8 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterDisallowed;
             } else if ([displayError.code hasPrefix:@"abusefilter"]) {
                 errorType = WikiTextSectionUploaderErrorTypeAbuseFilterOther;
+            } else if ([displayError.code containsString:@"protectedpage"]) {
+                errorType = WikiTextSectionUploaderErrorTypeProtectedPage;
             }
                 
             if (errorType == WikiTextSectionUploaderErrorTypeUnknown) {

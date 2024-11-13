@@ -2,9 +2,9 @@
 // Exported from translatewiki.net
 // Author: ASHmed
 // Author: Aboulouei1
+// Author: Ahmed Alyamoor
 // Author: Alaa
 // Author: Alshamiri1
-// Author: Amire80
 // Author: Asma
 // Author: DRIHEM
 // Author: Dyolf77 (WMF)
@@ -15,12 +15,14 @@
 // Author: Hocinend1
 // Author: Ideophagous
 // Author: Kassem7899
+// Author: LaMagiaaa
 // Author: Macofe
 // Author: Maroen1990
 // Author: Meno25
 // Author: Mhurd
 // Author: Michel Bakni
 // Author: Mido
+// Author: Mohammed Qays
 // Author: Musab Moahmmed
 // Author: NEHAOUA
 // Author: NancyMilad
@@ -33,8 +35,11 @@
 // Author: Zinou2go
 // Author: Zpizza
 // Author: أَحمد
+// Author: إزبيكييل
 // Author: بدارين
+// Author: بهتين شوكت
 // Author: ديفيد
+// Author: علاء
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 // Author: مصعب
@@ -119,8 +124,10 @@
 "action-add-to-reading-list" = "أضف إلى قائمة القراءة";
 "action-add-to-reading-list-short" = "أضف إلى القائمة";
 "action-cancel" = "إلغاء";
+"action-discard-edit" = "اهمل التعديل";
 "action-discard-edits" = "تجاهل التعديلات";
 "action-find-in-page" = "البحث في الصفحة";
+"action-keep-editing" = "تابع التعديل";
 "action-language-accessibility" = "تغيير اللغة";
 "action-move-to" = "نقل إلى…";
 "action-move-to-reading-list" = "الانتقال إلى قائمة القراءة";
@@ -129,8 +136,6 @@
 "action-read" = "اقرأ";
 "action-redo" = "إعادة";
 "action-remove" = "إزالة";
-"action-replace" = "استبدال";
-"action-replace-all" = "استبدل الكل";
 "action-retry" = "إعادة المحاولة";
 "action-save" = "حفظ";
 "action-saved" = "محفوظة";
@@ -145,8 +150,14 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
-"add-citation-title" = "إضافة استشهاد";
-"additional-information-email-title" = "معلومات إضافية";
+"alt-text-add-button-title" = "أضف";
+"alt-text-do-not-add-button-title" = "لاتضع بإضافة";
+"alt-text-experiment-edit-summary" = "الإضافة كل شئ نص";
+"alt-text-experiment-text-field-placholder" = "صف هذه الصورة";
+"alt-text-experiment-view-title" = "الإضافة كل شئ نص";
+"alt-text-modal-subtitle-image-recommendation" = "الصورة السابقة تفتقر إلى نص بديل. هل تريد إضافة وصف للصورة للقراء من ذوي الإعاقة البصرية؟";
+"alt-text-modal-subtitle-regular-edit" = "يوجد في المقالة صورة لا تحتوي على نص بديل انت عايز إضافة وصف للقراء اللذين لهم إعاقة بصرية؟";
+"alt-text-modal-title" = "أضف نص بديل للصورة المفقودة؟";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -170,7 +181,7 @@
 "article-languages-yours" = "لغاتك";
 "article-read-more-title" = "إقرأ أيضا";
 "article-reference-view-title" = "$1 مرجع";
-"article-save-error-not-enough-space" = "ليست لديك مساحة كافية على جهازك لحفظ هذه المقالة";
+"article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
 "back-button-accessibility-label" = "ارجع";
@@ -188,19 +199,18 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
-"chinese-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصينية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! 简体 الصينية ، المبسطة (zh-hans)! N!香港 繁體 هونج كونج التقليدية (zh-hk)! N! 澳門 繁體 ماكاو التقليدية (zh-mo)! N! 大马 简体 ماليزيا المبسطة (zh-my)! N! 新加坡 简体 سنغافورة المبسطة (zh-sg)! N!臺灣 正 體 تايوانية تقليدية (zh-tw)";
+"chinese-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصينية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n简体 الصينية، المبسطة (zh-hans)\n香港繁體 هونج كونج التقليدية (zh-hk)\n澳門繁體 ماكاو التقليدية (zh-mo)\n大马简体 ماليزيا المبسطة (zh-my)\n新加坡简体 سنغافورة المبسطة (zh-sg)\n臺灣正體 التايوانية التقليدية (zh-tw)";
 "chinese-variants-alert-title" = "تحديثات لدعم النسخة الصينية";
 "clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
-"crimean-tatar-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Crimean Tatar التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! Qırımtatarca ، Latin Crimean Tatar Latin (chr-latn) ! N! къырымтатарджа، Кирил القرم التتار السيريلية (crh-cyrl)";
+"crimean-tatar-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية للغة التتار القرمية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل قراءتها والبحث عنها وتحريرها بالمتغيرات المفضلة لديك:\n\nQırımtatarca، اللاتينية، اللاتينية التتارية القرمية (chr-latn)\nкъырымтатарджа، Кирил، السيريلية التتارية القرمية (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "تحديثات لدعم متغير تتار القرم";
 "data-migration-status" = "تحديث...";
 "description-add-title" = "إضافة الوصف";
 "description-edit-for-article" = "وصف مقالة $1";
-"description-edit-learn-more" = "معرفة المزيد";
 "description-edit-length-warning" = "$1 من $2";
 "description-edit-license" = "عن طريق تغيير وصف المقالة، فأنا أوافق على $1 وعلى نشر مساهماتي بلا رجعة تحت ترخيص $2.";
 "description-edit-pencil-introduction" = "عدل المقدمة";
@@ -234,12 +244,10 @@
 "description-welcome-descriptions-title" = "وصف المقالة";
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
-"diff-article-edit-history" = "تاريخ تعديل الصفحة";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "من:";
+"developer-settings" = "إعدادات المطور";
+"diff-compare-header-from-info-heading" = "التعديل السابق";
 "diff-compare-header-heading" = "مقارنة المراجعات";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "إلى:";
+"diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
 "diff-context-lines-collapsed-button-title" = "اعرض";
 "diff-context-lines-expanded-button-title" = "أخف";
@@ -269,24 +277,8 @@
 "diff-thanks-sent-cannot-unsend" = "شكرا لا يمكن أن تكون غير مرسلة";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 سطر غير معدل|$1 أسطر غير معدلة}}";
 "dim-images" = "صور باهتة";
-"edit-bold-accessibility-label" = "أضف تنسيقا عريضا";
-"edit-bold-remove-accessibility-label" = "إزالة التنسيق العريض";
-"edit-clear-formatting-accessibility-label" = "إزالة التهيئة";
-"edit-comment-accessibility-label" = "إضافة بناء جملة التعليقات";
-"edit-comment-remove-accessibility-label" = "إزالة صيغة التعليق";
-"edit-decrease-indent-depth-accessibility-label" = "إنقاص عمق المسافة البادئة";
-"edit-direction-down-accessibility-label" = "نقل المؤشر للأسفل";
-"edit-direction-left-accessibility-label" = "نقل المؤشر لليسار";
-"edit-direction-right-accessibility-label" = "نقل المؤشر لليمين";
-"edit-direction-up-accessibility-label" = "نقل المؤشر للأعلى";
-"edit-increase-indent-depth-accessibility-label" = "زيادة عمق المسافة البادئة";
-"edit-indent-accessibility-label" = "استخدام المسافة البادئة الحالية";
-"edit-italic-accessibility-label" = "إضافة تنسيق مائل";
-"edit-italic-remove-accessibility-label" = "إزالة التنسيق المائل";
-"edit-link-accessibility-label" = "إضافة صيغة الوصلة";
 "edit-link-display-text-title" = "نص العرض";
 "edit-link-link-target-title" = "رابط الهدف";
-"edit-link-remove-accessibility-label" = "إزالة صيغة الوصلة";
 "edit-link-remove-link-title" = "إزالة الرابط";
 "edit-link-title" = "عدل الوصلة";
 "edit-menu-item" = "تعديل";
@@ -297,39 +289,16 @@
 "edit-notices" = "ملاحظات التحرير";
 "edit-notices-always-display" = "اعرض دائما إشعارات التحرير";
 "edit-notices-please-read" = "يرجى القراءة قبل التحرير";
-"edit-ordered-list-accessibility-label" = "جعل الخط الحالي قائمة مرتبة";
-"edit-ordered-list-remove-accessibility-label" = "إزالة قائمة مرتبة من الخط الحالي";
+"edit-preview-simplified-format-message" = "يتم عرض كافة المحتويات بتنسيق مبسط.";
 "edit-published" = "تم نشر التعديل";
 "edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
-"edit-reference-accessibility-label" = "أضف صيغة مرجع";
-"edit-reference-remove-accessibility-label" = "إزالة صيغة المرجع";
-"edit-signature-accessibility-label" = "إضافة صيغة التوقيع";
-"edit-signature-remove-accessibility-label" = "إزالة صيغة التوقيع";
-"edit-strikethrough-accessibility-label" = "أضف خطا متوسطا";
-"edit-strikethrough-remove-accessibility-label" = "إزالة الخط المتوسط";
-"edit-style-table-view-title" = "نمط";
-"edit-subscript-accessibility-label" = "إضافة تنسيق منخفض";
-"edit-subscript-remove-accessibility-label" = "إزالة تنسيق المنخفض";
+"edit-show-web-preview" = "اعرض المعاينة";
 "edit-summary-add-summary-text" = "إضافة ملخص تعديل";
 "edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
-"edit-summary-learn-more-text" = "معرفة المزيد";
 "edit-summary-placeholder-text" = "كيف قمت بتحسين المقالة؟";
-"edit-superscript-accessibility-label" = "إضافة تنسيق مرتفع";
-"edit-superscript-remove-accessibility-label" = "إزالة التنسيق المرتفع";
-"edit-template-accessibility-label" = "أضف صيغة القالب";
-"edit-template-remove-accessibility-label" = "إزالة صيغة القالب";
-"edit-text-clear-formatting" = "إلغاء التهيئة";
-"edit-text-formatting-accessibility-label" = "إظهار قائمة تنسيق النص";
-"edit-text-formatting-table-view-title" = "تنسيق النص";
-"edit-text-size-table-view-title" = "حجم الخط";
-"edit-text-style-accessibility-label" = "إظهار قائمة نمط النص";
-"edit-underline-accessibility-label" = "إضافة تسطير";
-"edit-underline-remove-accessibility-label" = "إزالة التسطير";
-"edit-unordered-list-accessibility-label" = "جعل الخط الحالي قائمة غير مرتبة";
-"edit-unordered-list-remove-accessibility-label" = "إزالة قائمة غير مرتبة من الخط الحالي";
-"edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
+"edit-watch-list-learn-more-text" = "تعرف على المزيد حول قائمة المراقبة الخاصة بك";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
 "editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";
 "editing-welcome-be-bold-title" = "صوتك مهم";
@@ -339,7 +308,10 @@
 "editing-welcome-impartial-tone-title" = "اكتب بنبرة محايدة";
 "editing-welcome-set-knowledge-free-subtitle" = "من أجل منح الجميع إمكانية الوصول إلى المعرفة العالمية؛ نحتاج منك المشاركة في إنشائها من خلال القراءة والتحرير والمساهمة في الموضوعات التي تهمك أكثر.";
 "editing-welcome-set-knowledge-free-title" = "تعيين المعرفة الحرة";
+"editor-edit-published" = "نُشِر تعديلك.";
+"editor-edit-source" = "عَدِّل المصدر";
 "editor-exit-confirmation-body" = "هل أنت متأكد أنك تريد ترك وضع التحرير دون النشر أولاً؟";
+"editor-exit-confirmation-message" = "هل انت متاكد من انك تريد اهمال هذه التعديلات؟";
 "editor-exit-confirmation-title" = "رفض وضع التحرير؟";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
@@ -491,7 +463,7 @@
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
 "forgot-password-title" = "أعد ضبط كلمة السر";
 "forgot-password-username-or-email-title" = "أو";
-"gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! 贛 語 原文 Gan (gan)! N! 赣 语简体 جان ، مبسط (جان هان)! N! 贛 語 繁體 جان ، تقليدي (جان هانت)";
+"gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n贛語 原文 Gan (gan)\n赣语简体 غان، مبسط (غان-هانز)\n贛語 繁體 غان، تقليدي (غان-هانت)";
 "gan-variants-alert-title" = "تحديثات لدعم متغير Gan";
 "history-clear-all" = "امسح";
 "history-clear-cancel" = "إلغاء";
@@ -550,12 +522,11 @@
 "insert-media-image-type-settings-title" = "نوع الصورة";
 "insert-media-media-settings-title" = "إعدادات الوسائط";
 "insert-media-title" = "إدراج وسائط";
-"insert-media-uploaded-image-title" = "تم رفع الصورة";
-"inuktitut-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Inuktitut التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut ، Syllabics (ike-cans)! N! Inuktitut ilisautik ، Inuktitut ، اللاتينية (ike-latn)";
+"inuktitut-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الإينكتيتوتية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ الإينكتيتوتية، المقاطع الصوتية (ايكي كانز)\nالإينكتيتوتية الإيليساوتيكية، الإينكتيتوتية، اللاتينية (ايكي لاتن)";
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
-"kazakh-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! السيريلية (kk-cyrl)! N! qazaqşa اللاتينية الكازاخستانية ، اللاتينية (kk-latn)! N! توتە قازاقشا الكازاخستانية ، العربية (kk-arab)";
+"kazakh-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nҚазақша الكازاخستانية (kk)\nҚазақша Кирил الكازاخستانية، السيريلية (kk-cyrl)\nqazaqşa اللاتينية الكازاخستانية، اللاتينية (kk-latn)\nتوتە قازاقشا الكازاخستانية، العربية (kk-arab)";
 "kazakh-variants-alert-title" = "تحديثات لدعم المتغير الكازاخستاني";
-"kurdish-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الكردية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! Kurdî Latînî الكردية ، اللاتينية (ku-latn)! N ! كوردی الكردية والعربية (kk-arab)";
+"kurdish-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكردية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nKurdî Latînî الكردية، اللاتينية (ku-latn)\nكوردی الكردية، العربية (kk-arab)";
 "kurdish-variants-alert-title" = "تحديثات لدعم النسخة الكردية";
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
@@ -573,7 +544,6 @@
 "main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-are-you-sure-message" = "سيؤدي تسجيل الخروج إلى حذف بيانات حسابك المخزنة محليًا (الإشعارات والرسائل) ، ولكن ستظل بيانات حسابك متاحة على الويب وسيتم إعادة تنزيلها إذا قمت بتسجيل الدخول مرة أخرى.";
-"main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
 "main-menu-heading-legal" = "الشروط والخصوصية";
 "main-menu-nearby" = "بالقرب من هنا";
@@ -718,7 +688,7 @@
 "notifications-center-type-title-translation-milestone" = "معلم الترجمة";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
-"notifications-center-type-title-welcome" = "مرحبًا";
+"notifications-center-type-title-welcome" = "مرحبا";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "notifications-push-talk-body-format" = "{{PLURAL:$1| رسالة جديدة $1 | رسائل جديدة $1 }} على $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1| رسالة جديدة | رسائل جديدة}}";
@@ -799,7 +769,6 @@
 "potd-widget-description" = "شاهد صورة يومية اختارها مجتمعنا";
 "potd-widget-title" = "صورة اليوم";
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
-"preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
 "project-name-mediawiki" = "ميدياويكي";
 "project-name-wikibooks" = "ويكي الكتب";
 "project-name-wikidata" = "ويكي بيانات";
@@ -912,7 +881,6 @@
 "replace-infolabel-method-replace" = "استبدال";
 "replace-infolabel-method-replace-all" = "استبدل الكل";
 "replace-method-button-accessibility" = "استبدال الطريقة، تعيين إلى $1، حدد للتغيير.";
-"replace-replace-all-results-count" = "تم استبدال {{PLURAL:$1|$1 عنصر|$1 عناصر}}";
 "replace-textfield-accessibility" = "استبدال";
 "replace-textfield-placeholder" = "استبدل بـ…";
 "reverted-edit-title" = "تم إرجاع التعديل";
@@ -978,7 +946,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "إظهار قائمة القراءة المحفوظة (على سبيل المثال افتراضيا) كقائمة منفصلة في عرض قوائم قراءتك، تظهر هذه القائمة على أجهزة أندرويد.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "إظهار قائمة القراءة المحفوظة";
 "settings-storage-and-syncing-title" = "تخزين ومزامنة المقالة";
-"settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
 "share-article-name-on-wikipedia" = "«$1» على Wikipedia:";
@@ -1000,7 +967,7 @@
 "table-of-contents-heading" = "المحتويات";
 "table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
 "table-of-contents-subheading-label" = "العنوان الفرعي $1";
-"tachelhit-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Tachelhit التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ⵜⴰⵛⵍⵃⵉⵜ Tachelhit ، Tifinagh (shi-tfng)! N! Taclḥit Tachelhit ، اللاتينية (شي لاتن)";
+"tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! тоҷикӣ кирилликӣ Tajik، Cyrillic (tg-cyrl)! ! tojikī lotinī طاجيكية ، لاتينية (tg-latn)";
 "tajik-variants-alert-title" = "تحديثات لدعم النسخة الطاجكية";
@@ -1036,7 +1003,7 @@
 "talk-page-reply-button-accessibility-label" = "رد على $1";
 "talk-page-reply-depth-accessibility-label" = "عمق الرد: $1";
 "talk-page-reply-placeholder-format" = "رد على $1";
-"talk-page-reply-terms-and-licenses" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 3.0$4 و $5GFDL$6.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "لاحظ أن ردك سيتم توقيعه تلقائيًا باسم المستخدم الخاص بك. من خلال حفظ التغييرات، فإنك توافق على شروط الاستخدام $1 $2 ، وتوافق على إصدار مساهمتك بموجب تراخيص CC BY-SA 4.0 $ $3 $4 وGFDL $5 $6 .";
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-rply-close-button-accessibility-hint" = "إغلاق عرض الرد";
 "talk-page-share-button" = "شارك صفحة النقاش";
@@ -1047,7 +1014,7 @@
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-close-button-hint" = "إغلاق موضوع جديد";
-"talk-page-topic-compose-terms-and-licenses" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 3.0$4 و $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "من خلال نشر التغييرات، فإنك توافق على شروط الاستخدام $1 $2 ، وتوافق بشكل لا رجعة فيه على إصدار مساهمتك بموجب ترخيص CC BY-SA 4.0 $3 $4 دولار ورخصة GFDL $5 $6 .";
 "talk-page-unsubscribe-to-topic" = "إلغاء الاشتراك";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
@@ -1059,6 +1026,7 @@
 "talk-pages-coffee-roll-read-more" = "اقرأ المزيد";
 "talk-pages-comment-added-alert-title" = "أضيف تعليقك";
 "talk-pages-compose-close-confirmation-keep" = "واصل التعديل";
+"talk-pages-edit-source" = "عدل المصدر";
 "talk-pages-empty-view-body-article" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. ** ابدأ بإضافة موضوع مناقشة جديد ** للتواصل والتعاون مع مجتمع Wikipedians.";
 "talk-pages-empty-view-body-user" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. ابدأ مناقشة جديدة للتواصل والتعاون مع $1 . ما تقوله هنا سيكون متاحًا للآخرين ليراه.";
 "talk-pages-empty-view-button-article-add-topic" = "أضف موضوعًا جديدًا";
@@ -1069,11 +1037,11 @@
 "talk-pages-topic-added-alert-title" = "تمت إضافة موضوعك";
 "talk-pages-topic-compose-body-placeholder" = "الوصف";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "وصف الموضوع";
-"talk-pages-topic-compose-close-confirmation-discard" = "تجاهل الرد";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "تجاهل الرد";
 "talk-pages-topic-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الموضوع الجديد؟";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
-"talk-pages-topic-reply-onboarding-body" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. أضف موضوع مناقشة جديدًا للتواصل والتعاون مع مجتمع من Wikipedians.! N !! N! يرجى أن تكون لطيفًا ، فنحن جميعًا بشر هنا.";
+"talk-pages-topic-reply-onboarding-body" = "صفحات النقاش هي المكان الذي يناقش فيه الأشخاص كيفية جعل المحتوى الموجود على ويكيبيديا أفضل ما يمكن أن يكون. أضف موضوعًا جديدًا للمناقشة للتواصل والتعاون مع مجتمع ويكيبيديا.!ن!!ن!يرجى التحلي باللطف، فنحن جميعًا بشر هنا.";
 "talk-pages-topic-reply-onboarding-body-ios15" = "صفحات النقاش هي حيث يناقش الأشخاص $1 كيفية جعل المحتوى على Wikipedia أفضل ما يمكن أن يكون. $1 أضف موضوع مناقشة جديدًا للتواصل والتعاون مع مجتمع Wikipedians.";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "من فضلك كن لطيفًا ، نحن جميعًا بشر هنا.";
 "talk-pages-topic-reply-onboarding-title" = "صفحات النقاش";
@@ -1082,7 +1050,7 @@
 "talk-pages-view-title" = "نقاش";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
-"theme-default-display-name" = "الافتراضية";
+"theme-default-display-name" = "افتراضي";
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
@@ -1098,28 +1066,10 @@
 "unknown-generic-text" = "غير معروف";
 "uzbek-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الأوزبكية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! ! ўзбекча кирилл أوزبكي ، سيريلي (uz-cyrl)";
 "uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
-"vanish-account-additional-information-field" = "معلومات إضافية";
-"vanish-account-additional-information-placeholder" = "اختياري";
-"vanish-account-back-confirm-discard" = "تجاهل الطلب";
-"vanish-account-back-confirm-keep-editing" = "واصل التعديل";
-"vanish-account-back-confirm-title" = "هل أنت متأكد أنك تريد تجاهل هذا الطلب المتلاشي؟";
-"vanish-account-bottom-text" = "يتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. يمكنك استخدام النموذج أدناه لطلب التلاشي من باب المجاملة. لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع.";
-"vanish-account-bottom-text-with-link" = "يتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. يمكنك استخدام النموذج أدناه لطلب $1 اختفاء مجاملة $2 $3 . لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع.";
-"vanish-account-button-text" = "ارسل طلب";
 "vanish-account-continue-button-title" = "استمرار";
-"vanish-account-description" = "لبدء عملية التلاشي ، يرجى تقديم ما يلي:";
-"vanish-account-email-text" = "مرحبًا ، هذا طلب لإلغاء حسابي في ويكيبيديا.";
-"vanish-account-learn-more-text" = "معرفة المزيد";
-"vanish-account-title" = "عملية التلاشي";
 "vanish-account-username-field" = "اسم المستخدم وصفحة المستخدم";
-"vanish-account-warning-body" = "التلاشي هو ** الملاذ الأخير ** ويجب ** استخدامه فقط عندما ترغب في إيقاف التحرير للأبد ** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.! N !! N! تم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. ** لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع **.";
+"vanish-account-warning-body" = "الاختفاء هو **الملاذ الأخير** ويجب **استخدامه فقط عندما ترغب في التوقف عن التحرير إلى الأبد** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.\n\nيتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله غير قادر على التعرف على مساهماتك في عملية تسمى اختفاء الحساب. **الاختفاء لا يضمن عدم الكشف عن الهوية تمامًا أو إزالة المساهمات في المشاريع**.";
 "vanish-account-warning-title" = "تحذير";
-"vanish-modal-item" = "إذا أكملت طلب التلاشي الخاص بك ، فيرجى السماح ببضعة أيام حتى تتم معالجة الطلب من قبل المسؤول";
-"vanish-modal-item-2" = "إذا لم تكن متأكدًا مما إذا كان قد تم تنفيذ طلبك ، فيرجى التحقق من تطبيق البريد الخاص بك";
-"vanish-modal-item-3" = "إذا كان لديك المزيد من الأسئلة حول التلاشي ، يرجى زيارة Meta: Right_to_vanish";
-"vanish-modal-item-3-ios15" = "إذا كانت لديك أسئلة أخرى حول التلاشي ، فيرجى زيارة $1 Meta: Right_to_vanish $2 $3";
-"vanish-modal-title" = "طلب التلاشي";
-"vanishing-request-email-title" = "طلب اختفاء مجاملة";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
 "watchlist" = "قائمة المراقبة";
@@ -1147,16 +1097,10 @@
 "welcome-notifications-tell-me-more-creation" = "يتم إنشاء الإشعارات وتسليمها على جهازك من خلال التطبيق، وليس من خوادمنا (أو جهات خارجية).";
 "welcome-notifications-tell-me-more-storage" = "يتم تخزين تفضيلات الإشعارات على الجهاز ولا تعتمد على المعلومات أو النشاط الشخصي.";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
-"welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
-"welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
-"welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
-"welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "widget-onthisday-description" = "اكتشف ما الذي حصل في مثل هذا اليوم.";
 "widget-onthisday-placeholder-article-snippet" = "الموسوعة الحرة التي يمكن للجميع تحريرها";
 "widget-onthisday-placeholder-event-snippet" = "ويكيبيديا الموسوعة حرة المحتوى المتوفرة على الإنترنت.";
-"wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
-"wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
 "wikitext-preview-link-external-preview-description" = "هذا الرابط يؤدي إلى موقع خارجي: $1";
 "wikitext-preview-link-external-preview-title" = "وصلة خارجية";
 "wikitext-preview-link-not-found-preview-description" = "ليست لدى ويكيبيديا مقالة بهذا الاسم الدقيق";
@@ -1171,5 +1115,4 @@
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-and-licenses" = "بنشر التغييرات، فإنك توافق على $شروط الاستخدام$2، وتوافق بشكل لا رجعة فيه على إطلاق مساهمتك تحت $3رخصة المشاع الإبداعي: النسبة-الترخيص بالمثل3.0$4 و$5رخصة جنو للوثائق الحرة$6، أنت توافق على أن الرابط التشعبي أو المسار يمثل إسنادا كافيا بموجب ترخيص  المشاع الإبداعي.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";

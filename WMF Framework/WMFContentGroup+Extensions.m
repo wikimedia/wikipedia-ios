@@ -84,6 +84,8 @@
             break;
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
+        case WMFContentGroupKindSuggestedEdits:
+            URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
         default:
             break;
     }
@@ -120,6 +122,9 @@
             break;
         case WMFContentGroupKindReadingList:
             self.contentType = WMFContentTypeReadingList;
+            break;
+        case WMFContentGroupKindSuggestedEdits:
+            self.contentType = WMFContentTypeSuggestedEdits;
             break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
@@ -347,6 +352,7 @@
         case WMFContentGroupKindFeaturedArticle:
         case WMFContentGroupKindTheme:
         case WMFContentGroupKindReadingList:
+        case WMFContentGroupKindSuggestedEdits:
         case WMFContentGroupKindAnnouncement:
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindNews:
@@ -514,6 +520,12 @@
 
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {
     NSURL *URL = [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
+}
+
++ (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
     URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return URL;
 }

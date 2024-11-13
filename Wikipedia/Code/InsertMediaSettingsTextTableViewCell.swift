@@ -1,9 +1,10 @@
-import UIKit
+import WMFComponents
 
 class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var footerLabel: UILabel!
     @IBOutlet private weak var textView: ThemeableTextView!
+    @IBOutlet weak var learnMoreButton: UIButton!
 
     var headerText: String? {
         didSet {
@@ -17,6 +18,9 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         }
     }
 
+    var learnMoreURL: URL?
+    var learnMoreAction: ((URL) -> Void)?
+
     func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, clearDelegate: ThemeableTextViewClearDelegate, tag: Int) -> UITextView {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
@@ -25,6 +29,9 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         textView.placeholder = placeholder
         textView.textContainer.lineFragmentPadding = 0
         textView.tag = tag
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(), for: .normal)
+        learnMoreButton.configuration?.contentInsets = .zero
+        learnMoreButton.configuration?.titlePadding = .zero
         accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]
         updateFonts()
         return textView
@@ -36,9 +43,10 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     }
 
     private func updateFonts() {
-        headerLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        footerLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        textView.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        footerLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font =  WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     override func prepareForReuse() {
@@ -46,6 +54,14 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         headerLabel.text = nil
         footerLabel.text = nil
         textView.reset()
+    }
+
+    @IBAction private func performLearnMoreAction(_ sender: UIButton) {
+        guard let url = learnMoreURL else {
+            assertionFailure("learnMoreURL should be set by now")
+            return
+        }
+        learnMoreAction?(url)
     }
 }
 
@@ -55,5 +71,6 @@ extension InsertMediaSettingsTextTableViewCell: Themeable {
         headerLabel.textColor = theme.colors.secondaryText
         footerLabel.textColor = theme.colors.secondaryText
         textView.apply(theme: theme)
+        learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }

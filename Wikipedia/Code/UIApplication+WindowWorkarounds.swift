@@ -1,7 +1,7 @@
 import Foundation
 
 extension UIApplication {
-    var workaroundKeyWindow: UIWindow? {
+    @objc var workaroundKeyWindow: UIWindow? {
         return UIApplication
             .shared
             .connectedScenes

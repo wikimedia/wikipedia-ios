@@ -7,19 +7,18 @@
 #import "AboutViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+@import WMFData;
 
 #pragma mark - Static URLs
-
-static const NSString *kvo_WMFSettingsViewController_authManager_loggedInUsername = nil;
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
-static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate, WMFLogoutCoordinatorDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -27,6 +26,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
+@property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
+@property (nullable, nonatomic, strong) WMFProfileCoordinator *profileCoordinator;
+@property (nullable, nonatomic, strong) WMFYearInReviewCoordinator *yirCoordinator;
 
 @end
 
@@ -36,6 +38,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
+    vc.donateDataController = [WMFDonateDataController sharedInstance];
+
     return vc;
 }
 
@@ -61,29 +65,19 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
-
-#if UI_TEST
-    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
-        self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-    }
-#endif
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedIn:)
+                                                 name:[WMFAuthenticationManager didLogInNotification]
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedOut:)
+                                                 name:[WMFAuthenticationManager didLogOutNotification]
+                                               object:nil];
 }
 
 - (void)dealloc {
     self.authManager = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)setAuthManager:(nullable WMFAuthenticationManager *)authManager {
-    if (_authManager == authManager) {
-        return;
-    }
-
-    NSString *keyPath = WMF_SAFE_KEYPATH(authManager, loggedInUsername);
-
-    [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
-    _authManager = authManager;
-    [_authManager addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -114,20 +108,20 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.navigationItem.leftBarButtonItem = xButton;
     } else {
-        // If in a tab bar presentation, only show notification bar button item if the user is logged in
-        if (self.dataStore.authenticationManager.isLoggedIn) {
-            NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-            BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-            UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
-            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-            notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
-            self.navigationItem.leftBarButtonItem = notificationsBarButton;
-        } else {
-            self.navigationItem.leftBarButtonItem = nil;
-        }
+        [self updateProfileViewButton];
     }
 
     [self.navigationBar updateNavigationItems];
+}
+
+- (void)updateProfileViewButton {
+    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+    BOOL hasUnreadNotifications = numUnreadNotifications != 0;
+    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
+    UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
+    profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? WMFCommonStrings.profileButtonBadgeTitle : WMFCommonStrings.profileButtonTitle;
+    profileViewButtonItem.accessibilityHint = WMFCommonStrings.profileButtonAccessibilityHint;
+    self.navigationItem.leftBarButtonItem = profileViewButtonItem;
 }
 
 - (void)closeButtonPressed {
@@ -181,29 +175,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self logNavigationEventsForMenuType:type];
-    [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn completion:^{
-        [self loadSections];
-    }];
+    [self loadSections];
 }
 
 #pragma mark - Switch tap handling
-
-- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn completion:(void (^)(void))completion {
-    switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            if (isOn) {
-                [[SessionsFunnel shared] settingsLoggingToggledOn];
-                [[UserHistoryFunnel shared] logStartingSnapshot];
-            } else {
-                [[UserHistoryFunnel shared] logSnapshot];
-                [[SessionsFunnel shared] settingsLoggingToggledOffWithCompletion:completion];
-            }
-        } break;
-        default:
-            completion();
-            break;
-    }
-}
 
 - (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
 
@@ -253,9 +228,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ClearCache:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsClearCachedData];
             break;
-        case WMFSettingsMenuItemType_SendUsageReports:
-            [[WMFNavigationEventsFunnel shared] logTappedSettingsSendUsageReports];
-            break;
         default:
             break;
     }
@@ -281,6 +253,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
             break;
+        case WMFSettingsMenuItemType_YearInReview:
+            [self showYearInReview];
+            break;
         case WMFSettingsMenuItemType_Appearance: {
             [self showAppearance];
             break;
@@ -293,9 +268,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showStorageAndSyncingDebug];
             break;
         }
-        case WMFSettingsMenuItemType_Support:
-            [self wmf_navigateToURL:[self donationURL] useSafari:YES];
-            break;
+        case WMFSettingsMenuItemType_Support: {
+            if ([cell isKindOfClass:[WMFSettingsTableViewCell class]]) {
+                WMFSettingsTableViewCell *settingsCell = (WMFSettingsTableViewCell *)cell;
+                [self showDonateForCell:settingsCell];
+            }
+        } break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
             break;
@@ -320,13 +298,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ClearCache:
             [self showClearCacheActionSheet];
             break;
+        case WMFSettingsMenuItemType_DonateHistory:
+            [self clearDonationHistory];
+            break;
         default:
             break;
     }
 
-    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) {
-            [self logNavigationEventsForMenuType:cell.tag];
-    }
+    [self logNavigationEventsForMenuType:cell.tag];
 
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
@@ -359,7 +338,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrAccount {
-    NSString *userName = self.dataStore.authenticationManager.loggedInUsername;
+    NSString *userName = self.dataStore.authenticationManager.authStatePermanentUsername;
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
@@ -372,6 +351,44 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [self presentViewControllerWrappedInNavigationController:loginVC];
         [[LoginFunnel shared] logLoginStartInSettings];
     }
+}
+
+- (void)clearDonationHistory {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmDeletionTitle
+                                                                             message:WMFCommonStrings.confirmDeletionSubtitle
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStrings.deleteActionTitle
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteLocalHistory];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadSections];
+            [self.tableView reloadData];
+            [self showDeletionConfirmation];
+        });
+    }];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStrings.cancelActionTitle
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    [alertController addAction:deleteAction];
+    [alertController addAction:cancelAction];
+    [self.navigationController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void) deleteLocalHistory {
+    [[WMFDonateDataControllerWrapper shared] deleteLocalDonationHistory];
+}
+
+- (void) showDeletionConfirmation {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmedDeletion
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:okAction];
+    [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Clear Cache
@@ -394,23 +411,23 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)clearCache {
-    
+
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
     [self performSelector:@selector(showClearCacheInProgressBanner) withObject:nil afterDelay:1.0];
-    
+
     [self.dataStore clearTemporaryCache];
-    
+
     WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
     WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
-    
-    [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext * _Nonnull moc) {
+
+    [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *_Nonnull moc) {
         NSError *housekeepingError = nil;
         [databaseHousekeeper performHousekeepingOnManagedObjectContext:moc navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
         if (housekeepingError) {
             DDLogError(@"Error on cleanup: %@", housekeepingError);
             housekeepingError = nil;
         }
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
             [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
@@ -480,12 +497,25 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:pushSettingsVC animated:YES];
 }
 
+#pragma mark - Year in Review
+
+- (void)showYearInReview {
+    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithTheme:self.theme];
+    [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
+}
+
 #pragma mark - Appearance
 
 - (void)showAppearance {
     WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
     [appearanceSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
+}
+
+#pragma mark - Donate
+
+- (void)showDonateForCell:(WMFSettingsTableViewCell *)settingsCell {
+    // TODO: Delete cell
 }
 
 #pragma mark - Storage and syncing
@@ -551,8 +581,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]];
+    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
@@ -564,8 +593,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
+    
+    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
+    }
 
-    if (_authManager.isLoggedIn) {
+    if (_authManager.authStateIsPermanent) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
 
@@ -580,11 +613,18 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (WMFSettingsTableViewSection *)section_3 {
-    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PrivacyPolicy],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
-    ]
+    NSMutableArray<WMFSettingsMenuItem *> *menuItems = [NSMutableArray array];
+    WMFSettingsMenuItem *privacy = [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PrivacyPolicy];
+    WMFSettingsMenuItem *terms = [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms];
+    [menuItems addObject: privacy];
+    [menuItems addObject: terms];
+
+    BOOL hasDonations = [WMFDonateDataControllerWrapper shared].hasLocallySavedDonations;
+    if (hasDonations) {
+        [menuItems addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DonateHistory]];
+    }
+
+    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems: menuItems
                                                                                   headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, nil, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
                                                                                    footerText:WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, nil, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.")];
 
@@ -633,18 +673,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
-#pragma mark - KVO
-
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
-    if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self loadSections];
-        });
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
@@ -667,12 +695,56 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Notifications Center
 
-- (void)userDidTapNotificationsCenter {
-    [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
+- (void)userDidTapProfile {
+    WMFYearInReviewDataController *yirDataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
+    
+    if (!yirDataController || !self.navigationController) {
+        return;
+    }
+    
+    WMFYearInReviewCoordinator *yirCoordinator = [[WMFYearInReviewCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore dataController:yirDataController];
+    
+    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut yirCoordinator:yirCoordinator];
+    
+    NSString *metricsID = [WMFDonateCoordinatorWrapper metricsIDForSettingsProfileDonateSourceWithLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode];
+    
+    if (metricsID) {
+        [[WMFDonateFunnel shared] logExploreOptOutProfileClickWithMetricsID:metricsID];
+    }
+    
+    self.profileCoordinator = profileCoordinator;
+    [profileCoordinator start];
 }
 
-- (void)pushNotificationBannerDidDisplayInForeground:(NSNotification*)notification {
+- (void)pushNotificationBannerDidDisplayInForeground:(NSNotification *)notification {
     [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:YES];
+}
+
+- (void)userWasLoggedIn:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadSections];
+    });
+}
+
+- (void)userWasLoggedOut:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadSections];
+    });
+}
+
+#pragma mark WMFLogoutCoordinatorDelegate
+
+- (void)didTapLogout {
+    @weakify(self);
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
+                                                              theme:self.theme
+                                                         completion:^{
+                                                             @strongify(self);
+                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+                                                                                                          completion:^{
+
+                                                                                                          }];
+                                                         }];
 }
 
 @end

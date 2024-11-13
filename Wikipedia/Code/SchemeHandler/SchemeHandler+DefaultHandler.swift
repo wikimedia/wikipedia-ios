@@ -9,7 +9,7 @@ extension SchemeHandler {
             self.session = session
         }
         
-        override class var basePath: String? {
+        override static var basePath: String? {
             return nil
         }
         

@@ -1,5 +1,6 @@
 // Messages for Tagalog (Tagalog)
 // Exported from translatewiki.net
+// Author: 0x16w
 // Author: Brazal.dang
 // Author: Emem.calist
 // Author: Exec8
@@ -14,8 +15,7 @@
 // Author: Stranger195
 
 "aaald-added-text-description-2" = "Naidagdag ang $1";
-// Fuzzy
-"aaald-article-description-updated-description" = "Na-update na ang paglalarawan sa pamagat ng artikulo";
+"aaald-article-description-updated-description" = "Na-update ang paglalarawan ng artikulo";
 "aaald-article-insert-header" = "Mga Mahahalagang Update";
 "aaald-article-insert-last-updated" = "Huling na-update";
 "aaald-article-insert-new-changes" = "Mga bagong update";
@@ -84,9 +84,23 @@
 "account-creation-saving" = "Sine-save...";
 "account-creation-title" = "Gumawa ng bagong account";
 "account-group-title" = "Account Mo";
+"account-request-vanishing" = "Mag-request ng pagtanggal ng account";
 "account-talk-page-title" = "Usapan Mo";
 "account-talk-preferences-auto-sign-discussions" = "Agarang paglagda sa talakayan";
+"account-talk-preferences-title" = "Mga preferensya ng pahinng pang-usap";
+"action-add-to" = "Idagdag sa…";
+"action-add-to-reading-list-short" = "Idagdag sa listahan";
+"action-cancel" = "Cancel";
+"action-discard-edits" = "Huwag na ituloy ang mga edit";
+"action-find-in-page" = "Hanapin sa pahina";
+"action-keep-editing" = "Ituloy ang Pag-edit";
 "action-language-accessibility" = "Palitan ang wika";
+"action-redo" = "Gawin muli";
+"action-save" = "Itala";
+"action-saved" = "Na-save na";
+"action-saved-accessibility" = "Nai-save. I-activate para i-unsave.";
+"action-sort" = "Ayusin";
+"action-unsaved-accessibility-notification" = "Artikulo ay tinanggalan ng save";
 "article-delete" = "Huling tawad, buburahin mo na ba?";
 "article-languages-filter-placeholder" = "Hanapin ang wika";
 "article-languages-label" = "Pumili ng wika";
@@ -122,7 +136,6 @@
 "places-no-saved-articles-have-location" = "Ni isa sa iyong artikulong nai-save ay may impormasyon sa lokasyon";
 "places-title" = "Mga lugar";
 "preference-summary-eventlogging-opt-in" = "Pahintulutan ang Pundasyong Wikimedia na mangalap ng impormasyon tungkol sa kung paano mo ginagamit ang app upang maipabuti ito";
-"preference-title-eventlogging-opt-in" = "Magpadala ng mga ulat sa paggamit";
 "reading-list-new-list-description-placeholder" = "Maikling deskripsiyon (optional)";
 "reading-list-new-list-name-placeholder" = "Pamagat ng Listahang-binasa";
 "saved-pages-progress-syncing" = "Kasalukuyang dinadownload ang article...";
@@ -133,9 +146,7 @@
 "talk-page-discussion-read-accessibility-label" = "Basahin";
 "talk-page-discussion-unread-accessibility-label" = "Hindi pa nababasa";
 "two-factor-login-with-backup-code" = "Gamitin ang isa sa mga iyong 'backup codes'";
-"wikitext-downloading" = "Ikinakarga ang nilalaman...";
 "wikitext-preview-changes" = "Kinukuhang muli ang paunang tingin ng iyong mga pagbabago...";
-"wikitext-preview-changes-none" = "Walang pagbabagong nagawa para sa paunang tingin.";
 "wikitext-preview-link-preview-title" = "Paunang tingin sa kawing";
 "wikitext-upload-captcha-error" = "May mali sa pagpapa-totoo (beripikasyon) sa CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Kinakailangan ng pagpapa-totoo (beripikasyon) ng CAPTCHA";

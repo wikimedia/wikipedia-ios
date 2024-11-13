@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsRefreshOperation: RemoteNotificationsPagingOperation {
+class RemoteNotificationsRefreshOperation: RemoteNotificationsPagingOperation, @unchecked Sendable {
     
     override func shouldContinueToPage(lastNotification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
         

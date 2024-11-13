@@ -1,3 +1,5 @@
+import WMFComponents
+
 protocol ReadingListDetailUnderBarViewControllerDelegate: AnyObject {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
@@ -48,11 +50,11 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     }
 
     private func updateFonts() {
-        articleCountLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        titleTextField.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-        descriptionTextField.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        alertTitleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
-        alertMessageLabel?.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
+        articleCountLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        titleTextField.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
+        descriptionTextField.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        alertTitleLabel?.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
+        alertMessageLabel?.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.

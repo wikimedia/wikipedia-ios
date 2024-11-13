@@ -52,6 +52,78 @@
 			<string>artículos eliminados</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Párrafo movido hacia arriba %#@v1@. Ir a nueva ubicación.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d línea</string>
+			<key>other</key>
+			<string> líneas %1$d </string>
+			<key>zero</key>
+			<string>0 líneas</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Párrafo movido hacia arriba %#@v1@. Ir a nueva ubicación.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d línea</string>
+			<key>other</key>
+			<string> líneas %1$d </string>
+			<key>zero</key>
+			<string>0 líneas</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Párrafo movido hacia abajo %#@v1@. Ir a nueva ubicación.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d sección</string>
+			<key>other</key>
+			<string> %1$d secciones</string>
+			<key>zero</key>
+			<string>0 secciones</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Párrafo movido hacia abajo %#@v1@. Ir a nueva ubicación.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d sección</string>
+			<key>other</key>
+			<string> %1$d secciones</string>
+			<key>zero</key>
+			<string>0 secciones</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -491,22 +563,6 @@
 			<string>Este año</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d elemento fue reemplazado</string>
-			<key>other</key>
-			<string>%1$d elementos fueron reemplazados</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -537,6 +593,22 @@
 			<string>el artículo</string>
 			<key>other</key>
 			<string>los artículos</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Este año has leído %#@v1@. Este año Wikipedia tenía %2$@ millones de artículos disponibles en más de %3$@ lenguas activas. Te uniste a millones de personas para ampliar conocimientos y explorar temas diversos.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artículo</string>
+			<key>other</key>
+			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 </dict>

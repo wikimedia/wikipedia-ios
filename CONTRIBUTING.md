@@ -15,9 +15,12 @@ If you're ready to pick up more difficult work, look at the iOS backlog and pick
 Now you want to let the team know what you're working on.
 
 1. In Phabricator, assign the task to yourself.
-2. Add the tag representing the current release to the task. [This link](https://phabricator.wikimedia.org/search/query/WlSMhOAWTG73/) will take you to currently open releases. Tagging your task with the name of the release will add it to the release board.
+2. Add the release tag "iOS Release FY2023-24" to the task.  [This link](https://phabricator.wikimedia.org/project/board/7291/) will take you to our current release board. Tagging your task with the name of the release will add it to the release board.
 3. On the release board, move the task to the "Doing" column.
 4. When you're done developing, move the task to the "Needs Code Review" column.
+
+## GitHub is not running unit tests on my pull request
+This is a known limitation with Xcode Cloud (see more details in [T358110](https://phabricator.wikimedia.org/T358110)). We will still review your PR, and a maintainer will confirm run tests locally before merging. Details on improvements we're planning can be found in [T362932](https://phabricator.wikimedia.org/T362932).
 
 ## I don't want to work on my task any more.
 You can let us know by unassigning the task and moving it back to the "Tasks from Product Backlog" column.

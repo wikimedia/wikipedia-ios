@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 public protocol CardContent {
     var view: UIView! { get }
@@ -193,7 +193,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
                 undoLabel.isHidden = true
                 undoButton.isHidden = true
                 titleLabel.isHidden = title == nil
-                subtitleLabel.isHidden = subtitle == nil
+                subtitleLabel.isHidden = subtitle == nil || subtitle == ""
                 footerButton.isHidden = footerTitle == nil
             }
             setNeedsLayout()
@@ -232,6 +232,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         }
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
+        } else {
+            origin.y += 20
         }
 
         if let cardContent = cardContent, !cardContent.view.isHidden {
@@ -292,12 +294,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
     
     public override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        footerButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        undoLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        undoButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        footerButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        undoLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        undoButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        customizationButton.titleLabel?.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
     private var cardShadowColor: UIColor = .black {

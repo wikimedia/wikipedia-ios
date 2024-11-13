@@ -1,9 +1,9 @@
 @import CocoaLumberjack;
 
-// Log level defaults to DEBUG in debug mode, and WARN in release.
 #if DEBUG
 
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+// Change to DDLogLevelAll to enable all logging
+static const DDLogLevel ddLogLevel = DDLogLevelAll;
 
 #else
 

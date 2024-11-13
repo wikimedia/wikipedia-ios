@@ -1,0 +1,193 @@
+[
+  {
+    "aliases" : [
+      "алт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "основа",
+      "baseline",
+      "osnova"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "ивица",
+      "оивичено",
+      "border",
+      "ivica",
+      "oivičeno"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "дно",
+      "bottom",
+      "dno"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "центар",
+      "ц",
+      "c",
+      "center",
+      "centre",
+      "centar"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "оквир",
+      "рам",
+      "framed",
+      "enframed",
+      "frame",
+      "okvir",
+      "ram"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "безоквира",
+      "без_оквира",
+      "безрама",
+      "без_рама",
+      "frameless",
+      "bezokvira",
+      "bez_okvira",
+      "bezrama",
+      "bez_rama"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "лево",
+      "лијево",
+      "л",
+      "left",
+      "levo",
+      "lijevo",
+      "l"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "средина",
+      "middle",
+      "sredina"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "без",
+      "н",
+      "none",
+      "bez",
+      "n"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "десно",
+      "д",
+      "right",
+      "desno",
+      "d"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "под",
+      "sub",
+      "pod"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "супер",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "срединатекста",
+      "средина_текста",
+      "text-bottom",
+      "sredinateksta",
+      "sredina_teksta"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "врхтекста",
+      "врх_текста",
+      "text-top",
+      "vrhteksta",
+      "vrh_teksta"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "умањено",
+      "thumbnail",
+      "thumb",
+      "mini",
+      "umanjeno"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "врх",
+      "top",
+      "vrh"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "усправно",
+      "усправно=$1",
+      "усправно_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "uspravno",
+      "uspravno=$1",
+      "uspravno_$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Datoteka",
+      "Fotografija",
+      "Image",
+      "Slika",
+      "Слика",
+      "Фотографија",
+      "Датотека"
+    ],
+    "name" : "file_namespace"
+  }
+]

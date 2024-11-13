@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
@@ -243,7 +243,7 @@ class SavedViewController: ViewController {
     }
 
     private func updateFonts() {
-        actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        actionButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {
@@ -334,7 +334,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        if (newEditingState == .open),
+        if newEditingState == .open,
             let batchEditToolbar = savedArticlesViewController?.editController.batchEditToolbarView,
             let contentView = containerView,
             let appTabBar = tabBarDelegate?.tabBar {

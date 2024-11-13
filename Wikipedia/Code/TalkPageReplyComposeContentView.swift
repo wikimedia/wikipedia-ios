@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 class TalkPageReplyComposeContentView: SetupView {
@@ -257,9 +257,9 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private func updateFonts() {
-        publishButton.titleLabel?.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
-        replyTextView.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
-        placeholderLabel.font = UIFont.wmf_font(.callout, compatibleWithTraitCollection: traitCollection)
+        publishButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        replyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        placeholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     // MARK: Actions
@@ -282,21 +282,23 @@ class TalkPageReplyComposeContentView: SetupView {
     }
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
-        let localizedString = WMFLocalizedString("talk-page-reply-terms-and-licenses", value: "Note your reply will be automatically signed with your username. By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.")
+        let localizedString = WMFLocalizedString("talk-page-reply-terms-and-licenses-ccsa4", value: "Note your reply will be automatically signed with your username. By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 4.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages when replying. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.")
         
         let substitutedString = String.localizedStringWithFormat(
             localizedString,
             "<a href=\"\(Licenses.saveTermsURL?.absoluteString ?? "")\">",
             "</a>",
-            "<a href=\"\(Licenses.CCBYSA3URL?.absoluteString ?? "")\">",
+            "<a href=\"\(Licenses.CCBYSA4URL?.absoluteString ?? "")\">",
             "</a>" ,
             "<a href=\"\(Licenses.GFDLURL?.absoluteString ?? "")\">",
             "</a>"
         )
-        
-        let attributedString = substitutedString.byAttributingHTML(with: .caption1, boldWeight: .regular, matching: traitCollection, color: theme.colors.secondaryText, linkColor: theme.colors.link, tagMapping: nil, additionalTagAttributes: nil)
-        
-        return attributedString
+
+        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
+    }
+
+    private var styles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WMFFont.for(.caption1, compatibleWith: traitCollection), boldFont: WMFFont.for(.caption1, compatibleWith: traitCollection), italicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.caption1, compatibleWith: traitCollection), color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     private func evaluatePublishButtonEnabledState() {

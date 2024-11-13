@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 final class EditNoticesView: SetupView {
 
@@ -56,7 +56,7 @@ final class EditNoticesView: SetupView {
         label.text = CommonStrings.editNotices
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .title1, weight: .semibold, size: 20)
+        label.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -66,7 +66,7 @@ final class EditNoticesView: SetupView {
         label.text =  WMFLocalizedString("edit-notices-please-read", value: "Please read before editing", comment: "Subtitle displayed in edit notices view.")
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .title2, weight: .semibold, size: 15)
+        label.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -85,7 +85,7 @@ final class EditNoticesView: SetupView {
 
     lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 17)
+        button.titleLabel?.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.setTitle(CommonStrings.doneTitle, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +111,7 @@ final class EditNoticesView: SetupView {
         let label = UILabel()
         label.text = WMFLocalizedString("edit-notices-always-display", value: "Always display edit notices", comment: "Title for toggle switch label in edit notices view.")
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 15)
+        label.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
 
@@ -229,6 +229,8 @@ final class EditNoticesView: SetupView {
             footerStack.topAnchor.constraint(equalTo: footerContainer.topAnchor, constant: 16),
             footerStack.bottomAnchor.constraint(equalTo: footerContainer.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
+        
+        changeTextViewVoiceOverVisibility(isVisible: false)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -239,11 +241,21 @@ final class EditNoticesView: SetupView {
     }
 
     // MARK: - Public
+    
+    func changeTextViewVoiceOverVisibility(isVisible: Bool) {
+        if !isVisible {
+            accessibilityElements = [doneButton, editNoticesTitle, editNoticesSubtitle, footerSwitchLabel, toggleSwitch]
+        } else {
+            accessibilityElements = [doneButton, editNoticesTitle, editNoticesSubtitle, textView, footerSwitchLabel, toggleSwitch]
+        }
+    }
 
     func configure(viewModel: EditNoticesViewModel, theme: Theme) {
+        let styles: HtmlUtils.Styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+
         let attributedNoticeString = NSMutableAttributedString()
         for notice in viewModel.notices {
-            let noticeString = notice.description.byAttributingHTML(with: .subheadline, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true)
+            let noticeString = NSAttributedString.attributedStringFromHtml(notice.description, styles: styles)
             attributedNoticeString.append(noticeString)
         }
 

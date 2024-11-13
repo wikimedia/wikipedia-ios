@@ -3,10 +3,13 @@
 // Author: A2y4
 // Author: Aefgh39622
 // Author: Afaz
+// Author: Apple TD
 // Author: Barrel0116
+// Author: Chqaz
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: GAMEZONE628
+// Author: Hideki Yoshida
 // Author: Higa4
 // Author: Hinaloe
 // Author: Hzy980512
@@ -22,6 +25,7 @@
 // Author: Nemo bis
 // Author: Omotecho
 // Author: Otokoume
+// Author: PPenloglou-WMF
 // Author: Phantomize
 // Author: Ridmevo
 // Author: Shirayuki
@@ -46,6 +50,7 @@
 // Author: ネイ
 // Author: バレロン
 // Author: 春春眠眠
+// Author: 翻訳者a
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1追加";
@@ -73,11 +78,13 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.orgのURL";
 "aaald-new-website-reference-title" = "ウェブサイト";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 件の参考文献}}を追加しました";
+"aaald-one-section-description" = "$1セクションにある";
 "aaald-revision-by-anonymous" = "匿名利用者による編集";
 "aaald-revision-userInfo" = "$1（$2編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
 "aaald-summary-title" = "{{PLURAL:$3|$3日間}}で {{PLURAL:$2|$2 人の編集者}}による {{PLURAL:$1|$1 件の変更}}";
+"aaald-two-sections-description" = "$1と$2セクション";
 "aaald-vandalism-revert-description" = "荒らしの疑いを差し戻し";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
@@ -125,8 +132,10 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+"action-discard-edit" = "編集内容を破棄";
 "action-discard-edits" = "編集内容を破棄";
 "action-find-in-page" = "ページ内を検索";
+"action-keep-editing" = "編集を続行";
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
 "action-move-to-reading-list" = "あとで読むリストに保存";
@@ -135,8 +144,6 @@
 "action-read" = "読む";
 "action-redo" = "やり直す";
 "action-remove" = "除去";
-"action-replace" = "置換";
-"action-replace-all" = "すべて置換";
 "action-retry" = "再試行";
 "action-save" = "保存";
 "action-saved" = "保存済み";
@@ -151,8 +158,10 @@
 "action-unsaved-accessibility-notification" = "記事をリストから削除しました";
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
-"add-citation-title" = "引用を追加";
-"additional-information-email-title" = "追加情報";
+"advanced-settings-title" = "高度な設定";
+"alt-text-add-button-title" = "追加";
+"alt-text-do-not-add-button-title" = "追加しない";
+"alt-text-email-fifth-line" = "[スクリーンショットまたはリンク]";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "探索フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
@@ -211,7 +220,6 @@
 "data-migration-status" = "更新中...";
 "description-add-title" = "説明を追加";
 "description-edit-for-article" = "$1の説明";
-"description-edit-learn-more" = "もっと詳しく";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "記事の説明を変更すると、$1 に同意し、$2ライセンスのもとで貢献を公開することになります。これは取り消せません。";
 "description-edit-pencil-introduction" = "導入部を編集";
@@ -245,7 +253,8 @@
 "description-welcome-descriptions-title" = "記事の説明";
 "description-welcome-promise-title" = "この機能を誤用しないように約束します";
 "description-welcome-start-editing-button" = "編集を開始";
-"diff-article-edit-history" = "記事の編集履歴";
+"developer-settings" = "開発者設定";
+"diff-article-revision-history" = "記事の版履歴";
 "diff-compare-header-from-info-heading" = "前の編集";
 "diff-compare-header-heading" = "版を比較";
 "diff-compare-header-to-info-heading" = "表示されている編集";
@@ -285,24 +294,23 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集}}";
 "diff-user-button-accessibility-text" = "ダブルタップしてメニューを開く";
 "dim-images" = "暗い画像";
-"edit-bold-accessibility-label" = "太字にする";
-"edit-bold-remove-accessibility-label" = "太字の解除";
-"edit-clear-formatting-accessibility-label" = "修飾を除去";
-"edit-comment-accessibility-label" = "注釈を追加する";
-"edit-comment-remove-accessibility-label" = "注釈の解除";
-"edit-decrease-indent-depth-accessibility-label" = "インデントを戻す";
-"edit-direction-down-accessibility-label" = "カーソルを下へ";
-"edit-direction-left-accessibility-label" = "カーソルを左へ";
-"edit-direction-right-accessibility-label" = "カーソルを右へ";
-"edit-direction-up-accessibility-label" = "カーソルを上へ";
-"edit-increase-indent-depth-accessibility-label" = "インデントを深くする";
-"edit-indent-accessibility-label" = "この行をインデントする";
-"edit-italic-accessibility-label" = "斜体にする";
-"edit-italic-remove-accessibility-label" = "斜体を解除";
-"edit-link-accessibility-label" = "リンクを追加する";
+"donate-already-donated" = "ご寄付をしてくださり、ありがとうございます！あなたの寛大なご寄付が、ウィキペディアとその姉妹サイトの繁栄を支えています。";
+"donate-apple-fine-print" = "この募金活動はアップル社が行っているものではありません。";
+"donate-email-opt-in-text" = "はい、ウィキメディア財団はごく稀に私にメールを送ることができます。";
+"donate-help-frequently-asked-questions" = "よくある質問";
+"donate-help-problems-donating" = "寄付の際に何か問題がありましたか?";
+"donate-help-tax-deductibility-information" = "税金の控除について";
+"donate-later-title" = "明日、再度お知らせいたします。";
+"donate-monthly-recurring-text" = "毎月、この金額を定期的に寄付します。";
+"donate-payment-method-prompt-apple-pay-button-title" = "Apple Payで寄付する";
+"donate-payment-method-prompt-message" = "Apple Payで寄付するか、他の支払い方法を選択してください。";
+"donate-payment-method-prompt-other-button-title" = "その他の支払方法";
+"donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
+"donate-success-title" = "ありがとうございます!";
+"donate-title" = "金額を選択する";
+"donate-transaction-fee-opt-in-text" = "寄付の100%%が確実に届くよう、手数料として$1を追加してお支払いします。";
 "edit-link-display-text-title" = "表示テキスト";
 "edit-link-link-target-title" = "リンク先";
-"edit-link-remove-accessibility-label" = "リンクを削除";
 "edit-link-remove-link-title" = "リンクを除去";
 "edit-link-title" = "リンクを編集";
 "edit-menu-item" = "編集";
@@ -313,38 +321,15 @@
 "edit-notices" = "お知らせを編集する";
 "edit-notices-always-display" = "編集通知を常に表示する";
 "edit-notices-please-read" = "編集する前にお読みください";
-"edit-ordered-list-accessibility-label" = "この行を数字付きリストにする";
-"edit-ordered-list-remove-accessibility-label" = "この行を標準の文に戻す";
 "edit-published" = "公開しました!";
 "edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
-"edit-reference-accessibility-label" = "出典を追加する";
-"edit-reference-remove-accessibility-label" = "出典を削除";
-"edit-signature-accessibility-label" = "署名を追加する";
-"edit-signature-remove-accessibility-label" = "署名を削除";
-"edit-strikethrough-accessibility-label" = "取り消し線を追加する";
-"edit-strikethrough-remove-accessibility-label" = "取り消し線の解除";
-"edit-style-table-view-title" = "書式";
-"edit-subscript-accessibility-label" = "下付き文字を指定する";
-"edit-subscript-remove-accessibility-label" = "下付き文字の解除";
+"edit-show-web-preview" = "プレビューを表示";
 "edit-summary-add-summary-text" = "編集の要約を追加";
+"edit-summary-choice-added-image" = "新しく画像を追加";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
 "edit-summary-choice-linked-words" = "リンクを追加";
-"edit-summary-learn-more-text" = "詳細";
 "edit-summary-placeholder-text" = "どのようにこの記事を改善しましたか?";
-"edit-superscript-accessibility-label" = "上付き文字の指定";
-"edit-superscript-remove-accessibility-label" = "上付き文字の解除";
-"edit-template-accessibility-label" = "テンプレートを追加する";
-"edit-template-remove-accessibility-label" = "テンプレートの削除";
-"edit-text-clear-formatting" = "書式をクリア";
-"edit-text-formatting-accessibility-label" = "段落設定メニューを表示する";
-"edit-text-formatting-table-view-title" = "文字の書式指定";
-"edit-text-size-table-view-title" = "文字の大きさ";
-"edit-text-style-accessibility-label" = "文字の書式指定メニューを表示する";
-"edit-underline-accessibility-label" = "下線の追加";
-"edit-underline-remove-accessibility-label" = "下線の解除";
-"edit-unordered-list-accessibility-label" = "この行を箇条書きにする";
-"edit-unordered-list-remove-accessibility-label" = "この行の箇条書きを解除";
 "edit-watch-list-learn-more-text" = "ウォッチリストの詳細";
 "edit-watch-this-page-text" = "このページをウォッチする";
 "editing-welcome-be-bold-subtitle" = "勇気を持って、しかしいい加減な気持ちにはならずに、記事を更新しましょう。間違ったことをしでかさないか悩む必要はありません。各ページの履歴はすべて保存されていますので、誤りがあれば私たちコミュニティが修正できます。";
@@ -355,8 +340,19 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
+"editor-edit-published" = "あなたの編集が公開されました。";
+"editor-edit-source" = "ソースを編集";
 "editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "editor-exit-confirmation-title" = "編集モードを終了しますか?";
+"editor-find-textfield-accessibility" = "検索";
+"editor-keyboard-bold-accessibility" = "太字";
+"editor-keyboard-link-accessibility" = "リンク";
+"editor-replace-textfield-accessibility" = "置換";
+"editor-replace-type-all" = "全て置換";
+"editor-replace-type-all-accessibility" = "すべて置換";
+"editor-replace-type-single" = "置換";
+"editor-replace-type-single-accessibility" = "1件だけ置換";
+"editor-toolbar-find-accessibility" = "ページ内検索";
 "empty-diff-compare-title" = "版間の相違点はありません";
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
@@ -461,6 +457,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1版ウィキペディアより";
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
+"explore-suggested-edits-footer" = "追加";
 "export-user-data-confirmation-message" = "アプリ ライブラリの共有には、閲覧リストと履歴、設定、Explore フィード コンテンツに関するデータが含まれます。このデータ ファイルは、技術的な診断目的で使用するために、信頼できる受信者とのみ共有する必要があります。";
 "export-user-data-confirmation-title" = "アプリ ライブラリを共有しますか？";
 "export-user-data-generic-error" = "データのエクスポート中にエラーが発生しました。後でもう一度やり直してください。";
@@ -508,6 +505,7 @@
 "forgot-password-instructions" = "下記のいずれかのフィールドを入力して、メールでパスワードリセットの指示を受け取ります";
 "forgot-password-title" = "パスワードをリセット";
 "forgot-password-username-or-email-title" = "または";
+"gan-variants-alert-title" = "贛語言語変種サポートの更新";
 "history-clear-all" = "消去";
 "history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "本当にすべての最近の項目を削除しますか?";
@@ -529,6 +527,11 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
+"image-rec-add-image-title" = "この画像を追加しますか?";
+"image-rec-survey-title" = "理由";
+"image-recs-no-title" = "いいえ";
+"image-recs-not-sure-title" = "わからない";
+"image-recs-yes-title" = "はい";
 "import-shared-reading-list-default-title" = "リーディング リスト";
 "import-shared-reading-list-survey-prompt-button-cancel" = "今はしない";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "調査の実施";
@@ -554,6 +557,8 @@
 "insert-media-image-preview-select-image-action-title" = "画像を選択";
 "insert-media-image-size-setting-custom" = "カスタム";
 "insert-media-image-size-setting-default" = "既定";
+"insert-media-image-size-settings-measure-height" = "高さ";
+"insert-media-image-size-settings-measure-width" = "幅";
 "insert-media-image-size-settings-px-unit-name" = "ピクセル";
 "insert-media-image-size-settings-title" = "画像サイズ";
 "insert-media-image-type-setting-basic" = "基本";
@@ -563,10 +568,11 @@
 "insert-media-image-type-settings-title" = "画像の種類";
 "insert-media-media-settings-title" = "メディア設定";
 "insert-media-title" = "メディアを挿入";
-"insert-media-uploaded-image-title" = "アップロード済み画像";
+"kurdish-variants-alert-title" = "クルド語言語変種サポートの更新";
 "languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
+"learn-more-title" = "詳細";
 "logged-out-continue-without-logging-in-button-title" = "ログインしないで続ける";
 "logged-out-log-back-in-button-title" = "もう一度アカウントにログインする";
 "logged-out-subtitle" = "アカウント認証に失敗しました。あとで読むリストと編集履歴をあなたの利用者名で同期するには、もう一度ログインしてください。";
@@ -580,7 +586,6 @@
 "main-menu-account-logout" = "ログアウト";
 "main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-are-you-sure-message" = "ログアウトすると、ローカルに保存されているアカウントデータ (通知とメッセージ) が削除されますが、アカウントデータは引き続きウェブ上で利用でき、再ログイン時に再ダウンロードされます。";
-"main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
 "main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-nearby" = "付近";
@@ -601,6 +606,7 @@
 "nearby-distance-label-miles" = "$1 マイル";
 "new-password-instructions" = "一時的なパスワードでログインしています。ログインを完了するには、新しいパスワードをここで設定してください:";
 "new-password-title" = "パスワードを設定する";
+"next-action-title" = "次へ";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "no-internet-connection" = "インターネットに接続されていません";
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
@@ -615,6 +621,7 @@
 "notifications-center-checking-for-notifications" = "通知を確認中...";
 "notifications-center-destination-app" = "アプリ内";
 "notifications-center-destination-web" = "ウェブ上";
+"notifications-center-detail-title" = "通知の詳細";
 "notifications-center-empty-checking-for-notifications" = "通知を確認中...";
 "notifications-center-empty-no-messages" = "メッセージはありません";
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
@@ -639,6 +646,8 @@
 "notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
 "notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
 "notifications-center-inbox-title" = "プロジェクト";
+"notifications-center-inbox-wikimedia-projects-section-title" = "ウィキメディア・プロジェクト";
+"notifications-center-inbox-wikipedias-section-title" = "ウィキペディア";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "ログイン通知";
 "notifications-center-mark-all-as-read" = "すべて既読にする";
@@ -646,6 +655,7 @@
 "notifications-center-mark-as-unread" = "未読にする";
 "notifications-center-more-action-accessibility-label" = "もっと見る";
 "notifications-center-notifications-settings" = "通知設定";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1件のメッセージ}}";
 "notifications-center-onboarding-modal-continue-action" = "続行";
 "notifications-center-onboarding-modal-filters-title" = "フィルター";
 "notifications-center-onboarding-modal-learn-more-action" = "通知についてさらに詳しく知る";
@@ -654,7 +664,7 @@
 "notifications-center-onboarding-modal-title" = "編集の通知";
 "notifications-center-onboarding-panel-heading" = "プッシュ通知をオンにしますか？";
 "notifications-center-onboarding-panel-primary-button" = "プッシュ通知をオンにする";
-"notifications-center-onboarding-panel-secondary-button" = "いいえ、結構です";
+"notifications-center-onboarding-panel-secondary-button" = "いいえ、結構です。";
 "notifications-center-project-filters-accessibility-label" = "プロジェクト フィルター";
 "notifications-center-status-all" = "すべて";
 "notifications-center-status-all-notifications" = "すべての通知";
@@ -786,7 +796,6 @@
 "potd-widget-description" = "コミュニティで選定された美しい今日の写真を楽しみましょう。";
 "potd-widget-title" = "今日の一枚";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
-"preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "ウィキブックス";
 "project-name-wikidata" = "ウィキデータ";
@@ -877,6 +886,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "構文の強調";
 "reading-themes-controls-accessibility-text-size-slider" = "文字サイズ調節スライダ";
 "reading-themes-controls-syntax-highlighting" = "構文の強調";
+"reference-section-button-accessibility-label" = "脚注の節へジャンプ";
 "reference-title" = "情報源 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|1=昨日|$1日前}}";
 "relative-date-hours-abbreviated" = "$1時間";
@@ -898,9 +908,10 @@
 "replace-infolabel-method-replace" = "置換";
 "replace-infolabel-method-replace-all" = "すべて置換";
 "replace-method-button-accessibility" = "置換方法。現在$1に設定されています。選択して変更。";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 件置換しました}}";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
+"return-button-title" = "戻る";
+"return-to-article" = "記事に戻る";
 "reverted-edit-title" = "差し戻された編集";
 "saved-all-articles-title" = "すべての記事";
 "saved-default-reading-list-tag" = "このリストは削除できません";
@@ -931,6 +942,7 @@
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか?";
 "settings-clear-cache-cancel" = "キャンセル";
 "settings-clear-cache-ok" = "消去";
+"settings-donate" = "寄付";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-languages-feed-customization" = "探索フィードの設定を変更すると、どの言語で探索フィードを表示するか管理できます。";
@@ -962,7 +974,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "とりあえずあとで読むリストを他とは分けて表示します。このリストはAndroidデバイスにも表示されます。";
 "settings-storage-and-syncing-show-default-reading-list-title" = "とりあえずあとで読むリストを表示";
 "settings-storage-and-syncing-title" = "記事の保存と同期";
-"settings-support" = "ウィキペディアを支援";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "ウィキペディアアプリで作成";
 "share-article-name-on-wikipedia" = "\"$1\"の記事をWikipediaで:";
@@ -1014,19 +1025,24 @@
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1件の返信}}";
 "talk-page-reply-button" = "返信";
 "talk-page-reply-button-accessibility-label" = "$1に返信";
+"talk-page-reply-depth-accessibility-label" = "返信のインデントの深さ：$1";
 "talk-page-reply-placeholder-format" = "「$1」への返信";
 "talk-page-revision-history" = "変更履歴";
+"talk-page-rply-close-button-accessibility-hint" = "返信の表示を閉じる";
 "talk-page-share-button" = "トークページを共有";
 "talk-page-subscribe-to-topic" = "購読";
 "talk-page-title-article-talk" = "記事の議論";
 "talk-page-title-user-talk" = "利用者の議論";
 "talk-page-topic-close-button-hint" = "新しいトピックを閉じる";
 "talk-page-unsubscribe-to-topic" = "購読解除";
+"talk-page-user-about" = "利用者のトークページについて";
 "talk-page-user-contributions" = "投稿記録";
+"talk-pages-archives-empty-title" = "アーカイブされたページが見つかりません。";
 "talk-pages-archives-view-title" = "アーカイブ";
 "talk-pages-coffee-roll-read-more" = "さらに読む";
 "talk-pages-comment-added-alert-title" = "あなたのコメントが追加されました";
 "talk-pages-compose-close-confirmation-keep" = "編集を続行";
+"talk-pages-edit-source" = "ソースを編集";
 "talk-pages-empty-view-body-user" = "トークページは、ウィキペディアのコンテンツを最高のものにする方法について議論する場所です。 「$1」さんとつながり、共同作業を行うための新しい会話を行いましょう。ここでの発言は公開され、他の利用者も閲覧することができます。";
 "talk-pages-empty-view-button-article-add-topic" = "新しいトピックを追加";
 "talk-pages-empty-view-button-user-start-discussion" = "新しい議論を始める";
@@ -1035,7 +1051,7 @@
 "talk-pages-reply-compose-close-confirmation-title" = "この新しい返信を破棄してもよろしいですか?";
 "talk-pages-topic-added-alert-title" = "トピックが追加されました";
 "talk-pages-topic-compose-body-placeholder" = "説明";
-"talk-pages-topic-compose-close-confirmation-discard" = "返信を破棄";
+"talk-pages-topic-compose-close-confirmation-discard-reply" = "返信を破棄";
 "talk-pages-topic-compose-close-confirmation-title" = "この新しいトピックを破棄してもよろしいですか?";
 "talk-pages-topic-compose-navbar-title" = "トピック";
 "talk-pages-topic-compose-title-placeholder" = "トピック名";
@@ -1043,6 +1059,7 @@
 "talk-pages-user-groups" = "利用者グループ";
 "talk-pages-user-logs" = "ログ";
 "talk-pages-view-title" = "トーク";
+"terms-of-use-title" = "利用規約";
 "theme-black-display-name" = "ブラック";
 "theme-dark-display-name" = "ダーク";
 "theme-default-display-name" = "既定";
@@ -1060,36 +1077,45 @@
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
 "unwatch" = "ウォッチ解除";
-"vanish-account-additional-information-field" = "追加情報";
-"vanish-account-back-confirm-discard" = "リクエストを破棄";
-"vanish-account-back-confirm-keep-editing" = "編集を続行";
-"vanish-account-back-confirm-title" = "本当にこの削除リクエストを破棄してもよろしいですか？";
-"vanish-account-bottom-text" = "ウィキペディアでのアカウントの削除は、アカウントの消滅と呼ばれるプロセスで、他の人があなたの投稿を認識できないようアカウント名を変更することによって行われます。以下のフォームを使用して、アカウント削除をリクエストできます。 アカウントの削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-bottom-text-with-link" = "ウィキペディアでのアカウントの削除は、アカウント削除と呼ばれるプロセスにより、他の人があなたの投稿を認識できないようにアカウント名を変更することによって行われます。以下のフォームを使用して、 $1アカウントの削除$2 $3をリクエストできます。 削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません。";
-"vanish-account-button-text" = "リクエストを送信";
+"user-title" = "利用者";
+"uzbek-variants-alert-body" = "ウィキペディアのアプリでは以下のウズベク諸語の変種を第1もしくは第2言語として表示できるようになり、個人設定で指定した言語変種の閲覧、検索、編集がしやすくなりました。\n\nウズベク語ラテン表記（oʻzbekcha lotin Uzbek）、Latin（uz-cyrl）\nウズベク語キリル表記（ўзбекча кирилл）、Uzbek, Cyrillic（uz-cyrl）";
+"uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
 "vanish-account-continue-button-title" = "続行";
-"vanish-account-email-text" = "こんにちは、\n これは、私の Wikipedia アカウントを削除するためのリクエストです。";
-"vanish-account-learn-more-text" = "もっと詳しく";
-"vanish-account-title" = "アカウント削除プロセス";
 "vanish-account-username-field" = "利用者名と利用者ページ";
 "vanish-account-warning-body" = "アカウントの削除は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nWikipedia のアカウント削除が完了しました。アカウント名を変更して、アカウント削除と呼ばれるプロセスで他の人があなたの貢献を認識できないようにします。 **削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
 "vanish-account-warning-title" = "警告";
-"vanish-modal-item" = "削除依頼を出してから、管理者によって処理されるまで数日かかります。";
-"vanish-modal-item-2" = "リクエストが完了したかどうか不明な場合は、メール アプリを確認してください";
-"vanish-modal-item-3" = "削除依頼についてさらに質問がある場合はMeta:Right_to_vanishをご覧ください。";
-"vanish-modal-item-3-ios15" = "削除依頼についてさらに質問がある場合は$1Meta:Right_to_vanish$2$3をご覧ください。";
-"vanish-modal-title" = "アカウント削除リクエスト";
-"variants-alert-dismiss-button" = "いいえ";
+"variants-alert-dismiss-button" = "いいえ、結構です。";
 "variants-alert-preferences-button" = "設定を確認する";
 "watch" = "ウォッチ";
 "watchlist" = "ウォッチリスト";
+"watchlist-added-toast-one-month" = "ウォッチリストに1か月間追加されました。";
+"watchlist-added-toast-one-week" = "ウォッチリストに1週間追加されました。";
+"watchlist-added-toast-one-year" = "ウォッチリストに1年間追加されました。";
+"watchlist-added-toast-permanently" = "ウォッチリストに恒久的に追加されました。";
+"watchlist-added-toast-six-months" = "ウォッチリストに6か月間追加されました。";
+"watchlist-added-toast-three-months" = "ウォッチリストに3か月間追加されました。";
+"watchlist-added-toast-view-watchlist" = "ウォッチリストを表示";
+"watchlist-byte-change" = "{{PLURAL:$1|$1バイト}}";
 "watchlist-change-expiry-option-one-month" = "1ヵ月";
 "watchlist-change-expiry-option-one-week" = "1週間";
 "watchlist-change-expiry-option-one-year" = "1年間";
 "watchlist-change-expiry-option-permanent" = "恒久的";
 "watchlist-change-expiry-option-six-months" = "6ヵ月";
 "watchlist-change-expiry-option-three-months" = "3ヵ月";
+"watchlist-change-expiry-subtitle" = "ウォッチリストの期間を選択";
+"watchlist-change-expiry-title" = "ウォッチリストの有効期限";
+"watchlist-diff-action-button-title" = "差分へ移動";
+"watchlist-edit-summary-accessibility" = "編集の要約";
 "watchlist-empty-view-button-title" = "記事を検索";
+"watchlist-empty-view-filter-title" = "ウォッチリスト項目がありません";
+"watchlist-empty-view-subtitle" = "興味のある記事で何が起こっているのか追跡します。記事への変更がわかるように、記事にあるメニューをタップして「ウォッチ」を選択してください。";
+"watchlist-empty-view-title" = "ウォッチリストに追加した記事がここに表示されます";
+"watchlist-expiration-subtitle" = "既定ではページは残り続けますが、1週間から1年間の範囲で一時的にウォッチするオプションがあります。";
+"watchlist-expiration-title" = "有効期限を設定";
+"watchlist-filter" = "フィルター";
+"watchlist-filter-activity-header" = "ウォッチリストの活動";
+"watchlist-filter-activity-options-seen-changes" = "閲覧済みの変更";
+"watchlist-filter-activity-options-unseen-changes" = "未読の変更";
 "watchlist-filter-automated-contributions-header" = "自動編集";
 "watchlist-filter-automated-contributions-options-bot" = "ボット";
 "watchlist-filter-automated-contributions-options-human" = "人間（ボットではない）";
@@ -1108,9 +1134,23 @@
 "watchlist-filter-user-registration-header" = "利用者の登録と経験";
 "watchlist-filter-user-registration-options-registered" = "登録済み";
 "watchlist-filter-user-registration-options-unregistered" = "未登録";
+"watchlist-filters-add-language" = "言語を追加...";
+"watchlist-number-filters" = "項目をさらに表示するには [{{PLURAL:$1|$1件のフィルター}}](wikipedia://watchlist/filter) を修正してください";
+"watchlist-onboarding-button-title" = "ウォッチリストに関してもっと知る";
+"watchlist-onboarding-title" = "ウォッチリストの紹介";
+"watchlist-removed" = "ウォッチリストから除去しました";
+"watchlist-thanks-success" = "あなたの「感謝」が $1 に送られました";
+"watchlist-track-subtitle" = "ウォッチリストは興味のあるページへの変更を把握できるようにするツールです。";
+"watchlist-track-title" = "変更を追跡する";
+"watchlist-updates-subtitle" = "自分のウォッチリストに追加したページ類、例えば改稿や協議などを閲覧するには、設定 → アカウントと進みます。";
+"watchlist-updates-title" = "更新を表示する";
 "watchlist-user-button-thank" = "感謝";
 "watchlist-user-button-user-contributions" = "投稿記録";
 "watchlist-user-button-user-page" = "利用者ページ";
+"watchlist-user-button-user-talk-page" = "利用者トークページ";
+"watchlist-watch-subtitle" = "記事の最下部にあるツールバーで星アイコンもしくは「ウォッチする」リンクを押すと、その記事を自分のウォッチリストに追加します。";
+"watchlist-watch-title" = "記事をウォッチ";
+"welcome-data-privacy-title" = "データとプライバシー";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";
@@ -1132,16 +1172,10 @@
 "welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
 "welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";
-"welcome-send-data-helps-title" = "アプリの改善に役立てる";
-"welcome-send-data-learn-more" = "収集されたデータの詳細";
-"welcome-send-data-sub-title" = "アプリケーション改善に役立てるため、ウィキメディア財団にあなたの使用状況を送信します。収集されるデータは匿名です。";
-"welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
 "widget-onthisday-description" = "今日、歴史上では何が起こったのかを探索します。";
 "widget-onthisday-placeholder-article-snippet" = "誰もが編集できる無料のオンライン百科事典";
 "widget-onthisday-placeholder-event-snippet" = "ウィキペディアは、オンライン上の無料で利用できる百科事典です。";
-"wikitext-downloading" = "本文を読み込み中...";
 "wikitext-preview-changes" = "編集のプレビューを取得中...";
-"wikitext-preview-changes-none" = "プレビューが必要な変更はありません。";
 "wikitext-preview-link-external-preview-description" = "このリンクは外部のウェブサイトへのものです: $1";
 "wikitext-preview-link-external-preview-title" = "外部リンク";
 "wikitext-preview-link-not-found-preview-description" = "ウィキペディアにはその名前の記事はありません";
@@ -1156,5 +1190,4 @@
 "wikitext-upload-save-anonymously-or-login" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1ログイン$2すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
-"wikitext-upload-save-terms-and-licenses" = "変更を公開することにより、あなたは$1使用規約$2に同意し、かつあなたの貢献を非可逆的に$3CC BY-SA 3.0$4ライセンスと$5GFDL$6のもとで公開することに同意したことになります。あなたはCreative Commonsライセンスに基づき、ハイパーリンクまたはURLを十分な継承とすることに同意します。";
 "wikitext-upload-save-terms-name" = "利用規約";

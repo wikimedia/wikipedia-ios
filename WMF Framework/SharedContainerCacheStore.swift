@@ -1,12 +1,11 @@
 import Foundation
-import WKData
+import WMFData
 
 public enum SharedContainerCacheStoreError: Error {
     case unexpectedKeyCount
 }
 
-public final class SharedContainerCacheStore: WKKeyValueStore {
-    
+public final class SharedContainerCacheStore: WMFKeyValueStore {
     public init() {
         
     }
@@ -20,8 +19,8 @@ public final class SharedContainerCacheStore: WKKeyValueStore {
         let fileName = key.count == 1 ? key[0] : key[1]
         let subdirectoryPathComponent = key.count == 2 ? key[0] : nil
         
-        let sharedContainerCache = SharedContainerCache<T>(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
-        let cache = sharedContainerCache.loadCache()
+        let sharedContainerCache = SharedContainerCache(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
+        let cache: T? = sharedContainerCache.loadCache()
         return cache
     }
     
@@ -34,7 +33,19 @@ public final class SharedContainerCacheStore: WKKeyValueStore {
         let fileName = key.count == 1 ? key[0] : key[1]
         let subdirectoryPathComponent = key.count == 2 ? key[0] : nil
         
-        let sharedContainerCache = SharedContainerCache<T>(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
+        let sharedContainerCache = SharedContainerCache(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
         sharedContainerCache.saveCache(value)
     }
+
+    public func remove(key: String...) throws {
+          guard (1...2).contains(key.count) else {
+              throw SharedContainerCacheStoreError.unexpectedKeyCount
+          }
+        
+          let fileName = key.count == 1 ? key[0] : key[1]
+          let subdirectoryPathComponent = key.count == 2 ? key[0] : nil
+        
+        let sharedContainerCache = SharedContainerCache(fileName: fileName, subdirectoryPathComponent: subdirectoryPathComponent)
+        try? sharedContainerCache.removeCache()
+      }
 }

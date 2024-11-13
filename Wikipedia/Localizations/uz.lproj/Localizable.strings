@@ -62,8 +62,6 @@
 "action-language-accessibility" = "Tilni oʻzgartirish";
 "action-read" = "Mutolaa";
 "action-remove" = "Olib tashlash";
-"action-replace" = "Almashtirish";
-"action-replace-all" = "Hammasini almashtirish";
 "action-retry" = "Qayta urinish";
 "action-save" = "Saqlash";
 "action-saved" = "Saqlandi";
@@ -102,7 +100,6 @@
 "data-migration-status" = "Yangilanmoqda...";
 "description-add-title" = "Tavsif qoʻshish";
 "description-edit-for-article" = "$1 uchun maqola tavsifi";
-"description-edit-learn-more" = "Batafsil maʼlumot";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Kirishni tahrirlash";
 "description-edit-pencil-title" = "Maqola tavsifini tahrirlash";
@@ -135,14 +132,9 @@
 "edit-menu-item" = "Tahrirlash";
 "edit-minor-text" = "Bu kichik tahrir";
 "edit-published" = "Tahrir chop etildi!";
-"edit-style-table-view-title" = "Uslub";
 "edit-summary-choice-fixed-grammar" = "Grammatikani tuzatdim";
 "edit-summary-choice-fixed-typos" = "Xatoni tuzatdim";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
-"edit-summary-learn-more-text" = "Batafsil maʼlumot";
-"edit-text-size-table-view-title" = "Matn oʻlchami";
-"edit-underline-accessibility-label" = "Tagchiziq qoʻshish";
-"edit-underline-remove-accessibility-label" = "Tagchiziqni olib tashlash";
 "edit-watch-this-page-text" = "Bu sahifani kuzatish";
 "editing-welcome-be-bold-title" = "Ovozingiz muhimdir";
 "empty-no-search-results-message" = "Natija topilmadi";
@@ -211,7 +203,6 @@
 "main-menu-account-login" = "Kirmoq";
 "main-menu-account-logout" = "Chiqish";
 "main-menu-account-logout-are-you-sure" = "Chiqmoqchi ekanligingizga ishonchingiz komilmi?";
-"main-menu-account-logout-cancel" = "Bekor qilish";
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
 "main-menu-heading-legal" = "Maxfiylik va shartlar";
 "main-menu-nearby" = "Yaqin atrofda";
@@ -276,7 +267,6 @@
 "places-search-your-current-location" = "Joriy joylashuvingiz";
 "places-title" = "Joylar";
 "preference-summary-eventlogging-opt-in" = "Dasturni yaxshilash maqsadida sizning dasturni ishlatishingiz haqida maʼlumotlarni yig‘ishga Vikimediyaga ruxsat bering";
-"preference-title-eventlogging-opt-in" = "Foydalanish haqida hisobotni joʻnatish";
 "reading-list-create-new-list-description" = "Tavsif";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Maqolalarni saralash";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugun|1=Kecha|$1 kun avval}}";
@@ -307,7 +297,6 @@
 "theme-sepia-display-name" = "Sepia";
 "welcome-intro-free-encyclopedia-description" = "Vikipediya ko'ngillilar tomonidan hamkorlikda yozilgan va 300 dan ortiq tillarda 40 milliondan ortiq maqolalardan iborat.";
 "welcome-languages-search-title" = "300 dan ortiq tillarda qidirish";
-"wikitext-downloading" = "Tarkib yuklanyapti...";
 "wikitext-upload-save" = "Saqlanmoqda...";
 "wikitext-upload-save-sign-in" = "Kirish";
 "wikitext-upload-save-terms-name" = "Foydalanish shartlari";

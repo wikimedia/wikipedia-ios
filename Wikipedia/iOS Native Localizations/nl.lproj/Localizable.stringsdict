@@ -132,6 +132,78 @@
 			<string>artikelen</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De paragraaf is %#@v1@ naar beneden verplaatst. Ga naar de nieuwe locatie.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d regel</string>
+			<key>other</key>
+			<string>%1$d regels</string>
+			<key>zero</key>
+			<string>0 regels</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De paragraaf is %#@v1@ naar boven verplaatst. Ga naar de nieuwe locatie.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d regel</string>
+			<key>other</key>
+			<string>%1$d regels</string>
+			<key>zero</key>
+			<string>0 regels</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De paragraaf is %#@v1@ naar beneden verplaatst. Ga naar de nieuwe locatie.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sectie</string>
+			<key>other</key>
+			<string>%1$d secties</string>
+			<key>zero</key>
+			<string>0 secties</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De paragraaf is %#@v1@ naar boven verplaatst. Ga naar de nieuwe locatie.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sectie</string>
+			<key>other</key>
+			<string>%1$d secties</string>
+			<key>zero</key>
+			<string>0 secties</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -159,7 +231,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d sectie</string>
+			<string>Eén sectie</string>
 			<key>other</key>
 			<string>%1$d secties</string>
 		</dict>
@@ -701,22 +773,6 @@
 			<string>Dit jaar</string>
 		</dict>
 	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d item vervangen</string>
-			<key>other</key>
-			<string>%1$d items vervangen</string>
-		</dict>
-	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -795,6 +851,22 @@
 			<string>%1$d byte</string>
 			<key>other</key>
 			<string>%1$d bytes</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wijzig [%#@v1@](wikipedia://watchlist/filter) om meer volglijst-items te bekijken</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d filter</string>
+			<key>other</key>
+			<string>%1$d filters</string>
 		</dict>
 	</dict>
 </dict>

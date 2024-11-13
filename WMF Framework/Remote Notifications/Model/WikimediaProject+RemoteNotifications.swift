@@ -238,7 +238,7 @@ extension WikimediaProject {
     /// - Parameters:
     ///   - notificationsApiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
     ///   - languageLinkController: Included to validate project against a list of languages that the app recognizes. This also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
-    public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
+    public init?(notificationsApiIdentifier: String, languageLinkController: MWKLanguageLinkController? = nil) {
         
         switch notificationsApiIdentifier {
         case Self.commonsIdentifier:
@@ -257,12 +257,21 @@ extension WikimediaProject {
             for suffix in suffixes {
                 let strippedIdentifier = notificationsApiIdentifier.hasSuffix(suffix) ? String(notificationsApiIdentifier.dropLast(suffix.count)) : notificationsApiIdentifier
                 
-                // confirm it is a recognized language
-                let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
+                var language: MWKLanguageLink?
+                // first try to map to app preferred languages
+                // Note: This allows us to prefer a particular selected language variant for notificationsApiIdentifier 'zhwiki'
+                language = languageLinkController?.preferredLanguages.first { languageLink in
                     languageLink.languageCode == strippedIdentifier
                 }
                 
-                project = Self.projectForLanguageSuffix(suffix: suffix, language: recognizedLanguage)
+                // then fall back to any language recognized by the app
+                if language == nil {
+                    language = languageLinkController?.allLanguages.first { languageLink in
+                        languageLink.languageCode == strippedIdentifier
+                    }
+                }
+                
+                project = Self.projectForLanguageSuffix(suffix: suffix, language: language)
                 
                 if project != nil {
                     break

@@ -143,7 +143,6 @@
 "main-menu-account-login" = "Teken aan";
 "main-menu-account-logout" = "Teken uit";
 "main-menu-account-logout-are-you-sure" = "Is u seker u wil uitteken?";
-"main-menu-account-logout-cancel" = "Kanselleer";
 "main-menu-account-title-logged-in" = "Aangeteken as $1";
 "main-menu-heading-legal" = "Privaatheid en Voorwaardes";
 "main-menu-nearby" = "Naby";
@@ -182,7 +181,6 @@
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Prent van die dag vir $1";
 "preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
-"preference-title-eventlogging-opt-in" = "Stuur gebruiksverslae";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorteer artikels";
 "reference-title" = "Verwysing $1";
 "saved-reading-lists-title" = "Leeslyste";
@@ -204,7 +202,6 @@
 "settings-my-languages" = "My tale";
 // Fuzzy
 "settings-notifications" = "Kennisgewings";
-"settings-support" = "Ondersteun Wikipedia";
 "settings-title" = "Voorkeure";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
@@ -240,9 +237,7 @@
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 // Fuzzy
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
-"wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
-"wikitext-preview-changes-none" = "Geen wysigings gemaak om voor te skou.";
 "wikitext-preview-link-preview-description" = "Dié skakel gaan na '$1'";
 "wikitext-preview-link-preview-title" = "Skakelvoorskou";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasiefout.";

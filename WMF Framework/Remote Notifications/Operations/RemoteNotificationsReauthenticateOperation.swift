@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsReauthenticateOperation: AsyncOperation {
+class RemoteNotificationsReauthenticateOperation: AsyncOperation, @unchecked Sendable {
     
     var appLanguageOperationError: Error?
     private(set) var didReauthenticate: Bool = false
@@ -27,8 +27,6 @@ class RemoteNotificationsReauthenticateOperation: AsyncOperation {
             switch result {
             case .success:
                 self.didReauthenticate = true
-                self.finish()
-            case .alreadyLoggedIn:
                 self.finish()
             case .failure(let error):
                 self.finish(with: error)

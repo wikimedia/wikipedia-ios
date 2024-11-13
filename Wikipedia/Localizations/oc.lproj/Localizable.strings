@@ -3,6 +3,7 @@
 // Author: BrennodAloisi
 // Author: Cedric31
 // Author: Guilhelma
+// Author: Lhanars
 // Author: Macofe
 // Author: Nemo bis
 // Author: Nicolas Eynaud
@@ -114,7 +115,6 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-account-logout-are-you-sure" = "Sètz segur que vos volètz desconnectar ?";
-"main-menu-account-logout-cancel" = "Anullar";
 "main-menu-account-title-logged-in" = "Connectat en tant que $1.";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
 "main-menu-nearby" = "A proximitat";
@@ -147,7 +147,6 @@
 "places-search-top-articles-that-match-scope" = "A proximitat";
 "places-title" = "Luòcs";
 "potd-description-prefix" = "Imatge del jorn per $1";
-"preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
@@ -162,7 +161,7 @@
 "search-recent-clear-confirmation-heading" = "Escafar totas las recèrcas recentas ?";
 "search-recent-clear-delete-all" = "Suprimir tot";
 "search-recent-title" = "Recercats recentament";
-"search-result-redirected-from" = "Redirigit dempuèi : $1";
+"search-result-redirected-from" = "Redirigit dempuèi: $1";
 "search-title" = "Recercar";
 // Fuzzy
 "settings-appearance" = "Aparéncia";
@@ -176,7 +175,6 @@
 "settings-notifications-trending" = "Tendéncias dels eveniments actuals";
 "settings-primary-language" = "Principal";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
-"settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
 // Fuzzy
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
@@ -186,14 +184,14 @@
 "table-of-contents-close-accessibility-hint" = "Tampar";
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
 "table-of-contents-heading" = "Contenguts";
+"talk-page-unsubscribe-to-topic" = "Annular l'inscripcion";
 "two-factor-login-title" = "Se connectar a vòstre compte";
+"watchlist-change-expiry-option-one-month" = "1 mes";
 "watchlist-filter" = "Filtrar";
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
-"welcome-volunteer-send-usage-reports" = "Mandar los rapòrts d’utilizacion";
-"wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";

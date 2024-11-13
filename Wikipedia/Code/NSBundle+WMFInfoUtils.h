@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @interface NSBundle (WMFInfoUtils)
 
@@ -28,5 +28,8 @@
 
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
 - (NSString *)wmf_versionForCurrentBundleIdentifier;
+
+// @return The value for Info.plist key `MerchantID`
+- (NSString *)wmf_merchantID;
 
 @end

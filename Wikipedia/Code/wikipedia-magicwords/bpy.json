@@ -1,0 +1,166 @@
+[
+  {
+    "aliases" : [
+      "সীমানা",
+      "সীমান্ত",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "নিচে",
+      "নিচ",
+      "নীচ",
+      "নীচে",
+      "তলদেশ",
+      "নিম্নে",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "কেন্দ্র",
+      "কেন্দ্রে",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "ফ্রেম",
+      "ফ্রেমসহ",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "ফ্রেমহীন",
+      "ফ্রেমবিহীন",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "বাম",
+      "বামে",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "মধ্য",
+      "মধ্যে",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "কিছুই_না",
+      "কোনটি_না",
+      "কিছুইনা",
+      "কোনটিনা",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "ডান",
+      "ডানে",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "পাঠ্য-নীচে",
+      "লেখা-নীচ",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "পাঠ্য-উপরে",
+      "লেখা-উপরে",
+      "পাঠ্য-উপর",
+      "লেখা-উপর",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "থাম্ব",
+      "থাম্বনেইল",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "শীর্ষ",
+      "উপর",
+      "শীর্ষে",
+      "উপরে",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "ডানে_উপরে",
+      "ডানেউপরে=$1",
+      "ডানদিকে_উপরে",
+      "ডানদিকে_উপরে $1",
+      "ডানদিকে_উপরে=$1",
+      "ডানেউপরে $1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "ছবি",
+      "Image"
+    ],
+    "name" : "file_namespace"
+  }
+]

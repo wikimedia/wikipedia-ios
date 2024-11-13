@@ -1,0 +1,167 @@
+[
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "línia de base",
+      "baseline",
+      "linha_de_basa"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "vora",
+      "border",
+      "bordadura"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "baix",
+      "bottom",
+      "bas"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "center",
+      "centre",
+      "centrat"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "marc",
+      "frame",
+      "framed",
+      "enframed",
+      "quadre",
+      "enquagrat"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sense marc",
+      "frameless",
+      "sens_quadre"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "esquerra",
+      "left",
+      "esquèrra",
+      "senèstra",
+      "gaucha"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "mitjà",
+      "middle",
+      "mitan"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "cap",
+      "none",
+      "neant",
+      "nonrés"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "dreta",
+      "right",
+      "drecha"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "sub",
+      "indici",
+      "ind"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup",
+      "exp"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "baix-text",
+      "text-bottom",
+      "bas-tèxte",
+      "bas-txt"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "dalt-text",
+      "text-top",
+      "naut-tèxte",
+      "naut-txt"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "miniatura",
+      "thumb",
+      "thumbnail",
+      "vinheta"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "dalt",
+      "top",
+      "naut"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redreçat",
+      "upright",
+      "redreçat=$1",
+      "upright=$1",
+      "redreçat $1",
+      "upright $1",
+      "redreça",
+      "redreça$1",
+      "redreça $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Fitxer",
+      "Image",
+      "Imatge"
+    ],
+    "name" : "file_namespace"
+  }
+]

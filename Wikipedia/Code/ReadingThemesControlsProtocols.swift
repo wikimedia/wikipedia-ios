@@ -22,6 +22,7 @@ protocol ReadingThemesControlsPresenting: UIPopoverPresentationControllerDelegat
     var readingThemesControlsToolbarItem: UIBarButtonItem { get }
     var shouldPassthroughNavBar: Bool { get }
     var showsSyntaxHighlighting: Bool { get }
+    var needsExtraTopSpacing: Bool { get }
 }
 
 protocol ReadingThemesControlsResponding: WMFReadingThemesControlsViewControllerDelegate {
@@ -41,7 +42,9 @@ extension ReadingThemesControlsPresenting {
         
         readingThemesControlsViewController.delegate = responder
         readingThemesControlsViewController.setValuesWithSteps(fontSizes.count, current: index)
+        readingThemesControlsViewController.updateSliderLayout()
         readingThemesControlsViewController.showsSyntaxHighlighting = showsSyntaxHighlighting
+        readingThemesControlsViewController.needsExtraTopSpacing = needsExtraTopSpacing
         
         apply(presentationTheme: theme)
         
@@ -92,6 +95,10 @@ extension WMFReadingThemesControlsViewControllerDelegate where Self: ReadingThem
 
 @objc(WMFReadingThemesControlsArticlePresenter)
 class ReadingThemesControlsArticlePresenter: NSObject, ReadingThemesControlsPresenting {
+    
+    var needsExtraTopSpacing: Bool {
+        return false
+    }
     
     var shouldPassthroughNavBar: Bool {
         return true

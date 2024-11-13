@@ -1,7 +1,7 @@
 import WidgetKit
 import SwiftUI
 import WMF
-import UIKit
+import WMFComponents
 
 // MARK: - Widget
 
@@ -15,6 +15,8 @@ struct PictureOfTheDayWidget: Widget {
         .configurationDisplayName(PictureOfTheDayWidget.LocalizedStrings.widgetTitle)
         .description(PictureOfTheDayWidget.LocalizedStrings.widgetDescription)
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .contentMarginsDisabled()
+        .containerBackgroundRemovable(false)
     }
 }
 
@@ -172,6 +174,7 @@ struct PictureOfTheDayView: View {
                     .overlay(PictureOfTheDayOverlayView(entry: entry), alignment: .bottomLeading)
             }
         }
+        .clearWidgetContainerBackground()
         .widgetURL(entry.contentURL)
     }
 
@@ -195,7 +198,7 @@ struct PictureOfTheDayView: View {
             Spacer().frame(height: padding)
             GeometryReader { proxy in
                 Text(entry.imageDescription ?? "")
-                    .font(.caption)
+                    .font(Font(WMFFont.for(.caption1)))
                     .fontWeight(.medium)
                     .frame(width: proxy.size.width, alignment: .leading)
                     .lineLimit(3)

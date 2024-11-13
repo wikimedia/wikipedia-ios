@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol FocusNavigationViewDelegate: AnyObject {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)
@@ -13,11 +13,18 @@ final class FocusNavigationView: UIView {
     
     weak var delegate: FocusNavigationViewDelegate?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        closeButton.imageView?.contentMode = .center
+        closeButton.setImage(WMFSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+    }
+    
     func configure(titleText: String, closeButtonAccessibilityText: String, traitCollection: UITraitCollection, isTitleAccessible: Bool = false) {
        
         titleLabel.text = titleText
         titleLabel.isAccessibilityElement = isTitleAccessible
-        titleLabel.font = UIFont.wmf_font(.mediumHeadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
         closeButton.accessibilityLabel = closeButtonAccessibilityText
         
         updateLayout(for: traitCollection)

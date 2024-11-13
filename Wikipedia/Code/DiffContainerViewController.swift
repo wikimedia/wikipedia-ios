@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
-import WKData
+import WMFData
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -52,8 +52,8 @@ class DiffContainerViewController: ViewController {
     
     var animateDirection: DiffRevisionTransition.Direction?
     
-    private var wkProject: WKProject? {
-        return wikimediaProject?.wkProject
+    private var wmfProject: WMFProject? {
+        return wikimediaProject?.wmfProject
     }
     
     lazy private(set) var fakeProgressController: FakeProgressController = {
@@ -123,7 +123,6 @@ class DiffContainerViewController: ViewController {
         self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init()
-        self.isAccessibilityElement = false
         self.theme = theme
         
         self.containerViewModel.stateHandler = { [weak self] oldState in
@@ -300,15 +299,36 @@ class DiffContainerViewController: ViewController {
 private extension DiffContainerViewController {
 
     func fetchPageURL() -> URL? {
+        guard let articleTitle = articleTitle, let url = siteURL.wmf_URL(withTitle: articleTitle) else {
+            return nil
+        }
+        
+        return url
+    }
+
+    func fetchEditHistoryURL() -> URL? {
         guard let articleTitle = articleTitle, let languageCode = siteURL.wmf_languageCode else {
             return nil
         }
-        
+
         let namespaceAndTitle = articleTitle.namespaceAndTitleOfWikiResourcePath(with: languageCode)
-        guard let url = siteURL.wmf_URL(withTitle: namespaceAndTitle.title) else {
+        let namespace = namespaceAndTitle.namespace
+        let title = namespaceAndTitle.title
+
+        var requestedPageTitle: String
+
+        if namespace.isTalkBased {
+            // Direct user to actual article page instead of talk page
+            let convertedCanonicalName = namespace.convertedPrimaryTalkPageNamespace.canonicalName
+            requestedPageTitle = convertedCanonicalName.isEmpty ? title : "\(convertedCanonicalName):\(title)"
+        } else {
+            requestedPageTitle = articleTitle
+        }
+
+        guard let url = siteURL.wmf_URL(withTitle: requestedPageTitle) else {
             return nil
         }
-        
+
         return url
     }
 
@@ -435,7 +455,7 @@ private extension DiffContainerViewController {
     func completeSetup() {
         
         guard toModel != nil,
-              (fromModel != nil || isOnFirstRevisionInHistory) else {
+              fromModel != nil || isOnFirstRevisionInHistory else {
             assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
             return
         }
@@ -448,7 +468,7 @@ private extension DiffContainerViewController {
         
         // Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
-        diffToolbarView?.undoButton.isEnabled = wkProject != nil
+        diffToolbarView?.undoButton.isEnabled = wmfProject != nil
     }
     
     func setThankAndMoreState(isEnabled: Bool) {
@@ -461,7 +481,7 @@ private extension DiffContainerViewController {
         
         guard let toModel = toModel,
               let articleTitle = articleTitle,
-              (fromModel != nil || isOnFirstRevisionInHistory) else {
+              fromModel != nil || isOnFirstRevisionInHistory else {
             assertionFailure("Both models and articleTitle must be populated at this point or needs to be on the first revision.")
             return
         }
@@ -667,11 +687,11 @@ private extension DiffContainerViewController {
     
     func fetchWatchAndRollbackStatus() {
         
-        guard let articleTitle, let wkProject else {
+        guard let articleTitle, let wmfProject else {
             return
         }
         
-        WKWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wkProject, needsRollbackRights: true) { result in
+        WMFWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wmfProject, needsRollbackRights: true) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -681,9 +701,9 @@ private extension DiffContainerViewController {
                 switch result {
                 case .success(let status):
                     
-                    let needsWatchButton = !status.watched && FeatureFlags.watchlistEnabled
-                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil && FeatureFlags.watchlistEnabled
-                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil && FeatureFlags.watchlistEnabled
+                    let needsWatchButton = !status.watched
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
                     let needsArticleEditHistoryButton = true
                     
                     self.diffToolbarView?.updateMoreButton(needsRollbackButton: (status.userHasRollbackRights ?? false), needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, needsArticleEditHistoryButton: needsArticleEditHistoryButton)
@@ -874,7 +894,7 @@ private extension DiffContainerViewController {
         default:
             break
         }
-        diffHeaderView?.configure(with: headerViewModel)
+        diffHeaderView?.configure(with: headerViewModel, titleViewTapDelegate: self)
         headerExtendedView?.update(headerViewModel)
         navigationBar.isExtendedViewHidingEnabled = headerViewModel.isExtendedViewHidingEnabled
     }
@@ -972,7 +992,7 @@ private extension DiffContainerViewController {
         if UserDefaults.standard.bool(forKey: key) {
             return
         }
-        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] (action) in
+        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] _, _ in
             self?.presentedViewController?.dismiss(animated: true)
         }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         present(panelVC, animated: true)
@@ -1144,8 +1164,7 @@ class RevisionAuthorThanksErrorHintVC: HintViewController {
     }
 }
 
-extension DiffContainerViewController: DiffToolbarViewDelegate {
-    
+extension DiffContainerViewController: DiffToolbarViewDelegate { 
     private func replaceLastAndPush(with viewController: UIViewController) {
         if var newViewControllers = navigationController?.viewControllers {
             newViewControllers.removeLast()
@@ -1217,12 +1236,12 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     func tappedEditHistory() {
-        guard let pageURL = fetchPageURL(), let pageTitle = pageURL.wmf_title else {
+        guard let editHistoryURL = fetchEditHistoryURL(), let pageTitle = editHistoryURL.wmf_title else {
             return
         }
 
         WatchlistFunnel.shared.logDiffToolbarMoreTapArticleEditHistory(project: wikimediaProject)
-        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: pageURL, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+        let historyViewController = PageHistoryViewController(pageTitle: pageTitle, pageURL: editHistoryURL, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
         historyViewController.theme = theme
 
         push(historyViewController, animated: true)
@@ -1261,13 +1280,13 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedUndo() {
         
-        guard wkProject != nil else {
-            assertionFailure("WKProject must be populated before attempting undo call.")
+        guard wmfProject != nil else {
+            assertionFailure("WMFProject must be populated before attempting undo call.")
             return
         }
 
         if let pageURL = fetchPageURL() {
-            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
         }
         
         WatchlistFunnel.shared.logDiffToolbarTapUndo(project: wikimediaProject)
@@ -1284,7 +1303,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffUndoAlertTapCancel(project: self?.wikimediaProject)
             if let pageURL = self?.fetchPageURL() {
-                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         }
         
@@ -1309,7 +1328,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     private func performUndo() {
-        guard let wkProject = wkProject,
+        guard let wmfProject = wmfProject,
               let title = articleTitle,
               let revisionID = toModelRevisionID,
               let username = toModel?.user,
@@ -1319,9 +1338,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         fakeProgressController.start()
 
         if let pageURL = self.fetchPageURL() {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
-        WKWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wkProject) { [weak self] result in
+        
+        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1330,7 +1350,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
     func tappedRollback() {
         if let pageURL = fetchPageURL() {
-            EditAttemptFunnel.shared.logInit(articleURL: pageURL)
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
         }
         WatchlistFunnel.shared.logDiffToolbarMoreTapRollback(project: wikimediaProject)
         let title = WMFLocalizedString("diff-rollback-alert-title", value: "Rollback edits", comment: "Title of alert when user taps rollback in diff toolbar.")
@@ -1340,7 +1360,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] (action) in
             WatchlistFunnel.shared.logDiffRollbackAlertTapCancel(project: self?.wikimediaProject)
             if let pageURL = self?.fetchPageURL() {
-                EditAttemptFunnel.shared.logAbort(articleURL: pageURL)
+                EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
             }
         }
         let rollback = UIAlertAction(title: CommonStrings.rollback, style: .destructive) { [weak self] (action) in
@@ -1354,7 +1374,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     private func performRollback() {
-        guard let wkProject = wkProject,
+        guard let wmfProject = wmfProject,
               let title = articleTitle,
               let username = toModel?.user else {
             return
@@ -1362,17 +1382,17 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
 
         fakeProgressController.start()
         if let pageURL = self.fetchPageURL() {
-            EditAttemptFunnel.shared.logSaveAttempt(articleURL: pageURL)
+            EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WKWatchlistDataController().rollback(title: title, project: wkProject, username: username) { [weak self] result in
+        WMFWatchlistDataController().rollback(title: title, project: wmfProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }
         }
     }
     
-    private func completeRollbackOrUndo(result: Result<WKUndoOrRollbackResult, Error>, isRollback: Bool) {
+    private func completeRollbackOrUndo(result: Result<WMFUndoOrRollbackResult, Error>, isRollback: Bool) {
         fakeProgressController.stop()
         
         switch result {
@@ -1385,7 +1405,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
             
             if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveSuccess(articleURL: pageURL, revisionId: result.newRevisionID)
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: result.newRevisionID)
             }
 
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
@@ -1410,9 +1430,10 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 WatchlistFunnel.shared.logDiffUndoDisplaySuccessToast(project: self.wikimediaProject)
             }
             
+            
         case .failure(let error):
             if let pageURL = self.fetchPageURL() {
-                EditAttemptFunnel.shared.logSaveFailure(articleURL: pageURL)
+                EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
             }
 
             let fallback: (Error) -> Void = { error in
@@ -1432,7 +1453,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 }
             }
             
-            guard let dataControllerError = error as? WKData.WKDataControllerError else {
+            guard let dataControllerError = error as? WMFData.WMFDataControllerError else {
                 fallback(error)
                 return
             }
@@ -1506,4 +1527,16 @@ extension DiffContainerViewController: WatchlistControllerDelegate {
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
         diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
     }
+}
+
+extension DiffContainerViewController: DiffHeaderTitleViewTapDelegate {
+
+    func userDidTapTitleLabel() {
+        guard let navigationURL = fetchPageURL() else {
+            return
+        }
+
+        navigate(to: navigationURL)
+    }
+
 }

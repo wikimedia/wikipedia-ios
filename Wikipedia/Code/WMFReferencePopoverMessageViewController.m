@@ -148,7 +148,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
 
     self.titleLabel.attributedText =
         [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]' {{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
-            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+         attributedStringWithAttributes:@{NSFontAttributeName: [WMFFontWrapper fontFor:WMFFontsCaption1 compatibleWithTraitCollection: self.traitCollection]}
                        substitutionStrings:@[self.reference.text]
                     substitutionAttributes:@[@{NSForegroundColorAttributeName: theme.colors.primaryText}]];
 }

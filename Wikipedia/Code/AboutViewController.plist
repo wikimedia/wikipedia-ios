@@ -5,7 +5,7 @@
 	<key>urls</key>
 	<dict>
 		<key>sharealike</key>
-		<string>https://creativecommons.org/licenses/by-sa/3.0/</string>
+		<string>https://creativecommons.org/licenses/by-sa/4.0/</string>
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/main/LICENSE.txt</string>
 		<key>tsg</key>
@@ -32,6 +32,7 @@
 		<string>Adam Baso</string>
 		<string>Alexander Claussen</string>
 		<string>Amal Ramadan</string>
+		<string>Amani Hunter</string>
 		<string>Amir E. Aharoni</string>
 		<string>Ammar Abdulhamid</string>
 		<string>Anirudh S</string>
@@ -48,6 +49,7 @@
 		<string>Brion Vibber</string>
 		<string>Carolyn Li-Madeo</string>
 		<string>Chelsy Xie</string>
+		<string>Christian Bilodeau</string>
 		<string>Cole Roberts</string>
 		<string>Corey Floyd</string>
 		<string>cromulentlabs</string>
@@ -59,10 +61,12 @@
 		<string>Dmitry Brant</string>
 		<string>Elena Tonkovidova</string>
 		<string>Ethan Holshouser</string>
+		<string>Evelyn Harthbrooke</string>
 		<string>Gabicoware</string>
 		<string>Gianmarco Salerno</string>
 		<string>Hua Zhenyu</string>
 		<string>Hynek Hanke</string>
+		<string>Grey Olson</string>
 		<string>Ian MacFarlane</string>
 		<string>Isidore Baldado</string>
 		<string>Jan Berkel</string>
@@ -81,6 +85,7 @@
 		<string>Logan Keller</string>
 		<string>Luiggi Minaya Salcedo</string>
 		<string>MagikCow</string>
+		<string>Marcos Varani</string>
 		<string>Maryana Pinchuk</string>
 		<string>Marina Azevedo</string>
 		<string>Matt Cleinman</string>
@@ -103,6 +108,7 @@
 		<string>Oliver Keyes</string>
 		<string>Ori Livneh</string>
 		<string>Pedro Vereza</string>
+		<string>Phil Herbert</string>
 		<string>Prayag Verma</string>
 		<string>Rita Ho</string>
 		<string>Robin Schoenbaechler</string>
@@ -116,6 +122,7 @@
 		<string>Seshadri Mahalingam</string>
 		<string>Shay Nowick</string>
 		<string>Sherah Smith</string>
+		<string>Shilan Patel</string>
 		<string>Siebrand Mazeland</string>
 		<string>Spencer Edgecombe</string>
 		<string>Stephen Niedzielski</string>
@@ -131,6 +138,7 @@
 		<string>Vibha Bamba</string>
 		<string>Victor Barrera</string>
 		<string>Victor Peschenkov</string>
+		<string>Viktar Staravoitau</string>
 		<string>waffleboot</string>
 		<string>Yongmin Hong</string>
 		<string>Yuri Solodkin</string>

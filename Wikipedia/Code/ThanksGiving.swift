@@ -27,9 +27,9 @@ extension ThanksGiving where Self: ViewController {
         }
     }
 
-    var isLoggedIn: Bool {
+    var isPermanent: Bool {
         // SINGLETONTODO
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+        return MWKDataStore.shared().authenticationManager.authStateIsPermanent
     }
 
     func tappedThank(for revisionID: Int?, isUserAnonymous: Bool) {
@@ -70,7 +70,7 @@ extension ThanksGiving where Self: ViewController {
             return
         }
 
-        guard isLoggedIn else {
+        guard isPermanent else {
             let tapLoginHandler: (() -> Void)?
             let category: EventCategoryMEP?
             switch source {
@@ -112,7 +112,7 @@ extension ThanksGiving where Self: ViewController {
             return
         }
 
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { sender in
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { _, _ in
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
@@ -122,7 +122,7 @@ extension ThanksGiving where Self: ViewController {
                 self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
             })
             
-        } cancelHandler: { sender in
+        } cancelHandler: { _, _ in
             
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))

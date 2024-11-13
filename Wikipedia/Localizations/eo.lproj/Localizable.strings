@@ -66,8 +66,6 @@
 "action-read" = "Legi";
 "action-redo" = "Refari";
 "action-remove" = "Forigi";
-"action-replace" = "Anstataŭigi";
-"action-replace-all" = "Anstataŭigi ĉiujn";
 "action-save" = "Konservi";
 "action-saved" = "Konservita";
 "action-saved-accessibility" = "Konservita. Aktivigu por malkonservi.";
@@ -80,7 +78,6 @@
 "action-unsaved-accessibility-notification" = "Artikolo malkonservita";
 "action-update" = "Ĝisdatigi";
 "add-articles-to-reading-list" = "Aldoni {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
-"add-citation-title" = "Aldoni citon";
 "announcements-dismiss" = "Rezigni";
 "app-store-keywords" = "Vikipedio, referenco, vikio, encyclopedio, informoj, scio, esplorado, esplori, lerni";
 "app-store-release-notes" = "Plene tajlorebla kaj pli facile legebla Esplorfluo. Internaciigo, rendimentaj plibonigoj kaj cimoriparoj.";
@@ -124,7 +121,6 @@
 "description-add-title" = "Aldoni priskribon";
 // Fuzzy
 "description-edit-for-article" = "Titola priskribo por $1";
-"description-edit-learn-more" = "Ekscii pli";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ŝanĝante la titolan priskribon, mi konsentas kun la $1 kaj nenuligeble eldonas miajn kontribuojn laŭ la permesilo $2.";
@@ -165,24 +161,8 @@
 "description-welcome-promise-title" = "Ekante, mi promesas ne misuzi ĉi tiun eblon";
 "description-welcome-start-editing-button" = "Ekredakti";
 "dim-images" = "Malheligi bildojn";
-"edit-bold-accessibility-label" = "Grasigi";
-"edit-bold-remove-accessibility-label" = "Malgrasigi";
-"edit-clear-formatting-accessibility-label" = "Forigi aspektigadon";
-"edit-comment-accessibility-label" = "Aldoni komentan sintakson";
-"edit-comment-remove-accessibility-label" = "Forigi komentan sintakson";
-"edit-decrease-indent-depth-accessibility-label" = "Malpligrandigi krommarĝenon";
-"edit-direction-down-accessibility-label" = "Movi tajpmontrilon malsupren";
-"edit-direction-left-accessibility-label" = "Movi tajpmontrilon maldekstren";
-"edit-direction-right-accessibility-label" = "Movi tajpmontrilon dekstren";
-"edit-direction-up-accessibility-label" = "Movi tajpmontrilon supren";
-"edit-increase-indent-depth-accessibility-label" = "Pligrandigi krommarĝenon";
-"edit-indent-accessibility-label" = "Aldoni krommarĝenon al ĉi tiu linio";
-"edit-italic-accessibility-label" = "Kursivigi";
-"edit-italic-remove-accessibility-label" = "Malkursivigi";
-"edit-link-accessibility-label" = "Aldoni ligilan sintakson";
 "edit-link-display-text-title" = "Montriĝa teksto";
 "edit-link-link-target-title" = "Celo de ligilo";
-"edit-link-remove-accessibility-label" = "Forigi ligilan sintakson";
 "edit-link-remove-link-title" = "Forigi ligilon";
 "edit-link-title" = "Redakti ligilon";
 "edit-menu-item" = "Redakti";
@@ -190,38 +170,14 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Ne povis trovi la tekston elektitan de vi.";
 "edit-minor-learn-more-text" = "Lerni plu pri redaktetoj";
 "edit-minor-text" = "Tio estas redakteto";
-"edit-ordered-list-accessibility-label" = "Farigi aktualan linion numera listo";
-"edit-ordered-list-remove-accessibility-label" = "Forigi numeran liston el aktuala linio";
 "edit-published" = "Publikigis redakton";
 "edit-published-subtitle" = "Vi ĵus plibonigis Vikipedion por ĉiuj";
-"edit-reference-accessibility-label" = "Aldoni referencan sintakson";
-"edit-reference-remove-accessibility-label" = "Forigi referencan sintakson";
-"edit-signature-accessibility-label" = "Aldoni subskriban sintakson";
-"edit-signature-remove-accessibility-label" = "Forigi subskriban sintakson";
-"edit-strikethrough-accessibility-label" = "Trastreki";
-"edit-strikethrough-remove-accessibility-label" = "Maltrastreki";
-"edit-style-table-view-title" = "Stilo";
-"edit-subscript-accessibility-label" = "Malsupre indicigi";
-"edit-subscript-remove-accessibility-label" = "Malindicigi";
 "edit-summary-add-summary-text" = "Aldoni redaktan resumon";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
-"edit-summary-learn-more-text" = "Lerni plu";
 "edit-summary-placeholder-text" = "Kiel ĝi plibonigis la artikolon?";
-"edit-superscript-accessibility-label" = "Supre indicigi";
-"edit-superscript-remove-accessibility-label" = "Malindicigi";
-"edit-template-accessibility-label" = "Aldoni ŝablonan sintakson";
-"edit-template-remove-accessibility-label" = "Forigi ŝablonan sintakson";
-"edit-text-clear-formatting" = "Malaranĝi";
-"edit-text-formatting-accessibility-label" = "Montri menuon de tekstaranĝado";
-"edit-text-formatting-table-view-title" = "Teksta aranĝado";
-"edit-text-size-table-view-title" = "Grando de teksto";
-"edit-text-style-accessibility-label" = "Montri menuon pri teksta stilo";
-"edit-underline-accessibility-label" = "Substreki";
-"edit-underline-remove-accessibility-label" = "Malsubstreki";
-"edit-unordered-list-accessibility-label" = "Farigi aktualan linion bula listo";
-"edit-unordered-list-remove-accessibility-label" = "Forigi bulan liston el aktuala linio";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Lerni pli pri atentaro";
 "edit-watch-this-page-text" = "Atenti ĉi tiun paĝon";
 "editing-welcome-be-bold-subtitle" = "Aŭdacu sed ne malzorgu pri ĝisdatigado de artikoloj. Ne angoru pri misoj: ĉiu versio de paĝo konserviĝas; ajna miso estas facile korektebla far nia komunumo.";
@@ -419,7 +375,6 @@
 "insert-media-image-type-settings-title" = "Tipo de bildo";
 "insert-media-media-settings-title" = "Agordoj pri aŭdvidaĵoj";
 "insert-media-title" = "Enigi aŭdvidaĵon";
-"insert-media-uploaded-image-title" = "Alŝutita bildo";
 "languages-settings-title" = "Lingvoj";
 "languages-title" = "Ŝanĝi lingvon";
 "languages-wikipedia" = "Vikipediaj lingvoj";
@@ -435,7 +390,6 @@
 "main-menu-account-login" = "Ensaluti";
 "main-menu-account-logout" = "Elsaluti";
 "main-menu-account-logout-are-you-sure" = "Ĉu vi certas, ke vi volas elsaluti?";
-"main-menu-account-logout-cancel" = "Nuligi";
 "main-menu-account-title-logged-in" = "Ensalutinta kiel $1";
 "main-menu-heading-legal" = "Privateco kaj uzkondiĉoj";
 "main-menu-nearby" = "Ĉirkaŭe";
@@ -516,7 +470,6 @@
 "potd-description-prefix" = "Bildo de la tago por $1";
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
 "preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
-"preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
 "reading-list-add-saved-button-title" = "Jes, aldonu ilin al miaj legolistoj";
@@ -609,7 +562,6 @@
 "replace-infolabel-method-replace" = "Anstataŭigi";
 "replace-infolabel-method-replace-all" = "Anstataŭigi ĉiujn";
 "replace-method-button-accessibility" = "Anstataŭiga metodo. Agordita al $1. Elektu por ŝanĝi.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 ero anstataŭigita|$1 eroj anstataŭigitaj}}";
 "replace-textfield-accessibility" = "Anstataŭigi";
 "replace-textfield-placeholder" = "Anstataŭigi per…";
 "reverted-edit-title" = "Malfarita redakto";
@@ -670,7 +622,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Montri la konservitan (ekz. defaŭltan) legoliston kiel apartan liston en via legolisto-vido. Ĉi tiu listo aperas sur Android-aparatoj.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Montri konservitan legoliston";
 "settings-storage-and-syncing-title" = "Konservado kaj sinkronigado de artikoloj";
-"settings-support" = "Subteni Vikipedion";
 "settings-title" = "Agordoj";
 "share-a-fact-made-with" = "Farita per la vikipedia aplikaĵo";
 // Fuzzy
@@ -736,13 +687,7 @@
 "welcome-notifications-tell-me-more-creation" = "Sciigoj estas kreitaj kaj liveritaj sur via aparato per la aplikaĵo, ne de nia servilo (aŭ de servilo de ekstera provizanto).";
 "welcome-notifications-tell-me-more-storage" = "Sciigaj preferoj estas konservitaj sur aparatoj kaj ne estas bazitaj sur personaj informoj aŭ persona agado.";
 "welcome-notifications-tell-me-more-title" = "Ekscii pli pri sciigoj";
-"welcome-send-data-helps-title" = "Helpu plibonigi la aplikaĵon";
-"welcome-send-data-learn-more" = "Ekscii pli pri kolektitaj datumoj";
-"welcome-send-data-sub-title" = "Helpu plibonigi la aplikaĵon informante la Vikimedian Fondaĵon kiel vi uzas ĝin. Datumkolektado estas sennoma.";
-"welcome-volunteer-send-usage-reports" = "Sendi raporton pri uzado";
-"wikitext-downloading" = "Ŝargante enhavon...";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
-"wikitext-preview-changes-none" = "Neniuj ŝanĝoj estas faritaj por antaŭrigardi.";
 "wikitext-preview-link-external-preview-description" = "Ĉi tiu ligilo ligas eksteran retejon: $1";
 "wikitext-preview-link-external-preview-title" = "Ekstera ligilo";
 "wikitext-preview-link-not-found-preview-description" = "Vikipedio ne havas artikolon kun tiu ekzakta nomo";
@@ -757,5 +702,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1Ensalutas$2, vi havos pli da privateco.";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
-"wikitext-upload-save-terms-and-licenses" = "Per publikigo de ŝanĝoj, vi konsentas al la $1Kondiĉoj de Uzo$2 kaj vi nemalfareble konsentas disponebligi vian kontribuaĵon sub la permesiloj $3CC BY-SA 3.0$4 (Permesilo de la Krea Komunaĵo Atribuite–Samkondiĉe 3.0) kaj $5GFDL$6 (Permesilo de GNU por Liberaj Dokumentoj). Vi konsentas ke hiperligilo aŭ URL estas sufiĉa atribuo laŭ la permesilo de Krea Komunaĵo.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";

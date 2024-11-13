@@ -1,4 +1,8 @@
-import UIKit
+import WMFComponents
+
+protocol DiffHeaderTitleViewTapDelegate: AnyObject {
+    func userDidTapTitleLabel()
+}
 
 class DiffHeaderTitleView: UIView {
 
@@ -6,7 +10,9 @@ class DiffHeaderTitleView: UIView {
     @IBOutlet var headingLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
-    
+
+    weak var titleViewTapDelegate: DiffHeaderTitleViewTapDelegate?
+
     private(set) var viewModel: DiffHeaderTitleViewModel?
     
     override init(frame: CGRect) {
@@ -27,10 +33,11 @@ class DiffHeaderTitleView: UIView {
         }
     }
 
-    func update(_ viewModel: DiffHeaderTitleViewModel) {
-        
+    func update(_ viewModel: DiffHeaderTitleViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil) {
+
         self.viewModel = viewModel
-        
+        self.titleViewTapDelegate = titleViewTapDelegate
+
         headingLabel.text = viewModel.heading
         titleLabel.text = viewModel.title
 
@@ -54,6 +61,12 @@ class DiffHeaderTitleView: UIView {
         guard !UIAccessibility.isVoiceOverRunning else {
             return super.point(inside: point, with: event)
         }
+
+        let titleConverted = convert(point, to: titleLabel)
+        if titleLabel.point(inside: titleConverted, with: event) {
+            return true
+        }
+
         return false
     }
 }
@@ -66,16 +79,24 @@ private extension DiffHeaderTitleView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         updateFonts(with: traitCollection)
         contentView.isAccessibilityElement = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapTitleLabel))
+        titleLabel.isUserInteractionEnabled = true
+        titleLabel.addGestureRecognizer(tapGesture)
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        headingLabel.font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(DynamicTextStyle.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        headingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         if let viewModel = viewModel {
-            subtitleLabel.font = UIFont.wmf_font(viewModel.subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = WMFFont.for(viewModel.subtitleTextStyle, compatibleWith: traitCollection)
         } else {
-            subtitleLabel.font = UIFont.wmf_font(DynamicTextStyle.footnote, compatibleWithTraitCollection: traitCollection)
+            subtitleLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         }
+    }
+
+    @objc func userDidTapTitleLabel() {
+        titleViewTapDelegate?.userDidTapTitleLabel()
     }
 }
 
@@ -85,8 +106,8 @@ extension DiffHeaderTitleView: Themeable {
         backgroundColor = theme.colors.paperBackground
         contentView.backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
-        titleLabel.textColor = theme.colors.primaryText
-        
+        titleLabel.textColor = theme.colors.link
+
         if let subtitleColor = viewModel?.subtitleColor {
             subtitleLabel.textColor = subtitleColor
         } else {

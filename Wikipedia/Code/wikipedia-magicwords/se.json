@@ -1,0 +1,173 @@
+[
+  {
+    "aliases" : [
+      "gasku",
+      "center",
+      "centre",
+      "sentrer",
+      "senter",
+      "midtstilt",
+      "keski",
+      "keskitetty"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "gurut",
+      "left",
+      "venstre",
+      "vasen"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "olgeš",
+      "right",
+      "høyre",
+      "oikea"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "mini",
+      "thumb",
+      "thumbnail",
+      "miniatyr",
+      "pienoiskuva",
+      "pienois"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "grunnlinje",
+      "baseline",
+      "perustaso"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bunn",
+      "bottom",
+      "alas",
+      "alhaalla"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "ramme",
+      "framed",
+      "enframed",
+      "frame",
+      "kehys",
+      "kehystetty"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "rammeløs",
+      "ingenramme",
+      "frameless",
+      "kehyksetön"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "midt",
+      "middle",
+      "keskellä"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "ingen",
+      "none",
+      "tyhjä"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "tekst-bunn",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "topp",
+      "top",
+      "ylös",
+      "ylhäällä"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "portrett",
+      "portrett=$1",
+      "portrett_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "pysty",
+      "pysty=$1",
+      "pysty_$1",
+      "yläoikea",
+      "yläoikea=$1",
+      "yläoikea_$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "reunus",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "alaindeksi",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "yläindeksi",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "Fiila",
+      "Bilde",
+      "Image",
+      "Kuva"
+    ],
+    "name" : "file_namespace"
+  }
+]

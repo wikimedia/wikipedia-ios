@@ -1,7 +1,8 @@
-import Foundation
+import WMFComponents
 
 final class DiffListContextItemViewModel {
-    private let text: String
+    private let text: String    
+    let accessibilityLabelText: String
     private let semanticContentAttribute: UISemanticContentAttribute
     var theme: Theme {
         didSet {
@@ -23,8 +24,12 @@ final class DiffListContextItemViewModel {
         self.contextFont = contextFont
         
         self.textAttributedString = DiffListContextItemViewModel.calculateAttributedString(with: text, semanticContentAttribute: semanticContentAttribute, theme: theme, contextFont: contextFont)
+
+        let diffContextualLine = WMFLocalizedString("diff-unchanged-contextual-line", value: "Contextual line, unchanged: %1$@", comment: "Text read by VoiceOver in diffs that indicates information about the forthcoming content. %1$@ will be replaced with that content.")
+        self.accessibilityLabelText = String.localizedStringWithFormat(diffContextualLine, text) 
     }
-    
+
+
     private static func calculateAttributedString(with text: String, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, contextFont: UIFont) -> NSAttributedString {
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -97,12 +102,12 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
     var traitCollection: UITraitCollection {
         didSet {
             innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
-            contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
-            headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+            contextFont = WMFFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+            headingFont = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         }
     }
     
-    private let contextDynamicTextStyle = DynamicTextStyle.subheadline
+    private let contextDynamicTextStyle = WMFFont.subheadline
     private(set) var height: CGFloat = 0
     private(set) var expandedHeight: CGFloat = 0
     private(set) var innerPadding: NSDirectionalEdgeInsets
@@ -139,8 +144,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             self.heading = "" // tonitodo: optional would be better
         }
         
-        let contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
-        
+        let contextFont = WMFFont.for(contextDynamicTextStyle, compatibleWith: traitCollection)
+
         self.items = diffItems.map({ (item) -> DiffListContextItemViewModel? in
             if item.text.isEmpty {
                 return nil
@@ -150,8 +155,8 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
         })
         
         self.contextFont = contextFont
-        self.headingFont = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
-        
+        self.headingFont = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+
         innerPadding = DiffListContextViewModel.calculateInnerPadding(traitCollection: traitCollection)
         
         expandedHeight = DiffListContextViewModel.calculateExpandedHeight(items: items, heading: heading, availableWidth: availableWidth, innerPadding: innerPadding, contextItemPadding: DiffListContextViewModel.contextItemTextPadding, contextFont: contextFont, headingFont: headingFont, emptyContextLineHeight: emptyContextLineHeight, headerHeight: headerHeight)

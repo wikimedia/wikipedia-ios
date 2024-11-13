@@ -3,6 +3,7 @@
 #import "WMFAnnouncement.h"
 
 @import CoreData;
+@import WMFData;
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
@@ -14,7 +15,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 17;
+static const NSInteger WMFCurrentLibraryVersion = 19;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -106,21 +107,22 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 }
 
 - (void)finishSetup:(nullable dispatch_block_t)completion {
-    [self setupCoreDataStackWithContainerURL:self.containerURL completion:^{
-        [self setupCoreDataSynchronizersWithContainerURL:self.containerURL];
-        [self startSynchronizingLibraryContexts];
-        [self setupHistoryAndSavedPageLists];
-        self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
-        self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
-        [self.feedContentController updateContentSources];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:self.session configuration:self.configuration languageLinkController:self.languageLinkController authManager:self.authenticationManager];
-        self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:self.session configuration:self.configuration dataStore:self];
-        if (completion) {
-            completion();
-        }
-    }];
+    [self setupCoreDataStackWithContainerURL:self.containerURL
+                                  completion:^{
+                                      [self setupCoreDataSynchronizersWithContainerURL:self.containerURL];
+                                      [self startSynchronizingLibraryContexts];
+                                      [self setupHistoryAndSavedPageLists];
+                                      self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
+                                      self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
+                                      [self.feedContentController updateContentSources];
+                                      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+                                      self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:self.session configuration:self.configuration languageLinkController:self.languageLinkController authManager:self.authenticationManager];
+                                      self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
+                                      self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:self.session configuration:self.configuration dataStore:self];
+                                      if (completion) {
+                                          completion();
+                                      }
+                                  }];
 }
 
 - (void)teardown:(nullable dispatch_block_t)completion {
@@ -149,7 +151,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     NSError *unarchiveError = nil;
     NSMutableDictionary *infoDictionary = [[self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError] mutableCopy] ?: [NSMutableDictionary new];
     if (unarchiveError) {
-        DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
+        DDLogDebug(@"Error unarchiving shared info dictionary, possibly because this is a fresh install and it doesn't exist yet: %@", unarchiveError);
     }
 
     BOOL needsWrite = false;
@@ -212,8 +214,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
     description.shouldAddStoreAsynchronously = YES;
     container.persistentStoreDescriptions = @[description];
-    
-    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
+
+    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *_Nonnull description, NSError *_Nullable error) {
         if (error) {
             // TODO: Metrics
             DDLogError(@"Error adding persistent store: %@", error);
@@ -222,7 +224,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             }
             return;
         }
-        
+
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             self.persistentContainer = container;
             self.viewContext = container.viewContext;
@@ -230,7 +232,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             self.viewContext.automaticallyMergesChangesFromParent = YES;
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
-            
+
             if (completion) {
                 completion();
             }
@@ -245,7 +247,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     // NSInvalidatedAllObjectsKey is present when NSManagedObjectContext.reset() is called
     if (userInfo[NSInvalidatedAllObjectsKey]) {
         [self clearMemoryCache];
-        [nc postNotificationName:WMFViewContextDidResetNotification object: nil];
+        [nc postNotificationName:WMFViewContextDidResetNotification object:nil];
     }
     for (NSString *key in keys) {
         NSSet<NSManagedObject *> *changedObjects = userInfo[key];
@@ -473,7 +475,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 15) {
         [self markAllNeedingConversionFromMobileviewArticlesAsNotDownloaded:moc];
         [moc wmf_setValue:@(15) forKey:WMFLibraryVersionKey];
@@ -491,7 +493,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 17) {
         [self migrateAKToTWInManagedObjectContext:moc];
         [moc wmf_setValue:@(17) forKey:WMFLibraryVersionKey];
@@ -501,7 +503,43 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         }
     }
 
+    if (currentLibraryVersion < 18) {
+        [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindSuggestedEdits isOn:YES updateFeed:NO];
+        [moc wmf_setValue:@(18) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+    
+    if (currentLibraryVersion < 19) {
+        [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
+        [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:nil]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
+}
+
+/// Simple flag to determine if the library will need to be migrated
+/// Persisted library version number in Core Data is lower than WMFCurrentLibraryVersion or nil
+/// This helps us determine whether or not to trigger the Splash screen updating animation
+- (BOOL)needsMigration {
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
+
+    if (!libraryVersionNumber) {
+        return NO;
+    }
+
+    NSInteger currentUserLibraryVersion = [libraryVersionNumber integerValue];
+    if (currentUserLibraryVersion >= WMFCurrentLibraryVersion) {
+        return NO;
+    }
+
+    return YES;
 }
 
 /// Library updates are separate from Core Data migration and can be used to orchestrate migrations that are more complex than automatic Core Data migration allows.
@@ -852,27 +890,19 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                                  [taskGroup leave];
                              });
                          }];
-    // Remote config
-    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/extensions/MobileApp/config/ios.json"];
+    // Remote Feature config
     [taskGroup enter];
-    [self.session getJSONDictionaryFromURL:remoteConfigURL
-                               ignoreCache:YES
-                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 if (error) {
-                                     updateError = error;
-                                     [taskGroup leave];
-                                     return;
-                                 }
-                                 if (self.isLocalConfigUpdateAllowed) {
-                                     [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                     self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
-                                 } else {
-                                     self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
-                                 }
-                                 [taskGroup leave];
-                             });
-                         }];
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    updateError = error;
+                    [taskGroup leave];
+                    return;
+                }
+                
+                [taskGroup leave];
+            });
+    }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);
@@ -993,9 +1023,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 #pragma mark - WMFSessionAuthenticationDelegate
 
 - (void)attemptReauthentication {
-    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer
-                                                                completion:^{
-                                                                }];
+    [self.authenticationManager attemptLoginWithLogoutOnFailureWithCompletion:^{
+    }];
 }
 
 - (void)deauthenticate {

@@ -1,6 +1,6 @@
 import UIKit
 
-class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
+class ShareAFactActivityTextItemProvider: UIActivityItemProvider, @unchecked Sendable {
     let text: String
     let articleTitle: String
     let articleURL: URL

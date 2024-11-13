@@ -1,5 +1,7 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
+#import "WMFSettingsViewController.h"
+@import WMFData;
 
 @interface WMFSettingsMenuItem ()
 
@@ -23,7 +25,8 @@
     switch (type) {
         case WMFSettingsMenuItemType_LoginAccount: {
             // SINGLETONTODO
-            NSString *userName = [MWKDataStore shared].authenticationManager.loggedInUsername;
+            WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
+            NSString *userName = authManager.authStatePermanentUsername;
 
             NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
 
@@ -37,14 +40,13 @@
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Support: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
-                                                 iconName:@"settings-support"
-                                                iconColor:[UIColor wmf_red_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
+            return [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate", @"Title for button letting user make a donation.")
+                                             iconName:@"settings-support"
+                                            iconColor:[UIColor wmf_red_600]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
@@ -73,7 +75,7 @@
                                                  iconName:@"settings-explore"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
+                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? WMFCommonStrings.offGenericTitle : WMFCommonStrings.onGenericTitle
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
@@ -84,6 +86,18 @@
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_YearInReview: {
+            WMFYearInReviewDataController *dataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
+            NSString *disclosureText = [dataController yearInReviewSettingsIsEnabled] ? WMFCommonStrings.onGenericTitle : WMFCommonStrings.offGenericTitle;
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings yirTitle]
+                                                 iconName:@"settings-calendar"
+                                                iconColor:[UIColor wmf_blue_600]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:disclosureText
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Appearance: {
@@ -125,17 +139,6 @@
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
-        }
-        case WMFSettingsMenuItemType_SendUsageReports: {
-            BOOL loggingEnabled = [EventPlatformClient shared].isEnabled;
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")
-                                                 iconName:@"settings-analytics"
-                                                iconColor:[UIColor wmf_green_600]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                           disclosureText:nil
-                                               isSwitchOn:loggingEnabled];
         }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return
@@ -196,6 +199,15 @@
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
                                            disclosureText:nil
                                                isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_DonateHistory: {
+            return [[WMFSettingsMenuItem alloc] initWithType:type
+                                                       title: WMFCommonStrings.deleteDonationHistory
+                                                    iconName:@"settings-support"
+                                                   iconColor:[UIColor wmf_gray_400]
+                                              disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                              disclosureText:nil
+                                                  isSwitchOn:NO];
         }
     }
 }

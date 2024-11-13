@@ -4,8 +4,11 @@
 // Author: ChiK
 // Author: Chidananda Kampa
 // Author: Lokesha kunchadka
+// Author: Mahaveer Indra
 // Author: Nemo bis
+// Author: Pragathi. BH
 // Author: Ravi Mundkur
+// Author: Vinoda mamatharai
 
 "about-content-license" = "ಪರವಾನಿಗೆತಾ ವಿಸಯ";
 "about-contributors" = "ಕಾನಿಕೆ ಕೊರ್ನಾರ್";
@@ -17,10 +20,11 @@
 "about-wikimedia-foundation" = "ವಿಕಿಮೀಡಿಯಾ ಫೌಂಡೇಷನ್";
 "about-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "account-creation-log-in" = "ಲಾಗಿನ್ ಆಲೆ";
-"account-creation-logging-in" = "ಇರ್ ಲಾಗ್-ಇನ್ ಅವೊಂತುಲ್ಲಾರ್";
+"account-creation-logging-in" = "ಇರ್ ಲಾಗ್‌ಇನ್ ಅವೊಂತುಲ್ಲಾರ್...";
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
 "account-creation-title" = "ಪೊಸ ಖಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
+"account-talk-page-title" = "ಪಾತೆರ ಪುಟೊ";
 "action-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "action-read" = "ಓದ್‍ಲೆ";
 "action-redo" = "ಕುಡಮಲ್ಪಿ";
@@ -30,9 +34,11 @@
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "action-undo" = "ದುಂಬುದಲೆಕೊ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
+"alt-text-experiment-character-counter-warning" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಆಯಿನಾತ್ ಕಿನ್ಯ ಇಪ್ಪಡ್, ಅಪಗ ಬಳಕೆದಾರೆರ್ ಪಟತ್ತ ಮಾಹಿತಿ ತೆರಿಯರ ಸುಲಬ ಆಪುಂಡು.";
+"alt-text-experiment-guidance-button" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಬರೆವರ ನಿಯಮೊಲು";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
-"article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
+"article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಾಡ್ಲೇ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆಲು";
@@ -49,11 +55,10 @@
 "cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
+"confirm-donation-history-deletion-title" = "ಮಾಜಾಪುನೆನ್ ಖಚಿತಪಡಿಸಲೆ";
+"confirmed-donation-history-deletion" = "ಸ್ಥಳೀಯ ಇತಿಹಾಸೊನು ದೆತ್ತ್ ಪಾಡ್ದೆರ್";
 "description-published-button-title" = "ಆಂಡ್";
-"edit-bold-accessibility-label" = "ದಪ್ಪಾಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
-"edit-bold-remove-accessibility-label" = "ದಪ್ಪಾಕ್ಷರದ ರೂಪನ ದೆಪ್ಪುಲೆ";
-"edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್'ಗ್ ಪಂದಾಲೆ";
-"edit-italic-accessibility-label" = "ಓರೆಅಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
+"donate-history-delete" = "ಸ್ಥಳೀಯ ದಾನ ಇತಿಹಾಸೊನು ಮಾಜಾವೊಡು";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
 "edit-menu-item" = "ಸಂಪೊಲಿಪುಲೆ";
@@ -61,13 +66,12 @@
 "edit-minor-text" = "ಉಂದು ಎಲ್ಯ ಬದಲಾವಣೆ";
 "edit-published" = "ಸಂಪಾದ ಪ್ರಕಟಿಂಡ್";
 "edit-published-subtitle" = "ಈರ್ ಇತ್ತೆ ವಿಕಿಪೀಡಿಯೊನು  ಮಾತೆರೆಗಾದ್ ಸುಧಾರಿಸಾಯೆರ್.";
-"edit-reference-accessibility-label" = "ಉಲ್ಲೇಖ ಪದರಚನೆ ಸೇರಾಲೆ";
-"edit-strikethrough-accessibility-label" = "ಅಡ್ಡಗೀಟ್ ಸೇರಾಲೆ";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
-"edit-underline-accessibility-label" = "ಅಡಿಗೆರೆ ಸೇರಾಲೆ";
+"edit-summary-placeholder-text" = "ವಾ ನಮೂಡೆಡ್ ಲೇಖನೊನ್ ಎಡ್ಡೆ ಮಲ್ತರ್?";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "ವೀಕ್ಷಣ ಪಟ್ಟಿಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
-"edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ.";
+"edit-watch-this-page-text" = "ಈ ಪುಟೊನು ತೂಲೆ";
 "empty-no-article-message" = "ಮಾಪು ಮಾನ್ಪುಲೇ, ಲೇಕನೋ ದಿಂಜೊಂತ್ತಿಜ್ಜಿ";
 "empty-no-feed-action-message" = "ಇರ್ ಒರಿಪಾಯಿನ ಪುಟೋನ್ ಓದೋಲಿ";
 "empty-no-search-results-message" = "ಒವ್ವೆ ವಿಚಾರೊಲ್ ತಿಕೀಜಿ";
@@ -79,11 +83,11 @@
 "explore-most-read-generic-heading" = "ಮಸ್ತ್ ಓದುನವೂ";
 "explore-nearby-placeholder-heading" = "ಜಾಗೆಲು";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯ.";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ.";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "explore-nearby-sub-heading-your-location" = "ಇರ್ ಉಪ್ಪುನಾ ಜಾಗೋ";
 "explore-potd-heading" = "ದಿನೊತ್ತಾ ಪೆಟೊ";
 "field-alert-captcha-invalid" = "CAPTCHA ಸರಿ ಒಂದುಜೀ";
-"field-alert-password-confirm-mismatch" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
+"field-alert-password-confirm-mismatch" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ";
 "field-alert-username-unavailable" = "ಬಳಕೆದಾರೋ ಪುದರ್ ತಿಕೊಂತಿಜ್ಜಿ";
 "field-captcha-placeholder" = "CAPTCHA ಪದೋ";
 "field-email-placeholder" = "example@example.org";
@@ -109,10 +113,10 @@
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
 "icon-shortcut-random-title" = "ಒಟ್ಟಾರೆ ಲೇಖನೊಲು";
 "icon-shortcut-search-title" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
-"languages-settings-title" = "ಭಾಸೆಲು";
+"languages-settings-title" = "ಬಾಸೆಲು";
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಬಾಸೆ";
-"logged-out-continue-without-logging-in-button-title" = "ಪ್ರವೇಶ ಮಲ್ಪಂದೆ ದುಂಬರಿಲೆ.";
+"logged-out-continue-without-logging-in-button-title" = "ಪ್ರವೇಶ ಮಲ್ಪಂದೆ ದುಂಬರಿಲೆ";
 "logged-out-log-back-in-button-title" = "ಇರೆನ ಖಾತೆಗ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ";
 "logged-out-subtitle" = "ಇರೆನ ಖಾತೆನ್ ಸತ್ಯಾಪನೆ ಮಲ್ಪುನಗ ಒಂಜಿ ಸಮಸ್ಯೆ ಎದುರಾಂಡ್.ಇರೆನ ಓದುಲೆನ ಪಟ್ಟಿ ಬೊಕ ಸಂಪಾದಕ ಕಾರ್ಯೊಲೆನ್ ಇರೆನ ಬಳಕೆದಾರ ಪುದರುದ ಅಡಿಟ್ ಸರಿ ಗೋಡಿಯಾವರೆಗಾದ್ ದಯಮಲ್ತ್'ದ್ ಈರ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ.";
 "logged-out-title" = "ಇರೆನ ಪ್ರವೇಶ ನಿರ್ಗಮನ ಆತ್ಂಡ್";
@@ -123,7 +127,6 @@
 "main-menu-about" = "ಆಪ್ ತಾ ಬಗ್ಗೆ";
 "main-menu-account-login" = "ಲಾಗಿನ್ ಆಲೆ";
 "main-menu-account-logout" = "ಲಾಗ್ ಔಟ್";
-"main-menu-account-logout-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "main-menu-nearby" = "ಒಂಜೆ ನಮೂನೆತಾ";
 "main-menu-privacy-policy" = "ಕಾಸಗಿ ಕಾರ್ಯೊನೀತಿ";
 "main-menu-rate-app" = "Rate the app";
@@ -133,7 +136,7 @@
 "menu-cancel-accessibility-label" = "ವಜಾ ಮಲ್ಪುಲೆ";
 // Fuzzy
 "more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
-"more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ.";
+"more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
@@ -149,7 +152,13 @@
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
 "potd-widget-title" = "ಇ ದಿನೊತ್ತಾ ಪೆಟೊ";
-"preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
+"profile-button-accessibility-hint" = "ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಣೆಗ್ ನ್ಯಾವಿಗೇಟ್ ಮಲ್ಪುಂಡು.";
+"profile-button-accessibility-label" = "ವಿವರೊ";
+"profile-button-badge-accessibility-label" = "ಓದಂದಿನ ಬ್ಯಾಡ್ಜ್ ಇಪ್ಪುನ ಪ್ರೊಫೈಲ್";
+"profile-page-donate-subtext" = "ಅತ್ತ್ಂಡ ವಿಕಿಪೀಡಿಯನ್ ಉಚಿತವಾದ್ ಬೊಕ್ಕ ಜಗತ್ತ್ ದ ಪ್ರತಿಯೊಬ್ಬೆರೆಗ್ಲಾ ಲಭ್ಯವಾದ್ ದೀಯೆರೆ ಒಂಜಿ ದಾನೊಡು ಸಪೋರ್ಟ್ ಮಲ್ಪುಲೆ.";
+"profile-page-join-subtext" = "ನಿಕ್ಲೆನ ಕೊಡುಗೆಲೆನ್ ಟ್ರ್ಯಾಕ್ ಮಲ್ಪರೆ, ಲೇಖನೊಲೆನ್ ಆಫ್ಲೈನ್ ಡ್ ಉಳಾಯೆರೆ ಬೊಕ್ಕ ಸಾಧನೊಲೆಡ್ ಸಿಂಕ್ ಮಲ್ಪರೆ ಒಂಜಿ ವಿಕಿಪೀಡಿಯ ಖಾತೆಗ್ ಸೈನ್ ಅಪ್ ಮಲ್ಪುಲೆ.";
+"profile-page-join-title" = "ವಿಕಿಪೀಡಿಯೊಗು ಸೇರ್ಲೆ / ಲಾಗ್ ಇನ್ ಮಲ್ಪುಲೆ";
+"profile-page-title-logged-out" = "ಕಾತೆ";
 "saved-title" = "ಒರಿಪಾಂಡ್";
 "search-did-you-mean" = "ಉಂದು ಪಂಡ $1?";
 "search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
@@ -159,11 +168,11 @@
 "search-recent-title" = "ಇನ್ಚಿಪ ನಡ್ನವು";
 "search-result-redirected-from" = "$1 ರ್ದ್ ಪಿರ ನಿರ್ದೇಸನೊ";
 "search-title" = "ನಾಡ್ಲೆ";
+"settings-donate" = "ದಾನೊ";
 "settings-language-bar" = "ನಾಡುನಾ ಬಾಸೆಲೆನ್ ತೋಜಾಲೆ";
 "settings-my-languages" = "ಯೆನ್ನ ಬಾಸೆಳು";
 // Fuzzy
 "settings-notifications" = "ಸೂಚನೆಲು";
-"settings-support" = "ವಿಕಿಪೀಡಿಯತಾ ಬೆಂಬಲಾ";
 "settings-title" = "ಸಂಯೋಜನೆಲು";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" on @ವಿಕಿಪೀಡಿಯಾ:";
@@ -179,9 +188,11 @@
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
 "welcome-explore-tell-me-more-done-button" = "ಗೊತ್ತಂಡಾ";
 "welcome-languages-add-button" = "ನನೊಂಜಿ ಬಾಸೆನ್ ಸೇರ್ಸಲೇ";
-"welcome-volunteer-send-usage-reports" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
-"wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-preview-save-changes-title" = "ಬದಲಾವಣೆಲೆನ್ ಒರಿಪಾಲೆ";
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
+"year-in-review-donate" = "ದಾನೊ";
+"year-in-review-done" = "ಆಂಡ್.";
+"year-in-review-next" = "ನನತಾ";
+"year-in-review-share" = "ಪಟ್ಟ್‌ಲೆ";

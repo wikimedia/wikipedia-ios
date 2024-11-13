@@ -1,11 +1,11 @@
-import UIKit
+import WMFComponents
 
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     public let saveButton = SaveButton()
     
     fileprivate let headerBackgroundView = UIView()
-    
+
     public var headerBackgroundColor: UIColor? {
         get {
             return headerBackgroundView.backgroundColor
@@ -67,6 +67,10 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         imageViewDimension = 150
     }
     
+    override open func updateStyles() {
+        styles = HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+    
     open override func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         if !isHeaderBackgroundViewHidden {
@@ -79,7 +83,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        saveButton.titleLabel?.font = WMFFont.for(saveButtonTextStyle, compatibleWith: traitCollection)
     }
     
     public var isSaveButtonHidden = false {

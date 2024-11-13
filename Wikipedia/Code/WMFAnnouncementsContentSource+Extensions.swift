@@ -1,17 +1,15 @@
 import Foundation
-import WKData
+import WMFData
 
 extension WMFAnnouncementsContentSource {
-    @objc func fetchDonateConfigsForCountryCode(_ countryCode: String) {
-        
-        guard FeatureFlags.donorExperienceImprovementsEnabled else {
+    @objc func fetchMediaWikiBannerOptInForSiteURL(_ siteURL: URL) {
+        let dataController = WMFFundraisingCampaignDataController.shared
+        let wikimediaProject = WikimediaProject(siteURL: siteURL)
+        guard let wmfProject = wikimediaProject?.wmfProject else {
             return
         }
         
-        let dataController = WKDonateDataController()
-        dataController.fetchConfigs(for: countryCode) { result in
-            print(WKDonateDataController.donateConfig)
-            print(WKDonateDataController.paymentMethods)
-        }
+        dataController.fetchMediaWikiBannerOptIn(project: wmfProject)
+        
     }
 }

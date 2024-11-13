@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFData
 
 struct TalkPageAPIResponse: Codable {
     let threads: TalkPageThreadItems?
@@ -185,7 +186,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
@@ -194,6 +195,7 @@ class TalkPageFetcher: Fetcher {
         let params = ["action": "discussiontoolsedit",
                       "paction": "addcomment",
                       "page": title,
+                      "matags": WMFEditTag.appTalkReply.rawValue,
                       "format": "json",
                       "formatversion" : "2",
                       "commentid": commentId,
@@ -206,7 +208,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<Void, Error>) -> Void) {
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
@@ -216,6 +218,7 @@ class TalkPageFetcher: Fetcher {
         let params = ["action": "discussiontoolsedit",
                       "paction": "addtopic",
                       "page": title,
+                      "matags": WMFEditTag.appTalkTopic.rawValue,
                       "format": "json",
                       "formatversion" : "2",
                       "sectiontitle": topicTitle,
@@ -226,7 +229,7 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping(Result<Void, Error>) -> Void) {
+    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Void, Error>) -> Void) {
         if let error = error {
             completion(.failure(error))
             return

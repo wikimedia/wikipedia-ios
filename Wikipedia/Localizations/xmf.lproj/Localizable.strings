@@ -12,7 +12,6 @@
 // Fuzzy
 "article-languages-filter-placeholder" = "ნინაშ ფილტრი";
 "article-languages-label" = "გეგშაგორით ნინა";
-"diff-article-edit-history" = "სტატიაშ რედაქტირაფაშ ისტორია";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "მაჯღონალი:";
 // Fuzzy
@@ -60,9 +59,7 @@
 "settings-title" = "პარამეტრეფი";
 "talk-pages-topic-reply-onboarding-title" = "სხუნუაშ ხასჷლეფი";
 "watchlist" = "კონტროლიშ ერკებული";
-"wikitext-downloading" = "იხარგუაფუ კონტენტი...";
 "wikitext-preview-changes" = "მიშნაღელი თირაფეფიშ გიწოთოლორაფაშ ძირაფა…";
-"wikitext-preview-changes-none" = "მუთუნნერი თირაფა ვარე მიშაღალირი, ნამუშ ძირაფა შილებედჷნ.";
 "wikitext-upload-captcha-error" = "CAPTCHA-შ დოდასურაფაშ ჩილათა..";
 "wikitext-upload-captcha-needed" = "CAPTCHA-შ დოდასურაფაშ ოხვილჷ.";
 // Fuzzy

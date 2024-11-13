@@ -31,6 +31,7 @@
 // Author: Ty221
 // Author: Vesihiisi
 // Author: WTM
+// Author: WaldiSt
 // Author: Warchlak
 // Author: Wiochman
 // Author: Woytecr
@@ -118,8 +119,6 @@
 "action-read" = "Czytaj";
 "action-redo" = "Ponów";
 "action-remove" = "Usuń";
-"action-replace" = "Zamień";
-"action-replace-all" = "Zamień wszystkie";
 "action-retry" = "Ponów";
 "action-save" = "Zapisz";
 "action-saved" = "Zapisane";
@@ -134,8 +133,6 @@
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
-"add-citation-title" = "Dodaj przypis";
-"additional-information-email-title" = "Dodatkowe informacje";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -187,7 +184,6 @@
 "data-migration-status" = "Aktualizowanie...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis artykułu dla $1";
-"description-edit-learn-more" = "Dowiedz się więcej";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Zmieniając opis artykułu, wyrażam zgodę na $1 i nieodwołalnie wydawać będę swoje wkłady na podstawie licencji $2.";
 "description-edit-pencil-introduction" = "Edytuj wprowadzenie";
@@ -254,24 +250,8 @@
 "diff-thanks-sent-already" = "Wysłano już podziękowanie za tę edycję";
 "diff-thanks-sent-cannot-unsend" = "Podziękowania nie mogą zostać anulowane";
 "dim-images" = "Przyciemnij obrazy";
-"edit-bold-accessibility-label" = "Dodaj pogrubione formatowanie";
-"edit-bold-remove-accessibility-label" = "Usuń pogrubione formatowanie";
-"edit-clear-formatting-accessibility-label" = "Usuń formatowanie";
-"edit-comment-accessibility-label" = "Dodaj składnię komentarza";
-"edit-comment-remove-accessibility-label" = "Usuń składnię komentarza";
-"edit-decrease-indent-depth-accessibility-label" = "Zmniejsz głębokość wcięcia";
-"edit-direction-down-accessibility-label" = "Przesuń kursor w dół";
-"edit-direction-left-accessibility-label" = "Przesuń kursor w lewo";
-"edit-direction-right-accessibility-label" = "Przesuń kursor w prawo";
-"edit-direction-up-accessibility-label" = "Przesuń kursor do góry";
-"edit-increase-indent-depth-accessibility-label" = "Zwiększ głębokość wcięcia";
-"edit-indent-accessibility-label" = "Wcięcie obecnej linii";
-"edit-italic-accessibility-label" = "Dodaj kursywę";
-"edit-italic-remove-accessibility-label" = "Usuń formatowanie kursywą";
-"edit-link-accessibility-label" = "Dodaj składnię linku";
 "edit-link-display-text-title" = "Wyświetlany tekst";
 "edit-link-link-target-title" = "Adres linku";
-"edit-link-remove-accessibility-label" = "Usuń składnię linków";
 "edit-link-remove-link-title" = "Usuń link";
 "edit-link-title" = "Edytuj link";
 "edit-menu-item" = "Edytuj";
@@ -279,38 +259,14 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Nie można znaleźć wybranego tekstu";
 "edit-minor-learn-more-text" = "Dowiedz się więcej o drobnych zmianach";
 "edit-minor-text" = "To jest drobna zmiana";
-"edit-ordered-list-accessibility-label" = "Utwórz obecną linię uporządkowaną listą";
-"edit-ordered-list-remove-accessibility-label" = "Usuń uporządkowaną listę z bieżącej linii";
 "edit-published" = "Edycja została opublikowana!";
 "edit-published-subtitle" = "Właśnie sprawiłeś, że Wikipedia jest lepsza dla wszystkich";
-"edit-reference-accessibility-label" = "Dodaj składnię referencyjną";
-"edit-reference-remove-accessibility-label" = "Usuń składnię referencyjną";
-"edit-signature-accessibility-label" = "Dodaj składnię podpisu";
-"edit-signature-remove-accessibility-label" = "Usuń składnię podpisu";
-"edit-strikethrough-accessibility-label" = "Dodaj przekreślenie";
-"edit-strikethrough-remove-accessibility-label" = "Usuń przekreślenie";
-"edit-style-table-view-title" = "Styl";
-"edit-subscript-accessibility-label" = "Dodaj formatowanie indeksu dolnego";
-"edit-subscript-remove-accessibility-label" = "Usuń formatowanie indeksu dolnego";
 "edit-summary-add-summary-text" = "Dodaj podsumowanie edycji";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
-"edit-summary-learn-more-text" = "Dowiedz się więcej";
 "edit-summary-placeholder-text" = "Jak poprawiłeś stronę?";
-"edit-superscript-accessibility-label" = "Dodaj formatowanie indeksu górnego";
-"edit-superscript-remove-accessibility-label" = "Usuń formatowanie indeksu górnego";
-"edit-template-accessibility-label" = "Dodaj składnię szablonu";
-"edit-template-remove-accessibility-label" = "Usuń składnię szablonu";
-"edit-text-clear-formatting" = "Wyczyść formatowanie";
-"edit-text-formatting-accessibility-label" = "Pokaż menu formatowania tekstu";
-"edit-text-formatting-table-view-title" = "Formatowanie tekstu";
-"edit-text-size-table-view-title" = "Rozmiar tekstu";
-"edit-text-style-accessibility-label" = "Pokaż menu stylu tekstu";
-"edit-underline-accessibility-label" = "Dodaj podkreślenie";
-"edit-underline-remove-accessibility-label" = "Usuń podkreślenie";
-"edit-unordered-list-accessibility-label" = "Uczyń bieżącą listę nieuporządkowaną";
-"edit-unordered-list-remove-accessibility-label" = "Usuń nieuporządkowaną listę z bieżącej linii";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Dowiedz się więcej o listach obserwacyjnych";
 "edit-watch-this-page-text" = "Obserwuj tę stronę";
 "editing-welcome-be-bold-subtitle" = "Bądź odważny, ale nie lekkomyślny w aktualizowaniu artykułów. Nie zadręczaj się błędami: każda poprzednia wersja strony jest zapisywana, więc błędy mogą być łatwo naprawione przez naszą społeczność.";
@@ -490,6 +446,8 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
+"image-recs-no-title" = "Nie";
+"image-recs-yes-title" = "Tak";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Nie teraz";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
@@ -520,13 +478,13 @@
 "insert-media-image-type-settings-title" = "Typ obrazu";
 "insert-media-media-settings-title" = "Ustawienia multimediów";
 "insert-media-title" = "Wstaw media";
-"insert-media-uploaded-image-title" = "Przesłany obraz";
 "inuktitut-variants-alert-title" = "Aktualizacje obsługi wariantów Inuktitut";
 "kazakh-variants-alert-title" = "Aktualizacje obsługi wariantu kazachskiego";
 "kurdish-variants-alert-title" = "Aktualizacje obsługi wariantu kurdyjskiego";
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
+"learn-more-title" = "Dowiedz się więcej";
 "logged-out-continue-without-logging-in-button-title" = "Kontynuuj bez logowania";
 "logged-out-log-back-in-button-title" = "Zaloguj się ponownie na swoje konto";
 "logged-out-subtitle" = "Wystąpił problem z uwierzytelnieniem Twojego konta. Aby zsynchronizować listy czytelnicze i edytować je pod nazwą użytkownika, zaloguj się ponownie.";
@@ -540,7 +498,6 @@
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-account-logout-are-you-sure" = "Czy na pewno chcesz się wylogować?";
 "main-menu-account-logout-are-you-sure-message" = "Wylogowanie spowoduje usunięcie przechowywanych lokalnie danych konta (powiadomienia i wiadomości), ale dane konta będą nadal dostępne w Internecie i zostaną ponownie pobrane po ponownym zalogowaniu.";
-"main-menu-account-logout-cancel" = "Anuluj";
 "main-menu-account-title-logged-in" = "Zalogowano jako $1";
 "main-menu-heading-legal" = "Prywatność i warunki";
 "main-menu-nearby" = "W pobliżu";
@@ -710,7 +667,6 @@
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
-"preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidane";
@@ -869,7 +825,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Pokaż zapisaną (np. Domyślną) listę czytelniczą jako osobną listę w widoku list czytelniczych. Ta lista pojawia się na urządzeniach z Androidem.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Pokaż zapisaną listę czytania";
 "settings-storage-and-syncing-title" = "Przechowywanie i synchronizacja artykułów";
-"settings-support" = "Wspomóż Wikimedię";
 "settings-title" = "Ustawienia";
 "share-a-fact-made-with" = "Wykonane za pomocą aplikacji Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" na Wikipedii:";
@@ -927,8 +882,6 @@
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
 "unable-to-load-talk-page-title" = "Nie można wczytać strony dyskusji";
 "unknown-generic-text" = "Nieznany";
-"vanish-account-additional-information-field" = "Dodatkowe informacje";
-"vanish-account-learn-more-text" = "Dowiedz się więcej";
 "variants-alert-dismiss-button" = "Nie, dziękuję";
 "variants-alert-preferences-button" = "Sprawdź swoje preferencje";
 "welcome-exploration-explore-feed-description" = "Polecane lektury i codzienne artykuły z naszej społeczności";
@@ -951,16 +904,10 @@
 "welcome-notifications-tell-me-more-creation" = "Powiadomienia są tworzone i dostarczane na Twoje urządzenie przez aplikację, a nie z naszych serwerów (lub stron trzecich).";
 "welcome-notifications-tell-me-more-storage" = "Preferencje powiadomień są przechowywane na urządzeniu i nie są oparte na danych osobowych ani działaniach.";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
-"welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";
-"welcome-send-data-learn-more" = "Dowiedz się więcej o gromadzonych danych";
-"welcome-send-data-sub-title" = "Pomóż ulepszyć aplikację, informując Fundację Wikimedia o tym, jak z niej korzystasz. Zebrane dane są anonimowe.";
-"welcome-volunteer-send-usage-reports" = "Wyślij raporty używania";
 "widget-onthisday-description" = "Dowiedz się, co wydarzyło się tego dnia w historii.";
 "widget-onthisday-placeholder-article-snippet" = "Bezpłatna encyklopedia online, którą każdy może edytować";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, darmowa encyklopedia treści wiki, jest dostępna online.";
-"wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
-"wikitext-preview-changes-none" = "Nie wprowadzono żadnych zmian, które można było by zobaczyć.";
 "wikitext-preview-link-external-preview-description" = "Ten link prowadzi do zewnętrznej strony internetowej: $1";
 "wikitext-preview-link-external-preview-title" = "Link zewnętrzny";
 "wikitext-preview-link-not-found-preview-description" = "Na Wikipedii nie ma artykułu o dokładnie takiej nazwie";

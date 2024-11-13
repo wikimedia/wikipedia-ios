@@ -294,8 +294,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
                 }
-            default:
-                break
             }
         }
     }

@@ -25,7 +25,7 @@ public enum ReadingListsAlertActionType {
     }
 }
 
-@objc (WMFReadingListsAlertController)
+@objc(WMFReadingListsAlertController)
 public class ReadingListsAlertController: NSObject {
     @objc public weak var delegate: ReadingListsAlertControllerDelegate?
     
@@ -99,7 +99,7 @@ public class ReadingListsAlertController: NSObject {
         guard readingList.isDefault else {
             return
         }
-        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             presenter.presentedViewController?.dismiss(animated: true)
             let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
             readingListDetailViewController.apply(theme: theme)

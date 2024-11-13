@@ -47,6 +47,8 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
+        static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
+        static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
@@ -96,15 +98,6 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: WMFAppInstallId)
-        }
-    }
-
-    @objc var wmf_sendUsageReports: Bool {
-        get {
-            return bool(forKey: WMFSendUsageReports)
-        }
-        set {
-            set(newValue, forKey: WMFSendUsageReports)
         }
     }
 
@@ -477,6 +470,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
         }
     }
+    
+    var didShowInformationEditingMessage: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+    }
 
     var autoSignTalkPageDiscussions: Bool {
         get {
@@ -552,11 +554,4 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: "WMFSessionID")
         }
     }
-
-
-#if UI_TEST
-    @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
-        return bool(forKey: "FASTLANE_SNAPSHOT")
-    }
-#endif
 }

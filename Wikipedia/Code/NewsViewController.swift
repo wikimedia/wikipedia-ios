@@ -1,7 +1,7 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
+class NewsViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
@@ -71,12 +71,6 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
-    }
-    
-    // MARK: ArticlePreviewingDelegate
-    
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {

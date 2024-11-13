@@ -74,7 +74,7 @@ class ArticleWebMessagingController: NSObject {
         }
         webView?.evaluateJavaScript("pcs.c1.Footer.add(\(parametersJS))", completionHandler: { (result, error) in
             if let error = error {
-                DDLogError("Error adding footer: \(error)")
+                DDLogWarn("Error adding footer: \(error)")
             }
         })
     }
@@ -127,6 +127,30 @@ class ArticleWebMessagingController: NSObject {
         updateSetupParameters()
     }
     
+    func hideEditPencils() {
+        let js = "pcs.c1.Page.setEditButtons(false, false)"
+        webView?.evaluateJavaScript(js)
+    }
+    
+    func scrollToNewImage(filename: String) {
+
+        let javascript = """
+                        var imageLinkElement = document.querySelectorAll('[href="./\(filename)"]');
+                        imageLinkElement[0].scrollIntoView({behavior: "smooth"});
+                    """
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.webView?.evaluateJavaScript(javascript) { (result, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))
@@ -134,7 +158,7 @@ class ArticleWebMessagingController: NSObject {
         }
         webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, {highlight: \(highlight ? "true" : "false")})") { (result, error) in
             if let error = error {
-                DDLogError("Error attempting to scroll to anchor: \(anchor) \(error)")
+                DDLogWarn("Error attempting to scroll to anchor: \(anchor) \(error)")
                 completion(.failure(error))
             } else {
                 completion(.success(()))
@@ -486,20 +510,20 @@ extension ArticleWebMessagingController {
         webView?.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent: \(error)")
+                    DDLogWarn("Failure in removeSkeletonArticleAsLivingDocContent: \(error)")
                     completion?(false)
                     return
                 }
                 
                 if let boolResult = result as? Bool {
                     if !boolResult {
-                        DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent")
+                        DDLogWarn("Failure in removeSkeletonArticleAsLivingDocContent")
                     }
                     completion?(boolResult)
                     return
                 }
                 
-                DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent")
+                DDLogWarn("Failure in removeSkeletonArticleAsLivingDocContent")
                 completion?(false)
             }
         }
@@ -525,20 +549,20 @@ extension ArticleWebMessagingController {
         webView?.evaluateJavaScript(javascript) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent: \(error)")
+                    DDLogWarn("Failure in injectSkeletonArticleAsLivingDocContent: \(error)")
                     completion?(false)
                     return
                 }
                 
                 if let boolResult = result as? Bool {
                     if !boolResult {
-                        DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent")
+                        DDLogWarn("Failure in injectSkeletonArticleAsLivingDocContent")
                     }
                     completion?(boolResult)
                     return
                 }
                 
-                DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent")
+                DDLogWarn("Failure in injectSkeletonArticleAsLivingDocContent")
                 completion?(false)
             }
         }
@@ -659,20 +683,20 @@ extension ArticleWebMessagingController {
         webView?.evaluateJavaScript(finalInjectJS) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    DDLogDebug("Failure in injectArticleAsLivingDocContent: \(error)")
+                    DDLogWarn("Failure in injectArticleAsLivingDocContent: \(error)")
                     completion?(false)
                     return
                 }
                 
                 if let boolResult = result as? Bool {
                     if !boolResult {
-                        DDLogDebug("Failure in injectArticleAsLivingDocContent")
+                        DDLogWarn("Failure in injectArticleAsLivingDocContent")
                     }
                     completion?(boolResult)
                     return
                 }
                 
-                DDLogDebug("Failure in injectArticleAsLivingDocContent")
+                DDLogWarn("Failure in injectArticleAsLivingDocContent")
                 completion?(false)
             }
         }
@@ -703,12 +727,12 @@ extension ArticleWebMessagingController {
         """
         webView?.evaluateJavaScript(javascript) { (success, error) in
             if let error = error {
-                DDLogDebug("Failure in customUpdateMargins: \(error)")
+                DDLogWarn("Failure in customUpdateMargins: \(error)")
             }
             
             if let success = success as? Bool,
                success == false {
-                DDLogDebug("Failure in customUpdateMargins")
+                DDLogWarn("Failure in customUpdateMargins")
             }
         }
     }

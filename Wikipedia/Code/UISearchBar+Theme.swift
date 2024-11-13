@@ -1,6 +1,6 @@
 import Foundation
 
-extension UISearchBar: Themeable {
+extension UISearchBar: @retroactive Themeable {
     public func apply(theme: Theme) {
         wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText

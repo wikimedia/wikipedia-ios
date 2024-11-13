@@ -1,6 +1,6 @@
 import UIKit
 
-class ShareAFactActivityImageItemProvider: UIActivityItemProvider {
+class ShareAFactActivityImageItemProvider: UIActivityItemProvider, @unchecked Sendable {
     let image: UIImage
     
     required init(image: UIImage) {
