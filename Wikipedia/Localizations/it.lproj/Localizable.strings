@@ -709,6 +709,7 @@
 "preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "privacy-policy-title" = "Informativa sulla privacy";
 "profile-button-accessibility-label" = "Profilo";
+"profile-page-join-title" = "Accedi o iscriviti a Wikipedia";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1009,3 +1010,5 @@
 "year-in-review-personalized-reading-title- format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-share" = "Condividi";
 "year-in-review-start" = "Ulteriori informazioni";
+"year-in-review-login-title" = "Ottimizza la tua rassegna annuale";
+"year-in-review-login-subtitle" = "Accedi o crea un account per usufruire di approfondimenti più personalizzati";

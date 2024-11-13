@@ -1118,3 +1118,5 @@
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
+"year-in-review-login-title" = "Mejora tu repaso anual";
+"year-in-review-login-subtitle" = "Inicia sesión o crea una cuenta para poder obtener más información personalizada";
