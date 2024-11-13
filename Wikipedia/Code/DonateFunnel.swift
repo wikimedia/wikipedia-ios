@@ -51,7 +51,7 @@ import WMF
         case returnClick = "return_click"
         case profileClick = "profile_click"
         case startClick = "start_click"
-        case hideClick = "hide_click"
+        case learnClick = "learn_click"
         case nextClick = "next_click"
         case continueClick = "continue_click"
         case donateStartClickYir = "donate_start_click_yir"
@@ -324,8 +324,8 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
     }
     
-    func logYearInReviewDidTapIntroDisable() {
-        logEvent(activeInterface: .wikiYiR, action: .hideClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroLearnMore() {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": "start"])
     }
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {

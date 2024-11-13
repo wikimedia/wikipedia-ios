@@ -10,7 +10,14 @@ public struct WMFYearInReviewView: View {
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
-        UINavigationBar.appearance().backgroundColor = theme.midBackground
+        let toolbarAppearance = UIToolbarAppearance()
+        toolbarAppearance.configureWithOpaqueBackground()
+        toolbarAppearance.backgroundColor = theme.midBackground
+        toolbarAppearance.shadowColor = .clear
+
+        UIToolbar.appearance().standardAppearance = toolbarAppearance
+        UIToolbar.appearance().compactAppearance = toolbarAppearance
+
     }
 
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -23,18 +30,14 @@ public struct WMFYearInReviewView: View {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    if viewModel.shouldShowWLogo {
-                        if !viewModel.shouldShowDonateButton {
-                            // Need something here for W to center well
-                            Text("")
-                                .accessibilityHidden(true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                    if !viewModel.shouldShowDonateButton {
                         Spacer()
-                        Image("W", bundle: .module)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(Color(theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    Spacer()
+                    Image("W", bundle: .module)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(theme.text))
                     Spacer()
                     Button(action: {
                         viewModel.logYearInReviewDidTapDone()
@@ -83,6 +86,7 @@ public struct WMFYearInReviewView: View {
                 // Logs slide impressions and next taps
                 viewModel.logYearInReviewSlideDidAppear()
             }
+            .toolbarColorScheme(theme.preferredColorScheme)
             .toolbar {
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .bottomBar) {
@@ -159,8 +163,9 @@ public struct WMFYearInReviewView: View {
                     viewModel.getStarted()
                 }
             }
-            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                viewModel.loggingDelegate?.logYearInReviewIntroDidTapDisable()
+            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideLearnMore) {
+                viewModel.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
+                viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
                 // TODO: Implement hide this feature
             }
         }

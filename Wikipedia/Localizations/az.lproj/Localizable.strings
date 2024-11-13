@@ -226,6 +226,7 @@
 "crimean-tatar-variants-alert-title" = "Krım tatar variant dəstəyi üçün yeniləmələr";
 "data-migration-status" = "Yenilənir...";
 "description-add-title" = "İzah əlavə et";
+"description-article-introduction-warning-message" = "Redaktə görünüşündə mlementlərin sıralanması məqaləninkindən fərqli olacaq.";
 "description-edit-for-article" = "$1 üçün məqalə təsviri";
 "description-edit-license" = "Məqalənin təsvirini dəyişdirməklə, mən $1 ilə razılaşıram və $2 lisenziyası altında töhfələrimi geri qaytarılmayacaq şəkildə yayımlayıram.";
 "description-edit-pencil-introduction" = "Girişi redaktə et";
@@ -1068,4 +1069,3 @@
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Xahiş edirik mehriban olun, hamımız burada insanıq.";
 "talk-pages-topic-reply-onboarding-title" = "Müzakirə səhifələri";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Dəyişiklikləri dərc etməklə siz $1İstifadə Şərtləri$2 ilə razılaşırsınız və töhfələrinizin $3CC BY-SA 4.0$4 və $5GFDL$6 lisenziyaları altında geri qaytarılmadan yayımlanmasına razı olursunuz. Siz razılaşırsınız ki, hiperlink və ya URL əlavə edilməsi Creative Commons lisenziyası şərtinin ödənilməsi üçün kifayətdir.";
-"year-in-review-hide" = "Bu xüsusiyyəti gizlət";

@@ -8,5 +8,6 @@ public enum YearInReviewCoordinatorAction {
     case donate(sourceRect: CGRect, slideLoggingID: String)
     case share(image: UIImage)
     case dismiss(isLastSlide: Bool)
+    case introLearnMore
     case learnMore(url: URL, fromPersonalizedDonateSlide: Bool)
 }

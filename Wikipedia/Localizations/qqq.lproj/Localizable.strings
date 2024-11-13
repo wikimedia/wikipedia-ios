@@ -967,7 +967,6 @@
 "profile-page-join-title" = "Link to sign up or sign in";
 "profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
 "profile-page-title-logged-out" = "Page title for non-logged in users";
-"profile-page-year-in-review-title" = "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
@@ -1131,6 +1130,8 @@
 "settings-notifications-push-notifications" = "A title for a list of Push notifications";
 "settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
 "settings-notifications-trending" = "Title for the setting for trending notifications";
+"settings-off" = "Text indicating a value is off in app Settings.";
+"settings-on" = "Text indicating a value is on in app Settings.";
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
@@ -1398,18 +1399,18 @@
 "year-in-review-base-donate-title" = "Year in review, donate slide title when user has not made any donations that year.";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle, $1 is replaced with the number of edits text, e.g. \"452,257\"";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"452,257\".";
-"year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342\"";
+"year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342\". $2 is replaced with a link to the Mediawiki Apps team FAQ about editing.";
 "year-in-review-base-edits-title" = "Year in review, collective edits per minute slide title, $1 is replaced with the number of edits per minute text, e.g. \"342\".";
 "year-in-review-base-reading-subtitle" = "Year in review, collective reading count slide subtitle. $1 is replaced with a formatted number of articles available across Wikipedia, e.g. \"63.59\". $2 is replaced with the number of active languages available on Wikipedia, e.g. \"332\"";
 "year-in-review-base-reading-title" = "Year in review, collective reading article count slide title";
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle, $1 is replaced with the number of article views text, e.g. \"1.5\"";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".";
+"year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
 "year-in-review-done" = "Year in review done button";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
 "year-in-review-get-started" = "Button to continue to year in review";
-"year-in-review-hide" = "Button to hide year in review feature";
 "year-in-review-next" = "Year in review next button";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
