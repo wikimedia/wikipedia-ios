@@ -4,17 +4,20 @@
       "id" : "BAD75B0C-AB52-4988-86B4-ECD18DA1424E",
       "name" : "Configuration 1",
       "options" : {
-
+        "language" : "it",
+        "region" : "IT"
       }
     }
   ],
   "defaultOptions" : {
+    "language" : "en",
+    "region" : "US",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:..\/WMFData",
+        "containerPath" : "container:",
         "identifier" : "WMFDataTests",
         "name" : "WMFDataTests"
       }

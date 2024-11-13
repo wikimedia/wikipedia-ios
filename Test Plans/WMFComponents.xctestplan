@@ -9,6 +9,8 @@
     }
   ],
   "defaultOptions" : {
+    "language" : "en",
+    "region" : "US",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
