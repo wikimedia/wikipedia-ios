@@ -273,6 +273,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
                             loggingID: "edit_count_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
                 }

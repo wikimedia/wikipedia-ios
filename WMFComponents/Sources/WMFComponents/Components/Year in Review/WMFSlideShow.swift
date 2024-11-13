@@ -57,6 +57,7 @@ public struct WMFSlideShow: View {
                 Text(slides[slide].title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill), let infoURL = slides[slide].infoURL {
                     Button {
