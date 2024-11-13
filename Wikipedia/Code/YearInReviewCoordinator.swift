@@ -411,12 +411,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
             loginCoordinator.start()
         }
-        let action2 = UIAlertAction(title: button2Title, style: .cancel)
+        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
+        }
         alert.addAction(action1)
         alert.addAction(action2)
+        
+        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
         
         navigationController.present(alert, animated: true)
     }

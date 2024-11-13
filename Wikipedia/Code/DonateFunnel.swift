@@ -55,6 +55,8 @@ import WMF
         case nextClick = "next_click"
         case continueClick = "continue_click"
         case donateStartClickYir = "donate_start_click_yir"
+        case accountEngageClick = "account_engage_click"
+        case rejectClick = "reject_click"
     }
     
     private struct Event: EventInterface {
@@ -348,6 +350,18 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
             "campaign_id": metricsID])
+    }
+    
+    func logYearInReviewLoginPromptDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapLogin() {
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapNoThanks() {
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
     }
     
     // Year in Review Donate flow events
