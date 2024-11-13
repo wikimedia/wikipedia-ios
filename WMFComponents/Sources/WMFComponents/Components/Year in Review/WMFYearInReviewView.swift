@@ -67,7 +67,9 @@ public struct WMFYearInReviewView: View {
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
-                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides, navigate: viewModel.navigate(to:useSafari:))
+                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides, infoAction: {
+                                viewModel.handleInfo()
+                            })
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))

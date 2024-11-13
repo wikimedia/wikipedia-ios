@@ -61,11 +61,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
     
-    var aboutYIRURL: String {
+    var aboutYIRURL: URL? {
         if let languageCode {
-           "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used/\(languageCode)"
+            URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used/\(languageCode)")
         } else {
-           "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used"
+            URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used")
         }
     }
 
@@ -571,6 +571,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
             newNavigationVC.modalPresentationStyle = .formSheet
             presentedViewController.present(newNavigationVC, animated: true)
+        case .info(let url):
+            if let url {
+                navigationController.navigate(to: url, useSafari: true)
+            }
         }
         
     }

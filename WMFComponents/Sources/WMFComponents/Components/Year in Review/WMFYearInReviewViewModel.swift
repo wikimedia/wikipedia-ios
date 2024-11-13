@@ -42,19 +42,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         isFirstSlide = false
     }
     
-    public func navigate(to url: URL?, useSafari: Bool) {
-        guard let url = url else {
-            return
-        }
-        guard
-            !useSafari,
-            url.scheme == "https" || url.scheme == "http"
-        else {
-            UIApplication.shared.open(url)
-            return
-        }
-    }
-    
     public func nextSlide() {
         if isLastSlide {
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
@@ -148,10 +135,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
             badgeDelegate?.didSeeFirstSlide()
         }
     }
+    
+    public func handleInfo() {
+        if let url = slides[currentSlide].infoURL {
+            coordinatorDelegate?.handleYearInReviewAction(.info(url: url))
+        }
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
-    public var infoURL: String?
+    public var infoURL: URL?
     public let imageName: String
     public let imageOverlay: String?
     public let textOverlay: String?
@@ -161,7 +154,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: String? = nil, hideDonateButton: Bool) {
+    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.textOverlay = textOverlay

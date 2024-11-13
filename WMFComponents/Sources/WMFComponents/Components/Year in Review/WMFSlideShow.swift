@@ -4,7 +4,7 @@ import WMFData
 public struct WMFSlideShow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Binding public var currentSlide: Int
-    public var navigate: (URL?, Bool) -> Void
+    public var infoAction: () -> Void
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -21,11 +21,11 @@ public struct WMFSlideShow: View {
     public init(
         currentSlide: Binding<Int>,
         slides: [SlideShowProtocol],
-        navigate: @escaping (URL?, Bool) -> Void
+        infoAction: @escaping () -> Void
     ) {
         self._currentSlide = currentSlide
         self.slides = slides
-        self.navigate = navigate
+        self.infoAction = infoAction
     }
     
     public var body: some View {
@@ -59,9 +59,9 @@ public struct WMFSlideShow: View {
                     .foregroundStyle(Color(uiColor: theme.text))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill), let infoURL = slides[slide].infoURL {
+                if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                     Button {
-                        navigate(URL(string: infoURL), true)
+                        infoAction()
                     } label: {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -74,6 +74,7 @@ public struct WMFSlideShow: View {
                 .font(Font(WMFFont.for(.title3)))
                 .foregroundStyle(Color(uiColor: theme.text))
                 .accentColor(Color(uiColor: theme.link))
+                .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
         }
     }
@@ -85,5 +86,5 @@ public protocol SlideShowProtocol {
     var imageName: String { get }
     var imageOverlay: String? { get }
     var textOverlay: String? { get }
-    var infoURL: String? { get }
+    var infoURL: URL? { get }
 }
