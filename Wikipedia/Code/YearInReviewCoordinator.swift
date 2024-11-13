@@ -395,6 +395,31 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             self.dataController.hasPresentedYiRSurvey = true
         }
     }
+    
+    private func needsLoginPrompt() -> Bool {
+        return !dataStore.authenticationManager.authStateIsPermanent
+    }
+    
+    private func presentLoginPrompt() {
+        let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalied insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let button1Title = CommonStrings.joinLoginTitle
+        let button2Title = CommonStrings.noThanksTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+            
+            guard let self else { return }
+            
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            loginCoordinator.start()
+        }
+        let action2 = UIAlertAction(title: button2Title, style: .cancel)
+        alert.addAction(action1)
+        alert.addAction(action2)
+        
+        navigationController.present(alert, animated: true)
+    }
 
     private func surveyViewController() -> UIViewController {
         let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
@@ -426,13 +451,27 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
             cancelAction: { [weak self] in
-            self?.navigationController.dismiss(animated: true)
+            self?.navigationController.dismiss(animated: true, completion: { [weak self] in
+                guard let self else { return }
+                
+                if self.needsLoginPrompt() {
+                    presentLoginPrompt()
+                }
+            })
         },
             submitAction: { [weak self] options, otherText in
             print("TODO: Send answer to DonateFunnel")
-            self?.navigationController.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            self?.navigationController.dismiss(animated: true, completion: { [weak self] in
+                
+                guard let self else { return }
+                
+                if self.needsLoginPrompt() {
+                    presentLoginPrompt()
+                } else {
+                    let image = UIImage(systemName: "checkmark.circle.fill")
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                }
+                
             })
         })
 

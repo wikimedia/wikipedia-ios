@@ -1411,6 +1411,8 @@
 "year-in-review-done" = "Done";
 "year-in-review-finish" = "Finish";
 "year-in-review-get-started" = "Get Started";
+"year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalied insights";
+"year-in-review-login-title" = "Improve your Year in Review";
 "year-in-review-next" = "Next";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
