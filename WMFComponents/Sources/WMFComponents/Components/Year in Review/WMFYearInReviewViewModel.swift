@@ -147,9 +147,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
             badgeDelegate?.didSeeFirstSlide()
         }
     }
+    
+    public func handleInfo() {
+        if let url = slides[currentSlide].infoURL {
+            coordinatorDelegate?.handleYearInReviewAction(.info(url: url))
+        }
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
+    public var infoURL: URL?
     public let imageName: String
     public let imageOverlay: String?
     public let textOverlay: String?
@@ -159,7 +166,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, hideDonateButton: Bool) {
+    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.textOverlay = textOverlay
@@ -167,7 +174,8 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
         self.loggingID = loggingID
-        self.hideDonateButton = hideDonateButton
+        self.infoURL = infoURL
+		self.hideDonateButton = hideDonateButton
     }
 }
 

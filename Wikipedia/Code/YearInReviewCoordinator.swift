@@ -48,7 +48,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let number = NSNumber(1522941831)
         return formatter.string(from: number) ?? "1,522,941,831"
     }
-
+    
+    var languageCode: String? {
+        dataStore.languageLinkController.appLanguage?.languageCode
+    }
+    
+    var aboutWikimediaURL: String {
+        if let languageCode {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
+        } else {
+           "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
+        }
+    }
+    
+    var aboutYIRURL: URL? {
+        if let languageCode {
+            URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used/\(languageCode)")
+        } else {
+            URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used")
+        }
+    }
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -129,15 +148,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year.")
     }
     
-    func baseSlide5Subtitle(languageCode: String?) -> String {
-        let urlString: String
-        if let languageCode {
-            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
-        } else {
-            urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
-        }
+    func baseSlide5Subtitle() -> String {
         let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "Wikipedia is hosted by the Wikimedia Foundation and funded by individual donations. We work to keep Wikimedia sites available to all, build features and tools to make it easy to share knowledge, support communities of volunteer editors, and more. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, urlString)
+        return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
 
     
@@ -237,6 +250,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: personalizedSlide1Subtitle(readCount: readCount),
                             loggingID: "read_count_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
                 }
@@ -259,6 +273,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
                             loggingID: "edit_count_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
                 }
@@ -275,6 +290,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
                             loggingID: "thank_custom",
+                            infoURL: aboutYIRURL,
                             hideDonateButton: true)
                     }
                 }
@@ -292,6 +308,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            informationBubbleText: nil,
            subtitle: baseSlide1Subtitle,
            loggingID: "read_count_base",
+           infoURL: aboutYIRURL,
            hideDonateButton: false)
        
        var thirdSlide = YearInReviewSlideContent(
@@ -301,6 +318,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            informationBubbleText: nil,
            subtitle: baseSlide3Subtitle,
            loggingID: "edit_count_base",
+           infoURL: aboutYIRURL,
            hideDonateButton: false)
         
         var fifthSlide = YearInReviewSlideContent(
@@ -308,8 +326,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             imageOverlay: "wmf-logo",
             title: baseSlide5Title,
             informationBubbleText: nil,
-            subtitle: baseSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
+            subtitle: baseSlide5Subtitle(),
             loggingID: "ads_served_base",
+            infoURL: aboutYIRURL,
             hideDonateButton: false)
        
        let personalizedSlides = getPersonalizedSlides()
@@ -337,6 +356,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide2Subtitle,
                loggingID: "read_view_base",
+               infoURL: aboutYIRURL,
                hideDonateButton: false),
            thirdSlide,
            YearInReviewSlideContent(
@@ -346,6 +366,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                informationBubbleText: nil,
                subtitle: baseSlide4Subtitle,
                loggingID: "edit_rate_base",
+               infoURL: aboutYIRURL,
                hideDonateButton: false),
            fifthSlide
        ]
@@ -493,20 +514,20 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
         case .donate(let rect):
-            
+
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
                 }
-                
+
                 viewModel.isLoading = loading
             })
-            
+
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
-            
-            
+
+
         case .share(let image):
             guard let viewModel else { return }
             let contentProvider = YiRShareActivityContentProvider(text: viewModel.localizedStrings.shareText, appStoreURL: viewModel.shareLink, hashtag: viewModel.hashtag)
@@ -516,23 +537,23 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
             let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
-            
+
             if let visibleVC = self.navigationController.visibleViewController {
                 if let popover = activityController.popoverPresentationController {
                     popover.sourceRect = visibleVC.view.bounds
                     popover.sourceView = visibleVC.view
                     popover.permittedArrowDirections = []
                 }
-                
+
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
             (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-                
+
                 guard isLastSlide else { return }
-                
+
                 self.presentSurveyIfNeeded()
             })
 
@@ -545,15 +566,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             navigationController.navigate(to: url, useSafari: true)
 
         case .learnMore(let url, let fromPersonalizedDonateSlide):
-            
+
             guard let presentedViewController = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
                 return
             }
-            
+
             let webVC: SinglePageWebViewController
             let slideLoggingID: String
-            
+
             if !fromPersonalizedDonateSlide {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
@@ -563,12 +584,22 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
                 slideLoggingID = "about_wikimedia_custom"
             }
-            
+
             let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
             newNavigationVC.modalPresentationStyle = .formSheet
             presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
+        case .info(let url):
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping Info presentation.")
+                return
+            }
+
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
+            newNavigationVC.modalPresentationStyle = .formSheet
+            presentedViewController.present(newNavigationVC, animated: true)
         }
-        
     }
 }
 
