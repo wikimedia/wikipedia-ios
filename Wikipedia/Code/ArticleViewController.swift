@@ -1498,20 +1498,20 @@ private extension ArticleViewController {
     
     func setupWebView() {
         
-        view.addSubview(webView)
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: webView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
-        ])
+//        view.addSubview(webView)
+//        
+//        NSLayoutConstraint.activate([
+//            view.topAnchor.constraint(equalTo: webView.topAnchor),
+//            view.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
+//            view.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
+//            view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
+//        ])
         
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        tableOfContentsController.stackView.isHidden = true
+        // tableOfContentsController.stackView.isHidden = true
         
         // Prevent flash of white in dark mode
         webView.isOpaque = false

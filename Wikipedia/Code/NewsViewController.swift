@@ -121,6 +121,16 @@ class NewsViewController: ColumnarCollectionViewController2 {
     }
     
     @objc private func close() {
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                return
+            }
+        }
+        
         navigationController?.popViewController(animated: true)
     }
 }

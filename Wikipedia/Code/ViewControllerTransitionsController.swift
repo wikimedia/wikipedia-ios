@@ -14,6 +14,13 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         }
         
         if let detailController = detailAnimationController(for: operation, from: fromVC, to: toVC) {
+            // Looks better if we opt out entirely with iPad floating tab bar
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    return nil
+                }
+            }
+            
             return detailController
         }
         
