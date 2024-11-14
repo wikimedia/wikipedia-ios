@@ -16,6 +16,8 @@
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
+@import WMFData;
+
 /**
  *  Enums for each tab in the main tab bar.
  */
@@ -398,7 +400,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self populateYearInReviewReportFor:2024];
+    [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -2210,6 +2212,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+    
+    [self deleteYearInReviewPersonalizedEditingData];
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
