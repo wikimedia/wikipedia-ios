@@ -698,6 +698,45 @@ import CoreData
         }
     }
     
+    public func deleteAllPersonalizedEditingData() async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        try await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            
+            let cdReports = try self.coreDataStore.fetch(
+                entityType: CDYearInReviewReport.self,
+                predicate: nil,
+                fetchLimit: nil,
+                in: backgroundContext
+            )
+            
+            guard let cdReports else {
+                return
+            }
+            
+            for report in cdReports {
+                
+                guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+                    continue
+                }
+                
+                innerLoop: for slide in slides {
+                    
+                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
+                        break innerLoop
+                    }
+                    
+                    slide.data = nil
+                    slide.display = false
+                    slide.evaluated = false
+                }
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
     public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
         return try await withCheckedThrowingContinuation { continuation in
             fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate) { result in
