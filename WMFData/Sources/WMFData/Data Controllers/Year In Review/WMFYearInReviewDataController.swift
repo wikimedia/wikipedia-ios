@@ -8,6 +8,8 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     public let targetConfigYearID = "2024.1"
+    @objc public static let targetYear = 2024
+    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
 
@@ -153,7 +155,7 @@ import CoreData
         }
         
         // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: 2024) else {
+        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
             return false
         }
         
