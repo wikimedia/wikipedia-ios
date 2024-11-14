@@ -728,6 +728,8 @@
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
+"settings-off" = "Aus";
+"settings-on" = "Un";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
@@ -917,7 +919,6 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
 "year-in-review-personalized-reading-title- format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-share" = "Deelen";
-"year-in-review-start" = "Méi gewuer ginn";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Zefridden";
 "year-in-review-survey-title" = "Zefriddenheetsëmfro";

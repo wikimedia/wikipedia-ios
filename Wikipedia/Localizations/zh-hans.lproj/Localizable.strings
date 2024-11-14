@@ -1004,7 +1004,6 @@
 "profile-page-join-title" = "加入维基百科/登录";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
 "profile-page-title-logged-out" = "账号";
-"profile-page-year-in-review-title" = "年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
 "project-name-wikidata" = "维基数据";
@@ -1442,6 +1441,7 @@
 "year-in-review-base-viewed-subtitle" = "iOS应用程序用户阅读了维基百科条目$1。无论人们身处何方，维基百科都是回答问题、查找学习工作所需信息，或学习新知的首选。";
 // Fuzzy
 "year-in-review-base-viewed-title" = "我们在维基百科上阅读条目达$1。";
+"year-in-review-button-title" = "年度回顾";
 "year-in-review-donate" = "捐款";
 "year-in-review-done" = "完成";
 "year-in-review-get-started" = "开始";

@@ -978,7 +978,6 @@
 "profile-page-join-title" = "Зачленете се / Најава";
 "profile-page-logged-out-year-in-review-subtext" = "Најавете се или направете сметка за да го подобриме Прегледот на годината за следната година";
 "profile-page-title-logged-out" = "Сметка";
-"profile-page-year-in-review-title" = "Преглед на годината";
 "project-name-mediawiki" = "МедијаВики";
 "project-name-wikibooks" = "Викикниги";
 "project-name-wikidata" = "Википодатоци";
@@ -1142,6 +1141,8 @@
 "settings-notifications-push-notifications" = "Доставни известувања";
 "settings-notifications-system-turn-on" = "Вклучи известувања";
 "settings-notifications-trending" = "Тековни настани";
+"settings-off" = "Искл.";
+"settings-on" = "Вкл.";
 "settings-primary-language" = "Главен";
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот.";
 "settings-search-footer-text" = "Прилогот нека се отвора во јазичето „Пребарај“ наместо во јазичето „Истражи“";
@@ -1415,6 +1416,7 @@
 "year-in-review-base-reading-title" = "Читањето не зближи";
 "year-in-review-base-viewed-subtitle" = "Корисниците на прилогот за iOS посетија статии $1 милијарди пати. За луѓето ширум светот Википедија е главна место за добивање на одговори на прашања, проверка на информации за училиште или работа, или за добивање на некое ново сознание.";
 "year-in-review-base-viewed-title" = "Посетивме статии на Википедија $1 милијарди пати";
+"year-in-review-button-title" = "Преглед на годината";
 "year-in-review-donate" = "Дарувајте";
 "year-in-review-donate-now" = "Дарувајте сега";
 "year-in-review-done" = "Готово";
@@ -1433,7 +1435,6 @@
 "year-in-review-personalized-reading-title- format" = "Годинава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}";
 "year-in-review-share" = "Сподели";
 "year-in-review-share-text" = "Еве го мојот Преглед на годината. Создадено со прилогот на Википедија за iOS.";
-"year-in-review-start" = "Дознајте повеќе";
 "year-in-review-subtitle" = "Добијте сознанија за тоа кои статии ги читате на прилогот на Википедија и кои уредувања ги правите. Вашата историја на читање е заштитена. Сознанијата за читањето се пресметуваат со месно складирани податоци на вашиот уред.";
 "year-in-review-survey-additional-thoughts" = "Имате други размисли?";
 "year-in-review-survey-neutral" = "Воздржан";

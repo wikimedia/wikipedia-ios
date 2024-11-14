@@ -1037,6 +1037,8 @@
 "settings-notifications-push-notifications" = "Push обавештења";
 "settings-notifications-system-turn-on" = "Укључи обавештења";
 "settings-notifications-trending" = "Популарни догађаји";
+"settings-off" = "Искљ.";
+"settings-on" = "Укљ.";
 "settings-primary-language" = "Главни";
 "settings-primary-language-details" = "Први језик на овој листи ће се користити као главни језик апликације.";
 "settings-search-footer-text" = "Подесите апликацију да отвара картицу „Претражи” уместо картице „Истражи”";
@@ -1302,7 +1304,6 @@
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";
 "year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
 "year-in-review-share" = "Дели";
-"year-in-review-start" = "Сазнајте више";
 "year-in-review-survey-neutral" = "Неутралан";
 "year-in-review-survey-satisfied" = "Задовољан";
 "year-in-review-survey-unsatisfied" = "Незадовољан";

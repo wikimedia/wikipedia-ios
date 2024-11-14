@@ -968,7 +968,6 @@
 "profile-page-join-title" = "Vikipediyaya qoşul / Daxil ol";
 "profile-page-logged-out-year-in-review-subtext" = "Gələn il illik statistika əldə etmək üçün daxil olun və ya hesab yaradın";
 "profile-page-title-logged-out" = "Hesab";
-"profile-page-year-in-review-title" = "İlə Baxış";
 "project-name-mediawiki" = "MediaViki";
 "project-name-wikibooks" = "Vikikitab";
 "project-name-wikidata" = "Vikidata";
@@ -1069,3 +1068,4 @@
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Xahiş edirik mehriban olun, hamımız burada insanıq.";
 "talk-pages-topic-reply-onboarding-title" = "Müzakirə səhifələri";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Dəyişiklikləri dərc etməklə siz $1İstifadə Şərtləri$2 ilə razılaşırsınız və töhfələrinizin $3CC BY-SA 4.0$4 və $5GFDL$6 lisenziyaları altında geri qaytarılmadan yayımlanmasına razı olursunuz. Siz razılaşırsınız ki, hiperlink və ya URL əlavə edilməsi Creative Commons lisenziyası şərtinin ödənilməsi üçün kifayətdir.";
+"year-in-review-button-title" = "İlə Baxış";
