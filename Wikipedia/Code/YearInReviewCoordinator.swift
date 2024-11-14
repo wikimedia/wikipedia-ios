@@ -565,7 +565,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used\(languageCodeSuffix)")
             navigationController.navigate(to: url, useSafari: true)
 
-        case .learnMore(let url, let fromPersonalizedDonateSlide):
+        case .learnMore(let url, let shouldShowDonateButton):
 
             guard let presentedViewController = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
@@ -575,7 +575,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let webVC: SinglePageWebViewController
             let slideLoggingID: String
 
-            if !fromPersonalizedDonateSlide {
+            if shouldShowDonateButton {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
                 slideLoggingID = "about_wikimedia_base"

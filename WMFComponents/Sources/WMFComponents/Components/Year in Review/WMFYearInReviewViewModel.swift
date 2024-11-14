@@ -104,7 +104,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleLearnMore(url: URL) {
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
+        var shouldShowDonate = false
+        if slides.count - 1 == currentSlide && !hasPersonalizedDonateSlide {
+            shouldShowDonate = true
+        }
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
     
