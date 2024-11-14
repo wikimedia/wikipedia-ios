@@ -95,6 +95,7 @@ public struct WMFYearInReviewView: View {
                         HStack(alignment: .center) {
                             Button(action: {
                                 viewModel.handleShare(for: viewModel.currentSlide)
+                                viewModel.logYearInReviewDidTapShare()
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {

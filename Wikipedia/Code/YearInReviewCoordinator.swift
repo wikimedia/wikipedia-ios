@@ -98,7 +98,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var baseSlide2Title: String {
         let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ Billion times", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".")
-        
+
         let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
         
         return String.localizedStringWithFormat(format, numArticleViewsString)
@@ -155,7 +155,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     
     func personalizedSlide1Title(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title- format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
         return String.localizedStringWithFormat(format, readCount)
     }
 
@@ -373,14 +373,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
        
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-           donateButtonTitle: WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button"),
-           doneButtonTitle: WMFLocalizedString("year-in-review-done", value: "Done", comment: "Year in review done button"),
-           shareButtonTitle: WMFLocalizedString("year-in-review-share", value: "Share", comment: "Year in review share button"),
-           nextButtonTitle: WMFLocalizedString("year-in-review-next", value: "Next", comment: "Year in review next button"),
+        donateButtonTitle: CommonStrings.donateTitle,
+           doneButtonTitle:CommonStrings.doneTitle,
+        shareButtonTitle: CommonStrings.shortShareTitle,
+        nextButtonTitle: CommonStrings.nextTitle,
            finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
-           firstSlideTitle: WMFLocalizedString("year-in-review-title", value: "Explore your Wikipedia Year in Review", comment: "Year in review page title"),
+           firstSlideTitle: CommonStrings.exploreYiRTitle,
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
-           firstSlideCTA: WMFLocalizedString("year-in-review-get-started", value: "Get Started", comment: "Button to continue to year in review"),
+           firstSlideCTA: CommonStrings.getStartedTitle,
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
            usernameTitle: CommonStrings.userTitle
@@ -412,7 +412,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {
             let surveyVC = surveyViewController()
-            navigationController.present(surveyVC, animated: true)
+            navigationController.present(surveyVC, animated: true, completion: {
+                DonateFunnel.shared.logYearInReviewSurveyDidAppear()
+            })
             self.dataController.hasPresentedYiRSurvey = true
         }
     }
@@ -438,22 +440,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
         
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "very_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "v_satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
             WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "very_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "v_unsatisfied")
         ]
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
             cancelAction: { [weak self] in
             self?.navigationController.dismiss(animated: true)
+            DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         },
             submitAction: { [weak self] options, otherText in
-            print("TODO: Send answer to DonateFunnel")
+            DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
             self?.navigationController.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
 
@@ -463,13 +467,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 }
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
-    
+
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewDidTapDone(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapDonate(slideLoggingID: String) {
+        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+            DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+        }
     }
     
     func logYearInReviewIntroDidTapContinue() {
@@ -480,8 +490,16 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
     }
     
+    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: slideLoggingID)
+    }
+    
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
     }
 }
 
@@ -495,25 +513,21 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID):
-            
-            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
-                DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
-            }
-            
+        case .donate(let rect):
+
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
                 }
-                
+
                 viewModel.isLoading = loading
             })
-            
+
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
-            
-            
+
+
         case .share(let image):
             guard let viewModel else { return }
             let contentProvider = YiRShareActivityContentProvider(text: viewModel.localizedStrings.shareText, appStoreURL: viewModel.shareLink, hashtag: viewModel.hashtag)
@@ -523,23 +537,23 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
             let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
-            
+
             if let visibleVC = self.navigationController.visibleViewController {
                 if let popover = activityController.popoverPresentationController {
                     popover.sourceRect = visibleVC.view.bounds
                     popover.sourceView = visibleVC.view
                     popover.permittedArrowDirections = []
                 }
-                
+
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let isLastSlide):
             (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-                
+
                 guard isLastSlide else { return }
-                
+
                 self.presentSurveyIfNeeded()
             })
 
@@ -552,25 +566,28 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             navigationController.navigate(to: url, useSafari: true)
 
         case .learnMore(let url, let fromPersonalizedDonateSlide):
-            
+
             guard let presentedViewController = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
                 return
             }
-            
+
             let webVC: SinglePageWebViewController
-            
+            let slideLoggingID: String
+
             if !fromPersonalizedDonateSlide {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+                slideLoggingID = "about_wikimedia_base"
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+                slideLoggingID = "about_wikimedia_custom"
             }
-            
+
             let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
             newNavigationVC.modalPresentationStyle = .formSheet
-            presentedViewController.present(newNavigationVC, animated: true)
+            presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
         case .info(let url):
             if let url {
                 navigationController.navigate(to: url, useSafari: true)
