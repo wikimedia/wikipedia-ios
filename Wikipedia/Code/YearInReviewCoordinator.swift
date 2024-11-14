@@ -391,7 +391,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {
             let surveyVC = surveyViewController()
-            navigationController.present(surveyVC, animated: true)
+            navigationController.present(surveyVC, animated: true, completion: {
+                DonateFunnel.shared.logYearInReviewSurveyDidAppear()
+            })
             self.dataController.hasPresentedYiRSurvey = true
         }
     }
@@ -417,22 +419,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
         
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "very_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "v_satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
             WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
             WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "very_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "v_unsatisfied")
         ]
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
             cancelAction: { [weak self] in
             self?.navigationController.dismiss(animated: true)
+            DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         },
             submitAction: { [weak self] options, otherText in
-            print("TODO: Send answer to DonateFunnel")
+            DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
             self?.navigationController.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
 
@@ -442,13 +446,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 }
 
 extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
-    
+
     func logYearInReviewSlideDidAppear(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewSlideImpression(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewDidTapDone(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapDone(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapDonate(slideLoggingID: String) {
+        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+            DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
+        }
     }
     
     func logYearInReviewIntroDidTapContinue() {
@@ -459,8 +469,16 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
     }
     
+    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: slideLoggingID)
+    }
+    
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        DonateFunnel.shared.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
     }
 }
 
@@ -474,11 +492,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .donate(let rect, let slideLoggingID):
-            
-            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
-                DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
-            }
+        case .donate(let rect):
             
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
@@ -538,18 +552,21 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
             
             let webVC: SinglePageWebViewController
+            let slideLoggingID: String
             
             if !fromPersonalizedDonateSlide {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
+                slideLoggingID = "about_wikimedia_base"
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+                slideLoggingID = "about_wikimedia_custom"
             }
             
             let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
             newNavigationVC.modalPresentationStyle = .formSheet
-            presentedViewController.present(newNavigationVC, animated: true)
+            presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
         }
         
     }

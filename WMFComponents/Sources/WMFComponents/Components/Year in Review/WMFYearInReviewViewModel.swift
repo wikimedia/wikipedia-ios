@@ -5,9 +5,12 @@ import WMFData
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
     func logYearInReviewIntroDidTapLearnMore()
+    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String)
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
+    func logYearInReviewDidTapDonate(slideLoggingID: String)
+    func logYearInReviewDidTapShare(slideLoggingID: String)
 }
 
 public class WMFYearInReviewViewModel: ObservableObject {
@@ -97,11 +100,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDonate(sourceRect: CGRect) {
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect, slideLoggingID: slideLoggingID))
+        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect))
     }
     
     func handleLearnMore(url: URL) {
         coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
+        loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
     
     func logYearInReviewSlideDidAppear() {
@@ -114,6 +118,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func logYearInReviewSlideDidTapNext() {
         loggingDelegate?.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapDonate() {
+        loggingDelegate?.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID)
+    }
+    
+    func logYearInReviewDidTapShare() {
+        loggingDelegate?.logYearInReviewDidTapShare(slideLoggingID: slideLoggingID)
     }
     
     var slideLoggingID: String {
