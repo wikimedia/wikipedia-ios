@@ -2232,6 +2232,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+    
+    [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {
