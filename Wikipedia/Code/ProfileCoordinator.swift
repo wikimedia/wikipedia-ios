@@ -68,7 +68,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             talkPageTitle: WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page"),
             watchlistTitle: CommonStrings.watchlist,
             logOutTitle: CommonStrings.logoutTitle,
-            donateTitle: WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate"),
+            donateTitle: CommonStrings.donateTitle,
             settingsTitle: CommonStrings.settingsTitle,
             joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
             joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
