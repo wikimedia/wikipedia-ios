@@ -721,10 +721,10 @@ import CoreData
                     continue
                 }
                 
-                innerLoop: for slide in slides {
+                for slide in slides {
                     
                     guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
-                        break innerLoop
+                        continue
                     }
                     
                     slide.data = nil
