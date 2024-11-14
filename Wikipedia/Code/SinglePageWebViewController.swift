@@ -194,7 +194,8 @@ class SinglePageWebViewController: ViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         if navigationController?.viewControllers.first === self {
-            let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+            let image = WMFSFSymbolIcon.for(symbol: .close)
+            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
         
