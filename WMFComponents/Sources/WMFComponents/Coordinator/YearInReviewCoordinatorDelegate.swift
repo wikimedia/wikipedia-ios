@@ -10,5 +10,5 @@ public enum YearInReviewCoordinatorAction {
     case dismiss(isLastSlide: Bool)
     case introLearnMore
     case learnMore(url: URL, fromPersonalizedDonateSlide: Bool)
-    case info(url: URL?)
+    case info(url: URL)
 }

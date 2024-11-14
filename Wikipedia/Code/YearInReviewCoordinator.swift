@@ -589,11 +589,17 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             newNavigationVC.modalPresentationStyle = .formSheet
             presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
         case .info(let url):
-            if let url {
-                navigationController.navigate(to: url, useSafari: true)
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping Info presentation.")
+                return
             }
+
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
+            newNavigationVC.modalPresentationStyle = .formSheet
+            presentedViewController.present(newNavigationVC, animated: true)
         }
-        
     }
 }
 
