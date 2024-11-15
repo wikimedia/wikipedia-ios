@@ -1022,7 +1022,9 @@
 "year-in-review-personalized-donate-subtitle" = "Grazie per il tuo sostegno a Wikipedia e alla creazione di un mondo in cui la conoscenza sia gratuita per tutti. Ogni singola modifica o donazione serve ad arricchire l’accesso a informazioni accurate e affidabili, soprattutto in una realtà in rapido cambiamento. [Scopri di più sul nostro lavoro.]($1)";
 "year-in-review-personalized-donate-title" = "Grazie per il tuo contributo!";
 "year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
+"year-in-review-personalized-editing-subtitle-format-500plus" = "Hai modificato Wikipedia 500+ volte. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
+"year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia 500+ volte";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto {{PLURAL:$1|$1 articolo|$1 articoli}}. Gli articoli presenti su Wikipedia quest'anno sono $2 milioni, in oltre $3 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-share" = "Condividi";
