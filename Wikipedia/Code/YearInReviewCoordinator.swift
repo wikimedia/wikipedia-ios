@@ -174,6 +174,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
     }
+    
+    func personalizedSlide1Overlay(readCount: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(value: readCount)
+        return formatter.string(from: number) ?? String(readCount)
+    }
 
     func personalizedSlide3Title(editCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
@@ -193,6 +200,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedSlide3Subtitle500Plus() -> String {
         let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-format-500plus", value: "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.")
         return String.localizedStringWithFormat(format)
+    }
+    
+    func personalizedSlide3Overlay(editCount: Int) -> String {
+        guard editCount < 500 else {
+            return "500+"
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(value: editCount)
+        return formatter.string(from: number) ?? String(editCount)
     }
     
     var personalizedSlide5Title: String {
@@ -238,14 +256,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
                             imageName: "read",
-                            textOverlay: String.localizedStringWithFormat(
-                                WMFLocalizedString(
-                                    "year-in-review-personalized-read-count",
-                                    value: "%1$@",
-                                    comment: "Year in review, amount of articles read by the user, $1 is amount of articles."
-                                ),
-                                String(readCount)
-                            ),
+                            textOverlay: personalizedSlide1Overlay(readCount: readCount),
                             title: personalizedSlide1Title(readCount: readCount),
                             informationBubbleText: nil,
                             subtitle: personalizedSlide1Subtitle(readCount: readCount),
@@ -261,14 +272,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
                             imageName: "edits",
-                            textOverlay: String.localizedStringWithFormat(
-                                WMFLocalizedString(
-                                    "year-in-review-personalized-edit-count",
-                                    value: "%1$@",
-                                    comment: "Year in review, amount of edits made by the user. $1 is amount of edits."
-                                ),
-                                editCount >= 500 ? "500+" : String(editCount)
-                            ),
+                            textOverlay: personalizedSlide3Overlay(editCount: editCount),
                             title: editCount >= 500 ? personalizedSlide3Title500Plus() : personalizedSlide3Title(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personalizedSlide3Subtitle500Plus() : personalizedSlide3Subtitle(editCount: editCount),
@@ -565,7 +569,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used\(languageCodeSuffix)")
             navigationController.navigate(to: url, useSafari: true)
 
-        case .learnMore(let url, let fromPersonalizedDonateSlide):
+        case .learnMore(let url, let shouldShowDonateButton):
 
             guard let presentedViewController = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
@@ -575,7 +579,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let webVC: SinglePageWebViewController
             let slideLoggingID: String
 
-            if !fromPersonalizedDonateSlide {
+            if shouldShowDonateButton {
                 let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
                 slideLoggingID = "about_wikimedia_base"

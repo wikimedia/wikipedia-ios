@@ -82,15 +82,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     }
 
-    func getFomattedUsername() -> String? {
-        if let username {
-            return "\(localizedStrings.usernameTitle):\(username)"
-        }
-        return nil
-    }
-
     func handleShare(for slide: Int) {
-        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].imageName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, username: getFomattedUsername())
+        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].imageName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag)
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
@@ -104,7 +97,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleLearnMore(url: URL) {
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, fromPersonalizedDonateSlide: hasPersonalizedDonateSlide))
+        var shouldShowDonate = false
+        if slides.count - 1 == currentSlide && !hasPersonalizedDonateSlide {
+            shouldShowDonate = true
+        }
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
     
