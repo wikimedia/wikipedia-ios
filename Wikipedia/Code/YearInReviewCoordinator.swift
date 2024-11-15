@@ -239,7 +239,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private func getPersonalizedSlides() -> PersonalizedSlides {
         
         guard let dataController = try? WMFYearInReviewDataController(),
-              let report = try? dataController.fetchYearInReviewReport(forYear: 2024) else {
+              let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
             return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil)
         }
         
@@ -390,7 +390,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            usernameTitle: CommonStrings.userTitle
        )
        
-       let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
+        let appShareLink = WMFYearInReviewDataController.appShareLink
        let hashtag = "#WikipediaYearInReview"
 
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)

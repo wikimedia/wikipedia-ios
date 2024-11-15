@@ -32,12 +32,22 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     // MARK: - Properties
 
+    private let dataStore: MWKDataStore
     private var sections: [YearInReviewSettingsSection] = []
     private let dataController = try? WMFYearInReviewDataController()
 
     fileprivate let headerText = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.") + "\n"
 
     // MARK: - Lifecycle
+    
+    @objc init(dataStore: MWKDataStore, theme: Theme) {
+        self.dataStore = dataStore
+        super.init(theme: theme)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +85,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                         DDLogError("Error deleting year in review reports: \(error)")
                     }
                 }
-                
+            } else {
+                self?.populateYearInReviewReportData()
             }
         })
         
@@ -83,6 +94,27 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         self.sections = [section]
 
         self.tableView.reloadData()
+    }
+    
+    private func populateYearInReviewReportData() {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.populateYearInReviewReportData(
+                    for: WMFYearInReviewDataController.targetYear,
+                    countryCode: countryCode,
+                    primaryAppLanguageProject: project,
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
+            } catch {
+                DDLogError("Failure populating year in review report: \(error)")
+            }
+        }
     }
 
     // MARK: - UITableView
