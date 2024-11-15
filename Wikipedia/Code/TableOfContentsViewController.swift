@@ -288,6 +288,14 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         selectItem(at: index)
         delegate?.tableOfContentsController(self, didSelectItem: items[index])
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationController?.hidesBarsOnSwipe = true
+    }
 
     func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {
         _ = didRequestClose(controller)

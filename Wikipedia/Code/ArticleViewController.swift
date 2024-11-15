@@ -373,14 +373,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // MARK: Layout
     
-//    override func scrollViewInsetsDidChange() {
-//        super.scrollViewInsetsDidChange()
-//        updateTableOfContentsInsets()
-//    }
-    
     override func viewLayoutMarginsDidChange() {
         super.viewLayoutMarginsDidChange()
         updateArticleMargins()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableOfContentsController.updateVerticalPaddings(top: view.safeAreaInsets.top, bottom: toolbar.frame.height)
     }
     
     internal func updateArticleMargins() {
@@ -497,7 +498,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         presentModalsIfNeeded()
     }
-    
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
@@ -1239,7 +1239,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
     var scrollViewAnimationCompletions: [() -> Void] = []
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlightIfNecessary()
         
@@ -1247,6 +1247,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
             navigationController?.setNavigationBarHidden(false, animated: true)
+            view.setNeedsLayout() // fix TOC top padding
         }
     }
     
@@ -1497,22 +1498,13 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
-        
-//        view.addSubview(webView)
-//        
-//        NSLayoutConstraint.activate([
-//            view.topAnchor.constraint(equalTo: webView.topAnchor),
-//            view.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
-//            view.trailingAnchor.constraint(equalTo: webView.trailingAnchor),
-//            view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
-//        ])
-        
+
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
-        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
-        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
-        // tableOfContentsController.stackView.isHidden = true
+         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
         
+        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
