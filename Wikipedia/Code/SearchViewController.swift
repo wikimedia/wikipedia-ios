@@ -12,10 +12,13 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     var searchTermSelectDelegate: SearchTermSelectDelegate?
     @objc var prefersLargeTitles: Bool = true
     
+    private var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         embedResultsViewController()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +48,23 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let searchLanguageBarViewController {
+            collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+        } else {
+            collectionView.contentInset.top = 0
+        }
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        
+        let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
+        searchLanguageBarTopConstraint?.constant = normalizedContentOffset
+    }
+    
     private func setupNavBar() {
         
         navigationItem.largeTitleDisplayMode = .always
@@ -70,6 +90,50 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
         resultsViewController.didMove(toParent: self)
         updateRecentlySearchedVisibility(searchText: nil)
+    }
+    
+    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
+        if let vc = self.searchLanguageBarViewController {
+            return vc
+        }
+        let searchLanguageBarViewController = SearchLanguagesBarViewController()
+        searchLanguageBarViewController.apply(theme: theme)
+        searchLanguageBarViewController.delegate = self
+        self.searchLanguageBarViewController = searchLanguageBarViewController
+        return searchLanguageBarViewController
+    }
+    
+    var searchLanguageBarTopConstraint: NSLayoutConstraint?
+    private func updateLanguageBarVisibility() {
+        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
+        if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
+            let searchLanguageBarViewController = setupLanguageBarViewController()
+            addChild(searchLanguageBarViewController)
+            searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            
+            let searchLanguageBarTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: searchLanguageBarViewController.view.topAnchor)
+            self.searchLanguageBarTopConstraint = searchLanguageBarTopConstraint
+            
+            view.addSubview(searchLanguageBarViewController.view)
+            NSLayoutConstraint.activate([
+                searchLanguageBarTopConstraint,
+                view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: searchLanguageBarViewController.view.leadingAnchor),
+                view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: searchLanguageBarViewController.view.trailingAnchor)
+            ])
+            
+            searchLanguageBarViewController.didMove(toParent: self)
+            searchLanguageBarViewController.view.isHidden = false
+        } else if !showLanguageBar && searchLanguageBarViewController != nil {
+            
+            if let searchLanguageBarViewController {
+                searchLanguageBarViewController.willMove(toParent: nil)
+                searchLanguageBarViewController.view.removeFromSuperview()
+                searchLanguageBarViewController.removeFromParent()
+                self.searchLanguageBarViewController = nil
+                self.searchLanguageBarTopConstraint = nil
+            }
+        }
+        view.setNeedsLayout()
     }
     
     // MARK: - State
@@ -198,77 +262,6 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         }
     }
     
-    //    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
-    //        if let vc = self.searchLanguageBarViewController {
-    //            return vc
-    //        }
-    //        let searchLanguageBarViewController = SearchLanguagesBarViewController()
-    //        searchLanguageBarViewController.apply(theme: theme)
-    //        searchLanguageBarViewController.delegate = self
-    //        self.searchLanguageBarViewController = searchLanguageBarViewController
-    //        return searchLanguageBarViewController
-    //    }
-    
-    private func updateLanguageBarVisibility() {
-        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
-        
-        let searchController = navigationItem.searchController
-        searchController?.searchBar.showsScopeBar = showLanguageBar
-        if showLanguageBar {
-            updateScopeButtons()
-            setupOverflowMenu()
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
-    }
-    
-    private func updateScopeButtons(resetToFirst: Bool = false) {
-        let languages = dataStore.languageLinkController.preferredLanguages
-        navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
-            
-            //                let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
-            //
-            //                return truncatedLanguageCode.last?.isPunctuation ?? false
-            //                ? String(truncatedLanguageCode.dropLast())
-            //                : String(truncatedLanguageCode)
-            return $0.contentLanguageCode.localizedUppercase
-        }
-        
-        // TODO: make this smarter
-        if resetToFirst {
-            navigationItem.searchController?.searchBar.selectedScopeButtonIndex = 0
-            let language = languages[0]
-            siteURL = language.siteURL
-        }
-        
-    }
-    
-    private func setupOverflowMenu() {
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        rightBarButtonItem.tintColor = theme.colors.link
-    }
-    
-    private var overflowMenu: UIMenu {
-        
-        let updateLanguages = UIAction(title: "Update Languages", image: nil, handler: { [weak self] _ in
-            self?.openLanguagePicker()
-        })
-        
-        let menuItems: [UIMenuElement] = [updateLanguages]
-        
-        return UIMenu(title: String(), children: menuItems)
-    }
-    
-    private func openLanguagePicker() {
-        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languagesVC.delegate = self
-        if let themeable = languagesVC as Themeable? {
-            themeable.apply(theme: self.theme)
-        }
-        present(WMFThemeableNavigationController(rootViewController: languagesVC, theme: self.theme), animated: true, completion: nil)
-    }
-    
     override var headerStyle: ColumnarCollectionViewController2.HeaderStyle {
         return .sections
     }
@@ -307,8 +300,6 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
         
     }
-    
-    var searchLanguageBarViewController: SearchLanguagesBarViewController?
     
     lazy var resultsViewController: SearchResultsViewController = {
         let resultsViewController = SearchResultsViewController()
@@ -587,15 +578,30 @@ extension SearchViewController: UISearchControllerDelegate {
             }
             // searchController.searchBar.becomeFirstResponder()
         }
+        
+        if let searchLanguageBarViewController {
+            searchLanguageBarViewController.view.isHidden = false
+        }
+    }
+    
+    func willPresentSearchController(_ searchController: UISearchController) {
+        if let searchLanguageBarViewController {
+            searchLanguageBarViewController.view.isHidden = true
+        }
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if let searchLanguageBarViewController {
+            searchLanguageBarViewController.view.isHidden = true
+        }
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        if let searchLanguageBarViewController {
+            searchLanguageBarViewController.view.isHidden = false
+        }
     }
 }
-
-extension SearchViewController: WMFPreferredLanguagesViewControllerDelegate {
-    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
-        updateScopeButtons(resetToFirst: true)
-    }
-}
-
 
 // Keep
 // WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters: * %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
