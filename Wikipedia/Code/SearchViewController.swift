@@ -53,8 +53,10 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         
         if let searchLanguageBarViewController {
             collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+            resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
         } else {
             collectionView.contentInset.top = 0
+            resultsViewController.collectionView.contentInset.top = 0
         }
     }
     
@@ -347,12 +349,6 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     //        deselectAll(animated: true)
     //		updateRecentlySearchedVisibility(searchText: searchBar.text)
     //    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        let languages = dataStore.languageLinkController.preferredLanguages
-        let language = languages[selectedScope]
-        siteURL = language.siteURL
-    }
     
     @objc func makeSearchBarBecomeFirstResponder() {
         if !(navigationItem.searchController?.searchBar.isFirstResponder ?? false) {

@@ -58,6 +58,7 @@ class InsertLinkViewController: UIViewController {
         searchViewController.delegatesSearchResultSelection = true
         searchViewController.delegatesSearchTermSelection = true
         searchViewController.searchTermSelectDelegate = self
+        searchViewController.showLanguageBar = false
         searchViewController.delegate = self
         let search = UISearchController(searchResultsController: searchViewController)
         search.searchResultsUpdater = self
@@ -67,7 +68,6 @@ class InsertLinkViewController: UIViewController {
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         search.showsSearchResultsController = true
-        search.searchBar.showsScopeBar = false
 
         // definesPresentationContext = true
         

@@ -440,14 +440,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
 //        return false
 //    }
     
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        let languages = dataStore.languageLinkController.preferredLanguages
-        let language = languages[selectedScope]
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.siteURL = language.siteURL
-        }
-    }
-    
     // MARK: - State
     
     @objc var dataStore: MWKDataStore!
@@ -2057,30 +2049,6 @@ extension ExploreViewController: UISearchResultsUpdating {
             searchViewController.searchTerm = text
             searchViewController.updateRecentlySearchedVisibility(searchText: text)
             searchViewController.search()
-        }
-        
-        if searchController.searchBar.isFirstResponder {
-            
-            let showLanguageBar = UserDefaults.standard.wmf_showSearchLanguageBar()
-            
-            if showLanguageBar {
-                navigationItem.searchController?.searchBar.showsScopeBar = true
-                let languages = dataStore.languageLinkController.preferredLanguages
-                navigationItem.searchController?.searchBar.scopeButtonTitles = languages.prefix(5).map {
-                    
-//                    let truncatedLanguageCode = $0.languageCode.localizedUppercase.prefix(4)
-//                    
-//                    return truncatedLanguageCode.last?.isPunctuation ?? false
-//                    ? String(truncatedLanguageCode.dropLast())
-//                    : String(truncatedLanguageCode)
-                    return $0.contentLanguageCode.localizedUppercase
-                }
-            }
-            
-            navigationController?.hidesBarsOnSwipe = false
-        } else {
-            navigationController?.hidesBarsOnSwipe = true
-            navigationItem.searchController?.searchBar.showsScopeBar = false
         }
     }
 }
