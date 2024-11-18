@@ -714,19 +714,5 @@
 			<string>%1$d篇条目</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title- format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您今年阅读了%#@v1@。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d篇条目</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

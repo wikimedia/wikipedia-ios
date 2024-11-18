@@ -57,6 +57,9 @@ import WMF
         case donateStartClickYir = "donate_start_click_yir"
         case accountEngageClick = "account_engage_click"
         case rejectClick = "reject_click"
+        case shareClick = "share_click"
+        case feedbackSubmitClick = "feedback_submit_click"
+        case feedbackSubmitted = "feedback_submitted"
     }
     
     private struct Event: EventInterface {
@@ -351,7 +354,7 @@ import WMF
             "slide": slideLoggingID,
             "campaign_id": metricsID])
     }
-    
+
     func logYearInReviewLoginPromptDidAppear() {
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
     }
@@ -362,6 +365,52 @@ import WMF
     
     func logYearInReviewLoginPromptDidTapNoThanks() {
         logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .shareClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewSurveyDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "feedback_choice"])
+    }
+    
+    func logYearInReviewSurveyDidTapCancel() {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "feedback_choice"])
+    }
+    
+    func logYearInReviewSurveyDidSubmit(selected: [String], other: String?) {
+        
+        // strip "other", join by comma
+        let selectedJoined = selected.filter { $0 != "other" }.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "slide": "feedback_choice",
+            "feedback_select": selectedJoined
+        ]
+
+        if let other, !other.isEmpty {
+            actionData["feedback_text"] = other
+        }
+        
+        logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitClick, actionData: actionData)
+    }
+    
+    func logYearinReviewSurveySubmitSuccessToast() {
+        logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitted)
+    }
+    
+    func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia",
+                                                                                       "campaign_id": metricsID])
     }
     
     // Year in Review Donate flow events

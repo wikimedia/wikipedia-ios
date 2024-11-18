@@ -8,6 +8,8 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     public let targetConfigYearID = "2024.1"
+    @objc public static let targetYear = 2024
+    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
 
@@ -153,7 +155,7 @@ import CoreData
         }
         
         // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: 2024) else {
+        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
             return false
         }
         
@@ -692,6 +694,45 @@ import CoreData
                 let changes = [NSDeletedObjectsKey: objectIDArray]
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
             }
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    public func deleteAllPersonalizedEditingData() async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        try await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            
+            let cdReports = try self.coreDataStore.fetch(
+                entityType: CDYearInReviewReport.self,
+                predicate: nil,
+                fetchLimit: nil,
+                in: backgroundContext
+            )
+            
+            guard let cdReports else {
+                return
+            }
+            
+            for report in cdReports {
+                
+                guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+                    continue
+                }
+                
+                for slide in slides {
+                    
+                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
+                        continue
+                    }
+                    
+                    slide.data = nil
+                    slide.display = false
+                    slide.evaluated = false
+                }
+            }
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }

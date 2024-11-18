@@ -14,7 +14,6 @@ struct WMFYearInReviewShareableSlideView: View {
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
-    var username: String?
 
     var body: some View {
         GeometryReader { geometry in
@@ -69,12 +68,6 @@ struct WMFYearInReviewShareableSlideView: View {
                         Text(hashtag)
                             .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.link))
-
-                        if let username {
-                            Text(username)
-                                .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                                .foregroundStyle(Color(uiColor: theme.text))
-                        }
                     }
                     Spacer()
                 }

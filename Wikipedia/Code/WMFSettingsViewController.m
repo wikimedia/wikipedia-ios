@@ -500,7 +500,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Year in Review
 
 - (void)showYearInReview {
-    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithTheme:self.theme];
+    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
 }
 
