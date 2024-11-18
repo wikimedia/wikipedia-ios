@@ -361,7 +361,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let doesArticleUseLargeMargin = (tableOfContentsController.viewController.displayMode == .inline && !tableOfContentsController.viewController.isVisible)
         var marginWidth: CGFloat = 0
         if doesArticleUseLargeMargin {
-            marginWidth = view.layoutMargins.left
+            marginWidth = articleHorizontalMargin
         }
         leadImageLeadingMarginConstraint.constant = marginWidth
         leadImageTrailingMarginConstraint.constant = marginWidth
@@ -386,14 +386,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     internal func updateArticleMargins() {
         
-        let margins = UIEdgeInsets(top: 10, left: view.layoutMargins.left, bottom: toolbarContainerView.frame.height, right: view.layoutMargins.right)
-        
         let defaultUpdateBlock = {
-            self.messagingController.updateMargins(with: margins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
         }
         
         if articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc {
-            messagingController.customUpdateMargins(with: margins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
         } else {
             defaultUpdateBlock()
         }
@@ -1559,10 +1557,8 @@ private extension ArticleViewController {
         let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
-        
-        let margins = UIEdgeInsets(top: 0, left: view.layoutMargins.left, bottom: 0, right: view.layoutMargins.right)
 
-        messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: margins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
+        messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
