@@ -178,4 +178,55 @@ public final class WMFPageViewsDataController {
         
         return results
     }
+    
+    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [PageViewDay] {
+        let context: NSManagedObjectContext
+        if let moc {
+            context = moc
+        } else {
+            context = try coreDataStore.viewContext
+        }
+        
+        let results: [PageViewDay] = try context.performAndWait {
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            fetchRequest.predicate = predicate
+            fetchRequest.resultType = .dictionaryResultType
+            
+            let dateExpression = NSExpression(forKeyPath: "timestamp")
+            let dateTruncatedExpression = NSExpression(
+                forFunction: "dateTrunc:toUnit:fromDate:",
+                arguments: [NSExpression(forConstantValue: "day"), dateExpression]
+            )
+            let dateDescription = NSExpressionDescription()
+            dateDescription.name = "date"
+            dateDescription.expression = dateTruncatedExpression
+            dateDescription.expressionResultType = .dateAttributeType
+            
+            let countExpression = NSExpression(forFunction: "count:", arguments: [NSExpression(forKeyPath: "timestamp")])
+            let countDescription = NSExpressionDescription()
+            countDescription.name = "viewCount"
+            countDescription.expression = countExpression
+            countDescription.expressionResultType = .integer32AttributeType
+            
+            fetchRequest.propertiesToFetch = [dateDescription, countDescription]
+            fetchRequest.propertiesToGroupBy = [dateDescription]
+            
+            let fetchedResults = try context.fetch(fetchRequest)
+            
+            return fetchedResults.compactMap { dict in
+                guard let date = dict["date"] as? Date,
+                      let viewCount = dict["viewCount"] as? Int else {
+                    return nil
+                }
+                return PageViewDay(date: date, viewCount: viewCount)
+            }
+        }
+        return results
+    }
+}
+
+public struct PageViewDay: Encodable {
+    let date: Date
+    let viewCount: Int
 }
