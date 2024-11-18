@@ -210,7 +210,8 @@ class SinglePageWebViewController: ThemeableViewController {
         super.viewWillAppear(animated)
         
         if navigationController?.viewControllers.first === self {
-            let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
+            let image = WMFSFSymbolIcon.for(symbol: .close)
+            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
             navigationItem.leftBarButtonItem = closeButton
         }
         
@@ -300,6 +301,12 @@ class SinglePageWebViewController: ThemeableViewController {
             
             guard let navigationController else {
                 return
+            }
+            
+            let dataStore = MWKDataStore.shared()
+            
+            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+                DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
             }
             
             let coordinator = DonateCoordinator(

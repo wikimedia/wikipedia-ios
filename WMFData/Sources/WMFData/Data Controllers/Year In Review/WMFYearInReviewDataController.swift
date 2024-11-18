@@ -8,6 +8,8 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     public let targetConfigYearID = "2024.1"
+    @objc public static let targetYear = 2024
+    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
 
@@ -95,6 +97,9 @@ import CoreData
             return false
         }
 
+        guard yearInReviewSettingsIsEnabled else {
+            return false
+        }
 
         guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return false
@@ -116,8 +121,7 @@ import CoreData
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
+        guard yearInReviewSettingsIsEnabled else {
             return false
         }
         
@@ -151,7 +155,7 @@ import CoreData
         }
         
         // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: 2024) else {
+        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
             return false
         }
         
@@ -188,12 +192,51 @@ import CoreData
         }
     }
     
+    // MARK: - Hide Year in Review
+    
+    @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
+        
+        guard let countryCode,
+              let primaryAppLanguageCode else {
+            return false
+        }
+        
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return false
+        }
+        
+        // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
+        
+        
+        // Check remote valid country codes
+        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+            return false
+        }
+        
+        // Check remote valid primary app language wikis
+        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+        guard uppercaseConfigPrimaryAppLanguageCodes.contains(primaryAppLanguageCode.uppercased()) else {
+            return false
+        }
+        
+        return true
+    }
+    
+    @objc public var yearInReviewSettingsIsEnabled: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? true
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue, value: newValue)
+        }
+    }
+    
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
-        // Check local developer settings feature flag
-        guard developerSettingsDataController.enableYearInReview else {
+        guard yearInReviewSettingsIsEnabled else {
             return false
         }
 
@@ -651,6 +694,45 @@ import CoreData
                 let changes = [NSDeletedObjectsKey: objectIDArray]
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
             }
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    public func deleteAllPersonalizedEditingData() async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        try await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            
+            let cdReports = try self.coreDataStore.fetch(
+                entityType: CDYearInReviewReport.self,
+                predicate: nil,
+                fetchLimit: nil,
+                in: backgroundContext
+            )
+            
+            guard let cdReports else {
+                return
+            }
+            
+            for report in cdReports {
+                
+                guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+                    continue
+                }
+                
+                for slide in slides {
+                    
+                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
+                        continue
+                    }
+                    
+                    slide.data = nil
+                    slide.display = false
+                    slide.evaluated = false
+                }
+            }
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }

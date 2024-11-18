@@ -68,12 +68,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             talkPageTitle: WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page"),
             watchlistTitle: CommonStrings.watchlist,
             logOutTitle: CommonStrings.logoutTitle,
-            donateTitle: WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate"),
+            donateTitle: CommonStrings.donateTitle,
             settingsTitle: CommonStrings.settingsTitle,
             joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
             joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
             donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations"),
-            yearInReviewTitle: WMFLocalizedString("profile-page-year-in-review-title", value: "Year in Review", comment: "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped."),
+            yearInReviewTitle: CommonStrings.yirTitle,
             yearInReviewLoggedOutSubtext:  WMFLocalizedString("profile-page-logged-out-year-in-review-subtext", value: "Log in or create an account to get an improved year in review next year", comment: "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.")
         )
         

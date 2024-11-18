@@ -380,6 +380,7 @@ class DonateCoordinator: Coordinator {
             }
             
             let newNavigationController = WMFThemeableNavigationController(rootViewController: donateViewController, theme: theme)
+            newNavigationController.modalPresentationStyle = .pageSheet
             presentedViewController.present(newNavigationController, animated: true)
         }
         
@@ -492,11 +493,20 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     
     private func popAndShowSuccessToastFromNativeForm() {
         
+        let showToastBlock: () -> Void = {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
+            }
+        }
+        
         switch navigationStyle {
         case .push:
             self.navigationController.popViewController(animated: true)
+            showToastBlock()
         case .dismissThenPush:
             self.navigationController.popViewController(animated: true)
+            showToastBlock()
         case .present:
             guard let presentedVC = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping auto-dismissal.")
@@ -504,10 +514,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
             }
             
             presentedVC.dismiss(animated: true) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
-                }
+                showToastBlock()
             }
         }
         

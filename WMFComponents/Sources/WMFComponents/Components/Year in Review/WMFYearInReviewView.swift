@@ -10,7 +10,6 @@ public struct WMFYearInReviewView: View {
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
-        UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
 
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -23,18 +22,14 @@ public struct WMFYearInReviewView: View {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    if viewModel.shouldShowWLogo {
-                        if !viewModel.shouldShowDonateButton {
-                            // Need something here for W to center well
-                            Text("")
-                                .accessibilityHidden(true)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                    if !viewModel.shouldShowDonateButton {
                         Spacer()
-                        Image("W", bundle: .module)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(Color(theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    Spacer()
+                    Image("W", bundle: .module)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(theme.text))
                     Spacer()
                     Button(action: {
                         viewModel.logYearInReviewDidTapDone()
@@ -64,7 +59,9 @@ public struct WMFYearInReviewView: View {
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
-                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides)
+                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides, infoAction: {
+                                viewModel.handleInfo()
+                            })
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -89,6 +86,7 @@ public struct WMFYearInReviewView: View {
                         HStack(alignment: .center) {
                             Button(action: {
                                 viewModel.handleShare(for: viewModel.currentSlide)
+                                viewModel.logYearInReviewDidTapShare()
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {
@@ -159,8 +157,9 @@ public struct WMFYearInReviewView: View {
                     viewModel.getStarted()
                 }
             }
-            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideHide) {
-                viewModel.loggingDelegate?.logYearInReviewIntroDidTapDisable()
+            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideLearnMore) {
+                viewModel.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
+                viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
                 // TODO: Implement hide this feature
             }
         }

@@ -1,6 +1,7 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
 #import "WMFSettingsViewController.h"
+@import WMFData;
 
 @interface WMFSettingsMenuItem ()
 
@@ -74,7 +75,7 @@
                                                  iconName:@"settings-explore"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
+                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? WMFCommonStrings.offGenericTitle : WMFCommonStrings.onGenericTitle
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
@@ -85,6 +86,18 @@
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_YearInReview: {
+            WMFYearInReviewDataController *dataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
+            NSString *disclosureText = [dataController yearInReviewSettingsIsEnabled] ? WMFCommonStrings.onGenericTitle : WMFCommonStrings.offGenericTitle;
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings yirTitle]
+                                                 iconName:@"settings-calendar"
+                                                iconColor:[UIColor wmf_blue_600]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:disclosureText
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Appearance: {

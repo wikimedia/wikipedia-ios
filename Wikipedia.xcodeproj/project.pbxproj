@@ -416,6 +416,9 @@
 		67112E3D275E603B007A9850 /* NotificationsCenterInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67112E3C275E603B007A9850 /* NotificationsCenterInboxViewModel.swift */; };
 		67112E3E275E603B007A9850 /* NotificationsCenterInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67112E3C275E603B007A9850 /* NotificationsCenterInboxViewModel.swift */; };
 		67112E3F275E603B007A9850 /* NotificationsCenterInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67112E3C275E603B007A9850 /* NotificationsCenterInboxViewModel.swift */; };
+		67132FEE2CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */; };
+		67132FEF2CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */; };
+		67132FF02CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */; };
 		67134A1728A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */; };
 		67134A1828A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */; };
 		67134A1928A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */; };
@@ -3297,6 +3300,7 @@
 		670AF1B826C573EB005F76D0 /* RemoteNotifications 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 3.xcdatamodel"; sourceTree = "<group>"; };
 		670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationLinks.swift; sourceTree = "<group>"; };
 		67112E3C275E603B007A9850 /* NotificationsCenterInboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterInboxViewModel.swift; sourceTree = "<group>"; };
+		67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSettingsViewController.swift; sourceTree = "<group>"; };
 		67134A1628A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeController.swift; sourceTree = "<group>"; };
 		6713519C277285B7006C07D9 /* RemoteNotificationsRefreshDeadlineController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshDeadlineController.swift; sourceTree = "<group>"; };
 		6713F4252A8A7A8400680ECE /* SharedContainerCacheStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainerCacheStore.swift; sourceTree = "<group>"; };
@@ -6929,6 +6933,14 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		834DB8DF2CE3D92100BAF7C0 /* Year In Review */ = {
+			isa = PBXGroup;
+			children = (
+				67132FED2CDC1E8A004DAB4E /* YearInReviewSettingsViewController.swift */,
+			);
+			name = "Year In Review";
+			sourceTree = "<group>";
+		};
 		83510B0428F4CED800B6235B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -7576,6 +7588,7 @@
 				D84BF6281DB96D4700E0C85E /* Notifications */,
 				042A5B1419253D2A0095E172 /* View Controller */,
 				045D871D19FAD2D00035C1F9 /* About The App */,
+				834DB8DF2CE3D92100BAF7C0 /* Year In Review */,
 				0E8DC0961C7632B500622CBD /* Settings Item */,
 				7AF49F85204EEDD800578861 /* Storage and syncing */,
 				0EE2438B1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.h */,
@@ -10323,6 +10336,7 @@
 				B0B423681EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				83B01F7723DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
+				67132FEF2CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				67C6F79727E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7ABE17002239B346006BA309 /* WelcomeViewController.swift in Sources */,
@@ -11497,6 +11511,7 @@
 				B0524B20214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				6771299124FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */,
 				67C6F78027E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */,
+				67132FEE2CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */,
 				67C6F7A827E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
 				671DF9CB25F2AE4F0011799E /* WikidataDescriptionController.swift in Sources */,
 				B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
@@ -12072,6 +12087,7 @@
 				8382F8DB20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				B0524B21214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				67C6F77F27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */,
+				67132FF02CDC1E90004DAB4E /* YearInReviewSettingsViewController.swift in Sources */,
 				67C6F7A727E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
 				671DF9CA25F2AE4F0011799E /* WikidataDescriptionController.swift in Sources */,
 				B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,

@@ -234,7 +234,11 @@ public class CommonStrings: NSObject {
     @objc public static func onTitle(_ count: Int) -> String {
         return String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-card-visibility-languages-count", value:"On %1$d", comment: "Text for Explore feed card setting indicating the number of languages it's visible in - %1$d is replaced with the number of languages"), count)
     }
+    
+    @objc public static let onGenericTitle = WMFLocalizedString("settings-on", value: "On", comment: "Text indicating a value is on in app Settings.")
+    @objc public static let offGenericTitle = WMFLocalizedString("settings-off", value: "Off", comment: "Text indicating a value is off in app Settings.")
 
+    
     @objc public static let turnOnExploreTabTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab")
     @objc public static let turnOnExploreActionTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-action-title", value: "Turn on Explore", comment: "Title for action that allows users to turn on the Explore tab")
     @objc public static let customizeExploreFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen")
@@ -444,6 +448,8 @@ public class CommonStrings: NSObject {
 
     public static let donateThankTitle = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
     public static let donateThankSubtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
+
+     public static let donateTitle = WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate")
 
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
@@ -773,10 +779,10 @@ public class CommonStrings: NSObject {
 
     // Year In Review
 
-    public static let yirFeatureAnnoucementTitle = WMFLocalizedString("yir-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
-    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("yir-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
-
-
+    @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
+    
+    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
 }
 // Language variant strings
 public extension CommonStrings {
