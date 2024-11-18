@@ -526,11 +526,6 @@ import CoreData
         guard let mostPopularDay = pageViews.max(by: { $0.viewCount < $1.viewCount }) else {
             return
         }
-        
-        let mostPopularDayData = PageViewDay(
-            date: mostPopularDay.date,
-            viewCount: mostPopularDay.viewCount
-        )
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
             return
@@ -544,7 +539,7 @@ import CoreData
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
                 let encoder = JSONEncoder()
-                slide.data = try encoder.encode(mostPopularDayData)
+                slide.data = try encoder.encode(mostPopularDay)
                 
                 if mostPopularDay.viewCount > 0 {
                     slide.display = true

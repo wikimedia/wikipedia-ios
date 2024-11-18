@@ -28,6 +28,30 @@ public final class WMFPageViewCount: Identifiable {
    }
  }
 
+public final class WMFPageViewDay: Decodable, Encodable {
+    public let day: String
+    public let viewCount: Int
+    
+    public init(day: String, viewCount: Int) {
+        self.day = day
+        self.viewCount = viewCount
+    }
+    
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.day = try container.decode(String.self, forKey: .day)
+        self.viewCount = try container.decode(Int.self, forKey: .viewCount)
+    }
+    
+    public func getViewCount() -> Int {
+        viewCount
+    }
+    
+    public func getDay() -> String {
+        day
+    }
+}
+
 public final class WMFPageViewImportRequest {
     let title: String
     let project: WMFProject
@@ -179,7 +203,7 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [PageViewDay] {
+    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewDay] {
         let context: NSManagedObjectContext
         if let moc {
             context = moc
@@ -187,46 +211,36 @@ public final class WMFPageViewsDataController {
             context = try coreDataStore.viewContext
         }
         
-        let results: [PageViewDay] = try context.performAndWait {
+        let results: [WMFPageViewDay] = try context.performAndWait {
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
-            fetchRequest.predicate = predicate
-            fetchRequest.resultType = .dictionaryResultType
             
-            let dateExpression = NSExpression(forKeyPath: "timestamp")
-            let dateTruncatedExpression = NSExpression(
-                forFunction: "dateTrunc:toUnit:fromDate:",
-                arguments: [NSExpression(forConstantValue: "day"), dateExpression]
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(
+                entityType: CDPageView.self,
+                predicate: predicate,
+                propertyToCount: "timestamp",
+                propertiesToGroupBy: ["timestamp"],
+                propertiesToFetch: ["timestamp"],
+                in: context
             )
-            let dateDescription = NSExpressionDescription()
-            dateDescription.name = "date"
-            dateDescription.expression = dateTruncatedExpression
-            dateDescription.expressionResultType = .dateAttributeType
             
-            let countExpression = NSExpression(forFunction: "count:", arguments: [NSExpression(forKeyPath: "timestamp")])
-            let countDescription = NSExpressionDescription()
-            countDescription.name = "viewCount"
-            countDescription.expression = countExpression
-            countDescription.expressionResultType = .integer32AttributeType
+            var pageViewDays: [WMFPageViewDay] = []
             
-            fetchRequest.propertiesToFetch = [dateDescription, countDescription]
-            fetchRequest.propertiesToGroupBy = [dateDescription]
-            
-            let fetchedResults = try context.fetch(fetchRequest)
-            
-            return fetchedResults.compactMap { dict in
-                guard let date = dict["date"] as? Date,
-                      let viewCount = dict["viewCount"] as? Int else {
-                    return nil
+            for dict in pageViewsDict {
+                guard let timestamp = dict["timestamp"] as? Date,
+                      let count = dict["count"] as? Int else {
+                    continue
                 }
-                return PageViewDay(date: date, viewCount: viewCount)
+                
+                let dayFormatter = Date.FormatStyle()
+                    .weekday(.wide)
+                let dayOfWeek = timestamp.formatted(dayFormatter)
+                
+                pageViewDays.append(WMFPageViewDay(day: dayOfWeek, viewCount: count))
             }
+            
+            return pageViewDays
         }
+        
         return results
     }
-}
-
-public struct PageViewDay: Encodable {
-    let date: Date
-    let viewCount: Int
 }

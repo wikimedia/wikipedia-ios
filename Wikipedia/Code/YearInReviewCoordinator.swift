@@ -234,18 +234,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
         let donateCount: YearInReviewSlideContent?
+        let mostReadDay: YearInReviewSlideContent?
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
         
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, mostReadDay: nil)
         }
         
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
         var donateCountSlide: YearInReviewSlideContent? = nil
+        var mostReadDaySlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
             switch slide.id {
@@ -298,9 +300,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: true)
                     }
                 }
+            case .mostReadDay:
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let mostReadDay = try? decoder.decode(WMFPageViewDay.self, from: data),
+                       mostReadDay.getViewCount() > 0 {
+                        mostReadDaySlide = YearInReviewSlideContent(
+                            imageName: "viewed",
+                            imageOverlay: "wmf-logo",
+                            title: "\(mostReadDay.getDay())",
+                            informationBubbleText: nil,
+                            subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
+                            loggingID: "thank_custom",
+                            infoURL: aboutYIRURL,
+                            hideDonateButton: true)
+                    }
+                }
             }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, mostReadDay: mostReadDaySlide)
     }
     
     func start() {
@@ -314,6 +333,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            loggingID: "read_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: false)
+        
+        var secondSlide = YearInReviewSlideContent(
+            imageName: "viewed",
+            textOverlay: collectiveNumViewsNumber,
+            title: baseSlide2Title,
+            informationBubbleText: nil,
+            subtitle: baseSlide2Subtitle,
+            loggingID: "read_view_base",
+            infoURL: aboutYIRURL,
+            hideDonateButton: false)
        
        var thirdSlide = YearInReviewSlideContent(
            imageName: "edits",
@@ -335,15 +364,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: false)
        
-       let personalizedSlides = getPersonalizedSlides()
+        let personalizedSlides = getPersonalizedSlides()
        
-       if let readCountSlide = personalizedSlides.readCount {
-           firstSlide = readCountSlide
-       }
+        if let readCountSlide = personalizedSlides.readCount {
+            firstSlide = readCountSlide
+        }
        
-       if let editCountSlide = personalizedSlides.editCount {
-           thirdSlide = editCountSlide
-       }
+        if let editCountSlide = personalizedSlides.editCount {
+            thirdSlide = editCountSlide
+        }
+        
+        if let mostReadDaySlide = personalizedSlides.mostReadDay {
+            secondSlide = mostReadDaySlide
+        }
         
         var hasPersonalizedDonateSlide = false
         if let donateCountSlide = personalizedSlides.donateCount {
@@ -353,15 +386,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        let slides: [YearInReviewSlideContent] = [
            firstSlide,
-           YearInReviewSlideContent(
-               imageName: "viewed",
-               textOverlay: collectiveNumViewsNumber,
-               title: baseSlide2Title,
-               informationBubbleText: nil,
-               subtitle: baseSlide2Subtitle,
-               loggingID: "read_view_base",
-               infoURL: aboutYIRURL,
-               hideDonateButton: false),
+           secondSlide,
            thirdSlide,
            YearInReviewSlideContent(
                imageName: "editedPerMinute",
@@ -389,7 +414,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides")
        )
        
-        let appShareLink = WMFYearInReviewDataController.appShareLink
+       let appShareLink = WMFYearInReviewDataController.appShareLink
        let hashtag = "#WikipediaYearInReview"
 
         let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
