@@ -316,7 +316,7 @@ import CoreData
             }
         }
         
-        if result.needsDayPopulation {
+        if result.needsDayPopulation == true {
             try await backgroundContext.perform { [weak self] in
                 try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
             }
@@ -361,7 +361,6 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.readCount.isEnabled {
                     needsReadingPopulation = true
                 }
-                
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled && username != nil {
                     needsEditingPopulation = true
@@ -409,6 +408,14 @@ import CoreData
             donateCountSlide.display = false
             donateCountSlide.data = nil
             results.insert(donateCountSlide)
+            
+            let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            mostReadDaySlide.year = 2024
+            mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+            mostReadDaySlide.evaluated = false
+            mostReadDaySlide.display = false
+            mostReadDaySlide.data = nil
+            results.insert(mostReadDaySlide)
         }
         
         return results
@@ -720,10 +727,11 @@ import CoreData
             return .editCount
         case "donateCount":
             return .donateCount
+        case "mostReadDay":
+            return .mostReadDay
         default:
             return nil
         }
-        
     }
     
     public func deleteYearInReviewReport(year: Int) async throws {
