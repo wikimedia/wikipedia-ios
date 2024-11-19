@@ -386,14 +386,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
            firstSlideCTA: CommonStrings.getStartedTitle,
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
-           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-           usernameTitle: CommonStrings.userTitle
+           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides")
        )
        
         let appShareLink = WMFYearInReviewDataController.appShareLink
        let hashtag = "#WikipediaYearInReview"
 
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, username: dataStore.authenticationManager.authStatePermanentUsername, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
        
        let yirview = WMFYearInReviewView(viewModel: viewModel)
        
@@ -421,6 +420,36 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             })
             self.dataController.hasPresentedYiRSurvey = true
         }
+    }
+    
+    private func needsLoginPrompt() -> Bool {
+        return !dataStore.authenticationManager.authStateIsPermanent
+    }
+    
+    private func presentLoginPrompt() {
+        let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalied insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let button1Title = CommonStrings.joinLoginTitle
+        let button2Title = CommonStrings.noThanksTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+            
+            guard let self else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            loginCoordinator.start()
+        }
+        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        
+        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
+        
+        navigationController.present(alert, animated: true)
     }
 
     private func surveyViewController() -> UIViewController {
@@ -453,15 +482,28 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single),
             cancelAction: { [weak self] in
-            self?.navigationController.dismiss(animated: true)
+
+            self?.navigationController.dismiss(animated: true, completion: { [weak self] in
+                guard let self else { return }
+                
+                if self.needsLoginPrompt() {
+                    presentLoginPrompt()
+                }
+            })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
-        },
-            submitAction: { [weak self] options, otherText in
+        }, submitAction: { [weak self] options, otherText in
             DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
-            self?.navigationController.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
-                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
+            self?.navigationController.dismiss(animated: true, completion: { [weak self] in
+                
+                guard let self else { return }
+                
+                if self.needsLoginPrompt() {
+                    presentLoginPrompt()
+                } else {
+                    let image = UIImage(systemName: "checkmark.circle.fill")
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
+                }
             })
         })
 
