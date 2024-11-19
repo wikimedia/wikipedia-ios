@@ -83,6 +83,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return formatter.string(from: number) ?? "\(number)"
     }
 
+    // MARK: - Base Slide Strings
+    
     var baseSlide1Title: String {
         WMFLocalizedString("year-in-review-base-reading-title", value: "Reading brought us together", comment: "Year in review, collective reading article count slide title")
     }
@@ -152,7 +154,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "Wikipedia is hosted by the Wikimedia Foundation and funded by individual donations. We work to keep Wikimedia sites available to all, build features and tools to make it easy to share knowledge, support communities of volunteer editors, and more. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
-
+    
+    
+    // MARK: - Personalized Slide Strings
     
     func personalizedSlide1Title(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this year", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
@@ -180,6 +184,77 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         formatter.numberStyle = .decimal
         let number = NSNumber(value: readCount)
         return formatter.string(from: number) ?? String(readCount)
+    }
+    
+    func personalizedSlide2Title(day: String) -> String {
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-day-title-format",
+            value: "You read most on %1$@.",
+            comment: "Year in review, personalized slide title for users that displays the weekday they read most. %1$@ is replaced with the weekday."
+        )
+        
+        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
+    }
+    
+    func personalizedSlide2Subtitle(day: String) -> String {
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-day-subtitle-format",
+            value: "You read the most articles on %1$@. It's clear that %1$@ are your prime day for exploring new content. Thanks for making the most of your reading time!",
+            comment: "Year in review, personalized slide subtitle for users that displays the weekday they read most. %1$@ is replaced with the weekday."
+        )
+        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
+    }
+    
+    func getLocalizedDay(day: String) -> String {
+        let localizedDay: String
+        switch day {
+        case "Sunday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-sunday",
+                value: "Sundays",
+                comment: "Localized name for Sunday in plural form."
+            )
+        case "Monday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-monday",
+                value: "Mondays",
+                comment: "Localized name for Monday in plural form."
+            )
+        case "Tuesday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-tuesday",
+                value: "Tuesdays",
+                comment: "Localized name for Tuesday in plural form."
+            )
+        case "Wednesday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-wednesday",
+                value: "Wednesdays",
+                comment: "Localized name for Wednesday in plural form."
+            )
+        case "Thursday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-thursday",
+                value: "Thursdays",
+                comment: "Localized name for Thursday in plural form."
+            )
+        case "Friday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-friday",
+                value: "Fridays",
+                comment: "Localized name for Friday in plural form."
+            )
+        case "Saturday":
+            localizedDay = WMFLocalizedString(
+                "year-in-review-day-saturday",
+                value: "Saturdays",
+                comment: "Localized name for Saturday in plural form."
+            )
+        default:
+            localizedDay = day
+        }
+        
+        return localizedDay
     }
 
     func personalizedSlide3Title(editCount: Int) -> String {
@@ -229,6 +304,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-personalized-donate-subtitle", value: "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work](%1$@).", comment: "Year in review, personalized donate slide subtitle for users that donated at least once that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, urlString)
     }
+    
+    // MARK: - Funcs
 
     private struct PersonalizedSlides {
         let readCount: YearInReviewSlideContent?
@@ -308,11 +385,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        mostReadDay.getViewCount() > 0 {
                         mostReadDaySlide = YearInReviewSlideContent(
                             imageName: "viewed",
-                            imageOverlay: "wmf-logo",
-                            title: "\(mostReadDay.getDay())",
+                            textOverlay: getLocalizedDay(day: mostReadDay.getDay()),
+                            title: personalizedSlide2Title(day: mostReadDay.getDay()),
                             informationBubbleText: nil,
-                            subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
-                            loggingID: "thank_custom",
+                            subtitle: personalizedSlide2Subtitle(day: mostReadDay.getDay()),
+                            loggingID: "most_read_day_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: true)
                     }

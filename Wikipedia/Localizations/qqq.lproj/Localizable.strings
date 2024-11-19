@@ -1407,13 +1407,25 @@
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle, $1 is replaced with the number of article views text, e.g. \"1.5\"";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".";
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";
+"year-in-review-day-friday" = "Localized name for Friday in plural form.";
+"year-in-review-day-monday" = "Localized name for Monday in plural form.";
+"year-in-review-day-saturday" = "Localized name for Saturday in plural form.";
+"year-in-review-day-sunday" = "Localized name for Sunday in plural form.";
+"year-in-review-day-thursday" = "Localized name for Thursday in plural form.";
+"year-in-review-day-tuesday" = "Localized name for Tuesday in plural form.";
+"year-in-review-day-wednesday" = "Localized name for Wednesday in plural form.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
 "year-in-review-feature-announcement-body" = "Body for year in review feature announcement";
 "year-in-review-feature-announcement-title" = "Title for year in review feature announcement";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
+<<<<<<< HEAD
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
+=======
+"year-in-review-personalized-day-subtitle-format" = "Year in review, personalized slide subtitle for users that displays the weekday they read most. $1 is replaced with the weekday.";
+"year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";
+>>>>>>> ad2d9341ac (Localizations)
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
 "year-in-review-personalized-editing-subtitle-format" = "Year in review, personalized editing article count slide subtitle for users that edited articles. $1 is replaced with the number of edits the user made.";
