@@ -492,13 +492,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 }
             })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
-        },
-            submitAction: { [weak self] options, otherText in
+        }, submitAction: { [weak self] options, otherText in
             DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
-            self?.navigationController.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
-                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
+            self?.navigationController.dismiss(animated: true, completion: { [weak self] in
+                
+                guard let self else { return }
+                
+                if self.needsLoginPrompt() {
+                    presentLoginPrompt()
+                } else {
+                    let image = UIImage(systemName: "checkmark.circle.fill")
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                    DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
+                }
             })
         })
 
