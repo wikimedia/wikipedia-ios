@@ -25,6 +25,9 @@
                     },
                     "donateCount": {
                         "isEnabled": true
+                    },
+                    "mostReadDay": {
+                        "isEnabled": true
                     }
                 }
             }]
