@@ -337,18 +337,22 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        
        let personalizedSlides = getPersonalizedSlides()
        
-       if let readCountSlide = personalizedSlides.readCount {
-           firstSlide = readCountSlide
-       }
-       
-       if let editCountSlide = personalizedSlides.editCount {
-           thirdSlide = editCountSlide
-       }
+        // We should only show personalized slides to logged in users. Logged out users will only see collective / base slides.
         
         var hasPersonalizedDonateSlide = false
-        if let donateCountSlide = personalizedSlides.donateCount {
-            fifthSlide = donateCountSlide
-            hasPersonalizedDonateSlide = true
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if let readCountSlide = personalizedSlides.readCount {
+                firstSlide = readCountSlide
+            }
+            
+            if let editCountSlide = personalizedSlides.editCount {
+                thirdSlide = editCountSlide
+            }
+             
+             if let donateCountSlide = personalizedSlides.donateCount {
+                 fifthSlide = donateCountSlide
+                 hasPersonalizedDonateSlide = true
+             }
         }
        
        let slides: [YearInReviewSlideContent] = [
