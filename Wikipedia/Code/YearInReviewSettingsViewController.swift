@@ -42,7 +42,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
     
     @objc init(dataStore: MWKDataStore, theme: Theme) {
         self.dataStore = dataStore
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
