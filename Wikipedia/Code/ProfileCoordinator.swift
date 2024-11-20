@@ -175,7 +175,37 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
+        if let viewModel, !viewModel.isUserLoggedIn() {
+            presentLoginPrompt()
+        }
         yirCoordinator.start()
+    }
+    
+    private func presentLoginPrompt() {
+        let title = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in/Join Wikipedia", comment: "Title of alert that asks user to login if they are entering Year in Review.")
+        let subtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalied insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let button1Title = CommonStrings.joinLoginTitle
+        let button2Title = CommonStrings.noThanksTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+            
+            guard let self else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            loginCoordinator.start()
+        }
+        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
+            self.yirCoordinator.start()
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        
+        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
+        
+        navigationController.present(alert, animated: true)
     }
     
     func showDonate() {
