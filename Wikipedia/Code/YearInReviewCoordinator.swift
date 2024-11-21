@@ -621,7 +621,21 @@ class YiRShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendab
     }
 
     override var item: Any {
-        return YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag)
+        return  YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag)
+    }
+    
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        switch activityType {
+        case .postToFacebook:
+            return nil
+        default:
+            if let activityType,
+               activityType.rawValue.contains("instagram") {
+                return nil
+            }
+            
+            return item
+        }
     }
 
     override func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
