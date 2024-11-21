@@ -64,7 +64,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         super.scrollViewDidScroll(scrollView)
         
         let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
-        searchLanguageBarTopConstraint?.constant = normalizedContentOffset
+        // searchLanguageBarTopConstraint?.constant = normalizedContentOffset
     }
     
     private func setupNavBar() {
@@ -113,7 +113,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             addChild(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             
-            let searchLanguageBarTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: searchLanguageBarViewController.view.topAnchor)
+            let searchLanguageBarTopConstraint = view.topAnchor.constraint(equalTo: searchLanguageBarViewController.view.topAnchor, constant: view.safeAreaInsets.top)
             self.searchLanguageBarTopConstraint = searchLanguageBarTopConstraint
             
             view.addSubview(searchLanguageBarViewController.view)
