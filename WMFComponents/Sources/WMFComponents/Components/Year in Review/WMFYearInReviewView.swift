@@ -10,14 +10,6 @@ public struct WMFYearInReviewView: View {
 
     public init(viewModel: WMFYearInReviewViewModel) {
         self.viewModel = viewModel
-        let toolbarAppearance = UIToolbarAppearance()
-        toolbarAppearance.configureWithOpaqueBackground()
-        toolbarAppearance.backgroundColor = theme.midBackground
-        toolbarAppearance.shadowColor = .clear
-
-        UIToolbar.appearance().standardAppearance = toolbarAppearance
-        UIToolbar.appearance().compactAppearance = toolbarAppearance
-
     }
 
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
@@ -67,7 +59,9 @@ public struct WMFYearInReviewView: View {
                 } else {
                     VStack {
                         TabView(selection: $viewModel.currentSlide) {
-                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides)
+                            WMFSlideShow(currentSlide: $viewModel.currentSlide, slides: viewModel.slides, infoAction: {
+                                viewModel.handleInfo()
+                            })
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -86,13 +80,13 @@ public struct WMFYearInReviewView: View {
                 // Logs slide impressions and next taps
                 viewModel.logYearInReviewSlideDidAppear()
             }
-            .toolbarColorScheme(theme.preferredColorScheme)
             .toolbar {
                 if !viewModel.isFirstSlide {
                     ToolbarItem(placement: .bottomBar) {
                         HStack(alignment: .center) {
                             Button(action: {
                                 viewModel.handleShare(for: viewModel.currentSlide)
+                                viewModel.logYearInReviewDidTapShare()
                             }) {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {

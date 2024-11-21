@@ -627,6 +627,17 @@ extension WMFAppViewController {
             }
         }
     }
+    
+    @objc func deleteYearInReviewPersonalizedEditingData() {
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.deleteAllPersonalizedEditingData()
+            } catch {
+                DDLogError("Failure deleting personalized editing data from year in review: \(error)")
+            }
+        }
+    }
 }
 
 // MARK: WMFComponents App Environment Helpers
