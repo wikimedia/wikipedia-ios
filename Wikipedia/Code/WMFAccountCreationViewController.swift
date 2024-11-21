@@ -275,7 +275,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case usernameField:
-            usernameAlertLabel.isHidden = true
+            usernameAlertLabel.text = ""
             usernameField.textColor = theme.colors.primaryText
             usernameField.keyboardAppearance = theme.keyboardAppearance
         case passwordRepeatField:
@@ -296,7 +296,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     Task {
                         await MainActor.run {
                             self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
-                            self.usernameAlertLabel.isHidden = false
                             self.usernameField.textColor = self.theme.colors.error
                         }
                     }
@@ -324,7 +323,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     switch error {
                     case .usernameUnavailable:
                         self.usernameAlertLabel.text = error.localizedDescription
-                        self.usernameAlertLabel.isHidden = false
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
                         WMFAlertManager.sharedInstance.dismissAlert()
