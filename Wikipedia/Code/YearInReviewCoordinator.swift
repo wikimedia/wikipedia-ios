@@ -140,12 +140,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate.](%2$@)", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342\". %2$@ is replaced with a link to the Mediawiki Apps team FAQ about editing.")
         
         let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
-        var editingFAQ: String
-        if languageCode == "es" {
-            editingFAQ = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ/es#Edici%C3%B3n"
-        } else {
-            editingFAQ = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing"
-        }
+        let editingFAQ = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ/\(languageCode ?? "")#Editing"
         return String.localizedStringWithFormat(format, numEditsPerMinString, editingFAQ)
     }
     
