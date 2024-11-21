@@ -391,21 +391,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
 
-        let calendar = Calendar.current
-
-        var startDateComponents = DateComponents()
-        startDateComponents.year = 2024
-        startDateComponents.month = 1
-        startDateComponents.day = 1
-
-        var endDateComponents = DateComponents()
-        endDateComponents.year = 2024
-        endDateComponents.month = 12
-        endDateComponents.day = 31
-
-        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return }
-
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, shareLink: appShareLink, hashtag: hashtag, savedArticlesCount: dataStore.savedPageList.savedArticles(for: startDate, end: endDate), hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
 
         let yirview = WMFYearInReviewView(viewModel: viewModel)
 

@@ -20,7 +20,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
     var slides: [YearInReviewSlideContent]
     public let shareLink: String
     public let hashtag: String
-    public let savedArticlesCount: Int
     let hasPersonalizedDonateSlide: Bool
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     weak var badgeDelegate: YearInReviewBadgeDelegate?
@@ -28,14 +27,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, savedArticlesCount: Int, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.shareLink = shareLink
         self.hasPersonalizedDonateSlide = hasPersonalizedDonateSlide
         self.hashtag = hashtag
-        self.savedArticlesCount = savedArticlesCount
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
