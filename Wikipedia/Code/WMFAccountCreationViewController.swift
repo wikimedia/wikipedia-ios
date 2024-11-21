@@ -34,6 +34,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
+    private var checkingUsernameAvailability: Bool = false
+    
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
     }
@@ -289,22 +291,28 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         guard textField === usernameField, reason == .committed, let username = textField.text else { return }
         let siteURL = dataStore.primarySiteURL!
-        // We can check for username validity in the background
-        Task {
-            accountCreator.checkUsername(username, siteURL: siteURL) { canCreate in
-                if !canCreate {
-                    Task {
-                        await MainActor.run {
-                            self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
-                            self.usernameField.textColor = self.theme.colors.error
-                        }
-                    }
-                }
-            } failure: { error in
-                // TODO: What to do if this request fails?
-            }
-
+        
+        guard !checkingUsernameAvailability else {
+            // Already checking username availability. Returning early to prevent duplicate calls.
+            return
         }
+        
+        checkingUsernameAvailability = true
+        
+        accountCreator.checkUsername(username, siteURL: siteURL, success: { [weak self] canCreate in
+            DispatchQueue.main.async {
+                guard let self else {
+                    return
+                }
+                self.checkingUsernameAvailability = false
+                if !canCreate {
+                    self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
+                    self.usernameField.textColor = self.theme.colors.error
+                }
+            }
+        }, failure: { [weak self] error in
+            self?.checkingUsernameAvailability = false
+        })
     }
 
     fileprivate func createAccount() {

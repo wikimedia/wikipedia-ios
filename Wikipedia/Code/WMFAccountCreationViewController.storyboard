@@ -23,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qz-4P-2EZ" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="629"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="683"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7AC-EW-rPT">
-                                                <rect key="frame" x="43.5" y="30" width="288" height="569"/>
+                                                <rect key="frame" x="43.5" y="30" width="288" height="623"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new account" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-PU-Exz" userLabel="Title">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
@@ -83,13 +83,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjL-Xk-iQ0" userLabel="Spacer">
-                                                        <rect key="frame" x="0.0" y="138" width="288" height="8"/>
+                                                        <rect key="frame" x="0.0" y="138" width="288" height="10"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="8" id="zah-c3-9gU"/>
+                                                            <constraint firstAttribute="height" constant="10" id="zah-c3-9gU"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aD-ss-nxg">
-                                                        <rect key="frame" x="0.0" y="149" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="151" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="CDi-5y-OgS"/>
                                                         </constraints>
@@ -98,7 +98,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-0J-fBj" customClass="WMFThemeableTextField">
-                                                        <rect key="frame" x="0.0" y="168" width="288" height="28"/>
+                                                        <rect key="frame" x="0.0" y="170" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="O2l-EP-YyM"/>
                                                         </constraints>
@@ -111,13 +111,13 @@
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zra-4a-1kG" userLabel="Spacer">
-                                                        <rect key="frame" x="0.0" y="199" width="288" height="15"/>
+                                                        <rect key="frame" x="0.0" y="201" width="288" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="15" id="Jd5-0m-Ef3"/>
+                                                            <constraint firstAttribute="height" constant="26" id="Jd5-0m-Ef3"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm password" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9g-Yg-iPJ">
-                                                        <rect key="frame" x="0.0" y="217" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="230" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="7KX-Lq-JBh"/>
                                                         </constraints>
@@ -126,7 +126,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="re-enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UgH-77-lyp" customClass="WMFThemeableTextField">
-                                                        <rect key="frame" x="0.0" y="236" width="288" height="28"/>
+                                                        <rect key="frame" x="0.0" y="249" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="o2x-D3-txA"/>
                                                         </constraints>
@@ -139,7 +139,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passwords do not match" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpL-Ao-1ot">
-                                                        <rect key="frame" x="0.0" y="265.5" width="288" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="278.5" width="288" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" id="0Zu-tD-J6x"/>
                                                         </constraints>
@@ -148,13 +148,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LkQ-d5-fry" userLabel="Spacer">
-                                                        <rect key="frame" x="0.0" y="267" width="288" height="15"/>
+                                                        <rect key="frame" x="0.0" y="280" width="288" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="15" id="x3n-iM-zQb"/>
+                                                            <constraint firstAttribute="height" constant="26" id="x3n-iM-zQb"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKv-6f-CQD">
-                                                        <rect key="frame" x="0.0" y="285" width="288" height="16"/>
+                                                        <rect key="frame" x="0.0" y="309" width="288" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="16" id="2Np-JT-RKF"/>
                                                         </constraints>
@@ -163,7 +163,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7" customClass="WMFThemeableTextField">
-                                                        <rect key="frame" x="0.0" y="304" width="288" height="28"/>
+                                                        <rect key="frame" x="0.0" y="328" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="lzL-aV-2pq"/>
                                                         </constraints>
@@ -176,10 +176,10 @@
                                                         </connections>
                                                     </textField>
                                                     <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkJ-ZP-8yL">
-                                                        <rect key="frame" x="0.0" y="335" width="288" height="163"/>
+                                                        <rect key="frame" x="0.0" y="359" width="288" height="192"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="163" placeholder="YES" id="S8T-dk-ANv"/>
+                                                            <constraint firstAttribute="height" constant="192" placeholder="YES" id="S8T-dk-ANv"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -188,13 +188,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </containerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQ6-uR-ngF" userLabel="Spacer">
-                                                        <rect key="frame" x="0.0" y="501" width="288" height="25"/>
+                                                        <rect key="frame" x="0.0" y="554" width="288" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="ag4-uU-DMk"/>
+                                                            <constraint firstAttribute="height" constant="26" id="ag4-uU-DMk"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="BGo-og-pKt" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="529" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="583" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="BKt-Lp-uXS"/>
                                                         </constraints>
