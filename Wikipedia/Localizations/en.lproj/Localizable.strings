@@ -1412,14 +1412,14 @@
 "year-in-review-feature-announcement-body" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
 "year-in-review-feature-announcement-title" = "Explore your Wikipedia Year in Review";
 "year-in-review-finish" = "Finish";
+"year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalied insights";
+"year-in-review-login-title" = "Improve your Year in Review";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
-"year-in-review-personalized-edit-count" = "$1";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-editing-title-format-500plus" = "You edited Wikipedia 500+ times";
-"year-in-review-personalized-read-count" = "$1";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year. This year Wikipedia had $2 million articles available across over $3 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share-text" = "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app";

@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 public final class WMFDonateViewController: WMFCanvasViewController {
     
@@ -24,6 +25,16 @@ public final class WMFDonateViewController: WMFCanvasViewController {
         super.viewDidLoad()
         self.title = viewModel.localizedStrings.title
         addComponent(hostingViewController, pinToEdges: true)
+        
+        if navigationController?.viewControllers.first === self {
+            let image = WMFSFSymbolIcon.for(symbol: .close)
+            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
+            navigationItem.leftBarButtonItem = closeButton
+        }
+    }
+    
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        dismiss(animated: true)
     }
     
     public override func viewWillAppear(_ animated: Bool) {

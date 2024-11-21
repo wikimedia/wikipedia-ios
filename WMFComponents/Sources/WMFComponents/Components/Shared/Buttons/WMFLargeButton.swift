@@ -32,7 +32,7 @@ struct WMFLargeButton: View {
             action?()
         }, label: {
             Text(title)
-                .font(Font(WMFFont.for(.boldSubheadline)))
+                .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundColor(Color(foregroundColor))
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)

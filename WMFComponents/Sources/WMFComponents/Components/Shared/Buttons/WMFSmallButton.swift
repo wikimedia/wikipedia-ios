@@ -35,7 +35,7 @@ public struct WMFSmallButton: View {
         }, label: {
             HStack(spacing: 4) {
                 Text(title)
-                    .font(Font(WMFFont.for(.mediumSubheadline)))
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(appEnvironment.theme.link))
                 
                 if let trailingIcon = configuration.trailingIcon {
