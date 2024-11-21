@@ -71,6 +71,7 @@
                                                         <connections>
                                                             <action selector="textFieldDidBeginEditing:" destination="LsX-JK-bT6" eventType="editingDidBegin" id="VM3-mK-wNB"/>
                                                             <action selector="textFieldDidChange:" destination="LsX-JK-bT6" eventType="editingChanged" id="Eys-MQ-tYh"/>
+                                                            <action selector="textFieldDidEndEditing:reason:" destination="LsX-JK-bT6" eventType="editingDidEnd" id="2Bj-vl-8sb"/>
                                                             <outlet property="delegate" destination="LsX-JK-bT6" id="QIw-fL-bzL"/>
                                                         </connections>
                                                     </textField>
