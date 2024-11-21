@@ -176,6 +176,9 @@ import CoreData
             case .donateCount:
                 // Do nothing, this slide should not contribute to the personalized slide count
                 break
+            case .savedCount:
+                // TODO check config
+                personalizedSlideCount += 1
             }
         }
         
@@ -311,7 +314,14 @@ import CoreData
                 try self?.populateDonatingSlide(report: report, backgroundContext: backgroundContext)
             }
         }
-        
+
+        let tempNeedsSavedPopultion = true // temp prop until config is edited
+        if tempNeedsSavedPopultion && savedArticleCount >= 3 {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateSavedCountSlide(report: report, backgroundContext: backgroundContext, savedArticlesCount: savedArticleCount)
+            }
+        }
+
         return WMFYearInReviewReport(cdReport: report)
     }
     
@@ -486,7 +496,38 @@ import CoreData
         
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
-    
+
+    private func populateSavedCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, savedArticlesCount: Int) throws {
+
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            return
+        }
+
+        for slide in slides {
+
+            guard let slideID = slide.id else {
+                continue
+            }
+
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.savedCount.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(savedArticlesCount)
+
+                if savedArticlesCount > 5 {
+                    slide.display = true
+                }
+
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+
+    }
+
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
         
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,

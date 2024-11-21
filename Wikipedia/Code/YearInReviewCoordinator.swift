@@ -234,18 +234,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
         let donateCount: YearInReviewSlideContent?
+        let savedCountSlide: YearInReviewSlideContent?
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
 
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, savedCountSlide: nil)
         }
 
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
         var donateCountSlide: YearInReviewSlideContent? = nil
+        var savedCountSlide: YearInReviewSlideContent? = nil
 
         for slide in report.slides {
             switch slide.id {
@@ -298,9 +300,27 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: true)
                     }
                 }
+            case .savedCount:
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let savedCount = try? decoder.decode(Int.self, from: data),
+                       savedCount > 3 {
+                        // TODO - get copy and images
+                        savedCountSlide = YearInReviewSlideContent(
+                            imageName: "read",
+                            title: "Saved",
+                            informationBubbleText: "",
+                            subtitle: "You saved \(savedCount) articles",
+                            loggingID: "saved_count_custom", // verify
+                            hideDonateButton: false
+                        )
+                    }
+
+                }
             }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, savedCountSlide: savedCountSlide)
     }
 
     func start() {
