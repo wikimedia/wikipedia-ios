@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removeEntryWithURL:(NSURL *)url;
 
+- (NSInteger)savedArticlesFor:(NSDate *)startDate endDate:(NSDate *)endDate;
+
 @end
 
 NS_ASSUME_NONNULL_END

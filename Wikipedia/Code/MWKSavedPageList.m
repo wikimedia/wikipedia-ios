@@ -35,6 +35,14 @@
     return request;
 }
 
+- (NSFetchRequest *)savedPageListFetchRequestForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"savedDate >= %@ AND savedDate <= %@", startDate, endDate];
+    request.predicate = predicate;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    return request;
+}
+
 - (NSInteger)numberOfItems {
     return [self.dataStore.viewContext countForFetchRequest:self.savedPageListFetchRequest error:nil];
 }
@@ -141,6 +149,10 @@
         return;
     }
     [self.dataStore.readingListsController userUnsave:article];
+}
+
+- (NSInteger)savedArticlesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
+    return [self.dataStore.viewContext countForFetchRequest:[self savedPageListFetchRequestForStartDate:startDate endDate:endDate] error:nil];
 }
 
 @end
