@@ -7,7 +7,7 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    public let targetConfigYearID = "2024.1"
+    public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
