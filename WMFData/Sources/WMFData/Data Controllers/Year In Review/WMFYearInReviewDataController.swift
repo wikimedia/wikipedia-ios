@@ -140,7 +140,6 @@ import CoreData
             return false
         }
         
-        
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
@@ -176,6 +175,11 @@ import CoreData
             case .donateCount:
                 // Do nothing, this slide should not contribute to the personalized slide count
                 break
+            case .mostReadDay:
+                if yirConfig.personalizedSlides.mostReadDay.isEnabled,
+                    slide.display == true {
+                    personalizedSlideCount += 1
+                }
             }
         }
         
@@ -281,7 +285,7 @@ import CoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
             return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
@@ -312,10 +316,16 @@ import CoreData
             }
         }
         
+        if result.needsDayPopulation == true {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
+            }
+        }
+        
         return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -342,6 +352,7 @@ import CoreData
         var needsReadingPopulation = false
         var needsEditingPopulation = false
         var needsDonatingPopulation = false
+        var needsDayPopulation = false
         
         for slide in cdSlides {
             switch slide.id {
@@ -350,7 +361,6 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.readCount.isEnabled {
                     needsReadingPopulation = true
                 }
-                
             case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled && username != nil {
                     needsEditingPopulation = true
@@ -359,12 +369,16 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.donateCount.isEnabled {
                     needsDonatingPopulation = true
                 }
+            case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
+                if slide.evaluated == false && yirConfig.personalizedSlides.mostReadDay.isEnabled {
+                    needsDayPopulation = true
+                }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
         }
         
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsDayPopulation: needsDayPopulation)
     }
     
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -394,6 +408,14 @@ import CoreData
             donateCountSlide.display = false
             donateCountSlide.data = nil
             results.insert(donateCountSlide)
+            
+            let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            mostReadDaySlide.year = 2024
+            mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+            mostReadDaySlide.evaluated = false
+            mostReadDaySlide.display = false
+            mostReadDaySlide.data = nil
+            results.insert(mostReadDaySlide)
         }
         
         return results
@@ -487,6 +509,51 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
+    private func populateDaySlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return
+        }
+        
+        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
+              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+        let pageViews = try pageViewsDataController.fetchPageViewDates(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate)
+        
+        guard let mostPopularDay = pageViews.max(by: { $0.viewCount < $1.viewCount }) else {
+            return
+        }
+
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+            return
+        }
+        
+        for slide in slides {
+            guard let slideID = slide.id else {
+                continue
+            }
+            
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(mostPopularDay)
+                
+                if mostPopularDay.viewCount > 0 {
+                    slide.display = true
+                }
+                
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
         
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
@@ -616,7 +683,6 @@ import CoreData
         return report
     }
     
-    
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
         let viewContext = try coreDataStore.viewContext
         let reports: [WMFYearInReviewReport] = try await viewContext.perform {
@@ -656,10 +722,11 @@ import CoreData
             return .editCount
         case "donateCount":
             return .donateCount
+        case "mostReadDay":
+            return .mostReadDay
         default:
             return nil
         }
-        
     }
     
     public func deleteYearInReviewReport(year: Int) async throws {

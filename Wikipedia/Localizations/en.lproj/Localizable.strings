@@ -1407,6 +1407,13 @@
 "year-in-review-base-viewed-subtitle" = "iOS app users have viewed Wikipedia articles $1 Billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "We have viewed Wikipedia articles $1 Billion times";
 "year-in-review-button-title" = "Year in Review";
+"year-in-review-day-friday" = "Fridays";
+"year-in-review-day-monday" = "Mondays";
+"year-in-review-day-saturday" = "Saturdays";
+"year-in-review-day-sunday" = "Sundays";
+"year-in-review-day-thursday" = "Thursdays";
+"year-in-review-day-tuesday" = "Tuesdays";
+"year-in-review-day-wednesday" = "Wednesdays";
 "year-in-review-donate" = "Donate";
 "year-in-review-donate-now" = "Donate now";
 "year-in-review-feature-announcement-body" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
@@ -1414,6 +1421,8 @@
 "year-in-review-finish" = "Finish";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalied insights";
 "year-in-review-login-title" = "Improve your Year in Review";
+"year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
+"year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
