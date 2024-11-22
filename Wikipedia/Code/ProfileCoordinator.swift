@@ -182,8 +182,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func presentLoginPrompt() {
-        let title = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in/Join Wikipedia", comment: "Title of alert that asks user to login if they are entering Year in Review.")
-        let subtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalied insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let title = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in for access to Year in Review", comment: "Title of alert that asks user to login if they are entering Year in Review.")
+        let subtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Log in or create an account to see Year in Review again and be eligible for more personalized insights.", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let button1Title = CommonStrings.joinLoginTitle
         let button2Title = CommonStrings.noThanksTitle
         
