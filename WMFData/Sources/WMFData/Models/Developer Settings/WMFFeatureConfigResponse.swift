@@ -42,6 +42,11 @@ public struct WMFFeatureConfigResponse: Codable {
             return yir.first { $0.yearID == yearID }
         }
         
+        public init(version: Int, yir: [YearInReview]) {
+            self.version = version
+            self.yir = yir
+        }
+        
         public init(from decoder: Decoder) throws {
             let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
             
