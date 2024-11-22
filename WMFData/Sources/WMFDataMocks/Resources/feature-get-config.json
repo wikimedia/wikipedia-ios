@@ -3,32 +3,34 @@
     "ios": [
         {
             "version": 1,
-            "yir": [{
-                "yearID": "2024.2",
-                "isEnabled": true,
-                "countryCodes": [
-                    "MX",
-                    "IT"
-                ],
-                "primaryAppLanguageCodes": [
-                    "es",
-                    "it",
-					"en"
-                ],
-                "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
-                "dataPopulationEndDateString": "2024-11-01T00:00:00Z",
-                "personalizedSlides": {
-                    "readCount": {
-                        "isEnabled": true
-                    },
-                    "editCount": {
-                        "isEnabled": true
-                    },
-                    "donateCount": {
-                        "isEnabled": true
-                    },
-                    "mostReadDay": {
-                        "isEnabled": true
+            "yir": [
+                {
+                    "yearID": "2024.1",
+                    "isEnabled": true,
+                    "countryCodes": [
+                        "MX",
+                        "IT"
+                    ],
+                    "primaryAppLanguageCodes": [
+                        "es",
+                        "it",
+                        "en"
+                    ],
+                    "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
+                    "dataPopulationEndDateString": "2024-11-01T00:00:00Z",
+                    "personalizedSlides": {
+                        "readCount": {
+                            "isEnabled": true
+                        },
+                        "editCount": {
+                            "isEnabled": true
+                        },
+                        "donateCount": {
+                            "isEnabled": true
+                        },
+                        "mostReadDay": {
+                            "isEnabled": true
+                        }
                     }
                 },
                 {
