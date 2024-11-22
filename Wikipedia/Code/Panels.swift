@@ -440,7 +440,7 @@ class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelVie
         subheading = alertBodyForLanguageCode(languageCode) + "\n"
         subheadingTextAlignment = .natural
         primaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertPreferencesButton : CommonStrings.gotItButtonTitle
-        secondaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertDismissButton : nil
+        secondaryButtonTitle = isFinalAlert ? CommonStrings.noThanksTitle : nil
     }
     
     func alertTitleForLanguageCode(_ languageCode: String) -> String {
