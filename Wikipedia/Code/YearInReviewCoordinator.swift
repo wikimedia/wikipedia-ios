@@ -140,7 +140,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "This year, Wikipedia was edited at an average rate of %1$@ times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate.](%2$@)", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with the number of edits per minute text, e.g. \"342\". %2$@ is replaced with a link to the Mediawiki Apps team FAQ about editing.")
         
         let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
-        let editingFAQ = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing"
+        var editingFAQ: String
+        if languageCode == "es" {
+            editingFAQ = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ/es#Edici%C3%B3n"
+        } else {
+            editingFAQ = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing"
+        }
         return String.localizedStringWithFormat(format, numEditsPerMinString, editingFAQ)
     }
     
@@ -663,7 +668,21 @@ class YiRShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendab
     }
 
     override var item: Any {
-        return YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag)
+        return  YiRShareActivityContentProvider.messageRepresentation(text: text, appStoreURL: appStoreURL, hashtag: hashtag)
+    }
+    
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        switch activityType {
+        case .postToFacebook:
+            return nil
+        default:
+            if let activityType,
+               activityType.rawValue.contains("instagram") {
+                return nil
+            }
+            
+            return item
+        }
     }
 
     override func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
