@@ -95,29 +95,34 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         self.tableView.reloadData()
     }
-    
+
+    private func getSavedSlidedata(for year: Int) -> SavedArticleSlideData? {
+        let calendar = Calendar.current
+
+        var startDateComponents = DateComponents()
+        startDateComponents.year = year
+        startDateComponents.month = 1
+        startDateComponents.day = 1
+
+        var endDateComponents = DateComponents()
+        endDateComponents.year = year
+        endDateComponents.month = 12
+        endDateComponents.day = 31
+
+        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return nil}
+
+        let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
+
+        let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
+        return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+    }
+
     private func populateYearInReviewReportData() {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
         else { return }
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
-
-        let calendar = Calendar.current
-
-        var startDateComponents = DateComponents()
-        startDateComponents.year = 2024
-        startDateComponents.month = 1
-        startDateComponents.day = 1
-
-        var endDateComponents = DateComponents()
-        endDateComponents.year = 2024
-        endDateComponents.month = 12
-        endDateComponents.day = 31
-
-        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return }
-
-        let savedArticleCount = dataStore.savedPageList.savedArticles(for: startDate, end: endDate)
 
         Task {
             do {
@@ -126,7 +131,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername, savedArticleCount: savedArticleCount)
+                    username: dataStore.authenticationManager.authStatePermanentUsername, savedArticleData: getSavedSlidedata(for: WMFYearInReviewDataController.targetYear))
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

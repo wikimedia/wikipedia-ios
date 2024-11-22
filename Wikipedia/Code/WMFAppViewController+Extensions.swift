@@ -607,13 +607,7 @@ extension WMFAppViewController {
         }
     }
 
-    @objc func populateYearInReviewReport(for year: Int) {
-        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
-              let countryCode = Locale.current.region?.identifier
-        else { return }
-        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
-        let project = WMFProject.wikipedia(wmfLanguage)
-
+    private func getSavedSlidedata(for year: Int) -> SavedArticleSlideData? {
         let calendar = Calendar.current
 
         var startDateComponents = DateComponents()
@@ -626,9 +620,21 @@ extension WMFAppViewController {
         endDateComponents.month = 12
         endDateComponents.day = 31
 
-        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return }
+        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return nil}
 
-        let savedArticleCount = dataStore.savedPageList.savedArticles(for: startDate, end: endDate)
+        let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
+
+        let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
+        return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+    }
+
+    @objc func populateYearInReviewReport(for year: Int) {
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+              let countryCode = Locale.current.region?.identifier
+        else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+
 
         Task {
             do {
@@ -638,7 +644,7 @@ extension WMFAppViewController {
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
-                    savedArticleCount: savedArticleCount)
+                    savedArticleData: getSavedSlidedata(for: year))
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
