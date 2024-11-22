@@ -186,7 +186,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return formatter.string(from: number) ?? String(readCount)
     }
     
-    func personalizedSlide2Title(day: String) -> String {
+    func personalizedSlide2Title(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-title-format",
             value: "You read most on %1$@.",
@@ -196,7 +196,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
-    func personalizedSlide2Subtitle(day: String) -> String {
+    func personalizedSlide2Subtitle(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-subtitle-format",
             value: "You read the most articles on %1$@. It's clear that %1$@ are your prime day for exploring new content. Thanks for making the most of your reading time!",
@@ -205,53 +205,53 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
-    func getLocalizedDay(day: String) -> String {
+    func getLocalizedDay(day: Int) -> String {
         let localizedDay: String
         switch day {
-        case "Sunday":
+        case 1: // Sunday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-sunday",
                 value: "Sundays",
                 comment: "Localized name for Sunday in plural form."
             )
-        case "Monday":
+        case 2: // Monday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-monday",
                 value: "Mondays",
                 comment: "Localized name for Monday in plural form."
             )
-        case "Tuesday":
+        case 3: // Tuesday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-tuesday",
                 value: "Tuesdays",
                 comment: "Localized name for Tuesday in plural form."
             )
-        case "Wednesday":
+        case 4: // Wednesday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-wednesday",
                 value: "Wednesdays",
                 comment: "Localized name for Wednesday in plural form."
             )
-        case "Thursday":
+        case 5: // Thursday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-thursday",
                 value: "Thursdays",
                 comment: "Localized name for Thursday in plural form."
             )
-        case "Friday":
+        case 6: // Friday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-friday",
                 value: "Fridays",
                 comment: "Localized name for Friday in plural form."
             )
-        case "Saturday":
+        case 7: // Saturday
             localizedDay = WMFLocalizedString(
                 "year-in-review-day-saturday",
                 value: "Saturdays",
                 comment: "Localized name for Saturday in plural form."
             )
         default:
-            localizedDay = day
+            localizedDay = "Invalid day"
         }
         
         return localizedDay

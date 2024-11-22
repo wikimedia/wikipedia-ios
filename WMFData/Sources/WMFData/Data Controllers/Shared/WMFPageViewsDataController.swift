@@ -29,25 +29,19 @@ public final class WMFPageViewCount: Identifiable {
  }
 
 public final class WMFPageViewDay: Decodable, Encodable {
-    public let day: String
+    public let day: Int
     public let viewCount: Int
     
-    public init(day: String, viewCount: Int) {
+    public init(day: Int, viewCount: Int) {
         self.day = day
         self.viewCount = viewCount
     }
-    
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.day = try container.decode(String.self, forKey: .day)
-        self.viewCount = try container.decode(Int.self, forKey: .viewCount)
-    }
-    
+
     public func getViewCount() -> Int {
         viewCount
     }
     
-    public func getDay() -> String {
+    public func getDay() -> Int {
         day
     }
 }
@@ -99,7 +93,7 @@ public final class WMFPageViewsDataController {
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
-
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
@@ -140,7 +134,7 @@ public final class WMFPageViewsDataController {
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
             batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
             _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
-
+            
             backgroundContext.refreshAllObjects()
         }
     }
@@ -189,7 +183,7 @@ public final class WMFPageViewsDataController {
                 }
                 
                 guard let page = context.object(with: objectID) as? CDPage,
-                    let projectID = page.projectID, let title = page.title else {
+                      let projectID = page.projectID, let title = page.title else {
                     continue
                 }
                 
@@ -213,34 +207,30 @@ public final class WMFPageViewsDataController {
         
         let results: [WMFPageViewDay] = try context.performAndWait {
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: context)
             
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(
-                entityType: CDPageView.self,
-                predicate: predicate,
-                propertyToCount: "timestamp",
-                propertiesToGroupBy: ["timestamp"],
-                propertiesToFetch: ["timestamp"],
-                in: context
-            )
-            
-            var pageViewDays: [WMFPageViewDay] = []
-            
-            for dict in pageViewsDict {
-                guard let timestamp = dict["timestamp"] as? Date,
-                      let count = dict["count"] as? Int else {
-                    continue
-                }
-                
-                let dayFormatter = Date.FormatStyle()
-                    .weekday(.wide)
-                let dayOfWeek = timestamp.formatted(dayFormatter)
-                
-                pageViewDays.append(WMFPageViewDay(day: dayOfWeek, viewCount: count))
+            guard let cdPageViews = cdPageViews else {
+                return []
             }
             
-            return pageViewDays
+            var countsDictionary: [Int: Int] = [:]
+            
+            for cdPageView in cdPageViews {
+                if let timestamp = cdPageView.timestamp {
+                    let calendar = Calendar.current
+                    let dayOfWeek = calendar.component(.weekday, from: timestamp) // Sunday = 1, Monday = 2, ..., Saturday = 7
+                    
+                    countsDictionary[dayOfWeek, default: 0] += 1
+                }
+            }
+            
+            return countsDictionary.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
+                WMFPageViewDay(day: dayOfWeek, viewCount: count)
+            }
         }
         
         return results
     }
+
+
 }
