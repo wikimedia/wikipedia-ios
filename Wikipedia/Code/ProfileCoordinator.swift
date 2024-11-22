@@ -150,8 +150,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            dismissProfile {
-                self.showYearInReview()
+            if let viewModel, !viewModel.isUserLoggedIn() {
+                presentLoginPrompt()
             }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
@@ -175,9 +175,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showYearInReview() {
-        if let viewModel, !viewModel.isUserLoggedIn() {
-            presentLoginPrompt()
-        }
         yirCoordinator.start()
     }
     
@@ -192,20 +189,27 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             
             guard let self else { return }
             
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
+            // DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-            loginCoordinator.start()
+            self.dismissProfile {
+                loginCoordinator.start()
+            }
+            
+//            self.dismissProfile {
+//                self.showYearInReview()
+//            }
         }
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
-            self.yirCoordinator.start()
+            // DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
         }
         alert.addAction(action1)
         alert.addAction(action2)
         
-        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
+        // DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
         
-        navigationController.present(alert, animated: true)
+        if let presentedViewController = navigationController.presentedViewController {
+            presentedViewController.present(alert, animated: true)
+        }
     }
     
     func showDonate() {
