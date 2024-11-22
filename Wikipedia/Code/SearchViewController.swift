@@ -13,6 +13,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     @objc var prefersLargeTitles: Bool = true
     
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    private var needsAnimateLanguageBarMovement = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +65,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         super.scrollViewDidScroll(scrollView)
         
         let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
-        // searchLanguageBarTopConstraint?.constant = normalizedContentOffset
+        searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
     }
     
     private func setupNavBar() {
@@ -113,7 +114,7 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             addChild(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             
-            let searchLanguageBarTopConstraint = view.topAnchor.constraint(equalTo: searchLanguageBarViewController.view.topAnchor, constant: view.safeAreaInsets.top)
+            let searchLanguageBarTopConstraint = searchLanguageBarViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
             self.searchLanguageBarTopConstraint = searchLanguageBarTopConstraint
             
             view.addSubview(searchLanguageBarViewController.view)
@@ -136,6 +137,21 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
             }
         }
         view.setNeedsLayout()
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        guard needsAnimateLanguageBarMovement else {
+            searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
+            view.layoutIfNeeded()
+            return
+        }
+        
+        searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     // MARK: - State
@@ -575,27 +591,19 @@ extension SearchViewController: UISearchControllerDelegate {
             // searchController.searchBar.becomeFirstResponder()
         }
         
-        if let searchLanguageBarViewController {
-            searchLanguageBarViewController.view.isHidden = false
-        }
+        needsAnimateLanguageBarMovement = false
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
-        if let searchLanguageBarViewController {
-            searchLanguageBarViewController.view.isHidden = true
-        }
+        needsAnimateLanguageBarMovement = true
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
-        if let searchLanguageBarViewController {
-            searchLanguageBarViewController.view.isHidden = true
-        }
+        needsAnimateLanguageBarMovement = true
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        if let searchLanguageBarViewController {
-            searchLanguageBarViewController.view.isHidden = false
-        }
+        needsAnimateLanguageBarMovement = false
     }
 }
 
