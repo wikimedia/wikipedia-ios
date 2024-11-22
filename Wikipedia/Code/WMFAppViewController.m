@@ -474,7 +474,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
     NSInteger entryLimit = [note.userInfo[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] integerValue];
-    
+
     [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] duration:nil sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
 }
 
@@ -506,7 +506,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if (!self.hasSyncErrorBeenShownThisSesssion) {
             self.hasSyncErrorBeenShownThisSesssion = YES; // only show sync error once for multiple failed syncs
             [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
-                                                   duration:nil
+                                                      duration:nil
                                                         sticky:YES
                                          dismissPreviousAlerts:NO
                                                    tapCallBack:nil];
@@ -531,7 +531,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     NSString *newName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedNewNameKey];
     NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName];
     [[WMFAlertManager sharedInstance] showWarningAlert:alertTitle
-                                           duration:nil
+                                              duration:nil
                                                 sticky:YES
                                  dismissPreviousAlerts:YES
                                            tapCallBack:nil];
@@ -608,8 +608,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (visibleViewController == self) {
         return self.selectedViewController;
     }
-
-    return nil;
+    return visibleViewController;
 }
 
 - (UIViewController<WMFHintPresenting> *)visibleHintPresentingViewController {
@@ -648,7 +647,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
-    
+
     /// Housekeeping for WMFData
     [self performWMFDataHousekeeping];
 
@@ -885,7 +884,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if ([dataStore needsMigration]) {
             [self triggerMigratingAnimation];
         }
-        
+
         [self setupWMFDataCoreDataStore];
 
         [dataStore
@@ -2091,7 +2090,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (nonnull WMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
-        [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore theme: self.theme];
+            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore
+                                                                     theme:self.theme];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
         _settingsViewController.notificationsCenterPresentationDelegate = self;
@@ -2204,7 +2204,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
-    
+
     [self deleteYearInReviewPersonalizedEditingData];
 }
 
@@ -2224,7 +2224,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
-    
+
     [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
 }
 
