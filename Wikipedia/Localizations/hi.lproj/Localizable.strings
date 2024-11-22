@@ -500,6 +500,8 @@
 "settings-notifications-push-notifications" = "पुश नोटिफिकेशन्स";
 "settings-notifications-system-turn-on" = "नोटिफिकेशन्स चालू करें";
 "settings-notifications-trending" = "रुझानों में हाल की घटनाएं";
+"settings-off" = "बंद";
+"settings-on" = "चालू";
 "settings-primary-language" = "प्राथमिक";
 "settings-primary-language-details" = "इस सूची में पहली भाषा का उपयोग ऐप के लिए प्राथमिक भाषा के रूप में किया जाता है।";
 "settings-title" = "सेटिंग्स";
@@ -577,5 +579,3 @@
 "wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "year-in-review-donate" = "दान करें";
-"year-in-review-done" = "पूर्ण हुआ";
-"year-in-review-next" = "अगला";
