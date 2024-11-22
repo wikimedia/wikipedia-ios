@@ -130,6 +130,62 @@
 			<string>个条目</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>段落向下移动%#@v1@。转到新位置。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d行</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>段落已上移%#@v1@。转到新位置。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d行</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>段落向下移动%#@v1@。转到新位置。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d段落</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>段落已上移%#@v1@。转到新位置。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d段落</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -280,6 +336,48 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d 条消息</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>在%1$d项目中</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d项目</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d类型</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-body-format</key>
@@ -644,6 +742,20 @@
 			<string>条目</string>
 		</dict>
 	</dict>
+	<key>talk-page-active-users-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d活跃用户</string>
+		</dict>
+	</dict>
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -670,6 +782,20 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d字节</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>修改 [ %#@v1@](wikipedia://watchlist/filter) 以查看更多监视列表项目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d 过滤器</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-subtitle-format</key>
@@ -703,7 +829,21 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您今年阅读了%#@v1@。今年维基百科包含了%2$@，横跨%3$@。您成为了众人中的一员，拓展了知识，探索了不同的主题。</string>
+		<string>您今年阅读了%#@v1@。今年维基百科包含了%2$@百万篇条目，横跨%3$@种语言。您成为了众人中的一员，拓展了知识，探索了不同的主题。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d篇条目</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您今年阅读了%#@v1@。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

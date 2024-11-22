@@ -9,6 +9,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 let readCount: SlideSettings
                 let editCount: SlideSettings
                 let donateCount: SlideSettings
+                let mostReadDay: SlideSettings
             }
             
             public struct SlideSettings: Codable {
@@ -40,6 +41,36 @@ public struct WMFFeatureConfigResponse: Codable {
         
         public func yir(yearID: String) -> YearInReview? {
             return yir.first { $0.yearID == yearID }
+        }
+        
+        public init(version: Int, yir: [YearInReview]) {
+            self.version = version
+            self.yir = yir
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
+            
+            var yearInReviewContainer = try overallContainer.nestedUnkeyedContainer(forKey: .yir)
+            
+            var validYiRs: [YearInReview] = []
+            
+            while !yearInReviewContainer.isAtEnd {
+                
+                let yir: YearInReview
+                do {
+                    yir = try yearInReviewContainer.decode(YearInReview.self)
+                } catch {
+                    // Skip
+                    _ = try? yearInReviewContainer.decode(WMFDiscardedElement.self)
+                    continue
+                }
+                
+                validYiRs.append(yir)
+            }
+            
+            self.yir = validYiRs
+            self.version = try overallContainer.decode(Int.self, forKey: .version)
         }
     }
     
