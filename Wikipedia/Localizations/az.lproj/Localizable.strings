@@ -6,6 +6,7 @@
 // Author: Tsevener
 // Author: Wertuose
 // Author: Şeyx Şamil
+// Author: Əkrəm Cəfər
 
 "aaald-added-text-description-2" = "$1 əlavə edildi";
 "aaald-article-description-updated-description" = "Məqalənin təsviri yeniləndi";
@@ -968,7 +969,6 @@
 "profile-page-join-title" = "Vikipediyaya qoşul / Daxil ol";
 "profile-page-logged-out-year-in-review-subtext" = "Gələn il illik statistika əldə etmək üçün daxil olun və ya hesab yaradın";
 "profile-page-title-logged-out" = "Hesab";
-"profile-page-year-in-review-title" = "İlə Baxış";
 "project-name-mediawiki" = "MediaViki";
 "project-name-wikibooks" = "Vikikitab";
 "project-name-wikidata" = "Vikidata";
@@ -1046,6 +1046,8 @@
 "search-title" = "Axtar";
 "settings-account" = "Hesab";
 "settings-clear-cache-cancel" = "İmtina";
+"settings-off" = "Deaktiv";
+"settings-on" = "Aktiv";
 "share-menu-item" = "Paylaş...";
 "share-on-twitter-sign-off" = "Vikipediya vasitəsilə";
 "share-open-in-maps" = "Xəritələrdə aç";
@@ -1069,3 +1071,5 @@
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Xahiş edirik mehriban olun, hamımız burada insanıq.";
 "talk-pages-topic-reply-onboarding-title" = "Müzakirə səhifələri";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Dəyişiklikləri dərc etməklə siz $1İstifadə Şərtləri$2 ilə razılaşırsınız və töhfələrinizin $3CC BY-SA 4.0$4 və $5GFDL$6 lisenziyaları altında geri qaytarılmadan yayımlanmasına razı olursunuz. Siz razılaşırsınız ki, hiperlink və ya URL əlavə edilməsi Creative Commons lisenziyası şərtinin ödənilməsi üçün kifayətdir.";
+"year-in-review-button-title" = "İlə Baxış";
+"year-in-review-donate-now" = "İndi ianə edin";
