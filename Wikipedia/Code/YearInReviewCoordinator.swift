@@ -304,19 +304,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 if slide.display == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let savedCount = try? decoder.decode(Int.self, from: data),
-                       savedCount > 3 {
-                        // TODO - get copy and images
+                    if let savedSlidedata = try? decoder.decode(SavedArticleSlideData.self, from: data),
+                       savedSlidedata.savedArticlesCount > 3,
+                       savedSlidedata.articleTitles.count > 2 {
                         savedCountSlide = YearInReviewSlideContent(
+                            // TODO: get copy & images
                             imageName: "read",
                             title: "Saved",
                             informationBubbleText: "",
-                            subtitle: "You saved \(savedCount) articles",
+                            subtitle: "You saved \(savedSlidedata.savedArticlesCount) articles. Articles read \(savedSlidedata.articleTitles[0]), \(savedSlidedata.articleTitles[1]), \(savedSlidedata.articleTitles[2])",
                             loggingID: "saved_count_custom", // verify
                             hideDonateButton: false
                         )
                     }
-
                 }
             }
         }

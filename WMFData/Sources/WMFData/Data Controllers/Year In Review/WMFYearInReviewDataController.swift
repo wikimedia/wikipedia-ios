@@ -177,8 +177,9 @@ import CoreData
                 // Do nothing, this slide should not contribute to the personalized slide count
                 break
             case .savedCount:
-                // TODO check config
-                personalizedSlideCount += 1
+                if yirConfig.personalizedSlides.saveCount.isEnabled, slide.display == true {
+                    personalizedSlideCount += 1
+                }
             }
         }
         
@@ -284,7 +285,7 @@ import CoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSavedCountPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
             return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
@@ -315,8 +316,7 @@ import CoreData
             }
         }
 
-        let tempNeedsSavedPopultion = true // temp prop until config is edited
-        if tempNeedsSavedPopultion && savedArticleCount >= 3 {
+        if result.needsSavedCountPopulation {
             try await backgroundContext.perform { [weak self] in
                 try self?.populateSavedCountSlide(report: report, backgroundContext: backgroundContext, savedArticlesCount: savedArticleCount)
             }
@@ -325,7 +325,7 @@ import CoreData
         return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSavedCountPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -352,7 +352,8 @@ import CoreData
         var needsReadingPopulation = false
         var needsEditingPopulation = false
         var needsDonatingPopulation = false
-        
+        var needsSavedCountPopulation = false
+
         for slide in cdSlides {
             switch slide.id {
                 
@@ -369,12 +370,16 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.donateCount.isEnabled {
                     needsDonatingPopulation = true
                 }
+            case WMFYearInReviewPersonalizedSlideID.savedCount.rawValue:
+                if slide.evaluated == false && yirConfig.personalizedSlides.saveCount.isEnabled {
+                    needsSavedCountPopulation = true
+                }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
         }
         
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSavedCountPopulation: needsSavedCountPopulation)
     }
     
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -512,12 +517,12 @@ import CoreData
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.savedCount.rawValue:
                 let encoder = JSONEncoder()
-                slide.data = try encoder.encode(savedArticlesCount)
+                let slideData = SavedArticleSlideData(savedArticlesCount: savedArticlesCount, articleTitles: ["Title 1", "Title 2", "Title 3"])
+                slide.data = try encoder.encode(slideData)
 
-                if savedArticlesCount > 5 {
+                if savedArticlesCount > 2 {
                     slide.display = true
                 }
-
                 slide.evaluated = true
             default:
                 break
@@ -883,4 +888,9 @@ import CoreData
             case isTop = "top"
         }
     }
+}
+
+public struct SavedArticleSlideData: Codable {
+    public let savedArticlesCount: Int
+    public let articleTitles: [String]
 }
