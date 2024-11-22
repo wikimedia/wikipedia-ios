@@ -195,6 +195,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         search.showsSearchResultsController = true
         search.searchBar.showsScopeBar = false
+        search.delegate = self
 
         // definesPresentationContext = true
         
@@ -2269,5 +2270,16 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
         updateProfileViewButton()
+    }
+}
+
+extension ExploreViewController: UISearchControllerDelegate {
+    
+    func willPresentSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = true
     }
 }

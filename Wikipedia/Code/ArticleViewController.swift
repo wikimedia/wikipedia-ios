@@ -1328,6 +1328,7 @@ private extension ArticleViewController {
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         search.showsSearchResultsController = true
+        search.delegate = self
 
         // definesPresentationContext = true
         
@@ -1888,6 +1889,18 @@ extension ArticleViewController: UISearchResultsUpdating {
             searchViewController.search()
         }
     }
+}
+
+extension ArticleViewController: UISearchControllerDelegate {
+        
+    func willPresentSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = true
+    }
+
 }
 
 // MARK: - UISearchBarDelegate
