@@ -908,7 +908,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Прочитавте %#@v1@ оваа година. Годинава Википедија имаше %2$@ на преку %3$@. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
+		<string>Прочитавте %#@v1@ оваа година. Годинава Википедија имаше %2$@ милиони статии на преку %3$@ активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -921,7 +921,7 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title- format</key>
+	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Годинава прочитавте %#@v1@</string>

@@ -2,7 +2,6 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableYearInReview: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -58,11 +57,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    public var enableYearInReview: Bool {
+    public var bypassDonation: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue)) ?? false
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewEnabled.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
         }
     }
 

@@ -14,6 +14,7 @@
 // Author: HakanIST
 // Author: Hedda
 // Author: Incelemeelemani
+// Author: Jelican9
 // Author: JoeWalshWMF
 // Author: Joseph
 // Author: Khalvar
@@ -157,6 +158,7 @@
 "alt-text-email-second-line" = "- [Belirli bir sorunu tanımlayın]";
 "alt-text-email-third-line" = "Görmek istediğim davranış:";
 "alt-text-experiment-caption-title" = "Görsel alt yazısı";
+"alt-text-experiment-onboarding-secondary-button-title" = "Örnekleri görüntüle";
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
@@ -943,6 +945,10 @@
 "preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "privacy-policy-title" = "Gizlilik ilkesi";
 "problem-with-feature-title" = "Özellikle ilgili sorun";
+"profile-button-accessibility-label" = "Profil";
+"profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
+"profile-page-join-title" = "Vikipedi'ye katılın / Giriş yapın";
+"profile-page-title-logged-out" = "Hesap";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikikitap";
 "project-name-wikidata" = "Vikiveri";
@@ -1139,6 +1145,9 @@
 "sort-by-recently-added-action" = "Son eklenenler";
 "sort-by-title-action" = "Başlık";
 "suggested-edits-title" = "Önerilen Düzenlemeler";
+"survey-other-placeholder" = "Diğer";
+"survey-submit" = "Gönder";
+"survey-title" = "Gerekçe";
 "table-of-contents-button-label" = "İçindekiler";
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";

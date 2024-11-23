@@ -52,25 +52,42 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Coordinator
-    private lazy var profileCoordinator: ProfileCoordinator? = {
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
         
         guard let navigationController,
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
         
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
-    }()
-    
-    lazy var yirCoordinator: YearInReviewCoordinator? = {
-        
-        guard let navigationController,
-              let dataController = try? WMFYearInReviewDataController() else {
-            return nil
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
         }
         
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
-    }()
+        return existingProfileCoordinator
+    }
+
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
+    }
+
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
+        
+        guard let navigationController,
+              let yirDataController else {
+            return nil
+        }
+
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
 
     var session: Session {
         return dataStore.session
@@ -478,9 +495,8 @@ class ArticleViewController: ViewController, HintPresenting {
         
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
+            setupSearchAndProfileButtons()
             presentYearInReviewAnnouncement()
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         
         // Campaign modal presentations
         } else {
@@ -988,6 +1004,8 @@ class ArticleViewController: ViewController, HintPresenting {
         if state == .loaded {
             messagingController.updateTheme(theme)
         }
+        yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1308,6 +1326,7 @@ private extension ArticleViewController {
     
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
@@ -1330,6 +1349,12 @@ private extension ArticleViewController {
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
     }
     
+    @objc func textSizeChanged(notification: Notification) {
+        if let multiplier = notification.userInfo?[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey] as? Int {
+            messagingController.updateTextSizeAdjustmentPercentage(multiplier)
+        }
+    }
+    
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
@@ -1342,13 +1367,24 @@ private extension ArticleViewController {
     }
     
     func setupSearchAndProfileButtons() {
-        let hasUnreadNotifications: Bool
+        var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
         } else {
             hasUnreadNotifications = false
         }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
+        }
+
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
         let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
         profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
@@ -1718,5 +1754,11 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+extension ArticleViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        setupSearchAndProfileButtons()
     }
 }

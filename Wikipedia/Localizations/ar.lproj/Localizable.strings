@@ -150,6 +150,7 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
+"advanced-settings-title" = "إعدادات متقدمة";
 "alt-text-add-button-title" = "أضف";
 "alt-text-do-not-add-button-title" = "لاتضع بإضافة";
 "alt-text-experiment-edit-summary" = "الإضافة كل شئ نص";
@@ -199,16 +200,14 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
-// Fuzzy
-"chinese-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصينية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! 简体 الصينية ، المبسطة (zh-hans)! N!香港繁體 هونج كونج التقليدية (zh-hk)! N! 澳門繁體 ماكاو التقليدية (zh-mo)! N! 大马简体 ماليزيا المبسطة (zh-my)! N! 新加坡简体 سنغافورة المبسطة (zh-sg)! N!臺灣正體 تايوانية تقليدية (zh-tw)";
+"chinese-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصينية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n简体 الصينية، المبسطة (zh-hans)\n香港繁體 هونج كونج التقليدية (zh-hk)\n澳門繁體 ماكاو التقليدية (zh-mo)\n大马简体 ماليزيا المبسطة (zh-my)\n新加坡简体 سنغافورة المبسطة (zh-sg)\n臺灣正體 التايوانية التقليدية (zh-tw)";
 "chinese-variants-alert-title" = "تحديثات لدعم النسخة الصينية";
 "clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
-// Fuzzy
-"crimean-tatar-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Crimean Tatar التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! Qırımtatarca ، Latin Crimean Tatar Latin (chr-latn) ! N! къырымтатарджа، Кирил القرم التتار السيريلية (crh-cyrl)";
+"crimean-tatar-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية للغة التتار القرمية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل قراءتها والبحث عنها وتحريرها بالمتغيرات المفضلة لديك:\n\nQırımtatarca، اللاتينية، اللاتينية التتارية القرمية (chr-latn)\nкъырымтатарджа، Кирил، السيريلية التتارية القرمية (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "تحديثات لدعم متغير تتار القرم";
 "data-migration-status" = "تحديث...";
 "description-add-title" = "إضافة الوصف";
@@ -247,11 +246,9 @@
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
 "developer-settings" = "إعدادات المطور";
-// Fuzzy
-"diff-compare-header-from-info-heading" = "من:";
+"diff-compare-header-from-info-heading" = "التعديل السابق";
 "diff-compare-header-heading" = "مقارنة المراجعات";
-// Fuzzy
-"diff-compare-header-to-info-heading" = "إلى:";
+"diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
 "diff-context-lines-collapsed-button-title" = "اعرض";
 "diff-context-lines-expanded-button-title" = "أخف";
@@ -302,8 +299,7 @@
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
 "edit-summary-placeholder-text" = "كيف قمت بتحسين المقالة؟";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "تعرف على المزيد حول قوائم المراقبة";
+"edit-watch-list-learn-more-text" = "تعرف على المزيد حول قائمة المراقبة الخاصة بك";
 "edit-watch-this-page-text" = "راقب هذه الصفحة";
 "editing-welcome-be-bold-subtitle" = "كن جريئا ولكن ليس متهورا في تحديث المقالات، لا تتعب من ارتكاب الأخطاء: يتم حفظ كل إصدار سابق من الصفحة؛ لذلك يمكن أن يصحح مجتمعنا الأخطاء بسهولة.";
 "editing-welcome-be-bold-title" = "صوتك مهم";
@@ -468,8 +464,7 @@
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
 "forgot-password-title" = "أعد ضبط كلمة السر";
 "forgot-password-username-or-email-title" = "أو";
-// Fuzzy
-"gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! 贛語 原文 Gan (gan)! N! 赣语 简体 جان ، مبسط (جان هان)! N! 贛語 繁體 جان ، تقليدي (جان هانت)";
+"gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n贛語 原文 Gan (gan)\n赣语简体 غان، مبسط (غان-هانز)\n贛語 繁體 غان، تقليدي (غان-هانت)";
 "gan-variants-alert-title" = "تحديثات لدعم متغير Gan";
 "history-clear-all" = "امسح";
 "history-clear-cancel" = "إلغاء";
@@ -528,14 +523,11 @@
 "insert-media-image-type-settings-title" = "نوع الصورة";
 "insert-media-media-settings-title" = "إعدادات الوسائط";
 "insert-media-title" = "إدراج وسائط";
-// Fuzzy
-"inuktitut-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Inuktitut التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut ، Syllabics (ike-cans)! N! Inuktitut ilisautik ، Inuktitut ، اللاتينية (ike-latn)";
+"inuktitut-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الإينكتيتوتية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ الإينكتيتوتية، المقاطع الصوتية (ايكي كانز)\nالإينكتيتوتية الإيليساوتيكية، الإينكتيتوتية، اللاتينية (ايكي لاتن)";
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
-// Fuzzy
-"kazakh-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! السيريلية (kk-cyrl)! N! qazaqşa اللاتينية الكازاخستانية ، اللاتينية (kk-latn)! N! توتە قازاقشا الكازاخستانية ، العربية (kk-arab)";
+"kazakh-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nҚазақша الكازاخستانية (kk)\nҚазақша Кирил الكازاخستانية، السيريلية (kk-cyrl)\nqazaqşa اللاتينية الكازاخستانية، اللاتينية (kk-latn)\nتوتە قازاقشا الكازاخستانية، العربية (kk-arab)";
 "kazakh-variants-alert-title" = "تحديثات لدعم المتغير الكازاخستاني";
-// Fuzzy
-"kurdish-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الكردية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! Kurdî Latînî الكردية ، اللاتينية (ku-latn)! N ! كوردی الكردية والعربية (kk-arab)";
+"kurdish-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكردية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nKurdî Latînî الكردية، اللاتينية (ku-latn)\nكوردی الكردية، العربية (kk-arab)";
 "kurdish-variants-alert-title" = "تحديثات لدعم النسخة الكردية";
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
@@ -697,7 +689,7 @@
 "notifications-center-type-title-translation-milestone" = "معلم الترجمة";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
-"notifications-center-type-title-welcome" = "مرحبًا";
+"notifications-center-type-title-welcome" = "مرحبا";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "notifications-push-talk-body-format" = "{{PLURAL:$1| رسالة جديدة $1 | رسائل جديدة $1 }} على $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1| رسالة جديدة | رسائل جديدة}}";
@@ -976,8 +968,7 @@
 "table-of-contents-heading" = "المحتويات";
 "table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
 "table-of-contents-subheading-label" = "العنوان الفرعي $1";
-// Fuzzy
-"tachelhit-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Tachelhit التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! ⵜⴰⵛⵍⵃⵉⵜ Tachelhit ، Tifinagh (shi-tfng)! N! Taclḥit Tachelhit ، اللاتينية (شي لاتن)";
+"tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! тоҷикӣ кирилликӣ Tajik، Cyrillic (tg-cyrl)! ! tojikī lotinī طاجيكية ، لاتينية (tg-latn)";
 "tajik-variants-alert-title" = "تحديثات لدعم النسخة الطاجكية";
@@ -1013,8 +1004,7 @@
 "talk-page-reply-button-accessibility-label" = "رد على $1";
 "talk-page-reply-depth-accessibility-label" = "عمق الرد: $1";
 "talk-page-reply-placeholder-format" = "رد على $1";
-// Fuzzy
-"talk-page-reply-terms-and-licenses-ccsa4" = "لاحظ أنه سيتم توقيع ردك تلقائيًا باسم المستخدم الخاص بك. بحفظ التغييرات، فإنك توافق على $1شروط الاستخدام$2، وتوافق على نشر مساهمتك بموجب تراخيص $3CC BY-SA 4.0$4 و $5GFDL$6.";
+"talk-page-reply-terms-and-licenses-ccsa4" = "لاحظ أن ردك سيتم توقيعه تلقائيًا باسم المستخدم الخاص بك. من خلال حفظ التغييرات، فإنك توافق على شروط الاستخدام $1 $2 ، وتوافق على إصدار مساهمتك بموجب تراخيص CC BY-SA 4.0 $ $3 $4 وGFDL $5 $6 .";
 "talk-page-revision-history" = "تاريخ المراجعة";
 "talk-page-rply-close-button-accessibility-hint" = "إغلاق عرض الرد";
 "talk-page-share-button" = "شارك صفحة النقاش";
@@ -1025,8 +1015,7 @@
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
 "talk-page-topic-close-button-hint" = "إغلاق موضوع جديد";
-// Fuzzy
-"talk-page-topic-compose-terms-and-licenses-ccsa4" = "بحفظك للتغييرات، فأنت توافق على $1شروط الاستخدام$2 وعلى نشر مساهمتك تحت رخصتي $3CC BY-SA 4.0$4 و $5GFDL$6.";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "من خلال نشر التغييرات، فإنك توافق على شروط الاستخدام $1 $2 ، وتوافق بشكل لا رجعة فيه على إصدار مساهمتك بموجب ترخيص CC BY-SA 4.0 $3 $4 دولار ورخصة GFDL $5 $6 .";
 "talk-page-unsubscribe-to-topic" = "إلغاء الاشتراك";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
 "talk-page-unsubscribed-alert-title" = "لقد ألغيت اشتراكك!";
@@ -1053,8 +1042,7 @@
 "talk-pages-topic-compose-close-confirmation-title" = "هل أنت متأكد أنك تريد تجاهل هذا الموضوع الجديد؟";
 "talk-pages-topic-compose-navbar-title" = "موضوع";
 "talk-pages-topic-compose-title-placeholder" = "عنوان الموضوع";
-// Fuzzy
-"talk-pages-topic-reply-onboarding-body" = "صفحات النقاش هي حيث يناقش الناس كيفية جعل المحتوى على ويكيبيديا أفضل ما يمكن أن يكون. أضف موضوع مناقشة جديدًا للتواصل والتعاون مع مجتمع من Wikipedians.! N !! N! يرجى أن تكون لطيفًا ، فنحن جميعًا بشر هنا.";
+"talk-pages-topic-reply-onboarding-body" = "صفحات النقاش هي المكان الذي يناقش فيه الأشخاص كيفية جعل المحتوى الموجود على ويكيبيديا أفضل ما يمكن أن يكون. أضف موضوعًا جديدًا للمناقشة للتواصل والتعاون مع مجتمع ويكيبيديا.!ن!!ن!يرجى التحلي باللطف، فنحن جميعًا بشر هنا.";
 "talk-pages-topic-reply-onboarding-body-ios15" = "صفحات النقاش هي حيث يناقش الأشخاص $1 كيفية جعل المحتوى على Wikipedia أفضل ما يمكن أن يكون. $1 أضف موضوع مناقشة جديدًا للتواصل والتعاون مع مجتمع Wikipedians.";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "من فضلك كن لطيفًا ، نحن جميعًا بشر هنا.";
 "talk-pages-topic-reply-onboarding-title" = "صفحات النقاش";
@@ -1063,7 +1051,7 @@
 "talk-pages-view-title" = "نقاش";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
-"theme-default-display-name" = "الافتراضية";
+"theme-default-display-name" = "افتراضي";
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
@@ -1081,8 +1069,7 @@
 "uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
 "vanish-account-continue-button-title" = "استمرار";
 "vanish-account-username-field" = "اسم المستخدم وصفحة المستخدم";
-// Fuzzy
-"vanish-account-warning-body" = "التلاشي هو ** الملاذ الأخير ** ويجب ** استخدامه فقط عندما ترغب في إيقاف التحرير للأبد ** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.! N !! N! تم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك حتى لا يتمكن الآخرون من التعرف على مساهماتك في عملية تسمى اختفاء الحساب. ** لا يضمن التلاشي إخفاء الهوية بالكامل أو إزالة المساهمات في المشاريع **.";
+"vanish-account-warning-body" = "الاختفاء هو **الملاذ الأخير** ويجب **استخدامه فقط عندما ترغب في التوقف عن التحرير إلى الأبد** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.\n\nيتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله غير قادر على التعرف على مساهماتك في عملية تسمى اختفاء الحساب. **الاختفاء لا يضمن عدم الكشف عن الهوية تمامًا أو إزالة المساهمات في المشاريع**.";
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";

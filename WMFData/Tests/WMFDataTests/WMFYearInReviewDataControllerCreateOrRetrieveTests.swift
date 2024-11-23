@@ -11,8 +11,10 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
 
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
@@ -44,21 +46,14 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
 }
 
 final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
-    lazy var store: WMFCoreDataStore = {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        return try! WMFCoreDataStore(appContainerURL: temporaryDirectory)
-    }()
-
-    override func setUp() async throws {
-        _ = self.store
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+    
+    enum TestsError: Error {
+        case missingDataController
     }
-
-    fileprivate lazy var dataController: WMFMockYearInReviewDataController = {
-        let dataController = try! WMFMockYearInReviewDataController(coreDataStore: store)
-        return dataController
-    }()
-
+    
+    var store: WMFCoreDataStore?
+    fileprivate var dataController: WMFMockYearInReviewDataController?
+    
     lazy var enProject: WMFProject = {
         let language = WMFLanguage(languageCode: "es", languageVariantCode: nil)
         return .wikipedia(language)
@@ -68,7 +63,24 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     let countryCode = "US"
     let username = "user"
 
+    override func setUp() async throws {
+        
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        
+        self.store = store
+        
+        self.dataController = try WMFMockYearInReviewDataController(coreDataStore: store)
+        
+        try await super.setUp()
+    }
+
     func testShouldNotCreateOrRetrieveYearInReview() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         dataController.shouldCreateOrRetrieve = false
         let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
@@ -76,6 +88,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     }
 
     func testShouldCreateOrRetrieveYearInReview() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
         dataController.shouldCreateOrRetrieve = true
 
@@ -91,6 +108,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
+        
+        guard let dataController else {
+            throw TestsError.missingDataController
+        }
+        
         var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username)
 
         try await dataController.deleteYearInReviewReport(year: year)

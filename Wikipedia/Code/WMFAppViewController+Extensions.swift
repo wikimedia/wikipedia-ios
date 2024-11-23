@@ -553,10 +553,13 @@ extension WMFAppViewController {
     
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
-        do {
-            WMFDataEnvironment.current.coreDataStore = try WMFCoreDataStore()
-        } catch let error {
-            DDLogError("Error setting up WMFCoreDataStore: \(error)")
+        
+        Task {
+            do {
+                WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+            } catch let error {
+                DDLogError("Error setting up WMFCoreDataStore: \(error)")
+            }
         }
     }
     
@@ -621,6 +624,17 @@ extension WMFAppViewController {
                     username: dataStore.authenticationManager.authStatePermanentUsername)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
+            }
+        }
+    }
+    
+    @objc func deleteYearInReviewPersonalizedEditingData() {
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.deleteAllPersonalizedEditingData()
+            } catch {
+                DDLogError("Failure deleting personalized editing data from year in review: \(error)")
             }
         }
     }

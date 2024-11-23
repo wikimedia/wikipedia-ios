@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "settings-calendar.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

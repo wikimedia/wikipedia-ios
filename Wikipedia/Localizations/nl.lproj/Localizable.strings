@@ -875,7 +875,7 @@
 "notifications-center-type-item-description-welcome-verbose" = "Welkomsbericht";
 "notifications-center-type-title-connection-with-wikidata" = "Verbinding met Wikidata";
 "notifications-center-type-title-edit-milestone" = "Bewerkingsmijlpaal";
-"notifications-center-type-title-edit-reverted" = "Terugplaatsing bewerking";
+"notifications-center-type-title-edit-reverted" = "Bewerking teruggedraaid";
 "notifications-center-type-title-edit-summary-mention" = "Vermelding in bewerkingssamenvatting";
 "notifications-center-type-title-email-from-other-user" = "E-mail van andere gebruiker";
 "notifications-center-type-title-login-attempts" = "Inlogpogingen";
@@ -1045,7 +1045,7 @@
 "reading-lists-article-save-to-disk-failed" = "Opslagruimte apparaat is vol, artikel kan niet worden gesynchroniseerd";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Maak wat ruimte op uw apparaat vrij en probeer het opnieuw";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele artikelen niet gesynchroniseerd, maximum overschreden";
-"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst '$1' is hernoemd naar '$2'";
+"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd tot ‘$2’";
 "reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen artikelen";
 "reading-lists-default-list-title" = "Opgeslagen";

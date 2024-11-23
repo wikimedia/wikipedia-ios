@@ -4,16 +4,14 @@ import XCTest
 import CoreData
 
 final class WMFYearInReviewDataControllerTests: XCTestCase {
+    
+    enum TestError: Error {
+        case missingDataController
+        case missingStore
+    }
 
-    lazy var store: WMFCoreDataStore = {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        return try! WMFCoreDataStore(appContainerURL: temporaryDirectory)
-    }()
-
-    lazy var dataController: WMFYearInReviewDataController = {
-        let dataController = try! WMFYearInReviewDataController(coreDataStore: store)
-        return dataController
-    }()
+    var store: WMFCoreDataStore?
+    var dataController: WMFYearInReviewDataController?
     
     private var enProject: WMFProject {
         let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
@@ -34,11 +32,26 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     override func setUp() async throws {
-        _ = self.store
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        self.store = store
+        
+        self.dataController = try WMFYearInReviewDataController(coreDataStore: store)
+        
+        try await super.setUp()
     }
 
     func testCreateNewYearInReviewReport() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
+        guard let store else {
+            throw TestError.missingStore
+        }
+        
         let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
         let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
 
@@ -51,6 +64,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     func testSaveYearInReviewReport() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
+        guard let store else {
+            throw TestError.missingStore
+        }
+        
         let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide])
 
@@ -64,6 +86,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     func testFetchYearInReviewReports() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
+        guard let store else {
+            throw TestError.missingStore
+        }
+        
         let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
         let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, display: true, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide, slide2])
@@ -77,6 +108,11 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     func testFetchYearInReviewReportForYear() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
         let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
         let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false, display: true)
 
@@ -102,6 +138,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     func testDeleteYearInReviewReport() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
+        guard let store else {
+            throw TestError.missingStore
+        }
+        
         let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
@@ -115,6 +160,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     func testDeleteAllYearInReviewReports() async throws {
+        
+        guard let dataController else {
+            throw TestError.missingDataController
+        }
+        
+        guard let store else {
+            throw TestError.missingStore
+        }
+        
         let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
         let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
 
@@ -135,8 +189,10 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create mock developer settings config
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
@@ -161,8 +217,10 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create mock developer settings config
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
@@ -197,8 +255,10 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create mock developer settings config
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         
@@ -233,8 +293,10 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create mock developer settings config
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
 
@@ -265,8 +327,10 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create mock developer settings config
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.1", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
+        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, mostReadDay: mostReadDaySlideSettings)
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides)
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
 

@@ -10,33 +10,48 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    
+
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
-    private let yirDataController = try? WMFYearInReviewDataController()
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
+    }
 
     // Coordinator
-    private lazy var profileCoordinator: ProfileCoordinator? = {
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
         guard let navigationController = navigationController,
         let yirCoordinator = self.yirCoordinator else {
             return nil
         }
         
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
-    }()
-    
-    private lazy var yirCoordinator: YearInReviewCoordinator? = {
-        guard let navigationController = navigationController,
-        let dataController = try? WMFYearInReviewDataController() else {
-            return nil
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
         }
-        
-        return YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: dataController)
-    }()
+
+        return existingProfileCoordinator
+    }
+
+    private var _yirCoordinator: YearInReviewCoordinator?
+    private var yirCoordinator: YearInReviewCoordinator? {
+            guard let navigationController = navigationController,
+            let yirDataController else {
+                return nil
+            }
+            
+            guard let existingYirCoordinator = _yirCoordinator else {
+                _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+                _yirCoordinator?.badgeDelegate = self
+                return _yirCoordinator
+            }
+            
+            return existingYirCoordinator
+    }
 
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
@@ -64,7 +79,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
-    
+
     @objc var isGranularUpdatingEnabled: Bool = true {
         didSet {
             collectionViewUpdater?.isGranularUpdatingEnabled = isGranularUpdatingEnabled
@@ -75,7 +90,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -97,27 +112,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
     }
-    
+
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
         setupFetchedResultsController()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
+
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
+        updateProfileViewButton()
 
         // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
 
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
         }
@@ -141,14 +157,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         self.shouldRestoreScrollPosition = false
         self.presentedContentGroupKey = nil
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
     }
-    
+
     @objc private func databaseHousekeeperDidComplete() {
         DispatchQueue.main.async {
             self.refresh()
@@ -160,12 +176,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc func updateProfileViewButton() {
-        let hasUnreadNotifications: Bool
+        var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
             hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
         } else {
             hasUnreadNotifications = false
+        }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
         }
 
         let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
@@ -674,6 +700,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
             themeable.apply(theme: theme)
         }
+        
+        yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -940,9 +969,8 @@ extension ExploreViewController {
     fileprivate func presentModalsIfNeeded() {
         
         if needsYearInReviewAnnouncement() {
+            updateProfileViewButton()
             presentYearInReviewAnnouncement()
-        } else if yirCoordinator?.needsSurveyPresentation ?? false {
-            yirCoordinator?.presentSurveyIfNeeded()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
         } else if needsAltTextFeatureAnnouncement() {
@@ -1082,12 +1110,13 @@ extension ExploreViewController {
             return
         }
 
-        let title = CommonStrings.yirFeatureAnnoucementTitle
+        let title = CommonStrings.exploreYiRTitle
         let body = CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")
+        let backgroundImage = UIImage(named: "Announcement")
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
@@ -2151,5 +2180,12 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+
+extension ExploreViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        updateProfileViewButton()
     }
 }

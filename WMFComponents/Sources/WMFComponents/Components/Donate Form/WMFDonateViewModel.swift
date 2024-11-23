@@ -514,13 +514,19 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
-        guard !payment.token.paymentData.isEmpty,
-              let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
-            let error = Error.invalidToken
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-            completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
-            return
+        let paymentToken: String
+        if !WMFDeveloperSettingsDataController.shared.bypassDonation {
+            guard !payment.token.paymentData.isEmpty,
+                  let token = String(data: payment.token.paymentData, encoding: .utf8) else {
+                let error = Error.invalidToken
+                self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+                loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+                return
+            }
+            paymentToken = token
+        } else {
+            paymentToken = ""
         }
         
         guard let donorNameComponents = payment.billingContact?.name,
@@ -587,30 +593,10 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         }
     }
 
-    private func userHasLocallySavedDonations(dataController: WMFDonateDataController) -> Bool {
-        if let donations = dataController.loadLocalDonationHistory() {
-            return !donations.isEmpty
-        }
-        return false
-    }
-
     private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
-        let iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = iso8601Format
-        let timestamp = dateFormatter.string(from: date)
-
         let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
-        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
-                                                         donationType: donationType,
-                                                         donationAmount: finalAmount,
-                                                         currencyCode: currencyCode,
-                                                         isNative: true,
-                                                         isFirstDonation: !userHasLocallySavedDonations(dataController: dataController)
-        )
-        dataController.saveLocalDonationHistory(donationHistoryEntry)
+        
+        dataController.saveLocalDonationHistory(type: donationType, amount: finalAmount, currencyCode: currencyCode, isNative: true)
     }
 
 }

@@ -22,7 +22,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     // MARK: Properties
     
-    let theme: Theme
+    var theme: Theme
     let dataStore: MWKDataStore
     
     private weak var viewModel: WMFProfileViewModel?
@@ -32,7 +32,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
     
-    let username: String?
     let sourcePage: ProfileCoordinatorSource
     
     
@@ -48,7 +47,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.theme = theme
         self.donateSouce = donateSouce
         self.dataStore = dataStore
-        self.username = dataStore.authenticationManager.authStatePermanentUsername
         self.delegate = logoutDelegate
         self.sourcePage = sourcePage
         self.yirCoordinator = yirCoordinator
@@ -57,6 +55,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     // MARK: Coordinator Protocol Methods
     
     @objc func start() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         
         let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
@@ -69,12 +68,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             talkPageTitle: WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page"),
             watchlistTitle: CommonStrings.watchlist,
             logOutTitle: CommonStrings.logoutTitle,
-            donateTitle: WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate"),
+            donateTitle: CommonStrings.donateTitle,
             settingsTitle: CommonStrings.settingsTitle,
-            joinWikipediaTitle: WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in"),
+            joinWikipediaTitle: CommonStrings.joinLoginTitle,
             joinWikipediaSubtext: WMFLocalizedString("profile-page-join-subtext", value:"Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.", comment: "Information about signing in or up"),
             donateSubtext: WMFLocalizedString("profile-page-donate-subtext", value: "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.", comment: "Information about supporting Wikipedia through donations"),
-            yearInReviewTitle: WMFLocalizedString("profile-page-year-in-review-title", value: "Year in Review", comment: "Year in review profile item title. Appears on user's profile menu and presents the Wikipedia Year in Review feature when tapped."),
+            yearInReviewTitle: CommonStrings.yirTitle,
             yearInReviewLoggedOutSubtext:  WMFLocalizedString("profile-page-logged-out-year-in-review-subtext", value: "Log in or create an account to get an improved year in review next year", comment: "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.")
         )
         
@@ -185,7 +184,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             return
         }
         
-        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: targetRects.donateButtonFrame, source: donateSouce, dataStore: dataStore, theme: theme, setLoadingBlock: { isLoading in
+        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: targetRects.donateButtonFrame, source: donateSouce, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
             viewModel.isLoadingDonateConfigs = isLoading
         })
         
@@ -197,6 +196,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     
     private func showUserPage() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         if let username, let siteURL = dataStore.primarySiteURL {
             let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
             userPageCoordinator.start()
@@ -204,6 +204,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showUserTalkPage() {
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
