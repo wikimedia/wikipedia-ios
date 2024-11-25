@@ -17,7 +17,7 @@
                         "en"
                     ],
                     "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
-                    "dataPopulationEndDateString": "2024-12-31T23:59:59Z",
+                    "dataPopulationEndDateString": "2024-11-01T00:00:00Z",
                     "personalizedSlides": {
                         "readCount": {
                             "isEnabled": true
@@ -26,6 +26,9 @@
                             "isEnabled": true
                         },
                         "donateCount": {
+                            "isEnabled": true
+                        },
+                        "mostReadDay": {
                             "isEnabled": true
                         }
                     }
