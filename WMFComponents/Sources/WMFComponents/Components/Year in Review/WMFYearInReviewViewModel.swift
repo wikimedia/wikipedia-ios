@@ -18,7 +18,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @Published var currentSlide = 0
     public let localizedStrings: LocalizedStrings
     var slides: [YearInReviewSlideContent]
-    let username: String?
     public let shareLink: String
     public let hashtag: String
     let hasPersonalizedDonateSlide: Bool
@@ -28,11 +27,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], username: String?, shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
-        self.username = username
         self.shareLink = shareLink
         self.hasPersonalizedDonateSlide = hasPersonalizedDonateSlide
         self.hashtag = hashtag
@@ -64,9 +62,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideCTA: String
         let firstSlideLearnMore: String
         public let shareText: String
-        public let usernameTitle: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, usernameTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -77,7 +74,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideCTA = firstSlideCTA
             self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
-            self.usernameTitle = usernameTitle
         }
 
     }
