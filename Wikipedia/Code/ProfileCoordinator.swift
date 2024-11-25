@@ -195,7 +195,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                     
             guard let self else { return }
             
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLoginProfile()
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
             loginCoordinator.loginSuccessCompletion = {
                 self.dismissProfile {
@@ -207,12 +207,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         }
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-            // DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanksProfile()
         }
         alert.addAction(action1)
         alert.addAction(action2)
         
-        // DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
+        DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         
         if let presentedViewController = navigationController.presentedViewController {
             presentedViewController.present(alert, animated: true)
