@@ -14,7 +14,10 @@ struct WMFYearInReviewShareableSlideView: View {
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
-    var username: String?
+    
+    private func subtitleAttributedString() -> AttributedString {
+        return (try? AttributedString(markdown: slideSubtitle)) ?? AttributedString(slideSubtitle)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -35,8 +38,6 @@ struct WMFYearInReviewShareableSlideView: View {
 
                         if let imageOverlay {
                             Image(imageOverlay, bundle: .module)
-                                .padding(.horizontal, 100)
-                                .padding(.vertical, 50)
                         }
 
                         if let overlayText = textOverlay {
@@ -50,13 +51,13 @@ struct WMFYearInReviewShareableSlideView: View {
                         Text(slideTitle)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(slideSubtitle)
+                        Text(subtitleAttributedString())
                             .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
+                            .accentColor(Color(uiColor: theme.link))
                     }
                     .padding(28)
                 }
-
 
                 Spacer(minLength: 10)
 
@@ -69,12 +70,6 @@ struct WMFYearInReviewShareableSlideView: View {
                         Text(hashtag)
                             .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.link))
-
-                        if let username {
-                            Text(username)
-                                .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                                .foregroundStyle(Color(uiColor: theme.text))
-                        }
                     }
                     Spacer()
                 }

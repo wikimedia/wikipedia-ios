@@ -150,6 +150,7 @@
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
+"advanced-settings-title" = "إعدادات متقدمة";
 "alt-text-add-button-title" = "أضف";
 "alt-text-do-not-add-button-title" = "لاتضع بإضافة";
 "alt-text-experiment-edit-summary" = "الإضافة كل شئ نص";

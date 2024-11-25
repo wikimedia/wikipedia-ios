@@ -30,7 +30,7 @@ final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
             
             guard let config = controller.loadFeatureConfig(),
                   let iosConfig = config.ios.first,
-            let yirConfig = config.ios.first?.yir(yearID: "2024.1") else {
+            let yirConfig = config.ios.first?.yir(yearID: "2024.2") else {
                 XCTFail("Failure loading feature config")
                 return
             }
@@ -38,9 +38,9 @@ final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
             XCTAssertEqual(iosConfig.version, 1, "Unexpected feature config version")
             XCTAssertEqual(yirConfig.isEnabled, true, "Unexpected feature config yir isEnabled")
             XCTAssertEqual(yirConfig.countryCodes.count, 2, "Unexpected feature config yir countryCodes count")
-            XCTAssertEqual(yirConfig.primaryAppLanguageCodes.count, 2, "Unexpected feature config yir primaryAppLanguageCodes count")
+            XCTAssertEqual(yirConfig.primaryAppLanguageCodes.count, 3, "Unexpected feature config yir primaryAppLanguageCodes count")
             XCTAssertEqual(yirConfig.dataPopulationStartDateString, "2024-01-01T00:00:00Z", "Unexpected feature config yir dataPopulationStartDateString")
-            XCTAssertEqual(yirConfig.dataPopulationEndDateString, "2024-11-01T00:00:00Z", "Unexpected feature config yir dataPopulationEndDateString")
+            XCTAssertEqual(yirConfig.dataPopulationEndDateString, "2024-12-31T23:59:59Z", "Unexpected feature config yir dataPopulationEndDateString")
             XCTAssertEqual(yirConfig.personalizedSlides.readCount.isEnabled, true, "Unexpected feature config yir personalizedSlides readCount isEnabled flag")
             XCTAssertEqual(yirConfig.personalizedSlides.editCount.isEnabled, true, "Unexpected feature config yir personalizedSlides editCount isEnabled flag")
             
