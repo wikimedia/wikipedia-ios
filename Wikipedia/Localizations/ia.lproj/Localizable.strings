@@ -970,7 +970,6 @@
 "profile-page-join-title" = "Adherer a Wikipedia / Aperir session";
 "profile-page-logged-out-year-in-review-subtext" = "Aperi session o crea un conto pro obtener un summario del anno meliorate le proxime anno";
 "profile-page-title-logged-out" = "Conto";
-"profile-page-year-in-review-title" = "Summario del anno";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilibros";
 "project-name-wikidata" = "Wikidata";
@@ -1398,11 +1397,8 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Publicante le cambiamentos, tu accepta le $1conditiones de uso$2 e tu libera irrevocabilemente tu contribution sub le licentias $3CC BY-SA 4.0$4 e $5GFDL$6. Tu accepta que un hyperligamine o URL es attribution sufficiente pro le licentia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditiones de uso";
 "year-in-review-base-reading-title" = "Le lectura nos ha unite";
+"year-in-review-button-title" = "Summario del anno";
 "year-in-review-donate" = "Donar";
-"year-in-review-done" = "Facite";
-"year-in-review-get-started" = "Comenciar";
-"year-in-review-next" = "Sequente";
-"year-in-review-share" = "Condivider";
+"year-in-review-feature-announcement-title" = "Explorar tu summario del anno de Wikipedia";
 // Fuzzy
 "year-in-review-subtitle" = "Vide perspectivas sur le articulos que tu ha legite in le app de Wikipedia e le modificationes que tu ha facite. Condivide tu viage e discoperi lo que se distingueva pro te iste anno. Tu historia de lectura es guardate secur. Le perspectivas de lectura es calculate usante datos immagazinate localmente sur tu apparato.";
-"year-in-review-title" = "Explorar tu summario del anno de Wikipedia";

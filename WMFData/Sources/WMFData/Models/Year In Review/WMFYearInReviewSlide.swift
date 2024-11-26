@@ -20,6 +20,7 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
     case readCount
     case editCount
     case donateCount
+    case mostReadDay
 
     public static func < (lhs: WMFYearInReviewPersonalizedSlideID, rhs: WMFYearInReviewPersonalizedSlideID) -> Bool {
         return lhs.rawValue < rhs.rawValue
