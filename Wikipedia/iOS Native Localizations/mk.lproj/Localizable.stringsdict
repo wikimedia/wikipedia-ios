@@ -790,7 +790,7 @@
 			<key>one</key>
 			<string>статијава ќе биде отстранета</string>
 			<key>other</key>
-			<string>статииве ќе бидат остранети</string>
+			<string>статииве ќе бидат отстранети</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
