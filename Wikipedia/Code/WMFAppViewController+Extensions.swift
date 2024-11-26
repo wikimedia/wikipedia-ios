@@ -607,26 +607,6 @@ extension WMFAppViewController {
         }
     }
 
-    private func getSavedSlidedata(for year: Int) -> SavedArticleSlideData? {
-        let calendar = Calendar.current
-
-        var startDateComponents = DateComponents()
-        startDateComponents.year = year
-        startDateComponents.month = 1
-        startDateComponents.day = 1
-
-        var endDateComponents = DateComponents()
-        endDateComponents.year = year
-        endDateComponents.month = 12
-        endDateComponents.day = 31
-
-        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return nil}
-
-        let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
-
-        let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
-        return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
-    }
 
     @objc func populateYearInReviewReport(for year: Int) {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
@@ -635,16 +615,15 @@ extension WMFAppViewController {
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
 
-
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
+                yirDataController.savedSlideDelegate = self
                 try await yirDataController.populateYearInReviewReportData(
                     for: year,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername,
-                    savedArticleData: getSavedSlidedata(for: year))
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
@@ -675,4 +654,16 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
+}
+
+extension WMFAppViewController: SavedArticleSlideDataDelegate {
+    public func getSavedArticleSlideData(from startDate: Date, to endDate: Date) -> WMFData.SavedArticleSlideData {
+
+          let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
+
+          let number = dataStore.savedPageList.numberOfItems()
+
+          let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
+          return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+    }
 }

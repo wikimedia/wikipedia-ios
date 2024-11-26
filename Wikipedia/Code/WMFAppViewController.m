@@ -400,7 +400,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+
     [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+    
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -2214,6 +2216,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     });
     
     [self deleteYearInReviewPersonalizedEditingData];
+    // TODO - delete saved slide
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {

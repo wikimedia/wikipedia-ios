@@ -109,6 +109,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         endDateComponents.month = 12
         endDateComponents.day = 31
 
+        // TODO: refactor
         guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return nil}
 
         let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
@@ -131,7 +132,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername, savedArticleData: getSavedSlidedata(for: WMFYearInReviewDataController.targetYear))
+                    username: dataStore.authenticationManager.authStatePermanentUsername)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

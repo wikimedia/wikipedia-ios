@@ -7,6 +7,8 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
+    @objc public weak var savedSlideDelegate: SavedArticleSlideDataDelegate?
+
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
@@ -275,14 +277,14 @@ import CoreData
         
         return true
     }
-    
+
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedArticleData: SavedArticleSlideData?) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
-        
+
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSavedCountPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
@@ -316,9 +318,9 @@ import CoreData
             }
         }
 
-        if result.needsSavedCountPopulation, let savedArticleData {
+        if result.needsSavedCountPopulation == true {
             try await backgroundContext.perform { [weak self] in
-                try self?.populateSavedCountSlide(report: report, backgroundContext: backgroundContext, savedArticlesData: savedArticleData)
+                try self?.populateSavedCountSlide(report: report, backgroundContext: backgroundContext)
             }
         }
 
@@ -502,7 +504,19 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
 
-    private func populateSavedCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, savedArticlesData: SavedArticleSlideData) throws {
+    private func populateSavedCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
+              let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate
+        else {
+            throw WMFYearInReviewDataControllerError.missingRemoteConfig
+        }
+
+        guard let savedArticlesData = self.savedSlideDelegate?.getSavedArticleSlideData(from: startDate, to: endDate) else {
+            return
+        }
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
             return
@@ -888,7 +902,7 @@ import CoreData
     }
 }
 
-public struct SavedArticleSlideData: Codable {
+@objc public class SavedArticleSlideData: NSObject, Codable {
     public let savedArticlesCount: Int
     public let articleTitles: [String]
 
@@ -896,4 +910,8 @@ public struct SavedArticleSlideData: Codable {
         self.savedArticlesCount = savedArticlesCount
         self.articleTitles = articleTitles
     }
+}
+
+@objc public protocol SavedArticleSlideDataDelegate: AnyObject {
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) -> SavedArticleSlideData
 }
