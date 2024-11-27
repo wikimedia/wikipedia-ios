@@ -180,6 +180,11 @@ import CoreData
                     slide.display == true {
                     personalizedSlideCount += 1
                 }
+            case .viewCount:
+                if yirConfig.personalizedSlides.viewCount.isEnabled,
+                   slide.display == true {
+                    personalizedSlideCount += 1
+                }
             }
         }
         
@@ -373,6 +378,10 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.mostReadDay.isEnabled {
                     needsDayPopulation = true
                 }
+            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
+                if slide.evaluated == false && yirConfig.personalizedSlides.viewCount.isEnabled {
+                    needsDayPopulation = true
+                }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
@@ -416,6 +425,14 @@ import CoreData
             mostReadDaySlide.display = false
             mostReadDaySlide.data = nil
             results.insert(mostReadDaySlide)
+            
+            let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            viewCountSlide.year = 2024
+            viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+            viewCountSlide.evaluated = false
+            viewCountSlide.display = false
+            viewCountSlide.data = nil
+            results.insert(viewCountSlide)
         }
         
         return results
@@ -552,6 +569,10 @@ import CoreData
         }
         
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+    
+    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
+        // TODO: Grey
     }
 
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {

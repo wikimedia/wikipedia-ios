@@ -317,19 +317,21 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let editCount: YearInReviewSlideContent?
         let donateCount: YearInReviewSlideContent?
         let mostReadDay: YearInReviewSlideContent?
+        let viewCount: YearInReviewSlideContent?
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
         
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, mostReadDay: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, mostReadDay: nil, viewCount: nil)
         }
         
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
         var donateCountSlide: YearInReviewSlideContent? = nil
         var mostReadDaySlide: YearInReviewSlideContent? = nil
+        var viewCountSlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
             switch slide.id {
@@ -399,9 +401,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: true)
                     }
                 }
+            case .viewCount:
+                // TODO: Grey
+                break
             }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, mostReadDay: mostReadDaySlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)
     }
     
     func start() {
@@ -458,6 +463,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         if let mostReadDaySlide = personalizedSlides.mostReadDay {
             secondSlide = mostReadDaySlide
+        }
+        
+        if let viewCountSlide = personalizedSlides.viewCount {
+            fifthSlide = viewCountSlide
         }
         
         var hasPersonalizedDonateSlide = false

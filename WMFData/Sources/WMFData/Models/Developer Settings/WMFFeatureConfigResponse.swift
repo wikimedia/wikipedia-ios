@@ -10,6 +10,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 let editCount: SlideSettings
                 let donateCount: SlideSettings
                 let mostReadDay: SlideSettings
+                let viewCount: SlideSettings
             }
             
             public struct SlideSettings: Codable {
