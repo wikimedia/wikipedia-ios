@@ -460,6 +460,13 @@
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "year-in-review-base-reading-title" = "পড়া আমাদের একত্রিত করেছে";
+"year-in-review-day-friday" = "শুক্রবার";
+"year-in-review-day-monday" = "সোমবার";
+"year-in-review-day-saturday" = "শনিবার";
+"year-in-review-day-sunday" = "রবিবার";
+"year-in-review-day-thursday" = "বৃহস্পতিবার";
+"year-in-review-day-tuesday" = "মঙ্গলবার";
+"year-in-review-day-wednesday" = "বুধবার";
 "year-in-review-donate" = "অনুদান";
 "year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
 // Fuzzy

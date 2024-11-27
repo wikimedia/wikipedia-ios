@@ -10,7 +10,7 @@
 // Author: Volvox
 
 "aaald-added-text-description-2" = "$1 derbäigesat";
-"aaald-article-description-updated-description" = "Beschreiwung vum Artikel aktualiséiert";
+"aaald-article-description-updated-description" = "Artikelbeschreiwung aktualiséiert";
 "aaald-article-insert-header" = "Bedeitend Aktualiséierungen";
 "aaald-article-insert-last-updated" = "Lescht Aktualiséierung";
 "aaald-article-insert-new-changes" = "Nei Ännerungen";
@@ -72,6 +72,7 @@
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
 "action-find-in-page" = "Op der Säit sichen";
+"action-keep-editing" = "Virufuere mat Änneren";
 "action-language-accessibility" = "Sprooch wiesselen";
 "action-move-to" = "Réckelen op...";
 "action-next-revision-accessibility" = "Nächst Versioun";
@@ -99,7 +100,9 @@
 "alt-text-experiment-onboarding-secondary-button-title" = "Beispiller weisen";
 "alt-text-experiment-onboarding-tooltip-1-body" = "D'Bild am Kontext vum Artikel verstoen.";
 "alt-text-experiment-onboarding-tooltip-2-title" = "Inspizéieren";
+"alt-text-experiment-onboarding-tooltip-3-body" = "Beschreiwung fir visuell behënnert Lieser derbäisetzen";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Beschreiwung derbäisetzen";
+"alt-text-experiment-text-field-description" = "Textbeschreiwung fir Lieser, déi d'Bild net gesi kënnen";
 "alt-text-feedback-survey-neutral" = "Neutral";
 "alt-text-feedback-survey-satisfied" = "Zefridden";
 "alt-text-feedback-survey-toast-title" = "Feedback ofgeschéckt";
@@ -138,6 +141,7 @@
 "clear-title-accessibility-label" = "Eidel maachen";
 "close-button-accessibility-label" = "Zoumaachen";
 "compass-direction" = "um $1 Auer";
+"confirm-donation-history-deletion-title" = "Läsche confirméieren";
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
@@ -167,8 +171,10 @@
 "description-published-title" = "Beschreiwung verëffentlecht!";
 "description-welcome-concise-sub-title" = "Idealerweis eng Zeil, tëscht zwee an zwielef Wierder";
 "description-welcome-concise-title" = "Haalt Iech kuerz";
+"description-welcome-descriptions-sub-title" = "Resuméiert en Artikel fir dem Lieser ze hëllefen de Sujet op ee Bléck ze verstoen";
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
+"developer-settings" = "Entwécklerastellungen";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -248,6 +254,8 @@
 "editor-keyboard-subheading2-button" = "Ënneriwwerschrëft 2";
 "editor-keyboard-subheading3-button" = "Ënneriwwerschrëft 3";
 "editor-keyboard-subheading4-button" = "Ënneriwwerschrëft 4";
+"editor-keyboard-subscript-accessibility" = "Déifgestallt";
+"editor-keyboard-superscript-accessibility" = "Héichgestallt";
 "editor-keyboard-template-accessibility" = "Schabloun";
 "editor-keyboard-text-formatting-title" = "Textformatéierung";
 "editor-replace-textfield-accessibility" = "Ersetzen";
@@ -296,6 +304,7 @@
 "explore-feed-preferences-on-this-day-description" = "Evenementer an der Vergaangenheet op dësem Dag";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
 "explore-feed-preferences-suggested-edits-description" = "Virschléi fir Inhalter op Wikipedia derbäizesetzen";
+"explore-feed-preferences-suggested-edits-title" = "Kaart fir Ännerungsvirschléi weisen";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de Wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -354,7 +363,7 @@
 "forgot-password-username-or-email-title" = "Oder";
 "history-clear-all" = "Eidel maachen";
 "history-clear-cancel" = "Ofbriechen";
-"history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
+"history-clear-confirmation-heading" = "Sidd Dir sécher, datt Dir all Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
 "home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
@@ -376,6 +385,7 @@
 "image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipediaartikel derbäigesat soll ginn.";
 "image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
 "image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
+"image-rec-onboarding-learn-more-button" = "Méi iwwer Ännerungsvirschléi gewuer ginn";
 "image-rec-onboarding-title" = "E Bild an een Artikel derbäisetzen";
 "image-rec-survey-instructions-1" = "Är Äntwerte wäerten zukünfteg Virschléi besser maachen.";
 "image-rec-survey-instructions-2" = "Wielt eng oder méi Optiounen";
