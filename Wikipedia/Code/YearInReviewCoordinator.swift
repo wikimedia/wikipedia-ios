@@ -374,6 +374,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                         donateCountSlide = YearInReviewSlideContent(
                             imageName: "thankyou",
                             imageOverlay: "wmf-logo",
+                            imageOverlayAccessibilityLabel: viewModel?.localizedStrings.wmfLogoImageAccessibilityLabel,
                             title: personalizedSlide5Title,
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
@@ -493,7 +494,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
            firstSlideCTA: CommonStrings.getStartedTitle,
            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
-           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides")
+           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+        wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo image", comment: "Accessibility label for the Wikipedia w logo"),
+        globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo image", comment: "Accessibility label for the Wikipedia globe logo"),
+        wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo image", comment: "Accessibility label for the Wikimedia Foundation logo")
        )
        
        let appShareLink = WMFYearInReviewDataController.appShareLink
