@@ -1386,9 +1386,17 @@
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
+"year-in-review-day-friday" = "금요일";
+"year-in-review-day-monday" = "월요일";
+"year-in-review-day-saturday" = "토요일";
+"year-in-review-day-sunday" = "일요일";
+"year-in-review-day-thursday" = "목요일";
+"year-in-review-day-tuesday" = "화요일";
+"year-in-review-day-wednesday" = "수요일";
 "year-in-review-donate" = "기부";
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
+"year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
 "year-in-review-personalized-donate-title" = "기여해 주셔서 고맙습니다!";
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
