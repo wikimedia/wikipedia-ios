@@ -324,10 +324,19 @@ import CoreData
         }
 
         if result.needsSavedCountPopulation == true {
-            try await backgroundContext.perform { [weak self] in
-                try self?.populateSavedCountSlide(report: report, backgroundContext: backgroundContext)
+            if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
+               let startDate = yirConfig.dataPopulationStartDate,
+               let endDate = yirConfig.dataPopulationEndDate {
+                let savedArticlesData = await self.savedSlideDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
+
+                try await backgroundContext.perform { [weak self] in
+                    guard let self = self, let savedArticlesData = savedArticlesData else { return }
+                    try self.populateSavedCountSlide(report: report, backgroundContext: backgroundContext, savedArticlesData: savedArticlesData)
+                }
             }
         }
+
         if result.needsDayPopulation == true {
             try await backgroundContext.perform { [weak self] in
                 try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
@@ -336,7 +345,6 @@ import CoreData
 
         return WMFYearInReviewReport(cdReport: report)
     }
-
 
     private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool,needsSavedCountPopulation: Bool, needsDayPopulation: Bool)? {
 
@@ -367,7 +375,6 @@ import CoreData
         var needsEditingPopulation = false
         var needsDonatingPopulation = false
         var needsSavedCountPopulation = false
-
         var needsDayPopulation = false
 
         for slide in cdSlides {
@@ -428,6 +435,14 @@ import CoreData
             donateCountSlide.display = false
             donateCountSlide.data = nil
             results.insert(donateCountSlide)
+
+            let savedArticlesSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+            savedArticlesSlide.year = 2024
+            savedArticlesSlide.id = WMFYearInReviewPersonalizedSlideID.savedCount.rawValue
+            savedArticlesSlide.evaluated = false
+            savedArticlesSlide.display = false
+            savedArticlesSlide.data = nil
+            results.insert(savedArticlesSlide)
 
             let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
             mostReadDaySlide.year = 2024
@@ -529,29 +544,14 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
 
-    private func populateSavedCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
-              let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate
-        else {
-            throw WMFYearInReviewDataControllerError.missingRemoteConfig
-        }
-
-        guard let savedArticlesData = self.savedSlideDelegate?.getSavedArticleSlideData(from: startDate, to: endDate) else {
-            return
-        }
+    private func populateSavedCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, savedArticlesData: SavedArticleSlideData) throws {
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
             return
         }
 
         for slide in slides {
-
-            guard let slideID = slide.id else {
-                continue
-            }
+            guard let slideID = slide.id else { continue }
 
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.savedCount.rawValue:
@@ -567,7 +567,6 @@ import CoreData
         }
 
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
-
     }
 
     private func populateDaySlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
@@ -983,5 +982,5 @@ import CoreData
 }
 
 @objc public protocol SavedArticleSlideDataDelegate: AnyObject {
-    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) -> SavedArticleSlideData
+    func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
 }

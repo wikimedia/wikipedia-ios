@@ -96,28 +96,6 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         self.tableView.reloadData()
     }
 
-    private func getSavedSlidedata(for year: Int) -> SavedArticleSlideData? {
-        let calendar = Calendar.current
-
-        var startDateComponents = DateComponents()
-        startDateComponents.year = year
-        startDateComponents.month = 1
-        startDateComponents.day = 1
-
-        var endDateComponents = DateComponents()
-        endDateComponents.year = year
-        endDateComponents.month = 12
-        endDateComponents.day = 31
-
-        // TODO: refactor
-        guard let startDate = calendar.date(from: startDateComponents), let endDate = calendar.date(from: endDateComponents) else { return nil}
-
-        let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
-
-        let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
-        return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
-    }
-
     private func populateYearInReviewReportData() {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
@@ -128,6 +106,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
+                yirDataController.savedSlideDelegate = self
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
@@ -218,4 +197,15 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         tableView.reloadData()
     }
 
+}
+
+extension YearInReviewSettingsViewController: SavedArticleSlideDataDelegate {
+    func getSavedArticleSlideData(from startDate: Date, to endDate: Date) async -> SavedArticleSlideData {
+        await MainActor.run {
+            let savedArticleCount = self.dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
+            let savedArticleTitles = self.dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
+            let slideData = SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+            return slideData
+        }
+    }
 }

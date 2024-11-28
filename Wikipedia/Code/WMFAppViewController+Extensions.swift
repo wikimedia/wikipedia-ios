@@ -657,13 +657,13 @@ extension WMFAppViewController {
 }
 
 extension WMFAppViewController: SavedArticleSlideDataDelegate {
-    public func getSavedArticleSlideData(from startDate: Date, to endDate: Date) -> WMFData.SavedArticleSlideData {
 
-          let savedArticleCount = dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
-
-          let number = dataStore.savedPageList.numberOfItems()
-
-          let savedArticleTitles = dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
-          return SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+    public func getSavedArticleSlideData(from startDate: Date, to endDate: Date) async -> SavedArticleSlideData {
+        await MainActor.run {
+            let savedArticleCount = self.dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
+            let savedArticleTitles = self.dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
+            let slideData = SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
+            return slideData
+        }
     }
 }

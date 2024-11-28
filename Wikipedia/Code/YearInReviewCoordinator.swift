@@ -28,6 +28,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return formatter.string(from: number) ?? "63,590,000"
     }
 
+    var collectiveNumReadingLists: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(31600000)
+        return formatter.string(from: number) ?? "31,600,000"
+    }
+
     var collectiveNumEditsNumber: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -112,6 +119,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
 
         return String.localizedStringWithFormat(format, numArticleViewsString)
+    }
+
+    var baseSlideSavedArticlesTitle: String {
+        let format = WMFLocalizedString("year-in-review-base-saved-title", value: "We had over %1$@ Million reading lists", comment: "Year in review, collective saved articles count slide title, %1$@ is replaced with the number of saved articles text, e.g. \"31.6\".")
+
+        let numSavedArticlesString = formatNumber(31.6, fractionDigits: 2)
+        return String.localizedStringWithFormat(format, numSavedArticlesString)
+    }
+
+    var baseSlideSavedArticlesSubtitle: String {
+        let format = WMFLocalizedString("year-in-review-base-saved-subtitle", value: "Active iOS users had over %1$@ million reading lists this year. Adding articles to Reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Year in review, collective saved articles count slide subtitle, %1$@ is replaced with the number of saved articles text, e.g. \"31.6\".")
+        let numSavedArticlesString = formatNumber(31.6, fractionDigits: 2)
+        return String.localizedStringWithFormat(format, numSavedArticlesString)
     }
 
     var baseSlide3Title: String {
@@ -334,6 +354,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         var mostReadDaySlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
+            print(slide.id, "⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
             switch slide.id {
             case .readCount:
                 if slide.display == true,
@@ -449,8 +470,18 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingID: "read_view_base",
             infoURL: aboutYIRURL,
             hideDonateButton: false)
-       
-       var thirdSlide = YearInReviewSlideContent(
+
+        var thirdSlide = YearInReviewSlideContent(
+            imageName: "edits", //TODO: get new assets for V2
+            textOverlay: collectiveNumReadingLists,
+            title: baseSlideSavedArticlesTitle,
+            informationBubbleText: nil,
+            subtitle: baseSlideSavedArticlesSubtitle,
+            loggingID: "saved_count_base",
+            infoURL: aboutYIRURL,
+            hideDonateButton: false)
+
+       var fourthSlide = YearInReviewSlideContent(
            imageName: "edits",
            textOverlay: collectiveNumEditsNumber,
            title: baseSlide3Title,
@@ -480,8 +511,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             secondSlide = mostReadDaySlide
         }
 
+        if let savedCountSlide = personalizedSlides.savedCountSlide {
+            thirdSlide = savedCountSlide
+        }
+
         if let editCountSlide = personalizedSlides.editCount {
-            thirdSlide = editCountSlide
+            fourthSlide = editCountSlide
         }
 
         var hasPersonalizedDonateSlide = false
@@ -494,6 +529,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlide,
            secondSlide,
            thirdSlide,
+           fourthSlide,
            YearInReviewSlideContent(
                imageName: "editedPerMinute",
                textOverlay: collectiveNumEditsPerMinuteNumber,
@@ -505,8 +541,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                hideDonateButton: false),
            fifthSlide
        ]
-        
-       
+
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
         donateButtonTitle: CommonStrings.donateTitle,
            doneButtonTitle:CommonStrings.doneTitle,
