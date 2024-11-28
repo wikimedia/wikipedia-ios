@@ -92,6 +92,7 @@
 "action-unsave" = "Отмяна на записа";
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Проверка";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -244,6 +245,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "От Уикипедия на $1";
 "explore-random-article-sub-heading-from-wikipedia" = "От Уикипедия";
 "explore-randomizer" = "Случайна статия";
+"explore-suggested-edits-image-recs-body" = "Добавете предложени изображения към статиите в Уикипедия, за да подобрите възприемането им.";
 "featured-widget-from-language-wikipedia" = "От Уикипедия на $1";
 "featured-widget-from-wikipedia" = "От Уикипедия";
 "featured-widget-title" = "Избрана статия";
@@ -302,6 +304,7 @@
 "icon-shortcut-random-title" = "Случайна статия";
 "icon-shortcut-search-title" = "Търсене в Уикипедия";
 "image-rec-survey-instructions-1" = "Вашите отговори подобряват бъдещите предложения.";
+"image-rec-tooltip-1-title" = "Проверка";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "in-the-news-sub-title-from-language-wikipedia" = "От Уикипедия на $1";
 "in-the-news-sub-title-from-wikipedia" = "От Уикипедия";
