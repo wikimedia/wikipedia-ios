@@ -210,17 +210,18 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     var footer:String? {
         get {
-            return footerTextView.text
+            return footerTextView.attributedText.string
         }
         set {
-            footerTextView.text = newValue
-            view.setNeedsLayout()
+            footerHTML = newValue
+            updateFooterHTML()
         }
     }
 
     var footerHTML: String? {
         didSet {
             updateFooterHTML()
+            view.setNeedsLayout()
         }
     }
     
