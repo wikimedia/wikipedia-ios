@@ -45,7 +45,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func nextSlide() {
-        if hasSeenTwoSlides {
+        if isLastSlide {
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: true))
         } else {
             currentSlide = (currentSlide + 1) % slides.count
