@@ -586,6 +586,22 @@
 			<string>%1$d ਬਾਈਟਾਂ</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ %#@v1@ ਸੋਧਿਆ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ਵਾਰ</string>
+			<key>other</key>
+			<string> %1$d ਵਾਰੀ</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -598,6 +614,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string> %1$d ਵਾਰ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਤੁਸੀਂ ਇਸ ਸਾਲ %#@v1@। ਇਸ ਸਾਲ ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ</string>
+			<key>other</key>
+			<string>%1$d ਲੇਖ ਪੜ੍ਹੇ ਹਨ</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
