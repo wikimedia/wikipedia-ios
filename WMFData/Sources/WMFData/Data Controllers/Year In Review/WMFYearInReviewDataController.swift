@@ -6,6 +6,7 @@ import CoreData
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let userID: Int?
 
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
@@ -31,7 +32,7 @@ import CoreData
         return try? WMFYearInReviewDataController()
     }
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, userID: Int? = nil) throws {
 
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -39,6 +40,7 @@ import CoreData
         self.coreDataStore = coreDataStore
         self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
+        self.userID = userID
     }
 
     // MARK: - Feature Announcement
@@ -588,7 +590,10 @@ import CoreData
         let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
         let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
         
-        fetchEditViews(project: project, userId: "2335904678", language: "en") { result in
+        let encodedUserId = "%23" + String(userID ?? 0)
+        print("userid: \(userID)")
+        
+        fetchEditViews(project: project, userId: encodedUserId, language: "en") { result in
             switch result {
             case .success(let totalViews):
                 print("Total views: \(totalViews)")
@@ -622,6 +627,8 @@ import CoreData
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
+        
+        print("FULL URL: \(url)")
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
 
