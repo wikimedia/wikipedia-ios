@@ -784,6 +784,8 @@ import CoreData
             return .donateCount
         case "mostReadDay":
             return .mostReadDay
+        case "savedCount":
+            return .savedCount
         default:
             return nil
         }
