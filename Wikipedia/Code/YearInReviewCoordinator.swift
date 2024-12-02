@@ -402,7 +402,22 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .viewCount:
-                // TODO: Grey
+                if slide.display == true,
+                   let data = slide.data {
+                    let decoder = JSONDecoder()
+                    if let viewCount = try? decoder.decode(Int.self, from: data),
+                       viewCount > 0 {
+                        viewCountSlide = YearInReviewSlideContent(
+                            imageName: "viewed",
+                            textOverlay: "",
+                            title: "",
+                            informationBubbleText: nil,
+                            subtitle: "",
+                            loggingID: "most_read_day_custom",
+                            infoURL: aboutYIRURL,
+                            hideDonateButton: true)
+                    }
+                }
                 break
             }
         }
@@ -440,6 +455,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            loggingID: "edit_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: false)
+
+        var fourthSlide = YearInReviewSlideContent(
+            imageName: "editedPerMinute",
+            textOverlay: collectiveNumEditsPerMinuteNumber,
+            title: baseSlide4Title,
+            informationBubbleText: nil,
+            subtitle: baseSlide4Subtitle,
+            loggingID: "edit_rate_base",
+            infoURL: aboutYIRURL,
+            hideDonateButton: false)
         
         var fifthSlide = YearInReviewSlideContent(
             imageName: "thankyou",
@@ -466,7 +491,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         if let viewCountSlide = personalizedSlides.viewCount {
-            fifthSlide = viewCountSlide
+            fourthSlide = viewCountSlide
         }
         
         var hasPersonalizedDonateSlide = false
@@ -479,19 +504,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            firstSlide,
            secondSlide,
            thirdSlide,
-           YearInReviewSlideContent(
-               imageName: "editedPerMinute",
-               textOverlay: collectiveNumEditsPerMinuteNumber,
-               title: baseSlide4Title,
-               informationBubbleText: nil,
-               subtitle: baseSlide4Subtitle,
-               loggingID: "edit_rate_base",
-               infoURL: aboutYIRURL,
-               hideDonateButton: false),
+           fourthSlide,
            fifthSlide
        ]
         
-       
        let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
         donateButtonTitle: CommonStrings.donateTitle,
            doneButtonTitle:CommonStrings.doneTitle,

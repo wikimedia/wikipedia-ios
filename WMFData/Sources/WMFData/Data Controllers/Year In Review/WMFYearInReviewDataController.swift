@@ -290,7 +290,7 @@ import CoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
             return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
         }
         
@@ -327,10 +327,16 @@ import CoreData
             }
         }
         
+        if result.needsEditViewsPopulation == true {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateViewCountSlide(report: report, backgroundContext: backgroundContext, project: primaryAppLanguageProject)
+            }
+        }
+        
         return WMFYearInReviewReport(cdReport: report)
     }
     
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? {
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
         
@@ -358,6 +364,7 @@ import CoreData
         var needsEditingPopulation = false
         var needsDonatingPopulation = false
         var needsDayPopulation = false
+        var needsEditViewPopulation = false
         
         for slide in cdSlides {
             switch slide.id {
@@ -380,14 +387,14 @@ import CoreData
                 }
             case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
                 if slide.evaluated == false && yirConfig.personalizedSlides.viewCount.isEnabled {
-                    needsDayPopulation = true
+                    needsEditViewPopulation = true
                 }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
         }
         
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsDayPopulation: needsDayPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsDayPopulation: needsDayPopulation, needsEditViewsPopulation: needsEditViewPopulation)
     }
     
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -571,9 +578,73 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
-    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-        // TODO: Grey
+    // TODO: Grey
+    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?) throws {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            throw WMFYearInReviewDataControllerError.missingRemoteConfig
+        }
+        
+        let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
+        let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
+        
+        fetchEditViews(project: project, userId: "2335904678", language: "en") { result in
+            switch result {
+            case .success(let totalViews):
+                print("Total views: \(totalViews)")
+            case .failure(let error):
+                print("Failed with error: \(error)")
+            }
+        }
     }
+    
+    public func fetchEditViews(project: WMFProject?, userId: String, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
+
+        guard let service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let project = project else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", userId]) else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)
+        urlComponents?.queryItems = [URLQueryItem(name: "lang", value: language)]
+        
+        guard let url = urlComponents?.url else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
+
+        let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
+            switch result {
+            case .success(let data):
+                guard let jsonData = data,
+                      let dailyTotalViews = jsonData["dailyTotalViews"] as? [String: Int] else {
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
+                    return
+                }
+
+                let totalViews = dailyTotalViews.values.reduce(0, +)
+                completion(.success(totalViews))
+
+            case .failure(let error):
+                completion(.failure(WMFDataControllerError.serviceError(error)))
+            }
+        }
+
+        service.perform(request: request, completion: completionHandler)
+    }
+
 
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
         
