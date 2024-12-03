@@ -403,7 +403,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             subtitle: personalizedSlide2Subtitle(day: mostReadDay.getDay()),
                             loggingID: "most_read_day_custom",
                             infoURL: aboutYIRURL,
-                            hideDonateButton: true)
+                            hideDonateButton: shoudlHideDonateButton())
                     }
                 }
             }
