@@ -590,8 +590,10 @@ import CoreData
         let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
         let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
         
-        let encodedUserId = "%23" + String(userID ?? 0)
         print("userid: \(userID)")
+        guard let userID else { return }
+        
+        let encodedUserId = "%23" + String(userID)
         
         fetchEditViews(project: project, userId: encodedUserId, language: "en") { result in
             switch result {

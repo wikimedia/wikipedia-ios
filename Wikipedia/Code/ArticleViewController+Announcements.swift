@@ -132,7 +132,14 @@ extension ArticleViewController {
             return false
         }
 
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
+    
+        guard let yirDataController = try? WMFYearInReviewDataController(userID: userId) else {
             return false
         }
 
@@ -145,8 +152,14 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
         
-        guard let yirDataController = try? WMFYearInReviewDataController() else {
+        guard let yirDataController = try? WMFYearInReviewDataController(userID: userId) else {
             return
         }
 

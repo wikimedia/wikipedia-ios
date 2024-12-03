@@ -613,10 +613,16 @@ extension WMFAppViewController {
         else { return }
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
 
         Task {
             do {
-                let yirDataController = try WMFYearInReviewDataController()
+                let yirDataController = try WMFYearInReviewDataController(userID: userId)
                 try await yirDataController.populateYearInReviewReportData(
                     for: year,
                     countryCode: countryCode,
@@ -629,9 +635,15 @@ extension WMFAppViewController {
     }
     
     @objc func deleteYearInReviewPersonalizedEditingData() {
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
         Task {
             do {
-                let yirDataController = try WMFYearInReviewDataController()
+                let yirDataController = try WMFYearInReviewDataController(userID: userId)
                 try await yirDataController.deleteAllPersonalizedEditingData()
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")

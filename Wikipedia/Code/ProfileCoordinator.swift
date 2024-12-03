@@ -79,7 +79,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
         var userId: Int?
-        
+
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
             userId = userID
