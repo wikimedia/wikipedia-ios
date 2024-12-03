@@ -869,5 +869,69 @@
 			<string>את %1$d המסננים</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ערכת את ויקיפדיה %#@v1@. תודה שהיית אחד מהעורכים המתנדבים שעושים את ההבדל במיזמים של ויקימדיה ברחבי העולם.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>פעם אחת</string>
+			<key>other</key>
+			<string>%1$d פעמים</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ערכת את ויקיפדיה %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>פעם אחת</string>
+			<key>other</key>
+			<string>%1$d פעמים</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>קראת %#@v1@ השנה. השנה היו בוויקיפדיה %2$@ מיליון ערכים זמינים ביותר מ־%3$@ שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ערך אחד</string>
+			<key>other</key>
+			<string>%1$d ערכים</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>קראת %#@v1@ השנה</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ערך</string>
+			<key>other</key>
+			<string>%1$d ערכים</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
