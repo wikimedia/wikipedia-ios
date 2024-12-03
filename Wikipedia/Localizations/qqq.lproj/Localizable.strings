@@ -1433,6 +1433,8 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59\". $3 is replaced with the number of active languages available on Wikipedia, for example \"332\"";
 "year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
+"year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved, $2, $3 and $2 are replaced with the names  three random articles the user saved.";
+"year-in-review-personalized-saved-title-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved.";
 "year-in-review-share-text" = "Text shared the Year In Review slides";
 "year-in-review-subtitle" = "Year in review page information";
 "year-in-review-survey-additional-thoughts" = "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.";

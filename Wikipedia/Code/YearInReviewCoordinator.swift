@@ -329,7 +329,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-personalized-donate-subtitle", value: "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work](%1$@).", comment: "Year in review, personalized donate slide subtitle for users that donated at least once that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, urlString)
     }
-    
+
+    func personalizedSavedCountSlideTitle(savedCount: String) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-saved-title-format", value: "You saved %1$@ articles", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved.")
+        return String.localizedStringWithFormat(format, savedCount)
+    }
+
+    func personalizedSavedCountSlideSubtitle(savedCount: String, articleNames: [String]) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved %1$@ articles this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each ", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved, %2$@, %3$@ and %2$@ are replaced with the names  three random articles the user saved.")
+        return String.localizedStringWithFormat(format, savedCount, articleNames[0], articleNames[1], articleNames[2])
+    }
+
     // MARK: - Funcs
 
     private struct PersonalizedSlides {
@@ -354,7 +364,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         var mostReadDaySlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
-            print(slide.id, "⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
             switch slide.id {
             case .readCount:
                 if slide.display == true,
@@ -405,7 +414,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: true)
                     }
                 }
-
             case .savedCount:
                 if slide.display == true,
                    let data = slide.data {
@@ -413,15 +421,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let savedSlidedata = try? decoder.decode(SavedArticleSlideData.self, from: data),
                        savedSlidedata.savedArticlesCount > 3,
                        savedSlidedata.articleTitles.count > 2 {
+                        let count = String(savedSlidedata.savedArticlesCount)
                         savedCountSlide = YearInReviewSlideContent(
-                            // TODO: get copy & images
                             imageName: "read",
-                            title: "Saved",
-                            informationBubbleText: "",
-                            subtitle: "You saved \(savedSlidedata.savedArticlesCount) articles. Articles read \(savedSlidedata.articleTitles[0]), \(savedSlidedata.articleTitles[1]), \(savedSlidedata.articleTitles[2])",
-                            loggingID: "saved_count_custom", // verify
-                            hideDonateButton: false
-                        )
+                            textOverlay: count,
+                            title: personalizedSavedCountSlideTitle(savedCount: count),
+                            informationBubbleText: nil,
+                            subtitle: personalizedSavedCountSlideSubtitle(savedCount: count, articleNames: savedSlidedata.articleTitles),
+                            loggingID: "saved_count_custom",
+                            infoURL: aboutYIRURL,
+                            hideDonateButton: false)
                     }
                 }
             case .mostReadDay:
@@ -439,14 +448,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             loggingID: "most_read_day_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: true)
-
                     }
                 }
             }
         }
-
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, savedCountSlide: savedCountSlide, mostReadDay: mostReadDaySlide)
-
     }
 
     func start() {
@@ -472,7 +478,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hideDonateButton: false)
 
         var thirdSlide = YearInReviewSlideContent(
-            imageName: "edits", //TODO: get new assets for V2
+            imageName: "edits",
             textOverlay: collectiveNumReadingLists,
             title: baseSlideSavedArticlesTitle,
             informationBubbleText: nil,
@@ -725,7 +731,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
         case .donate(let rect):
-
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
@@ -737,7 +742,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
-
 
         case .share(let image):
             guard let viewModel else { return }
