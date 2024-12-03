@@ -405,8 +405,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        
-               
        var firstSlide = YearInReviewSlideContent(
            imageName: "read",
            textOverlay: collectiveNumArticlesNumber,

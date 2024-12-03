@@ -209,13 +209,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanksProfile()
         }
-        alert.addAction(action1)
-        alert.addAction(action2)
-        
-        DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         
         if let presentedViewController = navigationController.presentedViewController {
             presentedViewController.present(alert, animated: true)
+            
+            alert.addAction(action1)
+            alert.addAction(action2)
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         }
     }
     
