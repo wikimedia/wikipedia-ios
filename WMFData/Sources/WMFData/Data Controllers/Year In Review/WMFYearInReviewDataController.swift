@@ -393,7 +393,7 @@ import CoreData
                     needsDonatingPopulation = true
                 }
             case WMFYearInReviewPersonalizedSlideID.savedCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.saveCount.isEnabled {
+                if slide.evaluated == false && yirConfig.personalizedSlides.saveCount.isEnabled && username != nil {
                     needsSavedCountPopulation = true
                 }
             case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
