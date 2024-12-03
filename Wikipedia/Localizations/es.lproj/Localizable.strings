@@ -24,6 +24,7 @@
 // Author: Fitoschido
 // Author: Geryescalier
 // Author: Grey Olson
+// Author: HNordeen (WMF)
 // Author: Hasley
 // Author: I DOWNGRADED YT APP (1)
 // Author: Ihojose
@@ -1121,7 +1122,7 @@
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
-"year-in-review-base-donate-subtitle" = "Wikipedia está alojada por la Fundación Wikimedia y financiada por donaciones individuales. Trabajamos para mantener los sitios Wikimedia disponibles para todos, crear funciones y herramientas para facilitar el intercambio de conocimientos, apoyar a las comunidades de editores voluntarios y mucho más. [Obtén más información sobre nuestro trabajo]($1).";
+"year-in-review-base-donate-subtitle" = "Wikipedia está alojada por la Fundación Wikimedia y financiada por donaciones individuales. Trabajamos para mantener los sitios Wikimedia disponibles para todas las personas, crear funciones y herramientas para facilitar el intercambio de conocimientos, apoyar a las comunidades de editores voluntarios y mucho más. [Obtén más información sobre nuestro trabajo]($1).";
 "year-in-review-base-donate-title" = "0 anuncios en Wikipedia";
 "year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de $1 ediciones en la aplicación para iOS en lo que va de año. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donantes y miles de millones de lectores como tú, todos unidos para compartir un acceso ilimitado a información confiable.";
 "year-in-review-base-editors-title" = "Los editores de la aplicación para iOS han realizado más de $1 ediciones.";
@@ -1137,7 +1138,7 @@
 "year-in-review-feature-announcement-body" = "Consulta la información sobre los artículos que lees en la aplicación Wikipedia, comparte tu viaje y descubre lo más destacado de tu año.";
 "year-in-review-feature-announcement-title" = "Explora tu repaso anual en Wikipedia";
 "year-in-review-finish" = "Terminar";
-"year-in-review-personalized-donate-subtitle" = "Gracias por apoyar a Wikipedia y a un mundo donde el conocimiento es libre para todos. Cada edición y donación ayuda a mejorar el acceso de las personas a información precisa y confiable, especialmente en un mundo que cambia rápidamente. [Más información sobre nuestro trabajo]($1).";
+"year-in-review-personalized-donate-subtitle" = "Gracias por apoyar a Wikipedia y a un mundo donde el conocimiento es libre para todas las personas. Cada edición y donación ayuda a mejorar el acceso de las personas a información precisa y confiable, sobre todo en un mundo que cambia rápidamente. [Más información sobre nuestro trabajo]($1).";
 "year-in-review-personalized-donate-title" = "¡Gracias por tu contribución!";
 "year-in-review-personalized-editing-subtitle-format" = "Has editado Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Has editado Wikipedia 500+ veces. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";

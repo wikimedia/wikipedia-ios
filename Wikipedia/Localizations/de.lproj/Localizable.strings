@@ -22,6 +22,7 @@
 // Author: Metalhead64
 // Author: Mhurd
 // Author: Mirzali
+// Author: Mukeber
 // Author: Nemo bis
 // Author: Purodha
 // Author: ThisCarthing
@@ -1061,3 +1062,10 @@
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
 "wikitext-upload-save-sign-in" = "Anmelden";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
+"year-in-review-day-monday" = "Montags";
+"year-in-review-day-saturday" = "Samstags";
+"year-in-review-day-sunday" = "Sonntags";
+"year-in-review-day-thursday" = "Donnerstags";
+"year-in-review-day-tuesday" = "Dienstags";
+"year-in-review-day-wednesday" = "Mittwochs";
+"year-in-review-personalized-day-title-format" = "Du hast am meisten am $1 gelesen.";

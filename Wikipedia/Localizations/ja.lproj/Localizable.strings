@@ -123,7 +123,7 @@
 "account-creation-saving" = "保存中...";
 "account-creation-title" = "新しいアカウントを作成する";
 "account-group-title" = "あなたのアカウント";
-"account-request-vanishing" = "アカウントを削除";
+"account-request-vanishing" = "アカウントを抹消";
 "account-talk-page-title" = "あなたの議論ページ";
 "account-talk-preferences-auto-sign-discussions" = "議論に自動署名する";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "議論に自動署名する際は、署名設定で定義した署名が使われます";
@@ -1082,7 +1082,7 @@
 "uzbek-variants-alert-title" = "ウズベク諸語の変種対応の情報更新";
 "vanish-account-continue-button-title" = "続行";
 "vanish-account-username-field" = "利用者名と利用者ページ";
-"vanish-account-warning-body" = "アカウントの削除は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nWikipedia のアカウント削除が完了しました。アカウント名を変更して、アカウント削除と呼ばれるプロセスで他の人があなたの貢献を認識できないようにします。 **削除は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
+"vanish-account-warning-body" = "アカウントの抹消は**最後の手段**であり、**編集を永久に停止したい**場合、および過去の関連付けをできるだけ隠したい場合にのみ使用してください。\n\nウィキペディアでアカウントの削除は、アカウント抹消と呼ばれるプロセスで、アカウント名を変更して他の人があなたの貢献を認識できないようにすることによって行われます。**抹消は完全な匿名性を保証したり、プロジェクトへの貢献を削除したりするものではありません**。";
 "vanish-account-warning-title" = "警告";
 "variants-alert-dismiss-button" = "いいえ、結構です。";
 "variants-alert-preferences-button" = "設定を確認する";

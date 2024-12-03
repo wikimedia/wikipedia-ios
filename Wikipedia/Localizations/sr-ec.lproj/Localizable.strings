@@ -1298,9 +1298,17 @@
 "year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1 измена";
 "year-in-review-base-edits-title" = "Википедија се уређује $1 пута у минуту";
 "year-in-review-base-viewed-subtitle" = "Корисници апликације за iOS су посетили Википедијине чланке $1 милијарду пута. За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
+"year-in-review-day-friday" = "петак";
+"year-in-review-day-monday" = "понедељак";
+"year-in-review-day-saturday" = "субота";
+"year-in-review-day-sunday" = "недеља";
+"year-in-review-day-thursday" = "четвртак";
+"year-in-review-day-tuesday" = "уторак";
+"year-in-review-day-wednesday" = "среда";
 "year-in-review-donate" = "Донирај";
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
+"year-in-review-personalized-day-subtitle-format" = "Прочитали сте највише чланака у $1. Очигледно $1 је Ваш главни дан за истраживање новог садржаја. Хвала на утрошеном времену!";
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";
 "year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
 "year-in-review-survey-neutral" = "Неутралан";
