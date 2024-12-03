@@ -277,7 +277,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case usernameField:
-            usernameAlertLabel.text = ""
+            usernameAlertLabel.text = " "
             usernameField.textColor = theme.colors.primaryText
             usernameField.keyboardAppearance = theme.keyboardAppearance
         case passwordRepeatField:
