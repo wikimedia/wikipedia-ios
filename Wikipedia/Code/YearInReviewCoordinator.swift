@@ -336,7 +336,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personalizedSavedCountSlideSubtitle(savedCount: String, articleNames: [String]) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved %1$@ articles this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each ", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved, %2$@, %3$@ and %2$@ are replaced with the names  three random articles the user saved.")
+        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved %1$@ articles this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each ", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
         return String.localizedStringWithFormat(format, savedCount, articleNames[0], articleNames[1], articleNames[2])
     }
 
