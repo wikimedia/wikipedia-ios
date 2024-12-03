@@ -593,7 +593,7 @@ import CoreData
         print("userid: \(userID)")
         guard let userID else { return }
         
-        let encodedUserId = "%23" + String(userID)
+        let encodedUserId = "#" + String(userID)
         
         fetchEditViews(project: project, userId: encodedUserId, language: "en") { result in
             switch result {
