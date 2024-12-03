@@ -460,11 +460,14 @@
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "year-in-review-base-reading-title" = "পড়া আমাদের একত্রিত করেছে";
+"year-in-review-day-friday" = "শুক্রবার";
+"year-in-review-day-monday" = "সোমবার";
+"year-in-review-day-saturday" = "শনিবার";
+"year-in-review-day-sunday" = "রবিবার";
+"year-in-review-day-thursday" = "বৃহস্পতিবার";
+"year-in-review-day-tuesday" = "মঙ্গলবার";
+"year-in-review-day-wednesday" = "বুধবার";
 "year-in-review-donate" = "অনুদান";
-"year-in-review-done" = "সম্পন্ন";
-"year-in-review-get-started" = "শুরু করুন";
-"year-in-review-next" = "পরবর্তী";
-"year-in-review-share" = "শেয়ার করুন";
+"year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
 // Fuzzy
 "year-in-review-subtitle" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";
-"year-in-review-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
