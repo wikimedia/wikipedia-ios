@@ -81,6 +81,9 @@ public struct WMFYearInReviewView: View {
             .onChange(of: viewModel.currentSlide) { newSlide in
                 // Logs slide impressions and next taps
                 viewModel.logYearInReviewSlideDidAppear()
+                if newSlide == 1 {
+                    viewModel.hasSeenTwoSlides = true
+                }
             }
             .toolbar {
                 if !viewModel.isFirstSlide {
