@@ -24,7 +24,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
-        
+    var hasSeenTwoSlides: Bool = false
+
     @Published public var isLoading: Bool = false
 
     public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
@@ -45,7 +46,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     public func nextSlide() {
         if isLastSlide {
-            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: true))
         } else {
             currentSlide = (currentSlide + 1) % slides.count
         }
@@ -85,7 +86,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDone() {
-        coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: isLastSlide))
+        coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
     }
     
     func handleDonate(sourceRect: CGRect) {

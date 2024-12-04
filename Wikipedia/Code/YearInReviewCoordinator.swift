@@ -706,12 +706,12 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
-        case .dismiss(let isLastSlide):
+        case .dismiss(let hasSeenTwoSlides):
             (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
 
-                guard isLastSlide else { return }
+                guard hasSeenTwoSlides else { return }
 
                 self.presentSurveyIfNeeded()
             })
