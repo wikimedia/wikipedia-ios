@@ -97,10 +97,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
         if slides.count - 1 == currentSlide && !hasPersonalizedDonateSlide {
             shouldShowDonate = true
         }
+
+        // Always verify for regions we cannot ask for donations
+        shouldShowDonate = !shouldHideDonateButtonForCertainRegions()
+
         coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
-    
+
     func logYearInReviewSlideDidAppear() {
         loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
     }
@@ -140,11 +144,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
             badgeDelegate?.didSeeFirstSlide()
         }
     }
-    
+
     public func handleInfo() {
         if let url = slides[currentSlide].infoURL {
             coordinatorDelegate?.handleYearInReviewAction(.info(url: url))
         }
+    }
+
+    public func shouldHideDonateButtonForCertainRegions() -> Bool {
+        guard let dataController = try? WMFYearInReviewDataController() else {
+            return false
+        }
+        return dataController.shouldHideDonateButton()
     }
 }
 
