@@ -81,9 +81,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideCTA: CommonStrings.getStartedTitle,
             firstSlideLearnMore: CommonStrings.learnMoreTitle(),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-         wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo image", comment: "Accessibility label for the Wikipedia w logo"),
-         globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo image", comment: "Accessibility label for the Wikipedia globe logo"),
-         wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo image", comment: "Accessibility label for the Wikimedia Foundation logo")
+         wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
+         globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
+         wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo")
         )
     }()
 
