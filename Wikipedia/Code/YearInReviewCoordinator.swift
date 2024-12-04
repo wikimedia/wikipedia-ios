@@ -717,12 +717,22 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             })
 
         case .introLearnMore:
+
+            guard let presentedViewController = navigationController.presentedViewController else {
+                DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                return
+            }
             var languageCodeSuffix = ""
             if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
-                languageCodeSuffix = "/\(primaryAppLanguageCode)"
+                languageCodeSuffix = "\(primaryAppLanguageCode)"
             }
-            let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used\(languageCodeSuffix)")
-            navigationController.navigate(to: url, useSafari: true)
+            if let url = URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used?uselang=\(languageCodeSuffix)") {
+                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+                let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
+                newNavigationVC.modalPresentationStyle = .formSheet
+                presentedViewController.present(newNavigationVC, animated: true)
+            }
 
         case .learnMore(let url, let shouldShowDonateButton):
 
