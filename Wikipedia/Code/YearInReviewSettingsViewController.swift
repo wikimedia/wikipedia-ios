@@ -106,7 +106,15 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         Task {
             do {
-                let yirDataController = try WMFYearInReviewDataController()
+                
+                var userId: Int?
+
+                if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                   let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+                    userId = userID
+                }
+                
+                let yirDataController = try WMFYearInReviewDataController(userID: userId)
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
