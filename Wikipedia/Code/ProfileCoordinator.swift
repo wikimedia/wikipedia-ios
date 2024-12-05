@@ -211,10 +211,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         }
         
         if let presentedViewController = navigationController.presentedViewController {
-            presentedViewController.present(alert, animated: true)
-            
             alert.addAction(action1)
             alert.addAction(action2)
+            
+            presentedViewController.present(alert, animated: true)
             
             DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         }
