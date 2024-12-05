@@ -1425,6 +1425,8 @@
 "year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for supporting Wikipedia and a world where knowledge is free for everyone. Every single edit and donation helps improve people’s access to accurate and reliable information, especially in a rapidly changing world. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Thank you for your contribution!";
+"year-in-review-personalized-edit-views-subtitle-format" = "Readers around the world appreciate your contributions. Over the last 2 months, your most-viewed articles received $1 total views since your last edit!";
+"year-in-review-personalized-edit-views-title-format" = "Your edits were viewed more than $1 times";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";

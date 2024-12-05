@@ -1425,6 +1425,8 @@
 "year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
+"year-in-review-personalized-edit-views-subtitle-format" = "Year in review, personalized slide subtitle for users that display how many views their edits have. $1 is replaced with the amount of edit views.";
+"year-in-review-personalized-edit-views-title-format" = "Year in review, personalized slide title for users that display how many views their edits have. $1 is replaced with the amount of edit views.";
 "year-in-review-personalized-editing-subtitle-format" = "Year in review, personalized editing article count slide subtitle for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Year in review, personalized editing article count slide subtitle for users that edited articles more than 500 times.";
 "year-in-review-personalized-editing-title-format" = "Year in review, personalized editing article count slide title for users that edited articles. $1 is replaced with the number of edits the user made.";

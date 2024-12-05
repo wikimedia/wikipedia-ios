@@ -583,16 +583,13 @@ import CoreData
     // TODO: Grey
     private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?) throws {
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+              let _ = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             throw WMFYearInReviewDataControllerError.missingRemoteConfig
         }
-        
-        //        let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
-        //        let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
-        
+
         guard let userID else { return }
         
-        let encodedUserId = "#" + "35904678"
+        let encodedUserId = "#" + String(userID)
         let languageCode = project?.languageCode
         
         fetchEditViews(project: project, userId: encodedUserId, language: languageCode ?? "en") { result in
@@ -854,6 +851,8 @@ import CoreData
             return .donateCount
         case "mostReadDay":
             return .mostReadDay
+        case "viewCount":
+            return .viewCount
         default:
             return nil
         }

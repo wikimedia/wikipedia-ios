@@ -293,6 +293,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return formatter.string(from: number) ?? String(editCount)
     }
     
+    func personalizedSlide4Title(views: Int) -> String {
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-edit-views-title-format",
+            value: "Your edits were viewed more than %1$@ times",
+            comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+        )
+        
+        return String.localizedStringWithFormat(format, String(views))
+    }
+    
+    func personalizedSlide4Subitle(views: Int) -> String {
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-edit-views-subtitle-format",
+            value: "Readers around the world appreciate your contributions. Over the last 2 months, your most-viewed articles received %1$@ total views since your last edit!",
+            comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+        )
+        
+        return String.localizedStringWithFormat(format, String(views))
+    }
+    
     var personalizedSlide5Title: String {
         return WMFLocalizedString("year-in-review-personalized-donate-title", value: "Thank you for your contribution!", comment: "Year in review, personalized donate slide title for users that donated at least once that year. ")
     }
@@ -415,11 +435,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        viewCount > 0 {
                         viewCountSlide = YearInReviewSlideContent(
                             imageName: "viewed",
-                            textOverlay: "",
-                            title: "",
+                            textOverlay: String(viewCount),
+                            title: personalizedSlide4Title(views: viewCount),
                             informationBubbleText: nil,
-                            subtitle: "",
-                            loggingID: "most_read_day_custom",
+                            subtitle: personalizedSlide4Subitle(views: viewCount),
+                            loggingID: "view_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: true)
                     }
