@@ -5,6 +5,7 @@ struct WMFLargeButton: View {
     
     enum Configuration {
         case primary
+        case secondary
     }
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -17,6 +18,8 @@ struct WMFLargeButton: View {
         switch configuration {
         case .primary:
             return WMFColor.white
+        case .secondary:
+            return appEnvironment.theme.link
         }
     }
     
@@ -24,6 +27,8 @@ struct WMFLargeButton: View {
         switch configuration {
         case .primary:
             return appEnvironment.theme.link
+        case .secondary:
+            return .clear
         }
     }
     

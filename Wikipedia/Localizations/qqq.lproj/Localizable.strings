@@ -967,6 +967,8 @@
 "profile-page-join-title" = "Link to sign up or sign in";
 "profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
 "profile-page-title-logged-out" = "Page title for non-logged in users";
+"profile-year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
+"profile-year-in-review-login-title" = "Title of alert that asks user to login if they are entering Year in Review.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
@@ -1445,3 +1447,6 @@
 "year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-wikipedia-globe-accessibility-label" = "Accessibility label for the Wikipedia globe logo";
+"year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
+"year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";

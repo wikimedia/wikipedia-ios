@@ -359,12 +359,24 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
     }
     
+    func logYearInReviewLoginPromptDidAppearProfile() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "yir_start_account_engage"])
+    }
+    
     func logYearInReviewLoginPromptDidTapLogin() {
         logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "new_account_engage"])
     }
     
+    func logYearInReviewLoginPromptDidTapLoginProfile() {
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "yir_start_account_engage"])
+    }
+    
     func logYearInReviewLoginPromptDidTapNoThanks() {
         logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapNoThanksProfile() {
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "yir_start_account_engage"])
     }
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {

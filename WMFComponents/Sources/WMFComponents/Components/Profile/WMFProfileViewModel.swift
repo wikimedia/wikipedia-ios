@@ -41,6 +41,10 @@ public class WMFProfileViewModel: ObservableObject {
         self.yearInReviewDependencies = yearInReviewDependencies
         loadProfileSections()
     }
+    
+    public func isUserLoggedIn() -> Bool {
+        isLoggedIn
+    }
 
     private func loadProfileSections() {
         profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies)

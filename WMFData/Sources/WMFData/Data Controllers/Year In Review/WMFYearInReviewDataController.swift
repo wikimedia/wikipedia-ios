@@ -956,6 +956,23 @@ import CoreData
         }
     }
 
+    public func shouldHideDonateButton() -> Bool {
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+            return false
+        }
+
+        guard let locale = Locale.current.region?.identifier else {
+            return false
+        }
+
+        guard yirConfig.hideDonateCountryCodes.contains(locale) else {
+            return false
+        }
+
+        return true
+    }
+
     struct UserContributionsAPIResponse: Codable {
         let batchcomplete: Bool?
         let `continue`: ContinueData?
