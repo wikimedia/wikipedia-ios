@@ -587,18 +587,46 @@ import CoreData
             throw WMFYearInReviewDataControllerError.missingRemoteConfig
         }
         
-        let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
-        let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
+        //        let dataPopulationStartDateString = yirConfig.dataPopulationStartDateString
+        //        let dataPopulationEndDateString = yirConfig.dataPopulationEndDateString
         
-        print("userid: \(userID)")
         guard let userID else { return }
         
-        let encodedUserId = "#" + String(userID)
+        let encodedUserId = "#" + "35904678"
+        let languageCode = project?.languageCode
         
-        fetchEditViews(project: project, userId: encodedUserId, language: "en") { result in
+        fetchEditViews(project: project, userId: encodedUserId, language: languageCode ?? "en") { result in
             switch result {
             case .success(let totalViews):
-                print("Total views: \(totalViews)")
+                guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
+                    return
+                }
+                
+                for slide in slides {
+                    guard let slideID = slide.id else {
+                        continue
+                    }
+                    
+                    switch slideID {
+                    case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
+                        do {
+                            let encoder = JSONEncoder()
+                            slide.data = try encoder.encode(totalViews)
+                            
+                            if totalViews > 0 {
+                                slide.display = true
+                            }
+                            
+                            slide.evaluated = true
+                        } catch {
+                            print("Error encoding totalViews: \(error)")
+                        }
+                    default:
+                        break
+                    }
+                }
+                
+                try? self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             case .failure(let error):
                 print("Failed with error: \(error)")
             }
@@ -629,28 +657,29 @@ import CoreData
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
-        
-        print("FULL URL: \(url)")
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
 
         let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success(let data):
-                guard let jsonData = data,
-                      let dailyTotalViews = jsonData["dailyTotalViews"] as? [String: Int] else {
+                guard let jsonData = data else {
                     completion(.failure(WMFDataControllerError.unexpectedResponse))
                     return
                 }
 
-                let totalViews = dailyTotalViews.values.reduce(0, +)
-                completion(.success(totalViews))
+                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int? {
+                    let totalViews = totalPageviews
+                    completion(.success(totalViews ?? 0))
+                } else {
+                    // If for any reason we don't get anything
+                    completion(.success(0))
+                }
 
             case .failure(let error):
                 completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
-
         service.perform(request: request, completion: completionHandler)
     }
 
