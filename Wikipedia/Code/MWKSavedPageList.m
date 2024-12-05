@@ -155,12 +155,7 @@
     return [self.dataStore.viewContext countForFetchRequest:[self savedPageListFetchRequestForStartDate:startDate endDate:endDate] error:nil];
 }
 
-- (NSArray<NSString *> *)randomArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
-    return [self randomSavedArticlesForStartDate:startDate endDate:endDate];
-}
-
-- (NSArray<NSString *> *)randomSavedArticlesForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
-
+- (NSArray<NSString *> *)randomSavedArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
     NSFetchRequest *fetchRequest = [self savedPageListFetchRequestForStartDate:startDate endDate:endDate];
 
     NSError *error = nil;

@@ -230,6 +230,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
+    func personalizedSavedCountSlideOverlay(savedCount: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let number = NSNumber(value: savedCount)
+        return formatter.string(from: number) ?? String(savedCount)
+    }
+    
     func getLocalizedDay(day: Int) -> String {
         let localizedDay: String
         switch day {
@@ -330,14 +337,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, urlString)
     }
 
-    func personalizedSavedCountSlideTitle(savedCount: String) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-saved-title-format", value: "You saved %1$@ articles", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved.")
+    func personalizedSavedCountSlideTitle(savedCount: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-saved-title-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized saved articles slide subtitle. %1$d is replaced with the number of articles the user saved.")
         return String.localizedStringWithFormat(format, savedCount)
     }
 
-    func personalizedSavedCountSlideSubtitle(savedCount: String, articleNames: [String]) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved %1$@ articles this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each ", comment: "Year in review, personalized saved articles slide subtitle. %1$@ is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
-        return String.localizedStringWithFormat(format, savedCount, articleNames[0], articleNames[1], articleNames[2])
+    func personalizedSavedCountSlideSubtitle(savedCount: Int, articleNames: [String]) -> String {
+        
+        let articleName1 = articleNames.count >= 3 ? articleNames[0] : ""
+        let articleName2 = articleNames.count >= 3 ? articleNames[1] : ""
+        let articleName3 = articleNames.count >= 3 ? articleNames[2] : ""
+        
+        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
+        return String.localizedStringWithFormat(format, savedCount, articleName1, articleName2, articleName3)
     }
 
     // MARK: - Funcs
@@ -418,16 +430,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 if slide.display == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let savedSlidedata = try? decoder.decode(SavedArticleSlideData.self, from: data),
-                       savedSlidedata.savedArticlesCount > 3,
-                       savedSlidedata.articleTitles.count > 2 {
-                        let count = String(savedSlidedata.savedArticlesCount)
+                    if let savedSlideData = try? decoder.decode(SavedArticleSlideData.self, from: data),
+                       savedSlideData.savedArticlesCount > 3,
+                       savedSlideData.articleTitles.count >= 3 {
+                        let count = savedSlideData.savedArticlesCount
                         savedCountSlide = YearInReviewSlideContent(
                             imageName: "read",
-                            textOverlay: count,
+                            textOverlay: personalizedSavedCountSlideOverlay(savedCount: count),
                             title: personalizedSavedCountSlideTitle(savedCount: count),
                             informationBubbleText: nil,
-                            subtitle: personalizedSavedCountSlideSubtitle(savedCount: count, articleNames: savedSlidedata.articleTitles),
+                            subtitle: personalizedSavedCountSlideSubtitle(savedCount: count, articleNames: savedSlideData.articleTitles),
                             loggingID: "saved_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: false)

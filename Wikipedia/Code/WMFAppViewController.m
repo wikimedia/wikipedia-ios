@@ -2216,7 +2216,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     });
     
     [self deleteYearInReviewPersonalizedEditingData];
-    // TODO - delete saved slide
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {

@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)savedArticleCountFor:(NSDate *)startDate endDate:(NSDate *)endDate;
 
-- (NSArray<NSString *> *)randomArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate;
+- (NSArray<NSString *> *)randomSavedArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate;
 
 @end
 

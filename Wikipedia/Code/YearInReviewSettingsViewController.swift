@@ -106,12 +106,12 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                yirDataController.savedSlideDelegate = self
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    savedSlideDataDelegate: dataStore.savedPageList)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
@@ -197,15 +197,4 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
         tableView.reloadData()
     }
 
-}
-
-extension YearInReviewSettingsViewController: SavedArticleSlideDataDelegate {
-    func getSavedArticleSlideData(from startDate: Date, to endDate: Date) async -> SavedArticleSlideData {
-        await MainActor.run {
-            let savedArticleCount = self.dataStore.savedPageList.savedArticleCount(for: startDate, end: endDate)
-            let savedArticleTitles = self.dataStore.savedPageList.randomArticleTitles(for: startDate, end: endDate)
-            let slideData = SavedArticleSlideData(savedArticlesCount: savedArticleCount, articleTitles: savedArticleTitles)
-            return slideData
-        }
-    }
 }
