@@ -967,6 +967,8 @@
 "profile-page-join-title" = "Join Wikipedia / Log in";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
 "profile-page-title-logged-out" = "Account";
+"profile-year-in-review-login-subtitle" = "Log in or create an account to see Year in Review again and be eligible for more personalized insights.";
+"profile-year-in-review-login-title" = "Log in for access to Year in Review";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
