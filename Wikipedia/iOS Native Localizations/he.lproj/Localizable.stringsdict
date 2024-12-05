@@ -869,38 +869,6 @@
 			<string>את %1$d המסננים</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>ויקיפדיה נערכה %#@v1@ בדקה</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>פעם אחת</string>
-			<key>other</key>
-			<string>%1$@ פעמים</string>
-		</dict>
-	</dict>
-	<key>year-in-review-base-viewed-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>צפינו בערכים בוויקיפדיה %#@v1@ פעמים</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>מיליארד</string>
-			<key>other</key>
-			<string>%1$@ מיליארד</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

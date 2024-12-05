@@ -1455,8 +1455,8 @@
 "year-in-review-base-edits-title" = "Wikipédia a été modifié $1 fois par minute";
 "year-in-review-base-reading-subtitle" = "Cette année, Wikipédia a atteint $1 millions d'articles dans plus de $2 langues actives. Vous avez rejoint des millions de personnes qui ont souhaité élargir leurs connaissances et explorer des sujets divers.";
 "year-in-review-base-reading-title" = "La lecture nous a réunis";
-"year-in-review-base-viewed-subtitle" = "Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia $1 milliard{{PLURAL:$1||s}} de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.";
-"year-in-review-base-viewed-title" = "Nous avons consulté des articles de Wikipédia $1 milliard{{PLURAL:$1||s}} de fois";
+"year-in-review-base-viewed-subtitle" = "Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia $1 milliard de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.";
+"year-in-review-base-viewed-title" = "Nous avons consulté des articles de Wikipédia $1 milliard de fois";
 "year-in-review-button-title" = "Bilan de l'Année";
 "year-in-review-day-friday" = "vendredis";
 "year-in-review-day-monday" = "lundis";
