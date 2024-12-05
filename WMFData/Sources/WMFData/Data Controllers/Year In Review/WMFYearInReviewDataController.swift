@@ -993,7 +993,7 @@ import CoreData
     }
 }
 
-@objc public class SavedArticleSlideData: NSObject, Codable {
+public class SavedArticleSlideData: NSObject, Codable {
     public let savedArticlesCount: Int
     public let articleTitles: [String]
 
