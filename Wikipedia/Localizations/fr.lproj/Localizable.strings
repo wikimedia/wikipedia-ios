@@ -162,6 +162,7 @@
 "alt-text-email-second-line" = "Décrivez le problème spécifique";
 "alt-text-email-third-line" = "Le comportement que je souhaiterais voir adopter est le suivant :";
 "alt-text-email-title" = "Rapport de problème : fonctionnalité de texte alternatif";
+"alt-text-experiment-caption-title" = "Légende de l'image";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "Essayez de garder le texte alternatif court pour que les utilisateurs puissent facilement comprendre le contenu de l'image.";
 "alt-text-experiment-edit-summary" = "un texte alternatif ajouté";
@@ -258,7 +259,9 @@
 "clearing-cache-in-progress" = "Nettoyage du cache en cours.";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
+"confirm-donation-history-deletion-subtitle" = "Ceci ne s'appliquera qu'aux dons effectués à partir de cet appareil.";
 "confirm-donation-history-deletion-title" = "Confirmer la suppression";
+"confirmed-donation-history-deletion" = "Historique locale supprimée";
 "continue-button-title" = "Continuer";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";
@@ -266,6 +269,7 @@
 "crimean-tatar-variants-alert-title" = "Mises à jour de la prise en charge des variantes du tatar de Crimée";
 "data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
+"description-article-introduction-warning-message" = "L'ordre des éléments sera différent dans la vue d'édition par rapport à la vue dans l'article.";
 "description-edit-for-article" = "Description de l’article $1";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "En modifiant la description de l’article, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
@@ -301,7 +305,10 @@
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "developer-settings" = "Paramètres développeur";
+"developer-settings-always-show-alt-text-entry-point" = "Toujours afficher le point d'entrée du texte alternatif.";
+"developer-settings-bypass-donation" = "Contourner un don";
 "developer-settings-enable-alt-text-experiment-en" = "Permettre l'experrimentation d'un texte alternatif sur Wikimedia.";
+"developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
 "diff-article-revision-history" = "Historique des révisions de l’article";
@@ -371,6 +378,7 @@
 "donate-help-other-ways-to-give" = "Autres moyens de donner";
 "donate-help-problems-donating" = "Problèmes pour faire un don ?";
 "donate-help-tax-deductibility-information" = "Informations sur les conditions de déductibilité fiscale";
+"donate-history-delete" = "Supprimer l’historique local des dons";
 "donate-later-title" = "Nous vous le rappellerons demain.";
 "donate-maximum-error-text" = "Nous ne pouvons pas accepter de dons supérieurs à $1 $2 via notre site web. Veuillez contacter notre équipe chargée des dons importants à l'adresse benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Veuillez sélectionner une somme (minimum $1 $2).";
@@ -1007,6 +1015,7 @@
 "profile-page-donate-subtext" = "Ou soutenez Wikipédia avec un don pour le garder gratuit et accessible à tous dans le monde.";
 "profile-page-join-subtext" = "Créez un compte Wikipédia pour suivre vos contributions, enregistrer des articles hors ligne et synchroniser sur plusieurs appareils.";
 "profile-page-join-title" = "Rejoignez Wikipédia / Se connecter";
+"profile-page-logged-out-year-in-review-subtext" = "Connectez-vous ou créez un compte pour obtenir un meilleur Bilan de l'Année la prochaine fois";
 "profile-page-title-logged-out" = "Compte";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilivres";
@@ -1171,6 +1180,8 @@
 "settings-notifications-push-notifications" = "Notifications envoyées";
 "settings-notifications-system-turn-on" = "Activer les notifications";
 "settings-notifications-trending" = "Tendance des événements actuels";
+"settings-off" = "Désactivé";
+"settings-on" = "Activé";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application.";
 "settings-search-footer-text" = "Configurer l’application pour s’ouvrir sur l’onglet Rechercher plutôt que l’onglet Explorer";
@@ -1189,6 +1200,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Afficher la liste de lecture « Enregistrés »";
 "settings-storage-and-syncing-title" = "Stockage des articles et synchronisation";
 "settings-title" = "Paramètres";
+"settings-year-in-review-header" = "La désactivation du Bilan de l'Année effacera toutes les informations personnalisées stockées et masquera le Bilan de l'Année.";
 "share-a-fact-made-with" = "Fait avec l’application Wikipédia";
 "share-article-name-on-wikipedia" = "« $1 » sur Wikipédia :";
 "share-building" = "Création d’une carte « Partager un fait »...";
@@ -1434,4 +1446,33 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
+"year-in-review-base-donate-subtitle" = "Wikipédia est hébergée par la Fondation Wikimédia et financée par des dons individuels. Nous travaillons pour que les sites Wikimédia soient accessibles à tous, pour créer des fonctionnalités et des outils qui facilitent le partage des connaissances, pour soutenir les communautés de contributeurs bénévoles et bien plus encore. [En savoir plus sur notre travail]($1).";
+"year-in-review-base-donate-title" = "Aucune publicité n'est diffusée sur Wikipédia";
+"year-in-review-base-editors-subtitle" = "La communauté de contributeurs bénévoles de Wikipédia a effectué plus de $1 modifications sur l'application iOS cette année. Le cœur et l'âme de Wikipédia sont notre communauté mondiale de contributeurs bénévoles, de donateurs et de milliards de lecteurs comme vous, tous unis pour partager un accès illimité à des informations fiables.";
+"year-in-review-base-editors-title" = "Les contributeurs de l'application iOS ont effectué plus de $1 modifications";
+// Fuzzy
+"year-in-review-base-edits-subtitle" = "Cette année, Wikipédia a été modifié à un rythme moyen de $1 fois par minute. Les articles sont créés et améliorés de manière collaborative à l'aide de sources fiables. Nous avons tous des connaissances à partager, [apprenez à participer]($2).";
+"year-in-review-base-edits-title" = "Wikipédia a été modifié $1 fois par minute";
+"year-in-review-base-reading-subtitle" = "Cette année, Wikipédia a atteint $1 millions d'articles dans plus de $2 langues actives. Vous avez rejoint des millions de personnes qui ont souhaité élargir leurs connaissances et explorer des sujets divers.";
+"year-in-review-base-reading-title" = "La lecture nous a réunis";
+"year-in-review-base-viewed-subtitle" = "Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia $1 milliard de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.";
+"year-in-review-base-viewed-title" = "Nous avons consulté des articles de Wikipédia $1 milliard de fois";
+"year-in-review-button-title" = "Bilan de l'Année";
+"year-in-review-day-friday" = "vendredis";
+"year-in-review-day-monday" = "lundis";
+"year-in-review-day-saturday" = "samedis";
+"year-in-review-day-sunday" = "dimanches";
+"year-in-review-day-thursday" = "jeudis";
+"year-in-review-day-tuesday" = "mardis";
+"year-in-review-day-wednesday" = "mercredis";
 "year-in-review-donate" = "Faire un don";
+"year-in-review-donate-now" = "Faites un don dès maintenant";
+"year-in-review-feature-announcement-body" = "Consultez des informations sur les articles que vous lisez sur l'application Wikipédia, partagez votre parcours et découvrez les moments forts de votre année.";
+"year-in-review-feature-announcement-title" = "Explorez votre Bilan Wikipédia de l'Année";
+"year-in-review-finish" = "Terminer";
+"year-in-review-login-subtitle" = "Connectez-vous ou créez un compte pour bénéficier d'informations plus personnalisées";
+"year-in-review-login-title" = "Améliorez votre Bilan de l'Année";
+"year-in-review-personalized-day-subtitle-format" = "Vous avez lu le plus d'articles les $1. En d'autres termes, c'est ce jour-là que vous avez privilégié la découverte de nouveaux contenus. Merci de profiter au maximum de votre temps de lecture !";
+"year-in-review-personalized-day-title-format" = "Vous lisez le plus les $1.";
+"year-in-review-personalized-donate-subtitle" = "Merci de soutenir Wikipédia et un monde où la connaissance est gratuite pour tous. Chaque modification et chaque don contribuent à améliorer l'accès des gens à des informations précises et fiables, en particulier dans un monde en évolution rapide. [En savoir plus sur notre travail]($1).";
+"year-in-review-personalized-donate-title" = "Merci pour votre contribution !";
