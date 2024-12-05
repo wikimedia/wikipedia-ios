@@ -1472,6 +1472,7 @@
 "year-in-review-base-donate-title" = "我们并未在维基百科上设置广告";
 "year-in-review-base-editors-subtitle" = "今年，维基百科的志愿编者社群在iOS应用程序上作出了不少于$1笔编辑。由志愿者、捐赠者和像您一样千千万万的读者组成的社群，是维基百科的命脉所在，团结起来，不受限制地共享可靠的信息。";
 "year-in-review-base-editors-title" = "维基人在iOS应用程序上作出了不少于$1笔编辑。";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速率达$1。所有条目均由众人合作创建，并使用可靠来源提升质量。每一笔编辑，都对提升维基百科条目的质和量至关重要。（$2）";
 "year-in-review-base-edits-title" = "每分钟，在维基百科上有$1次编辑";
 "year-in-review-base-reading-subtitle" = "维基百科囊括了$1百万篇条目，横跨$2种语言。您成为了众人中的一员，拓展了人类的知识，探索了不同的主题。";
@@ -1501,6 +1502,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
 "year-in-review-personalized-editing-title-format" = "您在维基百科上编辑了{{PLURAL:$1|$1次}}。";
 "year-in-review-personalized-editing-title-format-500plus" = "您在维基百科上的编辑次数超过了500次。";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。今年维基百科包含了$2百万篇条目，横跨$3种语言。您成为了众人中的一员，拓展了知识，探索了不同的主题。";
 "year-in-review-personalized-reading-title-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。";
 "year-in-review-share-text" = "这是我的维基百科年度回顾，使用维基百科iOS应用创建";

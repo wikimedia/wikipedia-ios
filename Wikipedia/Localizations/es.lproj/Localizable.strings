@@ -1126,6 +1126,7 @@
 "year-in-review-base-donate-title" = "0 anuncios en Wikipedia";
 "year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de $1 ediciones en la aplicación para iOS en lo que va de año. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donantes y miles de millones de lectores como tú, todos unidos para compartir un acceso ilimitado a información confiable.";
 "year-in-review-base-editors-title" = "Los editores de la aplicación para iOS han realizado más de $1 ediciones.";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "Este año, Wikipedia se editó un promedio de $1 veces por minuto. Los artículos se crean y mejoran de forma colaborativa utilizando fuentes fiables. Todos tenemos conocimientos que compartir, [aprende a participar.]($2)";
 "year-in-review-base-edits-title" = "Wikipedia se editó $1 veces por minuto";
 "year-in-review-base-reading-subtitle" = "Wikipedia tuvo $1 millones de artículos en más de $2 idiomas activos este año. Te uniste a millones de personas para ampliar conocimientos y explorar temas diversos.";
@@ -1144,6 +1145,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Has editado Wikipedia 500+ veces. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";
 "year-in-review-personalized-editing-title-format" = "Has editado Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Has editado Wikipedia 500+ veces";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Este año has leído {{PLURAL:$1|$1 artículo|$1 artículos}}. Este año Wikipedia tenía $2 millones de artículos disponibles en más de $3 lenguas activas. Te uniste a millones de personas para ampliar conocimientos y explorar temas diversos.";
 "year-in-review-personalized-reading-title-format" = "Has leído {{PLURAL:$1|$1 artículo|$1 artículos}} este año";
 "year-in-review-share-text" = "Este es mi repaso anual de Wikipedia. Creado con la aplicación Wikipedia iOS";

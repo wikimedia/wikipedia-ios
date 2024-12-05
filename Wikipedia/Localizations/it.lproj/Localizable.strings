@@ -1024,7 +1024,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Hai modificato Wikipedia più di 500 volte. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia più di 500 volte";
-"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto {{PLURAL:$1|$1 voce|$1 voci}}. Le voci presenti su Wikipedia quest'anno sono $2 milioni, in oltre $3 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
+"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto {{PLURAL:$1|$1 voce|$1 voci}}, e le voci presenti su Wikipedia quest'anno sono $2 milioni, in oltre $3 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-share-text" = "Ecco la mia rassegna annuale di Wikipedia. Creata con l'app Wikipedia per iOS";
 "year-in-review-subtitle" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia e sulle modifiche apportate. La cronologia delle tue letture rimane protetta. Gli approfondimenti sulle letture vengono determinati utilizzando i dati archiviati localmente sul tuo dispositivo.";
