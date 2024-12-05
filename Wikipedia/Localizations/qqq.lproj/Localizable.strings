@@ -1443,3 +1443,6 @@
 "year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-wikipedia-globe-accessibility-label" = "Accessibility label for the Wikipedia globe logo";
+"year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
+"year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";
