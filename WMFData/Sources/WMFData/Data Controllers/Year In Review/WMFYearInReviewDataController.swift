@@ -7,7 +7,7 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    public weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
 
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
