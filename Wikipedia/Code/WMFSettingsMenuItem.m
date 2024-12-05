@@ -41,7 +41,7 @@
         }
         case WMFSettingsMenuItemType_Support: {
             return [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:WMFLocalizedStringWithDefaultValue(@"settings-donate", nil, nil, @"Donate", @"Title for button letting user make a donation.")
+                                                       title:[WMFCommonStrings donateTitle]
                                              iconName:@"settings-support"
                                             iconColor:[UIColor wmf_red_600]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_None
