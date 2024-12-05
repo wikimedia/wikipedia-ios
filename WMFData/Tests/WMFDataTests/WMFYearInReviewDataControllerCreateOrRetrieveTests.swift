@@ -136,6 +136,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         let existingSlide5 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true, display: true)
         
         let existingReport = WMFYearInReviewReport(year: year, slides: [existingSlide1, existingSlide2, existingSlide3, existingSlide4, existingSlide5])
+
         try await dataController.saveYearInReviewReport(existingReport)
 
         report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
