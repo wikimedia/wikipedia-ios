@@ -885,5 +885,37 @@
 			<string>%1$d filtres</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-viewed-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia %1$@ milliard%#@v1@ de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>s</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Nous avons consulté des articles de Wikipédia %1$@ milliard%#@v1@ de fois</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>s</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
