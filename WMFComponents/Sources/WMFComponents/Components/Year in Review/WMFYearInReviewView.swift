@@ -30,6 +30,7 @@ public struct WMFYearInReviewView: View {
                     Image("W", bundle: .module)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(theme.text))
+                        .accessibilityLabel(viewModel.localizedStrings.wIconAccessibilityLabel)
                     Spacer()
                     Button(action: {
                         viewModel.logYearInReviewDidTapDone()
@@ -48,6 +49,7 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         imageName: "intro",
+                        imageOverlayAccessibilityLabel: viewModel.localizedStrings.globeImageAccessibilityLabel,
                         imageOverlay: "globe_yir")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 48)
@@ -160,11 +162,12 @@ public struct WMFYearInReviewView: View {
                     viewModel.getStarted()
                 }
             }
-            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideLearnMore) {
+
+            WMFLargeButton(configuration: .secondary, title: viewModel.localizedStrings.firstSlideLearnMore) {
                 viewModel.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
                 viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
-                // TODO: Implement hide this feature
             }
+
         }
     }
 }

@@ -63,8 +63,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideCTA: String
         let firstSlideLearnMore: String
         public let shareText: String
+        public let wIconAccessibilityLabel: String
+        public let globeImageAccessibilityLabel: String
+        public let wmfLogoImageAccessibilityLabel: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, globeImageAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -75,6 +78,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideCTA = firstSlideCTA
             self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
+            self.wIconAccessibilityLabel = wIconAccessibilityLabel
+            self.globeImageAccessibilityLabel = globeImageAccessibilityLabel
+            self.wmfLogoImageAccessibilityLabel = wmfLogoImageAccessibilityLabel
         }
 
     }
@@ -161,9 +167,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
+
     public var infoURL: URL?
     public let imageName: String
     public let imageOverlay: String?
+    public let imageOverlayAccessibilityLabel: String?
     public let textOverlay: String?
     public let title: String
     let informationBubbleText: String?
@@ -171,9 +179,10 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(imageName: String, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
+        self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
         self.title = title
         self.informationBubbleText = informationBubbleText
