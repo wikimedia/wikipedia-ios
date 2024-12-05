@@ -56,7 +56,7 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         
         let savedCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
         savedCountSlide.year = 2024
-        savedCountSlide.id = WMFYearInReviewPersonalizedSlideID.savedCount.rawValue
+        savedCountSlide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
         savedCountSlide.evaluated = false
         savedCountSlide.display = false
         savedCountSlide.data = nil
@@ -130,7 +130,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         dataController.shouldCreateOrRetrieve = true
 
         let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true, display: true)
-        let existingSlide2 = WMFYearInReviewSlide(year: year, id: .savedCount, evaluated: true, display: true)
+        let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount, evaluated: true, display: true)
         let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDay, evaluated: true, display: true)
         let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount, evaluated: true, display: true)
         let existingSlide5 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true, display: true)

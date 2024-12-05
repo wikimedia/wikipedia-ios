@@ -230,11 +230,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
-    func personalizedSavedCountSlideOverlay(savedCount: Int) -> String {
+    func personalizedSaveCountSlideOverlay(saveCount: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        let number = NSNumber(value: savedCount)
-        return formatter.string(from: number) ?? String(savedCount)
+        let number = NSNumber(value: saveCount)
+        return formatter.string(from: number) ?? String(saveCount)
     }
     
     func getLocalizedDay(day: Int) -> String {
@@ -337,19 +337,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, urlString)
     }
 
-    func personalizedSavedCountSlideTitle(savedCount: Int) -> String {
+    func personalizedSaveCountSlideTitle(saveCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-saved-title-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized saved articles slide subtitle. %1$d is replaced with the number of articles the user saved.")
-        return String.localizedStringWithFormat(format, savedCount)
+        return String.localizedStringWithFormat(format, saveCount)
     }
 
-    func personalizedSavedCountSlideSubtitle(savedCount: Int, articleNames: [String]) -> String {
+    func personalizedSaveCountSlideSubtitle(saveCount: Int, articleNames: [String]) -> String {
         
         let articleName1 = articleNames.count >= 3 ? articleNames[0] : ""
         let articleName2 = articleNames.count >= 3 ? articleNames[1] : ""
         let articleName3 = articleNames.count >= 3 ? articleNames[2] : ""
         
         let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
-        return String.localizedStringWithFormat(format, savedCount, articleName1, articleName2, articleName3)
+        return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
     }
 
     // MARK: - Funcs
@@ -358,7 +358,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let readCount: YearInReviewSlideContent?
         let editCount: YearInReviewSlideContent?
         let donateCount: YearInReviewSlideContent?
-        let savedCountSlide: YearInReviewSlideContent?
+        let saveCount: YearInReviewSlideContent?
         let mostReadDay: YearInReviewSlideContent?
     }
 
@@ -366,13 +366,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, savedCountSlide: nil, mostReadDay: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, saveCount: nil, mostReadDay: nil)
         }
 
         var readCountSlide: YearInReviewSlideContent? = nil
         var editCountSlide: YearInReviewSlideContent? = nil
         var donateCountSlide: YearInReviewSlideContent? = nil
-        var savedCountSlide: YearInReviewSlideContent? = nil
+        var saveCountSlide: YearInReviewSlideContent? = nil
         var mostReadDaySlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
@@ -426,7 +426,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: true)
                     }
                 }
-            case .savedCount:
+            case .saveCount:
                 if slide.display == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
@@ -434,12 +434,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        savedSlideData.savedArticlesCount > 3,
                        savedSlideData.articleTitles.count >= 3 {
                         let count = savedSlideData.savedArticlesCount
-                        savedCountSlide = YearInReviewSlideContent(
+                        saveCountSlide = YearInReviewSlideContent(
                             imageName: "read",
-                            textOverlay: personalizedSavedCountSlideOverlay(savedCount: count),
-                            title: personalizedSavedCountSlideTitle(savedCount: count),
+                            textOverlay: personalizedSaveCountSlideOverlay(saveCount: count),
+                            title: personalizedSaveCountSlideTitle(saveCount: count),
                             informationBubbleText: nil,
-                            subtitle: personalizedSavedCountSlideSubtitle(savedCount: count, articleNames: savedSlideData.articleTitles),
+                            subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
                             loggingID: "saved_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: false)
@@ -464,7 +464,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 }
             }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, savedCountSlide: savedCountSlide, mostReadDay: mostReadDaySlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide)
     }
 
     func start() {
@@ -529,8 +529,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             secondSlide = mostReadDaySlide
         }
 
-        if let savedCountSlide = personalizedSlides.savedCountSlide {
-            thirdSlide = savedCountSlide
+        if let saveCountSlide = personalizedSlides.saveCount {
+            thirdSlide = saveCountSlide
         }
 
         if let editCountSlide = personalizedSlides.editCount {
