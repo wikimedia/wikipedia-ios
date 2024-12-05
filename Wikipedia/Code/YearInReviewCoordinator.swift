@@ -68,6 +68,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used")
         }
     }
+    
+    private lazy var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings = {
+        return WMFYearInReviewViewModel.LocalizedStrings.init(
+         donateButtonTitle: CommonStrings.donateTitle,
+            doneButtonTitle:CommonStrings.doneTitle,
+         shareButtonTitle: CommonStrings.shortShareTitle,
+         nextButtonTitle: CommonStrings.nextTitle,
+            finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
+            firstSlideTitle: CommonStrings.exploreYiRTitle,
+            firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
+            firstSlideCTA: CommonStrings.getStartedTitle,
+            firstSlideLearnMore: CommonStrings.learnMoreTitle(),
+            shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
+         wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
+         globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
+         wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo")
+        )
+    }()
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -381,6 +399,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                         donateCountSlide = YearInReviewSlideContent(
                             imageName: "thankyou",
                             imageOverlay: "wmf-logo",
+                            imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
                             title: personalizedSlide5Title,
                             informationBubbleText: nil,
                             subtitle: personalizedSlide5Subtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
@@ -445,6 +464,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         var fifthSlide = YearInReviewSlideContent(
             imageName: "thankyou",
             imageOverlay: "wmf-logo",
+            imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
             title: baseSlide5Title,
             informationBubbleText: nil,
             subtitle: baseSlide5Subtitle(),
@@ -487,20 +507,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                hideDonateButton: shoudlHideDonateButton()),
            fifthSlide
        ]
-        
-       
-       let localizedStrings = WMFYearInReviewViewModel.LocalizedStrings.init(
-        donateButtonTitle: CommonStrings.donateTitle,
-           doneButtonTitle:CommonStrings.doneTitle,
-        shareButtonTitle: CommonStrings.shortShareTitle,
-        nextButtonTitle: CommonStrings.nextTitle,
-           finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
-           firstSlideTitle: CommonStrings.exploreYiRTitle,
-           firstSlideSubtitle: WMFLocalizedString("year-in-review-subtitle", value: "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Year in review page information"),
-           firstSlideCTA: CommonStrings.getStartedTitle,
-           firstSlideLearnMore: CommonStrings.learnMoreTitle(),
-           shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides")
-       )
        
        let appShareLink = WMFYearInReviewDataController.appShareLink
        let hashtag = "#WikipediaYearInReview"

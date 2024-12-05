@@ -1400,7 +1400,7 @@
 "year-in-review-base-donate-title" = "0 ads served on Wikipedia";
 "year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than $1 edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1 edits";
-"year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($2).";
+"year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate.]($2)";
 "year-in-review-base-edits-title" = "Wikipedia was edited $1 times per minute";
 "year-in-review-base-reading-subtitle" = "Wikipedia had $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-base-reading-title" = "Reading brought us together";
@@ -1429,7 +1429,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-editing-title-format-500plus" = "You edited Wikipedia 500+ times";
-"year-in-review-personalized-reading-subtitle-format" = "This year, you read {{PLURAL:$1|$1 article|$1 articles}}, and Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
+"year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year. This year Wikipedia had $2 million articles available across over $3 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-share-text" = "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app";
 "year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
@@ -1441,3 +1441,6 @@
 "year-in-review-survey-unsatisfied" = "Unsatisfied";
 "year-in-review-survey-very-satisfied" = "Very satisfied";
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
+"year-in-review-wikipedia-globe-accessibility-label" = "Wikipedia globe logo";
+"year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
+"year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
