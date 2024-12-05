@@ -338,6 +338,18 @@ import CoreData
             cdReport.slides = try self.initialSlides(year: year, moc: backgroundContext) as NSSet
         }
         
+        // If needed: Populate initial mostReadDay slide
+        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
+            let containsMostRead = slides.contains(where: { slide in
+                slide.id == WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+            })
+            if !containsMostRead,
+                let initialMostReadDaySlide = try? initialMostReadDaySlide(year: year, moc: backgroundContext) {
+                slides.insert(initialMostReadDaySlide)
+                cdReport.slides = slides as NSSet
+            }
+        }
+        
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
@@ -409,16 +421,23 @@ import CoreData
             donateCountSlide.data = nil
             results.insert(donateCountSlide)
             
-            let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-            mostReadDaySlide.year = 2024
-            mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
-            mostReadDaySlide.evaluated = false
-            mostReadDaySlide.display = false
-            mostReadDaySlide.data = nil
-            results.insert(mostReadDaySlide)
+            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: year, moc: moc) {
+                results.insert(initialMostReadDaySlide)
+            }
+            
         }
         
         return results
+    }
+    
+    private func initialMostReadDaySlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+        mostReadDaySlide.year = 2024
+        mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+        mostReadDaySlide.evaluated = false
+        mostReadDaySlide.display = false
+        mostReadDaySlide.data = nil
+        return mostReadDaySlide
     }
     
     private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
