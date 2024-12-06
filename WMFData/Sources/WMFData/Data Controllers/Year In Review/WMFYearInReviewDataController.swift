@@ -351,16 +351,18 @@ import CoreData
         }
         
         if result.needsEditViewsPopulation == true {
-            if let userID {
-                do {
-                    try await self.populateViewCountSlide(
+            if let userID, let languageCode = primaryAppLanguageProject?.languageCode {
+                let editViews = try await fetchEditViews(
+                    project: primaryAppLanguageProject,
+                    userId: userID,
+                    language: languageCode
+                )
+                try await backgroundContext.perform { [weak self] in
+                    try self?.populateViewCountSlide(
+                        editViews: editViews,
                         report: report,
-                        backgroundContext: backgroundContext,
-                        project: primaryAppLanguageProject,
-                        userID: userID
+                        backgroundContext: backgroundContext
                     )
-                } catch {
-                    print("Failed to populate view count slide: \(error)")
                 }
             }
         }
@@ -685,17 +687,15 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
-    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?, userID: String?) async throws {
+    private func populateViewCountSlide(
+        editViews: Int,
+        report: CDYearInReviewReport,
+        backgroundContext: NSManagedObjectContext
+    ) throws {
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               iosFeatureConfig.yir(yearID: targetConfigYearID) != nil else {
             throw WMFYearInReviewDataControllerError.missingRemoteConfig
         }
-
-        guard let userID else { return }
-
-        let languageCode = project?.languageCode ?? "en"
-
-        let totalViews = try await fetchEditViews(project: project, userId: String(userID), language: languageCode)
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else { return }
 
@@ -705,9 +705,9 @@ import CoreData
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
                 let encoder = JSONEncoder()
-                slide.data = try encoder.encode(totalViews)
+                slide.data = try encoder.encode(editViews)
 
-                if totalViews > 0 {
+                if editViews > 0 {
                     slide.display = true
                 }
 
