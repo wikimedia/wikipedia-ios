@@ -339,7 +339,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedSlide4Title(views: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-title-format",
-            value: "Your edits were viewed more than %1$@ times",
+            value: "Your edits were viewed more than %1$@ times recently",
             comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
@@ -349,7 +349,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedSlide4Subitle(views: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-subtitle-format",
-            value: "Readers around the world appreciate your contributions. Over the last 2 months, your most-viewed articles received %1$@ total views since your last edit!",
+            value: "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received %1$@ total views. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for to the world",
             comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         

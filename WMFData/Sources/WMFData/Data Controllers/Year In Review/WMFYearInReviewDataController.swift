@@ -676,7 +676,6 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
-    // TODO: Grey
     private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?, userID: String?) throws {
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let _ = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
