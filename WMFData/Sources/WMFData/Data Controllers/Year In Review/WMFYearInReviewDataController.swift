@@ -16,6 +16,7 @@ import CoreData
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
+    private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
 
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
@@ -284,19 +285,16 @@ import CoreData
         return true
     }
 
-    private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
-    private let backgroundTaskName = "yir-populate-report-data"
-    
     private func beginDataPopulationBackgroundTask() async {
-        backgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: backgroundTaskName, expirationHandler: {
-            UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
-            self.backgroundTaskID = .invalid
+        dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
+            UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+            self.dataPopulationBackgroundTaskID = .invalid
         })
     }
     
     private func endDataPopulationBackgroundTask() {
-        UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
-        backgroundTaskID = UIBackgroundTaskIdentifier.invalid
+        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
     }
     
     @discardableResult
