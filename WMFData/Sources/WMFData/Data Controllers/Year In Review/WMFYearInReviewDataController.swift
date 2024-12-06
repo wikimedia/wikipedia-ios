@@ -288,7 +288,7 @@ import CoreData
     }
 
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, userID: String?, needsEditViewsPopulation: Bool) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, userID: String?) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -298,9 +298,9 @@ import CoreData
 
         let backgroundContext = try coreDataStore.newBackgroundContext
 
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
 
-            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
+            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username) as! (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)
         }
 
         guard let result else {
@@ -345,6 +345,12 @@ import CoreData
         }
 
         if result.needsDayPopulation == true {
+            try await backgroundContext.perform { [weak self] in
+                try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
+            }
+        }
+        
+        if result.needsEditViewsPopulation == true {
             try await backgroundContext.perform { [weak self] in
                 try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
             }
@@ -441,7 +447,7 @@ import CoreData
             }
         }
 
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSaveCountPopulation: needsSaveCountPopulation, needsDayPopulation: needsDayPopulation, needsEditViewsPopulation: needsEditViewsPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSaveCountPopulation: needsSaveCountPopulation, needsDayPopulation: needsDayPopulation, needsEditViewsPopulation: needsEditViewPopulation)
     }
 
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {

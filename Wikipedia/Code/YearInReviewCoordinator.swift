@@ -562,16 +562,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
-       var fourthSlide = YearInReviewSlideContent(
-           imageName: "edits",
-           textOverlay: collectiveNumEditsNumber,
-           title: baseSlide3Title,
-           informationBubbleText: nil,
-           subtitle: baseSlide3Subtitle,
-           loggingID: "edit_count_base",
-           infoURL: aboutYIRURL,
-           hideDonateButton: shoudlHideDonateButton())
-
         var fourthSlide = YearInReviewSlideContent(
             imageName: "editedPerMinute",
             textOverlay: collectiveNumEditsPerMinuteNumber,
