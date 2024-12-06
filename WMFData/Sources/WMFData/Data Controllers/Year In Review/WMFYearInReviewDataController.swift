@@ -357,7 +357,7 @@ import CoreData
                         report: report,
                         backgroundContext: backgroundContext,
                         project: primaryAppLanguageProject,
-                        userID: "35904678"
+                        userID: userID
                     )
                 } catch {
                     print("Failed to populate view count slide: \(error)")
@@ -733,46 +733,56 @@ import CoreData
         }
     }
 
-    public func fetchEditViews(project: WMFProject?, userId: String, language: String, completion: @escaping (Result<(Int), Error>) -> Void) {
+    public func fetchEditViews(project: WMFProject?, userId: String, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
+
         guard let service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
-
-        guard let project else {
+        
+        guard let project = project else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
-
+        
         let prefixedUserID = "#" + userId
-
+        
         guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", prefixedUserID]) else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 
         var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [URLQueryItem(name: "lang", value: language)]
-
+        
         guard let url = urlComponents?.url else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
 
-        service.performDecodableGET(request: request) { (result: Result<[String: Int]?, Error>) in
+        let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
-            case .success(let response):
-                guard let query = response else {
+            case .success(let data):
+                guard let jsonData = data else {
                     completion(.failure(WMFDataControllerError.unexpectedResponse))
                     return
                 }
 
-                let views = query.count
-
-                completion(.success(views))
+                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int? {
+                    let totalViews = totalPageviews
+                    completion(.success(totalViews ?? 0))
+                } else {
+                    // If for any reason we don't get anything
+                    completion(.success(0))
+                }
 
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(WMFDataControllerError.serviceError(error)))
             }
         }
+        service.perform(request: request, completion: completionHandler)
     }
 
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
