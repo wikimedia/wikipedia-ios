@@ -410,6 +410,18 @@ import CoreData
             }
         }
         
+        // If needed: Populate initial viewCount slide
+        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
+            let containsViewCount = slides.contains(where: { slide in
+                slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+            })
+            if !containsViewCount,
+                let initialViewCountSlide = try? initialViewCountSlide(year: year, moc: backgroundContext) {
+                slides.insert(initialViewCountSlide)
+                cdReport.slides = slides as NSSet
+            }
+        }
+        
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
 
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
@@ -495,17 +507,13 @@ import CoreData
                 results.insert(savedArticlesSlide)
             }
 
-            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: year, moc: moc) {
+            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: 2024, moc: moc) {
                 results.insert(initialMostReadDaySlide)
             }
 
-		    let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-            viewCountSlide.year = 2024
-            viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
-            viewCountSlide.evaluated = false
-            viewCountSlide.display = false
-            viewCountSlide.data = nil
-            results.insert(viewCountSlide)
+            if let initialViewCountSlide = try? initialViewCountSlide(year: 2024, moc: moc) {
+                results.insert(initialViewCountSlide)
+            }
         }
 
         return results
@@ -523,12 +531,22 @@ import CoreData
 
     private func initialMostReadDaySlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-        mostReadDaySlide.year = 2024
+        mostReadDaySlide.year = Int32(year)
         mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
         mostReadDaySlide.evaluated = false
         mostReadDaySlide.display = false
         mostReadDaySlide.data = nil
         return mostReadDaySlide
+    }
+    
+    private func initialViewCountSlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+        viewCountSlide.year = Int32(year)
+        viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+        viewCountSlide.evaluated = false
+        viewCountSlide.display = false
+        viewCountSlide.data = nil
+        return viewCountSlide
     }
     
     private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
