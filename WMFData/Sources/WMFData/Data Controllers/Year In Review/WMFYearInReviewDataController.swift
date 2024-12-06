@@ -286,6 +286,11 @@ import CoreData
     }
 
     private func beginDataPopulationBackgroundTask() async {
+        
+        guard dataPopulationBackgroundTaskID == .invalid else {
+            return
+        }
+        
         dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
             UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
             self.dataPopulationBackgroundTaskID = .invalid
@@ -293,6 +298,11 @@ import CoreData
     }
     
     private func endDataPopulationBackgroundTask() {
+        
+        guard dataPopulationBackgroundTaskID != .invalid else {
+            return
+        }
+        
         UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
         dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
     }
