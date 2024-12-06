@@ -757,15 +757,15 @@ import CoreData
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
 
-        service.performDecodableGET(request: request) { (result: Result<UserContributionsAPIResponse, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<[String: Int]?, Error>) in
             switch result {
             case .success(let response):
-                guard let query = response.query else {
+                guard let query = response else {
                     completion(.failure(WMFDataControllerError.unexpectedResponse))
                     return
                 }
 
-                let views = query.usercontribs.count
+                let views = query.count
 
                 completion(.success(views))
 
@@ -1150,6 +1150,48 @@ import CoreData
             case isMinor = "minor"
             case isTop = "top"
         }
+    }
+    
+    struct UserStats: Decodable {
+        let version: Int
+        let userId: Int
+        let userName: String
+        let receivedThanksCount: Int
+        let editCountByNamespace: [String: Int]
+        let editCountByDay: [String: Int]
+        let editCountByTaskType: [String: Int]
+        let totalUserEditCount: Int
+        let revertedEditCount: Int
+        let newcomerTaskEditCount: Int
+        let lastEditTimestamp: Int
+        let generatedAt: Int
+        let longestEditingStreak: LongestEditingStreak
+        let totalEditsCount: Int
+        let dailyTotalViews: [String: Int]
+        let recentEditsWithoutPageviews: [String]
+        let topViewedArticles: [String: TopViewedArticle]
+        let topViewedArticlesCount: Int
+        let totalPageviewsCount: Int
+    }
+
+    struct LongestEditingStreak: Decodable {
+        let datePeriod: DatePeriod
+        let totalEditCountForPeriod: Int
+    }
+
+    struct DatePeriod: Decodable {
+        let start: String
+        let end: String
+        let days: Int
+    }
+
+    struct TopViewedArticle: Decodable {
+        let imageUrl: String
+        let firstEditDate: String
+        let newestEdit: String
+        let views: [String: Int]
+        let viewsCount: Int
+        let pageviewsUrl: String
     }
 }
 
