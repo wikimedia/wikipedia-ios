@@ -8,6 +8,7 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
 
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
@@ -283,14 +284,15 @@ import CoreData
     }
 
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
-
+        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
@@ -303,10 +305,27 @@ import CoreData
         }
 
         let report = result.report
+        
 
-        if result.needsReadingPopulation == true {
+        if result.needsReadingPopulation == true || result.needsDayPopulation {
+            
+            var legacyPageViews: [WMFLegacyPageView] = []
+            if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
+               let startDate = yirConfig.dataPopulationStartDate,
+               let endDate = yirConfig.dataPopulationEndDate,
+               let legacyPageViewsDataDelegate = self.legacyPageViewsDataDelegate {
+                legacyPageViews = try await legacyPageViewsDataDelegate.getLegacyPageViews(from: startDate, to: endDate)
+            }
+            
             try await backgroundContext.perform { [weak self] in
-                try self?.populateReadingSlide(report: report, backgroundContext: backgroundContext)
+                if result.needsReadingPopulation {
+                    try self?.populateReadingSlide(report: report, backgroundContext: backgroundContext, legacyPageViews: legacyPageViews)
+                }
+                
+                if result.needsDayPopulation {
+                    try self?.populateDaySlide(report: report, backgroundContext: backgroundContext, legacyPageViews: legacyPageViews)
+                }
             }
         }
 
@@ -339,13 +358,9 @@ import CoreData
             }
         }
 
-        if result.needsDayPopulation == true {
-            try await backgroundContext.perform { [weak self] in
-                try self?.populateDaySlide(report: report, backgroundContext: backgroundContext)
-            }
+        return await backgroundContext.perform {
+            return WMFYearInReviewReport(cdReport: report)
         }
-
-        return WMFYearInReviewReport(cdReport: report)
     }
 
     private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool)? {
@@ -494,20 +509,7 @@ import CoreData
         return mostReadDaySlide
     }
     
-    private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return
-        }
-
-        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
-              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
-            return
-        }
-
-        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let pageViewCounts = try pageViewsDataController.fetchPageViewCounts(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate, moc: backgroundContext)
+    private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, legacyPageViews: [WMFLegacyPageView]) throws {
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
             return
@@ -522,9 +524,9 @@ import CoreData
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
                 let encoder = JSONEncoder()
-                slide.data = try encoder.encode(pageViewCounts.count)
+                slide.data = try encoder.encode(legacyPageViews.count)
 
-                if pageViewCounts.count > 5 {
+                if legacyPageViews.count > 5 {
                     slide.display = true
                 }
 
@@ -607,19 +609,21 @@ import CoreData
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
 
-    private func populateDaySlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return
+    private func populateDaySlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, legacyPageViews: [WMFLegacyPageView]) throws {
+        
+        var countsDictionary: [Int: Int] = [:]
+        
+        for legacyPageView in legacyPageViews {
+            let timestamp = legacyPageView.viewedDate
+            let calendar = Calendar.current
+            let dayOfWeek = calendar.component(.weekday, from: timestamp) // Sunday = 1, Monday = 2, ..., Saturday = 7
+                
+            countsDictionary[dayOfWeek, default: 0] += 1
         }
-
-        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
-              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
-            return
+        
+        let pageViews = countsDictionary.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
+            WMFPageViewDay(day: dayOfWeek, viewCount: count)
         }
-
-        let pageViewsDataController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-        let pageViews = try pageViewsDataController.fetchPageViewDates(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate)
 
         guard let mostPopularDay = pageViews.max(by: { $0.viewCount < $1.viewCount }) else {
             return
@@ -1040,4 +1044,8 @@ public class SavedArticleSlideData: NSObject, Codable {
 
 public protocol SavedArticleSlideDataDelegate: AnyObject {
     func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
+}
+
+public protocol LegacyPageViewsDataDelegate: AnyObject {
+    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFLegacyPageView]
 }

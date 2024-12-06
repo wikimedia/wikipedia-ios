@@ -111,7 +111,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
-                    savedSlideDataDelegate: dataStore.savedPageList)
+                    savedSlideDataDelegate: dataStore.savedPageList,
+                    legacyPageViewsDataDelegate: dataStore)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
