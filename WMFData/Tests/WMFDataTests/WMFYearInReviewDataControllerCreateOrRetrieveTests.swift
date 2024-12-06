@@ -6,7 +6,7 @@ import CoreData
 fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataController {
     var shouldCreateOrRetrieve = true
 
-    init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: (any WMFKeyValueStore)? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: any WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+    override init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: (any WMFKeyValueStore)? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: any WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
 
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
@@ -116,7 +116,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         }
         
         dataController.shouldCreateOrRetrieve = false
-        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
+        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
 
     }
@@ -127,7 +127,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         dataController.shouldCreateOrRetrieve = true
 
         let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true, display: true)
@@ -140,7 +140,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(existingReport)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 5)
@@ -152,11 +152,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
 
         try await dataController.deleteYearInReviewReport(year: year)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 5)
