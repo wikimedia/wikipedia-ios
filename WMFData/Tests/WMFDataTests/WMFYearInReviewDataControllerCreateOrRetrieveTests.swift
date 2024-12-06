@@ -71,6 +71,14 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         mostReadDaySlide.data = nil
         results.insert(mostReadDaySlide)
         
+        let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+        viewCountSlide.year = 2024
+        viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+        viewCountSlide.evaluated = false
+        viewCountSlide.display = false
+        viewCountSlide.data = nil
+        results.insert(viewCountSlide)
+        
         return results
     }
     
@@ -134,16 +142,17 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount, evaluated: true, display: true)
         let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDay, evaluated: true, display: true)
         let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount, evaluated: true, display: true)
-        let existingSlide5 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true, display: true)
+        let existingSlide5 = WMFYearInReviewSlide(year: year, id: .viewCount, evaluated: true, display: true)
+        let existingSlide6 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true, display: true)
         
-        let existingReport = WMFYearInReviewReport(year: year, slides: [existingSlide1, existingSlide2, existingSlide3, existingSlide4, existingSlide5])
+        let existingReport = WMFYearInReviewReport(year: year, slides: [existingSlide1, existingSlide2, existingSlide3, existingSlide4, existingSlide5, existingSlide6])
 
         try await dataController.saveYearInReviewReport(existingReport)
 
         report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 5)
+        XCTAssertEqual(report?.slides.count, 6)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -159,7 +168,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 5)
+        XCTAssertEqual(report?.slides.count, 6)
     }
 }
 
