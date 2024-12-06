@@ -300,7 +300,7 @@ import CoreData
 
         let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
 
-            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username, userId: userID) as! (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)
+            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username, userId: userID)
         }
 
         guard let result else {
@@ -367,10 +367,12 @@ import CoreData
             }
         }
 
-        return WMFYearInReviewReport(cdReport: report)
+        return await backgroundContext.perform {
+            return WMFYearInReviewReport(cdReport: report)
+        }
     }
 
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?, userId: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool?)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?, userId: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? {
 
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
@@ -692,10 +694,6 @@ import CoreData
         report: CDYearInReviewReport,
         backgroundContext: NSManagedObjectContext
     ) throws {
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              iosFeatureConfig.yir(yearID: targetConfigYearID) != nil else {
-            throw WMFYearInReviewDataControllerError.missingRemoteConfig
-        }
 
         guard let slides = report.slides as? Set<CDYearInReviewSlide> else { return }
 
@@ -770,9 +768,9 @@ import CoreData
                     return
                 }
 
-                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int? {
+                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int {
                     let totalViews = totalPageviews
-                    completion(.success(totalViews ?? 0))
+                    completion(.success(totalViews))
                 } else {
                     // If for any reason we don't get anything
                     completion(.success(0))
