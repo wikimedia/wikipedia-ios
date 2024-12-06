@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import CoreData
 
 @objc public class WMFYearInReviewDataController: NSObject {
@@ -283,12 +284,29 @@ import CoreData
         return true
     }
 
+    private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+    private let backgroundTaskName = "yir-populate-report-data"
+    
+    private func beginDataPopulationBackgroundTask() async {
+        backgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: backgroundTaskName, expirationHandler: {
+            UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
+            self.backgroundTaskID = .invalid
+        })
+    }
+    
+    private func endDataPopulationBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
+        backgroundTaskID = UIBackgroundTaskIdentifier.invalid
+    }
+    
     @discardableResult
     public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
+        
+        await beginDataPopulationBackgroundTask()
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
         self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
@@ -301,12 +319,12 @@ import CoreData
         }
 
         guard let result else {
+            endDataPopulationBackgroundTask()
             return nil
         }
 
         let report = result.report
         
-
         if result.needsReadingPopulation == true || result.needsDayPopulation {
             
             var legacyPageViews: [WMFLegacyPageView] = []
@@ -357,6 +375,8 @@ import CoreData
                 }
             }
         }
+        
+        endDataPopulationBackgroundTask()
 
         return await backgroundContext.perform {
             return WMFYearInReviewReport(cdReport: report)
