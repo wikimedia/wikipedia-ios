@@ -335,7 +335,9 @@ import CoreData
             }
         }
         
-        return WMFYearInReviewReport(cdReport: report)
+        return await backgroundContext.perform {
+            return WMFYearInReviewReport(cdReport: report)
+        }
     }
     
     private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? {
