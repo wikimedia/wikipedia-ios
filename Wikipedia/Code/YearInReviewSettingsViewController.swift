@@ -114,12 +114,16 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                     userId = userID
                 }
                 
-                let yirDataController = try WMFYearInReviewDataController(userID: userId)
+                let userIdString: String? = userId.map { String($0) }
+
+                let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString
+                )
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

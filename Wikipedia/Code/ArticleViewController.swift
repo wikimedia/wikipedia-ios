@@ -69,14 +69,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     private var yirDataController: WMFYearInReviewDataController? {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        return try? WMFYearInReviewDataController(userID: userId)
+        return try? WMFYearInReviewDataController()
     }
 
     private var _yirCoordinator: YearInReviewCoordinator?

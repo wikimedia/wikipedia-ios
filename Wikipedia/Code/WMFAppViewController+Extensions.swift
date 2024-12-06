@@ -619,15 +619,18 @@ extension WMFAppViewController {
            let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
             userId = userID
         }
+        
+        let userIdString: String? = userId.map { String($0) }
 
         Task {
             do {
-                let yirDataController = try WMFYearInReviewDataController(userID: userId)
+                let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.populateYearInReviewReportData(
                     for: year,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
@@ -635,15 +638,9 @@ extension WMFAppViewController {
     }
     
     @objc func deleteYearInReviewPersonalizedEditingData() {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
         Task {
             do {
-                let yirDataController = try WMFYearInReviewDataController(userID: userId)
+                let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.deleteAllPersonalizedEditingData()
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")

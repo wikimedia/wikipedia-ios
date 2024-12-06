@@ -366,14 +366,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     private func getPersonalizedSlides() -> PersonalizedSlides {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        guard let dataController = try? WMFYearInReviewDataController(userID: userId),
+        guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
             return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, mostReadDay: nil, viewCount: nil)
         }

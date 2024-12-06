@@ -131,15 +131,8 @@ extension ArticleViewController {
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return false
         }
-
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
     
-        guard let yirDataController = try? WMFYearInReviewDataController(userID: userId) else {
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
 
@@ -152,14 +145,7 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        guard let yirDataController = try? WMFYearInReviewDataController(userID: userId) else {
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 

@@ -15,13 +15,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var altTextImageRecommendationsOnboardingPresenter: AltTextImageRecommendationsOnboardingPresenter?
 
     private var yirDataController: WMFYearInReviewDataController? {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        return try? WMFYearInReviewDataController(userID: userId)
+        return try? WMFYearInReviewDataController()
     }
 
     // Coordinator
@@ -1111,14 +1105,7 @@ extension ExploreViewController {
 
     // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        guard let yirDataController = try? WMFYearInReviewDataController(userID: userId) else {
+        guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 

@@ -6,7 +6,6 @@ import CoreData
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
-    private let userID: Int?
 
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
@@ -32,7 +31,7 @@ import CoreData
         return try? WMFYearInReviewDataController()
     }
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, userID: Int? = nil) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
 
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -40,7 +39,6 @@ import CoreData
         self.coreDataStore = coreDataStore
         self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
-        self.userID = userID
     }
 
     // MARK: - Feature Announcement
@@ -284,7 +282,7 @@ import CoreData
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, userID: String?) async throws -> WMFYearInReviewReport? {
         
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -331,7 +329,7 @@ import CoreData
         
         if result.needsEditViewsPopulation == true {
             try await backgroundContext.perform { [weak self] in
-                try self?.populateViewCountSlide(report: report, backgroundContext: backgroundContext, project: primaryAppLanguageProject)
+                try self?.populateViewCountSlide(report: report, backgroundContext: backgroundContext, project: primaryAppLanguageProject, userID: userID)
             }
         }
         
@@ -583,7 +581,7 @@ import CoreData
     }
     
     // TODO: Grey
-    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?) throws {
+    private func populateViewCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, project: WMFProject?, userID: String?) throws {
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let _ = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             throw WMFYearInReviewDataControllerError.missingRemoteConfig
@@ -591,10 +589,9 @@ import CoreData
 
         guard let userID else { return }
         
-        let encodedUserId = "#" + String(userID)
         let languageCode = project?.languageCode
         
-        fetchEditViews(project: project, userId: encodedUserId, language: languageCode ?? "en") { result in
+        fetchEditViews(project: project, userId: String(userID), language: languageCode ?? "en") { result in
             switch result {
             case .success(let totalViews):
                 guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
@@ -644,7 +641,9 @@ import CoreData
             return
         }
         
-        guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", userId]) else {
+        let prefixedUserID = "#" + userId
+        
+        guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", prefixedUserID]) else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
