@@ -854,5 +854,23 @@
 			<string>раз</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Вы прочитали %1$d %#@v1@ в этом году</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>статьи</string>
+			<key>one</key>
+			<string>статью</string>
+			<key>other</key>
+			<string>статей</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

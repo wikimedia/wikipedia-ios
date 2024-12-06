@@ -400,7 +400,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+
     [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+    
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {

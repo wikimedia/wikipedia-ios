@@ -1443,6 +1443,7 @@
 "year-in-review-base-donate-title" = "0 advertenties weergegeven op Wikipedia";
 "year-in-review-base-editors-subtitle" = "De gemeenschap van vrijwillige redacteuren van Wikipedia heeft dit jaar tot nu toe meer dan $1 bewerkingen gedaan op de iOS-app. Het hart en de ziel van Wikipedia is onze wereldwijde gemeenschap van vrijwillige bijdragers, donateurs en miljarden lezers zoals u, allen verenigd in het ideaal van onbeperkte toegang tot betrouwbare informatie.";
 "year-in-review-base-editors-title" = "Redacteuren op de iOS-app hebben meer dan $1 bewerkingen uitgevoerd";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "Dit jaar werd Wikipedia gemiddeld $1 keer per minuut bewerkt. Artikelen worden gezamenlijk gemaakt en verbeterd met behulp van betrouwbare bronnen. We hebben allemaal kennis om te delen. [Hier leest u hoe u kunt deelnemen.]($2)";
 "year-in-review-base-edits-title" = "Wikipedia werd $1 keer per minuut bewerkt";
 "year-in-review-base-reading-subtitle" = "Wikipedia had dit jaar $1 miljoen artikelen in meer dan $2 actieve talen. U hebt zich aangesloten bij miljoenen anderen die hun kennis hebben uitgebreid en diverse onderwerpen hebben verkend.";
@@ -1472,6 +1473,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt. Bedankt dat u een van de vrijwillige redacteuren bent die het verschil maakt in Wikimedia-projecten over de hele wereld.";
 "year-in-review-personalized-editing-title-format" = "U hebt Wikipedia $1 keer bewerkt{{PLURAL:$1|}}";
 "year-in-review-personalized-editing-title-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Je hebt dit jaar $1 artikel{{PLURAL:$1||en}} gelezen. Dit jaar had Wikipedia $2 miljoen artikelen beschikbaar in meer dan $3 actieve talen. U hebt zich aangesloten bij miljoenen anderen die hun kennis hebben uitgebreid en diverse onderwerpen hebben verkend.";
 "year-in-review-personalized-reading-title-format" = "U hebt dit jaar $1 artikel{{PLURAL:$1||en}} gelezen";
 "year-in-review-share-text" = "Hier is mijn Wikipedia-jaaroverzicht. Gemaakt met de iOS-app van Wikipedia";

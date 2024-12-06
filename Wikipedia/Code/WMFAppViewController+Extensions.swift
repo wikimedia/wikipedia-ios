@@ -607,6 +607,7 @@ extension WMFAppViewController {
         }
     }
 
+
     @objc func populateYearInReviewReport(for year: Int) {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
@@ -630,7 +631,8 @@ extension WMFAppViewController {
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
-                    userID: userIdString)
+                    savedSlideDataDelegate: dataStore.savedPageList,
+					userID: userIdString)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

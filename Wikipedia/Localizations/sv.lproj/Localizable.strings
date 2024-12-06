@@ -1428,6 +1428,7 @@
 "year-in-review-base-donate-title" = "0 annonser visas på Wikipedia";
 "year-in-review-base-editors-subtitle" = "Wikipedias gemenskap av frivilliga redigerare har hittills gjort mer än $1 redigeringar på iOS-appen i år. Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
 "year-in-review-base-editors-title" = "Redigerare i iOS-appen har gjort mer än $1 redigeringar";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "I år redigerades Wikipedia med en genomsnittlig hastighet av $1 gånger per minut. Artiklar skapas och förbättras tillsammans med hjälp av tillförlitliga källor. Allihopa har kunskap att dela med, så [läs hur man kan delta.]( $2 )";
 "year-in-review-base-edits-title" = "Wikipedia redigerades $1 gånger per minut";
 "year-in-review-base-reading-subtitle" = "Wikipedia hade $1 miljon artiklar på över $2 aktiva språk i år. Du anslut dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.";
@@ -1446,6 +1447,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Du har redigerat Wikipedia 500+ gånger. Tack för att du är en av de frivilliga redigerarna som gör skillnad i Wikimedia-projekten runt om i världen.";
 "year-in-review-personalized-editing-title-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Du har redigerat Wikipedia 500+ gånger";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}} i år. I år hade Wikipedia $2 miljoner artiklar tillgängliga på över $3 aktiva språk. Du anslöt dig till miljoner andra för att utöka kunskapen och utforska olika ämnen.";
 "year-in-review-personalized-reading-title-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}} i år";
 "year-in-review-share-text" = "Här kommer min årsöversikt för Wikipedia, som skapades med Wikipedias iOS-app.";

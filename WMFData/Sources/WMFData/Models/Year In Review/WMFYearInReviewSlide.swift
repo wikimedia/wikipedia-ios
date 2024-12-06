@@ -20,6 +20,7 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
     case readCount
     case editCount
     case donateCount
+    case saveCount
     case mostReadDay
     case viewCount
 
