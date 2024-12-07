@@ -563,6 +563,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hideDonateButton: shoudlHideDonateButton())
 
         var fourthSlide = YearInReviewSlideContent(
+           imageName: "edits",
+           textOverlay: collectiveNumEditsNumber,
+           title: baseSlide3Title,
+           informationBubbleText: nil,
+           subtitle: baseSlide3Subtitle,
+           loggingID: "edit_count_base",
+           infoURL: aboutYIRURL,
+           hideDonateButton: shoudlHideDonateButton())
+        
+        var fifthSlide = YearInReviewSlideContent(
             imageName: "editedPerMinute",
             textOverlay: collectiveNumEditsPerMinuteNumber,
             title: baseSlide4Title,
@@ -572,7 +582,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
-        var fifthSlide = YearInReviewSlideContent(
+        var sixthSlide = YearInReviewSlideContent(
             imageName: "thankyou",
             imageOverlay: "wmf-logo",
             imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
@@ -597,13 +607,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             thirdSlide = saveCountSlide
         }
 
-        if let viewCountSlide = personalizedSlides.viewCount {
-            fourthSlide = viewCountSlide
+        if let editCountSlide = personalizedSlides.editCount {
+            sixthSlide = editCountSlide
         }
+
 
         var hasPersonalizedDonateSlide = false
         if let donateCountSlide = personalizedSlides.donateCount {
-            fifthSlide = donateCountSlide
+            sixthSlide = donateCountSlide
             hasPersonalizedDonateSlide = true
         }
        
@@ -612,7 +623,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            secondSlide,
            thirdSlide,
            fourthSlide,
-           fifthSlide
+           sixthSlide
        ]
 
        let appShareLink = WMFYearInReviewDataController.appShareLink
