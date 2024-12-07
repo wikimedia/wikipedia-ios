@@ -23,6 +23,7 @@ public struct WMFYearInReviewScrollView: View {
     let hasLargeInsets: Bool
     let imageName: String
     let imageOverlay: String?
+    let imageOverlayAccessibilityLabel: String?
     let textOverlay: String?
     
     public init<ScrollViewContent: View>(
@@ -30,6 +31,7 @@ public struct WMFYearInReviewScrollView: View {
         @ViewBuilder contents: () -> AnyView? = { nil },
         hasLargeInsets: Bool = true,
         imageName: String,
+        imageOverlayAccessibilityLabel: String? = nil,
         imageOverlay: String? = nil,
         textOverlay: String? = nil
     ) {
@@ -38,6 +40,7 @@ public struct WMFYearInReviewScrollView: View {
         self.hasLargeInsets = hasLargeInsets
         self.imageName = imageName
         self.imageOverlay = imageOverlay
+        self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
     }
 
@@ -54,11 +57,18 @@ public struct WMFYearInReviewScrollView: View {
                         .frame(maxWidth: .infinity)
                         .ignoresSafeArea()
                         .padding(.horizontal, 0)
-                    
+                        .accessibilityHidden(true)
+
                     if let imageOverlay {
-                        Image(imageOverlay, bundle: .module)
+                        if let imageOverlayAccessibilityLabel {
+                            Image(imageOverlay, bundle: .module)
+                                .accessibilityLabel(imageOverlayAccessibilityLabel)
+                        } else {
+                            Image(imageOverlay, bundle: .module)
+                                .accessibilityHidden(true)
+                        }
                     }
-                    
+
                     if let overlayText = textOverlay {
                         Text(overlayText)
                             .font(Font(WMFFont.for(.xxlTitleBold)))
@@ -82,9 +92,16 @@ public struct WMFYearInReviewScrollView: View {
                         .frame(maxWidth: .infinity)
                         .ignoresSafeArea()
                         .padding(.horizontal, 0)
-                    
+                        .accessibilityHidden(true)
+
                     if let imageOverlay {
-                        Image(imageOverlay, bundle: .module)
+                        if let imageOverlayAccessibilityLabel {
+                            Image(imageOverlay, bundle: .module)
+                                .accessibilityLabel(imageOverlayAccessibilityLabel)
+                        } else {
+                            Image(imageOverlay, bundle: .module)
+                                .accessibilityHidden(true)
+                        }
                     }
                     
                     if let overlayText = textOverlay {

@@ -35,6 +35,7 @@ public struct WMFSlideShow: View {
                     scrollViewContents: slideView(slide: slide),
                     hasLargeInsets: false,
                     imageName: slides[slide].imageName,
+                    imageOverlayAccessibilityLabel: slides[slide].imageOverlayAccessibilityLabel,
                     imageOverlay: slides[slide].imageOverlay,
                     textOverlay: slides[slide].textOverlay
                 )
@@ -85,6 +86,7 @@ public protocol SlideShowProtocol {
     var subtitle: String { get }
     var imageName: String { get }
     var imageOverlay: String? { get }
+    var imageOverlayAccessibilityLabel: String? { get }
     var textOverlay: String? { get }
     var infoURL: URL? { get }
 }

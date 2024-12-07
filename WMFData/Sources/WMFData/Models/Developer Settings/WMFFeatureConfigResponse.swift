@@ -9,6 +9,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 let readCount: SlideSettings
                 let editCount: SlideSettings
                 let donateCount: SlideSettings
+                let saveCount: SlideSettings
                 let mostReadDay: SlideSettings
             }
             
@@ -23,7 +24,8 @@ public struct WMFFeatureConfigResponse: Codable {
             public let dataPopulationStartDateString: String
             public let dataPopulationEndDateString: String
             public let personalizedSlides: PersonalizedSlides
-            
+            public let hideDonateCountryCodes: [String]
+
             var dataPopulationStartDate: Date? {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: dataPopulationStartDateString)

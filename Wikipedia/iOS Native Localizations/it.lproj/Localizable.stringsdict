@@ -730,7 +730,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Quest'anno hai letto %#@v1@. Le voci presenti su Wikipedia quest'anno sono %2$@ milioni, in oltre %3$@ lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.</string>
+		<string>Quest'anno hai letto %#@v1@, e le voci presenti su Wikipedia quest'anno sono %2$@ milioni, in oltre %3$@ lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

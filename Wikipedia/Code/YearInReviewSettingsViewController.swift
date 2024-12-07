@@ -95,7 +95,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         self.tableView.reloadData()
     }
-    
+
     private func populateYearInReviewReportData() {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
@@ -110,7 +110,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    savedSlideDataDelegate: dataStore.savedPageList)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
