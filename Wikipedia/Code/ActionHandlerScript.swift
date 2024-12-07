@@ -46,7 +46,7 @@ final class PageContentService {
         struct ReadMore: Codable {
             static let fragment = "pcs-footer-container-readmore"
             let itemCount: Int
-            let baseURL: String
+            let apiBaseURL: String
         }
         
         struct Parameters: Codable {
