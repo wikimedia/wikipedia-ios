@@ -30,7 +30,10 @@
                         },
                         "mostReadDay": {
                             "isEnabled": true
-                        }
+                        },
+                        "viewCount": {
+                            "isEnabled": true
+                        },
                     }
                 },
                 {

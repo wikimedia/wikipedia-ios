@@ -1105,7 +1105,6 @@ extension ExploreViewController {
 
     // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
-        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
