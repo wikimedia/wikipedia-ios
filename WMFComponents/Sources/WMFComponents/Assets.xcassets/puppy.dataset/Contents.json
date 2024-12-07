@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "puppy.gif",
+      "idiom" : "universal",
+      "universal-type-identifier" : "gif"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -22,6 +22,7 @@ public struct WMFYearInReviewScrollView: View {
     let contents: AnyView?
     let hasLargeInsets: Bool
     let imageName: String
+    let gifName: String?
     let imageOverlay: String?
     let imageOverlayAccessibilityLabel: String?
     let textOverlay: String?
@@ -31,6 +32,7 @@ public struct WMFYearInReviewScrollView: View {
         @ViewBuilder contents: () -> AnyView? = { nil },
         hasLargeInsets: Bool = true,
         imageName: String,
+        gifName: String? = nil,
         imageOverlayAccessibilityLabel: String? = nil,
         imageOverlay: String? = nil,
         textOverlay: String? = nil
@@ -42,6 +44,7 @@ public struct WMFYearInReviewScrollView: View {
         self.imageOverlay = imageOverlay
         self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
+        self.gifName = gifName
     }
 
     // MARK: - Lifecycle
@@ -51,13 +54,22 @@ public struct WMFYearInReviewScrollView: View {
         ScrollView(showsIndicators: true) {
             VStack(spacing: 16) {
                 ZStack {
-                    Image(imageName, bundle: .module)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .ignoresSafeArea()
-                        .padding(.horizontal, 0)
-                        .accessibilityHidden(true)
+                    if let gifName {
+                        GifImageView(gifName)
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .ignoresSafeArea()
+                            .padding(.horizontal, 0)
+                            .accessibilityHidden(true)
+                    } else {
+                        Image(imageName, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .ignoresSafeArea()
+                            .padding(.horizontal, 0)
+                            .accessibilityHidden(true)
+                    }
 
                     if let imageOverlay {
                         if let imageOverlayAccessibilityLabel {

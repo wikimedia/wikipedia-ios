@@ -407,6 +407,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
                             imageName: "read",
+                            gifName: "puppy",
                             textOverlay: personalizedSlide1Overlay(readCount: readCount),
                             title: personalizedSlide1Title(readCount: readCount),
                             informationBubbleText: nil,
@@ -494,6 +495,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
         var firstSlide = YearInReviewSlideContent(
            imageName: "read",
+           gifName: "puppy",
            textOverlay: collectiveNumArticlesNumber,
            title: baseSlide1Title,
            informationBubbleText: nil,

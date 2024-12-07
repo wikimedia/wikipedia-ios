@@ -29,7 +29,11 @@ let package = Package(
                 .product(name: "WMFData", package: "WMFData"),
                 .product(name: "WMFDataMocks", package: "WMFData")
             ],
-            path: "Sources/WMFComponents"),
+            path: "Sources/WMFComponents",
+            resources: [
+                .process("Resources/puppy.gif")
+            ]
+        ),
         .testTarget(
             name: "WMFComponentsTests",
             dependencies: ["WMFComponents",

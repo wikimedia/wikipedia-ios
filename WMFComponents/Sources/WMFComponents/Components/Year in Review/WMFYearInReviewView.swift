@@ -1,4 +1,5 @@
 import SwiftUI
+import WebKit
 
 public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -172,3 +173,31 @@ public struct WMFYearInReviewView: View {
     }
 }
 
+struct GifImageView: UIViewRepresentable {
+    private let name: String
+    init(_ name: String) {
+        self.name = name
+    }
+    
+    func makeUIView(context: Context) -> WKWebView {
+        print("Bundle path: \(Bundle.module.bundlePath)")
+        if let urls = Bundle.module.urls(forResourcesWithExtension: "gif", subdirectory: "Resources") {
+            print("Available resources: \(urls)")
+        }
+
+        let webview = WKWebView()
+
+        if let url = Bundle.module.url(forResource: name, withExtension: "gif"),
+           let gifData = try? Data(contentsOf: url) {
+            webview.load(gifData, mimeType: "image/gif", characterEncodingName: "UTF-8", baseURL: url.deletingLastPathComponent())
+        } else {
+            print("Error: Could not find or load 'puppy.gif' in the bundle.")
+        }
+
+        return webview
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        uiView.reload()
+    }
+}

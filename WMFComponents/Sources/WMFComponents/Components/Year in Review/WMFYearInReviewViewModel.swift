@@ -170,6 +170,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
 
     public var infoURL: URL?
     public let imageName: String
+    public let gifName: String?
     public let imageOverlay: String?
     public let imageOverlayAccessibilityLabel: String?
     public let textOverlay: String?
@@ -179,7 +180,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(imageName: String, gifName: String? = nil, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
@@ -190,6 +191,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.loggingID = loggingID
         self.infoURL = infoURL
 		self.hideDonateButton = hideDonateButton
+        self.gifName = gifName
     }
 }
 
