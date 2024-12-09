@@ -154,47 +154,7 @@ import CoreData
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
         }
-
-        // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
-            return false
-        }
-
-        var personalizedSlideCount = 0
-
-        for slide in yirReport.slides {
-            switch slide.id {
-            case .readCount:
-                if yirConfig.personalizedSlides.readCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .editCount:
-                if yirConfig.personalizedSlides.editCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .donateCount:
-                // Do nothing, this slide should not contribute to the personalized slide count
-                break
-            case .saveCount:
-                if yirConfig.personalizedSlides.saveCount.isEnabled, slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .mostReadDay:
-                if yirConfig.personalizedSlides.mostReadDay.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .viewCount:
-                if yirConfig.personalizedSlides.viewCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            }
-        }
-
-        return personalizedSlideCount >= 1
+        return true
     }
 
     // MARK: - Survey
