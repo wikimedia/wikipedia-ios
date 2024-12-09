@@ -545,25 +545,33 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
+        // We should only show personalized slides to logged in users. Logged out users will only see collective / base slides.
+        
         let personalizedSlides = getPersonalizedSlides()
-       
-        if let readCountSlide = personalizedSlides.readCount {
-            firstSlide = readCountSlide
-        }
-
-        if let mostReadDaySlide = personalizedSlides.mostReadDay {
-            secondSlide = mostReadDaySlide
-        }
-
-        if let saveCountSlide = personalizedSlides.saveCount {
-            thirdSlide = saveCountSlide
-        }
-
-        if let editCountSlide = personalizedSlides.editCount {
-            fourthSlide = editCountSlide
-        }
-
+        
         var hasPersonalizedDonateSlide = false
+        
+        // Product requirement: only logged in users should see personalized slide. Otherwise use collective.
+        if dataStore.authenticationManager.authStateIsPermanent {
+            
+            if let readCountSlide = personalizedSlides.readCount {
+                firstSlide = readCountSlide
+            }
+            
+            if let mostReadDaySlide = personalizedSlides.mostReadDay {
+                secondSlide = mostReadDaySlide
+            }
+            
+            if let saveCountSlide = personalizedSlides.saveCount {
+                thirdSlide = saveCountSlide
+            }
+            
+            if let editCountSlide = personalizedSlides.editCount {
+                fourthSlide = editCountSlide
+            }
+        }
+        
+        // Product requirement: Personalized donate slide should work regardless of logged-in/logged-out status
         if let donateCountSlide = personalizedSlides.donateCount {
             fifthSlide = donateCountSlide
             hasPersonalizedDonateSlide = true
