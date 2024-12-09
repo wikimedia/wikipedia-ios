@@ -759,6 +759,7 @@
 		67A6F14023BFF62300736539 /* ImageCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6F13F23BFF62200736539 /* ImageCacheController.swift */; };
 		67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */; };
 		67A7CA7528665CEF008D4BF6 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */; };
+		67A82D202D0239550068B363 /* MWKSavedPageList+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A82D1F2D02394E0068B363 /* MWKSavedPageList+Extensions.swift */; };
 		67AD17FF2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
@@ -3459,6 +3460,7 @@
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
 		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		67A82D1F2D02394E0068B363 /* MWKSavedPageList+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKSavedPageList+Extensions.swift"; sourceTree = "<group>"; };
 		67A986EC2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		67A986ED2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
 		67A986EE2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = az; path = az.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -5805,6 +5807,7 @@
 				672344CF2C98FBFA0021BB4F /* MWKDataStore+WMFPageViewImport.swift */,
 				B0E807B41C0CF0180065EBC0 /* MWKSavedPageList.h */,
 				B0E807B51C0CF0180065EBC0 /* MWKSavedPageList.m */,
+				67A82D1F2D02394E0068B363 /* MWKSavedPageList+Extensions.swift */,
 				D8C41DDA23FC09EE00353DCE /* NSManagedObjectContext+History.swift */,
 				D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */,
 				83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */,
@@ -11032,6 +11035,7 @@
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */,
 				0042808925E6E395004945B3 /* MTLModel.m in Sources */,
+				67A82D202D0239550068B363 /* MWKSavedPageList+Extensions.swift in Sources */,
 				6785FCC92A66D8DB0078FAF2 /* WMFCleanLevel.swift in Sources */,
 				0042807B25E6E395004945B3 /* MTLModel+NSCoding.m in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,

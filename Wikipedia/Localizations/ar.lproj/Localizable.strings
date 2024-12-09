@@ -153,9 +153,12 @@
 "advanced-settings-title" = "إعدادات متقدمة";
 "alt-text-add-button-title" = "أضف";
 "alt-text-do-not-add-button-title" = "لاتضع بإضافة";
+"alt-text-experiment-caption-title" = "تعليق الصورة";
 "alt-text-experiment-edit-summary" = "الإضافة كل شئ نص";
+"alt-text-experiment-onboarding-tooltip-3-title" = "أضف وصفًا";
 "alt-text-experiment-text-field-placholder" = "صف هذه الصورة";
 "alt-text-experiment-view-title" = "الإضافة كل شئ نص";
+"alt-text-feedback-survey-title" = "ساعد في تحسين هذه الميزة";
 "alt-text-modal-subtitle-image-recommendation" = "الصورة السابقة تفتقر إلى نص بديل. هل تريد إضافة وصف للصورة للقراء من ذوي الإعاقة البصرية؟";
 "alt-text-modal-subtitle-regular-edit" = "يوجد في المقالة صورة لا تحتوي على نص بديل انت عايز إضافة وصف للقراء اللذين لهم إعاقة بصرية؟";
 "alt-text-modal-title" = "أضف نص بديل للصورة المفقودة؟";
@@ -182,8 +185,10 @@
 "article-languages-yours" = "لغاتك";
 "article-read-more-title" = "إقرأ أيضا";
 "article-reference-view-title" = "$1 مرجع";
+"article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
+"article-talk-page" = "صفحة نقاش المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
 "back-button-accessibility-label" = "ارجع";
 "back-button-popover-title" = "اضغط للعودة";
@@ -278,6 +283,7 @@
 "diff-thanks-sent-cannot-unsend" = "شكرا لا يمكن أن تكون غير مرسلة";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 سطر غير معدل|$1 أسطر غير معدلة}}";
 "dim-images" = "صور باهتة";
+"donate-success-title" = "شكرًا لك!";
 "edit-link-display-text-title" = "نص العرض";
 "edit-link-link-target-title" = "رابط الهدف";
 "edit-link-remove-link-title" = "إزالة الرابط";
@@ -314,6 +320,7 @@
 "editor-exit-confirmation-body" = "هل أنت متأكد أنك تريد ترك وضع التحرير دون النشر أولاً؟";
 "editor-exit-confirmation-message" = "هل انت متاكد من انك تريد اهمال هذه التعديلات؟";
 "editor-exit-confirmation-title" = "رفض وضع التحرير؟";
+"editor-keyboard-list-unordered-accessibility" = "قائمة غير مرتبة";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
 "empty-insert-media-title" = "حدد ملفا من ويكيميديا ​​كومنز";

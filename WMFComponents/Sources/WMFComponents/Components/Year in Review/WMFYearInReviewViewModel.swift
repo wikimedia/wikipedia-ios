@@ -24,7 +24,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
     weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
-        
+    var hasSeenTwoSlides: Bool = false
+
     @Published public var isLoading: Bool = false
 
     public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
@@ -45,7 +46,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     public func nextSlide() {
         if isLastSlide {
-            coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: true))
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: true))
         } else {
             currentSlide = (currentSlide + 1) % slides.count
         }
@@ -62,8 +63,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideCTA: String
         let firstSlideLearnMore: String
         public let shareText: String
+        public let wIconAccessibilityLabel: String
+        public let globeImageAccessibilityLabel: String
+        public let wmfLogoImageAccessibilityLabel: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, globeImageAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -74,6 +78,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideCTA = firstSlideCTA
             self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
+            self.wIconAccessibilityLabel = wIconAccessibilityLabel
+            self.globeImageAccessibilityLabel = globeImageAccessibilityLabel
+            self.wmfLogoImageAccessibilityLabel = wmfLogoImageAccessibilityLabel
         }
 
     }
@@ -85,7 +92,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDone() {
-        coordinatorDelegate?.handleYearInReviewAction(.dismiss(isLastSlide: isLastSlide))
+        coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
     }
     
     func handleDonate(sourceRect: CGRect) {
@@ -97,10 +104,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
         if slides.count - 1 == currentSlide && !hasPersonalizedDonateSlide {
             shouldShowDonate = true
         }
+
+        // Always verify for regions we cannot ask for donations
+        shouldShowDonate = !shouldHideDonateButtonForCertainRegions()
+
         coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
-    
+
     func logYearInReviewSlideDidAppear() {
         loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: slideLoggingID)
     }
@@ -140,18 +151,27 @@ public class WMFYearInReviewViewModel: ObservableObject {
             badgeDelegate?.didSeeFirstSlide()
         }
     }
-    
+
     public func handleInfo() {
         if let url = slides[currentSlide].infoURL {
             coordinatorDelegate?.handleYearInReviewAction(.info(url: url))
         }
     }
+
+    public func shouldHideDonateButtonForCertainRegions() -> Bool {
+        guard let dataController = try? WMFYearInReviewDataController() else {
+            return false
+        }
+        return dataController.shouldHideDonateButton()
+    }
 }
 
 public struct YearInReviewSlideContent: SlideShowProtocol {
+
     public var infoURL: URL?
     public let imageName: String
     public let imageOverlay: String?
+    public let imageOverlayAccessibilityLabel: String?
     public let textOverlay: String?
     public let title: String
     let informationBubbleText: String?
@@ -159,9 +179,10 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(imageName: String, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageName = imageName
         self.imageOverlay = imageOverlay
+        self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
         self.title = title
         self.informationBubbleText = informationBubbleText

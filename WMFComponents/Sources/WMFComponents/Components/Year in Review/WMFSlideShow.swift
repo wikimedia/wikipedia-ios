@@ -35,6 +35,7 @@ public struct WMFSlideShow: View {
                     scrollViewContents: slideView(slide: slide),
                     hasLargeInsets: false,
                     imageName: slides[slide].imageName,
+                    imageOverlayAccessibilityLabel: slides[slide].imageOverlayAccessibilityLabel,
                     imageOverlay: slides[slide].imageOverlay,
                     textOverlay: slides[slide].textOverlay
                 )
@@ -57,7 +58,7 @@ public struct WMFSlideShow: View {
                 Text(slides[slide].title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
                 if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                     Button {
@@ -66,7 +67,10 @@ public struct WMFSlideShow: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .foregroundStyle(Color(uiColor: theme.icon))
-                            .frame(width: 24, height: 24, alignment: .trailing)
+                            .frame(width: 24, height: 24)
+                            .alignmentGuide(.top) { dimensions in
+                                dimensions[.top] - 5
+                            }
                     }
                 }
             }
@@ -85,6 +89,7 @@ public protocol SlideShowProtocol {
     var subtitle: String { get }
     var imageName: String { get }
     var imageOverlay: String? { get }
+    var imageOverlayAccessibilityLabel: String? { get }
     var textOverlay: String? { get }
     var infoURL: URL? { get }
 }

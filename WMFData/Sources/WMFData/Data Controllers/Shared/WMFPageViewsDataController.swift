@@ -231,6 +231,4 @@ public final class WMFPageViewsDataController {
         
         return results
     }
-
-
 }

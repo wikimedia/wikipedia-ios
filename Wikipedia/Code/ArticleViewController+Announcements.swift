@@ -131,7 +131,7 @@ extension ArticleViewController {
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
-
+    
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
@@ -145,7 +145,6 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
-        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }

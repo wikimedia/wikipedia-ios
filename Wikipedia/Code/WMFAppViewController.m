@@ -395,7 +395,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+
     [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+    
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -2218,14 +2220,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
+            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];
     });
-
-    [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {

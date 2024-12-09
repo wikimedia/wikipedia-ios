@@ -78,7 +78,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         )
         
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-        
         var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let primaryAppLanguageProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
@@ -150,8 +149,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            dismissProfile {
-                self.showYearInReview()
+            
+            if let viewModel, !viewModel.isUserLoggedIn() {
+                presentLoginPrompt()
+            } else {
+                dismissProfile {
+                    self.showYearInReview()
+                }
             }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
@@ -176,6 +180,43 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     private func showYearInReview() {
         yirCoordinator.start()
+    }
+    
+    private func presentLoginPrompt() {
+        let title = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in for access to Year in Review", comment: "Title of alert that asks user to login if they are entering Year in Review.")
+        let subtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Log in or create an account to see Year in Review again and be eligible for more personalized insights.", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let button1Title = CommonStrings.joinLoginTitle
+        let button2Title = CommonStrings.noThanksTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+                    
+            guard let self else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLoginProfile()
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            loginCoordinator.loginSuccessCompletion = {
+                self.dismissProfile {
+                    self.showYearInReview()
+                }
+            }
+
+            loginCoordinator.start()
+        }
+        
+        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanksProfile()
+        }
+        
+        if let presentedViewController = navigationController.presentedViewController {
+            alert.addAction(action1)
+            alert.addAction(action2)
+            
+            presentedViewController.present(alert, animated: true)
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
+        }
     }
     
     func showDonate() {

@@ -21,6 +21,7 @@
 // Author: Giuseppe Forte
 // Author: GpieroMW
 // Author: Greis
+// Author: HNordeen (WMF)
 // Author: IrsY
 // Author: JackLantern
 // Author: Lorelai87
@@ -1001,7 +1002,7 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
-"year-in-review-base-donate-subtitle" = "Wikipedia è ospitata dalla Wikimedia Foundation e finanziata da donazioni individuali. Lavoriamo per mantenere i siti Wikimedia disponibili a tutti, per creare funzionalità e strumenti che facilitino la condivisione della conoscenza, per supportare le community di redattori volontari e non solo. [Scopri di più sul nostro lavoro]($1).";
+"year-in-review-base-donate-subtitle" = "Wikipedia è gestita dalla Wikimedia Foundation e finanziata da donazioni individuali. Lavoriamo per mantenere i siti Wikimedia disponibili a tutti, per creare funzionalità e strumenti che facilitino la condivisione della conoscenza, per supportare le community di redattori volontari e non solo. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-base-donate-title" = "0 annunci pubblicati su Wikipedia";
 "year-in-review-base-editors-subtitle" = "Quest'anno la community di redattori volontari di Wikipedia ha apportato più di $1 modifiche all'app iOS. Il cuore e l'anima di Wikipedia sono costituiti dalla community internazionale di contributori volontari, di donatori e di miliardi di lettori come te, uniti per condividere un accesso illimitato a un'informazione affidabile.";
 "year-in-review-base-editors-title" = "I redattori dell'app iOS hanno apportato più di $1 modifiche";
@@ -1017,13 +1018,13 @@
 "year-in-review-feature-announcement-body" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia, condividi il tuo percorso e scopri i punti forti della tua annata.";
 "year-in-review-feature-announcement-title" = "Esplora la tua rassegna annuale di Wikipedia";
 "year-in-review-finish" = "Termina";
-"year-in-review-personalized-donate-subtitle" = "Grazie per il tuo sostegno a Wikipedia e alla creazione di un mondo in cui la conoscenza sia gratuita per tutti. Ogni singola modifica o donazione serve ad arricchire l’accesso a informazioni accurate e affidabili, soprattutto in una realtà in rapido cambiamento. [Scopri di più sul nostro lavoro]($1).";
+"year-in-review-personalized-donate-subtitle" = "Grazie per il tuo sostegno a Wikipedia e a un mondo in cui la conoscenza sia gratuita per tutti. Ogni singola modifica o donazione serve ad arricchire l’accesso a informazioni accurate e affidabili, soprattutto in una realtà in rapido cambiamento. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "Grazie per il tuo contributo!";
 "year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Hai modificato Wikipedia più di 500 volte. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia più di 500 volte";
-"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto {{PLURAL:$1|$1 voce|$1 voci}}. Le voci presenti su Wikipedia quest'anno sono $2 milioni, in oltre $3 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
+"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto {{PLURAL:$1|$1 voce|$1 voci}}, e le voci presenti su Wikipedia quest'anno sono $2 milioni, in oltre $3 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} quest'anno";
 "year-in-review-share-text" = "Ecco la mia rassegna annuale di Wikipedia. Creata con l'app Wikipedia per iOS";
 "year-in-review-subtitle" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia e sulle modifiche apportate. La cronologia delle tue letture rimane protetta. Gli approfondimenti sulle letture vengono determinati utilizzando i dati archiviati localmente sul tuo dispositivo.";
