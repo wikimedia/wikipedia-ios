@@ -606,6 +606,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         if let saveCountSlide = personalizedSlides.saveCount {
             thirdSlide = saveCountSlide
         }
+        
+        if let viewCountSlide = personalizedSlides.viewCount {
+            fifthSlide = viewCountSlide
+        }
 
         if let editCountSlide = personalizedSlides.editCount {
             sixthSlide = editCountSlide
