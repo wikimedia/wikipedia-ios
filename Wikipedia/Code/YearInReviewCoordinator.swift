@@ -609,20 +609,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlide = donateCountSlide
             hasPersonalizedDonateSlide = true
         }
-       
-        let slides: [YearInReviewSlideContent] = [
-           collectiveReadingBroughtUsTogetherSlide,
-           collectiveArticleViewsSlide,
-           collectiveSavedArticlesSlide,
-           collectiveAmountEditsSlide,
-           collectiveEditsPerMinuteSlide,
-           collectiveZeroAdsSlide
-       ]
-
+        
        let appShareLink = WMFYearInReviewDataController.appShareLink
        let hashtag = "#WikipediaYearInReview"
 
-        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: slides, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
+        let viewModel = WMFYearInReviewViewModel(localizedStrings: localizedStrings, slides: finalSlides, shareLink: appShareLink, hashtag: hashtag, hasPersonalizedDonateSlide: hasPersonalizedDonateSlide, coordinatorDelegate: self, loggingDelegate: self, badgeDelegate: badgeDelegate)
 
         let yirview = WMFYearInReviewView(viewModel: viewModel)
 
