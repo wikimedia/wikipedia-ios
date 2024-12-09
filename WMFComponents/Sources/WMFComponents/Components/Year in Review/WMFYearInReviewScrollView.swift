@@ -21,8 +21,7 @@ public struct WMFYearInReviewScrollView: View {
     let scrollViewContents: AnyView
     let contents: AnyView?
     let hasLargeInsets: Bool
-    let imageName: String
-    let gifName: String?
+    let gifName: String
     let imageOverlay: String?
     let imageOverlayAccessibilityLabel: String?
     let textOverlay: String?
@@ -31,8 +30,7 @@ public struct WMFYearInReviewScrollView: View {
         scrollViewContents: ScrollViewContent,
         @ViewBuilder contents: () -> AnyView? = { nil },
         hasLargeInsets: Bool = true,
-        imageName: String,
-        gifName: String? = nil,
+        gifName: String,
         imageOverlayAccessibilityLabel: String? = nil,
         imageOverlay: String? = nil,
         textOverlay: String? = nil
@@ -40,7 +38,6 @@ public struct WMFYearInReviewScrollView: View {
         self.scrollViewContents = AnyView(scrollViewContents)
         self.contents = contents()
         self.hasLargeInsets = hasLargeInsets
-        self.imageName = imageName
         self.imageOverlay = imageOverlay
         self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
@@ -52,19 +49,16 @@ public struct WMFYearInReviewScrollView: View {
     @available(iOS 17.0, *)
     var flashingScrollView: some View {
         ScrollView(showsIndicators: true) {
-            VStack {
-                if let gifName {
-                    GifImageView(gifName)
-                        .aspectRatio(1.5, contentMode: .fill)
-                        .frame(maxWidth: .infinity)
-                } else {
-                    Image(imageName, bundle: .module)
+            VStack(spacing: 16) {
+                ZStack {
+                    Image(gifName, bundle: .module)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .ignoresSafeArea()
-                        .padding(.horizontal, 0)
                         .accessibilityHidden(true)
+                    WMFGIFfImageView(gifName)
+                        .aspectRatio(1.5, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
                 }
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
@@ -77,29 +71,14 @@ public struct WMFYearInReviewScrollView: View {
         ScrollView(showsIndicators: true) {
             VStack(spacing: 16) {
                 ZStack {
-                    Image(imageName, bundle: .module)
+                    Image(gifName, bundle: .module)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .ignoresSafeArea()
-                        .padding(.horizontal, 0)
                         .accessibilityHidden(true)
-
-                    if let imageOverlay {
-                        if let imageOverlayAccessibilityLabel {
-                            Image(imageOverlay, bundle: .module)
-                                .accessibilityLabel(imageOverlayAccessibilityLabel)
-                        } else {
-                            Image(imageOverlay, bundle: .module)
-                                .accessibilityHidden(true)
-                        }
-                    }
-                    
-                    if let overlayText = textOverlay {
-                        Text(overlayText)
-                            .font(Font(WMFFont.for(.xxlTitleBold)))
-                            .foregroundColor(.white)
-                    }
+                    WMFGIFfImageView(gifName)
+                        .aspectRatio(1.5, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
                 }
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))

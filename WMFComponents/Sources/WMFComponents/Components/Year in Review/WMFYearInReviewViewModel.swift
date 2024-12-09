@@ -86,7 +86,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func handleShare(for slide: Int) {
-        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].imageName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag)
+        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].gifName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag)
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
@@ -169,8 +169,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 public struct YearInReviewSlideContent: SlideShowProtocol {
 
     public var infoURL: URL?
-    public let imageName: String
-    public let gifName: String?
+    public let gifName: String
     public let imageOverlay: String?
     public let imageOverlayAccessibilityLabel: String?
     public let textOverlay: String?
@@ -180,8 +179,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, gifName: String? = nil, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
-        self.imageName = imageName
+    public init(gifName: String, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.imageOverlay = imageOverlay
         self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
         self.textOverlay = textOverlay
