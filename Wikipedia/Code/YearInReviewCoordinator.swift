@@ -593,6 +593,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
+        // We should only show personalized slides to logged in users. Logged out users will only see collective / base slides.
+        
         let personalizedSlides = getPersonalizedSlides()
         
         let finalSlides: [YearInReviewSlideContent] = [
