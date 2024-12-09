@@ -532,7 +532,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        var collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
+        let collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
            imageName: "read",
            textOverlay: collectiveNumArticlesNumber,
            title: collectiveReadingBroughtUsTogetherSlideTitle,
@@ -542,7 +542,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
 
-        var collectiveArticleViewsSlide = YearInReviewSlideContent(
+        let collectiveArticleViewsSlide = YearInReviewSlideContent(
             imageName: "viewed",
             textOverlay: collectiveNumViewsNumber,
             title: collectiveArticleViewsSlideTitle,
@@ -552,7 +552,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
-        var collectiveSavedArticlesSlide = YearInReviewSlideContent(
+        let collectiveSavedArticlesSlide = YearInReviewSlideContent(
             imageName: "edits",
             textOverlay: collectiveNumReadingLists,
             title: collectiveSavedArticlesSlideTitle,
@@ -562,7 +562,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
-        var collectiveAmountEditsSlide = YearInReviewSlideContent(
+        let collectiveAmountEditsSlide = YearInReviewSlideContent(
            imageName: "edits",
            textOverlay: collectiveNumEditsNumber,
            title: collectiveAmountEditsSlideTitle,
@@ -572,7 +572,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
         
-        var collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
+        let collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
             imageName: "editedPerMinute",
             textOverlay: collectiveNumEditsPerMinuteNumber,
             title: collectiveEditsPerMinuteSlideTitle,
@@ -582,7 +582,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
-        var collectiveZeroAdsSlide = YearInReviewSlideContent(
+        let collectiveZeroAdsSlide = YearInReviewSlideContent(
             imageName: "thankyou",
             imageOverlay: "wmf-logo",
             imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
@@ -593,18 +593,27 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
-        // We should only show personalized slides to logged in users. Logged out users will only see collective / base slides.
-        
         let personalizedSlides = getPersonalizedSlides()
         
-        let finalSlides: [YearInReviewSlideContent] = [
-            (personalizedSlides.readCount ?? collectiveReadingBroughtUsTogetherSlide),
-            (personalizedSlides.mostReadDay ?? collectiveArticleViewsSlide),
-            (personalizedSlides.saveCount ?? collectiveSavedArticlesSlide),
-            (personalizedSlides.editCount ?? collectiveAmountEditsSlide),
-            (personalizedSlides.viewCount ?? collectiveEditsPerMinuteSlide),
-            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)
-        ]
+        
+        let finalSlides: [YearInReviewSlideContent]
+        
+        // We should only show non-donate personalized slides to logged in users.
+        if dataStore.authenticationManager.authStateIsPermanent {
+            finalSlides = [(personalizedSlides.readCount ?? collectiveReadingBroughtUsTogetherSlide),
+                           (personalizedSlides.mostReadDay ?? collectiveArticleViewsSlide),
+                           (personalizedSlides.saveCount ?? collectiveSavedArticlesSlide),
+                           (personalizedSlides.editCount ?? collectiveAmountEditsSlide),
+                           (personalizedSlides.viewCount ?? collectiveEditsPerMinuteSlide),
+                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
+        } else {
+            finalSlides = [(collectiveReadingBroughtUsTogetherSlide),
+                           (collectiveArticleViewsSlide),
+                           (collectiveSavedArticlesSlide),
+                           (collectiveAmountEditsSlide),
+                           (collectiveEditsPerMinuteSlide),
+                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
+        }
         
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
