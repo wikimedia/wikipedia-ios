@@ -31,7 +31,7 @@ let package = Package(
             ],
             path: "Sources/WMFComponents",
             resources: [
-                .process("Resources/puppy.gif")
+                .process("Resources")
             ]
         ),
         .testTarget(

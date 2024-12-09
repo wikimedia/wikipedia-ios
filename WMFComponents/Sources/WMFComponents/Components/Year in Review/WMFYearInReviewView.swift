@@ -50,10 +50,10 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         imageName: "intro",
+                        gifName: "all-slide-01",
                         imageOverlayAccessibilityLabel: viewModel.localizedStrings.globeImageAccessibilityLabel,
                         imageOverlay: "globe_yir")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
                             viewModel.markFirstSlideAsSeen()
@@ -180,18 +180,19 @@ struct GifImageView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> WKWebView {
-        print("Bundle path: \(Bundle.module.bundlePath)")
-        if let urls = Bundle.module.urls(forResourcesWithExtension: "gif", subdirectory: "Resources") {
-            print("Available resources: \(urls)")
-        }
-
         let webview = WKWebView()
+        webview.scrollView.contentInset = .zero
+        webview.scrollView.contentInsetAdjustmentBehavior = .never
+        webview.scrollView.bounces = false 
+        webview.isOpaque = false
+        webview.backgroundColor = .clear
+        webview.scrollView.isScrollEnabled = false
 
         if let url = Bundle.module.url(forResource: name, withExtension: "gif"),
            let gifData = try? Data(contentsOf: url) {
             webview.load(gifData, mimeType: "image/gif", characterEncodingName: "UTF-8", baseURL: url.deletingLastPathComponent())
         } else {
-            print("Error: Could not find or load 'puppy.gif' in the bundle.")
+            print("Error: Could not find or load gif: \(name).")
         }
 
         return webview

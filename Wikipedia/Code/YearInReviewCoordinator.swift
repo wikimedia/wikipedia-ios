@@ -429,7 +429,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
                             imageName: "read",
-                            gifName: "puppy",
+                            gifName: "personal-slide-01",
                             textOverlay: personalizedSlide1Overlay(readCount: readCount),
                             title: personalizedYouReadSlideTitle(readCount: readCount),
                             informationBubbleText: nil,
@@ -446,6 +446,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
                             imageName: "edits",
+                            gifName: "personal-slide-04",
                             textOverlay: personalizedSlide3Overlay(editCount: editCount),
                             title: editCount >= 500 ? personzlizedUserEditsSlideTitle500Plus() : personzlizedUserEditsSlideTitle(editCount: editCount),
                             informationBubbleText: nil,
@@ -462,8 +463,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let donateCount = try? decoder.decode(Int.self, from: data),
                        donateCount > 0 {
                         donateCountSlide = YearInReviewSlideContent(
-                            imageName: "thankyou",
-                            imageOverlay: "wmf-logo",
+                            imageName: "all-slide-06",
                             imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
                             title: personalizedThankYouTitle,
                             informationBubbleText: nil,
@@ -483,6 +483,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                         let count = savedSlideData.savedArticlesCount
                         saveCountSlide = YearInReviewSlideContent(
                             imageName: "read",
+                            gifName: "personal-slide-03",
                             textOverlay: personalizedSaveCountSlideOverlay(saveCount: count),
                             title: personalizedSaveCountSlideTitle(saveCount: count),
                             informationBubbleText: nil,
@@ -500,6 +501,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        mostReadDay.getViewCount() > 0 {
                         mostReadDaySlide = YearInReviewSlideContent(
                             imageName: "viewed",
+                            gifName: "personal-slide-02",
                             textOverlay: getLocalizedDay(day: mostReadDay.getDay()),
                             title: personalizedDaySlideTitle(day: mostReadDay.getDay()),
                             informationBubbleText: nil,
@@ -517,6 +519,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        viewCount > 0 {
                         viewCountSlide = YearInReviewSlideContent(
                             imageName: "viewed",
+                            gifName: "personal-slide-05s",
                             textOverlay: String(viewCount),
                             title: personalizedYourEditsViewedSlideTitle(views: viewCount),
                             informationBubbleText: nil,
@@ -535,7 +538,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
         let collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
            imageName: "read",
-           gifName: "puppy",
+           gifName: "non-english-slide-01",
            textOverlay: collectiveNumArticlesNumber,
            title: collectiveReadingBroughtUsTogetherSlideTitle,
            informationBubbleText: nil,
@@ -546,6 +549,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveArticleViewsSlide = YearInReviewSlideContent(
             imageName: "viewed",
+            gifName: "english-slide-02",
             textOverlay: collectiveNumViewsNumber,
             title: collectiveArticleViewsSlideTitle,
             informationBubbleText: nil,
@@ -556,6 +560,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveSavedArticlesSlide = YearInReviewSlideContent(
             imageName: "edits",
+            gifName: "english-slide-03",
             textOverlay: collectiveNumReadingLists,
             title: collectiveSavedArticlesSlideTitle,
             informationBubbleText: nil,
@@ -566,6 +571,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveAmountEditsSlide = YearInReviewSlideContent(
            imageName: "edits",
+           gifName: "english-slide-04",
            textOverlay: collectiveNumEditsNumber,
            title: collectiveAmountEditsSlideTitle,
            informationBubbleText: nil,
@@ -576,6 +582,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
             imageName: "editedPerMinute",
+            gifName: "english-slide-05",
             textOverlay: collectiveNumEditsPerMinuteNumber,
             title: collectiveEditsPerMinuteSlideTitle,
             informationBubbleText: nil,
@@ -585,7 +592,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hideDonateButton: shoudlHideDonateButton())
         
         let collectiveZeroAdsSlide = YearInReviewSlideContent(
-            imageName: "thankyou",
+            imageName: "all-slide-06",
             imageOverlay: "wmf-logo",
             imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
             title: collectiveZeroAdsSlideTitle,

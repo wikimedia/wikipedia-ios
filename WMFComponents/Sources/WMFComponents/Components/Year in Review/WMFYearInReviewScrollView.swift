@@ -52,40 +52,19 @@ public struct WMFYearInReviewScrollView: View {
     @available(iOS 17.0, *)
     var flashingScrollView: some View {
         ScrollView(showsIndicators: true) {
-            VStack(spacing: 16) {
-                ZStack {
-                    if let gifName {
-                        GifImageView(gifName)
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
-                            .ignoresSafeArea()
-                            .padding(.horizontal, 0)
-                            .accessibilityHidden(true)
-                    } else {
-                        Image(imageName, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
-                            .ignoresSafeArea()
-                            .padding(.horizontal, 0)
-                            .accessibilityHidden(true)
-                    }
-
-                    if let imageOverlay {
-                        if let imageOverlayAccessibilityLabel {
-                            Image(imageOverlay, bundle: .module)
-                                .accessibilityLabel(imageOverlayAccessibilityLabel)
-                        } else {
-                            Image(imageOverlay, bundle: .module)
-                                .accessibilityHidden(true)
-                        }
-                    }
-
-                    if let overlayText = textOverlay {
-                        Text(overlayText)
-                            .font(Font(WMFFont.for(.xxlTitleBold)))
-                            .foregroundColor(.white)
-                    }
+            VStack {
+                if let gifName {
+                    GifImageView(gifName)
+                        .aspectRatio(1.5, contentMode: .fill)
+                        .frame(maxWidth: .infinity)
+                } else {
+                    Image(imageName, bundle: .module)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .ignoresSafeArea()
+                        .padding(.horizontal, 0)
+                        .accessibilityHidden(true)
                 }
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
