@@ -132,9 +132,9 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        let importRequests: [WMFPageViewImportRequest] = [
-            WMFPageViewImportRequest(title: "Cat", project: enProject, viewedDate: todayDate),
-            WMFPageViewImportRequest(title: "Felis silvestris catus", project: esProject, viewedDate: yesterdayDate)
+        let importRequests: [WMFLegacyPageView] = [
+            WMFLegacyPageView(title: "Cat", project: enProject, viewedDate: todayDate),
+            WMFLegacyPageView(title: "Felis silvestris catus", project: esProject, viewedDate: yesterdayDate)
         ]
         
         try await dataController.importPageViews(requests: importRequests)
