@@ -49,7 +49,7 @@ public struct WMFYearInReviewView: View {
                     WMFYearInReviewScrollView(
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
-                        gifName: "all-slide-01",
+                        gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
                         imageOverlayAccessibilityLabel: viewModel.localizedStrings.globeImageAccessibilityLabel,
                         imageOverlay: "globe_yir")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

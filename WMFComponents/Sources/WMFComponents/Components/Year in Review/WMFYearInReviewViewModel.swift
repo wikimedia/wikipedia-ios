@@ -25,10 +25,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
     var hasSeenTwoSlides: Bool = false
+    public let isUserAuth: Bool
 
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserAuth: Bool) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
@@ -38,6 +39,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
+        self.isUserAuth = isUserAuth
     }
 
     public func getStarted() {

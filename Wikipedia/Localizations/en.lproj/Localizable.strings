@@ -1420,8 +1420,11 @@
 "year-in-review-day-wednesday" = "Wednesdays";
 "year-in-review-donate" = "Donate";
 "year-in-review-donate-now" = "Donate now";
-"year-in-review-feature-announcement-body" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
-"year-in-review-feature-announcement-title" = "Explore your Wikipedia Year in Review";
+"year-in-review-feature-announcement-body" = "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.";
+"year-in-review-feature-announcement-title" = "Explore Wikipedia in Review";
+"year-in-review-feature-announcement-title-personalized" = "Explore your Wikipedia Year in Review";
+"year-in-review-feature-explore-body" = "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ";
+"year-in-review-feature-explore-body-personalized" = "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-finish" = "Finish";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalied insights";
 "year-in-review-login-title" = "Improve your Year in Review";
@@ -1440,7 +1443,6 @@
 "year-in-review-personalized-saved-subtitle-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this year, including \"$2\", \"$3\" and \"$4\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-share-text" = "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app";
-"year-in-review-subtitle" = "See insights about which articles you read on the Wikipedia app and the edits you made. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-survey-additional-thoughts" = "Any additional thoughts?";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Satisfied";

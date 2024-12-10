@@ -1422,6 +1422,9 @@
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
 "year-in-review-feature-announcement-body" = "Body for year in review feature announcement";
 "year-in-review-feature-announcement-title" = "Title for year in review feature announcement";
+"year-in-review-feature-announcement-title-personalized" = "Title for year in review feature announcement";
+"year-in-review-feature-explore-body" = "Body for year in review feature announcement";
+"year-in-review-feature-explore-body-personalized" = "Body for year in review feature announcement";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
@@ -1440,7 +1443,6 @@
 "year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved, $2, $3 and $4 are replaced with the names  three random articles the user saved.";
 "year-in-review-personalized-saved-title-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved.";
 "year-in-review-share-text" = "Text shared the Year In Review slides";
-"year-in-review-subtitle" = "Year in review page information";
 "year-in-review-survey-additional-thoughts" = "Year in review survey placeholder for additional thoughts textfield. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-neutral" = "Year in review survey option 3 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-satisfied" = "Year in review survey option 2 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
