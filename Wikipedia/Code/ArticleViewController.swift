@@ -165,6 +165,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var donateCoordinator: DonateCoordinator?
     
     private var overlayHeightConstraint: NSLayoutConstraint?
+    private var stackViewTopConstraint: NSLayoutConstraint?
+    private var searchBarIsAnimating = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -383,6 +385,21 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         tableOfContentsController.updateVerticalPaddings(top: view.safeAreaInsets.top, bottom: toolbar.frame.height)
         updateWebViewContentInset()
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        guard searchBarIsAnimating else {
+            stackViewTopConstraint?.constant = view.safeAreaInsets.top
+            view.layoutIfNeeded()
+            return
+        }
+        
+        stackViewTopConstraint?.constant = view.safeAreaInsets.top
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     internal func updateArticleMargins() {
@@ -1508,7 +1525,17 @@ private extension ArticleViewController {
 
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
-         view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
+        tableOfContentsController.stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableOfContentsController.stackView)
+        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
+        NSLayoutConstraint.activate([
+            stackViewTopConstraint,
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+        ])
+        
+        self.stackViewTopConstraint = stackViewTopConstraint
         
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
 
@@ -1905,10 +1932,12 @@ extension ArticleViewController: UISearchControllerDelegate {
         
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
+        searchBarIsAnimating = true
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
+        searchBarIsAnimating = false
     }
 
 }
