@@ -6,6 +6,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar)
 }
 
 // Wrapper for accessing View in Objective-C
@@ -102,26 +103,19 @@ class SavedViewController: ThemeableViewController {
                 if let searchBar = navigationItem.searchController?.searchBar {
                     searchBar.placeholder = "Search saved articles"
                 }
-                
-                if let editButton = navigationItem.rightBarButtonItems?.first {
-                    navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
-                }
             case .readingLists :
-                readingListsViewController?.editController.navigationDelegate = self
-                savedArticlesViewController?.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addSavedChildViewController(readingListsViewController)
+                savedArticlesViewController?.editController.navigationDelegate = nil
+                readingListsViewController?.editController.navigationDelegate = self
+                savedDelegate = readingListsViewController
                 // scrollView = readingListsViewController?.collectionView
-                extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
                 extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
                 evaluateEmptyState()
                 ReadingListsFunnel.shared.logTappedReadingListsTab()
                 if let searchBar = navigationItem.searchController?.searchBar {
                     searchBar.placeholder = "Search reading lists"
-                }
-                if let editButton = navigationItem.rightBarButtonItems?.first {
-                    navigationItem.rightBarButtonItems = [editButton]
                 }
             }
         }
@@ -366,6 +360,13 @@ class SavedViewController: ThemeableViewController {
         return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
     }()
     
+    private lazy var fixedSpaceBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        button.width = 20
+        return button
+        
+    }()
+    
     @objc func didTapSort(_ sender: UIBarButtonItem) {
         savedDelegate?.savedWillShowSortAlert(self, from: sender)
     }
@@ -387,7 +388,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         sortBarButtonItem.tintColor = theme.colors.link
         editButton?.tintColor = theme.colors.link
         
-        navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem].compactMap {$0}
+        navigationItem.rightBarButtonItems = [editButton, fixedSpaceBarButtonItem, sortBarButtonItem].compactMap {$0}
         
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
@@ -459,6 +460,9 @@ extension SavedViewController: UISearchBarDelegate {
             currentView = .readingLists
         }
         logTappedView(currentView)
+        
+        searchBar.text = nil
+        savedDelegate?.saved(self, scopeBarIndexDidChange: searchBar)
     }
 }
 

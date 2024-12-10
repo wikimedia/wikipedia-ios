@@ -10,7 +10,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection {
+class ReadingListsViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection {
     
     fileprivate static let headerReuseIdentifier = "CreateNewReadingListButtonView"
 
@@ -26,6 +26,42 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
     private var needsCreateReadingListButton: Bool = false
+    
+    // MARK: - Searching
+    
+    var searchString: String?
+    
+    var searchPredicate: NSPredicate? {
+        guard let searchString = searchString else {
+            return nil
+        }
+        return NSPredicate(format: "(canonicalName CONTAINS[cd] '\(searchString)')")
+    }
+    
+    // MARK: - Sorting
+    
+    private var sortActionType = SortActionType.byTitle
+    
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let moc = dataStore.viewContext
+        let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
+            self?.sortActionType = SortActionType(rawValue: rawValue) ?? .byTitle
+        }
+        
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
+            updateSortOrder(rawValue)
+            self?.reset()
+        }
+        
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)], handler: handler)
+        let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingList.createdDate, ascending: false)], handler: handler)
+        
+        return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
+    }()
+    
+    lazy var sortAlert: UIAlertController = {
+        alert(title: CommonStrings.sortAlertTitle, message: nil)
+    }()
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -46,15 +82,23 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
-            var predicate = basePredicate
+            
+            var predicates: [NSPredicate] = [basePredicate]
             if !isDefaultListEnabled {
-                predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
+                predicates.append(NSPredicate(format: "isDefault != YES"))
             }
-            request.predicate = predicate
+            
+            if let searchPredicate {
+                predicates.append(searchPredicate)
+            }
+            
+            let finalPredicate = predicates.count == 1 ? predicates.first : NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+
+            request.predicate = finalPredicate
         }
         
-        var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
+        let sortDescriptors = sortActions[sortActionType]?.sortDescriptors
+        // sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
@@ -475,4 +519,61 @@ extension ReadingListsViewController: ActionDelegate {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
 
+}
+
+// MARK: - SavedViewControllerDelegate
+
+extension ReadingListsViewController: SavedViewControllerDelegate {
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
+        presentSortAlert(from: button)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchString(searchText)
+        
+        if searchText.isEmpty {
+            makeSearchBarResignFirstResponder(searchBar)
+        }
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
+        // navigationBar.isInteractiveHidingEnabled = false
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        updateSearchString("")
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        // navigationBar.isInteractiveHidingEnabled = true
+    }
+    
+    func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {
+        updateSearchString("")
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+}
+
+// MARK: - SortableCollection
+
+extension ReadingListsViewController: SortableCollection {
+    
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+
+        guard let sortAction = sortActions[sortActionType] else {
+            return ([], nil)
+        }
+        
+        return (sortAction.sortDescriptors, sortAction.alertAction)
+    }
+    
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
 }
