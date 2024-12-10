@@ -61,6 +61,10 @@ public final class MediaWikiFetcher: Fetcher, WMFService {
                     completion(.success(result))
                 }
             })
+        case (.GET, .mediaWikiREST):
+            
+            performGet(url: url, parameters: request.parameters, completion: completion)
+            
         case (.POST, .mediaWiki):
             guard let tokenType = mediaWikiRequest.tokenType,
                   let stringParameters = request.parameters as? [String: String] else {
@@ -122,6 +126,28 @@ public final class MediaWikiFetcher: Fetcher, WMFService {
     
     private func performPut(url: URL, parameters: [String: Any?]?, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         let task = session.jsonDictionaryTask(with: url, method: .put, bodyParameters: parameters) { dict, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let response else {
+                completion(.failure(RequestError.unexpectedResponse))
+                return
+            }
+            
+            guard HTTPStatusCode.isSuccessful(response.statusCode) else {
+                completion(.failure(RequestError.http(response.statusCode)))
+                return
+            }
+            
+            completion(.success(dict))
+        }
+        task?.resume()
+    }
+    
+    private func performGet(url: URL, parameters: [String: Any?]?, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        let task = session.jsonDictionaryTask(with: url, method: .get, bodyParameters: parameters) { dict, response, error in
             if let error = error {
                 completion(.failure(error))
                 return

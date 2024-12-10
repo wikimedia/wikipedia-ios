@@ -34,6 +34,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     private let dataStore: MWKDataStore
     private var sections: [YearInReviewSettingsSection] = []
+    
     private let dataController = try? WMFYearInReviewDataController()
 
     fileprivate let headerText = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.") + "\n"
@@ -105,12 +106,23 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         Task {
             do {
+                
+                var userId: Int?
+
+                if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                   let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+                    userId = userID
+                }
+                
+                let userIdString: String? = userId.map { String($0) }
+
                 let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString,
                     savedSlideDataDelegate: dataStore.savedPageList,
                     legacyPageViewsDataDelegate: dataStore)
             } catch {

@@ -614,6 +614,14 @@ extension WMFAppViewController {
         else { return }
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
+        
+        let userIdString: String? = userId.map { String($0) }
 
         Task {
             do {
@@ -623,6 +631,7 @@ extension WMFAppViewController {
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString,
                     savedSlideDataDelegate: dataStore.savedPageList,
                     legacyPageViewsDataDelegate: dataStore)
             } catch {

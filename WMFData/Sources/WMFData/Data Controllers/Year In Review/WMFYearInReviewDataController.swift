@@ -157,42 +157,7 @@ import CoreData
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
         }
-
-        // Check persisted year in review report. Year in Review entry point should display if one or more personalized slides are set to display and slide is not disabled in remote config
-        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
-            return false
-        }
-
-        var personalizedSlideCount = 0
-
-        for slide in yirReport.slides {
-            switch slide.id {
-            case .readCount:
-                if yirConfig.personalizedSlides.readCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .editCount:
-                if yirConfig.personalizedSlides.editCount.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .donateCount:
-                // Do nothing, this slide should not contribute to the personalized slide count
-                break
-            case .saveCount:
-                if yirConfig.personalizedSlides.saveCount.isEnabled, slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            case .mostReadDay:
-                if yirConfig.personalizedSlides.mostReadDay.isEnabled,
-                   slide.display == true {
-                    personalizedSlideCount += 1
-                }
-            }
-        }
-
-        return personalizedSlideCount >= 1
+        return true
     }
 
     // MARK: - Survey
@@ -308,7 +273,7 @@ import CoreData
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, userID: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
@@ -321,9 +286,9 @@ import CoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
 
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
 
-            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username)
+            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username, userId: userID)
         }
 
         guard let result else {
@@ -384,6 +349,23 @@ import CoreData
             }
         }
         
+        if result.needsEditViewsPopulation == true {
+            if let userID, let languageCode = primaryAppLanguageProject?.languageCode {
+                let editViews = try await fetchEditViews(
+                    project: primaryAppLanguageProject,
+                    userId: userID,
+                    language: languageCode
+                )
+                try await backgroundContext.perform { [weak self] in
+                    try self?.populateViewCountSlide(
+                        editViews: editViews,
+                        report: report,
+                        backgroundContext: backgroundContext
+                    )
+                }
+            }
+        }
+        
         endDataPopulationBackgroundTask()
 
         return await backgroundContext.perform {
@@ -391,7 +373,7 @@ import CoreData
         }
     }
 
-    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool)? {
+    private func getYearInReviewReportAndDataPopulationFlags(year: Int, backgroundContext: NSManagedObjectContext, project: WMFProject?, username: String?, userId: String?) throws -> (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? {
 
         let predicate = NSPredicate(format: "year == %d", year)
         let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)
@@ -429,6 +411,18 @@ import CoreData
             }
         }
         
+        // If needed: Populate initial viewCount slide
+        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
+            let containsViewCount = slides.contains(where: { slide in
+                slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+            })
+            if !containsViewCount,
+                let initialViewCountSlide = try? initialViewCountSlide(year: year, moc: backgroundContext) {
+                slides.insert(initialViewCountSlide)
+                cdReport.slides = slides as NSSet
+            }
+        }
+        
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
 
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
@@ -445,7 +439,8 @@ import CoreData
         var needsDonatingPopulation = false
         var needsSaveCountPopulation = false
         var needsDayPopulation = false
-
+        var needsEditViewPopulation = false
+        
         for slide in cdSlides {
             switch slide.id {
 
@@ -469,12 +464,16 @@ import CoreData
                 if slide.evaluated == false && yirConfig.personalizedSlides.mostReadDay.isEnabled {
                     needsDayPopulation = true
                 }
+            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
+                if slide.evaluated == false && yirConfig.personalizedSlides.viewCount.isEnabled && userId != nil {
+                    needsEditViewPopulation = true
+                }
             default:
                 debugPrint("Unrecognized Slide ID")
             }
         }
 
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSaveCountPopulation: needsSaveCountPopulation, needsDayPopulation: needsDayPopulation)
+        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSaveCountPopulation: needsSaveCountPopulation, needsDayPopulation: needsDayPopulation, needsEditViewsPopulation: needsEditViewPopulation)
     }
 
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
@@ -509,8 +508,12 @@ import CoreData
                 results.insert(savedArticlesSlide)
             }
 
-            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: year, moc: moc) {
+            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: 2024, moc: moc) {
                 results.insert(initialMostReadDaySlide)
+            }
+
+            if let initialViewCountSlide = try? initialViewCountSlide(year: 2024, moc: moc) {
+                results.insert(initialViewCountSlide)
             }
         }
 
@@ -529,12 +532,22 @@ import CoreData
 
     private func initialMostReadDaySlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-        mostReadDaySlide.year = 2024
+        mostReadDaySlide.year = Int32(year)
         mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
         mostReadDaySlide.evaluated = false
         mostReadDaySlide.display = false
         mostReadDaySlide.data = nil
         return mostReadDaySlide
+    }
+    
+    private func initialViewCountSlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
+        viewCountSlide.year = Int32(year)
+        viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+        viewCountSlide.evaluated = false
+        viewCountSlide.display = false
+        viewCountSlide.data = nil
+        return viewCountSlide
     }
     
     private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, legacyPageViews: [WMFLegacyPageView]) throws {
@@ -682,6 +695,100 @@ import CoreData
         }
 
         try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+    
+    private func populateViewCountSlide(
+        editViews: Int,
+        report: CDYearInReviewReport,
+        backgroundContext: NSManagedObjectContext
+    ) throws {
+
+        guard let slides = report.slides as? Set<CDYearInReviewSlide> else { return }
+
+        for slide in slides {
+            guard let slideID = slide.id else { continue }
+
+            switch slideID {
+            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
+                let encoder = JSONEncoder()
+                slide.data = try encoder.encode(editViews)
+
+                if editViews > 0 {
+                    slide.display = true
+                }
+
+                slide.evaluated = true
+            default:
+                break
+            }
+        }
+
+        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+    }
+    
+    public func fetchEditViews(project: WMFProject?, userId: String, language: String) async throws -> (Int) {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchEditViews(project: project, userId: userId, language: language) { result in
+                switch result {
+                case .success(let views):
+                    continuation.resume(returning: views)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    public func fetchEditViews(project: WMFProject?, userId: String, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
+
+        guard let service else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        guard let project = project else {
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            return
+        }
+        
+        let prefixedUserID = "#" + userId
+        
+        guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", prefixedUserID]) else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)
+        urlComponents?.queryItems = [URLQueryItem(name: "lang", value: language)]
+        
+        guard let url = urlComponents?.url else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
+
+        let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
+            switch result {
+            case .success(let data):
+                guard let jsonData = data else {
+                    completion(.failure(WMFDataControllerError.unexpectedResponse))
+                    return
+                }
+
+                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int {
+                    let totalViews = totalPageviews
+                    completion(.success(totalViews))
+                } else {
+                    // If for any reason we don't get anything
+                    completion(.success(0))
+                }
+
+            case .failure(let error):
+                completion(.failure(WMFDataControllerError.serviceError(error)))
+            }
+        }
+        service.perform(request: request, completion: completionHandler)
     }
 
     private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
@@ -856,6 +963,8 @@ import CoreData
             return .mostReadDay
         case "saveCount":
             return .saveCount
+        case "viewCount":
+            return .viewCount
         default:
             return nil
         }
@@ -1057,6 +1166,48 @@ import CoreData
             case isMinor = "minor"
             case isTop = "top"
         }
+    }
+    
+    struct UserStats: Decodable {
+        let version: Int
+        let userId: Int
+        let userName: String
+        let receivedThanksCount: Int
+        let editCountByNamespace: [String: Int]
+        let editCountByDay: [String: Int]
+        let editCountByTaskType: [String: Int]
+        let totalUserEditCount: Int
+        let revertedEditCount: Int
+        let newcomerTaskEditCount: Int
+        let lastEditTimestamp: Int
+        let generatedAt: Int
+        let longestEditingStreak: LongestEditingStreak
+        let totalEditsCount: Int
+        let dailyTotalViews: [String: Int]
+        let recentEditsWithoutPageviews: [String]
+        let topViewedArticles: [String: TopViewedArticle]
+        let topViewedArticlesCount: Int
+        let totalPageviewsCount: Int
+    }
+
+    struct LongestEditingStreak: Decodable {
+        let datePeriod: DatePeriod
+        let totalEditCountForPeriod: Int
+    }
+
+    struct DatePeriod: Decodable {
+        let start: String
+        let end: String
+        let days: Int
+    }
+
+    struct TopViewedArticle: Decodable {
+        let imageUrl: String
+        let firstEditDate: String
+        let newestEdit: String
+        let views: [String: Int]
+        let viewsCount: Int
+        let pageviewsUrl: String
     }
 }
 

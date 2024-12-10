@@ -113,5 +113,4 @@ public class WMFImageRecommendationsDataController {
         
         service.perform(request: request, completion: completion)
     }
-
 }
