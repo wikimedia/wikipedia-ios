@@ -631,8 +631,9 @@ extension WMFAppViewController {
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString,
                     savedSlideDataDelegate: dataStore.savedPageList,
-					userID: userIdString)
+                    legacyPageViewsDataDelegate: dataStore)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
