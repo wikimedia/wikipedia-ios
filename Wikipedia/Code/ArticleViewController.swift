@@ -382,6 +382,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.viewDidLayoutSubviews()
         
         tableOfContentsController.updateVerticalPaddings(top: view.safeAreaInsets.top, bottom: toolbar.frame.height)
+        updateWebViewContentInset()
     }
     
     internal func updateArticleMargins() {
@@ -743,6 +744,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         default:
             webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: 75, right: oldContentInset.right)
         }
+    }
+    
+    private func updateWebViewContentInset() {
+        guard altTextExperimentViewModel == nil else {
+            return
+        }
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: toolbar.frame.height, right: oldContentInset.right)
     }
     
     internal func loadSummary(oldState: ViewState) {
