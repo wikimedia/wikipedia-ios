@@ -64,7 +64,7 @@ extension MWKDataStore: LegacyPageViewsDataDelegate {
             
             let articles = try viewContext.fetch(articleRequest)
             
-            let importRequests: [WMFLegacyPageView] = articles.compactMap { article in
+            let legacyPageViews: [WMFLegacyPageView] = articles.compactMap { article in
                 guard let key = article.key,
                       let viewedDate = article.viewedDate else {
                     return nil
@@ -82,7 +82,7 @@ extension MWKDataStore: LegacyPageViewsDataDelegate {
                 return WMFLegacyPageView(title: title, project: project, viewedDate: viewedDate)
             }
             
-            return importRequests
+            return legacyPageViews
         }
     }
 }
