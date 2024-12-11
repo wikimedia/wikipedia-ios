@@ -7,10 +7,6 @@
     "CATEGORY TALK" : 15,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMAGE" : 6,
@@ -32,8 +28,6 @@
     "PAGALBOS APTARIMAS" : 13,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
-    "ŠABLONAS" : 10,
-    "ŠABLONO APTARIMAS" : 11,
     "SPECIAL" : -1,
     "SPECIALUS" : -1,
     "TALK" : 1,
@@ -54,6 +48,8 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA APTARIMAS" : 5,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4
+    "WP" : 4,
+    "ŠABLONAS" : 10,
+    "ŠABLONO APTARIMAS" : 11
   }
 }
