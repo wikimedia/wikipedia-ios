@@ -625,6 +625,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         captchaContainer.backgroundColor = theme.colors.paperBackground
         
         editSummaryViewController?.apply(theme: theme)
+        captchaViewController?.apply(theme: theme)
         
         applyThemeToTextViews()
         
