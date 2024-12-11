@@ -17,6 +17,7 @@
 #import "EXTScope.h"
 
 @import WMFData;
+@import WMFComponents;
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -91,7 +92,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFTheme *theme;
 
-@property (nonatomic, strong) UINavigationController *settingsNavigationController;
+@property (nonatomic, strong) WMFComponentNavigationController *settingsNavigationController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
 
@@ -328,13 +329,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    WMFRootNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
-    WMFRootNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
-    WMFRootNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFRootNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
-    WMFRootNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
-
-    NSArray<UIViewController *> *viewControllers = @[nav1, nav2, nav3, nav4, nav5];
+    WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
+    WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
+    WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
+    WMFComponentNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
+    WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
@@ -349,15 +348,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 }
 
-- (WMFRootNavigationController *)rootNavigationControllerWithRootViewController:(UIViewController *)rootViewController {
-
-    WMFRootNavigationController *navigationController = [[WMFRootNavigationController alloc] initWithRootViewController:rootViewController];
-    navigationController.themeableNavigationControllerDelegate = self;
+- (WMFComponentNavigationController *)rootNavigationControllerWithRootViewController:(UIViewController *)rootViewController {
+    WMFComponentNavigationController *navigationController = [[WMFComponentNavigationController alloc] initWithRootViewController:rootViewController modalPresentationStyle:UIModalPresentationFullScreen];
     navigationController.delegate = self;
-    navigationController.interactivePopGestureRecognizer.delegate = self;
-    navigationController.extendedLayoutIncludesOpaqueBars = YES;
-    //[navigationController setNavigationBarHidden:YES animated:NO];
-    [navigationController applyTheme:self.theme];
     return navigationController;
 }
 
@@ -1754,21 +1747,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return [self.transitionsController navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
 }
 
-#pragma mark - UIGestureRecognizerDelegate
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.currentTabNavigationController.interactivePopGestureRecognizer == gestureRecognizer) {
-        return self.currentTabNavigationController.viewControllers.count > 1;
-    } else if (_settingsViewController.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
-        return _settingsViewController.navigationController.viewControllers.count > 1;
-    }
-    return YES;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
-}
-
 #pragma mark - UNUserNotificationCenterDelegate
 
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
@@ -1815,10 +1793,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
         if ([nc.presentedViewController isKindOfClass:[UINavigationController class]]) {
             [foundNavigationControllers addObject:(UINavigationController *)nc.presentedViewController];
-        }
-
-        if ([nc conformsToProtocol:@protocol(WMFThemeable)]) {
-            [(id<WMFThemeable>)nc applyTheme:theme];
         }
     }
 
@@ -2032,14 +2006,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (nullable WMFRootNavigationController *)currentTabNavigationController {
-    if ([self.selectedViewController isKindOfClass:[WMFRootNavigationController class]]) {
-        return (WMFRootNavigationController *)self.selectedViewController;
-    }
-
-    return nil;
-}
-
 - (void)showSearchInCurrentNavigationControllerAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
@@ -2102,13 +2068,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return _settingsViewController;
 }
 
-- (nonnull UINavigationController *)settingsNavigationController {
+- (nonnull WMFComponentNavigationController *)settingsNavigationController {
     if (!_settingsNavigationController) {
-        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
+        WMFComponentNavigationController *navController = [[WMFComponentNavigationController alloc] initWithRootViewController:self.settingsViewController modalPresentationStyle:UIModalPresentationFullScreen];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
-        _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
         _settingsNavigationController.delegate = self;
     }
 

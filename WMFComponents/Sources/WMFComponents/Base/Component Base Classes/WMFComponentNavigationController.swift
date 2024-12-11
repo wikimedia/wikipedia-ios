@@ -16,10 +16,12 @@ open class WMFComponentNavigationController: UINavigationController {
     var theme: WMFTheme {
         return WMFAppEnvironment.current.theme
     }
+    
+    var forcePortrait = false
 
     // MARK: - Public
     
-    public convenience init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) {
+    @objc public convenience init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) {
         self.init(rootViewController: rootViewController)
         self.modalPresentationStyle = modalPresentationStyle
     }
@@ -27,10 +29,27 @@ open class WMFComponentNavigationController: UINavigationController {
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         subscribeToAppEnvironmentChanges()
+        setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return forcePortrait ? .portrait : topViewController?.supportedInterfaceOrientations ?? .all
+    }
+
+    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
+    
+    public func turnOnForcePortrait() {
+        forcePortrait = true
+    }
+    
+    public func turnOffForcePortrait() {
+        forcePortrait = false
     }
     
     // MARK: - AppEnvironment Subscription
@@ -65,6 +84,12 @@ open class WMFComponentNavigationController: UINavigationController {
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return theme.preferredStatusBarStyle
+    }
+    
+    // MARK: - Private
+    
+    private func setup() {
+        extendedLayoutIncludesOpaqueBars = true
     }
 
 }

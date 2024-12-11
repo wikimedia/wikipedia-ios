@@ -162,6 +162,14 @@ extension WMFAppViewController {
         return nil
     }
     
+    @objc var currentTabNavigationController: WMFComponentNavigationController? {
+        if let componentNavVC = selectedViewController as? WMFComponentNavigationController {
+            return componentNavVC
+        }
+        
+        return nil
+    }
+    
     private var topMostViewController: UIViewController? {
             
         var topViewController: UIViewController = currentTabNavigationController ?? self
@@ -544,7 +552,6 @@ extension WMFAppViewController: CreateReadingListDelegate {
         default:
             wmfTheme = WMFTheme.light
         }
-        let isDefaultTheme = Theme.isDefaultThemeName(theme.name)
         WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
 }
