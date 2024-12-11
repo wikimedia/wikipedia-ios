@@ -22,25 +22,19 @@ public struct WMFYearInReviewScrollView: View {
     let contents: AnyView?
     let hasLargeInsets: Bool
     let gifName: String
-    let imageOverlay: String?
-    let imageOverlayAccessibilityLabel: String?
-    let textOverlay: String?
+    let altText: String
     
     public init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent,
         @ViewBuilder contents: () -> AnyView? = { nil },
         hasLargeInsets: Bool = true,
         gifName: String,
-        imageOverlayAccessibilityLabel: String? = nil,
-        imageOverlay: String? = nil,
-        textOverlay: String? = nil
+        altText: String
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
         self.contents = contents()
         self.hasLargeInsets = hasLargeInsets
-        self.imageOverlay = imageOverlay
-        self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
-        self.textOverlay = textOverlay
+        self.altText = altText
         self.gifName = gifName
     }
 
@@ -60,6 +54,7 @@ public struct WMFYearInReviewScrollView: View {
                         .aspectRatio(1.5, contentMode: .fit)
                         .frame(maxWidth: .infinity)
                 }
+                .accessibilityLabel(altText)
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
             }

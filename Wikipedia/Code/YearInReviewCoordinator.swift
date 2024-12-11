@@ -78,21 +78,36 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     private lazy var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings = {
         return WMFYearInReviewViewModel.LocalizedStrings.init(
-         donateButtonTitle: CommonStrings.donateTitle,
-            doneButtonTitle:CommonStrings.doneTitle,
-         shareButtonTitle: CommonStrings.shortShareTitle,
-         nextButtonTitle: CommonStrings.nextTitle,
+            donateButtonTitle: CommonStrings.donateTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            shareButtonTitle: CommonStrings.shortShareTitle,
+            nextButtonTitle: CommonStrings.nextTitle,
             finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
-         firstSlideTitle: dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle,
-         firstSlideSubtitle: dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.exploreYIRBodyPersonalized : CommonStrings.exploreYIRBody,
+            firstSlideTitle: dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle,
+            firstSlideSubtitle: dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.exploreYIRBodyPersonalized : CommonStrings.exploreYIRBody,
             firstSlideCTA: CommonStrings.getStartedTitle,
             firstSlideLearnMore: CommonStrings.learnMoreTitle(),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-         wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
-         globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
-         wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo")
+            wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
+            globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
+            wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo"),
+            personalizedExploreAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide."),
+            personalizedYouReadAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-you-read", value: "A puzzle piece with the Wikimedia logo walking in from the left.", comment: "Accessibility description for the personalized 'You Read' slide."),
+            personalizedUserEditsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-user-edits", value: "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.", comment: "Accessibility description for the personalized user edits slide."),
+            personalizedDonationThankYouAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-donation-thank-you", value: "Wikimedia logo", comment: "Accessibility description for the personalized donation thank you slide."),
+            personalizedSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-saved-articles", value: "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.", comment: "Accessibility description for the personalized saved articles slide."),
+            personalizedWeekdayAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-weekday", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the personalized weekday slide."),
+            personalizedYourEditsViewsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
+            collectiveExploreAccessibilityLabel: WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide."),
+            collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
+            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective article views slide."),
+            collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
+            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
+            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
+            collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide.")
         )
     }()
+
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -433,7 +448,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let readCount = try? decoder.decode(Int.self, from: data) {
                         readCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-01",
-                            textOverlay: personalizedSlide1Overlay(readCount: readCount),
+                            altText: localizedStrings.personalizedYouReadAccessibilityLabel,
                             title: personalizedYouReadSlideTitle(readCount: readCount),
                             informationBubbleText: nil,
                             subtitle: personalizedYouReadSlideSubtitle(readCount: readCount),
@@ -449,7 +464,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     if let editCount = try? decoder.decode(Int.self, from: data) {
                         editCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-04",
-                            textOverlay: personalizedSlide3Overlay(editCount: editCount),
+                            altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
                             title: editCount >= 500 ? personzlizedUserEditsSlideTitle500Plus() : personzlizedUserEditsSlideTitle(editCount: editCount),
                             informationBubbleText: nil,
                             subtitle: editCount >= 500 ? personzlizedUserEditsSlideSubtitle500Plus() : personzlizedUserEditsSlideSubtitle(editCount: editCount),
@@ -466,7 +481,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        donateCount > 0 {
                         donateCountSlide = YearInReviewSlideContent(
                             gifName: "all-slide-06",
-                            imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
+                            altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
                             title: personalizedThankYouTitle,
                             informationBubbleText: nil,
                             subtitle: personalizedThankYouSubtitle(languageCode: dataStore.languageLinkController.appLanguage?.languageCode),
@@ -485,7 +500,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                         let count = savedSlideData.savedArticlesCount
                         saveCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-03",
-                            textOverlay: personalizedSaveCountSlideOverlay(saveCount: count),
+                            altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
                             title: personalizedSaveCountSlideTitle(saveCount: count),
                             informationBubbleText: nil,
                             subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
@@ -502,7 +517,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        mostReadDay.getViewCount() > 0 {
                         mostReadDaySlide = YearInReviewSlideContent(
                             gifName: "personal-slide-02",
-                            textOverlay: getLocalizedDay(day: mostReadDay.getDay()),
+                            altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
                             title: personalizedDaySlideTitle(day: mostReadDay.getDay()),
                             informationBubbleText: nil,
                             subtitle: personalizedDaySlideSubtitle(day: mostReadDay.getDay()),
@@ -519,7 +534,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                        viewCount > 0 {
                         viewCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-05",
-                            textOverlay: String(viewCount),
+                            altText: localizedStrings.personalizedYourEditsViewsAccessibilityLabel,
                             title: personalizedYourEditsViewedSlideTitle(views: viewCount),
                             informationBubbleText: nil,
                             subtitle: personalizedYourEditsViewedSlideSubtitle(views: viewCount),
@@ -537,7 +552,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func start() {
         let collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
            gifName: "non-english-slide-01",
-           textOverlay: collectiveNumArticlesNumber,
+           altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
            title: collectiveReadingBroughtUsTogetherSlideTitle,
            informationBubbleText: nil,
            subtitle: collectiveReadingBroughtUsTogetherSlideSubtitle,
@@ -547,7 +562,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveArticleViewsSlide = YearInReviewSlideContent(
             gifName: "english-slide-02",
-            textOverlay: collectiveNumViewsNumber,
+            altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
             title: collectiveArticleViewsSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveArticleViewsSlideSubtitle,
@@ -557,7 +572,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveSavedArticlesSlide = YearInReviewSlideContent(
             gifName: "english-slide-03",
-            textOverlay: collectiveNumReadingLists,
+            altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
             title: collectiveSavedArticlesSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveSavedArticlesSlideSubtitle,
@@ -567,7 +582,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let collectiveAmountEditsSlide = YearInReviewSlideContent(
            gifName: "english-slide-04",
-           textOverlay: collectiveNumEditsNumber,
+           altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
            title: collectiveAmountEditsSlideTitle,
            informationBubbleText: nil,
            subtitle: collectiveAmountEditsSlideSubtitle,
@@ -577,7 +592,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
             gifName: "english-slide-05",
-            textOverlay: collectiveNumEditsPerMinuteNumber,
+            altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: collectiveEditsPerMinuteSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveEditsPerMinuteSlideSubtitle,
@@ -587,8 +602,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let collectiveZeroAdsSlide = YearInReviewSlideContent(
             gifName: "all-slide-06",
-            imageOverlay: "wmf-logo",
-            imageOverlayAccessibilityLabel: localizedStrings.wmfLogoImageAccessibilityLabel,
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
             title: collectiveZeroAdsSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveZeroAdsSlideSubtitle(),

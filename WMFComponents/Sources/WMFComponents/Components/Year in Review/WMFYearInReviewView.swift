@@ -50,8 +50,7 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
-                        imageOverlayAccessibilityLabel: viewModel.localizedStrings.globeImageAccessibilityLabel,
-                        imageOverlay: "globe_yir")
+                        altText: viewModel.isUserAuth ? "" : "")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
@@ -68,7 +67,6 @@ public struct WMFYearInReviewView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
