@@ -391,7 +391,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.viewSafeAreaInsetsDidChange()
         
         guard searchBarIsAnimating else {
-            stackViewTopConstraint?.constant = view.safeAreaInsets.top
+            stackViewTopConstraint?.constant = 0
             view.layoutIfNeeded()
             return
         }
@@ -1527,7 +1527,7 @@ private extension ArticleViewController {
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         tableOfContentsController.stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableOfContentsController.stackView)
-        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
+        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
         NSLayoutConstraint.activate([
             stackViewTopConstraint,
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
