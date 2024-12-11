@@ -383,8 +383,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableOfContentsController.updateVerticalPaddings(top: view.safeAreaInsets.top, bottom: toolbar.frame.height)
-        updateWebViewContentInset()
+        tableOfContentsController.updateVerticalPaddings(top: 10, bottom: 0)
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -761,15 +760,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         default:
             webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: 75, right: oldContentInset.right)
         }
-    }
-    
-    private func updateWebViewContentInset() {
-        guard altTextExperimentViewModel == nil else {
-            return
-        }
-        
-        let oldContentInset = webView.scrollView.contentInset
-        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: toolbar.frame.height, right: oldContentInset.right)
     }
     
     internal func loadSummary(oldState: ViewState) {
@@ -1330,8 +1320,8 @@ private extension ArticleViewController {
         }
 
         addNotificationHandlers()
-        setupWebView()
         setupToolbar()
+        setupWebView()
         setupMessagingController()
         
         // Begin: Nav bar stuff
@@ -1532,7 +1522,7 @@ private extension ArticleViewController {
             stackViewTopConstraint,
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+            toolbarContainerView.topAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
         ])
         
         self.stackViewTopConstraint = stackViewTopConstraint

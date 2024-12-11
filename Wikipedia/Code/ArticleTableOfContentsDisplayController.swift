@@ -154,7 +154,6 @@ class ArticleTableOfContentsDisplayController: Themeable {
         case .modal:
             break
         }
-        
     }
     
     func setupTableOfContentsViewController() {

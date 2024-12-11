@@ -11,7 +11,6 @@ enum TableOfContentsDisplaySide {
     case right
 }
 
-
 protocol TableOfContentsViewControllerDelegate : UIViewController {
 
     /**
@@ -199,7 +198,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
 
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
 
-        tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsMultipleSelection = false
         tableView.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
 
