@@ -647,6 +647,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarStyling {
         }
 
         saveVC.dataStore = dataStore
+        saveVC.savedData = editConfirmationSavedData
         saveVC.pageURL = pageURL
         saveVC.sectionID = sectionID
         saveVC.languageCode = pageURL.wmf_languageCode

@@ -160,13 +160,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         navigationItem.rightBarButtonItem = forwardButton
     }
     
-    @objc private func goBack() {
-        
+    private func tappedBack() {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapBack()
         
         delegate?.editSaveViewControllerWillCancel(SaveData(summmaryText: summaryText, isMinorEdit: minorEditToggle.isOn, shouldAddToWatchList: addToWatchlistToggle.isOn))
-        
-        navigationController?.popViewController(animated: true)
     }
     
     @objc private func goForward() {
@@ -350,6 +347,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            tappedBack()
+        }
     }
 
     private func save() {
