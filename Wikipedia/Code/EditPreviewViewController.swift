@@ -20,6 +20,8 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     var needsNextButton: Bool = true
     var needsSimplifiedFormatToast: Bool = false
     
+    private var tappedForward: Bool = false
+    
     weak var delegate: EditPreviewViewControllerDelegate?
     weak var loggingDelegate: EditPreviewViewControllerLoggingDelegate?
     
@@ -82,14 +84,9 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil))
         present(alertController, animated: true)
     }
-
-    @objc func goBack() {
-        loggingDelegate?.logEditPreviewDidTapBack()
-        navigationController?.popViewController(animated: true)
-        
-    }
     
     @objc func goForward() {
+        tappedForward = true
         loggingDelegate?.logEditPreviewDidTapNext()
         delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
     }
@@ -120,11 +117,17 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+        
+        // Probably disappearing due to tapping back
+        if !tappedForward {
+            loggingDelegate?.logEditPreviewDidTapBack()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loggingDelegate?.logEditPreviewDidAppear()
+        tappedForward = false
     }
     
     deinit {
