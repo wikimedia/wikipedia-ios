@@ -1404,7 +1404,7 @@
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1 edits";
 "year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($2).";
 "year-in-review-base-edits-title" = "Wikipedia was edited $1 times per minute";
-"year-in-review-base-reading-subtitle" = "Wikipedia had more than  $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
+"year-in-review-base-reading-subtitle" = "Wikipedia had more than $1 million articles across over $2 active languages this year. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-base-reading-title" = "Wikipedia was available in more than 300 languages";
 "year-in-review-base-saved-subtitle" = "Active iOS App users had over $1 million reading lists this year. Adding articles to Reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "year-in-review-base-saved-title" = "We had over $1 Million reading lists";
@@ -1412,7 +1412,7 @@
 "year-in-review-base-viewed-title" = "We have viewed Wikipedia articles $1 Billion times";
 "year-in-review-button-title" = "Year in Review";
 "year-in-review-collective-article-views" = "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.";
-"year-in-review-collective-edits" = "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.";
+"year-in-review-collective-edits" = " A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.";
 "year-in-review-collective-edits-per-minute" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";
 "year-in-review-collective-explore" = "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.";
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
