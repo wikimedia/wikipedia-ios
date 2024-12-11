@@ -37,11 +37,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: Lifecycle
     
-    // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage, yirCoordinator: yirCoordinator)
-    }
-    
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) {
         self.navigationController = navigationController
         self.theme = theme

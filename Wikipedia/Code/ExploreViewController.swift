@@ -218,46 +218,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         self.overlayHeightConstraint = overlayHeightConstraint
     }
-//
-//    @objc func updateNotificationsCenterButton() {
-//        if self.dataStore.authenticationManager.isLoggedIn {
-//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-//            navigationItem.leftBarButtonItem = notificationsBarButton
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//        }
-//    }
-    
-//    func updateSettingsButton() {
-//        
-//        let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
-//        settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
-//        navigationItem.rightBarButtonItem = settingsBarButtonItem
-//    }
-    
-//    @objc func updateNotificationsCenterButton() {
-//        if self.dataStore.authenticationManager.authStateIsPermanent {
-//            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-//            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
-//            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
-//            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
-//            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
-//            navigationItem.leftBarButtonItem = notificationsBarButton
-//            navigationBar.displayType = .centeredLargeTitle
-//        } else {
-//            navigationItem.leftBarButtonItem = nil
-//            navigationBar.displayType = .largeTitle
-//        }
-//        navigationBar.updateNavigationItems()
-//    }
-
-    @objc public func updateNavigationBarVisibility() {
-        // navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
-    }
 
     @objc func updateProfileViewButton() {
         var hasUnreadNotifications: Bool = false

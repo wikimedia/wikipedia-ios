@@ -118,9 +118,9 @@ final class EditorViewController: UIViewController, WMFNavigationBarStyling {
         
         // TODO: Localize
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorBackButtonLongPressTitle, hideTitleView: true)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)))
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)), alignment: .leading)
         
-        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: closeConfig)
+        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil)
     }
     
     // MARK: - Private Helpers
@@ -705,7 +705,7 @@ extension EditorViewController: Themeable {
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         spinner.color = theme.isDark ? .white : .gray
-        updateNavBarCloseButtonTintColor()
+        updateNavBarCloseButtonTintColor(alignment: .leading)
     }
 }
 

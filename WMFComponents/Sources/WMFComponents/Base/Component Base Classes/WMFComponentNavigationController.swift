@@ -74,6 +74,7 @@ open class WMFComponentNavigationController: UINavigationController {
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
         appearance.backgroundColor = theme.paperBackground
+        appearance.backgroundImage = navigationBarBackgroundImage()
         appearance.shadowImage = UIImage()
         appearance.shadowColor = .clear
         
@@ -90,6 +91,11 @@ open class WMFComponentNavigationController: UINavigationController {
     
     private func setup() {
         extendedLayoutIncludesOpaqueBars = true
+    }
+    
+    private func navigationBarBackgroundImage() -> UIImage? {
+        let image = UIImage.roundedRectImage(with: theme.paperBackground, cornerRadius: 1)
+        return image
     }
 
 }

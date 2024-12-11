@@ -104,7 +104,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         loadPreviewIfNecessary()
         
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), hideTitleView: false)
-        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: nil)
+        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil)
         
         if needsNextButton {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))

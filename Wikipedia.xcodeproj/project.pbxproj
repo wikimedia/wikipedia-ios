@@ -294,9 +294,6 @@
 		00EACEC628E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
 		00EACEC728E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
 		00EACEC828E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
-		00EBB7C727D6878E002025AC /* BarButtonImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */; };
-		00EBB7C827D6878E002025AC /* BarButtonImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */; };
-		00EBB7C927D6878E002025AC /* BarButtonImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */; };
 		00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
@@ -566,6 +563,9 @@
 		677129A024FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */; };
 		677129A124FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */; };
 		677129A224FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */; };
+		6771C0CB2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771C0CA2D0A39AC000B556F /* WMFSettingsViewController+Extensions.swift */; };
+		6771C0CC2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771C0CA2D0A39AC000B556F /* WMFSettingsViewController+Extensions.swift */; };
+		6771C0CD2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771C0CA2D0A39AC000B556F /* WMFSettingsViewController+Extensions.swift */; };
 		6771C9542509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
 		6771C9552509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
 		6771C9562509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */; };
@@ -3197,7 +3197,6 @@
 		00E75B7027EB92F600A45B78 /* NotificationsCenterDetailContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailContentCell.swift; sourceTree = "<group>"; };
 		00E75B7527EB946D00A45B78 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageEmptyView.swift; sourceTree = "<group>"; };
-		00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonImageStyle.swift; sourceTree = "<group>"; };
 		00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingsViewController.swift; sourceTree = "<group>"; };
 		00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCell.swift; sourceTree = "<group>"; };
 		00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModel.swift; sourceTree = "<group>"; };
@@ -3374,6 +3373,7 @@
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
+		6771C0CA2D0A39AC000B556F /* WMFSettingsViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFSettingsViewController+Extensions.swift"; sourceTree = "<group>"; };
 		6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleAsLivingDocHeaderView.xib; sourceTree = "<group>"; };
 		6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentlyPersistableURLCache.swift; sourceTree = "<group>"; };
 		6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCacheDBWriter+SyncResources.swift"; sourceTree = "<group>"; };
@@ -5438,6 +5438,7 @@
 			children = (
 				B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */,
 				B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */,
+				6771C0CA2D0A39AC000B556F /* WMFSettingsViewController+Extensions.swift */,
 				B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */,
 				B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */,
 				B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */,
@@ -7408,7 +7409,6 @@
 				B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */,
 				B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */,
 				B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */,
-				00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -10161,6 +10161,7 @@
 				006ABEE82901E8F600722DF8 /* VanishAccountWarningView.swift in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
 				678D79FC235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
+				6771C0CB2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */,
 				00474A2F28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift in Sources */,
 				00E75B7627EB946D00A45B78 /* ReusableCell.swift in Sources */,
 				8341A347299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */,
@@ -10452,7 +10453,6 @@
 				67B64D572507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				83B024AD2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */,
-				00EBB7C727D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				83023C0620E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				B0C7A0861F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
 				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -11139,6 +11139,7 @@
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				83510B0928F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
+				6771C0CC2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */,
@@ -11329,7 +11330,6 @@
 				0042813B25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
-				00EBB7C927D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				67B0B8902BF51E3300480B46 /* ArticleCollectionViewController2.swift in Sources */,
 				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				83AE025E299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
@@ -11714,6 +11714,7 @@
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				83510B0828F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
+				6771C0CD2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
@@ -11903,7 +11904,6 @@
 				0042813A25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
-				00EBB7C827D6878E002025AC /* BarButtonImageStyle.swift in Sources */,
 				67B0B88F2BF51E3300480B46 /* ArticleCollectionViewController2.swift in Sources */,
 				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				83AE025D299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
