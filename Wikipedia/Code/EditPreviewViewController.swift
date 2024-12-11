@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
     func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
@@ -11,7 +12,7 @@ protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
     func logEditPreviewDidTapNext()
 }
 
-class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing {
+class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing, WMFNavigationBarStyling {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -47,8 +48,6 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         self.pageURL = pageURL
         self.previewWebViewContainer = PreviewWebViewContainer()
         super.init(nibName: nil, bundle: nil)
-
-        // webView.scrollView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -102,15 +101,6 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
         previewWebViewContainer.delegate = self
         
-        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
-                
-        navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
-        
-        if needsNextButton {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
-            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        }
-        
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }
@@ -119,9 +109,12 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         super.viewWillAppear(animated)
         loadPreviewIfNecessary()
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), hideTitleView: false)
+        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: nil)
+        
+        if needsNextButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
