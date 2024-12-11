@@ -178,6 +178,7 @@ class WMFFindAndReplaceView: WMFComponentView {
     // MARK: - Overrides
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         
         // Confirm IBOutlets are populated first
         guard findTextField != nil else {

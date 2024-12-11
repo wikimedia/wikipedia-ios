@@ -78,8 +78,7 @@ extension ArticleViewController {
     
     private func presentEditor(editorViewController: UIViewController) {
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
         
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
         if needsIntro {

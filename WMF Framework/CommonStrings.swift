@@ -647,6 +647,8 @@ public class CommonStrings: NSObject {
     
     public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
     
+    public static let editorBackButtonLongPressTitle = WMFLocalizedString("editor-title", value: "Editor", comment: "Title of editor view. Seen when long pressing a back button to see stack of previous views.")
+    
     public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
     
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")

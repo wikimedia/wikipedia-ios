@@ -544,6 +544,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
         default:
             wmfTheme = WMFTheme.light
         }
+        let isDefaultTheme = Theme.isDefaultThemeName(theme.name)
         WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
 }

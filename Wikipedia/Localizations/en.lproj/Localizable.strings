@@ -421,6 +421,7 @@
 "editor-replace-type-button-accessibility" = "Switch replace type. Currently set to $1. Select to change.";
 "editor-replace-type-single" = "Replace";
 "editor-replace-type-single-accessibility" = "Replace single instance";
+"editor-title" = "Editor";
 "editor-toolbar-bold-accessibility" = "Bold text formatting";
 "editor-toolbar-cursor-down-accessibility" = "Move cursor down to next line.";
 "editor-toolbar-cursor-next-accessibility" = "Move cursor to next character.";

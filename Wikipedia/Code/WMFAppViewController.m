@@ -1910,9 +1910,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #endif
 
     if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
+        [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
         [self applyTheme:theme];
         [self.settingsViewController loadSections];
-        [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
     }
 }
 

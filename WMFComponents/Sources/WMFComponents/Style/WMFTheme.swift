@@ -6,6 +6,7 @@ public struct WMFTheme: Equatable {
 
 	public let name: String
 	public let userInterfaceStyle: UIUserInterfaceStyle
+    public let preferredStatusBarStyle: UIStatusBarStyle
 	public let keyboardAppearance: UIKeyboardAppearance
     public let text: UIColor
     public let secondaryText: UIColor
@@ -51,6 +52,7 @@ public struct WMFTheme: Equatable {
 	public static let light = WMFTheme(
         name: "Light",
 		userInterfaceStyle: .light,
+        preferredStatusBarStyle: .lightContent,
 		keyboardAppearance: .light,
         text: WMFColor.gray700,
         secondaryText: WMFColor.gray500,
@@ -89,6 +91,7 @@ public struct WMFTheme: Equatable {
     public static let sepia = WMFTheme(
         name: "Sepia",
 		userInterfaceStyle: .light,
+        preferredStatusBarStyle: .lightContent,
         keyboardAppearance: .light,
         text: WMFColor.gray700,
         secondaryText: WMFColor.taupe600,
@@ -127,6 +130,7 @@ public struct WMFTheme: Equatable {
 	public static let dark = WMFTheme(
 		name: "Dark",
 		userInterfaceStyle: .dark,
+        preferredStatusBarStyle: .darkContent,
 		keyboardAppearance: .dark,
         text: WMFColor.gray100,
         secondaryText: WMFColor.gray300,
@@ -165,6 +169,7 @@ public struct WMFTheme: Equatable {
 	public static let black = WMFTheme(
 		name: "Black",
 		userInterfaceStyle: .dark,
+        preferredStatusBarStyle: .darkContent,
 		keyboardAppearance: .dark,
         text: WMFColor.gray100,
         secondaryText: WMFColor.gray300,

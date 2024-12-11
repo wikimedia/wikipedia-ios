@@ -9,7 +9,7 @@ protocol EditorViewControllerDelegate: AnyObject {
     func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>)
 }
 
-final class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController, WMFNavigationBarStyling {
     
     // MARK: - Nested Types
     
@@ -111,6 +111,16 @@ final class EditorViewController: UIViewController {
         apply(theme: theme)
         
         loadContent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // TODO: Localize
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorBackButtonLongPressTitle, hideTitleView: true)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)))
+        
+        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: closeConfig)
     }
     
     // MARK: - Private Helpers
@@ -636,7 +646,6 @@ final class EditorViewController: UIViewController {
             return
         }
 
-        saveVC.savedData = editConfirmationSavedData
         saveVC.dataStore = dataStore
         saveVC.pageURL = pageURL
         saveVC.sectionID = sectionID
@@ -654,6 +663,32 @@ final class EditorViewController: UIViewController {
         
         navigationController?.pushViewController(saveVC, animated: true)
     }
+    
+    @objc private func close(_ sender: UIBarButtonItem) {
+        let progressButton = navigationItemController.progressButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: sender) { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.editorDidCancelEditing(self, navigateToURL: nil)
+            }
+        } else {
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                }
+            }
+            
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+
+            delegate?.editorDidCancelEditing(self, navigateToURL: nil)
+        }
+    }
 }
 
 // MARK: - Themeable
@@ -669,6 +704,7 @@ extension EditorViewController: Themeable {
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         spinner.color = theme.isDark ? .white : .gray
+        updateNavBarCloseButtonTintColor()
     }
 }
 
@@ -769,34 +805,6 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
         }
         
         EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
-    }
-    
-    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        
-        let progressButton = navigationItemController.progressButton
-        let closeButton = navigationItemController.closeButton
-        if progressButton.isEnabled {
-            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
-                guard let self else {
-                    return
-                }
-                self.delegate?.editorDidCancelEditing(self, navigateToURL: nil)
-            }
-        } else {
-            
-            if let project = WikimediaProject(siteURL: pageURL) {
-                switch source {
-                case .article:
-                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
-                case .talk:
-                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
-                }
-            }
-            
-            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
-
-            delegate?.editorDidCancelEditing(self, navigateToURL: nil)
-        }
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -964,7 +972,7 @@ extension EditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>) {
         delegate?.editorDidFinishEditing(self, result: result)
     }
-
+    
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         editConfirmationSavedData = saveData
     }
@@ -1035,11 +1043,14 @@ extension EditorViewController: EditSaveViewControllerEditorLoggingDelegate {
 extension EditorViewController: EditNoticesViewControllerDelegate {
     func editNoticesControllerUserTapped(url: URL) {
         
+        guard let closeBarButtonItem = navigationItem.leftBarButtonItem else {
+            return
+        }
+        
         let progressButton = navigationItemController.progressButton
-        let closeButton = navigationItemController.closeButton
         if progressButton.isEnabled {
             editCloseProblemSource = .editNoticeLink
-            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
+            showDestructiveDismissAlert(sender: closeBarButtonItem) { [weak self] in
                 guard let self else {
                     return
                 }
