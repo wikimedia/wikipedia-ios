@@ -117,10 +117,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarStyling {
         super.viewWillAppear(animated)
         
         // TODO: Localize
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorBackButtonLongPressTitle, hideTitleView: true)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorBackButtonLongPressTitle, hideTitleView: true, customTitleView: nil)
         let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)), alignment: .leading)
         
-        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil)
+        setupNavigationBar(style: .standard, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil)
     }
     
     // MARK: - Private Helpers

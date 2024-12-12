@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
+class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarStyling {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -56,16 +56,8 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
-        setupNavigationBar()
-        // updateNotificationsCenterButton()
-
-        updateProfileViewButton()
-        // updateSettingsButton()
-
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
-
-        title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
@@ -74,6 +66,8 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        setupTopOverlay()
     }
 
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -119,11 +113,32 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, hideTitleView: false, customTitleView: titleView)
+        let profileButtonConfig = self.profileButtonConfig()
         
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.hidesBarsOnSwipe = true
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
         
-        updateProfileViewButton()
+        let searchConfig = WMFNavigationBarSearchConfig(
+            searchResultsController: searchViewController,
+            searchControllerDelegate: self,
+            searchResultsUpdater: self,
+            searchBarDelegate: self,
+            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            showsScopeBar: false)
+        
+        setupNavigationBar(style: .standard, hidesBarsOnSwipe: true, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig)
+    }
+    
+    @objc func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavBarProfileButton(needsBadge: config.needsBadge)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -168,38 +183,34 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     }
     
     private var overlayHeightConstraint: NSLayoutConstraint?
-    func setupNavigationBar() {
-        navigationItem.titleView = titleView
-        navigationController?.navigationBar.prefersLargeTitles = false
-        if #available(iOS 17.0, *) {
-            navigationItem.largeTitleDisplayMode = .inline
-        } else {
-            // Fallback on earlier versions
-        }
-        navigationController?.hidesBarsOnSwipe = true
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
+    func setupTopOverlay() {
         
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
-        let search = UISearchController(searchResultsController: searchViewController)
-        search.searchResultsUpdater = self
-        search.searchBar.delegate = self
-        search.searchBar.searchBarStyle = .minimal
-        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-        search.showsSearchResultsController = true
-        search.searchBar.showsScopeBar = false
-        search.delegate = self
-
-        // definesPresentationContext = true
-        
-        navigationItem.searchController = search
+//        navigationItem.titleView = titleView
+//        navigationController?.navigationBar.prefersLargeTitles = false
+//        if #available(iOS 17.0, *) {
+//            navigationItem.largeTitleDisplayMode = .inline
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        navigationController?.hidesBarsOnSwipe = true
+//        navigationItem.hidesSearchBarWhenScrolling = false
+//        if #available(iOS 16.0, *) {
+//            navigationItem.preferredSearchBarPlacement = .stacked
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        
+//        
+//        let search = UISearchController(searchResultsController: searchViewController)
+//        search.searchResultsUpdater = self
+//        search.searchBar.delegate = self
+//        search.searchBar.searchBarStyle = .minimal
+//        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+//        search.showsSearchResultsController = true
+//        search.searchBar.showsScopeBar = false
+//        search.delegate = self
+//        
+//        navigationItem.searchController = search
         
         // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
         // TODO: Update this upon theming change.
@@ -219,7 +230,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         self.overlayHeightConstraint = overlayHeightConstraint
     }
 
-    @objc func updateProfileViewButton() {
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
@@ -237,13 +248,11 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         if needsYiRNotification {
             hasUnreadNotifications = true
         }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItem = profileButton
-        // navigationBar.updateNavigationItems()
+        
+        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
     // MARK: - NavBar
@@ -719,6 +728,9 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
+        
+        updateProfileButton()
+        updateNavBarCustomTitleViewTintColor()
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -897,9 +909,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
-                // otdVC.navigationMode = .bar
-            } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                // newsVC.navigationMode = .bar
             }
 
             previewed.indexPathItem = itemIndex
@@ -928,12 +937,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             } else if let avc = viewControllerToCommit as? ArticleViewController {
                 avc.wmf_removePeekableChildViewControllers()
                 self.push(avc, animated: false)
-            } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
-                // otdVC.navigationMode = .detail
-                self.push(viewControllerToCommit, animated: true)
-            } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                // newsVC.navigationMode = .detail
-                self.push(viewControllerToCommit, animated: true)
             } else {
                 self.push(viewControllerToCommit, animated: true)
             }
@@ -985,7 +988,7 @@ extension ExploreViewController {
     fileprivate func presentModalsIfNeeded() {
         
         if needsYearInReviewAnnouncement() {
-            updateProfileViewButton()
+            updateProfileButton()
             presentYearInReviewAnnouncement()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
@@ -2228,7 +2231,7 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
-        updateProfileViewButton()
+        updateProfileButton()
     }
 }
 

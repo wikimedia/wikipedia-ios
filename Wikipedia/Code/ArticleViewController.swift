@@ -9,7 +9,7 @@ protocol AltTextDelegate: AnyObject {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarStyling {
     enum ViewState {
         case initial
         case loading
@@ -443,25 +443,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 break
             case .reloading:
                 fallthrough
-            case .loading:
-                break
-                // fakeProgressController.start()
-            case .loaded:
-                break
-                // fakeProgressController.stop()
+            case .loading, .loaded:
                 rethemeWebViewIfNecessary()
             case .error:
                 break
-                // fakeProgressController.stop()
             }
         }
     }
-    
-//    lazy private var fakeProgressController: FakeProgressController = {
-//        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-//        progressController.delay = 0.0
-//        return progressController
-//    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -499,19 +487,33 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
 
-        setupSearchAndProfileButtons()
+        // Navigation Bar Setup
+        if altTextExperimentViewModel == nil {
+            setupNavigationBar()
+        }
     }
     
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        if altTextExperimentViewModel == nil {
-            setupWButton()
-            setupSearchAndProfileButtons()
-        }
-
         presentModalsIfNeeded()
+    }
+    
+    private func setupNavigationBar() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: article.displayTitle ?? "", hideTitleView: false, customTitleView: wButton)
+        let profileButtonConfig = self.profileButtonConfig()
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
+        
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false)
+        setupNavigationBar(style: .standard, hidesBarsOnSwipe: true, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig)
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
@@ -534,21 +536,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
-            setupSearchAndProfileButtons()
+            updateProfileButton()
             presentYearInReviewAnnouncement()
         
         // Campaign modal presentations
         } else {
             showFundraisingCampaignAnnouncementIfNeeded()
         }
-    }
-    
-    private func setupWButton() {
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
-        wButton.sizeToFit()
-        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
-        navigationItem.titleView = wButton
     }
     
     @objc private func wButtonTapped(_ sender: UIButton) {
@@ -1045,10 +1039,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        setupSearchAndProfileButtons()
+
         guard viewIfLoaded != nil else {
             return
         }
+        
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
@@ -1059,6 +1054,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
+        
+        updateProfileButton()
+        updateNavBarCustomTitleViewTintColor()
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1294,9 +1292,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 private extension ArticleViewController {
     
     func setup() {
-
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
         
         if let altTextExperimentViewModel {
             self.navigationItem.titleView = nil
@@ -1312,46 +1307,12 @@ private extension ArticleViewController {
             rightBarButtonItem.tintColor = theme.colors.link
             // add accessibility attrubutes
             rightBarButtonItem.accessibilityTraits = .button
-
-            // self.navigationBar.updateNavigationItems()
-        } else {
-            setupWButton()
-            setupSearchAndProfileButtons()
         }
 
         addNotificationHandlers()
         setupToolbar()
         setupWebView()
         setupMessagingController()
-        
-        // Begin: Nav bar stuff
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = true
-        navigationItem.largeTitleDisplayMode = .never
-        
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
-        let search = UISearchController(searchResultsController: searchViewController)
-        search.searchResultsUpdater = self
-        search.searchBar.searchBarStyle = .minimal
-        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-        search.showsSearchResultsController = true
-        search.delegate = self
-
-        // definesPresentationContext = true
-        
-        navigationItem.searchController = search
-        
-        // End: Nav bar stuff
         
         // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
         // TODO: Update this upon theming change.
@@ -1471,7 +1432,12 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchAndProfileButtons() {
+    func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavBarProfileButton(needsBadge: config.needsBadge)
+    }
+    
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
@@ -1489,13 +1455,11 @@ private extension ArticleViewController {
         if needsYiRNotification {
             hasUnreadNotifications = true
         }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
-        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItems = [profileButton]
-        // navigationBar.updateNavigationItems()
+        
+        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
     @objc func userDidTapProfile() {
@@ -1883,7 +1847,7 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 
 extension ArticleViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
-        setupSearchAndProfileButtons()
+        updateProfileButton()
     }
 }
 

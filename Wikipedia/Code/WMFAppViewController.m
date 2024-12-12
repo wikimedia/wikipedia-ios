@@ -323,6 +323,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
+            
             break;
         default:
             mainViewController = self.exploreViewController;
@@ -1470,9 +1471,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        //[self.exploreViewController updateNotificationsCenterButton];
-        [self.exploreViewController updateProfileViewButton];
-        [self.settingsViewController configureBarButtonItems];
+        [self.exploreViewController updateProfileButton];
+        [self.settingsViewController updateProfileButton];
     });
 }
 
@@ -1861,6 +1861,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[WMFAlertManager sharedInstance] applyTheme:theme];
 
         [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
+        
         [self.tabBar applyTheme:theme];
 
         [[UISwitch appearance] setOnTintColor:theme.colors.accent];
@@ -1924,7 +1925,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
 }
 
-- (void)themeableNavigationControllerTraitCollectionDidChange:(nonnull WMFThemeableNavigationController *)navigationController {
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [self debounceTraitCollectionThemeUpdate];
 }
 
@@ -2063,6 +2064,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
         _settingsViewController.notificationsCenterPresentationDelegate = self;
+        _settingsViewController.title = [WMFCommonStrings settingsTitle];
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;
@@ -2155,9 +2157,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
-        //[self.exploreViewController updateNotificationsCenterButton];
-        [self.exploreViewController updateProfileViewButton];
-        [self.settingsViewController configureBarButtonItems];
+        [self.exploreViewController updateProfileButton];
+        [self.settingsViewController updateProfileButton];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
 
         if (self.isResumeComplete) {
@@ -2176,9 +2177,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
-        //[self.exploreViewController updateNotificationsCenterButton];
-        [self.exploreViewController updateProfileViewButton];
-        [self.settingsViewController configureBarButtonItems];
+        [self.exploreViewController updateProfileButton];
+        [self.settingsViewController updateProfileButton];
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]

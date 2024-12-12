@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, WMFThemeableNavigationControllerStyle) {
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFThemeableNavigationControllerDelegate
-- (void)themeableNavigationControllerTraitCollectionDidChange:(WMFThemeableNavigationController *)navigationController;
+
 @end
 
 @interface WMFThemeableNavigationController : UINavigationController <WMFThemeable>

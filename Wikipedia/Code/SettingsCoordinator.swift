@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 
 final class SettingsCoordinator: Coordinator {
 
@@ -31,7 +32,7 @@ final class SettingsCoordinator: Coordinator {
         }
         
         let settingsViewController = WMFSettingsViewController(dataStore: dataStore, theme: theme)
-        let navVC = WMFThemeableNavigationController(rootViewController: settingsViewController, theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
     }
 }

@@ -38,8 +38,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
     vc.donateDataController = [WMFDonateDataController sharedInstance];
-    [vc applyTheme:theme];
-
+    vc.theme = theme;
     return vc;
 }
 
@@ -48,7 +47,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.theme = [WMFTheme standard];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
 
@@ -63,8 +61,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.authManager = self.dataStore.authenticationManager;
 
-    //self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userWasLoggedIn:)
@@ -74,6 +70,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                              selector:@selector(userWasLoggedOut:)
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
+    
+    [self applyTheme:self.theme];
 }
 
 - (void)dealloc {
@@ -95,12 +93,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewWillAppear:animated];
     [self loadSections];
     
-    BOOL shouldShowCloseButton = self.tabBarController == nil;
-    
     NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
     BOOL shouldShowProfileBadge = numUnreadNotifications != 0;
     
-    [self styleNavigationBarWithShouldShowCloseButton:shouldShowCloseButton shouldShowProfileBadge:shouldShowProfileBadge];
+    [self setupNavigationBarWithShouldShowProfileBadge:shouldShowProfileBadge];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -655,6 +651,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
     
+    [self updateProfileButton];
+    [self updateCloseButton];
+}
+
+- (void)updateProfileButton {
     NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
     BOOL needsProfileBadge = numUnreadNotifications != 0;
     

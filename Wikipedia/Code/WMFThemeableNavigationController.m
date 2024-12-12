@@ -61,7 +61,6 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self.themeableNavigationControllerDelegate themeableNavigationControllerTraitCollectionDidChange:self];
 }
 
 @end

@@ -225,8 +225,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), hideTitleView: false)
-        setupNavigationBar(style: .standard, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil)
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), hideTitleView: false, customTitleView: nil)
+        setupNavigationBar(style: .standard, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

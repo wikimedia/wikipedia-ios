@@ -3,23 +3,39 @@ import WMFData
 
 @objc extension WMFSettingsViewController: WMFNavigationBarStyling {
     
-    @objc func styleNavigationBar(shouldShowCloseButton: Bool, shouldShowProfileBadge: Bool) {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, hideTitleView: false)
-        
-        var closeButtonConfig: WMFNavigationBarCloseButtonConfig? = nil
-        if shouldShowCloseButton {
-            closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
-        }
+    @objc func setupNavigationBar(shouldShowProfileBadge: Bool) {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, hideTitleView: false, customTitleView: nil)
         
         let profileAccessibilityLabel = shouldShowProfileBadge ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         let profileAccessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        let profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: shouldShowProfileBadge, target: self, action: #selector(tappedProfile))
         
-        setupNavigationBar(style: .largeTitle, titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig)
+        let closeButtonConfig: WMFNavigationBarCloseButtonConfig?
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        
+        // Indicates this is not embedded in the tab view and is presented as a modal. If so, show Close button instead of Profile.
+        if self.tabBarController == nil {
+            profileButtonConfig = nil
+            closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
+        } else {
+            closeButtonConfig = nil
+            profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: shouldShowProfileBadge, target: self, action: #selector(tappedProfile))
+        }
+        
+        setupNavigationBar(style: .largeTitle, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil)
     }
     
     @objc func updateProfileButtonObjCWrapper(needsBadge: Bool) {
-        updateProfileButton(needsBadge: needsBadge)
+        
+        // Do NOT update if Settings is in modal display and does not have a profile button.
+        guard self.tabBarController != nil else {
+            return
+        }
+        
+        updateNavBarProfileButton(needsBadge: needsBadge)
+    }
+    
+    @objc func updateCloseButton() {
+        updateNavBarCloseButtonTintColor(alignment: .trailing)
     }
     
     @objc func closeButtonPressed() {
