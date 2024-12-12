@@ -1,4 +1,5 @@
 import SwiftUI
+import WebKit
 
 public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -48,11 +49,9 @@ public struct WMFYearInReviewView: View {
                     WMFYearInReviewScrollView(
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
-                        imageName: "intro",
-                        imageOverlayAccessibilityLabel: viewModel.localizedStrings.globeImageAccessibilityLabel,
-                        imageOverlay: "globe_yir")
+                        gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
+                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
                             viewModel.markFirstSlideAsSeen()
@@ -68,7 +67,6 @@ public struct WMFYearInReviewView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -171,4 +169,3 @@ public struct WMFYearInReviewView: View {
         }
     }
 }
-

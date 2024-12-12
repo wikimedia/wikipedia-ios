@@ -34,10 +34,8 @@ public struct WMFSlideShow: View {
                 WMFYearInReviewScrollView(
                     scrollViewContents: slideView(slide: slide),
                     hasLargeInsets: false,
-                    imageName: slides[slide].imageName,
-                    imageOverlayAccessibilityLabel: slides[slide].imageOverlayAccessibilityLabel,
-                    imageOverlay: slides[slide].imageOverlay,
-                    textOverlay: slides[slide].textOverlay
+                    gifName: slides[slide].gifName,
+                    altText: slides[slide].altText
                 )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(slide)
@@ -79,7 +77,6 @@ public struct WMFSlideShow: View {
                 .foregroundStyle(Color(uiColor: theme.text))
                 .accentColor(Color(uiColor: theme.link))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Spacer()
         }
     }
 }
@@ -87,9 +84,7 @@ public struct WMFSlideShow: View {
 public protocol SlideShowProtocol {
     var title: String { get }
     var subtitle: String { get }
-    var imageName: String { get }
-    var imageOverlay: String? { get }
-    var imageOverlayAccessibilityLabel: String? { get }
-    var textOverlay: String? { get }
+    var gifName: String { get }
+    var altText: String { get }
     var infoURL: URL? { get }
 }

@@ -1114,8 +1114,9 @@ extension ExploreViewController {
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")
         let backgroundImage = UIImage(named: "Announcement")
+        let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
