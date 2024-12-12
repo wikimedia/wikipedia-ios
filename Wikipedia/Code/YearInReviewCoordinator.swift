@@ -89,16 +89,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideLearnMore: CommonStrings.learnMoreTitle(),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
             wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
-            globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
             wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo"),
-            personalizedExploreAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide."),
+            personalizedExploreAccessibilityLabel: CommonStrings.personalizedExploreAccessibilityLabel,
             personalizedYouReadAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-you-read", value: "A puzzle piece with the Wikimedia logo walking in from the left.", comment: "Accessibility description for the personalized 'You Read' slide."),
             personalizedUserEditsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-user-edits", value: "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.", comment: "Accessibility description for the personalized user edits slide."),
             personalizedDonationThankYouAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-donation-thank-you", value: "Wikimedia logo", comment: "Accessibility description for the personalized donation thank you slide."),
             personalizedSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-saved-articles", value: "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.", comment: "Accessibility description for the personalized saved articles slide."),
             personalizedWeekdayAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-weekday", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the personalized weekday slide."),
             personalizedYourEditsViewsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
-            collectiveExploreAccessibilityLabel: WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide."),
+            collectiveExploreAccessibilityLabel: CommonStrings.collectiveExploreAccessibilityLabel,
             collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
             collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective article views slide."),
             collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
@@ -125,14 +124,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Base Slide Strings
     
-    var collectiveReadingBroughtUsTogetherSlideTitle: String {
+    var collectiveLanguagesSlideTitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than 300 languages", comment: "Year in review, collective reading article count slide title, %1$@ is replaced with the number of languages available on Wikipedia, e.g. \"300\"")
         
         let numLanguagesString = formatNumber(300, fractionDigits: 0)
         return String.localizedStringWithFormat(format, numLanguagesString)
     }
 
-    var collectiveReadingBroughtUsTogetherSlideSubtitle: String {
+    var collectiveLanguagesSlideSubtitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had more than %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"300\"")
 
         let numArticlesString = formatNumber(63, fractionDigits: 0)
@@ -358,7 +357,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedYourEditsViewedSlideTitle(views: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-title-format",
-            value: "Your edits were viewed more than %1$@ times recently",
+            value: "Your edits have been viewed more than %1$@ times recently",
             comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
@@ -403,7 +402,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let articleName2 = articleNames.count >= 3 ? articleNames[1] : ""
         let articleName3 = articleNames.count >= 3 ? articleNames[2] : ""
         
-        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
+        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
         return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
     }
 
@@ -550,12 +549,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        let collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
+        let collectiveLanguagesSlide = YearInReviewSlideContent(
            gifName: "non-english-slide-01",
            altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
-           title: collectiveReadingBroughtUsTogetherSlideTitle,
+           title: collectiveLanguagesSlideTitle,
            informationBubbleText: nil,
-           subtitle: collectiveReadingBroughtUsTogetherSlideSubtitle,
+           subtitle: collectiveLanguagesSlideSubtitle,
            loggingID: "read_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
@@ -617,14 +616,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         // We should only show non-donate personalized slides to logged in users.
         if dataStore.authenticationManager.authStateIsPermanent {
-            finalSlides = [(personalizedSlides.readCount ?? collectiveReadingBroughtUsTogetherSlide),
+            finalSlides = [(personalizedSlides.readCount ?? collectiveLanguagesSlide),
                            (personalizedSlides.mostReadDay ?? collectiveArticleViewsSlide),
                            (personalizedSlides.saveCount ?? collectiveSavedArticlesSlide),
                            (personalizedSlides.editCount ?? collectiveAmountEditsSlide),
                            (personalizedSlides.viewCount ?? collectiveEditsPerMinuteSlide),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         } else {
-            finalSlides = [(collectiveReadingBroughtUsTogetherSlide),
+            finalSlides = [(collectiveLanguagesSlide),
                            (collectiveArticleViewsSlide),
                            (collectiveSavedArticlesSlide),
                            (collectiveAmountEditsSlide),

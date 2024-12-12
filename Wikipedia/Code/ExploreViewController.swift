@@ -1109,8 +1109,8 @@ extension ExploreViewController {
             return
         }
 
-        let title = CommonStrings.exploreYiRTitle
-        let body = CommonStrings.yirFeatureAnnoucementBody
+        let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
+        let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")
         let backgroundImage = UIImage(named: "Announcement")

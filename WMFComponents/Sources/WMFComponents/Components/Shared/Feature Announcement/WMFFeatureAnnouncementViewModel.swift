@@ -6,12 +6,13 @@ public class WMFFeatureAnnouncementViewModel {
     let body: String
     let primaryButtonTitle: String
     let gifName: String?
+    let altText: String?
     let image: UIImage?
     let backgroundImage: UIImage?
     var primaryButtonAction: (() -> Void)
     var closeButtonAction: (() -> Void)?
     
-    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, gifName: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
+    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
         self.title = title
         self.body = body
         self.primaryButtonTitle = primaryButtonTitle
@@ -20,5 +21,6 @@ public class WMFFeatureAnnouncementViewModel {
         self.primaryButtonAction = primaryButtonAction
         self.closeButtonAction = closeButtonAction
         self.gifName = gifName
+        self.altText = altText
     }
 }

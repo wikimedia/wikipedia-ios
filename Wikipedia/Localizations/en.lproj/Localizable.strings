@@ -1442,7 +1442,7 @@
 "year-in-review-personalized-donate-title" = "Your generosity helped keep Wikipedia thriving";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia logo";
 "year-in-review-personalized-edit-views-subtitle-format" = "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received $1 total views. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for to the world";
-"year-in-review-personalized-edit-views-title-format" = "Your edits were viewed more than $1 times recently";
+"year-in-review-personalized-edit-views-title-format" = "Your edits have been viewed more than $1 times recently";
 "year-in-review-personalized-editing-subtitle-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "You edited Wikipedia 500+ times. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
@@ -1451,7 +1451,7 @@
 "year-in-review-personalized-reading-subtitle-format" = "This year, you read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}} this year";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
-"year-in-review-personalized-saved-subtitle-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this year, including \"$2\", \"$3\" and \"$4\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.";
+"year-in-review-personalized-saved-subtitle-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this year, including $2, $3 and $4. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-user-edits" = "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.";
 "year-in-review-personalized-weekday" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";
@@ -1466,6 +1466,5 @@
 "year-in-review-survey-unsatisfied" = "Unsatisfied";
 "year-in-review-survey-very-satisfied" = "Very satisfied";
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
-"year-in-review-wikipedia-globe-accessibility-label" = "Wikipedia globe logo";
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";

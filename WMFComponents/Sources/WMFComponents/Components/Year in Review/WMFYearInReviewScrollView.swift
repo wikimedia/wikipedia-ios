@@ -49,11 +49,11 @@ public struct WMFYearInReviewScrollView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .accessibilityHidden(true)
-                    WMFGIFfImageView(gifName)
+                    WMFGIFImageView(gifName)
                         .aspectRatio(1.5, contentMode: .fit)
                         .frame(maxWidth: .infinity)
                 }
+                .accessibilityElement(children: .combine)
                 .accessibilityLabel(altText)
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
@@ -71,7 +71,7 @@ public struct WMFYearInReviewScrollView: View {
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
                         .accessibilityHidden(true)
-                    WMFGIFfImageView(gifName)
+                    WMFGIFImageView(gifName)
                         .aspectRatio(1.5, contentMode: .fit)
                         .frame(maxWidth: .infinity)
                 }
