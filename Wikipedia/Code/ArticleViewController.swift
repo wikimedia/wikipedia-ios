@@ -479,7 +479,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
@@ -1622,7 +1621,6 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
-        // fakeProgressController.finish()
         if showEmptyView {
             wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
         }
@@ -1895,11 +1893,3 @@ extension ArticleViewController: UISearchControllerDelegate {
     }
 
 }
-
-// MARK: - UISearchBarDelegate
-
-//    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-//        let searchActivity = NSUserActivity.wmf_searchView()
-//        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
-//        return false
-//    }
