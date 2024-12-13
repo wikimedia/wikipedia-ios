@@ -93,10 +93,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewWillAppear:animated];
     [self loadSections];
     
-    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-    BOOL shouldShowProfileBadge = numUnreadNotifications != 0;
-    
-    [self setupNavigationBarWithShouldShowProfileBadge:shouldShowProfileBadge];
+    [self configureNavigationBarFromObjC];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -651,15 +648,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
     
-    [self updateProfileButton];
-    [self updateCloseButton];
-}
-
-- (void)updateProfileButton {
-    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-    BOOL needsProfileBadge = numUnreadNotifications != 0;
-    
-    [self updateProfileButtonObjCWrapperWithNeedsBadge:needsProfileBadge];
+    [self updateProfileButtonFromObjC];
+    [self themeNavigationBarCloseButtonFromObjC];
+    [self themeNavigationBarLeadingTitleViewFromObjC];
 }
 
 #pragma Mark WMFAccountViewControllerDelegate

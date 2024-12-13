@@ -421,7 +421,7 @@
 "editor-replace-type-button-accessibility" = "Accessibility label for the replace type button on the editor. $1 is replaced by the replace type the user has set (single instance or all instances).";
 "editor-replace-type-single" = "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces a single instance of the find text.";
 "editor-replace-type-single-accessibility" = "Accessibility text for the replace single instance type on the editor.";
-"editor-title" = "Title of editor view. Seen when long pressing a back button to see stack of previous views.";
+"editor-title" = "Title of editor view.";
 "editor-toolbar-bold-accessibility" = "Accessibility label for bold toolbar button on the editor.";
 "editor-toolbar-cursor-down-accessibility" = "Accessibility label for move cursor down button on the editor. This button moves the cursor down to the next line.";
 "editor-toolbar-cursor-next-accessibility" = "Accessibility label for move cursor next button on the editor. This button moves the cursor to the next character.";

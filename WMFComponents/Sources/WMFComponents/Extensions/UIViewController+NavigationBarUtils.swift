@@ -1,25 +1,27 @@
+// Common methods used for navigation bar display in the app
 import UIKit
 
-public protocol WMFNavigationBarStyling {
+public protocol WMFNavigationBarConfiguring {
     
 }
-
-public enum WMFNavigationBarStyle {
-    case standard
-    case largeTitle
-}
-
 
 /// Title config for a navigation bar. If hideTitleView = false, this title will appear in the navigation bar and in the long press back button stack. If hideTitleView = true, this title will only appear in the long press back button stack
 public struct WMFNavigationBarTitleConfig {
-    let title: String
-    let hideTitleView: Bool
-    let customTitleView: UIView?
     
-    public init(title: String, hideTitleView: Bool, customTitleView: UIView?) {
+    public enum Alignment {
+        case leading
+        case center
+        case hidden
+    }
+    
+    let title: String
+    let customView: UIView?
+    let alignment: Alignment
+    
+    public init(title: String, customView: UIView?, alignment: Alignment) {
         self.title = title
-        self.hideTitleView = hideTitleView
-        self.customTitleView = customTitleView
+        self.customView = customView
+        self.alignment = alignment
     }
 }
 
@@ -80,25 +82,18 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
-public extension WMFNavigationBarStyling where Self: UIViewController {
+public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
     /// - Parameters:
     ///   - style: A style enum for setting up the navigation bar.
     ///   - titleConfig: Config for title setup
     ///   - closeButtonConfig: Config for close button. If provided, a leading X button will be added to navigation bar, which will dismiss the view controller when tapped
-    func setupNavigationBar(style: WMFNavigationBarStyle, hidesBarsOnSwipe: Bool, titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?) {
-        switch style {
-        case .standard:
-            navigationController?.setNavigationBarHidden(false, animated: true)
-            navigationController?.hidesBarsOnSwipe = hidesBarsOnSwipe
-            navigationItem.largeTitleDisplayMode = .never
-        case .largeTitle:
-            navigationController?.setNavigationBarHidden(false, animated: true)
-            navigationController?.hidesBarsOnSwipe = hidesBarsOnSwipe
-            navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
+    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
+        navigationItem.largeTitleDisplayMode = .never
         
         // Allows detection when performing long press popping
         navigationItem.title = titleConfig.title
@@ -109,15 +104,38 @@ public extension WMFNavigationBarStyling where Self: UIViewController {
         // Enables back button to display only arrow
         navigationItem.backButtonDisplayMode = .minimal
         
-        // Display custom title view if needed
-        if let customTitleView = titleConfig.customTitleView {
-            navigationItem.titleView = customTitleView
-            navigationItem.titleView?.tintColor = WMFAppEnvironment.current.theme.text
+        switch titleConfig.alignment {
+        case .center:
+            if let customTitleView = titleConfig.customView {
+                navigationItem.titleView = customTitleView
+                themeNavigationBarCustomCenteredTitleView()
+            }
+        case .leading:
+            navigationItem.titleView = UIView()
+            if let customTitleView = titleConfig.customView {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customTitleView)
+                themeNavigationBarLeadingTitleView()
+            } else {
+                let leadingTitleLabel = UILabel()
+                leadingTitleLabel.font = WMFFont.for(.boldTitle1)
+                leadingTitleLabel.text = titleConfig.title
+                // may still need this
+                // leadingTitleLabel.textColor = WMFAppEnvironment.current.theme.text
+                
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leadingTitleLabel)
+                
+                themeNavigationBarLeadingTitleView()
+            }
+        case .hidden:
+            navigationItem.titleView = UIView()
         }
         
-        // Hides title display in navigation bar
-        if titleConfig.hideTitleView {
-            navigationItem.titleView = UIView()
+        // Setup profile button if needed
+        if let profileButtonConfig {
+            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+            let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
+            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
+            navigationItem.rightBarButtonItem = profileButton
         }
         
         // Setup close button if needed
@@ -129,19 +147,11 @@ public extension WMFNavigationBarStyling where Self: UIViewController {
             switch closeButtonConfig.alignment {
             case .leading:
                 navigationItem.leftBarButtonItem = closeButton
-                navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
             case .trailing:
                 navigationItem.rightBarButtonItem = closeButton
-                navigationItem.rightBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
             }
-        }
-        
-        // Setup profile button if needed
-        if let profileButtonConfig {
-            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-            let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
-            navigationItem.rightBarButtonItem = profileButton
+            
+            themeNavigationBarCloseButton(alignment: closeButtonConfig.alignment)
         }
         
         // Setup search bar if needed
@@ -164,12 +174,13 @@ public extension WMFNavigationBarStyling where Self: UIViewController {
             }
             
             navigationItem.searchController = searchController
-            
         }
     }
     
-    /// Call from any apply(theme:) or appEnvironmentDidChange() methods in your UIViewController, if it is was set up with a close button in setupNavigationBar.
-    func updateNavBarCloseButtonTintColor(alignment: WMFNavigationBarCloseButtonConfig.Alignment) {
+    /// Call from UIViewController when theme changes
+    ///     - from apply(theme:) if legacy
+    ///     - from appEnvironmentDidChange() if WMFComponents
+    func themeNavigationBarCloseButton(alignment: WMFNavigationBarCloseButtonConfig.Alignment) {
         switch alignment {
         case .leading:
             navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
@@ -178,14 +189,27 @@ public extension WMFNavigationBarStyling where Self: UIViewController {
         }
     }
     
-    /// Call from any apply(theme:) or appEnvironmentDidChange() methods in your UIViewController, if it is was set up with a custom view.
-    func updateNavBarCustomTitleViewTintColor() {
+    /// Call from UIViewController when theme changes
+    ///     - from apply(theme:) if legacy
+    ///     - from appEnvironmentDidChange() if WMFComponents
+    func themeNavigationBarLeadingTitleView() {
+        navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.text
+        navigationItem.leftBarButtonItem?.customView?.tintColor = WMFAppEnvironment.current.theme.text
+    }
+    
+    /// Call from UIViewController when theme changes
+    ///     - from apply(theme:) if legacy
+    ///     - from appEnvironmentDidChange() if WMFComponents
+    func themeNavigationBarCustomCenteredTitleView() {
         navigationItem.titleView?.tintColor = WMFAppEnvironment.current.theme.text
     }
     
-    /// Call from view controller when theme changes, or when indicated badge needs to update
-    /// - Parameter indicated: true if red dot needs to be applied to profile, false if not
-    func updateNavBarProfileButton(needsBadge: Bool) {
+    /// Call from UIViewController when theme changes, or when badge needs to change
+    ///     - from apply(theme:) if legacy
+    ///     - from appEnvironmentDidChange() if WMFComponents
+    ///     - whenever badge logic changes (YiR or unread notifications)
+    ///     - Parameter needsBadge: true if red dot needs to be applied to profile button, false if not
+    func updateNavigationBarProfileButton(needsBadge: Bool) {
         let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: needsBadge)
         navigationItem.rightBarButtonItem?.image = image
     }

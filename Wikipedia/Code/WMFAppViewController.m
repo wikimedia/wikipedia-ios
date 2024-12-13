@@ -1472,7 +1472,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
+        [self.settingsViewController updateProfileButtonFromObjC];
     });
 }
 
@@ -2158,7 +2158,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
+        [self.settingsViewController updateProfileButtonFromObjC];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
 
         if (self.isResumeComplete) {
@@ -2178,7 +2178,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
+        [self.settingsViewController updateProfileButtonFromObjC];
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]

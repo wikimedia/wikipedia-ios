@@ -9,7 +9,7 @@ protocol AltTextDelegate: AnyObject {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarStyling {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring {
     enum ViewState {
         case initial
         case loading
@@ -488,7 +488,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         // Navigation Bar Setup
         if altTextExperimentViewModel == nil {
-            setupNavigationBar()
+            configureNavigationBar()
         }
     }
     
@@ -498,21 +498,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         presentModalsIfNeeded()
     }
     
-    private func setupNavigationBar() {
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
-        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+    @objc func userDidTapProfile() {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
+        let project else { return }
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: article.displayTitle ?? "", hideTitleView: false, customTitleView: wButton)
-        let profileButtonConfig = self.profileButtonConfig()
-        
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
-        
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false)
-        setupNavigationBar(style: .standard, hidesBarsOnSwipe: true, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig)
+        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
+        profileCoordinator?.start()
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
@@ -840,6 +832,58 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
     }
     
+    // MARK: Navigation Bar
+    
+    private func configureNavigationBar() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: article.displayTitle ?? "", customView: wButton, alignment: .center)
+        
+        let profileButtonConfig = self.profileButtonConfig()
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
+        
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+    }
+    
+    private func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+    }
+    
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
+        var hasUnreadNotifications: Bool = false
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
+        }
+        
+        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
+    }
+    
     // MARK: History
 
     func addToHistory() {
@@ -1055,7 +1099,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         profileCoordinator?.theme = theme
         
         updateProfileButton()
-        updateNavBarCustomTitleViewTintColor()
+        
+        themeNavigationBarCustomCenteredTitleView()
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1429,45 +1474,6 @@ private extension ArticleViewController {
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
         surveyTimerController?.didBecomeActive(withState: state)
-    }
-    
-    func updateProfileButton() {
-        let config = self.profileButtonConfig()
-        updateNavBarProfileButton(needsBadge: config.needsBadge)
-    }
-    
-    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
-        var hasUnreadNotifications: Bool = false
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
-        }
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-        
-        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
-    }
-    
-    @objc func userDidTapProfile() {
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
-        let project else { return }
-        
-        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
-        profileCoordinator?.start()
     }
     
     func setupMessagingController() {

@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) WMFProfileCoordinator *profileCoordinator;
 @property (nonatomic, weak, nullable) id<NotificationsCenterPresentationDelegate> notificationsCenterPresentationDelegate;
 
-- (void)updateProfileButton;
-
 NS_ASSUME_NONNULL_END
 
 @end

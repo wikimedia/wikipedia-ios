@@ -9,7 +9,7 @@ protocol EditorViewControllerDelegate: AnyObject {
     func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>)
 }
 
-final class EditorViewController: UIViewController, WMFNavigationBarStyling {
+final class EditorViewController: UIViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Nested Types
     
@@ -115,15 +115,19 @@ final class EditorViewController: UIViewController, WMFNavigationBarStyling {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // TODO: Localize
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorBackButtonLongPressTitle, hideTitleView: true, customTitleView: nil)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)), alignment: .leading)
-        
-        setupNavigationBar(style: .standard, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil)
+        configureNavigationBar()
     }
     
     // MARK: - Private Helpers
+    
+    private func configureNavigationBar() {
+
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_ :)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
     
     private func setupFocusNavigationView() {
 
@@ -705,7 +709,7 @@ extension EditorViewController: Themeable {
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         spinner.color = theme.isDark ? .white : .gray
-        updateNavBarCloseButtonTintColor(alignment: .leading)
+        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
 

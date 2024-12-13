@@ -1,12 +1,16 @@
 import WMFComponents
 import WMFData
 
-@objc extension WMFSettingsViewController: WMFNavigationBarStyling {
+@objc extension WMFSettingsViewController: WMFNavigationBarConfiguring {
     
-    @objc func setupNavigationBar(shouldShowProfileBadge: Bool) {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, hideTitleView: false, customTitleView: nil)
+    @objc func configureNavigationBarFromObjC() {
         
-        let profileAccessibilityLabel = shouldShowProfileBadge ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
+        let needsProfileBadge = numUnreadNotifications != 0
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leading)
+        
+        let profileAccessibilityLabel = needsProfileBadge ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         let profileAccessibilityHint = CommonStrings.profileButtonAccessibilityHint
         
         let closeButtonConfig: WMFNavigationBarCloseButtonConfig?
@@ -18,24 +22,31 @@ import WMFData
             closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
         } else {
             closeButtonConfig = nil
-            profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: shouldShowProfileBadge, target: self, action: #selector(tappedProfile))
+            profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile))
         }
         
-        setupNavigationBar(style: .largeTitle, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
-    @objc func updateProfileButtonObjCWrapper(needsBadge: Bool) {
+    @objc func updateProfileButtonFromObjC() {
         
         // Do NOT update if Settings is in modal display and does not have a profile button.
         guard self.tabBarController != nil else {
             return
         }
         
-        updateNavBarProfileButton(needsBadge: needsBadge)
+        let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
+        let needsBadge = numUnreadNotifications != 0
+        
+        updateNavigationBarProfileButton(needsBadge: needsBadge)
     }
     
-    @objc func updateCloseButton() {
-        updateNavBarCloseButtonTintColor(alignment: .trailing)
+    @objc func themeNavigationBarLeadingTitleViewFromObjC() {
+        themeNavigationBarLeadingTitleView()
+    }
+    
+    @objc func themeNavigationBarCloseButtonFromObjC() {
+        themeNavigationBarCloseButton(alignment: .trailing)
     }
     
     @objc func closeButtonPressed() {

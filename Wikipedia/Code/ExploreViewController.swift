@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarStyling {
+class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -50,7 +50,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             return existingYirCoordinator
     }
 
-    // MARK: - UIViewController
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,32 +113,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
-        setupNavigationBar()
-    }
-    
-    private func setupNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, hideTitleView: false, customTitleView: titleView)
-        let profileButtonConfig = self.profileButtonConfig()
-        
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
-        
-        let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
-            searchControllerDelegate: self,
-            searchResultsUpdater: self,
-            searchBarDelegate: self,
-            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
-            showsScopeBar: false)
-        
-        setupNavigationBar(style: .standard, hidesBarsOnSwipe: true, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig)
-    }
-    
-    @objc func updateProfileButton() {
-        let config = self.profileButtonConfig()
-        updateNavBarProfileButton(needsBadge: config.needsBadge)
+        configureNavigationBar()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -150,32 +125,23 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         }
     }
 
-    func presentUITestHelperController() {
-        let viewController = UITestHelperViewController(theme: theme)
-        present(viewController, animated: false)
-    }
-
-    private func restoreScrollPositionIfNeeded() {
-        guard
-            shouldRestoreScrollPosition,
-            let presentedContentGroupKey = presentedContentGroupKey,
-            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
-            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
-        else {
-            return
-        }
-        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
-        self.shouldRestoreScrollPosition = false
-        self.presentedContentGroupKey = nil
-    }
-
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
     }
-
+    
+    open override func refresh() {
+        updateFeedSources(with: nil, userInitiated: true) {
+        }
+    }
+    
+    private func presentUITestHelperController() {
+        let viewController = UITestHelperViewController(theme: theme)
+        present(viewController, animated: false)
+    }
+    
     @objc private func databaseHousekeeperDidComplete() {
         DispatchQueue.main.async {
             self.refresh()
@@ -229,6 +195,34 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         self.overlayHeightConstraint = overlayHeightConstraint
     }
+    
+    // MARK: Navigation Bar
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leading)
+        
+        let profileButtonConfig = self.profileButtonConfig()
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.delegatesSearchTermSelection = true
+        searchViewController.searchTermSelectDelegate = self
+        
+        let searchConfig = WMFNavigationBarSearchConfig(
+            searchResultsController: searchViewController,
+            searchControllerDelegate: self,
+            searchResultsUpdater: self,
+            searchBarDelegate: self,
+            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            showsScopeBar: false)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+    }
+    
+    @objc func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+    }
 
     private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
@@ -254,8 +248,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
-    
-    // MARK: - NavBar
     
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -301,12 +293,21 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         profileCoordinator?.start()
     }
     
-    open override func refresh() {
-        updateFeedSources(with: nil, userInitiated: true) {
-        }
-    }
-    
     // MARK: - Scroll
+    
+    private func restoreScrollPositionIfNeeded() {
+        guard
+            shouldRestoreScrollPosition,
+            let presentedContentGroupKey = presentedContentGroupKey,
+            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
+            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
+        else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.shouldRestoreScrollPosition = false
+        self.presentedContentGroupKey = nil
+    }
     
     var isLoadingOlderContent: Bool = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -730,7 +731,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         profileCoordinator?.theme = theme
         
         updateProfileButton()
-        updateNavBarCustomTitleViewTintColor()
+        themeNavigationBarLeadingTitleView()
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

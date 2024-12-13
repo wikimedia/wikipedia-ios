@@ -5,7 +5,7 @@ import WMFData
 import CocoaLumberjackSwift
 
 @objc(WMFHistoryViewController)
-class HistoryViewController: ArticleFetchedResultsViewController {
+class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -35,17 +35,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         super.viewWillAppear(animated)
         collectionViewUpdater.isGranularUpdatingEnabled = true
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.hidesBarsOnSwipe = false
-        let newAppearance = UINavigationBarAppearance()
-        newAppearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
-        newAppearance.configureWithOpaqueBackground()
-        newAppearance.backgroundColor = theme.colors.chromeBackground
-        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
-        newAppearance.shadowImage = UIImage()
-        newAppearance.shadowColor = .clear
-        navigationItem.scrollEdgeAppearance = newAppearance
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,6 +98,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
 //    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
 //        return .sections
 //    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leading)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {

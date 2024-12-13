@@ -12,7 +12,7 @@ protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
     func logEditPreviewDidTapNext()
 }
 
-class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing, WMFNavigationBarStyling {
+class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing, WMFNavigationBarConfiguring {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -103,12 +103,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         super.viewWillAppear(animated)
         loadPreviewIfNecessary()
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), hideTitleView: false, customTitleView: nil)
-        setupNavigationBar(style: .standard, hidesBarsOnSwipe: false, titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil)
-        
-        if needsNextButton {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
-        }
+        configureNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,6 +123,16 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     
     deinit {
         messagingController.removeScriptMessageHandler()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), customView: nil, alignment: .center)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        if needsNextButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+        }
     }
     
     private var hasPreviewed = false
