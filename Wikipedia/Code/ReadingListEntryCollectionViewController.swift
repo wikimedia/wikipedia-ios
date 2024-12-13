@@ -1,5 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
+import WMFComponents
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
@@ -419,8 +420,7 @@ extension ReadingListEntryCollectionViewController {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)
@@ -439,8 +439,7 @@ extension ReadingListEntryCollectionViewController {
             completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)

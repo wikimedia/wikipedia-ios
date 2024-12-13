@@ -1,3 +1,5 @@
+import WMFComponents
+
 @objc(WMFReadingListHintViewController)
 class ReadingListHintViewController: HintViewController {
     var dataStore: MWKDataStore?
@@ -46,8 +48,7 @@ class ReadingListHintViewController: HintViewController {
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
-        // navigationController.isNavigationBarHidden = true
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
         present(navigationController, animated: true)
     }
 

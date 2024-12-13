@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 
 struct ImportedReadingList: Codable {
     let name: String?
@@ -19,7 +20,7 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
     func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle])
 }
 
-class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
+class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate, WMFNavigationBarConfiguring {
         
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -90,7 +91,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
-        navigationItem.title = CommonStrings.createNewListTitle
         readingListNameLabel.text = WMFLocalizedString("reading-list-create-new-list-reading-list-name", value: "Reading list name", comment: "Title for label above text field for entering new list name.")
         descriptionLabel.text = WMFLocalizedString("reading-list-create-new-list-description", value: "Description", comment: "Title for label above text field for entering new list description.")
         readingListNameTextField.placeholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")
@@ -106,6 +106,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureNavigationBar()
         if !isInImportingMode {
             readingListNameTextField.becomeFirstResponder()
         }
@@ -114,6 +115,19 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(false)
+    }
+    
+    private func configureNavigationBar() {
+        
+        let title = isInImportingMode ? WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.") : CommonStrings.createNewListTitle
+        let closeAlignment: WMFNavigationBarCloseButtonConfig.Alignment = isInImportingMode ? .leading : .trailing
+        
+        view.wmf_addSubviewWithConstraintsToEdges(importLoadingView)
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .center)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonTapped(_:)), alignment: closeAlignment)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
 // MARK: Public
@@ -152,14 +166,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
 // MARK: Private
     
     private func setupForImportingReadingList() {
-        
-        guard isInImportingMode else {
-            return
-        }
-        
-        self.title = WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.")
-        let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonTapped(_:)))
-        navigationItem.leftBarButtonItem = closeButton
         
         view.wmf_addSubviewWithConstraintsToEdges(importLoadingView)
 
@@ -262,6 +268,9 @@ extension CreateReadingListViewController: Themeable {
         readingListNameErrorLabel.textColor = theme.colors.error
         
         createReadingListButton.apply(theme: theme)
+        
+        let alignment: WMFNavigationBarCloseButtonConfig.Alignment = isInImportingMode ? .leading : .trailing
+        themeNavigationBarCloseButton(alignment: alignment)
        
     }
 }

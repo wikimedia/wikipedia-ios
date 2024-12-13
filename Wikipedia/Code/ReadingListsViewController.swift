@@ -1,4 +1,5 @@
 import Foundation
+import WMFComponents
 
 enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList
@@ -192,8 +193,8 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
             return
         }
         createReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme, style: .sheet)
-        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .fullScreen)
+        
         present(navigationController, animated: true, completion: nil)
     }
     

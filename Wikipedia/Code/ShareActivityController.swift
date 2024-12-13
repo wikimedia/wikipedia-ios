@@ -1,3 +1,5 @@
+import WMFComponents
+
 @objc(WMFCustomShareActivity)
 class CustomShareActivity: UIActivity {
     let title: String
@@ -51,8 +53,7 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
             if let category = eventLoggingCategory, let label = eventLoggingLabel {
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
             }
@@ -63,8 +64,7 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         if let readingListDetailVC = self as? ReadingListDetailViewController {
             let moveToReadingListActivity = MoveToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: readingListDetailVC.readingList, theme: theme)
-                let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
-                navigationController.isNavigationBarHidden = true
+                let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
                 self.present(navigationController, animated: true, completion: nil)
             }
             customActivities.append(moveToReadingListActivity)
