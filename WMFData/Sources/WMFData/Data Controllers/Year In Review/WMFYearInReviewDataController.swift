@@ -157,6 +157,12 @@ import CoreData
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
         }
+        
+        // Check persisted year in review report exists.
+        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
+            return false
+        }
+        
         return true
     }
 
