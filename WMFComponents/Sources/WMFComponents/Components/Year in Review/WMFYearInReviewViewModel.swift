@@ -204,10 +204,11 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
+    public let isSubtitleAttributedString: Bool?
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.altText = altText
         self.title = title
         self.informationBubbleText = informationBubbleText
@@ -216,6 +217,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.infoURL = infoURL
 		self.hideDonateButton = hideDonateButton
         self.gifName = gifName
+        self.isSubtitleAttributedString = isSubtitleAttributedString
     }
 }
 

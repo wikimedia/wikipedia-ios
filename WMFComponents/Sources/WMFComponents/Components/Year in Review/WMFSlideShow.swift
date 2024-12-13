@@ -18,6 +18,10 @@ public struct WMFSlideShow: View {
     
     let slides: [SlideShowProtocol]
     
+    private var subtitleStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+    }
+    
     public init(
         currentSlide: Binding<Int>,
         slides: [SlideShowProtocol],
@@ -72,11 +76,16 @@ public struct WMFSlideShow: View {
                     }
                 }
             }
-            Text(subtitleAttributedString(slide: slide))
-                .font(Font(WMFFont.for(.title3)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .accentColor(Color(uiColor: theme.link))
-                .frame(maxWidth: .infinity, alignment: .leading)
+            if slides[slide].isSubtitleAttributedString ?? false {
+                WMFHtmlText(html: slides[slide].subtitle, styles: subtitleStyles)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+            } else {
+                Text(subtitleAttributedString(slide: slide))
+                    .font(Font(WMFFont.for(.title3)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .accentColor(Color(uiColor: theme.link))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
     }
 }
@@ -86,5 +95,6 @@ public protocol SlideShowProtocol {
     var subtitle: String { get }
     var gifName: String { get }
     var altText: String { get }
+    var isSubtitleAttributedString: Bool? { get }
     var infoURL: URL? { get }
 }

@@ -259,35 +259,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format)
     }
 
-    var englishTopReadSlideSubtitle: String { // TODO: Grey - figure out how to do this formatting
-        /*
-        Notes:
-         WMFArticleSummaryView -> WMFHtmlText ->
-         Add boolean 'needsAttributedString' and pass this
-         */
+    var englishTopReadSlideSubtitle: String {
         let format = WMFLocalizedString(
             "year-in-review-english-top-read-slide-subtitle",
-            value: """
-            English Wikipedia’s most popular articles<br>
-            <br>
-            When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:<br>
-            <br>
-            <ul>
-                <li>Deaths in 2024</li>
-                <li>Kamala Harris</li>
-                <li>2024 United States presidential election</li>
-                <li>Lyle and Erik Menendez</li>
-                <li>Donald Trump</li>
-            </ul><br>
-            <br>
-            Read more in [our dedicated blog post](%1$@).<br>
-            """,
-            comment: "Top read slide subtitle for English Year in Review with HTML list tags and proper line breaks for the top 5 articles. %1$@ is link"
+            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol><br>Read more in <a href=\"\(aboutWikimediaURL)\">our dedicated blog post</a>.",
+            comment: "Top read slide subtitle for English Year in Review with HTML list tags and proper line breaks for the top 5 articles, using HTML style tags to make an ordered list."
         )
-        return String.localizedStringWithFormat(format, aboutWikimediaURL)
+        return String.localizedStringWithFormat(format)
     }
 
-    
     var englishSavedReadingSlideTitle: String {
         let format = WMFLocalizedString(
             "year-in-review-english-saved-reading-slide-title",
@@ -724,6 +704,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            title: collectiveLanguagesSlideTitle,
            informationBubbleText: nil,
            subtitle: englishTopReadSlideSubtitle,// collectiveLanguagesSlideSubtitle,
+           isSubtitleAttributedString: true,
            loggingID: "read_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
