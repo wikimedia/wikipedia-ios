@@ -173,8 +173,7 @@ class EditLinkViewController: ThemeableViewController {
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
-        searchViewController.delegate = self
-        searchViewController.delegatesSearchResultSelection = true
+        searchViewController.searchResultSelectionDelegate = self
         searchViewController.prefersLargeTitles = false
         searchViewController.showLanguageBar = false
         searchViewController.navigationItem.title = title
@@ -204,8 +203,8 @@ class EditLinkViewController: ThemeableViewController {
     }
 }
 
-extension EditLinkViewController: ArticleCollectionViewControllerDelegate2 {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController2, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+extension EditLinkViewController: SearchViewControllerResultSelectionDelegate {
+    func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController) {
         self.articleURL = articleURL
         navigationController?.popViewController(animated: true)
     }

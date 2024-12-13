@@ -55,11 +55,9 @@ class InsertLinkViewController: UIViewController {
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchResultSelection = true
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
+        searchViewController.searchBarDelegate = self
+        searchViewController.searchResultSelectionDelegate = self
         searchViewController.showLanguageBar = false
-        searchViewController.delegate = self
         let search = UISearchController(searchResultsController: searchViewController)
         search.searchResultsUpdater = self
         search.searchBar.showsCancelButton = false
@@ -94,8 +92,8 @@ class InsertLinkViewController: UIViewController {
     }
 }
 
-extension InsertLinkViewController: ArticleCollectionViewControllerDelegate2 {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController2, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
+extension InsertLinkViewController: SearchViewControllerResultSelectionDelegate {
+    func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController) {
         guard let title = articleURL.wmf_title else {
             return
         }
@@ -142,12 +140,8 @@ extension InsertLinkViewController: UISearchResultsUpdating {
     }
 }
 
-extension InsertLinkViewController: SearchTermSelectDelegate {
-    var searchBarText: String? {
-        navigationItem.searchController?.searchBar.text
-    }
-    
-    func searchViewController(_ searchViewController: SearchViewController, didSelectSearchTerm searchTerm: String, at indexPath: IndexPath) {
-        navigationItem.searchController?.searchBar.text = searchTerm
+extension InsertLinkViewController: SearchViewControllerBarDelegate {
+    var searchBar: UISearchBar? {
+        navigationItem.searchController?.searchBar
     }
 }

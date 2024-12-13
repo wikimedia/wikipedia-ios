@@ -205,8 +205,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
-        searchViewController.delegatesSearchTermSelection = true
-        searchViewController.searchTermSelectDelegate = self
+        searchViewController.searchBarDelegate = self
         
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchViewController,
@@ -2017,13 +2016,9 @@ extension ExploreViewController: UISearchResultsUpdating {
     }
 }
 
-extension ExploreViewController: SearchTermSelectDelegate {
-    var searchBarText: String? {
-        navigationItem.searchController?.searchBar.text
-    }
-    
-    func searchViewController(_ searchViewController: SearchViewController, didSelectSearchTerm searchTerm: String, at indexPath: IndexPath) {
-        navigationItem.searchController?.searchBar.text = searchTerm
+extension ExploreViewController: SearchViewControllerBarDelegate {
+    var searchBar: UISearchBar? {
+        navigationItem.searchController?.searchBar
     }
 }
 
