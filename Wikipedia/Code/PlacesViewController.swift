@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, WMFNavigationBarConfiguring {
 
     fileprivate var mapView: MapView!
 
@@ -79,7 +79,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = CommonStrings.placesTabTitle
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = [UIRectEdge.top, UIRectEdge.left, UIRectEdge.right]
@@ -109,7 +108,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }()
     
     override func viewDidLoad() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
         
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
         addChild(listViewController)
@@ -181,40 +179,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         overlaySliderPanGestureRecognizer = panGR
 
         self.view.layoutIfNeeded()
-        
-        setupNavBar()
-    }
-    
-    private func setupNavBar() {
-
-        let search = UISearchController(searchResultsController: nil)
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchResultsUpdater = self
-        search.searchBar.delegate = self
-        search.searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}")
-        if #available(iOS 16.0, *) {
-            search.scopeBarActivation = .manual
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        updateScopeBarVisibility()
-        
-        navigationItem.searchController = search
-    }
-    
-    private func updateScopeBarVisibility() {
-        
-        guard let searchController = navigationItem.searchController else {
-            return
-        }
-        
-        if !isViewModeOverlay {
-            searchController.searchBar.showsScopeBar = true
-            searchController.searchBar.scopeButtonTitles = ["Map","List"]
-        } else {
-            searchController.searchBar.showsScopeBar = false
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -254,24 +218,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        let newAppearance = UINavigationBarAppearance()
-        newAppearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
-        newAppearance.configureWithOpaqueBackground()
-        newAppearance.backgroundColor = theme.colors.chromeBackground
-        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
-        newAppearance.shadowImage = UIImage()
-        newAppearance.shadowColor = .clear
-        navigationItem.scrollEdgeAppearance = newAppearance
+        configureNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -280,6 +227,34 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
         locationManager.stopMonitoringLocation()
         mapView.showsUserLocation = false
+    }
+    
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leading)
+
+        let showsScopeBar = isViewModeOverlay ? false : true
+        let scopeButtonTitles = isViewModeOverlay ? nil : ["Map","List"]
+        
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+    }
+    
+    private func updateScopeBarVisibility() {
+        
+        guard let searchController = navigationItem.searchController else {
+            return
+        }
+        
+        if !isViewModeOverlay {
+            searchController.searchBar.showsScopeBar = true
+            searchController.searchBar.scopeButtonTitles = ["Map","List"]
+        } else {
+            searchController.searchBar.showsScopeBar = false
+        }
     }
 
     private func constrainButtonsToNavigationBar() {
@@ -1020,14 +995,12 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.alpha = 1
                     self.mapListToggleContainer.isHidden = false
-                    // self.searchBarStackView.layoutIfNeeded()
                     self.navigationItem.searchController?.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.isHidden = true
                     self.mapListToggleContainer.alpha = 0
-                    // self.searchBarStackView.layoutIfNeeded()
                     self.navigationItem.searchController?.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
@@ -2130,7 +2103,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         
         navigationItem.searchController?.isActive = false
-        // searchBar.endEditing(true)
         searchForFirstSearchSuggestion()
     }
     
@@ -2256,7 +2228,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         view.backgroundColor = theme.colors.baseBackground
-        // navigationBar.apply(theme: theme)
 
         if let searchBar = navigationItem.searchController?.searchBar {
             searchBar.apply(theme: theme)
