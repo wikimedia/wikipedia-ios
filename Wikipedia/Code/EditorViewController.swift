@@ -759,7 +759,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
             
             let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
             insertLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .fullScreen)
             present(navigationController, animated: true)
         }
     }

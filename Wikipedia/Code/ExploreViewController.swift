@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -205,13 +205,13 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
-        searchViewController.searchBarDelegate = self
+        searchViewController.recentlySearchedSelectionDelegate = self
         
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchViewController,
             searchControllerDelegate: self,
             searchResultsUpdater: self,
-            searchBarDelegate: self,
+            searchBarDelegate: nil,
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false)
         
@@ -401,14 +401,6 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     @objc func ensureWikipediaSearchIsShowing() {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
-    // MARK: - UISearchBarDelegate
-    
-//    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-//        let searchActivity = NSUserActivity.wmf_searchView()
-//        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
-//        return false
-//    }
     
     // MARK: - State
     
@@ -2016,9 +2008,10 @@ extension ExploreViewController: UISearchResultsUpdating {
     }
 }
 
-extension ExploreViewController: SearchViewControllerBarDelegate {
-    var searchBar: UISearchBar? {
-        navigationItem.searchController?.searchBar
+extension ExploreViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }
 

@@ -1,11 +1,12 @@
 import UIKit
+import WMFComponents
 
 protocol InsertLinkViewControllerDelegate: AnyObject {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?)
 }
 
-class InsertLinkViewController: UIViewController {
+class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     weak var delegate: InsertLinkViewControllerDelegate?
     private var theme = Theme.standard
     private let dataStore: MWKDataStore
@@ -23,53 +24,39 @@ class InsertLinkViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(delegateCloseButtonTap(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.insertLinkTitle
-        navigationItem.leftBarButtonItem = closeButton
-//        let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
-//        navigationController.isNavigationBarHidden = true
-//        wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
-        setupNavigationBar()
+
         apply(theme: theme)
     }
     
-    func setupNavigationBar() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
         
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .center)
         
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.searchBarDelegate = self
-        searchViewController.searchResultSelectionDelegate = self
-        searchViewController.showLanguageBar = false
-        let search = UISearchController(searchResultsController: searchViewController)
-        search.searchResultsUpdater = self
-        search.searchBar.showsCancelButton = false
-        search.hidesNavigationBarDuringPresentation = false
-        // search.delegate = self
-        search.searchBar.searchBarStyle = .minimal
-        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-        search.showsSearchResultsController = true
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        // definesPresentationContext = true
+        let searchViewController = SearchViewController()
+        searchViewController.showLanguageBar = false
+        searchViewController.dataStore = dataStore
+        searchViewController.recentlySearchedSelectionDelegate = self
+        searchViewController.searchResultSelectionDelegate = self
         
-        navigationItem.searchController = search
+        let searchConfig = WMFNavigationBarSearchConfig(
+            searchResultsController: searchViewController,
+            searchControllerDelegate: nil,
+            searchResultsUpdater: self,
+            searchBarDelegate: nil,
+            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            showsScopeBar: false)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +74,12 @@ class InsertLinkViewController: UIViewController {
     }
 
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.insertLinkViewController(self, didTapCloseButton: closeButton)
+        
+        guard let leftBarButtonItem = navigationItem.leftBarButtonItem else {
+            return false
+        }
+        
+        delegate?.insertLinkViewController(self, didTapCloseButton: leftBarButtonItem)
         return true
     }
 }
@@ -110,8 +102,8 @@ extension InsertLinkViewController: Themeable {
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
-        closeButton.tintColor = theme.colors.primaryText
-        // searchViewController.apply(theme: theme)
+    
+        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
 
@@ -140,8 +132,9 @@ extension InsertLinkViewController: UISearchResultsUpdating {
     }
 }
 
-extension InsertLinkViewController: SearchViewControllerBarDelegate {
-    var searchBar: UISearchBar? {
-        navigationItem.searchController?.searchBar
+extension InsertLinkViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }

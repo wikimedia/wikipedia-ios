@@ -845,7 +845,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
-        searchViewController.searchBarDelegate = self
+        searchViewController.recentlySearchedSelectionDelegate = self
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false)
         
@@ -1854,9 +1854,10 @@ extension ArticleViewController: YearInReviewBadgeDelegate {
     }
 }
 
-extension ArticleViewController: SearchViewControllerBarDelegate {
-    var searchBar: UISearchBar? {
-        navigationItem.searchController?.searchBar
+extension ArticleViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }
 

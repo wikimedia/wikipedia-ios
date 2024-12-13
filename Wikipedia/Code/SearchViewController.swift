@@ -1,8 +1,8 @@
 import UIKit
 import WMFComponents
 
-protocol SearchViewControllerBarDelegate: AnyObject {
-    var searchBar: UISearchBar? { get }
+protocol SearchViewControllerRecentlySearchedSelectionDelegate: AnyObject {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController)
 }
 
 protocol SearchViewControllerResultSelectionDelegate: AnyObject {
@@ -12,7 +12,8 @@ protocol SearchViewControllerResultSelectionDelegate: AnyObject {
 class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarConfiguring {
     
     // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
-    weak var searchBarDelegate: SearchViewControllerBarDelegate?
+    // todo: rename, confusing with UISearch
+    weak var recentlySearchedSelectionDelegate: SearchViewControllerRecentlySearchedSelectionDelegate?
     
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon selection.
     weak var searchResultSelectionDelegate: SearchViewControllerResultSelectionDelegate?
@@ -421,9 +422,12 @@ class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarCo
         updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let searchBar = searchBarDelegate?.searchBar ?? navigationItem.searchController?.searchBar
-        searchBar?.text = recentSearch.searchTerm
-        searchBar?.becomeFirstResponder()
+        if let recentlySearchedSelectionDelegate {
+            recentlySearchedSelectionDelegate.didSelectRecentlySearchedTerm(recentSearch.searchTerm, searchViewController: self)
+        } else {
+            navigationItem.searchController?.searchBar.text = recentSearch.searchTerm
+            navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
 
         search()
     }
