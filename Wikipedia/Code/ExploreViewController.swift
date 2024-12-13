@@ -213,7 +213,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             searchResultsUpdater: self,
             searchBarDelegate: nil,
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
-            showsScopeBar: false)
+            showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
     }

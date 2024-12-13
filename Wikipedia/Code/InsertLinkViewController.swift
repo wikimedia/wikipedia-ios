@@ -54,7 +54,8 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             searchResultsUpdater: self,
             searchBarDelegate: nil,
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
-            showsScopeBar: false)
+            showsScopeBar: false,
+            scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }

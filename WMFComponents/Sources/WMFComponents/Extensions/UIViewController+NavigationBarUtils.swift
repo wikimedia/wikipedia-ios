@@ -67,18 +67,20 @@ public struct WMFNavigationBarProfileButtonConfig {
 public struct WMFNavigationBarSearchConfig {
     let searchResultsController: UIViewController?
     let searchControllerDelegate: UISearchControllerDelegate?
-    let searchResultsUpdater: UISearchResultsUpdating
+    let searchResultsUpdater: UISearchResultsUpdating?
     let searchBarDelegate: UISearchBarDelegate?
     let searchBarPlaceholder: String
     let showsScopeBar: Bool
+    let scopeButtonTitles: [String]?
     
-    public init(searchResultsController: UIViewController?, searchControllerDelegate: UISearchControllerDelegate?, searchResultsUpdater: UISearchResultsUpdating, searchBarDelegate: UISearchBarDelegate?, searchBarPlaceholder: String, showsScopeBar: Bool) {
+    public init(searchResultsController: UIViewController?, searchControllerDelegate: UISearchControllerDelegate?, searchResultsUpdater: UISearchResultsUpdating?, searchBarDelegate: UISearchBarDelegate?, searchBarPlaceholder: String, showsScopeBar: Bool, scopeButtonTitles: [String]?) {
         self.searchResultsController = searchResultsController
         self.searchControllerDelegate = searchControllerDelegate
         self.searchResultsUpdater = searchResultsUpdater
         self.searchBarDelegate = searchBarDelegate
         self.searchBarPlaceholder = searchBarPlaceholder
         self.showsScopeBar = showsScopeBar
+        self.scopeButtonTitles = scopeButtonTitles
     }
 }
 
@@ -164,7 +166,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             searchController.searchBar.searchBarStyle = .minimal
             searchController.searchBar.placeholder = searchBarConfig.searchBarPlaceholder
             searchController.showsSearchResultsController = true
-            searchController.searchBar.showsScopeBar = searchBarConfig.showsScopeBar
+            
+            if searchBarConfig.showsScopeBar {
+                searchController.searchBar.showsScopeBar = searchBarConfig.showsScopeBar
+                
+                if #available(iOS 16.0, *) {
+                    searchController.scopeBarActivation = .manual
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                searchController.searchBar.scopeButtonTitles = searchBarConfig.scopeButtonTitles
+            }
             
             navigationItem.hidesSearchBarWhenScrolling = false
             

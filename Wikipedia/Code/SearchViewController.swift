@@ -71,7 +71,7 @@ class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarCo
         let alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .center : .leading
         let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
         // TODO: Localize
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Type something here to search", showsScopeBar: false)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Type something here to search", showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: false)
     }
