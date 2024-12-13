@@ -47,6 +47,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         searchViewController.dataStore = dataStore
         searchViewController.recentlySearchedSelectionDelegate = self
         searchViewController.searchResultSelectionDelegate = self
+        searchViewController.theme = theme
         
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchViewController,
@@ -105,6 +106,11 @@ extension InsertLinkViewController: Themeable {
         view.layer.shadowColor = theme.colors.shadow.cgColor
     
         themeNavigationBarCloseButton(alignment: .leading)
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
     }
 }
 

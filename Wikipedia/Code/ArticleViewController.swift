@@ -843,6 +843,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
+        searchViewController.theme = theme
         searchViewController.recentlySearchedSelectionDelegate = self
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
@@ -1100,6 +1101,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         themeNavigationBarCustomCenteredTitleView()
         
         overlayView?.backgroundColor = theme.colors.paperBackground
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
     }
     
     private func rethemeWebViewIfNecessary() {

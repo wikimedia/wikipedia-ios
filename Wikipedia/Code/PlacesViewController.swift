@@ -2111,6 +2111,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        navigationItem.searchController?.isActive = false
         updateViewModeFromSegmentedControl()
     }
 

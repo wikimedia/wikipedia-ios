@@ -182,6 +182,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
         searchViewController.recentlySearchedSelectionDelegate = self
+        searchViewController.theme = theme
         
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchViewController,
@@ -699,6 +700,11 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
         
         overlayView?.backgroundColor = theme.colors.paperBackground
     }

@@ -168,6 +168,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         searchViewController.needsCenteredTitle = true
         searchViewController.searchTerm = articleURL.wmf_title
         searchViewController.search()
+        searchViewController.theme = theme
         searchViewController.apply(theme: theme)
         navigationController?.pushViewController(searchViewController, animated: true)
     }
