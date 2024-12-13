@@ -149,7 +149,6 @@ extension ArticleViewController {
             return
         }
         
-        
 
         let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
         let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
