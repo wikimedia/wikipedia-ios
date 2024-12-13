@@ -748,8 +748,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
             }
             
             editLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .fullScreen)
             present(navigationController, animated: true)
         }
         

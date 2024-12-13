@@ -7,7 +7,7 @@ protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController)
 }
 
-class EditLinkViewController: ThemeableViewController {
+class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     weak var delegate: EditLinkViewControllerDelegate?
 
     private let link: Link
@@ -30,12 +30,6 @@ class EditLinkViewController: ThemeableViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
-
-    private lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
 
     private lazy var doneButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
 
@@ -64,11 +58,6 @@ class EditLinkViewController: ThemeableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // navigationBar.displayType = .modal
-        title = CommonStrings.editLinkTitle
-        navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItem = doneButton
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
         var textContainerInset = displayTextView.textContainerInset
         textContainerInset.top = 15
         displayTextLabel.text = WMFLocalizedString("edit-link-display-text-title", value: "Display text", comment: "Title for the display text label")
@@ -79,12 +68,6 @@ class EditLinkViewController: ThemeableViewController {
         removeLinkButton.setTitle(WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button"), for: .normal)
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
-//        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
-//            guard let self = self else {
-//                return
-//            }
-//            self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
-//        })
         updateFonts()
         apply(theme: theme)
     }
@@ -92,10 +75,17 @@ class EditLinkViewController: ThemeableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchArticle()
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .center)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        navigationItem.rightBarButtonItem = doneButton
     }
 
     private func fetchArticle() {
@@ -195,10 +185,11 @@ class EditLinkViewController: ThemeableViewController {
         linkTargetLabel.textColor = theme.colors.secondaryText
         removeLinkButton.tintColor = theme.colors.destructive
         removeLinkButton.backgroundColor = theme.colors.paperBackground
-        closeButton.tintColor = theme.colors.primaryText
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
+        
+        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
 
