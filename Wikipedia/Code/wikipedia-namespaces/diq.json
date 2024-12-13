@@ -14,14 +14,6 @@
     "DOSYA WERÊNAYIŞ" : 7,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
-    "HALET" : 2300,
-    "HALET ŞINASNAYIŞ" : 2302,
-    "HALET ŞINASNAYIŞ VATEN" : 2303,
-    "HALET VATEN" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMAGE" : 6,
@@ -55,10 +47,6 @@
     "PORTAL VATEN" : 101,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
-    "ŞABLON" : 10,
-    "ŞABLON MESAC" : 11,
-    "ŞABLON VATEN" : 11,
-    "ŞABLON WERÊNAYIŞ" : 11,
     "SPECIAL" : -1,
     "TALK" : 1,
     "TEMPLATE" : 10,
@@ -75,6 +63,10 @@
     "WIKIPEDIA VATEN" : 5,
     "WIKIPEDIA WERÊNAYIŞ" : 5,
     "WP" : 4,
-    "XISUSI" : -1
+    "XISUSI" : -1,
+    "ŞABLON" : 10,
+    "ŞABLON MESAC" : 11,
+    "ŞABLON VATEN" : 11,
+    "ŞABLON WERÊNAYIŞ" : 11
   }
 }
