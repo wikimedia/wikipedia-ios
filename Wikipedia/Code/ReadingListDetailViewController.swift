@@ -4,7 +4,7 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ThemeableViewController {
+class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
@@ -104,40 +104,6 @@ class ReadingListDetailViewController: ThemeableViewController {
         super.viewDidLoad()
         
         setUpArticlesViewController()
-        
-        title = readingList.name
-
-        navigationItem.largeTitleDisplayMode = .never
-        navigationItem.backButtonTitle = readingList.name
-        navigationItem.backButtonDisplayMode = .generic
-        
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
-
-        let search = UISearchController(searchResultsController: nil)
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Search reading list"
-        navigationItem.searchController = search
-
-//        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
-//        navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-//        navigationBar.isBarHidingEnabled = false
-//        navigationBar.isUnderBarViewHidingEnabled = true
-//        navigationBar.isExtendedViewHidingEnabled = true
-     //   addExtendedView()
-        
-        if displayType == .modal {
-            navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
-            title = readingList.name
-        }
-        
-        // wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
-        
         apply(theme: theme)
     }
     
@@ -147,9 +113,7 @@ class ReadingListDetailViewController: ThemeableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,6 +130,18 @@ class ReadingListDetailViewController: ThemeableViewController {
         showImportSharedReadingListSurveyPromptIfNeeded()
     }
     
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .center)
+        
+        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(dismissController), alignment: .leading) : nil
+        
+        // TODO: Localize
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Search reading list", showsScopeBar: false, scopeButtonTitles: nil)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+    }
+    
     // MARK: - Theme
     
     override func apply(theme: Theme) {
@@ -174,6 +150,10 @@ class ReadingListDetailViewController: ThemeableViewController {
         readingListDetailHeaderView?.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
+        
+        if displayType == .modal {
+            themeNavigationBarCloseButton(alignment: .leading)
+        }
     }
     
     private lazy var sortBarButtonItem: UIBarButtonItem = {
@@ -221,11 +201,6 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             sortBarButtonItem.tintColor = theme.colors.link
         }
         
-        if displayType == .pushed {
-            navigationItem.leftBarButtonItem = leftBarButton
-            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
-        }
-        
         switch newEditingState {
         case .editing:
             fallthrough
@@ -240,8 +215,6 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         default:
             break
         }
-        
-        // navigationBar.updateNavigationItems()
     }
 }
 
