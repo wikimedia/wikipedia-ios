@@ -49,6 +49,9 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
             
             return existingYirCoordinator
     }
+    
+    private var overlayHeightConstraint: NSLayoutConstraint?
+    private var overlayView: UIView?
 
     // MARK: - Lifecycle
 
@@ -148,35 +151,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         }
     }
     
-    private var overlayHeightConstraint: NSLayoutConstraint?
     func setupTopOverlay() {
-        
-//        navigationItem.titleView = titleView
-//        navigationController?.navigationBar.prefersLargeTitles = false
-//        if #available(iOS 17.0, *) {
-//            navigationItem.largeTitleDisplayMode = .inline
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        navigationController?.hidesBarsOnSwipe = true
-//        navigationItem.hidesSearchBarWhenScrolling = false
-//        if #available(iOS 16.0, *) {
-//            navigationItem.preferredSearchBarPlacement = .stacked
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        
-//        
-//        let search = UISearchController(searchResultsController: searchViewController)
-//        search.searchResultsUpdater = self
-//        search.searchBar.delegate = self
-//        search.searchBar.searchBarStyle = .minimal
-//        search.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-//        search.showsSearchResultsController = true
-//        search.searchBar.showsScopeBar = false
-//        search.delegate = self
-//        
-//        navigationItem.searchController = search
         
         // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
         // TODO: Update this upon theming change.
@@ -194,6 +169,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         ])
         
         self.overlayHeightConstraint = overlayHeightConstraint
+        self.overlayView = overlayView
     }
     
     // MARK: Navigation Bar
@@ -723,6 +699,8 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
+        
+        overlayView?.backgroundColor = theme.colors.paperBackground
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

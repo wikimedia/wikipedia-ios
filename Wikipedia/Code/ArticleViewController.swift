@@ -165,6 +165,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var donateCoordinator: DonateCoordinator?
     
     private var overlayHeightConstraint: NSLayoutConstraint?
+    private var overlayView: UIView?
     private var stackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
 
@@ -1097,6 +1098,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateProfileButton()
         
         themeNavigationBarCustomCenteredTitleView()
+        
+        overlayView?.backgroundColor = theme.colors.paperBackground
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1354,6 +1357,10 @@ private extension ArticleViewController {
         setupWebView()
         setupMessagingController()
         
+        setupTopOverlay()
+    }
+    
+    private func setupTopOverlay() {
         // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
         // TODO: Update this upon theming change.
         let overlayView = UIView()
@@ -1370,6 +1377,7 @@ private extension ArticleViewController {
         ])
         
         self.overlayHeightConstraint = overlayHeightConstraint
+        self.overlayView = overlayView
     }
 
     private var overflowMenu: UIMenu {
