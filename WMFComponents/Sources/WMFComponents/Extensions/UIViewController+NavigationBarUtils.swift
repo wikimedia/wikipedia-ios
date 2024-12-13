@@ -65,14 +65,14 @@ public struct WMFNavigationBarProfileButtonConfig {
 
 /// Search config for navigation bar
 public struct WMFNavigationBarSearchConfig {
-    let searchResultsController: UIViewController
+    let searchResultsController: UIViewController?
     let searchControllerDelegate: UISearchControllerDelegate
     let searchResultsUpdater: UISearchResultsUpdating
     let searchBarDelegate: UISearchBarDelegate?
     let searchBarPlaceholder: String
     let showsScopeBar: Bool
     
-    public init(searchResultsController: UIViewController, searchControllerDelegate: UISearchControllerDelegate, searchResultsUpdater: UISearchResultsUpdating, searchBarDelegate: UISearchBarDelegate?, searchBarPlaceholder: String, showsScopeBar: Bool) {
+    public init(searchResultsController: UIViewController?, searchControllerDelegate: UISearchControllerDelegate, searchResultsUpdater: UISearchResultsUpdating, searchBarDelegate: UISearchBarDelegate?, searchBarPlaceholder: String, showsScopeBar: Bool) {
         self.searchResultsController = searchResultsController
         self.searchControllerDelegate = searchControllerDelegate
         self.searchResultsUpdater = searchResultsUpdater
@@ -155,7 +155,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         }
         
         // Setup search bar if needed
-        if let searchBarConfig {
+        if let searchBarConfig,
+           navigationItem.searchController == nil {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
             searchController.delegate = searchBarConfig.searchControllerDelegate
             searchController.searchResultsUpdater = searchBarConfig.searchResultsUpdater

@@ -2038,7 +2038,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else {
         searchVC = [[SearchViewController alloc] init];
         searchVC.shouldBecomeFirstResponder = YES;
-        searchVC.prefersLargeTitles = NO;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }

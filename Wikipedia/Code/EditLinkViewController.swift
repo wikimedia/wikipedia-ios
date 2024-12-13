@@ -172,11 +172,10 @@ class EditLinkViewController: ThemeableViewController {
         searchViewController.siteURL = siteURL
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()
-        searchViewController.shouldShowCancelButton = false
         searchViewController.searchResultSelectionDelegate = self
-        searchViewController.prefersLargeTitles = false
         searchViewController.showLanguageBar = false
-        searchViewController.navigationItem.title = title
+        searchViewController.customTitle = CommonStrings.editLinkTitle
+        searchViewController.needsCenteredTitle = true
         searchViewController.searchTerm = articleURL.wmf_title
         searchViewController.search()
         searchViewController.apply(theme: theme)

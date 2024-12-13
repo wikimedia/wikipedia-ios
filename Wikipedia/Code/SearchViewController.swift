@@ -9,7 +9,7 @@ protocol SearchViewControllerResultSelectionDelegate: AnyObject {
     func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController)
 }
 
-class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegate {
+class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarConfiguring {
     
     // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
     weak var searchBarDelegate: SearchViewControllerBarDelegate?
@@ -17,33 +17,23 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon selection.
     weak var searchResultSelectionDelegate: SearchViewControllerResultSelectionDelegate?
     
-    @objc var prefersLargeTitles: Bool = true
+    var customTitle: String?
+    var needsCenteredTitle: Bool = false
     
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavBar()
         embedResultsViewController()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureNavigationBar()
         updateLanguageBarVisibility()
         reloadRecentSearches()
-        navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
-        navigationController?.hidesBarsOnSwipe = false
-        
-        let newAppearance = UINavigationBarAppearance()
-        newAppearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
-        newAppearance.configureWithOpaqueBackground()
-        newAppearance.backgroundColor = theme.colors.chromeBackground
-        newAppearance.backgroundImage = theme.navigationBarBackgroundImage
-        newAppearance.shadowImage = UIImage()
-        newAppearance.shadowColor = .clear
-        navigationItem.scrollEdgeAppearance = newAppearance
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,24 +65,14 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
         searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
     }
     
-    private func setupNavBar() {
+    private func configureNavigationBar() {
+        let title = customTitle ?? CommonStrings.searchTitle
+        let alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .center : .leading
+        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
+        // TODO: Localize
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Type something here to search", showsScopeBar: false)
         
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.hidesSearchBarWhenScrolling = false
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        let search = UISearchController(searchResultsController: nil)
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchResultsUpdater = self
-        search.searchBar.delegate = self
-        search.delegate = self
-        search.searchBar.placeholder = "Type something here to search"
-        search.automaticallyShowsCancelButton = true
-        navigationItem.searchController = search
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: false)
     }
     
     private func embedResultsViewController() {
@@ -165,19 +145,10 @@ class SearchViewController: ArticleCollectionViewController2, UISearchBarDelegat
     
     @objc var shouldBecomeFirstResponder: Bool = false
     
-    var shouldShowCancelButton: Bool = true
-    
-    var doResultsShowArticlePreviews = true {
-        didSet {
-            resultsViewController.doesShowArticlePreviews = doResultsShowArticlePreviews
-        }
-    }
-    
     var showLanguageBar: Bool?
     
     var searchTerm: String?
-    var lastSearchSiteURL: URL?
-    
+    private var lastSearchSiteURL: URL?
     private var _siteURL: URL?
     
     var siteURL: URL? {
