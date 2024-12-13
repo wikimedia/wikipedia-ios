@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable {
+class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
     
@@ -50,9 +51,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
         loginButton.setTitle(WMFLocalizedString("main-menu-account-login", value:"Log in", comment:"Button text for logging in. {{Identical|Log in}}"), for: .normal)
         
         createAccountButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("login-no-account", value:"Don't have an account? %1$@", comment:"Text for create account button. %1$@ is the message {{msg-wikimedia|login-account-join-wikipedia}}"), substitutionString: WMFLocalizedString("login-join-wikipedia", value:"Join Wikipedia.", comment:"Join Wikipedia text to be used as part of a create account button"))
@@ -76,6 +74,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -122,6 +126,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
         updatePasswordFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
+        
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -272,7 +278,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         createAcctVC.apply(theme: theme)
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
-            let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme, style: .sheet)
+            let navigationController = WMFComponentNavigationController(rootViewController: createAcctVC, modalPresentationStyle: .fullScreen)
             createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
         })
