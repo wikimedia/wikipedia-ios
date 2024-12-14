@@ -1735,7 +1735,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
-    navigationController.interactivePopGestureRecognizer.delegate = self;
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 

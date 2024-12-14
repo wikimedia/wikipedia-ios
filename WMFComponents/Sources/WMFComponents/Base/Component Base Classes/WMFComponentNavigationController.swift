@@ -91,6 +91,7 @@ open class WMFComponentNavigationController: UINavigationController {
     
     private func setup() {
         extendedLayoutIncludesOpaqueBars = true
+        interactivePopGestureRecognizer?.delegate = self
     }
     
     private func navigationBarBackgroundImage() -> UIImage? {
@@ -98,4 +99,18 @@ open class WMFComponentNavigationController: UINavigationController {
         return image
     }
 
+}
+
+extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 0
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIScreenEdgePanGestureRecognizer {
+            return false
+        }
+        
+        return true
+    }
 }
