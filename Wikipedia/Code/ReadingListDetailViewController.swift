@@ -160,6 +160,12 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
     }()
     
+    private lazy var fixedSpaceBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        button.width = 20
+        return button
+    }()
+    
     @objc func didTapSort(_ sender: UIBarButtonItem) {
         readingListEntryCollectionViewController.presentSortAlert(from: sender)
     }
@@ -196,7 +202,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         
         if let editButton = rightBarButton {
-            navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
+            navigationItem.rightBarButtonItems = [editButton, fixedSpaceBarButtonItem, sortBarButtonItem]
             rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
             sortBarButtonItem.tintColor = theme.colors.link
         }

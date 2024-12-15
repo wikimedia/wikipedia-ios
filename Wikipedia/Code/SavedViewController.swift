@@ -228,7 +228,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
         let button = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         button.width = 20
         return button
-        
     }()
     
     @objc func didTapSort(_ sender: UIBarButtonItem) {

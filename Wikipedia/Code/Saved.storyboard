@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbA-ai-MSH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DbA-ai-MSH">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,9 +37,6 @@
                             <constraint firstAttribute="trailing" secondItem="gPn-7Q-j2P" secondAttribute="trailing" id="tsd-9o-tNl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BCS-mT-Lm6">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="moe-WC-1c5"/>
-                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
@@ -123,12 +120,4 @@
             <point key="canvasLocation" x="-970" y="145"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="Euv-Dh-yK7">
-            <size key="intrinsicContentSize" width="79" height="33"/>
-        </designable>
-        <designable name="Kqc-qA-t3B">
-            <size key="intrinsicContentSize" width="97" height="33"/>
-        </designable>
-    </designables>
 </document>
