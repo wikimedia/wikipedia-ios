@@ -900,7 +900,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Je hebt dit jaar %1$d artikel%#@v1@ gelezen. Dit jaar had Wikipedia %2$@ miljoen artikelen beschikbaar in meer dan %3$@ actieve talen. U hebt zich aangesloten bij miljoenen anderen die hun kennis hebben uitgebreid en diverse onderwerpen hebben verkend.</string>
+		<string>Dit jaar hebt u %1$d artikel%#@v1@ gelezen en bood Wikipedia %2$@ miljoen artikelen in meer dan %3$@ actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -917,6 +917,38 @@
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>U hebt dit jaar %1$d artikel%#@v1@ gelezen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>en</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>U hebt dit jaar %1$d artikel%#@v1@ opgeslagen, waaronder “%2$@”, “%3$@” en “%4$@”. Elk opgeslagen artikel weerspiegelt uw interesses en helpt bij het opbouwen van een gepersonaliseerde kennisbank op Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>en</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>U hebt %1$d artikel%#@v1@ opgeslagen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
