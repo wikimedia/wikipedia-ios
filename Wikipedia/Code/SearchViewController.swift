@@ -19,10 +19,18 @@ class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarCo
     weak var searchResultSelectionDelegate: SearchViewControllerResultSelectionDelegate?
     
     var customTitle: String?
-    var needsCenteredTitle: Bool = false
+    @objc var needsCenteredTitle: Bool = false
     
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

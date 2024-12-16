@@ -4,8 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 
-
-class SinglePageWebViewController: ThemeableViewController {
+class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Nested Types
     
@@ -157,8 +156,6 @@ class SinglePageWebViewController: ThemeableViewController {
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
-        self.navigationItem.backButtonTitle = url.lastPathComponent
-        self.navigationItem.backButtonDisplayMode = .generic
         hidesBottomBarWhenPushed = true
     }
     
@@ -168,8 +165,6 @@ class SinglePageWebViewController: ThemeableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
         
         view.wmf_addSubviewWithConstraintsToEdges(webView)
 
@@ -177,22 +172,42 @@ class SinglePageWebViewController: ThemeableViewController {
             navigationItem.setRightBarButtonItems([], animated: false)
             navigationItem.titleView = nil
         } else {
-            let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
-            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
-
-            setupWButton()
+            
         }
 
         copyCookiesFromSession()
     }
     
-    private func setupWButton() {
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
-        wButton.sizeToFit()
-        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
-        navigationItem.titleView = wButton
+    
+    private func configureNavigationBar() {
+        
+        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        if navigationController?.viewControllers.first === self {
+            closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+        }
+        
+        if useSimpleNavigationBar {
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        } else {
+            let wButton = UIButton(type: .custom)
+            wButton.setImage(UIImage(named: "W"), for: .normal)
+            wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+            
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .centerCompact)
+            
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+            
+            let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
+            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
+            
+            if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+                for item in rightBarButtonItems {
+                    item.tintColor = theme.colors.link
+                }
+            }
+        }
     }
     
     @objc private func wButtonTapped(_ sender: UIButton) {
@@ -208,21 +223,14 @@ class SinglePageWebViewController: ThemeableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if navigationController?.viewControllers.first === self {
-            let image = WMFSFSymbolIcon.for(symbol: .close)
-            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
-            navigationItem.leftBarButtonItem = closeButton
-        }
-        
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
 
         guard !loaded else {
             return
         }
         loaded = true
         load()
+        
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -469,6 +477,19 @@ class SinglePageWebViewController: ThemeableViewController {
             
         case .standard:
             DDLogError("Unexpected config for setOverlayButtonLoading")
+        }
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        themeNavigationBarCustomCenteredTitleView()
+        themeNavigationBarCloseButton(alignment: .leading)
+        
+        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+            for item in rightBarButtonItems {
+                item.tintColor = theme.colors.link
+            }
         }
     }
 }

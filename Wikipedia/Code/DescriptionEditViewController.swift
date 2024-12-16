@@ -194,7 +194,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        let navVC = WMFThemeableNavigationController.init(rootViewController: vc, theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .fullScreen)
         present(navVC, animated: true, completion: nil)
     }
     

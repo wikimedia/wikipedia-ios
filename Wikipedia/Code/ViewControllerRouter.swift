@@ -65,7 +65,10 @@ class ViewControllerRouter: NSObject {
             } else if let createReadingListVC = viewController as? CreateReadingListViewController,
                       createReadingListVC.isInImportingMode {
 
-                let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
+                
+                let createReadingListNavVC =
+                WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .fullScreen)
+
                 navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)

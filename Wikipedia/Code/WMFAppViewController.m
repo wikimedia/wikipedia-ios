@@ -2040,6 +2040,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }
+    
+    searchVC.needsCenteredTitle = YES;
 
     [nc pushViewController:searchVC
                   animated:true];
