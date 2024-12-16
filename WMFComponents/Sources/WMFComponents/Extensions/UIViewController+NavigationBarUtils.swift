@@ -101,10 +101,14 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         navigationItem.title = titleConfig.title
         
         // Sets title in long press back contextual menu
-        navigationItem.backButtonTitle = titleConfig.title
+        // navigationItem.backButtonTitle = titleConfig.title
+        
+        // Force full title to show in back button, not "Back"
+        let backBarButtonItem = UIBarButtonItem(title: titleConfig.title, style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
         
         // Enables back button to display only arrow
-        navigationItem.backButtonDisplayMode = .minimal
+        // navigationItem.backButtonDisplayMode = .minimal
         
         switch titleConfig.alignment {
         case .center:
