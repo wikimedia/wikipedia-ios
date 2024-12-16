@@ -99,10 +99,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
             collectiveExploreAccessibilityLabel: CommonStrings.collectiveExploreAccessibilityLabel,
             collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
-            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective article views slide."),
+            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.", comment: "Accessibility description for the collective article views slide."),
             collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
-            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: " A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
-            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
+            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: " A graph An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
+            englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
+            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: " clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide.")
         )
     }()
@@ -216,7 +217,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - English Slide Strings
     var englishExploreSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-explore-slide",
+            "microsite-yir-english-explore-slide",
             value: "Explore Wikipedia in Review",
             comment: "Explore slide title for English Year in Review."
         )
@@ -225,7 +226,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishExploreSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-explore-slide-subtitle",
+            "microsite-yir-english-explore-slide-subtitle",
             value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Look back on 2024 through the lens of Wikipedia.",
             comment: "Explore slide subtitle for English Year in Review."
         )
@@ -234,7 +235,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishReadingSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-reading-slide-title",
+            "microsite-yir-english-reading-slide-title",
             value: "We spent 2.4 billion hours reading",
             comment: "Reading slide title for English Year in Review."
         )
@@ -243,7 +244,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishReadingSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-reading-slide-subtitle",
+            "microsite-yir-english-reading-slide-subtitle",
             value: "People spent an estimated 2.4 billion hours—nearly 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.",
             comment: "Reading slide subtitle for English Year in Review."
         )
@@ -252,7 +253,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     var englishTopReadSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-top-read-slide-title",
+            "microsite-yir-english-top-read-slide-title",
             value: "English Wikipedia’s most popular articles",
             comment: "Top read slide title for English Year in Review."
         )
@@ -261,7 +262,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishTopReadSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-top-read-slide-subtitle",
+            "microsite-yir-english-top-read-slide-subtitle",
             value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol><br>Read more in <a href=\"\(aboutWikimediaURL)\">our dedicated blog post</a>.",
             comment: "Top read slide subtitle for English Year in Review with HTML list tags and proper line breaks for the top 5 articles, using HTML style tags to make an ordered list."
         )
@@ -270,7 +271,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishSavedReadingSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-saved-reading-slide-title",
+            "microsite-yir-english-saved-reading-slide-title",
             value: "We had over 31.6 million reading lists",
             comment: "Saved reading slide title for English Year in Review."
         )
@@ -279,7 +280,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishSavedReadingSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-saved-reading-slide-subtitle",
+            "microsite-yir-english-saved-reading-slide-subtitle",
             value: "Active iOS App users had over 31.6 million reading lists this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.",
             comment: "Saved reading slide subtitle for English Year in Review."
         )
@@ -288,7 +289,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     var englishEditsSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-edits-slide-title",
+            "microsite-yir-english-edits-slide-title",
             value: "Editors made nearly 82 million changes this year",
             comment: "Edits slide title for English Year in Review."
         )
@@ -297,7 +298,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishEditsSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-edits-slide-subtitle",
+            "microsite-yir-english-edits-slide-subtitle",
             value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.",
             comment: "Edits slide subtitle for English Year in Review."
         )
@@ -306,7 +307,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishEditsBytesSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-edits-bytes-slide-title",
+            "microsite-yir-english-edits-bytes-slide-title",
             value: "3.4 billion bytes added",
             comment: "Edits bytes slide title for English Year in Review."
         )
@@ -315,7 +316,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishEditsBytesSlideSubtitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-edits-bytes-slide-subtitle",
+            "microsite-yir-english-edits-bytes-slide-subtitle",
             value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
             comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
         )
@@ -330,7 +331,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     var englishNonDonorSlideTitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-non-donor-slide-title",
+            "microsite-yir-english-non-donor-slide-title",
             value: "0 ads served on Wikipedia",
             comment: "Non-donor slide title for English Year in Review."
         )
@@ -339,27 +340,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     var englishNonDonorSlideSubitle: String {
         let format = WMFLocalizedString(
-            "year-in-review-english-non-donor-slide-subtitle",
+            "microsite-yir-english-non-donor-slide-subtitle",
             value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).",
             comment: "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work."
-        )
-        return String.localizedStringWithFormat(format, aboutWikimediaURL)
-    }
-
-    var englishDonorSlideTitle: String {
-        let format = WMFLocalizedString(
-            "year-in-review-english-donor-slide-title",
-            value: "Your generosity helped keep Wikipedia thriving",
-            comment: "Donor slide title for English Year in Review."
-        )
-        return String.localizedStringWithFormat(format)
-    }
-
-    var englishDonorSlideSubtitle: String {
-        let format = WMFLocalizedString(
-            "year-in-review-english-donor-slide-subtitle",
-            value: "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work](%1$@).",
-            comment: "Donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work."
         )
         return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
@@ -729,7 +712,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hideDonateButton: shoudlHideDonateButton())
 
         let collectiveAmountEditsSlide = YearInReviewSlideContent(
-           gifName: "english-slide-04",
+           gifName: "non-english-slide-04",
            altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
            title: collectiveAmountEditsSlideTitle,
            informationBubbleText: nil,
@@ -739,7 +722,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            hideDonateButton: shoudlHideDonateButton())
         
         let collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
-            gifName: "english-slide-05",
+            gifName: "english-slide-01",
             altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: collectiveEditsPerMinuteSlideTitle,
             informationBubbleText: nil,
@@ -761,8 +744,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         // MARK: - English Slides
         
         let englishHoursReadingSlide = YearInReviewSlideContent(
-            gifName: "english-slide-01-and-non-english-slide-05",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            gifName: "english-slide-01",
+            altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: englishReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishReadingSlideSubtitle,
@@ -772,7 +755,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let englishTopReadSlide = YearInReviewSlideContent(
             gifName: "english-slide-02",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
             title: englishTopReadSlideTitle,
             informationBubbleText: nil,
             subtitle: englishTopReadSlideSubtitle,
@@ -783,7 +766,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let englishReadingListSlide = YearInReviewSlideContent(
             gifName: "english-slide-03",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
             title: englishSavedReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishSavedReadingSlideSubtitle,
@@ -803,7 +786,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let englishEditsBytesSlide = YearInReviewSlideContent(
             gifName: "english-slide-05",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            altText: localizedStrings.englishEditsAccessibilityLabel,
             title: englishEditsBytesSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsBytesSlideSubtitle,
