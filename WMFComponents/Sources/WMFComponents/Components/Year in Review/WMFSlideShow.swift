@@ -86,6 +86,7 @@ public struct WMFSlideShow: View {
                     .accentColor(Color(uiColor: theme.link))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            Spacer()
         }
     }
 }

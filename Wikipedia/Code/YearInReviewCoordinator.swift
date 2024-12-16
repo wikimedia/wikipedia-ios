@@ -703,8 +703,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
            title: collectiveLanguagesSlideTitle,
            informationBubbleText: nil,
-           subtitle: englishTopReadSlideSubtitle,// collectiveLanguagesSlideSubtitle,
-           isSubtitleAttributedString: true,
+           subtitle: collectiveLanguagesSlideSubtitle,
            loggingID: "read_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
@@ -758,19 +757,73 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingID: "ads_served_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
-
-        let personalizedSlides = getPersonalizedSlides()
         
+        // MARK: - English Slides
+        
+        let englishHoursReadingSlide = YearInReviewSlideContent(
+            gifName: "english-slide-01-and-non-english-slide-05",
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            title: englishReadingSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishReadingSlideSubtitle,
+            loggingID: "english_reading",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishTopReadSlide = YearInReviewSlideContent(
+            gifName: "english-slide-02",
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            title: englishTopReadSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishTopReadSlideSubtitle,
+            isSubtitleAttributedString: true,
+            loggingID: "english_top_read",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishReadingListSlide = YearInReviewSlideContent(
+            gifName: "english-slide-03",
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            title: englishSavedReadingSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishSavedReadingSlideSubtitle,
+            loggingID: "english_reading_list",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishEditsSlide = YearInReviewSlideContent(
+            gifName: "english-slide-04",
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            title: englishEditsSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishEditsSlideSubtitle,
+            loggingID: "english_edits",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishEditsBytesSlide = YearInReviewSlideContent(
+            gifName: "english-slide-05",
+            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            title: englishEditsBytesSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishEditsBytesSlideSubtitle,
+            loggingID: "english_bytes_edits",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let personalizedSlides = getPersonalizedSlides()
         
         let finalSlides: [YearInReviewSlideContent]
         
+        let isEnglish = dataStore.languageLinkController.appLanguage?.languageCode == "en"
+        
         // We should only show non-donate personalized slides to logged in users.
         if dataStore.authenticationManager.authStateIsPermanent {
-            finalSlides = [(personalizedSlides.readCount ?? collectiveLanguagesSlide),
-                           (personalizedSlides.mostReadDay ?? collectiveArticleViewsSlide),
-                           (personalizedSlides.saveCount ?? collectiveSavedArticlesSlide),
-                           (personalizedSlides.editCount ?? collectiveAmountEditsSlide),
-                           (personalizedSlides.viewCount ?? collectiveEditsPerMinuteSlide),
+            finalSlides = [(personalizedSlides.readCount ?? (isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide)),
+                           (personalizedSlides.mostReadDay ?? (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide)),
+                           (personalizedSlides.saveCount ?? (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide)),
+                           (personalizedSlides.editCount ?? (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide)),
+                           (personalizedSlides.viewCount ?? (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         } else {
             finalSlides = [(collectiveLanguagesSlide),

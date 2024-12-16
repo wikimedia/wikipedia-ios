@@ -75,6 +75,8 @@ public struct WMFYearInReviewScrollView: View {
                         .aspectRatio(1.5, contentMode: .fit)
                         .frame(maxWidth: .infinity)
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(altText)
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
             }
