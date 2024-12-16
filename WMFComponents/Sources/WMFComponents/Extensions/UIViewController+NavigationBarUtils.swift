@@ -9,8 +9,9 @@ public protocol WMFNavigationBarConfiguring {
 public struct WMFNavigationBarTitleConfig {
     
     public enum Alignment {
-        case leading
-        case center
+        case leadingCompact
+        case leadingLarge
+        case centerCompact
         case hidden
     }
     
@@ -95,7 +96,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
-        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         // Allows detection when performing long press popping
         navigationItem.title = titleConfig.title
@@ -104,19 +105,21 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         // navigationItem.backButtonTitle = titleConfig.title
         
         // Force full title to show in back button, not "Back"
-        let backBarButtonItem = UIBarButtonItem(title: titleConfig.title, style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backBarButtonItem
+//        let backBarButtonItem = UIBarButtonItem(title: titleConfig.title, style: .plain, target: nil, action: nil)
+//        navigationItem.backBarButtonItem = backBarButtonItem
         
         // Enables back button to display only arrow
-        // navigationItem.backButtonDisplayMode = .minimal
+        // navigationItem.backButtonDisplayMode = .minimal 
         
         switch titleConfig.alignment {
-        case .center:
+        case .centerCompact:
+            navigationItem.largeTitleDisplayMode = .never
             if let customTitleView = titleConfig.customView {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
             }
-        case .leading:
+        case .leadingCompact:
+            navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
             if let customTitleView = titleConfig.customView {
                 navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customTitleView)
@@ -132,7 +135,16 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 
                 themeNavigationBarLeadingTitleView()
             }
+        case .leadingLarge:
+            navigationItem.largeTitleDisplayMode = .always
+            if let customTitleView = titleConfig.customView {
+                navigationItem.titleView = customTitleView
+            } else {
+                navigationItem.titleView = nil
+            }
+            navigationItem.leftBarButtonItem = nil
         case .hidden:
+            navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
         }
         

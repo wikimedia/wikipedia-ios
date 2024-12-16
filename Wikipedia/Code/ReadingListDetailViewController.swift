@@ -132,7 +132,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     
     private func configureNavigationBar() {
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .center)
+        let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
         
         let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(dismissController), alignment: .leading) : nil
         

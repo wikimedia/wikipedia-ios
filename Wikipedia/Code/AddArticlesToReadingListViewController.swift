@@ -94,7 +94,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
     private func configureNavigationBar() {
         let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: String.localizedStringWithFormat(title, articles.count), customView: nil, alignment: .center)
+        let titleConfig = WMFNavigationBarTitleConfig(title: String.localizedStringWithFormat(title, articles.count), customView: nil, alignment: .centerCompact)
         
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
         

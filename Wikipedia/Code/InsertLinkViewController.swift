@@ -38,7 +38,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     
     func configureNavigationBar() {
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .center)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
         
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 

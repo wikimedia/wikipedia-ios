@@ -837,7 +837,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .center)
+        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
         let profileButtonConfig = self.profileButtonConfig()
         

@@ -135,6 +135,18 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         isGranularUpdatingEnabled = false
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
+    }
+    
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
         }
@@ -175,7 +187,13 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
     // MARK: Navigation Bar
     
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leading)
+        
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+            }
+        }
         
         let profileButtonConfig = self.profileButtonConfig()
         

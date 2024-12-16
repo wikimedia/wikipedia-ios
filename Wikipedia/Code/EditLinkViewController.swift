@@ -80,7 +80,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     private func configureNavigationBar() {
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .center)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)

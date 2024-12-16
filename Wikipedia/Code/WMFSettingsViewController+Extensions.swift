@@ -8,7 +8,12 @@ import WMFData
         let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
         let needsProfileBadge = numUnreadNotifications != 0
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leading)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingCompact)
+        if #available(iOS 18, *) {
+           if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+               titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingLarge)
+           }
+        }
         
         let profileAccessibilityLabel = needsProfileBadge ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         let profileAccessibilityHint = CommonStrings.profileButtonAccessibilityHint
