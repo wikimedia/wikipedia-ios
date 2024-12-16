@@ -1397,10 +1397,12 @@
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
 "year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "기여해 주셔서 고맙습니다!";
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
 "year-in-review-personalized-reading-title-format" = "올해에 {{PLURAL:$1|$1개 문서}}를 읽었습니다";
+"year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
 "year-in-review-survey-neutral" = "중립";
 "year-in-review-survey-satisfied" = "만족";
@@ -1408,3 +1410,6 @@
 "year-in-review-survey-unsatisfied" = "불만족";
 "year-in-review-survey-very-satisfied" = "매우 만족";
 "year-in-review-survey-very-unsatisfied" = "매우 불만족";
+"year-in-review-wikipedia-globe-accessibility-label" = "위키피디아 글로브 로고";
+"year-in-review-wikipedia-w-accessibility-label" = "위키백과 w 로고";
+"year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";

@@ -921,15 +921,19 @@
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
+// Fuzzy
 "year-in-review-base-reading-title" = "Liesen huet eis zesummebruecht";
 "year-in-review-donate-now" = "Maacht elo en Don";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
 "year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
 "year-in-review-personalized-reading-title-format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
+"year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Zefridden";
 "year-in-review-survey-title" = "Zefriddenheetsëmfro";
 "year-in-review-survey-unsatisfied" = "Onzefridden";
 "year-in-review-survey-very-satisfied" = "Ganz zefridden";
 "year-in-review-survey-very-unsatisfied" = "Ganz onzefridden";
+"year-in-review-wmf-logo-accessibility-label" = "Logo vun der Wikimedia Foundation";
