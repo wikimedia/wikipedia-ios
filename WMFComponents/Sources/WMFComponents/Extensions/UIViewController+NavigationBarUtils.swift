@@ -96,7 +96,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         // Allows detection when performing long press popping
         navigationItem.title = titleConfig.title
@@ -113,12 +112,14 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         switch titleConfig.alignment {
         case .centerCompact:
+            navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             if let customTitleView = titleConfig.customView {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
             }
         case .leadingCompact:
+            navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
             if let customTitleView = titleConfig.customView {
@@ -136,6 +137,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
+            navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
             if let customTitleView = titleConfig.customView {
                 navigationItem.titleView = customTitleView
@@ -144,6 +146,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
             navigationItem.leftBarButtonItem = nil
         case .hidden:
+            navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
         }
