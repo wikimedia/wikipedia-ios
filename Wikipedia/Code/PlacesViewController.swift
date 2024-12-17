@@ -183,6 +183,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     override func viewWillAppear(_ animated: Bool) {
         
+        configureNavigationBar()
+        
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
 
@@ -217,8 +219,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
-        
-        configureNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -1012,13 +1012,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.alpha = 1
                     self.mapListToggleContainer.isHidden = false
-                    self.navigationItem.searchController?.searchBar.setShowsCancelButton(false, animated: true)
+                    // self.navigationItem.searchController?.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.isHidden = true
                     self.mapListToggleContainer.alpha = 0
-                    self.navigationItem.searchController?.searchBar.setShowsCancelButton(true, animated: true)
+                    // self.navigationItem.searchController?.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
             switch traitBasedViewMode {
@@ -1595,9 +1595,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
 
-        if isViewModeOverlay, let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
+        if let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
+            if !isViewModeOverlay {
+                collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            }
             listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
         let articleVC = ArticlePopoverViewController(article)
@@ -2075,7 +2077,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     private func closeSearch() {
-        navigationItem.searchController?.searchBar.endEditing(true)
+        navigationItem.searchController?.isActive = false
+        // navigationItem.searchController?.searchBar.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: view)
