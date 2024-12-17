@@ -5,6 +5,7 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 @import CoreServices;
 @import UniformTypeIdentifiers;
+@import WMFComponents;
 
 // SINGLETONTODO - this whole file, find [MWKDataStore shared]
 
@@ -125,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
 
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[WMFImageGalleryViewController closeButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = [UIColor whiteColor];
         close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;

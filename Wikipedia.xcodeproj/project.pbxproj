@@ -705,6 +705,9 @@
 		678ECA5E2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
 		678ECA5F2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
 		678ECA602D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
+		678ECA622D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA612D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift */; };
+		678ECA632D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA612D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift */; };
+		678ECA642D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA612D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift */; };
 		678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */; };
 		678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676A8A8223A4013D0084B967 /* ArticleFetcher.swift */; };
 		679471DB275F245000621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
@@ -3431,6 +3434,7 @@
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
 		678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFLanguagesViewController+Extensions.swift"; sourceTree = "<group>"; };
+		678ECA612D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFImageGalleryViewController+Extensions.swift"; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		679471DA275F245000621071 /* NotificationsCenterInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterInboxView.swift; sourceTree = "<group>"; };
 		679603952C5D434D009606C4 /* WMFData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFData; sourceTree = "<group>"; };
@@ -7811,6 +7815,7 @@
 			isa = PBXGroup;
 			children = (
 				0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewController.h */,
+				678ECA612D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift */,
 				0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */,
 				8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */,
 				0E9B9E341CBF3262001E4C3C /* Overlay View */,
@@ -10372,6 +10377,7 @@
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
 				83AE025C299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
 				67C1757628AD4D6000C5ABA4 /* TalkPageDataController.swift in Sources */,
+				678ECA632D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
 				D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
@@ -11528,6 +11534,7 @@
 				006ABEEF2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
+				678ECA622D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
 				6782DC122346920B003FA21B /* DiffContainerViewModel.swift in Sources */,
 				7A6ED50E20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				7A8422542268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
@@ -12104,6 +12111,7 @@
 				006ABEEE2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
+				678ECA642D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
 				6782DC132346920B003FA21B /* DiffContainerViewModel.swift in Sources */,
 				7A8422552268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8EC3ED11E9BDA35006712EB /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
