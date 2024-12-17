@@ -158,9 +158,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         // Setup close button if needed
         if let closeButtonConfig {
-            let image = WMFSFSymbolIcon.for(symbol: .close)
-            let closeButton = UIBarButtonItem(image: image, style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
-            closeButton.accessibilityLabel = closeButtonConfig.accessibilityLabel
+            // let image = WMFSFSymbolIcon.for(symbol: .close)
+            // TODO: Localize
+            let closeButton = UIBarButtonItem(title: "Done", style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
             
             switch closeButtonConfig.alignment {
             case .leading:
@@ -211,12 +211,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///     - from apply(theme:) if legacy
     ///     - from appEnvironmentDidChange() if WMFComponents
     func themeNavigationBarCloseButton(alignment: WMFNavigationBarCloseButtonConfig.Alignment) {
-        switch alignment {
-        case .leading:
-            navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
-        case .trailing:
-            navigationItem.rightBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
-        }
+        // Leaving as default tint for now, 
+//        switch alignment {
+//        case .leading:
+//            navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
+//        case .trailing:
+//            navigationItem.rightBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
+//        }
     }
     
     /// Call from UIViewController when theme changes
