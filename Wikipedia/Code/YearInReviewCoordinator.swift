@@ -263,10 +263,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishTopReadSlideSubtitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol><br>Read more in <a href=\"\(aboutWikimediaURL)\">our dedicated blog post</a>.",
-            comment: "Top read slide subtitle for English Year in Review with HTML list tags and proper line breaks for the top 5 articles, using HTML style tags to make an ordered list."
+            value: """
+            When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:%1$@
+            Read more in %2$@our dedicated blog post%3$@.
+            """,
+            comment: "Top read slide subtitle for English Year in Review. %1$@ is replaced with an HTML ordered list of articles. %2$@ is replaced with the opening HTML anchor tag containing a link. %3$@ is replaced with the closing anchor tag.%3$@"
         )
-        return String.localizedStringWithFormat(format)
+        let list = "<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol>"
+        let linkOpening = "<a href=\"\(aboutWikimediaURL)\">"
+        let linkClosing = "</a>"
+        return String.localizedStringWithFormat(format, list, linkOpening, linkClosing)
     }
 
     var englishSavedReadingSlideTitle: String {
@@ -809,11 +815,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                            (personalizedSlides.viewCount ?? (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         } else {
-            finalSlides = [(collectiveLanguagesSlide),
-                           (collectiveArticleViewsSlide),
-                           (collectiveSavedArticlesSlide),
-                           (collectiveAmountEditsSlide),
-                           (collectiveEditsPerMinuteSlide),
+            finalSlides = [(isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide),
+                           (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide),
+                           (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide),
+                           (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide),
+                           (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         }
         

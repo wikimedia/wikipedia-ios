@@ -742,13 +742,13 @@
 "microsite-yir-english-edits-slide-title" = "Edits slide title for English Year in Review.";
 "microsite-yir-english-explore-slide" = "Explore slide title for English Year in Review.";
 "microsite-yir-english-explore-slide-subtitle" = "Explore slide subtitle for English Year in Review.";
-"microsite-yir-english-non-donor-slide-subtitle" = "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work.";
+"microsite-yir-english-non-donor-slide-subtitle" = "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work. $1 is replaced by the link.";
 "microsite-yir-english-non-donor-slide-title" = "Non-donor slide title for English Year in Review.";
 "microsite-yir-english-reading-slide-subtitle" = "Reading slide subtitle for English Year in Review.";
 "microsite-yir-english-reading-slide-title" = "Reading slide title for English Year in Review.";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Saved reading slide subtitle for English Year in Review.";
 "microsite-yir-english-saved-reading-slide-title" = "Saved reading slide title for English Year in Review.";
-"microsite-yir-english-top-read-slide-subtitle" = "Top read slide subtitle for English Year in Review with HTML list tags and proper line breaks for the top 5 articles, using HTML style tags to make an ordered list.";
+"microsite-yir-english-top-read-slide-subtitle" = "Top read slide subtitle for English Year in Review. $1 is replaced with an HTML ordered list of articles. $2 is replaced with the opening HTML anchor tag containing a link. $3 is replaced with the closing anchor tag.$3";
 "microsite-yir-english-top-read-slide-title" = "Top read slide title for English Year in Review.";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
@@ -1412,7 +1412,7 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
-"year-in-review-base-donate-subtitle" = "Year in review, donate slide subtitle when user has not made any donations that year. %1$1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
+"year-in-review-base-donate-subtitle" = "Year in review, donate slide subtitle when user has not made any donations that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-base-donate-title" = "Year in review, donate slide title when user has not made any donations that year.";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle.";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits text, e.g. \"452,257\".";

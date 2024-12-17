@@ -748,7 +748,7 @@
 "microsite-yir-english-reading-slide-title" = "We spent 2.4 billion hours reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active iOS App users had over 31.6 million reading lists this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had over 31.6 million reading lists";
-"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol><br>Read more in <a href=\"(aboutWikimediaURL)\">our dedicated blog post</a>.";
+"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:$1\nRead more in $2our dedicated blog post$3.";
 "microsite-yir-english-top-read-slide-title" = "English Wikipedia’s most popular articles";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
