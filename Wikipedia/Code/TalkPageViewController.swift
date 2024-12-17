@@ -358,7 +358,8 @@ class TalkPageViewController: ThemeableViewController {
                 if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
                     let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
-                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+                    let navVC = WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .fullScreen)
+                    present(navVC, animated: true, completion: nil)
                 }
             }
         }

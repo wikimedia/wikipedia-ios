@@ -1598,8 +1598,8 @@ private extension ArticleViewController {
 }
 
 extension ArticleViewController {
-    func presentEmbedded(_ viewController: UIViewController, style: WMFThemeableNavigationControllerStyle) {
-        let nc = WMFThemeableNavigationController(rootViewController: viewController, theme: theme, style: style)
+    func presentEmbedded(_ viewController: UIViewController) {
+        let nc = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .fullScreen)
         present(nc, animated: true)
     }
 }

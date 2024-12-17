@@ -702,6 +702,9 @@
 		678D79FC235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678ECA5E2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
+		678ECA5F2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
+		678ECA602D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */; };
 		678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */; };
 		678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676A8A8223A4013D0084B967 /* ArticleFetcher.swift */; };
 		679471DB275F245000621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
@@ -3427,6 +3430,7 @@
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
+		678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFLanguagesViewController+Extensions.swift"; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		679471DA275F245000621071 /* NotificationsCenterInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterInboxView.swift; sourceTree = "<group>"; };
 		679603952C5D434D009606C4 /* WMFData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFData; sourceTree = "<group>"; };
@@ -6189,6 +6193,7 @@
 				D82E95831F16502E007BD960 /* WMFLanguagesViewController.m */,
 				D82E95841F16502E007BD960 /* WMFLanguagesViewController.xib */,
 				67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */,
+				678ECA5D2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -10496,6 +10501,7 @@
 				BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */,
 				830C0DD523D9AFBE006471C4 /* UIViewController+Push.swift in Sources */,
 				83023C1120E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
+				678ECA5E2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */,
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
 				7ABE173B2239DEF0006BA309 /* WelcomeAnimationView.swift in Sources */,
 				B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */,
@@ -11560,6 +11566,7 @@
 				67D9D1F22970D88E00BFCD4F /* DisclosureButton.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
 				7A2BB1D521F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
+				678ECA602D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */,
 				83C06884292EC85700DF1403 /* TalkPageFormattingToolbarView.swift in Sources */,
 				00E5B3A628EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
@@ -12135,6 +12142,7 @@
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,
 				7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
+				678ECA5F2D113F0E00D59837 /* WMFLanguagesViewController+Extensions.swift in Sources */,
 				83C06883292EC85700DF1403 /* TalkPageFormattingToolbarView.swift in Sources */,
 				00E5B3A528EB8E4F00D2C51A /* TalkPageTopicReplyOnboardingHostingController.swift in Sources */,
 				7A2BB1D621F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
