@@ -319,16 +319,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.delegate = self;
 
     UIViewController *mainViewController = nil;
-    NSString *mainTabTitle = nil;
 
     switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
-            mainTabTitle = [WMFCommonStrings settingsTitle];
+            
             break;
         default:
             mainViewController = self.exploreViewController;
-            mainTabTitle = [WMFCommonStrings exploreTabTitle];
             break;
     }
 
@@ -337,33 +335,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
     WMFComponentNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
-    
-    if (@available(iOS 18.0, *)) {
-        UITab *mainTab = [[UITab alloc] initWithTitle:mainTabTitle image:[UIImage imageNamed:@"tabbar-explore"] identifier:@"main" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull tab) {
-            return nav1;
-        }];
-        
-        UITab *placesTab = [[UITab alloc] initWithTitle:[WMFCommonStrings placesTabTitle] image:[UIImage imageNamed:@"tabbar-nearby"] identifier:@"places" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull tab) {
-            return nav2;
-        }];
-        
-        UITab *savedTab = [[UITab alloc] initWithTitle:[WMFCommonStrings savedTabTitle] image:[UIImage imageNamed:@"tabbar-save"] identifier:@"saved" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull tab) {
-            return nav3;
-        }];
-        
-        UITab *historyTab = [[UITab alloc] initWithTitle:[WMFCommonStrings historyTabTitle] image:[UIImage imageNamed:@"tabbar-recent"] identifier:@"saved" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull tab) {
-            return nav4;
-        }];
-        
-        UISearchTab *searchTab = [[UISearchTab alloc] initWithViewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull tab) {
-            return nav5;
-        }];
-        
-        [self setTabs:@[mainTab, placesTab, savedTab, historyTab, searchTab] animated:NO];
-    } else {
-        [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
-    }
-    
+
+    [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
+
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
     BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
