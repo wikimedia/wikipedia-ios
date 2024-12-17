@@ -1,7 +1,8 @@
 import WMF
+import WMFComponents
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController2 {
+class NewsViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
@@ -22,7 +23,6 @@ class NewsViewController: ColumnarCollectionViewController2 {
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        title = CommonStrings.inTheNewsTitle
         hidesBottomBarWhenPushed = true
     }
     
@@ -35,13 +35,16 @@ class NewsViewController: ColumnarCollectionViewController2 {
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
-        addCloseButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.hidesBarsOnSwipe = false
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.inTheNewsTitle, customView: nil, alignment: .hidden)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -79,7 +82,6 @@ class NewsViewController: ColumnarCollectionViewController2 {
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
-        applyThemeToCloseButton()
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
@@ -91,46 +93,6 @@ class NewsViewController: ColumnarCollectionViewController2 {
     // MARK: - CollectionViewFooterDelegate
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    private var closeButton: UIButton?
-    private func addCloseButton() {
-        guard closeButton == nil else {
-            return
-        }
-        
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        view.addSubview(button)
-        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
-        button.addConstraints([height, width])
-        let top = button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
-        view.addConstraints([top, trailing])
-        closeButton = button
-        applyThemeToCloseButton()
-    }
-    
-    private func applyThemeToCloseButton() {
-        closeButton?.tintColor = theme.colors.tertiaryText
-    }
-    
-    @objc private func close() {
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                navigationController?.setNavigationBarHidden(false, animated: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.navigationController?.popViewController(animated: true)
-                }
-                return
-            }
-        }
-        
         navigationController?.popViewController(animated: true)
     }
 }

@@ -257,11 +257,13 @@ class ColumnarCollectionViewController2: ThemeableViewController, ColumnarCollec
     
     var headerTitle: String?
     var headerSubtitle: String?
+    var removeTopHeaderSpacing = false
     
     open func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.title = headerTitle
         header.subtitle = headerSubtitle
         header.style = .detail
+        header.removeDetailTopMargins = removeTopHeaderSpacing
         header.apply(theme: theme)
     }
 

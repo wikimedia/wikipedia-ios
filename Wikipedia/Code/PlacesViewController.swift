@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate, WMFNavigationBarConfiguring {
+class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
 

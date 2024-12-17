@@ -1,6 +1,7 @@
 import WMF
+import WMFComponents
 
-class OnThisDayViewController: ColumnarCollectionViewController2 {
+class OnThisDayViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
@@ -36,18 +37,18 @@ class OnThisDayViewController: ColumnarCollectionViewController2 {
         layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
-        
-        navigationItem.rightBarButtonItem = nil
-        navigationItem.titleView = nil
-        title = CommonStrings.onThisDayTitle
-        addCloseButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.hidesBarsOnSwipe = false
         scrollToInitialEvent()
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.onThisDayTitle, customView: nil, alignment: .hidden)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     func scrollToInitialEvent() {
@@ -68,50 +69,6 @@ class OnThisDayViewController: ColumnarCollectionViewController2 {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initialEvent = nil
-    }
-    
-    private var closeButton: UIButton?
-    private func addCloseButton() {
-        guard closeButton == nil else {
-            return
-        }
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        view.addSubview(button)
-        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
-        button.addConstraints([height, width])
-        let top = button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
-        view.addConstraints([top, trailing])
-        closeButton = button
-        applyThemeToCloseButton()
-    }
-    
-    private func applyThemeToCloseButton() {
-        closeButton?.tintColor = theme.colors.tertiaryText
-    }
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        applyThemeToCloseButton()
-    }
-    
-    @objc private func close() {
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                navigationController?.setNavigationBarHidden(false, animated: true)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.navigationController?.popViewController(animated: true)
-                }
-                return
-            }
-        }
-        
-        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

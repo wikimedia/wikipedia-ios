@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class ArticleURLListViewController: ArticleCollectionViewController2 {
+class ArticleURLListViewController: ArticleCollectionViewController2, WMFNavigationBarConfiguring {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     var contentGroupIDURIString: String?
@@ -54,48 +55,18 @@ class ArticleURLListViewController: ArticleCollectionViewController2 {
         super.viewDidLoad()
         collectionView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        addCloseButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.hidesBarsOnSwipe = false
+        configureNavigationBar()
     }
     
-    private var closeButton: UIButton?
-    private func addCloseButton() {
-        guard closeButton == nil else {
-            return
-        }
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        view.addSubview(button)
-        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
-        button.addConstraints([height, width])
-        let top = button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
-        view.addConstraints([top, trailing])
-        closeButton = button
-        applyThemeToCloseButton()
-    }
-    
-    @objc private func close() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    private func applyThemeToCloseButton() {
-        closeButton?.tintColor = theme.colors.tertiaryText
-    }
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        applyThemeToCloseButton()
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     override var eventLoggingCategory: EventCategoryMEP {
