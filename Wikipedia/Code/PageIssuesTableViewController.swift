@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class PageIssuesTableViewController: UITableViewController {
+class PageIssuesTableViewController: UITableViewController, WMFNavigationBarConfiguring {
     static let defaultViewCellReuseIdentifier = "org.wikimedia.default"
 
     fileprivate var theme = Theme.standard
@@ -10,17 +11,25 @@ class PageIssuesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = WMFLocalizedString("page-issues", value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}")
-        
         self.tableView.estimatedRowHeight = 90.0
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: PageIssuesTableViewController.defaultViewCellReuseIdentifier)
 
-        let xButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonPressed))
-        self.navigationItem.leftBarButtonItem = xButton
         apply(theme: self.theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("page-issues", value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}"), customView: nil, alignment: .centerCompact)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPressed), alignment: .leading)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func closeButtonPressed() {
@@ -66,5 +75,6 @@ extension PageIssuesTableViewController: Themeable {
         
         self.tableView.backgroundColor = theme.colors.baseBackground
         self.tableView.reloadData()
+        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
