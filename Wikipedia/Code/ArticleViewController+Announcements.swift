@@ -149,14 +149,13 @@ extension ArticleViewController {
             return
         }
         
-
         let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
         let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
         let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, gifName: gifName, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             self.yirCoordinator?.start()
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()

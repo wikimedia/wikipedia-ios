@@ -18,7 +18,7 @@ public struct WMFYearInReviewView: View {
     public var body: some View {
         NavigationView {
             VStack {
-                HStack {
+                HStack(alignment: .center) {
                     if viewModel.shouldShowDonateButton {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -29,7 +29,9 @@ public struct WMFYearInReviewView: View {
                     }
                     Spacer()
                     Image("W", bundle: .module)
-                        .frame(maxWidth: .infinity)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
                         .foregroundColor(Color(theme.text))
                         .accessibilityLabel(viewModel.localizedStrings.wIconAccessibilityLabel)
                     Spacer()
@@ -44,7 +46,8 @@ public struct WMFYearInReviewView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                .padding()
+                .padding(.bottom, 5)
+                .padding([.top, .horizontal], 16)
                 if viewModel.isFirstSlide {
                     WMFYearInReviewScrollView(
                         scrollViewContents: scrollViewContent,
