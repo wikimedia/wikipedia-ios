@@ -210,7 +210,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func collectiveZeroAdsSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
     
@@ -342,7 +342,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString(
             "microsite-yir-english-non-donor-slide-subtitle",
             value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).",
-            comment: "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work."
+            comment: "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work. %1$@ is replaced by the link."
         )
         return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
