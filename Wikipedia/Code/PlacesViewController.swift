@@ -183,8 +183,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     override func viewWillAppear(_ animated: Bool) {
         
-        configureNavigationBar()
-        
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
 
@@ -199,6 +197,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         
         super.viewWillAppear(animated)
+        
+        configureNavigationBar()
 
         constrainButtonsToNavigationBar()
         
