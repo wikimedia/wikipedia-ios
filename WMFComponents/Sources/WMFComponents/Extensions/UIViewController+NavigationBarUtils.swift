@@ -112,7 +112,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         switch titleConfig.alignment {
         case .centerCompact:
-            navigationController?.navigationBar.prefersLargeTitles = false
+            // navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             if let customTitleView = titleConfig.customView {
                 navigationItem.titleView = customTitleView
