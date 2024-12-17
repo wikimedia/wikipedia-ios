@@ -718,6 +718,7 @@ class ExploreViewController: ColumnarCollectionViewController2, ExploreCardViewC
         
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
+        themeNavigationBarCustomCenteredTitleView()
         
         if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
             searchVC.theme = theme
