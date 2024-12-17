@@ -1,61 +1,62 @@
 import UIKit
 import WMF
 import SwiftUI
+import WMFComponents
 
 @objc
-final class NotificationsCenterViewController: ThemeableViewController {
-
+final class NotificationsCenterViewController: ThemeableViewController, WMFNavigationBarConfiguring {
+    
     // MARK: - Properties
-
+    
     var notificationsView: NotificationsCenterView {
         return view as! NotificationsCenterView
     }
-
+    
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
-
+    
     // MARK: - Properties: Onboarding
-
+    
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
     // MARK: Properties: Diffable Data Source
-
+    
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
-
+    
     // MARK: - Properties: Toolbar Buttons
-
+    
     fileprivate lazy var typeFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.typeFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapTypeFilterButton))
     fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
     
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
-
+    
     // MARK: - Properties: Cell Swipe Actions
-
+    
     fileprivate struct CellSwipeData {
         var activelyPannedCellIndexPath: IndexPath? // `IndexPath` of actively panned or open or opening cell
         var activelyPannedCellTranslationX: CGFloat? // current translation on x-axis of open or opening cell
-
+        
         func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
             guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
                 return nil
             }
-
+            
             return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
         }
-
+        
         mutating func resetActiveData() {
             activelyPannedCellIndexPath = nil
             activelyPannedCellTranslationX = nil
         }
     }
-
+    
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
     
@@ -70,9 +71,9 @@ final class NotificationsCenterViewController: ThemeableViewController {
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
-
+    
     // MARK: - Lifecycle
-
+    
     @objc
     init(theme: Theme, viewModel: NotificationsCenterViewModel) {
         self.viewModel = viewModel
@@ -81,29 +82,28 @@ final class NotificationsCenterViewController: ThemeableViewController {
         viewModel.delegate = self
         hidesBottomBarWhenPushed = true
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
         deviceTokenRetryTask = nil
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
         view = notificationsCenterView
         // scrollView = notificationsView.collectionView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         notificationsView.apply(theme: theme)
-
-        title = CommonStrings.notificationsCenterTitle
+        
         setupBarButtons()
         notificationsView.collectionView.delegate = self
         setupDataSource()
@@ -113,9 +113,9 @@ final class NotificationsCenterViewController: ThemeableViewController {
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
-
+        
         notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
     }
@@ -123,11 +123,9 @@ final class NotificationsCenterViewController: ThemeableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
     }
-
+    
     private var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -140,28 +138,28 @@ final class NotificationsCenterViewController: ThemeableViewController {
         viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
-
+    
     @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
-
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
+        
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             closeSwipeActionsPanelIfNecessary()
             notificationsView.collectionView.reloadData()
         }
     }
-
-	// MARK: - Configuration
-
+    
+    // MARK: - Configuration
+    
     fileprivate func setupBarButtons() {
         
         toolbarContainerView.addSubview(toolbar)
@@ -182,10 +180,17 @@ final class NotificationsCenterViewController: ThemeableViewController {
         
         let oldContentInset = notificationsView.collectionView.contentInset
         notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
-
+    }
+    
+    fileprivate func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.notificationsCenterTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
         navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false
-	}
+    }
 
 	// MARK: - Public
     

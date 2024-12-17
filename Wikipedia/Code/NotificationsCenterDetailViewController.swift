@@ -1,8 +1,9 @@
 import UIKit
 import WMF
 import SwiftUI
+import WMFComponents
 
-final class NotificationsCenterDetailViewController: ThemeableViewController {
+final class NotificationsCenterDetailViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -34,24 +35,17 @@ final class NotificationsCenterDetailViewController: ThemeableViewController {
         detailView.tableView.delegate = self
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigationBar()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
     }
     
-    private func setupNavigationBar() {
+    private func configureNavigationBar() {
         
-        let detailTitle = WMFLocalizedString("notifications-center-detail-title", value: "Notification Detail", comment: "Title of notification detail view, displayed after tapping a notification in Notifications Center.")
-        
-        navigationItem.configureForEmptyNavBarTitle(backTitle: detailTitle)
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("notifications-center-detail-title", value: "Notification Detail", comment: "Title of notification detail view, displayed after tapping a notification in Notifications Center."), customView: nil, alignment: .hidden)
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: - Themeable
